@@ -2158,7 +2158,7 @@ end
 
 -- The capitals' trail layer (Trails/Trails.lua, written by `node tools/polestar.js nav city trails` from players'
 -- recordings, only counts of 3+ distinct people): per ADT tile of a map the levels people walk, by cell of 4.17 yd
--- (128 per tile). A tile's string (PolestarPathTrails[map]["<col>_<row>"]) is decoded once, on its first read, into
+-- (128 per tile). A tile's string (ns.PathTrails[map]["<col>_<row>"]) is decoded once, on its first read, into
 -- the cells' first entry and count and flat heights and weights (1 = 3-9 people, 2 = 10-49, 3 = 50+).
 local TRAIL_TILE = 1600 / 3
 local TRAIL_CELL = TRAIL_TILE / 128
@@ -2188,14 +2188,14 @@ local function trailTile(map, col, row)
 	if t ~= nil then
 		return t
 	end
-	local src = PolestarPathTrails and PolestarPathTrails[map]
+	local src = ns.PathTrails and ns.PathTrails[map]
 	local s = src and src[col .. "_" .. row]
 	if not s then
 		tiles[key] = false
 		return false
 	end
 	t = { first = {}, count = {}, z = {}, w = {} }
-	local pos, cell, n = 1, 0, 0
+	local pos, cell, n, zq = 1, 0, 0, 0
 	while pos <= #s do
 		local a, q
 		a, pos = trailVarint(s, pos)
@@ -2203,7 +2203,8 @@ local function trailTile(map, col, row)
 		local w = a % 4
 		cell = cell + (a - w) / 4
 		n = n + 1
-		t.z[n] = (q % 2 == 0 and q / 2 or -(q + 1) / 2) / 4
+		zq = zq + (q % 2 == 0 and q / 2 or -(q + 1) / 2)
+		t.z[n] = zq / 4
 		t.w[n] = w
 		if not t.first[cell] then
 			t.first[cell], t.count[cell] = n, 0
@@ -2218,7 +2219,7 @@ end
 ---@param map number
 ---@return boolean
 function Path.HasTrails(map)
-	return PolestarPathTrails ~= nil and PolestarPathTrails[map] ~= nil
+	return ns.PathTrails ~= nil and ns.PathTrails[map] ~= nil
 end
 
 -- "The floor people walk on here": of the trail levels within reach yd (horizontally, cell centres) of the world point
@@ -2232,7 +2233,7 @@ end
 ---@param near number?
 ---@return number?, number?
 function Path.TrailFloor(map, x, y, reach, near)
-	if not (PolestarPathTrails and PolestarPathTrails[map]) then
+	if not (ns.PathTrails and ns.PathTrails[map]) then
 		return nil
 	end
 	reach = reach or 4

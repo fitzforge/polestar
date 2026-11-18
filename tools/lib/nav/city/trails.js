@@ -8,11 +8,12 @@
 //     { format: 1, k: 3, train, cells: 128, maps: { "<c>": { "<col>_<row>": [[i, j, z, w], ...] } } }
 //     i east, j south within the tile (as the grid's columns), sorted by j, i, z; levels of one cell 3+ yd apart.
 //     train: count only the people outside the gate's held-out fifth (a pack the gate may judge).
-//   trailsLua(doc, date) -> Lua source of Routing/Path.lua's trail tiles (Nav/Trails.lua).
+//   trailsLua(doc, header) -> Lua source of the trail tiles (Trails/Trails.lua: the addon namespace's PathTrails, read
+//   by Routing/Path.lua's Path.TrailFloor).
 //
-// Tile strings (Path.TrailFloor reads them): per entry a varint pair, little-endian base-128 in bytes 0-127 escaped
-// as Lua decimal escapes: v1 = (cell index delta from the previous entry, cell = j * 128 + i) * 4 + w; v2 = the zigzag
-// of round(z * 4). A delta of 0 is another level of the same cell.
+// Tile strings: per entry a varint pair (little-endian base-128): v1 = (cell index delta from the previous entry,
+// cell = j * 128 + i) * 4 + w; v2 = the zigzag of round(z * 4) minus the previous entry's (0 before the first): a
+// city's levels sit at a few heights, so most entries take 2 bytes. A delta of 0 is another level of the same cell.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -77,13 +78,16 @@ function varint(x, bytes) {
 function tileLiteral(list) {
 	const bytes = [];
 	let prev = 0;
+	let prevQ = 0;
 	const sorted = list.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0] || a[2] - b[2]);
 	for (const [i, j, z, w] of sorted) {
 		const cell = j * 128 + i;
 		varint((cell - prev) * 4 + w, bytes);
 		prev = cell;
 		const q = Math.round(z * 4);
-		varint(q >= 0 ? 2 * q : -2 * q - 1, bytes);
+		const dq = q - prevQ;
+		prevQ = q;
+		varint(dq >= 0 ? 2 * dq : -2 * dq - 1, bytes);
 	}
 	let s = '"';
 	// decimal escapes always take 3 digits, so a digit after one never reads on
@@ -92,7 +96,7 @@ function tileLiteral(list) {
 }
 
 function trailsLua(doc, header) {
-	const lines = [header, '-- The capitals\' trail layer (Routing/Path.lua: Path.TrailFloor): per ADT tile "<col>_<row>" of each map its walked', '-- levels, aggregated from players\' recordings (3+ distinct people per level; only counts, no positions).', 'PolestarPathTrails = {'];
+	const lines = [header, '-- The capitals\' trail layer (Routing/Path.lua: Path.TrailFloor): per ADT tile "<col>_<row>" of each map its walked', '-- levels, aggregated from players\' recordings (3+ distinct people per level; only counts, no positions).', 'local _, ns = ...', 'ns.PathTrails = {'];
 	for (const [c, tiles] of Object.entries(doc.maps)) {
 		lines.push(`\t[${c}] = {`);
 		for (const key of Object.keys(tiles).sort()) lines.push(`\t\t["${key}"] = ${tileLiteral(tiles[key])},`);
