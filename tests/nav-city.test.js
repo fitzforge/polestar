@@ -73,3 +73,14 @@ test('trail tiles: negative heights, many levels and long cell gaps round-trip t
 	const got = floors(dir, sample.map(([i, j, z]) => ({ at: at(30, 30, i, j), reach: 0.5, near: z })));
 	sample.forEach(([, , z, w], n) => assert.deepEqual(got[n], [z, w], `entry ${n}`));
 });
+
+test("the city gate starts a landing on the flight master's floor, not the ground under the tower", () => {
+	const { landOnTower } = require('../tools/lib/nav/city/gate');
+	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2], nz: [39.5, 61.4, 95] };
+	const taxi = [{ c: 1, wx: 1677.5, wy: -4315.7, npc: 3310 }];
+	const npcZ = (npc) => (npc === 3310 ? 61.7 : null);
+	const trip = { c: 1, A: { kind: 'land', wx: 1677.5, wy: -4315.7, z: 39.5, node: 0 } };
+	assert.deepEqual(landOnTower(g, trip, taxi, npcZ).A, { ...trip.A, z: 61.4, node: 1, landed: 39.5 });
+	assert.equal(landOnTower(g, { ...trip, A: { ...trip.A, kind: 'vendor' } }, taxi, npcZ).A.z, 39.5);
+	assert.equal(landOnTower(g, { ...trip, A: { ...trip.A, wx: 1900 } }, taxi, npcZ).A.z, 39.5, 'no flight master within 40 yd');
+});

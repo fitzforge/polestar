@@ -39,6 +39,41 @@ function rng(seed) {
 	};
 }
 
+// The purposeful walks between consecutive stops of one piece of movement (seg): min-max yd apart (straight), the
+// breadcrumbs' path at most 3x the straight line, no long wait, not from an NPC back to the same NPC.
+function* stopWalks(seg, min, max) {
+	let last = -1;
+	for (let i = 0; i < seg.length; i++) {
+		if (!seg[i].stop) continue;
+		if (last >= 0) {
+			const piece = seg.slice(last, i + 1);
+			const A = piece[0];
+			const B = piece[piece.length - 1];
+			const straight = Math.hypot(A.wx - B.wx, A.wy - B.wy);
+			let chords = 0;
+			for (let q = 1; q < piece.length; q++) chords += Math.hypot(piece[q].wx - piece[q - 1].wx, piece[q].wy - piece[q - 1].wy);
+			if (straight >= min && straight <= max && chords <= 3 * straight && B.t - A.t <= chords / 3 + 120 && !(A.npc && A.npc === B.npc)) yield { piece, A, B, straight };
+		}
+		last = i;
+	}
+}
+
+// Up to `want` trips from lists (each person's trips, oldest first), one a person a round, people in a seeded order.
+function roundRobin(lists, want, rand) {
+	const order = lists.slice();
+	for (let i = order.length - 1; i > 0; i--) {
+		const j = Math.floor(rand() * (i + 1));
+		[order[i], order[j]] = [order[j], order[i]];
+	}
+	const out = [];
+	for (let r = 0; out.length < want; r++) {
+		const round = order.filter((l) => l[r]).map((l) => l[r]);
+		if (!round.length) break;
+		out.push(...round.slice(0, want - out.length));
+	}
+	return out;
+}
+
 // The capitals are the city gate's; every other zone map (type 3) on a continent our grid has.
 function worldZones(zones, frames) {
 	return Object.entries(zones).filter(([id, z]) => z.type === 3 && !CITIES[id] && frames[id]).map(([id]) => Number(id)).sort((a, b) => a - b);
@@ -72,52 +107,21 @@ function sampleWorld({ priv, frames, spawnz, zones, per = 6, seed = 1, log = () 
 		for (const s of sessions) {
 			if (!isTest(s.who)) continue;
 			for (const seg of segmentsOf(s, zone, frames, npcZ, blankCut(), { stops: STOPS })) {
-				let last = -1;
-				for (let i = 0; i < seg.length; i++) {
-					if (!seg[i].stop) continue;
-					if (last >= 0) {
-						const A = seg[last];
-						const B = seg[i];
-						const straight = Math.hypot(A.wx - B.wx, A.wy - B.wy);
-						const piece = seg.slice(last, i + 1);
-						const nPos = piece.filter((x) => x.kind === 'pos').length;
-						let chords = 0;
-						for (let q = 1; q < piece.length; q++) chords += Math.hypot(piece[q].wx - piece[q - 1].wx, piece[q].wy - piece[q - 1].wy);
-						const ok = straight >= MIN_STRAIGHT && straight <= MAX_STRAIGHT && nPos >= 2 && chords <= 3 * straight && B.t - A.t <= chords / 3 + 120 && !(A.npc && A.npc === B.npc);
-						if (ok) {
-							const stratum = piece.some((x) => x.flags !== null && x.flags & 4) ? 'indoor' : B.kind === 'enter' ? 'entrance' : A.npc && B.npc && crowd(c, A.wx, A.wy) >= 5 && crowd(c, B.wx, B.wy) >= 5 ? 'town' : 'open';
-							const m = strata[stratum];
-							if (!m.has(s.who)) m.set(s.who, []);
-							m.get(s.who).push({ zone, c, who: s.who, fac: s.fac, stratum, straight, samples: piece });
-						}
-					}
-					last = i;
+				for (const { piece, A, B, straight } of stopWalks(seg, MIN_STRAIGHT, MAX_STRAIGHT)) {
+					if (piece.filter((x) => x.kind === 'pos').length < 2) continue;
+					const stratum = piece.some((x) => x.flags !== null && x.flags & 4) ? 'indoor' : B.kind === 'enter' ? 'entrance' : A.npc && B.npc && crowd(c, A.wx, A.wy) >= 5 && crowd(c, B.wx, B.wy) >= 5 ? 'town' : 'open';
+					const m = strata[stratum];
+					if (!m.has(s.who)) m.set(s.who, []);
+					m.get(s.who).push({ zone, c, who: s.who, fac: s.fac, stratum, straight, samples: piece });
 				}
 			}
 		}
 		const counts = {};
 		for (const [name, m] of Object.entries(strata)) {
-			// round-robin over people in a seeded order, one trip a person a round
 			const lists = [...m.values()].map((l) => l.sort((a, b) => a.samples[0].t - b.samples[0].t));
-			for (let i = lists.length - 1; i > 0; i--) {
-				const j = Math.floor(rand() * (i + 1));
-				[lists[i], lists[j]] = [lists[j], lists[i]];
-			}
-			const want = name === 'open' ? 2 * per : per;
-			let got = 0;
-			for (let r = 0; got < want; r++) {
-				let any = false;
-				for (const l of lists) {
-					if (!l[r]) continue;
-					any = true;
-					if (got < want) {
-						out.trips.push(l[r]);
-						got++;
-					}
-				}
-				if (!any) break;
-			}
-			counts[name] = got;
+			const got = roundRobin(lists, name === 'open' ? 2 * per : per, rand);
+			out.trips.push(...got);
+			counts[name] = got.length;
 		}
 		out.zones[zone] = { sessions: sessions.length, ...counts };
 		log(`world sample ${zone}: ${sessions.length} sessions; ${JSON.stringify(counts)}`);
@@ -237,7 +241,7 @@ function matchWorld({ priv, grid, frames, spawnz, set = 'world', log = () => {} 
 			const A = seg[0];
 			const B = seg[seg.length - 1];
 			const rec = {
-				i: t.i, zone, c, stratum, box: boxOf(t.samples, c), straight: t.straight, who: t.who, fac: t.fac, maps: t.maps, cross: t.cross,
+				i: t.i, zone, c, stratum, box: boxOf(t.samples, c), straight: t.straight, who: t.who, fac: t.fac, maps: t.maps, cross: t.cross, case: t.case,
 				A: { wx: A.wx, wy: A.wy, z: nz(whole.nodes[0]), node: whole.nodes[0], kind: A.kind, npc: A.npc },
 				B: { wx: B.wx, wy: B.wy, z: nz(whole.nodes[whole.nodes.length - 1]), node: whole.nodes[whole.nodes.length - 1], kind: B.kind, npc: B.npc },
 				path: full, samples: seg.map((x) => [+x.wx.toFixed(1), +x.wy.toFixed(1)]), densityPeople: seen.size,
@@ -286,47 +290,18 @@ function sampleBoundary({ priv, frames, spawnz, per = 25, seed = 1, log = () => 
 		for (const s of areaSessions(priv, maps)) {
 			if (!isTest(s.who)) continue;
 			for (const seg of segmentsOf(s, new Set(maps), frames, npcZ, blankCut(), { stops: STOPS })) {
-				let last = -1;
-				for (let i = 0; i < seg.length; i++) {
-					if (!seg[i].stop) continue;
-					if (last >= 0) {
-						const piece = seg.slice(last, i + 1);
-						const A = piece[0];
-						const B = piece[piece.length - 1];
-						const onMaps = new Set(piece.map((x) => x.m));
-						const straight = Math.hypot(A.wx - B.wx, A.wy - B.wy);
-						let chords = 0;
-						for (let q = 1; q < piece.length; q++) chords += Math.hypot(piece[q].wx - piece[q - 1].wx, piece[q].wy - piece[q - 1].wy);
-						const ok = onMaps.has(city) && onMaps.has(zone) && straight >= MIN_STRAIGHT && straight <= 2500 && piece.length - 2 >= 2 && chords <= 3 * straight && B.t - A.t <= chords / 3 + 120 && !(A.npc && A.npc === B.npc);
-						if (ok) {
-							if (!byWho.has(s.who)) byWho.set(s.who, []);
-							byWho.get(s.who).push({ zone: city, maps, c, who: s.who, fac: s.fac, stratum: 'boundary', cross: A.m === city ? 'out' : B.m === city ? 'in' : 'through', straight, samples: piece });
-						}
-					}
-					last = i;
+				for (const { piece, A, B, straight } of stopWalks(seg, MIN_STRAIGHT, 2500)) {
+					const onMaps = new Set(piece.map((x) => x.m));
+					if (!onMaps.has(city) || !onMaps.has(zone) || piece.length - 2 < 2) continue;
+					if (!byWho.has(s.who)) byWho.set(s.who, []);
+					byWho.get(s.who).push({ zone: city, maps, c, who: s.who, fac: s.fac, stratum: 'boundary', cross: A.m === city ? 'out' : B.m === city ? 'in' : 'through', straight, samples: piece });
 				}
 			}
 		}
-		const lists = [...byWho.values()];
-		for (let i = lists.length - 1; i > 0; i--) {
-			const j = Math.floor(rand() * (i + 1));
-			[lists[i], lists[j]] = [lists[j], lists[i]];
-		}
-		let got = 0;
-		for (let r = 0; got < per; r++) {
-			let any = false;
-			for (const l of lists) {
-				if (!l[r]) continue;
-				any = true;
-				if (got < per) {
-					out.trips.push(l[r]);
-					got++;
-				}
-			}
-			if (!any) break;
-		}
-		out.cities[city] = { people: byWho.size, trips: got };
-		log(`boundary sample ${city} (with ${zone}): ${byWho.size} held-out people cross it; ${got} trips`);
+		const got = roundRobin([...byWho.values()], per, rand);
+		out.trips.push(...got);
+		out.cities[city] = { people: byWho.size, trips: got.length };
+		log(`boundary sample ${city} (with ${zone}): ${byWho.size} held-out people cross it; ${got.length} trips`);
 	}
 	out.trips.forEach((t, i) => (t.i = i));
 	const dir = path.join(priv, 'boundary');
@@ -335,4 +310,37 @@ function sampleBoundary({ priv, frames, spawnz, per = 25, seed = 1, log = () => 
 	return out;
 }
 
-module.exports = { sampleWorld, sampleBoundary, matchWorld, worldAreas, readWorldTrips, worldZones, ENTRANCES, STOPS };
+// tools/lib/nav/city/reported.json's cases (players' reports): each case's zone's held-out walks between stops (20-1500
+// yd apart) that pass within r yd of its place (with end: finish there), up to `per` a case, round-robin over people
+// -> <priv>/reported/candidates.json (stratum 'reported', case: its id).
+function sampleReported({ priv, frames, spawnz, per = 12, seed = 1, log = () => {} }) {
+	const rand = rng(seed);
+	const { cases } = JSON.parse(fs.readFileSync(path.join(__dirname, 'reported.json'), 'utf8'));
+	const out = { seed, per, cases: {}, trips: [] };
+	for (const k of cases) {
+		const npcZ = spawnHeight(spawnz, k.c);
+		const byWho = new Map();
+		for (const s of readSessions(path.join(priv, `${k.zone}.jsonl`))) {
+			if (!isTest(s.who)) continue;
+			for (const seg of segmentsOf(s, k.zone, frames, npcZ, blankCut(), { stops: STOPS })) {
+				for (const { piece, B, straight } of stopWalks(seg, 20, MAX_STRAIGHT)) {
+					const hit = k.end ? Math.hypot(B.wx - k.at[0], B.wy - k.at[1]) <= k.r : nearTrip(piece)(k.at[0], k.at[1]) <= k.r;
+					if (!hit || piece.length < 3) continue;
+					if (!byWho.has(s.who)) byWho.set(s.who, []);
+					byWho.get(s.who).push({ zone: k.zone, c: k.c, who: s.who, fac: s.fac, stratum: 'reported', case: k.id, straight, samples: piece });
+				}
+			}
+		}
+		const got = roundRobin([...byWho.values()], per, rand);
+		out.trips.push(...got);
+		out.cases[k.id] = { issue: k.issue, people: byWho.size, trips: got.length };
+		log(`reported sample ${k.id} (${k.issue}): ${byWho.size} held-out people walked it; ${got.length} trips`);
+	}
+	out.trips.forEach((t, i) => (t.i = i));
+	const dir = path.join(priv, 'reported');
+	fs.mkdirSync(dir, { recursive: true });
+	fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify(out));
+	return out;
+}
+
+module.exports = { sampleWorld, sampleBoundary, sampleReported, matchWorld, worldAreas, readWorldTrips, worldZones, ENTRANCES, STOPS };
