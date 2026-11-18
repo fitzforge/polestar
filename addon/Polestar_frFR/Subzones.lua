@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colline des chagrins
 33510	Colline des chagrins
 ]])
-R("subzone", 33511, 141132, [[
+R("subzone", 33511, 141131, [[
 
 33511	Colline des chagrins
 33512	Colline des chagrins
@@ -1624,6 +1624,7 @@ R("subzone", 33511, 141132, [[
 34149	Roc sinueux
 34227	Terrasse des Marchands
 34230	Terrasse des Marchands
+34231	Terrasse des Marchands
 34272	Temple de la Lune
 34277	Les Jardins du temple
 34278	Les Jardins du temple
@@ -2018,10 +2019,10 @@ R("subzone", 33511, 141132, [[
 141129	Fossoyeuse
 141130	Fossoyeuse
 141131	Fossoyeuse
-141132	Fossoyeuse
 ]])
-R("subzone", 141133, 144122, [[
+R("subzone", 141132, 144121, [[
 
+141132	Fossoyeuse
 141133	Fossoyeuse
 141134	Fossoyeuse
 141135	Fossoyeuse
@@ -2521,10 +2522,10 @@ R("subzone", 141133, 144122, [[
 144119	Donjon de Hurlevent
 144120	Donjon de Hurlevent
 144121	Donjon de Hurlevent
-144122	Donjon de Hurlevent
 ]])
-R("subzone", 144123, 149286, [[
+R("subzone", 144122, 149286, [[
 
+144122	Donjon de Hurlevent
 144123	Salle de guerre
 144124	Donjon de Hurlevent
 144125	Donjon de Hurlevent

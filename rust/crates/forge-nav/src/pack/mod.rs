@@ -264,6 +264,12 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let log = i.log;
 	let layers = layers::read_layers(i.layers)?;
 	let areas = layers::AreaTable::read(i.area_table)?;
+	// The lifts' rides with their waits (chokepoints::lift_rides), from the client's TransportAnimation.csv beside its
+	// AreaTable.csv; without it the router prices every ride alike.
+	let rides = std::fs::read_to_string(i.area_table.with_file_name("TransportAnimation.csv")).map(|s| chokepoints::lift_rides(&s)).unwrap_or_default();
+	if rides.is_empty() {
+		log("lifts: no TransportAnimation.csv beside AreaTable.csv: lift rides unpriced (the router's default)");
+	}
 	let zones = read_json(i.zones)?;
 	let map_frames = read_json(i.map_frames)?;
 	let frames = layers::Frames::new(&map_frames, zones.clone());
@@ -469,7 +475,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 			}
 		};
 		let lifts_c: Vec<Value> = lifts[c.to_string()].as_array().cloned().unwrap_or_default();
-		let chokes = chokepoints::chokepoints(&nav, c, &aids, &lifts_c, &frames, &areas);
+		let chokes = chokepoints::chokepoints(&nav, c, &aids, &lifts_c, &rides, &frames, &areas);
 		m.insert("chokepoints".into(), json!(chokes.len()));
 		by_map.push((c, chokes));
 		let part = leffe.and_then(|_| part_of(c));

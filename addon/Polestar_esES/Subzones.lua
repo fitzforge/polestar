@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colina de las Penas
 33510	Colina de las Penas
 ]])
-R("subzone", 33511, 141117, [[
+R("subzone", 33511, 141116, [[
 
 33511	Colina de las Penas
 33512	Colina de las Penas
@@ -1639,6 +1639,7 @@ R("subzone", 33511, 141117, [[
 34149	Roca Desliz
 34227	Bancal de los Mercaderes
 34230	Bancal de los Mercaderes
+34231	Bancal de los Mercaderes
 34272	Templo de la Luna
 34277	Los Jardines del Templo
 34278	Los Jardines del Templo
@@ -2018,10 +2019,10 @@ R("subzone", 33511, 141117, [[
 141114	Ruinas de Lordaeron
 141115	Ruinas de Lordaeron
 141116	Ruinas de Lordaeron
-141117	Ruinas de Lordaeron
 ]])
-R("subzone", 141118, 144096, [[
+R("subzone", 141117, 144092, [[
 
+141117	Ruinas de Lordaeron
 141118	Ruinas de Lordaeron
 141119	Ruinas de Lordaeron
 141120	Barrio del Comercio
@@ -2521,10 +2522,10 @@ R("subzone", 141118, 144096, [[
 144090	Catedral de la Luz
 144091	Catedral de la Luz
 144092	Catedral de la Luz
-144096	Catedral de la Luz
 ]])
-R("subzone", 144102, 149286, [[
+R("subzone", 144096, 149286, [[
 
+144096	Catedral de la Luz
 144102	El Cordero Degollado
 144103	Castillo de Ventormenta
 144104	Archivo Real
