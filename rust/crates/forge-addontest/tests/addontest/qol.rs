@@ -5710,3 +5710,39 @@ sample()
 	assert_eq!(out[4], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[5], out[4], "the filled bowl stays available while its guide step is open");
 }
+
+// A gossip window at an NPC the step has no goal at (a vendor, a flight master, an innkeeper on the way) builds no
+// step view: GOSSIP_SHOW is a moment of its own, so the view the step's gossip and bind helpers built was built for
+// them alone (the replay of players' sessions put 16-28 ms on such windows: REPLAY.md, QoL/Toggles.lua
+// GOSSIP_SHOW). At the step's NPC they still read it and pick as before.
+// Before: a view for every gossip window without a quest (one for the step's gossip, one more with automatic
+// binding on).
+#[test]
+fn gossip_at_an_npc_the_step_has_no_goal_at_builds_no_step_view() {
+	let out = run(&[
+		INN,
+		r#"
+		local E = Polestar.Engine
+		local views, real = 0, E.GetStepView
+		E.GetStepView = function(...) views = views + 1 return real(...) end
+		local function at(npc)
+			views = 0
+			local picked = visit(npc)
+			return { views = views, picked = picked }
+		end
+		local out = {}
+		q.step({ { t = "buy", item = 159, npc = 344, count = 5 }, { t = "sethome", location = "Goldshire", npc = 295 } })
+		out.elsewhere = at(6790)
+		out.vendor = at(344)
+		set("autoBind", true)
+		out.elsewhereBind = at(6790)
+		out.inn = at(295)
+		emit(out)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0]["elsewhere"], json!({ "views": 0, "picked": 0 }), "another NPC: no view");
+	assert_eq!(out[0]["elsewhereBind"], json!({ "views": 0, "picked": 0 }), "another NPC, binding on: no view");
+	assert_eq!(out[0]["vendor"]["picked"], 91, "the step's vendor: its goods open as before");
+	assert_eq!(out[0]["inn"]["picked"], 90, "the step's innkeeper, binding on: the bind as before");
+}
