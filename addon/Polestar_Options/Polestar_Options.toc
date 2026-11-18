@@ -40,6 +40,7 @@ UI\GuideOptions.lua
 Rares\Options.lua
 Talents\Options.lua
 Alts\Options.lua
+Macros\Options.lua
 Quests\Options.lua
 Gear\Options.lua
 Theme\SkinPicker.lua

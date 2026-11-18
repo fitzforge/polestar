@@ -171,7 +171,7 @@ local HIDDEN = {
 	ui = "window", guideWindow = "window", pause = "window", update = "window", gamepad = "window",
 	nav = "routes", maps = "arrow", buttons = "hud", toasts = "hud", trackers = "hud", rares = "hud",
 	behavior = "quests", qol = "quests", party = "quests", routePlan = "quests",
-	gear = "gear", talents = "gear", dungeons = "dungeons", alts = "dungeons", lookup = "dungeons", movers = "positions",
+	gear = "gear", talents = "gear", dungeons = "dungeons", alts = "dungeons", macros = "dungeons", lookup = "dungeons", movers = "positions",
 }
 
 -- t[path], else t[path less its last part], and so on.

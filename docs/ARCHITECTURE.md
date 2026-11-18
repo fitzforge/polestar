@@ -58,7 +58,7 @@ table; [tools/README.md](../tools/README.md) lists the commands, every
 generated file and the rebuild order; [tests/README.md](../tests/README.md)
 describes the test layers and the fake client.
 
-`addon/Polestar/Polestar.toc` loads thirteen XML manifests in this order. Each
+`addon/Polestar/Polestar.toc` loads fourteen XML manifests in this order. Each
 module's manifest lists that module's files.
 The module sections below follow this order.
 
@@ -76,6 +76,7 @@ UI\UI.xml               Guide window, guide menu, zone art, Lookup and Dungeons 
 Rares\Rares.xml         Rare NPCs and treasures: detection, pins, alerts, view
 Talents\Talents.xml     Talent plans: the hub section, talent frame marks, reminder
 Alts\Alts.xml           Characters: a snapshot of each character on the account, the hub section
+Macros\Macros.xml       Class macros: ready-made macros for the player's class, the hub section
 ```
 
 Manifests use only `<Script file="..."/>` and `<Include file="..."/>` (paths
@@ -460,7 +461,7 @@ toggles, `on`, `off`, `report`, `reset`; see "Caught errors and the Polestar
 Discord"), and in Core/Pause.lua `pause` (no
 argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
-`rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
+`rares`, `talents`, `alts`, `macros`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
 `update` (the update card, Core/Update.lua)).
 
 `where` prints the player's map and position as two guide lines, `zone map
@@ -10498,6 +10499,57 @@ Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled(
   sorted by `alts.sort` (the hub tabs: Last played, Most rested, Level); the
   sidebar has an entry per character, which selects and scrolls to its row; the instance count, in the subtitle, is `Maps.GetInstanceStatus()`.
   Forget uses `W.Confirm`. `SHOW_ALTS` opens it (`/pole alts`).
+
+## Macros — class macros
+
+`addon/Polestar/Macros/` (`Macros\Macros.xml`, loaded after `Alts\Alts.xml`):
+`Macros.lua` (`Polestar.Macros`: settings `macros.*`, the text in the client's
+names, writing to the game's macro list, what was made per character in
+`PolestarCharDB.macros`), `Data.lua` (the macros of the nine classes),
+`View.lua` (the hub section, order 45); the setting's row is the settings'
+addon's (`Polestar_Options/Macros/Options.lua`, Discovery → Lookup).
+
+```
+Polestar.Macros.Register(data)                    -- Data.lua, one call per class; keeps the player's class only
+Polestar.Macros.Data() -> { class, url, specs, specByKey, macros } | nil
+Polestar.Macros.List({ pvp, spec = key | "class", origin }) -> macros
+Polestar.Macros.Counts(pvp) -> { pve, pvp, class, [spec key] = n }
+Polestar.Macros.Spec() -> key | nil                -- Gear.GetSpec(), when the class has that spec
+Polestar.Macros.Body(m) -> text, missing           -- the client's names; missing: names left in English
+Polestar.Macros.Known(m) -> true | false, spellID
+Polestar.Macros.Status(m) -> "new" | "deleted" | "ok" | "outdated" | "edited"
+Polestar.Macros.CanWrite(m, perChar, update) -> true | false, "off" | "combat" | "full" | "long" | "noapi"
+Polestar.Macros.Create(m, perChar) / Update(m) -> true | false, why
+```
+
+- **Data.** From Classic WoW Forever's macro pages, CC BY 4.0
+  (THIRD_PARTY.md). A macro is `{ id, spec, pvp, origin, level, icon, code,
+  title, use, needs, keys, fill }`: `spec` is Gear's key (nil: the whole
+  class), `origin` says whether it is written for Classic (`classic`),
+  adapted for Forever (`adapted`) or new in Forever (`forever`), `keys` lists
+  `{ modifier | false, what it does }`, `fill` marks a macro the player
+  finishes by hand (an item's name). The texts are literal `L["..."]` keys.
+  `code` names spells and items by id: `{s<id>}`, `{i<id>}`, and `{r}` for
+  the word "Rank" (`LC("spell rank", "Rank")`); `M.NAMES` holds their English
+  names for a client that has not cached one (an item is asked for).
+- **Writing.** `CreateMacro` and `EditMacro` through `Macros.Client`, never in
+  combat, only while the list chosen (`macros.where`: the character's or the
+  account's) has a free slot (`MAX_CHARACTER_MACROS`, `MAX_ACCOUNT_MACROS`),
+  255 characters at most in the client's names. The name is "PS " and the
+  title cut to 16 characters, numbered " 2" to " 9" when another macro has
+  it. What was written is kept per character (`made[id] = { name, body,
+  perChar }`): a macro whose text is what Polestar wrote but no longer what
+  it would write is `outdated` (a later release, another client language), one
+  that differs from both is `edited` (Update asks a second click), one whose
+  name is gone is `deleted` (Update makes it again). `MACROS_UPDATED` follows
+  a write, `UPDATE_MACROS` and the start and end of combat.
+- **Section.** The sidebar lists the whole class and each spec with its count
+  (the player's marked, picked the first time); `macros.tab` is the PvE / PvP
+  tab, `macros.origin` the filter at the tab row's right end (as Dungeons'
+  faction filter). One card per macro on the panel ground; the footer credits
+  the source (its link opens the copy window) and picks the list Create writes
+  to, with the slots used. `macros.enabled` off: nothing is written and the
+  section says where to turn it on. `SHOW_MACROS` opens it (`/pole macros`).
 
 ## Toolchain (Node ≥ 24, zero npm dependencies)
 
