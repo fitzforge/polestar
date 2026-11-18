@@ -410,7 +410,7 @@ async function prepareCmd(argv) {
 // outside the repository (raw positions).
 async function cityCmd(argv) {
 	const [step, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set'] });
 	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
 	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
 	const priv = path.resolve(o.private);
@@ -459,14 +459,19 @@ async function cityCmd(argv) {
 		console.log(`nav city trails: ${n} walked cell levels (${o.train ? "the gate's training people" : 'all people'})${o.out ? ` -> ${o.out}` : ''}${o.lua ? ` -> ${o.lua}` : ''}`);
 		return 0;
 	}
+	// --set world (default): the zones' strata; --set boundary: walks across a capital's entrance
+	const set = o.set || 'world';
+	if (set !== 'world' && set !== 'boundary') throw usageError(`nav city: --set world or boundary, not "${set}"`);
 	if (step === 'world-sample') {
-		const s = require('../lib/nav/city/world').sampleWorld({ priv, frames, spawnz: readData('spawnz.json').npc, zones: maps, per: o.per ? Number(o.per) : 6, seed: o.seed ? Number(o.seed) : 1, log });
-		console.log(`nav city world-sample: ${s.trips.length} trips in ${Object.keys(s.zones).length} zones`);
+		const W = require('../lib/nav/city/world');
+		const args = { priv, frames, spawnz: readData('spawnz.json').npc, seed: o.seed ? Number(o.seed) : 1, log };
+		const s = set === 'boundary' ? W.sampleBoundary({ ...args, per: o.per ? Number(o.per) : 25 }) : W.sampleWorld({ ...args, zones: maps, per: o.per ? Number(o.per) : 6 });
+		console.log(`nav city world-sample (${set}): ${s.trips.length} trips`);
 		return 0;
 	}
 	if (step === 'world-match') {
-		const s = require('../lib/nav/city/world').matchWorld({ priv, grid, frames, spawnz: readData('spawnz.json').npc, log });
-		console.log(`nav city world-match: ${s.matched} of ${s.trips} trips matched; ${JSON.stringify(s.strata)}`);
+		const s = require('../lib/nav/city/world').matchWorld({ priv, grid, frames, spawnz: readData('spawnz.json').npc, set, log });
+		console.log(`nav city world-match (${set}): ${s.matched} of ${s.trips} trips matched; ${JSON.stringify(s.strata)}`);
 		return 0;
 	}
 	if (step === 'gate' || step === 'world-gate') {
@@ -474,7 +479,7 @@ async function cityCmd(argv) {
 		const common = { priv, grid, frames, log, npcs: readData('npcs.json') };
 		let report;
 		if (o.remeasure) report = remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] });
-		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), spawnz: readData('spawnz.json').npc, strata: o.strata ? String(o.strata).split(',') : null });
+		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), set, spawnz: readData('spawnz.json').npc, strata: o.strata ? String(o.strata).split(',') : null });
 		else report = await gate({ ...common, ...navArgs(), maps, spawnz: readData('spawnz.json').npc });
 		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
 		const md = markdown(report, cmp);

@@ -61,7 +61,10 @@ function spawnHeight(spawnz, c) {
 
 const blankCut = () => ({ samples: 0, dead: 0, mounted: 0, swim: 0, seconds: 0, segments: 0, breaks: { gap: 0, speed: 0, event: 0, nomatch: 0, anchor: 0 }, anchors: 0, anchorsWithZ: 0 });
 
+// map: one uiMap, or a Set of uiMaps walked as one area (a capital and the zone outside its gate: a walk in or out
+// crosses the client's map switch); each sample keeps its uiMap (m).
 function segmentsOf(s, map, frames, npcZ, cut = blankCut(), { stops = null } = {}) {
+	const inArea = map instanceof Set ? (m) => map.has(m) : (m) => m === map;
 	const segs = [];
 	let cur = [];
 	const flush = () => {
@@ -70,23 +73,23 @@ function segmentsOf(s, map, frames, npcZ, cut = blankCut(), { stops = null } = {
 	};
 	for (const [t, k, m, x, y, fl, , ex] of s.ev) {
 		if (BREAK_KINDS.has(k) || (k === 'ride' && ex && ex.on)) {
-			if ((STOP_KINDS.has(k) || (stops && stops.has(k))) && m === map && x !== null && cur.length) {
-				const [wx, wy] = toWorld(frames, map, x, y);
-				cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
+			if ((STOP_KINDS.has(k) || (stops && stops.has(k))) && inArea(m) && x !== null && cur.length) {
+				const [wx, wy] = toWorld(frames, m, x, y);
+				cur.push({ t, wx, wy, m, flags: null, z: null, kind: k, npc: null, stop: true });
 			}
 			if (cur.length) cut.breaks.event++;
 			flush();
-			if (k === 'land' && m === map && x !== null) {
-				const [wx, wy] = toWorld(frames, map, x, y);
-				cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
+			if (k === 'land' && inArea(m) && x !== null) {
+				const [wx, wy] = toWorld(frames, m, x, y);
+				cur.push({ t, wx, wy, m, flags: null, z: null, kind: k, npc: null, stop: true });
 			}
 			continue;
 		}
-		if (m !== map || x === null || x === undefined) {
-			if (m !== null && m !== undefined && m !== map) flush();
+		if (!inArea(m) || x === null || x === undefined) {
+			if (m !== null && m !== undefined && !inArea(m)) flush();
 			continue;
 		}
-		const [wx, wy] = toWorld(frames, map, x, y);
+		const [wx, wy] = toWorld(frames, m, x, y);
 		if (k === 'pos') {
 			cut.samples++;
 			if (fl !== null && fl & 32) {
@@ -108,18 +111,18 @@ function segmentsOf(s, map, frames, npcZ, cut = blankCut(), { stops = null } = {
 					flush();
 				} else if (dt < 60) cut.seconds += dt;
 			}
-			cur.push({ t, wx, wy, flags: fl === undefined ? null : fl, z: null, kind: 'pos' });
+			cur.push({ t, wx, wy, m, flags: fl === undefined ? null : fl, z: null, kind: 'pos' });
 		} else if (ANCHOR_KINDS.has(k) && ex && ex.npc) {
 			cut.anchors++;
 			const z = npcZ(ex.npc, wx, wy);
 			if (z !== null) cut.anchorsWithZ++;
 			const last = cur[cur.length - 1];
 			if (last && Math.hypot(wx - last.wx, wy - last.wy) < 0.5 && last.npc === ex.npc) continue;
-			cur.push({ t, wx, wy, flags: null, z, kind: k, npc: ex.npc, stop: true });
+			cur.push({ t, wx, wy, m, flags: null, z, kind: k, npc: ex.npc, stop: true });
 		} else if (stops && stops.has(k)) {
 			const last = cur[cur.length - 1];
 			if (last && last.kind === k && Math.hypot(wx - last.wx, wy - last.wy) < 20) continue;
-			cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
+			cur.push({ t, wx, wy, m, flags: null, z: null, kind: k, npc: null, stop: true });
 		}
 	}
 	flush();
@@ -208,7 +211,8 @@ function makeMatcher(g, { prior = null } = {}) {
 			const a = seg[i - 1];
 			const b = seg[i];
 			const chord = Math.hypot(a.wx - b.wx, a.wy - b.wy);
-			const bound = 2.5 * chord + 30;
+			// a lift ride's rise counts in its walk (the Undercity's 97 yd): a graph with lifts searches further
+			const bound = 2.5 * chord + 30 + (g.lifts ? 110 : 0);
 			const sc = cand[i].map(() => Infinity);
 			const bk = cand[i].map(() => -1);
 			const jp = cand[i].map(() => false);
@@ -276,7 +280,7 @@ function makeMatcher(g, { prior = null } = {}) {
 			} else if (a === b) {
 				// same surface
 			} else {
-				g.search([[a, 0]], [b], { goal: g.local(B.wx, B.wy), bound: 2.5 * Math.hypot(B.wx - A.wx, B.wy - A.wy) + 31 });
+				g.search([[a, 0]], [b], { goal: g.local(B.wx, B.wy), bound: 2.5 * Math.hypot(B.wx - A.wx, B.wy - A.wy) + 31 + (g.lifts ? 110 : 0) });
 				const p = g.pathTo(b);
 				if (p) for (let q = 1; q < p.length; q++) full.push(p[q]);
 				else full.push(b);

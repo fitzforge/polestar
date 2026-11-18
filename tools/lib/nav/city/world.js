@@ -152,25 +152,42 @@ function nearTrip(samples) {
 	};
 }
 
-function matchWorld({ priv, grid, frames, spawnz, log = () => {} }) {
-	const dir = path.join(priv, 'world');
+// Every session of maps (one uiMap, or a capital and the zone outside it), a session's rows on both merged in time.
+function areaSessions(priv, maps) {
+	const bySid = new Map();
+	for (const m of maps) {
+		for (const s of readSessions(path.join(priv, `${m}.jsonl`))) {
+			const have = bySid.get(s.sid);
+			if (have) have.ev = have.ev.concat(s.ev).sort((a, b) => a[0] - b[0]);
+			else bySid.set(s.sid, s);
+		}
+	}
+	return [...bySid.values()];
+}
+
+function matchWorld({ priv, grid, frames, spawnz, set = 'world', log = () => {} }) {
+	const dir = path.join(priv, set);
 	const cand = JSON.parse(fs.readFileSync(path.join(dir, 'candidates.json'), 'utf8'));
 	const outFile = path.join(dir, 'trips.jsonl');
 	const fd = fs.openSync(outFile, 'w');
 	const byZone = new Map();
 	for (const t of cand.trips) {
-		if (!byZone.has(t.zone)) byZone.set(t.zone, []);
-		byZone.get(t.zone).push(t);
+		const key = (t.maps || [t.zone]).join('+');
+		if (!byZone.has(key)) byZone.set(key, []);
+		byZone.get(key).push(t);
 	}
 	const stats = { trips: 0, matched: 0, failed: 0, strata: {} };
 	const t0 = Date.now();
-	for (const [zone, trips] of byZone) {
-		const sessions = readSessions(path.join(priv, `${zone}.jsonl`)).filter((s) => !isTest(s.who));
+	for (const trips of byZone.values()) {
+		const maps = trips[0].maps || [trips[0].zone];
+		const zone = trips[0].zone;
+		const sessions = areaSessions(priv, maps).filter((s) => !isTest(s.who));
 		const c = frames[String(zone)].c;
 		const npcZ = spawnHeight(spawnz, c);
-		// the training people's pieces, once per zone
+		// the training people's pieces, once per area
 		const pieces = [];
-		for (const s of sessions) for (const seg of segmentsOf(s, zone, frames, npcZ)) pieces.push({ who: s.who, seg });
+		const area = maps.length > 1 ? new Set(maps) : zone;
+		for (const s of sessions) for (const seg of segmentsOf(s, area, frames, npcZ)) pieces.push({ who: s.who, seg });
 		for (const t of trips) {
 			stats.trips++;
 			const g = new AreaGraph(boxOf(t.samples, c), { grid });
@@ -220,7 +237,7 @@ function matchWorld({ priv, grid, frames, spawnz, log = () => {} }) {
 			const A = seg[0];
 			const B = seg[seg.length - 1];
 			const rec = {
-				i: t.i, zone, c, stratum, box: boxOf(t.samples, c), straight: t.straight, who: t.who, fac: t.fac,
+				i: t.i, zone, c, stratum, box: boxOf(t.samples, c), straight: t.straight, who: t.who, fac: t.fac, maps: t.maps, cross: t.cross,
 				A: { wx: A.wx, wy: A.wy, z: nz(whole.nodes[0]), node: whole.nodes[0], kind: A.kind, npc: A.npc },
 				B: { wx: B.wx, wy: B.wy, z: nz(whole.nodes[whole.nodes.length - 1]), node: whole.nodes[whole.nodes.length - 1], kind: B.kind, npc: B.npc },
 				path: full, samples: seg.map((x) => [+x.wx.toFixed(1), +x.wy.toFixed(1)]), densityPeople: seen.size,
@@ -229,19 +246,17 @@ function matchWorld({ priv, grid, frames, spawnz, log = () => {} }) {
 			fs.writeSync(fd, JSON.stringify(rec) + '\n');
 			stats.matched++;
 			stats.strata[stratum] = (stats.strata[stratum] || 0) + 1;
-			if (stats.trips % 25 === 0) log(`world match: ${stats.trips}/${cand.trips.length} (${stats.matched} matched) ${((Date.now() - t0) / 1000).toFixed(0)} s`);
+			if (stats.trips % 25 === 0) log(`${set} match: ${stats.trips}/${cand.trips.length} (${stats.matched} matched) ${((Date.now() - t0) / 1000).toFixed(0)} s`);
 		}
 	}
 	fs.closeSync(fd);
 	return stats;
 }
 
-// Each matched world trip with its area (a graph of its box and the box's walked surfaces), for gate.js's judge.
-function* worldAreas(priv, grid) {
-	const file = path.join(priv, 'world', 'trips.jsonl');
-	for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
-		if (!line) continue;
-		const trip = JSON.parse(line);
+// Each matched trip of a set (world, boundary) with its area (a graph of its box and the box's walked surfaces), for
+// gate.js's judge.
+function* worldAreas(priv, grid, set = 'world') {
+	for (const trip of readWorldTrips(priv, set)) {
 		const g = new AreaGraph(trip.box, { grid });
 		const people = new Uint16Array(g.n);
 		for (const [v, p] of trip.density) people[v] = p;
@@ -249,9 +264,75 @@ function* worldAreas(priv, grid) {
 	}
 }
 
-function readWorldTrips(priv) {
-	const file = path.join(priv, 'world', 'trips.jsonl');
+function readWorldTrips(priv, set = 'world') {
+	const file = path.join(priv, set, 'trips.jsonl');
 	return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
 }
 
-module.exports = { sampleWorld, matchWorld, worldAreas, readWorldTrips, worldZones, STOPS };
+// The capitals' entrances: each capital with the zone outside its gate. A walk that crosses the client's map switch
+// (zone map <-> capital map) in either direction is a boundary trip: the floor and the route must carry across it.
+const ENTRANCES = { 1455: 1426, 1453: 1429, 1454: 1411, 1458: 1420, 1456: 1412, 1457: 1438 };
+
+// <priv>/boundary/candidates.json: per capital up to `per` held-out walks between stops that cross its entrance (stops
+// as the world's; up to 2500 yd apart: a walk in from the zone's road), round-robin over people.
+function sampleBoundary({ priv, frames, spawnz, per = 25, seed = 1, log = () => {} }) {
+	const rand = rng(seed);
+	const out = { seed, per, cities: {}, trips: [] };
+	for (const [city, zone] of Object.entries(ENTRANCES).map(([a, b]) => [Number(a), b])) {
+		const c = frames[String(city)].c;
+		const npcZ = spawnHeight(spawnz, c);
+		const maps = [city, zone];
+		const byWho = new Map();
+		for (const s of areaSessions(priv, maps)) {
+			if (!isTest(s.who)) continue;
+			for (const seg of segmentsOf(s, new Set(maps), frames, npcZ, blankCut(), { stops: STOPS })) {
+				let last = -1;
+				for (let i = 0; i < seg.length; i++) {
+					if (!seg[i].stop) continue;
+					if (last >= 0) {
+						const piece = seg.slice(last, i + 1);
+						const A = piece[0];
+						const B = piece[piece.length - 1];
+						const onMaps = new Set(piece.map((x) => x.m));
+						const straight = Math.hypot(A.wx - B.wx, A.wy - B.wy);
+						let chords = 0;
+						for (let q = 1; q < piece.length; q++) chords += Math.hypot(piece[q].wx - piece[q - 1].wx, piece[q].wy - piece[q - 1].wy);
+						const ok = onMaps.has(city) && onMaps.has(zone) && straight >= MIN_STRAIGHT && straight <= 2500 && piece.length - 2 >= 2 && chords <= 3 * straight && B.t - A.t <= chords / 3 + 120 && !(A.npc && A.npc === B.npc);
+						if (ok) {
+							if (!byWho.has(s.who)) byWho.set(s.who, []);
+							byWho.get(s.who).push({ zone: city, maps, c, who: s.who, fac: s.fac, stratum: 'boundary', cross: A.m === city ? 'out' : B.m === city ? 'in' : 'through', straight, samples: piece });
+						}
+					}
+					last = i;
+				}
+			}
+		}
+		const lists = [...byWho.values()];
+		for (let i = lists.length - 1; i > 0; i--) {
+			const j = Math.floor(rand() * (i + 1));
+			[lists[i], lists[j]] = [lists[j], lists[i]];
+		}
+		let got = 0;
+		for (let r = 0; got < per; r++) {
+			let any = false;
+			for (const l of lists) {
+				if (!l[r]) continue;
+				any = true;
+				if (got < per) {
+					out.trips.push(l[r]);
+					got++;
+				}
+			}
+			if (!any) break;
+		}
+		out.cities[city] = { people: byWho.size, trips: got };
+		log(`boundary sample ${city} (with ${zone}): ${byWho.size} held-out people cross it; ${got} trips`);
+	}
+	out.trips.forEach((t, i) => (t.i = i));
+	const dir = path.join(priv, 'boundary');
+	fs.mkdirSync(dir, { recursive: true });
+	fs.writeFileSync(path.join(dir, 'candidates.json'), JSON.stringify(out));
+	return out;
+}
+
+module.exports = { sampleWorld, sampleBoundary, matchWorld, worldAreas, readWorldTrips, worldZones, ENTRANCES, STOPS };

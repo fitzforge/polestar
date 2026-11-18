@@ -206,6 +206,28 @@ class AreaGraph {
 				if (u >= 0) edges.push(v, u, 4);
 			}
 		}
+		// lifts (the grid's lifts.json): both landings in the box join both ways, class 8 (format.js CODE_LIFT; stored
+		// link classes go to 7, LINK_SLOPE), a ride's length its rise
+		const liftFile = path.join(grid, 'lifts.json');
+		const lifts = fs.existsSync(liftFile) ? JSON.parse(fs.readFileSync(liftFile, 'utf8'))[String(c)] || [] : [];
+		const landing = (e) => {
+			const t = tileAt(e.col, e.row);
+			if (!t) return -1;
+			const li = e.col * TILE_CELLS + (e.k % TILE_CELLS) - gi0;
+			const lj = e.row * TILE_CELLS + Math.floor(e.k / TILE_CELLS) - gj0;
+			if (li < 0 || lj < 0 || li >= W || lj >= H) return -1;
+			const ci = lj * W + li;
+			const lay = e.entry - t.first[e.k];
+			return lay >= 0 && colFirst[ci] + lay < colFirst[ci + 1] ? layerNode[colFirst[ci] + lay] : -1;
+		};
+		this.lifts = 0;
+		for (const l of lifts) {
+			const a = landing(l.a);
+			const b = landing(l.b);
+			if (a < 0 || b < 0) continue;
+			edges.push(a, b, 8, b, a, 8);
+			this.lifts++;
+		}
 		const m = edges.length / 3;
 		const adjStart = new Uint32Array(n + 1);
 		for (let x = 0; x < m; x++) adjStart[edges[3 * x] + 1]++;
@@ -223,7 +245,7 @@ class AreaGraph {
 			const a = ncol[v];
 			const b = ncol[u];
 			const flat = Math.hypot((a % W) - (b % W), Math.floor(a / W) - Math.floor(b / W)) * CELL;
-			alen[p] = acls[p] === 4 ? flat + 0.5 : Math.hypot(flat, nz[u] - nz[v]);
+			alen[p] = acls[p] === 4 ? flat + 0.5 : acls[p] === 8 ? flat + Math.abs(nz[u] - nz[v]) : Math.hypot(flat, nz[u] - nz[v]);
 		}
 		Object.assign(this, { m, colFirst, layerNode, ncol, nz, nflags, nceil, adjStart, adj, acls, alen });
 		this.dist = new Float64Array(n);

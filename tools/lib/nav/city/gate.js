@@ -387,11 +387,12 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 
 // The world gate: every matched world trip (world.js), the arms run once over all of them, each trip judged on its box;
 // report.maps holds one entry per stratum (indoor, entrance, town, cliff, open), report.zones the failures per zone.
-async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, arms = ['GAME', 'E0', 'E2', 'SPF'], policy = 'legacy', strata = null, log = () => {} }) {
+// set: 'world' (the zones' strata) or 'boundary' (walks across a capital's entrance: one row per capital).
+async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, arms = ['GAME', 'E0', 'E2', 'SPF'], policy = 'legacy', strata = null, set = 'world', log = () => {} }) {
 	const { readWorldTrips, worldAreas } = require('./world');
-	const report = { nav: path.resolve(nav), policy, arms, world: true, maps: {}, zones: {} };
+	const report = { nav: path.resolve(nav), policy, arms, world: set, maps: {}, zones: {} };
 	const t0 = Date.now();
-	const all = readWorldTrips(priv).filter((t) => !strata || strata.includes(t.stratum));
+	const all = readWorldTrips(priv, set).filter((t) => !strata || strata.includes(t.stratum));
 	const keep = new Set(all.map((t) => t.i));
 	const trips = all.map((t) => ({ ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null }));
 	const gn = gateNav(path.resolve(nav), priv);
@@ -404,14 +405,16 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	log(`world: ${trips.length} trips routed (${((Date.now() - t0) / 1000).toFixed(0)} s); judging`);
 	const byStratum = new Map();
 	let k = 0;
-	for (const { trip, area } of worldAreas(priv, grid)) {
+	for (const { trip, area } of worldAreas(priv, grid, set)) {
 		if (!keep.has(trip.i)) continue;
 		const idx = k++;
 		const one = Object.fromEntries(Object.entries(res).map(([arm, rs]) => [arm, [rs[idx]]]));
 		const [row] = scoreRows(area, [trip], one);
 		row.zone = trip.zone;
-		if (!byStratum.has(trip.stratum)) byStratum.set(trip.stratum, []);
-		byStratum.get(trip.stratum).push(row);
+		row.cross = trip.cross;
+		const key = trip.stratum === 'boundary' ? `${CITIES[trip.zone] ? CITIES[trip.zone].name : trip.zone} entrance` : trip.stratum;
+		if (!byStratum.has(key)) byStratum.set(key, []);
+		byStratum.get(key).push(row);
 		if (k % 100 === 0) log(`world: judged ${k}/${trips.length}`);
 	}
 	for (const [stratum, rows] of byStratum) {
@@ -422,7 +425,7 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 			for (const r of fails) by[r.arms[arm].fail] = (by[r.arms[arm].fail] || 0) + 1;
 			summary[arm] = {
 				fails: fails.length, pct: +(100 * fails.length / rows.length).toFixed(1), by,
-				list: fails.map((r) => ({ i: r.i, zone: r.zone, fail: r.arms[arm].fail, from: { npc: r.A.npc, kind: r.A.kind, at: toMap(frames, r.zone, r.A.wx, r.A.wy).map((v) => +v.toFixed(2)), z: r.A.z }, to: { npc: r.B.npc, kind: r.B.kind, at: toMap(frames, r.zone, r.B.wx, r.B.wy).map((v) => +v.toFixed(2)), z: r.B.z }, real: Math.round(r.real), yards: r.arms[arm].ok ? Math.round(r.arms[arm].yards) : null })),
+				list: fails.map((r) => ({ i: r.i, zone: r.zone, cross: r.cross, fail: r.arms[arm].fail, from: { npc: r.A.npc, kind: r.A.kind, at: toMap(frames, r.zone, r.A.wx, r.A.wy).map((v) => +v.toFixed(2)), z: r.A.z }, to: { npc: r.B.npc, kind: r.B.kind, at: toMap(frames, r.zone, r.B.wx, r.B.wy).map((v) => +v.toFixed(2)), z: r.B.z }, real: Math.round(r.real), yards: r.arms[arm].ok ? Math.round(r.arms[arm].yards) : null })),
 			};
 			for (const r of rows) {
 				const z = (report.zones[r.zone] = report.zones[r.zone] || {});
