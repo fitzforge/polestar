@@ -16,3 +16,6 @@ section: players
 - Excavation Site: Wetlands: the way to the dungeon now leads to its door in
   the hillside, where players go in, and the walk ends at the door instead of
   in Thelgen Rock below it. Before, it led to a point 185 yards away.
+- Where two floors overlap, the arrow joins a guide's saved walk on your
+  known floor. If the walk misses your floor or the goal's, the arrow
+  searches for a route instead.

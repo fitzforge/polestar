@@ -1346,9 +1346,8 @@ end
 -- The current step's baked leg (Nav/Baked.lua) as the path to the goal just
 -- taken, from the player's place on it: the nearest point of the leg, then
 -- its points after that. Taken when the leg is on the player's continent,
--- ends at this goal (its last point within its tail and BAKED_END yards of
--- it) and the player is within STRAY yards of it; else false (search as
--- before). Straying from it later asks for a search like any path (Walk.Aim).
+-- ends within its tail plus BAKED_END of the goal on its known floor, and
+-- the player is within STRAY yards of a segment on their floor; else false.
 local BAKED_END = 3 -- yards: a leg's end this much past its tail is another goal's
 local function takeBaked(pc, px, py)
 	local E = ns.Engine
@@ -1357,7 +1356,8 @@ local function takeBaked(pc, px, py)
 	if not (leg and leg.c == pc and leg.n >= 2) then return false end
 	local n, xs, ys, zs = leg.n, leg.xs, leg.ys, leg.zs
 	local ex, ey, reach = xs[n] - gx, ys[n] - gy, leg.left[n] + BAKED_END
-	if ex * ex + ey * ey > reach * reach then return false end
+	if ex * ex + ey * ey > reach * reach or (gz and abs(zs[n] - gz) > ZTOL) then return false end
+	local sz = startZ(pc, px, py)
 	local best, bk, bt = huge, 1, 0
 	for k = 1, n - 1 do
 		local ax, ay = xs[k], ys[k]
@@ -1367,7 +1367,7 @@ local function takeBaked(pc, px, py)
 		if t < 0 then t = 0 elseif t > 1 then t = 1 end
 		local qx, qy = ax + dx * t - px, ay + dy * t - py
 		local d = qx * qx + qy * qy
-		if d < best then best, bk, bt = d, k, t end
+		if d < best and (not sz or abs(zs[k] + (zs[k + 1] - zs[k]) * t - sz) <= ZTOL) then best, bk, bt = d, k, t end
 	end
 	if best > STRAY * STRAY then return false end
 	local za, zb = zs[bk], zs[bk + 1]
