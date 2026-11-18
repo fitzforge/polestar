@@ -2332,6 +2332,110 @@ local function spawnHeight(st, x, y)
 	return best
 end
 
+-- A point asked at a height with a reach (`reach` yards: Nav/Walk.lua inside the capitals, where a walk asked again
+-- without the goal's height ends on whatever surface is cheapest at its spot: Ironforge's mountain, a roof, the ground
+-- under Stormwind's streets): when no walk reaches its own floor, the walk to (or, for a batch, from) the nearest
+-- surface within `reach` yards on its level (within ZTOL of its height) that one is found for. #2860: the cooking
+-- trainer's platform in the Great Forge, which the maps reach only at its foot. Candidates by their flat distance plus
+-- twice their height's gap, at most REACH_TRIES tries, a candidate within a cell of one tried on the same level
+-- skipped (it settles on the same node). try(q) -> its answer when it is one, else nil. -> q, and try's answer; nil.
+local REACH_TRIES = 6
+local function nearby(map, p, try)
+	local st = State(map)
+	if not st then
+		return nil
+	end
+	local cs, reach, z = st.cs, p.reach, p.z
+	local r, cands = math.ceil(reach / cs), {}
+	for dx = -r, r do
+		for dy = -r, r do
+			local d = sqrt(dx * dx + dy * dy) * cs
+			if d > 0 and d <= reach then
+				local x, y = p.x + dx * cs, p.y + dy * cs
+				for _, h in ipairs(heightsAt(st, x, y)) do
+					local gap = abs(h - z)
+					if gap <= ZTOL then
+						cands[#cands + 1] = { x, y, h, d + 2 * gap, #cands }
+					end
+				end
+			end
+		end
+	end
+	table.sort(cands, function(a, b)
+		if a[4] ~= b[4] then
+			return a[4] < b[4]
+		end
+		return a[5] < b[5]
+	end)
+	local tried = {}
+	for _, c in ipairs(cands) do
+		if #tried >= REACH_TRIES then
+			return nil
+		end
+		local near = false
+		for _, t in ipairs(tried) do
+			if abs(t[1] - c[1]) <= cs and abs(t[2] - c[2]) <= cs and abs(t[3] - c[3]) <= ZTOL then
+				near = true
+				break
+			end
+		end
+		if not near then
+			tried[#tried + 1] = c
+			local q = { x = c[1], y = c[2], z = c[3], map = p.map }
+			local a, b, y = try(q)
+			if a then
+				return q, a, b, y
+			end
+		end
+	end
+	return nil
+end
+
+-- A walk's end left the goal's level: its last engine point (the one before the goal itself) more than ZTOL from z.
+local function offLevel(points, z)
+	local q = type(points) == "table" and points[#points - 1]
+	return type(q) == "table" and type(q.z) == "number" and abs(q.z - z) > ZTOL
+end
+
+-- runMany, and for a batch whose source has a height and a reach (above) that finds no walk at all, the batch again
+-- from the source's nearest surface on its level that finds one (job.reached: { x, y, z }).
+local function runManyReach(map, from, targets, waterWalking, reverse, job, profile, style, danger)
+	local costs, reason, yards = runMany(map, from, targets, waterWalking, reverse, job, profile, style, danger)
+	if not (from.reach and from.z) then
+		return costs, reason, yards
+	end
+	local function any(c)
+		for i = 1, #targets do
+			if type(c[i]) == "number" then
+				return true
+			end
+		end
+		return false
+	end
+	if any(costs) then
+		return costs, reason, yards
+	end
+	local q, c, rr, y = nearby(map, from, function(p)
+		-- (a batch's settled costs are kept: runMany skips a target that has one)
+		if job then
+			for i = 1, #targets do
+				job.costs[i], job.yards[i] = nil, nil
+			end
+		end
+		local c2, r2, y2 = runMany(map, p, targets, waterWalking, reverse, job, profile, style, danger)
+		if any(c2) then
+			return c2, r2, y2
+		end
+	end)
+	if not q then
+		return costs, reason, yards
+	end
+	if job then
+		job.reached = { x = q.x, y = q.y, z = q.z }
+	end
+	return c, rr, y
+end
+
 -- run, and for an end without a height (a map click: no floor said) that finds no walk, the same walk from each
 -- other surface of that end's cell, lowest first, before giving up: a point without a height starts on the
 -- surface its cell's search picks (the base, or the cheapest of those apart in height), which can be a pocket no
@@ -2342,6 +2446,27 @@ end
 local RETRY_SURFACES = 6
 local function runAny(job)
 	local map, from, to = job.map, job.from, job.to
+	-- A goal at a height with a reach (nearby, above): its own floor first; unreachable, or a walk that ends off its
+	-- level, the nearest surface on its level within reach that a walk ends on (job.reached); none: the first answer.
+	if to.reach and to.z then
+		local points, cost = run(map, from, to, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+		if points and (job.costOnly or not offLevel(points, to.z)) then
+			return points, cost
+		end
+		local yards, hubs, avoided = job.yards, job.hubs, job.avoided
+		local q, a, b = nearby(map, to, function(p)
+			local a2, b2 = run(map, from, p, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+			if a2 and (job.costOnly or not offLevel(a2, to.z)) then
+				return a2, b2
+			end
+		end)
+		if q then
+			job.reached = { x = q.x, y = q.y, z = q.z }
+			return a, b
+		end
+		job.yards, job.hubs, job.avoided = yards, hubs, avoided
+		return points, cost
+	end
 	if to.z == nil then
 		local sz = spawnHeight(State(map), to.x, to.y)
 		if sz then
@@ -2391,7 +2516,7 @@ local function start(job)
 	end
 	Expansions(0)
 	if job.targets then
-		return runMany(job.map, job.from, job.targets, job.waterWalking, job.reverse, job, job.profile, job.style, job.danger)
+		return runManyReach(job.map, job.from, job.targets, job.waterWalking, job.reverse, job, job.profile, job.style, job.danger)
 	end
 	if job.coarseOnly then
 		return sketch(job.map, job.from, job.to, job.waterWalking, job.profile, job, job.style, job.danger)
@@ -2453,7 +2578,7 @@ function Path.FindManySync(map, from, targets, opts, reverse)
 	Expansions(0)
 	local saved = scratch()
 	local waterWalking, profile, style, danger = options(opts)
-	local costs, reason, yards = runMany(map, from, targets, waterWalking, reverse, nil, profile, style, danger)
+	local costs, reason, yards = runManyReach(map, from, targets, waterWalking, reverse, nil, profile, style, danger)
 	scratch(saved)
 	return costs, reason, Expansions(), yards
 end

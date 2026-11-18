@@ -9,14 +9,17 @@
 -- zones.json (optional): {"<uiMapID>": the zone's lowest level, ...} (tools/lib/maps/zonelevels.js, as the addon's
 -- Maps.GetZoneLevels), for the routes with a level.
 -- queries.jsonl, one JSON object per line ([x, y, z] points in UnitPosition's frame, z null when unknown):
---   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
---   {"type":"many","id":..,"map":0,"from":[x,y,z],"targets":[[x,y,z],...],"profile":..,"style":..}
+--   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"reach":yd|null,"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
+--   {"type":"many","id":..,"map":0,"from":[x,y,z],"targets":[[x,y,z],...],"reach":yd|null,"reverse":bool|null,"profile":..,"style":..}
+--   (reach: the goal's, for a route; the source's, for a batch: Path.lua's `reach`, the nearest surface on that point's
+--   level within reach yards when no walk reaches its own floor; reverse: the batch's walks from the targets to from)
 --   {"type":"surfaces","id":..,"map":0,"at":[x,y]}  (Path.SurfacesAt: {"n","format","surfaces":[{"z","marks","area","name"}]})
 --   {"type":"trailfloor","id":..,"map":0,"at":[x,y],"reach":4,"near":z|null}  (Path.TrailFloor: {"z","weight"}, null without a trail layer)
 -- out.jsonl: an init line ({"type":"init","files":n,"loadMs":..,"packedKB":..,"profiles":bool}), then one line per
 -- query:
---   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones"}
---   {"type":"many","id","ok","reason","costs":[cost|false,...],"yards":[..]|null,"ms","kb"}
+--   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones","reached"}
+--   {"type":"many","id","ok","reason","costs":[cost|false,...],"yards":[..]|null,"ms","kb","reached"}
+-- reached: [x, y, z] where a walk with a reach ended instead of its point's own floor (job.reached), else null.
 -- yards and hubs are the router's own (job.yards, job.hubs) when it returns them, null otherwise. A search runs
 -- through Path.Find / Path.FindMany with the frame pump driven here and no frame budget, from cleared caches: ms is
 -- the cold search (decoding included), warmMs the same route again, kb Lua memory when the search answered. An error
@@ -311,8 +314,18 @@ end
 -- itself: Find(map, from, to, callback, waterWalking, hazards), no hazards (no profile, style or danger).
 local SPF = os.getenv("NAV_EVAL_SPF") == "1"
 
+-- A job's reached point (Path.lua's reach) as JSON, null for none.
+local function reached(job)
+	local r = type(job) == "table" and job.reached
+	if type(r) ~= "table" then
+		return "null"
+	end
+	return string.format("[%s,%s,%s]", num(r.x), num(r.y), num(r.z))
+end
+
 local function route(q)
 	local from, to = point(q.map, q.from), point(q.map, q.to)
+	if type(q.reach) == "number" then to.reach = q.reach end
 	local danger = not SPF and dangerOf(q.map, from, to, q.level, q.danger) or nil
 	local got
 	local function once()
@@ -337,7 +350,7 @@ local function route(q)
 	local out = {}
 	if not cold then
 		local reason = #errors > 0 and "error: " .. table.concat(errors, "; ") or "no answer"
-		return string.format('{"type":"route","id":%s,"ok":false,"reason":%s,"cost":null,"yards":null,"ms":null,"warmMs":null,"kb":null,"pts":[],"hubs":null,"wet":null,"zones":null,"endZones":%s}', quote(q.id), quote(reason), endZones(q.map, from, to))
+		return string.format('{"type":"route","id":%s,"ok":false,"reason":%s,"cost":null,"yards":null,"ms":null,"warmMs":null,"kb":null,"pts":[],"hubs":null,"wet":null,"zones":null,"endZones":%s,"reached":null}', quote(q.id), quote(reason), endZones(q.map, from, to))
 	end
 	-- An error reported during the query (the client's error handler) fails it.
 	local ok = cold.points ~= nil and #errors == 0
@@ -360,7 +373,7 @@ local function route(q)
 		reason = quote("error: " .. table.concat(errors, "; "))
 	end
 	return string.format(
-		'{"type":"route","id":%s,"ok":%s,"reason":%s,"cost":%s,"yards":%s,"ms":%s,"warmMs":%s,"kb":%s,"pts":[%s],"hubs":%s,"wet":%s,"zones":%s,"endZones":%s}',
+		'{"type":"route","id":%s,"ok":%s,"reason":%s,"cost":%s,"yards":%s,"ms":%s,"warmMs":%s,"kb":%s,"pts":[%s],"hubs":%s,"wet":%s,"zones":%s,"endZones":%s,"reached":%s}',
 		quote(q.id),
 		tostring(ok),
 		reason,
@@ -373,12 +386,14 @@ local function route(q)
 		hubs,
 		ok and num(cold.points.wet) or "null",
 		ok and zoneYards(q.map, cold.points) or "null",
-		endZones(q.map, from, to)
+		endZones(q.map, from, to),
+		reached(job)
 	)
 end
 
 local function many(q)
 	local from = point(q.map, q.from)
+	if type(q.reach) == "number" then from.reach = q.reach end
 	local targets = {}
 	local n = q.targets.n or #q.targets
 	for i = 1, n do
@@ -397,7 +412,7 @@ local function many(q)
 	local start = clock()
 	Path.FindMany(q.map, from, targets, function(costs, reason, job)
 		got = { costs = costs, reason = reason, job = job, ms = clock() - start, kb = collectgarbage("count") }
-	end, opts(q.profile, q.style, danger))
+	end, opts(q.profile, q.style, danger), q.reverse == true)
 	drain()
 	local parts, yards = {}, "null"
 	local costs = got and got.costs or {}
@@ -418,14 +433,15 @@ local function many(q)
 		reason = "error: " .. table.concat(errors, "; ")
 	end
 	return string.format(
-		'{"type":"many","id":%s,"ok":%s,"reason":%s,"costs":[%s],"yards":%s,"ms":%s,"kb":%s}',
+		'{"type":"many","id":%s,"ok":%s,"reason":%s,"costs":[%s],"yards":%s,"ms":%s,"kb":%s,"reached":%s}',
 		quote(q.id),
 		tostring(got ~= nil and reason == nil),
 		quote(reason or (not got and "no answer" or nil)),
 		table.concat(parts, ","),
 		yards,
 		num(got and got.ms, "%.2f"),
-		num(got and got.kb, "%.0f")
+		num(got and got.kb, "%.0f"),
+		reached(job)
 	)
 end
 

@@ -669,6 +669,7 @@ L["Player"] = "Jugador"
 L["Cursor"] = "Cursor"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 L["Search here"] = "Busca aquí"
 L["Arrived"] = "Llegaste"
 L["Click the arrow for the next spot"] = "Haz clic en la flecha para el siguiente lugar"
