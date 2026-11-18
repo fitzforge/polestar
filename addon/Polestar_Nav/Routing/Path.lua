@@ -869,13 +869,16 @@ end
 -- Lifts: the walking grid has no links between a lift's landings (the car moves, the ground does not), so the
 -- searches join them here. The pack's lift chokepoints (PolestarNavChokepoints[map], Nav/Chokepoints.lua: kind
 -- "lift", liftEnd "bottom" with pair, the index of its "top" landing, each with its height) give each lift's
--- landings; a ride between a bottom landing and its top, either way, costs LIFT_COST (an average wait and the ride at
--- run speed) and adds the yards between them. A landing is an abstract vertex (LIFT_ID + its index) joined to its
+-- landings; a ride between a bottom landing and its top, either way, costs its seconds at run speed (the landing's
+-- `ride`: the ride and the average wait for the car, from the client's lift animation: the Undercity's 7.6 s, Thunder
+-- Bluff's and the Great Lift's 20.4 s; LIFT_COST, 25 s, for a landing without one) and adds the yards between them.
+-- A landing is an abstract vertex (LIFT_ID + its index) joined to its
 -- cluster's entrances by a grid Dijkstra from it (kept per profile, style and water mode: a few numbers a landing,
 -- LIFT_ENDS at most), and to a start or goal in its cluster by their own trees or one A* inside the cluster. A
 -- drawn line keeps both landings: straightening never jumps floors (PathGrid's sight), so Nav/Walk.lua finds the
 -- ride on it.
-local LIFT_COST = 175 -- 25 s (wait and ride) at 7 yd/s
+local LIFT_SPEED = 7 -- yd/s: a ride's seconds priced as yards at run speed
+local LIFT_COST = 25 * LIFT_SPEED -- a ride without its seconds
 local LIFT_ID = 1073741824 -- landing i's vertex is LIFT_ID + i, above every entrance id
 local LIFT_ENDS = 64
 -- The longest walk a search looks for: DETOUR times the straight line plus DETOUR_YD yards (run's abstract A*).
@@ -884,8 +887,8 @@ local DETOUR, DETOUR_YD = 8, 2000
 -- objective, where the win is; a far walk's cost is usually well over the first bound, so it takes the full tree.
 local BOUNDED_YARDS = 400
 
--- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... } }, byCluster = { [k] =
--- { i, ... } } }.
+-- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... }, ride = { [j] = cost } },
+-- byCluster = { [k] = { i, ... } } }: ride[j] the ride's cost to partner j (its seconds at run speed, else LIFT_COST).
 local function liftsOf(st, map)
 	local L = st.lifts
 	if L then
@@ -907,7 +910,7 @@ local function liftsOf(st, map)
 				return nil
 			end
 			local i = #L + 1
-			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {} }, i
+			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {}, ride = {} }, i
 			local here = L.byCluster[k] or {}
 			L.byCluster[k], here[#here + 1] = here, i
 			return i
@@ -918,8 +921,11 @@ local function liftsOf(st, map)
 			if type(top) == "table" and top.kind == "lift" and top.liftEnd == "top" then
 				local a, b = landing(e), landing(top)
 				if a and b then
+					local seconds = type(e.ride) == "number" and e.ride > 0 and e.ride or type(top.ride) == "number" and top.ride > 0 and top.ride
+					local cost = seconds and seconds * LIFT_SPEED or LIFT_COST
 					local pa, pb = L[a].partners, L[b].partners
 					pa[#pa + 1], pb[#pb + 1] = b, a
+					L[a].ride[b], L[b].ride[a] = cost, cost
 				end
 			end
 		end
@@ -1367,7 +1373,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 						local l = lifts[i]
 						for _, j in ipairs(l.partners) do
 							local p = lifts[j]
-							relax(LIFT_ID + j, gu + LIFT_COST, yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
+							relax(LIFT_ID + j, gu + (l.ride[j] or LIFT_COST), yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
 						end
 						local land = landingEnds(st, swim, mult, lifts, i)
 						if land then
@@ -1579,7 +1585,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 end
 
 -- FindCoarse: the walk's shape from the entrance graph alone, no grid decoded or searched. A* from the start to the
--- goal over the entrances (their edges priced as run's) and lift landings (a ride LIFT_COST), the start joined to
+-- goal over the entrances (their edges priced as run's) and lift landings (a ride its cost, liftsOf), the start joined to
 -- every entrance and landing of its cluster and the goal to those of its, and a landing to its cluster's entrances,
 -- at their straight (octile) yards: no grid Dijkstra from an endpoint or a landing, which is most of a cold search.
 -- The line is the start, each entrance (the middle of its cell) and landing (with its height) on the way, and the
@@ -1668,7 +1674,7 @@ local function sketch(map, from, to, waterWalking, profile, job, style, danger)
 				local l = lifts[u - LIFT_ID]
 				k = l.k
 				for _, j in ipairs(l.partners) do
-					relax(LIFT_ID + j, gu + LIFT_COST, u)
+					relax(LIFT_ID + j, gu + (l.ride[j] or LIFT_COST), u)
 				end
 				join(k, ux, uy, gu, u)
 			else
@@ -1890,7 +1896,7 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 				local l = lifts[u - LIFT_ID]
 				for _, j in ipairs(l.partners) do
 					local p = lifts[j]
-					relax(LIFT_ID + j, dist[u] + LIFT_COST, dyards[u] + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2))
+					relax(LIFT_ID + j, dist[u] + (l.ride[j] or LIFT_COST), dyards[u] + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2))
 				end
 				local land = landingEnds(st, swim, mult, lifts, u - LIFT_ID)
 				if land then
