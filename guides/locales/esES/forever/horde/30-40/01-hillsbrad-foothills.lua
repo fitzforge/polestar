@@ -159,7 +159,7 @@ return {
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado. {npc:2449} pasea junto a la herrería; {npc:2451} trabaja el campo al sureste del pueblo."
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {npc:2449} Citizen Wilkes
 	["{npc:2449}, on the west side of the town"] = "",
 

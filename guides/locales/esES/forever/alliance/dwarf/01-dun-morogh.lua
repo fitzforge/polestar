@@ -416,7 +416,7 @@ return {
 	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "",
 
 	-- Step 83: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "El puesto del túnel",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
 	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
 

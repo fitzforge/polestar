@@ -66,7 +66,7 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, en el balcón junto a MacKinley",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 11: Kebok
 	-- {npc:737} Kebok

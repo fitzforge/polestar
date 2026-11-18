@@ -9,7 +9,7 @@ return {
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Acampa junto a {area:202}, al sureste de {area:200}.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 2: Diseased Wolves
 	["Diseased Wolves"] = "Lobos malsanos",

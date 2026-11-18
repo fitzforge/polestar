@@ -375,7 +375,7 @@ return {
 	-- {npc:273017} Fendaal Windstone
 	["North-west of Valanaar along the road, past {npc:273017}: the dead cultist lies just north of him."] = "Al noroeste de Valanaar, siguiendo el camino, pasado {npc:273017}: el cultor muerto yace justo al norte de él.",
 	["Search the dead cultist"] = "Registra al cultor muerto",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {npc:258443} Ur'endra
 	["{npc:258443}, in the highlands south-west of the cultist"] = "{npc:258443}, en las tierras altas al suroeste del cultor",
 

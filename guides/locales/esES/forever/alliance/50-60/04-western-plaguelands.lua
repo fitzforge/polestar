@@ -81,7 +81,7 @@ return {
 
 	-- Step 17: Mulgris Deepriver
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Te perdiste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 20: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Griseznos malsanos",

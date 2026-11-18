@@ -37,7 +37,7 @@ return {
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "De vuelta a {area:348}: los huevos de grifo perdidos están en las colinas justo al este del aviario.",
 
 	-- Step 6: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, dentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep

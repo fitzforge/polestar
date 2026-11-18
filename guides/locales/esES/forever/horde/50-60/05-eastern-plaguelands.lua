@@ -25,7 +25,7 @@ return {
 	-- Step 6: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La cabeza de la muñeca y sus dos costados están en las casas alrededor de {npc:10926}; únelos desde tus bolsas.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 7: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel

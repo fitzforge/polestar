@@ -78,7 +78,7 @@ return {
 	-- Step 13: Gol'dir
 	-- {quest:535} Valik · {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north up the road past {quest:535}'s camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "Sube al norte por el camino, más allá del campamento de {quest:535}, hasta {area:280}, el pueblo en manos del Sindicato (35-37). {npc:2431} lleva la {item:3704}; {quest:503} está en una jaula en la casa del lado norte.\nCuidado: espías sigilosos del Sindicato recorren {area:280}, y los edificios están llenos de enemigos del Sindicato, magos entre ellos.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {quest:503} Gol'dir
 	["Find where {quest:503} is held, on the top floor"] = "",
 	-- {quest:503} Gol'dir

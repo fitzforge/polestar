@@ -247,7 +247,7 @@ return {
 	-- Step 47: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Ve al este hasta {area:599}. Debilita a un cultista Filo Ardiente y usa la {item:6436} sobre él antes de que muera para llenar una {item:6435}. El {npc:13019} está en el piso superior de la fortaleza con el Cetro. Los cultistas también sueltan a veces una {item:20310} (1-5%); si te sale una, léela. Deja por ahora el {object:176581} rojo: su {npc:11876} es de nivel 37, y la segunda visita a {zone:1443} vuelve a por él.",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 
 	-- Step 48: Ethel Rethor
 	-- {npc:11863} Azore Aldamort

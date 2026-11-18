@@ -156,7 +156,7 @@ return {
 
 	-- Step 34: Menethil Harbor
 	["West along the road to Menethil."] = "Al oeste por el camino hasta Puerto de Menethil.",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 
 	-- Step 35: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
@@ -230,7 +230,7 @@ return {
 
 	-- Step 46: Farren
 	["Farren"] = "Teniente Farren Orinelle",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 47: Murloc heads
 	["Murloc heads"] = "Cabezas de múrloc",

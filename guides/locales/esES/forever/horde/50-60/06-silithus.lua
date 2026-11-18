@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: The Spirits of Southwind
 	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 8: Level 57
 	["Level 57"] = "Nivel 57",

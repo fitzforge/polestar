@@ -108,7 +108,7 @@ return {
 	-- Step 20: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "La casa de {npc:276} está en el extremo este del pueblo, de camino al maestro de vuelo.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 21: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

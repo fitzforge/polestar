@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143} espera dentro de El Cubil, el edificio justo al oeste de {npc:10176}.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, donde empiezas",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "Armas de entrenamiento y jabalíes",

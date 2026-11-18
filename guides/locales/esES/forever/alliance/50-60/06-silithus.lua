@@ -89,7 +89,7 @@ return {
 	-- Step 17: The Emerald Sanctuary
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
 	["From {area:3137} ride into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "Desde {area:3137}, cabalga hasta {zone:1448}: {area:2479} es el campamento de los druidas en el camino, justo pasada la frontera de {zone:1440}.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Espera un momento a {npc:9116}",
 
