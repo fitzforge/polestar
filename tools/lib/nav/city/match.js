@@ -19,6 +19,11 @@
 // sessions, u32 passes), trips.json (walks between stops), gaps.json (grid holes), stats.json, graph.json (the graph's
 // box, to check the gate builds the same one). People are split by a hash of their contributor id: 1 in 5 held out
 // (`test`), never counted in the training counts. PRIVATE outputs.
+//
+//   segmentsOf(session, map, frames, npcZ, cut, { stops }) -> pieces of continuous on-foot movement: [{ t, wx, wy, flags,
+//     z (an anchor's NPC height), kind, npc, stop }]; stops: extra event kinds that end a walk (world trips: objective
+//     ticks, gathering) besides NPC windows and flights
+//   makeMatcher(g, { prior }) -> { viterbi(seg, st), expand(seg, piece, st, gaps, wi, test) -> { full, at } }
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -54,87 +59,77 @@ function spawnHeight(spawnz, c) {
 	};
 }
 
-function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
-	const t0 = Date.now();
-	const city = CITIES[map];
-	const out = path.join(priv, String(map));
-	fs.mkdirSync(out, { recursive: true });
-	const g = AreaGraph.forMap(map, { grid, frames });
-	const npcZ = spawnHeight(spawnz, g.c);
-	log(`${city ? city.name : map}: graph ${g.n} nodes, ${g.m} edges`);
-	const sessions = fs.readFileSync(path.join(priv, `${map}.jsonl`), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
-	sessions.sort((a, b) => (a.who < b.who ? -1 : a.who > b.who ? 1 : a.sid < b.sid ? -1 : 1));
-	const whoIdx = new Map();
-	for (const s of sessions) if (!whoIdx.has(s.who)) whoIdx.set(s.who, whoIdx.size);
+const blankCut = () => ({ samples: 0, dead: 0, mounted: 0, swim: 0, seconds: 0, segments: 0, breaks: { gap: 0, speed: 0, event: 0, nomatch: 0, anchor: 0 }, anchors: 0, anchorsWithZ: 0 });
 
-	const blank = () => ({ samples: 0, dead: 0, mounted: 0, swim: 0, seconds: 0, segments: 0, breaks: { gap: 0, speed: 0, event: 0, nomatch: 0, anchor: 0 }, anchors: 0, anchorsWithZ: 0 });
-	const cut = blank();
-	const segsOf = sessions.map((s) => {
-		const segs = [];
-		let cur = [];
-		const flush = () => {
-			if (cur.length >= 2) segs.push(cur);
-			cur = [];
-		};
-		for (const [t, k, m, x, y, fl, , ex] of s.ev) {
-			if (BREAK_KINDS.has(k) || (k === 'ride' && ex && ex.on)) {
-				if (STOP_KINDS.has(k) && m === map && x !== null && cur.length) {
-					const [wx, wy] = toWorld(frames, map, x, y);
-					cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
-				}
-				if (cur.length) cut.breaks.event++;
-				flush();
-				if (k === 'land' && m === map && x !== null) {
-					const [wx, wy] = toWorld(frames, map, x, y);
-					cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
-				}
-				continue;
+function segmentsOf(s, map, frames, npcZ, cut = blankCut(), { stops = null } = {}) {
+	const segs = [];
+	let cur = [];
+	const flush = () => {
+		if (cur.length >= 2) segs.push(cur);
+		cur = [];
+	};
+	for (const [t, k, m, x, y, fl, , ex] of s.ev) {
+		if (BREAK_KINDS.has(k) || (k === 'ride' && ex && ex.on)) {
+			if ((STOP_KINDS.has(k) || (stops && stops.has(k))) && m === map && x !== null && cur.length) {
+				const [wx, wy] = toWorld(frames, map, x, y);
+				cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
 			}
-			if (m !== map || x === null || x === undefined) {
-				if (m !== null && m !== undefined && m !== map) flush();
-				continue;
+			if (cur.length) cut.breaks.event++;
+			flush();
+			if (k === 'land' && m === map && x !== null) {
+				const [wx, wy] = toWorld(frames, map, x, y);
+				cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
 			}
-			const [wx, wy] = toWorld(frames, map, x, y);
-			if (k === 'pos') {
-				cut.samples++;
-				if (fl !== null && fl & 32) {
-					cut.dead++;
-					flush();
-					continue;
-				}
-				if (fl !== null && fl & 1) cut.mounted++;
-				if (fl !== null && fl & 2) cut.swim++;
-				const last = cur[cur.length - 1];
-				if (last) {
-					const dt = t - last.t;
-					const d = Math.hypot(wx - last.wx, wy - last.wy);
-					if (dt > 180) {
-						cut.breaks.gap++;
-						flush();
-					} else if (d > 4 + 30 * Math.max(dt, 1)) {
-						cut.breaks.speed++;
-						flush();
-					} else if (dt < 60) cut.seconds += dt;
-				}
-				cur.push({ t, wx, wy, flags: fl === undefined ? null : fl, z: null, kind: 'pos' });
-			} else if (ANCHOR_KINDS.has(k) && ex && ex.npc) {
-				cut.anchors++;
-				const z = npcZ(ex.npc, wx, wy);
-				if (z !== null) cut.anchorsWithZ++;
-				const last = cur[cur.length - 1];
-				if (last && Math.hypot(wx - last.wx, wy - last.wy) < 0.5 && last.npc === ex.npc) continue;
-				cur.push({ t, wx, wy, flags: null, z, kind: k, npc: ex.npc, stop: true });
-			}
+			continue;
 		}
-		flush();
-		cut.segments += segs.length;
-		return segs;
-	});
+		if (m !== map || x === null || x === undefined) {
+			if (m !== null && m !== undefined && m !== map) flush();
+			continue;
+		}
+		const [wx, wy] = toWorld(frames, map, x, y);
+		if (k === 'pos') {
+			cut.samples++;
+			if (fl !== null && fl & 32) {
+				cut.dead++;
+				flush();
+				continue;
+			}
+			if (fl !== null && fl & 1) cut.mounted++;
+			if (fl !== null && fl & 2) cut.swim++;
+			const last = cur[cur.length - 1];
+			if (last) {
+				const dt = t - last.t;
+				const d = Math.hypot(wx - last.wx, wy - last.wy);
+				if (dt > 180) {
+					cut.breaks.gap++;
+					flush();
+				} else if (d > 4 + 30 * Math.max(dt, 1)) {
+					cut.breaks.speed++;
+					flush();
+				} else if (dt < 60) cut.seconds += dt;
+			}
+			cur.push({ t, wx, wy, flags: fl === undefined ? null : fl, z: null, kind: 'pos' });
+		} else if (ANCHOR_KINDS.has(k) && ex && ex.npc) {
+			cut.anchors++;
+			const z = npcZ(ex.npc, wx, wy);
+			if (z !== null) cut.anchorsWithZ++;
+			const last = cur[cur.length - 1];
+			if (last && Math.hypot(wx - last.wx, wy - last.wy) < 0.5 && last.npc === ex.npc) continue;
+			cur.push({ t, wx, wy, flags: null, z, kind: k, npc: ex.npc, stop: true });
+		} else if (stops && stops.has(k)) {
+			const last = cur[cur.length - 1];
+			if (last && last.kind === k && Math.hypot(wx - last.wx, wy - last.wy) < 20) continue;
+			cur.push({ t, wx, wy, flags: null, z: null, kind: k, npc: null, stop: true });
+		}
+	}
+	flush();
+	cut.segments += segs.length;
+	return segs;
+}
 
-	const anch = new Uint16Array(g.n);
-	let colAnch = null;
-	let pass = 1;
-
+// The matcher of one graph. prior (optional): { anch: Uint16Array per node, colAnch: Uint8Array per column }, pass 2's
+// floor prior.
+function makeMatcher(g, { prior = null } = {}) {
 	function candidatesFor(s) {
 		const ci = g.colIndex(s.wx, s.wy);
 		if (ci < 0) return [];
@@ -173,7 +168,7 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 				}
 			}
 		}
-		if (pass === 2 && !anch[v] && colAnch[g.ncol[v]]) c += OFF_ANCHORED;
+		if (prior && !prior.anch[v] && prior.colAnch[g.ncol[v]]) c += OFF_ANCHORED;
 		if (s.z !== null) {
 			const dz = Math.abs(g.nz[v] - s.z);
 			if (dz > 4) c += 50 + 10 * (dz - 4);
@@ -260,17 +255,77 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 			}
 		}
 		finish(K - 1);
-		return { cand, pieces };
+		return pieces;
 	}
 
-	function pathBetween(a, b, A, B) {
-		if (a === b) return [a];
-		g.search([[a, 0]], [b], { goal: g.local(B.wx, B.wy), bound: 2.5 * Math.hypot(B.wx - A.wx, B.wy - A.wy) + 31 });
-		return g.pathTo(b);
+	// A piece's walk on the grid through its samples (a jump adds the next sample's surface alone): full node list and,
+	// per sample, its index in it. Grid holes go to gaps.
+	function expand(seg, pc, st, gaps, wi, test) {
+		const n = pc.to - pc.from + 1;
+		const full = [pc.nodes[0]];
+		const at = [0];
+		for (let i = 1; i < n; i++) {
+			const a = pc.nodes[i - 1];
+			const b = pc.nodes[i];
+			const A = seg[pc.from + i - 1];
+			const B = seg[pc.from + i];
+			if (pc.jumps.has(i)) {
+				st.jumps++;
+				if (gaps) gaps.push({ a: [+A.wx.toFixed(1), +A.wy.toFixed(1)], b: [+B.wx.toFixed(1), +B.wy.toFixed(1)], za: +g.nz[a].toFixed(1), zb: +g.nz[b].toFixed(1), chord: +Math.hypot(A.wx - B.wx, A.wy - B.wy).toFixed(1), dt: +(B.t - A.t).toFixed(1), who: wi, test });
+				full.push(b);
+			} else if (a === b) {
+				// same surface
+			} else {
+				g.search([[a, 0]], [b], { goal: g.local(B.wx, B.wy), bound: 2.5 * Math.hypot(B.wx - A.wx, B.wy - A.wy) + 31 });
+				const p = g.pathTo(b);
+				if (p) for (let q = 1; q < p.length; q++) full.push(p[q]);
+				else full.push(b);
+			}
+			at.push(full.length - 1);
+		}
+		return { full, at };
 	}
 
-	function run() {
-		const st = { ...blank(), matched: 0, jumps: 0, samplesInAnchoredSegments: 0, indoorFlagged: 0, indoorAgree: 0 };
+	return { viterbi, expand };
+}
+
+// A walk between two stops of a matched piece, or null when it is not one: stops at least 50 yd apart with 2+
+// breadcrumbs between, a different NPC at each end.
+function tripOf(g, seg, pc, full, at, lastStop, i) {
+	const A = seg[pc.from + lastStop];
+	const B = seg[pc.from + i];
+	const straight = Math.hypot(A.wx - B.wx, A.wy - B.wy);
+	if (straight < 50 || i - lastStop - 1 < 2 || (A.npc && A.npc === B.npc)) return null;
+	const sub = full.slice(at[lastStop], at[i] + 1);
+	let jumps = 0;
+	for (let q = lastStop + 1; q <= i; q++) if (pc.jumps.has(q)) jumps++;
+	return {
+		t: [A.t, B.t], jumps,
+		A: { wx: A.wx, wy: A.wy, z: g.nz[pc.nodes[lastStop]], node: pc.nodes[lastStop], kind: A.kind, npc: A.npc, anchored: A.z !== null },
+		B: { wx: B.wx, wy: B.wy, z: g.nz[pc.nodes[i]], node: pc.nodes[i], kind: B.kind, npc: B.npc, anchored: B.z !== null },
+		straight, L: g.pathYards(sub), dt: B.t - A.t, nPos: i - lastStop - 1, path: sub,
+		samples: seg.slice(pc.from + lastStop, pc.from + i + 1).map((x) => [+x.wx.toFixed(1), +x.wy.toFixed(1)]),
+	};
+}
+
+function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
+	const t0 = Date.now();
+	const city = CITIES[map];
+	const out = path.join(priv, String(map));
+	fs.mkdirSync(out, { recursive: true });
+	const g = AreaGraph.forMap(map, { grid, frames });
+	const npcZ = spawnHeight(spawnz, g.c);
+	log(`${city ? city.name : map}: graph ${g.n} nodes, ${g.m} edges`);
+	const sessions = fs.readFileSync(path.join(priv, `${map}.jsonl`), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
+	sessions.sort((a, b) => (a.who < b.who ? -1 : a.who > b.who ? 1 : a.sid < b.sid ? -1 : 1));
+	const whoIdx = new Map();
+	for (const s of sessions) if (!whoIdx.has(s.who)) whoIdx.set(s.who, whoIdx.size);
+	const cut = blankCut();
+	const segsOf = sessions.map((s) => segmentsOf(s, map, frames, npcZ, cut));
+
+	function run(pass, prior) {
+		const m = makeMatcher(g, { prior });
+		const st = { ...blankCut(), matched: 0, jumps: 0, samplesInAnchoredSegments: 0, indoorFlagged: 0, indoorAgree: 0 };
 		const people = new Uint16Array(g.n);
 		const peopleTrain = new Uint16Array(g.n);
 		const sess = new Uint32Array(g.n);
@@ -283,9 +338,7 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 			const wi = whoIdx.get(s.who);
 			const test = isTest(s.who);
 			for (const seg of segsOf[sIdx]) {
-				const { pieces } = viterbi(seg, st);
-				for (const pc of pieces) {
-					const n = pc.to - pc.from + 1;
+				for (const pc of m.viterbi(seg, st)) {
 					const piece = seg.slice(pc.from, pc.to + 1);
 					const anchored = piece.some((x) => x.z !== null);
 					if (pass === 1 && !anchored) continue;
@@ -298,24 +351,7 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 							if (g.nflags[pc.nodes[i]] & FLAG.INDOOR) st.indoorAgree++;
 						}
 					});
-					const full = [pc.nodes[0]];
-					const at = [0];
-					for (let i = 1; i < n; i++) {
-						const a = pc.nodes[i - 1];
-						const b = pc.nodes[i];
-						const A = seg[pc.from + i - 1];
-						const B = seg[pc.from + i];
-						if (pc.jumps.has(i)) {
-							st.jumps++;
-							gaps.push({ a: [+A.wx.toFixed(1), +A.wy.toFixed(1)], b: [+B.wx.toFixed(1), +B.wy.toFixed(1)], za: +g.nz[a].toFixed(1), zb: +g.nz[b].toFixed(1), chord: +Math.hypot(A.wx - B.wx, A.wy - B.wy).toFixed(1), dt: +(B.t - A.t).toFixed(1), who: wi, test });
-							full.push(b);
-						} else {
-							const p = pathBetween(a, b, A, B);
-							if (p) for (let q = 1; q < p.length; q++) full.push(p[q]);
-							else full.push(b);
-						}
-						at.push(full.length - 1);
-					}
+					const { full, at } = m.expand(seg, pc, st, gaps, wi, test);
 					for (const v of full) {
 						passes[v]++;
 						if (lastSess[v] !== sIdx) {
@@ -330,24 +366,11 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 					}
 					if (pass === 1) continue;
 					let lastStop = -1;
-					for (let i = 0; i < n; i++) {
-						const smp = seg[pc.from + i];
-						if (!smp.stop) continue;
+					for (let i = 0; i < piece.length; i++) {
+						if (!piece[i].stop) continue;
 						if (lastStop >= 0) {
-							const A = seg[pc.from + lastStop];
-							const straight = Math.hypot(A.wx - smp.wx, A.wy - smp.wy);
-							const sub = full.slice(at[lastStop], at[i] + 1);
-							let jumps = 0;
-							for (let q = lastStop + 1; q <= i; q++) if (pc.jumps.has(q)) jumps++;
-							if (straight >= 50 && i - lastStop - 1 >= 2 && !(A.npc && A.npc === smp.npc)) {
-								trips.push({
-									who: wi, test, sid: sIdx, t: [A.t, smp.t], jumps, fac: s.fac,
-									A: { wx: A.wx, wy: A.wy, z: g.nz[pc.nodes[lastStop]], node: pc.nodes[lastStop], kind: A.kind, npc: A.npc, anchored: A.z !== null },
-									B: { wx: smp.wx, wy: smp.wy, z: g.nz[pc.nodes[i]], node: pc.nodes[i], kind: smp.kind, npc: smp.npc, anchored: smp.z !== null },
-									straight, L: g.pathYards(sub), dt: smp.t - A.t, nPos: i - lastStop - 1, path: sub,
-									samples: seg.slice(pc.from + lastStop, pc.from + i + 1).map((x) => [+x.wx.toFixed(1), +x.wy.toFixed(1)]),
-								});
-							}
+							const t = tripOf(g, seg, pc, full, at, lastStop, i);
+							if (t) trips.push({ who: wi, test, sid: sIdx, fac: s.fac, ...t });
 						}
 						lastStop = i;
 					}
@@ -358,14 +381,11 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 		return { st, people, peopleTrain, sess, passes, trips, gaps };
 	}
 
-	let r = run();
-	anch.set(r.people);
-	colAnch = new Uint8Array(g.W * g.H);
-	for (let v = 0; v < g.n; v++) if (anch[v]) colAnch[g.ncol[v]] = 1;
-	const pass1 = { matched: r.st.matched, surfaces: anch.reduce((s, x) => s + (x > 0), 0) };
-	pass = 2;
-	r = run();
-	const { st, people, peopleTrain, sess, passes, trips, gaps } = r;
+	const r1 = run(1, null);
+	const colAnch = new Uint8Array(g.W * g.H);
+	for (let v = 0; v < g.n; v++) if (r1.people[v]) colAnch[g.ncol[v]] = 1;
+	const pass1 = { matched: r1.st.matched, surfaces: r1.people.reduce((s, x) => s + (x > 0), 0) };
+	const { st, people, peopleTrain, sess, passes, trips, gaps } = run(2, { anch: r1.people, colAnch });
 	const buf = Buffer.alloc(g.n * 12);
 	for (let v = 0; v < g.n; v++) {
 		buf.writeUInt16LE(people[v], 12 * v);
@@ -386,4 +406,4 @@ function matchArea({ map, grid, frames, spawnz, priv, log = () => {} }) {
 	return stats;
 }
 
-module.exports = { matchArea, spawnHeight, isTest };
+module.exports = { matchArea, spawnHeight, isTest, segmentsOf, makeMatcher, tripOf, blankCut, ANCHOR_KINDS };

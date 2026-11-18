@@ -299,72 +299,141 @@ function failOf(x, t) {
 	return null;
 }
 
-function gate({ priv, nav, ground = null, grid, frames, spawnz, npcs = {}, maps = Object.keys(CITIES).map(Number), arms = ['GAME', 'WALK', 'E0', 'E2', 'P3'], policy = 'legacy', log = () => {} }) {
+// The router's answers for trips ({ i, c, side, A, B }) under each arm but the desire paths: { arm: [answer per trip] }.
+// dirs: { nav (the gate's folder), ground (G1's), spf (a Shortest Path Forever checkout: the SPF arm, true floors) }.
+async function runArms({ trips, arms, dirs, spawnz, policy }) {
+	const navRun = (dir, queries) => (queries.length ? run.runQueries({ navDir: dir, queries }).results : []);
+	const route = (t, id, from, to, extra = {}) => ({ type: 'route', id, map: t.c, from, to, profile: t.side || null, style: 'balanced', level: null, danger: null, ...extra });
+	const A = (t, z) => [t.A.wx, t.A.wy, z === undefined ? null : z];
+	const B = (t, z) => [t.B.wx, t.B.wy, z === undefined ? null : z];
+	const npcZs = new Map();
+	const npcZ = (t, e) => {
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
+	};
+	// trail floors (Path.TrailFloor) at every trip end, for WALK
+	let tf = new Map();
+	if (arms.includes('WALK')) {
+		const q = [];
+		for (const t of trips) {
+			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: null });
+			q.push({ type: 'trailfloor', id: `b${t.i}`, map: t.c, at: [t.B.wx, t.B.wy], reach: 4, near: null });
+		}
+		tf = new Map(navRun(dirs.nav, q).map((r) => [r.id, r.z]));
+	}
+	const startOf = (t, arm) => {
+		if (arm === 'GAME' || arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.A.z;
+		if (arm === 'E0') return null;
+		const nz = npcZ(t, t.A);
+		return nz !== null ? nz : tf.get(`a${t.i}`);
+	};
+	const goalOf = (t, arm) => {
+		if (arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.B.z;
+		if (arm === 'E0') return null;
+		const nz = npcZ(t, t.B);
+		if (nz !== null) return nz;
+		return arm === 'WALK' ? tf.get(`b${t.i}`) : null;
+	};
+	const res = {};
+	for (const arm of arms) {
+		if (PROTO[arm]) continue;
+		const queries = trips.map((t) => route(t, `${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), (arm === 'GAME' || arm === 'WALK') && policy === 'a2' ? { reach: 10 } : {}));
+		if (arm === 'SPF') {
+			if (!dirs.spf) continue;
+			const { harness } = require('../eval/broad');
+			res.SPF = (await harness({ navDir: dirs.spf, queries, lua: run.findInterpreter(), tag: 'citygate', spf: true })).results;
+			continue;
+		}
+		const dir = arm === 'G1' ? dirs.ground : dirs.nav;
+		if (!dir) continue;
+		const first = navRun(dir, queries);
+		if ((arm === 'GAME' || arm === 'WALK') && policy === 'legacy') {
+			const again = [];
+			first.forEach((r, k) => {
+				const gz = goalOf(trips[k], arm);
+				if (gz === null || gz === undefined) return;
+				const off = r.ok && r.pts.length && Math.abs(r.pts[r.pts.length - 1][2] - gz) > Z_OFF;
+				if (!r.ok || off) again.push(k);
+			});
+			const second = navRun(dir, again.map((k) => route(trips[k], `${arm}|${trips[k].i}|retry`, A(trips[k], startOf(trips[k], arm)), B(trips[k], null))));
+			again.forEach((k, j) => (first[k] = { ...second[j], retried: true }));
+		}
+		res[arm] = first;
+	}
+	return res;
+}
+
+async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, maps = Object.keys(CITIES).map(Number), arms = ['GAME', 'WALK', 'E0', 'E2', 'P3'], policy = 'legacy', log = () => {} }) {
 	const report = { nav: path.resolve(nav), policy, arms, maps: {} };
 	const gn = gateNav(path.resolve(nav), priv);
 	report.trails = gn.dir !== path.resolve(nav) ? 'training people only (<priv>/Trails-train.lua)' : "the folder's own";
-	for (const map of maps) {
-		const city = CITIES[map];
-		const t0 = Date.now();
-		const area = loadArea(priv, map, grid, frames);
-		const { g, trips } = area;
-		const npcZ = spawnHeight(spawnz, city.c);
-		const navRun = (dir, queries) => run.runQueries({ navDir: dir, queries }).results;
-		const route = (id, from, to, extra = {}) => ({ type: 'route', id, map: city.c, from, to, profile: city.side, style: 'balanced', level: null, danger: null, ...extra });
-		const A = (t, z) => [t.A.wx, t.A.wy, z === undefined ? null : z];
-		const B = (t, z) => [t.B.wx, t.B.wy, z === undefined ? null : z];
-		// trail floors (Path.TrailFloor) at every trip end, for WALK
-		let tf = null;
-		if (arms.includes('WALK')) {
-			const q = [];
-			trips.forEach((t) => {
-				q.push({ type: 'trailfloor', id: `a${t.i}`, map: city.c, at: [t.A.wx, t.A.wy], reach: 4, near: null });
-				q.push({ type: 'trailfloor', id: `b${t.i}`, map: city.c, at: [t.B.wx, t.B.wy], reach: 4, near: null });
-			});
-			tf = new Map(navRun(gn.dir, q).map((r) => [r.id, r.z]));
+	try {
+		for (const map of maps) {
+			const city = CITIES[map];
+			const t0 = Date.now();
+			const area = loadArea(priv, map, grid, frames);
+			const trips = area.trips.map((t) => ({ ...t, c: city.c, side: city.side }));
+			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy });
+			const rows = scoreRows(area, trips, res, protosFor(area, arms));
+			const summary = summarize(rows, map, frames, npcs);
+			report.maps[map] = { name: city.name, trips: rows.length, summary, rows, seconds: Math.round((Date.now() - t0) / 1000) };
+			log(`${city.name}: ${Object.entries(summary).map(([a, s]) => `${a} ${s.fails}/${rows.length}`).join(', ')} (${report.maps[map].seconds} s)`);
 		}
-		const startOf = (t, arm) => {
-			if (arm === 'GAME' || arm === 'E2' || arm === 'G1') return t.A.z;
-			if (arm === 'E0') return null;
-			const nz = npcZ(t.A.npc, t.A.wx, t.A.wy);
-			return nz !== null ? nz : tf.get(`a${t.i}`);
-		};
-		const goalOf = (t, arm) => {
-			if (arm === 'E2' || arm === 'G1') return t.B.z;
-			if (arm === 'E0') return null;
-			const nz = npcZ(t.B.npc, t.B.wx, t.B.wy);
-			if (nz !== null) return nz;
-			return arm === 'WALK' ? tf.get(`b${t.i}`) : null;
-		};
-		const res = {};
-		for (const arm of arms) {
-			if (PROTO[arm]) continue;
-			const dir = arm === 'G1' ? ground : gn.dir;
-			if (!dir) continue;
-			const policied = arm === 'GAME' || arm === 'WALK';
-			const first = navRun(dir, trips.map((t) => route(`${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), policied && policy === 'a2' ? { reach: 10 } : {})));
-			if (policied && policy === 'legacy') {
-				const again = [];
-				first.forEach((r, k) => {
-					const t = trips[k];
-					const gz = goalOf(t, arm);
-					if (gz === null || gz === undefined) return;
-					const off = r.ok && r.pts.length && Math.abs(r.pts[r.pts.length - 1][2] - gz) > Z_OFF;
-					if (!r.ok || off) again.push(k);
-				});
-				if (again.length) {
-					const second = navRun(dir, again.map((k) => route(`${arm}|${k}|retry`, A(trips[k], startOf(trips[k], arm)), B(trips[k], null))));
-					again.forEach((k, j) => (first[k] = { ...second[j], retried: true }));
-				}
-			}
-			res[arm] = first;
-		}
-		const rows = scoreRows(area, trips, res, protosFor(area, arms));
-		const summary = summarize(rows, map, frames, npcs);
-		report.maps[map] = { name: city.name, trips: rows.length, summary, rows, seconds: Math.round((Date.now() - t0) / 1000) };
-		log(`${city.name}: ${Object.entries(summary).map(([a, s]) => `${a} ${s.fails}/${rows.length}`).join(', ')} (${report.maps[map].seconds} s)`);
+	} finally {
+		gn.done();
 	}
-	gn.done();
+	return report;
+}
+
+// The world gate: every matched world trip (world.js), the arms run once over all of them, each trip judged on its box;
+// report.maps holds one entry per stratum (indoor, entrance, town, cliff, open), report.zones the failures per zone.
+async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, spawnz, npcs = {}, arms = ['GAME', 'E0', 'E2', 'SPF'], policy = 'legacy', strata = null, log = () => {} }) {
+	const { readWorldTrips, worldAreas } = require('./world');
+	const report = { nav: path.resolve(nav), policy, arms, world: true, maps: {}, zones: {} };
+	const t0 = Date.now();
+	const all = readWorldTrips(priv).filter((t) => !strata || strata.includes(t.stratum));
+	const keep = new Set(all.map((t) => t.i));
+	const trips = all.map((t) => ({ ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null }));
+	const gn = gateNav(path.resolve(nav), priv);
+	let res;
+	try {
+		res = await runArms({ trips, arms: arms.filter((a) => !PROTO[a]), dirs: { nav: gn.dir, ground, spf }, spawnz, policy });
+	} finally {
+		gn.done();
+	}
+	log(`world: ${trips.length} trips routed (${((Date.now() - t0) / 1000).toFixed(0)} s); judging`);
+	const byStratum = new Map();
+	let k = 0;
+	for (const { trip, area } of worldAreas(priv, grid)) {
+		if (!keep.has(trip.i)) continue;
+		const idx = k++;
+		const one = Object.fromEntries(Object.entries(res).map(([arm, rs]) => [arm, [rs[idx]]]));
+		const [row] = scoreRows(area, [trip], one);
+		row.zone = trip.zone;
+		if (!byStratum.has(trip.stratum)) byStratum.set(trip.stratum, []);
+		byStratum.get(trip.stratum).push(row);
+		if (k % 100 === 0) log(`world: judged ${k}/${trips.length}`);
+	}
+	for (const [stratum, rows] of byStratum) {
+		const summary = {};
+		for (const arm of Object.keys(rows[0].arms)) {
+			const fails = rows.filter((r) => r.arms[arm].fail);
+			const by = {};
+			for (const r of fails) by[r.arms[arm].fail] = (by[r.arms[arm].fail] || 0) + 1;
+			summary[arm] = {
+				fails: fails.length, pct: +(100 * fails.length / rows.length).toFixed(1), by,
+				list: fails.map((r) => ({ i: r.i, zone: r.zone, fail: r.arms[arm].fail, from: { npc: r.A.npc, kind: r.A.kind, at: toMap(frames, r.zone, r.A.wx, r.A.wy).map((v) => +v.toFixed(2)), z: r.A.z }, to: { npc: r.B.npc, kind: r.B.kind, at: toMap(frames, r.zone, r.B.wx, r.B.wy).map((v) => +v.toFixed(2)), z: r.B.z }, real: Math.round(r.real), yards: r.arms[arm].ok ? Math.round(r.arms[arm].yards) : null })),
+			};
+			for (const r of rows) {
+				const z = (report.zones[r.zone] = report.zones[r.zone] || {});
+				const a = (z[arm] = z[arm] || { trips: 0, fails: 0 });
+				a.trips++;
+				if (r.arms[arm].fail) a.fails++;
+			}
+		}
+		report.maps[stratum] = { name: stratum, trips: rows.length, summary, rows };
+	}
+	report.seconds = Math.round((Date.now() - t0) / 1000);
 	return report;
 }
 
@@ -469,4 +538,4 @@ function markdown(report, cmp = null) {
 	return lines.join('\n');
 }
 
-module.exports = { gate, remeasure, compareReports, markdown, judge, tautPts, desire, COUNTED };
+module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, COUNTED };

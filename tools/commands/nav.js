@@ -410,16 +410,21 @@ async function prepareCmd(argv) {
 // outside the repository (raw positions).
 async function cityCmd(argv) {
 	const [step, ...rest] = argv;
-	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure'] });
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata'] });
 	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
 	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
 	const priv = path.resolve(o.private);
 	if (!path.relative(ROOT, priv).startsWith('..')) throw usageError(`nav city: --private ${priv} lies inside the repository; private data stays outside it`);
 	const { CITIES } = require('../lib/nav/city/graph');
-	const maps = o.maps ? String(o.maps).split(',').map(Number) : Object.keys(CITIES).map(Number);
+	const zonesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'zones.json'), 'utf8'));
+	const framesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'map-frames.json'), 'utf8')).forever;
+	const { worldZones } = require('../lib/nav/city/world');
+	// --maps world: every zone but the capitals (the world gate's zones)
+	const maps = o.maps === 'world' ? worldZones(zonesData, framesData) : o.maps ? String(o.maps).split(',').map(Number) : Object.keys(CITIES).map(Number);
 	const grid = path.resolve(o.grid || process.env.POLESTAR_GRID || path.join(ROOT, 'data', 'local', 'nav4'));
 	const readData = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', f), 'utf8'));
 	const log = (m) => console.error(m);
+	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy' });
 	if (step === 'extract') {
 		if (!o.recordings) throw usageError('nav city extract: --recordings <archive> is required');
 		const s = require('../lib/nav/city/extract').extract({ recordings: path.resolve(o.recordings), out: priv, maps, log });
@@ -454,19 +459,23 @@ async function cityCmd(argv) {
 		console.log(`nav city trails: ${n} walked cell levels (${o.train ? "the gate's training people" : 'all people'})${o.out ? ` -> ${o.out}` : ''}${o.lua ? ` -> ${o.lua}` : ''}`);
 		return 0;
 	}
-	if (step === 'gate') {
-		const { gate, remeasure, compareReports, markdown } = require('../lib/nav/city/gate');
+	if (step === 'world-sample') {
+		const s = require('../lib/nav/city/world').sampleWorld({ priv, frames, spawnz: readData('spawnz.json').npc, zones: maps, per: o.per ? Number(o.per) : 6, seed: o.seed ? Number(o.seed) : 1, log });
+		console.log(`nav city world-sample: ${s.trips.length} trips in ${Object.keys(s.zones).length} zones`);
+		return 0;
+	}
+	if (step === 'world-match') {
+		const s = require('../lib/nav/city/world').matchWorld({ priv, grid, frames, spawnz: readData('spawnz.json').npc, log });
+		console.log(`nav city world-match: ${s.matched} of ${s.trips} trips matched; ${JSON.stringify(s.strata)}`);
+		return 0;
+	}
+	if (step === 'gate' || step === 'world-gate') {
+		const { gate, gateWorld, remeasure, compareReports, markdown } = require('../lib/nav/city/gate');
 		const common = { priv, grid, frames, log, npcs: readData('npcs.json') };
-		const report = o.remeasure
-			? remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] })
-			: gate({
-				...common, maps,
-				nav: path.resolve(o.nav || NAV_ADDON),
-				ground: o.ground ? path.resolve(o.ground) : null,
-				spawnz: readData('spawnz.json').npc,
-				arms: o.arms ? String(o.arms).split(',') : undefined,
-				policy: o.policy || 'legacy',
-			});
+		let report;
+		if (o.remeasure) report = remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] });
+		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), spawnz: readData('spawnz.json').npc, strata: o.strata ? String(o.strata).split(',') : null });
+		else report = await gate({ ...common, ...navArgs(), maps, spawnz: readData('spawnz.json').npc });
 		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
 		const md = markdown(report, cmp);
 		console.log(md);
@@ -474,7 +483,7 @@ async function cityCmd(argv) {
 		if (o.md) fs.writeFileSync(o.md, md + '\n');
 		return cmp && !cmp.pass ? 1 : 0;
 	}
-	throw usageError(`unknown nav city step "${step}" (extract, match, freeze, trails, gate)`);
+	throw usageError(`unknown nav city step "${step}" (extract, match, freeze, trails, gate, world-sample, world-match, world-gate)`);
 }
 
 const SUBCOMMANDS = { build, path: route, aids, eval: evalCmd, prepare: prepareCmd, city: cityCmd };
