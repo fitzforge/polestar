@@ -571,6 +571,33 @@ builders.craft = function(src, p, from, direct)
 		if best then
 			place(r, best, bestT)
 			r.trainer = bestNpc.id
+			r.trainerAt = best
+			r.detail = detail(L["Crafted"], r.zone)
+		end
+	end
+	-- A craft taught by a recipe item, not yet known (#2505: Recipe: Hot Wolf Ribs is
+	-- sold in Feralas and Desolace; no trainer teaches it): the row leads to the
+	-- recipe's own best source (Lookup.Sources of each recipe item that teaches
+	-- it), and its effort counts that source's; a recipe in the bags is only used.
+	-- The trainer stays for the rank.
+	if src.spell and not ns.Compat.IsSpellKnown(src.spell) and C.RecipeItems then
+		local recipes = C.RecipeItems(src.spell) or {}
+		local bestRow, bestId
+		for _, id in ipairs(recipes) do
+			if ns.Compat.GetItemCount(id) > 0 then
+				bestRow, bestId = nil, id
+				break
+			end
+			local row = Lookup.BestSource((Lookup.Sources("recipe", id, direct)))
+			if row and (not bestRow or (row.available and not bestRow.available)
+				or (row.available == bestRow.available and (row.cost or 0) < (bestRow.cost or 0))) then
+				bestRow, bestId = row, id
+			end
+		end
+		r.recipe, r.recipeRow = bestId, bestRow
+		if bestRow then
+			r.map, r.x, r.y, r.f, r.zone, r.travel = bestRow.map, bestRow.x, bestRow.y, bestRow.f, bestRow.zone, bestRow.travel
+			r.effort = r.effort + (bestRow.effort or 0)
 			r.detail = detail(L["Crafted"], r.zone)
 		end
 	end
@@ -705,15 +732,38 @@ local function purchaseGates(item, r)
 	end
 end
 
+-- An item many vendors sell (the Codex keeps every seller, #2719): the
+-- route's travel only to the ROUTED_VENDORS of the character's side nearest
+-- as the crow flies, the rest at that straight-line time, so a lookup of
+-- water sold in every town asks the route planner ten times, not two
+-- hundred. -> { [src] = true } | nil (all routed).
+local ROUTED_VENDORS = 10
+local function routedVendors(sources, p, from, direct)
+	if direct or not from then return nil end
+	local near = {}
+	for _, src in ipairs(sources) do
+		if src.type == "vendor" then
+			local npc, _, t = npcSpawn(src.npc, from, true)
+			if npc and t and sideOK(npc.faction, p) then near[#near + 1] = { src = src, t = t } end
+		end
+	end
+	if #near <= ROUTED_VENDORS then return nil end
+	table.sort(near, function(a, b) return a.t < b.t end)
+	local keep = {}
+	for i = 1, ROUTED_VENDORS do keep[near[i].src] = true end
+	return keep
+end
+
 local function itemSources(id, p, from, direct)
 	local C = Codex()
 	local item = C.Item(id)
 	if not item then return {}, nil end
 	local list = {}
+	local routed = routedVendors(item.sources or {}, p, from, direct)
 	for _, src in ipairs(item.sources or {}) do
 		local build = builders[src.type]
 		if build then
-			local r = build(src, p, from, direct)
+			local r = build(src, p, from, direct or (routed ~= nil and src.type == "vendor" and not routed[src]))
 			if r then list[#list + 1] = r end
 		end
 	end
@@ -721,6 +771,26 @@ local function itemSources(id, p, from, direct)
 	local spell = item.spell and C.Spell(item.spell)
 	local class = spell and spell.class
 	for _, r in ipairs(list) do
+		if (r.type == "drop" or r.type == "object") and r.src.requiresQuests and (ns.Compat.GetItemCount(id, true) or 0) == 0 then
+			local steps, why, q = Lookup.DropQuestSteps(r.src, p, from, direct)
+			if not steps then
+				block(r, why, L["Requires"] .. " " .. (q and q.title or L["Quest"]))
+				r.guideable = false
+			elseif #steps > 0 then
+				local here = from
+				local required
+				for _, step in ipairs(steps) do
+					local goal = step.goals[1]
+					if #step.goals > 1 or not ns.Compat.IsOnQuest(goal.quest) then
+						required = step.title
+						r.effort = r.effort + QUEST_BASE
+						if located(goal) then r.effort = r.effort + (travel(here, goal, direct) or 0) end
+						here = step.goals[#step.goals] or here
+					end
+				end
+				if required then r.detail = detail(r.detail, L["Requires"] .. " " .. required) end
+			end
+		end
 		if class and p.class and class ~= p.class then
 			r.available, r.why, r.whyText = false, "class", L["Class mount"]
 		elseif item.reqLevel and item.reqLevel > p.level then
@@ -969,6 +1039,8 @@ end
 
 if ns.RegisterEvent then
 	ns.RegisterEvent("QUEST_TURNED_IN", Lookup.ResetSources)
+	ns.RegisterEvent("QUEST_ACCEPTED", Lookup.ResetSources)
+	ns.RegisterEvent("QUEST_REMOVED", Lookup.ResetSources)
 	ns.RegisterEvent("SKILL_LINES_CHANGED", Lookup.ResetSources)
 	ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", Lookup.ResetSources)
 end

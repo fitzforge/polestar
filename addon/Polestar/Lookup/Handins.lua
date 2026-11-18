@@ -67,8 +67,13 @@ local function render(p)
 			if at.npc then g.npc, g.npcName = at.npc, at.name else g.object, g.objName = at.object, at.name end
 			goals[#goals + 1] = g
 		end
-		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals,
-			note = p.uncertain and p.uncertain[i] and L["Travel time to this hand-in is unknown. Its location is still shown."] or nil }
+		-- An ender inside a dungeon: the waypoint is its entrance.
+		local hint = at.inside and string.format(L["%s: inside %s."], at.name or "?", at.zone or "?") or nil
+		if p.uncertain and p.uncertain[i] then
+			local warning = L["Travel time to this hand-in is unknown. Its location is still shown."]
+			hint = hint and (hint .. " " .. warning) or warning
+		end
+		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals, note = hint }
 	end
 	local unplaced = {}
 	for _, q in ipairs(p.unplaced) do
@@ -81,7 +86,10 @@ local function render(p)
 		steps[#steps + 1] = { title = L["Hand-ins without a known location"], goals = unplaced }
 	end
 	if #steps == 0 then steps[1] = note(L["No quests in your log are ready to hand in."]) end
-	if p.refining then steps[1].note = L["Refining the travel order. Travel times are estimates."] end
+	if p.refining then
+		local warning = L["Refining the travel order. Travel times are estimates."]
+		steps[1].note = steps[1].note and (steps[1].note .. " " .. warning) or warning
+	end
 	if p.partial then
 		local warning = L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."]
 		steps[1].note = steps[1].note and (steps[1].note .. " " .. warning) or warning

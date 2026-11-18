@@ -186,6 +186,36 @@ fn combined_spell_power_adds_to_a_damage_only_or_healing_only_bonus() {
 	assert_eq!(out, vec![json!({ "sp": 24, "heal": 18 }), json!({ "sp": 120, "heal": 300 }), json!({ "sp": 16, "heal": 48 }), json!({ "sp": 13, "heal": 13 })]);
 }
 
+// One school's spell damage is a stat of its own in the client's list: a random "of Holy Wrath" suffix lists
+// ITEM_MOD_HOLY_SPELL_DAMAGE_DONE_SHORT, which the game's own compare shows as "+20 Holy Spell Damage". The report
+// (#2373): Retribution scored ilvl 45 plate shoulders with +20 Holy Spell Damage on their 327 armor alone, 6.54
+// against 15.44 for the worn mail ones (-58%); the +20 at Retribution's 0.3 makes them 12.54 (-19%).
+#[test]
+fn one_school_s_spell_damage_counts_at_its_school_weight() {
+	let out = run(
+		r#"
+		local schools = { "ARCANE", "FIRE", "FROST", "HOLY", "NATURE", "SHADOW" }
+		for i, s in ipairs(schools) do
+			local link = "item:" .. (7810 + i)
+			g.defineItem(link, { equipLoc = "INVTYPE_CLOAK", classID = 4, subclassID = 1,
+				stats = { ["ITEM_MOD_" .. s .. "_SPELL_DAMAGE_DONE_SHORT"] = 10 + i } })
+			emit(G.GetItemInfo(link).stats)
+		end
+		g.defineItem("item:7821", { equipLoc = "INVTYPE_SHOULDER", classID = 4, subclassID = 3, minLevel = 33,
+			stats = { RESISTANCE0_NAME = 167, ITEM_MOD_STRENGTH_SHORT = 8, ITEM_MOD_AGILITY_SHORT = 2, ITEM_MOD_STAMINA_SHORT = 6 } })
+		g.defineItem("item:7822", { equipLoc = "INVTYPE_SHOULDER", classID = 4, subclassID = 4, minLevel = 40,
+			stats = { RESISTANCE0_NAME = 327, ITEM_MOD_HOLY_SPELL_DAMAGE_DONE_SHORT = 20 } })
+		local ret = G.WEIGHTS.PALADIN.retribution
+		emit({ worn = G.ScoreWith(G.GetItemInfo("item:7821"), ret), holy = G.ScoreWith(G.GetItemInfo("item:7822"), ret) })
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[..6], [json!({ "spArcane": 11 }), json!({ "spFire": 12 }), json!({ "spFrost": 13 }), json!({ "spHoly": 14 }), json!({ "spNature": 15 }), json!({ "spShadow": 16 })]);
+	let (worn, holy) = (out[6]["worn"].as_f64().unwrap(), out[6]["holy"].as_f64().unwrap());
+	assert!((worn - 15.44).abs() < 1e-9, "worn {worn}");
+	assert!((holy - 12.54).abs() < 1e-9, "the +20 Holy Spell Damage counts: {holy}");
+}
+
 #[test]
 fn the_class_weight_table_nine_classes_three_specs_each_known_stat_keys_sane_priorities() {
 	let out = run(r#"emit({ classes = G.CLASSES, weights = G.WEIGHTS, keys = G.STAT_KEYS, prof = G.PROFICIENCY })"#, Opts::default());
@@ -376,6 +406,28 @@ fn a_rogue_can_upgrade_to_a_one_handed_axe_after_learning_the_skill() {
 		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
 	);
 	assert_eq!(out, vec![json!(false), json!(true), json!("weapon")]);
+}
+
+// #2855: In WoW Forever, Druids can train and use Polearms (subclass 6, skill line 229).
+#[test]
+fn a_druid_can_use_polearms_after_learning_the_weapon_skill_2855() {
+	let out = run(
+		r#"
+		g.defineItem("item:7301", { equipLoc = "INVTYPE_2HWEAPON", classID = 2, subclassID = 6, minLevel = 20, stats = { ITEM_MOD_ATTACK_POWER_SHORT = 20 } })
+		w.learnSkill(54, "Maces", 1, 150)
+		local before = G.CompareToEquipped("item:7301")
+		local b = { usable = before.usable, reason = before.reason }
+		w.learnSkill(229, "Polearms", 1, 150)
+		local after = G.CompareToEquipped("item:7301")
+		emit({ before = b, after = { usable = after.usable, reason = after.reason, up = G.IsUpgrade("item:7301") } })
+	"#,
+		Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level: 20, ..Default::default() },
+	);
+	let r = &out[0];
+	assert_eq!(r["before"], json!({ "usable": false, "reason": "skill" }));
+	assert_eq!(r["after"]["usable"], true);
+	assert_eq!(r["after"]["up"], true);
+	assert!(r["after"]["reason"].is_null());
 }
 
 #[test]

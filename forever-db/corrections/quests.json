@@ -19,6 +19,60 @@
 		},
 		"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
 	},
+	"37": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					55
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 54 people handed Find the Lost Guards in, none of them in an NPC's window; 18 people took it from Guard Thomas (261)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 37 ender: object 55"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 37 finishedBy: object 55"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2612 (JeromeM, 0.4.0): the guide sent the hand-in to Guard Thomas; the half-eaten body takes it"
+			}
+		],
+		"note": "Find the Lost Guards (37) is handed in at a half-eaten body (object 55); Guard Thomas (261) only gives it. The build added Guard Thomas to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver: Westfall's Elwynn stop and the Human Elwynn Forest guide sent players back to Guard Thomas (#2612). The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
+	"67": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					3643
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 33 people handed The Legend of Stalvan in, none of them in an NPC's window; 38 people took it from Clerk Daltry (267)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 67 ender: object 3643"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 67 finishedBy: object 3643"
+			}
+		],
+		"note": "The Legend of Stalvan (67) is handed in at the Old Footlocker (object 3643); Clerk Daltry (267) only gives it. The build added Clerk Daltry to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
 	"90": {
 		"set": {
 			"objectives": [
@@ -144,7 +198,7 @@
 				"ref": "EG Link live quest scans, builds 1.60.1.70888 (collected 10 to 13 November) and 70938 (13 to 15 November): 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in both (as in the beta builds 70170 to 70450)"
 			}
 		],
-		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's quest data does not list it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
+		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's own quest list does not have it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
 	"273": {
 		"set": {
@@ -436,6 +490,31 @@
 		},
 		"note": "Teldrassil (from the Oracle Tree Bark to Fandral) rewards 440 XP on Forever; the merged data had 220, the Classic value. Players' game caches give 440, as The Enchanted Glade (937) at the same level has. Issue #647."
 	},
+	"944": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					10076
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 37 people handed The Master's Glaive in, none of them in an NPC's window; 22 people took it from Onu (3616)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 944 ender: object 10076"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 944 finishedBy: object 10076"
+			}
+		],
+		"note": "The Master's Glaive (944) is handed in at the Scrying Bowl (object 10076); Onu (3616) only gives it. The build added Onu to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
+	},
 	"959": {
 		"set": {
 			"xp": 2650
@@ -467,6 +546,31 @@
 			}
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"983": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					17182
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 72 people handed Buzzbox 827 in, none of them in an NPC's window; 36 people took it from Wizbang Cranktoggle (3666)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 983 ender: object 17182"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 983 finishedBy: object 17182"
+			}
+		],
+		"note": "Buzzbox 827 (983) is handed in at Buzzbox 827 (object 17182); Wizbang Cranktoggle (3666) only gives it. The build added Wizbang Cranktoggle to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"990": {
 		"set": {
@@ -652,6 +756,19 @@
 			}
 		],
 		"note": "Deathstalkers in Shadowfang (Shadowfang Keep) rewards 5,350 XP on Forever; the merged data had 2,000, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1130": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): Jorn Skyseer (3387) offered Melor Sends Word to 74 people (64 established), levels 20 to 40, with Ishamuhale (882) neither in the log nor handed in"
+			}
+		],
+		"note": "Melor Sends Word (1130, Jorn Skyseer at Camp Taurajo) has no prerequisite on Forever: Jorn offers it from level 20. The merged data made it follow Ishamuhale (882), so a character carrying 1130 counted Ishamuhale as handed in while it was still in the log, and the Barrens guide went on to Enraged Thunder Lizards, which Jorn offers only after Ishamuhale (#2681, #2683)."
 	},
 	"1194": {
 		"set": {
@@ -1011,6 +1128,27 @@
 			"ref": "players' caches (EG Link): races"
 		},
 		"note": "Nether-lace Garment (Kil'hala, after 1945) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450) and Forever's quest page sets none (reqrace 0); the merged data had Classic's Undead and Troll."
+	},
+	"2201": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					112877
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 5 people ran Find the Gems (2201); both recorded hand-ins were at an object, none in Talvash del Kissel's window"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: end"
+			}
+		],
+		"note": "Find the Gems (2201) is handed in at Talvash's Scrying Bowl in Ironforge; Talvash del Kissel beside it was also listed as an ender (from QuestieDB), so While you're here could offer the hand-in to him (#2546 sweep, the same pattern as #2612)."
 	},
 	"2358": {
 		"remove": true,
@@ -1465,6 +1603,16 @@
 		],
 		"note": "Boat Wreckage: starts with Wrecked Row Boat (object 164909); as its giver the merged data also listed Wrecked Row Boat (object 186419)."
 	},
+	"4144": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): 7 people (6 established) handed Bloodpetal Sprouts in to Muigin, none of them with an accept or the quest in the log first"
+		},
+		"note": "Bloodpetal Sprouts (4144, Muigin at Marshal's Refuge, after Haze of Evil) is handed in at one talk while carrying the three Bloodpetal Sprouts, and never enters the log: Sunken Temple's hand-in guide asked players to accept it (#2686)."
+	},
 	"4221": {
 		"set": {
 			"start": {
@@ -1771,6 +1919,31 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Seal of Ascension: starts with Scarshield Infiltrator (npc 10299) and ends with Scarshield Infiltrator (npc 10299); as its giver the merged data also listed Vaelan (npc 10296); as its ender the merged data also listed Vaelan (npc 10296)."
+	},
+	"4812": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					175524
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 61 people handed As Water Cascades in, none of them in an NPC's window; 35 people took it from Sentinel Glynda Nal'Shea (2930)"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "quest 4812 ender: object 175524"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 4812 finishedBy: object 175524"
+			}
+		],
+		"note": "As Water Cascades (4812) is handed in at the Mysterious Red Crystal (object 175524); Sentinel Glynda Nal'Shea (2930) only gives it. The build added Sentinel Glynda Nal'Shea to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"4866": {
 		"set": {
@@ -2302,6 +2475,166 @@
 		},
 		"note": "Stolen Winter Veil Treats: ends with Strange Snowman (npc 13636); as its ender the merged data also listed The Abominable Greench (npc 13602)."
 	},
+	"7081": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13756,
+					"count": 1,
+					"text": "Graveyard Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7081: Description"
+		},
+		"note": "Alterac Valley Graveyards (7081): the quest log's words for its objective, \"Graveyard Assaulted\", as the game's quest objectives give them. It credits the invisible marker NPC 13756 (\"PvP Graveyard Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7082": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13756,
+					"count": 1,
+					"text": "Graveyard Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7082: Description"
+		},
+		"note": "The Graveyards of Alterac (7082): the quest log's words for its objective, \"Graveyard Assaulted\", as the game's quest objectives give them. It credits the invisible marker NPC 13756 (\"PvP Graveyard Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7101": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13778,
+					"count": 1,
+					"text": "Tower Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7101: Description"
+		},
+		"note": "Towers and Bunkers (7101): the quest log's words for its objective, \"Tower Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13778 (\"PvP Tower Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7102": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13778,
+					"count": 1,
+					"text": "Banner Destroyed"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7102: Description"
+		},
+		"note": "Towers and Bunkers (7102): the quest log's words for its objective, \"Banner Destroyed\", as the game's quest objectives give them. It credits the invisible marker NPC 13778 (\"PvP Tower Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7122": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13796,
+					"count": 1,
+					"text": "Mine Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7122: Description"
+		},
+		"note": "Capture a Mine (7122): the quest log's words for its objective, \"Mine Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13796 (\"PvP Mine Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7124": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 13796,
+					"count": 1,
+					"text": "Mine Captured"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7124: Description"
+		},
+		"note": "Capture a Mine (7124): the quest log's words for its objective, \"Mine Captured\", as the game's quest objectives give them. It credits the invisible marker NPC 13796 (\"PvP Mine Credit Marker\"), whose names no player should read (#2614); the data build makes it an event in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7301": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 14029,
+					"count": 1,
+					"text": "Ichman's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14031,
+					"count": 1,
+					"text": "Vipore's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14030,
+					"count": 1,
+					"text": "Slidore's Location Discovered"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7301: Description"
+		},
+		"note": "Fallen Sky Lords (7301): the quest log's words for its objectives, \"Ichman's Location Discovered\", \"Vipore's Location Discovered\", \"Slidore's Location Discovered\", as the game's quest objectives give them. They credit the invisible marker NPCs 14029 (\"Trigger Ichman\"), 14031 (\"Trigger Vipore\"), 14030 (\"Trigger Slidore\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"7302": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 14026,
+					"count": 1,
+					"text": "Guse's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14028,
+					"count": 1,
+					"text": "Jeztor's Location Discovered"
+				},
+				{
+					"type": "kill",
+					"id": 14027,
+					"count": 1,
+					"text": "Mulverick's Location Discovered"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 7302: Description"
+		},
+		"note": "Fallen Sky Lords (7302): the quest log's words for its objectives, \"Guse's Location Discovered\", \"Jeztor's Location Discovered\", \"Mulverick's Location Discovered\", as the game's quest objectives give them. They credit the invisible marker NPCs 14026 (\"Trigger Guse\"), 14028 (\"Trigger Jeztor\"), 14027 (\"Trigger Mulverick\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
 	"7562": {
 		"set": {
 			"start": {
@@ -2320,6 +2653,286 @@
 			"ref": "creature_queststarter/gameobject_queststarter"
 		},
 		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
+	},
+	"8105": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8105: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8105): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8120": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8120: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8120): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8166": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8166: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8166): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8167": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8167: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8167): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8168": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15003,
+					"count": 1,
+					"text": "Farm Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8168: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8168): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Farm Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15003 (\"PvP H-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8169": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8169: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8169): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8170": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8170: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8170): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
+	},
+	"8171": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 15005,
+					"count": 1,
+					"text": "Mine Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15004,
+					"count": 1,
+					"text": "Lumber Mill Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15002,
+					"count": 1,
+					"text": "Blacksmith Assaulted"
+				},
+				{
+					"type": "kill",
+					"id": 15001,
+					"count": 1,
+					"text": "Stable Assaulted"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives 8171: Description"
+		},
+		"note": "The Battle for Arathi Basin! (8171): the quest log's words for its objectives, \"Mine Assaulted\", \"Lumber Mill Assaulted\", \"Blacksmith Assaulted\", \"Stable Assaulted\", as the game's quest objectives give them. They credit the invisible marker NPCs 15005 (\"PvP ALT-N Credit Marker\"), 15004 (\"PvP ALT-S Credit Marker\"), 15002 (\"PvP Mid Credit Marker\"), 15001 (\"PvP A-Mid Credit Marker\"), whose names no player should read (#2614); the data build makes them events in these words. Without this record a build that lacks the game's quest objectives (the public one) names only the marker."
 	},
 	"8227": {
 		"set": {
@@ -2752,6 +3365,64 @@
 			}
 		],
 		"note": "Ten Commendation Signets: starts with Officer Vu'Shalay (npc 15761) and ends with Officer Vu'Shalay (npc 15761); as its giver the merged data also listed Darkspear Commendation Officer (npc 15737); as its ender the merged data also listed Darkspear Commendation Officer (npc 15737)."
+	},
+	"8867": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 180771,
+					"count": 8,
+					"text": "Lunar Fireworks Fired"
+				},
+				{
+					"type": "object",
+					"id": 180772,
+					"count": 2,
+					"text": "Lunar Fireworks Cluster Fired"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives 8867: Description, Amount"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 8867 objectives: objects 180771, 180772"
+			}
+		],
+		"note": "Lunar Fireworks (8867): the quest log's two lines, \"Lunar Fireworks Fired\" x8 and \"Lunar Fireworks Cluster Fired\" x2, as the game's quest objectives give them, at the Firework Launcher (180771) and the Cluster Launcher (180772) where they are fired. The game's objectives credit the invisible marker NPCs 15893 (\"Lunar Firework Credit Marker\") and 15894 (\"Lunar Cluster Credit Marker\"), whose names no player should read (#2614)."
+	},
+	"9015": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 16059,
+					"count": 1,
+					"text": "Theldren's Team Defeated"
+				},
+				{
+					"type": "item",
+					"id": 22047,
+					"count": 1,
+					"text": "Top Piece of Lord Valthalak's Amulet"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives 9015: Description, Amount"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 9015 objectives: npc 16059, item 22047"
+			}
+		],
+		"note": "The Challenge (9015): the quest log's line \"Theldren's Team Defeated\", as the game's quest objectives give it, for the fight with Theldren (16059) and his team, then the Top Piece of Lord Valthalak's Amulet (22047). The game's objective credits the invisible NPC 16166 (\"Theldren Kill Credit\"), whose name no player should read (#2614)."
 	},
 	"65593": {
 		"set": {
@@ -3301,7 +3972,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
 			},
 			{
 				"kind": "questie",
@@ -3315,7 +3986,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
 			},
 			{
 				"kind": "questie",
@@ -3500,7 +4171,13 @@
 			],
 			"preAny": [
 				91859
-			]
+			],
+			"end": {
+				"npc": [],
+				"object": [
+					566037
+				]
+			}
 		},
 		"source": [
 			{
@@ -3510,9 +4187,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_any 91859"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): all 14 hand-ins (14 people) were at the Charred Remains (object 566037), Silverpine Forest 64.9,34.3, none to Deathguard Baldren"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): Deathguard Baldren's A Grim Fate (91860) follows A Curious Pair (91859), handed in to him. The merged data had no prerequisite. It is handed in at the Charred Remains on Fenris Isle, its one objective; the merged data also named Deathguard Baldren, its giver, as an ender, so the hand-in pointed back to the Sepulcher."
 	},
 	"91861": {
 		"set": {
@@ -4012,7 +4693,15 @@
 	},
 	"92753": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Explosives placed"
+				}
+			]
 		},
 		"source": [
 			{
@@ -4022,9 +4711,13 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 48 people ran Destruction in Deadmines; the quest log lists one line, \"Explosives placed\" (\"Explosifs placés\", \"Sprengsätze platziert\", \"Explosivos colocados\" on French, German and Spanish clients), and half of its 38 recorded ticks came with the player's own cast of spell 1258822"
 			}
 		],
-		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Its one objective is planting the explosives by the forge, in the quest log's words \"Explosives placed\"; the quest record names it by the invisible credit NPC 253370, \"[DNT] Kill Credit: Place Explosives\", which no player should read (#2614)."
 	},
 	"92819": {
 		"set": {
@@ -4416,6 +5109,31 @@
 		},
 		"note": "The Fate of Zephras (Horde): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
+	"93862": {
+		"set": {
+			"races": null,
+			"start": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): an Alliance Human Paladin handed Crate Return in 19 times at npc 256390"
+		},
+		"note": "Crate Return is open to both factions: the Alliance hands it in at npc 256390, the Horde at npc 256386. QuestieDB 1.1.2 made it Horde-only, which the 0.4.0 data did not have."
+	},
 	"93926": {
 		"set": {
 			"objectives": [
@@ -4687,6 +5405,27 @@
 			}
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch. Races: it keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+	},
+	"94502": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					619896
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 15 people handed Call of Water in, none of them in an NPC's window; 7 people took it from Norric Lochthane (258043)"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 94502 finishedBy: object 619896"
+			}
+		],
+		"note": "Call of Water (94502) is handed in at the Forgotten Shrine (object 619896); Norric Lochthane (258043) only gives it. The build added Norric Lochthane to its enders from the in-game dialog captures, which name him for the hand-in too, and a step's hand-in then went to the giver. The ender is the object alone (the same pattern on all eight quests the build gave an extra ender this way, #2612)."
 	},
 	"95034": {
 		"set": {
@@ -6109,6 +6848,221 @@
 		],
 		"note": "Ancient Gurubashi Idol (Horde, The Drowned City): Mazu'kon in Mulgore gives it and takes it back."
 	},
+	"96332": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) ran A Little Payback (96332) from Sergeant Ulka (260383); the log lists 15 Strashaz Soldiers slain, 8 Strashaz Enchantresses slain and Ca'zass's Head; line 1 ticked on kills of npc 255995, line 2 on kills of npc 255373, line 3 when Tidemistress Ca'zass (255997) died, all inside Alcaz Prison (map 2994)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Little Payback (Horde, Alcaz Prison): 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head, inside the prison. The merged data had no objectives, so the Dungeons page tied the quest to no boss (#2560)."
+	},
+	"96335": {
+		"set": {
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took The Man in the Iron Chains inside Alcaz Prison (map 2994), the youngest at level 49, and handed it in at the same window that then offered More Valuable Than Gold, whose objective names its giver: \"Use the note provided by Mason Connery\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			}
+		],
+		"note": "The Man in the Iron Chains (both factions, Alcaz Prison): the chained prisoner Mason Connery gives it and takes the key, inside the prison; level 48 as the prison's other quests. The recordings name no NPC id for windows inside, so both of the data's Mason Connerys are listed. The merged data had no giver, ender or minimum (#2560)."
+	},
+	"96337": {
+		"set": {
+			"minLevel": 48,
+			"start": {
+				"npc": [
+					264770,
+					264845
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: min_level 48"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people (6 established, 3 Alliance and 3 Horde) took More Valuable Than Gold inside Alcaz Prison (map 2994) at the window they handed The Man in the Iron Chains in at, the youngest at level 49; its objective: \"Use the note provided by Mason Connery\"; 4 handed it in at Connery's Trunk (object 611086, Westfall 43.4,67.9)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			}
+		],
+		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560)."
+	},
+	"96376": {
+		"set": {
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Horde, established) opened Nazgrel's (3230) window with More Valuable Than Gold (96337) still in the log and was not offered State Secrets; the one Alliance hand-in of State Secrets (96377) came right after handing in 96337"
+			}
+		],
+		"note": "State Secrets (Horde; Nazgrel, Orgrimmar), a Document Box, comes after More Valuable Than Gold, which is taken inside Alcaz Prison. The merged data had no prerequisite (#2560)."
+	},
+	"96377": {
+		"set": {
+			"start": {
+				"npc": [
+					6946
+				],
+				"object": [],
+				"item": []
+			},
+			"pre": [
+				96337
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 6946, end npc 6946, pre_any 96337"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person (Alliance, established) handed State Secrets in to Renzik \"The Shiv\" (6946, Stormwind 78.4,70.9) at his window, a few minutes after handing in More Valuable Than Gold (96337)"
+			}
+		],
+		"note": "State Secrets (Alliance) is given and taken back by Renzik \"The Shiv\" in Stormwind, after More Valuable Than Gold from Alcaz Prison; the merged data had its ender only and no prerequisite (#2560)."
+	},
+	"96381": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 255995,
+					"count": 15,
+					"text": "Strashaz Soldier"
+				},
+				{
+					"type": "kill",
+					"id": 255373,
+					"count": 8,
+					"text": "Strashaz Enchantress"
+				},
+				{
+					"type": "item",
+					"id": 273883,
+					"count": 1,
+					"text": "Ca'zass's Head"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people (3 established) ran A Bit of Wet Work (96381) from Sully McCleary (260271), its lines ticking inside Alcaz Prison (map 2994) as A Little Payback's do"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row (EG Link objectives): item 273883 x1"
+			}
+		],
+		"note": "A Bit of Wet Work (Alliance, Alcaz Prison): the same 15 Strashaz Soldiers, 8 Strashaz Enchantresses and Tidemistress Ca'zass's head as the Horde's A Little Payback. The merged data had no objectives (#2560)."
+	},
+	"95483": {
+		"set": {
+			"pre": [
+				96369
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: pre_any 96369"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people (4 established) took Thrall Needs to Know inside Alcaz Prison right after handing in Bad News for Folkar (96369) there"
+			}
+		],
+		"note": "Thrall Needs to Know (Horde) is offered inside Alcaz Prison once Bad News for Folkar is handed in; the merged data had no prerequisite (#2560)."
+	},
+	"97173": {
+		"set": {
+			"end": {
+				"npc": [
+					31439
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 1 person handed Blackmaw Magic (97173) in to Archmage Timear (31439), its giver, in Alterac Mountains"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: start npc 31439, end npc 31439"
+			}
+		],
+		"note": "Blackmaw Magic (Alliance, Blackmaw Hold) is handed back to Archmage Timear, who gives it; the merged data had no ender, so the Dungeons page said nothing about where it ends (#2560 sweep)."
+	},
 	"96821": {
 		"set": {
 			"objectives": [
@@ -6341,15 +7295,20 @@
 					"count": 1,
 					"text": "Black Skeletal Horse"
 				}
-			]
+			],
+			"races": 16
 		},
 		"source": [
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 4 people ran A Steed in Death as They Were in Life; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): the 5 people who took A Steed in Death as They Were in Life were all Undead"
 			}
 		],
-		"note": "A Steed in Death as They Were in Life: each mount is inspected through its window, a talk; the data counted them as kills."
+		"note": "A Steed in Death as They Were in Life: each mount is inspected through its window, a talk; the data counted them as kills. The quest is for Undead only, as the 0.4.0 data had it; QuestieDB 1.1.2 opened it to every Horde race."
 	},
 	"97017": {
 		"set": {
@@ -9353,7 +10312,19 @@
 	},
 	"92474": {
 		"set": {
-			"races": 12884901888
+			"races": 12884901888,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Use Walk on Air",
+					"map": 2521,
+					"f": "l",
+					"x": 43.66,
+					"y": 24.08
+				}
+			]
 		},
 		"source": [
 			{
@@ -9367,9 +10338,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: SKYBORNE_ALLIANCE + SKYBORNE_HORDE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 44 people's objective lists at the accept, each the one line 'Use Walk on Air'; 49 completions at Zephras Isle 43.66,24.08 on average, the watchtower's top (41.3-43.8, 23.3-24.3)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: 92474 has one objective, type 14 (a criteria tree), amount 1"
 			}
 		],
-		"note": "Falling With Style is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 13 Horde Skyborne players (7 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne."
+		"note": "Falling With Style is open to Alliance and Horde Skyborne: Forever's server sets the two Skyborne races (players' caches), and 13 Horde Skyborne players (7 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: both Skyborne races), which closed it to Horde Skyborne. It counts the Walk on Air cast at the top of the watchtower; the merged data had no objective, so the guide went from its accept straight to the hand-in to Rorian. The game credits it by script, so it is an event line."
 	},
 	"92516": {
 		"set": {
@@ -9513,7 +10492,15 @@
 	},
 	"92840": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "object",
+					"id": 697118,
+					"count": 6,
+					"text": "Gather Data on Elemental Currents"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9527,9 +10514,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): 12 people's quest logs list one line, \"Gather Data on Elemental Currents\" x6; 43 of its 60 recorded ticks came within 4 seconds of a cast of spell 1320971, all such casts at the Windstone Formations, Zephras Isle 47-49,67-70 (map 2521)"
 			}
 		],
-		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
+		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome. Its one objective is six uses of the Index Esoteria on the Windstone Formations; the server counts them as a kill credit (253306), which no step can target."
 	},
 	"92841": {
 		"set": {
@@ -9816,7 +10807,13 @@
 	},
 	"94467": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"end": {
+				"npc": [],
+				"object": [
+					61934
+				]
+			}
 		},
 		"source": [
 			{
@@ -9826,9 +10823,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF in 1.0.14"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 12 people handed Call of Fire (94467) in, none of them in an NPC's window; 5 people took it from Braldir Ashmantle (257808)"
+			},
+			{
+				"kind": "questie",
+				"ref": "quest 94467 finishedBy: object 61934"
 			}
 		],
-		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman."
+		"note": "Call of Fire (the Alliance Shaman fire totem chain) keeps the Alliance race mask: Forever's server sets the Alliance races on 94449, 94467 and 94468 and no race limit on 94466 (players' caches), and QuestieDB had the Alliance up to 1.0.13. QuestieDB 1.0.14 narrowed the chain to Dwarf. Who can take it does not change: Dwarves are the only Alliance race that can be a Shaman. Call of Fire (94467) is handed in at the Brazier of the Dormant Flame (object 61934); Braldir Ashmantle only gives it. The build added him to its enders from the in-game dialog captures, which name him for the hand-in too; the ender is the object alone (#2612)."
 	},
 	"94468": {
 		"set": {
@@ -10225,6 +11230,59 @@
 			}
 		],
 		"note": "Crown of the Earth is open to every Alliance race: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
+	},
+	"98067": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Cenarion Hold depths entrance",
+					"map": 1457,
+					"f": "e",
+					"x": 33.39,
+					"y": 16.77
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Darnassus Bank",
+					"map": 1457,
+					"f": "e",
+					"x": 41.04,
+					"y": 43.55
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Craftsman's Terrace Inn",
+					"map": 1457,
+					"f": "e",
+					"x": 66.46,
+					"y": 15.35
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "City Gate",
+					"map": 1457,
+					"f": "e",
+					"x": 89.14,
+					"y": 34.76
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 35 people ran Eyes of the Sentinels; the quest log lists four lines in this order, \"Cenarion Hold depths entrance\", \"Darnassus Bank\", \"Craftsman's Terrace Inn\" and \"City Gate\" (the same four in German, French, Spanish, Korean and Chinese on those clients), and 127 of its 128 recorded ticks came with the player's own cast of spell 1306608, not a kill"
+			}
+		],
+		"note": "Eyes of the Sentinels (98067, Darnassus): the four places Sentinel Dalia Sunblade sends you to set Sentinel Owls, each an objective the quest record names by an invisible credit NPC called just \"Credit\" (270418 to 270421), which no player should read (#2614). The quest log's own words for them, in order, each placed at its credit's spot (where the Teldrassil guide uses the Lunar Pendant)."
 	},
 	"98284": {
 		"set": {
@@ -13069,10 +14127,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272737,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Rog'mar Scout rescued",
+					"map": 2548,
+					"f": "l",
+					"x": 27.6,
+					"y": 40.5
 				}
 			]
 		},
@@ -13084,9 +14146,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 3 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 16 people ran Break Their Chains; the quest log lists one line, \"Rog'mar Scout rescued\" x5, and its ticks come with the player's own cast of spell 1277271, not a kill"
 			}
 		],
-		"note": "Break Their Chains (94748), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Da'grosh (258570), where players handed it in (the quest's own text names it)."
+		"note": "Break Their Chains (94748), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Da'grosh (258570), where players handed it in (the quest's own text names it). The objective is freeing five captive scouts, in the quest log's words \"Rog'mar Scout rescued\"; the quest record names it by the invisible credit NPC 272737, \"[DNT] Kill Credit\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"94768": {
 		"set": {
@@ -13488,10 +14554,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272737,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Farholde Scouts rescued",
+					"map": 2548,
+					"f": "l",
+					"x": 27.6,
+					"y": 40.5
 				}
 			]
 		},
@@ -13503,9 +14573,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 4 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 28 people ran No Soldier Left Behind; the quest log lists one line, \"Farholde Scouts rescued\" x5 (\"Éclaireurs de Fort-Lointain sauvés\" on French clients), and its ticks come with the player's own cast of spell 1277271, not a kill"
 			}
 		],
-		"note": "No Soldier Left Behind (94888), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Sergeant Riftan (258023), where players handed it in (the quest's own text names it)."
+		"note": "No Soldier Left Behind (94888), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Sergeant Riftan (258023), where players handed it in (the quest's own text names it). The objective is freeing five captive scouts, in the quest log's words \"Farholde Scouts rescued\"; the quest record names it by the invisible credit NPC 272737, \"[DNT] Kill Credit\", which no player should read (#2614: the guide said \"Kill [DNT] Kill Credit\"). Placed at that credit's spot."
 	},
 	"94889": {
 		"set": {
@@ -13612,9 +14686,9 @@
 			"objectives": [
 				{
 					"type": "kill",
-					"id": 271293,
+					"id": 258652,
 					"count": 1,
-					"text": "[DNT] Kill Credit: Twilight Thrall"
+					"text": "Twilight Thrall captured"
 				}
 			]
 		},
@@ -13626,9 +14700,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 9 people accepted it, 4 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 37 people ran A Small Favor; the quest log lists one line, \"Twilight Thrall captured\" (\"Esclave du Crépuscule capturé\" on French clients), and 25 of its 25 recorded ticks came as the player killed a Twilight Thrall (258652)"
 			}
 		],
-		"note": "A Small Favor (94907), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree)."
+		"note": "A Small Favor (94907), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree). The objective is the Twilight Thrall (258652) the player summons from a conduit and defeats for Ashe's soulstone, in the quest log's words \"Twilight Thrall captured\"; the quest record names it by the invisible credit NPC 271293, \"[DNT] Kill Credit: Twilight Thrall\", which no player should read (#2614)."
 	},
 	"94923": {
 		"set": {
@@ -14430,10 +15508,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 266883,
+					"type": "event",
+					"id": null,
 					"count": 10,
-					"text": "[DNT] Kill Credit Young Paletusk"
+					"text": "Young Paletusk returned",
+					"map": 2548,
+					"f": "l",
+					"x": 72.4,
+					"y": 39.5
 				}
 			],
 			"title": "Drive Them Back",
@@ -14457,9 +15539,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 5 people accepted it, 5 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 19 people ran Drive Them Back; the quest log lists one line, \"Young Paletusk returned\" x10, and its ticks come with the player's own cast of spell 1289718, not a kill"
 			}
 		],
-		"note": "Drive Them Back (95163), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees); its ender, Na'zok (256728), where players handed it in (the quest's own text names it)."
+		"note": "Drive Them Back (95163), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees); its ender, Na'zok (256728), where players handed it in (the quest's own text names it). The objective is herding ten Young Paletusks home with the Swineherd's Staff the quest hands over, in the quest log's words \"Young Paletusk returned\"; the quest record names it by the invisible credit NPC 266883, \"[DNT] Kill Credit Young Paletusk\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"95183": {
 		"set": {
@@ -14804,9 +15890,9 @@
 			"objectives": [
 				{
 					"type": "talk",
-					"id": 260417,
+					"id": 260995,
 					"count": 5,
-					"text": "[DNT] Kill Credit: Ogre Miner"
+					"text": "Ogre Miners recruited"
 				}
 			]
 		},
@@ -14818,9 +15904,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 3 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 16 people ran Rise Up!; the quest log lists one line, \"Ogre Miners recruited\" x5, and each of its 75 recorded ticks came with an Ogre Miner's (260995) window open"
 			}
 		],
-		"note": "Rise Up! (95432), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree)."
+		"note": "Rise Up! (95432), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree). The objective is talking to five Ogre Miners (260995), in the quest log's words \"Ogre Miners recruited\"; the quest record names it by the invisible credit NPC 260417, \"[DNT] Kill Credit: Ogre Miner\", which no player should read (#2614)."
 	},
 	"95433": {
 		"set": {
@@ -14999,10 +16089,14 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272603,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Twilight Ritual Circle destroyed",
+					"map": 2548,
+					"f": "l",
+					"x": 47.9,
+					"y": 49.8
 				}
 			],
 			"title": "Sickening Lights",
@@ -15025,9 +16119,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' offer windows to 2026-11-11: 4 characters were not offered it before Digging for Answers (94727) was handed in, and were offered it after"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 17 people ran Sickening Lights; the quest log lists one line, \"Twilight Ritual Circle destroyed\" x5, and its ticks come with the player's own cast of spell 1287234, not a kill"
 			}
 		],
-		"note": "Sickening Lights (95602), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees)."
+		"note": "Sickening Lights (95602), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees). The objective is destroying five Twilight Ritual Circles, in the quest log's words \"Twilight Ritual Circle destroyed\"; the quest record names it by the invisible credit NPC 272603, \"[DNT] Kill Credit\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"95615": {
 		"set": {
@@ -17299,6 +18397,25 @@
 					"count": 1,
 					"text": "Raise your blacksmithing skill to 20"
 				}
+			],
+			"pre": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
+			],
+			"preAll": [],
+			"preAny": [
+				95998,
+				96101,
+				96604,
+				96605,
+				96606,
+				96607,
+				96608
 			]
 		},
 		"source": [
@@ -17309,9 +18426,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16: an Undead Paladin who knew Blacksmithing was offered it by Eleanor Shackleton with Continue Your Training (91209) still in the quest log, took it at level 6 and handed 91209 in 162 s later"
 			}
 		],
-		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952). It needs The Great Outdoors like every Camping 101, not Continue Your Training (91209): that is a Paladin quest, so the recorded prerequisite would have kept the quest from every other Undead blacksmith."
 	},
 	"97953": {
 		"set": {
@@ -18084,5 +19205,107 @@
 			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,969 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 		},
 		"note": "The Pariah's Instructions rewards 10,969 XP on Forever; the merged data had 5,450, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"809": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 41 runs of Ak'Zeloth by 30 people, none with an objective line at the accept or after it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: none for 809; Destroy the Demon Seed (object 3525) is The Demon Seed's (924)"
+			}
+		],
+		"note": "Ak'Zeloth is Neeru Fireblade's errand to speak with Ak'Zeloth: it has no objectives. The merged data gave it The Demon Seed's (924) objective, Destroy the Demon Seed, so a guide's hand-in looked like work never done."
+	},
+	"97331": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort Zimmix Sputterspark to safety",
+					"map": 1434,
+					"f": "e",
+					"x": 26.8,
+					"y": 11.4
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 29 objective lists at the accept, each the one event line 'Escort Zimmix Sputterspark to safety'; 24 completions at Stranglethorn Vale 26.76,11.38 on average (26.46-26.93, 11.28-11.44), east of the ruins of Zul'Kunda"
+		},
+		"note": "Zimmix's Great Escape is an escort out of the ruins of Zul'Kunda; the merged data had no objective, so guides showed nothing between its accept and its hand-in to Wharfmaster Lozgil (#2648)."
+	},
+	"87491": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort the fire elemental out of Dun Modr",
+					"map": 1437,
+					"f": "e",
+					"x": 47.8,
+					"y": 16.8
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 46 people's objective lists at the accept, each the one event line 'Escort the fire elemental out of Dun Modr'; 42 completions at Wetlands 47.8,16.8 on average (46.4-48.2, 16.2-17.1)"
+		},
+		"note": "Spark of Freedom is an escort of the captive fire elemental out of the Dark Iron ruins of Dun Modr; the merged data had no objective, so the guide went from its accept straight to the hand-in to Roggo Harlbarrow."
+	},
+	"93585": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Escort Father Tuttle to The Harborage",
+					"map": 1435,
+					"f": "e",
+					"x": 26.0,
+					"y": 31.7
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 10 people's objective lists at the accept, each the one event line 'Escort Father Tuttle to The Harborage'; 6 completions at Swamp of Sorrows 26.05,31.68 on average (25.5-26.5, 31.5-32.5)"
+		},
+		"note": "This Light of Mine is an escort of Father Tuttle to the Harborage; the merged data had no objective, so the guide's step was done on the accept."
+	},
+	"97979": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Elune's Light cast"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Shadowmeld cast"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 41 people's objective lists at the accept, each the two lines 'Elune's Light cast' and 'Shadowmeld cast'; 48 completions around Shanda in Aldrassil"
+		},
+		"note": "The Goddess Provides counts two casts, Elune's Light and Shadowmeld; the merged data had no objective, so the guide's accept and hand-in at Shanda stood with nothing between them. The game credits the casts by script, so they are event lines."
 	}
 }

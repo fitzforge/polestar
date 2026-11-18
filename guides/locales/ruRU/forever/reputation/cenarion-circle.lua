@@ -91,7 +91,7 @@ return {
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
 	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
-	["{item:20452}, from the {object:180503}"] = "",
+	["{item:20452}, from the {object:180503}"] = "{item:20452}, из ящика ({object:180503})",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
 	["{item:20452}, from {item:20424} and {item:3713}"] = "",
 
@@ -103,7 +103,7 @@ return {
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
-	["The {area:3100}"] = "",
+	["The {area:3100}"] = "{area:3100}",
 	-- {zone:1451} Silithus
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
 	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "",
@@ -127,7 +127,7 @@ return {
 	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
 	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
-	["{npc:15171} and {npc:15170}"] = "",
+	["{npc:15171} and {npc:15170}"] = "{npc:15171} и {npc:15170}",
 	-- {item:20385} Deathclasp's Pincer
 	["{item:20385}, elite: group of 2 or 3"] = "",
 
@@ -145,7 +145,7 @@ return {
 	-- {item:20456} Hive'Regal Rubbing · {area:2744} Hive'Regal
 	["{item:20456}, deep in {area:2744}"] = "",
 	-- {quest:8308} Brann Bronzebeard's Lost Letter
-	["{quest:8308}, a rare drop"] = "",
+	["{quest:8308}, a rare drop"] = "{quest:8308}, редкая добыча",
 
 	-- Step 21: Mistress Natalia
 	["Mistress Natalia"] = "",
@@ -179,7 +179,7 @@ return {
 
 	-- Step 27: Umber in Nighthaven
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} in {area:2361}"] = "",
+	["{npc:11939} in {area:2361}"] = "{npc:11939} ({area:2361})",
 
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "",

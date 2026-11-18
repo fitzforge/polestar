@@ -6,10 +6,12 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const path = require('node:path');
 const { quiet, polestar } = require('./helpers/cli');
 const { tmpdir } = require('./helpers/tmp');
 const { needs } = require('./helpers/data');
+const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
 const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
@@ -144,6 +146,18 @@ test('a stuck step is reported with guide, step, title and class; exit 1', { ski
 	assert.match(out, /playtest failed: 1 guide, 1 play: 1 stuck/);
 });
 
+// The simulated player used to finish a quest at its hand-in, so a guide with no goal for an escort (Kerlonian's,
+// 5321, 2026-11-16) played clean while players were sent to the hand-in with the escort undone. The game takes no
+// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there.
+test('a hand-in whose quest has a line no goal works is stuck there; with the goal it plays through', { skip }, async () => {
+	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior']));
+	assert.equal(result, 1, out);
+	const stuck = lines(out).filter((l) => l.startsWith('stuck '));
+	assert.equal(stuck.length, 1, out);
+	assert.match(stuck[0], /^stuck handin\/bare \(Night Elf Warrior\) at step 2 "Maestra's Post": the game takes no hand-in of quest 5321: line \d \(event\), which no goal of the guide works, is not done$/);
+	assert.ok(lines(out).includes('ok  handin/worked (Night Elf Warrior)'), out);
+});
+
 test('a guide that plays through, handing over to one of ours, prints ok with race and class for each class it branches on that the race can be, plus one it never names; exit 0', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--filter', 'northshire', '--pack', path.join(PACKS, 'plays')]));
 	assert.equal(result, 0, out);
@@ -209,6 +223,66 @@ test('--class plays only that class; a filter matching nothing exits 1; a class 
 	assert.equal(bad.result, 2);
 });
 
+// Honest mode needs no Lua or private reference data. Leave out the kill to
+// prove that a matching character really plays the guide and finds its error.
+function honestMageArgs(broken = false, otherClassGuide = false) {
+	const dir = tmpdir('polestar-honest-class-');
+	fs.writeFileSync(path.join(dir, 'mage.guide'), [
+		'guide test/mage', 'title Mage fixture', 'faction Alliance', 'class Mage',
+		'race Human', 'levels 1-10', 'zone Elwynn Forest', 'step Kobolds',
+		'  accept 7', ...(broken ? [] : ['  kill 6 x10 quest 7.1']), '  turnin 7', '',
+	].join('\n'));
+	if (otherClassGuide) fs.writeFileSync(path.join(dir, 'warrior.guide'), [
+		'guide test/warrior', 'title Warrior fixture', 'faction Alliance', 'class Warrior',
+		'race Human', 'levels 1-10', 'zone Elwynn Forest', 'step Here', '  goto 48,42', '',
+	].join('\n'));
+	return ['--honest', '--guides', dir, '--data', DATA_DIR];
+}
+
+for (const format of ['text', 'json']) {
+	test(`--honest --class refuses a guide no character can play (${format})`, async () => {
+		const r = await quiet(() => cmd.run([...honestMageArgs(true), '--class', 'Warrior', '--format', format]));
+		assert.equal(r.result, 1, r.out);
+		assert.match(r.out, /playtest(?: --honest)? failed: nothing played/);
+		assert.doesNotMatch(r.out, /playtest --honest ok|"ok":\s*true/);
+	});
+}
+
+test('--honest does not count a compatible class from outside the selected guide chain', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(true, true), '--filter', 'test/mage', '--class', 'Warrior']));
+	assert.equal(r.result, 1, r.out);
+	assert.match(r.out, /nothing played/);
+});
+
+test('--honest keeps an unmatched guide filter distinct from an unplayable class', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(), '--class', 'Mage', '--filter', 'nothing-here', '--format', 'json']));
+	assert.equal(r.result, 1, r.out);
+	assert.match(r.out, /no guide matches "nothing-here"/);
+	assert.doesNotMatch(r.out, /nothing played/);
+});
+
+test('--honest succeeds when a matching class plays a guide with no findings', async () => {
+	const args = [...honestMageArgs(), '--class', 'Mage'];
+	const text = await quiet(() => cmd.run(args));
+	assert.equal(text.result, 0, text.out);
+	assert.match(text.out, /playtest --honest ok: 1 guide: 0 fails/);
+	const json = await quiet(() => cmd.run([...args, '--format', 'json']));
+	assert.equal(json.result, 0, json.out);
+	const report = JSON.parse(json.out);
+	assert.equal(report.ok, true);
+	assert.equal(report.played, 1);
+	assert.deepEqual(report.findings, []);
+});
+
+test('--honest reports the unfinished quest when a matching class plays it', async () => {
+	const r = await quiet(() => cmd.run([...honestMageArgs(true), '--class', 'Mage', '--format', 'json']));
+	assert.equal(r.result, 1, r.out);
+	const report = JSON.parse(r.out);
+	assert.equal(report.ok, false);
+	assert.equal(report.played, 1);
+	assert.ok(report.findings.some((f) => f.rule === 'R5' && f.severity === 'fail' && f.cls === 'MAGE' && /0\/10/.test(f.reason)), r.out);
+});
+
 test('context folders go through the same checks as compile: a typo is a usage error', async () => {
 	const missing = path.join(tmpdir(), 'missing');
 	for (const flag of ['--context', '--context-data']) {
@@ -256,6 +330,20 @@ test('a class no persona\'s race can be is played as the first race of the guide
 	assert.ok(ok.includes('ok  classes/mulgore (Orc Warrior)'), out);
 	assert.ok(ok.includes('ok  classes/druid (Tauren Druid)'), out);
 	assert.deepEqual(ok.filter((l) => l.includes('classes/totems')), ['ok  classes/totems (Orc Shaman)', 'ok  classes/totems (Tauren Shaman)', 'ok  classes/totems (Tauren Druid)']);
+});
+
+test('a `buff` goal, a `buff … off` goal and a `rep` goal with points play through: the player gains and loses the aura and earns the points', { skip }, async () => {
+	const pack = commandPack({ pack: path.join(PACKS, 'blessed') });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	assert.ok(results.length > 0);
+	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
+});
+
+test('a `deposit` goal, with and without a count, and an `equip` goal on and off play through: the player banks the item and wears the other', { skip }, async () => {
+	const pack = commandPack({ pack: path.join(PACKS, 'banked') });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	assert.ok(results.length > 0);
+	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
 });
 
 test('level goals inside a level play through: the player gets that share of the level\'s XP', { skip }, async () => {

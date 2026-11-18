@@ -246,7 +246,7 @@ step Gorg
 step The river and the Farholde camp
   tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank. Cavalry Scout Alturin, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.
   tip Careful: Ghostmaw, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass.
-  use 271639 quest 95955.1 @51.9,57.1   -- Tan'jani's spears, on the Freshwater Crocolisks
+  use 271639 quest 95955.1 @51.75,51.97 -- Tan'jani's spears, on the Freshwater Crocolisks in the river
   kill 270667 x8 quest 94483.1          -- Farholde Priest
   kill 257926 x12 quest 94483.2         -- Farholde Scout
 
@@ -392,7 +392,7 @@ step Na'zok
 
 step Jom-jom's Escape
   tip Jom-jom waits by the Twilight ogres' camp north-east of Na'zok: take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
-  accept 94556                          -- Jom-jom
+  accept 94556 @73.4,24.7               -- Jom-jom, in the cave
   complete 94556 @64.4,15.6             -- help Jom-jom reach Bolder'ok
 
 step Bolder'ok

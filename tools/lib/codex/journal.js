@@ -2,8 +2,7 @@
 // The Dungeons section's data (docs/ARCHITECTURE.md, "Dungeons"): a journal
 // page per Codex dungeon and raid: every quest with where it starts and ends,
 // its objective, its chain and its rewards, the bosses in kill order with the
-// quests tied to them, and the entrance. No loot tables (the Codex's
-// instances carry each boss's loot for Lookup). A release build reads only
+// quests and loot tied to them, and the entrance. A release build reads only
 // release-safe inputs; dungeons.json (DungeonJournal) is present only in a
 // --local-extras build. Built by `codex build` and shipped inside the
 // load-on-demand Codex pack as Dungeons1.lua, which registers into
@@ -24,7 +23,7 @@
 //   zone (uiMapID: the entrance's map, else zoneOfAreas: the zone the client's areas place it in) | null, zoneName,
 //   entrance: { map, x, y, f, A? } | null (A: the Alliance's own way in, { map, x, y }),
 //   quests: [ Quest ] (level order), chain: { id: Quest } (prerequisites not on the page),
-//   bosses: [ { order, name, npc, level, object?, role?, encounter?, quests: [ { id, how, item?, itemName? } ] } ],
+//   bosses: [ { order, name, npc, level, object?, role?, encounter?, loot?: [itemId], quests: [ { id, how, item?, itemName? } ] } ],
 //   attunement: [ Attunement ] (tools/lib/codex/attunements.js; none: absent) }
 //   (object: a chest boss's object id; role: rare | event | optional, the bosses after the encounters;
 //   encounter: its DungeonEncounter id)
@@ -467,6 +466,11 @@ function buildPages(inputs, codex, warnings = []) {
 	//     lacks is skipped; one whose quest it lacks is a warning.
 	for (const r of inputs.journalQuests || loadJournalQuests()) {
 		if (!onPage[r.instance]) continue;
+		// `exclude`: a quest a rule put on the page wrongly (City of Dalaran's city quests).
+		if (r.exclude) {
+			onPage[r.instance].delete(r.quest);
+			continue;
+		}
 		const rec = codexQuest(r.quest);
 		if (!rec) warnings.push(`journal-quests.json: quest ${r.quest} is not in the Codex`);
 		else if (!onPage[r.instance].has(r.quest)) onPage[r.instance].set(r.quest, rec);
@@ -538,10 +542,15 @@ function buildPages(inputs, codex, warnings = []) {
 		const encounterOf = {};
 		for (const b of inst.bosses || []) if (b.encounter && b.name) encounterOf[norm(b.name)] = b.encounter;
 		const bossList = d
-			? (d.bosses || []).map((b) => ({ name: b.name, npc: b.npc ?? null, level: b.level ?? null, encounter: encounterOf[norm(b.name)] || null }))
+			? (d.bosses || []).map((b) => {
+				const source = (inst.bosses || []).find((x) => b.npc && x.npc === b.npc)
+					|| (inst.bosses || []).find((x) => norm(x.name) === norm(b.name));
+				return { name: b.name, npc: b.npc ?? null, level: b.level ?? null,
+					encounter: encounterOf[norm(b.name)] || null, loot: source?.loot };
+			})
 			: (inst.bosses || [])
 					.filter((b) => b.name && b.name !== 'Trash')
-					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, encounter: b.encounter ?? null, items: b.items || [], level: (npcs[b.npc] && npcs[b.npc].level) || null }));
+					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, encounter: b.encounter ?? null, items: b.items || [], loot: b.loot, level: (npcs[b.npc] && npcs[b.npc].level) || null }));
 		const bosses = bossList.map((b, i) => {
 			const tied = [];
 			const add = (id, how, item) => {
@@ -565,6 +574,7 @@ function buildPages(inputs, codex, warnings = []) {
 				if (q.bosses.includes(b.name) && !tied.some((t) => t.id === q.id)) add(q.id, 'involved');
 			}
 			const page = { order: i + 1, name: b.name, npc: b.npc, level: b.level, quests: tied };
+			if (b.loot?.length) page.loot = b.loot;
 			if (b.object) page.object = b.object;
 			if (b.role) page.role = b.role;
 			if (b.encounter) page.encounter = b.encounter;

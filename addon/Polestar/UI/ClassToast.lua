@@ -494,6 +494,12 @@ local function build()
 	end
 end
 
+-- The quest buttons or the target list moved, grew, came or went
+-- (QoL/Buttons.lua): the card takes its side again, clear of them (#2629).
+ns.On("QUEST_BUTTONS_PLACED", function()
+	if f and f:IsShown() then CT.Place(false) end
+end)
+
 -- class: the class colour's stripe, ring and header (or facts); nil (another heads-up)
 -- the accent's.
 local function paint(f, class)
@@ -852,7 +858,10 @@ local GAP = 4
 -- (the side facing the middle of the screen when both do), or on its own
 -- spot ("free": toasts.headsup.pos, Move frames). Clear of the window and
 -- of what its look draws past its edges (CT.Reach): touching it, the card
--- sat under a shadow, border or corner marks drawn over it. animate: slide
+-- sat under a shadow, border or corner marks drawn over it. A side where the
+-- card would cover the quest buttons or the target list (QoL/Buttons.lua,
+-- Buttons.Covers) counts as having no room while another side has it
+-- (#2629: the list was drawn over the card and its buttons). animate: slide
 -- out from behind the edge it sits on, or in from above beside the window
 -- and on its own spot (a fade under ui.reduceMotion).
 function CT.Place(animate)
@@ -904,16 +913,37 @@ function CT.Place(animate)
 			left = left ~= nil and (left - gap.left - cw) * s >= 0,
 			right = right ~= nil and sw ~= nil and (right + gap.right + cw) * s <= sw * us,
 		}
-		local side
-		for _, o in ipairs(place == "below" and { "below", "above" } or { "above", "below" }) do
-			if not side and fits[o] then side = o end
+		-- Each side's box in screen pixels (the edge's units times s), and
+		-- whether it keeps clear of the quest buttons and the target list.
+		local hk = h * k
+		local box = top and bottom and left and right and {
+			above = { left, top + gap.above, left + cw, top + gap.above + hk },
+			below = { left, bottom - gap.below - hk, left + cw, bottom - gap.below },
+			left = { left - gap.left - cw, top - hk, left - gap.left, top },
+			right = { right + gap.right, top - hk, right + gap.right + cw, top },
+		}
+		local B = ns.QoL and ns.QoL.Buttons
+		local covers = box and B and B.Covers and B.Covers() or {}
+		local function clear(o)
+			local x = box and box[o]
+			if not x then return true end
+			local l, b, rr, t = x[1] * s, x[2] * s, x[3] * s, x[4] * s
+			for _, c in ipairs(covers) do
+				if l < c[3] and c[1] < rr and b < c[4] and c[2] < t then return false end
+			end
+			return true
 		end
-		if not side and (fits.left or fits.right) then
-			local cx, mid = edge:GetCenter(), UIParent:GetCenter()
-			local towardLeft = cx and mid and cx * s > mid * us
-			side = ((towardLeft and fits.left) or not fits.right) and "left" or "right"
+		local cx, mid = edge:GetCenter(), UIParent:GetCenter()
+		local towardLeft = cx and mid and cx * s > mid * us
+		local order = place == "below" and { "below", "above" } or { "above", "below" }
+		order[3], order[4] = towardLeft and "left" or "right", towardLeft and "right" or "left"
+		-- The first side with room that keeps clear of the buttons, else the first with room.
+		local function pick(ok)
+			for _, o in ipairs(order) do
+				if fits[o] and ok(o) then return o end
+			end
 		end
-		side = side or "below"
+		local side = pick(clear) or pick(function() return true end) or "below"
 		CT.side = side
 		-- Beside the window, nothing of it is under the card however the screen
 		-- moves it, so the screen keeps the card whole (a window reaching past

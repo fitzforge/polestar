@@ -533,3 +533,34 @@ fn a_race_s_own_last_step_reached_ahead_is_no_end_either() {
 	assert_eq!(out["home"], json!({}));
 	assert_eq!(out["lastForEveryone"], json!(["GUIDE_END test/home undone=3 live=1 next=test/barrens choose=nil"]));
 }
+
+// #2715 (Horde Riverglades, 0.4.0.1): the guide starts from Kargath and its last step walks back there, `enter
+// Badlands` and `getfp Kargath`. A player who flew in to Kargath at the start (its flight path known before the
+// guide) read that step done ahead and got "You've reached the end of this guide" at step 2. A flight path known
+// is no proof of the guide's work: on screen, the step ends the guide as before.
+#[test]
+fn a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no_end_ahead_2715() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			w.addMap(1418, { name = "Badlands", c = 0, left = 3000, right = 0, top = 1000, bottom = -2000 })
+			Polestar.RegisterGuide({ id = "test/kargath", pack = "test", title = "Riverglades", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { { title = "Into the valley", goals = { { t = "goto", map = 1411, x = 60, y = 60, text = "The valley" } } },
+					q(120, "One"), q(121, "Two"), q(122, "Three"),
+					{ title = "Kargath", goals = { { t = "enter", location = "Badlands" },
+						{ t = "getfp", location = "Kargath", node = 21, map = 1418, x = 4, y = 44.8, f = "e" } } } } })
+			Polestar.CharState().flags.taxi = { [21] = true }
+			E.SetGuide("test/kargath"); flush(); takeLog()
+			local function kargath() w.moveTo(1418, 4, 44.8); w.setZone("Badlands", "Kargath"); stub.advance(1.5) end
+			kargath()
+			local r = { landed = takeLog(), ended = E.GuideEnded("test/kargath"), live = E.GetLiveStep() }
+			w.moveTo(1411, 60, 60); w.setZone("Durotar", ""); stub.advance(1.5)
+			w.accept(120, {}); flush(); w.accept(121, {}); flush(); w.accept(122, {}); flush()
+			kargath()
+			r.done = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(json!([out["landed"], out["ended"], out["live"]]), json!([{}, false, 1]), "landing at Kargath at the start is no end");
+	assert_eq!(out["done"], json!(["GUIDE_COMPLETED test/kargath", "GUIDE_END test/kargath undone=0 live=nil next=test/barrens choose=nil"]));
+}

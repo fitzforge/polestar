@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Shadowglen: kill these as you meet them
 	-- {area:188} Shadowglen
-	["{area:188}: kill these as you meet them"] = "",
+	["{area:188}: kill these as you meet them"] = "{area:188}: убивайте их по пути",
 	-- {area:256} Aldrassil
 	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem · Grells = {npc:1988} Grell
 	["Young Nightsabers and Young Thistle Boars (level 1-2) roam around {area:256}: start with them. The Gnarlpine Totems stand in the woods west of the tree, where the Grells (2-3) roam: take them once the beasts are done."] = "Вокруг древа ({area:256}) бродят молодые ночные саблезубы и молодые щетинистые вепри (1-2-го уровня): начните с них. Тотемы племени Кривой Сосны стоят в лесу к западу от древа, где бродят грелли (2-3): займитесь ими, когда закончите со зверями.",
@@ -171,11 +171,11 @@ return {
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515} – к югу от таверны",
 	-- {npc:3608} Aldia
-	["{npc:3608}, upstairs"] = "",
+	["{npc:3608}, upstairs"] = "{npc:3608}, наверху",
 	-- {npc:3567} Tallonkai Swiftroot
-	["{npc:3567}, upstairs"] = "",
+	["{npc:3567}, upstairs"] = "{npc:3567}, наверху",
 	-- {npc:3600} Laurna Morninglight
-	["{npc:3600}, inside"] = "",
+	["{npc:3600}, inside"] = "{npc:3600}, внутри",
 	-- {npc:3600} Laurna Morninglight · {npc:12429} Sentinel Shaya · {area:259} Lake Al'Ameth
 	["{npc:3600}: heal {npc:12429} by {area:259}"] = "{npc:3600}: исцелите персонажа {npc:12429} у озера ({area:259})",
 
@@ -205,7 +205,7 @@ return {
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Используйте {item:5619} у лунного колодца",
 	-- {object:126158} Tallonkai's Dresser
-	["{object:126158}; inside"] = "",
+	["{object:126158}; inside"] = "{object:126158}; внутри",
 
 	-- Step 32: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
@@ -253,7 +253,7 @@ return {
 	-- {quest:922} Rellian Greenspyre · {area:1658} Cenarion Enclave · {npc:7316} Sister Aquinne · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade · {item:279378} Lunar Pendant
 	["Into the city through the gate. {quest:922} is just south of the {area:1658} at the north end, {npc:7316} in the west, {npc:7313} and {npc:8396} in the Temple of the Moon at the south end. On the way back out, use Dalia's {item:279378} at the bank and at the city gate; the other two owls wait for your last visit."] = "",
 	-- {npc:7313} Priestess A'moora
-	["{npc:7313}, in the Temple of the Moon"] = "",
+	["{npc:7313}, in the Temple of the Moon"] = "{npc:7313} – в Храме Луны",
 	-- {npc:8396} Sentinel Dalia Sunblade
 	["{npc:8396}, beside her"] = "",
 	-- {item:279378} Lunar Pendant
@@ -271,7 +271,7 @@ return {
 	-- {item:5220} Gnarlpine Fang
 	["{item:5220}: any Gnarlpine furbolg"] = "",
 	-- {npc:7317} Oben Rageclaw
-	["{npc:7317}, below ground"] = "",
+	["{npc:7317}, below ground"] = "{npc:7317}, под землей",
 	-- plural, as words: Gnarlpine Shamans = {npc:2009} Gnarlpine Shaman
 	["Gnarlpine Shamans"] = "Шаманы из племени Кривой Сосны",
 
@@ -310,7 +310,7 @@ return {
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
 	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "Мистики из племени Кривой Сосны и {npc:7234} стоят лагерем к северо-востоку от места {area:260}. С NPC {npc:7234} падает {item:8049}: откройте его, чтобы достать самоцвет.\nОсторожно: {npc:7234} ждет у костра в окружении мистиков, так что выманить его одного трудно.",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
-	["{item:8049}, from {npc:7234}"] = "",
+	["{item:8049}, from {npc:7234}"] = "{item:8049}, у персонажа {npc:7234}",
 
 	-- Step 51: Dolanaar
 	-- {area:264} Oracle Glade · {area:186} Dolanaar · {npc:3567} Tallonkai Swiftroot
@@ -330,7 +330,7 @@ return {
 
 	-- Step 54: The Wellspring River
 	-- {area:265} Wellspring River
-	["The {area:265}"] = "",
+	["The {area:265}"] = "{area:265}",
 	-- {area:265} Wellspring River · {npc:272116} Xethorr the Wicked · {area:186} Dolanaar
 	-- plural, as words: Mossy Tumors = {item:5170} Mossy Tumor · Befouled Webwoods = {npc:272096} Befouled Webwood
 	["West from the webwoods to the {area:265}, then north along it to the glade: the timberlings along its banks drop the Mossy Tumors.\nCareful: {npc:272116}, a level 12 elite, prowls the east edge of the Befouled Webwoods north-west of {area:186}: if you are alone, keep clear of the webwoods and go round him."] = "От чащи тенетников на запад к реке ({area:265}), затем вдоль нее на север до поляны: с древней по берегам падают мшистые опухоли.\nОсторожно: {npc:272116}, элита 12-го уровня, бродит по восточному краю территории оскверненных чащобных тенетников к северо-западу от места {area:186}: если вы один, держитесь подальше от тенетников и обойдите его.",
@@ -387,7 +387,7 @@ return {
 	-- {area:186} Dolanaar
 	["East along the road to {area:186}."] = "На восток по дороге к месту {area:186}.",
 	-- {npc:6094} Byancie
-	["{npc:6094}, inside"] = "",
+	["{npc:6094}, inside"] = "{npc:6094}, внутри",
 	-- {item:3371} Empty Vial · {npc:3614} Narret Shadowgrove · {npc:6094} Byancie
 	["{item:3371} from {npc:3614}, beside {npc:6094}"] = "{item:3371}: продает {npc:3614}, рядом с персонажем {npc:6094}",
 	-- {npc:3600} Laurna Morninglight · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
@@ -439,7 +439,7 @@ return {
 
 	-- Step 70: Into Darnassus
 	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	["Into {zone:1457}"] = "В зону {zone:1457}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241} – {area:1659}, сразу у входа в город",
 

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Learn Blacksmithing
 	-- {skill:164} Blacksmithing
-	["Learn {skill:164}"] = "",
+	["Learn {skill:164}"] = "Изучите: {skill:164}",
 	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
 	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "",
@@ -73,9 +73,10 @@ return {
 
 	-- Step 14: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
-	["{skill:164} 75-150: vendor goods"] = "",
+	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: товары торговцев",
 	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
 	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
+	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке"
 	["a tool, keep it in your bags"] = "",
 
 	-- Step 15: Blacksmithing 75-150: Auction House
@@ -219,7 +220,7 @@ return {
 
 	-- Step 43: Green Iron Bracers to 175
 	-- {spell:3501} Green Iron Bracers
-	["{spell:3501} to 175"] = "",
+	["{spell:3501} to 175"] = "{spell:3501} до 175",
 	-- {spell:3501} Green Iron Bracers · {item:3575} Iron Bar · {item:2605} Green Dye
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
 	["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "",
@@ -258,7 +259,7 @@ return {
 
 	-- Step 49: Heavy Mithril Breastplate to 225
 	-- {item:7930} Heavy Mithril Breastplate
-	["{item:7930} to 225"] = "",
+	["{item:7930} to 225"] = "{item:7930} до 225",
 	-- {item:7930} Heavy Mithril Breastplate · {item:3860} Mithril Bar · {skill:164} Blacksmithing
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:7930} is orange at 205 (yellow 225, green 235, grey 245): about 20 crafts to 225, a point every craft. Each takes 16 {item:3860}. Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap. Needs an anvil nearby. {skill:164} 225 is a Legacy System milestone."] = "",
@@ -391,7 +392,7 @@ return {
 
 	-- Step 74: Imperial Plate Boots to 300
 	-- {item:12426} Imperial Plate Boots
-	["{item:12426} to 300"] = "",
+	["{item:12426} to 300"] = "{item:12426} до 300",
 	-- {item:12426} Imperial Plate Boots · {item:12359} Thorium Bar · {item:7910} Star Ruby · {item:7909} Aquamarine · {npc:14567} Derotain Mudsipper · {skill:164} Blacksmithing
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Huge Thorium Battleaxes = {item:12775} Huge Thorium Battleaxe
 	["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",

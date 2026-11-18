@@ -42,6 +42,7 @@ R.DESC_MIN = 5
 R.TEXT_MAX = 2000
 local LINE_MAX = 100
 local GOALS_MAX = 6
+local LEFT_OUT_MAX = 5
 local ERRORS_MAX = 3
 local SEP = " \194\183 "
 local UI_SEP = "  \194\183  "
@@ -233,6 +234,16 @@ local function guideLines(d, on)
 		add(d, "goal", goalLine(goals[g], raws[g], mark, wp))
 	end
 	if d.goals.more > 0 then add(d, "more", (L["... %d more goals"]):format(d.goals.more)) end
+	-- What the route leaves out here and why, as the guide window says it
+	-- (Engine.LeftOutHere, #2634), the quest ids for whoever fixes it.
+	local outList = E.LeftOutHere and E.LeftOutHere(index) or {}
+	for i, o in ipairs(outList) do
+		if i > LEFT_OUT_MAX then
+			add(d, "leftout", (L["Left out here: %d more"]):format(#outList - LEFT_OUT_MAX))
+			break
+		end
+		add(d, "leftout", cut((L["Left out here: %s"]):format(plain(o.title) .. " (" .. o.quest .. ")" .. SEP .. plain(o.text))))
+	end
 end
 
 local function arrowLine()
@@ -960,6 +971,7 @@ local function cutOrder(details)
 	all("questlog")
 	all("error", 1, -2)
 	all("planned", -1, 1, -1)
+	all("leftout", -1, 1, -1)
 	all("whilehere")
 	all("travel")
 	all("install")

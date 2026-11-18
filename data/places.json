@@ -499,23 +499,6 @@
 			]
 		},
 		{
-			"id": "646-azshara-rimtori-camp",
-			"quest": 3505,
-			"objective": 3,
-			"at": {
-				"map": 1447,
-				"x": 59.53,
-				"y": 31.47,
-				"frame": "era"
-			},
-			"note": "Betrayed: the arrow leads to Magus Rimtori's camp, the quest's discovery objective, once both kill objectives are credited.",
-			"source": {
-				"kind": "questie",
-				"ref": "quests.json 3505 objective 3 (the camp's event point)"
-			},
-			"pr": 646
-		},
-		{
 			"id": "646-silithus-silithyst-delivery",
 			"quest": 9422,
 			"objective": 1,
@@ -538,8 +521,8 @@
 			"objective": 1,
 			"at": {
 				"map": 1412,
-				"x": 44.92,
-				"y": 61.67,
+				"x": 44.89,
+				"y": 61.65,
 				"frame": "live"
 			},
 			"note": "Camping 101: Cooking: the arrow leads to Pyall Silentstride.",
@@ -2498,6 +2481,187 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "2615-needles-test-of-faith-planks",
+			"quest": 1149,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1441,
+				"x": 26.43,
+				"y": 32.93,
+				"frame": "era"
+			},
+			"note": "Test of Faith (1149): taking it from Dorn Plainstalker puts the player on a high cliff in western Thousand Needles, and the leap counts only from the end of the wooden planks there (the game's area trigger 246, the objective's point). The complete goal had no point, so the arrow led back to Dorn, 1,250 yd east, and a player jumped from the wrong spot and died.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2615 (xstevan, 0.4.0): /polestar where 1441 @26.43,31.23 right after taking the quest, 50 yd from the planks' trigger; the arrow pointed 1,248 yd away and the jump from there killed him"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1149 objective: event 246 at map 1441 26.43,32.93 (era)"
+				}
+			],
+			"issue": 2615
+		},
+		{
+			"id": "2650-hillsbrad-citizen-wilkes",
+			"quest": 567,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 30.6,
+				"y": 40.5,
+				"frame": "era"
+			},
+			"note": "Dangerous! (567): Citizen Wilkes walks the west side of Hillsbrad Fields' town, where players kill him (forever-db/corrections/npcs.json 2449); the goal's point was his Classic spawn at 32.62,39.79, where nobody met him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 72 people killed Citizen Wilkes, all between 29-31,38-43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2650 (Sable, 0.4.0): found him at 30.65,40.49"
+				}
+			],
+			"issue": 2650
+		},
+		{
+			"id": "2604-stv-skullsplitter-tusks-alliance",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209), Alliance: every Skullsplitter troll drops the tusks (about one kill in five), and their warriors, axe throwers and mystics camp in the ruins of Zul'Mamwe (42-49,30-42, 24 places each), as the Horde step already points (1149-stv-skullsplitter-tusks). The Alliance goal had the lone Skullsplitter Panther (100%, one spawn) as its point and two named trolls far north at Zul'Kunda (Gan'zulah and Nezzliok, 80%) as a place to search, so a player north of the ruins was sent to Zul'Kunda, where hardly any Skullsplitters are. With the point on the trolls' camp, Zul'Kunda is only an alternative, as for the Horde.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, 1061 Gan'zulah and 1062 Nezzliok the Dire 80%, at Zul'Kunda 23.4-23.5,8.1-9.5)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2604 (Amerigo, 0.4.0): the arrow's third spot was at Zul'Kunda (23.5,8.8), which has no reliable number of Skullsplitter trolls; it should aim at Zul'Mamwe"
+				}
+			],
+			"issue": 2604
+		},
+		{
+			"id": "2712-riverglades-stick-em-river",
+			"quest": 95955,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 2548,
+				"x": 51.75,
+				"y": 51.97,
+				"frame": "live"
+			},
+			"note": "Stick 'Em (95955): Tan'jani's spears are used on the Freshwater Crocolisks in the river south-west of Rog'mar. The goal pointed at 51.9,57.1, on the farmland south of the river, where no recorded player impaled one; the point is now the busiest place on the river on the way from Rog'mar to the Farholde camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17 (data/recorded/quests.json 95955): the objective ticks at 45.88,58.59 (12 people), 51.75,51.97 (10, within 16 yd), 54.38,49.57 (9) and further along the river; none at 51.9,57.1"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2712 (stabaho, 0.4.0.1): crocs in the river at 52.83,53.08, the arrow pointed at a farm"
+				}
+			],
+			"issue": 2712
+		},
+		{
+			"id": "2694-stv-kurzen-supply-crate",
+			"quest": 97047,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 49.6,
+				"y": 7.7,
+				"frame": "era"
+			},
+			"note": "The Cook in the Cage (97047): the Kurzen Fighter's Uniform comes from the Kurzen Supply Crate (object 424002) deep in the cave at the east end of Kurzen's Compound. The goal pointed at 50.0,8.0, about 25 yd off the crate; with no height either, the walk ended on the hill above the cave. The point is the crate's spawn; its floor is in data/goal-heights.json (2694-stv-kurzen-supply-crate).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 38 people looted the uniform at 49.52-49.72,7.65-7.87, and the position samples around each loot read indoors"
+				},
+				{
+					"kind": "questie",
+					"ref": "objects.json 424002 Kurzen Supply Crate at 1434 49.6,7.7"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2694 (Xaden Ryan, 0.4.0.1): the arrow led onto the hill, the way in is the cave"
+				}
+			],
+			"issue": 2694
+		},
+		{
+			"id": "2825-riverglades-jomjom-giver",
+			"quest": 94556,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 73.4,
+				"y": 24.7,
+				"frame": "live"
+			},
+			"note": "Jom-jom's Escape: Jom-jom waits in the cave north-east of Na'zok at 73.4,24.7 until the escort starts. His spawn data holds the escort's walk to Bolder'ok too, and the accept went to the walk's point nearest the player (68.9,31.3 in #2825), where he never stands before the escort. The other points stay as the goal's other places.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 22 accepts of 94556 by 19 people, every one at 73.32-74.03,24.57-24.88, the position samples around each indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2825 (Thyndare, 0.4.0.1): he waits at 73.3,24.7 in a cave"
+				}
+			],
+			"issue": 2825
+		},
+		{
+			"id": "2825-desolace-melizza-giver",
+			"quest": 6132,
+			"objective": "giver",
+			"at": {
+				"map": 1443,
+				"x": 33.9,
+				"y": 53.5,
+				"frame": "era"
+			},
+			"note": "Get Me Out of Here!: Melizza Brimbuzzle waits in the Maraudine camp at 33.9,53.5. Her spawn data holds the escort's walk out too (35.4,58.2 and 47.7,61.8, by the graveyard where it ends), and the accept went to the walk's point nearest the player, so a player coming from the graveyard was sent to where the escort ends. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 44 of 48 accepts of 6132 (28 of 30 people) at 33.84-33.93,53.40-53.65"
+			},
+			"issue": 2825
+		},
+		{
+			"id": "2825-tanaris-tooga-giver",
+			"quest": 1560,
+			"objective": "giver",
+			"at": {
+				"map": 1446,
+				"x": 30.2,
+				"y": 70.7,
+				"frame": "era"
+			},
+			"note": "Tooga's Quest: Tooga wanders the west edge of the Thistleshrub Valley (29.5,60.6 to 29.8,74.0) until the escort starts; his spawn data also has him beside Torta at Steamwheedle Port (66.9,25.4), where the escort ends and Oasis (97540) is given, and the accept went to whichever was nearest the player: from Gadgetzan or the port, the port. The point is where most players found him; the valley's other points stay as the goal's other places. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
+			},
+			"issue": 2825
 		}
 	]
 }

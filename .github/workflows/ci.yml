@@ -1,9 +1,12 @@
 name: CI
 
+# merge_group: the merge queue's run on a group of pull requests on top of next
+# (docs/CI.md, "Merge queue"); Tests is a check next requires.
 on:
   push:
     branches: [main, next]
   pull_request:
+  merge_group:
 
 permissions:
   contents: read
@@ -15,36 +18,81 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+# Lanes (tools/ci-lane.js, docs/CI.md "Lanes"): a pull request that changes
+# documentation alone gets the checks every tracked file gets (wording, names,
+# SVGs) and skips the forge build and the Node suite; anything else, or
+# anything unsure, and every push run the full lane. Tests reports either way,
+# so the required check never waits on a skipped job.
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 50
+    env:
+      # Timing budgets only warn on GitHub's shared runners; the release gate
+      # enforces them on a quiet machine (docs/RELEASING.md, step 3).
+      POLESTAR_TIMING_BUDGETS: warn
     steps:
+      # Two commits: a pull request's merge commit and the base it merges into,
+      # whose difference is what the pull request changes. A merge group's base
+      # (next's tip) is fetched on its own.
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
+          fetch-depth: 2
 
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
 
+      # The lane comes from the base's own copy of the lane script (and of the
+      # tests it reads), so a pull request cannot choose its own lane.
+      - name: Lane
+        id: lane
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          GROUP_BASE: ${{ github.event.merge_group.base_sha }}
+        run: |
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          case "$EVENT" in
+            pull_request) from=$(git rev-parse HEAD^1) || from= ;;
+            merge_group) git fetch --no-tags --quiet --depth=1 origin "$GROUP_BASE" && from=$GROUP_BASE ;;
+          esac
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
+            node "$base/tools/ci-lane.js" --github --files "$changed"
+          else
+            echo "lane=full" >> "$GITHUB_OUTPUT"
+            printf '## Lane: full\n\n- %s\n' "$EVENT: every check" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Documentation checks
+        if: steps.lane.outputs.lane == 'docs'
+        env:
+          TESTS: ${{ steps.lane.outputs.tests }}
+        run: node --test $TESTS
+
       - name: Install Lua 5.1
+        if: steps.lane.outputs.lane == 'full'
         run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
 
       # The guide, data and release commands are forge's (rust/): build it
       # first, so the Node tests that run it (tests/helpers/cli.js, $FORGE)
       # run instead of skipping. The quick profile: release without LTO.
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        if: steps.lane.outputs.lane == 'full'
         with:
           toolchain: stable
 
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        if: steps.lane.outputs.lane == 'full'
         with:
           workspaces: rust
           key: ci
 
       - name: Build forge
+        if: steps.lane.outputs.lane == 'full'
         working-directory: rust
         run: |
           cargo build --profile quick --locked -p forge
@@ -53,17 +101,20 @@ jobs:
       # A fresh clone has no built data (it needs the game client and local
       # sources), so the tests that read it skip with a reason.
       - name: Test
+        if: steps.lane.outputs.lane == 'full'
         run: npm test
 
       # Every changelog fragment in changes/ has a section and an entry, and
       # CHANGELOG.md has no "Unreleased" section of its own.
       - name: Changelog fragments
+        if: steps.lane.outputs.lane == 'full'
         run: $FORGE changelog check --root .
 
       # The interface translations: every locale file loads, no stale key, no
       # broken format; glossary drift only warns. The forge-i18n tests check
       # the same; this step prints each language's counts and warnings.
       - name: Translations
+        if: steps.lane.outputs.lane == 'full'
         run: $FORGE i18n check --root .
 
       # The textures build in textures.yml, only when their inputs change.
@@ -74,4 +125,5 @@ jobs:
       # merging UI PRs (polestar regen). A UI change never requires a guide
       # recompile; a guide change never affects these renders.
       - name: Previews build clean
+        if: steps.lane.outputs.lane == 'full'
         run: node tools/polestar.js preview

@@ -71,6 +71,36 @@ emit(action())
 }
 
 #[test]
+fn current_log_turnins_honor_either_alternatives_without_latching_the_other_attempt() {
+	let out = run(r#"
+w.repeatable[7111] = true
+w.onQuest(7111,{})
+assert(Polestar.RegisterGuide({id='test/current-log-either',pack='test',title='Alternative errands',steps={
+	{goals={
+		{t='turnin',quest=7110,title='Repeatable Parcel',currentLog=true,either=true},
+		{t='turnin',quest=7111,title='Alternative Parcel',currentLog=true,either=true}
+	}},
+	{goals={{t='level',level=60}}}
+}}))
+assert(E.OpenTab('test/current-log-either',true))
+settle()
+local function state()
+	local view = E.GetStepView(1)
+	return {live=E.GetLiveStep(),done=E.GoalDone(1,1),viewDone=view.goals[1].status=='done',held=Polestar.Compat.IsOnQuest(7110)}
+end
+local first = state()
+w.turnIn(7111); settle()
+local delivered = state()
+w.accept(7111,{}); settle()
+emit({first=first,delivered=delivered,again=state()})
+"#);
+	let open = json!({"live":1,"done":false,"viewDone":false,"held":true});
+	assert_eq!(out["first"], open, "completion history cannot finish either current attempt");
+	assert_eq!(out["delivered"], json!({"live":2,"done":true,"viewDone":true,"held":true}), "handing in the alternative completes the set while the other quest remains held");
+	assert_eq!(out["again"], open, "accepting the alternative again reopens both current attempts");
+}
+
+#[test]
 fn ordinary_turnins_keep_their_existing_completion_history_semantics() {
 	let out = run("register(nil); emit(action())");
 	assert_eq!(out["step"], 2);

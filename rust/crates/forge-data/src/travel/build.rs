@@ -350,6 +350,7 @@ fn portal_v(p: &Portal) -> V {
 		("a", end_v(&p.a)),
 		("b", end_v(&p.b)),
 		("seconds", p.seconds.into()),
+		("item", opt(p.item)),
 		("source", p.source.as_str().into()),
 	])
 }
@@ -558,7 +559,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
 	lines.push("\t},".into());
-	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen)".into());
+	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none)".into());
 	lines.push("\tportals = {".into());
 	for p in &t.transit.portals {
 		let v = obj(vec![
@@ -568,6 +569,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 			("a", to_lua_end(&p.a, true)),
 			("b", to_lua_end(&p.b, true)),
 			("seconds", p.seconds.into()),
+			("item", opt(p.item)),
 		]);
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}

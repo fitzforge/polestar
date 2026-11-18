@@ -99,7 +99,7 @@ emit({count=count,maximum=maximum,wallMaximum=wallMaximum,wall=(os.clock()-start
 	assert_eq!(out["partial"], false, "the sparse real-network pass completes before its deadline");
 	assert!(out["count"].as_u64().unwrap() <= 160, "at most player + two neighbors + successor per stop");
 	assert!(out["maximum"].as_f64().unwrap() < 4.0, "actual planner checkpoints bound work within a frame");
-	assert!(out["wallMaximum"].as_f64().unwrap() < 20.0, "recorded wall-clock slices must remain bounded on the test host");
+	forge_addontest::assert_timing!(out["wallMaximum"].as_f64().unwrap() < 20.0, "recorded wall-clock slices must remain bounded on the test host");
 }
 
 #[test]

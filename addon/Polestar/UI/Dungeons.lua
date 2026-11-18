@@ -1,7 +1,7 @@
 -- The Dungeons section of the hub: a quest journal per dungeon and raid, laid
 -- out the way DungeonJournal lays its pages out (every quest with where it
 -- starts and ends, its objective, chain and rewards; the bosses with the
--- quests tied to them; the entrance), in Polestar's world. No loot tables.
+-- quests tied to them and their known drops; the entrance), in Polestar's world.
 -- Data: Polestar.Dungeons (Dungeons/Dungeons.lua) over the Codex pack, loaded
 -- on first show; one dungeon page decoded at a time.
 --
@@ -47,7 +47,7 @@
 --   note, the item with whether it is owned, "Guide me through it" (a guide
 --   built by Dungeons.Attune, in a new tab) and one row per step with its
 --   state glyph (Dungeons.AttunementState); a click sets the arrow there.
---   Bosses: kill order, name, level and the quests each one serves; a chest
+--   Bosses: kill order, name, known drops and the quests each one serves; a chest
 --   boss says Chest, the bosses after the encounters say Rare, Event or
 --   Optional.
 --   Map: the entrance on its zone's painting, with the quest givers there.
@@ -93,9 +93,12 @@ local SIDE = { Alliance = "A", Horde = "H" }
 local band -- the sidebar's key; nil until the first render picks one
 local page -- the dungeon shown, nil on Home
 local tab = "quests"
+local lootBoss, lootPage, lootBlock
 local filter = ""
+local searchBand -- a band picked while searching: narrows the results (nil: every match), as a guide category does
 local root, hub, home, pg, segs
 local cards, heads, blocks, bossRows, ties, givers = {}, {}, {}, {}, {}, {}
+local bossLootTiles = {}
 local atts, attSteps = {}, {} -- the Attunement tab: one head per attunement, one row per step
 local listCache
 local shown = {} -- what the last render put up, for tests and the preview
@@ -346,25 +349,27 @@ local function list()
 	return listCache
 end
 
+-- Whether dungeon d is under a sidebar key.
+local function inKey(d, key, plevel, f)
+	if key == "level" then return forYouAs(d, plevel, f) end
+	if key == "raid" then return d.kind == "raid" end
+	if key == "all" then return d.kind ~= "raid" end
+	return d.kind ~= "raid" and bandOf(d.minLevel) == key
+end
+
+-- Whether dungeon d's name holds the search q (lower case; nil: no search).
+local function matches(d, q)
+	return not q or find(lower(d.name), q, 1, true) ~= nil
+end
+
 -- The cards a sidebar key shows, in level order; For your level, the ones
 -- that fit first, by closeness to where each suits best, the tough ones after.
+-- A search shows every match, or those under a key picked while searching (searchBand, #2776).
 local function entries(key, plevel, f)
 	local out = {}
 	local q = filter ~= "" and lower(filter) or nil
 	for _, d in ipairs(list()) do
-		local ok
-		if q then
-			ok = find(lower(d.name), q, 1, true) ~= nil
-		elseif key == "level" then
-			ok = forYouAs(d, plevel, f)
-		elseif key == "raid" then
-			ok = d.kind == "raid"
-		elseif key == "all" then
-			ok = d.kind ~= "raid"
-		else
-			ok = d.kind ~= "raid" and bandOf(d.minLevel) == key
-		end
-		if ok then out[#out + 1] = d end
+		if matches(d, q) and ((q and not searchBand) or inKey(d, key, plevel, f)) then out[#out + 1] = d end
 	end
 	if key == "level" and not q then
 		local rank = {}
@@ -439,11 +444,14 @@ end
 
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 
--- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
+-- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is. A
+-- giver or ender inside whom the data has not named (Alcaz Prison's
+-- prisoners, #2560) is the place alone.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
 	local N = ns.Names
 	local own = type(p.id) == "number" and ((p.kind == "npc" and N.Npc(p.id)) or (p.kind == "object" and N.Object(p.id)) or (p.kind == "item" and N.Item(p.id))) or nil
+	if p.inside and not (own or p.name) then return "|c" .. Theme.Hex("dungeon") .. L["inside the dungeon"] .. "|r" end
 	local name = own or p.name or L["Not known"]
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
@@ -746,6 +754,8 @@ local function bossRow(i)
 	r.Name:SetPoint("LEFT", r, "TOPLEFT", PAD, -24)
 	r.Level = W.Text(r, "small", "textMuted")
 	r.Level:SetPoint("LEFT", r.Name, "RIGHT", 10, 0)
+	r.Loot = W.Button(r, "", function(self) DS.SetBossLoot(self.psBoss) end, { ghost = true, icon = "chevron-right", height = 24 })
+	r.NoLoot = label(r, L["No boss drops known"])
 	r.Rule = W.Divider(r)
 	r.Rule:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", PAD, 0)
 	r.Rule:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -PAD, 0)
@@ -1105,13 +1115,16 @@ function DS.PaintVisible()
 	end
 end
 
-local function navItems(plevel, f)
+-- q: the search (lower case) or nil; while searching, each entry counts its matches, as the guide categories do (#2776).
+local function navItems(plevel, f, q)
 	local items = {}
-	local counts, level, all, raids = {}, 0, 0, 0
+	local counts, level, all, raids, anyRaid = {}, 0, 0, 0, false
 	for _, d in ipairs(list()) do
+		local hit = matches(d, q)
 		if d.kind == "raid" then
-			raids = raids + 1
-		else
+			anyRaid = true
+			if hit then raids = raids + 1 end
+		elseif hit then
 			all = all + 1
 			local k = bandOf(d.minLevel)
 			if k then counts[k] = (counts[k] or 0) + 1 end
@@ -1123,7 +1136,7 @@ local function navItems(plevel, f)
 	for _, b in ipairs(BANDS) do
 		items[#items + 1] = { key = b.key, label = bandLabel(b.key), icon = "icon-level", count = counts[b.key] or 0 }
 	end
-	if raids > 0 then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
+	if anyRaid then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
 	return items, level
 end
 
@@ -1222,7 +1235,7 @@ local function renderHome(plevel)
 	W.ShellTabs(hub, nil)
 	hub.psKeepTabRow = nil
 	local f = factionKey()
-	local key = defaultBand(plevel)
+	local key = (filter ~= "" and searchBand) or defaultBand(plevel)
 	local rows = entries(key, plevel, f)
 	-- The header: where you are and what the grid holds.
 	local title, sub
@@ -1684,10 +1697,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.StartPin:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
 	-- The arrow goes to the first prerequisite still to do, else the giver.
 	local Dg = D()
-	local target, tlabel, first, turnIn
-	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
+	local target, tlabel, first, turnIn, blocked
+	if key and Dg.GiverTarget then target, tlabel, first, turnIn, blocked = Dg.GiverTarget(key, q.id) end
 	-- Its own giver, or where the item that starts it drops outside (#1380).
-	if not target then target, tlabel = s, s and s.name end
+	if not target and not blocked then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)
@@ -1885,11 +1898,28 @@ local function bossFacts(boss)
 	return concat(t, DOT)
 end
 
+local function lootArea()
+	if lootBlock then return lootBlock end
+	lootBlock = CreateFrame("Frame", nil, pg.Body)
+	lootBlock.Tiles = bossLootTiles
+	lootBlock.Label = label(lootBlock, L["Drops"])
+	lootBlock.Label:SetPoint("TOPLEFT", lootBlock, "TOPLEFT", PAD, -8)
+	return lootBlock
+end
+
 local function renderBosses(key, f, plevel)
+	if lootPage ~= key then lootPage, lootBoss = key, nil end
+	if lootBlock then lootBlock:Hide() end
 	local side = SIDE[f]
 	local MW = mainWidth()
 	local y, nt = 0, 0
 	local bosses = D().Bosses(key)
+	-- A Codex pack built before boss drops (#2718) has no `loot` at all: say
+	-- "no drops known" only on a page whose pack carries them.
+	local anyLoot = false
+	for _, b in ipairs(bosses) do
+		if b.loot and #b.loot > 0 then anyLoot = true; break end
+	end
 	for i, boss in ipairs(bosses) do
 		local r = bossRow(i)
 		r:ClearAllPoints()
@@ -1925,6 +1955,47 @@ local function renderBosses(key, f, plevel)
 			end
 		end
 		if n > 0 then h = h + 10 end
+		local loot = boss.loot or {}
+		r.Loot:ClearAllPoints()
+		r.Loot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -h)
+		r.Loot.psBoss = i
+		r.NoLoot:ClearAllPoints()
+		r.NoLoot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -(h + 4))
+		if #loot > 0 then
+			local open = lootBoss == i
+			W.SetButtonText(r.Loot, format(L["Drops (%d)"], #loot))
+			W.SetIcon(r.Loot, open and "chevron-down" or "chevron-right")
+			r.Loot.psTip = open and L["Collapse"] or L["Expand"]
+			r.Loot:Show()
+			r.NoLoot:Hide()
+			h = h + 32
+			if open then
+				local area = lootArea()
+				area:ClearAllPoints()
+				area:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", 0, -(y + h))
+				area:SetWidth(MW)
+				local items = {}
+				local C = ns.Codex
+				for _, id in ipairs(loot) do
+					local item = C and C.Item(id)
+					items[#items + 1] = { id = id, name = (item and item.name) or ns.Compat.GetItemName(id), quality = item and item.quality }
+				end
+				placeTiles(area, 0, items, false, 0)
+				hidePool(bossLootTiles, #items + 1)
+				local height = tilesHeight(#items) + 12
+				area:SetHeight(height)
+				area:Show()
+				h = h + height
+			end
+		else
+			r.Loot:Hide()
+			if anyLoot then
+				r.NoLoot:Show()
+				h = h + 28
+			else
+				r.NoLoot:Hide()
+			end
+		end
 		r:SetHeight(h)
 		r:Show()
 		y = y + h
@@ -1934,7 +2005,7 @@ local function renderBosses(key, f, plevel)
 	if #bosses == 0 then
 		y = emptyPage(L["No bosses known yet"], L["The sources Polestar reads list no bosses for this dungeon."], 28)
 	end
-	shown.bosses, shown.ties = #bosses, nt
+	shown.bosses, shown.ties, shown.lootBoss = #bosses, nt, lootBoss
 	return y + 16
 end
 
@@ -2243,7 +2314,11 @@ local function renderPage(key, plevel)
 		hidePool(blocks)
 		qpass.key = nil
 	end
-	if tab ~= "bosses" then hidePool(bossRows); hidePool(ties) end
+	if tab ~= "bosses" then
+		hidePool(bossRows)
+		hidePool(ties)
+		if lootBlock then lootBlock:Hide() end
+	end
 	if tab ~= "attune" then hidePool(atts); hidePool(attSteps) end
 	if tab ~= "map" then
 		pg.MapArt:Hide()
@@ -2301,8 +2376,23 @@ local function renderEmpty(reason)
 	shown.view, shown.empty = "empty", reason
 end
 
+-- A new search (or none) lists every match again: a band picked during the last one no longer narrows it.
+local function setFilter(text)
+	text = text or ""
+	if text ~= filter then filter, searchBand = text, nil end
+end
+
+-- The hub's search is this section's filter, as Rares takes it: the hub empties its box when another section shows,
+-- without telling this one, which kept its old search under an empty box and the bands dead (#2773).
+local function syncFilter()
+	local P = UI.Picker
+	local s = P and P.ActiveSection and P.ActiveSection()
+	if s and s.key == "Dungeons" and P.Query then setFilter(P.Query()) end
+end
+
 function DS.Render()
 	if not root then return end
+	syncFilter()
 	for k in pairs(shown) do shown[k] = nil end
 	local Dg = D()
 	local loaded, reason
@@ -2331,16 +2421,27 @@ local function refresh()
 	end
 end
 
+function DS.SetBossLoot(i)
+	if not (page and tab == "bosses") then return end
+	local boss = D().Bosses(page)[i]
+	if not (boss and boss.loot and #boss.loot > 0) then return end
+	if lootBoss == i then lootBoss = nil else lootBoss = i end
+	refresh()
+end
+
 function DS.Nav()
+	syncFilter()
 	local Dg = D()
 	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {}, nil end
 	local plevel = playerLevel()
-	local items = navItems(plevel, factionKey())
-	return items, (filter == "" and defaultBand(plevel)) or nil
+	local items = navItems(plevel, factionKey(), filter ~= "" and lower(filter) or nil)
+	if filter ~= "" then return items, searchBand end
+	return items, defaultBand(plevel)
 end
 
+-- While searching, a band narrows the results (and the band shown without a search stays as it was).
 function DS.SetBand(key)
-	band = key
+	if filter ~= "" then searchBand = key else band = key end
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2365,6 +2466,7 @@ end
 function DS.Open(key)
 	page = key
 	tab = "quests"
+	lootBoss = nil
 	if pg then W.ScrollTo(pg.Scroll, 0) end
 	refresh()
 end
@@ -2457,7 +2559,7 @@ function DS.ShowOnMap()
 end
 
 function DS.Search(text)
-	filter = text or ""
+	setFilter(text)
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2474,7 +2576,7 @@ end
 function DS.Show(key)
 	page = key
 	tab = "quests"
-	filter = ""
+	setFilter("")
 	local P = UI.Picker
 	local win = PolestarPicker
 	local was = win and win:IsShown()
@@ -2488,7 +2590,7 @@ end
 function DS.Page() return page end
 function DS.Tab() return tab end
 function DS.Shown() return shown end
-DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers = cards, blocks, bossRows, ties, givers
+DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers, DS.bossLootTiles = cards, blocks, bossRows, ties, givers, bossLootTiles
 DS.atts, DS.attSteps = atts, attSteps
 function DS.Frames() return root, home, pg, segs end
 

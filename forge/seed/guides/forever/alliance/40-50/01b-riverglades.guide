@@ -294,7 +294,7 @@ step The Twilight cult
   kill 256798 x8 quest 94877.3          -- Twilight Neophyte
   collect 267073 x20 quest 94961.1      -- Twilight Finger Bone
   collect 266425 x25 quest 94881.1      -- Twilight Charm
-  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil: bury the mementos
+  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so loot five first
   accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
 
 step Apprentice Claire

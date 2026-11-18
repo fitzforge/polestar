@@ -1,5 +1,5 @@
 {
-	"about": "Polestar's route fixes, read by every Forge build from this checkout (never built into forge): `deliberate` holds v1's deliberate orders, the player-report fixes every route cut keeps; `overrides` holds the maintainer's hard rules (include, skip, revert, pairs). Each entry says why (`why`, or `reason` and `issue`). Check an edit with `forge data check-corrections`; docs/forge/routes.md sections 5 and 11 describe every key. $POLESTAR_ROUTE_FIXES names another file.",
+	"about": "Polestar's route fixes, read by every Forge build from this checkout (never built into forge): `deliberate` holds v1's deliberate orders, the player-report fixes every route cut keeps; `overrides` holds the maintainer's hard rules (include, skip, revert, pairs) and the second-visit accepts left out on purpose (leftout). Each entry says why (`why`, or `reason` and `issue`). Check an edit with `forge data check-corrections`; docs/forge/routes.md sections 5 and 11 describe every key. $POLESTAR_ROUTE_FIXES names another file.",
 	"deliberate": {
 		"about": "v1's deliberate orders (player-report fixes pinned by tests/guides-reported.test.js and the guides' 'Order changes against the export' headers) as hard precedence pairs: every step of `a` comes before every step of `b` when both are in the order. Kinds: accept, task (an objective site of the quest), turnin. `group`: {q, size, why}: the group an elite or group quest wants (1 soloable elite, 2-4 a group of that many, 5 never taken) where Forever's creature data reads it wrong; the route may take it with a solo fallback (docs/forge/routes.md, Group quests).",
 		"pairs": [
@@ -6239,6 +6239,54 @@
 				],
 				"faction": "Horde",
 				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Elixir of Agony 509 is worked on the Mudsnout blossoms at 30 in 30-40/01, and its delivery (513) goes to Master Apothecary Faranell on the Undercity stop at the end of that guide, after the mine."
+			},
+			{
+				"a": [
+					"accept",
+					575
+				],
+				"b": [
+					"accept",
+					583
+				],
+				"faction": "Alliance",
+				"why": "#2419 (Onrevax): Stranglethorn's first loop (30-40/04) starts at Booty Bay. 30-40/03 ends in Theramore; the walk to Ratchet (flight point) and its boat replace the boat to Menethil, the flight to Darkshire, the walk down the jungle from Nesingwary's camp and the flight to Sentinel Hill. Booty Bay's quests and the inn bind come first, the player walks north once, and the hearthstone brings them back. Level model (rested, 28 Alliance branches): this guide 196.8 -> 181.4 minutes, 13 minutes less to 60, no level and no over-level spot moved."
+			},
+			{
+				"a": [
+					"task",
+					201
+				],
+				"b": [
+					"accept",
+					185
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Krazek's Investigate the Camp (201) is in the log when the player first reaches Nesingwary's camp: it is done there, not on a trip back at the end of the loop."
+			},
+			{
+				"a": [
+					"turnin",
+					198
+				],
+				"b": [
+					"task",
+					203
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Supplies to Private Thorsen (198) goes to Thorsen on the first Rebel Camp stop, before the Kurzen work, not on a trip back at the end of the loop."
+			},
+			{
+				"a": [
+					"task",
+					575
+				],
+				"b": [
+					"turnin",
+					185
+				],
+				"faction": "Alliance",
+				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
 			}
 		],
 		"notes": [
@@ -6754,13 +6802,13 @@
 			{
 				"a": [
 					"task",
-					876
+					875
 				],
 				"b": [
 					"task",
 					95494
 				],
-				"why": "c13 review, #274 restated as same-visit work: Vrang's hides on the Dry Hills visit with the harpies. In c15 (the c14 plan): it named Harpy Lieutenants (875), and its repair moved 875's work to the ~19.7 hides visit, which takes Serena Bloodfeather (876) before 875's hand-in, so the chain guard refused it (Orc RECORD CONFLICT); it now names Serena (876, the next harpy quest, worked at 19.9 by the hides), which the chain allows. Replaces the overrides pairs 'turnin 95494/95507 before turnin 875', which c13 met by carrying Harpy Lieutenants from 16.0 to 21.6 past Darsok, and so lost Serena Bloodfeather (876) and Letter to Jin'Zil (1060)"
+				"why": "#1959: Vrang's hides and traps on the first Dry Hills loop, with Harpy Lieutenants (875), at about 17 (Savannah Patriarchs 15): his camp and the lions lie on the way east from the harpies to Echeyakee, and a second trip back only for him was the report. The second visit keeps Serena Bloodfeather (876, offered once 875 is handed in) and Walton's chain, whose Unwelcome Guests brings Terry Longdrink (19) up the ridge. Restores #274's same-visit intent (c13 review), which c15 had moved to Serena's visit."
 			},
 			{
 				"a": [
@@ -8701,6 +8749,16 @@
 				"why": "#1313: Spark of Freedom's Captive Fire Elemental (271481, Wetlands 45.67,16.66) is held at the far west of Dun Modr's Dark Iron ruins; every Dark Iron there is elite in the game's creature data (1051-1054 and 6523 at 27-30, Balgaras the Foul 1364 at 34), and the escort walks back east through them. Recorded: 2 people (0 established), one in a group of 4 at 26, one solo at 28. An escort through an elite town at the route's 30-32 is a group quest of 2, like Defeat Nek'rosh."
 			},
 			{
+				"q": 303,
+				"size": 2,
+				"why": "#2587 (swork1): The Dark Iron War is 30 kills of Dun Modr's Dark Irons, every one elite (Dwarf 27-28, Saboteur 28-29, Tunneler 29-30, Demolitionist 30-31; players' recordings: 2,171, 1,577, 1,683 and 654 elite kills), with Balgaras the Foul (34, elite) among them. Asked as a group quest on the Dun Modr stop with Spark of Freedom; the solo route leaves it out."
+			},
+			{
+				"q": 88756,
+				"size": 2,
+				"why": "#2587 (swork1): Bring Back a Bang's Stolen Explosives lie on Direforge Hill among the same elite Dark Irons (players' recordings: 103 loots by 34 people, all at Wetlands 60-63,24-29). Asked as a group quest on the Dun Modr stop; the solo route leaves it out."
+			},
+			{
 				"q": 1090,
 				"size": 2,
 				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
@@ -8743,7 +8801,7 @@
 		]
 	},
 	"overrides": {
-		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip). pairs: {a, b: [accept|task|turnin, quest], why, source}: a before b. Lines whose reason or source starts F<n> come from player reports (forge judge feedback, data/local/research/RouteFeedback.json).",
+		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip). pairs: {a, b: [accept|task|turnin, quest], why, source}: a before b. leftout: {q, guide, reason, issue}: an accept of that guide whose prerequisite only an earlier visit to the zone brings, left out for characters without it instead of brought back (read by forge guide lint, not the route build). Lines whose reason or source starts F<n> come from player reports (forge judge feedback, data/local/research/RouteFeedback.json).",
 		"include": [
 			{
 				"q": 97924,
@@ -10677,6 +10735,56 @@
 				"q": 498,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
 				"issue": "#1660"
+			},
+			{
+				"q": 1149,
+				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles (#2635): a character who skipped forever/horde/07-ashenvale arrives at 30 without Test of Faith (1149), so Test of Endurance (1150, Grenka's claw in the harpy den the guide works anyway) was hidden. Dorn's step on the Freewind stop now does Test of Faith first, `when !turnedin 1149`, so 07's players see none of it: a jump off the planks beside Dorn, 1,050 XP at full rate (level 26, paid in full up to 31), and it opens 1150 (2,450 XP). Recordings: 12 players took and handed it in at 28-34, all at Dorn.",
+				"issue": "#2635"
+			},
+			{
+				"q": 583,
+				"reason": "Catch-up in forever/horde/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/horde/30-40/03-stranglethorn-vale arrives without Welcome to the Jungle (583), so Barnil Stonepot's The Green Hills of Stranglethorn (338) and its chapters (339-342) were hidden. Nesingwary's camp, where the guide stops anyway, now has Barnil give it and Hemet take it back first, `when !turnedin 583`: a talk, 125 XP at 39 (half: level 30), and it opens Barnil's page hand-ins (775 XP a chapter). Recordings: 84 players took it at 30-38.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3524,
+				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): a Night Elf who skipped forever/alliance/nightelf/01-teldrassil arrives without Washed Ashore (3524, 4681), so Beached Sea Turtle and Beached Sea Creature (4722, 4723, 4728) were hidden. The guide's Auberdine and beach steps for 3524 (written for other races, who never follow this guide) now show `when !turnedin 3524`, and Gwennyth takes 3524 and gives 4681 before the skeletal turtle step the guide works anyway: 675 and 975 XP at full rate at 12, on the beach the guide walks. Recordings: 110 players took 3524 at 11-21.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4681,
+				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): Washed Ashore part 2, given by Gwennyth `when !turnedin 3524`; see 3524.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5096,
+				"reason": "Catch-up in forever/horde/50-60/02-felwood (#2635): a character who skipped forever/horde/50-60/01-un-goro-crater reaches the Bulwark without Scarlet Diversions (5096), so Derrington's All Along the Watchtowers (5098) and Vandis' The Scourge Cauldrons (5228, then 5229) were hidden. Derrington gives it first on the Bulwark stop, `when !turnedin 5096`: the Scarlet tents stand just past Felstone Farm, a short ride east, 5,250 XP at full rate (level 53), and 5228 is handed in on the same stop. Recordings: 5 players took it at 51-56.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4984,
+				"reason": "Catch-up in forever/alliance/50-60/04-western-plaguelands and forever/horde/50-60/06-silithus (#2635): a character who skipped the guide that takes The Wildlife Suffers Too (4984: Alliance 50-60/03-winterspring, Horde 50-60/02-felwood) reaches Mulgris without it, so his Diseased Grizzlies (4985) were hidden. Mulgris gives it on the guide's Writhing Haunt stop (`when !onquest 4984`, `when !turnedin 4984`), the Diseased Wolves roam the same fields, and he takes it back before 4985: 4,100 XP at full rate (level 54) at 55-60. Recordings: 5 players took it at 52-57.",
+				"issue": "#2635"
+			},
+			{
+				"q": 173,
+				"reason": "Catch-up in forever/alliance/07-thousand-needles (#2635): a character who skipped forever/alliance/04-redridge-mountains reaches Darkshire without Worgen in the Woods (173), so Calor's next parts (221, 222) were hidden. Calor gives it on the Darkshire stop before the worgen step the guide works anyway, `when !onquest 173` and `when !turnedin 173`: 1,150 XP at full rate (level 28) at 29. Recordings: 115 players took it at 23-37.",
+				"issue": "#2635"
+			},
+			{
+				"q": 606,
+				"reason": "Catch-up in forever/alliance/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/alliance/30-40/04b-stranglethorn-vale reaches Booty Bay without Scaring Shaky (606), so Return to MacKinley (607) and Voodoo Dues (609) were hidden. MacKinley gives it on the Booty Bay stop before the gorilla hills the guide works anyway, `when !onquest 606` and `when !turnedin 606`: 3,300 XP at full rate (level 41). Recordings: 81 players took it at 32-50.",
+				"issue": "#2635"
+			},
+			{
+				"q": 2605,
+				"reason": "Catch-up in forever/alliance/40-50/07-un-goro-crater (#2635): a character who skipped forever/alliance/40-50/04-tanaris lands in Gadgetzan without The Thirsty Goblin (2605), so In Good Taste (2606) and Sprinkle's quests after it were hidden. Marin gives it on the Gadgetzan landing, before Thistleshrub Valley where the guide collects the gland anyway, `when !onquest 2605` and `when !turnedin 2605`: 4,550 XP at full rate (level 49). Recordings: 35 players took it at 44-51.",
+				"issue": "#2635"
+			},
+			{
+				"q": 992,
+				"reason": "Catch-up in forever/horde/40-50/04-tanaris (#2635): a character who skipped forever/horde/40-50/02-feralas lands in Gadgetzan without Gadgetzan Water Survey (992), so Noxious Lair Investigation (82) and the silithid chain after it were hidden. Fizzledowser gives it on the Gadgetzan landing, before the Sandsorrow Watch pool the guide taps anyway, `when !onquest 992` and `when !turnedin 992`: 3,050 XP at full rate (level 46) at 48. Recordings: 37 players took it at 42-49.",
+				"issue": "#2635"
 			},
 			{
 				"q": 1478,
@@ -15865,6 +15973,812 @@
 				"faction": "Alliance",
 				"why": "Alliance 50-60 fix round 2 (0.4.0): The Twilight Mystery is taken with Report to Marshal Bluewall on the Silithus guide's first Cenarion Hold stop (pair above).",
 				"source": "Alliance fix round 2 2026-11-16"
+			}
+		],
+		"leftout": [
+			{
+				"q": 1689,
+				"guide": "forever/alliance/02-westfall",
+				"reason": "A Warlock class quest (Surena Caledon (1688)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 986,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "How Big a Threat? (985, level 14) pays only 60% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 944,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "It pays only 625 XP at 21, less than the trip for its starter (Onu (948), Cave Mushrooms (947)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 4733,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "Washed Ashore (3524, level 13) pays only 50% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4732,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "Washed Ashore (3524, level 13) pays only 50% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4731,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "Washed Ashore (3524, level 13) pays only 50% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4730,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "Washed Ashore (3524, level 13) pays only 50% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4728,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "Washed Ashore (3524, level 13) pays only 50% at 21, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 87760,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "It needs 6 quests from 03-darkshore first (Beached Sea Turtle (4722), Beached Sea Creature (4723), Beached Sea Turtle (4725), Beached Sea Turtle (4727), Washed Ashore (4681), Washed Ashore (3524); about 2,263 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5061,
+				"guide": "forever/alliance/03-darkshore-return",
+				"reason": "A Druid class quest (Trial of the Sea Lion (272), Trial of the Lake (29), A Lesson to Learn (26)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 14,
+				"guide": "forever/alliance/03-loch-modan",
+				"reason": "The work for The People's Militia (13: Defias Pillager x15, Defias Looter x15); The People's Militia (12: Defias Trapper x15, Defias Smuggler x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 92747,
+				"guide": "forever/alliance/03-loch-modan",
+				"reason": "It needs 3 quests from 02-westfall first (Murloc Gills (92744), The State of the Mines (92745), Testing the Wells (92742); about 1,226 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 126,
+				"guide": "forever/alliance/04-redridge-mountains",
+				"reason": "It needs 3 quests from 03-loch-modan first (A Baying of Gnolls (124), Return to Verner (119), The Price of Shoes (118); about 1,962 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 98386,
+				"guide": "forever/alliance/04-redridge-mountains",
+				"reason": "The Lost Tools (125, level 16) pays only 50% at 24, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 154,
+				"guide": "forever/alliance/05-duskwood",
+				"reason": "Return the Comb (200 XP) waits on Supplies from Darkshire (148) and Ghost Hair Thread (149), hand-offs between Abercrombie's hut in the west and Darkshire: bringing them back means walking that road twice more.",
+				"issue": "#2635"
+			},
+			{
+				"q": 177,
+				"guide": "forever/alliance/05-duskwood",
+				"reason": "Look to the Stars needs a Bronze Tube bought before the first Darkshire visit (174, shown only while carrying one, #1348): a character without one could not take it here either.",
+				"issue": "#2635"
+			},
+			{
+				"q": 262,
+				"guide": "forever/alliance/05-duskwood",
+				"reason": "Sven's Revenge (95) is dug up at the mound on the Yorgen Farmstead, east of the cemetery, and Sven's Camp (230) goes back to Sven at the far west edge of the forest: bringing them back adds a crossing of the zone each way.",
+				"issue": "#2635"
+			},
+			{
+				"q": 240,
+				"guide": "forever/alliance/05-duskwood",
+				"reason": "Dusky Crab Cakes (93, level 20) pays only 60% at 27, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5061,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "A Druid class quest (Trial of the Sea Lion (272), Trial of the Lake (29), A Lesson to Learn (26)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 281,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 471,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 98815,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 296,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 275,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1035,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1026,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1025,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 391,
+				"guide": "forever/alliance/06-wetlands",
+				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
+				"issue": "#2635"
+			},
+			{
+				"q": 58,
+				"guide": "forever/alliance/07-thousand-needles",
+				"reason": "The work for The Night Watch (57: Skeletal Fiend x15, Skeletal Horror x15); The Night Watch (56: Skeletal Warrior x8, Skeletal Mage x6) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 181,
+				"guide": "forever/alliance/07-thousand-needles",
+				"reason": "Look to the Stars needs a Bronze Tube bought before the first Darkshire visit (174, shown only while carrying one, #1348), then three quests: not quick to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 160,
+				"guide": "forever/alliance/07-thousand-needles",
+				"reason": "It needs 9 quests from 05-duskwood first (Ogre Thieves (134), Ghoulish Effigy (133), Juice Delivery (159), Gather Rot Blossoms (156), Zombie Juice (158), Deliver the Thread (157), Return the Comb (154), Ghost Hair Thread (149), Supplies from Darkshire (148); about 7,920 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 269,
+				"guide": "forever/alliance/07-thousand-needles",
+				"reason": "It needs 8 quests from 05-duskwood first (Proving Your Worth (323), Return to Sven (268), Finding the Shadowy Figure (453), Inquire at the Inn (266), The Shadowy Search Continues (265), The Shadowy Figure (262), Sven's Camp (230), Sven's Revenge (95); about 6,700 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 474,
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+				"reason": "It needs 3 quests from 06-wetlands first (Nek'rosh's Gambit (465), War Banners (464), From the Ashes (98221); about 6,500 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 98313,
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+				"reason": "It needs 3 quests from 06-wetlands first (Gleaning Our Future (98310), Understanding Our Present (98216), Uncovering the Past (299); about 8,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 290,
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+				"reason": "The work for The Cursed Crew (289: Cursed Sailor x13, Cursed Marine x5, Snellig's Snuffbox); The Third Fleet (288: Flagon of Dwarven Honeymead) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 207,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "The work for Bad Medicine (204: Jungle Remedy x7, Venom Fern Extract); The Second Rebellion (203: Kurzen Jungle Fighter x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 574,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "The work for The Second Rebellion (203: Kurzen Jungle Fighter x15); Bad Medicine (204: Jungle Remedy x7, Venom Fern Extract) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 188,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "It needs 4 quests from 04-stranglethorn-vale first (Tiger Mastery (187), Tiger Mastery (186), Tiger Mastery (185), Welcome to the Jungle (583); about 4,850 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 195,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "The work for Raptor Mastery (194: Stranglethorn Raptor x10); Welcome to the Jungle (583: taken from Barnil Stonepot) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 328,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "The work for Bookie Herod (200: taken from Lieutenant Doren); Jungle Secrets (215: taken from Private Thorsen) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 602,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "It needs 3 quests from 04-stranglethorn-vale first (Water Elementals (601), The Stone of the Tides (578), The Haunted Isle (616); about 5,990 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 600,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"reason": "The work for Singing Blue Shards (605: Singing Crystal Shard x10) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1466,
+				"guide": "forever/alliance/30-40/06b-desolace",
+				"reason": "It needs 3 quests from 02-desolace first (Reagents for Reclaimers Inc. (1459), Reagents for Reclaimers Inc. (1458), Reclaimers' Business in Desolace (1453); about 6,700 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 6027,
+				"guide": "forever/alliance/30-40/06b-desolace",
+				"reason": "The work for Sceptre of Light (5741: Sceptre of Light) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1457,
+				"guide": "forever/alliance/30-40/06b-desolace",
+				"reason": "It needs 4 quests from 02-desolace first (The Karnitol Shipwreck (1456), The Karnitol Shipwreck (1455), The Karnitol Shipwreck (1454), Reclaimers' Business in Desolace (1453); about 8,800 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 622,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "The work for Favor for Krazek (627: Lesser Bloodstone Ore x4); Krazek's Cookery (210: taken from Corporal Kaleb) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 209,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "The work for Bloodscalp Ears (189: Bloodscalp Ear x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 197,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "It needs 4 quests from 04b-stranglethorn-vale first (Raptor Mastery (196), Raptor Mastery (195), Raptor Mastery (194), Welcome to the Jungle (583); about 5,325 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 193,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "It needs 4 quests from 04-stranglethorn-vale first (Panther Mastery (192), Panther Mastery (191), Panther Mastery (190), Welcome to the Jungle (583); about 3,940 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 95786,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "It needs 4 quests from 04b-stranglethorn-vale first (Troll Witchery (205), Kurzen's Mystery (207), Bad Medicine (204), The Second Rebellion (203); about 10,960 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 208,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "It needs 5 quests from 04b-stranglethorn-vale first (Tiger Mastery (188), Tiger Mastery (187), Tiger Mastery (186), Tiger Mastery (185), Welcome to the Jungle (583); about 6,690 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1398,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+				"reason": "The work for The Lost Caravan (1421: Wizards' Reagents); Encroaching Wildlife (1396: Young Sawtooth Crocolisk x8, Sorrow Spinner x10, Swamp Jaguar x10) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 17,
+				"guide": "forever/alliance/40-50/02-badlands",
+				"reason": "Uldaman Reagent Run is worked inside Uldaman, a dungeon, and its starter (2500) is twenty Badlands drops on the earlier visit.",
+				"issue": "#2635"
+			},
+			{
+				"q": 732,
+				"guide": "forever/alliance/40-50/02-badlands",
+				"reason": "Mirages (718, level 38) pays only 60% at 45, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 2989,
+				"guide": "forever/alliance/40-50/04-tanaris",
+				"reason": "The work for Witherbark Cages (2988: Check First Cage, Check Second Cage, Check Third Cage) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1469,
+				"guide": "forever/alliance/40-50/04-tanaris",
+				"reason": "It needs 5 quests from 02-badlands first (Rhapsody's Kalimdor Kocktail (1452), Rhapsody Shindigger (1451), Gryphon Master Talonaxe (1450), To The Hinterlands (1449), In Search of The Temple (1448); about 11,700 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 2990,
+				"guide": "forever/alliance/40-50/05-the-hinterlands",
+				"reason": "It only sends the player on to the Blasted Lands (2,100 XP), after two quests at the Witherbark village and the Altar of Zul.",
+				"issue": "#2635"
+			},
+			{
+				"q": 609,
+				"guide": "forever/alliance/40-50/05-the-hinterlands",
+				"reason": "The work for Return to MacKinley (607: taken from \"Shaky\" Phillipe); Scaring Shaky (606: Mistvale Giblets x5) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 604,
+				"guide": "forever/alliance/40-50/05-the-hinterlands",
+				"reason": "It needs 3 quests from 01-stranglethorn-vale first (The Bloodsail Buccaneers (599), The Bloodsail Buccaneers (597), The Bloodsail Buccaneers (595); about 4,580 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 10,
+				"guide": "forever/alliance/40-50/07-un-goro-crater",
+				"reason": "The work for Gadgetzan Water Survey (992: Tapped Dowsing Widget) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 978,
+				"guide": "forever/alliance/50-60/01-burning-steppes",
+				"reason": "The work for Favored of Elune? (3661: Wildkin Feather x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4513,
+				"guide": "forever/alliance/50-60/03-winterspring",
+				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5097,
+				"guide": "forever/alliance/50-60/03-winterspring",
+				"reason": "The work for Clear the Way (5092: Skeletal Flayer x10, Slavering Ghoul x10) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5217,
+				"guide": "forever/alliance/50-60/03-winterspring",
+				"reason": "It needs 3 quests from 01-burning-steppes first (Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 10,875 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5220,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "It needs 5 quests from 03-winterspring first (Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 19,175 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5533,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "It pays only 550 XP at 55, less than the trip for its starter (All Along the Watchtowers (5097), Clear the Way (5092)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 979,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "Favored of Elune? (3661, level 47) pays only 50% at 55, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3781,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "It pays only 470 XP at 55, less than the trip for its starter (Un'Goro Soil (3764)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 3912,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "It needs 4 quests from 03-winterspring first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4285,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4287,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4288,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4292,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "The work for The Scent of Lar'korwi (4291: Ravasaur Pheromone Gland x2); The Fare of Lar'korwi (4290: Piece of Threshadon Carcass) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4442,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for Felbound Ancients (4441: Vial of Blessed Water); Flute of Xavaric (939: Jadefire Felbind x5) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4513,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4507,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "It needs 8 quests from 04-western-plaguelands first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,365 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 8278,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for Deadly Desert Venom (8277: Stonelash Scorpid Stinger x8, Sand Skitterer Fang x8) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 8281,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for Securing the Supply Lines (8280: Dredge Striker x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5904,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for A Plague Upon Thee (5903: Plagueland Termites x100) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5225,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "It needs 8 quests from 04-western-plaguelands first (Return to Chillwind Camp (5223), Target: Writhing Haunt (5222), Return to Chillwind Camp (5220), Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 29,405 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 6023,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "The work for Unfinished Business (6004: Scarlet Medic x2, Scarlet Hunter x2, Scarlet Mage x2, Scarlet Knight x2) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5845,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "It needs 5 quests from 04-western-plaguelands first (Of Forgotten Memories (5781), Redemption (5742), Demon Dogs (5542), Blood Tinged Skies (5543), Carrion Grubbage (5544); about 23,975 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5206,
+				"guide": "forever/alliance/50-60/06-silithus",
+				"reason": "It needs 7 quests from 04-western-plaguelands first (Heroes of Darrowshire (5168), Villains of Darrowshire (5181), Brother Carlin (5210), The Annals of Darrowshire (5154), A Strange Historian (5153), Auntie Marlene (5152), Pamela's Doll (5149); about 30,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1502,
+				"guide": "forever/horde/02-the-barrens",
+				"reason": "A Warrior class quest (Path of Defense (1498)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1526,
+				"guide": "forever/horde/02-the-barrens",
+				"reason": "A Shaman class quest (Call of Fire (1525), Call of Fire (1524)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 874,
+				"guide": "forever/horde/04-the-barrens",
+				"reason": "It needs 9 quests from 02-the-barrens first (Cry of the Thunderhawk (913), Enraged Thunder Lizards (907), Ishamuhale (882), Jorn Skyseer (3261), The Angry Scytheclaws (905), Echeyakee (881), Prowlers of the Barrens (903), The Zhevra (845), Plainstrider Menace (844); about 8,122 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 879,
+				"guide": "forever/horde/04-the-barrens",
+				"reason": "The work for Blood Shards of Agamaggan (5052: Blood Shard); Tribes at War (878: Bristleback Water Seeker x6, Bristleback Thornweaver x12, Bristleback Geomancer x12) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1534,
+				"guide": "forever/horde/04-the-barrens",
+				"reason": "A Shaman class quest (Call of Water (1536), Call of Water (1535), Call of Water (1530)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1068,
+				"guide": "forever/horde/04-the-barrens",
+				"reason": "The work for Goblin Invaders (1062: Venture Co. Logger x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 95981,
+				"guide": "forever/horde/05-stonetalon-mountains",
+				"reason": "It needs 4 quests from 03-silverpine-forest first (Dalaran's Intentions (482), Dalar's Analysis (481), Maps and Runes (478), Border Crossings (477); about 963 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 479,
+				"guide": "forever/horde/05-stonetalon-mountains",
+				"reason": "It needs 4 quests from 03-silverpine-forest first (Dalaran's Intentions (482), Dalar's Analysis (481), Maps and Runes (478), Border Crossings (477); about 963 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 31,
+				"guide": "forever/horde/06-hillsbrad-foothills",
+				"reason": "A Druid class quest (Trial of the Sea Lion (30), Trial of the Lake (28), A Lesson to Learn (27)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1196,
+				"guide": "forever/horde/07-ashenvale",
+				"reason": "The Sacred Flame (1195) comes from Zangen Stonehoof in Thunder Bluff, and its phial is filled in Raynewood before this guide's Thunder Bluff stop: bringing it back would take a second trip for 600 XP.",
+				"issue": "#2635"
+			},
+			{
+				"q": 220,
+				"guide": "forever/horde/07-ashenvale",
+				"reason": "A Shaman class quest (Call of Water (1534), Call of Water (1536), Call of Water (1535), Call of Water (1530)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 63,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+				"reason": "A Shaman class quest (Call of Water (220), Call of Water (1534), Call of Water (1536), Call of Water (1535), Call of Water (1530)): it is the class's own chain, offered by the class quest card, not a stop on the route.",
+				"issue": "#2635"
+			},
+			{
+				"q": 1366,
+				"guide": "forever/horde/30-40/04-dustwallow-marsh",
+				"reason": "The work for Khan Dez'hepah (1365: Khan Dez'hepah's Head) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 533,
+				"guide": "forever/horde/30-40/05-arathi-highlands",
+				"reason": "The Rescue (498, level 22) pays only 50% at 37, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 95748,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "The work for The Vile Reef (629: Tablet Shard) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 571,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "The work for Mok'thardin's Enchantment (572: Jungle Stalker Feather x10); Mok'thardin's Enchantment (570: Shadowmaw Claw x8, Pristine Tigress Fang) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 628,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "Supply and Demand (575, level 31) pays only 50% at 39, this visit's arrival level.",
+				"issue": "#2635"
+			},
+			{
+				"q": 97332,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "It needs 3 quests from 03-stranglethorn-vale first (Anything of Value (97328), Zimmix's Great Escape (97331), Where's the Key? (97329); about 8,250 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 600,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "The work for Singing Blue Shards (605: Singing Crystal Shard x10) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 209,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "The work for Bloodscalp Ears (189: Bloodscalp Ear x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 196,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "It needs 3 quests from 03-stranglethorn-vale first (Raptor Mastery (195), Raptor Mastery (194), Welcome to the Jungle (583); about 2,875 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 193,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "It needs 4 quests from 03-stranglethorn-vale first (Panther Mastery (192), Panther Mastery (191), Panther Mastery (190), Welcome to the Jungle (583); about 3,940 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 585,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "It needs 3 quests from 03-stranglethorn-vale first (Bloodscalp Clan Heads (584), Headhunting (582), Hunt for Yenniku (581); about 7,400 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 598,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "The work for Bloody Bone Necklaces (596: Bloody Bone Necklace x25); The Vile Reef (629: Tablet Shard) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 208,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"reason": "It needs 5 quests from 03-stranglethorn-vale first (Tiger Mastery (188), Tiger Mastery (187), Tiger Mastery (186), Tiger Mastery (185), Welcome to the Jungle (583); about 6,690 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 586,
+				"guide": "forever/horde/40-50/02-feralas",
+				"reason": "It needs 3 quests from 03-stranglethorn-vale first (Bloodscalp Clan Heads (584), Headhunting (582), Hunt for Yenniku (581); about 5,560 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 588,
+				"guide": "forever/horde/40-50/02-feralas",
+				"reason": "It needs 4 quests from 01-stranglethorn-vale first (Speaking with Nezzliok (585), Bloodscalp Clan Heads (584), Headhunting (582), Hunt for Yenniku (581); about 7,910 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 608,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "It needs 4 quests from 01-stranglethorn-vale first (The Bloodsail Buccaneers (604), The Bloodsail Buccaneers (599), The Bloodsail Buccaneers (597), The Bloodsail Buccaneers (595); about 5,022 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 591,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "It needs 7 quests from 02-feralas first (The Singing Crystals (589), The Fate of Yenniku (588), Speaking with Nezzliok (585), Speaking with Gan'zulah (586), Bloodscalp Clan Heads (584), Headhunting (582), Hunt for Yenniku (581); about 13,215 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3124,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "It needs 3 quests from 03-feralas first (Testing the Vessel (3123), Return to Witch Doctor Uzer'i (3122), A Strange Request (3121); about 7,125 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 7725,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "A 550 XP repeat of Zorbin's Feralas errand: not worth bringing the first one back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 7726,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "A 550 XP repeat of Zorbin's Feralas errand: not worth bringing the first one back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3129,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "It needs 3 quests from 03-feralas first (Natural Materials (3128), Return to Witch Doctor Uzer'i (3122), A Strange Request (3121); about 7,625 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 2661,
+				"guide": "forever/horde/40-50/06-azshara",
+				"reason": "It needs 3 quests from 04-tanaris first (Sprinkle's Secret Ingredient (2641), In Good Taste (2606), The Thirsty Goblin (2605); about 9,560 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3782,
+				"guide": "forever/horde/50-60/03-winterspring",
+				"reason": "It pays only 470 XP at 55, less than the trip for its starter (Un'Goro Soil (3761)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 3569,
+				"guide": "forever/horde/50-60/04-azshara",
+				"reason": "It pays only 500 XP at 55, less than the trip for its starter (Seeping Corruption (3568)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 4741,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands",
+				"reason": "The work for Wild Guardians (4521: Raging Owlbeast x15, Ragged Owlbeast x15) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3912,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands",
+				"reason": "It needs 4 quests from 03-winterspring first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5163,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands",
+				"reason": "The work for Are We There, Yeti? (3783: Thick Yeti Fur x10) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4507,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands",
+				"reason": "It needs 8 quests from 06-azshara first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,935 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 6844,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 5 quests from 05-eastern-plaguelands first (Hive in the Tower (1126), The Spirits of Southwind (1125), Wasteland (1124), Rabine Saturna (1123), The New Frontier (1000); about 16,400 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4292,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "The work for The Scent of Lar'korwi (4291: Ravasaur Pheromone Gland x2); The Fare of Lar'korwi (4290: Piece of Threshadon Carcass) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 3942,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 8 quests from 05-eastern-plaguelands first (A Gnome's Assistance (3941), Linken's Sword (3914), A Grave Situation (3913), Meet at the Grave (3912), The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 30,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 4509,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 9 quests from 05-eastern-plaguelands first (Pawn Captures Queen (4507), Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 19,815 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5902,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "The work for A Plague Upon Thee (5901: Plagueland Termites x100) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 838,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It pays only 550 XP at 57, less than the trip for its starter (All Along the Watchtowers (5098), Scarlet Diversions (5096)).",
+				"issue": "#2635"
+			},
+			{
+				"q": 105,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "The work for Scarlet Diversions (5096: Destroy the command tent and plant the Scourge banner in the camp) is not on this visit's route: bringing it back is a separate trip.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5742,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 3 quests from 05-eastern-plaguelands first (Demon Dogs (5542), Blood Tinged Skies (5543), Carrion Grubbage (5544); about 17,400 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5206,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 7 quests from 05-eastern-plaguelands first (Heroes of Darrowshire (5168), Villains of Darrowshire (5181), Brother Carlin (5210), The Annals of Darrowshire (5154), A Strange Historian (5153), Auntie Marlene (5152), Pamela's Doll (5149); about 30,550 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 6135,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "It needs 3 quests from 05-eastern-plaguelands first (To Kill With Purpose (6022), Un-Life's Little Annoyances (6042), The Ranger Lord's Behest (6133); about 19,000 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
+			},
+			{
+				"q": 5087,
+				"guide": "forever/horde/50-60/07-felwood",
+				"reason": "It needs 4 quests from 05-eastern-plaguelands first (Toxic Horrors (5086), Mystery Goo (5085), Falling to Corruption (5084), Winterfall Firewater (5083); about 17,400 XP of work at this visit's level): too long to bring back.",
+				"issue": "#2635"
 			}
 		]
 	}

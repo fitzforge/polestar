@@ -439,3 +439,89 @@ emit(out)
 		assert_eq!(out[id], serde_json::json!({ "width": 36, "on": "star", "close": false }), "{id}: the star alone: {out}");
 	}
 }
+
+// A player on Discord (17 Nov, 0.3.7) saw his class guide take over the window: compact mode then hid the tab strip
+// whatever the number of tabs, so the Barrens guide's tab, still open, could not be seen. Every look, built in and
+// bundled (each variant), shows the strip with two guides open, normal and compact, at UI scales 0.64, 1 and 1.5:
+// the strip shown, each tab shown with its guide's title at a readable height. One guide open in compact mode: no
+// strip (the step bar names the guide).
+#[test]
+fn every_look_shows_the_tab_strip_with_two_guides_open_normal_and_compact_at_every_ui_scale() {
+	let skins = SKINS
+		.iter()
+		.map(|(id, _, variants)| {
+			let v = variants.iter().map(|v| format!("{v:?}")).collect::<Vec<_>>().join(", ");
+			format!("{{ id = {id:?}, variants = {{ {v} }} }}")
+		})
+		.collect::<Vec<_>>()
+		.join(",\n");
+	let script = format!(
+		r#"
+local T, E, GF = Polestar.Theme, Polestar.Engine, Polestar.UI.GuideFrame
+Polestar.RegisterPack({{ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" }})
+for _, id in ipairs({{ "a", "b" }}) do
+	Polestar.RegisterGuide({{ id = "test/" .. id, pack = "test", title = "Guide " .. id:upper(), minLevel = 1, maxLevel = 60,
+		steps = {{ {{ title = "Step", goals = {{ {{ t = "note", text = "Read this" }} }} }} }} }})
+end
+Polestar.Set("ui.shown", true)
+E.OpenTab("test/a"); E.OpenTab("test/b"); stub.advance(1)
+local function probe(key, id)
+	local rows = {{}}
+	for _, compact in ipairs({{ false, true }}) do
+		for _, scale in ipairs({{ 0.64, 1, 1.5 }}) do
+			Polestar.Set("ui.compact", compact)
+			Polestar.Set("ui.scale", scale)
+			GF.Layout(); stub.advance(0.1)
+			local strip, tabs = GF.parts.strip, {{}}
+			for _, b in ipairs(GF.tabs) do
+				if b:IsVisible() then tabs[#tabs + 1] = {{ title = b.Label:IsVisible() and b.Label:GetText() or false, h = b:GetHeight() }} end
+			end
+			rows[#rows + 1] = {{ key = key .. (compact and " compact" or "") .. " x" .. scale, inUse = T.SkinId() == id,
+				strip = GF.StripShown() and strip:IsVisible() or false, h = strip:GetHeight(), tabs = tabs }}
+		end
+	end
+	return rows
+end
+local out = {{ looks = {{}} }}
+local function add(rows) for _, r in ipairs(rows) do out.looks[#out.looks + 1] = r end end
+local BUNDLED = {{ {skins} }}
+local bundled = {{}}
+for _, s in ipairs(BUNDLED) do bundled[s.id] = true end
+-- SKIN_ORDER lists the bundled skins too once registered: those go below, each variant.
+for _, id in ipairs(T.SKIN_ORDER) do
+	if not bundled[id] then
+		Polestar.Set("ui.skin", id)
+		add(probe(id, id))
+	end
+end
+for _, s in ipairs(BUNDLED) do
+	for _, v in ipairs(#s.variants > 0 and s.variants or {{ false }}) do
+		if v then Polestar.Set("ui.skinVariants." .. s.id, v) end
+		Polestar.Set("ui.skin", s.id)
+		add(probe(s.id .. (v and ("/" .. v) or ""), s.id))
+	end
+end
+Polestar.Set("ui.skin", "polestar"); Polestar.Set("ui.scale", 1); Polestar.Set("ui.compact", true)
+E.CloseTab(2); GF.Layout(); stub.advance(0.1)
+out.oneCompact = GF.parts.strip:IsVisible()
+emit(out)
+"#
+	);
+	let mut addons = vec![Addon::name("Polestar")];
+	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
+	let looks = out["looks"].as_array().unwrap();
+	let runs: usize = SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum();
+	assert!(looks.len() >= (6 + runs) * 6, "every look, normal and compact, three scales: {}", looks.len());
+	for l in looks {
+		let key = l["key"].as_str().unwrap();
+		assert_eq!(l["inUse"], true, "{key}: in use");
+		assert_eq!(l["strip"], true, "{key}: the tab strip shows with two guides open: {l}");
+		// An empty Lua table comes back as {}.
+		let tabs = l["tabs"].as_array().cloned().unwrap_or_default();
+		let titles: Vec<&Value> = tabs.iter().map(|t| &t["title"]).collect();
+		assert_eq!(titles, [&Value::from("Guide A"), &Value::from("Guide B")], "{key}: both tabs, titled: {l}");
+		assert!(tabs.iter().all(|t| t["h"].as_f64().unwrap() >= 16.0), "{key}: tabs a readable height: {l}");
+	}
+	assert_eq!(out["oneCompact"], false, "one guide in compact mode: no strip");
+}

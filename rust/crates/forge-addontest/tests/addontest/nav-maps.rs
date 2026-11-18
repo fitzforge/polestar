@@ -420,7 +420,7 @@ emit({ worst = worst / 100000, budget = Path.budget, pumps = pumps, decodes = (P
 	let (worst, budget) = (got["worst"].as_f64().unwrap(), got["budget"].as_f64().unwrap());
 	assert!(got["decodes"].as_i64().unwrap() >= 40, "the clusters decoded: {got}");
 	assert!(got["pumps"].as_i64().unwrap() > got["decodes"].as_i64().unwrap(), "decodes sliced over frames: {got}");
-	assert!(worst <= budget * 1.5, "a frame ran {worst:.2} ms of router work, budget {budget} ms: {got}");
+	forge_addontest::assert_timing!(worst <= budget * 1.5, "a frame ran {worst:.2} ms of router work, budget {budget} ms: {got}");
 }
 
 // A search leaves its decoded clusters for the next one (a walk or measure from nearby reads the same clusters): a

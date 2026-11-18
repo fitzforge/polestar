@@ -88,6 +88,7 @@ never in saved variables.
 | `Locale.lua` | – | Loads the client's language folder `Polestar_<locale>` (interface strings, names, guide texts) right after `GuideTexts.lua`, before any file reads `L` at load; nothing on an English client, English when the folder is missing |
 | `Names.lua` | `Names` | Quest, NPC, object and item names in the client's language: the client's own, else its language folder `Polestar_<locale>`'s `Names.lua`, loaded on demand; the walking maps' areas as the client names the subzone there (kind `subzone`, the folder's `Subzones.lua`); nil (English) on an English client |
 | `Hooks.lua` | `Hooks` | The one owner of the tooltip and item-click hooks; modules add lines and handle clicks through it |
+| `BagSlots.lua` | `BagSlots` | The one owner of bag slot hooks and addon registration; modules register painters and corner widgets through it |
 | `Guides.lua` | `Guides` | The guide registry: packs, guides and map frames registered at load time, and the queries behind the guide menu (lists, suggestions) |
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |

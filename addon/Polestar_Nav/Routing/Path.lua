@@ -207,12 +207,23 @@ end
 -- Dijkstra that stops once every node in targets (a set of nodes) is settled. On a map with arcs (format 5's one-way
 -- jumps and drops) a search steps along them; back (a search out of a goal, its tree walked to the goal) along them
 -- backwards.
--- tree.mark[node + 1] is 2 * gen while the node is open in the tree's search gen, 2 * gen + 1 once it is settled
--- (older searches' marks are smaller). Endpoint trees dropped from st.endTrees wait in pool for the next one: a tree
--- grows to its cluster's size once, then is reused (Idle empties the pool).
-local pool = {}
+-- tree.pm[node + 1] holds the node's parent and its mark in one number: stamp * SPAN + parent + 1, the stamp 2 * gen
+-- while the node is open in the tree's search gen, 2 * gen + 1 once it is settled (older searches' stamps are
+-- smaller); the source's parent is -1. Until 0.4.1 they were two tables (par, mark): a tree's tables are filled from
+-- the search's source outward, so nearly every key sits in the hash part, 40 bytes a key, and a city cluster's
+-- tree held four tables of up to 32,768 keys (5 MB); three now. Endpoint trees dropped from st.endTrees go to the
+-- pool while it holds fewer than POOL (one is enough for the next connection: a tree grows to its cluster's size
+-- once, then is reused); Idle empties it.
+local SPAN = 1048576 -- 2^20: above any node id + 1 (a cluster holds at most 65,536 nodes)
+local pool, POOL = {}, 1
 local function Tree()
-	return table.remove(pool) or { g = {}, par = {}, mark = {}, gen = 0, y = {} }
+	return table.remove(pool) or { g = {}, pm = {}, gen = 0, y = {} }
+end
+-- A tree given up (an endpoint tree st.endTrees no longer keeps) goes to the pool while it has room.
+local function Release(tree)
+	if tree and #pool < POOL then
+		pool[#pool + 1] = tree
+	end
 end
 -- Per kind byte (PathGrid's decoded clusters), a step's class multiplier (mult's; 1 without one) and its water factor
 -- (swim in water, else 1), built once a multiplier table and a swim factor.
@@ -263,10 +274,10 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	-- Per chunk the zone multiplier of a step into it; nil when the cluster has no dangerous chunk (every search
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
-	local g, par, mark, ys = tree.g, tree.par, tree.mark, mult and tree.y
+	local g, pm, ys = tree.g, tree.pm, mult and tree.y
 	tree.gen = tree.gen + 1
-	local open = 2 * tree.gen
-	local settled = open + 1
+	local open = 2 * tree.gen * SPAN -- pm at or above it: open in this search; at or above settled: settled
+	local settled = open + SPAN
 	tree.k = k
 	local gx, gy = 0, 0
 	if goal then
@@ -274,7 +285,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		gx, gy = floor(cell / C), cell % C
 	end
 	hn = 0
-	g[source + 1], par[source + 1], mark[source + 1] = 0, -1, open
+	g[source + 1], pm[source + 1] = 0, open
 	if ys then
 		ys[source + 1] = 0
 	end
@@ -317,11 +328,13 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		else
 			gv = gu + length * cs * WM[kb] * WS[kb]
 		end
-		local mk = mark[i]
+		local mk = pm[i]
 		if not mk or mk < open or gv < g[i] then
-			g[i], par[i] = gv, u
+			g[i] = gv
 			if not mk or mk < open then
-				mark[i] = open
+				pm[i] = open + u + 1
+			else
+				pm[i] = mk - mk % SPAN + u + 1
 			end
 			if ys then
 				ys[i] = yu + length * cs
@@ -344,8 +357,9 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	while hn > 0 do
 		u = pop()
 		local i = u + 1
-		if mark[i] ~= settled then
-			mark[i] = settled
+		local mk = pm[i]
+		if mk < settled then
+			pm[i] = mk + SPAN
 			tick()
 			if u == goal then
 				return true
@@ -472,8 +486,10 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	return goal == nil
 end
 
+-- Settled in the tree's last search (no later search has a larger stamp).
 local function reached(tree, node)
-	return tree.mark[node + 1] == 2 * tree.gen + 1
+	local v = tree.pm[node + 1]
+	return v ~= nil and v >= (2 * tree.gen + 1) * SPAN
 end
 
 -- The yards along a tree's path to node: its yards label on a map with classes, its cost on one without (format 1).
@@ -483,10 +499,10 @@ end
 
 -- Node path in a tree from node back to its source (node first).
 local function trace(tree, node, out)
-	local par = tree.par
+	local pm = tree.pm
 	while node >= 0 do
 		out[#out + 1] = node
-		node = par[node + 1]
+		node = pm[node + 1] % SPAN - 1
 	end
 	return out
 end
@@ -508,8 +524,15 @@ local function endpoint(st, swim, mult, tree, k, node, back)
 	search(st, k, swim, mult, node, tree, nil, targets, left, back)
 end
 -- An endpoint on a rooftop or ledge the grid cannot leave moves to the nearest node that reaches an entrance,
--- down a ledge but never up one or onto another level.
-local function settle(st, swim, mult, tree, k, node, back)
+-- down a ledge but never up one or onto another level: ring by ring, RETRIES cells at most. A point asked at a height
+-- (`want`: an NPC's spawn, the player's floor) has a second order too: the cells within SNAP by their distance plus
+-- twice their surface's gap to that height (as snap weighs them), RETRIES more. A goal (`back`) tries that order
+-- first: one whose own cell holds only a counter, a table or a stair's piece above the floor the NPC stands on finds
+-- that floor a few cells away (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under the bar's surfaces round her, was
+-- walked to over the mountain above Ironforge; Nissa Firestone's ring settled on a ledge whose entrance leads
+-- nowhere). A start (the player, on the floor Walk.lua follows) tries the rings first, as before, the other order
+-- only when they find nothing.
+local function settle(st, swim, mult, tree, k, node, back, want)
 	local C = st.C
 	endpoint(st, swim, mult, tree, k, node, back)
 	local function connected()
@@ -524,33 +547,94 @@ local function settle(st, swim, mult, tree, k, node, back)
 	if connected() then
 		return node
 	end
-	local tries = 0
+	local start = node
 	local h = zOf(grid(st, k), node)
 	local cell = cellOf(st, k, node)
 	local lx, ly = floor(cell / C), cell % C
-	for r = 1, SNAP do
-		for dx = -r, r do
-			for dy = -r, r do
-				if tries >= RETRIES then
-					return node
-				end
-				local x, y = lx + dx, ly + dy
-				local ring = dx == r or dx == -r or dy == r or dy == -r
-				if ring and x >= 0 and y >= 0 and x < C and y < C then
-					local near = standing(st, k, x * C + y, h)
-					local rise = near and zOf(grid(st, k), near) - h
-					if near and rise <= ZTOL and rise >= -DROP and not reached(tree, near) then
-						tries, node = tries + 1, near
-						endpoint(st, swim, mult, tree, k, node, back)
-						if connected() then
-							return node
+	-- Ring by ring: the node settled (true), or the last one tried (false).
+	local function rings()
+		local tries, at = 0, start
+		for r = 1, SNAP do
+			for dx = -r, r do
+				for dy = -r, r do
+					if tries >= RETRIES then
+						return at, false
+					end
+					local x, y = lx + dx, ly + dy
+					local ring = dx == r or dx == -r or dy == r or dy == -r
+					if ring and x >= 0 and y >= 0 and x < C and y < C then
+						local near = standing(st, k, x * C + y, h)
+						local rise = near and zOf(grid(st, k), near) - h
+						if near and rise <= ZTOL and rise >= -DROP and not reached(tree, near) then
+							tries, at = tries + 1, near
+							endpoint(st, swim, mult, tree, k, at, back)
+							if connected() then
+								return at, true
+							end
 						end
 					end
 				end
 			end
 		end
+		return at, false
 	end
-	return node
+	-- By distance and height gap to want: the node settled, or nil.
+	local function nearest()
+		local cands = {}
+		for r = 1, SNAP do
+			for dx = -r, r do
+				for dy = -r, r do
+					local x, y = lx + dx, ly + dy
+					if (dx == r or dx == -r or dy == r or dy == -r) and x >= 0 and y >= 0 and x < C and y < C then
+						local near = standing(st, k, x * C + y, want)
+						local z = near and zOf(grid(st, k), near)
+						if near and z - h <= ZTOL and z - h >= -DROP then
+							cands[#cands + 1] = { near, sqrt(dx * dx + dy * dy) * st.cs + 2 * abs(z - want), #cands }
+						end
+					end
+				end
+			end
+		end
+		table.sort(cands, function(a, b)
+			if a[2] ~= b[2] then
+				return a[2] < b[2]
+			end
+			return a[3] < b[3]
+		end)
+		local tries = 0
+		for _, c in ipairs(cands) do
+			if tries >= RETRIES then
+				return nil
+			end
+			if not reached(tree, c[1]) then
+				tries = tries + 1
+				endpoint(st, swim, mult, tree, k, c[1], back)
+				if connected() then
+					return c[1]
+				end
+			end
+		end
+	end
+	if want and back then
+		local found = nearest()
+		if found then
+			return found
+		end
+		endpoint(st, swim, mult, tree, k, start, back)
+	end
+	local at, ok = rings()
+	if ok or not want or back then
+		return at
+	end
+	-- (the tree holds the last ring try's search: the start's own is searched again for `reached`)
+	endpoint(st, swim, mult, tree, k, start, back)
+	local found = nearest()
+	if found then
+		return found
+	end
+	-- (none: as the rings left it, its tree searched again)
+	endpoint(st, swim, mult, tree, k, at, back)
+	return at
 end
 
 -- Both APIs connect endpoints with the same local search. Connections are outward at both ends, as in the
@@ -589,13 +673,14 @@ local ENDTREES, TREE_NODES = 4, 65536
 -- st.endTrees may hold more than ENDTREES while one runs. A batch (FindMany) pins its source's only: of its targets
 -- it keeps the costs.
 local runStamp, pin = 0, nil
-local function connect(st, swim, mult, k, node, back)
+-- want: the height the point was asked at (settle's), when it has one.
+local function connect(st, swim, mult, k, node, back, want)
 	nodesOf(st, k)
 	local key = k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "") .. (back and ":b" or "")
 	local entry = st.ends[key]
 	if not entry then
 		local tree = Tree()
-		node = settle(st, swim, mult, tree, k, node, back)
+		node = settle(st, swim, mult, tree, k, node, back, want)
 		local edges, yards = connections(st, tree, k)
 		entry = { node = node, edges = edges, yards = yards, tree = tree }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
@@ -616,7 +701,8 @@ local function connect(st, swim, mult, k, node, back)
 			end
 			st.endNodes = st.endNodes - gone.size
 			if gone.tree then
-				pool[#pool + 1], gone.tree = gone.tree, nil
+				Release(gone.tree)
+				gone.tree = nil
 			end
 		end
 		if st.endCount >= (Path.endsMax or 256) then
@@ -724,7 +810,7 @@ local function connectPoint(st, swim, mult, k, node, h, floors, back)
 	local ends, merged, via, yards = {}, {}, {}, {}
 	for _, start in ipairs(surfaces(st, k, node, h, floors)) do
 		-- The entry itself: its tree may go to the pool before the caller reads it (connect).
-		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back)
+		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back, h)
 		ends[#ends + 1] = entry
 		for id, cost in pairs(edges) do
 			if not merged[id] or cost < merged[id] then
@@ -742,8 +828,9 @@ end
 -- The trees are the job's own (trees.B, in its scratch): searches are sliced and take turns, and one job's tree must
 -- never be rewritten under another's paused search or traced by its refinement.
 -- A surface whose tree is complete and met no entrance is a rock top or ledge: like connectPoint, it goes through
--- connect, which moves it to a node that reaches one (settle), and that connection joins the starts.
-local function connectWithin(st, swim, mult, k, nodes, R)
+-- connect, which moves it to a node that reaches one (settle, toward `h`, the start's height when it has one), and
+-- that connection joins the starts.
+local function connectWithin(st, swim, mult, k, nodes, R, h)
 	local targets, left = {}, 0
 	for _, id in ipairs(nodesOf(st, k)) do
 		local e = entrance(st, id)
@@ -760,7 +847,7 @@ local function connectWithin(st, swim, mult, k, nodes, R)
 		local edges, edgeYards = connections(st, tree, k)
 		local entry
 		if whole and next(edges) == nil then
-			local _, _, _, _, settled = connect(st, swim, mult, k, n)
+			local _, _, _, _, settled = connect(st, swim, mult, k, n, nil, h)
 			entry, edges, edgeYards = settled, settled.edges, settled.yards
 		else
 			entry = { node = n, edges = edges, yards = edgeYards, tree = tree }
@@ -1143,7 +1230,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			tries = tries + 1
 			local met
 			starts, source, sourceVia, sourceYards, complete, met =
-				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R)
+				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R, from.z)
 			if complete and not met then
 				-- (a start no entrance joins: the full connection moves it, as before)
 				R = nil
@@ -1201,11 +1288,18 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				return x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
 			end
 			-- Rounded graph edges, snapping and, with classes, a yard cheaper than running (hmin) must not let the
-			-- heuristic overstate the remaining cost.
+			-- heuristic overstate the remaining cost. The goal's nodes are not all at its cell (gc): a point without a
+			-- height starts from the surfaces within a cell of it (surfaces), and each settles up to SNAP cells on
+			-- (settle), so the goal tree's cost from an entrance can be up to (SNAP + 1) diagonal cells short of the
+			-- straight yards to gc's centre. Measured from gc, the heuristic overstated by up to that and the search could
+			-- settle on a longer walk (#2723, reported by undersailor). The reach comes off the straight yards before the
+			-- scale, as Shortest Path Forever's abstract A* does since its 1.37.1 (Routing/Path.lua, by Cillian Berragan,
+			-- GPL-3.0-or-later) and as Path.LowerBound does.
 			local goalCell = cellOf(st, gk, gc)
 			local goalX = x0 + (floor(gk / st.ny) * C + floor(goalCell / C) + 0.5) * cs
 			local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
 			local lower = max(0, 1 - 0.5 / cs) * hmin
+			local reach = (SNAP + 1) * SQRT2 * cs
 			local function h(id)
 				local x, y
 				if id > LIFT_ID then
@@ -1215,7 +1309,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					x, y = world(id)
 				end
 				local dx, dy = abs(x - goalX), abs(y - goalY)
-				return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
+				local gap = dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx
+				return gap > reach and (gap - reach) * lower or 0
 			end
 			agen = agen + 1
 			local gen = agen
@@ -2261,12 +2356,16 @@ ns.PathSearch = {
 	start = start,
 	options = options,
 	scratch = scratch,
-	-- saved: a finished search's scratch, kept for the next; nil once the router is idle (the endpoint trees' pool
-	-- goes too).
+	-- saved: a finished search's scratch, kept for the next; nil once the router is idle.
 	Spare = function(saved)
 		spare = saved
 		if not saved then
 			pool = {}
 		end
+	end,
+	-- The queue emptied (PathJobs.lua's rest): the endpoint trees' pool goes. It fills only while a run gives up more
+	-- endpoint trees than st.endTrees keeps (a batch, a start on several floors), and a tree is 2-4 MB.
+	Rest = function()
+		pool = {}
 	end,
 }

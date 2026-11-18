@@ -16,8 +16,8 @@ use crate::engine::{self, Character, GoalView, Groups, Guide, Hooks, Sim, Status
 #[allow(unused_imports)]
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
-const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
-const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
+const DUROTAR: &str = "forever/horde/orc/01-durotar.guide";
+const DUN_MOROGH: &str = "forever/alliance/dwarf/01-dun-morogh.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";

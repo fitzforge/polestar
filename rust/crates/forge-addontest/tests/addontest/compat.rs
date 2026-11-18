@@ -150,6 +150,42 @@ fn issue_1952_an_unfinished_objective_never_reads_full() {
 	assert_eq!(out, json!({ "skill": [0, 1, false], "cloth": [6, 6] }));
 }
 
+// A step's view, an evaluation and the arrival poll each ask for the same quest's lines once per goal on it (a kill
+// step of four lines asked four times per poll, a table per line each time: the idle arrival poll's garbage, perf
+// sweep). Inside one moment (ns.Moment: no game event, timer or message in between, the same frame) the client is
+// asked once and every reader gets the same lines; anything that can change the log starts a new moment.
+#[test]
+fn quest_objectives_are_read_from_the_client_once_per_moment() {
+	let out = run(r#"
+		local calls, have = 0, 3
+		C_QuestLog.GetQuestObjectives = function(q)
+			calls = calls + 1
+			if q ~= 1 then return {} end
+			return { { text = "Kobold Vermin slain: " .. have .. "/10", type = "monster", finished = false, numFulfilled = have, numRequired = 10 } }
+		end
+		local r = {}
+		local a, b = C.GetQuestObjectives(1), C.GetQuestObjectives(1)
+		local none1, none2 = C.GetQuestObjectives(2), C.GetQuestObjectives(2)
+		r.moment = { a == b, none1 == nil and none2 == nil, calls }
+		have = 4
+		stub.fire("QUEST_LOG_UPDATE")
+		r.event = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 5
+		Polestar.Fire("POLESTAR_TEST_MESSAGE")
+		r.message = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 6
+		stub.advance(0.05)
+		r.frame = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		r.nilQuest = C.GetQuestObjectives(nil) == nil
+		emit(r)
+	"#);
+	assert_eq!(out["moment"], json!([true, true, 2]), "one client read per quest in a moment, the same lines to every reader");
+	assert_eq!(out["event"], json!([4, 3]), "a game event starts a new moment: read again");
+	assert_eq!(out["message"], json!([5, 4]), "so does a message");
+	assert_eq!(out["frame"], json!([6, 5]), "and the next frame");
+	assert_eq!(out["nilQuest"], true);
+}
+
 // Each change the client makes to a quest (its objectives done, a failure, a hand-in or an abandon) comes with
 // QUEST_LOG_UPDATE, as in game; the walk over the log is kept until then.
 #[test]
@@ -254,6 +290,58 @@ fn player_info_zone_text_bind_location_taxi_and_items_come_from_the_client() {
 			"none": 0,
 			"node": "The Sepulcher, Silverpine Forest",
 			"taxi": false,
+		})
+	);
+}
+
+/// Acen (#2512): the Durnholde jailors' keys go onto the keyring (bag -2) when looted. Whether the client's
+/// GetItemCount counts the keyring or not, a key there counts once as in the bags; one in a bag stays counted once.
+const KEYRING: &str = r#"
+	slots = { [-2] = {}, [0] = {} }
+	C_Container = {
+		GetContainerNumSlots = function(bag) return slots[bag] and 4 or 0 end,
+		GetContainerItemInfo = function(bag, slot)
+			local id = slots[bag] and slots[bag][slot]
+			if id then return { itemID = id, stackCount = 1 } end
+		end,
+	}
+	countsKeyring = false
+	C_Item.GetItemCount = function(id, includeBank)
+		local n = 0
+		for bag, list in pairs(slots) do
+			if bag >= 0 or countsKeyring then for _, v in pairs(list) do if v == id then n = n + 1 end end end
+		end
+		return n + (includeBank and w.bank[id] or 0)
+	end
+	GetItemCount = C_Item.GetItemCount
+"#;
+
+#[test]
+fn getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not() {
+	let out = run_with(
+		r#"
+		local function counts()
+			Polestar.NewMoment()
+			return { C.GetItemCount(3467), C.GetItemCount(3499), C.GetItemCount(3467, true), C.GetItemCount(159) }
+		end
+		slots[-2][1] = 3467                -- the Dull Iron Key on the keyring
+		slots[0][2] = 3499                 -- the Burnished Gold Key in the backpack
+		w.bank[3467] = 1                   -- and a second Dull Iron Key in the bank
+		local without = counts()
+		countsKeyring = true
+		local with = counts()
+		slots[-2][1] = nil
+		local gone = counts()
+		emit({ without = without, with = with, gone = gone })
+	"#,
+		KEYRING,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"without": [1, 1, 2, 0],
+			"with": [1, 1, 2, 0],
+			"gone": [0, 1, 1, 0],
 		})
 	);
 }
@@ -419,6 +507,32 @@ fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_25
 	assert_eq!(out["x"], true, "a secret coordinate is no position");
 	assert_eq!(out["map"], true, "a secret map is no position");
 	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
+}
+
+// #2595: in the client a secret string throws when it is compared, even with "", so each tooltip and map name
+// reader asks issecretvalue before it checks the text against anything. A Lua 5.1 string can't throw on ==, so the
+// test watches the order instead: given an empty text, every reader still asks whether it is secret first.
+#[test]
+fn the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595() {
+	let out = run(r#"
+		local asked
+		function issecretvalue(v) if v == "" then asked = true end return false end
+		C_TooltipInfo = {
+			GetHyperlink = function() return { lines = { { leftText = "" } } } end,
+			GetItemByID = function() return { lines = { { leftText = "", leftColor = { r = 1, g = 1, b = 1 } } } } end,
+		}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function() return "" end
+		C.GetMapName = function() return "" end
+		local function asks(read) asked = false; read(); return asked end
+		emit({
+			creature = asks(function() return C.CreatureCached(12345) end),
+			color = asks(function() return C.ItemTipColor(6462) end),
+			name = asks(function() return C.GetItemName(6462) end),
+			map = asks(function() return C.MapName(1429) end),
+		})
+	"#);
+	assert_eq!(out, json!({ "creature": true, "color": true, "name": true, "map": true }), "issecretvalue is asked first");
 }
 
 #[test]

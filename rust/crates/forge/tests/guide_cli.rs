@@ -198,7 +198,7 @@ fn a_step_title_takes_an_unnamed_objects_token_only_where_its_name_stands_alone(
 	let guides = tmp("title-objects");
 	std::fs::write(
 		guides.join("a.guide"),
-		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Battered Chest and Kobold Crate\n  interact 2843\n\nstep Battered Chest or Kobold Crate\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
+		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 783\n  turnin 783\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Battered Chest and Kobold Crate\n  interact 2843\n\nstep Battered Chest or Kobold Crate\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
 	)
 	.unwrap();
 	let out = tmp("title-objects-out");

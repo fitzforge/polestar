@@ -4,6 +4,43 @@ use super::{codex, run, run_with};
 use serde_json::json;
 
 #[test]
+fn dungeon_recipients_keep_the_entrance_and_inside_note_through_travel_refinement() {
+	let mut data = codex();
+	data["npcs"]["5001"]["instance"] = json!("test-dungeon");
+	data["npcs"]["5001"]["spawns"] = json!([]);
+	let out = run_with(
+		&data,
+		"w.onQuest(7101,{})",
+		None,
+		r#"
+Polestar.Dungeons.Get = function(key)
+	if key == 'test-dungeon' then
+		return {name='Synthetic Dungeon',entrance={map=9001,x=40,y=60,f='e'}}
+	end
+end
+Polestar.Nav = {EstimateTravelCooperative=function() return nil,'unknown' end}
+local id = assert(H.Start())
+local initial = Polestar.Guides.Get(id).steps[1].note or ''
+settle()
+local step = E.GetGuide().steps[1]
+local goal = step.goals[1]
+emit({initial=initial,note=step.note or '',quest=goal.quest,currentLog=goal.currentLog,
+	map=goal.map,x=goal.x,y=goal.y,f=goal.f})
+"#,
+	);
+	for stage in ["initial", "note"] {
+		assert!(out[stage].as_str().unwrap().contains("Mira Saddler: inside Synthetic Dungeon."), "{stage}: {}", out[stage]);
+	}
+	assert!(out["note"].as_str().unwrap().contains("Travel time to this hand-in is unknown."));
+	assert_eq!(out["quest"], 7101);
+	assert_eq!(out["currentLog"], true);
+	assert_eq!(out["map"], 9001);
+	assert_eq!(out["x"], 40);
+	assert_eq!(out["y"], 60);
+	assert_eq!(out["f"], "e");
+}
+
+#[test]
 fn a_new_unknown_recipient_does_not_inherit_an_earlier_manual_steps_checkoff() {
 	let out = run(
 		"w.onQuest(7106,{})",

@@ -31,7 +31,7 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 16] = [
+const SERVICE_ROLES: [&str; 17] = [
 	"vendor",
 	"repair",
 	"innkeeper",
@@ -41,6 +41,7 @@ const SERVICE_ROLES: [&str; 16] = [
 	"battlemaster",
 	"spirithealer",
 	"stablemaster",
+	"transmogrifier",
 	"trainer",
 	"weapon",
 	"sells:food",
@@ -83,11 +84,13 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	}
 }
 
+/// The most sources of a type an item keeps. Vendors have none: Lookup ranks an item's sellers by the
+/// player's travel to each, so cutting them by id left whole cities out (Red Dye kept ten sellers, none in
+/// Ironforge, and an Ironforge player was sent to Loch Modan, #2719).
 fn cap(ty: &str) -> Option<usize> {
 	match ty {
 		"drop" => Some(10),
 		"object" => Some(6),
-		"vendor" => Some(10),
 		"container" => Some(6),
 		_ => None,
 	}
@@ -427,7 +430,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -439,6 +442,16 @@ fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>) -> V {
 	} else if o.get("type").as_str() == Some("kill") {
 		if let Some(item) = use_item {
 			out.set("useItem", item);
+		}
+	}
+	// The item that calls its target up (summon_item_for, #2326): the Screecher Spirit rises from a dead Vale
+	// Screecher only with Yeh'kinya's Bramble; `summonOn`, the creatures the item is used on (#2578).
+	if o.get("type").as_str() == Some("kill") && !tame {
+		if let Some((item, on)) = summon_item {
+			out.set("summonItem", item);
+			if !on.is_empty() {
+				out.set("summonOn", nums(&on));
+			}
 		}
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
@@ -476,6 +489,16 @@ fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
 	}
 }
 
+/// How a quest is done beyond its objectives, in our own public words (#2714: Powering the Pylons' mana, gathered
+/// with the Mana Sieve before the pylons take it): data/mechanics-public.json's steps' facts, in step order, one
+/// text. None without a public entry or facts.
+fn public_how(public: &V, quest_id: f64) -> Option<String> {
+	let mut steps: Vec<(f64, String)> =
+		mechanics_entry(public, quest_id).get("steps").items().iter().filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string()))).filter(|(_, f)| !f.is_empty()).collect();
+	steps.sort_by(|a, b| ord(a.0 - b.0));
+	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
+}
+
 fn drives_use_on_mob(e: &V) -> bool {
 	e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("use-item-on-mob") && matches!(k.get("confidence").as_str(), Some("high" | "medium")))
 }
@@ -509,6 +532,22 @@ fn use_item_on(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<f64> {
 		}
 	}
 	None
+}
+
+/// The item that calls a kill objective's target up (#2326): a `summon-by-item` kind the mechanics drive,
+/// with a params entry for this NPC and its item (Screecher Spirits: Yeh'kinya's Bramble calls the Screecher
+/// Spirit up from a dead Vale Screecher), and the creatures the item is used on, its params' `on` (#2578: the
+/// Vale Screechers). None for any other kill.
+fn summon_item_for(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<(f64, Vec<f64>)> {
+	let npc = npc.filter(|n| *n > 0.0 && n.fract() == 0.0)?;
+	let e = mechanics_entry(mechanics, quest_id);
+	let drives = e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("summon-by-item") && k.get("drives").truthy());
+	if !drives {
+		return None;
+	}
+	let p = e.get("params").items().into_iter().find(|p| p.get("kind").as_str() == Some("summon-by-item") && int(&p.get("npc")) == Some(npc))?;
+	let item = whole_id(&p.get("item"))?;
+	Some((item, p.get("on").items().iter().filter_map(whole_id).collect()))
 }
 
 pub struct Merged {
@@ -1052,7 +1091,6 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	if al.is_none() && !fv.dungeons.truthy() {
 		if let Some(facts) = cl.and_then(|c| c.instances.as_ref()) {
 			let cl = cl.unwrap();
-			let quality = |id: f64| cl.items.get(&(id as i64)).and_then(|c| c.quality);
 			let built = build_instances(
 				facts,
 				&Ctx {
@@ -1064,7 +1102,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					recorded: &fv.instances,
 					entrance_table: &inputs.entrance_table,
 					curated: &inputs.entrances,
-					quality: &quality,
+					client: cl,
 					web: wh,
 				},
 			);
@@ -1809,6 +1847,19 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if sources.is_empty() && junk(&name_s) {
 			continue;
 		}
+		// Loot conditions describe this exact source, regardless of which input
+		// supplied its chance. Source finalization must not discard the condition.
+		let requires = fv.items.get(&ids).get("dropRequires");
+		for source in &sources {
+			let quests = match source.get("type").as_str() {
+				Some("drop") => requires.get("npc").get(&kstr(&source.get("npc"))),
+				Some("object") => requires.get("object").get(&kstr(&source.get("object"))),
+				_ => V::Undef,
+			};
+			if quests.is_arr() && !quests.is_empty() {
+				source.set("requiresQuests", V::from(quests.items()));
+			}
+		}
 		let kind = if mount_items.contains(&id) {
 			"mount"
 		} else if pet_items.contains(&id) {
@@ -2099,8 +2150,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				.iter()
 				.filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk")))
 				.map(|o| {
-					let use_item = if !tame && o.get("type").as_str() == Some("kill") { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
-					objective_of(o, escort, tame, use_item)
+					let kill = !tame && o.get("type").as_str() == Some("kill");
+					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					objective_of(o, escort, tame, use_item, summon_item)
 				})
 				.collect();
 			if learned.truthy() {
@@ -2143,6 +2196,15 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// A child quest's parent, which must be in the log for its giver to offer it (Valik 535, Infiltration 533).
 			if !pre.get("parent").is_undef() {
 				o.set("parent", pre.get("parent"));
+			}
+			// How it is done beyond its objectives, our public words (#2714), for Lookup's quest steps.
+			if let Some(how) = public_how(&inputs.mechanics_public, idf) {
+				o.set("how", how);
+			}
+			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
+			// the hand-in guides never take it as an accept.
+			if q.get("direct").truthy() {
+				o.set("direct", true);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
@@ -2447,6 +2509,7 @@ mod tests {
 			journal_quests: Vec::new(),
 			store_xp: Default::default(),
 			mechanics: parse_json(mechanics).unwrap(),
+			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
 	}
@@ -2473,6 +2536,90 @@ mod tests {
 		assert!(obj("88003").get("tame").truthy());
 		assert!(obj("88003").get("useItem").is_nullish(), "a tame stays a tame");
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
+	}
+
+	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
+	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
+	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
+	// leave it as it was.
+	#[test]
+	fn a_kill_of_a_target_an_item_calls_up_keeps_summon_item_and_what_it_is_used_on_2326_2578() {
+		let quests = r#"{
+			"3520": { "id": 3520, "title": "Screecher Spirits", "objectives": [{ "type": "kill", "id": 8612, "count": 3, "text": "Screecher Spirit" }] },
+			"88005": { "id": 88005, "title": "Not driven", "objectives": [{ "type": "kill", "id": 8612, "count": 1 }] },
+			"88006": { "id": 88006, "title": "Other NPC", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"3520": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612, "on": [5307, 5308] }] },
+			"88005": { "kinds": [{ "kind": "summon-by-item", "confidence": "medium", "drives": false }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] },
+			"88006": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let obj = |id: &str| codex.quests.get(id).get("objectives").at(0);
+		assert_eq!(obj("3520").get("summonItem").num(), 10699.0);
+		assert_eq!(obj("3520").get("summonOn").items().iter().map(V::num).collect::<Vec<_>>(), vec![5307.0, 5308.0], "#2578: the screechers it is used on");
+		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
+		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
+		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup
+	// sent an Ironforge player to Loch Modan. Every seller is kept now.
+	#[test]
+	fn an_item_keeps_every_vendor_that_sells_it_2719() {
+		let mut i = inputs("{}", "{}");
+		let ids: Vec<u32> = (1..=14).collect();
+		let npcs: Vec<String> =
+			ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
+		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
+		i.forever.zones = parse_json(r#"{ "1455": { "id": 1455, "name": "Ironforge" } }"#).unwrap();
+		i.forever.items = parse_json(&format!(
+			r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#,
+			ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")
+		))
+		.unwrap();
+		let codex = merge_codex(&i);
+		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
+		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
+	}
+
+	// #2714: Powering the Pylons' pylons take mana gathered with the Mana Sieve first, which no objective says. The
+	// quest's `how` is our public mechanics' facts in step order; the merged mechanics.json's (private layers'
+	// text) never is.
+	#[test]
+	fn a_quest_keeps_how_it_is_done_from_the_public_mechanics_only_2714() {
+		let quests = r#"{
+			"96018": { "id": 96018, "title": "Powering the Pylons", "objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired" }] },
+			"88010": { "id": 88010, "title": "Private only", "objectives": [{ "type": "event", "count": 1, "text": "Done" }] }
+		}"#;
+		let private = r#"{ "quests": { "88010": { "steps": [{ "n": 1, "fact": "From a page's comments." }] } } }"#;
+		let mut i = inputs(quests, private);
+		i.mechanics_public = parse_json(
+			r#"{ "quests": { "96018": { "steps": [
+			{ "n": 2, "fact": "Then use Repair and Recharge Pylon at each pylon." },
+			{ "n": 1, "fact": "Gather mana with the Mana Sieve first." }
+		] } } }"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&i);
+		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
+		assert!(codex.quests.get("88010").get("how").is_nullish(), "private text never ships");
+	}
+
+	// #2831 (Dorebellious): Doctor's Orderly is done by using the Makeshift Bandages on the Wounded Soldiers, which
+	// the game stores as a kill credit, so Lookup's step said "Kill Wounded Soldier". The shipped public mechanics
+	// (data/mechanics-public.json, merged into mechanics.json by the data build) make the kill a use of the
+	// bandages and give the step its how.
+	#[test]
+	fn doctor_s_orderly_bandages_the_wounded_soldiers_from_the_shipped_public_mechanics_2831() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "96082": { "id": 96082, "title": "Doctor's Orderly", "objectives": [{ "type": "kill", "id": 263614, "count": 3, "text": "Wounded Soldier" }] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		let q = codex.quests.get("96082");
+		assert_eq!(q.get("objectives").at(0).get("useItem").num(), 272126.0, "the Makeshift Bandages, on the soldiers");
+		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
 	}
 
 	#[test]

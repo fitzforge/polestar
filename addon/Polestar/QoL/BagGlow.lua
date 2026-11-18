@@ -3,20 +3,26 @@
 -- item) or a quest item it collects (an open `collect` goal with a quest), so
 -- the player finds it at a glance (qol.bagGlow, on by default). A slot
 -- holding an item a later step keeps (QoL.Kept, QoL/Keep.lua) that a
--- merchant would buy gets a small lock in its top-left corner instead.
+-- merchant would buy gets a small lock instead, bottom-left in the client's
+-- bags, Baganator and BagSmith; top-right in EllesmereUI Bags, beside the
+-- quest icon when the slot has one.
 --
 --   BagGlow.Items(view, raw) -> { [itemID] = true }   -- what glows for a step
 --   BagGlow.Redraw()                                  -- repaint the shown bags now
 --
--- Three bag views, as Gear/Bags.lua's upgrade arrows:
---   * The client's bags: each container frame's UpdateItems is post-hooked on
---     the frame itself; the glow is the action button border texture on the
+-- Four bag views, as Gear/Bags.lua's upgrade arrows:
+--   * The client's bags: Core/BagSlots.lua owns the hooks and addon
+--     registration; the glow is the action button border texture on the
 --     item button (OVERLAY sublevel 2, under the upgrade arrow and the search
---     overlay), in the theme's accent colour, pulsing. Glows and locks are
+--     overlay), in the theme's accent colour, pulsing unless ui.reduceMotion
+--     is on. Glows and locks are
 --     kept here by button; nothing is written into the button's table.
---   * Baganator and BagSmith: corner widgets, the lock top-left. The glow
+--   * Baganator and BagSmith: corner widgets, the lock bottom-left. The glow
 --     is bottom-right in Baganator, bottom-left in BagSmith to leave its
 --     protected stack count visible.
+--   * EllesmereUI Bags: the full-slot glow is centred on _textOverlay or the
+--     button; the lock is in the top-right corner, moved left of the quest
+--     icon on a slot that shows one.
 --
 -- The step (STEP_CHANGED and friends), the bags (BAG_UPDATE_DELAYED) and the
 -- quest log repaint the shown bags on the next frame.
@@ -26,8 +32,9 @@ local ADDON, ns = ...
 local QoL = ns.QoL
 local Client = QoL.Client
 local L = ns.L
+local Slots = ns.BagSlots
 
-local type, pairs, ipairs, pcall = type, pairs, ipairs, pcall
+local type, pairs = type, pairs
 
 local BagGlow = {}
 QoL.BagGlow = BagGlow
@@ -38,7 +45,10 @@ local LAYER = 2 -- OVERLAY sublevel: under the upgrade arrow (3) and the search 
 local WIDGET = "polestar_step_item" -- bag addon corner widget id
 local LOCK = "Interface\\PetBattles\\PetBattle-LockIcon"
 local LOCK_SIZE = 14
-local KEEP_WIDGET = "polestar_kept_item" -- bag addon corner widget id of the lock
+-- Bag addon corner widget id of the lock. A new id (it was polestar_kept_item):
+-- Baganator and BagSmith place a widget at its default corner only once per
+-- id, so players who had the old one get the lock bottom-left too (#2704).
+local KEEP_WIDGET = "polestar_keep_lock"
 
 local function paint(t)
 	local T = ns.Theme
@@ -84,16 +94,28 @@ end
 local glows = setmetatable({}, { __mode = "k" }) -- item button -> glow texture
 local widgets = setmetatable({}, { __mode = "k" }) -- glow textures made for bag addons
 local locks = setmetatable({}, { __mode = "k" }) -- item button -> lock texture
+local eGlows = setmetatable({}, { __mode = "k" }) -- EllesmereUI item button -> glow texture
+local eLocks = setmetatable({}, { __mode = "k" }) -- EllesmereUI item button -> lock texture
 
-local function lockFor(button)
-	local t = locks[button]
+local function lockFor(button, view)
+	local cache = view == "ellesmere" and eLocks or locks
+	local t = cache[button]
 	if t then return t end
-	t = button:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	local host = view == "ellesmere" and (button._textOverlay or button) or button
+	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
 	t:SetSize(LOCK_SIZE, LOCK_SIZE)
-	t:SetPoint("TOPLEFT", button, "TOPLEFT", 1, -1)
+	if view ~= "ellesmere" then t:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 1, 1) end
 	t:SetTexture(LOCK)
-	locks[button] = t
+	cache[button] = t
 	return t
+end
+
+local function placeEllesmereLock(t, button, itemID)
+	local host = button._textOverlay or button
+	local Q = ns.QuestDB
+	local beside = Q and Q.BagMarkShown and Q.BagMarkShown(itemID)
+	t:ClearAllPoints()
+	t:SetPoint("TOPRIGHT", host, "TOPRIGHT", beside and -17 or -1, -1)
 end
 
 local function pulse(t)
@@ -107,25 +129,34 @@ local function pulse(t)
 	t.pulse = ag
 end
 
-local function glowFor(button)
-	local t = glows[button]
+local function glowFor(button, view)
+	local cache = view == "ellesmere" and eGlows or glows
+	local t = cache[button]
 	if t then return t end
-	t = button:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	local host = view == "ellesmere" and (button._textOverlay or button) or button
+	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
 	local w, h = 37, 37
 	if button.GetSize then w, h = button:GetSize() end
 	t:SetSize((w or 37) * SCALE, (h or 37) * SCALE)
-	t:SetPoint("CENTER", button, "CENTER", 0, 0)
+	t:SetPoint("CENTER", host, "CENTER", 0, 0)
 	t:SetTexture(TEXTURE)
 	if t.SetBlendMode then t:SetBlendMode("ADD") end
 	paint(t)
 	pulse(t)
-	glows[button] = t
+	cache[button] = t
 	return t
 end
 
 local function show(t)
 	t:Show()
-	if t.pulse and not t.pulse:IsPlaying() then t.pulse:Play() end
+	if not t.pulse then return end
+	if ns.Get("ui.reduceMotion") then
+		t.pulse:Stop()
+		-- A stopped alpha animation can leave the texture part-way through its bounce.
+		if t.SetAlpha then t:SetAlpha(1) end
+		return
+	end
+	if not t.pulse:IsPlaying() then t.pulse:Play() end
 end
 
 local function hide(t)
@@ -133,141 +164,72 @@ local function hide(t)
 	t:Hide()
 end
 
-local function itemOf(button)
-	local ok, bag = pcall(button.GetBagID, button)
-	if not (ok and type(bag) == "number") then return nil end
-	local info = Client.SlotInfo(bag, button:GetID())
-	if info and info.itemID then return info.itemID end
-	local C = C_Container
-	return C and C.GetContainerItemLink and Client.ItemIDFromLink(C.GetContainerItemLink(bag, button:GetID())) or nil
-end
-
 -- The glow and the locks: with the setting, not while Polestar is hidden.
 local function glowing()
 	return QoL.On("bagGlow") and not ns.Hidden()
 end
 
-local function updateFrame(frame)
-	if type(frame.EnumerateValidItems) ~= "function" then return end
-	local on = glowing()
-	for _, button in frame:EnumerateValidItems() do
-		local id = on and itemOf(button)
-		if id and wanted(id) then
-			show(glowFor(button))
-		elseif glows[button] then
-			hide(glows[button])
-		end
-		if id and locked(id) then
-			lockFor(button):Show()
-		elseif locks[button] then
-			locks[button]:Hide()
-		end
+local function paintBagSlot(button, view, itemID, link)
+	local glowCache = view == "ellesmere" and eGlows or glows
+	local lockCache = view == "ellesmere" and eLocks or locks
+	local id = glowing() and itemID
+	if id and wanted(id) then
+		show(glowFor(button, view))
+	elseif glowCache[button] then
+		hide(glowCache[button])
+	end
+	if id and locked(id) then
+		local lock = lockFor(button, view)
+		if view == "ellesmere" then placeEllesmereLock(lock, button, id) end
+		lock:Show()
+	elseif lockCache[button] then
+		lockCache[button]:Hide()
 	end
 end
-
-local function onUpdateItems(frame)
-	ns.SafeCall(updateFrame, frame)
-end
-
-local function containerFrames()
-	local out = {}
-	local list = ContainerFrameContainer and ContainerFrameContainer.ContainerFrames
-	if type(list) == "table" then
-		for _, f in ipairs(list) do out[#out + 1] = f end
-	end
-	if ContainerFrameCombinedBags then out[#out + 1] = ContainerFrameCombinedBags end
-	return out
-end
-
-local hooked = setmetatable({}, { __mode = "k" })
-
-local function hookBags()
-	if not hooksecurefunc then return end
-	for _, f in ipairs(containerFrames()) do
-		if not hooked[f] and type(f.UpdateItems) == "function" then
-			hooksecurefunc(f, "UpdateItems", onUpdateItems)
-			hooked[f] = true
-		end
-	end
-end
-hookBags()
-ns.OnLogin(hookBags)
 
 ---------------------------------------------------------------------------
 -- Baganator and BagSmith
 ---------------------------------------------------------------------------
 
-local registeredBags = {}
-
-local function cornerAPI(name)
-	local B = _G[name]
-	local API = type(B) == "table" and B.API
-	if type(API) == "table" and API.RegisterCornerWidget then return API end
-	return nil
+local function showStepItem(details)
+	return glowing() and type(details) == "table" and wanted(details.itemID) or false
 end
 
-local function registerBag(name)
-	if registeredBags[name] then return true end
-	local API = cornerAPI(name)
-	if not API then return false end
-	registeredBags[name] = true
-	local options = name == "BagSmith" and { listRows = true } or nil
-	API.RegisterCornerWidget(L["Polestar: step item"], WIDGET, function(_, details)
-		return glowing() and type(details) == "table" and wanted(details.itemID) or false
-	end, function(button)
-		local t = button:CreateTexture(nil, "OVERLAY")
-		local w = button.GetWidth and button:GetWidth() or 37
-		t:SetSize(w * 0.6, w * 0.6)
-		t:SetTexture(TEXTURE)
-		if t.SetBlendMode then t:SetBlendMode("ADD") end
-		paint(t)
-		widgets[t] = true
-		return t
-	end, { corner = name == "BagSmith" and "bottom_left" or "bottom_right", priority = 1 }, nil, options)
-	API.RegisterCornerWidget(L["Polestar: kept for the guide"], KEEP_WIDGET, function(_, details)
-		return glowing() and type(details) == "table" and locked(details.itemID) or false
-	end, function(button)
-		local t = button:CreateTexture(nil, "OVERLAY")
-		t:SetSize(LOCK_SIZE, LOCK_SIZE)
-		t:SetTexture(LOCK)
-		return t
-	end, { corner = "top_left", priority = 1 }, nil, options)
-	return true
+local function makeStepItem(button)
+	local t = button:CreateTexture(nil, "OVERLAY")
+	local w = button.GetWidth and button:GetWidth() or 37
+	t:SetSize(w * 0.6, w * 0.6)
+	t:SetTexture(TEXTURE)
+	if t.SetBlendMode then t:SetBlendMode("ADD") end
+	paint(t)
+	widgets[t] = true
+	return t
 end
 
-local function onAddonLoaded(_, name)
-	if name ~= "Baganator" and name ~= "BagSmith" then return end
-	registerBag(name)
-	if registeredBags.Baganator and registeredBags.BagSmith then
-		ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
-	end
+local function showKeptItem(details)
+	return glowing() and type(details) == "table" and locked(details.itemID) or false
 end
 
-registerBag("Baganator")
-registerBag("BagSmith")
-if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
+local function makeKeptItem(button)
+	local t = button:CreateTexture(nil, "OVERLAY")
+	t:SetSize(LOCK_SIZE, LOCK_SIZE)
+	t:SetTexture(LOCK)
+	return t
+end
+
+if Slots then
+	Slots.Painter("step-glow", paintBagSlot)
+	-- BagSmith shares bottom-left: locked excludes wanted, so glow and lock never compete.
+	Slots.Widget("step-glow", WIDGET, L["Polestar: step item"], showStepItem, makeStepItem, "bottom_right", "bottom_left")
+	Slots.Widget("step-glow", KEEP_WIDGET, L["Polestar: kept for the guide"], showKeptItem, makeKeptItem, "bottom_left")
+end
 
 ---------------------------------------------------------------------------
 -- Keeping the glow on the step's items
 ---------------------------------------------------------------------------
 
 function BagGlow.Redraw()
-	for _, f in ipairs(containerFrames()) do
-		if hooked[f] and f:IsShown() then onUpdateItems(f) end
-	end
-	for name in pairs(registeredBags) do
-		local API = cornerAPI(name)
-		local active = API and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET) or API.IsCornerWidgetActive(KEEP_WIDGET))
-		if API and API.RequestItemButtonsRefresh and active then
-			local B = _G[name]
-			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
-			if name == "BagSmith" then
-				API.RequestItemButtonsRefresh()
-			else
-				API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
-			end
-		end
-	end
+	if Slots then Slots.Redraw("step-glow") end
 end
 
 -- Two item sets the same?
@@ -290,12 +252,12 @@ local function refresh()
 	items, kept = now, keep
 	BagGlow.Redraw()
 end
-local refreshSoon = QoL.Coalesce(refresh)
+local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 BagGlow.Refresh = refresh
 
 QoL.OnStep(refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
+ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 local function reset()
 	items, kept = {}, {}
 	refreshSoon()
@@ -303,12 +265,14 @@ local function reset()
 end
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.bagGlow" or path == "qol" or path == "" then reset() end
+	if path == "ui.reduceMotion" or path == "ui" then BagGlow.Redraw() end
 end)
 ns.On("POLESTAR_HIDDEN", reset)
 
 if ns.Theme and ns.Theme.OnChanged then
 	ns.Theme.OnChanged(function()
 		for _, t in pairs(glows) do paint(t) end
+		for _, t in pairs(eGlows) do paint(t) end
 		for t in pairs(widgets) do paint(t) end
 	end)
 end

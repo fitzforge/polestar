@@ -93,7 +93,7 @@ pub fn validate_manifest(obj: &V, file: &str, official: bool, text: Option<&str>
 fn validate_as(obj: &V, file: &str, official: bool, own: Option<&str>, text: Option<&str>) -> Vec<Diag> {
 	let mut diags = Vec::new();
 	let mut add = |severity: &'static str, key: Option<&str>, message: String, hint: String| {
-		diags.push(Diag { severity, file: Some(file.to_string()), line: key.map_or(1.0, |k| key_line(text, k)), message, hint: Some(hint) });
+		diags.push(Diag { severity, file: Some(file.to_string()), line: key.map_or(1.0, |k| key_line(text, k)), message, hint: Some(hint), rule: None });
 	};
 	let Some(o) = obj.as_obj() else {
 		add("error", None, "pack.json must hold one JSON object".into(), "write `{ \"id\": \"...\", \"title\": \"...\", \"author\": \"...\", \"version\": \"...\", \"license\": \"...\" }`".into());
@@ -243,7 +243,7 @@ pub fn read_extra_manifest(dir: &std::path::Path, id: &str) -> (Option<V>, Vec<D
 fn read_as(dir: &std::path::Path, official: bool, own: Option<&str>) -> (Option<V>, Vec<Diag>) {
 	let abs = dir.join("pack.json");
 	let file = shown(&abs);
-	let err = |message: String, hint: &str| Diag { severity: "error", file: Some(file.clone()), line: 1.0, message, hint: Some(hint.into()) };
+	let err = |message: String, hint: &str| Diag { severity: "error", file: Some(file.clone()), line: 1.0, message, hint: Some(hint.into()), rule: None };
 	let mut text = match read_pack_file(dir, "pack.json") {
 		Ok(Some(t)) => t,
 		Ok(None) => {

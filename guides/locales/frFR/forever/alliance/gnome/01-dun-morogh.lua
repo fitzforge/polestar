@@ -125,31 +125,25 @@ return {
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
 	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Asseyez-vous près du feu de camp d'Eric (tapez /asseoir) et attendez l'amélioration. Si vous avez appris un métier, Eric propose aussi le Camping 101 correspondant, que rend son maître : forge avec {npc:1241} et {skill:129} avec {npc:2326} à {area:131}, minage et ingénierie au {area:189}.",
 
-	-- Step 20: Camping 101: Blacksmithing
-	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
-	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241} prend la quête une fois votre compétence {skill:164} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
-	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
-	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813} : pour {npc:1241}, dans la cave à l'ouest de la brasserie",
-
-	-- Step 21: Camping 101: First Aid
+	-- Step 20: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
 	["{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2326} prend la quête une fois votre compétence {skill:129} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265813} Eric Brighthammer · {npc:2326} Thamner Pol · {area:2102} Thunderbrew Distillery
 	["{npc:265813}: for {npc:2326} in the {area:2102}"] = "{npc:265813} : pour {npc:2326}, à la {area:2102}",
 
-	-- Step 22: Camping 101: Mining
+	-- Step 21: Camping 101: Mining
 	-- {npc:5392} Yarr Hammerstone · {skill:186} Mining
 	["{npc:5392} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5392} prend la quête une fois votre compétence {skill:186} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:5392} at {area:189}"] = "{npc:265813} : pour {npc:5392}, au {area:189}",
 
-	-- Step 23: Camping 101: Engineering
+	-- Step 22: Camping 101: Engineering
 	-- {npc:1702} Bronk Guzzlegear · {skill:202} Engineering
 	["{npc:1702} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1702} prend la quête une fois votre compétence {skill:202} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:1702} at {area:189}"] = "{npc:265813} : pour {npc:1702}, au {area:189}",
 
-	-- Step 24: Kharanos
+	-- Step 23: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.\n{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "Suivez la route à travers le tunnel puis vers le nord-est jusqu'à {area:131}. Commencez dehors : {npc:1252} et le feu de camp d'Eric sont devant la {area:2102}.\n{npc:1872} travaille à la forge à l'ouest de la brasserie.\nEntrez ensuite : {npc:6806}, l'aubergiste, {npc:1226} et {npc:1267}. La leçon de {skill:185} de {npc:1699} attend le retour avec les côtes, quand vous aurez le cuivre nécessaire.",
 	-- {npc:1241} Tognus Flintfire
@@ -161,6 +155,12 @@ return {
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226} : soignez {npc:12427} au sud de {area:131}",
 	["Last: some classes' trainers stand outside"] = "Pour finir : les maîtres de certaines classes se tiennent dehors",
+
+	-- Step 24: Camping 101: Blacksmithing
+	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
+	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241} prend la quête une fois votre compétence {skill:164} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
+	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
+	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813} : pour {npc:1241}, dans la cave à l'ouest de la brasserie",
 
 	-- Step 25: Thamner Pol
 	["talk to the trainer"] = "parlez au maître",
@@ -399,7 +399,7 @@ return {
 	-- Step 82: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Troggs Brisepierre",
 	-- {area:923} Stonesplinter Valley
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Au nord du poste, à l'ouest de la route : les troggs et les éclaireurs Brisepierre campent dans les collines. Les deux lâchent les Dents de pierre de trogg.\nAttention : Headsplitter, un trogg de niveau 15, parcourt {area:923} parmi les troggs de niveau 11-12 : occupez-vous des camps de sa lisière nord, près du poste, et tenez-vous loin de lui.",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Au nord du poste, à l'ouest de la route : les troggs et les éclaireurs Brisepierre campent dans les collines. Les deux lâchent les Dents de pierre de trogg.\nAttention : Fendeur de têtes, un trogg de niveau 15, parcourt {area:923} parmi les troggs de niveau 11-12 : occupez-vous des camps de sa lisière nord, près du poste, et tenez-vous loin de lui.",
 
 	-- Step 83: Back to the tunnel post
 	["Back to the tunnel post"] = "Retour au poste du tunnel",
@@ -417,7 +417,7 @@ return {
 	["The west hills and the {area:925}"] = "Les collines de l'ouest et {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Vers le nord à travers les collines à l'ouest de la route, jusqu'à {npc:1343} à {area:925}. Les kobolds Rat des tunnels creusent dans les collines en chemin ; des Elder Black Bears, des Sangliers des montagnes et des Forest Lurkers parcourent les mêmes terres.",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Vers le nord à travers les collines à l'ouest de la route, jusqu'à {npc:1343} à {area:925}. Les kobolds Rat des tunnels creusent dans les collines en chemin ; des Anciens ours noirs, des Sangliers des montagnes et des Rôdeuses des forêts parcourent les mêmes terres.",
 	-- {item:3110} Tunnel Rat Ear
 	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110} : kobolds Rat des tunnels",
 	-- {item:3172} Boar Intestines
@@ -425,10 +425,10 @@ return {
 	["{item:3172}: Mountain Boars"] = "{item:3172} : Sangliers des montagnes",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "{item:3173} : Elder Black Bears",
+	["{item:3173}: Elder Black Bears"] = "{item:3173} : Anciens ours noirs",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "{item:3174} : Forest Lurkers",
+	["{item:3174}: Forest Lurkers"] = "{item:3174} : Rôdeuses des forêts",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413}, à {zone:1453}, la prend",
 
@@ -549,7 +549,7 @@ return {
 	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Deeprun Rats autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}.",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Rats des profondeurs autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, sur le quai de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Thunder Bluff Reputation"] = "Réputation : Thunder Bluff",
+	["Thunder Bluff Reputation"] = "Réputation : Pitons-du-Tonnerre",
 	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
 	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "Les quêtes de {zone:1412} pendant que vous montez de niveau, les quêtes de {zone:1452} et {item:11040} à partir du niveau 55, puis {item:14047} jusqu'à Exalté.",
 	-- {faction:81} Thunder Bluff
@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "La mine, les centaures et les plaines",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "Retour à la mine pour les ouvriers, les superviseurs et {quest:765}, au fond : ses {item:281031} lancent {quest:98424}, et les autres pages se trouvent dans la mine. Les centaures galaks et Herak campent à l'est du village. Les Rapaces volent partout dans {zone:1412} ; les harpies Furie-des-vents nichent au sud-est du village ; les gnolls Crin-pâle campent à l'ouest.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",

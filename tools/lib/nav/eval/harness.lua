@@ -306,16 +306,25 @@ local function zoneYards(map, points)
 	return "{" .. table.concat(parts, ",") .. "}"
 end
 
+-- NAV_EVAL_SPF=1: the files are Shortest Path Forever's router and maps (broad.js run --spf), called as it calls
+-- itself: Find(map, from, to, callback, waterWalking, hazards), no hazards (no profile, style or danger).
+local SPF = os.getenv("NAV_EVAL_SPF") == "1"
+
 local function route(q)
 	local from, to = point(q.map, q.from), point(q.map, q.to)
-	local danger = dangerOf(q.map, from, to, q.level, q.danger)
+	local danger = not SPF and dangerOf(q.map, from, to, q.level, q.danger) or nil
 	local got
 	local function once()
 		got = nil
 		local start = clock()
-		Path.Find(q.map, from, to, function(points, cost, job)
+		local function done(points, cost, job)
 			got = { points = points, cost = cost, job = job, ms = clock() - start, kb = collectgarbage("count") }
-		end, opts(q.profile, q.style, danger))
+		end
+		if SPF then
+			Path.Find(q.map, from, to, done, false, nil)
+		else
+			Path.Find(q.map, from, to, done, opts(q.profile, q.style, danger))
+		end
 		drain()
 		return got
 	end

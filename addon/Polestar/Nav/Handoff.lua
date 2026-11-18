@@ -498,6 +498,24 @@ function Handoff.ClickTaken()
 	return true
 end
 
+-- A map click left to Shortest Path Forever (ClickTaken) whose journey it now holds but guides nothing to: its search
+-- found no way there, so its pin stays on the map and no arrow leads (#2028, 0.4.0.1: the player's Shift-click drew
+-- its journey while Polestar's arrow kept to the guide's objective). Read through Journey (version 1 minor 3,
+-- version 2): a journey of the player's own, or another addon's, unguided and not still searching. Never in combat.
+function Handoff.ClickUnguided()
+	local A = api()
+	if not (A and type(A.Journey) == "function") or inCombat() then return false end
+	local ok, active = pcall(A.Active)
+	if not ok or active then return false end
+	local ok2, j, why = pcall(A.Journey)
+	if not ok2 or why == "loading" or type(j) ~= "table" or j.guided ~= false then return false end
+	if type(A.CurrentStop) == "function" then
+		local ok3, stop = pcall(A.CurrentStop, OWNER)
+		if ok3 and stop ~= nil then return false end
+	end
+	return true
+end
+
 local function subscribe()
 	if subscribed then return end
 	local A = api()
