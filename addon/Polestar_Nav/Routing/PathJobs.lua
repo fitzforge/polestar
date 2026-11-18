@@ -222,7 +222,9 @@ end
 -- { { id, name, areaId }, ... } (Path.lua's header). reason is "nodata", "outside", "offmesh", "unreachable" or
 -- "error". opts is the waterWalking flag (a boolean, as every caller before profiles passes it) or { waterWalking =
 -- boolean, profile = "Alliance" | "Horde" | nil, style = "fastest" | "balanced" | "roads" | nil (anything else is
--- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }.
+-- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }. to.reach (yards, with to.z): when no walk reaches
+-- the goal's own floor, the walk to the nearest surface within reach on its level that one reaches (job.reached = { x,
+-- y, z }, Routing/Path.lua `nearby`); FindMany takes from.reach alike for its source.
 -- Returns a Cancel handle.
 ---@param map number
 ---@param from SPFPoint

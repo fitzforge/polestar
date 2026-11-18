@@ -5169,7 +5169,8 @@ waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
 none). It goes to `Path.Find` as `to.z`, so the path ends on that floor; a
 search with it that fails, or whose path's last engine point before the goal
-lies more than 30 yd above or below it, is asked once more without it, and
+lies more than 30 yd above or below it, is asked once more without it (not
+in a capital: "The capitals' floors" below), and
 that answer stands for the goal (later searches for it, after straying, go
 without it too). A walk to a leg's end with a height of its own (a dock's
 board point, a tram, zeppelin or portal end's floor: "End heights" below)
@@ -5261,6 +5262,35 @@ lands after the player walked back keeps out of it). `Path.ReleaseSurfaces()`
 cancels a pending prefetch and drops it: the target cleared or no `Walk.Aim`
 for 2 s (`Walk:Refresh`), never a style change, a level-up or a hand-made
 walk, which only clear the walk.
+**The capitals' floors (2026-11-18).** In the six capitals (Stormwind,
+Ironforge, Orgrimmar, the Undercity, Thunder Bluff, Darnassus: the point's
+zone by `Travel.ZoneOf`) a walk is never planned without a height and never
+asked again without its goal's. Their streets float 11-38 yd over the
+terrain they were built on, or run under Ironforge's mountain, and searched
+without a height 33-66% of recorded city walks started or ended on another
+floor or walked the ground under the streets (CityPaths' held-out gate). The
+floor unknown, a read seeds on the surface (within 10 yd) nearest the floor
+the capital says, before the seed and the candidates: right after a flight
+lands (30 s, within 20 yd) the flight point's height (TravelData's `taxiZ`,
+TaxiNodes); else the NPC the player talked to or targeted, else the newest
+moused over or in a nameplate, within 15 s and its spawn within 30 yd
+(`Nav/NpcFloor.lua`, the Codex's spawn heights; an NPC with spawns on two
+levels there says nothing); on that height's level, or alone, the trail floor
+(`Path.TrailFloor`, the surface most walked within 4 yd by 3+ recorded
+players). A search from the player with no floor read starts from the same.
+These only seed an unknown floor: a floor followed in through a gate keeps.
+A goal there without a height ends on the trail floor at it. A goal there
+with a height is searched with `to.reach` (10 yd): when no walk reaches its
+own floor, or the walk ends more than 10 yd off its level, the router walks
+to the nearest surface on that level within 10 yd that a walk reaches
+(`Routing/Path.lua` `nearby`, six tries, `job.reached`); the arrow then says
+"The last steps here aren't mapped" under its label, as it does when none is
+found (the straight arrow, never marked unreachable for the planner). #2860:
+Daryl Riknussun's platform in the Great Forge, which the maps reach only at
+its foot, was walked to without his height out of the gate and over the
+mountain, 3,515 yd for a 356 yd walk. The measure into such a target and the
+later walks to it take the same reach (`FindMany`'s `from.reach` for the
+reversed batch); a measure that finds nothing keeps the straight estimates.
 Hand-made walks win: a crossing's own walk from end to end (but one between
 ends whose heights, `z`, lie 20 yd or more apart: a lift, which the engine
 rides), a walk between chain neighbours, to a chain node past its mouth, or
