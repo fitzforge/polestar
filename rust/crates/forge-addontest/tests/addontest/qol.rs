@@ -5746,3 +5746,71 @@ fn gossip_at_an_npc_the_step_has_no_goal_at_builds_no_step_view() {
 	assert_eq!(out[0]["vendor"]["picked"], 91, "the step's vendor: its goods open as before");
 	assert_eq!(out[0]["inn"]["picked"], 90, "the step's innkeeper, binding on: the bind as before");
 }
+
+// The completed quest XP on the XP bar (QoL/QuestXP.lua) on a kill: the XP and a QUEST_LOG_UPDATE or two that
+// leave every quest as it was. It reads no quest log entries and asks no reward XP again, and sets no strata or
+// level on its frames: only the fill moves with the XP (#2663; 0.4.1's hitch on kills). A quest turning ready or
+// handed in still moves the total. Before (v0.4.1): 5 kills of 2 log updates each read 20 log entries, asked 10
+// rewards, set strata and level 40 times and drew the fill 10 times; a log update with no XP drew it again.
+#[test]
+fn quest_xp_a_kill_reads_no_quest_log_entries_asks_no_reward_and_sets_no_frame_level() {
+	let out = run(r#"
+		local bar = q.xpBar()
+		local ready, info, asks = {}, 0, 0
+		local function ids()
+			local out = {}
+			for id in pairs(q.log) do out[#out + 1] = id end
+			table.sort(out)
+			return out
+		end
+		function C_QuestLog.GetInfo(i)
+			info = info + 1
+			local id = ids()[i]
+			return id and { questID = id, isHeader = false, isHidden = false } or nil
+		end
+		function C_QuestLog.ReadyForTurnIn(id) return ready[id] == true end
+		GetQuestLogRewardXP = function(id) asks = asks + 1 return id * 10 end
+		local function logUpdate() stub.fire("QUEST_LOG_UPDATE"); stub.runTimers() end
+		q.log[11], q.log[12], ready[11] = true, true, true
+		stub.fire("QUEST_ACCEPTED", 11)
+		stub.fire("QUEST_ACCEPTED", 12)
+		logUpdate()
+		local X = QoL.QuestXP
+		local f = X.frame
+		f:SetSize(565, 11) -- The stub does not size the overlay from its anchors.
+		stub.RunScript(f, "OnSizeChanged")
+		local first = { total = X.total, count = X.count, shown = f:IsShown() }
+		local sets, draws = 0, 0
+		for _, o in ipairs({ f, f.Rested }) do
+			for _, m in ipairs({ "SetFrameStrata", "SetFrameLevel" }) do
+				local real = o[m]
+				o[m] = function(...) sets = sets + 1 return real(...) end
+			end
+		end
+		local setPoint = f.Tint.SetPoint
+		f.Tint.SetPoint = function(...) draws = draws + 1 return setPoint(...) end
+		info, asks = 0, 0
+		for _ = 1, 5 do
+			q.gainXP(10)
+			logUpdate()
+			logUpdate()
+		end
+		local kills = { info = info, asks = asks, sets = sets, draws = draws, total = X.total, shown = f:IsShown() }
+		draws = 0
+		logUpdate()
+		local quiet = draws
+		ready[12] = true
+		logUpdate()
+		local twelve = { total = X.total, count = X.count }
+		stub.fire("QUEST_TURNED_IN", 11)
+		q.log[11], ready[11] = nil, nil
+		logUpdate()
+		emit({ first = first, kills = kills, quiet = quiet, twelve = twelve, handed = { total = X.total, count = X.count } })
+		GetQuestLogRewardXP, C_QuestLog.GetInfo, C_QuestLog.ReadyForTurnIn = nil, nil, nil
+	"#);
+	assert_eq!(out[0]["first"], json!({ "total": 110, "count": 1, "shown": true }));
+	assert_eq!(out[0]["kills"], json!({ "info": 0, "asks": 0, "sets": 0, "draws": 5, "total": 110, "shown": true }));
+	assert_eq!(out[0]["quiet"], 0, "a log update that moves nothing draws nothing");
+	assert_eq!(out[0]["twelve"], json!({ "total": 230, "count": 2 }), "a quest turning ready adds its reward");
+	assert_eq!(out[0]["handed"], json!({ "total": 120, "count": 1 }), "a handed-in quest leaves the total");
+}

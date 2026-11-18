@@ -447,7 +447,8 @@ end
 -- heads-up card, UI/ClassToast.lua, #2629): each shown button and the target
 -- list's shown rows and mark, { left, bottom, right, top } in screen pixels
 -- (a frame's own units times its effective scale). Empty before the buttons
--- are made. QUEST_BUTTONS_PLACED says it may have changed.
+-- are made. QUEST_BUTTONS_PLACED says it may have changed: once a frame at
+-- most (placedSoon), however many buttons came, went or were placed in it.
 function Buttons.Covers()
 	local out = {}
 	local function add(f)
@@ -486,6 +487,13 @@ local function adoptBagPos()
 		s.bagButtonPos = { p[1], p[2], p[3], p[4] + BAG_LIFT }
 	end
 end
+
+-- QUEST_BUTTONS_PLACED on the next frame, once for every placing and every
+-- button that came or went before it: a fight's end shows, hides and places
+-- the set in one frame, and each fire had the heads-up card measure the
+-- screen again (#2772). By then the client has laid the buttons out, so
+-- Buttons.Covers reads where they are without forcing that layout early.
+local placedSoon = QoL.Coalesce(function() ns.Fire("QUEST_BUTTONS_PLACED") end)
 
 -- Holder position and scale, and the buttons at their sizes in their slots
 -- (Buttons.Offsets). The holder takes the button scale too, so the saved
@@ -540,7 +548,7 @@ local function placeNow()
 	bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
 	for i = 1, #set do placeLabel(set[i]) end
 	Buttons.PlaceList(Buttons.target, TL.anchor, TL.rows, s)
-	ns.Fire("QUEST_BUTTONS_PLACED")
+	placedSoon()
 end
 
 local function place()
@@ -2408,12 +2416,17 @@ do
 		ns.RegisterEvent(event, paintFacesSoon)
 	end
 	-- A mob that dies stays the target (or keeps its nameplate a moment), and no
-	-- event above says so; its health does. Only for a unit that makes a row close.
+	-- event above says so; its health does. Only for a unit that makes a row close,
+	-- and only once it reads dead: a living one's health changes every frame of a
+	-- fight and changes nothing the rows show (an unreadable answer repaints).
 	ns.RegisterEvent("UNIT_HEALTH", function(_, unit)
 		unit = ns.Compat.Readable(unit)
 		if not unit then return end
 		for i = 1, #TL.rows do
-			if TL.rows[i].applied and TL.rows[i].closeUnit == unit then return paintFacesSoon() end
+			if TL.rows[i].applied and TL.rows[i].closeUnit == unit then
+				if UnitIsDead and ns.Compat.Readable(UnitIsDead(unit)) == false then return end
+				return paintFacesSoon()
+			end
 		end
 	end)
 
@@ -2535,12 +2548,35 @@ do
 		r.Badge:SetPoint("TOPLEFT", count, "TOPLEFT", -2, 0)
 		r.Badge:SetPoint("BOTTOMRIGHT", count, "BOTTOMRIGHT", 1, -1)
 		paintTones(r)
+		-- What it was laid out from (laidSame).
+		local p = r.applied and r.info and r.info.progress
+		r.psLaidStyle, r.psLaidLevel, r.psLaidSide, r.psLaidUp = st, r:GetFrameLevel(), r.psSide, r.psUp
+		r.psLaidApplied, r.psLaidCur, r.psLaidMax, r.psLaidNote = r.applied, p and p.cur, p and p.max, note:GetText()
 	end
 	TL.layout = layout
 	local paintCount = layout
 
+	-- Laid out since from the same style, place, name, note and count: a
+	-- refresh (each kill, loot and bag change sends several) has nothing to
+	-- paint again. Every other change repaints through its own path (names:
+	-- applyRows; a close mob: paintRowFace; looks and settings: paintLooks).
+	local function laidSame(r)
+		local p = r.applied and r.info and r.info.progress
+		return r.psLaidStyle == (r.psStyle or TL.STYLES.full) and r.psLaidLevel == r:GetFrameLevel()
+			and r.psLaidSide == r.psSide and r.psLaidUp == r.psUp and r.psLaidApplied == r.applied
+			and r.psLaidCur == (p and p.cur) and r.psLaidMax == (p and p.max) and r.psLaidNote == r.Note:GetText()
+	end
+
 	paintCounts = function()
 		for i = 1, #TL.rows do paintCount(TL.rows[i]) end
+	end
+	-- The counts after a refresh: only the rows whose count (or anything else
+	-- they were laid out from) changed.
+	function TL.paintCountsChanged()
+		for i = 1, #TL.rows do
+			local r = TL.rows[i]
+			if not laidSame(r) then paintCount(r) end
+		end
 	end
 
 	-- The rows' names, macros and visibility from the target list (secure:
@@ -3533,7 +3569,7 @@ local function refresh()
 		local fresh = Buttons.TargetInfo(name)
 		if fresh then info.progress, info.chance = fresh.progress, fresh.chance end
 	end
-	TL.paintCounts()
+	TL.paintCountsChanged()
 
 	-- Not tied to the step: a rare can turn up on any of them.
 	local R = ns.Rares
@@ -3682,7 +3718,7 @@ local function create()
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	local function cameOrWent()
 		placeLabels()
-		ns.Fire("QUEST_BUTTONS_PLACED")
+		placedSoon()
 	end
 	for i = 1, #set do
 		set[i].psStack = set
