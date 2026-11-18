@@ -27,6 +27,7 @@ fn pack_golden(cells: usize, out: &Path, generator: &str) {
 		places: None,
 		ledges: false,
 		spawns: None,
+		trails: None,
 		log: &log,
 	})
 	.unwrap();
@@ -88,6 +89,7 @@ fn real_pack(date: &str, name: &str) -> PathBuf {
 		places: None,
 		ledges: false,
 		spawns: None,
+		trails: None,
 		log: &log,
 	})
 	.unwrap();

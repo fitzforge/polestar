@@ -31,6 +31,7 @@ fn pack(leffe: Option<(&std::path::Path, &[u32])>, name: &str) -> PathBuf {
 		places: None,
 		ledges: false,
 		spawns: None,
+		trails: None,
 		log: &|m| eprintln!("{m}"),
 	})
 	.unwrap();

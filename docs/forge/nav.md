@@ -696,6 +696,14 @@ forge nav check
   surface has another more than 10 yd above or below within a cell gets its height in the maps' `spawn` field (per
   cluster "x y z ..." in whole yards; `spawnHeights` in PACK.json); `Routing/Path.lua` walks a goal without a height
   within 8 yd of one to that spawn's floor first. On with `--spawns on` (off by default until measured).
+- Off the trails (`pack/trails.rs`): `--trails <trails.json>` takes the trail layer (`polestar nav city trails`, a
+  private build output: per 4.17-yd cell the levels 3+ distinct players walked). Every surface of his in a capital's
+  ADT chunk of a tile with trail data that no walked level covers (in its cell or one beside it, within 3 yd of its
+  height) becomes class 6 (outdoors) or 7 (indoor or indoor city ground), its hub bits kept, water as it was; a step
+  into one costs 3 times in every style. The entrance edges the new classes make dearer are priced again (inside a
+  cluster by what the walk between the entrances adds, across a border by the ratio of the entrance's multipliers).
+  PACK.json's `trails` counts the re-classed surfaces per map, and its top-level `trails.train` says whether the
+  layer counts the gate's training people only. Runs after the joins and cuts; needs `--leffe`.
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers

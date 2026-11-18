@@ -26,6 +26,7 @@ pub mod layers;
 pub mod leffe;
 pub mod reach;
 pub mod spawns;
+pub mod trails;
 
 use crate::grid::{flag, Grid, Tile};
 use crate::legs::Nav;
@@ -46,12 +47,15 @@ pub mod CLASS {
 	pub const STEEP: u8 = 3;
 	pub const INDOOR: u8 = 4;
 	pub const CITY: u8 = 5;
+	/// A capital's ground no trail covers (pack/trails.rs): outdoors, and indoors or an indoor city.
+	pub const OFF_TRAIL: u8 = 6;
+	pub const OFF_TRAIL_INDOOR: u8 = 7;
 }
 /// Inside an Alliance hub (hostile to Horde players) and a Horde one.
 pub const HUB_ALLIANCE: u8 = 8;
 pub const HUB_HORDE: u8 = 16;
-/// By base class: normal, road, gentle slope, steep slope, indoor, indoor city; 6 and 7 as normal.
-pub const MULT: [f64; 6] = [1.0, 0.8, 1.3, 2.5, 2.0, 1.0];
+/// By base class: normal, road, gentle slope, steep slope, indoor, indoor city, off the trails, off the trails indoors.
+pub const MULT: [f64; 8] = [1.0, 0.8, 1.3, 2.5, 2.0, 1.0, 3.0, 3.0];
 /// A hostile hub, on top of its base class.
 pub const HUB: f64 = 20.0;
 /// tslope bands (degrees): gentle from GENTLE, steep from STEEP.
@@ -78,7 +82,7 @@ pub const B64: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy
 
 /// costs.js mult: the multiplier of a step into a node of class byte `cls` under a profile.
 pub fn mult(cls: u8, profile: Option<&str>) -> f64 {
-	let m = MULT.get((cls & 7) as usize).copied().unwrap_or(1.0);
+	let m = MULT[(cls & 7) as usize];
 	let hostile = (profile == Some("Horde") && cls & HUB_ALLIANCE != 0) || (profile == Some("Alliance") && cls & HUB_HORDE != 0);
 	if hostile {
 		m * HUB
@@ -232,6 +236,9 @@ pub struct PackIn<'a> {
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
 	/// stand where floors overlap (the spawn field). None: no spawn field.
 	pub spawns: Option<&'a [reach::Place]>,
+	/// The trail layer (pack/trails.rs, `polestar nav city trails`): Leffe's maps re-class a capital's ground no trail
+	/// covers as off the trails. None: his classes.
+	pub trails: Option<&'a trails::Trails>,
 	pub log: &'a (dyn Fn(&str) + Sync),
 }
 
@@ -294,14 +301,30 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let built: String = s("builtAt").chars().take(10).collect();
 	// Leffe's maps for any map of this pack: the headers name them (and the command its --leffe).
 	let leffe_used = i.leffe.is_some_and(|l| list.iter().any(|c| l.1.contains(c)));
+	// The trail layer re-classes Leffe's maps' surfaces only.
+	let trails_used = match i.trails {
+		Some(t) => {
+			if let Some(c) = list.iter().find(|c| t.maps.contains_key(c) && !i.leffe.is_some_and(|l| l.1.contains(c))) {
+				return Err(format!("pack: the trail layer has map {c}, whose walking maps are the grid's: --trails re-classes Leffe's maps only"));
+			}
+			list.iter().any(|c| t.maps.contains_key(c))
+		}
+		None => false,
+	};
 	let source = format!("the navigation grid ({} {}, built {built}){} on {date}", s("product"), s("build"), if leffe_used { " and Leffe's navigation maps" } else { "" });
-	let gen = generated_header(&format!("{} --cells {}{}", i.generator, i.cells, if leffe_used { " --leffe" } else { "" }), &source);
+	let flags = format!("{}{}", if leffe_used { " --leffe" } else { "" }, if trails_used { " --trails" } else { "" });
+	let gen = generated_header(&format!("{} --cells {}{flags}", i.generator, i.cells), &source);
+	let train = i.trails.is_some_and(|t| t.train);
 	let mut manifest = Map::new();
 	manifest.insert("generator".into(), json!(i.generator));
 	manifest.insert("format".into(), json!(2));
 	manifest.insert("grid".into(), grid_info);
 	manifest.insert("cells".into(), json!(i.cells));
 	manifest.insert("date".into(), json!(date));
+	if trails_used {
+		// Whose walks the trail layer counts: the gate's training people only, or everyone's.
+		manifest.insert("trails".into(), json!({ "train": train }));
+	}
 	let mut maps_json = Map::new();
 	let mut files: Vec<(String, String)> = Vec::new();
 	let mut by_map: Vec<(u32, Vec<chokepoints::Choke>)> = Vec::new();
@@ -397,7 +420,19 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				} else {
 					None
 				};
-				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns };
+				// The trail layer of this map: per tile with trail data, which of its chunks are a capital's.
+				let layer = match i.trails.and_then(|t| t.maps.get(&c)) {
+					Some(t) => {
+						let mut city_of = rustc_hash::FxHashMap::default();
+						for &(col, row) in t.tiles.iter().filter(|p| tiles.contains(*p)) {
+							let (tile, _) = load(col, row)?;
+							city_of.insert((col, row), cells::chunk_city(c, col, row, &tile.areas, &city));
+						}
+						Some(trails::Layer { trails: t, city: city_of, max_row: (31 - cg.cx0) as u32, max_col: (31 - cg.cy0) as u32 })
+					}
+					None => None,
+				};
+				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns, trails: layer.as_ref() };
 				let hubs = i.layers.join("hubs.json");
 				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
 				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &extras, &ways, log)?;
@@ -443,6 +478,13 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				if i.spawns.is_some() {
 					log(&format!("Leffe's maps {c}: {} spawns where floors overlap given their height (the spawn field)", s.spawn_heights));
 					lj.as_object_mut().unwrap().insert("spawnHeights".into(), json!(s.spawn_heights));
+				}
+				if let Some(t) = &s.trails {
+					log(&format!(
+						"trails {c}: {} of {} capital ground surfaces off the trails ({} indoors), entrance edges priced again: {} inside a cluster, {} across a border",
+						t.off, t.capital, t.indoor, t.inside, t.across
+					));
+					m.insert("trails".into(), json!(t.off));
 				}
 				m.insert("leffe".into(), lj);
 				(maps, s.entrances, s.edges - s.dropped + j.edges)

@@ -37,7 +37,8 @@ local edges, edgeTarget, edgeValue = Grid.edges, Grid.edgeTarget, Grid.edgeValue
 local entrance, locate, standing, snap, smooth = Grid.entrance, Grid.locate, Grid.standing, Grid.snap, Grid.smooth
 local zOf, floorCell, floorsOf = Grid.zOf, Grid.floorCell, Grid.floorsOf
 local KINDS, VAL, CLS, MASK = Grid.KINDS, Grid.VAL, Grid.CLS, Grid.MASK
-local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY -- indoor ground: a node's base class (CLS % 8)
+-- indoor ground: a node's base class (CLS % 8) indoor, an indoor city or off the trails indoors
+local INDOOR, CITY, OFF_INDOOR = Costs.CLASS.INDOOR, Costs.CLASS.CITY, Costs.CLASS.OFF_TRAIL_INDOOR
 local byte = string.byte
 local zoneAt, chunkDanger, nodeArea = Grid.zoneAt, Grid.chunkDanger, Grid.nodeArea
 
@@ -774,7 +775,7 @@ local function surfaces(st, k, node, h, floors)
 				local dz = z - zOf(cl, m)
 				if abs(dz) <= ZTOL then
 					local bm = CLS[byte(kind, m + 1)] % 8
-					if r > 0 or dz < 0 or (b ~= INDOOR and b ~= CITY) or bm == INDOOR or bm == CITY then
+					if r > 0 or dz < 0 or (b ~= INDOOR and b ~= CITY and b ~= OFF_INDOOR) or bm == INDOOR or bm == CITY or bm == OFF_INDOOR then
 						return
 					end
 					under = under or i
@@ -2077,12 +2078,13 @@ Path.SURFACE_WATER, Path.SURFACE_INDOOR = 1, 2
 local function marks(c, node)
 	local kb = byte(c.kind, node + 1)
 	local cls = CLS[kb] % 8
-	return (VAL[kb] == 2 and 1 or 0) + ((cls == INDOOR or cls == CITY) and 2 or 0)
+	return (VAL[kb] == 2 and 1 or 0) + ((cls == INDOOR or cls == CITY or cls == OFF_INDOOR) and 2 or 0)
 end
 
 -- The walkable surfaces of the cell under a world point on map: its base surface and its floors, base first, each
 -- surface's height in out[i] and its marks in out[-i]: SURFACE_WATER (1) when it is water, plus SURFACE_INDOOR (2)
--- when its ground class is indoor or an indoor city (Costs.CLASS INDOOR, CITY; never on a map without classes).
+-- when its ground class is indoor, an indoor city or off the trails indoors (Costs.CLASS INDOOR, CITY,
+-- OFF_TRAIL_INDOOR; never on a map without classes).
 -- -> n, 0 outside the map's data, in a cluster without data or a cell with no walkable surface; nil while the cell's
 -- cluster is not decoded: the read never decodes, it queues Path.Prefetch for it (decoded under the frame budget, as
 -- a search's clusters are) and a later read finds it. The caller's out is reused (nothing is allocated; entries past

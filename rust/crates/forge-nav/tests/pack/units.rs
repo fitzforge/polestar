@@ -31,7 +31,9 @@ fn node_class_precedence_steep_indoor_road_gentle_normal_city_and_hub_bits() {
 fn multipliers_by_class_and_hostile_hubs() {
 	assert_eq!(mult(CLASS::ROAD, None), 0.8);
 	assert_eq!(mult(CLASS::STEEP, Some("Alliance")), 2.5);
-	assert_eq!(mult(6, None), 1.0, "classes 6 and 7 cost as normal ground");
+	assert_eq!(mult(CLASS::OFF_TRAIL, None), 3.0, "a capital's ground off the trails costs 3 times");
+	assert_eq!(mult(CLASS::OFF_TRAIL_INDOOR, Some("Horde")), 3.0, "indoors too");
+	assert_eq!(mult(CLASS::OFF_TRAIL_INDOOR | HUB_ALLIANCE, Some("Horde")), 3.0 * 20.0, "and a hostile capital on top");
 	assert_eq!(mult(CLASS::ROAD | HUB_ALLIANCE, Some("Horde")), 0.8 * 20.0, "an Alliance hub is hostile to Horde");
 	assert_eq!(mult(CLASS::ROAD | HUB_ALLIANCE, Some("Alliance")), 0.8);
 	assert_eq!(mult(CLASS::NORMAL | HUB_HORDE, Some("Alliance")), 20.0);
@@ -119,6 +121,7 @@ fn pack_into(grid: &Path, out: &Path, cells: usize) -> Result<forge_nav::pack::P
 		places: None,
 		ledges: false,
 		spawns: None,
+		trails: None,
 		log: &log,
 	})?;
 	ship_pack(&pack, out)?;
@@ -149,6 +152,7 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 		places: None,
 		ledges: false,
 		spawns: None,
+		trails: None,
 		log: &|_| {},
 	})
 	.unwrap();

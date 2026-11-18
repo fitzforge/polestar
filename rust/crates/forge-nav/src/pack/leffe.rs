@@ -17,6 +17,8 @@
 //!   owning it, costs and yards are rounded, an entrance keeps its 63 cheapest edges. His edges may be one way.
 //! - **area**: his maps have none; each surface takes the WMOAreaTable row of our grid's surface in the same cell
 //!   nearest in height (within MATCH_YD): the Undercity's floors keep their names.
+//! - **class**, with the trail layer (pack/trails.rs): a capital's ground no trail covers is off the trails (class 6,
+//!   indoors 7), and the graph's edges it makes dearer are priced again.
 
 use super::cells::{CellGrid, ZQ};
 use super::drops;
@@ -68,6 +70,8 @@ pub struct LeffeStats {
 	pub ledge_drops: usize,
 	/// Spawns given a height in the spawn field (pack/spawns.rs).
 	pub spawn_heights: usize,
+	/// The trail layer's re-classing (pack/trails.rs), when given.
+	pub trails: Option<super::trails::TrailStats>,
 }
 
 /// What the walking maps take from the fixed places and from our grid besides his maps.
@@ -81,6 +85,9 @@ pub struct Extras<'a> {
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points, every map's): the spawn field holds the heights of
 	/// those where floors overlap. None: no spawn field.
 	pub spawns: Option<&'a [Place]>,
+	/// The trail layer of this map (pack/trails.rs): a capital's ground no trail covers is re-classed off the trails.
+	/// None: the classes stay his.
+	pub trails: Option<&'a super::trails::Layer<'a>>,
 }
 
 fn read_field(src: &NavDir, meta: &Meta, field: &str, k: u32) -> Result<Option<Vec<u8>>, String> {
@@ -867,6 +874,8 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
 	let (mut joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
 	joined.cuts = super::cuts::apply(&geo, &mut outs, map, log)?;
+	// Last, over every surface the joins and cuts left: the capitals' ground off the trails.
+	let trailed = extras.trails.map(|l| super::trails::apply(&geo, &mut outs, l, map, log)).transpose()?;
 	let mut maps = Maps {
 		class: Some(BTreeMap::new()),
 		zone: Some(BTreeMap::new()),
@@ -917,6 +926,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 		st.spawn_heights += s.spawn_heights;
 	}
 	(st.places, st.unplaced) = placed;
+	st.trails = trailed;
 	// zone: his, as stored
 	if let Some(z) = &meta.zone {
 		for (k, s) in z.iter().enumerate() {

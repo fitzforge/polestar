@@ -524,6 +524,18 @@ struct Piece {
 	area: u32,
 }
 
+/// Whether each 16 x 16 chunk of tile (col, row) of continent c lies in a capital: `city` at the chunk's centre with
+/// its AreaTable area (`areas`, the tile's per chunk). Chunk (j >> 4) * 16 + (i >> 4) of the grid's columns (i, j).
+pub fn chunk_city(c: u32, col: u32, row: u32, areas: &[u16], city: &dyn Fn(u32, f64, f64, u32) -> bool) -> [bool; 256] {
+	let mut out = [false; 256];
+	for (ch, v) in out.iter_mut().enumerate() {
+		let wx = (32 - row as i64) as f64 * T - (((ch >> 4) * 16 + 8) as f64) * CELL;
+		let wy = (32 - col as i64) as f64 * T - (((ch & 15) * 16 + 8) as f64) * CELL;
+		*v = city(c, wx, wy, areas[ch] as u32);
+	}
+	out
+}
+
 /// A tile as cell_grid reads it: the tile, and the WMOAreaTable row of each entry when the grid
 /// has the tile's area sidecar (maps format 3).
 pub type LoadedTile = (Tile, Option<Vec<u32>>);
@@ -583,14 +595,10 @@ pub fn cell_grid(tiles: &[(u32, u32)], load: &dyn Fn(u32, u32) -> Result<LoadedT
 		let zero = vec![0u8; if t.tslope.len() == n { 0 } else { n }];
 		let tslope: &[u8] = if t.tslope.len() == n { &t.tslope } else { &zero };
 		let roads = layers.roads.and_then(|m| m.get(&(col, row)));
-		let mut city = [0u8; 256];
-		if let Some(f) = layers.city {
-			for (ch, v) in city.iter_mut().enumerate() {
-				let wx = (32 - row as i64) as f64 * T - (((ch >> 4) * 16 + 8) as f64) * CELL;
-				let wy = (32 - col as i64) as f64 * T - (((ch & 15) * 16 + 8) as f64) * CELL;
-				*v = f(c, wx, wy, t.areas[ch] as u32) as u8;
-			}
-		}
+		let city = match layers.city {
+			Some(f) => chunk_city(c, col, row, &t.areas, f),
+			None => [false; 256],
+		};
 		if let Some(f) = layers.zone {
 			let mut zone = vec![0u16; 256];
 			let mut any = false;
@@ -845,7 +853,7 @@ pub fn cell_grid(tiles: &[(u32, u32)], load: &dyn Fn(u32, u32) -> Result<LoadedT
 				p.val = if p.wet * 2 > p.count { 2 } else { 1 };
 				let indoor = p.indoor * 2 > p.count;
 				p.cls =
-					node_class((if indoor { flag::INDOOR } else { 0 }) | (if p.val == 2 { flag::SWIM } else { 0 }), p.tslope, p.road > 0, city[(p.rep_k >> 12) * 16 + ((p.rep_k & 255) >> 4)] == 1, 0);
+					node_class((if indoor { flag::INDOOR } else { 0 }) | (if p.val == 2 { flag::SWIM } else { 0 }), p.tslope, p.road > 0, city[(p.rep_k >> 12) * 16 + ((p.rep_k & 255) >> 4)], 0);
 			}
 			let water = list.iter().filter(|p| p.val == 2).map(|p| p.z).fold(f64::NEG_INFINITY, f64::max);
 			list.retain(|p| p.z >= water - STEP || (p.indoor * 2 > p.count && (ceil[p.rep] as f64) < water));
