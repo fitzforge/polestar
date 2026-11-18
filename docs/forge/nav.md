@@ -670,6 +670,16 @@ forge nav check
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.
+
+  Two kinds of pair are drawn straight instead of routed on our grid (`"kind"`): a **step** (`"step"`) walks
+  between two places at most 12 yd apart, both ways, rising no steeper than the walk slope, where neither map has
+  the way and players walk through (a threshold, a stair or a counter's gap: the players' recordings step through
+  a hole in our grid there); a **drop** (`"drop"`) falls from a ledge's edge (a) to where players land (b, below it
+  and at most 10 yd across), one way, and goes in even where it hurts and his maps make another way. Add a drop
+  only where the recordings show it is a fall players take (the falling flag and the time it takes, not a stair
+  our grid lacks), taken by 70% or more of the 20 or more players who pass the ledge, and under half a full
+  health's fall damage (about 41 yd): the Orgrimmar wind rider tower's drop into the Valley of Strength (#1986).
+  Both kinds need both heights; `"people"` counts the distinct recorded players who walked it.
 - **Cuts** (`pack/cuts.rs`; the lines in `pack/joins.json`'s `cuts`, compiled in): faces players cannot walk up
   that his maps (and our grid) walk up. A cut is a line on a map and a band of heights; with `--leffe`, every move of
   his maps that crosses the line going up (its end more than 0.5 yd above its start, both ends in the band) is taken

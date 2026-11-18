@@ -592,3 +592,21 @@ fn the_abstract_search_never_settles_on_a_dearer_walk_than_the_cheapest_2723() {
 	let (find, many) = (got["find"].as_f64().expect("Find finds a walk"), got["many"].as_f64().expect("FindMany finds one"));
 	assert!(find <= many + 0.01, "Find's walk costs {find:.3}, the cheapest {many:.3}");
 }
+
+// #1986 (xstevan), Orgrimmar: from the wind rider tower the arrow walked down the ramp round the tower, where players
+// drop off the platform's south edge into the Valley of Strength (29 yd: it hurts, it doesn't kill; 121 recorded
+// players do). A drop join puts that fall in, one way: the walk from the flight master Doras (61.7) to Kaja's shop on
+// the Drag (21.7) goes off the edge (47.50, 65.47) and is about the players' 126 yd, not the ramp's 195.
+#[test]
+fn orgrimmar_the_walk_down_from_the_wind_rider_tower_drops_off_its_edge_as_players_do_1986() {
+	let doras = Pt { c: 1, x: 1676.3, y: -4313.4, z: Some(61.7) };
+	let kaja = Pt { c: 1, x: 1692.7, y: -4412.0, z: Some(21.7) };
+	let got = walk(doras, kaja, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Doras to Kaja");
+	let pts = points(&got);
+	let edge = Pt { c: 1, x: 1661.5, y: -4346.9, z: None };
+	let off = off_path(&pts, edge);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the tower's edge");
+	let yards = yards_of(&pts);
+	assert!(yards < 160.0, "the walk down is {yards:.0} yd");
+}
