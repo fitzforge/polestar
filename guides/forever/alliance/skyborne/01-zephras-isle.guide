@@ -698,7 +698,7 @@ step Elaadrin Evengale
 
 step Leave Zephras Isle to Alterac Mountains
   zone Zephras Isle
-  goto 65.8,83.4 "Leave Zephras Isle to Alterac Mountains" live
+  goto 65.75,83.62 "Leave Zephras Isle to Alterac Mountains" live
 
 step Denaaris Stargale
   zone Alterac Mountains

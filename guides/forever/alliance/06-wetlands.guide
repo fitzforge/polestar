@@ -109,7 +109,7 @@ step Boat to Auberdine
   only NightElf,Priest
   when onquest 5673
   zone Stormwind City
-  goto 21.8,56.9 "Boat to Auberdine" live
+  goto 22.71,56.69 "Boat to Auberdine" live
 
 step Fly to Rut'theran Village
   only NightElf,Priest
@@ -347,7 +347,7 @@ step James Halloran
 step Boat to Auberdine
   zone Wetlands
   tip The boat to Auberdine leaves from the far end of Menethil's western pier.
-  goto 4.5,56.7 "Boat to Auberdine"
+  goto 4.71,56.95 "Boat to Auberdine"
 
 step Thundris Windweaver
   zone Darkshore

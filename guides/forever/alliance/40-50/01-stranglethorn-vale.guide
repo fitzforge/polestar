@@ -435,7 +435,7 @@ step Boat to Auberdine
   only NightElf
   zone Stormwind City
   when level>=40
-  goto 21.8,56.9 "Boat to Auberdine" live
+  goto 22.71,56.69 "Boat to Auberdine" live
 
 step Fly to Rut'theran Village
   only NightElf
@@ -482,7 +482,7 @@ step Boat to Stormwind Harbor
   only NightElf
   zone Darkshore
   when level>=40
-  goto 30.5,40.9 "Boat to Stormwind Harbor"
+  goto 30.71,40.96 "Boat to Stormwind Harbor"
 
 step Fly to Darkshire
   zone Stormwind City
