@@ -512,9 +512,14 @@ function scoreRows(area, trips, res, protos = {}) {
 	const { measure } = judge(area);
 	// 0.01 yd: --remeasure re-scores these, and the judge's 10 yd thresholds sit close to some walks
 	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(2))));
+	// an end asked without a height has none on its own point: the walk's height there is its nearest point's that has one
+	const zAt = (pts, from, step) => {
+		for (let i = from; i >= 0 && i < pts.length; i += step) if (pts[i][2] !== null && pts[i][2] !== undefined) return pts[i][2];
+		return null;
+	};
 	const score = (r, tt) => {
 		if (!r.ok) return { ok: false, reason: r.reason, fail: 'no walk' };
-		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: keep(r.pts) };
+		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: zAt(r.pts, 0, 1), endZ: zAt(r.pts, r.pts.length - 1, -1), pts: keep(r.pts) };
 		x.fail = failOf(x, tt);
 		return x;
 	};
