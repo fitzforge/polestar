@@ -13,3 +13,6 @@ section: players
   walking up from the docks to Fleet Master Seahorn could leave the arrow
   sending you "Through the pass to Booty Bay" from right beside him (#2215,
   thanks Sekyno).
+- Excavation Site: Wetlands: the way to the dungeon now leads to its door in
+  the hillside, where players go in, and the walk ends at the door instead of
+  in Thelgen Rock below it. Before, it led to a point 185 yards away.

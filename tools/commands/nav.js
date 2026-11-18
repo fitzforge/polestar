@@ -437,7 +437,8 @@ async function cityCmd(argv) {
 		if (!o.npcFloors) return npc;
 		return require('../lib/nav/city/npcfloors').withFloors(npc, JSON.parse(fs.readFileSync(path.resolve(o.npcFloors), 'utf8')));
 	};
-	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy', spawnz: spawnzOf(), taxi: readData('travel.json').taxi.nodes });
+	// doors: data/codex/entrances.json's dungeon doors with a floor (the arrow to an entrance carries it)
+	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy', spawnz: spawnzOf(), taxi: readData('travel.json').taxi.nodes, doors: require('../lib/nav/city/gate').doorsOf(JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'codex', 'entrances.json'), 'utf8')), framesData) });
 	if (step === 'extract') {
 		if (!o.recordings) throw usageError('nav city extract: --recordings <archive> is required');
 		const s = require('../lib/nav/city/extract').extract({ recordings: path.resolve(o.recordings), out: priv, maps, log });

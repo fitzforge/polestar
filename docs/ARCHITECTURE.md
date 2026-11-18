@@ -10668,7 +10668,7 @@ was already built without it.
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
   (Recorder `enter`, `data/forever/instances.json`), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
-  map where one walks in, `{ key, instance, map, x, y, source, note }`, each
+  map where one walks in, `{ key, instance, map, x, y, z?, source, note }`, each
   with its source, checked against the corpse point and our guides'
   gotos; every dungeon and raid in the Codex, Forever's own included, from
   QuestieDB's Forever dungeon table, warcraft.wiki.gg, Forever's quest data
@@ -10681,7 +10681,11 @@ was already built without it.
   `approx: true` (packed as a fifth entrance field `a`, read as
   `Codex.Instance(key).entrance.approx`). `AreaTrigger` rows name no instance
   and the trigger nearest a Corpse point is as often an inn or city trigger,
-  so they are not used. Every
+  so they are not used. A table entry's `z` (the door's floor where floors
+  stack: the Excavation Site's door 100 yd over Thelgen Rock) rides along as
+  `entrance.z` when the chosen point lies within 30 yd of the entry's; the
+  journal's page carries it (Dungeons1.lua), and `Dungeons.GuideToPoint`
+  gives it to the arrow, so the walk ends at the door. Every
   NPC placed in an instance (`npcs.json` `instances`, from QuestieDB and
   recordings, or the web database's `location` naming an `AreaTable` area of the
   instance's map) belongs to it: its drops carry the instance. An instance's
