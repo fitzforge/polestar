@@ -5081,6 +5081,9 @@ L["The theme every Polestar window wears, the action buttons, the alert cards an
 L["They come off the list on every character. The pins you see here stay."] = "Salen de la lista en todos los personajes. Los fijados que ves aquí se quedan."
 L["Unpin from the sidebar"] = "Quitar de la barra lateral"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Lo que Polestar hace por ti mientras subes de nivel: sugerencias, misiones, recompensas, botones, raros."
+
+-- UI/Essentials.lua: the new page's Essentials tabs
+L["Most used"] = "Lo más usado"
 -- L["Target bar colour"] = "Color de la barra del objetivo"
 -- L["Progress colour"] = "Color del progreso"
 -- L["The guides window only; applies when you let go. Right-click to reset."] = "Solo la ventana de Guías; se aplica al soltar. Clic derecho para restablecer."

@@ -2905,6 +2905,10 @@ function W.LayoutCompact(row, width)
 	end
 	lw = max(1, lw - (info and 16 or 0))
 	local label = row.Label
+	-- row.psAfter: a frame that stands right after the label's text (the new
+	-- settings page's link to a reference's home), its room kept.
+	local after = rawget(row, "psAfter")
+	lw = max(1, lw - (after and (after:GetWidth() + 8) or 0))
 	label:ClearAllPoints()
 	local below = row.psBelow
 	if below then
@@ -2915,13 +2919,21 @@ function W.LayoutCompact(row, width)
 	label:SetWidth(lw)
 	-- Two lines of label: the row grows to hold them with 3px over and under.
 	if not below then h = max(h, math.ceil(label:GetStringHeight()) + 6) end
-	if info then
-		-- The (i) right after the text: a label shorter than its column ends
-		-- there, so the mark stands beside it, not inside its box.
+	if info or after then
+		-- The (i) right after the text, then the link: a label shorter than
+		-- its column ends there, so they stand beside it, not inside its box.
 		local tw = min(lw, math.ceil(textWidth(label)))
 		label:SetWidth(max(1, tw))
-		info:ClearAllPoints()
-		info:SetPoint("LEFT", label, "LEFT", tw + 4, 0)
+		local x = tw + 4
+		if info then
+			info:ClearAllPoints()
+			info:SetPoint("LEFT", label, "LEFT", x, 0)
+			x = x + 16
+		end
+		if after then
+			after:ClearAllPoints()
+			after:SetPoint("LEFT", label, "LEFT", x + 4, 0)
+		end
 	end
 	-- Picture cards run under the label's band, across the row.
 	if below then
