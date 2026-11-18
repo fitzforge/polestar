@@ -2642,6 +2642,7 @@ R("subzone", 144105, 149286, [[
 144295	O Bazar
 144296	O Bazar
 144299	O Bazar
+144301	O Bazar
 144307	O Bazar
 144308	O Bazar
 144309	O Bazar

@@ -2020,7 +2020,7 @@ R("subzone", 33828, 141210, [[
 141209	Das Schurkenviertel
 141210	Das Magieviertel
 ]])
-R("subzone", 141211, 144343, [[
+R("subzone", 141211, 144342, [[
 
 141211	Die Kanäle
 141212	Die Kanäle
@@ -2497,6 +2497,7 @@ R("subzone", 141211, 144343, [[
 144295	Die Gasse
 144296	Die Gasse
 144299	Die Gasse
+144301	Die Gasse
 144307	Die Gasse
 144308	Die Gasse
 144309	Die Gasse
@@ -2521,10 +2522,10 @@ R("subzone", 141211, 144343, [[
 144340	Das Tal der Ehre
 144341	Das Tal der Ehre
 144342	Das Tal der Ehre
-144343	Das Tal der Ehre
 ]])
-R("subzone", 144346, 149286, [[
+R("subzone", 144343, 149286, [[
 
+144343	Das Tal der Ehre
 144346	Das Tal der Ehre
 144348	Das Tal der Ehre
 144349	Das Tal der Ehre
