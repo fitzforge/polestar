@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 24] = [
+const QUEST_FIELDS: [&str; 25] = [
 	"title",
 	"level",
 	"minLevel",
@@ -545,6 +545,8 @@ const QUEST_FIELDS: [&str; 24] = [
 	"zone",
 	"xp",
 	"skill",
+	// The profession rank it needs (the Codex's `l<line>,<rank>`: Lookup's pick-up guides check it, #2752).
+	"skillLevel",
 	"event",
 	"escort",
 	// Handed in on the spot from the giver's window, never in the log (the server's QuestType 0).
@@ -844,7 +846,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "skillLevel" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -2183,6 +2185,14 @@ mod tests {
 		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_profession_rank_is_a_whole_number_2752() {
+		let src = r#""source": { "kind": "tdb", "ref": "quest_template_addon" }, "note": "the lower rank""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": 200 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": "200" }}, {src} }}, "11": {{ "set": {{ "skillLevel": 2.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
 	}
 

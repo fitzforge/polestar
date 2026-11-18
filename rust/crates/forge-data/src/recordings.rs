@@ -541,6 +541,12 @@ const FACTION_KEYS: [&str; 5] = ["id", "name", "side", "parent", "source"];
 /// Loot windows of a source a player needs before their share counts toward a trusted drop chance.
 pub(crate) const MIN_WINDOWS: f64 = 10.0;
 const ENTRANCE_RADIUS: f64 = 1.5;
+/// Map percent within which a rare's sightings are one place (#2816). A sighting is where the player
+/// stood when the rare's nameplate showed or the cursor or target met it: 30 yd from it at the median,
+/// 100 yd at the 90th percentile (2,434 sightings of 26 rares and leaders that stand still, against
+/// the Forever TDB's spawn). 2.5% is 60-130 yd across most zone maps (250 on The Barrens', 35 on a
+/// capital's).
+const SIGHT_RADIUS: f64 = 2.5;
 const FULL_XP_LEVELS: f64 = 5.0;
 
 fn rank_of(cls: &str) -> Option<f64> {
@@ -1153,6 +1159,15 @@ impl<'a> Overlay<'a> {
 	}
 
 	// ---- finds
+	/// Whether a `rare` sighting is of a true rare: the sighting's classification is rare or rare elite,
+	/// or, a vignette's that carries none, the data's rank is (2 or 4). A world boss is none (#2894).
+	fn true_rare(&self, id: i64, ev: &V) -> bool {
+		match ev.get("cls").as_str() {
+			Some(c) => c == "rare" || c == "rareelite",
+			None => matches!(self.db.npcs.get(&id.to_string()).get("rank").as_num(), Some(r) if r == 2.0 || r == 4.0),
+		}
+	}
+
 	fn unit(&mut self, id: i64, ev: &V) -> bool {
 		if !self.entity("npc", id, &ev.get("npcName")) {
 			return false;
@@ -1203,7 +1218,10 @@ impl<'a> Overlay<'a> {
 		match ev.get("e").as_str().unwrap_or("") {
 			"rare" => {
 				let Some(npc) = npc else { return true };
-				if self.unit(npc, ev) {
+				// Only a true rare takes a role and spawn points from its sightings (#2894): the Recorder also
+				// logs world bosses this way, and the faction leaders (Thrall, Varimathras) got the spots where
+				// players stood when they saw them.
+				if self.unit(npc, ev) && self.true_rare(npc, ev) {
 					self.role(0, npc, "rare");
 					if let Some(c) = coord(ev) {
 						push_point(&mut self.found[0], npc, &c);
@@ -1490,6 +1508,14 @@ impl<'a> Overlay<'a> {
 			for (&id, by_map) in &self.found[k] {
 				let e = t.get(&id.to_string());
 				if e.truthy() {
+					// A rare's sighting is where the player stood, not where the rare is (#2816).
+					let places;
+					let by_map = if k == 0 {
+						places = sighting_places(&e.get("spawns"), by_map);
+						&places
+					} else {
+						by_map
+					};
 					self.join(&e, by_map, false, WHO_FOUND + k, id);
 				}
 			}
@@ -1863,6 +1889,23 @@ impl QuestVotes {
 	fn reward(&mut self, ev: &V, weight: u8, who: &str) {
 		observe_reward(&mut self.rewards, ev, weight, who);
 	}
+}
+
+/// A rare's recorded sightings per map, as places to merge into its spawns (#2816): each map's
+/// sightings become the centres of their clusters (SIGHT_RADIUS), and on a map where `spawns` (the
+/// other sources) already place the rare, only the centres farther than that from all of its points
+/// stay: a place no source knows. Sightings near a known spawn are players standing around it.
+fn sighting_places(spawns: &V, by_map: &ByMap) -> ByMap {
+	let mut out = ByMap::new();
+	for (&map, pts) in by_map {
+		let cur = spawns.get(&map.to_string());
+		let known: Vec<P> = if cur.is_undef() { Vec::new() } else { points_of(&cur.get("pts")).into_iter().chain(points_of(&cur.get("more"))).collect() };
+		let keep: Vec<P> = clusters(pts, SIGHT_RADIUS).into_iter().map(|(x, y, _)| [x, y]).filter(|&[x, y]| known.iter().all(|k| hypot(k[0] - x, k[1] - y) > SIGHT_RADIUS)).collect();
+		if !keep.is_empty() {
+			out.insert(map, keep);
+		}
+	}
+	out
 }
 
 /// Greedy clusters within `radius` -> (x, y, n), biggest first, then by x, y.
@@ -2862,6 +2905,46 @@ mod tests {
 			assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("l"), "{who:?}");
 			assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("pts").items()[0].num_at(0), 31.0);
 		}
+	}
+
+	#[test]
+	fn rare_sightings_become_the_centres_of_places_no_other_source_knows() {
+		// #2816: a sighting is where the player stood (the nameplate showed, the cursor met it), all
+		// round the rare. Rare 2 has a spawn from another source at 10,10: three players see it from
+		// three sides of it and three see it from round 40,40, a place the source lacks. Rare 3 has no
+		// spawn: four sightings round 60,60.
+		let npcs = r#"{"2":{"id":2,"name":"Old Rare","spawns":{"1420":{"f":"q","pts":[[10,10]]}}},"3":{"id":3,"name":"New Rare","spawns":{}}}"#;
+		let seen = |npc: i64, pts: &[(f64, f64)]| -> Vec<String> {
+			pts.iter().enumerate().map(|(i, (x, y))| format!(r#"{{"t":{i},"e":"rare","npc":{npc},"npcLvl":30,"cls":"rare","src":"p","map":1420,"x":{x},"y":{y}}}"#)).collect()
+		};
+		let mut evs = seen(2, &[(10.8, 10.3), (9.4, 9.6), (10.2, 11.1), (40.6, 40.2), (39.5, 40.4), (40.2, 39.4)]);
+		evs.extend(seen(3, &[(61.0, 60.0), (59.0, 60.0), (60.0, 61.2), (60.0, 58.8)]));
+		let t = Tables::new(QUESTS, npcs, "{}");
+		t.apply(&from(&[A, B, C], &evs));
+		let pts = |id: &str| t.npcs.get(id).get("spawns").get("1420").get("pts").items().iter().map(|p| (p.num_at(0), p.num_at(1))).collect::<Vec<_>>();
+		assert_eq!(pts("2"), [(10.0, 10.0), (40.1, 40.0)], "the source's spawn, and one place for the sightings away from it");
+		assert_eq!(pts("3"), [(60.0, 60.0)], "one place, at the sightings' centre");
+	}
+
+	#[test]
+	fn a_world_boss_sighting_gives_no_spawn_points_and_no_rare_role_2894() {
+		// #2894 (Emi): Ragefire Chasm's pick-up guide sent the hand-in to Thrall (4949) to 39.70,61.00 in
+		// Orgrimmar, outside his throne room: a spot players stood on when his nameplate showed. The Recorder
+		// logs world bosses as `rare` sightings (class worldboss); they are no rares. Three players see him
+		// from three far spots: his spawn stays the other source's, and he gets no rare role. A true rare's
+		// vignette sighting with no class still counts by the data's rank.
+		let npcs = r#"{"4949":{"id":4949,"name":"Thrall","rank":3,"spawns":{"1454":{"f":"l","pts":[[31.9,37.8]]}}},"5":{"id":5,"name":"Old Rare","rank":4,"spawns":{}}}"#;
+		let seen = |npc: i64, cls: &str, pts: &[(f64, f64)]| -> Vec<String> {
+			pts.iter().enumerate().map(|(i, (x, y))| format!(r#"{{"t":{i},"e":"rare","npc":{npc}{cls},"src":"p","map":1454,"x":{x},"y":{y}}}"#)).collect()
+		};
+		let mut evs = seen(4949, r#","npcLvl":63,"cls":"worldboss""#, &[(39.7, 61.0), (45.2, 52.1), (50.3, 70.4)]);
+		evs.extend(seen(5, "", &[(20.0, 20.0)]));
+		let t = Tables::new(QUESTS, npcs, "{}");
+		t.apply(&from(&[A, B, C], &evs));
+		let thrall = t.npcs.get("4949");
+		assert_eq!(j(&thrall.get("spawns")), r#"{"1454":{"f":"l","pts":[[31.9,37.8]]}}"#, "the throne room only");
+		assert!(!thrall.get("roles").items().iter().any(|r| r.as_str() == Some("rare")), "no rare role: {}", j(&thrall.get("roles")));
+		assert_eq!(j(&t.npcs.get("5").get("spawns").get("1454").get("pts")), "[[20,20]]", "a rare by its rank");
 	}
 
 	/// `n` kills of `npc`, each looted, `drops` of the loot windows holding `item`.

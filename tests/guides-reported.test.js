@@ -2063,6 +2063,24 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5 here');
 });
 
+// #2706 (cameronmoten): the Young Panther arrow started at a lone spawn west of the river; players' recordings put most
+// Young Panther kills across it at 39-45, 9-15 on both routes. Stranglethorn Tigers come in two groups of about the same
+// size, west and east of Nesingwary's camp: the Horde step that also takes the geologists by Lake Nazferiti points at
+// the eastern group, and its tip names both. The quest order stays as it was.
+test('Stranglethorn Vale 30-40: the Young Panther arrow points across the river, the Horde tiger arrow east toward the lake (#2706)', { skip }, () => {
+	const near = (g, x, y) => g.x != null && Math.abs(g.x - x) < 0.6 && Math.abs(g.y - y) < 0.6;
+	const cases = [
+		['forever/alliance/30-40/04-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 682, 186, 45, 15],
+	];
+	for (const [guide, npc, q, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `kill ${npc} quest ${q}`, (g) => g.t === 'kill' && g.npc === npc && g.quest === q)];
+		assert.ok(near(goal, x, y), `${guide}: kill ${npc} for ${q} points at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+});
+
 // #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned on the way back
 // from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
 // the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan. Since the level tidy
@@ -4299,6 +4317,92 @@ test("Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its dec
 	}
 	assert.ok(checked >= 10, `the guides' transport gotos are found (${checked})`);
 	assert.deepEqual([...offenders], [], 'transport gotos with no deck or pier within 8 yd');
+});
+
+// #2876 (Shuurajou, Wetlands): "Boat to Auberdine" at Menethil pointed at 4.5,56.7, the boat's own stop in the
+// water 11 yd off the end of the pier; standing on the pier where the boat docks the player never came within the
+// goto's 8 yd, and the arrow kept sending them on. The test above needs a navigation build and skips without
+// one; this one needs only travel.json: every goto at a transport stop with a boarding point (`board`, the deck or
+// pier the walk to the ship ends on) is within the 8 yd a goto completes in of that point.
+test('#2876: every goto at a boat or airship stop with a boarding point completes standing on it', { skip: skip || needs('travel.json', 'zones.json') }, () => {
+	const { Geo } = require('../tools/lib/planner/geo');
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
+	const geo = new Geo(read('map-frames.json'), read('zones.json'));
+	const stops = read('travel.json').transports.flatMap((t) => ['a', 'b'].map((side) => ({ id: `${t.id} (${t[side].name})`, ...t[side] }))).filter((s) => s.board);
+	const offenders = [];
+	let checked = 0;
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.t !== 'goto') continue;
+			const w = geo.toWorld(goal.map, goal.x, goal.y, goal.f || 'l');
+			if (!w) continue;
+			const stop = stops.find((s) => s.c === w.c && Math.hypot(s.wx - w.wx, s.wy - w.wy) <= 40);
+			if (!stop) continue;
+			checked++;
+			const d = Math.hypot(stop.board.wx - w.wx, stop.board.wy - w.wy);
+			if (d > 8) offenders.push(`${guide} step "${step.title}": goto ${goal.x},${goal.y} "${goal.text}" is ${Math.round(d)} yd from ${stop.id}'s boarding point`);
+		}
+	}
+	assert.ok(checked >= 10, `the guides' transport gotos are found (${checked})`);
+	assert.deepEqual(offenders, [], 'transport gotos out of reach from the boarding point');
+});
+
+// #2871 (Shuurajou, Alliance Wetlands): the guide sent them to hand in Fire Taboo (277) at Rethiel with 0 of its 9
+// Crude Flint: 06-ashenvale takes the quest and gets the flint, and a player who reached 06-wetlands without it had only
+// the hand-in. A step for the flint, only while the quest is in the log, now comes before the hand-in.
+test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gnolls before the hand-in', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const flint = at(list, 'collect 2611 quest 277', (g) => g.t === 'collect' && g.item === 2611 && g.quest === 277);
+	assert.ok(flint < at(list, 'turnin 277', is('turnin', 277)), 'the flint before the hand-in');
+	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
+});
+
+// #2881 (gidi, Horde Dustwallow Marsh): Questioning Reethe (1273) is an escort (Ogron walks to Reethe with whoever took
+// it), but its text never says escort, so the guide window showed no escort line under its accept. The correction marks
+// it; the compiled guides carry it from the next data build.
+test('#2881: Questioning Reethe is an escort', { skip }, () => {
+	const { isEscort } = require('../tools/lib/dsl/escort');
+	data = data || loadData(DATA);
+	const fix = loadCorrections().quests['1273'];
+	assert.equal(fix && fix.set.escort, true, 'the correction marks 1273 an escort');
+	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
+});
+
+// #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
+// the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
+// killed him at 44.9,51.2 (median of each person's spots).
+test("#2882: Chogg'Zac's spot is where players kill him", { skip }, () => {
+	const fix = (loadCorrections().npcs[256899] || {}).set;
+	const pts = fix && fix.spawns && fix.spawns[2548] && fix.spawns[2548].pts;
+	assert.ok(pts && pts.length === 1, 'one spot');
+	assert.ok(Math.hypot(pts[0][0] - 44.9, pts[0][1] - 51.2) < 0.3, `at 44.9,51.2 (got ${pts[0]})`);
+});
+
+// #2882's class: elites players kill in one spot while the data's points spread around them (players' recordings: the
+// median of each person's kill spots; four in five people within 0.3-0.84 of it). Each gets that one spot. Camps of
+// several spawns (the Razormane, Scarlet and Sandfury ones) and elites that walk a path (Uruson, Timber, Heartrazor) keep
+// their points.
+test("#2882's sweep: the elites players kill in one spot have that spot", { skip }, () => {
+	const spots = {
+		255906: [2548, 16.2, 73.1], // Snargl
+		256891: [2548, 29.8, 41.2], // Executioner Morg
+		263615: [2548, 59.5, 29.0], // Krek the Noxious
+		272116: [1438, 51.4, 44.8], // Xethorr the Wicked
+		271458: [1437, 60.9, 22.0], // Neru
+		271462: [1437, 67.6, 71.2], // Golm
+		271338: [1437, 77.4, 47.1], // Ados
+		259897: [1421, 49.7, 87.9], // Old Fire-Eye
+		222233: [1444, 74.9, 25.4], // Ohk'zi
+		222286: [1444, 66.7, 38.7], // Namida Grimtotem
+		218032: [1417, 69.3, 81.7], // Witherbark Goliath
+	};
+	const npcs = loadCorrections().npcs;
+	for (const [id, [map, x, y]] of Object.entries(spots)) {
+		const pts = (((npcs[id] || {}).set || {}).spawns || {})[map];
+		assert.ok(pts && pts.pts.length === 1, `${id}: one spot on map ${map}`);
+		assert.ok(Math.hypot(pts.pts[0][0] - x, pts.pts[0][1] - y) < 0.3, `${id}: at ${x},${y} (got ${pts.pts[0]})`);
+	}
+	for (const camp of [267314, 267308, 4280, 5646, 14428, 1132, 5934]) assert.ok(!(npcs[camp] || {}).set, `${camp}: left as it is`);
 });
 
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
@@ -16446,6 +16550,44 @@ test('#2587: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are gr
 		assert.ok(at(list, `accept ${q}`, is('accept', q)) < span, `${q}: before the Thandol Span`);
 	}
 	assert.ok(at(list, 'collect the explosives', (g) => g.t === 'collect' && g.quest === 88756) < span, 'Direforge Hill before the Thandol Span');
+});
+
+// #2822 (swork1, 0.4.0.1, Alliance Wetlands): Howin Kindfeather's Death to the Dragonmaw was never in the guide. Its 16
+// Dragonmaw (29-30) are all elite (players' recordings), so it is asked at Howin as a group quest after Razormaw Needling
+// and Trying Times, the way the Dun Modr stop asks its group quests; the solo route never gets it. Stopping the Cycle
+// (a level 34 elite) and Word to Ironforge after it stay out.
+test('#2822: Wetlands (Alliance): Death to the Dragonmaw is a group choice at Howin', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const group = ({ step }) => (step.when || []).some((p) => p.k === 'group' && p.q === 98291 && !p.neg);
+	const work = list.filter(({ goal }) => goal.quest === 98291);
+	assert.deepEqual(work.map(({ goal }) => goal.t), ['accept', 'kill', 'kill', 'kill', 'turnin'], 'accept, the three kills, hand-in');
+	for (const e of work) assert.ok(group(e), `every goal in a \`when group 98291\` step (${e.goal.t})`);
+	const accept = at(list, 'accept 98291', is('accept', 98291));
+	assert.equal(list[accept].goal.npc, 270637, 'from Howin Kindfeather');
+	assert.ok(at(list, 'turnin 98245', is('turnin', 98245)) < accept && at(list, 'turnin 98246', is('turnin', 98246)) < accept, 'after both of his quests it needs');
+	assert.ok(at(list, 'turnin 98291', is('turnin', 98291)) < at(list, 'accept 1132', is('accept', 1132)), 'handed in before the walk west to Menethil');
+	assert.ok(!list.some(({ goal }) => goal.quest === 98297 || goal.quest === 98300), 'Stopping the Cycle and Word to Ironforge stay out');
+});
+
+// #2529 (0.3.7.2, Undead Warlock in Orgrimmar): Fishing 1-50 sent each race to its own starting area's water, so an
+// Undead in Orgrimmar was sent across the sea to Brightwater Lake with the Durotar coast next door. Every starting-area
+// shore loses no fish from skill 25 and below 75 every catch raises the skill, so the band is one step per faction whose
+// places are all of its starting areas' shores (`skill … nearest`): the arrow takes the nearest. Zephras Isle's shore
+// is for Skyborne only. Pairs with #976 (a Gnome in Darkshore sent back to Dun Morogh).
+test('#2529: Fishing 1-50 leads to the nearest of the faction\'s starting-area shores, wherever the character is', { skip }, () => {
+	const list = goals('forever/professions/fishing.guide');
+	const first = list.filter(({ goal }) => goal.t === 'skill' && goal.skill === 'Fishing' && goal.level === 50);
+	assert.equal(first.length, 2, 'one step per faction');
+	const shores = { Alliance: [1429, 1426, 1438], Horde: [1411, 1412, 1420] };
+	for (const { step, goal } of first) {
+		const [side] = step.only.factions;
+		const open = goal.candidates.filter((c) => !c.races).map((c) => c.map);
+		assert.deepEqual(open, shores[side], `${side}: every starting-area shore, for every race of the side`);
+		assert.ok(goal.candidates.every((c) => c.faction === side[0]), `${side}: the side's own shores`);
+		const isle = goal.candidates.filter((c) => c.races);
+		assert.deepEqual(isle.map((c) => [c.map, c.races]), [[2521, ['Skyborne']]], `${side}: Zephras Isle for Skyborne only`);
+		assert.ok(!step.goals.some((g) => g.t === 'goto'), `${side}: the shores are the goal's places, no goto of its own`);
+	}
 });
 
 // #2684 (Gilfy, 0.4.0.1, Alliance Hinterlands): Repurposed Totems' step said only to kill the Vilebranch Soothsayers,
