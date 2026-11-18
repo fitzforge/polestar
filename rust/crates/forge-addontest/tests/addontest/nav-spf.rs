@@ -4737,3 +4737,410 @@ fn a_dropped_near_walk_leaves_the_plan_byte_identical_to_the_one_without_it_1543
 	assert_eq!(with["after"], without["after"], "after the long answer: still");
 	assert_eq!(with["untouched"], true, "the same legs, no new route");
 }
+
+// The capitals (Nav/Walk.lua `city`): Ironforge's zone over Testshire's world (wx -300..300, wy 300..-700: the
+// planner's zone frames, Travel.ZoneOf), and the router's trail floor (Path.TrailFloor) as fake.trail(map, x, y,
+// reach, near) -> z; every ask is kept in fake.trailAsks ({ reach, near }). FLOORS' startZ() targets lie outside it.
+const CITY: &str = r#"
+N.RegisterCrossings({ zones = { [1455] = { name = "Ironforge", c = 0, top = 300, bottom = -300, left = 300, right = -700 } } })
+fake.trailAsks = {}
+Polestar_NavEngine.TrailFloor = function(map, x, y, reach, near)
+	fake.trailAsks[#fake.trailAsks + 1] = { reach = reach, near = near or false }
+	if fake.trail then return fake.trail(map, x, y, reach, near) end
+	return nil
+end
+-- NPCs the client names (UnitGUID): UNIT[token] = creature id; the Codex's spawns: SPAWNS[id] = { { wx, wy, z }, ... }.
+UNIT, SPAWNS = {}, {}
+UnitGUID = function(unit)
+	local id = UNIT[unit]
+	return id and ("Creature-0-1-0-1-" .. id .. "-0000000001") or nil
+end
+Polestar.Codex = {
+	IsLoaded = function() return true end,
+	Npc = function(id)
+		local list = SPAWNS[id]
+		if not list then return nil end
+		local spawns = {}
+		for i, s in ipairs(list) do
+			local m, x, y = nav.mapPoint(s[1], s[2])
+			spawns[i] = { map = m, x = x, y = y, z = s[3] }
+		end
+		return { id = id, spawns = spawns }
+	end,
+}
+-- Off somewhere and back after a while: the floor is unknown again where the player stands.
+local function away(wx, wy)
+	local p = nav.player
+	nav.place(wx, wy)
+	stub.advance(3)
+	N.Sample()
+	nav.place(p.wx, p.wy)
+	stub.advance(3)
+end
+"#;
+
+// Phase A1 (CityPaths, 2026-11-18): with no height (a loading screen into the city, a cell whose levels lie apart) a
+// walk in a capital started on whichever surface was cheapest at the spot: 33-66% of recorded city walks started or
+// ended on another floor or under the city. There the floor people walk on (the trail floor within 4 yd) picks the
+// surface; outside the capitals nothing changes.
+#[test]
+fn city_a1_in_a_capital_a_walk_from_an_unknown_floor_starts_on_the_trail_floor_outside_the_capitals_as_before() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		-- The street (72) over the ground it was built on (40), 32 yd apart everywhere: seed cannot tell.
+		fake.surfaces = function() return { 40, 72 } end
+		fake.trail = function() return 72.5, 3 end
+		nav.place(0, 50)
+		r.city = startZ()
+		r.reach = fake.trailAsks[1] and fake.trailAsks[1].reach or false
+		-- Outside the capital (the trails have nothing there either way): unknown, searched without a height.
+		nav.place(600, 50)
+		stub.advance(3)
+		r.outside = startZ()
+		-- The trails silent in the capital: as before.
+		fake.trail = nil
+		nav.place(0, 60)
+		stub.advance(3)
+		r.silent = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["city"], 72.5, "the surface the trail floor (72.5) says, the search from the trail floor itself");
+	assert_eq!(out["reach"], 4, "the floor people walk on within 4 yd");
+	assert_eq!(out["outside"], "none");
+	assert_eq!(out["silent"], "none");
+}
+
+// A1 at the goal: a hand-set target in a capital (a map click, no height) is searched to the trail floor at it, with
+// the router's reach (A2); one outside keeps no height.
+#[test]
+fn city_a1_a_goal_without_a_height_in_a_capital_ends_on_the_trail_floor_with_the_reach() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		fake.trail = function(map, x, y) if x < -50 then return 61 end return 40 end
+		nav.place(0, 50)
+		target(-100, 100)
+		N.Sample()
+		r.city = { fake.last().to.z or "none", fake.last().to.reach or false }
+		target(-500, 100)
+		N.Sample()
+		r.outside = { fake.last().to.z or "none", fake.last().to.reach or false }
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["city"], json!([61, 10]));
+	assert_eq!(out["outside"], json!(["none", false]));
+}
+
+// Phase A2, #2860 (Ironforge, the cooking trainer): his platform in the Great Forge is reached by no walk on the maps;
+// the search at his height failed, and the one asked again without it went out of the gate and over the mountain
+// (3,515 yd for a 356 yd walk). In a capital the goal's height stays: the router's reach (10 yd) ends the walk at the
+// nearest surface on its level it reaches, and the arrow says the last steps aren't mapped; none: the straight arrow,
+// saying so, and the walk is not marked unreachable (the plan would go round it).
+#[test]
+fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_steps_are_not_mapped_2860() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-100, -500)
+		local function said() return (N.arrow.labelText:GetText() or ""):find("The last steps here aren't mapped", 1, true) ~= nil end
+		N.travel.WalkUnreachable = function() r.unreachable = true end
+		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 66)
+		N.Sample()
+		r.asked = { fake.last().to.z, fake.last().to.reach or false }
+		local n = calls()
+		-- The tracked start found nothing: once more from the surfaces near its height, then from none, the goal's kept.
+		fake.fail("unreachable")
+		r.startRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z, fake.last().to.reach or false }
+		fake.fail("unreachable")
+		r.flatRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z }
+		n = calls()
+		fake.fail("unreachable")
+		N.Sample()
+		stub.advance(0.3)
+		r.failed = { calls() - n, aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
+		-- Found through the reach (job.reached): its walk is the arrow's, said.
+		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 65)
+		N.Sample()
+		n = calls()
+		fake.last().reached = { x = -95, y = -495, z = 60 }
+		fake.resolve(0, 50, -95, -495)
+		N.Sample()
+		stub.advance(0.3)
+		r.reached = { calls() - n, aim()[1], (N.walk.Unmapped()), said() }
+		-- Found on its floor: nothing said.
+		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 64)
+		N.Sample()
+		fake.resolve(0, 50, -100, -500)
+		N.Sample()
+		stub.advance(0.3)
+		r.onFloor = { (N.walk.Unmapped()), said() }
+		-- Ending 100 yd above it: kept (no search without the height), said.
+		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 63)
+		N.Sample()
+		n = calls()
+		local job, pts = fake.last(), {}
+		for i, p in ipairs({ { 0, 50, 40 }, { -95, -490, 163 }, { -100, -500, 63 } }) do pts[i] = { map = job.map, x = p[1], y = p[2], z = p[3] } end
+		job.callback(pts, 100, job)
+		N.Sample()
+		r.offFloor = { calls() - n, (N.walk.Unmapped()) }
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], json!([66, 10]), "at his height, with the router's reach");
+	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
+	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
+	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no search without the height: the straight arrow, said; never unreachable");
+	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
+	assert_eq!(out["onFloor"], json!([false, false]));
+	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");
+}
+
+// A2 outside the capitals: unchanged (Z2: once more without the height).
+#[test]
+fn city_a2_outside_the_capitals_a_goal_s_height_that_finds_nothing_is_asked_again_without_it_as_before() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		fake.surfaces = function() return { 40 } end
+		nav.place(600, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-500, -500)
+		N.SetTarget(m, x, y, "Trainer", nil, "trainer", 66)
+		N.Sample()
+		local reach = fake.last().to.reach or false
+		fake.fail("unreachable") -- the tracked start's retry, the goal's height kept
+		local n = calls()
+		fake.fail("unreachable")
+		emit({ reach, calls() - n, fake.last().to.z or "none", (N.walk.Unmapped()) })"#,
+	]
+	.concat());
+	assert_eq!(out, json!([false, 1, "none", false]));
+}
+
+// A2 in the planner (the 8:20 travel line of #2860 was its measure): a measure into a capital's target goes from its
+// height with the reach and is never asked again without it (the straight estimates stand); the last walk's search
+// takes the reach too.
+#[test]
+fn city_a2_the_measure_into_a_capital_s_target_keeps_its_height_with_the_reach_2860() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			CITY,
+			r#"
+		local r = {}
+		-- All of Testshire in the capital here: the plan walks as it does without zones.
+		N.RegisterCrossings({ zones = { [1455] = { name = "Ironforge", c = 0, top = 1000, bottom = -1000, left = 1000, right = -1000 } } })
+		local m, x, y = nav.mapPoint(0, 0)
+		nav.place(900, 800)
+		nav.setWaypoint({ map = m, x = x, y = y, z = -40, label = "Daryl Riknussun", stepIndex = 1, goalIndex = 1, kind = "trainer", r = 5 })
+		N.Sample()
+		local first = fake.of(true)[1]
+		r.batch = { first.from.z, first.from.reach or false }
+		fake.settle(first, function() return false end)
+		r.batches = #fake.of(true)
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["batch"], json!([-40, 10]));
+	assert_eq!(out["batches"], 1, "no batch without the height");
+}
+
+// Phase A3 (BV Addon Suite - Routing's idea): the NPC the player talked to or targeted (else the newest in a nameplate
+// or moused over) within 15 s, its spawn within 30 yd, gives the floor; an NPC with spawns on two levels there says
+// nothing; with trails, the trail floor on the NPC's level. Only in the capitals.
+#[test]
+fn city_a3_an_npc_beside_the_player_gives_the_floor_from_its_spawn_height_ambiguous_or_stale_ones_none() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40, 43.5, 72 } end
+		SPAWNS[5159] = { { 10, 60, 41 } }
+		SPAWNS[5160] = { { 10, 60, 41 }, { 10, 75, 73 } }
+		SPAWNS[5162] = { { 3, 53, 41 }, { 10, 75, 73 } }
+		nav.place(0, 50)
+		UNIT.target = 5159
+		stub.fire("PLAYER_TARGET_CHANGED")
+		r.targeted = startZ()
+		-- Two spawns on two levels within 30 yd: nothing.
+		UNIT.target = 5160
+		stub.fire("PLAYER_TARGET_CHANGED")
+		away(0, 250)
+		r.ambiguous = startZ()
+		-- Its window opened (the player beside it): only its spawns within 10 yd count, the one at 41.
+		UNIT.npc = 5162
+		stub.fire("GOSSIP_SHOW")
+		away(0, 250)
+		r.talked = startZ()
+		UNIT.npc = nil
+		stub.advance(16)
+		-- A nameplate: the newest one.
+		UNIT.target = nil
+		stub.fire("PLAYER_TARGET_CHANGED")
+		UNIT.nameplate3 = 5159
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		away(0, 250)
+		r.plate = startZ()
+		-- 16 s later: stale.
+		stub.advance(16)
+		away(0, 250)
+		r.stale = startZ()
+		-- With trails: asked on the NPC's level, taken within 4 yd of the NPC's height, else the NPC's height.
+		fake.trail = function(map, x, y, reach, near) if near then return 43.5, 2 end return 72, 3 end
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		fake.trailAsks = {}
+		away(0, 250)
+		r.trail = startZ()
+		r.near = false
+		for _, a in ipairs(fake.trailAsks) do if a.near == 41 then r.near = 41 end end
+		fake.trail = function(map, x, y, reach, near) if near then return 47, 2 end return 72, 3 end
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+		away(0, 250)
+		r.farTrail = startZ()
+		-- Outside the capital an NPC there says nothing.
+		SPAWNS[5161] = { { 600, 60, 41 } }
+		fake.trail = nil
+		UNIT.target = 5161
+		nav.place(600, 50)
+		stub.fire("PLAYER_TARGET_CHANGED")
+		stub.advance(3)
+		r.outside = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["targeted"], 40, "the targeted NPC's spawn (41): the surface at 40");
+	assert_eq!(out["ambiguous"], "none");
+	assert_eq!(out["talked"], 40, "talked to: its spawn within 10 yd (41), not the one 25 yd off at 73");
+	assert_eq!(out["plate"], 40);
+	assert_eq!(out["stale"], "none");
+	assert_eq!(out["near"], 41, "the trail floor asked on the NPC's level");
+	assert_eq!(out["trail"], 43.5, "that trail floor (43.5), 2.5 yd over the NPC's");
+	assert_eq!(out["farTrail"], 40, "a trail floor 6 yd off the NPC's height: the NPC's (41), the surface at 40 (and 7 yd off that floor: no settling)");
+	assert_eq!(out["outside"], "none");
+}
+
+// Walking in through a capital's gate (Fitz, 2026-11-18: Dun Morogh into Ironforge, Durotar into Orgrimmar): the floor
+// followed outside carries across the zone's edge and the indoor flag's flip; the city's hints (trails, NPCs) only seed
+// a floor that is unknown, never move a followed one.
+#[test]
+fn city_walking_in_through_a_gate_the_floor_followed_outside_carries_across_the_city_s_hints_never_move_it() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		-- Outside (wx > 300) one surface; inside the gate two, the street (40) and the mountain over it (300).
+		fake.surfaces = function(map, x, y) if x > 300 then return { 40 } end return { 40, 300, [-1] = 2 } end
+		fake.trail = function() return 300, 1 end
+		nav.place(360, 0)
+		r.outside = startZ()
+		walk(250, 0)
+		nav.indoors = true
+		walk(200, 0)
+		r.inside = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "outside": 40, "inside": 40 }));
+}
+
+// A flight's landing in a capital (CityLifts, 2026-11-18: Thunder Bluff's tower top at 176.9 over the ground at 145.7,
+// the Undercity's bat platform over its ring): both levels are walked, so the trails can't tell them; the flight point's
+// own height (TravelData's taxiZ, TaxiNodes) is the floor for the first LAND_SECONDS (30) within 20 yd of the landing.
+#[test]
+fn city_after_a_flight_lands_in_a_capital_the_floor_is_the_flight_point_s_height_for_30_s() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 145.7, 176.9 } end
+		fake.trail = function(map, x, y, reach, near) if near then return near, 2 end return 145.7, 3 end
+		local m, mx, my = nav.mapPoint(10, 60)
+		N.RegisterTravelData({ taxi = { { 901, 0, 10, 60, m, mx, my, 3, "Tower, Ironforge" } }, taxiZ = { [901] = 176.9 } })
+		r.node = N.GetTaxiNode(901).z
+		-- Taken from a flight master 600 yd off (control lost there), landed at the tower (control back).
+		nav.place(600, 62)
+		stub.fire("PLAYER_CONTROL_LOST")
+		nav.taxi = true
+		stub.advance(60)
+		nav.place(12, 62)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		r.landed = startZ()
+		-- 40 s on, the floor lost (a jump away and back): the trails' answer again.
+		stub.advance(40)
+		away(0, 250)
+		r.later = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "node": 176.9, "landed": 176.9, "later": 145.7 }));
+}
+
+// CityLifts, 2026-11-18 (the Undercity's Trade Quarter by the south lift): Leffe's maps hold a pocket surface at -47 a
+// few yards under the walkway people walk at -43 (75 recorded players against 2), and the floor followed there reads
+// the pocket. In a capital a search from a followed floor starts on the trail floor within 5 yd of it; the follower
+// keeps what it reads. Farther, or outside the capitals, the followed floor.
+#[test]
+fn city_a1_in_a_capital_a_followed_floor_starts_its_search_on_the_trail_floor_within_5_yd() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		fake.trail = function(map, x, y, reach, near) return near and near + 4.5 or 44.5, 2 end
+		nav.place(0, 50)
+		r.near = startZ()
+		fake.trail = function(map, x, y, reach, near) return near and near + 6 or 46, 2 end
+		stub.advance(1)
+		r.far = startZ()
+		fake.trail = function(map, x, y, reach, near) return near and near + 4.5 or 44.5, 2 end
+		nav.place(600, 50)
+		stub.advance(3)
+		r.outside = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "near": 44.5, "far": 40, "outside": 40 }));
+}
+
+// The Undercity lies under Tirisfal Glades (CityLifts2, 2026-11-18): the zone a point there reads is Tirisfal's, so no
+// capital rule ran in it. A point in the Undercity's own map frame is in the capital.
+#[test]
+fn city_the_undercity_under_tirisfal_s_ground_is_a_capital_by_its_own_map_frame() {
+	let out = run(&[
+		FLOORS,
+		r#"
+		local r = {}
+		nav.maps[1458] = { c = 0, top = 300, bottom = -300, left = 300, right = -700, name = "Undercity" }
+		N.RegisterCrossings({ zones = { [1420] = { name = "Tirisfal Glades", c = 0, top = 900, bottom = -900, left = 900, right = -900 } } })
+		Polestar_NavEngine.TrailFloor = function(map, x, y, reach, near) return 72.5, 3 end
+		fake.surfaces = function() return { 40, 72 } end
+		nav.place(0, 50)
+		r.inside = startZ()
+		nav.place(600, 50)
+		stub.advance(3)
+		r.tirisfal = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "inside": 72.5, "tirisfal": "none" }));
+}

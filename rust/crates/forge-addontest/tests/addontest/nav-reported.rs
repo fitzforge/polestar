@@ -611,6 +611,45 @@ fn orgrimmar_the_walk_down_from_the_wind_rider_tower_drops_off_its_edge_as_playe
 	assert!(yards < 160.0, "the walk down is {yards:.0} yd");
 }
 
+const REACH: &str = r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = { walk = false }
+Path.Find(0, @FROM, @TO, function(points, cost, job)
+	if points then
+		got.walk = { points = {}, cost = cost, reached = job.reached and { job.reached.x, job.reached.y, job.reached.z } or false }
+		for i, p in ipairs(points) do got.walk.points[i] = { p.x, p.y, p.z or false } end
+	end
+end, { profile = "Alliance" })
+while #frames > 0 do table.remove(frames, 1)() end
+local costs = Path.FindManySync(0, @TO, { @FROM }, { profile = "Alliance" }, true)
+got.measure = costs and costs[1] or false
+emit(got)"#;
+
+// #2860 (Ironforge, 0.4.1): from the Great Forge's ring (31.78,66.47, the floor at 501) to Daryl Riknussun, the
+// cooking trainer (60.25,36.79, his spawn's 509.5), the arrow's walk went out of the gate and over the mountain: his
+// platform was reached by no walk on the maps before the step joins (#2916), and the search asked again without his
+// height ended on the mountain top (3,515 yd for a 356 yd walk; the planner's measure from his platform, the travel
+// line's 8:20, likewise). With the router's reach (Nav/Walk.lua passes 10 yd in the capitals) the walk and the measure
+// end on his level at his platform (at its foot, were it joined to nothing), never over the mountain.
+#[test]
+fn ironforge_the_walk_to_the_cooking_trainer_at_his_height_with_the_reach_ends_at_his_platform_not_over_the_mountain_2860() {
+	let from = "{ x = -4919.94, y = -964.85, z = 501 }";
+	let to = "{ x = -4763.35, y = -1189.94, z = 509.5, reach = 10 }";
+	let script = REACH.replace("@FROM", from).replace("@TO", to);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
+	assert!(truthy(&got["walk"]), "the engine finds a walk with the reach");
+	let pts = points(&got["walk"]);
+	let yards = yards_of(&pts);
+	assert!(yards < 450.0, "the walk is {yards:.0} yd (the trails' 356), not round the mountain");
+	assert!(pts.iter().all(|p| p.2.is_none_or(|z| z < 530.0)), "the walk never climbs onto the mountain over the city");
+	let end = pts[pts.len() - 2];
+	assert!((end.0 + 4763.35).hypot(end.1 + 1189.94) < 20.0 && end.2.is_some_and(|z| (z - 509.5).abs() <= 10.0), "the walk ends at his platform on his level, not at {end:?}");
+	let measure = got["measure"].as_f64().expect("the measure from his platform finds the walk too");
+	assert!(measure < 450.0, "the measure is {measure:.0}");
+}
+
 // #2860, Ironforge: from the reporter's spot (31.78, 66.47, on the floor at 501) to Daryl Riknussun, the cooking
 // trainer, at the goal's point (60.25, 36.79) and his height (509.5), the walk found no way: that part of his platform
 // was joined to nothing in the walking maps, and the walk asked again without his height went out of the gate and over
