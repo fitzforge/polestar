@@ -5121,3 +5121,26 @@ fn city_a1_in_a_capital_a_followed_floor_starts_its_search_on_the_trail_floor_wi
 	.concat());
 	assert_eq!(out, json!({ "near": 44.5, "far": 40, "outside": 40 }));
 }
+
+// The Undercity lies under Tirisfal Glades (CityLifts2, 2026-11-18): the zone a point there reads is Tirisfal's, so no
+// capital rule ran in it. A point in the Undercity's own map frame is in the capital.
+#[test]
+fn city_the_undercity_under_tirisfal_s_ground_is_a_capital_by_its_own_map_frame() {
+	let out = run(&[
+		FLOORS,
+		r#"
+		local r = {}
+		nav.maps[1458] = { c = 0, top = 300, bottom = -300, left = 300, right = -700, name = "Undercity" }
+		N.RegisterCrossings({ zones = { [1420] = { name = "Tirisfal Glades", c = 0, top = 900, bottom = -900, left = 900, right = -900 } } })
+		Polestar_NavEngine.TrailFloor = function(map, x, y, reach, near) return 72.5, 3 end
+		fake.surfaces = function() return { 40, 72 } end
+		nav.place(0, 50)
+		r.inside = startZ()
+		nav.place(600, 50)
+		stub.advance(3)
+		r.tirisfal = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "inside": 72.5, "tirisfal": "none" }));
+}

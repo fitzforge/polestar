@@ -500,10 +500,18 @@ local REASK = 5           -- seconds after a flat ask within which a floor found
 city = { CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true },
 	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, noteVersion = 0 }
 
+-- (The Undercity lies under Tirisfal Glades: the zone a point there reads is Tirisfal's, 1420, so a point in the
+-- Undercity's own map frame, Compat.WorldToMap on 1458, counts too. CityLifts2, 2026-11-18: none of the rules ran
+-- there. Only the Undercity: the other capitals' frames reach over their zones' ground, the zone tells them.)
 function city.At(c, x, y)
+	if not (c and x and y) then return false end
 	local T = Nav.travel
-	local zone = c and x and y and T and T.ZoneOf and T.ZoneOf(nil, c, x, y)
-	return zone ~= nil and city.CAPITAL[zone] == true
+	local zone = T and T.ZoneOf and T.ZoneOf(nil, c, x, y)
+	if zone ~= nil and city.CAPITAL[zone] == true then return true end
+	local C = ns.Compat
+	if zone ~= 1420 or not (C and C.WorldToMap) then return false end
+	local mx, my = C.WorldToMap(c, x, y, 1458)
+	return mx ~= nil and my ~= nil and mx >= 0 and mx <= 100 and my >= 0 and my <= 100
 end
 
 function city.Here(c, x, y)
