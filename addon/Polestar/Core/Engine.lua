@@ -8914,9 +8914,11 @@ end
 -- training banner asks for it on every repaint: after every kill and loot
 -- while training is due. Its answer is kept while the guide, the live step,
 -- the level, the trainers (nearest first) and the player's map and spot
--- (TRAIN_SPOT map units) stay the same, for at most TRAIN_KEEP seconds, and
--- dropped when a trainer window closes, at a level-up and on a zone change.
-Own.TRAIN_KEEP, Own.TRAIN_SPOT = 5, 1
+-- (TRAIN_SPOT map units: 20 to 140 yards by the zone's size) stay the same, for at
+-- most TRAIN_KEEP seconds (kills come further apart than a few seconds), and
+-- dropped when a trainer window closes, at a level-up, on a zone change and
+-- when the travel the planner knows changes (a flight path, the hearth).
+Own.TRAIN_KEEP, Own.TRAIN_SPOT = 60, 2
 Own.trainPick = false
 function Own.trainerOnRouteKept(list, tier)
 	local here = ns.PlayerPoint()
@@ -8934,7 +8936,7 @@ function Own.trainerOnRouteKept(list, tier)
 	Own.trainPick = { first = list[1], n = #list, guide = guide, step = computed, level = level, map = map, bx = bx, by = by, at = now, best = best }
 	return best
 end
-for _, event in ipairs({ "TRAINER_CLOSED", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA" }) do
+for _, event in ipairs({ "TRAINER_CLOSED", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA", "TAXIMAP_CLOSED", "HEARTHSTONE_BOUND" }) do
 	ns.RegisterEvent(event, function() Own.trainPick = false end)
 end
 
