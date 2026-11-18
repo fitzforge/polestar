@@ -215,7 +215,7 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 48: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 

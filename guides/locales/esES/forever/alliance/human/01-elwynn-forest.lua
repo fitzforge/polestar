@@ -287,7 +287,7 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 55: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Instructor de chamanes",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 

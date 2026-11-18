@@ -342,7 +342,7 @@ return {
 	["{npc:3155} in {zone:1411}; {zone:1412} has no rogue trainer"] = "",
 
 	-- Step 72: Warlock trainer
-	["Warlock trainer"] = "",
+	["Warlock trainer"] = "Instructor de brujos",
 	-- {npc:3156} Nartok · {zone:1411} Durotar · {zone:1412} Mulgore
 	["{npc:3156} in {zone:1411}; {zone:1412} has no warlock trainer"] = "",
 

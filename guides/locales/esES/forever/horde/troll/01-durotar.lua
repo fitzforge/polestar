@@ -49,7 +49,7 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 8: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:363} Valley of Trials
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 

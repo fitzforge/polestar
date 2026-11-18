@@ -20,7 +20,7 @@ return {
 	-- {area:16635} Thendal Village
 	["Back to {area:16635}"] = "De vuelta a {area:16635}",
 	-- {npc:257554} Halaan Hawk-Eye · {npc:263113} Myriaal Mistwake · {npc:251368} Elatrell Featherlight
-	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "",
+	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "{npc:257554} y {npc:263113} están en lo alto de la atalaya, a pocos pasos al noreste de {npc:251368}.",
 	-- {npc:257554} Halaan Hawk-Eye
 	["talk to {npc:257554}"] = "habla con {npc:257554}",
 
@@ -28,7 +28,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker
 	["{npc:251361}'s errands"] = "Los recados de {npc:251361}",
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Salta desde lo alto de la atalaya y usa {spell:1259416} para bajar flotando hasta {npc:251361}, al oeste de la torre.",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}: la {item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -132,7 +132,7 @@ return {
 
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
-	["{npc:251905}: Camping 101 asks you to learn it"] = "",
+	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}: Campamento 101 te pide que la aprendas",
 
 	-- Step 30: Shen'dar Village: kill these as you meet them
 	-- {area:16624} Shen'dar Village
@@ -226,7 +226,7 @@ return {
 	-- {npc:257006} Nyalah Brightfire · {area:16638} Valanaar · {npc:252448} Alvarion Windfield
 	["{npc:257006} waits inside a house on {area:16638}'s western edge; {npc:252448} is close by."] = "",
 	-- {npc:255940} Donaal Downbreeze
-	["Innkeeper {npc:255940}, by the west gate"] = "",
+	["Innkeeper {npc:255940}, by the west gate"] = "El posadero {npc:255940}, junto a la puerta oeste",
 	-- {npc:252448} Alvarion Windfield
 	["Listen to {npc:252448}'s story"] = "Escucha la historia de {npc:252448}",
 	-- {npc:252389} Quel'ana Quickgale · {npc:257006} Nyalah Brightfire · {quest:94978} Taming the Beast
@@ -290,14 +290,14 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 60: Warlock trainer
-	["Warlock trainer"] = "",
+	["Warlock trainer"] = "Instructor de brujos",
 	-- {npc:2127} Rupert Boch · {zone:1420} Tirisfal Glades · {area:16638} Valanaar
 	["{npc:2127} in {zone:1420}; {area:16638} has no warlock trainer"] = "{npc:2127} en {zone:1420}; {area:16638} no tiene instructor de brujos",
 
 	-- Step 62: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Galestrid malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Domestica un {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
@@ -416,7 +416,7 @@ return {
 
 	-- Step 89: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
-	["Portal to {area:16630}"] = "",
+	["Portal to {area:16630}"] = "Portal a {area:16630}",
 
 	-- Step 90: Confront Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)

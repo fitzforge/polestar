@@ -40,7 +40,7 @@ return {
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "Las atalayas de Derrington y el caldero de Vandis se hacen en una visita posterior: guárdalas.",
 
 	-- Step 10: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
 

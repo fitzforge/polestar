@@ -104,7 +104,7 @@ return {
 	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} requiere nivel 50: {npc:7010}, en La Calada, la da a partir de entonces. Si no tienes 50, la guía de {zone:1447} a nivel 55 la vuelve a ofrecer.",
 
 	-- Step 30: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
