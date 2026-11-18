@@ -75,9 +75,9 @@ return {
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "en un kodo viejo, moribundo o {npc:4702} en el cementerio; no lo mates",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "el kodo domado, en el campamento de {npc:11596}: habla con él, cinco veces",
 
 	-- Step 14: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast

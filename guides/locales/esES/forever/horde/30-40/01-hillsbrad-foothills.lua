@@ -25,7 +25,7 @@ return {
 	["{npc:5901}: your {item:6637}, for the brazier"] = "",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Vuela al Cruce",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
