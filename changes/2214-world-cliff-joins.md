@@ -7,6 +7,9 @@ section: players
   100-yard trip (#2214, thanks Elbulgaro).
 - Booty Bay: walks between the two decks at Fleet Master Seahorn's level now
   cross straight over, where before there was no way across (#2215).
+- Booty Bay: the walk from Gringer to Scooty now drops from the upper deck
+  to the lower one, cutting a 227-yard detour to 62 yards. The way back still
+  uses the walk up.
 - Dun Morogh and Stonetalon Mountains: two steep slopes players walk straight
   down (below Earthseer Farsen's ledge, and in Stonetalon's south-east) are now
   walked down instead of round.

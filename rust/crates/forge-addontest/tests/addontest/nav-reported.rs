@@ -766,6 +766,19 @@ fn booty_bay_the_walk_from_the_deck_to_fleet_master_seahorn_crosses_between_the_
 	assert!(yards < 40.0, "the walk is {yards:.0} yd");
 }
 
+#[test]
+fn booty_bay_gringer_to_scooty_drops_to_the_lower_deck_but_never_climbs_back_up() {
+	let gringer = Pt { c: 0, x: -14446.2, y: 506.8, z: Some(26.3) };
+	let scooty = Pt { c: 0, x: -14463.6, y: 458.3, z: Some(15.2) };
+	let down = points(&walk(gringer, scooty, Some("Horde")));
+	assert!(yards_of(&down) < 90.0, "the route to Scooty goes round the decks: {:.0} yd", yards_of(&down));
+	let at_drop = |x: f64, y: f64| (x + 14446.0).hypot(y - 481.0) < 9.0;
+	let crosses = |a: &P, b: &P| at_drop(a.0, a.1) && at_drop(b.0, b.1) && a.2.unwrap() - b.2.unwrap() > 10.0;
+	assert!(down.windows(2).any(|p| crosses(&p[0], &p[1])), "use the upper deck's edge, not a different drop");
+	let up = points(&walk(scooty, gringer, Some("Horde")));
+	assert!(!up.windows(2).any(|p| crosses(&p[1], &p[0])), "the return climbs the drop");
+}
+
 // Dun Morogh (65.04, 58.34 to 65.67, 58.47): down the slope from Earthseer Farsen's ledge, 31 yd straight; players walk
 // straight down, the walking maps went round (138 yd). A step join where the slope's upper part meets its lower one.
 #[test]
