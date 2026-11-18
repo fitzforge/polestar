@@ -268,7 +268,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		W.Hover(r)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
 		r.Icon:SetSize(ICON, ICON)
-		W.Color(r.Icon, "accent")
+		W.Color(r.Icon, "textDim")
 		r.Close = W.IconButton(r, "close", 18, L["Not now (right-click)"], function()
 			if r.psOff then return GF.HereOff(r.psOff, "RightButton") end
 			local E = Engine()
