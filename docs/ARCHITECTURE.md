@@ -455,7 +455,9 @@ registered commands with their `help` lines (already translated:
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `tab <n>`, `close`, `path` (the route choice), `install` and `welcome` (`SHOW_WELCOME`),
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
-`discord` (`SHOW_DISCORD`), `debug`, and in Core/Pause.lua `pause` (no
+`discord` (`SHOW_DISCORD`), `debug`, in Core/Perf.lua `perf` (no argument
+toggles, `on`, `off`, `report`, `reset`; see "Caught errors and the Polestar
+Discord"), and in Core/Pause.lua `pause` (no
 argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
@@ -479,6 +481,14 @@ Polestar.NoteError(err)       -- notes an error Polestar caught (SafeCall, Hooks
 Polestar.Errors() -> { { msg, count, seq }, ... }   -- this session's, oldest first, the last 5 kept
 Polestar.NoteBlocked(addon, fn)   -- notes a protected call the game blocked from Polestar or Polestar_*
 Polestar.Blocked() -> { { addon, fn, count, at, seq }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.OwnAddon(name) -> bool  -- one of Polestar's own addons (Polestar, or a Polestar_* whose Author is Polestar)
+Polestar.OurSite(stack, skip) -> "Polestar/Core/Engine.lua:812" | nil   -- the first line of our code in a debugstack() text, past the files in skip
+Polestar.SetProbe(timed | nil)   -- the perf probe's way in: every handler goes to timed(fn, kind, where, ...); nil puts the plain dispatchers back
+Polestar.PROBE                -- the probe's kinds: EVENT 1, MESSAGE 2, SAFE 3, CALL 4
+Polestar.HandlerPlace(kind, where, fn) -> at, of | nil   -- fn's place among the live handlers of an event or message
+Polestar.NoteMadeAt(fn, from) -> fn / MadeAt(fn) -> site | nil   -- where a callback run through a shared function was made (past Init.lua and `from`), for the perf probe's names
+Polestar.Perf.Start() / Stop() / Reset() / IsOn() / Ran() / Cost()   -- the perf probe (/polestar perf); Cost: ms a call
+Polestar.Perf.ReportText() / ReportLines()   -- all it measured / the report's section; nil when it has not run this session
 Polestar.DiscordURL           -- the Polestar Discord's invite
 ```
 
@@ -507,6 +517,35 @@ not `/polestar debug` prints them; the report ends its details with its last
 five lines under "Log:", before anything else gives way to Discord's 2000
 characters, after the quest log ("Quest log 12/40: 783 1/3, 7 done, …", left
 out when empty) and the Settings section.
+
+The perf probe (`Core/Perf.lua`, `/polestar perf`, off at every login) finds
+which of Polestar's handlers make a player's game stutter. Off, none of it
+runs: the event frame, `Fire`, `Safe`'s callbacks and `SafeCall` are the
+plain ones (only each `QoL.Coalesce` notes where it was made as it loads,
+`NoteMadeAt`, so the report can tell the refreshes apart). On,
+`Polestar.SetProbe` swaps in copies that hand each handler to the probe,
+and the probe wraps Polestar_Nav's `Path.after` (the walking router's
+search slices); it times each with `debugprofilestop` (its own cost,
+measured when it starts, is about a microsecond a call) and keeps, per
+handler, the calls, total and own milliseconds and the slowest call; the
+last 200 spikes (a call of 2 ms or more, with its event or message, nested
+or not, and the step, quest log count, combat and map then; a frame where
+Polestar's handlers, or the game's profiler's figures for Polestar and
+Polestar_Nav, came to 5 ms or more, with its three slowest calls); the game
+frames of 50 ms or more and how many were Polestar's; and every 5 seconds
+`C_AddOnProfiler`'s figures for each of Polestar's addons, all addons, the
+whole game and the five addons with the highest peak and the most frames
+over 10 ms. A handler is named by where it was made while the probe was on
+("timer Nav/Nav.lua:259") or as noted (`MadeAt`), else by its name in
+Polestar's tables ("Nav.Refresh"), else by its place among its event's
+handlers ("QUEST_LOG_UPDATE #3/14"). A profiler figure far above what the
+handlers add up to means the time is in code the probe does not wrap (a
+bare OnUpdate or C_Timer: UI/NameTargets.lua's watcher, Alts/Snapshot.lua's
+write, Nav/Journey.lua's tell). `/polestar perf report` shows it all in the copy window; once it has
+run, the report's details carry a compact section ("Perf: on 10m02s · …",
+the worst call, the worst frame, the handlers with the most time, the
+profiler's line) after the quest log. No names, realms or positions: only
+the map's number.
 
 The Settings section (UI/Report.lua, `settingsSection`) lists the settings
 of the profile in use that differ from their registered defaults, so a
@@ -9138,7 +9177,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   under `ui.reduceMotion`), follows the window, flips below it when the
   screen has no room above (rechecked after a drag), or when above it would
   cover the quest buttons or their target list (`Buttons.Covers`, rechecked on
-  `QUEST_BUTTONS_PLACED`, #2629), and hides with it. It
+  `QUEST_BUTTONS_PLACED`, #2629: fired once a frame at most, the card placed
+  again only when the covered boxes changed, #2772), and hides with it. It
   shows for a chain of the character's class whose start has a giver for
   its race and side (`starts[q].r`, "<race>:<A|H>"), not a level-1 one (learned
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last

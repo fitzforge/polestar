@@ -496,8 +496,25 @@ end
 
 -- The quest buttons or the target list moved, grew, came or went
 -- (QoL/Buttons.lua): the card takes its side again, clear of them (#2629).
+-- Only when what they cover is not what the card's last placing read
+-- (placedCovers): most of these leave every button where it was, and a
+-- placing measures the window, its look's reach and the screen. On its own
+-- spot (free) the card never minds them.
+local placedCovers -- Buttons.Covers() as CT.Place last read it (nil: it read none)
+local function sameCovers(a, b)
+	if #a ~= #b then return false end
+	for i = 1, #a do
+		local x, y = a[i], b[i]
+		if x[1] ~= y[1] or x[2] ~= y[2] or x[3] ~= y[3] or x[4] ~= y[4] then return false end
+	end
+	return true
+end
 ns.On("QUEST_BUTTONS_PLACED", function()
-	if f and f:IsShown() then CT.Place(false) end
+	if not (f and f:IsShown()) then return end
+	if CT.side == "free" and CT.PlaceSetting() == "free" then return end
+	local B = ns.QoL and ns.QoL.Buttons
+	if placedCovers and B and B.Covers and sameCovers(B.Covers(), placedCovers) then return end
+	CT.Place(false)
 end)
 
 -- class: the class colour's stripe, ring and header (or facts); nil (another heads-up)
@@ -890,7 +907,7 @@ function CT.Place(animate)
 	if place == "free" then
 		local p = ns.Get("toasts.headsup.pos")
 		if type(p) ~= "table" or type(p[1]) ~= "string" then p = CT.FREE_AT end
-		CT.side = "free"
+		CT.side, placedCovers = "free", nil
 		f:SetClampedToScreen(true)
 		Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
 		dy = 18
@@ -924,6 +941,7 @@ function CT.Place(animate)
 		}
 		local B = ns.QoL and ns.QoL.Buttons
 		local covers = box and B and B.Covers and B.Covers() or {}
+		placedCovers = box and covers or nil
 		local function clear(o)
 			local x = box and box[o]
 			if not x then return true end
