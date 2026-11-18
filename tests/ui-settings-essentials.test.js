@@ -114,7 +114,7 @@ test('the five pages open on Essentials, the review\'s picks, each a registered 
 		assert.ok(e.rows.length >= 6 && e.rows.length <= 10, `${page}: ${e.rows.length}`);
 		assert.equal(e.firstTab, 'Essentials', page);
 		assert.equal(e.opened, 'Essentials', page);
-		assert.equal(e.icon, 'star', `${page}: the star`);
+		assert.equal(e.icon, 'emblem', `${page}: the emblem's star`);
 		assert.equal(e.essentialsTabs, 1, `${page}: one Essentials tab`);
 		assert.equal(e.inTabs, false, `${page}: the tab is not one of the page's registered tabs (counted once)`);
 	}

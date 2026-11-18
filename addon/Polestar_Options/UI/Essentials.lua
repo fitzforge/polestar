@@ -77,11 +77,17 @@ end
 function G.EssentialsTab(p)
 	if not (p and G.On()) then return nil end
 	local keys = G.ESSENTIALS[p.key]
-	if not keys then return nil end
+	if not keys then
+		-- A page's own Essentials tab wears the same star (the emblem's).
+		for _, own in ipairs(p.tabs) do
+			if own.name == L["Essentials"] then own.icon = "emblem" end
+		end
+		return nil
+	end
 	local t = built[p.key]
 	if t then return t end
 	local name = L["Essentials"]
-	t = { name = name, icon = "star", sections = {}, psEssentials = true }
+	t = { name = name, icon = "emblem", sections = {}, psEssentials = true }
 	for _, own in ipairs(p.tabs) do
 		if own.name == name then
 			t.preview = own.preview
