@@ -752,3 +752,56 @@ fn stormwind_the_park_the_walk_down_from_the_path_to_the_lawn_goes_straight_down
 	let yards = yards_of(&points(&got));
 	assert!(yards < 20.0, "the walk down is {yards:.0} yd");
 }
+
+// Booty Bay (Stranglethorn Vale 27.05, 76.91, #2215): from the deck at 26 to Fleet Master Seahorn's floor at 29, 23 yd
+// on; players walk straight across the 8 yd between the two decks, the walking maps had no way there (no walk at all
+// with the floors known). A step join puts it in.
+#[test]
+fn booty_bay_the_walk_from_the_deck_to_fleet_master_seahorn_crosses_between_the_decks_as_players_do_2215() {
+	let deck = Pt { c: 0, x: -14444.5, y: 509.4, z: Some(26.2) };
+	let seahorn = Pt { c: 0, x: -14439.8, y: 486.4, z: Some(28.7) };
+	let got = walk(deck, seahorn, Some("Horde"));
+	assert!(truthy(&got), "the engine finds the walk");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 40.0, "the walk is {yards:.0} yd");
+}
+
+// Dun Morogh (65.04, 58.34 to 65.67, 58.47): down the slope from Earthseer Farsen's ledge, 31 yd straight; players walk
+// straight down, the walking maps went round (138 yd). A step join where the slope's upper part meets its lower one.
+#[test]
+fn dun_morogh_the_walk_down_the_slope_from_earthseer_farsens_ledge_goes_straight_down_as_players_do() {
+	let ledge = Pt { c: 0, x: -5792.7, y: -1401.0, z: Some(438.1) };
+	let below = Pt { c: 0, x: -5796.9, y: -1432.3, z: Some(409.4) };
+	let got = walk(ledge, below, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds the walk down");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 70.0, "the walk down is {yards:.0} yd");
+}
+
+// Stonetalon Mountains (58.00, 62.54 to 58.51, 62.16): down the steep slope, 28 yd straight; players walk straight
+// down, the walking maps went round (693 yd). A join puts the slope in.
+#[test]
+fn stonetalon_mountains_the_walk_down_the_steep_slope_at_58_62_goes_straight_down_as_players_do() {
+	let top = Pt { c: 1, x: 880.2, y: 413.5, z: Some(58.3) };
+	let below = Pt { c: 1, x: 892.7, y: 388.5, z: Some(34.4) };
+	let got = walk(top, below, Some("Horde"));
+	assert!(truthy(&got), "the engine finds the walk down");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 80.0, "the walk down is {yards:.0} yd");
+}
+
+// Stonetalon Mountains, the Mound of Dirt (39.62, 49.87, #2214): from the camp's Pocket Litter (40.75, 52.57) north
+// through the camp and down the steep cliffside onto the ledge (a 19 yd drop players take), never down into the
+// valley under the ledge (below 195) and back up: about 640 yd before, for a 100 yd trip.
+#[test]
+fn stonetalon_mountains_the_walk_from_the_camp_to_the_mound_of_dirt_drops_onto_the_ledge_not_round_the_valley_2214() {
+	let camp = Pt { c: 1, x: 1204.8, y: 1255.8, z: Some(214.0) };
+	let mound = Pt { c: 1, x: 1292.8, y: 1311.0, z: Some(204.9) };
+	let got = walk(camp, mound, Some("Horde"));
+	assert!(truthy(&got), "the engine finds the walk");
+	let pts = points(&got);
+	let yards = yards_of(&pts);
+	assert!(yards < 190.0, "the walk is {yards:.0} yd");
+	let low = pts.iter().filter_map(|p| p.2).fold(f64::INFINITY, f64::min);
+	assert!(low >= 195.0, "the walk goes down to {low:.0}, into the valley under the ledge");
+}
