@@ -112,6 +112,7 @@
 		{"token": "quest:95928", "name": "結晶元素", "source": "client-learning", "build": "1.60.1.70938", "sha256": "1bcda34021a3327b920ebb87b381c0524d2f7c9240833d7b7fea06c8e44337e0", "ref": 3005},
 		{"token": "quest:96010", "name": "水晶塔的碎片", "source": "client-learning", "build": "1.60.1.70938", "sha256": "1bcda34021a3327b920ebb87b381c0524d2f7c9240833d7b7fea06c8e44337e0", "ref": 3005},
 		{"token": "quest:96018", "name": "為水晶塔充能", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "2c0e7223b4716a0f85ec116fe357c170484f5656660dca5ce6e03e2c63d38f71", "ref": 3005},
+		{"token": "quest:96076", "name": "徵求 - 遠古精靈珍品", "source": "client-learning", "build": "1.60.1.70938", "sha256": "c2fa3a57ae82428faf9600f52fab849fb111ca188c6189b5a19d7bfb4d409bae", "ref": 3005},
 		{"token": "quest:96136", "name": "風之召喚", "source": "client-learning", "build": "1.60.1.70938", "sha256": "1bcda34021a3327b920ebb87b381c0524d2f7c9240833d7b7fea06c8e44337e0", "ref": 3005},
 		{"token": "quest:96264", "name": "元素援助", "source": "client-learning", "build": "1.60.1.70938", "sha256": "1bcda34021a3327b920ebb87b381c0524d2f7c9240833d7b7fea06c8e44337e0", "ref": 3005},
 		{"token": "quest:96332", "name": "還以顏色", "source": "client-learning", "build": "1.60.1.70938", "sha256": "1bcda34021a3327b920ebb87b381c0524d2f7c9240833d7b7fea06c8e44337e0", "ref": 3005},
