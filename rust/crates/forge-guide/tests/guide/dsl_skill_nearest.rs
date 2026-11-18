@@ -28,6 +28,7 @@ fn skill_nearest_takes_the_steps_points_as_the_places_the_arrow_picks_from_each_
 	l.push("  skill Mining 50 nearest");
 	let r = compile(&guide_text(&l));
 	assert!(r.errors.is_empty(), "{}", r.text);
+	assert!(r.warnings.is_empty(), "its places on other maps than the zone are no typo: {:?}", r.warnings);
 	let g = goals(&r);
 	assert_eq!(g.len(), 1, "the gotos leave the step");
 	assert_eq!(json!([g[0]["t"], g[0]["level"]]), json!(["skill", 50]));

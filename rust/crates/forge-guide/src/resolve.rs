@@ -1980,7 +1980,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 			let gmap = goal.get("map");
-			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) {
+			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
+			let nearest_place = g.get("verb").as_str() == Some("goto")
+				&& s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy());
+			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) && !nearest_place {
 				let name = |id: &V| {
 					let z = data.zone(id);
 					if z.truthy() && z.get("name").truthy() {

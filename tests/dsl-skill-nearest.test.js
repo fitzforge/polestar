@@ -15,6 +15,7 @@ const POINTS = ['  goto 47.4,62.2 "Crystal Lake" only Human', '  goto 35.4,40.1 
 test('`skill … nearest` takes the step\'s points as the places the arrow picks from, each for its own characters', () => {
 	const r = compile(guideText(['step Fishing 1-50', ...POINTS, '  skill Mining 50 nearest']));
 	assert.deepEqual(r.errors, [], r.text);
+	assert.deepEqual(r.warnings, [], 'its places on other maps than the zone are no typo');
 	const goals = goalsOf(r);
 	assert.equal(goals.length, 1, 'the gotos leave the step');
 	const [skill] = goals;
