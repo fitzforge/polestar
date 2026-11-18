@@ -38,6 +38,8 @@ mod core;
 mod data_addons;
 #[path = "death-arrow.rs"]
 mod death_arrow;
+#[path = "nav-dock-board.rs"]
+mod nav_dock_board;
 #[path = "docs-packs.rs"]
 mod docs_packs;
 #[path = "dsl-farm.rs"]
