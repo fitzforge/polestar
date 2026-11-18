@@ -344,10 +344,26 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
 	};
-	// what Walk.lua knows of a stop's height: the NPC just talked to (spawn height), or at a landing its flight
+	// what Walk.lua knows of a stop's height (CityFloor's NpcFloor): the NPC just talked to, from its spawns within 30
+	// yd of the player, the nearest one's height unless they span more than 10 yd of height; or at a landing its flight
 	// master's (TaxiNodes' height stands in for it in game)
+	const npcFloor = (t, e) => {
+		const s = e.npc && spawnz[String(e.npc)];
+		if (!s) return null;
+		let best = null;
+		let lo = Infinity;
+		let hi = -Infinity;
+		for (const [sc, x, y, z] of s) {
+			const d = sc === t.c ? Math.hypot(x - e.wx, y - e.wy) : Infinity;
+			if (d > 30) continue;
+			lo = Math.min(lo, z);
+			hi = Math.max(hi, z);
+			if (!best || d < best.d) best = { d, z };
+		}
+		return best && hi - lo <= 10 ? best.z : null;
+	};
 	const hint = (t, e) => {
-		if (e.kind !== 'land') return npcZ(t, e);
+		if (e.kind !== 'land') return npcFloor(t, e);
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
