@@ -46,7 +46,7 @@ return {
 	-- {object:257} Suspicious Barrel
 	["The {object:257}"] = "{object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
-	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "댐을 따라 동쪽으로 걸어가 동쪽 경사로를 내려와 댐 아래 육지 쪽을 따라 다시 서쪽으로 가세요: 검은무쇠 공병 두 명이 통을 지킵니다. 그들을 죽인 뒤 통을 여세요: 이 퀘스트가 끝나고 다음 퀘스트가 시작됩니다.",
+	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "댐을 따라 동쪽으로 걸어가 동쪽 경사로를 내려와 댐 아래 육지 쪽을 따라 다시 서쪽으로 가세요: 검은무쇠단 공병 두 명이 통을 지킵니다. 그들을 죽인 뒤 통을 여세요: 이 퀘스트가 끝나고 다음 퀘스트가 시작됩니다.",
 
 	-- Step 11: The loch
 	["The loch"] = "호수",
@@ -67,7 +67,7 @@ return {
 	["The dig site"] = "발굴지",
 	-- {item:2636} Carved Stone Idol · {quest:86613} Excavation Tools
 	-- plural, as words: Stonesplinter Diggers = {npc:1167} Stonesplinter Digger · Berserk Troggs = {npc:1393} Berserk Trogg
-	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "가루바위일족 굴착꾼, 점성술사, 광포한 트로그가 아이언밴드 동쪽 발굴지를 지키고 있습니다: 그중 아무나 {item:2636}을(를) 떨어뜨릴 수 있습니다. 발굴 도구 더미가 발굴지 주변에 있습니다: 하나를 열어 도구를 마우스 오른쪽 단추로 클릭해 {quest:86613}을(를) 시작하고 여섯 개를 모으세요.\n주의: 광포한 트로그(19-20)는 생명력 40% 아래에서 광폭해집니다.",
+	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "가루바위일족 채굴꾼, 점성술사, 광포한 트로그가 아이언밴드 동쪽 발굴지를 지키고 있습니다: 그중 아무나 {item:2636}을(를) 떨어뜨릴 수 있습니다. 발굴 도구 더미가 발굴지 주변에 있습니다: 하나를 열어 도구를 마우스 오른쪽 단추로 클릭해 {quest:86613}을(를) 시작하고 여섯 개를 모으세요.\n주의: 광포한 트로그(19-20)는 생명력 40% 아래에서 광폭해집니다.",
 	-- {quest:86613} Excavation Tools
 	["{quest:86613}: open a pile at the dig"] = "{quest:86613}: 발굴지에서 더미 열기",
 	-- {quest:86613} Excavation Tools
@@ -95,7 +95,7 @@ return {
 
 	-- Step 19: Elder Mountain Boars
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["Elder Mountain Boars"] = "늙은 산멧돼지",
+	["Elder Mountain Boars"] = "덩치큰 산돼지",
 	-- {quest:258} A Hunter's Challenge
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
 	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "덩치큰 산돼지는 오두막 북서쪽, 동쪽 기슭을 따라 언덕을 배회합니다. {quest:258}은(는) 12분 동안 이어집니다: 다섯 마리를 죽이고 데릴에게 바로 돌아가세요; 악어는 그다음입니다.",
@@ -105,7 +105,7 @@ return {
 	["{npc:270693} and the loch crocolisks"] = "{npc:270693}과(와) 호수악어",
 	-- {npc:270693} Daggerfang
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "멧돼지 언덕 아래 동쪽 기슭으로 다시 내려가십시오. 악어인 {npc:270693}이(가) 호수 악어 사이를 순찰합니다.",
+	["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "멧돼지 언덕 아래 동쪽 기슭으로 다시 내려가십시오. 악어인 {npc:270693}이(가) 호수악어 사이를 순찰합니다.",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
 	["{item:2924}: Loch Crocolisks"] = "{item:2924}: 호수악어",
@@ -291,7 +291,7 @@ return {
 	["{area:20} and the Defias hills"] = "{area:20}와(과) 데피아즈단 언덕",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "데피아즈단 길잡이와 너클더스트가 {area:20}을(를) 걷고, 고속도로 강도(17레벨)가 그 남쪽과 동쪽 언덕을 두 명씩 순찰합니다: 따로 유인하세요. 대장간의 {area:1581} 입구는 파티 던전입니다.\n주의: 언덕의 야영지에는 데피아즈단 무리가 섞여 있어, 레벨이 낮으면 한 번에 여러 마리를 끌어들이기 쉽습니다.",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "데피아즈단 정찰병와 너클더스트가 {area:20}을(를) 걷고, 고속도로 강도(17레벨)가 그 남쪽과 동쪽 언덕을 두 명씩 순찰합니다: 따로 유인하세요. 대장간의 {area:1581} 입구는 파티 던전입니다.\n주의: 언덕의 야영지에는 데피아즈단 무리가 섞여 있어, 레벨이 낮으면 한 번에 여러 마리를 끌어들이기 쉽습니다.",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}, {area:20} 주변 상자에서",
 
@@ -318,7 +318,7 @@ return {
 	-- Step 56: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "{zone:1436}의 수확 감시자에게서 기름 병 다섯 개를 남겨 두었나요? {npc:392}이(가) 등대 불을 위해 그것을 가져갑니다.",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "{zone:1436}의 허수아비골렘 보초에게서 기름 병 다섯 개를 남겨 두었나요? {npc:392}이(가) 등대 불을 위해 그것을 가져갑니다.",
 
 	-- Step 57: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor

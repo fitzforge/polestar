@@ -179,7 +179,7 @@ return {
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "충전된 천둥도마뱀 기관은 {npc:3293} 바로 서쪽 {area:369}의 천둥도마뱀에게서 나옵니다.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "충만한 천둥도마뱀 장기은 {npc:3293} 바로 서쪽 {area:369}의 천둥도마뱀에게서 나옵니다.",
 
 	-- Step 29: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
@@ -219,7 +219,7 @@ return {
 	["Zhevras, quilboars, harpies and the {area:1697}"] = "굶주린 얼룩말, 퀄보, 하피, 그리고 {area:1697}",
 	-- {npc:3438} Kreenig Snarlsnout · {quest:3281} Stolen Silver · {area:1697} Raptor Grounds · {area:378} Camp Taurajo
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner · Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "굶주린 얼룩말들은 마을 남쪽과 서쪽에서 풀을 뜯습니다. {npc:3438}이(가) 북동쪽 레이저메인 야영지를 이끕니다. 칼날바람일족 학살자들이 반지를 지니고 있습니다. {quest:3281}은(는) {area:378} 동쪽의 {area:1697}에 있습니다: 왼쪽에 둥지가 늘어선 길을 따라 마지막 둥지까지 가십시오.",
+	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "굶주린 얼룩말들은 마을 남쪽과 서쪽에서 풀을 뜯습니다. {npc:3438}이(가) 북동쪽 레이저메인 야영지를 이끕니다. 칼날바람일족 암살자들이 반지를 지니고 있습니다. {quest:3281}은(는) {area:378} 동쪽의 {area:1697}에 있습니다: 왼쪽에 둥지가 늘어선 길을 따라 마지막 둥지까지 가십시오.",
 
 	-- Step 37: The Crossroads: hand in again
 	-- {area:380} The Crossroads
@@ -293,7 +293,7 @@ return {
 	["{zone:1452}: owlbeasts"] = "{zone:1452}: 올빼미야수",
 	-- {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "{area:2255} 북서쪽에는 성난 올빼미야수, 더 서쪽에는 털복숭이 올빼미야수가 있습니다.",
+	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "{area:2255} 북서쪽에는 흉포한 올빼미야수, 더 서쪽에는 털복숭이 올빼미야수가 있습니다.",
 
 	-- Step 49: Bloodvenom Post: hand in
 	-- {area:1997} Bloodvenom Post
@@ -302,10 +302,10 @@ return {
 	-- Step 50: Winterspring: Moontouched Owlbeasts
 	-- {zone:1452} Winterspring
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: 달맞이 올빼미야수",
+	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: 달빛 깃든 올빼미야수",
 	-- {area:2255} Everlook
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "{area:2255} 북쪽과 그 남쪽에 달맞이 올빼미야수가 있습니다.",
+	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "{area:2255} 북쪽과 그 남쪽에 달빛 깃든 올빼미야수가 있습니다.",
 
 	-- Step 51: Bloodvenom Post: hand in again
 	-- {area:1997} Bloodvenom Post

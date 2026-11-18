@@ -275,7 +275,7 @@ return {
 	-- Step 44: Shimmerweed
 	-- {item:2676} Shimmerweed · {area:802} Shimmer Ridge · {area:131} Kharanos
 	-- plural, as words: Frostmane Seers = {npc:1397} Frostmane Seer
-	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676}은(는) {area:131}과(와) 브루눌 사이 길 북쪽의 눈 덮인 비탈 {area:802} 위쪽 바구니에서 자랍니다: {area:131} 서쪽 길에서 오르세요. 능선에 진을 친 서리갈기 점쟁이도 이것을 떨어뜨립니다.",
+	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676}은(는) {area:131}과(와) 브루눌 사이 길 북쪽의 눈 덮인 비탈 {area:802} 위쪽 바구니에서 자랍니다: {area:131} 서쪽 길에서 오르세요. 능선에 진을 친 서리갈기부족 예언자도 이것을 떨어뜨립니다.",
 
 	-- Step 46: The Gnomeregan road
 	-- {area:133} Gnomeregan

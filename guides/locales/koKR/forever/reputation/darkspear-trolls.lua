@@ -148,7 +148,7 @@ return {
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "충전된 천둥도마뱀 기관은 {npc:3293} 바로 서쪽 {area:369}의 천둥도마뱀에게서 나옵니다.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "충만한 천둥도마뱀 장기은 {npc:3293} 바로 서쪽 {area:369}의 천둥도마뱀에게서 나옵니다.",
 
 	-- Step 24: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar

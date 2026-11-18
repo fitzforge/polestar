@@ -162,14 +162,14 @@ return {
 	-- Step 33: Triage
 	-- {quest:6624} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6624}: 의사가 분류 붕대를 건넵니다. 자기 것이 아니라 그것을 쓰세요. 부상병 열다섯 명이 안에 누워 있습니다. 위독한 이, 다음 중상자, 다음 경상자 순서로 붕대를 감아 아무도 죽기 전에 끝내세요(Ctrl+V로 생명력 막대를 보이게 하세요). 열다섯 명을 구출하는 순간 제출하세요. 나머지는 계속 죽고, 죽음이 너무 많으면 완료로 표시된 뒤에도 실패합니다. 실패하면 포기하고 다시 받으세요.",
+	["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6624}: 의사가 응급 붕대를 건넵니다. 자기 것이 아니라 그것을 쓰세요. 부상병 열다섯 명이 안에 누워 있습니다. 위독한 이, 다음 중상자, 다음 경상자 순서로 붕대를 감아 아무도 죽기 전에 끝내세요(Ctrl+V로 생명력 막대를 보이게 하세요). 열다섯 명을 구출하는 순간 제출하세요. 나머지는 계속 죽고, 죽음이 너무 많으면 완료로 표시된 뒤에도 실패합니다. 실패하면 포기하고 다시 받으세요.",
 	-- {skill:129} First Aid
 	["Artisan {skill:129}"] = "전문 {skill:129}",
 
 	-- Step 34: Triage
 	-- {quest:6622} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: 의사가 분류 붕대를 건넵니다. 자기 것이 아니라 그것을 쓰세요. 부상병 열다섯 명이 안에 바닥에 누워 있습니다. 위독한 이, 다음 중상자, 다음 경상자 순서로 붕대를 감아 아무도 죽기 전에 끝내세요(Ctrl+V로 생명력 막대를 보이게 하세요). 열다섯 명을 구출하는 순간 제출하세요. 나머지는 계속 죽고, 죽음이 너무 많으면 완료로 표시된 뒤에도 실패합니다. 실패하면 포기하고 다시 받으세요.",
+	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: 의사가 응급 붕대를 건넵니다. 자기 것이 아니라 그것을 쓰세요. 부상병 열다섯 명이 안에 바닥에 누워 있습니다. 위독한 이, 다음 중상자, 다음 경상자 순서로 붕대를 감아 아무도 죽기 전에 끝내세요(Ctrl+V로 생명력 막대를 보이게 하세요). 열다섯 명을 구출하는 순간 제출하세요. 나머지는 계속 죽고, 죽음이 너무 많으면 완료로 표시된 뒤에도 실패합니다. 실패하면 포기하고 다시 받으세요.",
 
 	-- Step 35: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
