@@ -14,7 +14,9 @@
 //!   same or a neighbouring cell. The jumps, drops and climbs inside a cluster become its arc field (one way, between
 //!   the surfaces owning their ends, once per pair: the shortest); those across a border are already his graph's.
 //! - **graph**: his PMG4 entrance graph in the in-game encoding: an entrance on a refined port becomes the surface
-//!   owning it, costs and yards are rounded, an entrance keeps its 63 cheapest edges. His edges may be one way.
+//!   owning it, costs and yards are rounded, an entrance keeps its 63 cheapest edges. His edges may be one way. His
+//!   costs price water at his swim factor, which the metadata repeats; given another (`--swim`), the graph is priced
+//!   again at it (pack/water.rs).
 //! - **area**: his maps have none; each surface takes the WMOAreaTable row of our grid's surface in the same cell
 //!   nearest in height (within MATCH_YD): the Undercity's floors keep their names.
 
@@ -24,6 +26,7 @@ use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YA
 use super::joins::{Geo, JoinStats, JoinWay};
 use super::reach::{self, Place};
 use super::spawns;
+use super::water::WaterStats;
 use super::{b32, enc, js_round, zigzag, B64, NONE};
 use crate::f4::pack::{self, Assembly, Cluster, Graph, Meta, Span, TILE, WALK_TAN};
 use crate::f4::{NavDir, PackSource};
@@ -68,6 +71,8 @@ pub struct LeffeStats {
 	pub ledge_drops: usize,
 	/// Spawns given a height in the spawn field (pack/spawns.rs).
 	pub spawn_heights: usize,
+	/// The graph priced at another swim factor than his (pack/water.rs; `forge nav pack --swim`). None: his.
+	pub water: Option<WaterStats>,
 }
 
 /// What the walking maps take from the fixed places and from our grid besides his maps.
@@ -84,6 +89,8 @@ pub struct Extras<'a> {
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points, every map's): the spawn field holds the heights of
 	/// those where floors overlap. None: no spawn field.
 	pub spawns: Option<&'a [Place]>,
+	/// The swim factor the graph is priced at (pack/water.rs). None: his maps' own.
+	pub swim: Option<f64>,
 }
 
 fn read_field(src: &NavDir, meta: &Meta, field: &str, k: u32) -> Result<Option<Vec<u8>>, String> {
@@ -892,16 +899,23 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
 	let (mut joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
 	joined.cuts = super::cuts::apply(&geo, &mut outs, map, log)?;
+	// Water at another price than his (pack/water.rs), after the joins and cuts: their edges are priced again too.
+	let water = match extras.swim {
+		Some(to) if to != meta.swim => Some(super::water::reprice(&geo, &mut outs, to, log)?),
+		Some(to) => Some(WaterStats { from: meta.swim, to, ..Default::default() }),
+		None => None,
+	};
 	let mut maps = Maps {
 		class: Some(BTreeMap::new()),
 		zone: Some(BTreeMap::new()),
 		area: Some(BTreeMap::new()),
 		arc: Some(BTreeMap::new()),
 		spawn: extras.spawns.map(|_| BTreeMap::new()),
+		swim: Some(water.map_or(meta.swim, |w| w.to)),
 		..Default::default()
 	};
 	let mut used = join_areas;
-	let mut st = LeffeStats::default();
+	let mut st = LeffeStats { water, ..Default::default() };
 	let mut comps = BTreeSet::new();
 	for (k, o) in outs {
 		let put = |m: &mut BTreeMap<u32, String>, v: Option<String>| {

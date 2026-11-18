@@ -715,6 +715,15 @@ forge nav check
   surface has another more than 10 yd above or below within a cell gets its height in the maps' `spawn` field (per
   cluster "x y z ..." in whole yards; `spawnHeights` in PACK.json); `Routing/Path.lua` walks a goal without a height
   within 8 yd of one to that spawn's floor first. On with `--spawns on` (off by default until measured).
+- Water at another price (`pack/water.rs`, `--swim <factor>`, 1 to 10; off by default until measured): his graph's
+  costs price a swum yard as 3 run ones, and the router prices its grid steps by the metadata's `swim`, so the two
+  change together or not at all. With a factor, every cluster with water is searched again as the router walks it
+  (`pack/ingame.rs`), from each entrance at both factors: an edge inside it costs what its way saves less (a dry way
+  keeps his cost exactly), an entrance gains an edge where the cheaper water beats the edges' own way by more than
+  5 % (his graph is sparse: a swim across a bay he priced round it), an edge across a border into water takes the
+  factors' ratio, and the metadata says the new factor. One-way edges, hostile hubs and the joins' and cuts' edges
+  keep their sense. PACK.json's `leffe.water` gives `from`, `to` and the clusters, repriced, added and border edges.
+  Compare recorded shore crossings and dry bridge and dock walks before using a new factor for a release.
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers

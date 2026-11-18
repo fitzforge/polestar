@@ -20,7 +20,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|cities|all] [--ledges on|off] [--spawns on|off]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|cities|all] [--ledges on|off] [--spawns on|off] [--swim <factor>]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -50,7 +50,12 @@ the other two are off until measured on the walking-map judges: --ledges on take
 our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
 as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
 quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
-another floor (the spawn field: a goal with no height beside one ends on its floor).
+another floor (the spawn field: a goal with no height beside one ends on its floor). --swim prices
+his graph with water at that factor (a swum yard as so many run ones, 1 to 10) instead of his own
+(3): in each cluster with water an edge costs what its way saves at the new factor less, an entrance
+gains an edge where the cheaper water beats the edges' own way by more than 5 %, an edge across a
+border into water takes the factors' ratio, and the metadata's swim factor says the same to the
+router; PACK.json's leffe.water counts it. Without it, his graph as it is.
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 
@@ -218,7 +223,7 @@ fn today() -> String {
 }
 
 fn pack(args: &[String]) -> Result<(), Fail> {
-	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns"])?;
+	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns", "--swim"])?;
 	let cells: usize = match o.get("--cells") {
 		None => 128,
 		Some(v) => v.parse().ok().filter(|n| (8..=256).contains(n)).ok_or_else(|| usage("--cells needs a whole number from 8 to 256"))?,
@@ -256,6 +261,12 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		Some("on") => leffe.is_some(),
 		None | Some("off") => false,
 		Some(_) => return Err(usage("--spawns needs on or off")),
+	};
+	// Leffe's graph priced with water at this factor instead of his (forge_nav::pack::water); without it, his.
+	let swim = match o.get("--swim") {
+		None => None,
+		Some(_) if leffe.is_none() => return Err(usage("--swim needs --leffe")),
+		Some(v) => Some(v.parse::<f64>().map_err(|_| usage("--swim needs a number")).and_then(|f| forge_nav::pack::water::check_factor(f).map_err(|e| usage(format!("--swim: {e}"))))?),
 	};
 	let date = o.get("--date").cloned().unwrap_or_else(today);
 	let ok_date = date.len() == 10 && date.bytes().enumerate().all(|(n, b)| if n == 4 || n == 7 { b == b'-' } else { b.is_ascii_digit() });
@@ -301,6 +312,7 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		ground_cities,
 		ledges,
 		spawns: spawns.as_deref(),
+		swim,
 		log: &log,
 	})?;
 	let (written, removed) = forge_nav::pack::ship_pack(&p, &out)?;

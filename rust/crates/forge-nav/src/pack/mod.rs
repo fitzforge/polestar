@@ -26,6 +26,7 @@ pub mod layers;
 pub mod leffe;
 pub mod reach;
 pub mod spawns;
+pub mod water;
 
 use crate::grid::{flag, Grid, Tile};
 use crate::legs::Nav;
@@ -234,6 +235,9 @@ pub struct PackIn<'a> {
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
 	/// stand where floors overlap (the spawn field). None: no spawn field.
 	pub spawns: Option<&'a [reach::Place]>,
+	/// Leffe's maps' graph priced with water at this swim factor instead of his (pack/water.rs), and the metadata
+	/// saying so. None: his factor, byte for byte.
+	pub swim: Option<f64>,
 	pub log: &'a (dyn Fn(&str) + Sync),
 }
 
@@ -262,6 +266,12 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 		return Err(format!("pack: date must be YYYY-MM-DD, got {date}"));
 	}
 	let log = i.log;
+	if let Some(f) = i.swim {
+		water::check_factor(f).map_err(|e| format!("pack: {e}"))?;
+		if !i.leffe.is_some_and(|l| i.continents.iter().any(|c| l.1.contains(c))) {
+			return Err("pack: a swim factor prices Leffe's maps' graph: it needs his maps (--leffe)".into());
+		}
+	}
 	let layers = layers::read_layers(i.layers)?;
 	let areas = layers::AreaTable::read(i.area_table)?;
 	// The lifts' rides with their waits (chokepoints::lift_rides), from the client's TransportAnimation.csv beside its
@@ -418,7 +428,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				// the Ruins of Lordaeron over it were lost.
 				let in_city = |x: f64, y: f64| city(c, x, y, 0) && !undercity.is_some_and(|(uc, x0, x1, y0, y1)| uc == c && x >= x0 && x <= x1 && y >= y0 && y <= y1);
 				let only: Option<&(dyn Fn(f64, f64) -> bool + Sync)> = if i.ground_cities { Some(&in_city) } else { None };
-				let extras = leffe::Extras { places: i.places, only, drops: drops.as_ref(), spawns: i.spawns };
+				let extras = leffe::Extras { places: i.places, only, drops: drops.as_ref(), spawns: i.spawns, swim: i.swim };
 				let hubs = i.layers.join("hubs.json");
 				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
 				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &extras, &ways, log)?;
@@ -465,8 +475,11 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					log(&format!("Leffe's maps {c}: {} spawns where floors overlap given their height (the spawn field)", s.spawn_heights));
 					lj.as_object_mut().unwrap().insert("spawnHeights".into(), json!(s.spawn_heights));
 				}
+				if let Some(w) = s.water {
+					lj["water"] = json!({ "from": w.from, "to": w.to, "clusters": w.clusters, "repriced": w.repriced, "added": w.added, "full": w.full, "cross": w.cross });
+				}
 				m.insert("leffe".into(), lj);
-				(maps, s.entrances, s.edges - s.dropped + j.edges)
+				(maps, s.entrances, s.edges - s.dropped + j.edges + s.water.map_or(0, |w| w.added))
 			}
 			None => {
 				let h = hpa::build_hpa(&cg);

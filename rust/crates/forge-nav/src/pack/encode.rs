@@ -36,6 +36,10 @@ pub struct Maps {
 	pub components: usize,
 	pub clamped: usize,
 	pub max_degree: usize,
+	/// The swim factor the graph's costs price water at, which the metadata's `swim` tells the router (it prices its
+	/// own grid steps by it). None: SWIM (our grid's maps); Leffe's maps: his factor, or the one pack/water.rs priced
+	/// his graph at again.
+	pub swim: Option<f64>,
 }
 
 impl Maps {
@@ -588,7 +592,7 @@ pub fn pack_files(
 	meta.push(format!("\tnx = {},", cg.nx));
 	meta.push(format!("\tny = {},", cg.ny));
 	meta.push(format!("\tcells = {},", cg.c));
-	meta.push(format!("\tswim = {:.6},", SWIM));
+	meta.push(format!("\tswim = {:.6},", maps.swim.unwrap_or(SWIM)));
 	meta.push(format!("\tzstep = {ZQ},"));
 	if classed {
 		if hub_lines.is_empty() {
