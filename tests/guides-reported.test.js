@@ -4378,6 +4378,33 @@ test("#2882: Chogg'Zac's spot is where players kill him", { skip }, () => {
 	assert.ok(Math.hypot(pts[0][0] - 44.9, pts[0][1] - 51.2) < 0.3, `at 44.9,51.2 (got ${pts[0]})`);
 });
 
+// #2882's class: elites players kill in one spot while the data's points spread around them (players' recordings: the
+// median of each person's kill spots; four in five people within 0.3-0.84 of it). Each gets that one spot. Camps of
+// several spawns (the Razormane, Scarlet and Sandfury ones) and elites that walk a path (Uruson, Timber, Heartrazor) keep
+// their points.
+test("#2882's sweep: the elites players kill in one spot have that spot", { skip }, () => {
+	const spots = {
+		255906: [2548, 16.2, 73.1], // Snargl
+		256891: [2548, 29.8, 41.2], // Executioner Morg
+		263615: [2548, 59.5, 29.0], // Krek the Noxious
+		272116: [1438, 51.4, 44.8], // Xethorr the Wicked
+		271458: [1437, 60.9, 22.0], // Neru
+		271462: [1437, 67.6, 71.2], // Golm
+		271338: [1437, 77.4, 47.1], // Ados
+		259897: [1421, 49.7, 87.9], // Old Fire-Eye
+		222233: [1444, 74.9, 25.4], // Ohk'zi
+		222286: [1444, 66.7, 38.7], // Namida Grimtotem
+		218032: [1417, 69.3, 81.7], // Witherbark Goliath
+	};
+	const npcs = loadCorrections().npcs;
+	for (const [id, [map, x, y]] of Object.entries(spots)) {
+		const pts = (((npcs[id] || {}).set || {}).spawns || {})[map];
+		assert.ok(pts && pts.pts.length === 1, `${id}: one spot on map ${map}`);
+		assert.ok(Math.hypot(pts.pts[0][0] - x, pts.pts[0][1] - y) < 0.3, `${id}: at ${x},${y} (got ${pts.pts[0]})`);
+	}
+	for (const camp of [267314, 267308, 4280, 5646, 14428, 1132, 5934]) assert.ok(!(npcs[camp] || {}).set, `${camp}: left as it is`);
+});
+
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
 // Stormwind" pointed into Moonglade). Coordinates without `map` are on the zone
 // in effect, and a `zone` line holds for the steps after it, even when its step
