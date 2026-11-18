@@ -607,8 +607,9 @@ fn the_walk_after_a_step_change_fills_the_tree_the_last_walk_s_start_left_instea
 	assert_eq!(emptied["step"]["made"].as_i64().unwrap(), made + 1, "the pooled tree spares the next walk one tree grown: {got} / {emptied}");
 }
 
-// 0.4.1.1: a walk queued in a fight waits for its end, then searches Path.calmBudget a frame (not Path.budget) for
-// Path.calmSeconds: the kill that ends a fight is when the game, the guide and the quest log all update.
+// 0.4.1.1: for Path.calmSeconds after a fight a walk searches Path.calmBudget a frame (not Path.budget), whether it was
+// queued in the fight (it waits for its end) or asked just after: the kill that ends a fight is when the game, the
+// guide and the quest log all update.
 #[test]
 fn a_walk_queued_in_a_fight_searches_path_calmbudget_a_frame_for_path_calmseconds_after_it_ends() {
 	let got = run(
@@ -624,11 +625,21 @@ frame()
 local waited = job.frames
 stub.inCombat = false
 stub.fire("PLAYER_REGEN_ENABLED")
-local function slices(n) local most = 0 for _ = 1, n do local cpu = job.cpu frame() most = math.max(most, job.cpu - cpu) end return most end
-local calm = slices(30)
+local function slices(j, n) local most = 0 for _ = 1, n do local cpu = j.cpu frame() most = math.max(most, j.cpu - cpu) end return most end
+local calm = slices(job, 30)
 stub.advance(1.1)
-local after = slices(30)
-emit({ waited = waited, calm = calm, after = after, done = job.done == true, budget = Path.budget, calmBudget = Path.calmBudget, calmSeconds = Path.calmSeconds })"#,
+local after = slices(job, 30)
+local done = job.done == true
+Path.Cancel(job)
+-- A fight with no search waiting, then a walk asked right after it.
+stub.inCombat = true
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.advance(2)
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+local asked = Path.Find(0, { x = -651.7, y = 1270.2 }, { x = 2246.1, y = 239.8, z = 34.3 }, function() end, { profile = "Horde" })
+local askedCalm = slices(asked, 30)
+emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done = done, budget = Path.budget, calmBudget = Path.calmBudget, calmSeconds = Path.calmSeconds })"#,
 		"",
 		vec![Addon::name("Polestar_Nav")],
 	);
@@ -636,6 +647,8 @@ emit({ waited = waited, calm = calm, after = after, done = job.done == true, bud
 	let (calm, after) = (got["calm"].as_f64().unwrap(), got["after"].as_f64().unwrap());
 	assert!(calm <= 1.5, "after the fight a frame searched {calm} ms (Path.calmBudget 1): {got}");
 	assert!(after >= 2.5, "then Path.budget again ({after} ms a frame): {got}");
+	let asked = got["askedCalm"].as_f64().unwrap();
+	assert!(asked <= 1.5, "a walk asked just after a fight searched {asked} ms a frame (Path.calmBudget 1): {got}");
 	assert_eq!(got["done"], false, "{got}");
 	assert_eq!(got["calmBudget"], 1, "{got}");
 	assert_eq!(got["calmSeconds"], 1, "{got}");

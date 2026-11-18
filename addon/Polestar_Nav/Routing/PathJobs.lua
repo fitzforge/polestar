@@ -84,12 +84,19 @@ end
 
 -- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
 -- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
--- search ran). Searches wait out combat (pump), and for Path.calmSeconds after it ends take Path.calmBudget a frame:
--- the kill that ends a fight is when the game, the guide and the quest log all update at once (a step's objective
--- done, loot, the next step's walk queued while the fight went on).
+-- search ran). Searches wait out combat (pump), and for Path.calmSeconds after any fight ends take Path.calmBudget a
+-- frame: the kill that ends a fight is when the game, the guide and the quest log all update at once (a step's
+-- objective done, loot, the next step's walk, queued in the fight or asked just after it).
 Path.calmBudget = 1
 Path.calmSeconds = 1
 local calmUntil = 0
+if CreateFrame then
+	local calm = CreateFrame("Frame")
+	calm:RegisterEvent("PLAYER_REGEN_ENABLED")
+	calm:SetScript("OnEvent", function()
+		calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
+	end)
+end
 
 -- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
 -- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
@@ -132,7 +139,6 @@ pump = function()
 			combatWait = CreateFrame("Frame")
 			combatWait:SetScript("OnEvent", function(self)
 				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
-				calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
 				schedule()
 			end)
 		end
