@@ -8,10 +8,12 @@ test('quest details show the existing Polestar actions for the currently viewed 
 		local noop = function() end
 		local back = {}
 		local header = { BackButton = back, GetFrameLevel = function() return 1 end }
-		local details = { questID = 42, IsShown = function() return true end, BackFrame = header }
+		local onShow
+		local detailsVisible = false
+		local details = { BackFrame = header, IsShown = function() return detailsVisible end,
+			HookScript = function(_, event, fn) assert(event == "OnShow"); onShow = fn end }
 		QuestMapFrame = { DetailsFrame = details }
-		QuestMapFrame_ShowQuestDetails = noop
-		hooksecurefunc = noop
+		C_Timer = { After = function(_, fn) fn() end }
 		Menu = { ModifyMenu = noop }
 		local click
 		local gamepad, hidden, shown, onHidden = true, false
@@ -46,6 +48,10 @@ test('quest details show the existing Polestar actions for the currently viewed 
 		assert(click == nil, "gamepad mode must not create the details button")
 		gamepad = false
 		loadQuestLinks("Polestar", ns)
+		assert(not shown)
+		detailsVisible = true
+		details.questID = 42
+		onShow()
 		assert(shown)
 		hidden = true
 		onHidden()

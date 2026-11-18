@@ -37,7 +37,7 @@ end
 
 local function setupDetails()
 	local details = QuestMapFrame and QuestMapFrame.DetailsFrame
-	if not details or not QuestMapFrame_ShowQuestDetails or not MenuUtil or not MenuUtil.CreateContextMenu then return end
+	if not details or not MenuUtil or not MenuUtil.CreateContextMenu then return end
 	local header = details.BackFrame or details
 	local icon = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\logo"
 	local button = ns.CreateFrameUnder("Button", nil, header)
@@ -81,7 +81,7 @@ local function setupDetails()
 			add(root, id)
 		end)
 	end)
-	hooksecurefunc("QuestMapFrame_ShowQuestDetails", function()
+	details:HookScript("OnShow", function()
 		C_Timer.After(0, refresh)
 	end)
 	ns.On("POLESTAR_HIDDEN", refresh)
