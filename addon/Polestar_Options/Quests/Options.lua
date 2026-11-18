@@ -13,6 +13,10 @@ local Ref = ns.Widgets.Ref
 if not ns.RegisterOptions then return end
 
 local function dbOff() return not ns.Get("qol.questDB") end
+-- Why a row of another section that reads the quest data is grey (its tooltip).
+local function dbWhy()
+	return string.format(L["Turn on %s first."], L["Quest data for markers and tooltips"])
+end
 local function availableOff() return not ns.Get("qol.questDB") or not ns.Get("qol.availableQuests") end
 local function objectivesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.mapObjectives") end
 local function areasOff() return objectivesOff() or ns.Get("qol.objectiveSpots") == "icons" end
@@ -74,7 +78,7 @@ if Q then
 		-- nameplates under it.
 		{
 			page = L["Questing"], tab = L["Quests"], section = L["Quest data"],
-			toggle = { kind = "toggle", key = "qol.questDB", label = L["Quest database"], search = "memory, ram, quest data",
+			toggle = { kind = "toggle", key = "qol.questDB", label = L["Quest data for markers and tooltips"], search = "memory, ram, quest data",
 				help = L["Quest, NPC and item data for markers and tooltips, loaded when one of them is on (about 5 MB of memory)."] },
 			controls = {
 				{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff, search = "tooltip, quest progress, mob quests",
@@ -100,9 +104,9 @@ if Q then
 		{
 			page = L["Questing"], tab = L["Quests"], section = L["Quest items"],
 			controls = {
-				{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
+				{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff, offWhy = dbWhy,
 					help = L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] },
-				{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,
+				{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff, offWhy = dbWhy,
 					help = L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] },
 			},
 		},
@@ -133,7 +137,7 @@ if ns.Party then
 			{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
 				help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
 			-- Core/Update.lua's version probe (0.3.7): off with sharing off too.
-			{ kind = "toggle", key = "update.probe", label = L["Ask other players' Polestar which version it is"], search = SEARCH .. ", update, version, new version",
+			{ kind = "toggle", key = "update.probe", label = L["Check my party's Polestar version"], search = SEARCH .. ", update, version, new version",
 				child = true, disabled = function() return not ns.Get("party.share") end,
 				help = L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] },
 			{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,

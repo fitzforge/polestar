@@ -90,7 +90,7 @@ register({
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {
-		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact display"], search = "compact display, tracker, panel, show",
+		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact instance tracker"], search = "compact display, tracker, panel, show",
 			help = L["Shows the hourly instance count and the current run while it matters; drag to move."],
 			disabled = off("maps.instances") },
 		{ kind = "slider", key = "maps.perHour", label = L["Instances per hour"], min = 1, max = 10, step = 1, format = "%d",

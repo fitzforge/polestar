@@ -527,7 +527,7 @@ panelPage(INST, "instances", L["instance tracker"], {
 	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end, move = "instances",
 	toggle = Ref("toggle", "maps.instances", { label = L["Track instances"], needs = function() return ns.Maps end }),
 	controls = {
-		Ref("toggle", "maps.instanceDisplay", { label = L["Display"], needs = function() return ns.Maps end }),
+		Ref("toggle", "maps.instanceDisplay", { needs = function() return ns.Maps end }),
 	},
 }, { titleLabel = L["Count size"], titleHelp = L["The size of the instance count against Polestar's text size."] })
 local function labelOff() return TR.Get("xp", "label") == false end
