@@ -80,6 +80,9 @@ pub struct Extras<'a> {
 	/// The fixed places (pack/reach.rs fixed_places, every map's): only the ground a walk from one of this map's
 	/// reaches is kept. None: all of it.
 	pub places: Option<&'a [Place]>,
+	/// With the places: where (world x, y of this map) ground no walk from one reaches is dropped; elsewhere all of it
+	/// stays (`forge nav pack --ground cities`: the capitals only). None: everywhere.
+	pub only: Option<&'a (dyn Fn(f64, f64) -> bool + Sync)>,
 	/// Our grid's ledge drops of this map, by cluster (pack/drops.rs): one-way arcs. None: his drops only.
 	pub drops: Option<&'a FxHashMap<u32, Vec<drops::GridDrop>>>,
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points, every map's): the spawn field holds the heights of
@@ -775,6 +778,25 @@ fn geometry(meta: &Meta, k: u32, c: &Cluster, node: usize) -> [f64; 3] {
 	[meta.x0 + ((k as i64 / meta.ny * cc + lc / cc) as f64 + 0.5) * meta.cs, meta.y0 + ((k as i64 % meta.ny * cc + lc % cc) as f64 + 0.5) * meta.cs, c.z[o] as f64]
 }
 
+/// Marks every surface outside `only` (a cell's centre, world x and y) as reached, so the reach rule drops ground
+/// inside it alone: `seen` is reach::reached's, per cluster of `keys` (and `locals`), base cells first, then floors.
+fn keep_outside(frame: &reach::Frame, keys: &[u32], locals: &[reach::Local], seen: &mut [Vec<bool>], only: &(dyn Fn(f64, f64) -> bool + Sync)) {
+	keys.par_iter().zip(locals).zip(seen.par_iter_mut()).for_each(|((&k, l), s)| {
+		let (c, ki) = (l.c, k as i64);
+		let (kx, ky) = (ki / frame.ny, ki % frame.ny);
+		let inside: Vec<bool> = (0..c * c)
+			.map(|lc| {
+				let (gx, gy) = (kx * frame.c + (lc / c) as i64, ky * frame.c + (lc % c) as i64);
+				only(frame.x0 + (gx as f64 + 0.5) * frame.cs, frame.y0 + (gy as f64 + 0.5) * frame.cs)
+			})
+			.collect();
+		for (n, r) in s.iter_mut().enumerate() {
+			let lc = if n < c * c { n } else { l.at[n - c * c] as usize };
+			*r |= !inside[lc];
+		}
+	});
+}
+
 /// Map `map` of Leffe's Nav folder `dir` as the in-game fields (maps format 5), with `cg` (our grid's cells, the same
 /// frame and cells) for the areas, `extras`: our grid's ledge drops as one-way arcs, and, given the fixed places,
 /// only the ground a walk from one of this map's reaches (the ends of the map's grid joins with a height among
@@ -842,7 +864,10 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 			if starts.is_empty() && !mine.is_empty() {
 				return Err(format!("leffe: map {map}: none of its {} fixed places stands on a surface (is the grid the same client build?)", mine.len()));
 			}
-			let seen = reach::reached(&locals, &starts);
+			let mut seen = reach::reached(&locals, &starts);
+			if let Some(only) = extras.only {
+				keep_outside(&frame, &keys, &locals, &mut seen, only);
+			}
 			let rows_map: FxHashMap<u32, Vec<u32>> = keys.iter().zip(&locals).zip(&seen).map(|((&k, l), s)| (k, reach::row_map(l, s))).collect();
 			let seen: FxHashMap<u32, Vec<bool>> = keys.iter().copied().zip(seen).collect();
 			// A map with no fixed place keeps all its ground (a crop, a map Polestar has no places on yet).
@@ -956,6 +981,18 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	/// `--ground cities`: ground no walk reaches is dropped inside the capitals only. A cluster of 2x2 cells whose first
+	/// column lies in a capital (world x under 1) and second outside, with a floor in an outside cell: nothing was
+	/// reached; the outside cells' surfaces and the floor count as reached (kept), the capital's do not.
+	#[test]
+	fn ground_outside_the_capitals_is_kept_whatever_the_walks_reach() {
+		let frame = reach::Frame { x0: 0.0, y0: 0.0, cs: 1.0, ny: 1, c: 2, gx: 2, gy: 2 };
+		let local = reach::Local { c: 2, val: vec![1; 5], z: vec![0.0; 5], first: vec![-1, -1, -1, 4], at: vec![3], ..Default::default() };
+		let mut seen = vec![vec![false; 5]];
+		keep_outside(&frame, &[0], &[local], &mut seen, &|x, _| x < 1.0);
+		assert_eq!(seen[0], vec![false, false, true, true, true], "cells 0, 1 (x 0.5) in the capital; 2, 3 (x 1.5) and the floor out");
+	}
 
 	/// A record's values as PathGrid.lua's edgeValue reads them: offset(1), entrance(2), the costs (3 each), yards(2).
 	fn values(rec: &str) -> Vec<u64> {

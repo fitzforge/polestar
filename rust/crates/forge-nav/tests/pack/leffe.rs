@@ -29,6 +29,7 @@ fn pack(leffe: Option<(&std::path::Path, &[u32])>, name: &str) -> PathBuf {
 		leffe,
 		zlib_literals: true,
 		places: None,
+		ground_cities: false,
 		ledges: false,
 		spawns: None,
 		trails: None,

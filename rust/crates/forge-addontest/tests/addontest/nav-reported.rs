@@ -680,3 +680,63 @@ fn ironforge_afadra_dunwalls_spot_is_joined_to_the_city_by_the_step_players_take
 	let thurgrum = Pt { c: 0, x: -4795.0, y: -1122.6, z: Some(498.9) };
 	joined_both_ways(afadra, thurgrum, Some("Alliance"), "Afadra Dunwall's spot");
 }
+
+// Ironforge, the Great Forge (55.08, 58.26): Nissa Firestone, the first aid trainer, stands at 512.5 on a floor the
+// walking maps joined to nothing, so the reach rule would drop it and a walk from her height found no way (to Fimble
+// Finespindle, 40.15, 33.21). 16 recorded players step onto it from the Forge's floor beside her (55.46, 59.93); the
+// step join for that keeps her floor and the walk goes down off it round the Forge (about 235 yd).
+#[test]
+fn ironforge_a_walk_from_nissa_firestone_at_her_height_steps_off_her_floor_onto_the_forges() {
+	let nissa = Pt { c: 0, x: -4876.6, y: -1149.1, z: Some(512.5) };
+	let fimble = Pt { c: 0, x: -4744.5, y: -1031.0, z: Some(504.5) };
+	let got = walk(nissa, fimble, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Nissa Firestone at her height");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 300.0, "the walk is {yards:.0} yd");
+}
+
+// Undercity, the Rogues' Quarter: the arched bridge over the canal (72.5, 63.4 to 76.4, 67.3) was cut at its crest in
+// the walking maps into two decks that meet only down at the canal, so the walk from the ring below the bat handler to
+// Mennet Carkad went round the district (487 yd; the recorded players' walk is 292). A strict join puts the crest in:
+// the walk crosses the bridge and is about the grid's 317 yd.
+#[test]
+fn undercity_the_walk_to_the_rogues_quarter_crosses_the_canal_bridge() {
+	let ring = Pt { c: 0, x: 1568.6, y: 267.9, z: Some(-59.65) };
+	let mennet = Pt { c: 0, x: 1436.1, y: 74.0, z: Some(-62.3) };
+	let got = walk(ring, mennet, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk to Mennet Carkad");
+	let pts = points(&got);
+	let crest = Pt { c: 0, x: 1457.4, y: 161.3, z: None };
+	let off = off_path(&pts, crest);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the bridge's crest");
+	let yards = yards_of(&pts);
+	assert!(yards < 360.0, "the walk is {yards:.0} yd");
+}
+
+// Darnassus: where a recorded player stood at Yldan (65.5, 52.8, height 1339.6) the walking maps had no walk out at
+// all ("unreachable"), so a walk from him to the trainer Eladriel failed; our grid walks down from his floor in 43 yd.
+// A join puts that in: the walk from his floor to the innkeeper Saelienne and back is found.
+#[test]
+fn darnassus_yldans_floor_is_joined_to_the_city() {
+	let yldan = Pt { c: 1, x: 9865.4, y: 2245.05, z: Some(1339.6) };
+	let saelienne = Pt { c: 1, x: 10127.9, y: 2224.79, z: Some(1328.8) };
+	joined_both_ways(yldan, saelienne, Some("Alliance"), "Yldan's floor");
+}
+
+// Thunder Bluff, the wind rider tower: players leave Tal's platform (177 yd up) by hopping down its south ledges and
+// dropping 26 yd to the mesa (52 of the 53 recorded players who pass the lower ledge); the walking maps took the ramp
+// round the tower, 197 yd to Innkeeper Pala for the players' 113. Drop joins put the falls in: the walk goes off the
+// south ledge and is under 150 yd.
+#[test]
+fn thunder_bluff_from_tal_the_walk_drops_off_the_wind_rider_towers_south_ledges_as_players_do() {
+	let tal = Pt { c: 1, x: -1196.75, y: 26.08, z: Some(177.03) };
+	let pala = Pt { c: 1, x: -1300.28, y: 38.49, z: Some(129.29) };
+	let got = walk(tal, pala, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Tal to Innkeeper Pala");
+	let pts = points(&got);
+	let ledge = Pt { c: 1, x: -1217.7, y: 32.3, z: None };
+	let off = off_path(&pts, ledge);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the lower south ledge");
+	let yards = yards_of(&pts);
+	assert!(yards < 150.0, "the walk down is {yards:.0} yd");
+}

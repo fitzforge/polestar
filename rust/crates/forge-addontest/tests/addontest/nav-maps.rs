@@ -621,7 +621,10 @@ fn polestars_maps_on_the_engine_the_inn_is_left_by_its_door_the_undercity_by_an_
 	assert!(door < 3.0, "the walk out of the inn passes {door:.1} yd from the door");
 	let (top, bottom, walk) = (got["lift"]["top"].as_f64().unwrap(), got["lift"]["bottom"].as_f64().unwrap(), got["lift"]["walk"].as_f64().unwrap());
 	assert!(top > 0.0 && bottom > 0.0, "both Undervator landings are reached on foot");
-	assert!((top + bottom) / 7.0 + 12.0 < walk / 7.0, "by the lift, not walking round");
+	// The ride is priced at its own seconds (the Undervator's 7.6 s: the ride and the average wait for the car, from
+	// the client's lift animation): the walk is the two landings' walks and that ride, not a way round.
+	let ride = walk / 7.0 - (top + bottom) / 7.0;
+	assert!((ride - 7.6).abs() < 1.0, "by the lift, not walking round (the ride costs {ride:.1} s)");
 	assert_eq!(got["sea"], json!({ "found": false, "why": "unreachable" }), "fatigue water is no surface");
 	assert!(got["coast"]["found"] == true && got["coast"]["cost"].as_f64().unwrap() > 0.0);
 }
@@ -676,7 +679,8 @@ emit(got)"#,
 // joined to the world only far away. A point without a height starts from each surface at a distinct height: the roof
 // and the buried ground, the street within 10 yd of that one, so never tried. A walk to Westfall came out at 19,225
 // yd for a 3,465-yd walk; the same with the end there. In the point's own cell, the street takes the buried ground's
-// place.
+// place. The street's floor at 102 is ground no walk reaches (no recorded player walks it either), so the reach rule
+// in the capitals leaves it out.
 #[test]
 fn issue_1890_a_point_without_a_height_starts_from_the_street_not_the_ground_buried_under_it_the_dwarven_district_walks_to_westfall_through_the_city() {
 	let (_tmp, addon) = keep_ns();
@@ -704,7 +708,7 @@ emit(out)"#,
 		vec![addon],
 	);
 	assert_eq!(got["base"], 112, "the cell's base surface: the roof");
-	assert_eq!(got["floors"], json!(["94:3", "96:5", "102:5"]), "the buried ground (steep) 2 yd under the street (indoor city)");
+	assert_eq!(got["floors"], json!(["94:3", "96:5"]), "the buried ground (steep) 2 yd under the street (indoor city)");
 	let (from, to) = (got["from"].as_f64().unwrap(), got["to"].as_f64().unwrap());
 	assert!(from < 4000.0, "from the Dwarven District to Westfall through the city ({from:.0} yd)");
 	assert!(to < 4000.0, "and back ({to:.0} yd)");
