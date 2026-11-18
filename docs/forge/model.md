@@ -460,9 +460,12 @@ The fit is in log seconds, in two steps. Mob level and rank are measured inside 
 at one level: how much longer the same character takes on a mob 2 levels above than on an even-level
 one, and on an elite than on its normal kills. Level and class are then fitted across players from
 what is left. The report's `groups` and `eliteCells` say how many groups of kills and elite pools
-that rests on. A mob level no player fought beside another one is left out, and a term nothing was
-recorded for is `null`. `forge sim calibrate` still fits its own `killSec1` / `killSec60` from the
-same seconds with the walk left in, so its values read higher.
+that rests on. A mob level no player fought beside another one is left out, and its pools are in no
+level or class either: `cellsUsed` beside `cells` says how many pools the level and class fit kept.
+An elite pool with no normal kills of the same player at the same level is left out of `eliteTime`
+but still counts for level and class, with the `eliteTime` of the other pools taken out of it. A
+term nothing was recorded for is `null`. `forge sim calibrate` still fits its own `killSec1` /
+`killSec60` from the same seconds with the walk left in, so its values read higher.
 
 Read `killUp` and `eliteTime` with care: they measure the fights players chose, not the fights a
 route would send them to. A player fights a mob above the character, or an elite alone, when the

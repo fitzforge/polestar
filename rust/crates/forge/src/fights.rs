@@ -32,11 +32,15 @@
 //!    ln(cell) = S[group] + G[gap] with G[0] = 0, over the groups with two or more mob levels:
 //!    S is taken out group by group, which leaves a small linear system in G, solved exactly.
 //!    G is how much longer the same character at the same level takes on a mob that many levels
-//!    away. A mob level no chain of groups ties to even-level mobs has no G, and its cells are
-//!    left out. E is the weighted mean, over the elite cells, of ln(cell) − G[gap] less the same
-//!    group's normal cells' mean of the same; an elite cell without one is left out of E.
+//!    away. A mob level no chain of groups ties to even-level mobs has no G. E is the weighted
+//!    mean, over the elite cells, of ln(cell) − G[gap] less the same group's normal cells' mean of
+//!    the same; an elite cell without one is left out of E.
 //! 2. *Level and class.* ln(cell) − G[gap] − E·elite = A[level] + C[class], by backfitting (each
-//!    term in turn the weighted mean of what the other leaves), the classes' C centred on 0.
+//!    term in turn the weighted mean of what the other leaves), the classes' C centred on 0. Only
+//!    a cell with its G, and for an elite cell an E, can be in it: a cell at a mob level without
+//!    a G is in no level or class, and neither is any elite cell when no elite cell gave an E. An
+//!    elite cell that was left out of E is in it, with the E of the others taken out. The report
+//!    counts the cells this step used (`cellsUsed`) beside all of them (`cells`).
 //!
 //! From it:
 //! - `classFactor`: exp(C), each class against the geometric mean of the classes recorded;
@@ -117,6 +121,9 @@ pub struct FightFit {
 	pub samples: usize,
 	pub voters: usize,
 	pub cells: usize,
+	/// The cells in the level and class fit: `cells` less those at a mob level with no ratio, and
+	/// the elite cells when there is no `eliteTime` to take out of them.
+	pub cells_used: usize,
 	/// The (player, class, level) groups with two or more mob levels: what `killUp` and `killDown` rest on.
 	pub groups: usize,
 	/// The elite cells set against normal kills of the same player and level: what `eliteTime` rests on.
@@ -385,6 +392,7 @@ pub fn fit(sessions: usize, samples: &[Sample]) -> FightFit {
 	if rest.is_empty() {
 		return out;
 	}
+	out.cells_used = rest.len();
 	let (mut a, mut c) = (vec![0.0; levels.len()], vec![0.0; classes.len()]);
 	for _ in 0..500 {
 		let before = (a.clone(), c.clone());
@@ -463,11 +471,12 @@ pub fn report(f: &FightFit, at: &str, class_priors: &[(&str, f64)], priors: &[(&
 	json!({
 		"schema": 2,
 		"at": at,
-		"about": "Kill time with the walk between mobs taken out. Mob level and rank are measured inside one player's kills at one level (groups, eliteCells: how many groups of kills and elite cells that rests on), level and class across players (forge sim fights; rust/crates/forge/src/fights.rs). A report to read against the priors, not a params.json.",
+		"about": "Kill time with the walk between mobs taken out. Mob level and rank are measured inside one player's kills at one level (groups, eliteCells: how many groups of kills and elite cells that rests on), level and class across players (cellsUsed: how many of the cells are in that fit). (forge sim fights; rust/crates/forge/src/fights.rs). A report to read against the priors, not a params.json.",
 		"sessions": f.sessions,
 		"samples": f.samples,
 		"voters": f.voters,
 		"cells": f.cells,
+		"cellsUsed": f.cells_used,
 		"groups": f.groups,
 		"eliteCells": f.elite_cells,
 		"killSec1": term("killSec1", f.kill_sec.map(|k| k.0)),
