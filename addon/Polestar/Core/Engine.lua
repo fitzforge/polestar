@@ -12572,12 +12572,18 @@ Own.LOG_SPARE = 2 -- quest log slots an accept ahead leaves free
 Own.LIMIT_SHARE = 0.6 -- a timed quest taken ahead: the walk on to its hand-in within this share of its time
 Own.GOAL_SECONDS = 10 -- seconds each open goal on that walk costs besides the walking (a talk, a click)
 
--- Quests the log may still take, keeping LOG_SPARE free.
+-- Quests the log may still take, keeping LOG_SPARE free. Read once while
+-- one view, count or While-here build runs (Own.doneMemo: the log does not
+-- change in it); the While-here build asks it for each hand-in's visit.
 function Own.logRoom()
+	local m = Own.doneMemo
+	if m and m.logRoom then return m.logRoom end
 	local C = Compat()
 	-- Compat.GetLogCap: Forever's client answers 0 to GetMaxNumQuestsCanAccept
 	-- (Fitz on 0.3.6: no accept ahead with 14 quests of 40 in the log).
-	return C.GetLogCap() - Own.LOG_SPARE - #C.GetLogQuests()
+	local room = C.GetLogCap() - Own.LOG_SPARE - #C.GetLogQuests()
+	if m then m.logRoom = room end
+	return room
 end
 
 Own.READY_NONE = {} -- Own.aheadOk's `ready` when nothing is handed in first: every prerequisite must be done

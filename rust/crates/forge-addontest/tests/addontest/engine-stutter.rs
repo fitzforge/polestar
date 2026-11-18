@@ -263,3 +263,37 @@ fn the_progress_count_asks_each_goal_and_step_once() {
 	// Base: 853 quest-log reads per count.
 	assert_eq!(out, json!({ "done": 6, "total": 30, "d2": 6, "t2": 30, "calls": 258, "calls2": 258, "step": 1 }));
 }
+
+// The While-here build (Own.hereBuild, the frame after each evaluation) read the whole quest log (Own.logRoom)
+// for each hand-in it weighed; now one build, like a step's view, reads the log's room and each goal's done
+// answer once. The lines are the same.
+#[test]
+fn the_while_here_build_reads_the_quest_log_once() {
+	let out = run(
+		vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local steps = {{ {{ title = "Start", goals = {{ {{ t = "goto", map = 1429, x = 40, y = 40, text = "Here" }}, {{ t = "level", level = 30 }} }} }} }}
+		for i = 1, 12 do
+			local q = 2000 + i
+			steps[#steps + 1] = {{ title = "Hand in " .. i, goals = {{ {{ t = "turnin", quest = q, title = "Q" .. q, map = 1429, x = 40 + i * 0.2, y = 40, npc = 300 + i }} }} }}
+		end
+		Polestar.RegisterGuide({{ id = "test/here", pack = "test", title = "Here", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = steps }})
+		E = Polestar.Engine
+		stub.login(); stub.advance(0.25)
+		for i = 1, 12 do stub.world.accept(2000 + i, {{ 1 }}) end
+		for i = 1, 12 do stub.world.finish(2000 + i) end
+		E.SetGuide("test/here"); stub.advance(0.5)
+		local reads, n = 0, C_QuestLog.GetNumQuestLogEntries
+		C_QuestLog.GetNumQuestLogEntries = function(...) reads = reads + 1 return n(...) end
+		local list = {{}}
+		stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.5)
+		for _, e in ipairs(E.GetWhileHereList and E.GetWhileHereList() or {{}}) do list[#list + 1] = e.quest or (e.goal and e.goal.quest) or e.kind end
+		emit({{ reads = reads, step = E.GetStepIndex(), lines = #list }})"#
+		),
+	);
+	// Base: 7 reads of the log over the update.
+	assert_eq!(out, json!({ "reads": 3, "step": 1, "lines": 3 }));
+}
