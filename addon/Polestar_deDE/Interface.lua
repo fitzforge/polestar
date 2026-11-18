@@ -4772,6 +4772,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
 
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
