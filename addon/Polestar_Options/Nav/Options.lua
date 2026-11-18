@@ -31,7 +31,7 @@ if Nav.journey then
 	register({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {
-			H({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
+			H({ kind = "dropdown", key = "nav.routeStyle", label = L["Which way to walk"],
 				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
 				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
 		},

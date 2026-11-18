@@ -36,6 +36,11 @@ local NEW = "0.3.8"
 local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-bridge"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
+-- A reference's own help, with the hand-off note its home carries (Nav.HandoffOption).
+local function handoffHelp(text)
+	local N = ns.Nav
+	return N and N.HandoffOption and N.HandoffOption({ help = text }).help or text
+end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 
 -- What each control waits for.
@@ -490,6 +495,8 @@ register(L["Route lines"], {
 		search = "opacity, transparency, alpha, faint, minimap, see through, hide on minimap, radar",
 		extras = {
 			Ref("toggle", "nav.minimapRoute", { label = L["Route on the minimap"],
+				-- Its home's help points to this page; here it says what the switch does.
+				help = handoffHelp(L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map."]),
 				disabled = function() return off() or not ns.Get("nav.minimapPins") end }),
 		} },
 	minimapSize("line"), minimapSize("dots"), minimapSize("sparkle"),

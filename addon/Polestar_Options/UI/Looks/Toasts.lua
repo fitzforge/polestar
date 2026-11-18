@@ -443,18 +443,18 @@ cardSection(RARE, "rare", L["rare alert"], { tail = {
 local HEADS = L["Heads-up card"]
 cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sits on the guide window, at the window's scale times this."],
 	preview = function(view) return TS.Preview(view, "headsup") end, lead = {
-	{ kind = "slider", key = "toasts.headsup.seconds", label = L["Goes after"], min = 0, max = 120, step = 5, new = NEW,
+	{ kind = "slider", key = "toasts.headsup.seconds", label = L["Stays for"], min = 0, max = 120, step = 5, new = NEW,
 		format = function(v) return v < 1 and L["Never"] or secs(v) end,
 		help = L["The card for a class quest or a dungeon that opened up stays on the guide window until you answer it; set a time and it goes by itself, as Later does."],
 		search = "duration, how long, seconds, dismiss, timeout, class quest, dungeon, heads up" },
 	-- Its home is Discovery > Lookup, with the dungeon journal's switch.
 	Ref("toggle", "dungeons.headsUp", { label = L["Dungeons"], disabled = function() return not ns.Get("dungeons.enabled") end }),
-	{ kind = "dropdown", key = "toasts.headsup.place", label = L["Place"], new = NEW,
+	{ kind = "dropdown", key = "toasts.headsup.place", label = L["Where it shows"], new = NEW,
 		help = L["Where the card goes: on the guide window's top edge (under the window when the screen has no room above), under its bottom edge (over it when there is no room below), or on a spot of its own that you move with Move frames."],
 		search = "position, place, where, above, below, under, over the tracker, detach, detached, own spot, move, heads up, card, class quest, dungeon, suggestion",
 		choices = { { value = "above", label = L["Above the window"] }, { value = "below", label = L["Below the window"] },
 			{ value = "free", label = L["Its own spot"] } } },
-	{ kind = "toggle", key = "toasts.headsup.compact", label = L["Compact"], new = NEW,
+	{ kind = "toggle", key = "toasts.headsup.compact", label = L["Compact card"], new = NEW,
 		help = L["One line: its icon, its title and its button. Hover it for the rest; its other choices are in its menu."],
 		search = "compact, small, smaller, slim, one line, minimal, heads up, card, class quest, dungeon, suggestion" },
 	{ kind = "button", button = L["Move"], label = L["Its spot"], new = NEW,

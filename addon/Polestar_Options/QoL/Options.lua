@@ -248,7 +248,7 @@ register(QUESTING, L["Quests"], L["Quest log"], {
 -- Quest items: Quests/AuctionBuys.lua and UI/AuctionBuys.lua (the guide's card, the reminder in a town and the
 -- list), with the bag marks and the buy-back offer of Quests/Options.lua.
 register(QUESTING, L["Quests"], L["Quest items"], {
-	{ kind = "toggle", key = "qol.auctionBuys", label = L["Auction house buys"],
+	{ kind = "toggle", key = "qol.auctionBuys", label = L["Quest items to buy at the auction house"],
 		help = L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."],
 		search = "auction house, ah, auctioneer, buy, materials, shopping list, quest items, reagents" },
 })
@@ -403,7 +403,7 @@ local XP = L["Leveling"]
 register(QOL, XP, L["Experience"], {
 	{ kind = "toggle", key = "qol.questXPOverlay", label = L["Completed quest XP"],
 		help = L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."], search = "quest xp, experience bar, turn in" },
-	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],
+	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest timer"],
 		help = L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."],
 		search = "boosted rest, campfire, sit, rested, sleeping bag, camp, cozy sleeping bag" },
 })

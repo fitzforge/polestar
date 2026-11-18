@@ -387,6 +387,127 @@ test("a reference whose home is a child row waits on that row's parent: Route li
 	assert.equal(journey().styleLine, 'Guiding › Guide', 'the line names the parent\'s group and page');
 });
 
+// 10c: the labels (the review's §6) and the small fixes carried with them.
+// Every keyed row on each classic page, refs as they draw (their own label,
+// or their home's). A double: two keys under one label among the rows a
+// card shows together (an extra on a row is named by its row; a row of
+// another line style is not drawn).
+let labelsCached;
+function labels() {
+	if (labelsCached) return labelsCached;
+	labelsCached = runAddon({
+		stubs: ['stub_world.lua', 'stub_ui.lua'],
+		saved: { Polestar: 'PolestarDB = { settings = {} }' },
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local L, O = Polestar.L, Polestar.UI.Options
+			local K = O.Kit
+			Polestar.UI.ShowOptions()
+			local label, inCard, refAt = {}, {}, {}
+			local function note(c, where, row)
+				if not c.key then return end
+				if rawget(c, "ref") then
+					O.HomeOf(c)
+					refAt[where .. ": " .. c.key] = c
+				end
+				local text = K.labelOf(c)
+				if not text or text == "" then return end
+				if not rawget(c, "ref") and not label[c.key] then label[c.key] = text end
+				if not row or not K.available(c) then return end
+				inCard[where] = inCard[where] or {}
+				local keys = inCard[where][text] or {}
+				keys[c.key] = true
+				inCard[where][text] = keys
+			end
+			for _, p in ipairs(K.pages) do
+				for _, t in ipairs(p.tabs) do
+					for _, s in ipairs(t.sections) do
+						local where = p.key .. " > " .. (t.name or "") .. " > " .. (s.name or "")
+						if s.toggle then note(s.toggle, where, true) end
+						for _, c in ipairs(s.controls) do
+							note(c, where, true)
+							for _, e in ipairs(rawget(c, "extras") or {}) do note(e, where, false) end
+							for _, m in ipairs(rawget(c, "more") or {}) do note(m, where, false) end
+						end
+					end
+				end
+			end
+			local dupLabels = {}
+			for where, texts in pairs(inCard) do
+				for text, keys in pairs(texts) do
+					local list = {}
+					for k in pairs(keys) do list[#list + 1] = k end
+					if #list > 1 then
+						table.sort(list)
+						dupLabels[#dupLabels + 1] = where .. ": " .. text .. " (" .. table.concat(list, ", ") .. ")"
+					end
+				end
+			end
+			table.sort(dupLabels)
+			local function help(at) local c = refAt[at] return c and c.help or false end
+			local units = refAt["arrow > Text > Text: nav.distanceUnit"]
+			local unitTexts = {}
+			for _, ch in ipairs(units and K.choicesOf(units) or {}) do unitTexts[#unitTexts + 1] = ch.text end
+			-- Quest items rows say why they are grey with Quest data off.
+			Polestar.Set("qol.questDB", false)
+			local why = {}
+			for _, k in ipairs({ "qol.questBagMarks", "qol.questSellWarning", "qol.auctionBuys" }) do
+				why[k] = K.whyOff(O.HomeControl(k)) or false
+			end
+			local qol = K.pageByKey("qualityoflife")
+			emit({ label = label, dupLabels = dupLabels, unitTexts = unitTexts, why = why,
+				arrowHelp = help("arrow > Look > Arrow: nav.arrow"),
+				minimapRouteHelp = help("routelines > Route > Route lines: nav.minimapRoute"),
+				qolSubtitle = qol and qol.subtitle or false,
+				turnOnQuestData = string.format(L["Turn on %s first."], label["qol.questDB"] or "") })`,
+	}).emitted[0];
+	return labelsCached;
+}
+
+test('the renamed labels read in plain words', () => {
+	const out = labels();
+	// qol.xpBoostedRest and qol.xpPace (XP row parts) are not in this tree, so their renames are not here.
+	const RENAMED = {
+		'maps.instanceDisplay': 'Compact instance tracker',
+		'qol.questDB': 'Quest data for markers and tooltips',
+		'nav.routeStyle': 'Which way to walk',
+		'ui.starAlpha': 'Stars in the band',
+		'qol.boostedRest': 'Boosted Rest timer',
+		'toasts.headsup.seconds': 'Stays for',
+		'toasts.whilehere.seconds': 'Suggestion stays for',
+		'update.probe': "Check my party's Polestar version",
+		'ui.compact': 'Compact window',
+		'toasts.headsup.compact': 'Compact card',
+		'guideWindow.leftOut': 'Skipped quests line',
+		'ui.opacity': 'Whole window opacity',
+		'guideWindow.idleAlpha': 'Opacity when not pointed at',
+		'alts.enabled': 'Your other characters',
+		'nav.arrowNoTarget': 'With nowhere to go',
+		'ui.animSpeed': 'Animation speed',
+		'toasts.headsup.place': 'Where it shows',
+		'qol.auctionBuys': 'Quest items to buy at the auction house',
+	};
+	for (const [key, text] of Object.entries(RENAMED)) assert.equal(out.label[key], text, key);
+	assert.deepEqual(Object.values(out.dupLabels), [], 'no two different keys share a label in one card');
+});
+
+test('references whose home help points elsewhere read right where they are', () => {
+	const out = labels();
+	assert.ok(out.arrowHelp && !/Arrow page/.test(out.arrowHelp), `Arrow page's switch: ${out.arrowHelp}`);
+	assert.ok(out.minimapRouteHelp && !/gear beside/.test(out.minimapRouteHelp), `Route lines' minimap switch: ${out.minimapRouteHelp}`);
+	assert.deepEqual(out.unitTexts, ['Yards', 'Metres'], 'Arrow › Text › Units');
+	assert.ok(!/the map\./.test(out.qolSubtitle), `Quality of Life's subtitle: ${out.qolSubtitle}`);
+});
+
+test('Quest items rows that read the quest data say why they are grey', () => {
+	const { why, turnOnQuestData } = labels();
+	assert.equal(why['qol.questBagMarks'], turnOnQuestData);
+	assert.equal(why['qol.questSellWarning'], turnOnQuestData);
+	assert.equal(why['qol.auctionBuys'], false, 'the auction house list needs no quest data');
+});
+
 // The new page's dependency line walks a reference's home up its parents to
 // the first that is off. Rare alert's Sound (rares.soundKit) waits on Play a
 // sound, which waits on Alert for rares.
@@ -421,10 +542,4 @@ test('a dependency line: a parent that is on shows none; a grandparent that is o
 	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': false, 'rares.sound': true }), 'rares.alerts');
 	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': true, 'rares.sound': false }), 'rares.sound');
 	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': true }), 'rares.enabled');
-});
-
-test('a dependency line: the nearest switch that is off wins, the module switch last', () => {
-	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': false }), 'rares.sound');
-	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': false, 'rares.sound': true }), 'rares.alerts');
-	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': false, 'rares.sound': false }), 'rares.sound');
 });

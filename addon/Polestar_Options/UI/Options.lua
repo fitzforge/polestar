@@ -348,7 +348,7 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		-- The toast that says a new suggestion while the guide window is hidden (UI/WhileHere.lua): how long it
 		-- stays. It has no look of its own (the theme's, the shared toast style).
-		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
+		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Suggestion stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
 			format = function(v) return L["%d s"]:format(v) end,
 			help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
 			search = "duration, how long, seconds, time on screen, stays, timeout, toast, while you're here, dynamic questing",
@@ -553,7 +553,7 @@ for _, list in ipairs({
 		{ L["Dungeons"], { L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
 	}),
-	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
+	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags and trackers."], {
 		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
 		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
