@@ -19,7 +19,7 @@ return {
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
 	["Kill and skin {npc:1922} (7), {npc:525} (4), Prowler (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: {npc:1922} (7), {npc:525} (4), Лесной хищник (9), {npc:524} (7), {npc:113} (5), {npc:69} (2), {npc:822} (8), {npc:299} (1) – пока {skill:393} не достигнет 50; обыскивайте каждый труп, потом снимайте шкуру, и свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Здесь есть задание, для которого нужен навык {skill:393}: грубые волчьи шкуры (8-й уровень, {npc:6306}). Уровень зоны: 1-10. Рассчитывайте примерно на 60 зверей для этих 49 очков.",
 	-- {npc:822} Young Forest Bear
-	["{npc:822}, Prowler"] = "",
+	["{npc:822}, Prowler"] = "{npc:822}, рыщун",
 	-- {npc:822} Young Forest Bear
 	["Prowler, {npc:822}"] = "Лесной хищник, {npc:822}",
 
@@ -38,17 +38,17 @@ return {
 
 	-- Step 5: Beasts 1-10: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
-	["Beasts 1-10: {zone:2521} (1-50)"] = "",
+	["Beasts 1-10: {zone:2521} (1-50)"] = "Звери 1-10: {zone:2521} (1-50)",
 	-- {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:250873} Juvenile Vuldren · {npc:251707} Ornery Galestrider · {npc:250926} Scrawny Ursera · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250937} Ursera Scavenger · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler · {skill:393} Skinning
-	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "",
+	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Убивайте и снимайте шкуры с Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) по кругу до навыка {skill:393} 50: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 1-15. На эти 49 очков нужно около 60 зверей.",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Коготь прайда",
-	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Galestrider"] = "Гордый коготь, ветроног",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Коготь прайда, {npc:250928}",
 	["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
-	["Prideclaw, Vuldren"] = "",
-	["Galestrider, Prideclaw"] = "",
+	["Prideclaw, Vuldren"] = "Гордый коготь, вульдрен",
+	["Galestrider, Prideclaw"] = "Ветроног, гордый коготь",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -88,7 +88,7 @@ return {
 	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {npc:547} Great Goretusk · {skill:393} Skinning
 	["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: Койот (10), {npc:833} (11), {npc:454} (12), Жутеклык (14), {npc:547} (15) – пока {skill:393} не достигнет 100; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 10-20. На эти 50 очков уйдет около 120 зверей.",
 	-- {npc:547} Great Goretusk
-	["Goretusk, {npc:547}"] = "",
+	["Goretusk, {npc:547}"] = "Кабанорог, {npc:547}",
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}, Койот",
 	-- {npc:454} Young Goretusk
@@ -131,7 +131,7 @@ return {
 	-- {npc:1778} Ferocious Grizzled Bear
 	["{npc:1778}, Worg"] = "{npc:1778}, Ворг",
 	-- {npc:1766} Mottled Worg
-	["Worg, {npc:1766}"] = "",
+	["Worg, {npc:1766}"] = "Ворг, {npc:1766}",
 	-- {npc:1766} Mottled Worg
 	["{npc:1766}, Worg"] = "{npc:1766}, Ворг",
 
@@ -143,7 +143,7 @@ return {
 
 	-- Step 16: Beasts 19-21: Ashenvale (100-125)
 	-- {zone:1440} Ashenvale
-	["Beasts 19-21: {zone:1440} (100-125)"] = "",
+	["Beasts 19-21: {zone:1440} (100-125)"] = "Звери 19-21: {zone:1440} (100-125)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {skill:393} Skinning
 	["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: {npc:3823} (19), {npc:3809} (21, нужно 105), {npc:3817} (21, нужно 105) – пока {skill:393} не достигнет 125; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 18-30. На эти 25 очков уйдет около 30 зверей.",
 
@@ -169,22 +169,22 @@ return {
 
 	-- Step 21: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
-	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	["Beasts 19-29: {zone:1440} (125-150)"] = "Звери 19-29: {zone:1440} (125-150)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
-	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) по кругу до навыка {skill:393} 150: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 18-30. На эти 25 очков нужно около 40 зверей.",
 
 	-- Step 24: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
-	["Beasts 21-33: {zone:1416} (150-175)"] = "",
+	["Beasts 21-33: {zone:1416} (150-175)"] = "Звери 21-33: {zone:1416} (150-175)",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "",
-	["Snapjaw"] = "",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) по кругу до навыка {skill:393} 175: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 30-40. На эти 25 очков нужно около 40 зверей.",
+	["Snapjaw"] = "Челюсть",
 	-- {npc:2251} Giant Yeti
-	["Snapjaw, {npc:2251}"] = "",
+	["Snapjaw, {npc:2251}"] = "Челюсть, {npc:2251}",
 	-- {npc:2407} Hulking Mountain Lion
-	["Snapjaw, {npc:2407}"] = "",
+	["Snapjaw, {npc:2407}"] = "Челюсть, {npc:2407}",
 	-- {npc:2406} Mountain Lion
-	["Snapjaw, {npc:2406}"] = "",
+	["Snapjaw, {npc:2406}"] = "Челюсть, {npc:2406}",
 
 	-- Step 25: Beasts 30-39: Stranglethorn Vale (175-200)
 	-- {zone:1434} Stranglethorn Vale
@@ -194,9 +194,9 @@ return {
 	-- {npc:682} Stranglethorn Tiger
 	["Panther, {npc:682}"] = "Пантера, {npc:682}",
 	-- {npc:684} Shadowmaw Panther
-	["{npc:684}, Panther"] = "",
+	["{npc:684}, Panther"] = "{npc:684}, пантера",
 	-- {npc:682} Stranglethorn Tiger
-	["{npc:682}, Panther"] = "",
+	["{npc:682}, Panther"] = "{npc:682}, пантера",
 
 	-- Step 26: Artisan Skinning
 	-- {skill:393} Skinning
@@ -206,15 +206,15 @@ return {
 
 	-- Step 27: Beasts 35-41: Swamp of Sorrows (200-225)
 	-- {zone:1435} Swamp of Sorrows
-	["Beasts 35-41: {zone:1435} (200-225)"] = "",
+	["Beasts 35-41: {zone:1435} (200-225)"] = "Звери 35-41: {zone:1435} (200-225)",
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
-	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) по кругу до навыка {skill:393} 225: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 35-45. На эти 25 очков нужно около 30 зверей.",
 
 	-- Step 28: Beasts 45-48: Azshara (225-250)
 	-- {zone:1447} Azshara
 	["Beasts 45-48: {zone:1447} (225-250)"] = "Звери 45-48: {zone:1447} (225-250)",
 	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
-	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) по кругу до навыка {skill:393} 250: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 45-55. На эти 25 очков нужно около 30 зверей.",
 
 	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater
@@ -230,9 +230,9 @@ return {
 
 	-- Step 30: Beasts 51-55: Western Plaguelands (275-300)
 	-- {zone:1422} Western Plaguelands
-	["Beasts 51-55: {zone:1422} (275-300)"] = "",
+	["Beasts 51-55: {zone:1422} (275-300)"] = "Звери 51-55: {zone:1422} (275-300)",
 	-- {npc:1815} Diseased Black Bear · {npc:1817} Diseased Wolf · {npc:1816} Diseased Grizzly · {skill:393} Skinning
-	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) по кругу до навыка {skill:393} 300: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 51-58. На эти 25 очков нужно около 30 зверей.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "Любой учитель вашей фракции ({skill:393}) обучает навыку {skill:393}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему. Купите у торговца товарами или припасами: {item:7005} – и держите в сумке, без него снимать шкуры нельзя.",
