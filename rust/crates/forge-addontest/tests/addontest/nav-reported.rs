@@ -779,6 +779,21 @@ fn booty_bay_gringer_to_scooty_drops_to_the_lower_deck_but_never_climbs_back_up(
 	assert!(!up.windows(2).any(|p| crosses(&p[1], &p[0])), "the return climbs the drop");
 }
 
+#[test]
+fn booty_bay_the_walk_from_the_flight_platform_uses_the_western_deck_edge() {
+	let platform = Pt { c: 0, x: -14473.0, y: 464.1, z: Some(36.54) };
+	let vendor = Pt { c: 0, x: -14455.1, y: 492.8, z: Some(15.2) };
+	let down = points(&walk(platform, vendor, Some("Alliance")));
+	let yards = yards_of(&down);
+	assert!(yards < 90.0, "the walk from the flight platform goes round: {yards:.0} yd");
+	let falls = |a: &P, b: &P| {
+		(a.0 + 14467.7).hypot(a.1 - 492.7) < 6.0 && (b.0 + 14465.6).hypot(b.1 - 490.6) < 6.0 && a.2.unwrap() - b.2.unwrap() > 9.0
+	};
+	assert!(down.windows(2).any(|p| falls(&p[0], &p[1])), "leave the deck over the recorded edge");
+	let up = points(&walk(vendor, platform, Some("Alliance")));
+	assert!(!up.windows(2).any(|p| falls(&p[1], &p[0])), "the return walks up a one-way drop");
+}
+
 // Dun Morogh (65.04, 58.34 to 65.67, 58.47): down the slope from Earthseer Farsen's ledge, 31 yd straight; players walk
 // straight down, the walking maps went round (138 yd). A step join where the slope's upper part meets its lower one.
 #[test]
