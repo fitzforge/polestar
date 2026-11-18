@@ -29,9 +29,11 @@ zone Undercity
 # Report to Danitha is a lead-in, not a prerequisite: one player who never
 # had it was offered A Paladin's Steed by Danitha at 40 after training at the
 # keep, and QuestieDB's Forever data gives A Paladin's Steed no prerequisite
-# (forever-db/corrections/quests.json, 94971 and 97022). The guide takes it
-# anyway: it pays XP, and the Undercity's trainer is where most Forsaken
-# paladins train at 40.
+# (forever-db/corrections/quests.json, 94971). The guide takes it anyway: it
+# pays XP, and the Undercity's trainer is where most Forsaken paladins train
+# at 40.
+# The keep's south gate (22.0,49.4, live frame) is where all 5 recorded
+# players came in from the road west, before climbing to Danitha.
 # The level 60 Forsaken Charger chain (A Worthy Endeavor 97174 and on) is not
 # here: Forever's data has no givers or steps for most of it and no recording
 # shows it yet.
@@ -46,6 +48,7 @@ step Danitha Morr
   zone Tirisfal Glades
   when onquest 97022
   tip Bandarion Keep stands on the bluffs in western Tirisfal, north-west of the Solliden Farmstead: leave the Undercity and follow the road west past Brill. Danitha Morr is inside the keep, upstairs.
+  goto 22.0,49.4 "Bandarion Keep's south gate" live
   turnin 97022                        -- Danitha Morr
 
 step Summon Warhorse
