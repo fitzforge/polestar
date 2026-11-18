@@ -267,8 +267,17 @@ fn encode_source(src: &V) -> Result<String, String> {
 	}
 	parts.push(from_letters(&src.get("from"))?);
 	let requires = src.get("requiresQuests");
-	if matches!(ty.as_str(), "drop" | "object") && requires.is_arr() && !requires.is_empty() {
+	let has_requires = matches!(ty.as_str(), "drop" | "object") && requires.is_arr() && !requires.is_empty();
+	if has_requires {
 		parts.push(esc(&V::str(&list(&requires)?)));
+	}
+	// An object's instance (#2883) after the requires tail (empty when there is none), so readers that
+	// know only the requires tail ignore it.
+	if ty == "object" && src.get("instance").truthy() {
+		if !has_requires {
+			parts.push(String::new());
+		}
+		parts.push(esc(&src.get("instance")));
 	}
 	Ok(format!("{letter}{}", parts.join(",")))
 }

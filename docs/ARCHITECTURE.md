@@ -1718,7 +1718,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 #### Smart logic
 
 - **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, z?, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
-  (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT).
+  (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT;
+  `skill … nearest` gives places with no `npc`: the step's gotos, #2529).
   The Engine filters by the character's faction (and races/classes when given),
   then picks the cheapest by `Polestar.Nav.EstimateTravel(from, to)` seconds when
   Nav provides it, else world distance on the same continent with a large penalty

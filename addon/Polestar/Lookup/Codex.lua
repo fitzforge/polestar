@@ -260,6 +260,12 @@ local function decodeSource(field)
 	if (src.type == "drop" or src.type == "object") and requires and requires ~= "" then
 		src.requiresQuests = numbers(unesc(requires))
 	end
+	-- After it, an object's instance (#2883): the dungeon players loot it in,
+	-- an object no other source places (Maraudon's vial).
+	if src.type == "object" then
+		local inst = parts[#fields + 3]
+		if inst and inst ~= "" then src.instance = unesc(inst) end
+	end
 	if src.type == "craft" and src.skillLine then
 		src.profession = nameOf("skill", src.skillLine)
 	end

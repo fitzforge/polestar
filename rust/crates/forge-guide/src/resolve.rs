@@ -1486,6 +1486,66 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 	step.set("goals", kept);
 }
 
+/// `skill <Profession> <N> nearest` (#2529): the step's `goto` points are the places to do it, each for the
+/// characters its own `only` and the step's name (faction, races, classes). They become the goal's
+/// `candidates`, so the arrow leads to the one nearest the player when the step comes up, as for
+/// `train … nearest`; the gotos leave the step.
+fn apply_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
+	let sgoals = s.get("goals").items();
+	let Some(at) = sgoals.iter().position(|g| g.get("verb").as_str() == Some("skill") && g.get("nearest").truthy()) else { return };
+	let ln = sgoals[at].get("line");
+	if s.get("loop").truthy() {
+		return r.err(&ln, "`skill … nearest` picks one of the step's points, `loop` walks them all: drop one of the two", None);
+	}
+	if sgoals[at].get("explicitCoords").truthy() {
+		return r.err(&ln, "`skill … nearest` takes its places from the step's `goto` points: drop `@x,y`", None);
+	}
+	let goals = step.get("goals").items();
+	let gotos: Vec<V> = goals.iter().filter(|g| g.get("t").as_str() == Some("goto")).cloned().collect();
+	if gotos.iter().any(|g| g.get("x").is_undef()) {
+		return;
+	}
+	if gotos.len() < 2 {
+		return r.err(&ln, "`skill … nearest` needs at least two `goto` points in its step", Some("list the places as `goto x,y` lines; for one place, drop `nearest`"));
+	}
+	if let Some(own) = gotos.iter().find(|g| g.get("optional").truthy()) {
+		return r.err(&own.hidden("_line"), "a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick", None);
+	}
+	let outer = step.get("only");
+	let pick = |o: &V, k: &str| -> V {
+		let v = o.get(k);
+		if v.is_undef() {
+			outer.get(k)
+		} else {
+			v
+		}
+	};
+	let candidates: Vec<V> = gotos
+		.iter()
+		.map(|g| {
+			let o = g.get("only");
+			let c: V = obj! { "map" => g.get("map"), "x" => g.get("x"), "y" => g.get("y") }.into();
+			set_if(&c, "f", g.get("f"));
+			let mut sides = pick(&o, "factions").items();
+			if sides.is_empty() && faction.truthy() {
+				sides = vec![faction.clone()];
+			}
+			let tag = match sides.first().and_then(|s| s.as_str()) {
+				Some("Alliance") if sides.len() == 1 => "A",
+				Some("Horde") if sides.len() == 1 => "H",
+				_ => "AH",
+			};
+			c.set("faction", tag);
+			set_if(&c, "races", pick(&o, "races"));
+			set_if(&c, "classes", pick(&o, "classes"));
+			c
+		})
+		.collect();
+	goals[at].set("candidates", candidates);
+	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
+	step.set("goals", kept);
+}
+
 /// A step only a player who chose the group way follows: `when group <quest>`, `when dungeon "<Name>"`.
 fn opt_in_step(step: &V) -> bool {
 	step.get("when").items().iter().any(|p| !p.get("neg").truthy() && matches!(p.get("k").as_str(), Some("group") | Some("dungeon")))
@@ -1920,7 +1980,9 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 			let gmap = goal.get("map");
-			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) {
+			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
+			let nearest_place = g.get("verb").as_str() == Some("goto") && s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy());
+			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) && !nearest_place {
 				let name = |id: &V| {
 					let z = data.zone(id);
 					if z.truthy() && z.get("name").truthy() {
@@ -1994,6 +2056,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 		}
+		apply_nearest(&step, s, &guide.get("faction"), r);
 		gsteps.push(step);
 	}
 	if route_needs_group(&gsteps.items()) {
