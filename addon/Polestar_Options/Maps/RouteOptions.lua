@@ -390,7 +390,7 @@ local function buildPreview(view)
 		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
 		["nav.walkColor"] = { walkLeg, mm }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
 		["nav.walkedFade"] = { walkLeg }, ["nav.routeChevrons"] = { walkLeg, flightLeg }, ["nav.flightDash"] = { flightLeg },
-		["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
+		["nav.dangerLine"] = { walkLeg }, ["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
 		["nav.sparkleColor"] = both, ["nav.sparkleSize"] = both, ["nav.sparkleIntensity"] = both, ["nav.sparkleSubtlety"] = both,
 		["nav.sparkleDensity"] = both, ["nav.sparkleMax"] = both, ["nav.sparkleFlow"] = both, ["nav.sparkleLater"] = { boatLeg },
 		["nav.flightColor"] = { flightLeg, legendItems[1] }, ["nav.boatColor"] = { boatLeg, legendItems[2] },
