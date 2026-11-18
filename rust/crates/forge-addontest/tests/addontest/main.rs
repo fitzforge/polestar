@@ -126,6 +126,8 @@ mod engine_grind;
 mod engine_group_default;
 #[path = "engine-guide-end.rs"]
 mod engine_guide_end;
+#[path = "engine-hearth-room.rs"]
+mod engine_hearth_room;
 #[path = "engine-heights.rs"]
 mod engine_heights;
 #[path = "engine-keep.rs"]

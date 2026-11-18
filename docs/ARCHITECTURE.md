@@ -1737,6 +1737,7 @@ Polestar.Engine.SkipUpTo(i) -> n             -- party sync accepted: skip the op
 Polestar.Engine.GetLiveStep() -> i | nil    -- the first open step, whatever step is shown
 Polestar.Engine.LevelTarget(level?) -> N, stepIndex, frac | nil   -- the first `level N` goal from the step shown for this character (step `only`/`when`, goal `only`; skips left out) with N above `level` (default: the character's), or a point inside that level (`frac`) not reached yet; QoL's XP bar mark
 Polestar.Engine.KeptItems() -> { [itemID] = stepIndex }   -- items the active guide still needs in the bags (see "Items kept for later"); built once per evaluation, read only
+Polestar.Engine.HearthBeforeHome() -> true | false | nil  -- from the live step on, a `hearth` for this character before any `sethome` still to do (true), a `sethome` first or neither (false); nil with no guide or live step (QoL/Space.lua's level 1 Hearthstone offer)
 Polestar.Engine.StartGate(id) -> gate | nil -- a Class guide this character cannot start yet: { level } or { pre, preTitle }, with giver, map (see "Not yet available")
 Polestar.Engine.AwayStart(id) -> away | nil -- another race's starting zone the player has not reached: { races, zone, zoneName } (see "Another race's starting zone")
 Polestar.Engine.GoalDone(stepIndex, goalIndex) -> bool     -- the goal is done (live state, arrival or check-off); Nav/Walk.lua's FollowsGoto asks it of a guide `goto`
@@ -7830,6 +7831,10 @@ Polestar.QoL.Space.Low() -> bool                          -- qol.bagSpace on and
 Polestar.QoL.Space.Press() -> "equipped" | "armed" | "deleted" | "none" | "busy" | "off"
 Polestar.QoL.Space.Banner() -> { free, spare, junk, armed } | nil -- while low and the live step has an open collect goal
 Polestar.QoL.Space.Dismiss()                              -- the banner, until the bags have room again
+Polestar.QoL.Space.HearthOffer() -> { bag, slot, id, link } | nil -- a level 1 character's Hearthstone to delete
+Polestar.QoL.Space.HearthBanner() -> { link, id, armed } | nil   -- the guide window's notice for it
+Polestar.QoL.Space.PressHearth() -> "armed" | "deleted" | "none" | "busy" | "off"
+Polestar.QoL.Space.KeepHearth()                           -- never offered again (QoL.State().hearthKept)
 ```
 
 - **Marks** (`qol.itemMarks`, on): Ctrl+Alt (no Shift) on a modified item
@@ -7873,6 +7878,18 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
   `CLICK PolestarBagButton:LeftButton`) and the banner's "Delete it" link
   both call it; the button's action runs in its `PostClick`, with no secure
   attribute.
+- **A level 1 Hearthstone** (with `qol.bagSpace`): a level 1 character on
+  a guide is offered its Hearthstone to delete, whatever the free slots and
+  the live step, since an innkeeper hands out a new one with the bind. Only
+  while the guide sets a home before it hearths
+  (`Engine.HearthBeforeHome() == false`: from the live step on, the first
+  `hearth` goal for the character, counted even in a step whose `when`
+  fails now, against the first `sethome` in a step that applies and not yet
+  done; skipped steps and goals count for neither), and never while it is
+  protected (`Marks.Protected`: marked to keep, or a later `use`). The guide
+  window's banner shows it before the bags' notice: "Delete it" takes the
+  same two presses (`PressHearth`), "Keep it" or closing it ends the offer
+  for the character (`QoL.State().hearthKept`).
 - **Bag button position.** Apart from the quest item, Hearthstone, target
   and rare buttons (one holder, `QoL.State().buttonPos`), the bag button has
   its own spot, `QoL.State().bagButtonPos` (per character; unset: two slots
@@ -7883,10 +7900,12 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
   clears both. Once per character (`bagButtonOwn`), a set moved before the
   bag button had its own spot hands it that old slot (the set's position
   plus 88), so it stays where it was on screen.
-- **Updates**: `BAG_UPDATE_DELAYED` and `ITEM_MARKS`, coalesced; the free
-  count always, the cheapest junk only while the bags are low. `BAG_SPACE`
-  goes out when the count, the junk or the armed state changes (the button
-  and the guide window listen).
+- **Updates**: `BAG_UPDATE_DELAYED`, `ITEM_MARKS`, `PLAYER_LEVEL_UP` and
+  the step messages (`QoL.OnStep`), coalesced; the free count always, the
+  cheapest junk only while the bags are low, the level 1 Hearthstone offer
+  (the guide read only with the Hearthstone in the bags). `BAG_SPACE` goes
+  out when the count, the junk, the Hearthstone offered or an armed state
+  changes (the button and the guide window listen).
 
 ### Gear from loot and merchants — QoL/Wear
 

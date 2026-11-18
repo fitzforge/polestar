@@ -37,7 +37,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- (while its guide is active), then the training reminder, the riding one,
 	-- then a Class guide that just opened (QoL/ClassQuests.lua), then a flight
 	-- map to open once where Polestar doesn't know the flight paths yet (#1795),
-	-- then the bags nearly full while the step collects (QoL/Space.lua: delete
+	-- then a level 1 character's Hearthstone to delete for room while the guide
+	-- sets a home before any hearth (QoL/Space.lua: Delete it, two clicks; Keep
+	-- it, for good), then the bags nearly full while the step collects (QoL/Space.lua: delete
 	-- the cheapest junk, two clicks), then gear worth wearing from loot or a
 	-- merchant (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
 	-- build (UI/UpdateCard.lua: Update; shown with no guide open too). Taking
@@ -198,6 +200,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local tm = taxiMapNotice()
 		if tm then return "taxiMap", tm end
 		local Q = ns.QoL
+		local hr = Q and Q.Space and Q.Space.HearthBanner and Q.Space.HearthBanner()
+		if hr then return "hearthRoom", hr end
 		local bags = Q and Q.Space and Q.Space.Banner and Q.Space.Banner()
 		if bags then return "bags", bags end
 		local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
@@ -659,6 +663,13 @@ ns.UI.GuideFrame.Part(function(GF)
 				oneLine = true
 			end
 			banner.Close:Show()
+		elseif kind == "hearthRoom" then
+			banner.Icon:SetTexture(Theme.Media("icon-hearth"))
+			banner.Text:SetText(string.format(L["Level 1: delete %s for a free bag slot?"], n.link or L["your Hearthstone"])
+				.. "\n" .. L["The innkeeper gives you a new one when the guide sets your home at an inn."])
+			local w = placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
+			placeLink(banner.Later, L["Keep it"], w + 10, -4)
+			banner.Close:Show()
 		elseif kind == "wear" then
 			banner.Icon:SetTexture(Theme.Media("icon-use"))
 			local G = ns.Gear
@@ -764,6 +775,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			if E and E.OpenTab then E.OpenTab(n.guideId) end
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
+		elseif kind == "hearthRoom" then
+			-- The first click arms the Hearthstone, the second deletes it.
+			ns.QoL.Space.PressHearth()
 		elseif kind == "bags" then
 			-- Equips a spare bag; else the first click arms the item, the second deletes it.
 			ns.QoL.Space.Press()
@@ -801,8 +815,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Dismiss the visible notice (training: until the next due level; a step on
 	-- screen that is not the live one: until another step is; a Class guide: for
 	-- good, or with `later` (the Later link) until a higher level; the bags:
-	-- until they have room again; a gear offer: that copy only; a fresh start:
-	-- that guide's, for the session).
+	-- until they have room again; the level 1 Hearthstone offer: for good; a
+	-- gear offer: that copy only; a fresh start: that guide's, for the
+	-- session).
 	function GF.DismissBanner(later)
 		local kind, n = bannerNotice()
 		if kind == "trip" then
@@ -831,6 +846,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			flags.taxiMapAsked = flags.taxiMapAsked or {}
 			flags.taxiMapAsked[n] = true
 			notices.taxiMap = nil
+		elseif kind == "hearthRoom" then
+			-- Keep it, or closed: the offer never comes again for this character
+			ns.QoL.Space.KeepHearth()
 		elseif kind == "bags" then
 			ns.QoL.Space.Dismiss()
 		elseif kind == "wear" then

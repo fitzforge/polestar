@@ -22,8 +22,16 @@
 -- in between is left alone, and the next press arms afresh). Nothing is
 -- ever deleted any other way.
 --
--- Fires BAG_SPACE when the free count, the spare bag, the cheapest junk or
--- the armed item changes.
+-- Whatever the free slots, a level 1 character on a guide is offered its
+-- Hearthstone to delete, for one more slot (Space.HearthOffer, the guide
+-- window's banner only): an innkeeper gives a new one with the bind, so the
+-- guide's first `sethome` brings it back. Not when the guide has the
+-- character hearth before that (Engine.HearthBeforeHome), and never again
+-- once kept (Keep it, or the banner closed: QoL.State().hearthKept). The
+-- same two presses delete it (Space.PressHearth).
+--
+-- Fires BAG_SPACE when the free count, the spare bag, the cheapest junk,
+-- the Hearthstone offered or an armed item changes.
 --
 -- Client: C_Container.GetContainerNumFreeSlots (bagFamily 0: any item),
 -- GetContainerItemInfo, PickupContainerItem; CursorHasItem, DeleteCursorItem;
@@ -47,6 +55,8 @@ local free, total = 0, 0
 local junk         -- { bag, slot, id, count, value, link }: the cheapest junk, or nil
 local spare        -- { bag, slot, id, link, into }: a bag to equip, or nil
 local armed        -- { bag, slot, id, at }
+local hearth       -- { bag, slot, id, link }: the Hearthstone to offer, or nil
+local hearthArmed  -- { bag, slot, id, at }
 local dismissed = false
 local sig
 
@@ -124,6 +134,39 @@ function Space.SpareBag()
 	return nil
 end
 
+-- The level 1 offer to delete the Hearthstone: { bag, slot, id, link } while
+-- bagSpace is on, the character is level 1, the guide has a live step and
+-- sets a home before any hearth (Engine.HearthBeforeHome() == false), the
+-- player has not kept it, and it is not protected (marked to keep, or a later
+-- step uses it: Marks.Protected); else nil.
+function Space.HearthOffer()
+	if not QoL.On("bagSpace") or QoL.State().hearthKept then return nil end
+	local level = ns.Compat.Readable(UnitLevel and UnitLevel("player"))
+	if level ~= 1 then return nil end
+	-- The bags first: with no Hearthstone in them, the guide is never read.
+	local id, found = Client.HEARTHSTONE, nil
+	for bag = 0, Client.NumBags() do
+		for slot = 1, Client.NumSlots(bag) do
+			local info = Client.SlotInfo(bag, slot)
+			if info and info.itemID == id and not info.isLocked then
+				found = { bag = bag, slot = slot, id = id, link = info.hyperlink }
+				break
+			end
+		end
+		if found then break end
+	end
+	if not found or QoL.Marks.Protected(id) then return nil end
+	local E = ns.Engine
+	if not (E and E.HearthBeforeHome and E.HearthBeforeHome() == false) then return nil end
+	return found
+end
+
+-- The armed Hearthstone is the one offered still.
+local function hearthIsArmed()
+	local a, h = hearthArmed, hearth
+	return a ~= nil and h ~= nil and a.bag == h.bag and a.slot == h.slot and a.id == h.id
+end
+
 function Space.Threshold()
 	return tonumber(ns.Get("qol.bagsLow")) or 0
 end
@@ -147,6 +190,7 @@ local function signature()
 	return free .. ":" .. total .. ":" .. (j and (j.bag .. "/" .. j.slot .. "/" .. j.id .. "/" .. j.count) or "-")
 		.. ":" .. (b and (b.bag .. "/" .. b.slot .. "/" .. b.id .. ">" .. b.into) or "-")
 		.. ":" .. (Space.Armed() and "armed" or "") .. ":" .. (Space.Low() and "low" or "") .. ":" .. (dismissed and "d" or "")
+		.. ":" .. (hearth and (hearth.bag .. "/" .. hearth.slot) or "-") .. ":" .. (hearthIsArmed() and "harmed" or "")
 end
 
 -- Reads the bags again; fires BAG_SPACE when something shown changed.
@@ -155,6 +199,7 @@ function Space.Refresh()
 	spare = Space.Low() and QoL.On("spareBag") and Space.SpareBag() or nil
 	junk = Space.Low() and Space.Cheapest() or nil
 	if not Space.Low() then dismissed = false end
+	hearth = Space.HearthOffer()
 	local s = signature()
 	if s ~= sig then
 		sig = s
@@ -220,6 +265,57 @@ function Space.Press()
 	return "armed"
 end
 
+-- The banner's link on the Hearthstone offer: the first press arms it for
+-- ARM seconds, the second deletes it once its slot is read again and still
+-- holds it. -> "armed", "deleted", "none" (no offer), "busy" (the cursor
+-- holds something) or "off".
+function Space.PressHearth()
+	if not QoL.On("bagSpace") then return "off" end
+	Space.Refresh()
+	local h = hearth
+	if not h then
+		hearthArmed = nil
+		return "none"
+	end
+	local now = GetTime()
+	if hearthIsArmed() and now - hearthArmed.at <= ARM then
+		hearthArmed = nil
+		local info = Client.SlotInfo(h.bag, h.slot)
+		local result = "busy"
+		if info and info.itemID == h.id and not info.isLocked and Client.DeleteSlot(h.bag, h.slot) then
+			ns.Print(format(L["Deleted %s."], h.link or (L["Item"] .. " " .. h.id)))
+			result = "deleted"
+		end
+		Space.Refresh()
+		return result
+	end
+	local this = { bag = h.bag, slot = h.slot, id = h.id, at = now }
+	hearthArmed = this
+	if C_Timer and C_Timer.After then
+		ns.After(ARM, function()
+			if hearthArmed == this then
+				hearthArmed = nil
+				Space.Refresh()
+			end
+		end)
+	end
+	Space.Refresh()
+	return "armed"
+end
+
+-- Keep the Hearthstone: the offer never comes again for this character.
+function Space.KeepHearth()
+	QoL.State().hearthKept = true
+	hearthArmed = nil
+	Space.Refresh()
+end
+
+-- The guide window's banner for the offer: { link, armed } or nil.
+function Space.HearthBanner()
+	if not hearth then return nil end
+	return { link = hearth.link, id = hearth.id, armed = hearthIsArmed() }
+end
+
 local function collecting()
 	local view, raw = QoL.CurrentStep()
 	if not (view and raw) then return false end
@@ -245,6 +341,8 @@ end
 
 ns.OnLogin(Space.Refresh)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
+ns.RegisterEvent("PLAYER_LEVEL_UP", refreshSoon)
+QoL.OnStep(refreshSoon)
 ns.On("ITEM_MARKS", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" or path == "qol.spareBag" then refreshSoon() end

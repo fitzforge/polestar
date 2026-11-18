@@ -15095,6 +15095,37 @@ function Engine.LevelTarget(level)
 	return nil
 end
 
+-- Whether the active guide, from the live step on, has this character hearth
+-- before it sets a home at an inn (QoL/Space.lua: a level 1 character's
+-- Hearthstone can go to make room only when the guide's first `sethome`
+-- comes first; binding at an innkeeper gives a new one). A `hearth` goal for
+-- this character counts even in a step whose `when` fails now (it may hold
+-- by then); a `sethome` only in a step that applies, and not once done (the
+-- Hearthstone is bound there already, so a later hearth needs it). Steps and
+-- goals the player skipped count for neither.
+-- -> true (a hearth first), false (a sethome first, or neither), nil with no
+-- guide or no live step.
+function Engine.HearthBeforeHome()
+	local live = computed
+	if not (guide and live) then return nil end
+	if not player then refreshPlayer() end
+	local sk = skippedFor(guide.id)
+	for s = live, #guide.steps do
+		local step = guide.steps[s]
+		if not (sk and sk[s]) and not Own.gone(step) and Guides.Matches(step.only, player) then
+			local applies = stepApplies(step)
+			for g, goal in ipairs(step.goals) do
+				local t = goal.t
+				if (t == "hearth" or t == "sethome") and not (sk and sk[Own.key(s, g)]) and goalApplies(goal) then
+					if t == "hearth" then return true end
+					if applies and not goalDone(s, g, goal) then return false end
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Items the active guide still needs in the bags, so they are kept, never
 -- sold (QoL/Vendor.lua, QoL/Keep.lua): from the live step on, a `use` goal's
 -- item, a `collect`'s, a `buy`'s or `auction`'s, a `craft`'s reagents and the item an
