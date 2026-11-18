@@ -843,8 +843,9 @@ T.SkinHookValue = function(surface, ...)
 end
 Polestar.Set("behavior.autoAccept", false)
 Polestar.Set("ui.launcher", true)
--- Up next on, for its rows (guideUpRow).
+-- Up next on and open, for its rows (guideUpRow) and their height (guideSpace "upRow"): folded, nothing asks a gap.
 Polestar.Set("ui.upcoming", 2)
+Polestar.Set("ui.upcomingOpen", true)
 E.SetGuide("test/class/call-of-water"); stub.advance(3)
 -- The skin, chosen with the window on screen.
 Polestar.Set("ui.skin", "moonlit")

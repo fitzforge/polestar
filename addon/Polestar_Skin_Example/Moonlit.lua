@@ -258,6 +258,13 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 		guideShows = function(name, default)
 			return default
 		end,
+		-- A gap or height in the window's layout: "upRow", "lastRow",
+		-- "upnextFoot", "upAbove", "tipPad", "tipGap", "xpRow", "xpRoom"; `px`
+		-- is Polestar's own (the player's sizes on it). Answer a number of 0 or
+		-- more, or nil to keep px. Moonlit keeps them all.
+		guideSpace = function(name, px)
+			return nil
+		end,
 		-- The cards on the guide window: "headsup" (a class quest or dungeon
 		-- heads-up) and "classcard" (the class quest card in the window);
 		-- parts: titles, bodies (the strings Polestar sizes), accents.
