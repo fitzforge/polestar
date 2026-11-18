@@ -43,6 +43,14 @@ function run(script, before = '') {
 		addons: [{ name: 'Polestar', files: FILES }],
 		script: `uistub.install()
 stub.login()
+-- Pin the window size to the skin's pickerW, so the geometry is the same where the
+-- Guides window follows W.ShellDefaultSize (read live: a test may override pickerW).
+do
+	local W = Polestar.Widgets
+	if W.ShellDefaultSize then
+		W.ShellDefaultSize = function() return Polestar.Theme.Metric("pickerW", 1120) + W.SHELL.rail, 640 end
+	end
+end
 ${before}
 local UI = Polestar.UI
 local P = UI.Picker
