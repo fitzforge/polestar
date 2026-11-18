@@ -30,7 +30,8 @@ const usage = `usage: node tools/polestar.js nav build [--continents 0,1] [--for
        node tools/polestar.js nav city match --private <dir> [--maps ...] [--grid <dir>]
        node tools/polestar.js nav city freeze --private <dir> [--maps ...] [--max 200] [--force]
        node tools/polestar.js nav city trails --private <dir> [--maps ...] [--train] [--out <trails.json>] [--lua addon/Polestar_Nav/Trails/Trails.lua]
-       node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--maps ...] [--arms GAME,WALK,E0,E2,P3] [--policy legacy|a2] [--remeasure <report.json>] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
+       node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--spf <dir>] [--maps ...] [--arms GAME,WALK,E0,E2,G1,SPF,P3,P4,P5] [--policy legacy|a2] [--spawnz <file>] [--remeasure <report.json>] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
+       node tools/polestar.js nav city world-sample|world-match|world-gate --private <dir> [--set world|boundary|reported] [--maps world|...] [--per N] [--seed N] [--strata ...] (world-gate: as gate)
 
 build   the navigation grid of every continent map-frames.json names (or
         --continents): client geometry per ADT tile through the CASC cache
@@ -93,6 +94,10 @@ city    the capitals' walks against players' recordings (tools/lib/nav/city).
         harness) and prints the failures per city and arm (GAME: the
         player's floor known; WALK: unknown, the addon's fallbacks); with
         --baseline exit 1 when a counted arm gets worse in any capital.
+        world-sample/-match/-gate: the same over every other zone (--set
+        world: stratified held-out walks), across the capitals' entrances
+        (boundary) and through the places of open walking-map issues
+        (reported: tools/lib/nav/city/reported.json).
 
 Retired for Forge (docs/forge/nav.md): pack (forge nav pack), check (forge
 nav check), layers (forge nav layers roads|hubs).`;
