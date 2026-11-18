@@ -804,4 +804,14 @@ fn stonetalon_mountains_the_walk_from_the_camp_to_the_mound_of_dirt_drops_onto_t
 	assert!(yards < 190.0, "the walk is {yards:.0} yd");
 	let low = pts.iter().filter_map(|p| p.2).fold(f64::INFINITY, f64::min);
 	assert!(low >= 195.0, "the walk goes down to {low:.0}, into the valley under the ledge");
+
+	// There is a way back through the valley, but the 19-yard drop is not a way up.
+	let back = walk(mound, camp, Some("Horde"));
+	assert!(truthy(&back), "the engine finds a walk back to camp");
+	for pair in points(&back).windows(2) {
+		let [(x, y, Some(z)), (nx, ny, Some(nz))] = pair else { continue };
+		if (x - 1264.6).hypot(y - 1293.8) < 8.0 && (nx - 1264.6).hypot(ny - 1285.4) < 8.0 {
+			assert!(nz - z < 15.0, "the return climbs the drop from {z} to {nz}");
+		}
+	}
 }
