@@ -510,6 +510,30 @@ local function layoutOf(g)
 	return l
 end
 
+-- A plain `collect` or `use` (no quest) of an item that an accept before it
+-- in its step works with (the quest database's handed-over items,
+-- QuestDB.HandsOver: the Shrine Bauble Trial of the Lake takes to the Shrine
+-- of Remulos, #2670) -> that accept, so the line waits with its quest as a
+-- quest's starting item does (#1531). Nil without the quest database (it
+-- loads on demand: read live, remembered per goal once it has answered) or
+-- for a goal of no step of the loaded guide.
+Own.usedFor = setmetatable({}, { __mode = "k" })
+function Own.usedBy(goal)
+	if goal.quest or not goal.item or not (goal.t == "collect" or goal.t == "use") or not guide then return nil end
+	local hit = Own.usedFor[goal]
+	if hit ~= nil then return hit or nil end
+	local Q = ns.QuestDB
+	local s = layoutOf(guide).stepOf[goal]
+	if not (s and Q and Q.IsLoaded()) then return nil end
+	hit = false
+	for _, a in ipairs(guide.steps[s].goals) do
+		if a == goal then break end
+		if a.t == "accept" and a.quest and Q.HandsOver(a.quest, goal.item) then hit = a end
+	end
+	Own.usedFor[goal] = hit
+	return hit or nil
+end
+
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
@@ -602,8 +626,9 @@ end
 -- (Inline: the main chunk is at Lua's 200 locals.)
 local function goalApplies(goal)
 	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
-	-- The item a quest starts from is collected only for that quest (#1531).
-	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal]
+	-- The item a quest starts from is collected only for that quest (#1531),
+	-- and so is one it works with (Own.usedBy, #2670).
+	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
 	if starts and not goalApplies(starts) then return false end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
@@ -741,8 +766,10 @@ local function unavailableFor(goal, depth)
 	local q = goal.quest
 	if not q then
 		-- A quest's starting item waits with the quest (#1531: Ursangous's Paw
-		-- for The Hunt Continues, which needs The Hunt Begins first).
-		local a = goal.t == "collect" and guide and layoutOf(guide).starters[goal]
+		-- for The Hunt Continues, which needs The Hunt Begins first), and so
+		-- does an item it works with (Own.usedBy, #2670: the Shrine Bauble
+		-- with Trial of the Lake, level 16).
+		local a = goal.t == "collect" and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
 		if a and not questDone(a.quest) and not Compat().IsOnQuest(a.quest) then return unavailableFor(a, depth) end
 		return nil
 	end
@@ -3942,6 +3969,27 @@ function Own.usedLaterDone(s, g, goal)
 	return false
 end
 
+-- Whether untied collect goal g of step s (one item at a time) feeds a later
+-- `use <item> quest Q.O` of its step whose objective takes more than one and
+-- is not done: each use spends the item and the next has to be fetched
+-- again (Fetch 'n' Fletch: a Wood Bundle from the woodpiles, fletched into
+-- one of 20 spears, #2633). Its met bag count is then not latched
+-- (latchInStep), so using the item up sends the arrow back to fetch the
+-- next; Own.usedLaterDone closes it with the objective.
+function Own.refetch(s, g, goal)
+	if goal.t ~= "collect" or goal.quest or not goal.item or (goal.count or 1) > 1 then return false end
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if later.t == "use" and later.item == goal.item then
+			if not (later.quest and later.oi) then return false end
+			local done, _, max = goalDone(s, j, later)
+			return not done and (max or 0) > 1
+		end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -4984,7 +5032,8 @@ local function latchInStep(s, live)
 		-- An abandon latches on the live step only: on a step looked at ahead it
 		-- reads done for a quest not taken yet (Own.abandonedByGuide). So does a
 		-- deposit: the item not in the bags yet is not an item put in the bank.
-		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
+		-- An item fetched again for each use is never latched (Own.refetch).
+		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and not Own.refetch(s, g, goal) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -5690,7 +5739,7 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- "Requires level" line is the one thing the step says.
 	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
+	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or layoutOf(guide).starters[goal] or Own.usedBy(goal)) and not Own.waitsOnLevel(s) then
 		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.
@@ -9022,7 +9071,7 @@ function Own.queueSkips(s)
 	local q = Own.skipQueue[guide.id]
 	for g, goal in ipairs(step.goals) do
 		local u = blocks(goal) and goalApplies(goal) and unavailableFor(goal)
-		local a = u and (goal.quest and goal or layoutOf(guide).starters[goal])
+		local a = u and (goal.quest and goal or layoutOf(guide).starters[goal] or Own.usedBy(goal))
 		local quest = a and a.quest
 		if quest and not (q and q.seen[quest]) and not goalDone(s, g, goal) then
 			if not q then
