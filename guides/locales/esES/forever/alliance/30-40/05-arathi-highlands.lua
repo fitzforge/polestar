@@ -218,7 +218,7 @@ return {
 
 	-- Step 46: Phizzlethorpe
 	["Phizzlethorpe"] = "Fiseltor",
-	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "",
+	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "Escolta al profesor colina arriba hasta la cueva sobre la cala y protégelo mientras trabaja. Dos elementales de agua de nivel 40 lo emboscan ahí, y son inmunes a la escarcha. Retenlos en la entrada de la cueva, lejos de él: si la pelea es dentro de la cueva, él se une en lugar de trabajar y siguen llegando más elementales.",
 
 	-- Step 48: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
