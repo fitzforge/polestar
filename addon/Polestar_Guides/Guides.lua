@@ -12184,7 +12184,7 @@ do
 			zoneName = "Ironforge",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1338"] = "Lordamere Lake", ["area:162"] = "Brightwater Lake", ["area:16638"] = "Valanaar", ["area:18"] = "Crystal Lake", ["area:211"] = "Iceflow Lake", ["area:223"] = "Stonebull Lake", ["area:2408"] = "Shadowprey Village", ["area:2521"] = "Verdantis River", ["area:2577"] = "Dire Maul", ["area:2797"] = "Blackfathom Deeps", ["area:287"] = "Hillsbrad", ["area:300"] = "Misty Reed Strand", ["area:301"] = "Savage Coast", ["area:35"] = "Booty Bay", ["area:392"] = "Ratchet", ["area:464"] = "Mirkfallon Lake", ["area:556"] = "The Loch", ["area:598"] = "Sar'theris Strand", ["area:702"] = "Rut'theran Village", ["item:12221"] = "Blump Family Fishing Pole", ["item:12238"] = "Darkshore Grouper", ["item:16083"] = "Expert Fishing - The Bass and You", ["item:16967"] = "Feralas Ahi", ["item:16968"] = "Sar'theris Striker", ["item:16969"] = "Savage Coast Blue Sailfin", ["item:16970"] = "Misty Reed Mahi Mahi", ["item:279965"] = "Fishing Rack", ["item:3371"] = "Empty Vial", ["item:6256"] = "Fishing Pole", ["item:6289"] = "Raw Longjaw Mud Snapper", ["item:6291"] = "Raw Brilliant Smallfish", ["item:6303"] = "Raw Slitherskin Mackerel", ["item:6308"] = "Raw Bristle Whisker Catfish", ["item:6325"] = "Recipe: Brilliant Smallfish", ["item:6326"] = "Recipe: Slitherskin Mackerel", ["item:6328"] = "Recipe: Longjaw Mud Snapper", ["item:6330"] = "Recipe: Bristle Whisker Catfish", ["item:6358"] = "Oily Blackmouth", ["item:6361"] = "Raw Rainbow Fin Albacore", ["item:6362"] = "Raw Rockscale Cod", ["item:6365"] = "Strong Fishing Pole", ["item:6368"] = "Recipe: Rainbow Fin Albacore", ["item:6369"] = "Recipe: Rockscale Cod", ["item:6370"] = "Blackmouth Oil", ["item:6529"] = "Shiny Bauble", ["item:6530"] = "Nightcrawlers", ["item:6532"] = "Bright Baubles", ["item:6533"] = "Aquadynamic Fish Attractor", ["npc:10118"] = "Nessa Shadowsong", ["npc:10216"] = "Gubber Blump", ["npc:12919"] = "Nat Pagle", ["npc:12962"] = "Wik'Tar", ["npc:1684"] = "Khara Deepwater", ["npc:2383"] = "Lindea Rabonne", ["npc:2397"] = "Derak Nightfall", ["npc:257006"] = "Nyalah Brightfire", ["npc:260487"] = "Gritta Chumwater", ["npc:2626"] = "Old Man Heming", ["npc:3027"] = "Naal Mistrunner", ["npc:3029"] = "Sewa Mistrunner", ["npc:3178"] = "Stuart Fleming", ["npc:3332"] = "Lumak", ["npc:3333"] = "Shankys", ["npc:3550"] = "Martine Tramblay", ["npc:4305"] = "Kriggon Talsone", ["npc:4307"] = "Heldan Galesong", ["npc:4553"] = "Ronald Burch", ["npc:4574"] = "Lizbeth Cromwell", ["npc:5161"] = "Grimnur Stonebrand", ["npc:5162"] = "Tansy Puddlefizz", ["npc:5494"] = "Catherine Leland", ["npc:5748"] = "Killian Sanatha", ["npc:5940"] = "Harn Longcast", ["npc:5942"] = "Zansoa", ["npc:66"] = "Tharynn Bouden", ["npc:8508"] = "Gretta Ganter", ["quest:6607"] = "Nat Pagle, Angler Extreme", ["skill:171"] = "Alchemy", ["skill:185"] = "Cooking", ["skill:356"] = "Fishing", ["spell:1229745"] = "Fish Bowl", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1438"] = "Teldrassil", ["zone:1439"] = "Darkshore", ["zone:1440"] = "Ashenvale", ["zone:1442"] = "Stonetalon Mountains", ["zone:1443"] = "Desolace", ["zone:1444"] = "Feralas", ["zone:1445"] = "Dustwallow Marsh", ["zone:1453"] = "Stormwind City", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity", ["zone:2521"] = "Zephras Isle", ["zone:2548"] = "Riverglades" },
+			names = { ["area:1338"] = "Lordamere Lake", ["area:162"] = "Brightwater Lake", ["area:16638"] = "Valanaar", ["area:18"] = "Crystal Lake", ["area:211"] = "Iceflow Lake", ["area:223"] = "Stonebull Lake", ["area:2408"] = "Shadowprey Village", ["area:2521"] = "Verdantis River", ["area:2577"] = "Dire Maul", ["area:2797"] = "Blackfathom Deeps", ["area:287"] = "Hillsbrad", ["area:300"] = "Misty Reed Strand", ["area:301"] = "Savage Coast", ["area:35"] = "Booty Bay", ["area:392"] = "Ratchet", ["area:464"] = "Mirkfallon Lake", ["area:556"] = "The Loch", ["area:598"] = "Sar'theris Strand", ["area:702"] = "Rut'theran Village", ["item:12221"] = "Blump Family Fishing Pole", ["item:12238"] = "Darkshore Grouper", ["item:16083"] = "Expert Fishing - The Bass and You", ["item:16967"] = "Feralas Ahi", ["item:16968"] = "Sar'theris Striker", ["item:16969"] = "Savage Coast Blue Sailfin", ["item:16970"] = "Misty Reed Mahi Mahi", ["item:279965"] = "Fishing Rack", ["item:3371"] = "Empty Vial", ["item:6256"] = "Fishing Pole", ["item:6289"] = "Raw Longjaw Mud Snapper", ["item:6291"] = "Raw Brilliant Smallfish", ["item:6303"] = "Raw Slitherskin Mackerel", ["item:6308"] = "Raw Bristle Whisker Catfish", ["item:6325"] = "Recipe: Brilliant Smallfish", ["item:6326"] = "Recipe: Slitherskin Mackerel", ["item:6328"] = "Recipe: Longjaw Mud Snapper", ["item:6330"] = "Recipe: Bristle Whisker Catfish", ["item:6358"] = "Oily Blackmouth", ["item:6361"] = "Raw Rainbow Fin Albacore", ["item:6362"] = "Raw Rockscale Cod", ["item:6365"] = "Strong Fishing Pole", ["item:6368"] = "Recipe: Rainbow Fin Albacore", ["item:6369"] = "Recipe: Rockscale Cod", ["item:6370"] = "Blackmouth Oil", ["item:6529"] = "Shiny Bauble", ["item:6530"] = "Nightcrawlers", ["item:6532"] = "Bright Baubles", ["item:6533"] = "Aquadynamic Fish Attractor", ["npc:10118"] = "Nessa Shadowsong", ["npc:10216"] = "Gubber Blump", ["npc:12919"] = "Nat Pagle", ["npc:12962"] = "Wik'Tar", ["npc:1684"] = "Khara Deepwater", ["npc:2383"] = "Lindea Rabonne", ["npc:2397"] = "Derak Nightfall", ["npc:257006"] = "Nyalah Brightfire", ["npc:260487"] = "Gritta Chumwater", ["npc:2626"] = "Old Man Heming", ["npc:3027"] = "Naal Mistrunner", ["npc:3029"] = "Sewa Mistrunner", ["npc:3178"] = "Stuart Fleming", ["npc:3332"] = "Lumak", ["npc:3333"] = "Shankys", ["npc:3550"] = "Martine Tramblay", ["npc:4305"] = "Kriggon Talsone", ["npc:4307"] = "Heldan Galesong", ["npc:4553"] = "Ronald Burch", ["npc:4574"] = "Lizbeth Cromwell", ["npc:5161"] = "Grimnur Stonebrand", ["npc:5162"] = "Tansy Puddlefizz", ["npc:5494"] = "Catherine Leland", ["npc:5748"] = "Killian Sanatha", ["npc:5940"] = "Harn Longcast", ["npc:5942"] = "Zansoa", ["npc:66"] = "Tharynn Bouden", ["npc:8508"] = "Gretta Ganter", ["quest:6607"] = "Nat Pagle, Angler Extreme", ["skill:171"] = "Alchemy", ["skill:185"] = "Cooking", ["skill:356"] = "Fishing", ["spell:1229745"] = "Fish Bowl", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1438"] = "Teldrassil", ["zone:1439"] = "Darkshore", ["zone:1440"] = "Ashenvale", ["zone:1442"] = "Stonetalon Mountains", ["zone:1443"] = "Desolace", ["zone:1444"] = "Feralas", ["zone:1445"] = "Dustwallow Marsh", ["zone:1453"] = "Stormwind City", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity", ["zone:2548"] = "Riverglades" },
 			written = { ["{zone:1413} oasis"] = "Barrens oasis" },
 			sections = { { skill = "Fishing", skillLine = 356, from = 1, to = 50 }, { skill = "Fishing", skillLine = 356, from = 50, to = 125 }, { skill = "Fishing", skillLine = 356, from = 125, to = 225 }, { skill = "Fishing", skillLine = 356, from = 225, to = 300 } },
 			steps = {
@@ -12198,84 +12198,21 @@ do
 					},
 				},
 				{
-					title = "{skill:356}: {zone:1429} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:66} ({zone:1429}) or {npc:5494} ({zone:1453})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:4305} ({zone:1436}) or {npc:5162} ({zone:1455})).",
-					only = { races = { "Human" } },
+					title = "{skill:356} (1-50)",
+					note = "Fish until skill 50, about 50 catches: below 75 every catch raises the skill, so any of your faction's starting-area shores will do and the arrow leads to the nearest: {area:18} ({zone:1429}), {area:211} ({zone:1426}) and {area:702} ({zone:1438}), and for Skyborne also {area:16638} shore (Zephras Isle). Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away at these shores below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:66} ({zone:1429}), {npc:8508} ({zone:1426}), Nyoma ({zone:1438}) and {npc:257006} (Zephras Isle)); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:4305} ({zone:1436}), {npc:5162} ({zone:1455}), {npc:10118} ({zone:1438}) and {npc:257006} (Zephras Isle)).",
+					only = { factions = { "Alliance" } },
 					section = 1,
 					goals = {
-						{ t = "goto", text = "{area:18}", area = 18, map = 1429, x = 47.4, y = 62.2, f = "e", r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
+						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50, candidates = { { map = 1429, x = 47.4, y = 62.2, f = "e", faction = "A" }, { map = 1426, x = 35.4, y = 40.1, f = "e", faction = "A" }, { map = 1438, x = 55.8, y = 93.5, f = "e", faction = "A" }, { map = 2521, x = 63.2, y = 75.8, faction = "A", races = { "Skyborne" } } } },
 					},
 				},
 				{
-					title = "{skill:356}: {zone:1426} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:8508} ({zone:1426}) or {npc:1684} ({zone:1432})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:5162} ({zone:1455}) or {npc:4305} ({zone:1436})).",
-					only = { races = { "Dwarf", "Gnome" } },
+					title = "{skill:356} (1-50)",
+					note = "Fish until skill 50, about 50 catches: below 75 every catch raises the skill, so any of your faction's starting-area shores will do and the arrow leads to the nearest: Sen'jin coast ({zone:1411}), {area:223} ({zone:1412}) and {area:162} ({zone:1420}), and for Skyborne also {area:16638} shore (Zephras Isle). Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away at these shores below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:5940} ({zone:1412}), {npc:3550} ({zone:1420}) and {npc:257006} (Zephras Isle)); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:5942} ({zone:1411}), {npc:3550} ({zone:1420}) and {npc:257006} (Zephras Isle)).",
+					only = { factions = { "Horde" } },
 					section = 1,
 					goals = {
-						{ t = "goto", text = "{area:211}", area = 211, map = 1426, x = 35.4, y = 40.1, f = "e", r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:1438} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: Nyoma ({zone:1438})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:10118} ({zone:1438})).",
-					only = { races = { "NightElf" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "{area:702}", area = 702, map = 1438, x = 55.8, y = 93.5, f = "e", r = 25 },
-						{ t = "buy", npc = 10118, npcName = "Nessa Shadowsong", item = 6326, itemName = "Recipe: Slitherskin Mackerel", count = 1, map = 1438, x = 56.17, y = 92.45, z = 12.9, optional = true },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:2521} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:257006} ({zone:2521})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:257006} ({zone:2521})).",
-					only = { races = { "Skyborne" }, factions = { "Alliance" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "{area:16638} shore", map = 2521, x = 63.2, y = 75.8, r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:1411} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:5940} ({zone:1412}) or {npc:3029} ({zone:1456})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:5942} ({zone:1411})).",
-					only = { races = { "Orc", "Troll" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "Sen'jin coast", map = 1411, x = 53.2, y = 81.5, f = "e", r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:1412} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:5940} ({zone:1412}) or {npc:3029} ({zone:1456})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:5942} ({zone:1411})).",
-					only = { races = { "Tauren" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "{area:223}", area = 223, map = 1412, x = 44.4, y = 60.6, f = "e", r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:1420} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:3550} ({zone:1420}) or {npc:4574} ({zone:1458})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:3550} ({zone:1420})).",
-					only = { races = { "Scourge" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "{area:162}", area = 162, map = 1420, x = 67.1, y = 50.9, f = "e", r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
-					},
-				},
-				{
-					title = "{skill:356}: {zone:2521} (1-50)",
-					note = "Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. To cook what you catch: {item:6325} for the {item:6291} of lakes and rivers ({skill:185} 1, 40c: {npc:257006} ({zone:2521})); {item:6326} for the {item:6303} of the coast ({skill:185} 1, 40c: {npc:257006} ({zone:2521})).",
-					only = { races = { "Skyborne" }, factions = { "Horde" } },
-					section = 1,
-					goals = {
-						{ t = "goto", text = "{area:16638} shore", map = 2521, x = 63.2, y = 75.8, r = 25 },
-						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50 },
+						{ t = "skill", skill = "Fishing", skillLine = 356, level = 50, candidates = { { map = 1411, x = 53.2, y = 81.5, f = "e", faction = "H" }, { map = 1412, x = 44.4, y = 60.6, f = "e", faction = "H" }, { map = 1420, x = 67.1, y = 50.9, f = "e", faction = "H" }, { map = 2521, x = 63.2, y = 75.8, faction = "H", races = { "Skyborne" } } } },
 					},
 				},
 				{
