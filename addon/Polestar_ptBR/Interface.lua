@@ -5062,5 +5062,8 @@ L["The theme every Polestar window wears, the action buttons, the alert cards an
 L["They come off the list on every character. The pins you see here stay."] = "Eles saem da lista em todos os personagens. Os fixados que você vê aqui ficam."
 L["Unpin from the sidebar"] = "Tirar da barra lateral"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "O que o Polestar faz por você enquanto você evolui: sugestões, missões, recompensas, botões, raros."
+
+-- UI/Essentials.lua: the new page's Essentials tabs
+L["Most used"] = "Mais usados"
 -- L["Target bar colour"] = "Cor da barra do alvo"
 -- L["Progress colour"] = "Cor do progresso"

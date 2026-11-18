@@ -5048,5 +5048,8 @@ L["The theme every Polestar window wears, the action buttons, the alert cards an
 L["They come off the list on every character. The pins you see here stay."] = "모든 캐릭터의 목록에서 빠집니다. 여기 보이는 고정 항목은 남습니다."
 L["Unpin from the sidebar"] = "사이드바에서 고정 해제"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "레벨업하는 동안 Polestar가 해 주는 일: 제안, 퀘스트, 보상, 버튼, 희귀 몬스터."
+
+-- UI/Essentials.lua: the new page's Essentials tabs
+L["Most used"] = "자주 쓰는 설정"
 -- L["Target bar colour"] = "목표 막대 색"
 -- L["Progress colour"] = "진행 막대 색"

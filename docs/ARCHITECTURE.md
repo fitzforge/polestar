@@ -8660,6 +8660,13 @@ only for rows this window gives it (`part`, `W.NavRowAfter`, `W.NavRowEnter`). `
 the window's own builders; `O.Select`, the sidebar, the search, the relayout, LB / RB and a jump to a row ask
 `UI.Options.Grouped` first while it is on.
 
+On the new page Guide, Questing, Quality of Life, Guide window and Alerts & toasts open on an Essentials tab
+(`UI/Essentials.lua`, `G.ESSENTIALS`: each page's picks by key), first in the tab band with the star. Each row is
+a reference to its home row (`O.Ref`): the same setting, changed in either place; search, the counts, the
+Changed view and the resets see the home alone. A row's `psAfter` frame (a muted link after the label, laid out
+by `W.LayoutCompact`) names the home's tab and opens it. On Guide window and Alerts & toasts the page's Presets
+and preview come first. The current page keeps its own tabs.
+
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
 registered before it, with a star before the label and a short upright
