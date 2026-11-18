@@ -1011,6 +1011,29 @@ local function alongRowList(along)
 end
 
 -- A row's right side: its count and the distance to its goal, kept fresh.
+-- A Still to do row's View (a click lists the carried quests): shown while
+-- the pointer is on the card, as Optional's Skip is, the meta stepping left
+-- of it; brighter with the pointer on the row.
+local function alongView(m)
+	local card = m.psView
+	local over = card and card:IsMouseOver() and true or false
+	local lit = over and m:GetParent():IsMouseOver() and true or false
+	if m.psOver == over and m.psLit == lit then return end
+	m.psOver, m.psLit = over, lit
+	local right = OPT_PAD
+	if rawget(m, "ViewLabel") then
+		m.ViewLabel:SetShown(over)
+		if over then
+			m.ViewLabel:ClearAllPoints()
+			m.ViewLabel:SetPoint("RIGHT", m:GetParent(), "TOPRIGHT", -OPT_PAD, m.psMid or 0)
+			m.ViewLabel:SetTextColor(Theme.Color(lit and "text" or "textDim"))
+			right = right + (m.psViewW or 0)
+		end
+	end
+	m.Text:ClearAllPoints()
+	m.Text:SetPoint("RIGHT", m:GetParent(), "TOPRIGHT", -right, m.psMid or 0)
+end
+
 local function alongMeta(r)
 	local own = store(r)
 	local m = own.meta
@@ -1021,6 +1044,7 @@ local function alongMeta(r)
 		m.Text:SetJustifyH("RIGHT")
 		m.Text:SetWordWrap(false)
 		m:SetScript("OnUpdate", function(self, elapsed)
+			if self.psView then alongView(self) end
 			self.psElapsed = (self.psElapsed or 0) + elapsed
 			if self.psElapsed < ALONG_EVERY then return end
 			self.psElapsed = 0
@@ -1059,8 +1083,9 @@ local function alongRows(along, height)
 			own._orig = own._orig or text
 			-- The finished quests carried: the card's heading says they are still to do.
 			local carried = facts.count and (facts.count == 1 and Core.tr("1 quest to hand in off-guide") or string.format(Core.tr("%d quests to hand in off-guide"), facts.count))
-			-- A click lists them (QuestRoom "carried"): said on the row, not only on hover.
-			if carried then carried = carried .. "\n|c" .. Theme.Hex("textMuted") .. Core.tr("Click to view") .. "|r" end
+			-- A click lists them (QuestRoom "carried"): one line, as Optional's
+			-- rows are, its View on the right while the pointer is on the card.
+			own.view = carried and not facts.quest and true or nil
 			r.Text:SetText(facts.quest or carried or facts.text)
 			if facts.zone then
 				factsMeta = facts.yards and (facts.zone .. "  \194\183  " .. (Core.distanceText(facts.yards) or "")) or facts.zone
@@ -1095,9 +1120,23 @@ local function alongRows(along, height)
 		local meta = paint()
 		m:SetShown(meta ~= nil)
 		local w = r.Text:GetWidth() or 0
-		if meta and w > 0 then
-			-- Room for the widest the meta grows to as the distance changes.
-			r.Text:SetWidth(math.max(40, w - math.ceil(m.Text:GetStringWidth()) - 18))
+		local viewW = 0
+		if own.view then
+			if not rawget(m, "ViewLabel") then
+				m.ViewLabel = m:CreateFontString(nil, "OVERLAY")
+				m.ViewLabel:SetJustifyH("RIGHT")
+			end
+			Theme.Font(m.ViewLabel, "small")
+			m.ViewLabel:SetText(Core.tr("View"))
+			viewW = math.ceil(m.ViewLabel:GetStringWidth()) + 6
+		elseif rawget(m, "ViewLabel") then
+			m.ViewLabel:Hide()
+		end
+		m.psView = own.view and along or nil
+		if (meta or own.view) and w > 0 then
+			-- Room for the widest the meta grows to as the distance changes, and
+			-- for View beside it.
+			r.Text:SetWidth(math.max(40, w - (meta and math.ceil(m.Text:GetStringWidth()) + 18 or 0) - viewW))
 		end
 		-- Its height from its text at the width now left it.
 		local lineH = r.Text:GetLineHeight() or 12
@@ -1108,8 +1147,8 @@ local function alongRows(along, height)
 		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", ox, -inset)
 		r.Icon:ClearAllPoints()
 		r.Icon:SetPoint("LEFT", r, "TOPLEFT", OPT_PAD, mid)
-		m.Text:ClearAllPoints()
-		m.Text:SetPoint("RIGHT", r, "TOPRIGHT", -OPT_PAD, mid)
+		m.psMid, m.psViewW, m.psOver = mid, viewW, nil
+		alongView(m)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", rel, "TOPLEFT", rx or 0, y)
 		r:SetPoint("TOPRIGHT", rel, "TOPRIGHT", 0, y)
@@ -1138,9 +1177,11 @@ local function alongRowsBack(along)
 			if own._icon then r.Icon:SetVertexColor(Theme.Color("textMuted")) end
 			own._text, own._color, own._font, own._icon = nil, nil, nil, nil
 			if own.meta then
-				own.meta.psPaint = nil
+				own.meta.psPaint, own.meta.psView = nil, nil
+				if rawget(own.meta, "ViewLabel") then own.meta.ViewLabel:Hide() end
 				own.meta:Hide()
 			end
+			own.view = nil
 		end
 	end
 end

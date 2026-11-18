@@ -1373,3 +1373,50 @@ emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or 
 	assert.equal(own.header, true, "Polestar's own layout keeps the band");
 	assert.equal(own.litInset, own.inset, "Polestar's own layout keeps the look's inset");
 });
+
+// Still to do's carried row reads as Optional's rows do: one line, the XP on
+// the right, and its View (a click lists the quests) shown on the right only
+// while the pointer is on the card, brighter on the row itself, the XP
+// stepping left of it.
+test("under Atlas Still to do's carried row is one line, its View shown on hover", () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+local T = Polestar.Theme
+local GF = Polestar.UI.GuideFrame
+Polestar.RoutePlan.Carried = function() return { { quest = 0, title = "The Absent Minded Prospector", status = "missed", xp = 6150 } } end
+Polestar.Set("ui.shown", true)
+T.SetLayout("atlas")
+GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1)
+local row
+for _, r in ipairs({ T.GuideParts().along:GetChildren() }) do
+	if rawget(r, "psFacts") and r.psFacts.count and r:IsShown() then row = r end
+end
+assert(row, "no carried row")
+local m, card = row:GetChildren(), T.GuideParts().along
+local meta = {}
+for _, c in ipairs({ row:GetChildren() }) do if rawget(c, "Text") and c.Text:GetJustifyH() == "RIGHT" then m = c end end
+local function state()
+	stub.advance(0.3)
+	local _, _, _, x = m.Text:GetPoint(1)
+	return { view = rawget(m, "ViewLabel") and m.ViewLabel:IsShown() or false, right = -x, xp = m.Text:GetText() }
+end
+local text = row.Text:GetText()
+local out = { oneLine = not text:find("\\n"), rest = state() }
+card.IsMouseOver = function() return true end
+out.card = state()
+row.IsMouseOver = function() return true end
+out.row = state()
+local r, g, b = m.ViewLabel:GetTextColor()
+out.lit = { r, g, b }
+out.text = { T.Color("text") }
+emit(out)`,
+	}).emitted;
+	assert.equal(out.oneLine, true, 'one line, no "Click to view" under it');
+	assert.equal(out.rest.view, false, 'View hidden off the card');
+	assert.match(out.rest.xp, /6,150 XP/);
+	assert.equal(out.card.view, true, 'View on the right with the pointer on the card');
+	assert.ok(out.card.right > out.rest.right, `the XP steps left of View: ${out.rest.right} -> ${out.card.right}`);
+	assert.deepEqual(out.lit.map((v) => v.toFixed(3)), out.text.slice(0, 3).map((v) => v.toFixed(3)), 'brighter on the row');
+});
