@@ -12,6 +12,7 @@
 --   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
 --   {"type":"many","id":..,"map":0,"from":[x,y,z],"targets":[[x,y,z],...],"profile":..,"style":..}
 --   {"type":"surfaces","id":..,"map":0,"at":[x,y]}  (Path.SurfacesAt: {"n","format","surfaces":[{"z","marks","area","name"}]})
+--   {"type":"trailfloor","id":..,"map":0,"at":[x,y],"reach":4,"near":z|null}  (Path.TrailFloor: {"z","weight"}, null without a trail layer)
 -- out.jsonl: an init line ({"type":"init","files":n,"loadMs":..,"packedKB":..,"profiles":bool}), then one line per
 -- query:
 --   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones"}
@@ -444,6 +445,16 @@ local function surfaces(q)
 	return string.format('{"type":"surfaces","id":%s,"n":%s,"format":%s,"surfaces":[%s]}', quote(q.id), tostring(n or 0), num(Path.AreaFormat and Path.AreaFormat(q.map), "%d"), table.concat(parts, ","))
 end
 
+-- The trail layer's floor (Path.TrailFloor, nav city's gate): {"type":"trailfloor","id","z","weight"}; z null when the
+-- router has no trail layer or none qualifies.
+local function trailFloor(q)
+	local z, w
+	if Path.TrailFloor then
+		z, w = Path.TrailFloor(q.map, q.at[1], q.at[2], q.reach or 4, q.near)
+	end
+	return string.format('{"type":"trailfloor","id":%s,"z":%s,"weight":%s}', quote(q.id), num(z, "%.2f"), num(w, "%d"))
+end
+
 local out = assert(io.open(OUT, "w"))
 out:write(string.format('{"type":"init","files":%d,"loadMs":%.0f,"packedKB":%.0f,"profiles":%s}\n', nfiles, loadMs, packedKB, tostring(profiles)))
 out:flush()
@@ -457,6 +468,8 @@ for line in io.lines(QUERIES) do
 			text = many(q)
 		elseif q.type == "surfaces" then
 			text = surfaces(q)
+		elseif q.type == "trailfloor" then
+			text = trailFloor(q)
 		else
 			text = string.format('{"type":"error","id":%s,"reason":%s}', quote(q.id), quote("unknown query type " .. tostring(q.type)))
 		end

@@ -26,6 +26,11 @@ const usage = `usage: node tools/polestar.js nav build [--continents 0,1] [--for
        node tools/polestar.js nav aids [--out <file>] [--lua <file>] [--report] [--continents 0,1] [--workers N] [--reference <file>] [--dir <dir>]
        node tools/polestar.js nav eval [--nav <Polestar_Nav dir>] [--baseline <dir or eval .json>] [--routes <file>] [--sweep] [--style fastest|balanced|roads] [--out <file.json>]
        node tools/polestar.js nav prepare [--dir <grid dir>] [--continents 0,1,2991] [--workers N]
+       node tools/polestar.js nav city extract --recordings <archive> --private <dir> [--maps 1453,...]
+       node tools/polestar.js nav city match --private <dir> [--maps ...] [--grid <dir>]
+       node tools/polestar.js nav city freeze --private <dir> [--maps ...] [--max 200] [--force]
+       node tools/polestar.js nav city trails --private <dir> [--maps ...] [--train] [--out <trails.json>] [--lua addon/Polestar_Nav/Trails/Trails.lua]
+       node tools/polestar.js nav city gate --private <dir> [--nav <Polestar_Nav dir>] [--ground <Polestar_Nav dir>] [--maps ...] [--arms GAME,WALK,E0,E2,P3] [--policy legacy|a2] [--remeasure <report.json>] [--baseline <report.json>] [--out <report.json>] [--md <file>] [--grid <dir>]
 
 build   the navigation grid of every continent map-frames.json names (or
         --continents): client geometry per ADT tile through the CASC cache
@@ -78,6 +83,16 @@ prepare what the node router (tools/lib/nav/router.js) routes on beside a grid
         faction and the zone mix, into <dir>/walk/; what is there is kept.
         The sim's walks are routed by \`forge walks walks\` once this is done.
         A heavy job (~28 min and 3.7 GB with --workers 6).
+city    the capitals' walks against players' recordings (tools/lib/nav/city).
+        PRIVATE inputs and outputs: --private is a folder outside the
+        repository (raw positions; never committed). extract reads the
+        recordings archive (forge record pull) into it per capital; match
+        puts every recorded step on the grid's floors (--grid, default
+        data/local/nav4: trails, trips, grid holes); freeze chooses the
+        held-out trips once; gate runs --nav's router on them (nav eval's
+        harness) and prints the failures per city and arm (GAME: the
+        player's floor known; WALK: unknown, the addon's fallbacks); with
+        --baseline exit 1 when a counted arm gets worse in any capital.
 
 Retired for Forge (docs/forge/nav.md): pack (forge nav pack), check (forge
 nav check), layers (forge nav layers roads|hubs).`;
@@ -391,7 +406,94 @@ async function prepareCmd(argv) {
 	return 0;
 }
 
-const SUBCOMMANDS = { build, path: route, aids, eval: evalCmd, prepare: prepareCmd };
+// The capitals against players' recordings (tools/lib/nav/city): extract, match, freeze, gate. --private is a folder
+// outside the repository (raw positions).
+async function cityCmd(argv) {
+	const [step, ...rest] = argv;
+	const { opts: o, positional, error } = parseArgs(rest, { flags: ['--force', '--train'], options: ['--private', '--recordings', '--maps', '--grid', '--max', '--nav', '--ground', '--spf', '--arms', '--policy', '--baseline', '--out', '--md', '--lua', '--remeasure', '--per', '--seed', '--strata', '--set', '--spawnz'] });
+	if (error || positional.length) throw usageError(error || `unexpected argument "${positional[0]}"`);
+	if (!o.private) throw usageError('nav city: --private <dir> is required (outside the repository)');
+	const priv = path.resolve(o.private);
+	if (!path.relative(ROOT, priv).startsWith('..')) throw usageError(`nav city: --private ${priv} lies inside the repository; private data stays outside it`);
+	const { CITIES } = require('../lib/nav/city/graph');
+	const zonesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'zones.json'), 'utf8'));
+	const framesData = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', 'map-frames.json'), 'utf8')).forever;
+	const { worldZones } = require('../lib/nav/city/world');
+	// --maps world: every zone but the capitals (the world gate's zones)
+	const maps = o.maps === 'world' ? worldZones(zonesData, framesData) : o.maps ? String(o.maps).split(',').map(Number) : Object.keys(CITIES).map(Number);
+	const grid = path.resolve(o.grid || process.env.POLESTAR_GRID || path.join(ROOT, 'data', 'local', 'nav4'));
+	const readData = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'forever', f), 'utf8'));
+	const log = (m) => console.error(m);
+	// --spawnz <file>: another data build's spawnz.json (spawn heights) for the gate's NPC heights
+	const spawnzOf = () => JSON.parse(fs.readFileSync(o.spawnz ? path.resolve(o.spawnz) : path.join(ROOT, 'data', 'forever', 'spawnz.json'), 'utf8')).npc;
+	const navArgs = () => ({ nav: path.resolve(o.nav || NAV_ADDON), ground: o.ground ? path.resolve(o.ground) : null, spf: o.spf ? path.resolve(o.spf) : null, arms: o.arms ? String(o.arms).split(',') : undefined, policy: o.policy || 'legacy', spawnz: spawnzOf(), taxi: readData('travel.json').taxi.nodes });
+	if (step === 'extract') {
+		if (!o.recordings) throw usageError('nav city extract: --recordings <archive> is required');
+		const s = require('../lib/nav/city/extract').extract({ recordings: path.resolve(o.recordings), out: priv, maps, log });
+		console.log(`nav city extract: ${s.sessions} sessions, ${s.people} people, ${s.hours} h; per map ${JSON.stringify(s.maps)}`);
+		return 0;
+	}
+	const frames = readData('map-frames.json').forever;
+	if (step === 'match') {
+		const { matchArea } = require('../lib/nav/city/match');
+		const spawnz = readData('spawnz.json').npc;
+		for (const map of maps) {
+			const s = matchArea({ map, grid, frames, spawnz, priv, log });
+			console.log(`nav city match ${map}: ${s.people} people, ${s.samples} samples, ${s.hoursMoving} h moving, ${s.trips} trips (${s.testTrips} held out), ${s.gaps} grid holes, ${s.trodden3} surfaces walked by 3+ (${(s.ms / 1000).toFixed(0)} s)`);
+		}
+		return 0;
+	}
+	if (step === 'freeze') {
+		const { freezeTrips } = require('../lib/nav/city/freeze');
+		for (const map of maps) {
+			const s = freezeTrips({ priv, map, max: o.max ? Number(o.max) : 200, force: !!o.force });
+			console.log(`nav city freeze ${map}: ${s.trips} trips from ${s.people} people`);
+		}
+		return 0;
+	}
+	if (step === 'trails') {
+		const { buildTrails, trailsLua } = require('../lib/nav/city/trails');
+		const { header } = require('../lib/generated');
+		const doc = buildTrails({ priv, maps, grid, frames, train: !!o.train });
+		const n = Object.values(doc.maps).reduce((s, tiles) => s + Object.values(tiles).reduce((t, l) => t + l.length, 0), 0);
+		if (o.out) fs.writeFileSync(o.out, JSON.stringify(doc));
+		if (o.lua) fs.writeFileSync(o.lua, trailsLua(doc, header('lua', `nav city trails${o.train ? ' --train' : ''}`, "players' recordings, aggregated (3+ distinct people per walked level)")));
+		console.log(`nav city trails: ${n} walked cell levels (${o.train ? "the gate's training people" : 'all people'})${o.out ? ` -> ${o.out}` : ''}${o.lua ? ` -> ${o.lua}` : ''}`);
+		return 0;
+	}
+	// --set world (default): the zones' strata; --set boundary: walks across a capital's entrance
+	const set = o.set || 'world';
+	if (set !== 'world' && set !== 'boundary') throw usageError(`nav city: --set world or boundary, not "${set}"`);
+	if (step === 'world-sample') {
+		const W = require('../lib/nav/city/world');
+		const args = { priv, frames, spawnz: readData('spawnz.json').npc, seed: o.seed ? Number(o.seed) : 1, log };
+		const s = set === 'boundary' ? W.sampleBoundary({ ...args, per: o.per ? Number(o.per) : 25 }) : W.sampleWorld({ ...args, zones: maps, per: o.per ? Number(o.per) : 6 });
+		console.log(`nav city world-sample (${set}): ${s.trips.length} trips`);
+		return 0;
+	}
+	if (step === 'world-match') {
+		const s = require('../lib/nav/city/world').matchWorld({ priv, grid, frames, spawnz: readData('spawnz.json').npc, set, log });
+		console.log(`nav city world-match (${set}): ${s.matched} of ${s.trips} trips matched; ${JSON.stringify(s.strata)}`);
+		return 0;
+	}
+	if (step === 'gate' || step === 'world-gate') {
+		const { gate, gateWorld, remeasure, compareReports, markdown } = require('../lib/nav/city/gate');
+		const common = { priv, grid, frames, log, npcs: readData('npcs.json') };
+		let report;
+		if (o.remeasure) report = remeasure(JSON.parse(fs.readFileSync(o.remeasure, 'utf8')), { ...common, protos: o.arms ? String(o.arms).split(',') : [] });
+		else if (step === 'world-gate') report = await gateWorld({ ...common, ...navArgs(), set, strata: o.strata ? String(o.strata).split(',') : null });
+		else report = await gate({ ...common, ...navArgs(), maps });
+		const cmp = o.baseline ? compareReports(JSON.parse(fs.readFileSync(o.baseline, 'utf8')), report) : null;
+		const md = markdown(report, cmp);
+		console.log(md);
+		if (o.out) fs.writeFileSync(o.out, JSON.stringify(report));
+		if (o.md) fs.writeFileSync(o.md, md + '\n');
+		return cmp && !cmp.pass ? 1 : 0;
+	}
+	throw usageError(`unknown nav city step "${step}" (extract, match, freeze, trails, gate, world-sample, world-match, world-gate)`);
+}
+
+const SUBCOMMANDS = { build, path: route, aids, eval: evalCmd, prepare: prepareCmd, city: cityCmd };
 
 // Subcommands retired for Forge (docs/forge/nav.md); each prints its replacement.
 const RETIRED = {

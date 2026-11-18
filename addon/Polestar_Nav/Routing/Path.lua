@@ -2156,6 +2156,114 @@ function Path.AreaName(map, id)
 	return name ~= "" and name or nil
 end
 
+-- The capitals' trail layer (Trails/Trails.lua, written by `node tools/polestar.js nav city trails` from players'
+-- recordings, only counts of 3+ distinct people): per ADT tile of a map the levels people walk, by cell of 4.17 yd
+-- (128 per tile). A tile's string (ns.PathTrails[map]["<col>_<row>"]) is decoded once, on its first read, into
+-- the cells' first entry and count and flat heights and weights (1 = 3-9 people, 2 = 10-49, 3 = 50+).
+local TRAIL_TILE = 1600 / 3
+local TRAIL_CELL = TRAIL_TILE / 128
+local TRAIL_ZTOL = 10 -- yd: `near` keeps the levels this close to it (PathGrid's ZTOL)
+local trailTiles = {} -- [map][col * 64 + row] = decoded tile, or false for none
+
+local function trailVarint(s, pos)
+	local v, mul = 0, 1
+	while true do
+		local b = byte(s, pos)
+		pos = pos + 1
+		if b < 128 then
+			return v + b * mul, pos
+		end
+		v, mul = v + (b - 128) * mul, mul * 128
+	end
+end
+
+local function trailTile(map, col, row)
+	local tiles = trailTiles[map]
+	if not tiles then
+		tiles = {}
+		trailTiles[map] = tiles
+	end
+	local key = col * 64 + row
+	local t = tiles[key]
+	if t ~= nil then
+		return t
+	end
+	local src = ns.PathTrails and ns.PathTrails[map]
+	local s = src and src[col .. "_" .. row]
+	if not s then
+		tiles[key] = false
+		return false
+	end
+	t = { first = {}, count = {}, z = {}, w = {} }
+	local pos, cell, n, zq = 1, 0, 0, 0
+	while pos <= #s do
+		local a, q
+		a, pos = trailVarint(s, pos)
+		q, pos = trailVarint(s, pos)
+		local w = a % 4
+		cell = cell + (a - w) / 4
+		n = n + 1
+		zq = zq + (q % 2 == 0 and q / 2 or -(q + 1) / 2)
+		t.z[n] = zq / 4
+		t.w[n] = w
+		if not t.first[cell] then
+			t.first[cell], t.count[cell] = n, 0
+		end
+		t.count[cell] = t.count[cell] + 1
+	end
+	tiles[key] = t
+	return t
+end
+
+-- True when map has a trail layer (the six capitals' tiles).
+---@param map number
+---@return boolean
+function Path.HasTrails(map)
+	return ns.PathTrails ~= nil and ns.PathTrails[map] ~= nil
+end
+
+-- "The floor people walk on here": of the trail levels within reach yd (horizontally, cell centres) of the world point
+-- (x, y) on map, the one with the highest weight; ties: the nearer cell, then the height nearer near. near (optional):
+-- only levels within TRAIL_ZTOL of it. -> z, weight; nil when none qualifies or map has no trail layer. Allocation-free
+-- once the tiles around are decoded.
+---@param map number
+---@param x number
+---@param y number
+---@param reach number?
+---@param near number?
+---@return number?, number?
+function Path.TrailFloor(map, x, y, reach, near)
+	if not (ns.PathTrails and ns.PathTrails[map]) then
+		return nil
+	end
+	reach = reach or 4
+	local ti0 = (32 * TRAIL_TILE - y) / TRAIL_CELL -- cells east
+	local tj0 = (32 * TRAIL_TILE - x) / TRAIL_CELL -- cells south
+	local r = floor(reach / TRAIL_CELL + 0.5)
+	local bz, bw, bd, bdz
+	for tj = floor(tj0) - r, floor(tj0) + r do
+		for ti = floor(ti0) - r, floor(ti0) + r do
+			local d = sqrt((ti + 0.5 - ti0) ^ 2 + (tj + 0.5 - tj0) ^ 2) * TRAIL_CELL
+			if d <= reach + TRAIL_CELL * 0.5 then
+				local col, row = floor(ti / 128), floor(tj / 128)
+				local t = trailTile(map, col, row)
+				local cell = (tj - row * 128) * 128 + (ti - col * 128)
+				local first = t and t.first[cell]
+				if first then
+					for e = first, first + t.count[cell] - 1 do
+						local z, w = t.z[e], t.w[e]
+						local dz = near and abs(z - near) or 0
+						if dz <= TRAIL_ZTOL and (not bw or w > bw or (w == bw and (d < bd or (d == bd and dz < bdz)))) then
+							bz, bw, bd, bdz = z, w, d, dz
+						end
+					end
+				end
+			end
+		end
+	end
+	return bz, bw
+end
+
 -- The walkable surfaces' heights in the cell under (x, y) on the map of st, lowest first (its cluster decoded).
 local function heightsAt(st, x, y)
 	local k, lc = locate(st, x, y)
