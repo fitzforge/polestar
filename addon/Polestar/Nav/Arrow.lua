@@ -781,13 +781,21 @@ local loneSeen = -1   -- Travel.version a lone walk's warning was last asked for
 local WARN_SECONDS = 8 -- a walk's "Hostile town" warning stays under its step this long
 local warning, warnUntil -- the warning being said (Travel.TakeWarning) and until when (GetTime)
 local style = "3d"    -- nav.arrowStyle (D.style)
+local noteSeen = 0    -- Walk.Unmapped's version the label shows
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
--- target; the walk's hostile-town warning (`warning`) comes after it.
+-- target, and so does "The last steps here aren't mapped" while the walk the
+-- arrow is on in a capital ends short of its goal's floor or found none
+-- (Walk.Unmapped); the walk's hostile-town warning (`warning`) comes after them.
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
+	local W = Nav.walk
+	if W and W.Unmapped and W.Unmapped() then
+		local note = L["The last steps here aren't mapped"]
+		tw = tw and (tw .. "\n" .. note) or note
+	end
 	if not tw then return text end
 	return text ~= "" and (text .. "\n" .. tw) or tw
 end
@@ -976,6 +984,15 @@ local function syncLabel(T, routed)
 	if warning and (not (routed or lone) or GetTime() >= warnUntil) then
 		warning = nil
 		routeSeen = -2
+	end
+	-- The walk's "last steps aren't mapped" came or went (Walk.Unmapped): the label is set again.
+	local W = Nav.walk
+	if W and W.Unmapped then
+		local _, nv = W.Unmapped()
+		if nv ~= noteSeen then
+			noteSeen = nv
+			routeSeen = -2
+		end
 	end
 	if routed then
 		if T.version ~= routeSeen then

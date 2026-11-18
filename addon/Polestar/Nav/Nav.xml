@@ -12,6 +12,7 @@
 	<Script file="Danger.lua"/>
 	<Script file="Travel.lua"/>
 	<Script file="Follow.lua"/>
+	<Script file="NpcFloor.lua"/>
 	<Script file="Walk.lua"/>
 	<Script file="TravelData.lua"/>
 	<Script file="Journey.lua"/>

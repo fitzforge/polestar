@@ -214,6 +214,11 @@ function Nav.RegisterTravelData(d, replace)
 		local list = taxiByName[key]
 		list[#list + 1] = node.id
 	end
+	-- Each node's height (TaxiNodes): the floor a flight lands on (Nav/Walk.lua, right after a landing).
+	for id, z in pairs(d.taxiZ or {}) do
+		local node = taxi[id]
+		if node and type(z) == "number" then node.z = z end
+	end
 	local fl = d.flights or {}
 	for i = 1, #fl - 2, 3 do
 		local from = fl[i]
@@ -382,7 +387,8 @@ function Travel.Counts()
 end
 
 -- The loaded network, read-only (the live tables, not copies):
---   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction }
+--   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction, z }
+--     (z: the height a flight lands at, TravelData's taxiZ, when known)
 --     (f "e": x, y on the map's Era frame; nil: on its live frame, a map Forever added)
 --   flights = { [fromId] = { toId, yards, toId, yards, ... } }
 --   transports = { { id, kind, faction, a, b, ab, ba, waitA, waitB }, ... }, inns = { inn, ... },

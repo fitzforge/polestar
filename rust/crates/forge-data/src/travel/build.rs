@@ -501,6 +501,22 @@ fn taxi_row(n: &Node) -> V {
 	V::from(row)
 }
 
+/// TravelData.lua's taxiZ: each node's height (TaxiNodes), the floor a flight lands on (Nav/Walk.lua), by node id;
+/// nothing when no node has one.
+fn taxi_z_lines(nodes: &[Node]) -> Vec<String> {
+	if !nodes.iter().any(|n| n.z.is_some()) {
+		return Vec::new();
+	}
+	let mut lines = vec!["\t-- each node's height (TaxiNodes): the floor a flight lands on, by node id".to_string(), "\ttaxiZ = {".to_string()];
+	for n in nodes {
+		if let Some(z) = n.z {
+			lines.push(format!("\t\t[{}] = {},", num_str(n.id), num_str(z)));
+		}
+	}
+	lines.push("\t},".into());
+	lines
+}
+
 fn emit_lua(t: &Emit) -> Result<String, String> {
 	let mut lines: Vec<String> = Vec::new();
 	lines.push(header("travel build", "the client tables, CMaNGOS classic-db, data/forever and data/recordings"));
@@ -535,6 +551,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 		lines.push(format!("\t\t{},", lua_val(&taxi_row(n))?));
 	}
 	lines.push("\t},".into());
+	lines.extend(taxi_z_lines(t.nodes));
 	lines.push("\t-- one-way flights: from, to, yards flown".into());
 	lines.push("\tflights = {".into());
 	for l in t.legs {
@@ -984,6 +1001,7 @@ mod tests {
 			c: 1.0,
 			wx: 7793.6,
 			wy: -2403.5,
+			z: None,
 			map: 1450,
 			x: 44.28,
 			y: 45.34,
@@ -1002,5 +1020,15 @@ mod tests {
 		assert_eq!(row(&node(62.0, "Nighthaven, Moonglade", 1, 11800.0, Some("DRUID"), "e")), r#"{62,1,7793.6,-2403.5,1450,44.28,45.34,1,"Nighthaven, Moonglade","DRUID",nil,11800}"#);
 		assert_eq!(row(&node(49.0, "Moonglade", 1, 10897.0, None, "e")), r#"{49,1,7793.6,-2403.5,1450,44.28,45.34,1,"Moonglade"}"#);
 		assert_eq!(row(&node(90.0, "Rog'mar, Riverglades", 2, 5.0, None, "l")), r#"{90,1,7793.6,-2403.5,1450,44.28,45.34,2,"Rog'mar, Riverglades",nil,"l"}"#);
+	}
+
+	// The floor a flight lands on (Nav/Walk.lua, the capitals' landings): each node with a height, by id; none, none.
+	#[test]
+	fn taxi_z_lists_each_node_s_landing_height_by_id_and_nothing_without_heights() {
+		let mut tb = node(22.0, "Thunder Bluff, Mulgore", 2, 2995.0, None, "e");
+		tb.z = Some(176.9);
+		let rows = [node(49.0, "Moonglade", 1, 10897.0, None, "e"), tb];
+		assert_eq!(taxi_z_lines(&rows), ["\t-- each node's height (TaxiNodes): the floor a flight lands on, by node id", "\ttaxiZ = {", "\t\t[22] = 176.9,", "\t},"]);
+		assert!(taxi_z_lines(&rows[..1]).is_empty());
 	}
 }
