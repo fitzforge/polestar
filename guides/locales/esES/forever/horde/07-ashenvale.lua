@@ -226,7 +226,7 @@ return {
 
 	-- Step 55: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:199} con {npc:11869} (10 de plata); las armas de dos manos hacen subir de nivel más rápido a un guerrero.",
 
 	-- Step 56: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo

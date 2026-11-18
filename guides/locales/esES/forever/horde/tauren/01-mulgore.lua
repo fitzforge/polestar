@@ -327,11 +327,11 @@ return {
 
 	-- Step 68: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:199} con {npc:11869} (10 de plata); las armas de dos manos hacen subir de nivel más rápido a un guerrero.",
 
 	-- Step 69: Ansekhwa
 	-- {npc:11869} Ansekhwa
-	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Bastones con {npc:11869} (10 de plata); el arma cuerpo a cuerpo de un cazador vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
 	-- Step 70: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -348,7 +348,7 @@ return {
 
 	-- Step 74: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} está en {area:2197}, la cueva debajo de {area:1640}: baja por dentro, la flecha no distingue los pisos.",
 	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {area:1640} Spirit Rise
 	["{npc:5906}, a few steps from {npc:5543} on {area:1640}"] = "",
 
@@ -441,7 +441,7 @@ return {
 	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
 	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south-east to the {area:396}."] = "Vuelve al sureste a {area:396}.",

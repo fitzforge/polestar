@@ -347,7 +347,7 @@ return {
 
 	-- Step 80: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:2704} ({object:172958}, 10 de plata); un bastón da más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
 	-- Step 81: Back to Durotar
 	-- {zone:1411} Durotar
@@ -402,7 +402,7 @@ return {
 
 	-- Step 94: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Bastones con {npc:2704} ({object:172958}, 10 de plata); el arma cuerpo a cuerpo de un cazador vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
 	-- Step 95: To Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -410,7 +410,7 @@ return {
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
 	-- Step 96: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
