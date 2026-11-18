@@ -2063,6 +2063,24 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5 here');
 });
 
+// #2706 (cameronmoten): the Young Panther arrow started at a lone spawn west of the river; players' recordings put most
+// Young Panther kills across it at 39-45, 9-15 on both routes. Stranglethorn Tigers come in two groups of about the same
+// size, west and east of Nesingwary's camp: the Horde step that also takes the geologists by Lake Nazferiti points at
+// the eastern group, and its tip names both. The quest order stays as it was.
+test('Stranglethorn Vale 30-40: the Young Panther arrow points across the river, the Horde tiger arrow east toward the lake (#2706)', { skip }, () => {
+	const near = (g, x, y) => g.x != null && Math.abs(g.x - x) < 0.6 && Math.abs(g.y - y) < 0.6;
+	const cases = [
+		['forever/alliance/30-40/04-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 683, 190, 39.81, 11],
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 682, 186, 45, 15],
+	];
+	for (const [guide, npc, q, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `kill ${npc} quest ${q}`, (g) => g.t === 'kill' && g.npc === npc && g.quest === q)];
+		assert.ok(near(goal, x, y), `${guide}: kill ${npc} for ${q} points at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+});
+
 // #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned on the way back
 // from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
 // the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan. Since the level tidy
@@ -4299,6 +4317,65 @@ test("Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its dec
 	}
 	assert.ok(checked >= 10, `the guides' transport gotos are found (${checked})`);
 	assert.deepEqual([...offenders], [], 'transport gotos with no deck or pier within 8 yd');
+});
+
+// #2876 (Shuurajou, Wetlands): "Boat to Auberdine" at Menethil pointed at 4.5,56.7, the boat's own stop in the
+// water 11 yd off the end of the pier; standing on the pier where the boat docks the player never came within the
+// goto's 8 yd, and the arrow kept sending them on. The test above needs a navigation build and skips without
+// one; this one needs only travel.json: every goto at a transport stop with a boarding point (`board`, the deck or
+// pier the walk to the ship ends on) is within the 8 yd a goto completes in of that point.
+test('#2876: every goto at a boat or airship stop with a boarding point completes standing on it', { skip: skip || needs('travel.json', 'zones.json') }, () => {
+	const { Geo } = require('../tools/lib/planner/geo');
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
+	const geo = new Geo(read('map-frames.json'), read('zones.json'));
+	const stops = read('travel.json').transports.flatMap((t) => ['a', 'b'].map((side) => ({ id: `${t.id} (${t[side].name})`, ...t[side] }))).filter((s) => s.board);
+	const offenders = [];
+	let checked = 0;
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.t !== 'goto') continue;
+			const w = geo.toWorld(goal.map, goal.x, goal.y, goal.f || 'l');
+			if (!w) continue;
+			const stop = stops.find((s) => s.c === w.c && Math.hypot(s.wx - w.wx, s.wy - w.wy) <= 40);
+			if (!stop) continue;
+			checked++;
+			const d = Math.hypot(stop.board.wx - w.wx, stop.board.wy - w.wy);
+			if (d > 8) offenders.push(`${guide} step "${step.title}": goto ${goal.x},${goal.y} "${goal.text}" is ${Math.round(d)} yd from ${stop.id}'s boarding point`);
+		}
+	}
+	assert.ok(checked >= 10, `the guides' transport gotos are found (${checked})`);
+	assert.deepEqual(offenders, [], 'transport gotos out of reach from the boarding point');
+});
+
+// #2871 (Shuurajou, Alliance Wetlands): the guide sent them to hand in Fire Taboo (277) at Rethiel with 0 of its 9
+// Crude Flint: 06-ashenvale takes the quest and gets the flint, and a player who reached 06-wetlands without it had only
+// the hand-in. A step for the flint, only while the quest is in the log, now comes before the hand-in.
+test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gnolls before the hand-in', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const flint = at(list, 'collect 2611 quest 277', (g) => g.t === 'collect' && g.item === 2611 && g.quest === 277);
+	assert.ok(flint < at(list, 'turnin 277', is('turnin', 277)), 'the flint before the hand-in');
+	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
+});
+
+// #2881 (gidi, Horde Dustwallow Marsh): Questioning Reethe (1273) is an escort (Ogron walks to Reethe with whoever took
+// it), but its text never says escort, so the guide window showed no escort line under its accept. The correction marks
+// it; the compiled guides carry it from the next data build.
+test('#2881: Questioning Reethe is an escort', { skip }, () => {
+	const { isEscort } = require('../tools/lib/dsl/escort');
+	data = data || loadData(DATA);
+	const fix = loadCorrections().quests['1273'];
+	assert.equal(fix && fix.set.escort, true, 'the correction marks 1273 an escort');
+	assert.ok(isEscort({ ...data.quests[1273], ...fix.set }), 'the compiler reads it as one');
+});
+
+// #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
+// the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
+// killed him at 44.9,51.2 (median of each person's spots).
+test("#2882: Chogg'Zac's spot is where players kill him", { skip }, () => {
+	const fix = (loadCorrections().npcs[256899] || {}).set;
+	const pts = fix && fix.spawns && fix.spawns[2548] && fix.spawns[2548].pts;
+	assert.ok(pts && pts.length === 1, 'one spot');
+	assert.ok(Math.hypot(pts[0][0] - 44.9, pts[0][1] - 51.2) < 0.3, `at 44.9,51.2 (got ${pts[0]})`);
 });
 
 // --- Typed coordinates on the wrong map (Fitz's playtest: Darkshore's "Boat to
