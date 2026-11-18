@@ -306,7 +306,7 @@ function UI.GuideWindowScene(band)
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
 			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
-			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
+			["guideWindow.tabs"] = { P.strip }, ["guideWindow.otherTabNear"] = window, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
 			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
