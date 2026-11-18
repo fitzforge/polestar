@@ -130,6 +130,17 @@ return {
 		["nav.walkedFade"] = function() return look().tail end,
 		["nav.routeChevrons"] = function() return look().arms end,
 		["nav.flightDash"] = function() return look().dashes end,
+		-- A walk that goes round a hostile town carries the stretch through it (the geometry leg's `danger`): drawn as a
+		-- stroke of its own with the option on, none without.
+		["nav.dangerLine"] = function()
+			geom.legs[1].danger = { { name = "Southshore", c = 0, x1 = 20, y1 = -150, x2 = 40, y2 = -170 } }
+			Polestar.Fire("NAV_ROUTE_GEOMETRY"); stub.advance(0.1)
+			stub.runMapFrame(WorldMapFrame, 0)
+			local n = R.GetStrokes("world").n
+			geom.legs[1].danger = nil
+			Polestar.Fire("NAV_ROUTE_GEOMETRY"); stub.advance(0.1)
+			return n
+		end,
 		["nav.dotSize"] = { with = { ["nav.lineStyle"] = "dots" }, probe = dots },
 		["nav.dotSpacing"] = { with = { ["nav.lineStyle"] = "dots" }, probe = dots },
 		["nav.flightColor"] = function() return colours() end,
