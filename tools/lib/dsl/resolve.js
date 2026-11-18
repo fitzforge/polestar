@@ -745,6 +745,39 @@ function applyLoop(step, s, data, err) {
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
 
+// `skill <Profession> <N> nearest` (docs/GUIDE_FORMAT.md, "Smart targets"; #2529): the step's `goto` points
+// are the places to do it, each for the characters its own `only` and the step's name (faction, races).
+// They become the goal's `candidates`, so the arrow leads to the one nearest the player when the step comes
+// up, as for `train … nearest`; the gotos leave the step.
+const SIDE_TAG = { Alliance: 'A', Horde: 'H' };
+function applyNearest(step, s, err, faction) {
+	const at = s.goals.findIndex((g) => g.verb === 'skill' && g.nearest);
+	if (at < 0) return;
+	const ln = s.goals[at].line;
+	if (s.loop) return err(ln, '`skill … nearest` picks one of the step\'s points, `loop` walks them all: drop one of the two');
+	if (s.goals[at].explicitCoords) return err(ln, '`skill … nearest` takes its places from the step\'s `goto` points: drop `@x,y`');
+	const gotos = step.goals.filter((g) => g.t === 'goto');
+	if (gotos.some((g) => g.x === undefined)) return; // its coordinates' error is reported
+	if (gotos.length < 2) return err(ln, '`skill … nearest` needs at least two `goto` points in its step', 'list the places as `goto x,y` lines; for one place, drop `nearest`');
+	const own = gotos.find((g) => g.optional);
+	if (own) return err(own._line, 'a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick');
+	const outer = step.only || {};
+	const goal = step.goals[at];
+	goal.candidates = gotos.map((g) => {
+		const o = g.only || {};
+		const c = { map: g.map, x: g.x, y: g.y };
+		if (g.f) c.f = g.f;
+		const sides = o.factions || outer.factions || (faction ? [faction] : null);
+		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
+		const races = o.races || outer.races;
+		if (races) c.races = races;
+		const classes = o.classes || outer.classes;
+		if (classes) c.classes = classes;
+		return c;
+	});
+	step.goals = step.goals.filter((g) => g.t !== 'goto');
+}
+
 // The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together. -> [min, max] | null
 function guideLevels(h) {
 	const ranges = [h.levels, ...Object.values(h.factionLevels || {})].filter(Boolean);
@@ -1055,6 +1088,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
 			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
+		applyNearest(step, s, err, guide.faction);
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:

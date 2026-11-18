@@ -132,6 +132,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `train <Profession> [Rank]` | Learn a profession or its next rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`) at the nearest trainer | `train Mining Journeyman` |
 | `skill <Profession> <N>` | Reach skill N (quote names of two words) | `skill "First Aid" 40` |
+| `skill <Profession> <N> nearest` | Reach skill N at the nearest of the step's `goto` points (two or more, each for whom its `only` names): the arrow picks one where the player is | `skill Fishing 50 nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it (needs Polestar 0.4.1) | `buff 1126 "Mark of the Wild"` |
