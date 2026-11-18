@@ -147,8 +147,8 @@ fn plain(s: &str) -> String {
 		let after = &rest[i + 1..];
 		if after.starts_with('c') && after.len() >= 9 {
 			rest = &after[9..];
-		} else if after.starts_with('r') {
-			rest = &after[1..];
+		} else if let Some(stripped) = after.strip_prefix('r') {
+			rest = stripped;
 		} else {
 			out.push('|');
 			rest = after;
