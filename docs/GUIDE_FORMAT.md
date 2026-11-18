@@ -320,10 +320,11 @@ for another class, it never holds the guide, and a turn-in whose only accept
 is in such a step goes with it.
 
 A step with `when onquest Q` (or `when complete Q`) can hand in Q with no
-`accept Q` before it: "hand it in if you picked it up elsewhere". Once Q is
-handed in, that predicate holds for the step that hands it in, so what the
-step does after the hand-in (the follow-up's accept from the same NPC) stays
-on the route (Polestar 0.4.2). A `turnin`
+`accept Q` before it: "hand it in if you picked it up elsewhere". When the
+guide sees Q handed in (at that step, or on the way before the route gets
+there), the step's `when` is kept as holding, so what the step does after the
+hand-in (the follow-up's accept from the same NPC) stays on the route; a Q
+handed in before the guide ran leaves the step out (Polestar 0.4.2). A `turnin`
 whose quest is accepted earlier only in steps with `when` warns: characters
 who passed those steps never see it, so give it the same `when` or a
 `when onquest`.

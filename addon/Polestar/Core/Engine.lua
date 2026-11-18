@@ -1231,31 +1231,14 @@ end
 -- Whether predicate p of a step's `when` does not hold now. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
--- there and asks; any other step of it waits for the answer, as for Skip. A
--- `when onquest Q` or `when complete Q` of a step that hands Q in holds once Q
--- is handed in (Own.handedInHere), so what the step does after the hand-in
--- stays on the route: #2888, Moktar Krin's step (`when onquest 1146`) dropped
--- the last The Swarm Grows the moment its second part was handed in.
+-- there and asks; any other step of it waits for the answer, as for Skip. (A
+-- step that hands in the quest its `when onquest` / `when complete` names is
+-- kept by its hand-in instead: Own.holdOnQuest.)
 function Own.predicateFails(step, p)
 	if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
 		return not (Own.dungeonAsks(step) and Own.dungeonOpen(step))
 	end
-	if (p.k == "onquest" or p.k == "complete") and not p.neg and Own.handedInHere(step, p) then return false end
 	return not Own.predicateHolds(p)
-end
-
--- Whether step has a `turnin` of a quest `when` predicate p names that is
--- handed in (questDone).
-function Own.handedInHere(step, p)
-	local qs = type(p.q) == "table" and p.q or { p.q }
-	for _, goal in ipairs(step.goals or NONE) do
-		if goal.t == "turnin" and goal.quest and questDone(goal.quest) then
-			for _, q in ipairs(qs) do
-				if q == goal.quest then return true end
-			end
-		end
-	end
-	return false
 end
 
 -- The first predicate of a step's `when` that does not hold now, or nil.
@@ -8618,7 +8601,64 @@ function Own.latchTurnin(questID)
 			end
 		end
 	end
+	if current and logReady then
+		for s = current, #guide.steps do
+			if Own.holdOnQuest(s, questID) then hit = true end
+		end
+	end
 	return hit
+end
+
+-- A step the route has not passed, shown only while quest q is in the log or
+-- ready (`when onquest q`, `when complete q`), that hands q in and has more to
+-- do after it: Moktar Krin's step hands in The Swarm Grows' second part and
+-- takes the third (#2610, #2888). The hand-in ends `onquest q`, and the step
+-- would be passed with the rest of it still to do: at the step itself, or
+-- handed in on the way before the route got there (While you're here, a
+-- stop at the NPC). Once this guide sees that hand-in, the step's `when` is
+-- stored as held (CharState().when, as Own.latchWhen stores a passed step's),
+-- when the rest of its `when` holds now. A quest handed in before (another
+-- guide, an earlier route) stores nothing: the step never applies for that
+-- character, as before, and the route does not send them back to it.
+-- -> whether stored.
+function Own.holdOnQuest(s, q)
+	local step = guide.steps[s]
+	if not (step.when and Guides.Matches(step.only, player)) then return false end
+	local state = ns.CharState()
+	local held, skipped = state.when[guide.id], state.skipped[guide.id]
+	if (held and held[s]) or (skipped and skipped[s]) then return false end
+	local named = false
+	for _, p in ipairs(step.when) do
+		local mine = false
+		if (p.k == "onquest" or p.k == "complete") and not p.neg then
+			for _, x in ipairs(type(p.q) == "table" and p.q or { p.q }) do
+				if x == q then mine = true end
+			end
+		end
+		if mine then
+			named = true
+		elseif Own.predicateFails(step, p) then
+			return false
+		end
+	end
+	if not named then return false end
+	local after, more = false, false
+	for g, goal in ipairs(step.goals) do
+		if goalApplies(goal) then
+			if goal.t == "turnin" and goal.quest == q then
+				after = true
+			elseif after and goal.t ~= "note" and not goalDone(s, g, goal) then
+				more = true
+			end
+		end
+	end
+	if not more then return false end
+	if not held then
+		held = {}
+		state.when[guide.id] = held
+	end
+	held[s] = true
+	return true
 end
 
 -- Tick successful casts and summons while their goal is open.
