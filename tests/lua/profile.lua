@@ -103,7 +103,9 @@ function stub.fire(ev, ...)
 	if not running then return fire(ev, ...) end
 	local list = {}
 	for _, f in ipairs(stub.frames) do
-		if f.events[ev] then list[#list + 1] = f end
+		-- A frame registered with RegisterUnitEvent hears only its units' (wow_stub.lua).
+		local units = f.events[ev] and f.eventUnits and f.eventUnits[ev]
+		if f.events[ev] and (not units or units[(...)]) then list[#list + 1] = f end
 	end
 	for _, f in ipairs(list) do runTimed(f, "OnEvent", ev, ev, ...) end
 end
