@@ -27,6 +27,7 @@ const run = require('../eval/run');
 
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
+const Z_OFF = 30; // yd, Nav/Walk.lua: a path ending this far off the goal's height missed its floor
 const COUNTED = ['GAME', 'WALK'];
 
 // The folder the gate runs: nav, with its Trails/Trails.lua replaced by <priv>/Trails-train.lua when that exists (the
