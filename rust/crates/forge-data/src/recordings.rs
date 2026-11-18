@@ -1159,6 +1159,15 @@ impl<'a> Overlay<'a> {
 	}
 
 	// ---- finds
+	/// Whether a `rare` sighting is of a true rare: the sighting's classification is rare or rare elite,
+	/// or, a vignette's that carries none, the data's rank is (2 or 4). A world boss is none (#2894).
+	fn true_rare(&self, id: i64, ev: &V) -> bool {
+		match ev.get("cls").as_str() {
+			Some(c) => c == "rare" || c == "rareelite",
+			None => matches!(self.db.npcs.get(&id.to_string()).get("rank").as_num(), Some(r) if r == 2.0 || r == 4.0),
+		}
+	}
+
 	fn unit(&mut self, id: i64, ev: &V) -> bool {
 		if !self.entity("npc", id, &ev.get("npcName")) {
 			return false;
@@ -1209,7 +1218,10 @@ impl<'a> Overlay<'a> {
 		match ev.get("e").as_str().unwrap_or("") {
 			"rare" => {
 				let Some(npc) = npc else { return true };
-				if self.unit(npc, ev) {
+				// Only a true rare takes a role and spawn points from its sightings (#2894): the Recorder also
+				// logs world bosses this way, and the faction leaders (Thrall, Varimathras) got the spots where
+				// players stood when they saw them.
+				if self.unit(npc, ev) && self.true_rare(npc, ev) {
 					self.role(0, npc, "rare");
 					if let Some(c) = coord(ev) {
 						push_point(&mut self.found[0], npc, &c);
@@ -2912,6 +2924,27 @@ mod tests {
 		let pts = |id: &str| t.npcs.get(id).get("spawns").get("1420").get("pts").items().iter().map(|p| (p.num_at(0), p.num_at(1))).collect::<Vec<_>>();
 		assert_eq!(pts("2"), [(10.0, 10.0), (40.1, 40.0)], "the source's spawn, and one place for the sightings away from it");
 		assert_eq!(pts("3"), [(60.0, 60.0)], "one place, at the sightings' centre");
+	}
+
+	#[test]
+	fn a_world_boss_sighting_gives_no_spawn_points_and_no_rare_role_2894() {
+		// #2894 (Emi): Ragefire Chasm's pick-up guide sent the hand-in to Thrall (4949) to 39.70,61.00 in
+		// Orgrimmar, outside his throne room: a spot players stood on when his nameplate showed. The Recorder
+		// logs world bosses as `rare` sightings (class worldboss); they are no rares. Three players see him
+		// from three far spots: his spawn stays the other source's, and he gets no rare role. A true rare's
+		// vignette sighting with no class still counts by the data's rank.
+		let npcs = r#"{"4949":{"id":4949,"name":"Thrall","rank":3,"spawns":{"1454":{"f":"l","pts":[[31.9,37.8]]}}},"5":{"id":5,"name":"Old Rare","rank":4,"spawns":{}}}"#;
+		let seen = |npc: i64, cls: &str, pts: &[(f64, f64)]| -> Vec<String> {
+			pts.iter().enumerate().map(|(i, (x, y))| format!(r#"{{"t":{i},"e":"rare","npc":{npc}{cls},"src":"p","map":1454,"x":{x},"y":{y}}}"#)).collect()
+		};
+		let mut evs = seen(4949, r#","npcLvl":63,"cls":"worldboss""#, &[(39.7, 61.0), (45.2, 52.1), (50.3, 70.4)]);
+		evs.extend(seen(5, "", &[(20.0, 20.0)]));
+		let t = Tables::new(QUESTS, npcs, "{}");
+		t.apply(&from(&[A, B, C], &evs));
+		let thrall = t.npcs.get("4949");
+		assert_eq!(j(&thrall.get("spawns")), r#"{"1454":{"f":"l","pts":[[31.9,37.8]]}}"#, "the throne room only");
+		assert!(!thrall.get("roles").items().iter().any(|r| r.as_str() == Some("rare")), "no rare role: {}", j(&thrall.get("roles")));
+		assert_eq!(j(&t.npcs.get("5").get("spawns").get("1454").get("pts")), "[[20,20]]", "a rare by its rank");
 	}
 
 	/// `n` kills of `npc`, each looted, `drops` of the loot windows holding `item`.
