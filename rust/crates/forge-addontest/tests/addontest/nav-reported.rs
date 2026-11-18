@@ -638,10 +638,7 @@ fn ironforge_the_walk_to_the_cooking_trainer_at_his_height_with_the_reach_ends_a
 	let from = "{ x = -4919.94, y = -964.85, z = 501 }";
 	let to = "{ x = -4763.35, y = -1189.94, z = 509.5, reach = 10 }";
 	let script = REACH.replace("@FROM", from).replace("@TO", to);
-	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() })
-		.into_iter()
-		.next()
-		.unwrap_or(Value::Null);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
 	assert!(truthy(&got["walk"]), "the engine finds a walk with the reach");
 	let pts = points(&got["walk"]);
 	let yards = yards_of(&pts);
