@@ -61,6 +61,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
 			{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
+			-- Width, scale and height cap back to their defaults (GF.ResetSize).
+			{ text = L["Reset window size"], icon = "reset", disabled = not GF.SizeChanged(), onClick = function() GF.ResetSize() end },
 			{ separator = true },
 			{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
 				onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
