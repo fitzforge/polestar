@@ -881,8 +881,10 @@ fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without
 	let end_z = f(&out["withZ"]["endZ"]);
 	assert!((end_z - f(&out["withZ"]["z"])).abs() <= 4.0, "and ends on his floor ({end_z})");
 	assert_eq!(out["withZ"]["aim"], "travel");
-	assert!(out["withoutZ"]["z"].is_null(), "the same point set by hand has no height");
-	assert_eq!(out["withoutZ"]["asked"], 2);
+	// Set by hand the point has no height of its own; in the Undercity (a capital) the walk goes to the floor players
+	// walk at it (the trail floor, Walk.lua city.GoalZ), on his level.
+	let hand_z = f(&out["withoutZ"]["z"]);
+	assert!((hand_z - f(&out["withZ"]["z"])).abs() <= 4.0, "the same point set by hand goes to the trail floor on his level ({hand_z})");
 	assert!((f(&out["withoutZ"]["endZ"]) - end_z).abs() <= 4.0, "and ends on his floor as well, by the lift ({})", out["withoutZ"]["endZ"]);
 }
 
