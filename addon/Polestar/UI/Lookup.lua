@@ -321,6 +321,18 @@ local function makeFolder(parent)
 	return f
 end
 
+-- A row of an item kind shows the game's own tooltip for the item (its
+-- stats and effects), with the row's hint under it; other rows their hint.
+local function rowEnter(self)
+	local res = self.psResult
+	if not (res and KIND[res.kind] and KIND[res.kind].item and type(res.id) == "number") then return W.SimpleTip(self) end
+	local hint = self.psTip
+	W.ItemTip(self, res.id, hint and function(t)
+		local r, g, b = Theme.TipColor("textDim")
+		t:AddLine(hint, r, g, b, true)
+	end)
+end
+
 local function makeRow(parent)
 	local r = CreateFrame("Button", nil, parent)
 	r:SetHeight(ROW_H)
@@ -348,7 +360,7 @@ local function makeRow(parent)
 	r.Status = W.Chip(r)
 	r.Status:SetPoint("LEFT", r.Title, "RIGHT", 8, 0)
 	r.Status:Hide()
-	r:SetScript("OnEnter", W.SimpleTip)
+	r:SetScript("OnEnter", rowEnter)
 	r:SetScript("OnLeave", W.HideTip)
 	return r
 end
@@ -903,6 +915,7 @@ local function emptyDetails(title, note)
 	for _, p in ipairs({ d.Well, d.Title, d.Sub, d.Status, d.Head, d.Scroll, d.Note, d.Primary, d.Secondary }) do p:Hide() end
 	d.Well.psItem = nil
 	W.HideTooltip(d.Well)
+	if d.psEffects then d.psEffects:Hide() end
 	for _, f in ipairs(d.Facts) do
 		f.Label:Hide()
 		f.Value:Hide()
@@ -924,6 +937,113 @@ local function selectionSources(s)
 	end
 	return detailCache.list, detailCache.entity
 end
+
+-- What an item does, under its facts: the game's own tooltip lines for it
+-- less the name (C_TooltipInfo, else a hidden tooltip read line by line), in
+-- their colours, kept per item once the client has them. An item not cached
+-- yet is asked for, and the pane redraws when it arrives. Hovering the block
+-- shows the whole tooltip. Mounts keep their pane.
+local EFFECT_LINES = 10
+local effectsOf, scanTip = {}, nil
+
+local function tipLine(out, text, r, g, b, right)
+	if type(text) ~= "string" or text == "" or secret(text) then return end
+	if type(right) == "string" and right ~= "" and not secret(right) then text = text .. "   " .. right end
+	out[#out + 1] = { text, r, g, b }
+end
+
+local function itemLines(id)
+	if effectsOf[id] then return effectsOf[id] end
+	local out, first = {}, nil
+	local get = C_TooltipInfo and C_TooltipInfo.GetItemByID
+	if get then
+		local ok, data = pcall(get, id)
+		local lines = ok and type(data) == "table" and data.lines
+		if type(lines) ~= "table" then return nil end
+		for i, l in ipairs(lines) do
+			local c = type(l.leftColor) == "table" and l.leftColor or {}
+			if i == 1 then first = l.leftText else tipLine(out, l.leftText, c.r, c.g, c.b, l.rightText) end
+		end
+	else
+		scanTip = scanTip or CreateFrame("GameTooltip", "PolestarLookupScan", nil, "GameTooltipTemplate")
+		scanTip:SetOwner(UIParent, "ANCHOR_NONE")
+		scanTip:SetHyperlink("item:" .. id)
+		for i = 1, scanTip:NumLines() or 0 do
+			local left, right = _G["PolestarLookupScanTextLeft" .. i], _G["PolestarLookupScanTextRight" .. i]
+			local text = left and left:GetText()
+			if i == 1 then
+				first = text
+			elseif left then
+				local r, g, b = left:GetTextColor()
+				tipLine(out, text, r, g, b, right and right:IsShown() and right:GetText())
+			end
+		end
+		scanTip:Hide()
+	end
+	if type(first) ~= "string" or first == "" or secret(first) or first == (RETRIEVING_ITEM_INFO or "Retrieving item information") then return nil end
+	effectsOf[id] = out
+	return out
+end
+
+local function effectsEnter(self) if self.psItem then W.ItemTip(self, self.psItem) end end
+
+-- Draws the block at y; returns the y under it and the lines shown. On LK so
+-- renderDetails keeps under the 60 upvalues Lua allows.
+function LK.PaintEffects(d, s, y)
+	local e = d.psEffects
+	local id = s.kind ~= "mount" and KIND[s.kind] and KIND[s.kind].item and type(s.id) == "number" and s.id or nil
+	local lines = id and itemLines(id)
+	if id and not lines then
+		LK.waitItem = id
+		if ns.Compat.RequestItem then ns.Compat.RequestItem(id) end
+	end
+	if not (lines and #lines > 0) then
+		if e then e:Hide() end
+		return y, nil
+	end
+	if not e then
+		e = CreateFrame("Frame", nil, d)
+		d.psEffects = e
+		e:EnableMouse(true)
+		e:SetScript("OnEnter", effectsEnter)
+		e:SetScript("OnLeave", W.HideTooltip)
+		e.Text = W.Text(e, "small", "text")
+		e.Text:SetWordWrap(true)
+		e.Text:SetJustifyH("LEFT")
+		e.Text:SetJustifyV("TOP")
+		e.Text:SetWidth(INNER)
+		e.Text:SetPoint("TOPLEFT", e, "TOPLEFT", 0, 0)
+	end
+	local parts, shown = {}, {}
+	for i = 1, min(#lines, EFFECT_LINES) do
+		local l = lines[i]
+		local text, r, g, b = l[1], l[2], l[3], l[4]
+		-- White lines take the text colour; coloured ones (green Equip and
+		-- Use, set names) are lifted until they read on the pane.
+		if type(r) == "number" and not secret(r) and not (r > 0.95 and g > 0.95 and b > 0.95) then
+			r, g, b = Theme.Legible(r, g, b)
+			text = format("|cff%02x%02x%02x%s|r", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5), text)
+		end
+		parts[#parts + 1] = text
+		shown[#shown + 1] = l[1]
+	end
+	if #lines > EFFECT_LINES then parts[#parts + 1] = "\226\128\166" end
+	e.psItem = id
+	e.Text:SetText(table.concat(parts, "\n"))
+	local h = floor(e.Text:GetStringHeight() + 0.5)
+	e:ClearAllPoints()
+	e:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -y)
+	e:SetSize(INNER, max(h, 1))
+	e:Show()
+	if GameTooltip and GameTooltip.GetOwner and GameTooltip:GetOwner() == e then effectsEnter(e) end
+	return y + h + 12, shown
+end
+
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
+	if id ~= LK.waitItem then return end
+	LK.waitItem = nil
+	if sel and sel.id == id then LK.Render() end
+end)
 
 local function renderDetails(loaded, reason)
 	local d = details
@@ -1038,6 +1158,8 @@ local function renderDetails(loaded, reason)
 		d.Facts[i].Value:Hide()
 	end
 	y = y - FACT_GAP + 8
+	local effects
+	y, effects = LK.PaintEffects(d, s, y)
 
 	-- The bottom: what the button does, then the button(s).
 	local curated = curatedOf(s.kind, s.id)
@@ -1266,7 +1388,7 @@ local function renderDetails(loaded, reason)
 	end
 	LK.detail = {
 		kind = s.kind, id = s.id, title = title, facts = shown, sources = rowsShown, curated = curated, status = status,
-		primary = primary and d.Primary.Label:GetText() or nil, note = d.Note:GetText(), art = d.psArt,
+		primary = primary and d.Primary.Label:GetText() or nil, note = d.Note:GetText(), art = d.psArt, effects = effects,
 		chain = LK.chainShown,
 	}
 	if primary then LK.detail.enabled = d.Primary:IsEnabled() end
