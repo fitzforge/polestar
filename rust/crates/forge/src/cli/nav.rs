@@ -20,7 +20,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off] [--trails <trails.json>]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -48,7 +48,11 @@ ends from <root>/data/forever travel.json and spawnz.json, the travel chains' no
 our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
 as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
 quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
-another floor (the spawn field: a goal with no height beside one ends on its floor).
+another floor (the spawn field: a goal with no height beside one ends on its floor). --trails takes the
+trail layer (polestar nav city trails: the levels 3+ players walked, per cell): a capital's ground on
+his maps, in a tile with trail data, that no walked level covers (in its cell or one beside it, within
+3 yd of its height) is off the trails (class 6, indoors 7; a step into it costs 3 times), and the
+graph's edges it makes dearer are priced again; PACK.json counts those surfaces per map (`trails`).
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 
@@ -216,7 +220,7 @@ fn today() -> String {
 }
 
 fn pack(args: &[String]) -> Result<(), Fail> {
-	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns"])?;
+	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns", "--trails"])?;
 	let cells: usize = match o.get("--cells") {
 		None => 128,
 		Some(v) => v.parse().ok().filter(|n| (8..=256).contains(n)).ok_or_else(|| usage("--cells needs a whole number from 8 to 256"))?,
@@ -253,6 +257,11 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		Some("on") => leffe.is_some(),
 		None | Some("off") => false,
 		Some(_) => return Err(usage("--spawns needs on or off")),
+	};
+	let trails = match o.get("--trails") {
+		None => None,
+		Some(_) if leffe.is_none() => return Err(usage("--trails needs --leffe")),
+		Some(f) => Some(forge_nav::pack::trails::read(Path::new(f))?),
 	};
 	let date = o.get("--date").cloned().unwrap_or_else(today);
 	let ok_date = date.len() == 10 && date.bytes().enumerate().all(|(n, b)| if n == 4 || n == 7 { b == b'-' } else { b.is_ascii_digit() });
@@ -297,6 +306,7 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		places: places.as_deref(),
 		ledges,
 		spawns: spawns.as_deref(),
+		trails: trails.as_ref(),
 		log: &log,
 	})?;
 	let (written, removed) = forge_nav::pack::ship_pack(&p, &out)?;

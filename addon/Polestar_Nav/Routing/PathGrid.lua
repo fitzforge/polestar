@@ -1545,18 +1545,18 @@ local function sightCluster(st, k)
 	return true
 end
 
-local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
+local INDOOR_CLASS, CITY_CLASS, OFF_INDOOR_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY, Costs.CLASS.OFF_TRAIL_INDOOR
 
 -- Polestar's arrow beside its path (Nav/Follow.lua `sight`): can a player standing at the world point (x1, y1) at
 -- height z1 on map walk straight to (x2, y2)? Walks every cell the segment between the two cells crosses, following
 -- the surface from the node under the start (the one nearest z1, within ZTOL), as the drawn line's straightening does
 -- (sight): never through a closed step (a wall, a cliff edge, a building's side), from one floor to another or into
--- water, and on a map with classes never onto indoor or indoor city ground nor into a town hostile to profile ("Horde",
--- "Alliance"; nil: none is). True when it reaches the end cell on a surface within ZTOL of z2 (any, z2 nil); false
--- when blocked or the start stands on no surface within ZTOL of z1. Reads decoded clusters only, as Path.SurfacesAt:
--- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
--- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
--- reader's slot stay as they were), never yields and allocates nothing.
+-- water, and on a map with classes never onto indoor, indoor city or indoor off-trail ground nor into a town hostile
+-- to profile ("Horde", "Alliance"; nil: none is). True when it reaches the end cell on a surface within ZTOL of z2
+-- (any, z2 nil); false when blocked or the start stands on no surface within ZTOL of z1. Reads decoded clusters
+-- only, as Path.SurfacesAt: nil when the line (or a diagonal step's corner) touches one that is not, touches more
+-- than SIGHT_CLUSTERS, or leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's
+-- order and the reader's slot stay as they were), never yields and allocates nothing.
 ---@param map number
 ---@param x1 number
 ---@param y1 number
@@ -1618,7 +1618,7 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 			elseif classed then
 				local cb = CLS[byte(st.cl[k].kind, node + 1)]
 				local base = cb % 8
-				if base == INDOOR_CLASS or base == CITY_CLASS or (hb and cb % (hb + hb) >= hb) then
+				if base == INDOOR_CLASS or base == CITY_CLASS or base == OFF_INDOOR_CLASS or (hb and cb % (hb + hb) >= hb) then
 					clear = false
 				end
 			end

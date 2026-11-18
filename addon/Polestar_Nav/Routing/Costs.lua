@@ -12,13 +12,15 @@ local ns = select(2, ...)
 
 ---@class PolestarNavCosts
 local Costs = {
-	CLASS = { NORMAL = 0, ROAD = 1, GENTLE = 2, STEEP = 3, INDOOR = 4, CITY = 5 },
+	-- OFF_TRAIL, OFF_TRAIL_INDOOR: a capital's ground (outdoor; indoor or indoor city) that no trail covers, no level
+	-- 3+ players walked within 3 yd of it in its cell or one beside it (forge nav pack --trails). Indoor counts both.
+	CLASS = { NORMAL = 0, ROAD = 1, GENTLE = 2, STEEP = 3, INDOOR = 4, CITY = 5, OFF_TRAIL = 6, OFF_TRAIL_INDOOR = 7 },
 	HUB_ALLIANCE = 8,
 	HUB_HORDE = 16,
 	-- Balanced (the default, and what the packer bakes into the graph's edges), by base class: normal, road (a road
-	-- way is taken up to 1 / 0.8 = 1.25 times longer), gentle slope, steep slope, indoor, indoor city (no penalty).
-	-- Classes 6 and 7 are reserved and cost as normal ground.
-	MULT = { [0] = 1.0, 0.8, 1.3, 2.5, 2.0, 1.0 },
+	-- way is taken up to 1 / 0.8 = 1.25 times longer), gentle slope, steep slope, indoor, indoor city (no penalty),
+	-- off the trails outdoors and indoors (a capital's walk keeps to the trails while they are at most 3 times longer).
+	MULT = { [0] = 1.0, 0.8, 1.3, 2.5, 2.0, 1.0, 3.0, 3.0 },
 	HUB = 20, -- a hostile hub, on top of its base class: kept out of, never closed
 	MIN = 0.8, -- Balanced's smallest multiplier: the A* heuristic's factor, so it never overstates a remaining cost
 }
@@ -28,9 +30,9 @@ local Costs = {
 -- refinement) and straightening. Fastest: the shortest walk (steep ground at 1.2 breaks near ties). Roads: a road
 -- way is taken up to 1 / 0.5 = 2 times longer, and hills cost more.
 Costs.STYLES = {
-	fastest = { MULT = { [0] = 1.0, 1.0, 1.0, 1.2, 2.0, 1.0 }, MIN = 1.0 },
+	fastest = { MULT = { [0] = 1.0, 1.0, 1.0, 1.2, 2.0, 1.0, 3.0, 3.0 }, MIN = 1.0 },
 	balanced = { MULT = Costs.MULT, MIN = Costs.MIN },
-	roads = { MULT = { [0] = 1.0, 0.5, 1.6, 4.0, 2.0, 1.0 }, MIN = 0.5 },
+	roads = { MULT = { [0] = 1.0, 0.5, 1.6, 4.0, 2.0, 1.0, 3.0, 3.0 }, MIN = 0.5 },
 }
 
 -- A style name: "fastest", "balanced" or "roads"; anything else (nil, an unknown name) is "balanced".

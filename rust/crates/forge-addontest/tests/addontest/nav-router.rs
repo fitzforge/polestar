@@ -200,40 +200,40 @@ fn costs_lua_the_ground_classes_the_multipliers_and_the_faction_profiles() {
 		script: r#"
 local K = Polestar_NavCosts
 local function m(c, p) return K.Mult(c, p) end
-local function six(t) return { t[0], t[1], t[2], t[3], t[4], t[5] } end
+local function eight(t) return { t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7] } end
 emit({
-	class = K.CLASS, hubs = { K.HUB_ALLIANCE, K.HUB_HORDE }, hub = K.HUB, min = K.MIN, mult = six(K.MULT),
+	class = K.CLASS, hubs = { K.HUB_ALLIANCE, K.HUB_HORDE }, hub = K.HUB, min = K.MIN, mult = eight(K.MULT),
 	profiles = { K.Profile("Alliance"), K.Profile("Horde"), K.Profile("Neutral") or "nil", K.Profile(nil) or "nil" },
-	m = { m(0), m(1, "Horde"), m(3, "Alliance"), m(4), m(5, "Horde"), m(8 + 1, "Horde"), m(8 + 1, "Alliance"), m(8 + 1), m(16 + 3, "Alliance"), m(16 + 3, "Horde"), m(16 + 3), m(8 + 16, "Horde"), m(8 + 16, "Alliance") },
+	m = { m(0), m(1, "Horde"), m(3, "Alliance"), m(4), m(5, "Horde"), m(8 + 1, "Horde"), m(8 + 1, "Alliance"), m(8 + 1), m(16 + 3, "Alliance"), m(16 + 3, "Horde"), m(16 + 3), m(8 + 16, "Horde"), m(8 + 16, "Alliance"), m(6), m(7, "Alliance"), m(8 + 7, "Horde") },
 	style = { K.Style(nil), K.Style("fastest"), K.Style("roads"), K.Style("Sideways"), K.Style("balanced") },
 	styles = {
-		fastest = { mult = six(K.STYLES.fastest.MULT), min = K.STYLES.fastest.MIN, min2 = K.Min("fastest") },
-		balanced = { mult = six(K.STYLES.balanced.MULT), min = K.STYLES.balanced.MIN, min2 = K.Min(nil) },
-		roads = { mult = six(K.STYLES.roads.MULT), min = K.STYLES.roads.MIN, min2 = K.Min("roads") },
+		fastest = { mult = eight(K.STYLES.fastest.MULT), min = K.STYLES.fastest.MIN, min2 = K.Min("fastest") },
+		balanced = { mult = eight(K.STYLES.balanced.MULT), min = K.STYLES.balanced.MIN, min2 = K.Min(nil) },
+		roads = { mult = eight(K.STYLES.roads.MULT), min = K.STYLES.roads.MIN, min2 = K.Min("roads") },
 	},
-	ms = { K.Mult(3, nil, "fastest"), K.Mult(1, nil, "roads"), K.Mult(8, "Horde", "roads"), K.Mult(1, "Horde", "Sideways") },
+	ms = { K.Mult(3, nil, "fastest"), K.Mult(1, nil, "roads"), K.Mult(8, "Horde", "roads"), K.Mult(1, "Horde", "Sideways"), K.Mult(6, nil, "fastest"), K.Mult(7, nil, "roads") },
 })"#
 		.into(),
 		..Default::default()
 	})
 	.remove(0);
-	assert_eq!(got["class"], json!({ "NORMAL": 0, "ROAD": 1, "GENTLE": 2, "STEEP": 3, "INDOOR": 4, "CITY": 5 }));
+	assert_eq!(got["class"], json!({ "NORMAL": 0, "ROAD": 1, "GENTLE": 2, "STEEP": 3, "INDOOR": 4, "CITY": 5, "OFF_TRAIL": 6, "OFF_TRAIL_INDOOR": 7 }));
 	assert_eq!(got["hubs"], json!([8, 16]));
 	assert_eq!(got["hub"], 20);
-	assert_eq!(got["mult"], json!([1, 0.8, 1.3, 2.5, 2, 1]));
+	assert_eq!(got["mult"], json!([1, 0.8, 1.3, 2.5, 2, 1, 3, 3]));
 	assert_eq!(got["min"], 0.8, "MIN is the smallest multiplier: the heuristic stays admissible");
 	assert_eq!(got["profiles"], json!(["Alliance", "Horde", "nil", "nil"]));
-	assert_eq!(got["m"], json!([1, 0.8, 2.5, 2, 1, 16, 0.8, 0.8, 50, 2.5, 2.5, 20, 20]));
+	assert_eq!(got["m"], json!([1, 0.8, 2.5, 2, 1, 16, 0.8, 0.8, 50, 2.5, 2.5, 20, 20, 3, 3, 60]), "off the trails (6, 7): 3 times, a hostile hub on top");
 	assert_eq!(got["style"], json!(["balanced", "fastest", "roads", "balanced", "balanced"]), "Costs.Style: anything not a style is balanced");
-	assert_eq!(got["styles"]["fastest"], json!({ "mult": [1, 1, 1, 1.2, 2, 1], "min": 1, "min2": 1 }));
-	assert_eq!(got["styles"]["balanced"], json!({ "mult": [1, 0.8, 1.3, 2.5, 2, 1], "min": 0.8, "min2": 0.8 }));
-	assert_eq!(got["styles"]["roads"], json!({ "mult": [1, 0.5, 1.6, 4, 2, 1], "min": 0.5, "min2": 0.5 }));
-	assert_eq!(got["ms"], json!([1.2, 0.5, 20, 0.8]));
+	assert_eq!(got["styles"]["fastest"], json!({ "mult": [1, 1, 1, 1.2, 2, 1, 3, 3], "min": 1, "min2": 1 }));
+	assert_eq!(got["styles"]["balanced"], json!({ "mult": [1, 0.8, 1.3, 2.5, 2, 1, 3, 3], "min": 0.8, "min2": 0.8 }));
+	assert_eq!(got["styles"]["roads"], json!({ "mult": [1, 0.5, 1.6, 4, 2, 1, 3, 3], "min": 0.5, "min2": 0.5 }));
+	assert_eq!(got["ms"], json!([1.2, 0.5, 20, 0.8, 3, 3]), "off the trails costs 3 times in every style");
 	// The packer prices the graph as the router prices a step: forge-nav's table is Costs.lua's.
 	for c in 0..32u8 {
 		for (i, p) in forge_nav::pack::PROFILES.iter().enumerate() {
 			let want = forge_nav::pack::mult(c, *p);
-			let m = if c & 7 > 5 { 1.0 } else { got["mult"][(c & 7) as usize].as_f64().unwrap() };
+			let m = got["mult"][(c & 7) as usize].as_f64().unwrap();
 			let hostile = (*p == Some("Horde") && c & 8 != 0) || (*p == Some("Alliance") && c & 16 != 0);
 			assert_eq!(want, if hostile { m * 20.0 } else { m }, "class byte {c}, profile {i}");
 		}
@@ -940,6 +940,8 @@ fn path_surfacesat_reads_a_cells_surfaces_never_decodes_one_prefetch_job_one_clu
 		cells.insert(k * C * C + 10 * C + 11, FixtureCell { val: 2, cls: 0 });
 		cells.insert(k * C * C + 10 * C + 12, FixtureCell { val: 1, cls: 4 });
 		cells.insert(k * C * C + 10 * C + 13, FixtureCell { val: 1, cls: 5 + 8 });
+		cells.insert(k * C * C + 10 * C + 14, FixtureCell { val: 1, cls: 6 });
+		cells.insert(k * C * C + 10 * C + 15, FixtureCell { val: 1, cls: 7 + 16 });
 	}
 	let map = map_files(&cells, true, Opts { nx: 2, ..Default::default() });
 	let cs = js(CS);
@@ -970,6 +972,8 @@ out.ground = read(10, 10)
 out.water = read(10, 11)
 out.indoor = read(10, 12)
 out.city = read(10, 13)
+out.offTrail = read(10, 14)
+out.offTrailIndoor = read(10, 15)
 out.none = read(10, 20)
 out.kept = t[2]
 out.done = Path.Prefetch({MAP}, x, y) == nil
@@ -1000,6 +1004,8 @@ out.released = read(10, 10).n"#
 	assert_eq!(got["water"]["marks"], 1);
 	assert_eq!(got["indoor"]["marks"], 2);
 	assert_eq!(got["city"]["marks"], 2, "an indoor city (class 5, here inside a hub) is indoor");
+	assert_eq!(got["offTrail"]["marks"], 0, "a capital's outdoor ground off the trails (class 6) is outdoors");
+	assert_eq!(got["offTrailIndoor"]["marks"], 2, "off the trails indoors (class 7, here inside a hub) is indoor");
 	assert_eq!(got["none"]["n"], 0);
 	assert_eq!(got["outside"], json!({ "n": 0, "nomap": 0 }));
 	assert_eq!(got["kept"], 99, "entries past n are left as they were");

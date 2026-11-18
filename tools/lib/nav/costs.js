@@ -9,11 +9,12 @@
 //   mult(classByte, profile) -> the multiplier of a step into a node of that class
 //   profile(faction) -> 'Alliance' | 'Horde' | null
 
-const CLASS = { NORMAL: 0, ROAD: 1, GENTLE: 2, STEEP: 3, INDOOR: 4, CITY: 5 };
+const CLASS = { NORMAL: 0, ROAD: 1, GENTLE: 2, STEEP: 3, INDOOR: 4, CITY: 5, OFF_TRAIL: 6, OFF_TRAIL_INDOOR: 7 };
 const HUB_ALLIANCE = 8; // inside an Alliance hub: hostile to Horde players
 const HUB_HORDE = 16; // inside a Horde hub: hostile to Alliance players
-// By base class: normal, road, gentle slope, steep slope, indoor, indoor city; classes 6 and 7 cost as normal ground.
-const MULT = [1.0, 0.8, 1.3, 2.5, 2.0, 1.0];
+// By base class: normal, road, gentle slope, steep slope, indoor, indoor city, a capital's ground off the trails
+// outdoors and indoors (forge nav pack --trails).
+const MULT = [1.0, 0.8, 1.3, 2.5, 2.0, 1.0, 3.0, 3.0];
 const HUB = 20; // a hostile hub, on top of its base class
 const MIN = Math.min(...MULT);
 // tslope bands (degrees): gentle from GENTLE, steep from STEEP (over 50 the grid's face rule closes what it can).

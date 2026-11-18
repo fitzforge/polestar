@@ -5947,19 +5947,37 @@ flights, rides and the Hearthstone, and the walking is the router's: the
 arrow's walk, every later walk's path, and the measure of the walks into the
 target the planner prices (`Path.Find` and one reversed `Path.FindMany` per
 target, "Walks priced by the engine" above). On a map of format 2 (a ground
-class byte per node: road, gentle or steep slope, indoor, indoor city, and the
-Alliance and Horde hub bits) a grid step costs its length times
+class byte per node: road, gentle or steep slope, indoor, indoor city, off the
+trails outdoors and indoors, and the Alliance and Horde hub bits) a grid step
+costs its length times
 `Costs.Mult(class, profile, style)` (`Routing/Costs.lua`), times the swim
 factor in water. The route style (`Costs.Style`: `"fastest"`, `"balanced"`
 or `"roads"`; nil or any other value is Balanced) picks the multipliers by
 base class, and a hub hostile to the profile multiplies its ground x20 in
 every style:
 
-| style | normal | road | gentle | steep | indoor | indoor city | smallest |
-|---|---|---|---|---|---|---|---|
-| Fastest | 1.0 | 1.0 | 1.0 | 1.2 | 2.0 | 1.0 | 1.0 |
-| Balanced (default) | 1.0 | 0.8 | 1.3 | 2.5 | 2.0 | 1.0 | 0.8 |
-| Roads | 1.0 | 0.5 | 1.6 | 4.0 | 2.0 | 1.0 | 0.5 |
+| style | normal | road | gentle | steep | indoor | indoor city | off the trails (6, 7) | smallest |
+|---|---|---|---|---|---|---|---|---|
+| Fastest | 1.0 | 1.0 | 1.0 | 1.2 | 2.0 | 1.0 | 3.0 | 1.0 |
+| Balanced (default) | 1.0 | 0.8 | 1.3 | 2.5 | 2.0 | 1.0 | 3.0 | 0.8 |
+| Roads | 1.0 | 0.5 | 1.6 | 4.0 | 2.0 | 1.0 | 3.0 | 0.5 |
+
+Off the trails is a capital's ground nobody walks. `forge nav pack --leffe
+<dir> --trails <trails.json>` takes the trail layer (`polestar nav city
+trails`: per 4.17-yd cell the levels 3+ distinct players walked) and, on
+Leffe's maps, re-classes every surface in a capital's ADT chunk (as indoor
+city: AreaTable's capital flag or the zone map) of a tile with trail data
+that no walked level covers, none in its cell or a cell beside it within
+3 yd of its height: class 6 outdoors, 7 on indoor or indoor city ground
+(it counts as indoor wherever those do), its hub bits kept, water left as
+it is (`rust/crates/forge-nav/src/pack/trails.rs`). His graph's edges carry
+his own costs, so the packer prices again those the new classes make
+dearer: an edge inside a cluster by what the grid search between its two
+entrances adds per profile, one across a border (a step into the entrance
+beyond) by the ratio of that entrance's multipliers. A capital's walk keeps
+to the trails while they are at most 3 times longer; PACK.json counts the
+re-classed surfaces per map (`trails`) and says whose walks the layer
+counts (`trails.train`: the gate's training people only).
 
 Fastest walks the shortest way (steep ground at 1.2 breaks near ties);
 Balanced takes a road up to 1.25 times the straight way; Roads up to 2
