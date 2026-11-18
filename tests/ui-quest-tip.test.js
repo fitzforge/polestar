@@ -91,3 +91,56 @@ emit({ lines = GameTooltip.lines, owned = GameTooltip:GetOwner() == r })`);
 	assert.ok(out.lines.includes('Zone | Wetlands'), out.lines.join(' / '));
 	assert.equal(out.lines.at(-1), 'Mountaineer Rockgar, Wetlands  ·  800 XP');
 });
+
+// What a quest is worth (RoutePlan.Worth), from what the route's sums read: the
+// Codex's XP against the level's, a loot's drop chance, grey for the level.
+function worth(codex, script) {
+	return run(`local C = Polestar.Compat
+C.GetPlayerInfo = function() return { level = 20 } end
+C.IsQuestReadyForTurnIn = function() return false end
+C.IsQuestTrivial = function(qlvl, level) return qlvl <= level - 8 end
+local codex = ${codex}
+Polestar.Codex = Polestar.Codex or {}
+Polestar.Codex.Quest = function(id) return codex.quests[id] end
+Polestar.Codex.Item = function(id) return codex.items and codex.items[id] end
+Polestar.Codex.Npc = function(id) return codex.npcs and codex.npcs[id] end
+Polestar.RoutePlan.Carried = function() return {} end
+Polestar.RoutePlan.Unneeded = function() return { { quest = 1, title = "Crawler Mucus", status = "unplanned" } } end
+${script}`);
+}
+
+const HOVER = `local r = PolestarQuestRoom.rows[1]
+r:GetScript("OnEnter")(r)
+emit({ why = r.Why:GetText(), lines = GameTooltip.lines })`;
+
+test('a Make room row says its XP is low for the walk; the tooltip keeps why the route leaves it and the XP', () => {
+	const out = worth('{ quests = { [1] = { level = 18, xp = 500, objectives = {} } } }', `Polestar.UI.ShowQuestRoom()\n${HOVER}`);
+	assert.equal(out.why, 'Low XP for the walk');
+	assert.deepEqual(out.lines.slice(-3), ['Not handed in on this route', 'Low XP for the walk', '500 XP']);
+});
+
+test('a Make room row says a good-XP quest is worth keeping', () => {
+	const out = worth('{ quests = { [1] = { level = 18, xp = 3000, objectives = {} } } }', `Polestar.UI.ShowQuestRoom()\n${HOVER}`);
+	assert.equal(out.why, 'Good XP: worth keeping');
+});
+
+test('a loot it still needs that drops rarely reads "Rare drop, slow", even with good XP', () => {
+	const codex = `{ quests = { [1] = { level = 18, xp = 3000, objectives = { { type = "item", id = 5, count = 8 } } } },
+	items = { [5] = { sources = { { type = "drop", npc = 7, chance = 3 } } } }, npcs = { [7] = { level = 18 } } }`;
+	const out = worth(codex, `Polestar.UI.ShowQuestRoom()\n${HOVER}`);
+	assert.equal(out.why, 'Rare drop, slow');
+	const common = worth(codex.replace('chance = 3', 'chance = 60'), `Polestar.UI.ShowQuestRoom()\n${HOVER}`);
+	assert.equal(common.why, 'Good XP: worth keeping');
+});
+
+test('a "Not part of your route" row says a grey quest is grey for your level; nothing known keeps the route\'s reason', () => {
+	const out = worth('{ quests = {} }', `C.GetQuestLevel = function() return 10 end
+Polestar.RoutePlan.OffRoute = function() return { { quest = 1, title = "Crawler Mucus" } } end
+Polestar.UI.ShowQuestRoom("offroute", "x")\n${HOVER}`);
+	assert.equal(out.why, 'Grey for your level');
+	assert.deepEqual(out.lines.slice(-2), ['Not in any guide of your route', 'Grey for your level']);
+	const none = worth('{ quests = {} }', `Polestar.RoutePlan.OffRoute = function() return { { quest = 1, title = "Crawler Mucus" } } end
+Polestar.UI.ShowQuestRoom("offroute", "x")\n${HOVER}`);
+	assert.equal(none.why, 'Not in any guide of your route');
+	assert.equal(none.lines.at(-1), 'Not in any guide of your route');
+});

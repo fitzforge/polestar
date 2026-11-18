@@ -2919,6 +2919,10 @@ L["Next guide is not loaded; turn-in plan unavailable"] = "O próximo guia não 
 L["No turn-in in this route"] = "Nenhuma entrega nesta rota"
 L["Select a guide to see its turn-in plan"] = "Selecione um guia para ver o plano de entregas dele"
 L["%s (optional)"] = "%s (opcional)"
+L["Grey for your level"] = "Cinza para seu nível"
+L["Rare drop, slow"] = "Drop raro, lento"
+L["Low XP for the walk"] = "Pouca EXP pelo caminho"
+L["Good XP: worth keeping"] = "Boa EXP: vale manter"
 
 -- UI/QuestieTurnIns.lua
 L["Polestar: %s"] = "Polestar: %s"

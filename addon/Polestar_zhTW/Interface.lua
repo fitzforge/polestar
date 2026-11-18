@@ -2919,6 +2919,10 @@ L["Next guide is not loaded; turn-in plan unavailable"] = "下一個指南未載
 L["No turn-in in this route"] = "此路線中沒有繳交"
 L["Select a guide to see its turn-in plan"] = "選擇一個指南以查看其繳交計畫"
 L["%s (optional)"] = "%s（可選）"
+L["Grey for your level"] = "對你的等級已是灰色"
+L["Rare drop, slow"] = "掉率低，耗時"
+L["Low XP for the walk"] = "路程長，經驗少"
+L["Good XP: worth keeping"] = "經驗多：值得保留"
 
 -- UI/QuestieTurnIns.lua
 L["Polestar: %s"] = "Polestar：%s"

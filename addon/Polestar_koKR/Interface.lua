@@ -2919,6 +2919,10 @@ L["Next guide is not loaded; turn-in plan unavailable"] = "다음 가이드가 �
 L["No turn-in in this route"] = "이 경로에는 제출이 없습니다"
 L["Select a guide to see its turn-in plan"] = "가이드를 선택하면 제출 계획을 볼 수 있습니다"
 L["%s (optional)"] = "%s (선택)"
+L["Grey for your level"] = "레벨에 비해 회색"
+L["Rare drop, slow"] = "희귀 드롭, 느림"
+L["Low XP for the walk"] = "이동 대비 경험치 적음"
+L["Good XP: worth keeping"] = "경험치 많음: 유지할 만함"
 
 -- UI/QuestieTurnIns.lua
 L["Polestar: %s"] = "Polestar: %s"

@@ -395,6 +395,39 @@ function Plan.Carried()
 	return out
 end
 
+-- Why a quest the route leaves is worth dropping or keeping, in plain words,
+-- from what the route's sums read (Levels.ForGuide): grey for the character;
+-- a loot it still needs that drops rarely (Levels.LootKills: RARE kills or
+-- more a drop); what it gives now (xpNow) against the level's XP, under LOW
+-- low and from GOOD good. -> key ("grey" | "rare" | "low" | "good"), text,
+-- xp (what it gives now | nil) | nil (nothing known). Never loads the Codex.
+local RARE, LOW, GOOD = 8, 0.04, 0.12
+local WORTH = { grey = L["Grey for your level"], rare = L["Rare drop, slow"],
+	low = L["Low XP for the walk"], good = L["Good XP: worth keeping"] }
+function Plan.Worth(q)
+	local C, X, Lv = ns.Compat, ns.Codex, ns.Levels
+	local level = (C.GetPlayerInfo() or {}).level
+	if grey(C, q, level) then return "grey", WORTH.grey end
+	local rec = X and X.Quest and X.Quest(q)
+	if not (rec and level) then return nil end
+	local xp = xpNow(C, q, level)
+	if Lv and Lv.LootKills and not C.IsQuestReadyForTurnIn(q) then
+		local have = C.GetQuestObjectives and C.GetQuestObjectives(q) or {}
+		for i, o in ipairs(rec.objectives or {}) do
+			if o.type == "item" and not (have[i] and have[i].finished) then
+				local n = Lv.LootKills(o.id, o.count)
+				if n and n >= (o.count or 1) * RARE then return "rare", WORTH.rare, xp end
+			end
+		end
+	end
+	local need = Lv and Lv.LEVEL_XP and Lv.LEVEL_XP[level]
+	if xp and need and need > 0 then
+		if xp < need * LOW then return "low", WORTH.low, xp end
+		if xp >= need * GOOD then return "good", WORTH.good, xp end
+	end
+	return nil
+end
+
 -- The finished quests in the log that the active tab's route hands in from
 -- the live step on and before guide `toId` (anywhere ahead when `toId` is not
 -- on the route): what a jump to `toId` leaves behind. { n, xp (the known ones
