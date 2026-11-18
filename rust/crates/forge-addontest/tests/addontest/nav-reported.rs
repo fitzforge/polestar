@@ -610,3 +610,42 @@ fn orgrimmar_the_walk_down_from_the_wind_rider_tower_drops_off_its_edge_as_playe
 	let yards = yards_of(&pts);
 	assert!(yards < 160.0, "the walk down is {yards:.0} yd");
 }
+
+// #2860, Ironforge: from the reporter's spot (31.78, 66.47, on the floor at 501) to Daryl Riknussun, the cooking
+// trainer (60.25, 36.79, his spawn at 509.5), the walk at his height found no way: his platform was joined to nothing
+// in the walking maps, and the walk asked again without his height went out of the gate and over the mountain (3,515
+// yd). Players walk onto the platform from the Great Forge's floor (27 recorded players by its steps, 32 beside them):
+// step joins put that in. The walk is found at his height, ends on his platform, and is about the players' 356 yd.
+#[test]
+fn ironforge_the_walk_onto_daryl_riknussuns_platform_is_found_at_his_height_2860() {
+	let reporter = Pt { c: 0, x: -4919.9, y: -964.9, z: Some(501.0) };
+	let daryl = Pt { c: 0, x: -4761.5, y: -1188.6, z: Some(509.5) };
+	let got = walk(reporter, daryl, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk to Daryl Riknussun at his height");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 509.5).abs() < 5.0) && (last.0 - daryl.x).hypot(last.1 - daryl.y) < 10.0, "the walk ends on his platform: {last:?}");
+	let yards = yards_of(&pts);
+	assert!(yards < 450.0, "the walk is {yards:.0} yd");
+	joined_both_ways(Pt { c: 0, x: -4790.6, y: -1167.7, z: Some(502.2) }, daryl, Some("Alliance"), "Daryl Riknussun's platform");
+}
+
+// The players' grid holes in the capitals (the recordings step across, neither map did): a step join each, a few
+// yards long. Two of the busiest, from one side's recorded spot to the other's and back: Orgrimmar's Valley of Honor
+// (75.43, 25.05; 65 recorded players: no walk, or 65 yd round for 26) and Ironforge's (36.36, 67.82; 47: 86 yd round
+// for 25). Each walk is found and stays under one and a half times the straight line plus 20 yd.
+#[test]
+fn the_capitals_steps_players_walk_across_are_walked_both_ways_and_short() {
+	let pairs = [
+		(Pt { c: 1, x: 2042.7, y: -4751.0, z: Some(29.2) }, Pt { c: 1, x: 2036.5, y: -4726.0, z: Some(25.4) }, "Horde", "the Valley of Honor's step"),
+		(Pt { c: 0, x: -4919.8, y: -1011.5, z: Some(505.1) }, Pt { c: 0, x: -4934.4, y: -990.6, z: Some(501.5) }, "Alliance", "Ironforge's step at 36.36, 67.82"),
+	];
+	for (a, b, side, what) in pairs {
+		joined_both_ways(a, b, Some(side), what);
+		let straight = (a.x - b.x).hypot(a.y - b.y);
+		for (from, to) in [(a, b), (b, a)] {
+			let yards = yards_of(&points(&walk(from, to, Some(side))));
+			assert!(yards < 1.5 * straight + 20.0, "{what}: the walk is {yards:.0} yd for {straight:.0} straight");
+		}
+	}
+}
