@@ -776,6 +776,390 @@
 		],
 		"note": "On Guard in Stonetalon's second part (1085, Kaela Shadowspear in Stonetalon) is offered only once the first part (1070, Sentinel Thenysil in Astranaar) is handed in to Kaela. The quest data named 1070 as its prerequisite and also as its breadcrumb, and a breadcrumb never blocks, so the prerequisite was dropped: the Wildwood Chain's item guide started at Kaela, who had nothing to give. Taking the first part costs only a stop in Astranaar on the way."
 	},
+	"1580": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 1580: RequiredSkillID 356, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Electropellers (1580) needs Fishing: the quest data asks for rank 30, the Forever world database for Fishing at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"1582": {
+		"set": {
+			"skillLevel": 70
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 1582: RequiredSkillID 165, RequiredSkillPoints 70"
+			}
+		],
+		"note": "Moonglow Vest (1582) needs Leatherworking: the quest data asks for rank 90, the Forever world database for Leatherworking 70. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2848": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2848: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Shoulders (2848) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2849": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2849: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Vest (2849) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2850": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2850: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Helmet (2850) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2851": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2851: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Boots (2851) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2852": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2852: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Leggings (2852) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2853": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2853: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Master of the Wild Leather (2853) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2855": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2855: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Shoulders (2855) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2856": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2856: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Vest (2856) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2857": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2857: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Helmet (2857) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2858": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2858: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Boots (2858) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2859": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2859: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Wild Leather Leggings (2859) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"2860": {
+		"set": {
+			"skillLevel": 200
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 2860: RequiredSkillID 165, RequiredSkillPoints 200"
+			}
+		],
+		"note": "Master of the Wild Leather (2860) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"3402": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 3402: RequiredSkillID 197, RequiredSkillPoints 1"
+			}
+		],
+		"note": "The Undermarket (3402) needs Tailoring: the quest data asks for rank 230, the Forever world database for Tailoring at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4104": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4104: RequiredSkillID 186, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Mining (4104) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4105": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4105: RequiredSkillID 182, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Gathering (4105) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4106": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4106: RequiredSkillID 393, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Skinning (4106) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4107": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4107: RequiredSkillID 333, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Disenchanting (4107) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4109": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4109: RequiredSkillID 186, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Mining (4109) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4110": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4110: RequiredSkillID 182, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Gathering (4110) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4111": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4111: RequiredSkillID 393, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Skinning (4111) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"4112": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 4112: RequiredSkillID 333, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Disenchanting (4112) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5883": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5883: RequiredSkillID 186, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Mining (5883) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5884": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5884: RequiredSkillID 182, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Gathering (5884) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5885": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5885: RequiredSkillID 393, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Skinning (5885) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5886": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5886: RequiredSkillID 333, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Disenchanting (5886) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5888": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5888: RequiredSkillID 186, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Mining (5888) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5889": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5889: RequiredSkillID 182, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Gathering (5889) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5890": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5890: RequiredSkillID 393, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Skinning (5890) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"5891": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 5891: RequiredSkillID 333, RequiredSkillPoints 1"
+			}
+		],
+		"note": "Salve via Disenchanting (5891) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
+	"8798": {
+		"set": {
+			"skillLevel": 1
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 8798: RequiredSkillID 202, RequiredSkillPoints 1"
+			}
+		],
+		"note": "A Yeti of Your Own (8798) needs Engineering: the quest data asks for rank 250, the Forever world database for Engineering at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
+	},
 	"1098": {
 		"set": {
 			"xp": 5350
@@ -3025,13 +3409,20 @@
 					15116
 				],
 				"object": []
+			},
+			"skillLevel": 150
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 8228: RequiredSkillID 356, RequiredSkillPoints 150"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Could I get a Fishing Flier?: starts with Grinkle (npc 15116) and ends with Grinkle (npc 15116); as its giver the merged data also listed Barrus (npc 15119); as its ender the merged data also listed Barrus (npc 15119)."
+		],
+		"note": "Could I get a Fishing Flier?: starts with Grinkle (npc 15116) and ends with Grinkle (npc 15116); as its giver the merged data also listed Barrus (npc 15119); as its ender the merged data also listed Barrus (npc 15119). It needs Fishing: the quest data asks for rank 175, the Forever world database for 150; Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752), and the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
 	},
 	"8229": {
 		"set": {
@@ -3047,13 +3438,20 @@
 					15119
 				],
 				"object": []
+			},
+			"skillLevel": 150
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon 8229: RequiredSkillID 356, RequiredSkillPoints 150"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Could I get a Fishing Flier?: starts with Barrus (npc 15119) and ends with Barrus (npc 15119); as its giver the merged data also listed Grinkle (npc 15116); as its ender the merged data also listed Grinkle (npc 15116)."
+		],
+		"note": "Could I get a Fishing Flier?: starts with Barrus (npc 15119) and ends with Barrus (npc 15119); as its giver the merged data also listed Grinkle (npc 15116); as its ender the merged data also listed Grinkle (npc 15116). It needs Fishing: the quest data asks for rank 175, the Forever world database for 150; Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752), and the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
 	},
 	"8233": {
 		"set": {
