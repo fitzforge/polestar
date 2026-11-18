@@ -228,10 +228,15 @@ folds them into the store's quests, NPCs, objects and items:
 
 - quest giver and ender lists become the union of what every character sees: a quest both
   factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
-- any other field (objective text, zone, next quest, spawns, drops) changes only when every
-  character sees the same value; otherwise the store's value stays.
+- an NPC's or object's spawn points and an NPC's, object's or item's id lists (quests it starts and
+  ends, drops, vendors) become the union too: a summoned demon one faction meets in its own city and
+  the other in theirs has both places (#2038);
+- any other field (objective text, zone, next quest, a quest's prerequisites) changes only when
+  every character sees the same value; otherwise the store's value stays.
 
-The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+The build log lists what changed and every field still kept from the store because characters see
+it differently (check that list at each QuestieDB update: a fact one faction needs that the data
+can't carry is a correction), and `meta.json` counts it under the QuestieDB source's
 `dynamicCorrections`.
 
 ### How the merge works

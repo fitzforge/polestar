@@ -858,6 +858,54 @@ fn is_empty_table(v: &V) -> bool {
 	matches!(v, V::Arr(a) if a.is_empty()) || matches!(v, V::Obj(o) if o.is_empty())
 }
 
+/// A table's (key, value) pairs: an object's entries, a list's (1-based index, value).
+fn table_entries(v: &V) -> Vec<(String, V)> {
+	match v {
+		V::Obj(o) => o.entries().into_iter().filter(|(_, x)| !x.is_nullish()).map(|(k, x)| (k.to_string(), x)).collect(),
+		V::Arr(_) => lua_list(v).into_iter().enumerate().map(|(i, x)| ((i + 1).to_string(), x)).collect(),
+		_ => Vec::new(),
+	}
+}
+
+/// A list field characters read differently (#2038), as one list where a union is the fact for every
+/// character: a spawn list's points per zone (an NPC or object one faction finds in its city, the other
+/// in its own), and an NPC's, object's or item's id lists (quest starts and ends, drops, vendors),
+/// each in first-read order. None for any other field: a quest's id lists (prerequisites all of which
+/// a character needs) and single values stay as the store has them.
+fn union_list(entity: &str, f: &Field, reads: &[V]) -> Option<V> {
+	match f.structure.as_deref() {
+		Some("spawnlist") => {
+			let out = Obj::new();
+			let mut seen: FxHashMap<String, FxHashSet<String>> = FxHashMap::default();
+			for r in reads {
+				for (zone, pts) in table_entries(r) {
+					let have = seen.entry(zone.clone()).or_default();
+					let mut list = out.get(&zone).items();
+					for p in lua_list(&pts) {
+						if have.insert(canon(&p)) {
+							list.push(p);
+						}
+					}
+					out.set(&zone, V::Arr(Arr::from_vec(list)));
+				}
+			}
+			Some(V::Obj(out))
+		}
+		Some("idarray") if entity != "Quest" => {
+			let mut ids: Vec<V> = Vec::new();
+			for r in reads {
+				for x in lua_list(r) {
+					if !ids.iter().any(|y| canon(y) == canon(&x)) {
+						ids.push(x);
+					}
+				}
+			}
+			Some(V::Arr(Arr::from_vec(ids)))
+		}
+		_ => None,
+	}
+}
+
 /// `{{npcs}, {objects}, {items}}` slot by slot: the store's ids some character still reads
 /// first, then every other id in run order.
 fn union_givers(store: &V, reads: &[V]) -> V {
@@ -957,6 +1005,11 @@ fn apply_dynamic(qdir: &Path, metas: &[Schema], ents: &mut [&mut Entities; 4]) -
 						rec.set(&f.name, u);
 						out.unioned.push((entity, id, f.name.clone()));
 					}
+				} else if let Some(u) = union_list(entity, f, &finals) {
+					if canon(&u) != canon(&store) {
+						rec.set(&f.name, u);
+						out.unioned.push((entity, id, f.name.clone()));
+					}
 				} else {
 					let by_class = factions.iter().all(|fac| {
 						let mut k = part.iter().zip(&keys).filter(|(&r, _)| factions[r] == *fac).map(|(_, k)| k);
@@ -989,6 +1042,11 @@ fn log_dynamic(d: &Dynamic, log: &dyn Fn(&str)) {
 	}
 	if !d.agreed.is_empty() {
 		log(&format!("  taken: {}", list(&mut d.agreed.iter().map(|(e, id, f)| format!("{e} {id} {f}")))));
+	}
+	// What still reads differently stays as the store has it: listed so each QuestieDB update's build shows
+	// which faction or class facts the data does not carry (#2038).
+	if !d.kept.is_empty() {
+		log(&format!("  kept from the store: {}", list(&mut d.kept.iter().map(|(e, id, f, by_class)| format!("{e} {id} {f}{}", if *by_class { " (class)" } else { "" })))));
 	}
 }
 
@@ -1444,6 +1502,52 @@ end
 		// a table in a number field and an operation key, for each of the three Horde characters
 		assert_eq!(dy.skipped, 6);
 		assert!(!quests.contains_key(&103) && !quests.contains_key(&104), "skipped writes create nothing");
+	}
+
+	#[test]
+	fn dynamic_corrections_union_an_npcs_spawns_and_id_lists_each_faction_reads() {
+		// #2038: QuestieDB's faction fixes give a summoned demon its Horde spawn in the Undercity and its
+		// Alliance one in Stormwind; the record holds both factions' places and quest lists, and only the one
+		// zone it names stays as the store has it.
+		let d = dynamic_fixture();
+		let cfg = std::fs::read_to_string(d.join("src/config.lua")).unwrap().replace(
+			"  { owned = \"Vanilla\"",
+			"  { owned = \"Forever\", file = \"Forever/legacy/legacyNPCFixes.lua\", module = \"LegacyNPCFixes\", datatype = \"Npc\", static = {\"Load\"}, dynamic = {\"LoadFactionFixes\"} },\n  { owned = \"Vanilla\"",
+		);
+		std::fs::write(d.join("src/config.lua"), cfg).unwrap();
+		std::fs::write(
+			d.join("src/meta/npcMeta.lua"),
+			"local _, LibQuestieDB = ...\nlocal meta = { entity = 'Npc', metaPrefix = 'Npc-', fieldCount = 4, keys = { name = 1, spawns = 2, zoneID = 3, questStarts = 4 }, names = { 'name', 'spawns', 'zoneID', 'questStarts' }, types = { 'string', 'table', 'number', 'table' }, structures = { [2] = 'spawnlist', [4] = 'idarray' } }\nreturn meta\n",
+		)
+		.unwrap();
+		std::fs::write(
+			d.join("src/corrections/Forever/legacy/legacyNPCFixes.lua"),
+			r#"local N = QuestieLoader:CreateModule("LegacyNPCFixes")
+local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
+function N:LoadFactionFixes()
+  local npcKeys = QuestieDB.npcKeys
+  local horde = { [5676] = { [npcKeys.spawns] = { [1497] = {{86.62, 27.05}} }, [npcKeys.zoneID] = 1497, [npcKeys.questStarts] = {1, 2} } }
+  local alliance = { [5676] = { [npcKeys.spawns] = { [1519] = {{25.1, 78.3}} }, [npcKeys.zoneID] = 1519, [npcKeys.questStarts] = {2, 3} } }
+  if UnitFactionGroup("Player") == "Horde" then return horde else return alliance end
+end
+"#,
+		)
+		.unwrap();
+		let metas = load_metas(&d).unwrap();
+		let (mut quests, mut npcs, mut objects, mut items) = (IndexMap::new(), IndexMap::new(), IndexMap::new(), IndexMap::new());
+		let dy = apply_dynamic(&d, &metas, &mut [&mut quests, &mut npcs, &mut objects, &mut items]).unwrap();
+		let _ = std::fs::remove_dir_all(&d);
+		let npc = &npcs[&5676];
+		let s = |v: &V| forge_guide::js::stringify(v, None);
+		assert_eq!(s(&npc.get("spawns").get("1497")), "[[86.62,27.05]]", "the Horde's place");
+		assert_eq!(s(&npc.get("spawns").get("1519")), "[[25.1,78.3]]", "the Alliance's place");
+		let mut starts: Vec<f64> = lua_list(&npc.get("questStarts")).iter().map(V::num).collect();
+		starts.sort_by(f64::total_cmp);
+		assert_eq!(starts, [1.0, 2.0, 3.0], "every quest either faction sees it start");
+		let mut unioned: Vec<String> = dy.unioned.iter().filter(|u| u.0 == "Npc").map(|u| format!("{} {}", u.1, u.2)).collect();
+		unioned.sort();
+		assert_eq!(unioned, ["5676 questStarts", "5676 spawns"]);
+		assert!(dy.kept.iter().any(|k| k.0 == "Npc" && k.1 == 5676 && k.2 == "zoneID" && !k.3), "one zone per NPC: kept, and listed");
 	}
 
 	#[test]
