@@ -157,7 +157,8 @@ fn quest_menu_starts_a_guide_or_opens_search_when_lookup_is_disabled() {
 	let c = ctx();
 	let r = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)", c.home)) + r#"
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)", c.home))
+			+ r#"
 questMenus = {}
 Menu = { ModifyMenu = function(tag, build) questMenus[tag] = build end }
 "#,
@@ -177,7 +178,8 @@ Polestar.Compat.GetQuestTitle = function() return "Taming the Beast" end
 start()
 emit({ active = active, after = Polestar.Engine.GetGuide().id,
 	shown = PolestarPicker:IsShown(), query = Polestar.UI.Picker.Query() })
-"#.into(),
+"#
+		.into(),
 		..Default::default()
 	})
 	.remove(0);
