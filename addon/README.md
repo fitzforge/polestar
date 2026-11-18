@@ -291,6 +291,7 @@ never in saved variables.
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |
 | `Welcome.lua` | `UI.Welcome` | Install: the setup a character gets the first time Polestar meets it, a page at a time (`/polestar install`) |
+
 | `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
 | `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) with the profession guide's materials, beside the Auction House while it is open |
@@ -298,6 +299,9 @@ never in saved variables.
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
 | `Packs.lua` | `UI.Packs` | The Community guides page of the options window |
 | `OptionsLoader.lua` | `UI.ShowOptions` | The settings window's door: loads `Polestar_Options` the first time the settings open |
+
+The round button in the quest details header opens the shared actions from
+`QuestLinks.lua`.
 
 ### Rares
 

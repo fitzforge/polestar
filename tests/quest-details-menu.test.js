@@ -6,7 +6,9 @@ const { runAddon } = require('./helpers/lua');
 test('quest details show the existing Polestar actions for the currently viewed quest', () => {
 	const { emitted } = runAddon({ script: `
 		local noop = function() end
-		local details = { questID = 42, IsShown = function() return true end, GetFrameLevel = function() return 1 end }
+		local back = {}
+		local header = { BackButton = back, GetFrameLevel = function() return 1 end }
+		local details = { questID = 42, IsShown = function() return true end, BackFrame = header }
 		QuestMapFrame = { DetailsFrame = details }
 		QuestMapFrame_ShowQuestDetails = noop
 		hooksecurefunc = noop
@@ -24,13 +26,16 @@ test('quest details show the existing Polestar actions for the currently viewed 
 			UI = { Picker = { ShowQuest = emit } },
 			L = setmetatable({}, { __index = function(_, key) return key end }),
 			Compat = { Readable = function(value) return value end },
+			Get = function(key) return key == "lookup.enabled" end,
 			Hidden = function() return hidden end, GamepadUI = function() return gamepad end,
 			On = function(event, fn) assert(event == "POLESTAR_HIDDEN"); onHidden = fn end,
 			CreateFrameUnder = function(_, _, parent)
-				assert(parent == details)
+				assert(parent == header)
 				return { HookScript = noop, SetFrameLevel = noop, SetSize = noop,
 					CreateTexture = function() return art end, CreateMaskTexture = function() return art end,
-					SetHighlightTexture = noop, SetPoint = noop,
+					SetHighlightTexture = noop, SetPoint = function(_, point, relative, relativePoint, x, y)
+						assert(point == "LEFT" and relative == back and relativePoint == "RIGHT" and x == 4 and y == 0)
+					end,
 					SetShown = function(_, value) shown = value end,
 					SetScript = function(_, _, fn) click = fn end }
 			end,

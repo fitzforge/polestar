@@ -577,8 +577,8 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/QoL/QuestXP.lua", "bar", 1, "Hidden", "the completed quest XP overlay: off while hidden"),
 	("Polestar/QoL/QuestXP.lua", "frame", 1, "Hidden", "the rested pip, under the quest XP overlay"),
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
-	("Polestar/UI/QuestLinks.lua", "header", 1, "POLESTAR_HIDDEN", "the quest details button: off while hidden"),
 	("Polestar/QoL/Rewards.lua", "frame", 1, "Hidden", "the reward panel's weights line beside its heading: off while hidden"),
+	("Polestar/UI/QuestLinks.lua", "header", 1, "POLESTAR_HIDDEN", "the quest details button: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
 ];
