@@ -1069,7 +1069,12 @@ end
 -- goal's height that finds nothing or ends off its floor, again without that
 -- (Z2, for good), the start as it was. A goal in a capital keeps its height
 -- (city): searched with the router's reach, its answer stands, and one that
--- ends short of the goal's floor, or none, is said (city.Note).
+-- ends short of the goal's floor, or none, is said (city.Note). In a capital
+-- a start height that finds nothing is asked first from the surfaces within
+-- ZTOL of it (flat "floors": Path.Find's from.floors), then without it: the
+-- height a trail or an NPC gave can be a counter's or a stall's top over the
+-- floor beside it (Ironforge's vendors), and none at all starts on the
+-- mountain over the city.
 local function ask(P, pc, px, py, flat)
 	wanted = true
 	if inCombat() then return end -- after combat, on the next sample
@@ -1089,10 +1094,19 @@ local function ask(P, pc, px, py, flat)
 	local ghost = Nav.travel and Nav.travel.IsGhost and Nav.travel.IsGhost() or false
 	local z = gz
 	local sz, tracked, hinted = startZ(pc, px, py)
-	if flat and tracked then sz, tracked, hinted = nil, false, false end
+	local floors
+	if flat == "floors" and tracked and sz ~= nil then
+		floors, sz, hinted = { sz }, nil, false
+	elseif flat and tracked then
+		sz, tracked, hinted = nil, false, false
+	end
 	-- The floor unknown indoors: from the candidate floors; a search with them that finds nothing is asked flat.
-	local floors = sz == nil and not flat and startFloors(pc, px, py) or nil
-	if floors then tracked = true end
+	if not floors then
+		floors = sz == nil and not flat and startFloors(pc, px, py) or nil
+		if floors then tracked = true end
+	end
+	-- The tracked start's retry: in a capital, from the surfaces near its height first.
+	local retry = (not flat and sz ~= nil and city.Here(pc, px, py)) and "floors" or true
 	-- A start without a height (not the retry that dropped the floor), or from a capital's hint, owes one re-ask once
 	-- the floor is found (from the hint: on another level than it).
 	floorAsk = false
@@ -1107,7 +1121,7 @@ local function ask(P, pc, px, py, flat)
 		dropSketch()
 		local got = type(points) == "table" and #points > 0
 		if tracked and not got then
-			ask(P, pc, px, py, true)
+			ask(P, pc, px, py, retry)
 			return
 		end
 		if z and (not got or offFloor(points, z)) and not inCity then
@@ -1137,7 +1151,7 @@ local function ask(P, pc, px, py, flat)
 	end, o)
 	if not ok then
 		token = nil
-		if tracked then return ask(P, pc, px, py, true) end
+		if tracked then return ask(P, pc, px, py, retry) end
 		if z and not inCity then
 			gz = nil
 			return ask(P, pc, px, py, flat)

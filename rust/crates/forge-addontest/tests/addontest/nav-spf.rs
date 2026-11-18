@@ -4861,9 +4861,11 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		N.Sample()
 		r.asked = { fake.last().to.z, fake.last().to.reach or false }
 		local n = calls()
-		-- The tracked start found nothing: once more from no start height, the goal's kept.
+		-- The tracked start found nothing: once more from the surfaces near its height, then from none, the goal's kept.
 		fake.fail("unreachable")
-		r.startRetry = { calls() - n, fake.last().from.z or "none", fake.last().to.z, fake.last().to.reach or false }
+		r.startRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z, fake.last().to.reach or false }
+		fake.fail("unreachable")
+		r.flatRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z }
 		n = calls()
 		fake.fail("unreachable")
 		N.Sample()
@@ -4898,7 +4900,8 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	]
 	.concat());
 	assert_eq!(out["asked"], json!([66, 10]), "at his height, with the router's reach");
-	assert_eq!(out["startRetry"], json!([1, "none", 66, 10]), "the tracked start's retry keeps his height");
+	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
+	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
 	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no search without the height: the straight arrow, said; never unreachable");
 	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
 	assert_eq!(out["onFloor"], json!([false, false]));
@@ -4913,7 +4916,7 @@ fn city_a2_outside_the_capitals_a_goal_s_height_that_finds_nothing_is_asked_agai
 		CITY,
 		r#"
 		fake.surfaces = function() return { 40 } end
-		nav.place(0, 50)
+		nav.place(600, 50)
 		startZ()
 		local m, x, y = nav.mapPoint(-500, -500)
 		N.SetTarget(m, x, y, "Trainer", nil, "trainer", 66)

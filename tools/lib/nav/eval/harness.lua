@@ -9,7 +9,8 @@
 -- zones.json (optional): {"<uiMapID>": the zone's lowest level, ...} (tools/lib/maps/zonelevels.js, as the addon's
 -- Maps.GetZoneLevels), for the routes with a level.
 -- queries.jsonl, one JSON object per line ([x, y, z] points in UnitPosition's frame, z null when unknown):
---   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"reach":yd|null,"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
+--   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"floors":[z,...]|null,"reach":yd|null,"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
+--   (floors: the start's from.floors, Path.Find's: a start without a height kept to the surfaces within 10 yd of one)
 --   {"type":"many","id":..,"map":0,"from":[x,y,z],"targets":[[x,y,z],...],"reach":yd|null,"reverse":bool|null,"profile":..,"style":..}
 --   (reach: the goal's, for a route; the source's, for a batch: Path.lua's `reach`, the nearest surface on that point's
 --   level within reach yards when no walk reaches its own floor; reverse: the batch's walks from the targets to from)
@@ -326,6 +327,7 @@ end
 local function route(q)
 	local from, to = point(q.map, q.from), point(q.map, q.to)
 	if type(q.reach) == "number" then to.reach = q.reach end
+	if type(q.floors) == "table" and #q.floors > 0 then from.floors = q.floors end
 	local danger = not SPF and dangerOf(q.map, from, to, q.level, q.danger) or nil
 	local got
 	local function once()
