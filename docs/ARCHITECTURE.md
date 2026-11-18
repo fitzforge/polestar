@@ -1207,9 +1207,14 @@ through `Compat.OpenWorldMap(uiMapID)` (`C_Map.OpenWorldMap`, the global
 from addon code taints the map frame (NAV_QA C3), and
 `rust/crates/forge-addontest/tests/addontest/compat.rs` rejects any other code that opens or moves the world
 map. The quest log, the world map's side panel, opens only through
-`Compat.OpenQuestLog(questID)` (the client's `QuestMapFrame_OpenToQuestDetails`,
-under the same rules; `Compat.CanOpenQuestLog()`), and the same test rejects its
-openers elsewhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
+`Compat.OpenQuestLog(questID)`: the quest selected (`C_QuestLog.SetSelectedQuest`)
+and the map opened through `C_Map.OpenWorldMap` at the quest's zone
+(`GetQuestUiMapID`), under the same rules (`Compat.CanOpenQuestLog()`; no
+fallback without `C_Map.OpenWorldMap`). The client's Lua openers
+(`QuestMapFrame_OpenToQuestDetails`, `OpenQuestLog`) are never called, not even
+in Compat: from addon code they write the quest's page into the map's tables
+in Polestar's name, and the map's quest pins are blocked in combat while it
+stays open (#2924). The same test rejects them everywhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
 replace Compat with a fake.
 
 Coordinates: map percent `x, y` in **0–100**. World coordinates follow
