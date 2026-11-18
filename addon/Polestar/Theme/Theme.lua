@@ -3337,6 +3337,15 @@ if ns.RegisterMigration then
 	end)
 end
 
+-- The guides window had the settings window's scale (ui.menuScale): each
+-- profile keeps that number for it until the player sets its own.
+if ns.RegisterMigration then
+	ns.RegisterMigration("pickerScale", function(s)
+		local ui = s.ui
+		if type(ui) == "table" and ui.pickerScale == nil and tonumber(ui.menuScale) and tonumber(ui.menuScale) ~= 1 then ui.pickerScale = ui.menuScale end
+	end)
+end
+
 -- The class is certain once logged in; a palette read earlier is redone.
 if ns.OnLogin then ns.OnLogin(function() if get("ui.classAccent") then Theme.Refresh() end end) end
 

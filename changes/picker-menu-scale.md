@@ -1,7 +1,12 @@
 ---
 section: players
 ---
-- The guide menu is as big as the settings window at the same Menu scale
-  (it was smaller: 1188 x 640 beside the settings window's 1300 x 946, so
-  75 % left it quite small), and on a sharp screen it could still open a
-  different size. It stays inside the screen.
+- The Guides window and the Settings window each have their own scale slider
+  in their header (Guides scale, Settings scale); one no longer resizes the
+  other. The Guides window starts at the scale your old Menu scale had, so
+  it does not change size.
+- The Settings window is smaller: what 80 % was is now 100 %. Your saved
+  scale is kept as it is, so a window at 100 % draws 20 % smaller.
+- The Guides window and the Settings window open at the same, wider size
+  (16:9 instead of about 4:3). In the Guides window the extra width goes to
+  the list. They stay inside the screen.

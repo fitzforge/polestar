@@ -68,11 +68,11 @@ local SIDE_W = SH.sidebar -- the sidebar, left of the list
 local WIN_H = 640
 
 -- The window is as big as the settings window (W.ShellDefaultSize) where the
--- skin's size is smaller, never past the screen at the Menu scale; the extra
+-- skin's size is smaller, never past the screen at the Guides scale; the extra
 -- room goes to the list pane and the rows' count.
 local function readSizes()
 	local sw, sh = W.ShellDefaultSize()
-	local scale = max(0.01, tonumber(ns.Get("ui.menuScale")) or 1)
+	local scale = max(0.01, tonumber(ns.Get("ui.pickerScale")) or 1)
 	local maxW = floor(UIParent:GetWidth() / scale - 32)
 	local maxH = floor(UIParent:GetHeight() / scale - 32)
 	WIN_W = min(maxW, max(W.SHELL_MIN_W, sw))
@@ -2245,7 +2245,8 @@ local function build()
 	readSizes()
 	win = W.Shell("PolestarPicker", {
 		width = WIN_W, height = WIN_H, sidebar = SIDE_W,
-		rail = true, title = L["Guides"], scalePath = "ui.menuScale", searchPlaceholder = HUB_SEARCH,
+		rail = true, title = L["Guides"], scalePath = "ui.pickerScale", scaleLabel = L["Guides scale"],
+		scaleTip = L["The guides window only; applies when you let go. Right-click to reset."], searchPlaceholder = HUB_SEARCH,
 		onSearch = onSearch,
 	})
 	P.frame = win

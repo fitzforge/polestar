@@ -4203,12 +4203,12 @@ local SEARCH_LEAST, TITLE_LEAST = 104, 15 / 26
 W.RowParts.SEARCH_LEAST = SEARCH_LEAST
 local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
 
-function W.HeaderScale(f, path)
+function W.HeaderScale(f, path, label, tip)
 	local head = f.Header
 	local t = CreateFrame("Frame", nil, head)
 	t:SetHeight(20)
 	t.Label = W.Text(t, "small", "textMuted")
-	t.Label:SetText(L["Menu scale"])
+	t.Label:SetText(label or L["Settings scale"])
 	t.Value = W.Text(t, "number", "textDim")
 	t.Value:SetJustifyH("RIGHT")
 	local s = sliderParts(t, t, SCALE_TRACK)
@@ -4351,8 +4351,8 @@ function W.HeaderScale(f, path)
 		local v = roundTo((ns.Get(path) or 1) + delta * SCALE_STEP, SCALE_STEP)
 		ns.Set(path, min(SCALE_HI, max(SCALE_LO, v)))
 	end)
-	s.psTip = L["Menu scale"]
-	s.psTipLines = { L["The guide menu and this window; applies when you let go. Right-click to reset."] }
+	s.psTip = label or L["Settings scale"]
+	s.psTipLines = { tip or L["The settings window only; applies when you let go. Right-click to reset."] }
 	s:SetScript("OnEnter", simpleTip)
 	s:SetScript("OnLeave", hideTip)
 	ns.On("SETTING_CHANGED", function(p)
@@ -4369,13 +4369,16 @@ local function headerSearchW(f)
 	return f.psSearchW
 end
 
--- The default size of a big window (the settings window, the guide picker): 1300 x 946
+-- The default size of a big window (the settings window, the guide picker): 1680 x 946
 -- screen pixels (and more on a screen taller than 1440 pixels, in 5 % steps) at the
 -- default Menu scale, whatever the UI scale, as UIParent units. The Menu scale
 -- (opts.scalePath) then scales the window once, so both windows keep the same size
 -- to each other at every scale.
-W.SHELL_BASE_W, W.SHELL_BASE_H = 1300, 946
+W.SHELL_BASE_W, W.SHELL_BASE_H = 1680, 946
 W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
+-- The settings window draws at this share of its scale setting (ui.menuScale), so 100 % is
+-- what 80 % was; the guides window (ui.pickerScale) draws at its setting as it is.
+W.SETTINGS_SCALE_BASE = 0.8
 function W.ShellDefaultSize()
 	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0
 	local uh = UIParent:GetHeight()
@@ -4385,7 +4388,9 @@ function W.ShellDefaultSize()
 end
 
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
---         scalePath = "ui.menuScale" (the window's scale setting) }
+--         scalePath = "ui.menuScale" (the window's scale setting),
+--         scaleBase = 1 (the window draws at setting x scaleBase),
+--         scaleLabel, scaleTip (the header slider's label and tooltip line) }
 --
 -- The grid every shell shares, top down: the header band (0-112: brand in
 -- the sidebar, page title in the main column), the tab band (112-152: the
@@ -4565,7 +4570,7 @@ function W.Shell(name, opts)
 		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
 	end)
 	if opts.scalePath then
-		f.HeaderTools = W.HeaderScale(f, opts.scalePath)
+		f.HeaderTools = W.HeaderScale(f, opts.scalePath, opts.scaleLabel, opts.scaleTip)
 		f.Title:SetPoint("TOPRIGHT", f.HeaderTools, "TOPLEFT", -16, -16)
 	end
 	-- The settings search in the header, left of the scale.
@@ -4655,7 +4660,7 @@ function W.Shell(name, opts)
 
 	if opts.scalePath then
 		local function applyScale()
-			f:SetScale(ns.Get(opts.scalePath) or 1)
+			f:SetScale((ns.Get(opts.scalePath) or 1) * (opts.scaleBase or 1))
 			if f:IsShown() then Theme.RetextLater(f) end
 		end
 		applyScale()

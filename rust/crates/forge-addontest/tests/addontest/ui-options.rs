@@ -664,8 +664,9 @@ fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_sa
 	assert_eq!(out["arrow"], json!(["ResetArrowPosition"]));
 }
 
-// The Menu scale sits in the settings window's header: the value follows the drag, the window rescales when it
-// ends (it sits in what it scales), and the window's size stays within the screen at the new scale.
+// The Settings scale sits in the settings window's header: the value follows the drag, the window rescales when it
+// ends (it sits in what it scales), and the window's size stays within the screen at the new scale. The window draws
+// at the setting times W.SETTINGS_SCALE_BASE (0.8): 100 % is 0.8, 120 % is 0.96.
 #[test]
 fn the_header_s_menu_scale_applies_when_the_drag_ends_and_the_window_stays_on_the_screen() {
 	let out = run(r#"
@@ -677,8 +678,8 @@ fn the_header_s_menu_scale_applies_when_the_drag_ends_and_the_window_stays_on_th
 		local after = PolestarOptions:GetScale()
 		emit({ during = during, after = after, stored = Polestar.Get("ui.menuScale"),
 			size = { PolestarOptions:GetWidth() * after, PolestarOptions:GetHeight() * after }, screen = { UIParent:GetWidth(), UIParent:GetHeight() } })"#);
-	assert_eq!(out["during"], json!([1, "120%"]));
-	assert_eq!(out["after"], 1.2);
+	assert_eq!(out["during"], json!([0.8, "120%"]));
+	assert_eq!(out["after"], 0.96);
 	assert_eq!(out["stored"], 1.2);
 	assert!(n(&out["size"][0]) <= n(&out["screen"][0]) && n(&out["size"][1]) <= n(&out["screen"][1]), "on screen: {} in {}", out["size"], out["screen"]);
 }
@@ -980,7 +981,8 @@ fn a_shell_subtitle_wraps_to_two_lines_within_the_main_column_and_cuts_the_rest(
 		local f = PolestarOptions
 		local s = f.Subtitle
 		local page = { text = s:GetText(), width = s:GetWidth(), lines = s:GetNumLines(), wrap = s:GetWordWrap(), height = s:GetHeight() }
-		local long = string.rep("A long subtitle that runs on. ", 12)
+		-- Long enough to run past two lines of the 16:9 window's main column.
+		local long = string.rep("A long subtitle that runs on. ", 20)
 		W.ShellTitle(f, "Title", long)
 		local cut = { text = s:GetText(), lines = s:GetNumLines() }
 		UI.ShowPicker()
@@ -2240,11 +2242,12 @@ Polestar.RegisterOptions({ page = "Fake pins", tab = "Medallions", section = "Gl
 } })
 "#;
 
-// The window opens at 1300 x 946 screen pixels at the default Menu scale (the stub's screen is 1080 pixels in
-// 1080 units), the grip's drag is kept in ui.optionsSize and the body takes the new width; a saved size never
-// goes past the screen nor under 860 x 560; right-click on the grip goes back.
+// The window opens at 1680 x 946 (16:9) at the default Settings scale (the stub's screen is 1080 pixels in 1080
+// units), the grip's drag is kept in ui.optionsSize and the body takes the new width; a saved size never goes past
+// the screen nor under 860 x 560; right-click on the grip goes back. Sizes are the window's own units: it draws at
+// 0.8 (W.SETTINGS_SCALE_BASE), so the screen holds 1920 / 0.8 x 1080 / 0.8 of them.
 #[test]
-fn the_window_opens_at_1300_by_946_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
+fn the_window_opens_at_1680_by_946_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
 	let out = run(r#"
 		local before = PolestarOptions == nil
 		UI.ShowOptions("guide")
@@ -2268,15 +2271,15 @@ fn the_window_opens_at_1300_by_946_its_grip_s_size_is_kept_and_clamped_to_the_sc
 		emit({ before = before, default = default, sizing = sizing, saved = saved, body = body, rowW = rowW, huge = huge, tiny = tiny,
 			bounds = f.resizeBounds, reset = { f:GetWidth(), f:GetHeight(), Polestar.Get("ui.optionsSize") } })"#);
 	assert_eq!(out["before"], true, "nothing is built before the window first opens");
-	assert_eq!(out["default"], json!([1300, 946, true, true]));
+	assert_eq!(out["default"], json!([1680, 946, true, true]));
 	assert_eq!(out["sizing"], true, "the grip sizes the window");
 	assert_eq!(out["saved"], json!([1000, 700]));
 	assert_eq!(out["body"][0], out["body"][1], "the body takes the new width");
 	assert!(n(&out["rowW"]) < 1000.0 - 300.0, "the rows laid out anew at the new width: {}", out["rowW"]);
-	assert_eq!(out["huge"], json!([1920 - 32, 1080 - 32]), "never past the screen");
+	assert_eq!(out["huge"], json!([2400 - 32, 1350 - 32]), "never past the screen");
 	assert_eq!(out["tiny"], json!([860, 560]), "never under its least");
-	assert_eq!(out["bounds"], json!([860, 560, 1920 - 32, 1080 - 32]));
-	assert_eq!(out["reset"], json!([1300, 946, false]), "right-click on the grip: the default, nothing stored");
+	assert_eq!(out["bounds"], json!([860, 560, 2400 - 32, 1350 - 32]));
+	assert_eq!(out["reset"], json!([1680, 946, false]), "right-click on the grip: the default, nothing stored");
 }
 
 // A section's Reset shows while one of its settings is off its default and puts them back; more than three ask

@@ -1,5 +1,5 @@
 -- Polestar's settings window, in the Polestar shell (Polestar.Widgets.Shell):
--- big (1300 x 946 screen pixels at the default scale), resizable by its
+-- big (1680 x 946 screen pixels at the default scale), resizable by its
 -- corner grip (ui.optionsSize) and scaled by the Menu scale in its header.
 -- The sidebar is a tree of groups (Guiding, Look, Setup, About), each
 -- folding away (PolestarDB.optionsNav), with its pages; tabs under the
@@ -4689,7 +4689,7 @@ function O.Go(d)
 end
 
 ---------------------------------------------------------------------------
--- The window's size: 1300 x 946 screen pixels (and more on a screen taller
+-- The window's size: 1680 x 946 screen pixels (and more on a screen taller
 -- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
 -- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
 -- window's own units; false: the default).
@@ -4791,7 +4791,8 @@ end
 local function build()
 	win = W.Shell("PolestarOptions", {
 		-- The box takes a question as well as a word: the longest wording that fits shows.
-		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale",
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", scaleBase = W.SETTINGS_SCALE_BASE,
+		scaleLabel = L["Settings scale"], scaleTip = L["The settings window only; applies when you let go. Right-click to reset."],
 		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
