@@ -269,11 +269,15 @@ fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leavin
 
 // Every setting on a Look page shows what it changes: the pointer on its row (or on the switch or swatch beside it)
 // lights at least one part of that tab's preview, a hotspot or a part the page lights for it (f:Light). Exempt: the
-// game menu's button, which lives in the game's own menu and draws nothing on a preview.
+// game menu's button, which lives in the game's own menu and draws nothing on a preview; and the rows Guide window >
+// Window holds beside the window's own that draw nothing on it: the floating and minimap buttons (the Buttons page's
+// preview draws them), the lock for the arrow and buttons, and Move frames' grid and snap.
 #[test]
 fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 	let out = run(r#"
 		local EXEMPT = { ["ui.gameMenuButton"] = true }
+		local OFF_WINDOW = { ["ui.launcher"] = true, ["maps.minimapButton"] = true, ["ui.lockHud"] = true, ["movers.grid"] = true,
+			["movers.gridSize"] = true, ["movers.snap"] = true }
 		local dark, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			if p.group == "look" then
@@ -289,7 +293,8 @@ fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 							end
 							for _, key in pairs(keys) do
 								seen = seen + 1
-								if not (map[key] and #map[key] > 0) and not EXEMPT[key] then dark[#dark + 1] = p.key .. "/" .. tab .. ": " .. key end
+								local exempt = EXEMPT[key] or (p.key == "guidewindow" and OFF_WINDOW[key])
+								if not (map[key] and #map[key] > 0) and not exempt then dark[#dark + 1] = p.key .. "/" .. tab .. ": " .. key end
 							end
 						end
 					end

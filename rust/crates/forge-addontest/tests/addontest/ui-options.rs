@@ -177,12 +177,14 @@ fn pages_by_order_in_the_tree_s_groups_a_page_with_nothing_to_set_left_out_recor
 	let tree = tree(&out["tree"]);
 	let groups: Vec<&str> = tree.iter().map(|(g, _)| g.as_str()).collect();
 	assert_eq!(groups, ["Guiding", "Look", "Setup", "About"]);
-	assert_eq!(tree[0].1, ["Guide", "Map", "Quests", "Quality of Life"]);
+	// The pages in the player's journey: Quests before Map; About opens its group.
+	assert_eq!(tree[0].1, ["Guide", "Quests", "Map", "Quality of Life"]);
 	assert!(!tree[1].1.is_empty() && !tree[1].1.iter().any(|p| ["Guide", "Map", "Integrations", "About"].contains(&p.as_str())), "Look: {:?}", tree[1].1);
 	assert!(in_order(&tree[2].1, &["Integrations", "Community guides", "Gamepad"]), "Setup: {:?}", tree[2].1);
-	assert_eq!(tree[3].1, ["Guiding Stars", "Recorder", "About"]);
+	assert_eq!(tree[3].1, ["About", "Guiding Stars", "Recorder"]);
 	assert_eq!(out["title"], "Guide");
-	assert_eq!(out["tabs"], json!(["While you play", "Arrow & routes", "Automation", "Professions"]));
+	// Profession guides are a section of Automation.
+	assert_eq!(out["tabs"], json!(["While you play", "Automation", "Arrow & routes"]));
 	let quests = out["pages"].as_array().unwrap().iter().find(|p| p["name"] == "Quests").cloned();
 	assert_eq!(quests, Some(json!({ "name": "Quests", "key": "quests", "builtin": false, "tabs": ["Map"], "group": "guiding" })));
 	let footer: Vec<String> = out["footer"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
@@ -378,7 +380,8 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 	})
 	.remove(0);
 	let keys: Vec<String> = out["keys"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
-	assert!(in_order(&keys, &["guide", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"]), "keys: {keys:?}");
+	// The pages in the player's journey: Questing before Map, About opens its group.
+	assert!(in_order(&keys, &["guide", "questing", "map", "qualityoflife", "discovery", "integrations", "guidepacks", "gamepad", "about", "thanks", "recorder"]), "keys: {keys:?}");
 	assert!(keys.contains(&"theme".to_string()) && !keys.contains(&"appearance".to_string()), "keys: {keys:?}");
 	assert!(is_match(text(&out["options appearance"]), r"^theme: Thema > "), "{}", out["options appearance"]);
 	let mut rest = out.clone();
@@ -501,12 +504,13 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 #[test]
 fn the_lock_for_the_arrow_buttons_and_timers_sits_with_showing_and_hiding_off_by_default_and_says_shift_drag_still_moves_them() {
 	let out = run(r#"
-		UI.ShowOptions("guide")
-		local w = O.Controls("guide", "While you play")["ui.lockHud"]
+		UI.ShowOptions("guidewindow")
+		O.Select("guidewindow", "Window")
+		local w = O.Controls("guidewindow", "Window")["ui.lockHud"]
 		local groups = O.Search("lock")
 		local labels, help = {}, nil
 		for _, g in ipairs(groups) do
-			if g.title:find("Guide  \194\183  While you play", 1, true) == 1 then
+			if g.title:find("Guide window  \194\183  Window  \194\183  Show and hide", 1, true) == 1 then
 				for _, c in ipairs(g.controls) do
 					labels[#labels + 1] = c.label
 					if c.key == "ui.lockHud" then help = c.help end
@@ -516,7 +520,8 @@ fn the_lock_for_the_arrow_buttons_and_timers_sits_with_showing_and_hiding_off_by
 		local default = Polestar.Get("ui.lockHud")
 		w:Click()
 		emit({ labels = labels, help = help, default = default, clicked = Polestar.Get("ui.lockHud"), label = w.Label:GetText() })"#);
-	// The guide window's own lock is on Look > Guide window; this one locks the arrow, the buttons and the timers.
+	// Both locks are on Look > Guide window > Window: the window's own with its position; this one, with showing and
+	// hiding, locks the arrow, the buttons and the timers.
 	assert_eq!(out["labels"].as_array().unwrap()[0], json!("Lock arrow and buttons"));
 	assert_eq!(out["help"], "Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them.");
 	assert_eq!(out["default"], false);
@@ -554,8 +559,9 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 	// Page and tab (a result card's title adds its section).
 	let mut titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| tab_of(v.as_str().unwrap())).collect();
 	titles.dedup();
-	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page.
-	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide  \u{b7}  While you play"]), "the best groups first: {titles:?}");
+	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page (Keep the arrow when
+	// hidden on Look > Guide window).
+	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide window  \u{b7}  Window"]), "the best groups first: {titles:?}");
 	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
 	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
@@ -576,7 +582,8 @@ fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_onl
 	let out = run(r#"
 		Polestar.Set("ui.lockHud", true)
 		Polestar.Set("nav.arrowScale", 1.5)
-		UI.ShowOptions("guide")
+		-- The lock for the arrow and buttons sits on Look > Guide window, with showing and hiding.
+		UI.ShowOptions("guidewindow")
 		local b = footerButton("Reset page")
 		b:Click()
 		local asked = { Polestar.Widgets.ModalShown(), Polestar.Get("ui.lockHud") }
@@ -590,7 +597,7 @@ fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_onl
 	assert_eq!(out["cancelled"], json!([false, true]), "cancel closes the dialog and resets nothing");
 	assert_eq!(out["closed"], true);
 	assert_eq!(out["lock"], false);
-	assert_eq!(out["arrow"], 1.5, "the arrow's look is on its own page, not reset with Guide");
+	assert_eq!(out["arrow"], 1.5, "the arrow's look is on its own page, not reset with Guide window");
 }
 
 #[test]
@@ -608,7 +615,7 @@ fn a_tab_whose_module_is_not_loaded_is_left_out_a_page_with_nothing_at_all_says_
 		"",
 	);
 	assert_eq!(out["landed"], "Guide");
-	assert_eq!(out["tabs"], json!(["While you play", "Automation", "Professions"]), "no dead Arrow & routes tab without Nav");
+	assert_eq!(out["tabs"], json!(["While you play", "Automation"]), "no dead Arrow & routes tab without Nav");
 	assert_eq!(out["empty"], true);
 	assert_eq!(out["controls"], 0);
 }
@@ -1974,7 +1981,8 @@ fn a_page_name_and_more_words_look_on_that_page_alone_and_everywhere_when_it_has
 	assert_eq!(out["joined"]["pages"], json!(["Map pins"]));
 	assert_eq!(out["qol"], json!({ "page": "qualityoflife", "pages": ["Quality of Life"], "first": "qol.fastLoot" }));
 	assert_eq!(out["lock"]["page"], "guidewindow", "the Guide window page holds its lock");
-	assert_eq!(out["lock"]["first"], "ui.locked");
+	// Both locks sit on the page: the arrow and buttons' with showing and hiding, before the window's with its position.
+	assert_eq!(out["lock"]["first"], "ui.lockHud");
 	assert_eq!(out["alone"]["page"], false, "a page's name alone is a search, not a scope");
 	assert_eq!(out["wheres"], json!({ "Arrow  \u{b7}  Look": true, "Arrow  \u{b7}  Text": true }), "the dropdown's rows are the page's");
 	assert!(out["results"].as_array().unwrap().iter().all(|p| p == "Arrow"), "and so is the results page: {}", out["results"]);
@@ -2000,11 +2008,12 @@ fn the_dropdown_on_a_german_client_lists_the_german_labels_with_the_typed_word_l
 		),
 	);
 	let hex = out["hex"].as_str().unwrap();
+	// Faster auto loot's home is Quality of Life > Game.
 	for q in ["Plündern", "plundern"] {
 		assert_eq!(
 			out[q],
 			json!({ "kind": "setting", "key": "qol.fastLoot", "label": "Schnelleres Automatisch-Plündern", "lit": false,
-				"text": format!("Schnelleres Automatisch-|c{hex}Plündern|r"), "where": "Questen  \u{b7}  Quests" }),
+				"text": format!("Schnelleres Automatisch-|c{hex}Plündern|r"), "where": "Komfort  \u{b7}  Spiel" }),
 			"{q}"
 		);
 	}
@@ -2257,7 +2266,10 @@ fn the_window_opens_at_1680_by_946_its_grip_s_size_is_kept_and_clamped_to_the_sc
 		stub.RunScript(f.Grip, "OnMouseUp", "LeftButton")
 		local saved = Polestar.Get("ui.optionsSize")
 		local body = { f.BodyWidth, f:GetWidth() - f.psRail - f.psSidebar - 2 - 2 * Polestar.Widgets.SHELL.pad, f.psViewH }
-		local row = O.Controls("guide", "While you play")["ui.launcher"]
+		-- The floating button's row sits on Look > Guide window, with showing and hiding.
+		UI.ShowOptions("guidewindow")
+		O.Select("guidewindow", "Window")
+		local row = O.Controls("guidewindow", "Window")["ui.launcher"]
 		local rowW = row:GetWidth()
 		f:Hide()
 		Polestar.Set("ui.optionsSize", { 5000, 5000 })

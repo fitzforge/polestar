@@ -44,10 +44,11 @@ local function markChoices()
 end
 
 -- Controls shown on two pages: their home row on Questing (Instant quest
--- text, Hide combat errors and Hide the game's quest tracker on Quality of
--- Life > Game: game options), and a reference on Quality of Life, where
--- players look for conveniences (Fitz, 2026-11-05). Each call makes fresh
--- tables, as the registry keeps per-control state (rows, caches).
+-- text, Hide combat errors, Faster auto-loot and Hide the game's quest
+-- tracker on Quality of Life > Game: game options), and a reference on
+-- Quality of Life, where players look for conveniences (Fitz, 2026-11-05).
+-- Each call makes fresh tables, as the registry keeps per-control state
+-- (rows, caches).
 local C = {}
 function C.autoAccept()
 	return { kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."],
@@ -197,13 +198,14 @@ register(QUESTING, L["Buttons"], L["Targeting"], {
 	{ kind = "toggle", key = "qol.markTarget", label = L["Mark what they target"],
 		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."],
 		search = "raid marker, raid icon, skull, star, mark target" },
+	-- The icons follow Mark what they target, under it.
+	{ kind = "dropdown", key = "qol.markMob", label = L["Icon on mobs"], choices = markChoices, disabled = markOff, child = true,
+		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },
+	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff, child = true,
+		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
 	{ kind = "toggle", key = "qol.pingTarget", label = L["Ping what they target"],
 		help = L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."],
 		search = "ping, ping target, group ping" },
-	{ kind = "dropdown", key = "qol.markMob", label = L["Icon on mobs"], choices = markChoices, disabled = markOff,
-		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },
-	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff,
-		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
 })
 
 -- Questing > Rewards & gear: the reward panel, and gear offered after a kill, a chest or a merchant.
@@ -228,24 +230,29 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 	{ kind = "toggle", key = "qol.stepGossip", label = L["Pick what the step asks for"],
 		help = L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."],
 		search = "gossip, dialog, chat option, auto talk" },
-	C.fastLoot(),
+	-- Its home is Quality of Life > Game, with Hide combat errors: neither is about quests.
+	Ref("toggle", "qol.fastLoot"),
 	Ref("toggle", "qol.hideErrors"),
 })
 
--- The game's tracker and quest log, before the quest database's rows (Quests/Options.lua).
-register(QUESTING, L["Quests"], L["Quest log and tooltips"], {
+-- The game's tracker and quest log, before the quest log's rows of Quests/Options.lua.
+register(QUESTING, L["Quests"], L["Quest log"], {
 	Ref("toggle", "qol.hideQuestTracker"),
 	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
 		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
 		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
-	-- Quests/AuctionBuys.lua and UI/AuctionBuys.lua: the guide's card, the reminder in a town and the list.
-	{ kind = "toggle", key = "qol.auctionBuys", label = L["Auction house buys"],
-		help = L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."],
-		search = "auction house, ah, auctioneer, buy, materials, shopping list, quest items, reagents" },
 	C.instanceTrack(),
 })
 
--- References to the questing helpers' rows on Questing (the game's options are on Game).
+-- Quest items: Quests/AuctionBuys.lua and UI/AuctionBuys.lua (the guide's card, the reminder in a town and the
+-- list), with the bag marks and the buy-back offer of Quests/Options.lua.
+register(QUESTING, L["Quests"], L["Quest items"], {
+	{ kind = "toggle", key = "qol.auctionBuys", label = L["Auction house buys"],
+		help = L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."],
+		search = "auction house, ah, auctioneer, buy, materials, shopping list, quest items, reagents" },
+})
+
+-- References to the questing helpers' rows on Questing and Game, on Quality of Life's last tab.
 register(QOL, L["Quests"], L["Faster questing"], {
 	Ref("toggle", "behavior.autoAccept"), Ref("toggle", "behavior.autoTurnin"), Ref("toggle", "qol.skipGossip"), Ref("toggle", "qol.fastLoot"),
 })
@@ -340,7 +347,7 @@ register(QOL, L["Vendors"], L["Bags"], {
 	{ kind = "toggle", key = "qol.bagSpace", label = L["Bag space"],
 		help = L["When your bags are nearly full, a button shows the free slots and the cheapest junk in them, and while the step collects something the guide window says so too. Press twice to delete that junk: grey items, or common ones you marked as junk. Bindable."],
 		search = "bags, full bags, free slots, inventory, delete junk, destroy" },
-	{ kind = "slider", key = "qol.bagsLow", label = L["Nearly full at"], min = 0, max = 10, step = 1, disabled = function() return not QoL.On("bagSpace") end,
+	{ kind = "slider", key = "qol.bagsLow", label = L["Nearly full at"], min = 0, max = 10, step = 1, child = true, disabled = function() return not QoL.On("bagSpace") end,
 		format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
 		help = L["How many free slots or fewer count as nearly full."] },
 	{ kind = "toggle", key = "qol.spareBag", label = L["Equip a spare bag first"], child = true, disabled = function() return not QoL.On("bagSpace") end,
@@ -350,7 +357,7 @@ register(QOL, L["Vendors"], L["Bags"], {
 		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."]
 			.. " " .. L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."],
 		search = "bags, junk, mark junk, keep item, protect item, sell list, keybind, key binding, hotkey" },
-	{ kind = "toggle", key = "qol.itemMarksClick", label = L["Ctrl+Alt-click cycles"], disabled = function() return not QoL.On("itemMarks") end,
+	{ kind = "toggle", key = "qol.itemMarksClick", label = L["Ctrl+Alt-click cycles"], child = true, disabled = function() return not QoL.On("itemMarks") end,
 		help = L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the Mark as junk and Mark to keep keys."],
 		search = "bags, junk, mark junk, keep item, ctrl alt click, modifier click" },
 })
@@ -375,10 +382,10 @@ register(QOL, L["Vendors"], L["Trainers"], {
 		onClick = function() if QoL.Spells then QoL.Spells.ForgetKept(); QoL.Spells.CheckRanks(true) end end },
 })
 
--- The XP tracker, 0.3.7's Boosted Rest line under the guide window's XP line, the session's reset.
-register(QOL, L["Trackers & map"], L["Experience"], {
-	{ kind = "toggle", key = "qol.xpTracker", label = L["XP tracker"],
-		help = L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."], search = "experience, xp per hour, exp, leveling speed, time to level" },
+-- XP & instances: the XP bar's marks (Experience), then the XP tracker, a
+-- module's switch in its card's header with the session's reset.
+local XP = L["XP & instances"]
+register(QOL, XP, L["Experience"], {
 	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
 		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
 		search = "experience bar, exp bar, target level, guide level" },
@@ -387,9 +394,12 @@ register(QOL, L["Trackers & map"], L["Experience"], {
 	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],
 		help = L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."],
 		search = "boosted rest, campfire, sit, rested, sleeping bag, camp, cozy sleeping bag" },
+})
+register(QOL, XP, L["XP tracker"], {
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."], search = "xp, experience",
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },
-})
+}, { kind = "toggle", key = "qol.xpTracker", label = L["XP tracker"],
+	help = L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."], search = "experience, xp per hour, exp, leveling speed, time to level" })
 
 -- The game's own sharpening of its resampled image (the client CVar
 -- ResampleAlwaysSharpen; most visible with Render Scale under 100%). No
@@ -437,5 +447,5 @@ register(QOL, L["Game"], L["Game options"], {
 			return readCVar(SHARPEN) == "1"
 		end,
 		set = setSharpen },
-	C.instantQuestText(), C.hideErrors(), C.hideQuestTracker(),
+	C.instantQuestText(), C.hideErrors(), C.fastLoot(), C.hideQuestTracker(),
 })

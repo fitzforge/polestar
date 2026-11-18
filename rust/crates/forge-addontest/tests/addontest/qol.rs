@@ -2863,7 +2863,8 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
+	// Quality of Life's tabs follow the player's journey: Experience sits on XP & instances.
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "XP & instances", "section": "Experience" } }));
 }
 
 #[test]
@@ -2879,7 +2880,8 @@ fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
+	// Quests' sections follow the player's journey: the cleanup sits in Quest log.
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------

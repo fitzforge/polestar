@@ -1,10 +1,9 @@
 -- The Maps modules' rows (docs/ARCHITECTURE.md, "Options registry"): the map
 -- features on the Map page (its sections are declared by the options window,
 -- UI/Options.lua), NPC services (Maps/Services.lua), and the flight timer and
--- the instance tracker on the Quality of Life page (Travel and Trackers).
+-- the instance tracker on the Quality of Life page (Travel, XP & instances).
 -- Part of the settings' addon: none of it is in memory before the settings
--- open. One setting has one home row; another page shows a reference to it
--- (UI.Options.Ref).
+-- open. One setting has one home row.
 
 local ns = Polestar
 local Maps = ns.Maps
@@ -17,7 +16,6 @@ local function off(key)
 end
 
 local MAP = L["Map"]
-local Ref = ns.Widgets.Ref
 
 local function register(spec)
 	local ok, err = ns.RegisterOptions(spec)
@@ -69,13 +67,9 @@ register({
 	},
 })
 
--- The coordinates' references on Quality of Life > Trackers & map. The
--- minimap button's home is Guide > While you play > Show and hide.
-register({ page = L["Quality of Life"], tab = L["Trackers & map"], section = L["Minimap and coordinates"],
-	controls = { Ref("toggle", "maps.coords"), Ref("toggle", "maps.minimapCoords") } })
-
 -- The flight timer and the instance tracker join Quality of Life's Travel
--- and Trackers & map tabs; their sections are declared there, in order.
+-- and XP & instances tabs; their sections are declared there, in order. The
+-- minimap button's home is Look > Guide window > Window > Show and hide.
 local QOL = L["Quality of Life"]
 register({
 	page = QOL, tab = L["Travel"], section = L["Flights"],
@@ -92,7 +86,7 @@ register({
 })
 -- The instance tracker: its switch in the section's header, then its display and its limits.
 register({
-	page = QOL, tab = L["Trackers & map"], section = L["Instances"], move = "instances",
+	page = QOL, tab = L["XP & instances"], section = L["Instances"], move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {

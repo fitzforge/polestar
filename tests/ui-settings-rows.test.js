@@ -74,8 +74,9 @@ test('Move is a glyph in the extras column, and the label sits beside its contro
 			uistub.install()
 			stub.login()
 			Polestar.UI.ShowOptions("guide")
-			local rows = Polestar.UI.Options.Controls("guide")
-			local w = rows["ui.launcher"]
+			Polestar.UI.Options.Select("guide", "Arrow & routes")
+			local rows = Polestar.UI.Options.Controls("guide", "Arrow & routes")
+			local w = rows["nav.arrow"]
 			local m = w.MoveButton
 			local inExtras = false
 			for _, e in ipairs(w.psExtras or {}) do if e == m then inExtras = true end end

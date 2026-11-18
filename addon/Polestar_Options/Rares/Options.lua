@@ -62,7 +62,8 @@ register({
 				{ kind = "toggle", key = "rares.sound", label = L["Play a sound"], disabled = alertsOff,
 					search = "sound, audio, chime, ding, alert sound",
 					help = L["One sound with each alert."] },
-				{ kind = "dropdown", key = "rares.soundKit", label = L["Sound"], choices = sounds, disabled = soundOff,
+				-- Under Play a sound too (nested).
+				{ kind = "dropdown", key = "rares.soundKit", label = L["Sound"], choices = sounds, disabled = soundOff, child = true,
 					search = "sound, audio, chime, ding, alert sound, which sound",
 					help = L["Played through the Master channel."] },
 			} },

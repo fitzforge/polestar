@@ -1012,6 +1012,23 @@ local function buildProfiles(v)
 	v.NameOK = W.Button(v, "", function() PV.CommitEdit() end, { primary = true, height = 24 })
 	v.NameCancel = W.Button(v, L["Cancel"], function() PV.CancelEdit() end, { height = 24 })
 	v.NameError = text(overlay(v), "note", "warning")
+	-- Install and the update notices (UI/Options.lua's Install & updates
+	-- section of this tab): a card of their rows, each the row a search
+	-- result's jump lights (v.cache).
+	v.InstallCard = newCard(v, L["Install & updates"])
+	v.InstallRows = {}
+	local K = O().Kit
+	for _, s in ipairs(v.psTab and v.psTab.sections or {}) do
+		if s.name == L["Install & updates"] then
+			for _, c in ipairs(s.controls) do
+				if K.available(c) then
+					local row = W.CompactRow(O().Control(v, c))
+					v.cache[c] = row
+					v.InstallRows[#v.InstallRows + 1] = row
+				end
+			end
+		end
+	end
 	v.Refresh = function() return layoutProfiles(v) end
 end
 
@@ -1345,6 +1362,14 @@ function layoutProfiles(v)
 	y = closeCard(card, x, y, width) + GAP
 	-- The selected profile.
 	y = layoutSelected(v, P, x, y, width)
+	-- Install & updates.
+	card = v.InstallCard
+	card:SetShown(#v.InstallRows > 0)
+	if #v.InstallRows > 0 then
+		y = openCard(card, nil, nil, x, y + GAP)
+		y = halves(v, card.Split, v.InstallRows, x, y, width)
+		y = closeCard(card, x, y, width)
+	end
 	return y + 24
 end
 

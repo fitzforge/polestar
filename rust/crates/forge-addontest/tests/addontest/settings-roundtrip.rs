@@ -431,11 +431,16 @@ fn a_child_and_a_row_s_detail_setting_are_off_while_the_switch_they_follow_is_of
 			if c.disabled then local ok, v = pcall(c.disabled); return ok and v and true or false end
 			return false
 		end
+		-- Children that work while their parent is off, and why.
+		local FREE_CHILD = {
+			["party.chatEcho"] = "it shows the loot lines too, which Tell my party when I loot an item sends on its own",
+			["party.chatOnlyNeeded"] = "it holds back the loot lines too, which Tell my party when I loot an item sends on its own",
+		}
 		local bad, children = {}, 0
 		for _, c in ipairs(O.AllControls()) do
 			local parent, owner = rawget(c, "psParent"), rawget(c, "psOwner")
 			-- A child follows the row before it; a toggle with no setting (Pause) has children that are its options.
-			if c.child and parent and parent.kind == "toggle" and parent.key then
+			if c.child and parent and parent.kind == "toggle" and parent.key and not FREE_CHILD[c.key] then
 				children = children + 1
 				local was = Polestar.Get(parent.key)
 				Polestar.Set(parent.key, false)
@@ -457,7 +462,8 @@ fn a_child_and_a_row_s_detail_setting_are_off_while_the_switch_they_follow_is_of
 }
 
 // The slash commands that set a setting or a character's state set the one the settings window shows: /polestar
-// arrow hide, show and reset (Guide > Arrow & routes), /polestar hide arrow (Keep the arrow when hidden), /polestar
+// arrow hide, show and reset (Guide > Arrow & routes), /polestar hide arrow (Look > Guide window's Keep the arrow
+// when hidden), /polestar
 // pause on and off and /polestar resume (Pause), /polestar profile <name> (the footer's profile), each read back
 // through its row.
 #[test]
@@ -470,8 +476,8 @@ fn the_slash_commands_that_set_a_setting_set_what_its_row_shows() {
 		cmd("arrow show"); r.arrowShown = current(row("nav.arrow"))
 		Polestar.Set("nav.arrowPos", { point = "TOP", relPoint = "TOP", x = 10, y = -50 })
 		cmd("arrow reset"); r.arrowPlaced = Polestar.Get("nav.arrowPos") ~= nil
-		cmd("hide arrow"); r.keep = current(row("Guide:Keep the arrow when hidden"))
-		cmd("hide arrow"); r.keepAgain = current(row("Guide:Keep the arrow when hidden"))
+		cmd("hide arrow"); r.keep = current(row("Guide window:Keep the arrow when hidden"))
+		cmd("hide arrow"); r.keepAgain = current(row("Guide window:Keep the arrow when hidden"))
 		cmd("pause on"); r.paused = current(row("Guide:Pause"))
 		cmd("pause off"); r.unpaused = current(row("Guide:Pause"))
 		cmd("pause"); r.toggled = current(row("Guide:Pause"))
