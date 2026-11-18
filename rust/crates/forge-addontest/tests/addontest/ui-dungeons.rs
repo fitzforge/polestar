@@ -1381,6 +1381,48 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 	assert_eq!(out[4], json!({ "shown": true, "asked": ["wailing-caverns"], "after": false, "ui": true }));
 }
 
+// The level-up check prices the quests' givers from where the player stands (Nav.EstimateTravel, a route plan for
+// each answer Nav's cache lacks, and a level-up empties it): Ragefire Chasm's at 15 on the Barrens was 12 plans,
+// 12-21 ms in the one frame 1.5 s after the level-up (Stutter041's kill harness). They come at most two a frame
+// now, and the card is the same. A Nav that counts its plans by frame and keeps its answers, as Nav/Travel.lua's
+// cache does. Before: every plan in the check's frame.
+#[test]
+fn a_level_up_check_makes_at_most_two_route_plans_a_frame_and_shows_the_same_card() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local cache, byFrame, plans = {{}}, {{}}, 0
+		local function key(from, to)
+			local f = from and (from.map .. ":" .. from.x .. ":" .. from.y) or "player"
+			return f .. ">" .. tostring(to.map) .. ":" .. tostring(to.x) .. ":" .. tostring(to.y)
+		end
+		Polestar.Nav = {{
+			EstimateKnown = function(from, to) return cache[key(from, to)] ~= nil end,
+			EstimateTravel = function(from, to)
+				local k = key(from, to)
+				if cache[k] == nil then
+					plans = plans + 1
+					byFrame[stub.now] = (byFrame[stub.now] or 0) + 1
+					cache[k] = Polestar.DirectTravelCost(from, to) or false
+				end
+				return cache[k] or nil
+			end,
+		}}
+		stub.fire("PLAYER_LEVEL_UP", 20)
+		stub.advance(3)
+		local most, frames = 0, 0
+		for _, n in pairs(byFrame) do
+			frames = frames + 1
+			if n > most then most = n end
+		end
+		local c = card()
+		emit({{ plans = plans, most = most, frames = frames, dungeon = c.dungeon or false, line = c.line or false }})"#
+	));
+	let o = &out[0];
+	assert!(o["plans"].as_u64().unwrap() > 2, "the check makes more plans than a frame's share: {o}");
+	assert!(o["most"].as_u64().unwrap() <= 2, "at most two plans a frame: {o}");
+	assert_eq!((&o["dungeon"], &o["line"]), (&json!("wailing-caverns"), &json!("2 quests to pick up  ·  Levels 17–24  ·  The Barrens")), "the same card: {o}");
+}
+
 // The ring wears the dungeon's own picture (Dungeons/Art.lua: Wailing Caverns' loading screen, file 131882, by its
 // Map id 43), filling it inside the accent's rim, lifted (the picture added over itself at its lift, 0.35) as it is a
 // dark one; a dungeon the table doesn't know gets the dungeon glyph, small and whole on the disc, with no lift.
