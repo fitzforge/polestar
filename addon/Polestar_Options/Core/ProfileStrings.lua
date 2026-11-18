@@ -259,7 +259,9 @@ local function choicesOf(c)
 end
 
 -- A key that holds a table when it is set (a colour, a place): never `true`.
-local function slotName(path)
+-- A toggle holds on or off whatever its name ends in ("Colour by facing").
+local function slotName(path, c)
+	if c and c.kind == "toggle" then return false end
 	local key = path:match("([^.]+)$") or path
 	return key:find("Pos$") or key:find("Point$") or key:find("Colou?r$") or key == "accent"
 end
@@ -302,7 +304,7 @@ local function fit(path, v, c)
 	local td = type(d)
 	if td == "boolean" then
 		if type(v) == "boolean" then
-			if v and not d and ((c and c.kind == "color") or slotName(path)) then return nil end
+			if v and not d and ((c and c.kind == "color") or slotName(path, c)) then return nil end
 			return v
 		end
 		if d == false and type(v) == "table" then return colour(v) end
@@ -547,7 +549,7 @@ function P.ValueText(path, v)
 	end
 	local t = type(v)
 	if t == "boolean" then
-		if not v and ((c and c.kind == "color") or slotName(path)) then return L["From the look"] end
+		if not v and ((c and c.kind == "color") or slotName(path, c)) then return L["From the look"] end
 		return v and L["On"] or L["Off"]
 	end
 	if t == "table" then

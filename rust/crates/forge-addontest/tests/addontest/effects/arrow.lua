@@ -25,6 +25,9 @@ return {
 		["nav.arrowNearColor"] = { prepare = function() nav.place(0, 280); stub.advance(0.3) end, probe = function() return { rgba(A.body), rgba(A.sheet) } end },
 		-- 150 yd out: inside the default range the colour has started to shift.
 		["nav.arrowNearRange"] = { prepare = function() nav.place(0, 150); stub.advance(0.3) end, probe = function() return { rgba(A.body), rgba(A.sheet) } end },
+		-- Facing the goal (300 yd off): green in place of the far colour; the facing put back after.
+		["nav.arrowFacingColor"] = { prepare = function() nav.facing = math.pi / 2; stub.advance(0.3) end,
+			probe = function() local c = { rgba(A.body), rgba(A.sheet) }; nav.facing = 0; return c end },
 		-- A step sideways turns the bearing about 0.2 rad: how far the arrow has eased round a moment later
 		-- (the turn's damping, under the per-frame cap).
 		["nav.arrowTurn"] = function()

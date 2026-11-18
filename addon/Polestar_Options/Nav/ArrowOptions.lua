@@ -56,6 +56,7 @@ local LIGHTS = {
 	dials = { "nav.arrowStyle", "nav.arrowGlowStrength", "nav.arrowGlow" },
 	far = { "nav.arrowColor" },
 	near = { "nav.arrowNearColor", "nav.arrowNearRange" },
+	facing = { "nav.arrowFacingColor" },
 	moving = { "nav.arrowTurn" },
 	arrived = { "nav.arrowRingColor", "nav.arrowPulse", "nav.arrivalSound" },
 	combat = { "nav.arrowCombatAlpha" },
@@ -93,7 +94,7 @@ local function buildBand(view, which)
 	f:Hot(first.distText, "nav.arrowDistSize")
 	f:Hot(first.labelText, "nav.arrowLabelSize")
 	f:Hot(first.etaText, "nav.arrowEtaSize")
-	local parts = { holders = {}, dials = {}, far = {}, near = {}, moving = {}, arrived = {}, combat = {}, dist = {}, label = {}, eta = {}, text = {} }
+	local parts = { holders = {}, dials = {}, far = {}, near = {}, facing = {}, moving = {}, arrived = {}, combat = {}, dist = {}, label = {}, eta = {}, text = {} }
 	local function add(kind, region) parts[kind][#parts[kind] + 1] = region end
 	for _, c in ipairs(cols) do
 		local s, d = c.s, c.dial
@@ -106,6 +107,7 @@ local function buildBand(view, which)
 		else
 			add("moving", d.dial)
 			add(s.near and "near" or "far", d.dial)
+			add("facing", d.dial)
 			add("dist", d.distText)
 			add("eta", d.etaText)
 			add("text", d.distText)
