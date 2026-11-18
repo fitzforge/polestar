@@ -213,11 +213,18 @@ end
 -- the search's source outward, so nearly every key sits in the hash part, 40 bytes a key, and a city cluster's
 -- tree held four tables of up to 32,768 keys (5 MB); three now. Endpoint trees dropped from st.endTrees go to the
 -- pool while it holds fewer than POOL (one is enough for the next connection: a tree grows to its cluster's size
--- once, then is reused); Idle empties it.
+-- once, then is reused), and so does the newest start's at rest (PathGrid.lua's Rest); Path.spareSeconds' rest empties
+-- it. Path.treesMade counts the trees grown new (tests: a tree grown is a cluster's worth of keys inserted and rehashed).
 local SPAN = 1048576 -- 2^20: above any node id + 1 (a cluster holds at most 65,536 nodes)
 local pool, POOL = {}, 1
+Path.treesMade = 0
 local function Tree()
-	return table.remove(pool) or { g = {}, pm = {}, gen = 0, y = {} }
+	local tree = table.remove(pool)
+	if not tree then
+		tree = { g = {}, pm = {}, gen = 0, y = {} }
+		Path.treesMade = Path.treesMade + 1
+	end
+	return tree
 end
 -- A tree given up (an endpoint tree st.endTrees no longer keeps) goes to the pool while it has room.
 local function Release(tree)
@@ -682,7 +689,7 @@ local function connect(st, swim, mult, k, node, back, want)
 		local tree = Tree()
 		node = settle(st, swim, mult, tree, k, node, back, want)
 		local edges, yards = connections(st, tree, k)
-		entry = { node = node, edges = edges, yards = yards, tree = tree }
+		entry = { node = node, edges = edges, yards = yards, tree = tree, back = back }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
 		st.endTrees = st.endTrees or {}
 		st.endTrees[#st.endTrees + 1] = entry
@@ -2363,9 +2370,11 @@ ns.PathSearch = {
 			pool = {}
 		end
 	end,
-	-- The queue emptied (PathJobs.lua's rest): the endpoint trees' pool goes. It fills only while a run gives up more
-	-- endpoint trees than st.endTrees keeps (a batch, a start on several floors), and a tree is 2-4 MB.
+	-- The queue emptied (PathJobs.lua's rest): what the pool holds goes (it fills while a run gives up more endpoint
+	-- trees than st.endTrees keeps: a batch, a start on several floors; a tree is 2-4 MB), and Grid.Rest then hands it
+	-- the newest start's tree (Release), one of the Path.restTrees kept between searches.
 	Rest = function()
 		pool = {}
 	end,
+	Release = Release,
 }

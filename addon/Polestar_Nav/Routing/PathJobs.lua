@@ -84,12 +84,18 @@ end
 
 -- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
 -- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
--- search ran).
+-- search ran). Searches wait out combat (pump), and for Path.calmSeconds after it ends take Path.calmBudget a frame:
+-- the kill that ends a fight is when the game, the guide and the quest log all update at once (a step's objective
+-- done, loot, the next step's walk queued while the fight went on).
+Path.calmBudget = 1
+Path.calmSeconds = 1
+local calmUntil = 0
 
--- With the queue empty the router rests: Grid.Rest trims the decoded graph to Path.graphRestKB and the endpoint trees
--- to the newest Path.restTrees, Search.Rest drops the endpoint trees' pool, and decoded clusters, the decoder's
--- scratch and the kept endpoint trees stay for the next search (a walk or measure from nearby reads the same
--- clusters) until it has rested Path.restSeconds, then Grid.Idle drops them. The search scratch (Search.Spare: the
+-- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
+-- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
+-- search's first connection to fill), and decoded clusters, the decoder's scratch and the kept endpoint trees stay
+-- for the next search (a walk or measure from nearby reads the same clusters) until it has rested Path.restSeconds,
+-- then Grid.Idle drops them; the pool goes with the search scratch. The search scratch (Search.Spare: the
 -- abstract A*'s tables, keyed by entrance ids, the heap and the grid trees; a long walk's is ~15 MB) stays
 -- Path.spareSeconds: the next search fills the same tables instead of growing new ones key by key. Until 0.3.4 every
 -- emptied queue dropped it, so a walk re-asked every few seconds (the player off the drawn line on a long walk) grew
@@ -98,8 +104,8 @@ Path.restSeconds = 60
 Path.spareSeconds = 15
 local rests = 0 -- times the queue emptied: a later rest makes an earlier rest's timers stale
 local function rest()
-	Grid.Rest()
 	Search.Rest()
+	Grid.Rest(Search.Release)
 	rests = rests + 1
 	local mine = rests
 	if C_Timer and C_Timer.After then
@@ -126,6 +132,7 @@ pump = function()
 			combatWait = CreateFrame("Frame")
 			combatWait:SetScript("OnEvent", function(self)
 				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
 				schedule()
 			end)
 		end
@@ -133,7 +140,7 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = Path.budget
+	local budget = GetTime and GetTime() < calmUntil and Path.calmBudget or Path.budget
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
