@@ -1337,7 +1337,12 @@ mod tests {
 	/// A QuestieDB release's correction surface in miniature: config, one enum file, the four
 	/// metas, a legacy faction provider (one class-dependent field) and a Forever one over it.
 	fn dynamic_fixture() -> PathBuf {
-		let d = std::env::temp_dir().join(format!("forge-questie-dynamic-{}", std::process::id()));
+		dynamic_fixture_in("dynamic")
+	}
+
+	/// The fixture in its own folder (`tag`): tests run at once, and one that edits its copy must not touch another's.
+	fn dynamic_fixture_in(tag: &str) -> PathBuf {
+		let d = std::env::temp_dir().join(format!("forge-questie-{tag}-{}", std::process::id()));
 		let _ = std::fs::remove_dir_all(&d);
 		let w = |rel: &str, text: &str| {
 			let p = d.join(rel);
@@ -1509,7 +1514,7 @@ end
 		// #2038: QuestieDB's faction fixes give a summoned demon its Horde spawn in the Undercity and its
 		// Alliance one in Stormwind; the record holds both factions' places and quest lists, and only the one
 		// zone it names stays as the store has it.
-		let d = dynamic_fixture();
+		let d = dynamic_fixture_in("dynamic-npc");
 		let cfg = std::fs::read_to_string(d.join("src/config.lua")).unwrap().replace(
 			"  { owned = \"Vanilla\"",
 			"  { owned = \"Forever\", file = \"Forever/legacy/legacyNPCFixes.lua\", module = \"LegacyNPCFixes\", datatype = \"Npc\", static = {\"Load\"}, dynamic = {\"LoadFactionFixes\"} },\n  { owned = \"Vanilla\"",
