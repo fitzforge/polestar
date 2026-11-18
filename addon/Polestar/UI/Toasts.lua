@@ -61,7 +61,8 @@ local DEFAULTS = {
 	-- window, "below" it or "free" (its own spot, pos { point, x, y }, Move
 	-- frames); compact: one line (UI/ClassToast.lua).
 	headsup = look({ seconds = 0, place = "above", compact = false, pos = false }),
-	classcard = { shine = true, glow = 1, stripe = 4, note = true, titleSize = 1, bodySize = 1 },
+	-- mode: "full", "compact" or "off" (UI/ClassCard.lua).
+	classcard = { mode = "full", shine = true, glow = 1, stripe = 4, note = true, titleSize = 1, bodySize = 1 },
 	stack = false, growth = "down", spacing = 8, max = 3, stackPoint = false,
 }
 ns.RegisterDefaults("toasts", DEFAULTS)

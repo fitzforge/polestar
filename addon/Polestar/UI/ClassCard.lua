@@ -20,7 +20,8 @@
 -- flash under ui.reduceMotion) and, with ui.classCardSound on, plays a short
 -- chime on the game's sound effects channel. The glow's strength, the
 -- stripe's width, the shine, the "Only you see this" note and the type sizes
--- are the player's (toasts.classcard.*, Options > Alerts & toasts).
+-- are the player's (toasts.classcard.*, Settings > Alerts & toasts), and so
+-- is whether it shows full, compact or not at all (toasts.classcard.mode).
 --
 -- What each chain gives comes from UI/ClassRewards.lua (classrewards build).
 -- GuideFrame calls Fill on every render and Layout in its card layout; the
@@ -57,9 +58,7 @@ local function text(parent, role, color)
 	return W.Text(parent, role, color)
 end
 
-local function compact() return ns.Get("ui.compact") and true or false end
-
--- The card's look (Options > Alerts & toasts, UI/Looks/Toasts.lua): its
+-- The card's look (Settings > Alerts & toasts, UI/Looks/Toasts.lua): its
 -- glow, stripe, first-time shine, the "Only you see this" note and type sizes.
 local function look(prop, fallback)
 	local TS = UI.Toasts
@@ -67,6 +66,12 @@ local function look(prop, fallback)
 	if v == nil then return fallback end
 	return v
 end
+
+-- toasts.classcard.mode: "full" (compact with the window, ui.compact),
+-- "compact" (a smaller ring, no trip or note) or "off" (no card: the accept
+-- reads as a row like any other).
+local function mode() return look("mode", "full") end
+local function compact() return mode() == "compact" or (ns.Get("ui.compact") and true or false) end
 local function stripe() return tonumber(look("stripe", STRIPE)) or STRIPE end
 
 ---------------------------------------------------------------------------
@@ -515,6 +520,7 @@ function CC.Fill(guide, index, view)
 	local step = guide and index and guide.steps and guide.steps[index]
 	local p = player()
 	local gi = step and view and p and p.class and cardGoal(step, view, p)
+	if mode() == "off" then gi = nil end
 	if not gi then
 		if F then F:Hide() end
 		return nil
@@ -607,6 +613,9 @@ function CC.Fill(guide, index, view)
 	return hex
 end
 
+-- The live card's frame (nil until the first card shows), for the tests.
+function CC.Frame() return F end
+
 -- The goal the card stands for, when it is an accept to fold into it (open,
 -- or done, not skipped or out of reach): its index in the step. nil when no
 -- card shows or the card is for a turn-in.
@@ -615,7 +624,7 @@ function CC.Fold(guide, view)
 	local p = step and player()
 	local gi = p and p.class and cardGoal(step, view, p)
 	local goal, gv = gi and step.goals[gi], gi and view.goals[gi]
-	if not (goal and goal.t == "accept" and gv) then return nil end
+	if not (goal and goal.t == "accept" and gv) or mode() == "off" then return nil end
 	if gv.status == "skipped" or gv.unavailable or gv.folded then return nil end
 	return gi
 end
@@ -735,11 +744,11 @@ function CC.FillDemo(c, d, width)
 	c.Badge:SetShown(d.badge ~= nil)
 	c.Icon:SetTexture(d.icon)
 	c.Trip:SetText(d.trip or "")
-	c.psCompact, c.psSlim = false, false
+	c.psCompact, c.psSlim = mode() == "compact", false
 	c.Glow:Show()
 	for _, part in ipairs({ c.Ring, c.Disc, c.Icon, c.Head, c.Title }) do part:Show() end
-	c.Trip:SetShown(d.trip ~= nil)
-	c.Only:SetShown(d.trip ~= nil and look("note", true) ~= false)
+	c.Trip:SetShown(d.trip ~= nil and not c.psCompact)
+	c.Only:SetShown(d.trip ~= nil and not c.psCompact and look("note", true) ~= false)
 	c.Accept:Hide()
 	c:Show()
 	return CC.Layout(width, c)
