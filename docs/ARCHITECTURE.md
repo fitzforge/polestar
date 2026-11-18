@@ -11837,8 +11837,9 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   fall that hurts (over 14.57 yd) that his maps lack goes in only where his maps make no other way between its ends.
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
-  Three rules ported from Shortest Path Forever v1.33.0, each off until measured on the walking-map judges
-  (`forge nav pack --ground reached --ledges on --spawns on`). Only ground a player can reach stays (`pack/reach.rs`): a walk
+  Three rules ported from Shortest Path Forever v1.33.0: the ground rule on in the capitals only (the default,
+  `--ground cities`; everywhere with `--ground reached`), the other two off until measured on the walking-map judges
+  (`forge nav pack --ledges on --spawns on`). Only ground a player can reach stays (`pack/reach.rs`): a walk
   from every fixed place (flight masters, inns, boat, zeppelin, tram and lift landings, portal ends, the travel
   chains' nodes, each on its surface nearest its height within 5 yd) over steps, links, arcs, ledge drops and the
   graph's kept edges, one way where they are; every surface it never reaches is dropped (a floor), left without a

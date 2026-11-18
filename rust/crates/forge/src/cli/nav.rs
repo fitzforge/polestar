@@ -40,12 +40,13 @@ surface's area from the grid's surface nearest it (maps format 5); the chokepoin
 --leffe-maps names the maps taken from his (default all three); the rest stay the grid's. His
 continents' map parts ship in their own load-on-demand addons beside the folder (Polestar_Nav_EK,
 Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks as zlib bytes in the
-string literals (--literals base64 keeps base64). Three rules, each off until measured on the
-walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
+string literals (--literals base64 keeps base64). Three rules from Shortest Path Forever:
+--ground reached keeps only the ground a walk from a fixed place reaches
 (flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
 ends from <root>/data/forever travel.json and spawnz.json, the travel chains' nodes in
-<root>/data/crossings.json, and the ends of the grid joins' ways; default all), --ground cities
-the same in the capitals only (the ground outside them stays whole); --ledges on takes
+<root>/data/crossings.json, and the ends of the grid joins' ways), --ground cities (the default)
+the same in the capitals only (the ground outside them stays whole), --ground all keeps all of it;
+the other two are off until measured on the walking-map judges: --ledges on takes
 our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
 as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
 quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
@@ -242,8 +243,8 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 	};
 	let (reached, ground_cities) = match o.get("--ground").map(String::as_str) {
 		Some("reached") => (true, false),
-		Some("cities") => (true, true),
-		None | Some("all") => (false, false),
+		None | Some("cities") => (true, true),
+		Some("all") => (false, false),
 		Some(_) => return Err(usage("--ground needs reached, cities or all")),
 	};
 	let ledges = match o.get("--ledges").map(String::as_str) {
