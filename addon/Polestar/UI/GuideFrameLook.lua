@@ -224,10 +224,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The hairlines between the window's parts (guideWindow.rules): shown or hidden, never SetAlpha (their
 		-- strength is their colour's alpha, which SetAlpha replaces). The house look keeps them round the chrome and
 		-- over the footer (the XP line, the banner) and lets the body's sections ("Then:", Along the way, Up next,
-		-- the party) breathe on spacing (Theme.House "openSections").
-		local rules = GF.On("rules")
-		strip.Rule:SetShown(not clear and rules)
-		nav.Rule:SetShown(not clear and rules)
+		-- the party) breathe on spacing (Theme.House "openSections"). The
+		-- transparent window draws none: no fills or borders on the world.
+		local rules = not clear and GF.On("rules")
+		strip.Rule:SetShown(rules)
+		nav.Rule:SetShown(rules)
 		local sections = rules and not Theme.House("openSections")
 		for _, part in ipairs({ after, along, upnext.Toggle, GF.party }) do part.Rule:SetShown(sections) end
 		GF.xp.Rule:SetShown(rules)
