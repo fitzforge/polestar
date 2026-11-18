@@ -466,15 +466,17 @@ same seconds with the walk left in, so its values read higher.
 
 Read `killUp` and `eliteTime` with care: they measure the fights players chose, not the fights a
 route would send them to. A player fights a mob above the character, or an elite alone, when the
-character can take it, so those samples come from the strong cases and both terms read low. On the
-archive at #2798, with every player set against every other, `killUp` read 0.007 and `eliteTime`
-0.98, with mobs 3 and 4 levels above faster than mobs 2 above. Measuring inside one player's kills
-takes out the strong player against the weak one. It does not take out one player's own choice from
-fight to fight: the mob above that is a weak kind, the elite fought with every cooldown up. The
-window adds to it: a fight that takes over 180 s with the rest after it is not a sample, and the
-longest fights are the ones against elites and mobs above the character. A low `killUp` or
-`eliteTime` in the report is therefore no reason by itself to lower the prior. The level line and
-`killDown` rest on the fights every player takes, and read close to their priors.
+character can take it, so those samples likely come from the strong cases, which would make both
+terms read low. On the archive at #2798, with every player set against every other, `killUp` read
+0.007 and `eliteTime` 0.98, with mobs 3 and 4 levels above faster than mobs 2 above. That looks like
+selection, but how much of it is selection has not been measured. Measuring inside one player's
+kills takes out the strong player against the weak one. It does not take out one player's own choice
+from fight to fight: the mob above that is a weak kind, the elite fought with every cooldown up. The
+window may add to it: a fight that takes over 180 s with the rest after it is not a sample, and the
+longest fights are likely the ones against elites and mobs above the character. How many pairs the
+window drops has not been counted. A low `killUp` or `eliteTime` in the report is therefore no
+reason by itself to lower the prior. The level line and `killDown` rest on the fights every player
+takes, and read close to their priors.
 
 ## When it goes wrong
 
