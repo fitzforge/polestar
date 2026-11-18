@@ -97,7 +97,7 @@ return {
 	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "",
 
 	-- Step 15: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "От «Почтения» до «Превознесения»",
 	-- {item:280347} Shadowgale Squirrel
 	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "",
 	-- {item:280347} Shadowgale Squirrel

@@ -247,7 +247,7 @@ return {
 	["{npc:15192}: the Revered ring quest of your path"] = "",
 
 	-- Step 40: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "От «Почтения» до «Превознесения»",
 	-- {npc:15727} C'Thun · {quest:8801} C'Thun's Legacy · {npc:15379} Caelestrasz
 	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "",
 

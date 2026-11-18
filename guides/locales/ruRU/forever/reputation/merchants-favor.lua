@@ -263,7 +263,7 @@ return {
 	["{item:270887}, 1,200 Merchant's Favor"] = "",
 
 	-- Step 30: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "От «Почтения» до «Превознесения»",
 	-- {item:284664} Packmule Treat · {npc:256389} Tamelyn Aldridge · {npc:256384} Gishah · {npc:10636} Pack Kodo
 	["Revered opens the {item:284664}, the Minimule pet (1,500 Favor from {npc:256389} or {npc:256384}). Exalted is 21000 more: 280 Journeyman writs, 168 Expert, 105 Artisan, or 420 crate returns (6,300 Favor). Keep 6,000 Favor for the {npc:10636} if you want it."] = "",
 	-- {item:284664} Packmule Treat
