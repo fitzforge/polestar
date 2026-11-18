@@ -475,12 +475,25 @@ local function strokeLook(region, color, alpha, width, shadow)
 	end
 end
 
+-- A skin can write directly to pooled lines. On an explicit theme refresh,
+-- reapply their appearance even if the theme returned the same RGB values.
+local themeRevision = 0
+
 -- owner.opacity (nav.worldRouteAlpha, nav.minimapRouteAlpha) fades every
 -- stroke; nav.lineOutline sets how strongly the outline (or the line's soft
 -- shadow) shows under it, none at 0. count: the strokes to show (default:
 -- the draw-in's share of them).
 local function paint(owner, strokes, count)
 	local lines, outlines, opacity = owner.lines, owner.outlines, owner.opacity or 1
+	local themeChanged = owner.psRouteTheme ~= themeRevision
+	if themeChanged then
+		owner.psRouteTheme = themeRevision
+		for i = 1, #lines do
+			local line, outline = lines[i], outlines[i]
+			line.psRouteAlpha, line.psRouteWidth = nil, nil
+			outline.psRouteAlpha, outline.psRouteWidth, outline.psRouteVisible = nil, nil, nil
+		end
+	end
 	local n = count or drawInto(strokes.n)
 	for index = 1, n do
 		local line, outline = lines[index], outlines[index]
@@ -511,7 +524,7 @@ local function paint(owner, strokes, count)
 		strokeLook(line, strokes.color[index], alpha, strokes.width[index], false)
 		line:SetStartPoint("TOPLEFT", owner, x1, y1)
 		line:SetEndPoint("TOPLEFT", owner, x2, y2)
-		if index > owner.used then line:Show() end
+		if themeChanged or index > owner.used then line:Show() end
 	end
 	for index = n + 1, owner.used do
 		lines[index]:Hide()
@@ -1317,6 +1330,7 @@ ns.OnLogin(function()
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()
+			themeRevision = themeRevision + 1
 			recolor()
 			revision = revision + 1
 			refreshWorld()
