@@ -1065,9 +1065,17 @@ local function choicesOf(c)
 	local out = {}
 	local list = c.choices
 	if type(list) == "function" then list = list() end
+	-- limit = n: the first n choices, then the one in use if it is past them (an Essentials reference).
+	local limit = tonumber(c.limit)
+	local cur
+	if limit then
+		if c.get then cur = c.get() elseif c.key then cur = ns.Get(c.key) end
+	end
 	for i, ch in ipairs(list or {}) do
-		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
+		if not limit or i <= limit or ch.value == cur then
+			out[#out + 1] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
+				disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
+		end
 	end
 	return out
 end
