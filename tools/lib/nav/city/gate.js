@@ -75,18 +75,23 @@ function landZ(taxi, npcZ, c, wx, wy) {
 	return best ? npcZ(best.n.npc, best.n.wx, best.n.wy) : null;
 }
 
-// A trip that starts at a landing starts where the flight sets players down, on the flight master's floor: the
-// recording has only the taxi node's spot, and the matcher may put it on the ground under the tower (Orgrimmar's,
-// Thunder Bluff's), where players then drop to. The start moves to the grid level nearest the flight master's height
-// (within 8 yd) at that spot.
-function landOnTower(g, t, taxi, npcZ) {
-	if (t.A.kind !== 'land') return t;
-	const z = landZ(taxi, npcZ, t.c, t.A.wx, t.A.wy);
-	const ci = z === null ? -1 : g.colIndex(t.A.wx, t.A.wy);
-	if (ci < 0) return t;
-	let node = -1;
-	for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
-	return node < 0 || node === t.A.node ? t : { ...t, A: { ...t.A, z: g.nz[node], node, landed: t.A.z } };
+// A trip's ends on the floor the game puts them on, where the matcher could only guess: a landing on its flight
+// master's floor (the recording has only the taxi node's spot, and the matcher may put it on the ground under the
+// tower, Orgrimmar's and Thunder Bluff's, where players then drop to), and an NPC's end the match had no spawn height
+// for (Forever's own NPCs, whose heights came with the Forever TDB) on that NPC's. Each moves to the grid level
+// nearest that height (within 8 yd) at its spot; `was` keeps the matched height.
+function anchorEnds(g, t, taxi, npcZ) {
+	const fix = (e) => {
+		const z = e.kind === 'land' ? landZ(taxi, npcZ, t.c, e.wx, e.wy) : !e.anchored && e.npc ? npcZ(e.npc, e.wx, e.wy) : null;
+		const ci = z === null ? -1 : g.colIndex(e.wx, e.wy);
+		if (ci < 0) return e;
+		let node = -1;
+		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
+		return node < 0 || node === e.node ? e : { ...e, z: g.nz[node], node, was: e.z };
+	};
+	const A = fix(t.A);
+	const B = fix(t.B);
+	return A === t.A && B === t.B ? t : { ...t, A, B };
 }
 
 // Line scoring on the judge's grid.
@@ -407,7 +412,7 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
 			const npcZc = spawnHeight(spawnz, city.c);
-			const trips = area.trips.map((t) => landOnTower(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc));
+			const trips = area.trips.map((t) => anchorEnds(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc));
 			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
 			const summary = summarize(rows, map, frames, npcs);
@@ -433,7 +438,7 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c)).get(c);
 	const trips = all.map((t) => {
 		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
-		return s.A.kind === 'land' ? landOnTower(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c)) : s;
+		return s.A.kind === 'land' || s.A.npc || s.B.npc ? anchorEnds(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c)) : s;
 	});
 	const byI = new Map(trips.map((t) => [t.i, t]));
 	const gn = gateNav(path.resolve(nav), priv);
@@ -583,4 +588,4 @@ function markdown(report, cmp = null) {
 	return lines.join('\n');
 }
 
-module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, landOnTower, COUNTED };
+module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, anchorEnds, COUNTED };

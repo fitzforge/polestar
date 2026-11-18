@@ -74,13 +74,18 @@ test('trail tiles: negative heights, many levels and long cell gaps round-trip t
 	sample.forEach(([, , z, w], n) => assert.deepEqual(got[n], [z, w], `entry ${n}`));
 });
 
-test("the city gate starts a landing on the flight master's floor, not the ground under the tower", () => {
-	const { landOnTower } = require('../tools/lib/nav/city/gate');
-	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2], nz: [39.5, 61.4, 95] };
+test("the city gate's ends: a landing on the flight master's floor, an NPC the match had no height for on the NPC's", () => {
+	const { anchorEnds } = require('../tools/lib/nav/city/gate');
+	const g = { colIndex: () => 0, colNodes: () => [0, 1, 2, 3], nz: [39.5, 61.4, 95, -85.1] };
 	const taxi = [{ c: 1, wx: 1677.5, wy: -4315.7, npc: 3310 }];
-	const npcZ = (npc) => (npc === 3310 ? 61.7 : null);
-	const trip = { c: 1, A: { kind: 'land', wx: 1677.5, wy: -4315.7, z: 39.5, node: 0 } };
-	assert.deepEqual(landOnTower(g, trip, taxi, npcZ).A, { ...trip.A, z: 61.4, node: 1, landed: 39.5 });
-	assert.equal(landOnTower(g, { ...trip, A: { ...trip.A, kind: 'vendor' } }, taxi, npcZ).A.z, 39.5);
-	assert.equal(landOnTower(g, { ...trip, A: { ...trip.A, wx: 1900 } }, taxi, npcZ).A.z, 39.5, 'no flight master within 40 yd');
+	const npcZ = (npc) => ({ 3310: 61.7, 270038: -85.1 })[npc] ?? null;
+	const B = { kind: 'vendor', wx: 1690, wy: -4400, z: 39.5, node: 0, npc: 3322, anchored: true };
+	const trip = { c: 1, A: { kind: 'land', wx: 1677.5, wy: -4315.7, z: 39.5, node: 0 }, B };
+	const moved = anchorEnds(g, trip, taxi, npcZ);
+	assert.deepEqual(moved.A, { ...trip.A, z: 61.4, node: 1, was: 39.5 });
+	assert.equal(moved.B, B, 'an anchored end stays');
+	assert.equal(anchorEnds(g, { ...trip, A: { ...trip.A, wx: 1900 } }, taxi, npcZ).A.z, 39.5, 'no flight master within 40 yd');
+	const lab = { ...B, npc: 270038, anchored: false };
+	assert.deepEqual(anchorEnds(g, { ...trip, B: lab }, taxi, npcZ).B, { ...lab, z: -85.1, node: 3, was: 39.5 });
+	assert.equal(anchorEnds(g, { ...trip, B: { ...lab, npc: 1 } }, taxi, npcZ).B.z, 39.5, 'no height known');
 });

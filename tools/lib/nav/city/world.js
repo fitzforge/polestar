@@ -185,7 +185,8 @@ function matchWorld({ priv, grid, frames, spawnz, set = 'world', log = () => {} 
 	for (const trips of byZone.values()) {
 		const maps = trips[0].maps || [trips[0].zone];
 		const zone = trips[0].zone;
-		const sessions = areaSessions(priv, maps).filter((s) => !isTest(s.who));
+		// the walked surfaces come from the training people (the reported set: everyone but the walker)
+		const sessions = areaSessions(priv, maps).filter((s) => set === 'reported' || !isTest(s.who));
 		const c = frames[String(zone)].c;
 		const npcZ = spawnHeight(spawnz, c);
 		// the training people's pieces, once per area
@@ -207,12 +208,12 @@ function matchWorld({ priv, grid, frames, spawnz, set = 'world', log = () => {} 
 				continue;
 			}
 			const { full } = m.expand(seg, whole, st, null, 0, true);
-			// density: up to DENSITY_PEOPLE training people's breadcrumbs near the trip
+			// density: up to DENSITY_PEOPLE training people's breadcrumbs near the trip (never the trip's own person's)
 			const near = nearTrip(seg);
 			const people = new Map();
 			const seen = new Set();
 			for (const { who, seg: s2 } of pieces) {
-				if (seen.size >= DENSITY_PEOPLE && !seen.has(who)) continue;
+				if (who === t.who || (seen.size >= DENSITY_PEOPLE && !seen.has(who))) continue;
 				let run = [];
 				const runs = [];
 				for (const x of s2) {
@@ -310,8 +311,8 @@ function sampleBoundary({ priv, frames, spawnz, per = 25, seed = 1, log = () => 
 	return out;
 }
 
-// tools/lib/nav/city/reported.json's cases (players' reports): each case's zone's held-out walks between stops (20-1500
-// yd apart) that pass within r yd of its place (with end: finish there), up to `per` a case, round-robin over people
+// tools/lib/nav/city/reported.json's cases (players' reports): each case's zone's walks between stops (20-1500 yd
+// apart) that pass within r yd of its place (with end: finish there), up to `per` a case, round-robin over people
 // -> <priv>/reported/candidates.json (stratum 'reported', case: its id).
 function sampleReported({ priv, frames, spawnz, per = 12, seed = 1, log = () => {} }) {
 	const rand = rng(seed);
@@ -320,8 +321,9 @@ function sampleReported({ priv, frames, spawnz, per = 12, seed = 1, log = () => 
 	for (const k of cases) {
 		const npcZ = spawnHeight(spawnz, k.c);
 		const byWho = new Map();
+		// every person: the places are rare (few walk a mine), and outside the capitals nothing is built from
+		// recordings, so no walk needs holding out; the match leaves the walker's own breadcrumbs out of the density
 		for (const s of readSessions(path.join(priv, `${k.zone}.jsonl`))) {
-			if (!isTest(s.who)) continue;
 			for (const seg of segmentsOf(s, k.zone, frames, npcZ, blankCut(), { stops: STOPS })) {
 				for (const { piece, B, straight } of stopWalks(seg, 20, MAX_STRAIGHT)) {
 					const hit = k.end ? Math.hypot(B.wx - k.at[0], B.wy - k.at[1]) <= k.r : nearTrip(piece)(k.at[0], k.at[1]) <= k.r;
@@ -334,7 +336,7 @@ function sampleReported({ priv, frames, spawnz, per = 12, seed = 1, log = () => 
 		const got = roundRobin([...byWho.values()], per, rand);
 		out.trips.push(...got);
 		out.cases[k.id] = { issue: k.issue, people: byWho.size, trips: got.length };
-		log(`reported sample ${k.id} (${k.issue}): ${byWho.size} held-out people walked it; ${got.length} trips`);
+		log(`reported sample ${k.id} (${k.issue}): ${byWho.size} people walked it; ${got.length} trips`);
 	}
 	out.trips.forEach((t, i) => (t.i = i));
 	const dir = path.join(priv, 'reported');
