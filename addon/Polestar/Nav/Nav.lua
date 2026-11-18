@@ -237,12 +237,46 @@ local floorHint  -- "up" | "down": near the target, a floor below or above it (N
 local firing = false
 local ticker
 
+-- A goal on a ship's stop (a guide's "Boat to Auberdine": the ship lies in the
+-- water off its pier) is walked to on the pier: the dock's board point, on the
+-- deck with its height (Travel.lua's end.board), as the travel planner walks to
+-- a dock. Without it the walk ended in the sea beside or under the pier, where
+-- a swimmer cannot climb back up. Only for a goal with no height of its own,
+-- within DOCK_SNAP yards of the stop (guide points are rounded to a tenth of a
+-- percent: a few yards).
+local DOCK_SNAP = 12
+local function dockBoard(c, wx, wy)
+	local d = Nav.GetTravelData and Nav.GetTravelData()
+	local list = d and d.transports
+	if type(list) ~= "table" then return nil end
+	local r2 = DOCK_SNAP * DOCK_SNAP
+	for i = 1, #list do
+		local t = list[i]
+		for side = 1, 2 do
+			local e = side == 1 and t.a or t.b
+			local b = type(e) == "table" and e.board
+			if b and e.c == c and type(e.wx) == "number" and type(e.wy) == "number"
+				and (e.wx - wx) ^ 2 + (e.wy - wy) ^ 2 <= r2 then
+				return b
+			end
+		end
+	end
+	return nil
+end
+
 local function resolve()
 	tC, tX, tY, tZ = nil, nil, nil, nil
 	local C = ns.Compat
 	if target and C and C.MapToWorld then
 		tC, tX, tY = C.MapToWorld(target.map, target.x, target.y, target.f)
 		if tC and type(target.z) == "number" then tZ = target.z end
+		if tC and tZ == nil then
+			local b = dockBoard(tC, tX, tY)
+			if b and type(b.wx) == "number" and type(b.wy) == "number" then
+				tX, tY = b.wx, b.wy
+				if type(b.z) == "number" then tZ = b.z end
+			end
+		end
 	end
 end
 
