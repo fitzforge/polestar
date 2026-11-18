@@ -1852,7 +1852,6 @@ PolestarPathData[1] = {
 		[144295] = "The Drag",
 		[144296] = "The Drag",
 		[144299] = "The Drag",
-		[144301] = "The Drag",
 		[144307] = "The Drag",
 		[144308] = "The Drag",
 		[144309] = "The Drag",

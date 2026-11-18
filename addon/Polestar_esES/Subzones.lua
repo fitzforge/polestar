@@ -2646,7 +2646,6 @@ R("subzone", 144096, 149286, [[
 144295	La Calle Mayor
 144296	La Calle Mayor
 144299	La Calle Mayor
-144301	La Calle Mayor
 144307	La Calle Mayor
 144308	La Calle Mayor
 144309	La Calle Mayor
