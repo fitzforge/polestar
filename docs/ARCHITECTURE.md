@@ -520,10 +520,10 @@ out when empty) and the Settings section.
 
 The perf probe (`Core/Perf.lua`, `/polestar perf`, off at every login) finds
 which of Polestar's handlers make a player's game stutter. Off, none of it
-runs: the event frame, `Fire`, `Safe`'s callbacks and `SafeCall` are the
-plain ones (only each `QoL.Coalesce` notes where it was made as it loads,
-`NoteMadeAt`, so the report can tell the refreshes apart). On,
-`Polestar.SetProbe` swaps in copies that hand each handler to the probe,
+runs: game events' handlers on every bus, `Fire`, `Safe`'s callbacks and
+`SafeCall` are the plain ones (only each `QoL.Coalesce` notes where it was
+made as it loads, `NoteMadeAt`, so the report can tell the refreshes
+apart). On, `Polestar.SetProbe` swaps in timed ones for each handler,
 and the probe wraps Polestar_Nav's `Path.after` (the walking router's
 search slices); it times each with `debugprofilestop` (its own cost,
 measured when it starts, is about a microsecond a call) and keeps, per

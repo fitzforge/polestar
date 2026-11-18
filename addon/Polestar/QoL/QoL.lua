@@ -130,7 +130,7 @@ end
 -- A game event handled only while one of `keys` ("qol.<key>" settings) is on:
 -- registered when the first turns on, unregistered when the last turns off,
 -- so a feature that is off costs nothing. Follows saved settings from
--- ADDON_LOADED on.
+-- ADDON_LOADED on. unit: that unit's events only (ns.RegisterEvent).
 local watches = {}
 
 local function sync(w)
@@ -143,12 +143,12 @@ local function sync(w)
 	end
 	if on == w.live then return end
 	w.live = on
-	if on then ns.RegisterEvent(w.event, w.fn) else ns.UnregisterEvent(w.event, w.fn) end
+	if on then ns.RegisterEvent(w.event, w.fn, w.unit) else ns.UnregisterEvent(w.event, w.fn, w.unit) end
 end
 
 local initialized = false
-function QoL.WhileOn(keys, event, fn)
-	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, live = false }
+function QoL.WhileOn(keys, event, fn, unit)
+	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, unit = unit, live = false }
 	watches[#watches + 1] = w
 	if initialized then sync(w) end
 	return w

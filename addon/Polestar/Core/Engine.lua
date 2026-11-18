@@ -6261,9 +6261,12 @@ end
 -- (Engine.AimBehind). #2682, #2595: 0.4.0 moved Thistlefur's quests into new
 -- Ashenvale steps behind players who carried them, and their hand-ins onto the
 -- Zoram'gar stop they were at, so the arrow led to Karang for a quest at 0/2.
--- Nil when none has a place.
+-- Nil when none has a place. The behind list's walk over the guide only for a
+-- quest it can hold: one the update left behind (CharState().behind).
 function Own.behindAim(q)
-	if not q or Compat().IsQuestReadyForTurnIn(q) then return nil end
+	local b = q and guide and ns.CharState().behind
+	local mine = type(b) == "table" and b[guide.id]
+	if not (mine and mine[q]) or Compat().IsQuestReadyForTurnIn(q) then return nil end
 	for _, e in ipairs(Engine.GetBehind()) do
 		if e.quest == q then return waypointOf(e.goal, guide.steps[e.step].goals[e.goal], nil, e.step) end
 	end
@@ -11720,19 +11723,53 @@ function Engine.GrindHint(i)
 		end
 		if n >= Own.GRIND_NEXT then break end
 	end
+	-- The giver's place is asked before the costly marks (greyNeed,
+	-- unavailableFor, missingPre), which then run only for a giver near the
+	-- player: an accept of a quest far away waits (`far`) until another accept
+	-- of the same quest turns out near, and is judged first then, so each quest
+	-- still stands at its first accept that passes the marks, as when every
+	-- accept was judged in turn. An accept with candidates, spawn areas or a
+	-- material's place has no fixed place (posOf): judged in turn, as before.
 	local nearby = {}
 	local c, px, py = C.GetPlayerWorldPosition()
-	local seen = {}
+	local seen, far = {}, {}
+	local near2 = Own.GRIND_NEAR_YD ^ 2
+	local function marks(goal)
+		return greyNeed(goal) ~= false and not unavailableFor(goal) and not missingPre(goal)
+	end
+	local function farPassed(q)
+		local list = far[q]
+		far[q] = nil
+		for k = 1, list and #list or 0 do
+			if marks(list[k]) then return true end
+		end
+		return false
+	end
 	for s, other in ipairs(c and guide.steps or NONE) do
+		if #nearby >= Own.GRIND_NEARBY then break end
 		if stepApplies(other) then
 			for _, goal in ipairs(other.goals) do
 				local q = goal.quest
 				if #nearby < Own.GRIND_NEARBY and goal.t == "accept" and q and not seen[q] and Guides.Matches(goal.only, player)
-					and not questDone(q) and not C.IsOnQuest(q) and greyNeed(goal) ~= false and not unavailableFor(goal) and not missingPre(goal) then
-					seen[q] = true
-					local wc, gx, gy = worldPoint(goal)
-					if wc == c and (gx - px) ^ 2 + (gy - py) ^ 2 <= Own.GRIND_NEAR_YD ^ 2 then
-						nearby[#nearby + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles), share = Own.payShare(goal.qlvl, level), step = s }
+					and not questDone(q) and not C.IsOnQuest(q) then
+					local fixed = not (goal.candidates or goal.spots or goal.gather)
+					local wc, gx, gy
+					if fixed then wc, gx, gy = Own.grindPoint(goal) end
+					local near = fixed and wc == c and (gx - px) ^ 2 + (gy - py) ^ 2 <= near2
+					if fixed and not near then
+						far[q] = far[q] or {}
+						far[q][#far[q] + 1] = goal
+					elseif farPassed(q) then
+						seen[q] = true
+					elseif marks(goal) then
+						seen[q] = true
+						if not fixed then
+							wc, gx, gy = worldPoint(goal)
+							near = wc == c and (gx - px) ^ 2 + (gy - py) ^ 2 <= near2
+						end
+						if near then
+							nearby[#nearby + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles), share = Own.payShare(goal.qlvl, level), step = s }
+						end
 					end
 				end
 			end
@@ -11741,6 +11778,20 @@ function Engine.GrindHint(i)
 	if not lo and #nearby == 0 then return nil end
 	gc.hint = { lo = lo, hi = hi, nearby = nearby }
 	return gc.hint
+end
+
+-- A fixed accept's place in world yards (worldPoint), kept per goal: its map
+-- point never moves.
+Own.grindPoints = setmetatable({}, { __mode = "k" })
+function Own.grindPoint(goal)
+	local p = Own.grindPoints[goal]
+	if not p then
+		local wc, gx, gy = worldPoint(goal)
+		if not wc then return nil end
+		p = { wc, gx, gy }
+		Own.grindPoints[goal] = p
+	end
+	return p[1], p[2], p[3]
 end
 
 -- Whether step i of the loaded guide applies now (nil), else why not: 0
@@ -15904,10 +15955,11 @@ local function askedUpdate(kind)
 		if g and Own.asks(g)[kind] then return requestUpdate() end
 	end
 end
--- The player's auras (`buff` goals, `when buff`).
+-- The player's auras (`buff` goals, `when buff`): the player's alone (a
+-- fight sends every nameplate's).
 ns.RegisterEvent("UNIT_AURA", function(_, unit)
 	if unit == "player" then askedUpdate("buff") end
-end)
+end, "player")
 -- `equip` goals and `when equipped`; `deposit` goals; `when indoors`.
 ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() askedUpdate("equip") end)
 ns.RegisterEvent("PLAYERBANKSLOTS_CHANGED", function() askedUpdate("deposit") end)
@@ -16032,7 +16084,8 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	requestUpdate()
 end)
 
--- The player's own successful casts (Own.latchCast).
+-- The player's own successful casts (Own.latchCast): the player's alone (a
+-- fight sends every nameplate's).
 ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
 	local C = Compat()
 	spellID = C.Readable(spellID)
@@ -16044,7 +16097,7 @@ ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
 	end
 	useActive()
 	if hit then requestUpdate() end
-end)
+end, "player")
 
 ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	if type(level) == "number" and level > levelSeen then levelSeen = level end
