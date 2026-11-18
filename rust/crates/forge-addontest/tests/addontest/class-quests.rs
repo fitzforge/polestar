@@ -236,6 +236,22 @@ fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
 	assert_eq!(out[0], true);
 }
 
+// coredump's report (#2947): Call of Earth (Horde)'s card read "mobs up to level 9999": one spawn area of the
+// Signet of Akir's droppers carries the level of a mob the game shows as "??". No real level is named.
+#[test]
+fn a_spawn_area_of_no_real_level_is_never_named_on_the_card_2947() {
+	let out = run_qol(
+		r#"
+		local g = { id = "c/earth", title = "Call of Earth", category = "Class", classes = { "SHAMAN" }, minLevel = 4, steps = {
+			{ goals = { { t = "accept", quest = 21, map = 2521 } } },
+			{ goals = { { t = "collect", quest = 21, item = 6, map = 2521, spotsPacked = "43.8,24.1,,40,1,,3;48.9,54.2,781.3,40,3,,9999;65.6,65.6,696,40,1,,10" } } },
+		} }
+		local h = CQ.Heads(g, { class = "SHAMAN" })
+		emit({ mobMax = h.mobMax, line = CQ.HeadsLine(h, g) or false })"#,
+	);
+	assert_eq!(out[0], json!({ "mobMax": 10, "line": "mobs up to level 10" }), "the real levels only");
+}
+
 // Discord feedback via Fitz (2026-11-10): the game offers The Eye of Bhossca (level 35) at 30, and class cards
 // stacked up there. A chain is offered from one level below its first quest's level; the guide list still opens it
 // as soon as its gate does (Engine.StartGate is not touched).
