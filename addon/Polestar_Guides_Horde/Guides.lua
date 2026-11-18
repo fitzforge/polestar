@@ -15056,8 +15056,8 @@ do
 					note = "{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}.",
 					when = { { k = "dungeon", name = "Blackrock Depths", map = 230 }, { k = "onquest", q = { 4081 } } },
 					goals = {
-						{ t = "enter", location = "Blackrock Depths", area = 1584, map = 1427, x = 34.8, y = 85.3, f = "e" },
-						{ t = "complete", quest = 4081, title = "KILL ON SIGHT: Dark Iron Dwarves", map = 1427, x = 34.8, y = 85.3, f = "e", note = "{quest:4081}: the Anvilrage dwarves, inside", group = { kind = "dungeon", map = 230, name = "Blackrock Depths" }, objs = { { text = "Anvilrage Guardsman", count = 15 }, { text = "Anvilrage Warden", count = 10 }, { text = "Anvilrage Footman", count = 5 } } },
+						{ t = "enter", location = "Blackrock Depths", area = 1584, map = 1428, x = 21, y = 23.5, f = "e" },
+						{ t = "complete", quest = 4081, title = "KILL ON SIGHT: Dark Iron Dwarves", map = 1428, x = 21, y = 23.5, f = "e", note = "{quest:4081}: the Anvilrage dwarves, inside", group = { kind = "dungeon", map = 230, name = "Blackrock Depths" }, objs = { { text = "Anvilrage Guardsman", count = 15 }, { text = "Anvilrage Warden", count = 10 }, { text = "Anvilrage Footman", count = 5 } } },
 					},
 				},
 				{

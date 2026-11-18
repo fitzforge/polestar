@@ -532,7 +532,22 @@ Layers.OnTarget = Layers.Update
 Layers.OnSettings = Layers.Update
 Layers.OnTheme = Layers.Update
 
-ns.On("STEP_UPDATED", Layers.Update)
+local pendingCombatUpdate = false
+local function onStepUpdated()
+	if InCombatLockdown and InCombatLockdown() then
+		pendingCombatUpdate = true
+		return
+	end
+	Layers.Update()
+end
+
+ns.On("STEP_UPDATED", onStepUpdated)
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if pendingCombatUpdate then
+		pendingCombatUpdate = false
+		Layers.Update()
+	end
+end)
 ns.On("ROUTE_CHANGED", Layers.Update)
 ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("POLESTAR_PAUSED", Layers.Update)

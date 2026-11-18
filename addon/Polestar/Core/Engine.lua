@@ -3219,7 +3219,7 @@ local function skillRank(goal)
 	return rank
 end
 
--- Live-frame percent of an explore goal (Era coordinates converted once).
+-- Live-frame percent of an explore goal (Era coordinates mapped once).
 local livePos = setmetatable({}, { __mode = "k" })
 local function liveXY(goal)
 	if not goal.f then return goal.x, goal.y end
@@ -9832,16 +9832,23 @@ function Own.watchHearth()
 	end)
 end
 
--- Evaluate every tab, the active one last.
+-- Evaluate every tab, the active one last. In combat, background tabs and
+-- future-step candidate scans wait for PLAYER_REGEN_ENABLED to avoid frame hitches.
+local backgroundTabsDirty = false
 local function evaluate()
 	lastEval = GetTime()
 	generation = generation + 1
 	refreshPlayer()
-	for i = 1, #tabs do
-		if i ~= activeIndex then
-			use(tabs[i])
-			evaluateLoaded(false)
+	local inCombat = InCombatLockdown and InCombatLockdown() or false
+	if not inCombat then
+		for i = 1, #tabs do
+			if i ~= activeIndex then
+				use(tabs[i])
+				evaluateLoaded(false)
+			end
 		end
+	else
+		backgroundTabsDirty = true
 	end
 	useActive()
 	evaluateLoaded(true)
@@ -9871,10 +9878,14 @@ local function evaluate()
 	-- Built the frame after the evaluation (Own.hereLater): that frame holds
 	-- the evaluation and what it announces (the window, the arrow's route);
 	-- the candidates, a pass over the goals of every later step, come next
-	-- (#2537: a step change's worst frame).
+	-- (#2537: a step change's worst frame). In combat this heavy pass is deferred.
 	if (Own.hereDirty or Own.hereGuide ~= guide) and not Own.hereQueued then
-		Own.hereQueued = true
-		ns.After(0, Own.hereLater)
+		if inCombat then
+			Own.hereCombatDeferred = true
+		else
+			Own.hereQueued = true
+			ns.After(0, Own.hereLater)
+		end
 	end
 	updateTicker()
 	if #pendingCompleted > 0 then
@@ -14899,10 +14910,15 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	end
 end)
 
--- The places were asked for in a fight (the Codex loads only out of it): again now.
+-- The places were asked for in a fight (the Codex loads only out of it), or
+-- background tabs and while-here scans were deferred: catch up now.
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	if Own.hereVendorRetry then
-		Own.hereDirty = true
+	if backgroundTabsDirty or Own.hereCombatDeferred or Own.hereVendorRetry then
+		backgroundTabsDirty = false
+		if Own.hereCombatDeferred then
+			Own.hereCombatDeferred = false
+			Own.hereDirty = true
+		end
 		requestUpdate()
 	end
 end)

@@ -1293,21 +1293,25 @@ local function flush()
 		ns.Fire("QUESTDB_UPDATED")
 	end
 	if dirtyAvailable then
-		dirtyAvailable = false
-		if ns.Get("qol.availableQuests") then
-			availChanged = scanAvailable()
+		if InCombatLockdown and InCombatLockdown() then
+			-- In combat, defer full database scans for available quests until out of combat
 		else
-			-- Off: nothing is tracked, so the next scan starts over.
-			fullAvailable = true
-			if availableCount > 0 or next(available) then
-				for k in pairs(available) do available[k] = nil end
-				availableCount = 0
-				availChanged = true
+			dirtyAvailable = false
+			if ns.Get("qol.availableQuests") then
+				availChanged = scanAvailable()
+			else
+				-- Off: nothing is tracked, so the next scan starts over.
+				fullAvailable = true
+				if availableCount > 0 or next(available) then
+					for k in pairs(available) do available[k] = nil end
+					availableCount = 0
+					availChanged = true
+				end
 			end
-		end
-		if availChanged then
-			rebuildAvailableMarkers()
-			publish(LAYER_AVAILABLE)
+			if availChanged then
+				rebuildAvailableMarkers()
+				publish(LAYER_AVAILABLE)
+			end
 		end
 	end
 	if dirtyPublish then
@@ -1441,6 +1445,10 @@ local function enable()
 		ns.RegisterEvent("PLAYER_REGEN_ENABLED", again)
 	end
 end
+
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if running and dirtyAvailable then schedule() end
+end)
 
 local function onGuide()
 	if not running then return end

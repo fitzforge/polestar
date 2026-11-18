@@ -2833,7 +2833,8 @@ GF.Part(function(GF)
 	-- to the next person this re-renders (with the slide); otherwise the card is
 	-- refilled in place (a goal turning done folds).
 	function GF.Update()
-		if not F or state ~= "steps" or not view then return GF.Render() end
+		if not F or not F:IsShown() then return end
+		if state ~= "steps" or not view then return GF.Render() end
 		local E = Engine()
 		local index = E.GetStepIndex and E.GetStepIndex()
 		if index ~= shownIndex then return GF.Render() end
@@ -2878,7 +2879,7 @@ GF.Part(function(GF)
 	end
 
 	function GF.UpdateTargets()
-		if not F or state ~= "steps" or not focusGroup then return end
+		if not F or not F:IsShown() or state ~= "steps" or not focusGroup then return end
 		local t = targetOf()
 		GF.ShowMark(person, personMarked(t))
 		for i = 1, #rows do

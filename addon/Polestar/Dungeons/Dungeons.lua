@@ -242,8 +242,19 @@ end)
 -- names pack's Map.csv name, the client's map name), else the data's English.
 -- The entrance for this character: the Alliance's own way in (`A`, the
 -- City of Dalaran) for an Alliance character, else the one way in.
-local function entranceOf(s)
-	local e = s.entrance
+-- Curated entrance points for instances where the map line or corpse point
+-- points to the wrong outdoor zone or mountain entrance.
+local ENTRANCE_OVERRIDES = {
+	["blackrock-depths"] = { map = 1428, x = 21.0, y = 23.5 },
+	["blackrock-spire"] = { map = 1428, x = 33.2, y = 24.9 },
+	["molten-core"] = { map = 1428, x = 26.4, y = 24.5 },
+	["blackwing-lair"] = { map = 1428, x = 33.7, y = 23.6 },
+}
+
+local function entranceOf(s, key)
+	local over = key and ENTRANCE_OVERRIDES[key]
+	if over then return over end
+	local e = s and s.entrance
 	if e and e.A and ns.Compat.GetPlayerFaction() == "Alliance" then return e.A end
 	return e
 end
@@ -287,7 +298,7 @@ local function summary(key, s)
 		key = key, name = (localised and s.map and N.Instance(s.map)) or s.name or key, kind = s.kind or "dungeon", forever = s.forever and true or false,
 		minLevel = s.minLevel, maxLevel = s.maxLevel, floor = s.floor or s.minLevel, players = s.players, playersMax = s.playersMax,
 		map = s.map, zone = s.zone, zoneName = zoneName,
-		entrance = entranceOf(s),
+		entrance = entranceOf(s, key),
 		quests = { A = s.quests and s.quests.A or 0, H = s.quests and s.quests.H or 0 }, bosses = s.bosses or 0,
 		attune = { A = s.attune and s.attune.A or 0, H = s.attune and s.attune.H or 0 },
 	}
@@ -384,7 +395,7 @@ end
 
 function Dungeons.Entrance(key)
 	local s = key ~= nil and ready() and summaries[key]
-	local e = s and entranceOf(s)
+	local e = entranceOf(s, key)
 	if not e then return nil end
 	return e.map, e.x, e.y, e.f
 end
