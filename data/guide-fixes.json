@@ -29,6 +29,14 @@
 			"issue": 2107
 		},
 		{
+			"id": "alliance-stv-krazek-duskwood-pickup",
+			"faction": "Alliance",
+			"at": { "quest": 201, "goal": "complete", "guide": "forever/alliance/30-40/04-stranglethorn-vale" },
+			"tip": "The hunters' tents stand just west of the road. Krazek's Investigate the Camp only asks you to look around it. Coming from Duskwood? If you're already stopping at Rebel Camp, you can take Krazek's Cookery from Corporal Kaleb at level 32 with room in your quest log. The guide visits Rebel Camp after the hunts.",
+			"note": "Players coming south from Duskwood pass the Rebel Camp turn-off before Nesingwary's Expedition. Explain the optional early pickup without adding an accept or an extra camp stop to the Booty Bay route.",
+			"source": { "kind": "recording", "ref": "Cam's level-34 Alliance ride from Duskwood to Nesingwary's Expedition on Forever (Polestar Recorder, 2026-11-17); Forever quest data for 210 (Corporal Kaleb, minimum level 32)" }
+		},
+		{
 			"id": "1550-krazek-pickup-mining-advice",
 			"faction": "Alliance",
 			"at": { "quest": 627, "goal": "accept" },
