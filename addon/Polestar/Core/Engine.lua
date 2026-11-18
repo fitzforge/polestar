@@ -8909,6 +8909,37 @@ function Own.trainerOnRoute(list, tier)
 	return best
 end
 
+-- trainerOnRoute prices up to ROUTE_PLANNED trainers with three route plans
+-- each (15 ms on a 0.4.1 Thousand Needles step), and the guide window's
+-- training banner asks for it on every repaint: after every kill and loot
+-- while training is due. Its answer is kept while the guide, the live step,
+-- the level, the trainers (nearest first) and the player's map and spot
+-- (TRAIN_SPOT map units: 20 to 140 yards by the zone's size) stay the same, for at
+-- most TRAIN_KEEP seconds (kills come further apart than a few seconds), and
+-- dropped when a trainer window closes, at a level-up, on a zone change and
+-- when the travel the planner knows changes (a flight path, the hearth).
+Own.TRAIN_KEEP, Own.TRAIN_SPOT = 60, 2
+Own.trainPick = false
+function Own.trainerOnRouteKept(list, tier)
+	local here = ns.PlayerPoint()
+	local now = GetTime and GetTime() or 0
+	local map = here and here.map
+	local bx = here and here.x and math.floor(here.x / Own.TRAIN_SPOT)
+	local by = here and here.y and math.floor(here.y / Own.TRAIN_SPOT)
+	local level = player and player.level
+	local k = Own.trainPick
+	if k and k.first == list[1] and k.n == #list and k.guide == guide and k.step == computed and k.level == level
+		and k.map == map and k.bx == bx and k.by == by and now - k.at < Own.TRAIN_KEEP and now >= k.at then
+		return k.best
+	end
+	local best = Own.trainerOnRoute(list, tier)
+	Own.trainPick = { first = list[1], n = #list, guide = guide, step = computed, level = level, map = map, bx = bx, by = by, at = now, best = best }
+	return best
+end
+for _, event in ipairs({ "TRAINER_CLOSED", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA", "TAXIMAP_CLOSED", "HEARTHSTONE_BOUND" }) do
+	ns.RegisterEvent(event, function() Own.trainPick = false end)
+end
+
 -- The best class trainer for the character from where they stand, or nil;
 -- its npcName in the client's language where Names has it. `onRoute`: the one
 -- that costs the least detour on the guide's route instead, when it has one.
@@ -8917,7 +8948,7 @@ function Engine.NearestClassTrainer(onRoute)
 	if not player then refreshPlayer() end
 	local p = pickFor(classTrainers)
 	local t = p.list[p.i]
-	if onRoute and t then t = Own.trainerOnRoute(p.list, p.tier) or t end
+	if onRoute and t then t = Own.trainerOnRouteKept(p.list, p.tier) or t end
 	if t then
 		t.npcEnglish = t.npcEnglish or t.npcName
 		t.npcName = ns.Names.Npc(t.npc) or t.npcEnglish
