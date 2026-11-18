@@ -1674,6 +1674,11 @@ L["Worth doing near here: %s"] = "Utile à faire près d'ici : %s"
 L["%d left out here"] = "%d laissées de côté ici"
 L["Left out here"] = "Laissées de côté ici"
 L["Turn off Skip grey quests"] = "Désactiver Passer les quêtes grises"
+-- L["This guide stays open in its tab and picks up by itself at that level."] = ""
+-- L["Click to switch to its tab"] = ""
+-- L["Click to open it in a new tab"] = ""
+-- L["Hides this line until more quests are off your route."] = ""
+-- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -2579,7 +2584,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "Masquer les repères de l'étape sur la carte pendant la pause"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "Pendant la pause, les repères des objectifs de l'étape, leurs zones, Tant que vous êtes là et les étapes à venir disparaissent aussi des cartes."
 L["No quest automation while paused"] = "Pas d'automatisation des quêtes pendant la pause"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "Une touche ou un bouton de manette qui met Polestar en pause ou le relance. Il reprend aussi tout seul quand vous quittez un donjon en vie."
 L["Let a following addon show the way"] = "Laisser un addon qui suit Polestar montrer le chemin"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "Masque la flèche de Polestar pendant qu'un autre addon affiche lui-même la cible de Polestar, comme le fait Waypoint Pin de Naowh Forever avec Follow Polestar activé. Cet addon place alors aussi le repère du jeu."
@@ -2609,6 +2613,7 @@ L["Repair: gear worn below"] = "Réparation : usure en dessous de"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Vous rappelle de réparer quand une pièce de votre équipement passe sous ce pourcentage de sa durabilité. 0 : jamais."
 L["play Freedoom Arcade by petllama"] = "jouer à Freedoom Arcade de petllama"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade de petllama (GPL-2.0 ou ultérieure) fait jouer trois niveaux de Freedoom, du projet Freedoom (licence BSD), depuis le dossier Polestar_Arcade."
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -4611,6 +4616,7 @@ L["Jump anyway"] = "Y aller quand même"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Ouvrez une fois la carte de n'importe quel maître de vol de ce continent pour que Polestar connaisse vos trajets aériens."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Ce guide est pour les personnages de la faction %s. Polestar ne vous y guidera pas."
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Appuyez sur %s pour reprendre, ou ouvrez la fenêtre du guide."
@@ -5023,3 +5029,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Écarte les quêtes grises et leurs rendus, sauf si une quête ultérieure les requiert."
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Aucune camelote pour faire de la place. Ctrl+Alt-clic sur un objet pour le marquer comme camelote."
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."

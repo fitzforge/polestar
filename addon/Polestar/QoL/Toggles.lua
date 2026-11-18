@@ -7,7 +7,9 @@
 --                     that value. A client without the CVar is left alone.
 --   skipGossip        an NPC with no quests and a single gossip option: pick
 --                     it (Shift suppresses). Blizzard already does this for
---                     options flagged selectOptionWhenOnlyOption.
+--                     options flagged selectOptionWhenOnlyOption. Not a
+--                     flight master's taxi option while the pause holds the
+--                     automation (Flight.PauseHolds).
 --   fastLoot          when auto-loot applies (autoLootDefault, inverted by the
 --                     AUTOLOOTTOGGLE modifier), take every slot at once.
 --   hideErrors        turns the combat spam types ("Not enough rage", "Out of
@@ -92,6 +94,7 @@ function Toggles.SkipGossip()
 	local o = options[1]
 	if o.selectOptionWhenOnlyOption then return false end -- Blizzard selects it itself
 	if o.status and o.status ~= 0 then return false end   -- unavailable / locked
+	if QoL.Flight and QoL.Flight.PauseHolds(o) then return false end -- the flight map waits while paused (#2945)
 	G.SelectOptionByIndex(o.orderIndex)
 	return true
 end

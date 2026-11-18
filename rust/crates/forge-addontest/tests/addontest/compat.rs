@@ -561,15 +561,15 @@ fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_
 	assert_eq!(out["calls"], "C_Map 1429;global 1411", "C_Map first; the global only without it");
 }
 
-fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Vec<String>) {
+fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Vec<String>, skip_compat: bool) {
 	for e in std::fs::read_dir(dir).unwrap() {
 		let e = e.unwrap();
 		let p = e.path();
 		if e.file_type().unwrap().is_dir() {
-			walk(&p, root, bare, comment, found);
+			walk(&p, root, bare, comment, found, skip_compat);
 		} else {
 			let rel = p.strip_prefix(root).unwrap();
-			if p.extension().is_some_and(|x| x == "lua") && rel != Path::new("Polestar/Core/Compat.lua") {
+			if p.extension().is_some_and(|x| x == "lua") && !(skip_compat && rel == Path::new("Polestar/Core/Compat.lua")) {
 				// The walking maps' parts may hold zlib bytes in their literals (maps format 5): not UTF-8.
 				let text = String::from_utf8_lossy(&std::fs::read(&p).unwrap()).into_owned();
 				for (i, line) in text.split('\n').enumerate() {
@@ -599,8 +599,58 @@ fn c3_nav_qa_no_addon_code_outside_core_compat_lua_opens_or_moves_the_world_map_
 	let comment = Regex::new(r"--.*$").unwrap();
 	let root = addons_dir();
 	let mut found = Vec::new();
-	walk(&root, &root, &bare, &comment, &mut found);
+	walk(&root, &root, &bare, &comment, &mut found, true);
 	assert_eq!(found, Vec::<String>::new());
+}
+
+// #2924: the client's Lua quest log openers (QuestMapFrame_OpenToQuestDetails and the other QuestMapFrame_ functions,
+// OpenQuestLog, ToggleQuestLog, the popup's QuestLogPopupDetailFrame_Show), called from addon code, write the quest's
+// page into the map's tables in the addon's name; while it stays open the map's quest pins are blocked in combat (62
+// blocked SetPassThroughButtons calls in the report). No addon code calls them, Core/Compat.lua included.
+#[test]
+fn no_addon_code_calls_the_client_s_lua_quest_log_openers_not_even_core_compat_lua_2924() {
+	let bare: Vec<Regex> = [r"(^|[^.:\w])(QuestMapFrame_\w+|OpenQuestLog|ToggleQuestLog|QuestLogPopupDetailFrame_\w+)\b"].iter().map(|p| Regex::new(p).unwrap()).collect();
+	let comment = Regex::new(r"--.*$").unwrap();
+	let root = addons_dir();
+	let mut found = Vec::new();
+	walk(&root, &root, &bare, &comment, &mut found, false);
+	assert_eq!(found, Vec::<String>::new());
+}
+
+// #2924: "Show in quest log" selects the quest and opens the map through the client's C opener at the zone the game
+// shows the quest on (the player's own when it shows none), never through the Lua opener; nothing in combat, with the
+// gamepad interface, or on a client without C_Map.OpenWorldMap (the global opener taints the map too).
+#[test]
+fn the_quest_log_opens_by_selecting_the_quest_and_opening_the_map_through_c_map_at_its_zone_2924() {
+	let out = run(r#"
+		local calls = {}
+		QuestMapFrame_OpenToQuestDetails = function(q) calls[#calls + 1] = "lua " .. q end
+		OpenWorldMap = function(map) calls[#calls + 1] = "global " .. tostring(map) end
+		C_Map.OpenWorldMap = function(map) calls[#calls + 1] = "C_Map " .. tostring(map) end
+		C_QuestLog.SetSelectedQuest = function(q) calls[#calls + 1] = "select " .. q end
+		GetQuestUiMapID = function(q) if q == 33 then return 1429 end return 0 end
+		local r = {}
+		r.can = C.CanOpenQuestLog()
+		r.opened = C.OpenQuestLog(33)
+		r.noZone = C.OpenQuestLog(47)
+		stub.inCombat = true
+		r.combat = C.OpenQuestLog(33)
+		stub.inCombat = false
+		r.notQuest = C.OpenQuestLog("33")
+		local copen = C_Map.OpenWorldMap
+		C_Map.OpenWorldMap = nil
+		r.noC = { C.CanOpenQuestLog(), C.OpenQuestLog(33) }
+		C_Map.OpenWorldMap = copen
+		r.calls = table.concat(calls, ";")
+		emit(r)
+	"#);
+	assert_eq!(out["can"], true);
+	assert_eq!(out["opened"], true);
+	assert_eq!(out["noZone"], true);
+	assert_eq!(out["combat"], false, "nothing opens in combat");
+	assert_eq!(out["notQuest"], false);
+	assert_eq!(out["noC"], json!([false, false]), "no fallback to the global opener");
+	assert_eq!(out["calls"], "select 33;C_Map 1429;select 47;C_Map nil", "selected, then the C opener at the quest's zone");
 }
 
 #[test]

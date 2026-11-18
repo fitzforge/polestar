@@ -567,9 +567,9 @@ end
 -- show), the guide window and what goes with it (ns.GuideShown) go, and so
 -- do the window's nudges (the while-here toast and chime). With pause.map
 -- the step's map pins go too, with pause.automation the quest automation
--- waits. It never writes ui.shown, nav.arrow, hidden or a behavior.*
--- setting, so resuming restores everything by itself, and it leaves hiding
--- as it is (and hiding leaves it).
+-- and the flight master's map and flight wait. It never writes ui.shown,
+-- nav.arrow, hidden or a behavior.* setting, so resuming restores
+-- everything by itself, and it leaves hiding as it is (and hiding leaves it).
 --
 -- PolestarCharDB.pause = { state = "armed" | "inside", at, map }: "armed"
 -- paused outside (at: ns.Now() then), "inside" in a dungeon, raid,
@@ -588,8 +588,8 @@ function ns.Paused() return pauseState and pauseState.state or nil end
 -- Whether the pause takes `part` now: "arrow" (the Engine's waypoint and
 -- everything keyed off it), "window" (the guide window and ns.GuideShown),
 -- "nagging" (the while-here toast and chime) while paused; "map" (the
--- step's pins) and "automation" (quest accept and turn-in) only with their
--- setting on as well.
+-- step's pins) and "automation" (quest accept and turn-in, the reward pick,
+-- the flight master's map and flight) only with their setting on as well.
 function ns.PauseHides(part)
 	if not pauseState then return false end
 	if part == "arrow" or part == "window" or part == "nagging" then return true end

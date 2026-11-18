@@ -858,8 +858,8 @@ end
 -- the line) is done, in the log or skipped itself.
 -- step: the first quest neither done nor skipped; done: there is none left
 -- (step is then total); skippedCount: how many quests are skipped.
--- The walk is the costly part (Codex.FollowUps reads every quest the first
--- time it is asked about one), so its answer is kept per quest until a quest
+-- The walk is the costly part (it decodes and judges every quest in the line
+-- and each one's follow-ups), so its answer is kept per quest until a quest
 -- is turned in or taken, a level is gained, or the Codex loads: what decides
 -- the walk (a done preAny, a level gate, who a quest is for) moves only then.
 local chainLines = {}
