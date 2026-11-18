@@ -2172,9 +2172,9 @@ end
 -- PolestarNavChokepoints[map], else the lifts Nav/Transit.lua knows).
 -- Travel.SplitWalk turns them into legs with captions; this finds them. A
 -- chokepoint counts within its radius of the path (2D) and, when both have a
--- height, on the path's floor: one more than STOP_DZ yards above or below the
+-- height, on the path's floor: one more than DZ.STOP yards above or below the
 -- path's segment there is on another floor (the Undercity's canals 110 yd
--- under the Ruins) and is no stop. STOP_DZ is generous: the engine's path
+-- under the Ruins) and is no stop. DZ.STOP is generous: the engine's path
 -- heights are coarse and a mouth's packed height is its indoor floor (the
 -- Fargodeep Mine's is 14-34 yd under the path's points beside it).
 --   stop = { kind, name, zone, to (passages: the area beyond), wx, wy (on the
@@ -2187,8 +2187,9 @@ end
 local SNAP = 15        -- yards: a chokepoint without a radius counts within this of the path
 local MIN_STEP = 20    -- yards: closer stops, or this close to either end, are dropped
 local LOOK = 25        -- yards past a passage that tell which side is ahead
-local STOP_DZ = 30     -- yards above or below the path: a chokepoint on another floor
-local RIDE_DZ = 20     -- yards the path's height changes across a lift it rides
+-- yards above or below the path: a chokepoint on another floor (STOP); the path's height change across a lift it
+-- rides (RIDE). One local: the main chunk's are at Lua's limit (syntax.rs).
+local DZ = { STOP = 30, RIDE = 20 }
 
 -- Nearest point on the path to (x, y): distance, segment, point, yards from the path's start, share of the segment.
 local function project(x, y)
@@ -2232,11 +2233,11 @@ local function climbs(a)
 	return after > before
 end
 
--- Whether the path rides a lift at segment a: its height changes RIDE_DZ yards or more from the point before the
+-- Whether the path rides a lift at segment a: its height changes DZ.RIDE yards or more from the point before the
 -- segment to the one after it (the walking engine's path steps from one landing to the other).
 local function rides(a)
 	local before, after = ptsZ[a > 1 and a - 1 or 1], ptsZ[a + 2 <= count and a + 2 or count]
-	return type(before) == "number" and type(after) == "number" and abs(after - before) >= RIDE_DZ
+	return type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE
 end
 
 local function liftId(c, wx, wy)
@@ -2296,11 +2297,11 @@ function Walk.Stops(pc, px, py)
 			end
 			if along > total - MIN_STEP then return end
 		end
-		-- Another floor: the path's segment there runs STOP_DZ yards or more above or below the
+		-- Another floor: the path's segment there runs DZ.STOP yards or more above or below the
 		-- chokepoint at both its ends (a cave entry at the Undercity's canals under a walk over the Ruins);
 		-- never a lift the path rides (its landings join the floors).
 		local ez, za, zb = tonumber(e.z), ptsZ[a], ptsZ[a + 1]
-		if not ridden and ez and za and zb and abs(za - ez) > STOP_DZ and abs(zb - ez) > STOP_DZ then return end
+		if not ridden and ez and za and zb and abs(za - ez) > DZ.STOP and abs(zb - ez) > DZ.STOP then return end
 		-- stop: the follower's cap for the piece that ends here (Nav/Follow.lua), the chokepoint's spot on the path,
 		-- kept on its segment a when it lies at the segment's end (t = 1: as at point a + 1, which the follower lets
 		-- the aim reach from anywhere before it; the border sweep, #1543); a lift's, the point before its landing (a
