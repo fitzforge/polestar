@@ -4776,6 +4776,16 @@ L["After turn-ins: at least +1 level"] = "Após as entregas: pelo menos +1 níve
 L["XP after turn-ins"] = "EXP após as entregas"
 L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Integrações) para usar a seta do Polestar."

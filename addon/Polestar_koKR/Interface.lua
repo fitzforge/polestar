@@ -1673,6 +1673,7 @@ L["Worth doing near here: %s"] = "근처에서 할 만한 퀘스트: %s"
 L["%d left out here"] = "여기서 %d개 제외됨"
 L["Left out here"] = "여기서 제외됨"
 L["Turn off Skip grey quests"] = "회색 퀘스트 건너뛰기 끄기"
+-- L["Hides this line until more quests are off your route."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -4774,6 +4775,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["After turn-ins: at least +1 level"] = ""
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
+
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
