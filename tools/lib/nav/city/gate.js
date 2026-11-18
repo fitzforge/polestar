@@ -368,24 +368,30 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
+	// --policy a2 is #2911's Walk.lua, whose rules hold in the capitals only: for a goal in one (Walk's inCity) the
+	// router's reach, no retry without the goal's height and a goal without a height on the trail floor (city.GoalZ); for
+	// a start in one, the followed floor settled on the trail floor (city.Settle) and WALK's start retries. A trip's
+	// cityA / cityB (false: that end lies outside the capitals; world.js' boundary trips) say where; unset, in one.
+	const cityA = (t) => policy === 'a2' && t.cityA !== false;
+	const cityB = (t) => policy === 'a2' && t.cityB !== false;
 	// WALK (CityFloor's rules): with a hint, the trail floor within 4 yd near it when that lies within 4 yd of the hint,
 	// else the hint; without one, the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
-	// (under a2 GAME's goal too: Walk.lua's city.GoalZ gives any capital goal without a height the trail floor's)
-	const goalTrail = (arm) => arm === 'WALK' || (arm === 'GAME' && policy === 'a2');
-	// under a2 GAME's start (a followed floor) settles on the trail floor within SETTLE yd of it (Walk.lua's city.Settle)
-	const settle = policy === 'a2' && arms.includes('GAME');
+	// (a GAME goal in a capital too, under a2)
+	const goalTrail = (t, arm) => arm === 'WALK' || (arm === 'GAME' && cityB(t));
+	// GAME's start in a capital under a2 (a followed floor) settles on the trail floor within SETTLE yd of it
+	const settle = (t, arm) => arm === 'GAME' && cityA(t);
 	let tf = new Map();
-	if (arms.some(goalTrail)) {
+	if (arms.includes('WALK') || (arms.includes('GAME') && policy === 'a2')) {
 		const q = [];
 		for (const t of trips) {
 			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: hint(t, t.A) });
 			q.push({ type: 'trailfloor', id: `b${t.i}`, map: t.c, at: [t.B.wx, t.B.wy], reach: 4, near: null });
-			if (settle) q.push({ type: 'trailfloor', id: `s${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: t.A.z });
+			if (cityA(t)) q.push({ type: 'trailfloor', id: `s${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: t.A.z });
 		}
 		tf = new Map(navRun(dirs.nav, q).map((r) => [r.id, r.z]));
 	}
 	const startOf = (t, arm) => {
-		if (arm === 'GAME' && settle) {
+		if (settle(t, arm)) {
 			const z = tf.get(`s${t.i}`);
 			return z !== null && z !== undefined && Math.abs(z - t.A.z) <= SETTLE ? z : t.A.z;
 		}
@@ -402,12 +408,12 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		if (arm === 'E0') return null;
 		const nz = npcZ(t, t.B);
 		if (nz !== null) return nz;
-		return goalTrail(arm) ? tf.get(`b${t.i}`) : null;
+		return goalTrail(t, arm) ? tf.get(`b${t.i}`) : null;
 	};
 	const res = {};
 	for (const arm of arms) {
 		if (PROTO[arm]) continue;
-		const queries = trips.map((t) => route(t, `${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), (arm === 'GAME' || arm === 'WALK') && policy === 'a2' ? { reach: 10 } : {}));
+		const queries = trips.map((t) => route(t, `${arm}|${t.i}`, A(t, startOf(t, arm)), B(t, goalOf(t, arm)), (arm === 'GAME' || arm === 'WALK') && cityB(t) ? { reach: 10 } : {}));
 		if (arm === 'SPF') {
 			if (!dirs.spf) continue;
 			const { harness } = require('../eval/broad');
@@ -417,9 +423,10 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 		const dir = arm === 'G1' ? dirs.ground : dirs.nav;
 		if (!dir) continue;
 		const first = navRun(dir, queries);
-		if ((arm === 'GAME' || arm === 'WALK') && policy === 'legacy') {
+		if (arm === 'GAME' || arm === 'WALK') {
 			const again = [];
 			first.forEach((r, k) => {
+				if (cityB(trips[k])) return;
 				const gz = goalOf(trips[k], arm);
 				if (gz === null || gz === undefined) return;
 				const off = r.ok && r.pts.length && Math.abs(r.pts[r.pts.length - 1][2] - gz) > Z_OFF;
@@ -435,7 +442,7 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 				const again = [];
 				first.forEach((r, k) => {
 					const sz = startOf(trips[k], arm);
-					if (!r.ok && sz !== null && sz !== undefined) again.push(k);
+					if (!r.ok && cityA(trips[k]) && sz !== null && sz !== undefined) again.push(k);
 				});
 				const ask = (t) => route(t, `${arm}|${t.i}|${step}`, A(t, null), B(t, goalOf(t, arm)), step === 'floors' ? { reach: 10, floors: [startOf(t, arm)] } : { reach: 10 });
 				const second = navRun(dir, again.map((k) => ask(trips[k])));
@@ -484,7 +491,8 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const npcZc = new Map();
 	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c, SPAWN_R)).get(c);
 	const trips = all.map((t) => {
-		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
+		// which ends lie in a capital (a2's rules hold there only): a boundary walk's inner end; no world or reported one
+		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null, cityA: t.stratum === 'boundary' && t.cross === 'out', cityB: t.stratum === 'boundary' && t.cross === 'in' };
 		if (!(s.A.kind === 'land' || s.A.npc || s.B.npc)) return s;
 		const walked = new Set(s.density.filter(([, n]) => n >= 3).map(([v]) => v));
 		return anchorEnds(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c), (v) => walked.has(v));
