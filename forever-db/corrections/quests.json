@@ -802,6 +802,22 @@
 		},
 		"note": "In Search of Thaelrid (Dawnwatcher Shaedlass, Darnassus; Blackfathom Deeps) is Alliance-only: the quest's giver and chain are Alliance-only in the game's data, and its follow-up Blackfathom Villainy (1200) already allows only the Alliance, while Horde characters take their own Blackfathom Villainy (6561) from Argent Guard Thaelrid inside. The merged data had no race limit, so Blackfathom Deeps' pick-up guide sent Horde characters to Darnassus. Issue #1026."
 	},
+	"1273": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "ForeverTDB quest_template 1273 Flags 2 (PARTY_ACCEPT, as the escorts 660, 994 and 6132); smart_scripts of Ogron (4983): accepting quest 1273 starts his scripted walk to Reethe"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2852 and #2881 (gidi, in game): it plays as an escort"
+			}
+		],
+		"note": "Questioning Reethe (Dustwallow Marsh; Ogron gives it) is an escort: Ogron walks to Reethe with the player who took it and must survive the fight there. Its text says \"Go with Ogron\", never escort, so the guide compiler's escort rule missed it and the guide window showed no escort line under its accept (#2881)."
+	},
 	"1301": {
 		"set": {
 			"excl": [

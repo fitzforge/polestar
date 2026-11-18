@@ -1231,12 +1231,31 @@ end
 -- Whether predicate p of a step's `when` does not hold now. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
--- there and asks; any other step of it waits for the answer, as for Skip.
+-- there and asks; any other step of it waits for the answer, as for Skip. A
+-- `when onquest Q` or `when complete Q` of a step that hands Q in holds once Q
+-- is handed in (Own.handedInHere), so what the step does after the hand-in
+-- stays on the route: #2888, Moktar Krin's step (`when onquest 1146`) dropped
+-- the last The Swarm Grows the moment its second part was handed in.
 function Own.predicateFails(step, p)
 	if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
 		return not (Own.dungeonAsks(step) and Own.dungeonOpen(step))
 	end
+	if (p.k == "onquest" or p.k == "complete") and not p.neg and Own.handedInHere(step, p) then return false end
 	return not Own.predicateHolds(p)
+end
+
+-- Whether step has a `turnin` of a quest `when` predicate p names that is
+-- handed in (questDone).
+function Own.handedInHere(step, p)
+	local qs = type(p.q) == "table" and p.q or { p.q }
+	for _, goal in ipairs(step.goals or NONE) do
+		if goal.t == "turnin" and goal.quest and questDone(goal.quest) then
+			for _, q in ipairs(qs) do
+				if q == goal.quest then return true end
+			end
+		end
+	end
+	return false
 end
 
 -- The first predicate of a step's `when` that does not hold now, or nil.
