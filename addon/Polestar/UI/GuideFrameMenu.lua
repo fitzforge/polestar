@@ -84,19 +84,19 @@ ns.UI.GuideFrame.Part(function(GF)
 		group()
 		-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
 		for _, it in ipairs(GF.PinItems(GF.View())) do add(it) end
+		-- The finished quests no open route hands in (RoutePlan.Carried): one
+		-- click opens their hand-in guide (UI.GuideCarried); none, the row says
+		-- so. Not while the plan cannot say (nil). Over the cleanup.
+		local carried = ns.RoutePlan and ns.RoutePlan.Carried() or nil
+		if carried and #carried > 0 then
+			add({ text = L["Hand in finished quests (%d)"]:format(#carried), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+		elseif carried then
+			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+		end
 		-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
 		local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
 		if unneeded and #unneeded > 0 then
 			add({ text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
-		end
-		-- The finished quests no open route hands in (RoutePlan.Carried): one
-		-- click opens their hand-in guide (UI.GuideCarried); none, the row says
-		-- so. Not while the plan cannot say (nil).
-		local carried = ns.RoutePlan and ns.RoutePlan.Carried() or nil
-		if carried and #carried > 0 then
-			table.insert(items, 5, { text = L["Hand in finished quests (%d)"]:format(#carried), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
-		elseif carried then
-			table.insert(items, 5, { text = L["None to hand in"], icon = "icon-turnin", disabled = true })
 		end
 		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
 		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
