@@ -417,10 +417,13 @@ end
 
 ------------------------------------------------------------------------ init
 -- entering combat: save, pause and hand the keyboard back to the character
+-- (remindAfterFight: the fight's end says how to come back, once: #2899)
+local remindAfterFight = false
 function UI.OnAggro()
 	if not db or not db.aggroPause then return end
 	if not frame or not frame:IsShown() then return end
 	local saved = UI.SuspendAndClose()
+	remindAfterFight = true
 	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then PlaySound(SOUNDKIT.RAID_WARNING, "Master") end
 	if RaidNotice_AddMessage and RaidWarningFrame then
 		RaidNotice_AddMessage(RaidWarningFrame, "Freedoom Arcade paused - you have aggro!", ChatTypeInfo and ChatTypeInfo["RAID_WARNING"] or { r = 1, g = 0.2, b = 0.2 })
@@ -428,7 +431,11 @@ function UI.OnAggro()
 	D.Print("you're in combat! Game " .. (saved and "saved and " or "") .. "paused. Type /doom to come back, P to resume.")
 end
 
+-- Only the fight that paused the game ends with the reminder; later fights,
+-- with the game still put away, say nothing.
 function UI.OnCombatEnd()
+	if not remindAfterFight then return end
+	remindAfterFight = false
 	if db and db.aggroPause and G.keepPaused and frame and not frame:IsShown() then
 		D.Print("combat over. Type /doom to get back to Doom.")
 	end
