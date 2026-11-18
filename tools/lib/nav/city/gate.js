@@ -28,6 +28,7 @@ const run = require('../eval/run');
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
 const Z_OFF = 30; // yd, Nav/Walk.lua: a path ending this far off the goal's height missed its floor
+const SETTLE = 5; // yd, Nav/Walk.lua's city.SETTLE: a followed floor's search starts on the trail floor this near it
 const SPAWN_R = 15; // yd, Lookup.SpawnZ: an NPC goal's height is its nearest spawn's this close
 const COUNTED = ['GAME', 'WALK'];
 
@@ -371,16 +372,23 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	// else the hint; without one, the trail floor anywhere within 4 yd; the goal at its NPC's height, else the trail floor
 	// (under a2 GAME's goal too: Walk.lua's city.GoalZ gives any capital goal without a height the trail floor's)
 	const goalTrail = (arm) => arm === 'WALK' || (arm === 'GAME' && policy === 'a2');
+	// under a2 GAME's start (a followed floor) settles on the trail floor within SETTLE yd of it (Walk.lua's city.Settle)
+	const settle = policy === 'a2' && arms.includes('GAME');
 	let tf = new Map();
 	if (arms.some(goalTrail)) {
 		const q = [];
 		for (const t of trips) {
 			q.push({ type: 'trailfloor', id: `a${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: hint(t, t.A) });
 			q.push({ type: 'trailfloor', id: `b${t.i}`, map: t.c, at: [t.B.wx, t.B.wy], reach: 4, near: null });
+			if (settle) q.push({ type: 'trailfloor', id: `s${t.i}`, map: t.c, at: [t.A.wx, t.A.wy], reach: 4, near: t.A.z });
 		}
 		tf = new Map(navRun(dirs.nav, q).map((r) => [r.id, r.z]));
 	}
 	const startOf = (t, arm) => {
+		if (arm === 'GAME' && settle) {
+			const z = tf.get(`s${t.i}`);
+			return z !== null && z !== undefined && Math.abs(z - t.A.z) <= SETTLE ? z : t.A.z;
+		}
 		if (arm === 'GAME' || arm === 'E2' || arm === 'G1' || arm === 'SPF') return t.A.z;
 		if (arm === 'E0') return null;
 		const z = tf.get(`a${t.i}`);
