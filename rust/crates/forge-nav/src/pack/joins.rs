@@ -166,7 +166,12 @@ pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) 
 			_ => drop_cells(j.a, j.b).map(|ab| out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: true })),
 		};
 		if ok.is_none() {
-			log(&format!("join {}: left out: a {} needs both heights, {}", j.id, if j.kind == Kind::Step { "step" } else { "drop" }, if j.kind == Kind::Step { "at most 12 yd apart and no steeper than the walk slope" } else { "a landing below the edge at most 10 yd across" }));
+			log(&format!(
+				"join {}: left out: a {} needs both heights, {}",
+				j.id,
+				if j.kind == Kind::Step { "step" } else { "drop" },
+				if j.kind == Kind::Step { "at most 12 yd apart and no steeper than the walk slope" } else { "a landing below the edge at most 10 yd across" }
+			));
 		}
 	}
 	let list: Vec<Join> = list.into_iter().filter(|j| j.kind == Kind::Walk).collect();
