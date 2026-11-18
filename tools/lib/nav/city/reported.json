@@ -12,6 +12,7 @@
 		{"id": "stormrage-barrow-dens", "issue": "#2027", "title": "Moonglade: the Stormrage Barrow Dens (#1919, #2005)", "zone": 1450, "c": 1, "at": [7337, -2639.3], "r": 90},
 		{"id": "banethil-barrow-den", "issue": "#2027", "title": "Teldrassil: Ban'ethil Barrow Den (#1341)", "zone": 1438, "c": 1, "at": [9772.6, 1553.9], "r": 70},
 		{"id": "grizzled-den", "issue": "#2027", "title": "Dun Morogh: Grizzled Den, the wendigo cave under Shimmer Ridge (#2679)", "zone": 1426, "c": 0, "at": [-5502.3, -231.9], "r": 110},
-		{"id": "freewind-bridges", "issue": "#2027", "title": "Thousand Needles: Freewind Post's rope bridges between the mesas (#1936)", "zone": 1441, "c": 1, "at": [-5430, -2440], "r": 90}
+		{"id": "freewind-bridges", "issue": "#2027", "title": "Thousand Needles: Freewind Post's rope bridges between the mesas (#1936)", "zone": 1441, "c": 1, "at": [-5430, -2440], "r": 90},
+		{"id": "cinderscale-hollow", "issue": "#2889", "title": "Riverglades: from Gelinda Coppergleam into the Cinderscale hollow (137 yd, planned 1:50 round the mountain)", "zone": 2548, "c": 0, "at": [-8768.8, -3351.5], "r": 70}
 	]
 }

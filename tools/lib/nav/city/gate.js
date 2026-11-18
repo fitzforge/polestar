@@ -28,6 +28,7 @@ const run = require('../eval/run');
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
 const Z_OFF = 30; // yd, Nav/Walk.lua: a path ending this far off the goal's height missed its floor
+const SPAWN_R = 15; // yd, Lookup.SpawnZ: an NPC goal's height is its nearest spawn's this close
 const COUNTED = ['GAME', 'WALK'];
 
 // The folder the gate runs: nav, with its Trails/Trails.lua replaced by <priv>/Trails-train.lua when that exists (the
@@ -75,18 +76,24 @@ function landZ(taxi, npcZ, c, wx, wy) {
 	return best ? npcZ(best.n.npc, best.n.wx, best.n.wy) : null;
 }
 
-// A trip that starts at a landing starts where the flight sets players down, on the flight master's floor: the
-// recording has only the taxi node's spot, and the matcher may put it on the ground under the tower (Orgrimmar's,
-// Thunder Bluff's), where players then drop to. The start moves to the grid level nearest the flight master's height
-// (within 8 yd) at that spot.
-function landOnTower(g, t, taxi, npcZ) {
-	if (t.A.kind !== 'land') return t;
-	const z = landZ(taxi, npcZ, t.c, t.A.wx, t.A.wy);
-	const ci = z === null ? -1 : g.colIndex(t.A.wx, t.A.wy);
-	if (ci < 0) return t;
-	let node = -1;
-	for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
-	return node < 0 || node === t.A.node ? t : { ...t, A: { ...t.A, z: g.nz[node], node, landed: t.A.z } };
+// A trip's ends on the floor the game puts them on, where the matcher could only guess: a landing on its flight
+// master's floor (the recording has only the taxi node's spot, and the matcher may put it on the ground under the
+// tower, Orgrimmar's and Thunder Bluff's, where players then drop to), and an NPC's end the match had no spawn height
+// for (Forever's own NPCs, whose heights came with the Forever TDB) on that NPC's. Each moves to the grid level
+// nearest that height (within 8 yd) at its spot that players walk (walked(node): 3+ training people), else stays;
+// `was` keeps the matched height.
+function anchorEnds(g, t, taxi, npcZ, walked = () => true) {
+	const fix = (e) => {
+		const z = e.kind === 'land' ? landZ(taxi, npcZ, t.c, e.wx, e.wy) : !e.anchored && e.npc ? npcZ(e.npc, e.wx, e.wy) : null;
+		const ci = z === null ? -1 : g.colIndex(e.wx, e.wy);
+		if (ci < 0) return e;
+		let node = -1;
+		for (const v of g.colNodes(ci)) if (Math.abs(g.nz[v] - z) <= 8 && walked(v) && (node < 0 || Math.abs(g.nz[v] - z) < Math.abs(g.nz[node] - z))) node = v;
+		return node < 0 || node === e.node ? e : { ...e, z: g.nz[node], node, was: e.z };
+	};
+	const A = fix(t.A);
+	const B = fix(t.B);
+	return A === t.A && B === t.B ? t : { ...t, A, B };
 }
 
 // Line scoring on the judge's grid.
@@ -334,14 +341,30 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 	const B = (t, z) => [t.B.wx, t.B.wy, z === undefined ? null : z];
 	const npcZs = new Map();
 	const npcZ = (t, e) => {
-		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return npcZs.get(t.c)(e.npc, e.wx, e.wy);
 	};
-	// what Walk.lua knows of a stop's height: the NPC just talked to (spawn height), or at a landing its flight
+	// what Walk.lua knows of a stop's height (CityFloor's NpcFloor): the NPC just talked to, from its spawns within 30
+	// yd of the player, the nearest one's height unless they span more than 10 yd of height; or at a landing its flight
 	// master's (TaxiNodes' height stands in for it in game)
+	const npcFloor = (t, e) => {
+		const s = e.npc && spawnz[String(e.npc)];
+		if (!s) return null;
+		let best = null;
+		let lo = Infinity;
+		let hi = -Infinity;
+		for (const [sc, x, y, z] of s) {
+			const d = sc === t.c ? Math.hypot(x - e.wx, y - e.wy) : Infinity;
+			if (d > 30) continue;
+			lo = Math.min(lo, z);
+			hi = Math.max(hi, z);
+			if (!best || d < best.d) best = { d, z };
+		}
+		return best && hi - lo <= 10 ? best.z : null;
+	};
 	const hint = (t, e) => {
-		if (e.kind !== 'land') return npcZ(t, e);
-		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c));
+		if (e.kind !== 'land') return npcFloor(t, e);
+		if (!npcZs.has(t.c)) npcZs.set(t.c, spawnHeight(spawnz, t.c, SPAWN_R));
 		return landZ(taxi, npcZs.get(t.c), t.c, e.wx, e.wy);
 	};
 	// WALK (CityFloor's rules): the start from the trail floor within 4 yd near the stop's height hint, else the hint,
@@ -392,6 +415,22 @@ async function runArms({ trips, arms, dirs, spawnz, policy, taxi = [] }) {
 			const second = navRun(dir, again.map((k) => route(trips[k], `${arm}|${trips[k].i}|retry`, A(trips[k], startOf(trips[k], arm)), B(trips[k], null))));
 			again.forEach((k, j) => (first[k] = { ...second[j], retried: true }));
 		}
+		// a2 (CityFloor's Walk.lua): a WALK whose guessed start height can't reach the goal is asked again starting on
+		// any surface within 10 yd of that height (from.floors), then with no start height
+		if (arm === 'WALK' && policy === 'a2') {
+			for (const step of ['floors', 'none']) {
+				const again = [];
+				first.forEach((r, k) => {
+					const sz = startOf(trips[k], arm);
+					if (!r.ok && sz !== null && sz !== undefined) again.push(k);
+				});
+				const ask = (t) => route(t, `${arm}|${t.i}|${step}`, A(t, null), B(t, goalOf(t, arm)), step === 'floors' ? { reach: 10, floors: [startOf(t, arm)] } : { reach: 10 });
+				const second = navRun(dir, again.map((k) => ask(trips[k])));
+				again.forEach((k, j) => {
+					if (second[j].ok || step === 'none') first[k] = { ...second[j], retried: step };
+				});
+			}
+		}
 		res[arm] = first;
 	}
 	return res;
@@ -406,8 +445,8 @@ async function gate({ priv, nav, ground = null, spf = null, grid, frames, spawnz
 			const city = CITIES[map];
 			const t0 = Date.now();
 			const area = loadArea(priv, map, grid, frames);
-			const npcZc = spawnHeight(spawnz, city.c);
-			const trips = area.trips.map((t) => landOnTower(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc));
+			const npcZc = spawnHeight(spawnz, city.c, SPAWN_R);
+			const trips = area.trips.map((t) => anchorEnds(area.g, { ...t, c: city.c, side: city.side }, taxi, npcZc, (v) => area.train[v] >= 3));
 			const res = await runArms({ trips, arms, dirs: { nav: gn.dir, ground, spf }, spawnz, policy, taxi });
 			const rows = scoreRows(area, trips, res, protosFor(area, arms));
 			const summary = summarize(rows, map, frames, npcs);
@@ -430,10 +469,12 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 	const all = readWorldTrips(priv, set).filter((t) => !strata || strata.includes(t.stratum));
 	const keep = new Set(all.map((t) => t.i));
 	const npcZc = new Map();
-	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c)).get(c);
+	const zOf = (c) => npcZc.get(c) || npcZc.set(c, spawnHeight(spawnz, c, SPAWN_R)).get(c);
 	const trips = all.map((t) => {
 		const s = { ...t, side: t.fac === 'Alliance' || t.fac === 'Horde' ? t.fac : null };
-		return s.A.kind === 'land' ? landOnTower(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c)) : s;
+		if (!(s.A.kind === 'land' || s.A.npc || s.B.npc)) return s;
+		const walked = new Set(s.density.filter(([, n]) => n >= 3).map(([v]) => v));
+		return anchorEnds(new AreaGraph(s.box, { grid }), s, taxi, zOf(s.c), (v) => walked.has(v));
 	});
 	const byI = new Map(trips.map((t) => [t.i, t]));
 	const gn = gateNav(path.resolve(nav), priv);
@@ -486,15 +527,39 @@ async function gateWorld({ priv, nav, ground = null, spf = null, grid, frames, s
 // judge's own desire paths).
 function scoreRows(area, trips, res, protos = {}) {
 	const { measure } = judge(area);
-	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(1))));
+	// 0.01 yd: --remeasure re-scores these, and the judge's 10 yd thresholds sit close to some walks
+	const keep = (pts) => pts.map((p) => p.map((v) => (v === null ? null : +v.toFixed(2))));
+	// an end asked without a height has none on its own point: the walk's height there is its nearest point's that has one
+	const zAt = (pts, from, step) => {
+		for (let i = from; i >= 0 && i < pts.length; i += step) if (pts[i][2] !== null && pts[i][2] !== undefined) return pts[i][2];
+		return null;
+	};
 	const score = (r, tt) => {
 		if (!r.ok) return { ok: false, reason: r.reason, fail: 'no walk' };
-		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: r.pts[0][2], endZ: r.pts[r.pts.length - 1][2], pts: keep(r.pts) };
+		const x = { ok: true, ...measure(r.pts), routerYards: r.yards === undefined ? null : r.yards, retried: !!r.retried, startZ: zAt(r.pts, 0, 1), endZ: zAt(r.pts, r.pts.length - 1, -1), pts: keep(r.pts) };
 		x.fail = failOf(x, tt);
 		return x;
 	};
+	// an end anchorEnds moved (a landing onto its tower, an NPC onto its floor) joins the recorded route by the graph's
+	// own walk between the two (players drop off the tower; a walk can't): the real route is that plus the recorded one
+	const realPath = (t) => {
+		let p = t.path;
+		const join = (from, to) => {
+			area.g.search([[from, 0]], [to], { bound: 600 });
+			return area.g.pathTo(to);
+		};
+		if (t.A.was !== undefined && t.A.node !== p[0]) {
+			const pre = join(t.A.node, p[0]);
+			if (pre) p = pre.concat(p.slice(1));
+		}
+		if (t.B.was !== undefined && t.B.node !== p[p.length - 1]) {
+			const post = join(p[p.length - 1], t.B.node);
+			if (post) p = p.slice(0, -1).concat(post);
+		}
+		return p;
+	};
 	return trips.map((t, k) => {
-		const real = measure(tautPts(area.g, t.path));
+		const real = measure(tautPts(area.g, realPath(t)));
 		const tt = { ...t, real: real.yards };
 		const row = { i: t.i, A: t.A, B: t.B, straight: t.straight, real: real.yards, arms: {} };
 		for (const [arm, rs] of Object.entries(res)) row.arms[arm] = score(rs[k], tt);
@@ -531,7 +596,8 @@ function remeasure(report, { priv, grid, frames, npcs = {}, protos: extraArms = 
 	for (const [map, m] of Object.entries(report.maps)) {
 		const area = loadArea(priv, Number(map), grid, frames);
 		const byI = new Map(area.trips.map((t) => [t.i, t]));
-		const trips = m.rows.map((r) => byI.get(r.i));
+		// the stored rows keep the ends the gate anchored (anchorEnds)
+		const trips = m.rows.map((r) => ({ ...byI.get(r.i), A: r.A, B: r.B }));
 		const res = {};
 		for (const arm of Object.keys(m.rows[0].arms)) if (!PROTO[arm]) res[arm] = m.rows.map((r) => r.arms[arm]);
 		const protos = protosFor(area, [...new Set([...Object.keys(m.rows[0].arms), ...extraArms])]);
@@ -583,4 +649,4 @@ function markdown(report, cmp = null) {
 	return lines.join('\n');
 }
 
-module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, landOnTower, COUNTED };
+module.exports = { gate, gateWorld, remeasure, compareReports, markdown, judge, tautPts, desire, anchorEnds, COUNTED };

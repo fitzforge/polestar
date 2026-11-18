@@ -40,13 +40,13 @@ const JUMP_COST = 20;
 const OFF_ANCHORED = 15;
 const BEAM = 150;
 
-// The NPC's spawn height nearest (within 12 yd) to a world point on continent c, or null.
-function spawnHeight(spawnz, c) {
+// The NPC's spawn height nearest (within R yd) to a world point on continent c, or null.
+function spawnHeight(spawnz, c, R = 12) {
 	return (npc, wx, wy) => {
 		const s = npc && spawnz[String(npc)];
 		if (!s) return null;
 		let best = null;
-		let bd = 12;
+		let bd = R;
 		for (const [sc, x, y, z] of s) {
 			if (sc !== c) continue;
 			const d = Math.hypot(x - wx, y - wy);
