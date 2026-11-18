@@ -76,7 +76,7 @@ return {
 
 	-- Step 12: Kernda: the Deadwood totem
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Deadwood totem"] = "",
+	["{npc:11558}: the Deadwood totem"] = "{npc:11558}: das Totem der Totenwaldfelle",
 
 	-- Step 13: Winterfall Ritual Totem
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda
@@ -85,7 +85,7 @@ return {
 
 	-- Step 14: Kernda: the Winterfall totem
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Winterfall totem"] = "",
+	["{npc:11558}: the Winterfall totem"] = "{npc:11558}: das Totem der Winterfelle",
 
 	-- Step 15: Neutral to Friendly
 	["Neutral to Friendly"] = "Neutro a Amigável",
