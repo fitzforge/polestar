@@ -1077,16 +1077,16 @@ function city.MeasureZ(P, c, x, y)
 	return z
 end
 
--- The arrow's walk in a capital ends short of its goal's floor, or none was found (the router's reach, city above):
--- the arrow says the last steps aren't mapped. -> that, and a number that changes whenever it does (Nav/Arrow.lua).
+-- A walk ending at the router's reachable approach, or a failed/off-floor walk in a capital: the arrow says
+-- the last steps aren't mapped. The version changes when the note does (Nav/Arrow.lua).
 function Walk.Unmapped()
 	return gc ~= nil and city.note == true, city.noteVersion
 end
 
--- A path searched with height z that ends on another floor: its last engine
--- point before the goal (the last point is the goal itself) is more than
--- Z_OFF yards from z.
-local function offFloor(points, z)
+-- A height miss that warrants retrying, not an intentional partial walk: dropping the goal height after the
+-- router explicitly returned its nearest reachable approach would trade a known floor for an arbitrary one.
+local function offFloor(points, z, answer)
+	if type(answer) == "table" and answer.reached then return false end
 	for i = #points - 1, 2, -1 do
 		local pz = type(points[i]) == "table" and points[i].z
 		if type(pz) == "number" then return abs(pz - z) > Z_OFF end
@@ -1154,12 +1154,12 @@ local function ask(P, pc, px, py, flat)
 			ask(P, pc, px, py, retry)
 			return
 		end
-		if z and (not got or offFloor(points, z)) and not inCity then
+		if z and not inCity and (not got or offFloor(points, z, answer)) then
 			gz = nil
 			ask(P, pc, px, py, flat)
 			return
 		end
-		if inCity then city.Note(not got or (type(answer) == "table" and answer.reached ~= nil) or offFloor(points, z)) end
+		city.Note((got and type(answer) == "table" and answer.reached) or (inCity and (not got or offFloor(points, z, answer))))
 		if got then
 			failed = false
 			sightC = gc
@@ -1186,7 +1186,7 @@ local function ask(P, pc, px, py, flat)
 			gz = nil
 			return ask(P, pc, px, py, flat)
 		end
-		if inCity then city.Note(true) end
+		city.Note(inCity)
 		failed, failAt, failX, failY = true, askedAt, px, py
 		return
 	end
@@ -1235,11 +1235,11 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place)
 	local inCity = gz ~= nil and city.At(pc, gx, gy)
 	local last = inCity and { x = gx, y = gy, z = gz, reach = city.GOAL } or { x = gx, y = gy }
 	local function find(from, to, again)
-		local ok, handle = pcall(P.Find, pc, from, to, function(points)
+		local ok, handle = pcall(P.Find, pc, from, to, function(points, _, answer)
 			if job.cancelled then return end
 			job.handle = nil
 			local n = type(points) == "table" and #points or 0
-			if again and (n == 0 or (to.z and not inCity and offFloor(points, to.z))) then return find({ x = px, y = py }, last) end
+			if again and (n == 0 or (to.z and not inCity and offFloor(points, to.z, answer))) then return find({ x = px, y = py }, last) end
 			local along, x, y, sx, sy = 0, nil, nil, nil, nil
 			for i = 1, n do
 				local q = points[i]
@@ -1955,7 +1955,7 @@ local function searchLeg(P, mine, key, from, to, z, ghost, flat)
 		if legToken ~= mine then return end
 		legJob = nil
 		local got = type(points) == "table" and #points > 0
-		if not flat and (fz or (z and not inCity)) and (not got or (z and not inCity and offFloor(points, z))) then return searchLeg(P, mine, key, from, to, z, ghost, true) end
+		if not flat and (fz or (z and not inCity)) and (not got or (z and not inCity and offFloor(points, z, answer))) then return searchLeg(P, mine, key, from, to, z, ghost, true) end
 		legToken, legKey = nil, nil
 		local e = false
 		if got then
@@ -2078,7 +2078,7 @@ pumpShapes = function()
 			if type(points) == "table" then
 				e.xs, e.ys, e.n, e.yards = line(points)
 				local a = type(answer) == "table" and answer or nil
-				if not points.coarse and e.n > 1 and not (z and offFloor(points, z)) then
+				if not points.coarse and e.n > 1 and not (z and offFloor(points, z, answer)) then
 					e.coarse, e.hubs = nil, hubsOf(a)
 					if a and type(a.yards) == "number" then e.yards = a.yards end
 				end

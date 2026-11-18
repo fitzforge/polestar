@@ -11,6 +11,9 @@ section: players
   to the lower one, cutting a 227-yard detour to 62 yards. From the Alliance
   flight platform, the western deck edge cuts the walk to the lower-deck
   vendor from 188 to 70 yards. Neither drop is used on the way back up.
+- Booty Bay: walks to Gyll no longer send you past the platform rail. The
+  arrow takes you to the reachable floor beneath him and tells you the last
+  steps aren't mapped, rather than claiming it found a way onto his deck.
 - Dun Morogh and Stonetalon Mountains: two steep slopes players walk straight
   down (below Earthseer Farsen's ledge, and in Stonetalon's south-east) are now
   walked down instead of round.

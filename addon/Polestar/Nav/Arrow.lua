@@ -785,9 +785,9 @@ local noteSeen = 0    -- Walk.Unmapped's version the label shows
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
--- target, and so does "The last steps here aren't mapped" while the walk the
--- arrow is on in a capital ends short of its goal's floor or found none
--- (Walk.Unmapped); the walk's hostile-town warning (`warning`) comes after them.
+-- target, and so does "The last steps here aren't mapped" while the current walk
+-- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
+-- The walk's hostile-town warning (`warning`) comes after them.
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning

@@ -4931,6 +4931,38 @@ fn city_a2_outside_the_capitals_a_goal_s_height_that_finds_nothing_is_asked_agai
 	assert_eq!(out, json!([false, 1, "none", false]));
 }
 
+#[test]
+fn outside_a_capital_the_arrow_labels_a_partial_walk_and_clears_the_note_on_the_next_complete_walk() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		fake.surfaces = function() return { 31 } end
+		nav.place(600, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-500, -500)
+		local function said() return (N.arrow.labelText:GetText() or ""):find("The last steps here aren't mapped", 1, true) ~= nil end
+		N.SetTarget(m, x, y, "Flight master", nil, "trainer", 36.4)
+		N.Sample()
+		local n = calls()
+		fake.last().reached = { x = -501, y = -499, z = 31 }
+		fake.resolve(600, 50, -501, -499)
+		N.Sample()
+		stub.advance(0.3)
+		local r = { short = { calls() - n, said() } }
+		N.SetTarget(m, x, y, "Lower deck", nil, "trainer", 31)
+		N.Sample()
+		fake.resolve(600, 50, -500, -500)
+		N.Sample()
+		stub.advance(0.3)
+		r.complete = said()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["short"], json!([0, true]), "follow the reachable approach and warn about the unmapped end");
+	assert_eq!(out["complete"], false, "a completed walk must not inherit the warning");
+}
+
 // A2 in the planner (the 8:20 travel line of #2860 was its measure): a measure into a capital's target goes from its
 // height with the reach and is never asked again without it (the straight estimates stand); the last walk's search
 // takes the reach too.

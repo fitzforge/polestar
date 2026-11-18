@@ -1067,3 +1067,54 @@ emit(got)"#,
 	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
 	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");
 }
+
+// Booty Bay: Gyll, the gryphon master, stands on a deck 36 yd up (-14475.9, 463.4, 36.4) that the walking maps join
+// to nothing. The router moves such a goal to the nearest surface that a walk reaches (settle), and counted only each
+// nearby cell's surface nearest his height: round him that is his own deck, so it took a deck of his height beyond
+// the rail, 17 yd east, and drew the last 20 yd straight over the rail (about 120 yd round on foot), as if his deck
+// were reached. Every surface counts now: the walk ends on the floor under his own cell, 5 yd down, which the way up
+// crosses; the line's last piece follows the maps' surfaces to that floor (Path.Sight), and the walk says it ends
+// there (job.reached), 5.6 yd from him: the climb onto his deck is not on the maps. From that floor itself the walk is
+// the step up to him (start and goal on one node), said alike, not 72 yd round to the deck beyond the rail; a walk to
+// that floor is its own goal reached (no job.reached).
+#[test]
+fn booty_bay_the_walk_to_gyll_on_a_deck_the_maps_join_to_nothing_ends_on_the_floor_under_him_and_says_so() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local gyll = { x = -14475.94, y = 463.44, z = 36.4 }
+local dock = { x = -14296.41, y = 538.74, z = 8.8 }
+local function reached(job)
+	local r = job and job.reached
+	return r and { math.sqrt((r.x - gyll.x) ^ 2 + (r.y - gyll.y) ^ 2), r.z } or false
+end
+local pts, _, _, job = Path.FindSync(0, dock, gyll, { profile = "Alliance" })
+local q = pts[#pts - 1]
+local got = {
+	last = math.sqrt((q.x - gyll.x) ^ 2 + (q.y - gyll.y) ^ 2),
+	sight = Path.Sight(0, q.x, q.y, q.z, gyll.x, gyll.y, gyll.z, "Alliance") == true,
+	reached = reached(job),
+}
+local under, cost, _, ujob = Path.FindSync(0, { x = -14477.08, y = 464.58, z = 31 }, gyll)
+local yards = 0
+for i = 2, #under do
+	yards = yards + math.sqrt((under[i].x - under[i - 1].x) ^ 2 + (under[i].y - under[i - 1].y) ^ 2)
+end
+got.under, got.cost, got.yards, got.underReached = #under, cost, yards, reached(ujob)
+local floor, _, _, fjob = Path.FindSync(0, dock, { x = -14477.08, y = 464.58, z = 31 }, { profile = "Alliance" })
+got.floor, got.floorReached = floor ~= nil, reached(fjob)
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	let last = got["last"].as_f64().unwrap();
+	assert!(last < 10.0, "the line's last piece is {last:.1} yd: {got}");
+	assert_eq!(got["sight"], true, "the maps' surfaces lead the line's last piece to the floor under Gyll's spot: {got}");
+	for key in ["reached", "underReached"] {
+		let r = &got[key];
+		assert!(r[0].as_f64().is_some_and(|d| d < 3.0) && r[1].as_f64().is_some_and(|z| (z - 31.0).abs() < 1.0), "{key}: the walk says it ends on the floor under him: {got}");
+	}
+	assert_eq!(got["under"], 2, "from the floor under him: the start and Gyll, nothing round: {got}");
+	assert!(got["cost"].as_f64().unwrap() < 5.0 && got["yards"].as_f64().unwrap() < 5.0, "from the floor under him: {got}");
+	assert_eq!((&got["floor"], &got["floorReached"]), (&json!(true), &json!(false)), "a walk to that floor reaches its goal: {got}");
+}

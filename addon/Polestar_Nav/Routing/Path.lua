@@ -44,6 +44,7 @@ local zoneAt, chunkDanger, nodeArea = Grid.zoneAt, Grid.chunkDanger, Grid.nodeAr
 local TILE, SNAP, ZTOL, DX, DY = Grid.TILE, Grid.SNAP, Grid.ZTOL, Grid.DX, Grid.DY
 local RETRIES = 8 -- other cells tried for an endpoint stuck in a pocket
 local DROP = 30 -- how far below its surface a stuck endpoint may move: one can jump down a ledge, never climb one
+local ARRIVE = 5 -- yd: a walk's end this near its goal, height and all, has reached it (Nav/Travel.lua's FLAT_ARRIVE)
 local SQRT2 = math.sqrt(2)
 local START, GOAL = -1, -2
 
@@ -525,13 +526,17 @@ local function endpoint(st, swim, mult, tree, k, node, back)
 end
 -- An endpoint on a rooftop or ledge the grid cannot leave moves to the nearest node that reaches an entrance,
 -- down a ledge but never up one or onto another level: ring by ring, RETRIES cells at most. A point asked at a height
--- (`want`: an NPC's spawn, the player's floor) has a second order too: the cells within SNAP by their distance plus
--- twice their surface's gap to that height (as snap weighs them), RETRIES more. A goal (`back`) tries that order
--- first: one whose own cell holds only a counter, a table or a stair's piece above the floor the NPC stands on finds
--- that floor a few cells away (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under the bar's surfaces round her, was
--- walked to over the mountain above Ironforge; Nissa Firestone's ring settled on a ledge whose entrance leads
--- nowhere). A start (the player, on the floor Walk.lua follows) tries the rings first, as before, the other order
--- only when they find nothing.
+-- (`want`: an NPC's spawn, the player's floor) has a second order too: every surface of the cells within SNAP, its own
+-- cell's others included, by its distance plus twice its gap to that height (as snap weighs them), RETRIES more. A
+-- goal (`back`) tries that order first: one whose own cell holds only a counter, a table or a stair's piece above the
+-- floor the NPC stands on finds that floor a few cells away (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under the
+-- bar's surfaces round her, was walked to over the mountain above Ironforge; Nissa Firestone's ring settled on a ledge
+-- whose entrance leads nowhere). Every surface, not only a cell's nearest to that height: round an NPC on a deck the
+-- maps join to nothing, that nearest is the deck itself (already searched, so skipped) over the floor below it that
+-- people walk up from. Booty Bay's Gyll (36 yd up) settled on a deck of his height beyond the rail, 17 yd off, and the
+-- line ran straight over it (about 120 yd round on foot); now on the floor under his own cell, 5 yd down, where the
+-- way up starts. The climb itself is not on the maps, and the walk says so (run: job.reached). A start (the player,
+-- on the floor Walk.lua follows) tries the rings first, as before, the other order only when they find nothing.
 local function settle(st, swim, mult, tree, k, node, back, want)
 	local C = st.C
 	endpoint(st, swim, mult, tree, k, node, back)
@@ -581,15 +586,25 @@ local function settle(st, swim, mult, tree, k, node, back, want)
 	-- By distance and height gap to want: the node settled, or nil.
 	local function nearest()
 		local cands = {}
-		for r = 1, SNAP do
+		local c = grid(st, k)
+		local function consider(near, dx, dy)
+			local z = zOf(c, near)
+			if z - h <= ZTOL and z - h >= -DROP then
+				cands[#cands + 1] = { near, sqrt(dx * dx + dy * dy) * st.cs + 2 * abs(z - want), #cands }
+			end
+		end
+		for r = 0, SNAP do
 			for dx = -r, r do
 				for dy = -r, r do
 					local x, y = lx + dx, ly + dy
 					if (dx == r or dx == -r or dy == r or dy == -r) and x >= 0 and y >= 0 and x < C and y < C then
-						local near = standing(st, k, x * C + y, want)
-						local z = near and zOf(grid(st, k), near)
-						if near and z - h <= ZTOL and z - h >= -DROP then
-							cands[#cands + 1] = { near, sqrt(dx * dx + dy * dy) * st.cs + 2 * abs(z - want), #cands }
+						local lc = x * C + y
+						if byte(c.kind, lc + 1) >= KINDS then
+							consider(lc, dx, dy)
+						end
+						local first, count = floorsOf(c, lc)
+						for f = first or 0, (first or 0) + count - 1 do
+							consider(f, dx, dy)
 						end
 					end
 				end
@@ -673,16 +688,18 @@ local ENDTREES, TREE_NODES = 4, 65536
 -- st.endTrees may hold more than ENDTREES while one runs. A batch (FindMany) pins its source's only: of its targets
 -- it keeps the costs.
 local runStamp, pin = 0, nil
--- want: the height the point was asked at (settle's), when it has one.
+-- want: the height the point was asked at (settle's), when it has one. entry.asked is the node asked for, entry.node
+-- the one settle kept (another when no walk leaves the asked one's surface).
 local function connect(st, swim, mult, k, node, back, want)
 	nodesOf(st, k)
 	local key = k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "") .. (back and ":b" or "")
 	local entry = st.ends[key]
 	if not entry then
 		local tree = Tree()
+		local asked = node
 		node = settle(st, swim, mult, tree, k, node, back, want)
 		local edges, yards = connections(st, tree, k)
-		entry = { node = node, edges = edges, yards = yards, tree = tree }
+		entry = { node = node, edges = edges, yards = yards, tree = tree, asked = asked }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
 		st.endTrees = st.endTrees or {}
 		st.endTrees[#st.endTrees + 1] = entry
@@ -1580,6 +1597,21 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	points.wet = wetYards
 	job.yards, job.hubs = drawnYards, hubsOn(st.D.hubs, points, job.report or profile)
 	job.avoided = hubsAvoided(st.D.hubs, points, job.report or profile, job.hubs)
+	-- A goal asked at a height (an NPC's spawn: his floor) ends on his own surface, or on one settle moved it to when no
+	-- walk reaches his (a deck or a counter the maps join to nothing). The line still ends at the goal, but from a
+	-- settled node farther than ARRIVE yards from it, height and all, the last piece is not on the maps: job.reached
+	-- says where the walk ends, as the reach's does (nearby), so a caller can say the last steps aren't mapped. His own
+	-- surface, or a settled one within ARRIVE (a floor beside him), is the goal reached: job.reached nil. (A goal
+	-- without a height may end on any surface of its cell: none is its floor, nothing is said.)
+	job.reached = nil
+	local j = #P.x
+	local last = P.n[j]
+	if to.z and goals[1] and goals[1].node == last and goals[1].asked ~= last then
+		local x, y, z = x0 + (P.x[j] + 0.5) * cs, y0 + (P.y[j] + 0.5) * cs, zOf(grid(st, P.k[j]), last)
+		if sqrt((x - to.x) ^ 2 + (y - to.y) ^ 2 + (z - to.z) ^ 2) > ARRIVE then
+			job.reached = { x = x, y = y, z = z }
+		end
+	end
 	-- Smoothing only changes drawing: planning and FindMany use the identical graph cost.
 	return points, cost
 end
@@ -2459,7 +2491,7 @@ local function runAny(job)
 		if points and (job.costOnly or not offLevel(points, to.z)) then
 			return points, cost
 		end
-		local yards, hubs, avoided = job.yards, job.hubs, job.avoided
+		local yards, hubs, avoided, reached = job.yards, job.hubs, job.avoided, job.reached
 		local q, a, b = nearby(map, to, function(p)
 			local a2, b2 = run(map, from, p, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
 			if a2 and (job.costOnly or not offLevel(a2, to.z)) then
@@ -2470,7 +2502,7 @@ local function runAny(job)
 			job.reached = { x = q.x, y = q.y, z = q.z }
 			return a, b
 		end
-		job.yards, job.hubs, job.avoided = yards, hubs, avoided
+		job.yards, job.hubs, job.avoided, job.reached = yards, hubs, avoided, reached
 		return points, cost
 	end
 	if to.z == nil then
