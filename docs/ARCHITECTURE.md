@@ -157,6 +157,7 @@ Messages:
 | `SHOW_WELCOME` | page or nil | About's Install tile, the settings window's Install button and its search result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
 | `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
+| `SHOW_TRAIL_INTRO` | — | `/polestar trail intro`, the Ground trail page's "Introduction" → UI/WorldTrailIntro.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
@@ -194,7 +195,10 @@ Every distance a player reads goes through `FormatDistance` (the arrow, the
 map target's tooltip, the death helper, the rares' toasts and view); text
 that embeds one takes the formatted string (`%s`). `opts.round = 5` rounds to
 the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
-(`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
+(`Rares.YardsText`); metres turn to kilometres from 1000 m. `opts.decimals = 1`
+keeps tenths for ground-trail spacing, width and height controls; ordinary
+arrow and tooltip distances keep their existing whole-unit formatting. The
+bug report
 keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, gearAdjust = { [CLASS] = { [spec] = { [stat] = { x } | { v } } } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
@@ -377,7 +381,7 @@ back and on a control whose category is not its page's.
 | Fonts & text size (`fonts`) | Theme: Text (fonts, sizes, outline, shadow, text colours); EllesmereUI's font (`ui.matchFont`) |
 | Guide window (`window`) | The Guide window page; Guide > Window but Dynamic Questing (what it shows, show and hide, pause, lock and growth); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
 | Arrow & map pins (`arrow`) | The Arrow and Map pins pages; Guide > Arrow & routes > Arrow and Other waypoints; the Map page (guide pins, quest markers, rares', dungeons' and travel's pins, NPC services, zones and coordinates); TomTom |
-| Route lines & travel (`routes`) | The Route lines page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
+| Route lines & travel (`routes`) | The Route lines page; the Ground trail page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
 | Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > Window > Dynamic Questing; Questing > Quests; Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
 | Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Trackers & map |
 | Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags, trainers); `talents.*` |
@@ -4839,6 +4843,447 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   OpenMap's stitched world map on (`OpenMapAPI.IsStitched`), the world map
   places them with `OpenMapAPI.CanvasFromWorldPos` and lifts the frame above
   `OpenMapAPI.ArtTopLevel()`.
+- Ground trail (`Nav/WorldTrail.lua`, `Maps/WorldTrailMath.lua`,
+  `Maps/WorldTrailTerrain.lua`, `Maps/WorldTrailRender.lua`; its settings page,
+  `Polestar_Options/Nav/WorldTrailOptions.lua`):
+  `ns.WorldTrail`, a camera-estimated in-world sparkle trail. `nav.worldTrail`
+  defaults off for fresh and upgrading accounts. Its master switch and controls
+  are a page of their own in the settings' Guiding group, after Map (key
+  `groundtrail`, one tab, Trail; the switch in the header of its first
+  section; a plain page, since a Look page is a live preview band), which
+  `/polestar trail` opens, with no duplicate switch under Guide.
+  Nothing offers the trail by itself, and Install has no row for it: an
+  off-by-default feature has its switch on its own page. The page's
+  "Introduction" opens the trail's introduction (`UI/WorldTrailIntro.lua`,
+  under "Windows" below), which turns nothing on.
+  All `nav.worldTrail*` settings are independent of map-line settings.
+  The painter follows `ns.GuideShown()`: explicit guide hiding clears its
+  sprites and stops its update callback without changing the enabled setting.
+  Showing the guide restores an enabled trail without a route-change event;
+  combat/instance auto-hide of the guide window is not this visibility gate.
+  Its frame is a child of Polestar's layer (`ns.UIParent`, anchored to the
+  screen), so hiding Polestar hides the trail with everything else;
+  `POLESTAR_HIDDEN` stops the painter and starts it again.
+  `WorldTrail.Settings()` returns a normalized, detached runtime snapshot;
+  `WorldTrail.DEFAULTS` is the look a trail first turned on has: 20 yd long
+  from 6.5 yd ahead of the character (so it never covers them), 2.6 yd wide
+  at the feet, a sparkle every 1.4 yd, half faded at its far end, drifting
+  toward the goal at 70%.
+  `ApplyPreset`, `SaveLook` and `Reset` write only this feature's native settings.
+  Looks change appearance and shape, not enabled/indoor/view policy. Reset also
+  clears the saved custom look and turns the ground trail off.
+  The Look row, under the master switch, is the quick way to a look: it lists
+  `WorldTrail.LOOKS` (eight; the first, `stardust`, is the default look, its
+  values `DEFAULTS`' own) and the saved look once there is one, and picking
+  one writes that look's values, which the sliders below then show and tune.
+  `WorldTrail.CurrentLook()` names the look whose values all still hold:
+  `mine` for the saved look, `custom` once any value is tuned (the row then
+  shows Custom). The row has no setting of its own (a dropdown with `get` and
+  `set`): it reads `CurrentLook()`, and its right-click, `set(nil)`, puts the
+  default look back. `WorldTrail.QUICK` are the four
+  looks offered as cards where there is no room for a list.
+  `Nav.walk.WorldTrail()` exposes a read-only snapshot copied when navigation
+  actually accepts a baked walking leg, plus detached progress from its last
+  follower update. What it is built from (the snapshot, the guide,
+  target and walk it was accepted for, a generation counter, the time of the
+  last Aim) is one table on the module, `Nav.walk.trail`, private to
+  Nav/Walk.lua: that file's main chunk is at the cap of locals the suite
+  keeps (190 of Lua's 200), so the trail adds none. Guide, step, target, path generation and current walk identity
+  must still match. Search intent (including combat deferral), dynamic replacement
+  and Clear invalidate it. When a replan replaces an equivalent ordinary walk,
+  fresh native follower progress can rebind the same accepted path and target;
+  the getter remains closed until that update. Split/handmade walks are not
+  bound in this version. The getter neither decodes another leg nor advances
+  navigation, starts a search or reads terrain.
+  The renderer rechecks eligibility each paint. Baked XY and strip heights use
+  the original decoded 2D cumulative distance and fractional trim offset, not
+  global nearest-point reprojection, 3D distance or a smoothed path. Heights are
+  interpolated only between real strip samples, ending at the smaller of decoded
+  line length and last sample distance; no tail extension or length rescaling.
+  Producer sampling precedes XY quantization, so alignment remains approximate.
+  The player's baseline observes the existing `Walk.Floor` result when available,
+  otherwise estimates it from the strip at native progress. The drawn baseline
+  eases changes over 0.3 seconds; this does not manufacture new strip samples.
+  Missing, stale or unsupported metadata/coverage uses the existing visible
+  `Nav.GetRouteGeometry` route, retaining current/jump filtering, hinted
+  nearest search and two-pass smoothing. That route has no heights of its own
+  (a walk the arrow searches; every walk of a guide pack without baked legs),
+  and a trail drawn level from the feet runs into every slope. Where the
+  walking maps may be read (the gates below), `Terrain.Strip` samples the
+  ground along the route's next stretch into a strip like a baked leg's
+  (`heightSource` "walking-map samples"): a height a yard, from 8 yd behind
+  the player to 30 yd past the trail's end, sampled again while the trail's
+  end is still 7 yd short of the strip's and at most every 0.25 s. A cell
+  with one walkable surface gives its height; one with several, the surface
+  nearest the height before it, the first of them nearest the floor the arrow
+  follows under the player where that is known (a bridge's deck, not the road
+  under it); the next cell's surface more than 6 yd from this one's (more over
+  a gap) is another floor and ends the strip, as an unread cell does: ground
+  that is walked climbs less than that a cell; up to 9 yd with nothing
+  walkable under the route's smoothed line are bridged. The maps keep one
+  height a cell and round the ground's to 2 yd, so read as they are a slope is
+  a flight of 2 yd steps. Every height is therefore evened over 7 yd either
+  side, the nearer heights counting for more, which gives the slope back, and
+  the trail is drawn as far as the strip goes. A height depends only on the
+  cells within that reach of it, so the same place has the same height when
+  the strip is sampled again, and nothing drawn moves. The feet stand on the
+  strip: their height is the strip's own at the player's place (`floorSource`
+  "walking-map estimate"), never the floor the arrow follows, which is the
+  rounded height of the cell under the player and rises in steps up a slope
+  (a trail drawn from it hops with each step and hangs above the ground
+  between them). Sparkles are numbered by their yards along the route, not
+  along the strip (the strip's `origin` is where along the route it begins),
+  so each keeps its number, its twinkle and its place when the strip is
+  sampled again. The maps are read a tile (533 yd) at a time, and the next
+  tile only once the player is in it (`Terrain.Begin`): a strip that ends at a
+  cell not read yet is carried on past it at the slope of the line that best
+  fits the last 20 yd of heights read, for the trail's reach and 10 yd at
+  most (`path.real` is the yards read; `Render.HeightsAhead` counts only
+  those), so the trail neither ends at the tile's edge nor falls level
+  there. When more is read, the new strip starts from the heights the one in
+  use had and settles onto its own over 0.6 s: where the guess was off the
+  trail glides onto the ground. A strip that ends at another floor, or at too
+  long a gap, is not carried on. Where the sight test cannot tell (a cell on
+  the way not read), the trail keeps the length it had when it last could
+  (`sight.held`), every frame until it can again: held as a place instead,
+  its end stood still while the player walked up to it and the trail shrank
+  to its shortest at every tile's edge. Where nothing can be sampled the trail is the level
+  one (`heightSource` "camera-estimate"), with **no measured ground heights**
+  and no ground-accuracy guarantee: it lies level from the feet, and climbs
+  or drops in a straight line to the marker's height only where the marker
+  stands where this stretch of the route ends (`atRouteEnd`, by the pin's
+  place). A pin anywhere else says nothing of the ground in between.
+  A goal the walking router finds no way to (a building or a floor the maps
+  cut off, a ledge, an island) leaves the arrow pointing straight at it, and
+  the route is that straight line. The geometry marks that walk `unrouted`
+  (`Walk.trail.noWay`: the arrow's own search for the goal answered with no
+  path, and none has come in since; not a walk still being searched for the
+  first time, a hand-made one, or one with no maps to search), and the trail
+  draws it only as far as it can be walked. `Terrain.Clear` asks the
+  router's own straight-walk check (`Path.Sight`, the one the arrow aims
+  beside its path by: false at a closed step, another floor, water or indoor
+  ground) from the player's floor to points every 2 yd along the line, at
+  most every 0.25 s, and keeps where the line ends as a place on the route,
+  so it stays put as the player walks up to it. That check decodes nothing
+  and puts the reader back as it was, so it is asked without the gates
+  below. With walking maps loaded and the floor under the player not known,
+  nothing of such a line is drawn; where the check cannot tell (a tile not
+  decoded) what it last found stands, and with no walking maps at all the
+  line is drawn as any route. It never climbs to the goal's height either:
+  it lies on the sampled ground or level from the feet. `Render.Probe()`
+  reports `noWay` and `clear` (the yards that can be walked; nil when
+  nothing was said against the line).
+  `Render.Probe()` distinguishes `heightSource`, `floorSource` and
+  `sourceAlong`; height coverage/rise are absent for the level trail.
+  Terrain reads serve two things: those heights, where there is no baked
+  strip, and the optional line-of-sight test. Beside a baked strip nothing is
+  read for heights, and with sight disabled no Terrain entry point is called
+  there. Both go through the existing native-reader eligibility gates
+  (`readsAllowed`: a walk Polestar is following with its own arrow, within
+  25 yd of it, not arrived, not on a transport; `Terrain.Begin`: the player's
+  own decoded tile, nothing decoded, held or prefetched for it). The shared
+  reader and internal grid metadata remain version-coupled; do not introduce
+  arbitrary cross-tile reads or force-load navigation data for this visual.
+  RouteSparkle supplies shared point/emission/twinkle/style math; this painter
+  owns ground spacing, animation and a bounded sprite pool. It draws no map
+  overlays and writes no pin or supertracking state itself. The pin it reads
+  is Nav/Bridges.lua's: the bridge sets Polestar's pin while
+  `nav.blizzardWaypoint` is on, or while the trail is on with its own switch
+  (`nav.worldTrailWaypoint`, on by default; "Use the game's waypoint for the
+  trail" on the Ground trail page), so the player's own setting is never
+  changed for them and turning the trail off leaves it as it was. The trail
+  is labelled Beta (the page's subtitle, a chip in the introduction). What
+  the pin costs is said in the introduction's page and in the switch's
+  tooltip: Polestar's marker takes the place of the game's quest marker and
+  of a map pin of the player's own while the trail is on, and the game does
+  not track quests accepted meanwhile. With that switch off, the page
+  shows a row of its own saying the trail is drawn short once the camera
+  has been moved, with a button that turns the switch on; no window opens.
+  (The row's section shows on that one switch alone, as the settings
+  coverage asks of a section that shows in a mode.)
+  Camera pose: the client exposes no camera pitch or yaw. The only
+  world-to-screen reference is the navigation marker (`C_Navigation.GetFrame`
+  and `GetDistance`, for whatever the game super-tracks), and the trail reads
+  it only where it is the marker of a map pin Polestar set itself
+  (`Nav.bridges.OwnsPin`: the pin `nav.blizzardWaypoint` sets, still the one
+  set, or the one flagged as Polestar's in Waypoint UI). That pin's place on
+  the map is the one Polestar gave it. Anything else the game tracks is
+  never read, in view or pinned to the screen's edge (`marker` returns
+  nothing for it, `pinned.foreign`): the game takes up a quest by itself when
+  one is accepted with nothing else tracked, and shows its marker at a place
+  and a height an addon is not told. Read for the tilt, as such markers were
+  for a time (their place taken from the quest log or reckoned from a
+  sighting, their height taken for level, from an earlier tilt or from the
+  walking maps), a marker far below its believed place laid the trail in a
+  clump at the feet or read the view as turned up at the sky, and the guards
+  against each case broke ordinary views in turn. The trail leads to the
+  guide's next step; what the game tracks has no say in it. With
+  `nav.blizzardWaypoint` off (the default) no marker is read at all.
+  `fromMarker` solves the camera from the pin's marker on every frame it is
+  usable, at any distance: yaw and pitch against the pin's world place. A pin
+  the game cannot place (one set on a world map) is read where the marker's
+  distance says it stands at the route's end, and not otherwise. Which side
+  of the player a place with a height lies on (above or below, the game's
+  distance and the flat one giving only how far) is settled once per place
+  and then kept (`solveWithHeight`'s `dz`): by the walking maps where they
+  hold the place (`Terrain.PlaceLift`: the ground there lies near the one
+  height or the other), else by the steadier pitch, or, where nothing has
+  measured the pitch since a drag, by the reading nearer the ordinary
+  view's. That last is a guess: where the two readings lie more than three
+  `WOBBLE` apart the pitch is not called exact (`camState.guess`) while that
+  place is the marker's, it is held against the maps twice a second until
+  they say, and meanwhile it may not read the view as lying along the ground
+  or turned up at the sky (`pinned.flat`, under 2 degrees).
+  No marker in the lower half of the screen measures anything whose place is
+  nearer than `pinned.close` yards and twice the camera's distance (88 yd
+  with the camera 39 yd out): such a place lies beside the character or
+  between it and the camera, the same spot on the screen is where a camera
+  lying on the ground and turned another way would show a place ahead of it,
+  and a solve free to turn the view wanders from the one reading to the
+  other as the place is walked past, calling a view turned up exact.
+  The marker's height above the feet is the
+  strip's last sample when the pin ends the accepted baked leg, else level,
+  plus a learnt `lift`: while the player moves (or falls) with no mouse
+  button, mouselook or zoom change the pitch is held and the marker's
+  vertical drift corrects the lift; standing still or with camera input the
+  drift is the camera's and the pitch is solved. A held pitch no believable
+  height explains (over 15 yd or half the distance) is solved again; so is one
+  a drag may have changed unfollowed while the marker was unusable. A marker
+  is unusable when absent, clamped, without a valid screen position, or
+  within 6 px of the screen edge. Then the yaw is the facing (the existing
+  left-drag guards apply) and the pitch is the last one known (before any:
+  the client's `cameraSavedPitch`, which it writes at a reload or logout and
+  does not keep current while playing; else 0.42 rad). That saved pitch is
+  exact until the view is dragged, since nothing else tilts it. While there
+  is nothing to paint (no route, the guide hidden, the trail off) the
+  painter's frame does not run and no drag is seen by it. The client says
+  when one begins (`PLAYER_STARTED_TURNING` for the right button,
+  `PLAYER_STARTED_LOOKING` for the left: UnitDocumentation.lua, 1.60.1), and
+  the painter listens for both (`sawDrag`): a spell with nothing to paint
+  costs the pitch nothing unless a drag began in it, so a talk with a quest
+  giver, the view untouched, leaves it as exact as it was. On a client
+  without those events more than a second of such a spell counts as a drag,
+  loading screens and the wait before the world is first shown not counted
+  (`camState.unseen`).
+  A pitch that is only a guess (`camState.adrift`: set wherever a drag ends
+  with nothing having read it, cleared by a marker in view, a reading from
+  the pinned marker, a marker standing over the top of the view for a place
+  ahead (`pinned.over`: the view then looks down at least as far as the
+  pitch held, which errs flat if at all), or the mouse reaching the end of
+  the view's travel) is not drawn
+  with as if it were known. The view turns about the character, so the feet
+  show where they are whatever the pitch, and what a wrong pitch does to a
+  place on the ground grows with its distance from them: 10° out with the
+  camera 39 yd off, a place 5 yd ahead is drawn 31 px from where the game
+  shows it at 2560x1440, one 25 yd ahead 101 px (4 yd over the ground or
+  under it). Believed too steep, the far end lifts off the ground and, in a
+  view near level, into the sky; believed too flat, the trail is only
+  squashed toward the feet. So while adrift the trail is drawn no longer
+  than `camState.reachZooms` (0.3) of the camera's distance, `minReach` (4)
+  yd at least, from a quarter of that ahead of the feet instead of
+  `groundAhead`, fading to nothing over its far half, and at a pitch no
+  steeper than `flatView` (0.26 rad, the flatter end of the views a player
+  keeps): it points the way from the feet and can neither stand in the air
+  nor heap up. `camState.loose` eases the length in and out over about half
+  a second; the pitch read is drawn with at once. With no pin of Polestar's
+  (the default) this is the trail from the first drag after a login or
+  reload until the next; with the pin, until its marker next reads.
+  The pitch is carried on by the
+  mouse: `trackMouse` sums `GetCursorDelta`'s
+  vertical travel each frame under mouselook or a left drag begun on the
+  world, and `reckonTilt` adds it times a learnt rate, clamped at ±1.53 rad,
+  where the pitch counts as known outright. The rate (radians per cursor unit,
+  signed) is learnt from drags the marker measures at both ends of a paint,
+  else from mouselook turning: the facing's change per unit of sideways travel
+  times `cameraPitchMoveSpeed / cameraYawMoveSpeed`, negated unless
+  `mouseInvertPitch`. The rate is taken over whole strokes of the mouse, rest
+  to rest within one drag (so a view answering a frame late is counted
+  whole), one-way and at least 160 cursor units long (80 for the marker's),
+  newer strokes weighing more; until the first whole stroke the stroke so far
+  serves. It lasts the session.
+  Without a rate, or where the travel is unreadable (no `GetCursorDelta`, a
+  left drag begun on a window, a client that reports no cursor travel while a
+  button holds the camera: wowf 1.60.1.70938 reported seven pixels over 210°
+  of mouselook turning), nothing is followed, and the trail is drawn at the
+  pitch the marker last gave. A marker slipping off the top or bottom of the
+  screen hides nothing by itself: a far marker stands at the horizon, which
+  is the top edge of an ordinary view looking down at the character, so it
+  slips off at every nudge, and a trail hidden for that stayed hidden for as
+  long as the marker stayed off. There is evidence that the held pitch is
+  wrong while the game pins the off-screen pin's marker more than a fifth of
+  the screen's height above or below anywhere the held pitch could put it
+  ahead of the camera (per-axis and radial pinning are both allowed for; a
+  pin behind the camera is not checked), and for half a second after
+  (`camState.lost`, the probe's "tilt lost"). The pitch is then a guess and
+  the trail the short one (`adrift`, above). It was hidden outright once;
+  but a marker is pinned low for a place ahead by two things, a view turned
+  up and a place far below the player, and over a goal in a cave under the
+  hill the trail was gone for as long as the player stood there. One case of
+  it says more than "wrong": a
+  marker the game has pinned to the top edge for a place the held pitch
+  puts ahead and on the screen. The
+  place is then above the top of the view, however the game goes about
+  pinning, so the view looks down at least as far as puts it there:
+  `tiltContradicted`'s second result, the least such pitch for the place as
+  high as it can lie (what the game's distance leaves over the flat one, a
+  yard given to how well the two agree, and no lower than the marker last
+  showed it). The pitch is raised to that and `pinLaw.over` (3°) more, and
+  is not called exact. It is the everyday case: a far place ahead, in a view
+  looking down at the character past it.
+  A glance is not kept. A view turned up at the sky (further than `UP_VIEW`,
+  17°) is one, and so is a pitch further than `pinLaw.glance` (29°) from the
+  ordinary view's that a marker showed only in the middle of a drag: the
+  mouse swings the view up, or steeply down, and back in one stroke, and
+  where the marker stops showing it nothing sees the way back. Held on, a
+  view turned up is drawn for a camera lying on the ground behind the
+  character, all of the trail in the screen's last rows, and a steep one
+  stands the trail in the air as a column. So once a drag that nothing
+  measured is over, with the pitch not exactly known, no pinned marker
+  saying the view is turned up still, and none standing over the top of a
+  view held steeper than the ordinary one (which bears the steep pitch out),
+  the pitch is that of the last ordinary view again (`camState.usual`: the
+  pitch of the last paint at rest that something stood behind, a marker in
+  view measuring it, the pinned marker's reading, or an exact pitch not
+  touched since, in a view not turned up; never one merely held through a
+  drag; the probe's "pitch fixed by the last ordinary view"). With no drag since, the view is as it was and
+  the pitch stands. Known limits: tilted further down with the marker over
+  the top and nothing following, the pitch is the least one and the trail
+  sits low and foreshortened; a view really kept turned up, or changed for
+  good to one far from the last ordinary view, through a drag nothing
+  measured is drawn as the ordinary one until something measures it; with
+  no pin of Polestar's, or its place near by, nothing does.
+  The screen's scale (`Trail.Focal`, px for each unit of tan) takes the
+  client's `cameraFov` as the angle from corner to corner of a 16:9 screen:
+  1,469 px at 2560x1440 for the default 90. Measured on wowf 1.60.1 from a
+  recorded mouselook turn (the character turns with the view, so the facing
+  gives the turn): the marker crossed the screen at 1,410 to 1,480 px a unit,
+  where the side-to-side reading (1,280) had it go a tenth further than the
+  view turned. It rests on that one recording. `Render.Probe()` gives the
+  scale the pin's marker shows (`scale`, beside `scaleUsed`) whenever the
+  camera is known to stand behind the character (`camState.behind`: a
+  right-button drag was the last to turn it) and the marker shows well off
+  the middle of the screen: the share of the marker's direction that lies
+  sideways does not change as the view tilts, so the place's bearing and
+  where the marker shows fix the scale by themselves.
+  `Render.Probe()` also gives `markerBearing` (the tracked place's angle off
+  the view) and `savedPitch` (the `cameraSavedPitch` setting, if the client
+  has it), printed by the probe to learn how an off-screen marker is pinned
+  and whether the client keeps the tilt anywhere. `/polestar trail record`
+  watches for 44 seconds through four prompted steps (a normal view, tilted
+  all the way down, all the way up, a zoom) and keeps 25 samples a second of
+  the marker's place, its clamped and valid flags and distance, the facing,
+  zoom and saved tilt in `PolestarDB.trailRecording`; it sets and steers
+  nothing, and nothing reads it back. It does not start while the game shows
+  no marker frame (nothing is tracked: such a run holds nothing), and says
+  at its end in how many samples the marker stood inside the picture.
+  The painter reads the player's speed and facing in one place each
+  (`ownSpeed`, `ownFacing`): a value the client keeps secret, as it can in
+  combat, reads as unknown and is never compared or worked on. A secret speed
+  is standing still to the left-drag estimate; with a secret facing the view
+  comes from the marker or is not drawn.
+  A marker the game has pinned still gives the tilt where its place is known
+  (`Trail.PinnedPitch`, the painter's `pinnedTilt`). The rule was measured on
+  wowf 1.60.1 from such a recording: the marker sits on a rectangle 15 units
+  inside the screen, and its place round that rectangle goes evenly with the
+  place's bearing from straight ahead: along the top edge up to the pitch,
+  down the side edge for the next quarter turn, along the bottom edge from
+  there to straight behind. Over a recorded turn at a tilt the client had
+  saved as 19.69° the rule gives 20.5° (0.9° rms), and it followed the view
+  down to 83°. The recorded place lay a mile off, which the camera sees
+  where the character does. A place near by it does not: the camera stands
+  the zoom's length behind the character and well above the ground, so a
+  place a few yards behind the character is ahead of the camera and under its
+  view, and one 100 yd off to the side is ten degrees further round for the
+  one than for the other. How the game pins such a place is not recorded, and
+  read by the rule a place a few yards off gave a pitch of 67° in an
+  ordinary view. So a marker whose place is nearer than 100 yd, or eight
+  times the zoom, gives no pitch and fixes no place (`pinLaw.near`,
+  `pinLaw.nearZooms`: at that distance the two bearings are at most 7°
+  apart), and the pitch is held. The probe prints what the rule reads by the
+  place's bearing from the character and from the camera, for a report to
+  settle which the game goes by. A reading on a side or the bottom edge sets
+  the pitch,
+  smoothed over 0.08 s and not taken for 0.25 s after the marker is pinned
+  (the game slides it to its place); the next marker in view measures the
+  pitch afresh. The place is the pin's own on the map. A place ahead
+  pinned along the bottom, or a marker resting in a bottom corner for 0.3 s,
+  says the view is turned up, and nothing is drawn. Not read: the top edge
+  (a place ahead with the view tilted down past it; that share of the rule
+  was not in the recording, and only the least pitch is taken from it,
+  above) and the corners. While the tilt is exactly known
+  the rule is only checked against it, and given up for the session after
+  two disagreements of over 8° with no agreement, for a client that pins its
+  marker another way. The recorded marker's place was about level with the
+  player. For one well above or below, the game may pin by where the place
+  is in the view, which reads the tilt out by the place's drop, or by its
+  bearing alone, which reads true; no recording says which, and the reading
+  is taken as the rule gives it. `Trail.Camera`
+  keeps the camera 0.3 yd above the feet when the view is turned up (level
+  ground assumed), so the ground is never drawn from underneath: with the
+  game's Smart Pivot (`cameraPivot`, read each paint into
+  `Trail.pivotInPlace`) it rests where its boom met the ground and turns up
+  there, without it is drawn in along the boom. `nav.worldTrailLift` is capped
+  just under the camera's own height, so a raised trail cannot hang in a view
+  turned up from a camera on the ground. In the air (`IsFalling`, watched every
+  frame) the camera rides with the character, so the trail is drawn from the
+  ground, not the feet: the feet fly at the game's own rates (7.9555 yd/s up
+  when a `JUMP` binding's key was down within 0.3 s of leaving the ground,
+  read with `IsKeyDown`; every flight where the keys cannot be read; 19.2911
+  yd/s² down). With baked heights they fly from the ground they left and land
+  on the floor under them, so a step off a ledge falls too; without, only a
+  jump's rise over level ground is reckoned. A key still held at the reckoned
+  landing starts the next jump. No hook is placed on the jump itself. The
+  marker's expected height drops by the same amount, and in the air neither
+  the lift nor a held pitch is changed by what the marker shows.
+  `Render.Probe()` reports `mode` ("pin" while Polestar's own pin is the
+  marker shown, else "no pin"), `trail` ("full", or "short" while the pitch
+  is a guess), `tilt` (`measured`, `held`, `followed`,
+  `followed from an assumed tilt`, `assumed`, `lost`), `tracking` (Polestar's
+  map pin, a map pin Polestar did not set, something Polestar did not place,
+  or nothing), `lift`, the mouse rate and its source, what last fixed the
+  pitch and how far it has been followed since, and the flight;
+  `/polestar trail probe` prints them. Off-route merging, lateral scatter and
+  wall occlusion remain estimates. Unmeasured first-person fallback (zero
+  camera zoom) is omitted only while in that view; zooming out restores
+  ordinary fallback immediately. There is no persistent right-mouse/mouselook
+  suppression: ordinary steering must retain a visible trail.
+  Route changes: each paint keeps what it drew as places in the world (every
+  sparkle's spot, its strip height or its reckoned height above the ground
+  under the feet, its number and how strongly it showed). When the line
+  ahead of the player is then another one, or the route goes, that trail is
+  left where it lay and fades out over 0.6 s (smoothstep), twinkling on but
+  no longer flowing, while the new trail's strength rises by the same curve,
+  so the two sum to one trail's brightness. A change is the way ahead moving,
+  not the route being built again: `sameLine` holds the old and the new path
+  against each other from the player's place on each, out to
+  `nav.worldTrailLength`, and only a point of either more than 3 yd from the
+  other is another way (each line is given 8 yd more at both ends, because
+  the player's place along a path is only as fresh as the walker's last
+  step). So `NAV_ROUTE_GEOMETRY` firing for a later leg, a re-plan that closes
+  `Walk.WorldTrail()` until the next follower update, and the same walk drawn
+  from its strip or from the route's own points fade nothing; turning back
+  along the same road, or the same line ending short, does. Only a trail
+  the paint before drew is faded out (not one last drawn before the camera
+  was lost). A trail replaced under 2% into its own fade-in is dropped, at
+  most three fade at once (the faintest gives way), in at most one more
+  `nav.worldTrailMax` sprites between them. When the route goes the painter
+  stays on until the fade is out, then stops as before. Turning the trail
+  off, hiding the guide, a loading screen, a flight and indoors with that
+  setting off clear everything at once. A trail appearing with nothing to
+  replace keeps the plain 0.25 s reveal. `Render.Fades()` returns the fading
+  trails and the last painted one; `Render.Probe()` adds `fadingOut` and
+  `fadeIn`. A map pin that has just moved may be shown, for a frame or more,
+  by a marker still at the old pin's place; solved against that, the new
+  place would swing the whole view round, and the fading trail with it. For
+  0.3 s after a pin's place changes `fromMarker` therefore believes the
+  marker only where it shows within a tenth of the screen's width, sideways,
+  of where the camera of the paint before puts the new pin; otherwise that
+  paint keeps the camera as it was, turned on by the facing and tilted on by
+  the mouse. After 0.3 s the marker is believed as always.
+  Loading suppression and the full post-loading settle period must survive
+  overlapping events. Disabled means no active drawing or terrain work. Local
+  player settings transfer is separate from the contribution: upstream code
+  does not read ForeverSparkleTrailDB or hard-code a personal preset.
 - Chokepoints: a Travel leg ending at one carries `choke = { kind, name }`;
   `Nav/Layers.lua` gives its route stop (`nav.route`) the kind's glyph on a
   scrim disc in the accent (`icon-lift`; `icon-gate` for gates and building
@@ -9730,6 +10175,31 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   door in `UI/OptionsLoader.lua`: `O.JumpTo`, after the fight when asked in
   one before the settings have loaded). A note with no setting stays text.
   About's "What's new" and `/polestar whatsnew` open it again.
+- **The ground trail's introduction** (`UI/WorldTrailIntro.lua`, frame
+  `PolestarTrailIntro`, `SHOW_TRAIL_INTRO`): Install's look from its
+  building blocks (`UI.Welcome.Kit`), as What's new is: 600 wide, centred,
+  a compact night hero with "Ground trail" and a line on what it is; the
+  trail's switch with its description inline (`nav.worldTrail`, a
+  `W.Toggle`: off until the player turns it on, right-click for the
+  default); `WorldTrail.QUICK`'s four looks as cards, the one in use
+  (`WorldTrail.CurrentLook()`) in an accent outline, a click applying one
+  (`ApplyPreset`, which never turns the trail on) and right-click putting
+  the default look back; a line on where the rest is; and a footer with
+  "Change it later with /polestar trail", "Trail settings" (the settings at
+  the Ground trail page) and "Got it". Each card previews its look along one
+  path from the player's mark to the goal's, standing for 40 yd of route:
+  the look's reach, how far ahead it starts, its spacing, its width at the
+  feet narrowing into the route, its fade, sparkle size and colour to
+  scale, drifting toward the goal at the look's own pace (an `OnUpdate`,
+  20 times a second, only while shown) and still under `ui.reduceMotion`.
+  The preview's ground is the look's sidebar on a dark look; a light look
+  keeps the game tooltip's dark ground there (`Theme.TIP_GROUND`, the two
+  marks through `Theme.TipColor`), since the sparkles are light and would
+  not show on paper.
+  It never opens by itself and keeps no flag: `/polestar trail intro` and
+  the Ground trail page's "Introduction" open it, at once out of combat;
+  asked for in a fight or during a cinematic, it opens when that ends.
+  Without Nav/WorldTrail.lua there is none.
 - **Copy window** (`UI/Copy.lua`, frame `PolestarCopy`, `UI.ShowCopy(title,
   text)` or `SHOW_COPY`): a small window with the band, a title, a read-only
   `W.CopyBox` holding the text, selected and focused, and how to copy it; ✕

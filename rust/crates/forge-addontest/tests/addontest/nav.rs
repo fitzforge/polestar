@@ -1790,6 +1790,25 @@ fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_
 	assert_eq!(out["calls"], json!([["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true], ["clear pin"], ["quest", 756]]));
 }
 
+// The ground trail reads the tilt of the view from the marker of a pin Polestar placed, and a tracked quest's
+// marker is not one: with the trail on, a goal that would track its quest is a named pin instead.
+#[test]
+fn with_waypoint_ui_and_the_ground_trail_on_a_quest_goal_is_a_named_pin_not_the_tracked_quest() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[756] = true
+		Polestar.Set("nav.worldTrail", true)
+		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
+		local owned = N.bridges.OwnsPin()
+		-- The trail switched off again: the same goal tracks its quest, as before.
+		Polestar.Set("nav.worldTrail", false)
+		emit({{ calls = calls, owned = owned }})"#
+	));
+	assert_eq!(out["calls"], json!([["pin", "Turn in Thunderhorn Totem", 9000, 45, 50, "Polestar", true], ["clear pin"], ["quest", 756]]));
+	assert_eq!(out["owned"], true);
+}
+
 #[test]
 fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 	let out = run(&format!(
@@ -1866,6 +1885,60 @@ fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
 		emit({ native = nav.userWaypoints })"#);
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
+}
+
+// The ground trail reads the tilt of the view from the marker of a map pin Polestar set itself, and from no
+// other (Maps/WorldTrailRender.lua): the bridge says whether the game's pin is that one.
+#[test]
+fn the_bridge_says_whether_the_game_s_pin_is_one_polestar_set() {
+	let out = run(r#"
+		local B, seen = N.bridges, {}
+		seen[1] = B.OwnsPin() -- the game's waypoint is off: Polestar has set none
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
+		seen[2] = B.OwnsPin() -- its own pin, set and tracked
+		Polestar.Set("nav.blizzardWaypoint", false)
+		seen[3] = B.OwnsPin() -- cleared with the setting
+		emit(seen)"#);
+	assert_eq!(out, json!([false, true, false]));
+}
+
+// The ground trail has its own switch for the game's waypoint (nav.worldTrailWaypoint, on by default): while the
+// trail is on, the bridge sets Polestar's pin whether or not the player's own Blizzard waypoint setting is on,
+// and that setting is never changed for them.
+#[test]
+fn with_the_ground_trail_on_its_own_switch_sets_the_game_waypoint_and_the_player_s_setting_is_left_alone() {
+	let out = run(r#"
+		local B, seen = N.bridges, {}
+		Polestar.Set("nav.worldTrailWaypoint", true)
+		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
+		seen[1] = #nav.userWaypoints -- the trail off: no pin, whatever its switch says
+		Polestar.Set("nav.worldTrail", true)
+		seen[2] = B.OwnsPin()
+		Polestar.Set("nav.worldTrailWaypoint", false)
+		seen[3] = B.OwnsPin()
+		Polestar.Set("nav.worldTrailWaypoint", true)
+		Polestar.Set("nav.worldTrail", false)
+		seen[4] = B.OwnsPin()
+		emit({ seen = seen, native = nav.userWaypoints, game = Polestar.Get("nav.blizzardWaypoint") and true or false })"#);
+	assert_eq!(out["seen"], json!([0, true, false, false]));
+	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true], ["clear"], ["set", 9000, 0.45, 0.5], ["track", true], ["clear"]]));
+	assert_eq!(out["game"], false);
+}
+
+#[test]
+fn with_waypoint_ui_the_pin_is_polestar_s_only_while_it_carries_polestar_s_flag() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		local B, seen = N.bridges, {{}}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		target(100, 0, "Talk to Executor Arren")
+		seen[1] = B.OwnsPin() -- a pin named after the target, set through Waypoint UI
+		current = {{ name = "Mine", flags = "TomTom_Waypoint" }}
+		seen[2] = B.OwnsPin() -- the player's own put over it
+		emit(seen)"#
+	));
+	assert_eq!(out, json!([true, false]));
 }
 
 #[test]
