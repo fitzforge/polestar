@@ -741,6 +741,41 @@
 		],
 		"note": "Raene's Cleansing (Ashenvale, back to Raene): the one objective is Dartol's Rod of Transformation, which Krolg gives you; the skull is the quest's starting item, not a second objective."
 	},
+	"1070": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-17 (excluded contributors left out): for On Guard in Stonetalon's second part (1085), all 58 people who took it had handed this first part in to Kaela Shadowspear seconds before; none took it without"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2667 (GDcontroller, 0.3.7.2): Kaela Shadowspear did not offer the second part before the first was handed in, so it took two trips"
+			}
+		],
+		"note": "On Guard in Stonetalon (1070, Sentinel Thenysil in Astranaar) is a prerequisite of its second part (1085), not only a lead-in: Kaela Shadowspear offers 1085 only once 1070 is handed in to her, so it no longer names 1085 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
+	"1085": {
+		"set": {
+			"pre": [
+				1070
+			],
+			"breadcrumbs": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-17 (excluded contributors left out): all 58 people who took On Guard in Stonetalon (1085) from Kaela Shadowspear had handed the first part (1070) in to her 0.2 to 19 seconds before; none took it without, and no one without the first part handed in opened her quest window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2667 (GDcontroller, 0.3.7.2): Kaela Shadowspear did not offer the second part before the first was handed in, so it took two trips"
+			}
+		],
+		"note": "On Guard in Stonetalon's second part (1085, Kaela Shadowspear in Stonetalon) is offered only once the first part (1070, Sentinel Thenysil in Astranaar) is handed in to Kaela. The quest data named 1070 as its prerequisite and also as its breadcrumb, and a breadcrumb never blocks, so the prerequisite was dropped: the Wildwood Chain's item guide started at Kaela, who had nothing to give. Taking the first part costs only a stop in Astranaar on the way."
+	},
 	"1098": {
 		"set": {
 			"xp": 5350

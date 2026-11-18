@@ -401,6 +401,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
 });
 
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
+});
+
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
 // players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
 // count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
