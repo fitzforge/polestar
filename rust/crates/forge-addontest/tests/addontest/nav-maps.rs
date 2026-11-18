@@ -579,10 +579,10 @@ local frames = {}
 Path.after = function(fn) frames[#frames + 1] = fn end
 local function drain() while #frames > 0 do table.remove(frames, 1)() end end
 local function walk(from, to)
-	local got, made = nil, Path.treesMade
+	local got, made = nil, Path.treesMade or 0
 	Path.Find(0, from, to, function(points) got = points end, { profile = "Horde" })
 	drain()
-	return { found = got ~= nil, made = Path.treesMade - made }
+	return { found = got ~= nil, made = (Path.treesMade or 0) - made }
 end
 local first = walk({ x = -24.96, y = -878.613 }, { x = 2246.1, y = 239.8, z = 34.3 })
 local pooled = #pool()
@@ -626,18 +626,19 @@ stub.inCombat = false
 stub.fire("PLAYER_REGEN_ENABLED")
 local function slices(n) local most = 0 for _ = 1, n do local cpu = job.cpu frame() most = math.max(most, job.cpu - cpu) end return most end
 local calm = slices(30)
-stub.advance(Path.calmSeconds + 0.1)
+stub.advance(1.1)
 local after = slices(30)
-emit({ waited = waited, calm = calm, after = after, done = job.done == true, budget = Path.budget, calmBudget = Path.calmBudget })"#,
+emit({ waited = waited, calm = calm, after = after, done = job.done == true, budget = Path.budget, calmBudget = Path.calmBudget, calmSeconds = Path.calmSeconds })"#,
 		"",
 		vec![Addon::name("Polestar_Nav")],
 	);
 	assert_eq!(got["waited"], 0, "no search in the fight: {got}");
-	assert_eq!(got["calmBudget"], 1, "{got}");
 	let (calm, after) = (got["calm"].as_f64().unwrap(), got["after"].as_f64().unwrap());
 	assert!(calm <= 1.5, "after the fight a frame searched {calm} ms (Path.calmBudget 1): {got}");
 	assert!(after >= 2.5, "then Path.budget again ({after} ms a frame): {got}");
 	assert_eq!(got["done"], false, "{got}");
+	assert_eq!(got["calmBudget"], 1, "{got}");
+	assert_eq!(got["calmSeconds"], 1, "{got}");
 }
 
 #[test]
