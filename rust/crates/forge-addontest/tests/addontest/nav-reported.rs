@@ -681,6 +681,20 @@ fn ironforge_afadra_dunwalls_spot_is_joined_to_the_city_by_the_step_players_take
 	joined_both_ways(afadra, thurgrum, Some("Alliance"), "Afadra Dunwall's spot");
 }
 
+// Ironforge, the Great Forge (55.08, 58.26): Nissa Firestone, the first aid trainer, stands at 512.5 on a floor the
+// walking maps joined to nothing, so the reach rule would drop it and a walk from her height found no way (to Fimble
+// Finespindle, 40.15, 33.21). 16 recorded players step onto it from the Forge's floor beside her (55.46, 59.93); the
+// step join for that keeps her floor and the walk goes down off it round the Forge (about 235 yd).
+#[test]
+fn ironforge_a_walk_from_nissa_firestone_at_her_height_steps_off_her_floor_onto_the_forges() {
+	let nissa = Pt { c: 0, x: -4876.6, y: -1149.1, z: Some(512.5) };
+	let fimble = Pt { c: 0, x: -4744.5, y: -1031.0, z: Some(504.5) };
+	let got = walk(nissa, fimble, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Nissa Firestone at her height");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 300.0, "the walk is {yards:.0} yd");
+}
+
 // Undercity, the Rogues' Quarter: the arched bridge over the canal (72.5, 63.4 to 76.4, 67.3) was cut at its crest in
 // the walking maps into two decks that meet only down at the canal, so the walk from the ring below the bat handler to
 // Mennet Carkad went round the district (487 yd; the recorded players' walk is 292). A strict join puts the crest in:
