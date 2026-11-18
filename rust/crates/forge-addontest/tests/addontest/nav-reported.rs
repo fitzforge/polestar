@@ -629,10 +629,10 @@ emit(got)"#;
 
 // #2860 (Ironforge, 0.4.1): from the Great Forge's ring (31.78,66.47, the floor at 501) to Daryl Riknussun, the
 // cooking trainer (60.25,36.79, his spawn's 509.5), the arrow's walk went out of the gate and over the mountain: his
-// platform is reached by no walk on the maps, and the search asked again without his height ended on the mountain top
-// (3,515 yd for a 356 yd walk; the planner's measure from his platform, the travel line's 8:20, likewise). With the
-// router's reach (Nav/Walk.lua passes 10 yd in the capitals) the walk and the measure end at the nearest surface on
-// his level that a walk reaches, his platform's foot, never over the mountain.
+// platform was reached by no walk on the maps before the step joins (#2916), and the search asked again without his
+// height ended on the mountain top (3,515 yd for a 356 yd walk; the planner's measure from his platform, the travel
+// line's 8:20, likewise). With the router's reach (Nav/Walk.lua passes 10 yd in the capitals) the walk and the measure
+// end on his level at his platform (at its foot, were it joined to nothing), never over the mountain.
 #[test]
 fn ironforge_the_walk_to_the_cooking_trainer_at_his_height_with_the_reach_ends_at_his_platform_not_over_the_mountain_2860() {
 	let from = "{ x = -4919.94, y = -964.85, z = 501 }";
@@ -648,4 +648,35 @@ fn ironforge_the_walk_to_the_cooking_trainer_at_his_height_with_the_reach_ends_a
 	assert!((end.0 + 4763.35).hypot(end.1 + 1189.94) < 20.0 && end.2.is_some_and(|z| (z - 509.5).abs() <= 10.0), "the walk ends at his platform on his level, not at {end:?}");
 	let measure = got["measure"].as_f64().expect("the measure from his platform finds the walk too");
 	assert!(measure < 450.0, "the measure is {measure:.0}");
+}
+
+// #2860, Ironforge: from the reporter's spot (31.78, 66.47, on the floor at 501) to Daryl Riknussun, the cooking
+// trainer, at the goal's point (60.25, 36.79) and his height (509.5), the walk found no way: that part of his platform
+// was joined to nothing in the walking maps, and the walk asked again without his height went out of the gate and over
+// the mountain (3,515 yd). Players walk onto the platform from the Great Forge's floor (27 recorded players by its
+// steps, 32 beside them): step joins put that in. The walk is found at his height, ends on his platform, and is about
+// the players' 356 yd.
+#[test]
+fn ironforge_the_walk_onto_daryl_riknussuns_platform_is_found_at_his_height_2860() {
+	let reporter = Pt { c: 0, x: -4919.9, y: -964.9, z: Some(501.0) };
+	let daryl = Pt { c: 0, x: -4763.3, y: -1189.9, z: Some(509.5) };
+	let got = walk(reporter, daryl, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk to Daryl Riknussun at his height");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 509.5).abs() < 5.0) && (last.0 - daryl.x).hypot(last.1 - daryl.y) < 10.0, "the walk ends on his platform: {last:?}");
+	let yards = yards_of(&pts);
+	assert!(yards < 450.0, "the walk is {yards:.0} yd");
+	joined_both_ways(Pt { c: 0, x: -4790.6, y: -1167.7, z: Some(502.2) }, daryl, Some("Alliance"), "Daryl Riknussun's platform");
+}
+
+// Ironforge (33.92, 49.31): the spot where players talk to Afadra Dunwall was joined to
+// nothing in the walking maps (no walk to or from it at its floor, 501.9); 32 recorded players step across the gap
+// beside it, and a step join puts that in. The walk to Thurgrum Deepforge on the Great Forge's floor (498.9) and back
+// is found.
+#[test]
+fn ironforge_afadra_dunwalls_spot_is_joined_to_the_city_by_the_step_players_take() {
+	let afadra = Pt { c: 0, x: -4822.4, y: -980.7, z: Some(501.9) };
+	let thurgrum = Pt { c: 0, x: -4795.0, y: -1122.6, z: Some(498.9) };
+	joined_both_ways(afadra, thurgrum, Some("Alliance"), "Afadra Dunwall's spot");
 }
