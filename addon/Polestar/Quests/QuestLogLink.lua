@@ -4,7 +4,9 @@
 -- links the quest in chat, as the game's own quest log does (#2545).
 --
 --   ns.ShowInQuestLog(questID) -> true when the log opened
---     The log opens at that quest (Compat.OpenQuestLog). A quest that is not
+--     The map opens at the quest's zone with the quest selected
+--     (Compat.OpenQuestLog: the client's C opener, so the map stays untainted,
+--     #2924); its details are the player's click in the log. A quest that is not
 --     in the log is named in chat, nothing opens. In combat the client keeps
 --     the map shut to addons, so the request waits: chat says the log opens
 --     when combat ends, and it does then (PLAYER_REGEN_ENABLED), the last
