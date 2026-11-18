@@ -179,6 +179,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.notesOpen"] = function() GF.SetTipOpen(ns.Get("ui.notesOpen") and true or false); GF.Render() end,
 		["ui.newInForever"] = function() GF.Render() end,
 		["ui.maxHeight"] = function() GF.Layout() end,
+		["ui.heightMode"] = function() GF.Layout() end,
+		["ui.height"] = function() GF.Layout() end,
 		-- Another way of reading the card: nothing kept from the one before.
 		["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 		["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
@@ -251,8 +253,19 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function resizeUpdate(self)
 		local x = GetCursorPosition() / F:GetEffectiveScale()
 		local w = min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, floor(self.psStartW + (x - self.psStartX) + 0.5)))
-		if w ~= floor(F:GetWidth() + 0.5) then
+		-- A fixed height (ui.heightMode): the grip drags the height too, away
+		-- from the pinned edge (down, or up with Grow upward).
+		local h = self.psStartH
+		if h and self.psFixed then
+			local y = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+			local dy = ns.Get("ui.growUp") and y - self.psStartY or self.psStartY - y
+			h = max(UI.MIN_HEIGHT, floor(h + dy + 0.5))
+		else
+			h = nil
+		end
+		if w ~= floor(F:GetWidth() + 0.5) or (h and h ~= GF.dragHeight) then
 			F:SetWidth(w)
+			if h then GF.dragHeight = h end
 			GF.Layout()
 		end
 	end
@@ -268,6 +281,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		self.psStartX = GetCursorPosition() / F:GetEffectiveScale()
 		self.psStartW = F:GetWidth()
+		self.psFixed = ns.Get("ui.heightMode") == "fixed"
+		self.psStartH = self.psFixed and F:GetHeight() or nil
+		self.psStartY = select(2, GetCursorPosition()) / F:GetEffectiveScale()
 		self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
 	end
 
@@ -275,6 +291,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not self:GetScript("OnUpdate") then return end
 		self:SetScript("OnUpdate", nil)
 		ns.Set("ui.width", floor(F:GetWidth() + 0.5))
+		if self.psFixed and GF.dragHeight then
+			local h = GF.FixedHeight and GF.FixedHeight()
+			GF.dragHeight = nil
+			if h then ns.Set("ui.height", h) end
+		end
+		self.psStartH, self.psFixed = nil, nil
 		savePosition()
 	end
 

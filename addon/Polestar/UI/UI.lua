@@ -30,6 +30,8 @@ ns.RegisterDefaults("ui", {
 	bgOpacity = 0.94, -- the ground of every Polestar window
 	width = 340,
 	maxHeight = 0.5, -- the guide window's tallest, as a share of the screen's height; a longer step scrolls (#843)
+	heightMode = "auto", -- "auto": the guide window fits the step, up to maxHeight | "fixed": always `height` tall, a longer step scrolls inside
+	height = 400, -- the guide window's height with heightMode "fixed", in its own units (at least UI.MIN_HEIGHT)
 	wholeStep = false, -- the card lists every goal of the step, finished ones kept, instead of one person at a time (#843)
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
@@ -63,6 +65,7 @@ ns.RegisterDefaults("ui", {
 })
 
 UI.MIN_WIDTH, UI.MAX_WIDTH = 260, 560
+UI.MIN_HEIGHT = 200 -- the fixed guide window's shortest (ui.height)
 
 -- The player's faction through Compat, when Compat is there.
 function UI.PlayerFaction()

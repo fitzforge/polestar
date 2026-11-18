@@ -13,7 +13,8 @@
 --                  out here: 7 kills and items", "✓ Gazrog"); a click lists
 --                  its goals in place. The persons already done share one
 --                  "✓" line. The goals scroll inside a height cap
---                  (ui.maxHeight, a share of the screen); "Show the whole
+--                  (ui.maxHeight, a share of the screen) or a fixed
+--                  height (ui.heightMode, ui.height); "Show the whole
 --                  step" (ui.wholeStep) lists every goal as before. A done
 --                  step (viewed with Prev) lists all its goals.
 --                  The author's tip, collapsed to one line.
@@ -985,6 +986,7 @@ GF.Part(function(GF)
 	-- (`room`, math.huge while the window fits). `from`: the card's bottom
 	-- while Layout stacks the frames under it. `limit`: with ui.growUp, the
 	-- height to the top of the screen (roomAbove; nil without Grow upward).
+	-- `fixedH`: the window's fixed height (ui.heightMode "fixed"; nil: it fits).
 	local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel = {}, n = 0, h = 0 }
 
 	-- The window's height for a body `y` tall under the bars (`fit.outer`).
@@ -994,10 +996,13 @@ GF.Part(function(GF)
 	-- lines at the bars; at least MIN_BODY_H of it stays.
 	local MIN_BODY_H = 40
 	GF.MIN_BODY_H = MIN_BODY_H -- the step browser keeps it too (GuideFrameLayout.lua)
+	-- With a fixed height (fit.fixedH, ui.heightMode "fixed") the window is
+	-- that tall: a short step leaves room under it, a long one is clipped
+	-- past what its goals area scrolls.
 	local function sizeWindow(y)
 		local natural = floor(fit.outer + y + 0.5)
-		local height, limit = natural, fit.limit
-		if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
+		local height, limit = fit.fixedH or natural, fit.limit
+		if limit and height > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
 		local cut = height < natural
 		if body.SetClipsChildren then body:SetClipsChildren(cut) end
 		body:SetHeight(max(1, cut and height - fit.outer or y))

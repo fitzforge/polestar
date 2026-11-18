@@ -292,6 +292,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 	GF.CapHeight = function() return F and capHeight() or nil end
 
+	-- With ui.heightMode "fixed", the window's height: ui.height (or the grip's
+	-- while it drags, GF.dragHeight), never under UI.MIN_HEIGHT nor taller than
+	-- the screen in the window's units. nil while the window fits the step.
+	local function fixedHeight()
+		if ns.Get("ui.heightMode") ~= "fixed" then return nil end
+		local h = tonumber(GF.dragHeight) or tonumber(ns.Get("ui.height")) or 400
+		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale() / max(0.01, screenScale())
+		return floor(max(UI.MIN_HEIGHT or 0, min(h, screen)) + 0.5)
+	end
+	GF.FixedHeight = function() return F and fixedHeight() or nil end
+
 	-- The journey (UI/JourneyPanel.lua) right under the focus it leads to;
 	-- never in compact mode, and in the live window alone. Returns the new y.
 	local function stackJourney(y, width)
@@ -487,12 +498,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		local stripH = showStrip and SH or 0
 		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
 		fit.limit = roomAbove()
+		-- A fixed height (ui.heightMode): the window that tall whatever it
+		-- holds; the step browser keeps its own (ui.stepListHeight).
+		fit.fixedH = not list and fixedHeight() or nil
 		if fit.from then
 			-- Past the cap (or the top of the screen with Grow upward), the goals
 			-- area gives up the difference and scrolls.
 			fit.h = y - fit.from
 			fit.from = nil
-			fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+			fit.room = min(fit.fixedH or capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
 			fitGoals()
 		else
 			sizeWindow(y)
