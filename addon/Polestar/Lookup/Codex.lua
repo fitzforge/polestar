@@ -65,7 +65,9 @@ local chunks = {}
 local indexes = {} -- kind -> search blob
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
-local followUps = {} -- questId -> { follow-up questId, ... }
+-- "\n" .. questId .. "\t" .. follow-up ids, comma-separated, in pack order .. "\n" .. ...,
+-- lines in questId order (fieldAt finds one); built on the first FollowUps.
+local followIndex
 local meta
 local announced = false
 local WEAK = { __mode = "v" }
@@ -529,7 +531,7 @@ function Codex.Register(group, names, recs, lo, hi)
 	}
 	cache[group] = nil
 	if group == "role" then roleCache = {} end
-	if group == "quest" then followUps = {} end
+	if group == "quest" then followIndex = nil end
 	if group == "recipe" then Codex.recipeIndex = nil end
 end
 
@@ -636,35 +638,57 @@ function Codex.Quest(id)
 	return get("quest", id)
 end
 
+-- Read only the prerequisite fields, not the names, objectives or reward text.
+-- Older records can end after pre (field 12), before preAny (field 15).
+local PRE = "\n(%d+)\t" .. string.rep("[^;\n]*;", 11) .. "([^;\n]*)()"
+local ANY = "^;[^;\n]*;[^;\n]*;([^;\n]*)"
+
+local function buildFollowIndex()
+	local byParent, parents = {}, {}
+	local function add(parent, child)
+		local prev = byParent[parent]
+		if not prev then
+			parents[#parents + 1] = parent
+			byParent[parent] = child
+		elseif type(prev) == "string" then
+			if prev ~= child then byParent[parent] = { prev, child } end
+		elseif prev[#prev] ~= child then
+			prev[#prev + 1] = child
+		end
+	end
+	local function links(field, child)
+		for token in gmatch(field, "[^,]+") do
+			local parent = tonumber(token)
+			if parent then add(parent, child) end
+		end
+	end
+	for _, c in ipairs(chunks.quest or {}) do
+		local recs = c.recs or ""
+		for child, pre, at in gmatch(recs, PRE) do
+			if pre ~= "" then links(pre, child) end
+			local any = recs:match(ANY, at)
+			if any and any ~= "" then links(any, child) end
+		end
+	end
+	table.sort(parents)
+	for i, parent in ipairs(parents) do
+		local children = byParent[parent]
+		parents[i] = "\n" .. parent .. "\t" .. (type(children) == "table" and table.concat(children, ",") or children)
+	end
+	return table.concat(parents)
+end
+
 -- questId -> { quest, ... }: the quests whose `pre` or `preAny` names it, in
--- pack order. One pass over the quest records per quest asked (the ids found
--- are kept until the quest chunks change).
+-- pack order, each once. The first ask reads the quest records once into
+-- followIndex (until the quest chunks change); each ask then halves it.
 function Codex.FollowUps(id)
 	id = tonumber(id)
 	if not (id and ready()) then return {} end
-	local ids = followUps[id]
-	if not ids then
-		ids = {}
-		local needle = tostring(id)
-		for _, c in ipairs(chunks.quest or {}) do
-			if c.recs then
-				for qid, s in gmatch(c.recs, "\n([^\t\n]*)\t([^\n]*)") do
-					if find(s, needle, 1, true) then
-						local t = split(s, ";")
-						local hit = false
-						for _, f in ipairs({ t[12], t[15] }) do
-							for _, p in ipairs(numbers(f)) do hit = hit or p == id end
-						end
-						if hit then ids[#ids + 1] = key(qid) end
-					end
-				end
-			end
-		end
-		followUps[id] = ids
-	end
+	if not followIndex then followIndex = buildFollowIndex() end
 	local out = {}
-	for _, qid in ipairs(ids) do
-		local q = get("quest", qid)
+	local at = fieldAt(followIndex, id)
+	for qid in gmatch(at and lineFrom(followIndex, at) or "", "%d+") do
+		local q = get("quest", tonumber(qid))
 		if q then out[#out + 1] = q end
 	end
 	return out

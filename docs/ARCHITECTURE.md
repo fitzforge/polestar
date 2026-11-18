@@ -7932,10 +7932,11 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   Lookup page shows it as a "Chain" fact ("Step 6 of 11") and a Chain section
   under its sources, a click on another quest's row opening its page (its
   tooltip says so). The guide window's quest tooltip (a goal row) adds
-  `ChainTooltipText`'s line while Lookup is on and the Codex is loaded; a hover never loads it. The walk is kept per
-  quest (`Codex.FollowUps` reads every quest the first time) until a quest is
-  turned in or taken, a level is gained or the Codex loads
-  (`Lookup.ResetChains`); the states are read on every call.
+  `ChainTooltipText`'s line while Lookup is on and the Codex is loaded; a
+  hover never loads it. `Codex.FollowUps` builds one sorted prerequisite index
+  on first use and discards it if another quest chunk registers. The walk
+  itself is kept per quest until a quest is turned in or taken, a level is
+  gained or the Codex loads (`Lookup.ResetChains`); states are read on every call.
 - **Quest steps** (`Lookup.QuestStep`): a collect goal names who gives the
   item as a compiled goal does (`from`, `fromId`, `fromKind`, `fromRank`,
   `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a
