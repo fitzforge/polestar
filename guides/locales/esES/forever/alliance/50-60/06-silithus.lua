@@ -234,7 +234,7 @@ return {
 
 	-- Step 44: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
 	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, en las tiendas de la Alianza: para {npc:17080} en {area:2743}",
 	-- {npc:15181} Commander Mar'alith
@@ -310,7 +310,7 @@ return {
 
 	-- Step 57: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 58: Gadgetzan
 	-- {area:976} Gadgetzan
