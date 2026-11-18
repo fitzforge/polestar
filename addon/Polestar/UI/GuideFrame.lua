@@ -1878,7 +1878,8 @@ GF.Part(function(GF)
 				empty.Secondary.psAction = function() UI.ShowPicker() end
 				empty.Secondary:Show()
 			elseif nextGuide then
-				empty.Text:SetText(L["Up next"] .. ": |c" .. Theme.Hex("text") .. nextGuide.title .. "|r")
+				-- As the guide-end window says it: "Next: Westfall (12–17)".
+				empty.Text:SetText(string.format(L["Next: %s"], "|c" .. Theme.Hex("text") .. UI.GuideLabel(nextGuide) .. "|r"))
 				W.SetButtonText(empty.Primary, L["Continue"])
 				empty.Primary.psAction = function() E.SetGuide(nextGuide.id) end
 				empty.Primary:Show()

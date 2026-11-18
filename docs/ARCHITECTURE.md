@@ -3183,11 +3183,10 @@ and both of its values start on `"ask"`.
   whole); `GUIDE_END` fires after the evaluation and the guide-end window
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed
   <guide>" or "You've reached the end of <guide>" with the open steps left,
-  and offers Start <next> (`StartNext`), Choose where to go next (the route
-  choice window) or Pick a guide (the guide menu); the second button (Not now,
-  Back to step N, Close) keeps the guide. While steps are open the guide
-  window's banner then offers the next guide (`GF.EndOffer`) until dismissed;
-  a finished guide's completed state offers it as before.
+  and names the next guide; it is a summary, its one button (Close, or Back
+  to step N) keeps the guide. The guide window owns the next guide's button:
+  while steps are open its banner offers the next guide (`GF.EndOffer`) until
+  dismissed, and a finished guide's completed state offers it.
 - **Continue:** the hand-off at completion as under "At completion", and
   `GUIDE_CONTINUED(fromId, toId, carried)`: the guide window's banner reads
   "Durotar complete — continuing with The Barrens" for 20 seconds (chat while
