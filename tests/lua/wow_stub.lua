@@ -8,7 +8,8 @@
 -- Frames are plain tables. A capitalized method that is not implemented below
 -- resolves to a no-op returning nil, so the long tail of Set* calls is accepted.
 --
---   stub.fire(event, ...)    deliver a game event to every frame registered for it
+--   stub.fire(event, ...)    deliver a game event to every frame registered for it (a frame registered with
+--                            RegisterUnitEvent only when the event's first argument is one of its units)
 --   stub.advance(seconds)    move the clock frame by frame (0.05 s): OnUpdate scripts, then the timers due as
 --                            the frame starts; one a timer makes for now (C_Timer.After(0)) runs next frame,
 --                            as in the client
@@ -126,10 +127,25 @@ function Methods.HookScript(self, name, fn)
 end
 
 -- Events
-function Methods.RegisterEvent(self, ev) self.events[ev] = true end
-function Methods.RegisterUnitEvent(self, ev) self.events[ev] = true end
-function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
-function Methods.UnregisterAllEvents(self) self.events = {} end
+function Methods.RegisterEvent(self, ev)
+	self.events[ev] = true
+	if self.eventUnits then self.eventUnits[ev] = nil end
+end
+function Methods.RegisterUnitEvent(self, ev, ...)
+	self.events[ev] = true
+	self.eventUnits = self.eventUnits or {}
+	local units = {}
+	for i = 1, select("#", ...) do units[select(i, ...)] = true end
+	self.eventUnits[ev] = units
+end
+function Methods.UnregisterEvent(self, ev)
+	self.events[ev] = nil
+	if self.eventUnits then self.eventUnits[ev] = nil end
+end
+function Methods.UnregisterAllEvents(self)
+	self.events = {}
+	self.eventUnits = nil
+end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
 -- Visibility. With stub.cascadeVisibility on, as in the client: showing or
@@ -575,7 +591,8 @@ end
 function stub.fire(ev, ...)
 	local list = {}
 	for _, f in ipairs(stub.frames) do
-		if f.events[ev] then list[#list + 1] = f end
+		local units = f.events[ev] and f.eventUnits and f.eventUnits[ev]
+		if f.events[ev] and (not units or units[(...)]) then list[#list + 1] = f end
 	end
 	for _, f in ipairs(list) do RunScript(f, "OnEvent", ev, ...) end
 end

@@ -180,6 +180,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
