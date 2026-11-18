@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: The Crystalline Tear
 	-- {object:180633} Crystalline Tear
-	["The {object:180633}"] = "",
+	["The {object:180633}"] = "{object:180633}",
 	-- {object:180633} Crystalline Tear · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
 	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "",
 	["Watch the vision"] = "",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 17: Back to Narain Soothfancy
 	-- {npc:11811} Narain Soothfancy
-	["Back to {npc:11811}"] = "",
+	["Back to {npc:11811}"] = "{npc:11811}에게 돌아가기",
 	-- {quest:8606} Decoy! · {npc:11811} Narain Soothfancy · {area:2255} Everlook · {zone:1452} Winterspring · {npc:15554} Number Two
 	["{quest:8606} sends you, disguised with {npc:11811}'s turban, to a drop-off point south of {area:2255} in {zone:1452}. Leave the bag of gold there: {npc:15554}, a level 61 elite, comes for it (group of 3 to 5)."] = "",
 
@@ -114,7 +114,7 @@ return {
 
 	-- Step 20: The Isle of Dread
 	-- {area:1121} Isle of Dread
-	["The {area:1121}"] = "",
+	["The {area:1121}"] = "{area:1121}",
 	-- {npc:12803} Lord Lakmaeran · {area:1121} Isle of Dread
 	["{npc:12803} and the Chimaerok on the {area:1121} are elites of level 60 to 62 that respawn every ten minutes: a raid's work. The Chimaerok drop a tenderloin about half the time, Lakmaeran two to four now and then."] = "",
 	-- {item:21027} Lakmaeran's Carcass · {npc:12803} Lord Lakmaeran
@@ -153,7 +153,7 @@ return {
 
 	-- Step 25: The Forest Wisp
 	-- {npc:15624} Forest Wisp
-	["The {npc:15624}"] = "",
+	["The {npc:15624}"] = "{npc:15624}",
 	-- {npc:15624} Forest Wisp
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "",
 
@@ -229,7 +229,7 @@ return {
 	["{npc:15192}: the Honored ring quest of your path"] = "",
 
 	-- Step 38: Honored to Revered
-	["Honored to Revered"] = "",
+	["Honored to Revered"] = "존경에서 평판 우호",
 	-- {npc:15727} C'Thun · {quest:8595} Mortal Champions · {quest:8789} Imperial Qiraji Armaments · {npc:15380} Arygos · {npc:15378} Merithra of the Dream · {item:18562} Elementium Ore
 	["Honored to Revered is 12,000: twelve artifacts, 24 insignias, or a mix with {npc:15727} (2,500). After the first, each insignia is the repeatable {quest:8595}. Every Temple boss sometimes drops an {quest:8789} or Regalia (about one time in twenty): {npc:15380} and {npc:15378}, inside the Temple once {npc:15727} is dead, take it with 3 {item:18562} for 200 and a weapon. Honored opens the chest exchange of the tier set (200)."] = "",
 	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair
@@ -247,7 +247,7 @@ return {
 	["{npc:15192}: the Revered ring quest of your path"] = "",
 
 	-- Step 40: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "평판 우호에서 확고",
 	-- {npc:15727} C'Thun · {quest:8801} C'Thun's Legacy · {npc:15379} Caelestrasz
 	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "",
 

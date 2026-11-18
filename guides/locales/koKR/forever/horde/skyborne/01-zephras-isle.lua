@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Thendal Grove: kill these as you meet them
 	-- {area:16622} Thendal Grove
-	["{area:16622}: kill these as you meet them"] = "",
+	["{area:16622}: kill these as you meet them"] = "{area:16622}: 만나는 대로 처치하세요",
 	-- {npc:250873} Juvenile Vuldren
 	["Pesky Cirrusflies and {npc:250873} roam the grove just south-east of the village."] = "성가신 구름벌레와 {npc:250873}이(가) 마을 바로 남동쪽 숲을 돌아다닙니다.",
 
@@ -38,7 +38,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker · {item:9547} Simple Note
 	["{npc:251361}: read the {item:9547}"] = "{npc:251361}: {item:9547}을(를) 읽으세요",
 	-- {npc:251374} Windshaper Boro · {npc:251361} Rorian the Dayseeker
-	["{npc:251374}, beside {npc:251361}"] = "",
+	["{npc:251374}, beside {npc:251361}"] = "{npc:251374} 옆의 {npc:251361}",
 	-- {npc:251373} Xyton Silverwind · {npc:251361} Rorian the Dayseeker
 	["{npc:251373}, the druid trainer, on the ground floor of the tree behind {npc:251361}"] = "드루이드 상급자 {npc:251373}: {npc:251361} 뒤편 나무의 1층",
 	-- {npc:251373} Xyton Silverwind
@@ -65,7 +65,7 @@ return {
 	-- {area:16635} Thendal Village
 	["{area:16635} turn-ins"] = "{area:16635} 퀘스트 완료",
 	-- {npc:251376} Tai'ree Farsight · {npc:251361} Rorian the Dayseeker
-	["{npc:251376}, beside {npc:251361}"] = "",
+	["{npc:251376}, beside {npc:251361}"] = "{npc:251376} 옆의 {npc:251361}",
 	-- {npc:251389} Akeri Duskblade
 	["{npc:251389}, in the watchtower"] = "감시탑 안의 {npc:251389}",
 	-- {npc:251964} Blademaster Ren
@@ -149,7 +149,7 @@ return {
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
-	["{area:16623}: kill these as you meet them"] = "",
+	["{area:16623}: kill these as you meet them"] = "{area:16623}: 만나는 대로 처치하세요",
 	["The apprentices practise north-east of the village.\nThe bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "수습생들은 마을 북동쪽에서 수련합니다.\n좀도둑 야영지는 마을 북동쪽에 있으며, \"사악한 바람\" 베닉이 가장 위쪽 야영지를 차지하고 있습니다. 좀도둑들이 훔친 바람석을 지니고 있습니다.",
 
 	-- Step 33: Shen'dar bounty board
@@ -200,9 +200,9 @@ return {
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
-	["{npc:252476}, upstairs"] = "",
+	["{npc:252476}, upstairs"] = "{npc:252476}, 위층",
 	-- {npc:252383} Valennia Stormfist
-	["{npc:252383}, upstairs"] = "",
+	["{npc:252383}, upstairs"] = "{npc:252383}, 위층",
 
 	-- Step 46: Back to Valanaar
 	-- {area:16638} Valanaar
@@ -218,11 +218,11 @@ return {
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "{npc:251968}와(과) 대화하세요",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
-	["{npc:252382}, beside {npc:251968}: {quest:97243}"] = "",
+	["{npc:252382}, beside {npc:251968}: {quest:97243}"] = "{npc:252382} 옆의 {npc:251968}: {quest:97243}",
 
 	-- Step 49: Nyalah Brightfire and Alvarion Windfield
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield
-	["{npc:257006} and {npc:252448}"] = "",
+	["{npc:257006} and {npc:252448}"] = "{npc:257006}와(과) {npc:252448}",
 	-- {npc:257006} Nyalah Brightfire · {area:16638} Valanaar · {npc:252448} Alvarion Windfield
 	["{npc:257006} waits inside a house on {area:16638}'s western edge; {npc:252448} is close by."] = "",
 	-- {npc:255940} Donaal Downbreeze
@@ -232,7 +232,7 @@ return {
 	-- {npc:252389} Quel'ana Quickgale · {npc:257006} Nyalah Brightfire · {quest:94978} Taming the Beast
 	["{npc:252389}, a few steps west of {npc:257006}: {quest:94978}, the first rod"] = "",
 	-- {npc:257006} Nyalah Brightfire
-	["{npc:257006}, inside"] = "",
+	["{npc:257006}, inside"] = "{npc:257006}, 내부",
 
 	-- Step 50: Riaani Nightwind
 	-- {npc:256083} Riaani Nightwind · {area:16626} Gustberry Lowlands
@@ -240,7 +240,7 @@ return {
 	-- {npc:256083} Riaani Nightwind
 	["Listen to {npc:256083}"] = "{npc:256083}의 이야기를 들으세요",
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {quest:94003} The Skybreaker Bulwark
-	["{npc:252377}, beside {npc:256083}: {quest:94003}"] = "",
+	["{npc:252377}, beside {npc:256083}: {quest:94003}"] = "{npc:252377} 옆의 {npc:256083}: {quest:94003}",
 
 	-- Step 51: Windfield Orchard
 	-- {area:16663} Windfield Orchard · {area:16638} Valanaar
@@ -259,7 +259,7 @@ return {
 
 	-- Step 54: Gustberry Lowlands: kill these as you meet them
 	-- {area:16626} Gustberry Lowlands
-	["{area:16626}: kill these as you meet them"] = "",
+	["{area:16626}: kill these as you meet them"] = "{area:16626}: 만나는 대로 처치하세요",
 	-- {area:16663} Windfield Orchard
 	-- plural, as words: Blood-Stained Bandit Masks = {item:253596} Blood-Stained Bandit Mask
 	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "",
@@ -292,16 +292,16 @@ return {
 	-- Step 60: Warlock trainer
 	["Warlock trainer"] = "",
 	-- {npc:2127} Rupert Boch · {zone:1420} Tirisfal Glades · {area:16638} Valanaar
-	["{npc:2127} in {zone:1420}; {area:16638} has no warlock trainer"] = "",
+	["{npc:2127} in {zone:1420}; {area:16638} has no warlock trainer"] = "{zone:1420}의 {npc:2127}. {area:16638}에는 흑마법사 상급자가 없습니다",
 
 	-- Step 62: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
 	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "{npc:251707} 길들이기",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "{npc:250874} 길들이기",
 
 	-- Step 63: Ayessa Dawnsinger
 	-- {npc:256247} Belathaan Brightwish · {area:16638} Valanaar · {area:16629} Shrine of Akir
@@ -328,7 +328,7 @@ return {
 	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "배신자의 집은 {area:16638} 북서쪽 {area:16626}, {npc:273017} 바로 북쪽에 있습니다.",
 	["search the dead cultist in the house"] = "집 안의 죽은 신도를 뒤지세요",
 	-- {npc:253372} Dead Cultist
-	["{npc:253372}, inside"] = "",
+	["{npc:253372}, inside"] = "{npc:253372}, 내부",
 
 	-- Step 69: Ur'endra
 	-- {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16626} Gustberry Lowlands
@@ -375,7 +375,7 @@ return {
 
 	-- Step 81: Shadowgale Forest: kill these as you meet them
 	-- {area:16631} Shadowgale Forest
-	["{area:16631}: kill these as you meet them"] = "",
+	["{area:16631}: kill these as you meet them"] = "{area:16631}: 만나는 대로 처치하세요",
 	-- {item:265105} Lady's Tear Moss · {npc:257944} Elegael Thornpaw · {item:265141} Bloody Heirloom
 	["{item:265105} grows around {npc:257944}'s camp and Shriekings fly over it. The Al'Aketh camp east of her holds the {item:265141}."] = "{item:265105}은(는) {npc:257944}의 야영지 주변에 자라고, 그 위로 그늘돌풍 괴성조가 날아다닙니다. {item:265141}은(는) 그녀 동쪽의 알아케스 야영지에 있습니다.",
 
@@ -412,7 +412,7 @@ return {
 	-- {area:16629} Shrine of Akir · {area:16638} Valanaar · {npc:253576} Hyusaa Quickbreeze
 	["The {area:16629} is north of {area:16638}. Fight through the guards up to {npc:253576} at its east side."] = "{area:16629}은(는) {area:16638} 북쪽에 있습니다. 경비병들을 뚫고 동쪽의 {npc:253576}에게 가세요.",
 	-- {npc:253590} Valennia Stormfist
-	["{npc:253590}, upstairs"] = "",
+	["{npc:253590}, upstairs"] = "{npc:253590}, 위층",
 
 	-- Step 89: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
@@ -424,7 +424,7 @@ return {
 
 	-- Step 91: The Fate of Zephras
 	-- {npc:254344} Endaria Mistgaze · {npc:251968} Ayessa Dawnsinger
-	["{npc:254344}, beside {npc:251968}"] = "",
+	["{npc:254344}, beside {npc:251968}"] = "{npc:254344} 옆의 {npc:251968}",
 
 	-- Step 92: Seena Skybreaker
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {area:16638} Valanaar
@@ -484,13 +484,13 @@ return {
 
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
-	["Into {zone:1412}"] = "",
+	["Into {zone:1412}"] = "{zone:1412}(으)로",
 	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
 	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "{zone:1456}의 서쪽 승강기를 타고 내려가십시오. 그 아래 길은 남동쪽으로 {zone:1412}을(를) 가로질러 {zone:1413}까지 이어집니다.",
 
 	-- Step 106: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "{zone:1413}(으)로",
 
 	-- Step 107: Camp Taurajo
 	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn

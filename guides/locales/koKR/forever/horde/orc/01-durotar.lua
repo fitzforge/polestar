@@ -22,7 +22,7 @@ return {
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
 	["{npc:3143} stands just inside the cave mouth; {npc:3159} at the back of the cave behind him."] = "{npc:3143}은(는) 동굴 입구 바로 안쪽에, {npc:3159}은(는) 그 뒤 동굴 안쪽에 서 있습니다.",
 	-- {npc:3143} Gornek
-	["{npc:3143}, inside"] = "",
+	["{npc:3143}, inside"] = "{npc:3143}, 내부",
 	-- {npc:3156} Nartok
 	["{npc:3156}, the warlock trainer at the back of the cave"] = "{npc:3156}, 동굴 안쪽의 흑마법사 상급자",
 	-- {npc:3155} Rwag
@@ -36,7 +36,7 @@ return {
 	-- {npc:5884} Mai'ah
 	["{npc:5884}, the mage trainer, at the entrance to the Den"] = "{npc:5884}, 동굴 막사 입구의 마법사 상급자",
 	-- {npc:3159} Kzan Thornslash
-	["{npc:3159}, at the back of the cave; below ground"] = "",
+	["{npc:3159}, at the back of the cave; below ground"] = "{npc:3159}, 동굴 안쪽, 지하",
 	-- {npc:9796} Galgar
 	["{npc:9796}, by the cooking fire"] = "{npc:9796}, 요리용 모닥불 옆",
 
@@ -46,7 +46,7 @@ return {
 
 	-- Step 5: Valley of Trials: kill these as you meet them
 	-- {area:363} Valley of Trials
-	["{area:363}: kill these as you meet them"] = "",
+	["{area:363}: kill these as you meet them"] = "{area:363}: 만나는 대로 처치하세요",
 	-- {npc:3287} Hana'zua · {quest:792} Vile Familiars · {area:365} Burning Blade Coven
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["The Scorpid Workers roam the slope south of {npc:3287}; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "일꾼전갈은 {npc:3287} 남쪽 비탈을 돌아다닙니다. 가는 길에 선인장 옆에서 선인장 사과를 따세요.\n{quest:792}은(는) 골짜기 북쪽의 동굴인 {area:365} 아래 비탈에 득실거립니다.",
@@ -172,7 +172,7 @@ return {
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "",
 	-- {npc:6928} Innkeeper Grosk
-	["{npc:6928}, inside"] = "",
+	["{npc:6928}, inside"] = "{npc:6928}, 내부",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}, 감시탑 안",
 
@@ -200,11 +200,11 @@ return {
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
 	-- {npc:266940} Turroc
-	["{npc:266940}, inside"] = "",
+	["{npc:266940}, inside"] = "{npc:266940}, 내부",
 
 	-- Step 41: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
-	["{area:373}: kill these as you meet them"] = "",
+	["{area:373}: kill these as you meet them"] = "{area:373}: 만나는 대로 처치하세요",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
 	["Underwater"] = "물속",
@@ -225,7 +225,7 @@ return {
 
 	-- Step 45: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
-	["{area:368}: kill these as you meet them"] = "",
+	["{area:368}: kill these as you meet them"] = "{area:368}: 만나는 대로 처치하세요",
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
 	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nDurotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach."] = "얕은 물을 건너 북쪽 메아리 섬으로 가세요. 그곳의 랩터들 사이를 우두머리 암컷이 배회합니다.\n듀로타 호랑이는 섬과 센진 남쪽 해안을 돌아다니며, 채찍꼬리 알은 섬과 해변을 따라 둥지에 있습니다.",
 
@@ -253,11 +253,11 @@ return {
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "여기서 10레벨까지 올리세요. {area:362}의 {quest:840}에는 10레벨이 필요합니다.\n{quest:96825}의 가시배는 이 오두막들 옆에서 자랍니다. 사냥하면서 채집하세요.",
 	-- {npc:3111} Razormane Quilboar
-	["grind on {npc:3111}"] = "",
+	["grind on {npc:3111}"] = "{npc:3111} 사냥",
 
 	-- Step 52: Razor Hill
 	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "",
+	["{npc:3169}, inside"] = "{npc:3169}, 내부",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
 
@@ -292,7 +292,7 @@ return {
 
 	-- Step 66: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
-	["{area:369}: kill these as you meet them"] = "",
+	["{area:369}: kill these as you meet them"] = "{area:369}: 만나는 대로 처치하세요",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {npc:3293} 바로 서쪽과 남서쪽의 {area:369}에서 풀을 뜯습니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",

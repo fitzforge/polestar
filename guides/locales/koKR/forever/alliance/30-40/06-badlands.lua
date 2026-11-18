@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "{zone:1418}(으)로",
 
 	-- Step 2: Dorgaron
 	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
@@ -23,7 +23,7 @@ return {
 
 	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: 만나는 대로 처치하세요",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote · Shadowforge Ruffians = {npc:4845} Shadowforge Ruffian
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "",
@@ -51,7 +51,7 @@ return {
 
 	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: 만나는 대로 처치하세요",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "대머리수리가 동쪽 평원 위를 맴돕니다. 주의: 먼지목도리일족 싸움꾼, 주술사, 용사냥꾼(40-43)이 멀리 남서쪽에 야영하고 있으니 무시하십시오.\n부서진 해골은 바위동굴일족 트로그 야영지 가장자리에 있습니다. 아그몬드를 죽인 {quest:739}은(는) 뼈다귀싸움꾼들 사이를 돌아다닙니다.\n주의: 바위동굴일족 뼈다귀싸움꾼은 39-40, 주술사는 40-41레벨로 지금보다 한두 레벨 높습니다. 야영지 가장자리에서 하나씩 끌어오십시오.\n주의: 먼지목도리일족 우두머리는 44-45레벨입니다. {spell:5242}와(과) {spell:1160}을(를) 사용하며, 생명력이 50% 미만이 되면 15미터 내의 아군에게 도움을 청합니다. {area:340}에서 남쪽으로 약 750미터 거리에 일곱 마리가 서 있습니다.",

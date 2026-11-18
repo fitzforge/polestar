@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "{zone:1427}(으)로",
 
 	-- Step 4: Searing Gorge
 	["The Grimesilt outhouse"] = "검댕가루 간이화장실",
@@ -37,7 +37,7 @@ return {
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "{npc:5839} 사냥",
 
 	-- Step 8: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -117,7 +117,7 @@ return {
 	-- {quest:7701} WANTED: Overseer Maltorius
 	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "{npc:9318} 사냥",
 
 	-- Step 33: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
@@ -145,7 +145,7 @@ return {
 	-- {quest:3452} The Flame's Casing
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "{npc:5844} 사냥",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
