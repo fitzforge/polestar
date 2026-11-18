@@ -16041,6 +16041,29 @@
 		],
 		"note": "Step One: Rock (95183), a Forever quest of the Riverglades: its ender, Hamur (263440), where players handed it in (the quest's own text names it)."
 	},
+	"95194": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 260146,
+					"count": 1,
+					"text": "Find Shaw's Agent in Theramore"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 8 people (8 established); the line ticks while Sully McCleary's (260146) window is open, and they hand it in to him"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2948"
+			}
+		],
+		"note": "Our Man in Theramore (95194): Shaw's agent is Sully McCleary in Theramore, and the line ticks when you talk to him. The data counted it as a kill of npc 4396 (the server's credit id, which is also the Mudrock Tortoise), so Alcaz Prison's pick-up guide sent players to kill turtles."
+	},
 	"95278": {
 		"set": {
 			"end": {

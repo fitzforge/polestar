@@ -4393,6 +4393,15 @@ test('#2927: Helping Hands and Supplies to Auberdine are escorts', { skip }, () 
 	}
 });
 
+// #2948 (Boxbonny123, Alcaz Prison's pick-up guide): Our Man in Theramore (95194) asks you to find Shaw's agent, Sully
+// McCleary, in Theramore: players' recordings tick the line while his window is open (8 people). The data counted it a
+// kill of npc 4396, the server's credit id and also the Mudrock Tortoise, so the guide said to kill turtles. The
+// correction makes it a talk to him; the Codex carries it from the next data build.
+test('#2948: Our Man in Theramore is a talk to Sully McCleary, not a kill', () => {
+	const fix = loadCorrections().quests['95194'];
+	assert.deepEqual(fix && fix.set.objectives.map((o) => [o.type, o.id]), [['talk', 260146]]);
+});
+
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
 // the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
 // killed him at 44.9,51.2 (median of each person's spots).
