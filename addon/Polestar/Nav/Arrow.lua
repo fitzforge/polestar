@@ -106,6 +106,10 @@ ns.RegisterDefaults("nav", {
 	arrowLabelWidth = 300,    -- how wide the label may run before it wraps (LABEL_WIDTH)
 	arrowBacking = false,     -- a dark plate behind the text
 	arrowBackingAlpha = 0.5,
+	-- Coloured by facing (#2380): green turned toward the goal, amber across,
+	-- red turned away (Theme's success, warning, danger), in place of the
+	-- far and near colours; the arrival keeps its own.
+	arrowFacingColor = false,
 })
 
 -- The style a skin's arrow takes ("skin" in nav.arrowStyle).
@@ -185,6 +189,7 @@ local function readLook(t)
 	t.labelWidth = clamp(ns.Get("nav.arrowLabelWidth"), 120, 400, LABEL_WIDTH)
 	t.backing = ns.Get("nav.arrowBacking") and true or false
 	t.backingAlpha = clamp(ns.Get("nav.arrowBackingAlpha"), 0, 1, 0.5)
+	t.facingColor = ns.Get("nav.arrowFacingColor") and true or false
 	return t
 end
 
@@ -464,7 +469,7 @@ local function dialTint(d, r, g, b, lk)
 		-- their own arrow colour: a game look's own (dartArt), else Polestar's
 		-- baked gold for Hearth's design away from Hearth. Every other dart
 		-- (Hearth's, Halo's, a skin's own), and every dart up close, is tinted.
-		local own = type(ns.Get("nav.arrowColor")) == "table"
+		local own = type(ns.Get("nav.arrowColor")) == "table" or lk.facingColor
 		local baked = not d.near and not own and (skinDartArt or (s == "hearth" and not skinDart and ns.Theme.SkinKey() ~= "hearth"))
 		local tex = skinDart or (UI_DIR .. (baked and "dart-gold" or "dart"))
 		local k = tex == skinDart and skinDartScale or 1
@@ -487,21 +492,41 @@ end
 -- The colour at `dist` yards from a target of `radius`: the far colour away,
 -- the near colour up close, smoothstep over nav.arrowNearRange; the skins'
 -- darts turn to the near colour within 40 m (scaled with the range).
+-- With nav.arrowFacingColor and an `angle` (radians from straight ahead),
+-- the colour is the facing's instead: success ahead, warning square across,
+-- danger behind, blended between.
 -- -> r, g, b, near (the skins' arrival colour is on)
-local function blend(style, dist, radius, lk)
+local function blend(style, dist, radius, lk, angle)
 	local range = lk.nearRange
+	local near, t, r, g, b = false, nil, nil, nil, nil
 	if isSkin(style) then
-		local near = dist <= (range == CLOSE_RANGE and DART_NEAR or DART_NEAR * range / CLOSE_RANGE)
-		local r, g, b = Nav.RGB(near and "arrowNear" or "arrow")
-		return r, g, b, near
+		near = dist <= (range == CLOSE_RANGE and DART_NEAR or DART_NEAR * range / CLOSE_RANGE)
+		if not (lk.facingColor and angle) then
+			r, g, b = Nav.RGB(near and "arrowNear" or "arrow")
+			return r, g, b, near
+		end
+	else
+		if range > 0 then t = 1 - (dist - radius) / range else t = dist <= radius and 1 or 0 end
+		if t < 0 then t = 0 elseif t > 1 then t = 1 end
+		t = t * t * (3 - 2 * t)
 	end
-	local t
-	if range > 0 then t = 1 - (dist - radius) / range else t = dist <= radius and 1 or 0 end
-	if t < 0 then t = 0 elseif t > 1 then t = 1 end
-	t = t * t * (3 - 2 * t)
-	local ar, ag, ab = Nav.RGB("arrow")
-	local sr, sg, sb = Nav.RGB("arrowNear")
-	return ar + (sr - ar) * t, ag + (sg - ag) * t, ab + (sb - ab) * t, false
+	local ar, ag, ab, sr, sg, sb, k
+	if lk.facingColor and angle then
+		k = abs(wrap(angle)) / pi * 2 -- 0 ahead, 1 across, 2 behind
+		if k <= 1 then
+			ar, ag, ab = Nav.RGB("success")
+			sr, sg, sb = Nav.RGB("warning")
+		else
+			ar, ag, ab = Nav.RGB("warning")
+			sr, sg, sb = Nav.RGB("danger")
+			k = k - 1
+		end
+	else
+		ar, ag, ab = Nav.RGB("arrow")
+		sr, sg, sb = Nav.RGB("arrowNear")
+		k = t
+	end
+	return ar + (sr - ar) * k, ag + (sg - ag) * k, ab + (sb - ab) * k, near
 end
 
 -- The arrival on a dial (`done`): the house ring and the halo behind it, or
@@ -900,9 +925,9 @@ local function tint(r, g, b)
 	dialTint(D, r, g, b, look)
 end
 
--- The far colour away, the near colour up close (blend).
-local function applyColor(dist, radius)
-	local r, g, b, near = blend(style, dist, radius, look)
+-- The far colour away, the near colour up close, or the facing's (blend).
+local function applyColor(dist, radius, angle)
+	local r, g, b, near = blend(style, dist, radius, look, angle)
 	D.near = near
 	tint(r, g, b)
 end
@@ -1058,7 +1083,7 @@ local function sample(elapsed)
 		distText:SetText(ns.FormatDistance(yards))
 	end
 	local target = Nav.GetTarget()
-	applyColor(dist, target and target.r or Nav.DEFAULT_RADIUS)
+	applyColor(dist, target and target.r or Nav.DEFAULT_RADIUS, angle)
 
 	if showEta then
 		if routed then
@@ -1358,7 +1383,7 @@ function Arrow.PaintDial(d, lk, s, state, angle, dist, label, eta)
 	dialArrival(d, not travel, lk)
 	d.legIcon:Hide()
 	if travel then
-		local r, g, b, near = blend(s, dist, Nav.DEFAULT_RADIUS or 8, lk)
+		local r, g, b, near = blend(s, dist, Nav.DEFAULT_RADIUS or 8, lk, angle)
 		d.near = near
 		dialRotate(d, angle or 0)
 		dialTint(d, r, g, b, lk)

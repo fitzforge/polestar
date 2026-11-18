@@ -85,6 +85,8 @@ local FALLBACK = {
 	text = { 0.969, 0.973, 0.992 },
 	textDim = { 0.765, 0.793, 0.868 },
 	place = { 0.96, 0.68, 0.52 },
+	warning = { 0.98, 0.749, 0.302 }, -- the arrow side-on to the goal, by facing (nav.arrowFacingColor)
+	danger = { 0.96, 0.45, 0.45 }, -- the arrow turned away, by facing (nav.arrowFacingColor)
 	ink = { 1, 1, 1 },    -- hairlines and washes
 	shade = { 0, 0, 0 },  -- text shadows
 }
