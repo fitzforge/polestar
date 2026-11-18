@@ -86,6 +86,9 @@ return {
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
 		["guideWindow.padding"] = one("rowTextX"),
+		-- Fixed: the window is as tall as the height set, whatever the step holds; Fits the step, as tall as the step.
+		["ui.heightMode"] = { value = "fixed", with = { ["ui.height"] = 600 }, probe = one("height") },
+		["ui.height"] = { value = 600, with = { ["ui.heightMode"] = "fixed" }, probe = one("height") },
 		["ui.compact"] = function() return { snapshot().person, snapshot().height } end,
 		["guideWindow.bgOpacity"] = function() return { snapshot().bgAlpha, rgba(F.psSkin.bg) } end,
 		["guideWindow.bgColor"] = function() return { snapshot().bgColor, rgba(F.psSkin.bg) } end,
