@@ -2283,6 +2283,7 @@ local function renderHome(tabs, active, byId, openIndex, counts, width)
 	if name and name ~= "" then
 		local h = thanks:GetHeight()
 		local fy = max(y + SECTION_GAP, (rawget(win, "psViewH") or 0) - SECTION_GAP - h)
+		win.psThanksY = fy
 		thanks:ClearAllPoints()
 		thanks:SetPoint("TOPLEFT", win.Body, "TOPLEFT", SH.pad, -fy)
 		thanks:Show()
@@ -2622,7 +2623,15 @@ local function build()
 	P.frame = win
 	UI.Report.SidebarLink(win)
 	-- Special thanks sits at Home's foot (P.Render places it), on no other page.
-	win.psPlaceThanks = function() end
+	-- A new look or scale re-places it (UI/Thanks.lua): back where Home put it.
+	-- The scale control still follows the close button, as it did when the
+	-- link sat beside it.
+	win.psPlaceThanks = function(b)
+		local tools = rawget(win, "HeaderTools")
+		if tools then tools.Place() end
+		local fy = rawget(win, "psThanksY")
+		if fy then b:SetPoint("TOPLEFT", win.Body, "TOPLEFT", SH.pad, -fy) end
+	end
 	UI.Thanks.HeaderLink(win):SetParent(win.Body)
 	P.search = win.Search
 	P.scroll = win.Scroll
