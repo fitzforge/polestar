@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 3,955 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,037 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -14,6 +14,7 @@ section: players
   Fire, Silverpine Forest, Enchanting, Nightclaw Druids, Durotar, Alliance
   Stranglethorn Vale, Lumina Windsinger, Tyr's Watch, Mulgore, Leatherworking,
   Skinning, Hydraxian Waterlords, Warsong Gulch, Western Plaguelands,
-  Confounding Flash and Contingency Plan, Call of Earth and the Horde half of
-  Taming the Beast guides, plus texts that repeat English the locale already
-  translates, filled with the locale's own wording.
+  Confounding Flash and Contingency Plan, Call of Earth, The Drowned City
+  (Alliance), Divine Grace and Feedback and Tailoring guides, plus texts that
+  repeat English the locale already translates, filled with the locale's own
+  wording.
