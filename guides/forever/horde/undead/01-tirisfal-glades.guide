@@ -85,8 +85,9 @@ step Back to Deathknell
 
 step The Frightened Paladin
   only Paladin
-  tip Coming to Terms: the Frightened Paladin fled into the hills west of the church, on the way to Night Web's Hollow.
+  tip Coming to Terms: the Frightened Paladin fled into the hills west of the church, on the way to Night Web's Hollow. Offer him aid: he turns on you, and the quest counts once he falls.
   talk 246143                         -- Offer aid to the Frightened Paladin
+  kill 246143 quest 91208.1           -- the Frightened Paladin, once he turns on you
 
 # Night Web's Hollow: players report the cave entrance near 26,60 (quest 380).
 step Night Web's Hollow
@@ -256,7 +257,8 @@ step Brill
   turnin 365                          -- Apothecary Johaan, inside
   accept 407
   accept 367
-  turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
+  talk 246152 quest 91209.1 only Paladin -- Shari Stilwell, the Paladin trainer
+  turnin 91209 only Paladin           -- Shari Stilwell
   turnin 383                          -- Executor Zygand, in front of the inn
   accept 427
   accept 99134
@@ -652,10 +654,11 @@ step Paladin: Bandarion Keep
   tip Ephram and Hilda at the forest's edge, Breton Samuels at the gate, Jorin Croge and Ander Solliden nearby, Danitha Morr inside.
   turnin 91285 choose 246164 246165   -- Breton Samuels
   accept 91294
-  talk 246389                         -- Hilda the Breaker
-  talk 246393                         -- Jorin Croge
-  talk 246394                         -- Ander Solliden
-  turnin 91294                        -- Danitha Morr, inside the keep
+  talk 246389 quest 91294.1           -- Hilda the Breaker
+  talk 246393 quest 91294.2           -- Jorin Croge
+  talk 246394 quest 91294.3           -- Ander Solliden
+  talk 246378 quest 91294.4           -- Danitha Morr, inside the keep
+  turnin 91294                        -- Danitha Morr
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
 # a class step waits for the next step the route names, so the trainers and

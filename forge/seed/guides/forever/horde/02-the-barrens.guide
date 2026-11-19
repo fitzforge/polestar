@@ -80,7 +80,10 @@ next forever/horde/05-stonetalon-mountains
 #
 # Group quests: WANTED: Bruuz (92706, `when group 92706`, #639) and Gerenzo's Orders (1090, `when group 1090`,
 # #1370: Piznik's five-minute defence in the Windshear Mine, quest level 22, lost solo at 23 and 25 in players'
-# recordings). Owatanka (884), Lakota'mani (883)
+# recordings). Supplies for the Crossroads (5041) and The Disruption Ends (872), Thork's crates and Kreenig
+# Snarlsnout, are group choices too (`when group`): both stand among the Razormane camp's Flesheaters and
+# Berserkers (18-19, elite), and 5 of 19 recorded 0.4.x players who did The Disruption Ends died in the camp.
+# Disrupt the Attacks (871, the camp's western half) stays solo with its tip. Owatanka (884), Lakota'mani (883)
 # and the Rogue's Mission: Possible But Not Probable (2478, Gallywix is elite) are optional.
 #
 # Dropped: Chen's Empty Keg part 2 and 3 (821, 822): part 2's tusks, kidneys and horn are drops
@@ -125,10 +128,16 @@ step The Barrens
 
 step Far Watch Post
   only Orc,Troll
+  when onquest 840
   zone The Barrens
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar, Ak'Zeloth and Uzzek stand together.
   turnin 840                          -- Kargal Battlescar: Conscript of the Horde, from Durotar
-  accept 842
+
+step Far Watch Post
+  only Orc,Troll
+  zone The Barrens
+  tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar, Ak'Zeloth and Uzzek stand together.
+  accept 842                          -- Kargal Battlescar
   turnin 809                          -- Ak'Zeloth, beside Kargal: from Neeru Fireblade in Orgrimmar
   turnin 1498 only Warrior            -- Uzzek
   accept 1502 only Warrior
@@ -155,9 +164,14 @@ step The Crossroads
   accept 848
   turnin 6365                         -- Devrak, on the tower
   getfp "Crossroads"
-  accept 5041                         -- Thork
-  accept 871
+  accept 871                          -- Thork
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
+
+step Thork
+  only Orc,Troll
+  when group 5041
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Thork's supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone.
+  accept 5041                         -- Thork, on the tower
 
 # ---------------------------------------------------------------- Razormane camp
 
@@ -178,11 +192,20 @@ step Razormane camp
 step Razormane camp: Thork's quilboar
   only Orc,Troll,Warrior,Shaman
   zone The Barrens
-  tip While you are in the camp: Thork's Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.
+  tip While you are in the camp: Thork's Water Seekers and Thornweavers in its western half, the Hunters on the western edge, and, if you took his supplies with a group, the supply crates at its eastern end.
   tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
+  loop
+  goto 53.76,25.29 map 1413 era
+  goto 53.65,24.51 map 1413 era
+  goto 54.16,25.09 map 1413 era
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
+
+step Thork's supply crates
+  only Orc,Troll,Warrior,Shaman
+  when group 5041
+  when onquest 5041
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
@@ -228,15 +251,25 @@ step The Crossroads
   accept 869                          -- Gazrog
   getfp "Crossroads"
   turnin 98024 only Skyborne          -- Thork, at the top of the tower
-  accept 5041
   accept 871                          -- Thork
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
   accept 870                          -- Tonga Runetotem
+
+step Thork
+  when group 5041
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Thork's supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone.
+  accept 5041                         -- Thork, on the tower
 
 step Raptor Heads as you go
   along until q869
   background
   tip Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health.
+  loop
+  goto 52.93,33.04 map 1413 era
+  goto 47.87,26.03 map 1413 era
+  goto 48.85,23.82 map 1413 era
+  goto 54.3,15.9 map 1413 era
+  goto 53.35,14.74 map 1413 era
   collect 5062 quest 869.1
 
 step Plainstrider Beaks as you go
@@ -248,13 +281,21 @@ step Plainstrider Beaks as you go
 # ---------------------------------------------------------------- East: the Razormane and Far Watch
 
 step Razormane camp
-  tip In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
+  tip In the camp, Water Seekers and Thornweavers hold the western half, Hunters along the western edge; the supply crates (with a group only) sit at its eastern end.
   tip Plainstriders here count toward the beaks.
   tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
+  loop
+  goto 53.76,25.29 map 1413 era
+  goto 53.65,24.51 map 1413 era
+  goto 54.16,25.09 map 1413 era
   kill 3267 quest 871.1
   kill 3268 quest 871.2
-  collect 12708 quest 5041.1 @58.8,25.8
   kill 3265 quest 871.3
+
+step Thork's supply crates
+  when group 5041
+  when onquest 5041
+  collect 12708 quest 5041.1 @58.8,25.8
 
 step Finish the Plainstrider Beaks
   when !has 5087 x7
@@ -266,8 +307,15 @@ step The Crossroads
   turnin 844                          -- Sergra Darkthorn
   accept 845
   turnin 871                          -- Thork
-  turnin 5041
-  accept 872
+
+step Thork
+  when group 5041
+  turnin 5041                         -- Thork
+
+step Thork
+  when group 872
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Kreenig Snarlsnout and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone.
+  accept 872                          -- Thork
 
 step The Zhevra
   tip Zhevra Runners graze along the road east toward Ratchet: take their hooves on the way out.
@@ -326,6 +374,7 @@ step Regthar Deathgate
 step The Barrens: kill these as you meet them
   zone The Barrens
   tip The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. Barak Kodobane stands in the Kolkar camp west of the pools.
+  tip Careful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts Regthar's Counterattack!, Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) charge his watch post: keep away from it until the attack is over.
   collect 5030 quest 855.1
   complete 870 @45.3,22.8
   collect 5012 quest 848.1
@@ -359,6 +408,7 @@ step Samophlange
 # ---------------------------------------------------------------- North-east loop
 
 step The Disruption Ends
+  when group 872
   tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig and the supply crates, and Chol'aruk (20, elite) lies in the cave under Thorn Hill beside them: pull Kreenig and the quilboar away from them one at a time, and leave the cave alone unless you are in a group.
   kill 3266 quest 872.2
   kill 3269 quest 872.1
@@ -375,13 +425,16 @@ step The Crossroads
   turnin 903                          -- Sergra Darkthorn
   accept 881
   turnin 848                          -- Apothecary Helbrim
-  turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
   accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
   accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
   accept 877                          -- Tonga Runetotem: the bubbling fissure at the Stagnant Oasis, on the Verog pass
+
+step Thork
+  when group 872
+  turnin 872                          -- Thork, on the tower
 
 step Gur'ak
   when group 97003
@@ -423,8 +476,11 @@ step Echeyakee
 
 step Finish the Raptor Heads
   when !has 5062 x12
-  tip Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.
-  collect 5062 quest 869.1 @55.0,23.5 map 1413 era
+  tip Still short of twelve? Sunscale Screechers are thickest on the open plains just west of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.
+  loop
+  goto 54.3,15.9 map 1413 era
+  goto 53.35,14.74 map 1413 era
+  collect 5062 quest 869.1
 
 step The Crossroads
   label q869

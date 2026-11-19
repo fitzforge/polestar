@@ -387,7 +387,7 @@ step Razor Hill
 
 step Level 10
   when level<10
-  tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
+  tip Train at Razor Hill at level 10 before facing the Razormane Battleguards (9-10).
   tip The prickly pears for This Fruit Could Bite Back grow by these huts: pick them while you grind.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
   level 10 grind 3111               -- grind on Razormane Quilboar
@@ -504,9 +504,10 @@ step Misha Tor'kren
 
 step Level 11
   when level<11
-  tip Top up here to level 11 before Fizzle Darkstorm (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut.
-  goto 39.6,29.2 map 1411 "Thunder Lizard"
-  level 11 grind 3130               -- grind on Thunder Lizard
+  tip Fight the Razormane south of Misha's hut until level 11, then return for Fizzle Darkstorm (12).
+  tip Careful: Halikor (12 elite) patrols the lizard grounds on Thunder Ridge. Stay off the ridge while you grind.
+  goto 43.2,38.8 map 1411 "Razormane Battleguard"
+  level 11 grind 3114               -- grind on Razormane Battleguard
 
 # Fizzle Darkstorm (12) comes after the lizards, Rezlak and Misha, as in the seed order: their quests
 # are handed in first, so his camp is met nearer 11 than 10.

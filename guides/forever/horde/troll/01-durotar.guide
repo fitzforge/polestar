@@ -76,10 +76,6 @@ step Valley of Trials: kill these as you meet them
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-step Galgar
-  tip Galgar stands just outside the Den's entrance.
-  turnin 4402                         -- Galgar
-
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -100,6 +96,7 @@ step Back to the Den
   turnin 1499 only Warlock            -- Zureetha Fargaze
   accept 794
   accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
+  turnin 4402                         -- Galgar, just outside the Den's entrance
 
 step Lazy Peons
   kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
@@ -391,7 +388,7 @@ step Razor Hill
 
 step Level 10
   when level<10
-  tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
+  tip Train at Razor Hill at level 10 before facing the Razormane Battleguards (9-10).
   tip The prickly pears for This Fruit Could Bite Back grow by these huts: pick them while you grind.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
   level 10 grind 3111               -- grind on Razormane Quilboar
@@ -509,9 +506,10 @@ step Misha Tor'kren
 
 step Level 11
   when level<11
-  tip Top up here to level 11 before Fizzle Darkstorm (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut.
-  goto 39.6,29.2 map 1411 "Thunder Lizard"
-  level 11 grind 3130               -- grind on Thunder Lizard
+  tip Fight the Razormane south of Misha's hut until level 11, then return for Fizzle Darkstorm (12).
+  tip Careful: Halikor (12 elite) patrols the lizard grounds on Thunder Ridge. Stay off the ridge while you grind.
+  goto 43.2,38.8 map 1411 "Razormane Battleguard"
+  level 11 grind 3114               -- grind on Razormane Battleguard
 
 # Fizzle Darkstorm (12) comes after the lizards, Rezlak and Misha, as in the seed order: their quests
 # are handed in first, so his camp is met nearer 11 than 10.

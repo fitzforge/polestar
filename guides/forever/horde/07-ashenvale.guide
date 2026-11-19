@@ -22,12 +22,12 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # the moonwell south of them on the way to Mystral Lake; 1196 from Zangen on the Thunder Bluff stop to
 # Rau at Freewind; 1197 at the Ancient Brazier in Splithoof Hold, north of the Galak camps) and
 # Pigments for Paints (97538, Tah Winterhoof on the Thunder Bluff stop). Every step of theirs is shown
-# only to a player carrying the quest. Everyone flies from Zoram'gar to Thunder Bluff (04 teaches the
-# flight path; without it the arrow goes by Camp Taurajo and Mulgore).
+# only to a player carrying the quest. Everyone flies from Zoram'gar to Thunder Bluff (The Elder Crone's stop on
+# forever/horde/05-stonetalon-mountains teaches the flight path; without it the arrow goes by Camp Taurajo and Mulgore).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
 # Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken on this guide's last
-# Freewind stop and worked on the next Freewind visit at about 31, in forever/horde/30-40/02-thousand-needles (agreed
+# Freewind stop and worked on the next Freewind visit at about 30, in forever/horde/30-40/02-thousand-needles (agreed
 # with the 30-40 slice): Roguefeather Den's harpies (28-30, packs) and Grenka Bloodscreech (31) were met here at 29,
 # with a harpy grind to 29.5 before them. Test of Faith (1149) is done at Dorn's mesa, and his Test of Endurance (1150,
 # Grenka Bloodscreech 31 in the same den) is taken there and carried to the same visit. Sharptalon (31) is shown only
@@ -169,6 +169,7 @@ step Warsong lumber camp
 
 step Ashenvale Outrunners
   tip The night elf Ashenvale Outrunners (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.
+  tip Careful: Sharptalon (31) patrols the Outrunners' woods. Give her room.
   kill 12856 quest 6503 @72.5,69.5 map 1440
 
 step Warsong lumber camp
@@ -292,13 +293,8 @@ step Fly to Thunder Bluff
 step Skywatcher Plateau
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  tip The Earthen Ring camp and its three quests stand up on Skywatcher Plateau, north of Thunder Bluff. Fly to Thunder Bluff if you know its flight path and take a lift down, else fly to Camp Taurajo and walk north through Mulgore; the arrow then leads round to the plateau's north end and up onto it.
+  tip The Earthen Ring camp is on Skywatcher Plateau north of Thunder Bluff. From the city take a lift down; from Camp Taurajo follow the road north past the bluffs.
   goto 40.6,22.2 "North of Thunder Bluff"
-
-step Skywatcher Plateau
-  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
-  zone Mulgore
-  goto 30.5,8.2 "Skywatcher Plateau"
 
 step The Earthen Ring
   zone Mulgore

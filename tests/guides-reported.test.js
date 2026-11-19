@@ -867,9 +867,14 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 		// Far Watch Post (Kargal, Uzzek) comes first on the walk from Orgrimmar; the Crossroads stop takes Meats to Orgrimmar.
 		const first = list[at(list, `${race}: accept 6365`, is('accept', 6365))].step;
 		assert.ok(list.findIndex(({ goal }) => is('accept', 842)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post (Crossroads Conscription) before the Crossroads`);
-		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
+		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 871], ['accept', 867]]) {
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
+		// 0.4.3: Supplies for the Crossroads became a group choice (its crates lie among the Razormane camp's elites); a
+		// character who chooses it still takes it from Thork on this stop, in the group step right after it.
+		const s = list.find(({ step }) => step === first).s;
+		const supplies = list.find(({ goal }) => is('accept', 5041)(goal));
+		assert.ok(supplies && supplies.s === s + 1, `${race}: Supplies for the Crossroads in the step right after the first Crossroads stop`);
 		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
 	}
 });
@@ -987,7 +992,21 @@ test(`${MULGORE}: Bloodhoof's hand-ins and pickups go on the visit that passes t
 	same("Morin's caravan at the Winterhoof well", ['accept', 749], ['use', 754]);
 	same('Longwalker Malah at the Winterhoof well', ['turnin', 99079], ['use', 754]);
 	same('Grim Tidings with Winterhoof Cleansing', ['turnin', 99081], ['turnin', 754]);
-	same('Mazzranache with Thunderhorn Totem', ['turnin', 766], ['turnin', 756]);
+	// 0.4.3 route round: a character whose Mazzranache is already done (the femur While-here on Poison Water's plains)
+	// hands it in on the visit after the Winterhoof well, where Maur stands 48 yd from the route; everyone else still
+	// on the Thunderhorn Totem visit.
+	const maur = list.filter(({ goal }) => is('turnin', 766)(goal));
+	assert.equal(maur.length, 2, 'two Mazzranache hand-ins');
+	assert.equal(maur[0].s, list[at(list, 'turnin 754', is('turnin', 754))].s + 1, 'the first right after the Winterhoof Cleansing hand-in');
+	assert.ok((maur[0].step.when || []).some((p) => p.k === 'complete' && !p.neg && [].concat(p.q).includes(766)), 'only once it is done');
+	assert.equal(maur[1].s, list[at(list, 'turnin 756', is('turnin', 756))].s, 'the other with Thunderhorn Totem');
+	// 0.4.3 route round: Kyle's Gone Missing! is taken on the first Bloodhoof visit (Ahab stands 70 yd from Yaw), the
+	// meat comes from Poison Water's plainstriders, and Kyle is fed on the visit after the Winterhoof well, before the
+	// walk north: no trip from the Thunderhorn well back for him (flow audit: an avoidable 628 yd backtrack).
+	same("Kyle's Gone Missing! on the first visit", ['accept', 99411], ['accept', 766]);
+	assert.equal(list[at(list, 'Tender Strider Meat', (g) => g.t === 'collect' && g.item === 287505)].s, list[at(list, 'collect 766', (g) => g.t === 'collect' && g.quest === 766)].s, 'the meat on Poison Water');
+	assert.ok(at(list, 'feed Kyle', (g) => g.t === 'use' && g.quest === 99411) < at(list, 'the Thunderhorn totem', (g) => g.t === 'use' && g.quest === 758), 'Kyle fed before the Thunderhorn well');
+	assert.ok(at(list, 'turnin 99411', is('turnin', 99411)) < at(list, 'Stalker Claws', (g) => g.t === 'collect' && g.quest === 756), "Ahab before the walk north");
 	same('Preparation for Ceremony beside Eylah', ['accept', 744], ['accept', 97485]);
 	assert.deepEqual(compiled(MULGORE).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists (Fitz: "They should just be steps")');
 });
@@ -5335,10 +5354,6 @@ test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come befo
 // Lake: one objective was lost when the route's `complete` was split into a
 // goal per objective. Every objective of a quest handed in on Zephras Isle has
 // its goal (or a `complete` for the whole quest) before the turn-in.
-// Traditions of the Bluff's Prepared Incense is made from the four parts
-// bought just before and used up on Hunter Rise, so it is never in the bags
-// at the turn-in.
-const COVERED_ELSEWHERE = new Set(['97485.1']);
 
 test(`𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns`, { skip }, () => {
 	data = data || loadData(DATA);
@@ -5350,7 +5365,7 @@ test(`𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of 
 			if (!q || !q.objectives || !q.objectives.length) return;
 			const before = list.slice(0, i).filter(({ goal: g }) => g.quest === goal.quest && g.t !== 'accept' && g.t !== 'turnin');
 			if (before.some(({ goal: g }) => g.t === 'complete' && !g.oi)) return;
-			const missing = q.objectives.map((_, k) => k + 1).filter((oi) => !COVERED_ELSEWHERE.has(`${goal.quest}.${oi}`) && !before.some(({ goal: g }) => g.oi === oi));
+			const missing = q.objectives.map((_, k) => k + 1).filter((oi) => !before.some(({ goal: g }) => g.oi === oi));
 			assert.deepEqual(missing, [], `${guide}: ${goal.quest} (${q.title}) is handed in with objectives never sent for`);
 		});
 	}
@@ -7044,6 +7059,92 @@ test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razorm
 	assert.ok(take < kreenig && kreenig < boar && boar < give, 'Crossroads, the camp, Crossroads');
 	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
 	assert.ok(group.some((g) => g.q === 97003 && g.size >= 2), 'a group record the build keeps');
+});
+
+test('Horde starters: the level 11 top-up avoids Thunder Ridge and the Paladin objectives count the right actions (0.4.3)', { skip }, () => {
+	for (const race of ['orc', 'troll']) {
+		const grind = goals(`forever/horde/${race}/01-durotar.guide`).find(({ goal }) => goal.t === 'level' && goal.level === 11);
+		assert.equal(grind?.goal.grind, 3114);
+		assert.ok(grind.step.goals.some((g) => g.t === 'goto' && close(g, { map: 1411, x: 43.2, y: 38.8 }, 0.2)));
+	}
+	const list = goals(TIRISFAL);
+	for (const [q, t, targets] of [[91208, 'kill', [246143]], [91209, 'talk', [246152]], [91294, 'talk', [246389, 246393, 246394, 246378]]]) {
+		assert.deepEqual(list.filter(({ goal }) => goal.quest === q && goal.t === t).map(({ goal }) => [goal.oi, goal.npc]), targets.map((npc, i) => [i + 1, npc]));
+	}
+});
+
+// 0.4.3 route round (Horde 12-30 audit, MUST): Forever put elite Razormane Flesheaters and Berserkers (18-19) into the
+// camp east of the Crossroads, on top of Thork's supply crates and Kreenig Snarlsnout; 5 of 19 0.4.x players who did The
+// Disruption Ends died in the camp. Supplies for the Crossroads and The Disruption Ends are group choices, and the
+// "Finish the Raptor Heads" point is on the open plains west of Echeyakee's lair, away from the elites.
+test('The Barrens (Horde): the Razormane camp\'s elite half is a group choice, and the raptor heads finish away from it (0.4.3)', { skip }, () => {
+	const list = goals(BARRENS);
+	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	for (const q of [5041, 872]) {
+		const takes = list.filter(({ goal }) => is('accept', q)(goal));
+		assert.ok(takes.length > 0, `accept ${q} is in the guide`);
+		for (const { step } of takes) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q)), `accept ${q}: only for a group (${step.title})`);
+		assert.ok(group.some((g) => g.q === q && g.size >= 2), `${q}: a group record the build keeps`);
+	}
+	for (const q of [5041, 872]) {
+		const work = list.filter(({ goal }) => goal.quest === q && goal.t !== 'accept');
+		assert.ok(work.some(({ goal }) => goal.t !== 'turnin'), `${q} has a group objective`);
+		for (const { step } of work) assert.ok(step.when?.some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q)), `${q}: only with its group choice (${step.title})`);
+	}
+	// Disrupt the Attacks (the camp's western half) stays on the solo route.
+	assert.ok(list.some(({ step, goal }) => is('accept', 871)(goal) && !(step.when || []).some((p) => p.k === 'group')), '871 stays solo');
+	const data = loadData(DATA);
+	const elites = [267308, 267314].flatMap((id) => {
+		const spawns = data.npcs[id].spawns[1413];
+		return spawns.pts.concat(spawns.more || []);
+	});
+	const finish = list.find(({ step, goal }) => step.title === 'Finish the Raptor Heads' && goal.t === 'collect' && goal.quest === 869);
+	assert.ok(finish && finish.goal.x != null, 'the finish step has a point');
+	for (const { goal } of list.filter(({ goal }) => (goal.t === 'collect' && goal.quest === 869) || (goal.t === 'kill' && goal.quest === 871))) {
+		assert.ok(goal.spots?.length >= 2, `quest ${goal.quest} uses an authored hunting area`);
+		for (const p of [goal, ...goal.spots]) {
+			const distance = Math.min(...elites.map(([x, y]) => Math.hypot(x - p.x, y - p.y)));
+			assert.ok(distance >= (goal.quest === 869 ? 5 : 1), `${goal.quest}: unsafe spot ${p.x},${p.y}`);
+		}
+	}
+});
+
+// 0.4.3 route round (Horde 12-30 audit, FLOW): Souvenirs of Death pointed at Hillsbrad's town square, among the
+// Councilmen (24-26) with Magistrate Burnside (30) in the town hall: the band's second death spot for players following
+// the guide (19 people, 33 deaths). The skulls drop from every Hillsbrad human, so the point is the southern fields,
+// where Battle of Hillsbrad's Peasants stand.
+test('Hillsbrad (Horde 22-25): the skulls point is in the southern fields, not the town square (0.4.3)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const skulls = list[at(list, 'collect 546', (g) => g.t === 'collect' && g.quest === 546)];
+	const data = loadData(DATA);
+	for (const { goal } of list.filter(({ goal }) => (goal.quest === 546 && goal.t === 'collect') || (goal.quest === 528 && goal.t === 'kill'))) {
+		assert.ok(goal.spots?.length >= 2, 'search the fields');
+		for (const p of [goal, ...goal.spots]) {
+			const from = (id) => Math.min(...data.npcs[id].spawns[1424].pts.map(([x, y]) => Math.hypot(x - p.x, y - p.y)));
+			assert.ok(from(2335) >= 5 && from(2387) >= 2.5 && from(2267) <= 1, `unsafe Hillsbrad spot ${p.x},${p.y}`);
+		}
+	}
+	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /Magistrate Burnside \(30\)/, 'the tip names Burnside');
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	assert.deepEqual(places.find((p) => p.quest === 546 && p.objective === 1)?.path?.points, skulls.goal.spots.map(({ x, y }) => [x, y]), 'the whole field loop is recorded');
+});
+
+// 0.4.3 route round (Horde 12-30 audit, FLOW; #2013's pattern): the Barrens & Stonetalon guide opens in Thunder Bluff for
+// two optional elders' quests. A player without its flight path (The Elder Crone skipped, a fresh start) was sent to Camp
+// Taurajo, up through Mulgore and flown back to Camp Taurajo. The flight there and the elders' step are only for players
+// who know the flight path; Zamah's hand-in for an Elder Crone carrier stays, and a carrier without the flight path takes it.
+test('Barrens & Stonetalon (Horde 24-27): the Thunder Bluff opening only for players who know its flight path (#2013, 0.4.3)', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const knows = (step) => (step.when || []).some((p) => p.k === 'taxi' && !p.neg);
+	const fly = list.find(({ goal }) => goal.t === 'fly' && /Thunder Bluff/.test(JSON.stringify(goal)));
+	assert.ok(fly && knows(fly.step), 'the flight to Thunder Bluff only with its flight path');
+	for (const q of [97538, 1195]) assert.ok(knows(list[at(list, `accept ${q}`, is('accept', q))].step), `accept ${q} only with the flight path`);
+	const zamah = list[at(list, 'turnin 1067', is('turnin', 1067))];
+	assert.ok(!knows(zamah.step), "Zamah's hand-in for every carrier");
+	const tal = list.find(({ goal, s }) => goal.t === 'getfp' && s === zamah.s + 1);
+	assert.ok(tal && (tal.step.when || []).some((p) => p.k === 'taxi' && p.neg) && (tal.step.when || []).some((p) => p.k === 'turnedin' && !p.neg), "a carrier without the flight path takes it from Tal after Zamah");
+	const taurajo = list.findIndex(({ goal }) => goal.t === 'fly' && /Camp Taurajo/.test(JSON.stringify(goal)));
+	assert.ok(taurajo > 0 && !knows(list[taurajo].step), 'everyone flies on to Camp Taurajo');
 });
 
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
@@ -12432,13 +12533,17 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: the walk to Sorrow Hill 
 });
 
 // Final route review, Horde 1-30 (0.3.6 leftovers): Troll Durotar read "Back to the Den" twice in a row (Galgar's
-// hand-in alone outside the Den, the class trainers, then Gornek inside). Galgar's step is his own; one "Back to the Den".
-test('forever/horde/troll/01-durotar.guide: one "Back to the Den" step after the valley loop, Galgar on his own step', { skip }, () => {
+// hand-in alone outside the Den, the class trainers, then Gornek inside); one "Back to the Den". 0.4.3 route round:
+// Galgar's own step before the trainers was a walk to the entrance and back in (flow audit: an avoidable 325 yd
+// backtrack on every Troll branch), so his hand-in is on that one "Back to the Den" step, as in the Orc guide; the
+// report's fix (a single "Back to the Den") still holds.
+test('forever/horde/troll/01-durotar.guide: one "Back to the Den" step after the valley loop, Galgar on it', { skip }, () => {
 	const steps = compiled('forever/horde/troll/01-durotar.guide').steps;
 	const dens = steps.filter((st) => st.title === 'Back to the Den');
 	assert.ok(dens.length >= 1 && dens[0].goals.some(is('turnin', 789)), 'the first "Back to the Den" is Gornek\'s');
 	const list = goals('forever/horde/troll/01-durotar.guide');
-	assert.equal(list[at(list, 'turnin 4402', is('turnin', 4402))].step.title, 'Galgar');
+	assert.equal(list[at(list, 'turnin 4402', is('turnin', 4402))].step, dens[0], "Galgar's hand-in on that step");
+	assert.ok(!steps.some((st) => st.title === 'Galgar'), 'no step of his own');
 });
 
 // Final route review, Horde 1-30 (0.3.6 leftovers): Orc Durotar's first Echo Isles step told the player to wade back

@@ -2,6 +2,51 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "043-outrunners-sharptalon",
+			"faction": "Horde",
+			"at": { "quest": 6503, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Sharptalon (31) patrols the Outrunners' woods. Give her room.",
+			"note": "The patrol crosses the Outrunners on both passes.",
+			"source": { "kind": "pfquest", "ref": "NPCs 12676 and 12856, Ashenvale spawns" },
+			"pr": 3145
+		},
+		{
+			"id": "043-ursera-den",
+			"faction": "Horde",
+			"at": { "quest": 92470, "goal": "objective", "objective": 1 },
+			"tip": "Careful: pull the Ursera Scavengers to the den entrance one at a time before approaching Urs'anah.",
+			"note": "The Scavengers crowd the approach to the matriarch.",
+			"source": { "kind": "recording", "ref": "Eleven deaths among nine guide followers working on the Foul Matriarch." },
+			"pr": 3145
+		},
+		{
+			"id": "043-al-aketh-assassins",
+			"faction": "Horde",
+			"at": { "quest": 98512, "goal": "objective", "objective": 1 },
+			"tip": "Careful: the Al'Aketh Assassins (9-10) stand close together. Pull one at a time from the edge.",
+			"note": "Warn before the fight at the windstone.",
+			"source": { "kind": "recording", "ref": "Six followers died on the Al'Aketh Assassins step." },
+			"pr": 3145
+		},
+		{
+			"id": "043-frightened-paladin",
+			"faction": "Horde",
+			"at": { "quest": 91208, "goal": "objective", "objective": 1 },
+			"tip": "Coming to Terms: the Frightened Paladin fled into the hills west of the church, on the way to Night Web's Hollow. Offer him aid: he turns on you, and the quest counts once he falls.",
+			"note": "Offering aid starts the fight; the conversation alone gives no credit.",
+			"source": { "kind": "recording", "ref": "Kill events for NPC 246143 coincide with quest 91208 objective 1 turning complete." },
+			"pr": 3145
+		},
+		{
+			"id": "043-bluff-incense",
+			"faction": "Horde",
+			"at": { "quest": 97485, "goal": "objective", "objective": 1 },
+			"goalNote": "Use the Bundle of Herbs to combine the four parts into Prepared Incense.",
+			"note": "Show how to make the item before taking it to Hunter Rise.",
+			"source": { "kind": "client", "ref": "Craft Incense (1303520) consumes one each of 278079, 278080, 278081 and 278083." },
+			"pr": 3145
+		},
+		{
 			"id": "2282-darkcloud-arnak-navigation-warning",
 			"faction": "Horde",
 			"at": { "quest": 5147, "goal": "objective", "objective": 1 },
@@ -278,6 +323,64 @@
 			"issue": 1575
 		},
 		{
+			"id": "043-barrens-centaur-bracers-kolkar-camp",
+			"faction": "Horde",
+			"at": { "quest": 855, "goal": "objective", "objective": 1 },
+			"tip": "Careful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts Regthar's Counterattack!, Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) charge his watch post: keep away from it until the attack is over.",
+			"note": "Centaur Bracers is the Horde 12-30 band's top death spot for players following the guide: the Kolkar (Wranglers 12-13, Stormers 13-14, Marauders 15-16) are at or under the route's level, but they stand in packs, and Counterattack! (4021) sends Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) at Regthar's post whenever anyone starts it. The deaths cluster at 43-46,23-28, the Kolkar camp west of the pools and around Regthar. A Careful line on the step (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 21 people following the guide died 40 times on Centaur Bracers (median level 16.5), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 3272 Kolkar Wrangler 12-13, 3273 Kolkar Stormer 13-14, 3275 Kolkar Marauder 15-16, 9524 Kolkar Invader 16-17, 9456 Warlord Krom'zar 20 elite" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-840-only-while-carried",
+			"faction": "Horde",
+			"at": { "quest": 840, "goal": "turnin", "guide": "forever/horde/02-the-barrens" },
+			"when": "onquest 840",
+			"note": "Conscript of the Horde (840) is handed to Kargal Battlescar on the Barrens guide's Far Watch Post stop only by characters still carrying it: Warriors and Shamans hand it in at the end of their Durotar guide (h01-840-far-watch-warriors-orc/troll), and the playtest read the hand-in as never accepted for them. Its own step comes first; Crossroads Conscription (842) and the rest of the stop follow for everyone.",
+			"source": [
+				{ "kind": "client", "ref": "quests.json 842 Crossroads Conscription: pre 840; the Durotar guides' Far Watch Post steps (when onquest 840) hand 840 in for Warriors and Shamans" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-hillsbrad-skulls-stay-out-of-the-square",
+			"faction": "Horde",
+			"at": { "quest": 546, "goal": "objective", "objective": 1 },
+			"tip": "Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. The town square holds the Councilmen (24-26), and Magistrate Burnside (30) stands in the town hall. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.",
+			"note": "Souvenirs of Death and Battle of Hillsbrad: the skulls point moved from the town square to the southern fields (places.json 043-hillsbrad-skulls-southern-fields); the step's Careful line now also names the Councilmen and Magistrate Burnside, whom the old point stood among.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7)" },
+				{ "kind": "pfquest", "ref": "npcs.json 2387 Hillsbrad Councilman 24-26, 2335 Magistrate Burnside 30 (29.7,41.6)" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-24-thunder-bluff-only-with-its-flight-path",
+			"faction": "Horde",
+			"at": { "quest": 97538, "goal": "accept", "guide": "forever/horde/04-the-barrens" },
+			"tip": "Tal, the wind rider master, stands on the central rise. Tah Winterhoof and Zangen Stonehoof stand a short walk east of him.",
+			"note": "The Barrens & Stonetalon guide opens in Thunder Bluff for Pigments for Paints (97538) and The Sacred Flame (1195), optional quests worked on this guide's and the next one's walks. A player without Thunder Bluff's flight path (The Elder Crone skipped on 05-stonetalon-mountains, or a fresh start at this guide) was sent from Orgrimmar to Camp Taurajo, up through Mulgore and back to Camp Taurajo by air: the Camp Taurajo-Thunder Bluff bounce #2013 reported from the next guide. The flight to Thunder Bluff and the elders' step (`when taxi \"Thunder Bluff\"` in the guide; a record's `when` cannot name a flight path yet) are only for players who know the flight path; the others fly straight to Camp Taurajo and learn it on 07-ashenvale's Thunder Bluff stop, which every Horde route makes. Apothecary Zamah's step (1067, a carrier of the Elder Crone chain) keeps its hand-in, and a carrier without the flight path takes it from Tal right after.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#2013 (thadude3, Orc Warlock 28): a Thunder Bluff trip from Camp Taurajo with nothing to do there, flown straight back" },
+				{ "kind": "client", "ref": "05-stonetalon-mountains' Thunder Bluff step (when onquest 1063,1064,1065) takes the flight path; 07-ashenvale's Thunder Bluff stop takes it for everyone" }
+			],
+			"issue": 2013
+		},
+		{
+			"id": "043-durotar-troll-galgar-on-the-den-return",
+			"faction": "Horde",
+			"at": { "quest": 4402, "goal": "turnin", "guide": "forever/horde/troll/01-durotar" },
+			"step": { "after": { "quest": 5441, "goal": "accept" } },
+			"note": "01-durotar (troll): Galgar's Cactus Apple Surprise (4402) is handed in on the one \"Back to the Den\" step after the valley loop, with Gornek, Zureetha and Foreman Thazz'ril, as the Orc guide does; Galgar stands just outside the Den's entrance. Its own step before the class trainer sent the player to the entrance and back into the Den (flow audit: an avoidable 325 yd backtrack on every Troll branch).",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json Galgar 42.73,67.23 and Gornek 42.06,68.33, Durotar" }
+			],
+			"pr": 3145
+		},
+		{
 			"id": "2025-barrens-barrow-dens-terrans",
 			"faction": "Horde",
 			"at": {
@@ -316,8 +419,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.",
-			"note": "#1980: a level 13.5 Paladin died to Nightlash (1983, level 14), who appears after the rot hide gnolls in the field are killed (the quest's own text). Players reach the Dead Field at a median 14.3 (17 people, 0.3.6+); 55 people killed Nightlash, 1 died to her. The tip gives her level and says when she comes.",
+			"tip": "North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the Dead Field: give them a wide berth.",
+			"note": "#1980: a level 13.5 Paladin died to Nightlash (1983, level 14), who appears after the rot hide gnolls in the field are killed (the quest's own text). Players reach the Dead Field at a median 14.3 (17 people, 0.3.6+); 55 people killed Nightlash, 1 died to her. The tip gives her level and says when she comes. 0.4.3 route round: the tip also names the Sons of Arugal (203139 and 2529, level 24-25 elite worgen; 27 spawn points along Silverpine's roads and fields, one 1.9 map units from the Dead Field's goal), recorded hostile by 104 people; 11 people following the guide died around the Dead Field, 3 of them on 0.4.x at 13-14.",
 			"source": {
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-13: Nightlash kills and deaths, step levels on 03-silverpine-forest (#1980)"
@@ -3543,14 +3646,14 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.",
+					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just west of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
 					"map": 1413,
-					"x": 55.0,
-					"y": 23.5
+					"x": 54.3,
+					"y": 15.9
 				}
 			},
 			"faction": "Horde",
-			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee.",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 54.3,15.9, just west of Echeyakee's lair, beside a Screecher spawn, with 10 of the creature table's Screecher spawns within 3 units and the nearest elite 5.9 units south.",
 			"source": [
 				{
 					"kind": "recording",
@@ -4001,7 +4104,7 @@
 				"objective": 1
 			},
 			"faction": "Horde",
-			"tip": "South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.",
+			"tip": "South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Careful: Silithid Swarmers release tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit. Avoid Brontus (27 rare elite) and the Silithid Harvester (24 rare) near the mounds.",
 			"note": "Egg Hunt: the eggs (45.4,72.4) lie on the road from Camp Taurajo to Gann Stonespire (45.9,77.0), where the route now takes them on the way south (final route review).",
 			"source": [
 				{
@@ -12649,7 +12752,7 @@
 				"objective": 1
 			},
 			"level": 11,
-			"note": "Horde 0.4.0 audit (Orc and Troll Durotar): Fizzle Darkstorm (12) and his imp (12) hold the Burning Blade camp on Thunder Ridge. A top-up to 11 on the Thunder Lizards (9-10) west of Misha's hut comes first, so he is at most one over. The level model reaches the step at 11.9 (no grind); a quarter of recorded Trolls were under 11 there.",
+			"note": "Horde 0.4.0 audit (Orc and Troll Durotar): Fizzle Darkstorm (12) and his imp (12) hold the Burning Blade camp on Thunder Ridge. Top up to 11 on the Razormane south of Misha's hut, away from Halikor's patrol, so Fizzle is at most one level above the player. The level model reaches the step at 11.9 (no grind); a quarter of recorded Trolls were under 11 there.",
 			"source": [
 				{
 					"kind": "recording",
@@ -12657,7 +12760,7 @@
 				},
 				{
 					"kind": "client",
-					"ref": "npcs 3203 Fizzle Darkstorm 12, 3130 Thunder Lizard 9-10"
+					"ref": "npcs 3203 Fizzle Darkstorm 12, 3114 Razormane Battleguard 9-10 south of Misha, 266852 Halikor 12 elite on Thunder Ridge"
 				}
 			]
 		},

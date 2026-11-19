@@ -2,6 +2,56 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "043-disrupt-attacks-west",
+			"quest": 871,
+			"objective": 1,
+			"faction": "Horde",
+			"path": { "map": 1413, "frame": "era", "points": [[53.76, 25.29], [53.65, 24.51], [54.16, 25.09]] },
+			"note": "Stay on the western edge for the Water Seekers, Thornweavers and Hunters. The eastern spawns share the elite camp.",
+			"source": { "kind": "pfquest", "ref": "NPCs 3267, 3268, 3265, 267308, 267314 in the Barrens." },
+			"pr": 3145
+		},
+		{
+			"id": "043-disrupt-attacks-west-thornweavers",
+			"quest": 871,
+			"objective": 2,
+			"faction": "Horde",
+			"path": { "map": 1413, "frame": "era", "points": [[53.76, 25.29], [53.65, 24.51], [54.16, 25.09]] },
+			"note": "The Thornweavers on the western edge share the Water Seekers’ loop; leave the elite camp to the east.",
+			"source": { "kind": "pfquest", "ref": "NPCs 3267, 3268, 3265, 267308, 267314 in the Barrens." },
+			"pr": 3145
+		},
+		{
+			"id": "043-disrupt-attacks-west-hunters",
+			"quest": 871,
+			"objective": 3,
+			"faction": "Horde",
+			"path": { "map": 1413, "frame": "era", "points": [[53.76, 25.29], [53.65, 24.51], [54.16, 25.09]] },
+			"note": "Hunt on the western edge of the camp with the Water Seekers and Thornweavers, away from the eastern elites.",
+			"source": { "kind": "pfquest", "ref": "NPCs 3267, 3268, 3265, 267308, 267314 in the Barrens." },
+			"pr": 3145
+		},
+		{
+			"id": "043-raptor-heads-plains",
+			"quest": 869,
+			"objective": 1,
+			"faction": "Horde",
+			"path": { "map": 1413, "frame": "era", "points": [[54.3, 15.9], [53.35, 14.74]] },
+			"note": "Finish the heads near Echeyakee, north of the Razormane camp. The wider background hunt also uses Lashtail points west and south of the camp.",
+			"source": { "kind": "pfquest", "ref": "NPCs 3254, 3255, 267308 and 267314 in the Barrens." },
+			"pr": 3145
+		},
+		{
+			"id": "043-battle-of-hillsbrad-peasant-fields",
+			"quest": 528,
+			"objective": 1,
+			"faction": "Horde",
+			"path": { "map": 1424, "frame": "era", "points": [[35.2, 46.4], [36.44, 45.43], [35.59, 44.31]] },
+			"note": "Hunt peasants in the same southern fields as the skulls, not in the square.",
+			"source": { "kind": "pfquest", "ref": "NPCs 2267, 2387 and 2335 in Hillsbrad Foothills." },
+			"pr": 3145
+		},
+		{
 			"id": "stranglethorn-young-panthers-across-the-river",
 			"quest": 190,
 			"objective": 1,
@@ -2707,6 +2757,19 @@
 				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
 			},
 			"issue": 2825
+		},
+		{
+			"id": "043-hillsbrad-skulls-southern-fields",
+			"quest": 546,
+			"objective": 1,
+			"faction": "Horde",
+			"path": { "map": 1424, "frame": "era", "points": [[35.2, 46.4], [36.44, 45.43], [35.59, 44.31]] },
+			"note": "Souvenirs of Death: every Hillsbrad human drops the skulls, and the goal pointed at 30.3,40.3, the town square, with 4 Hillsbrad Councilman spawns (24-26) within 2 map units (the nearest 0.8 away) and Magistrate Burnside (30) 1.5 away in the town hall, at a route level of about 25. It is the Horde 12-30 band's second death spot for players following the guide. The point moves to the southern fields, where 9 of the 15 Hillsbrad Peasant spawns (24-25) lie within 2.5 units, the same Peasants Battle of Hillsbrad (528) needs on that step; one Councilman spawn is 2.8 units away, the rest 5 or more, and Burnside 6.7 (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 2267 Hillsbrad Peasant (15 spawns, 9 at 33.7-36.4,44.3-47.4), 2387 Hillsbrad Councilman 24-26 (29.3-32.4,39.7-46.4), 2335 Magistrate Burnside 30 (29.7,41.6)" }
+			],
+			"pr": 3145
 		}
 	]
 }
