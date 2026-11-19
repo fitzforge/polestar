@@ -13510,18 +13510,20 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 // each spot still names its own Kolkar (#1616).
 test('Alliance Desolace: Centaur Bounty\'s ears and the Carved Centaur Totems are collected in Kolkar Village, not the Magram village (#1616 kept)', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const others = ['Magram', 'Gelkis', 'Maraudine'];
+	const local = new Set([4632, 4633, 4634, 4635, 4636, 4637, 5600, 12976, 12977]);
 	for (const [quest, item] of [[1387, 6067], [93224, 254432]]) {
 		const { goal } = list[at(list, `collect ${item} quest ${quest}`, (g) => g.t === 'collect' && g.item === item && g.quest === quest)];
-		assert.ok(goal.spots.length > 1, `${quest}: the Kolkar camps`);
-		for (const s of goal.spots) assert.ok(s.x >= 67 && s.x <= 76 && s.y >= 38 && s.y <= 53, `${quest}: spot ${s.x},${s.y} is in Kolkar Village`);
-		assert.ok(!goal.fromNpcs.some((n) => others.some((o) => n.npcName.startsWith(o))), `${quest}: the button names no other clan`);
-		if (goal.fromNpcsAt) {
-			for (const l of goal.fromNpcsAt.split(';').filter(Boolean)) assert.match(goal.fromNpcs[Number(l.split(',')[0]) - 1].npcName, /^(Kolkar|Khan Dez'hepah)/, `${quest}: each spot names its own Kolkar first`);
+		assert.ok(goal.spots.length >= 2, `${quest}: search more than one Kolkar camp`);
+		const groups = goal.fromNpcsAt?.split(';');
+		if (groups) assert.equal(groups.length, goal.spots.length, `${quest}: a target list for every spot`);
+		for (const [i, spot] of goal.spots.entries()) {
+			assert.ok(spot.x >= 67 && spot.x <= 76 && spot.y >= 38 && spot.y <= 53, `${quest}: spot ${spot.x},${spot.y} is in Kolkar Village`);
+			const targets = groups ? groups[i].split(',').filter(Boolean).map(k => goal.fromNpcs[Number(k) - 1]) : goal.fromNpcs;
+			assert.ok(targets.length && targets.every(n => local.has(n.npc)), `${quest}: every target at ${spot.x},${spot.y} belongs to the Kolkar camp`);
 		}
 	}
-	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.map((p) => p.id);
-	for (const id of ['desolace-alliance-centaur-ears-kolkar-village', 'desolace-alliance-centaur-totems-kolkar-village']) assert.ok(places.includes(id), `a record the build keeps: ${id}`);
+	const record = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.find(p => p.id === 'desolace-alliance-kolkar-village-loop');
+	assert.ok(record?.path?.points.length >= 2, 'the record keeps the shared loop, not a single point with distant alternatives');
 });
 
 // WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and
