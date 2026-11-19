@@ -2300,6 +2300,8 @@ function layoutMenu()
 	end
 	local long = total > MENU_MAX
 	local sc = long and menuLong() or rawget(menu, "Scroll")
+	-- Game-look arrows extend beyond the bar itself; leave their full hit area clear.
+	local scrollRoom = long and W.ScrollBarRoom(sc) or 0
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
 	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
@@ -2374,13 +2376,13 @@ function layoutMenu()
 			row.Check:ClearAllPoints()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + (long and 10 or 0))
+			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + scrollRoom)
 			if holds(item, needle) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
 				-- In a long list, clear of its scroll bar.
 				row:SetPoint("TOPLEFT", holder, "TOPLEFT", 1, y)
-				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -10 or -1, y)
+				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -scrollRoom or -1, y)
 				row:Show()
 				shownRows = shownRows + 1
 				if item.checked then menu.psCheckedY = -y end

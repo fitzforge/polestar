@@ -35,3 +35,5 @@ section: players
   The guide menu offers Dock to quest tracker / Undock from quest tracker
   between Transparent and Lock window, opening the existing integration
   setting and Reload UI control. Combat and tracker/gamepad restrictions apply.
+  Long guide menus leave the game-look scrollbar and arrow buttons fully
+  clickable, including after the docking action makes the menu scroll.
