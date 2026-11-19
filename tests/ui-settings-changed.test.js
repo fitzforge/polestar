@@ -142,9 +142,9 @@ test('Esc and close return to the page you came from', () => {
 		if key then key(O.frame, "ESCAPE") end
 		emit({ inView = inView, back = back, closed = closed, page = O.frame.Title:GetText() })`);
 	assert.equal(out.inView, 'Changed');
-	assert.equal(out.back, 'Guiding › Quality of Life');
-	assert.deepEqual(out.closed, { title: 'Guiding › Quality of Life', shown: true });
-	assert.equal(out.page, 'Guiding › Quality of Life');
+	assert.equal(out.back, 'Quality of Life › Quests');
+	assert.deepEqual(out.closed, { title: 'Quality of Life › Quests', shown: true });
+	assert.equal(out.page, 'Quality of Life › Quests');
 });
 
 test('turning the switch off in the Changed view returns to the current page at the same page and tab', () => {

@@ -3686,8 +3686,10 @@ local function navItems()
 	return items
 end
 
--- A sidebar click: a group's header folds or opens it, a page opens.
+-- A sidebar click: a group's header folds or opens it, a page opens. The
+-- grouped layout's tree takes its own keys (a tab, a pin, the profile).
 local function navSelect(key)
+	if O.Grouped and O.Grouped.NavSelect(key) then return end
 	if type(key) == "string" and key:sub(1, #GROUP_PREFIX) == GROUP_PREFIX then
 		local folded = navState().folded
 		local g = key:sub(#GROUP_PREFIX + 1)
@@ -5026,7 +5028,7 @@ W.OnOptionsRegistered(function(spec) add(spec, false) end)
 -- other places, never copies.
 O.Kit = {
 	pages = pageList, pageList = pageList, groups = GROUPS, shownTabs = shownTabs, available = available, labelOf = labelOf, visible = visible, sectionSettings = sectionSettings,
-	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, rowIsNew = rowIsNew, newer = newer,
+	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, disabledOf = disabledOf, choicesOf = choicesOf, rowIsNew = rowIsNew, newer = newer,
 	seenTable = seenTable, homeSettings = homeSettings, groupOf = groupOf, viewTables = viewTables,
 	layoutSections = layoutSections, rowOf = rowOf, introRoom = introRoom, buildView = buildView, hideViews = hideViews,
 	renderFooter = renderFooter, pageByKey = function(key) return pageByKey(key) end,
@@ -5040,6 +5042,7 @@ O.Kit = {
 		end
 	end,
 	current = function() return current, currentTab end,
+	profileNames = profileNames, profileLabel = profileLabel, profileMenu = profileMenu,
 	setCurrent = function(p, t) current, currentTab = p, t end,
 }
 

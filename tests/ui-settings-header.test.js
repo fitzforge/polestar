@@ -57,8 +57,8 @@ test('the new page has a breadcrumb line and a search row, and no footer', () =>
 		emit({ crumb = f.Title:GetText(), footer = f.Footer:IsShown(), searchW = f.Search:GetWidth(), mainW = f.psMainW,
 			tools = tools, searchLeftOfSwitch = byRight[G.Switch()] == f.Search or byRight[G.Switch()] == f.Install, scale = f.HeaderTools:IsShown(),
 			crumbG = { G.Crumb() } })`);
-	assert.equal(out.crumb, 'Guiding › Quality of Life');
-	assert.deepEqual(out.crumbG, ['Guiding', 'Quality of Life']);
+	assert.equal(out.crumb, 'Quality of Life › Quests');
+	assert.deepEqual(out.crumbG, ['Quality of Life', 'Quests']);
 	assert.equal(out.footer, false);
 	assert.ok(out.searchW > out.mainW * 0.5, `the wide search (${out.searchW} of ${out.mainW})`);
 	// The header's Install button, where this window is wide enough for it, stands between the switch and the search.
@@ -67,7 +67,7 @@ test('the new page has a breadcrumb line and a search row, and no footer', () =>
 	assert.equal(out.scale, false, 'Menu scale is in ···, not the header');
 });
 
-test('··· holds Menu scale, Move frames and the two resets, each naming its scope', () => {
+test('··· holds Settings scale, Move frames and the two resets, each naming its scope', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions()
 		O.Select("qualityoflife")
@@ -92,7 +92,7 @@ test('··· holds Menu scale, Move frames and the two resets, each naming its s
 		O.frame.HeaderMenu:Click()
 		W.ShowMenu = show
 		emit({ items = items, danger = danger, pageText = pageText, menuText = menuText, allText = allText, opened = opened })`);
-	assert.deepEqual(out.items, ['Menu scale', 'Move frames', 'Reset this page…', 'Reset all settings…']);
+	assert.deepEqual(out.items, ['Settings scale', 'Move frames', 'Reset this page…', 'Reset all settings…']);
 	assert.deepEqual(out.danger, ['Reset this page…', 'Reset all settings…']);
 	assert.match(out.pageText, /Quality of Life/);
 	assert.match(out.pageText, /Other pages keep theirs/);
@@ -249,13 +249,14 @@ test('reset-all keeps the other profile and the account-wide window state', () =
 		Polestar.Set("nav.arrowScale", 1.3)
 		P.Switch("Default")
 		Polestar.Set("nav.arrowScale", 1.2)
+		G.Pin("nav.arrowScale", true)
 		local held = O.ResetAll()
 		emit({ otherKept = PolestarDB.profiles.Raid.nav.arrowScale, active = Polestar.Get("nav.arrowScale"), held = #held,
-			db = { layout = PolestarDB.optionsLayout } })`);
+			db = { layout = PolestarDB.optionsLayout, pins = PolestarDB.optionsPins } })`);
 	assert.equal(out.otherKept, 1.3);
 	assert.equal(out.active, 1);
 	assert.ok(out.held >= 1, 'what it reset is held for Undo');
-	assert.deepEqual(out.db, { layout: 'grouped' });
+	assert.deepEqual(out.db, { layout: 'grouped', pins: ['nav.arrowScale'] });
 });
 
 test('inline Undo restores a page reset, then leaves after 10 s', () => {

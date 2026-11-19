@@ -1,6 +1,6 @@
 'use strict';
-// The new settings page's folder tabs (W.FolderTabs in addon/Polestar_Options/
-// UI/Kit.lua, drawn by UI/Grouped.lua): a boxed tab
+// The new settings page's folder tabs (W.FolderTabs in addon/Polestar/Theme/
+// Widgets.lua, drawn by addon/Polestar_Options/UI/Grouped.lua): a boxed tab
 // with an icon before its label, every icon in a bar unique and one of the
 // addon's own glyphs (Media/UI); the active tab raised and joined to the body
 // with no line under it; a filled dot for a changed row on the tab, a hollow

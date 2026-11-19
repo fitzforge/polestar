@@ -3768,8 +3768,11 @@ local function navButton(f, i)
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
-	-- A row with a mark (item.markTip) says what the mark means.
-	b:SetScript("OnEnter", simpleTip)
+	-- A row with a mark (item.markTip) says what the mark means; the settings
+	-- window's rail and long names add to that (W.NavRowEnter).
+	b:SetScript("OnEnter", function(self)
+		if not (W.NavRowEnter and W.NavRowEnter(self, f)) then simpleTip(self) end
+	end)
 	b:SetScript("OnLeave", hideTip)
 	b.psShell = f
 	f.navButtons[i] = b
@@ -3785,10 +3788,10 @@ end
 -- A tree: { group = true, key, label, folded } is a group's header (32px, a
 -- muted label on the text edge, a chevron at the right: down open, right
 -- folded), a choice that folds or opens it (onSelect(key)); rows with
--- `indent` sit under it, their glyph 12px further in. A row's `new` (a
--- `changed` is a 6px accent dot at its right edge (settings off their
--- default there); `new = true` (new settings) a 6px accent ring in its place
--- instead. `markTip` is the row's tooltip, saying what that mark means.
+-- `indent` sit under it, their glyph 12px further in. A row's `changed` is
+-- a 6px accent dot at its right edge (settings off their default there);
+-- `new = true` (new settings) a 6px accent ring in its place instead.
+-- `markTip` is the row's tooltip, saying what that mark means.
 --
 -- The rows live in their own scroll area, from 12px under the search down
 -- to the line of the main column's footer bar (SHELL.footer from the
@@ -3796,8 +3799,12 @@ end
 -- many rows there are: past that line the list scrolls (wheel, thumb) and
 -- the active row is scrolled into view.
 -- { separator = true } is a hairline between groups of rows, at the text
--- edges, not a row.
+-- edges, not a row. A row's `rowH` is its height. { part = name, ... } is a
+-- row W.NavParts[name] draws and measures (pinned settings, the profile
+-- card, a fill: Polestar_Options/UI/Kit.lua); W.NavRowAfter(b, item, on) may
+-- lay a plain row out again (the rail, a page's tabs as a tree).
 local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
+W.NavParts = {}
 
 local function navRow(b, item, on)
 	b.psKey, b.psItem, b.psOn = item.key, item, on
@@ -3865,14 +3872,20 @@ local function navRow(b, item, on)
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
 		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
 		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		b.psRight = pad + reserve
 		b:Enable()
 	end
+	if W.NavRowAfter then W.NavRowAfter(b, item, on, pad) end
 end
 
--- The tree's group headers are shorter than the rows.
-local function navRowH(item)
-	return item.group and NAV_GROUP or NAV_ROW
+-- A row's height: a part's own, a hairline's, a group header's (shorter), a
+-- row's (item.rowH).
+local function navRowH(item, f, items)
+	if item.part then return W.NavParts[item.part].height(item, f, items) end
+	if item.separator then return NAV_SEP end
+	return item.group and NAV_GROUP or item.rowH or NAV_ROW
 end
+W.NavRowHeight = navRowH
 
 -- The rows' width: the sidebar's, less the scroll bar's strip while the list
 -- scrolls (its content past its view), so the bar and a game look's arrow
@@ -3898,8 +3911,12 @@ function W.ShellNav(f, items, active, onSelect)
 	local rules = rawget(f, "navRules") or {}
 	f.navRules = rules
 	local bi, ri = 0, 0
+	for _, part in pairs(W.NavParts) do part.reset(f) end
 	for _, item in ipairs(items) do
-		if item.separator then
+		if item.part then
+			W.NavParts[item.part].place(f, item, y)
+			y = y + navRowH(item, f, items)
+		elseif item.separator then
 			ri = ri + 1
 			local t = rules[ri]
 			if not t then
@@ -4507,10 +4524,13 @@ function W.Shell(name, opts)
 	if opts.headerSearch then
 		-- The search is in the header (below); the navigation starts under
 		-- the band, a hairline over it.
-		f.psNavTop = SHELL.header + 12
+		-- The hairline sits on the tab row's (header + tabs), so one line
+		-- runs across both columns.
+		local band = SHELL.header + SHELL.tabs
+		f.psNavTop = band + 12
 		local bandRule = W.Divider(side)
-		bandRule:SetPoint("TOPLEFT", side, "TOPLEFT", 0, -SHELL.header)
-		bandRule:SetPoint("TOPRIGHT", side, "TOPRIGHT", -1, -SHELL.header)
+		bandRule:SetPoint("TOPLEFT", side, "TOPLEFT", 0, -band)
+		bandRule:SetPoint("TOPRIGHT", side, "TOPRIGHT", -1, -band)
 	else
 		local searchTop = SHELL.header - 30
 		f.Search = W.SearchBox(side, opts.searchPlaceholder or L["Search"], opts.onSearch)
@@ -4677,7 +4697,11 @@ function W.Shell(name, opts)
 	end)
 	-- Another font measures the version line anew.
 	W.OnFontChanged(function() if f:IsShown() then W.ShellStatus(f) end end)
-	f:HookScript("OnHide", function() W.HideMenu() end)
+	f:HookScript("OnHide", function(self)
+		W.HideMenu()
+		-- The rail's fly-out (Polestar_Options/UI/Kit.lua, with the settings).
+		if W.ShellFlyoutHide then W.ShellFlyoutHide(self) end
+	end)
 	ns.CloseOnEscape(name)
 	return f
 end

@@ -4,21 +4,22 @@
 -- rows as the classic layout, from the same registry and through
 -- UI/Options.lua's own pieces (UI.Options.Kit), laid out in fewer doors:
 --
---   the sidebar      the window's own: the groups of G.TREE (Guiding, Look,
---                    Setup, About), the one shown open on its pages (the
---                    classic pages, another addon's among them); a page with
---                    settings new to the player has a ring, else a dot while
---                    one is off its default
---   a page           its own tabs, the classic page's, as folder tabs in the
---                    tab band (an icon before each label, a dot after it for
---                    a row off its default), and each tab's rows as the
---                    classic page lays them out
---   a card           its title in its top border (Legend), at the border's
---                    right the module's pill, "N changed" and Reset; a card
---                    whose module is off folds to that header and one line
+--   the sidebar      a tree: the groups of G.TREE (Guiding, Look, Quality
+--                    of Life, Setup), the one shown open on its pages (the
+--                    classic pages, another addon's among them), each page's
+--                    changed count; every group open while Expand all is on
+--                    (PolestarDB.optionsNavAll). Then the settings pinned
+--                    there, each a live control on its setting, About and
+--                    Guiding Stars, and the profile card (Switch) at its
+--                    foot. A group's and a
+--                    page's New ring, a group's hits while a search is open.
+--                    Folded to an icon rail (PolestarDB.optionsRail), a
+--                    group's icon opens its pages as a fly-out
+--   a page           its own tabs, the classic page's, in the tab band, and
+--                    each tab's rows as the classic page lays them out
 --   the header       "Search first": a "Group › Page" crumb and the
 --                    description, then the wide search, the switch, Peek,
---                    Fold, Reload UI and ··· (Menu scale, Move frames, the
+--                    Fold, Reload UI and ··· (Settings scale, Move frames, the
 --                    resets); Undo beside the crumb; no footer
 --   the tab band     at its right end the filter, then Preview (on a page
 --                    with a live preview: shows or hides it)
@@ -56,26 +57,41 @@ O.Grouped = G
 -- group's name (the first page's name without one); icon, else iconPage:
 -- its glyph, or the glyph of that page (the first page's without either).
 -- After an edit, G.Invalidate() builds the tree again. The pages in the
--- order a player meets them: the first quest before the map's tweaks,
--- Discovery now and then; the guide window sized before the look is changed.
+-- order a player meets them (docs/superpowers/specs/2026-11-17-settings-ia-
+-- review.md, section 4): the first quest before the map's tweaks, Discovery
+-- now and then; the guide window sized before the look is changed.
+-- The rule: the sidebar shows two levels at most, groups then rows. A row is
+-- a place a player names; a tab is a facet of one place (the parts of one
+-- window, the cards of one alert). A group with several pages lists its
+-- pages, a page with facets keeping them as tabs. A group with exactly one
+-- page lists that page's tabs as its rows: the page row is not drawn (it
+-- would double the group's name) and the page's folder tabs are not drawn
+-- (the rows are the tabs). The page and its tabs stay registered as they
+-- are, so saved keys, search jumps, pins and LB / RB keep working.
 G.TREE = {
 	{ key = "guiding", label = L["Guiding"], icon = "star",
-		pages = { "guide", "questing", "map", "qualityoflife", "discovery" } },
+		pages = { "guide", "questing", "map", "discovery" } },
+	{ key = "qol", label = L["Quality of Life"], iconPage = "qualityoflife",
+		pages = { "qualityoflife" } },
 	{ key = "look", label = L["Look"], iconPage = "theme",
 		pages = { "guidewindow", "theme", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" } },
 	{ key = "setup", label = L["Setup"], iconPage = "profiles",
-		pages = { "profiles", "integrations", "guidepacks", "gamepad" } },
-	{ key = "about", label = L["About"], iconPage = "about",
-		pages = { "about", "thanks", "recorder" } },
+		pages = { "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
+	-- foot: the group's pages stand at the sidebar's foot, over the profile
+	-- card, as rows of their own (folded to the rail, a group like the rest).
+	{ key = "about", label = L["About"], iconPage = "about", foot = true,
+		pages = { "about", "thanks" } },
 }
 
 -- SEP: a crumb's separator (" › "). WIDE: the window width from which the
 -- side card stands beside the rows. LONG: rows past which a tab shows its
 -- index. STRIP: the index's height. SIDE: the side card's width bounds and
--- its gap to the rows and to the window's edge.
+-- its gap to the rows and to the window's edge. PIN_MAX: the settings the
+-- sidebar holds pinned at most.
 local SEP = " \226\128\186 "
 local WIDE, LONG, STRIP = 1240, 30, 34
 local SIDE = { MIN = 300, MAX = 400, GAP = 16, EDGE = 16 }
+local PIN_MAX = 8
 
 local SUBTITLES = {
 	guidewindow = L["The guide window's frame, bars, step card, tips and progress bar."],
@@ -92,7 +108,7 @@ local homes, dirty = nil, true
 local st = { page = {}, tab = {}, filter = "all" }
 local B = { views = {}, links = {}, depKeys = {} }
 local shown = false
-local render, changedKeys, changedTabs, changedJump
+local render, navSelect, hookPins, changedKeys, changedTabs, changedJump
 
 -- The Preview panel hidden (its button): PolestarDB.optionsPreviewHidden,
 -- account-wide, not a setting: true hidden, false shown, nil not chosen yet
@@ -141,7 +157,7 @@ function G.Tree()
 	local byKey, placed, at, out = {}, {}, {}, {}
 	for _, p in ipairs(K.pages) do byKey[p.key] = p end
 	for _, spec in ipairs(G.TREE) do
-		local g = { key = spec.key, label = spec.label, icon = spec.icon, pages = {} }
+		local g = { key = spec.key, label = spec.label, icon = spec.icon, foot = spec.foot, pages = {} }
 		if not g.icon and spec.iconPage and byKey[spec.iconPage] then g.icon = byKey[spec.iconPage].icon end
 		for _, k in ipairs(spec.pages or {}) do
 			local p = byKey[k]
@@ -199,6 +215,18 @@ local function groupOfPage(p, tree)
 		for _, gp in ipairs(g.pages) do if gp == p then return g end end
 	end
 end
+
+-- The page whose shown tabs are group g's sidebar rows (the rule above), or
+-- nil. -> page
+local function flatPage(g)
+	if g.foot or #g.pages ~= 1 then return nil end
+	local p = g.pages[1]
+	if p.custom or p.empty or #pageTabs(p) < 2 then return nil end
+	return p
+end
+
+-- A tab's sidebar key, and back: "t:<page key>\t<tab name>".
+local function tabKey(p, t) return "t:" .. p.key .. "\t" .. t.name end
 
 local function groupBy(key, tree)
 	for _, g in ipairs(tree or G.Tree()) do if g.key == key then return g end end
@@ -315,6 +343,10 @@ local function eachPageShown(p, fn)
 	end
 end
 
+local function eachShown(g, fn)
+	for _, p in ipairs(g.pages) do eachPageShown(p, fn) end
+end
+
 local function countsOf(walk, x)
 	local changed, fresh = 0, 0
 	walk(x, function(sec, rows)
@@ -326,6 +358,13 @@ local function countsOf(walk, x)
 	end)
 	return changed, fresh
 end
+local function eachTabShown(x, fn)
+	for _, sec in ipairs(x[2].sections) do
+		if K.sectionShown(sec) then fn(sec, homeRows(sec), x[1], x[2]) end
+	end
+end
+local function groupCounts(g) return countsOf(eachShown, g) end
+local function tabCounts(p, t) return countsOf(eachTabShown, { p, t }) end
 local function pageCounts(p) return countsOf(eachPageShown, p) end
 
 -- Where a control lives (an extra, a cog's setting: the row it is on; a
@@ -367,6 +406,20 @@ end
 
 local search = O.Search
 
+-- While a search is open, each group's hits (by group key).
+local function searchHits(q, tree)
+	local hits = {}
+	local groups = search(q) or {}
+	for _, gr in ipairs(groups) do
+		for _, c in ipairs(gr.controls or {}) do
+			local at = homeOf(c)
+			local g = at and groupOfPage(at.page, tree)
+			if g then hits[g.key] = (hits[g.key] or 0) + 1 end
+		end
+	end
+	return hits
+end
+
 -- Where a hit lives here, "page › tab" (its section where the tab has no
 -- name; the group before the page where neither has).
 local function hitTitle(at)
@@ -392,36 +445,147 @@ function O.Search(q)
 end
 
 ---------------------------------------------------------------------------
--- The sidebar
+-- The sidebar's tree, its pins and its foot
 ---------------------------------------------------------------------------
 
--- A sidebar click: a group (on its page last shown) or a page.
-local function navSelect(key)
-	O.Select(key)
+-- PolestarDB.optionsPins: the settings pinned to the sidebar, their keys in
+-- the order pinned (account-wide, not a setting).
+local function pins()
+	local db = ns.DB()
+	if type(db.optionsPins) ~= "table" then db.optionsPins = {} end
+	return db.optionsPins
 end
 
--- The sidebar the window already has (W.ShellNav): a header for each group of
--- the tree, the one shown open on its pages (none while a search is open),
--- each page marked as the classic page's are: a ring while it holds settings
--- new to the player, else a dot while one is off its default.
+local function pinnedAt(key)
+	for i, k in ipairs(pins()) do if k == key then return i end end
+end
+G.Pinned = function(key) return pinnedAt(key) ~= nil end
+
+-- PolestarDB.optionsNavAll: every group open in the sidebar (Expand all),
+-- else the one shown alone. PolestarDB.optionsRail: the sidebar folded to
+-- its icons. Both account-wide, not settings.
+local function navAll() return ns.DB().optionsNavAll == true end
+local function railOn() return ns.DB().optionsRail == true end
+
+-- The kinds a pinned setting has a live control for (W.PinControl).
+local PINNABLE = { toggle = true, slider = true, dropdown = true, font = true }
+
+-- Is the card a setting sits in off (its module's switch, where that is not
+-- the setting itself)?
+local function moduleOff(c)
+	local at, root = homeOf(c)
+	local t = at and at.section.toggle
+	if not (t and t ~= root and t.key and K.available(t)) then return false end
+	return not ns.Get(t.key)
+end
+
+-- A pinned control is off while its home row is: K.disabledOf, or its
+-- card's module off.
+local function pinDisabled(c)
+	local rowOff = K.disabledOf(c)
+	return function() return rowOff() or moduleOff(c) end
+end
+
+-- The sidebar: the groups of the tree, the one shown open on its pages (all
+-- of them while Expand all is on), each group and page with a ring while it
+-- holds settings new to the player; then the settings pinned there, each a
+-- live control ({ pin = key }), and the profile card at its foot
+-- ({ profile = name }). Folded to the rail, the groups alone, each with its
+-- pages for its fly-out.
 function G.NavItems()
-	local items = {}
-	local searching = K.query() ~= ""
-	for _, g in ipairs(G.Tree()) do
-		local open = not searching and shown and g.key == st.group
-		items[#items + 1] = { group = true, key = "b:" .. g.key, label = g.label, folded = not open }
-		if open then
+	local items, q = {}, K.query()
+	local tree = G.Tree()
+	local hits = q ~= "" and searchHits(q, tree) or nil
+	local rail, all = railOn(), navAll()
+	local foot = {}
+	for _, g in ipairs(tree) do
+		if g.foot and not rail then
 			for _, p in ipairs(g.pages) do
-				if pageShown(p) or p == B.page then
-					local changed, fresh = pageCounts(p)
-					local new = fresh > 0
-					local off = not new and changed > 0
-					items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, indent = true, dot = p.dot and p.dot() or nil,
-						new = new or nil, changed = off or nil,
-						markTip = new and L["New settings on this page"] or off and L["Settings on this page changed from their default"] or nil }
+				if pageShown(p) or p == B.page then foot[#foot + 1] = p end
+			end
+		else
+			local open = not hits and shown and not rail and (all or g.key == st.group)
+			local it = { key = "b:" .. g.key, label = g.label, icon = g.icon, open = open or nil, rowH = rail and 48 or 44 }
+			if hits then
+				it.count = hits[g.key] or 0
+			else
+				local _, fresh = groupCounts(g)
+				it.new = fresh > 0 or nil
+			end
+			if rail then
+				it.open = (not hits and shown and g.key == st.group) or nil
+				local fly = { { heading = true, label = g.label } }
+				local fp = flatPage(g)
+				if fp then
+					for _, t in ipairs(pageTabs(fp)) do fly[#fly + 1] = { key = tabKey(fp, t), label = t.name } end
+				else
+					for _, p in ipairs(g.pages) do
+						if pageShown(p) or p == B.page then fly[#fly + 1] = { key = p.key, label = p.name } end
+					end
+				end
+				it.flyout = fly
+			end
+			items[#items + 1] = it
+			-- An open group lists its pages, each with its changed count.
+			local fp = open and flatPage(g)
+			if fp then
+				for _, t in ipairs(pageTabs(fp)) do
+					local n, fresh = tabCounts(fp, t)
+					items[#items + 1] = { key = tabKey(fp, t), label = t.name, indent = true,
+						count = n > 0 and n or nil, dot = n == 0 and G.TabDot(t) or nil, new = (not hits and fresh > 0) or nil }
+				end
+			elseif open then
+				for _, p in ipairs(g.pages) do
+					if pageShown(p) or p == B.page then
+						local n, fresh = pageCounts(p)
+						items[#items + 1] = { key = p.key, label = p.name, indent = true,
+							count = n > 0 and n or nil, dot = p.dot and p.dot() or nil, new = (not hits and fresh > 0) or nil }
+					end
 				end
 			end
 		end
+	end
+	if rail then return items end
+	items[#items + 1] = { separator = true }
+	items[#items + 1] = { heading = true, label = L["Pinned"] }
+	-- A pin unavailable now (its module not loaded, another class's, another
+	-- addon's page not registered) is not drawn, and stays saved. With none
+	-- drawn and some saved, a line says so, and Clear (asked first) takes
+	-- those off the list.
+	local any, hidden = false, 0
+	for _, key in ipairs(pins()) do
+		local c = O.ControlByKey(key)
+		if c and K.available(c) then
+			any = true
+			items[#items + 1] = { part = "pin", pin = key, key = "p:" .. key, control = c, label = K.labelOf(c) or key, disabled = pinDisabled(c),
+				choices = function() return K.choicesOf(c) end }
+		else
+			hidden = hidden + 1
+		end
+	end
+	if not any and hidden > 0 then
+		items[#items + 1] = { heading = true, label = string.format(L["Pinned, not available here: %d"], hidden) }
+		items[#items + 1] = { key = "pins:clear", label = L["Clear"], icon = "flag" }
+	elseif not any then
+		items[#items + 1] = { heading = true, label = L["Pin a setting with the flag on its row."] }
+	end
+	-- The foot pages (About, Guiding Stars), then the profile in use: Switch
+	-- opens its menu.
+	local names, active = K.profileNames()
+	if #foot > 0 or names then items[#items + 1] = { part = "fill", fill = true } end
+	if #foot > 0 then
+		items[#items + 1] = { separator = true }
+		for _, p in ipairs(foot) do
+			local n, fresh = pageCounts(p)
+			items[#items + 1] = { key = p.key, label = p.name, icon = p.icon,
+				count = n > 0 and n or nil, new = (not hits and fresh > 0) or nil }
+		end
+	end
+	if names then
+		local name = K.profileLabel(active)
+		items[#items + 1] = { separator = true }
+		items[#items + 1] = { part = "profile", profile = name, key = "profile", label = name, caption = L["Profile"], action = L["Switch"],
+			tip = string.format(L["Profile: %s"], name) }
 	end
 	return items
 end
@@ -431,6 +595,156 @@ function G.NavKey()
 	if not (shown and G.On()) or K.query() ~= "" then return nil end
 	return B.navKey
 end
+
+-- The pins not available here off the list, the player asked first (the
+-- ones drawn stay).
+local function clearHiddenPins()
+	W.Modal({ title = L["Clear the pins not available here?"], icon = "flag", danger = true, action = L["Clear"],
+		text = L["They come off the list on every character. The pins you see here stay."],
+		onAccept = function()
+			local gone = {}
+			for _, key in ipairs(pins()) do
+				local c = O.ControlByKey(key)
+				if not (c and K.available(c)) then gone[#gone + 1] = key end
+			end
+			for _, key in ipairs(gone) do G.Pin(key, false) end
+		end })
+end
+
+-- A sidebar click: a group (on its page last shown), a page, a pinned
+-- setting (its row), the pins not available here (Clear) or the profile
+-- (its menu). -> handled
+function navSelect(key)
+	if type(key) ~= "string" then O.Select(key) return true end
+	if key == "pins:clear" then
+		clearHiddenPins()
+		return true
+	end
+	if key == "profile" then
+		local card = rawget(win(), "NavProfile")
+		if card and card:IsShown() then K.profileMenu(card.Action) end
+		return true
+	end
+	if key:sub(1, 2) == "p:" then
+		local c = O.ControlByKey(key:sub(3))
+		if c then G.Jump(c) end
+		return true
+	end
+	if key:sub(1, 2) == "t:" then
+		local pk, tn = key:match("^t:([^\t]*)\t(.*)$")
+		if pk then
+			O.Select(pk, tn)
+			return true
+		end
+	end
+	O.Select(key)
+	return true
+end
+G.NavSelect = function(key)
+	if not (shown and G.On()) then return false end
+	return navSelect(key)
+end
+
+-- The sidebar drawn again (a pin, a value or a count moved).
+local function redrawNav()
+	if shown and win() then W.ShellNav(win(), G.NavItems(), G.NavKey(), navSelect) end
+end
+
+-- key pinned (on true), unpinned (false) or flipped (nil). -> done
+function G.Pin(key, on)
+	if type(key) ~= "string" then return false end
+	local list, at = pins(), pinnedAt(key)
+	if on == nil then on = not at end
+	if on and not at then
+		if #list >= PIN_MAX then return false end
+		list[#list + 1] = key
+	elseif not on and at then
+		table.remove(list, at)
+	end
+	redrawNav()
+	return true
+end
+
+-- The sidebar's head: Expand all (every group open, or the one shown alone)
+-- and the fold to the rail, right-aligned on the lockup's tagline line (the
+-- wordmark's ink reaches past where Expand all stands, the tagline's does
+-- not); on the rail the fold alone, centred under the emblem on the band's
+-- line. Made the first time the new page shows.
+local function navHead()
+	if B.Head then return B.Head end
+	local side = win().Sidebar
+	local h = {}
+	h.Rail = W.IconButton(side, "chevron-left", 22, L["Fold the sidebar to icons"], function() G.SetRail(not railOn()) end, 12)
+	W.SetFramed(h.Rail, "icon")
+	h.Expand = W.Button(side, L["Expand all"], function() G.SetNavAll(not navAll()) end,
+		{ height = 22, ghost = true, icon = "chevron-down" })
+	h.Expand.psTight = true
+	h.Expand.psTip = L["Expand all"]
+	B.Head = h
+	return h
+end
+G._navHead = function() return B.Head end
+
+local function paintHead()
+	local w = win()
+	if not w then return end
+	local h, side, rail, all = navHead(), w.Sidebar, railOn(), navAll()
+	h.Rail:ClearAllPoints()
+	h.Expand:ClearAllPoints()
+	-- The toolbar row above the sidebar's hairline (SHELL.header + SHELL.tabs):
+	-- Expand all (a labelled button) on the 24 edge, the fold plate at the
+	-- right edge; on the rail the fold alone, centred. The tagline's line is
+	-- clear.
+	local cy = SH.header + SH.tabs - 16
+	if rail then
+		h.Rail:SetPoint("CENTER", side, "TOP", 0, -cy)
+	else
+		h.Rail:SetPoint("CENTER", side, "TOPRIGHT", -(SH.side - 4) - 11, -cy)
+		h.Expand:SetPoint("LEFT", side, "TOPLEFT", SH.side - 8, -cy)
+	end
+	W.SetIcon(h.Rail, rail and "chevron-right" or "chevron-left")
+	h.Rail.psTip = rail and L["Show the sidebar"] or L["Fold the sidebar to icons"]
+	W.SetButtonText(h.Expand, all and L["Collapse all"] or L["Expand all"])
+	h.Expand.Icon:SetTexture(Theme.Media(all and "chevron-up" or "chevron-down"))
+	h.Expand.psTip = all and L["Collapse all"] or L["Expand all"]
+	h.Rail:Show()
+	h.Expand:SetShown(not rail)
+end
+
+-- The sidebar as the new page wants it (on), or the classic page's.
+local function sidebarMode(on)
+	local w = win()
+	if not w then return end
+	W.ShellNavRail(w, on and railOn())
+	if not (on and railOn()) then W.ShellFlyoutHide(w) end
+	if on then
+		paintHead()
+	elseif B.Head then
+		B.Head.Rail:Hide()
+		B.Head.Expand:Hide()
+	end
+end
+
+-- Expand all: every group open in the sidebar (on), or the one shown
+-- alone; kept for the account. -> nothing
+function G.SetNavAll(on)
+	ns.DB().optionsNavAll = on and true or nil
+	if shown then
+		paintHead()
+		redrawNav()
+	end
+end
+
+-- The sidebar folded to its icons (on), or at its full width; kept for
+-- the account. The page lays out again for the room. -> nothing
+function G.SetRail(on)
+	ns.DB().optionsRail = on and true or nil
+	if not on then W.ShellFlyoutHide(win()) end
+	if shown then render({ keep = true }) end
+end
+
+-- The rail's fly-out (the tests read it).
+G._flyout = function() return W.ShellFlyoutFrame() end
 
 ---------------------------------------------------------------------------
 -- The chrome: the filter, the index, the side card
@@ -706,9 +1020,9 @@ function G.TabDot(t)
 	return hidden and "hollow" or nil
 end
 
--- The header's line one: the breadcrumb, "Group › Page" (or a filter's name
--- in the page's place), then the description (the header lays them out,
--- W.HeaderScale's "Search first").
+-- The header's line one: the breadcrumb, "Group › Page" (a foot page, or a
+-- filter's name in the page's place), then the description (the header lays
+-- them out, W.HeaderScale's "Search first").
 local function drawCrumb(group, page, desc)
 	B.crumb = { group, page }
 	local text = group and page and (group:lower() == page:lower() and page or group .. SEP .. page) or group or page or ""
@@ -865,6 +1179,89 @@ local function side()
 	return f
 end
 G._side = function() return B.Side end
+
+-- The pin on the row under the pointer: a flag in the gutter left of its
+-- label (accent while pinned) that pins it to the sidebar or takes it off.
+local function pinTip(b)
+	local key = b.psKey
+	if pinnedAt(key) then
+		b.psTip, b.psTipLines = L["Unpin from the sidebar"], nil
+	elseif #pins() >= PIN_MAX then
+		b.psTip, b.psTipLines = L["Pin to the sidebar"], { L["The sidebar holds eight pinned settings: unpin one first."] }
+	else
+		b.psTip, b.psTipLines = L["Pin to the sidebar"], nil
+	end
+end
+
+local function paintPin(b)
+	b.psActive = pinnedAt(b.psKey) ~= nil
+	W.Color(b.Icon, b.psActive and "accent" or "icon")
+	pinTip(b)
+end
+
+-- Is the pointer on the flag or on the row that holds it?
+local function over(f)
+	return f and f.IsMouseOver and f:IsMouseOver() == true
+end
+local function pinHeld(b)
+	return over(b) or over(b:GetParent())
+end
+
+local function pinButton()
+	if B.Pin then return B.Pin end
+	local b = W.IconButton(win().Body, "flag", 18, L["Pin to the sidebar"], function(self)
+		if G.Pin(self.psKey) then paintPin(self) end
+		W.SimpleTip(self)
+	end, 11)
+	-- The flag stays while the pointer is on its row (its reset, slider or
+	-- any other part of it too) or on the flag, and goes once it is on
+	-- neither: the row hears OnLeave when the pointer enters one of its own
+	-- parts, so the flag watches the pointer itself while it is shown.
+	b:HookScript("OnLeave", function(self)
+		if not pinHeld(self) then self:Hide() end
+	end)
+	b:SetScript("OnUpdate", function(self)
+		if not pinHeld(self) then self:Hide() end
+	end)
+	b:Hide()
+	B.Pin = b
+	return b
+end
+
+local function placePin(row, c)
+	if not (shown and c.key) then return end
+	local b = pinButton()
+	b.psKey = c.key
+	b:SetParent(row)
+	b:SetFrameLevel(row:GetFrameLevel() + 4)
+	b:ClearAllPoints()
+	local label = rawget(row, "Label")
+	if label then
+		-- A child's row stands its indent into the column (row.psIndent): the
+		-- flag keeps the column's gutter, left of the child's accent rule.
+		b:SetPoint("RIGHT", label, "LEFT", -14 - (rawget(row, "psIndent") or 0), 0)
+	else
+		b:SetPoint("RIGHT", row, "LEFT", -4, 0)
+	end
+	paintPin(b)
+	b:Show()
+end
+G._placePin = placePin
+
+-- Every keyed row with a live control for the sidebar (PINNABLE) takes the
+-- pin on its hover (once a row).
+function hookPins(view)
+	for c, row in pairs(view and view.cache or {}) do
+		if type(c) == "table" and c.key and PINNABLE[c.kind] and not rawget(row, "psPinHook") then
+			row.psPinHook = true
+			row:HookScript("OnEnter", function(self) placePin(self, c) end)
+			row:HookScript("OnLeave", function(self)
+				local b = B.Pin
+				if b and b:GetParent() == self and not pinHeld(b) then b:Hide() end
+			end)
+		end
+	end
+end
 
 -- The Preview panel hidden (true) or shown, for the account. -> nothing
 function G.SetPreviewHidden(hidden)
@@ -1197,6 +1594,7 @@ local function hideChrome()
 	if rawget(w, "FolderTabs") then w.FolderTabs:Hide() end
 	if B.Side then B.Side:Hide() end
 	if B.PreviewBtn then B.PreviewBtn:Hide() end
+	if B.Pin then B.Pin:Hide() end
 	if B.host then
 		B.host:Hide()
 		B.host = nil
@@ -1224,6 +1622,8 @@ end
 
 local function leave()
 	hideChrome()
+	sidebarMode(false)
+	W.ShellFlyoutHide(win())
 	shown = false
 end
 
@@ -1275,11 +1675,11 @@ local function headerMode(on)
 	if not on then K.renderFooter(nil) end
 end
 
--- What ··· holds: Menu scale (a slider in the menu itself, written when the
+-- What ··· holds: Settings scale (a slider in the menu itself, written when the
 -- drag ends: it rescales the window and the menu it sits in), Move frames,
 -- then the two resets, each asking first and naming its scope (the page on
 -- screen; the profile in use).
-local MENU_SCALE = { kind = "slider", key = "ui.menuScale", label = L["Menu scale"], icon = "sliders",
+local MENU_SCALE = { kind = "slider", key = "ui.menuScale", label = L["Settings scale"], icon = "sliders",
 	min = 0.7, max = 1.4, step = 0.05, release = true, format = function(v) return floor(v * 100 + 0.5) .. "%" end }
 function G.MenuItems()
 	local M = ns.Movers
@@ -1288,7 +1688,7 @@ function G.MenuItems()
 	-- on screen for Reset this page to name.
 	local hidden = st.filter == "changed"
 	return {
-		{ text = L["Menu scale"], slider = MENU_SCALE },
+		{ text = L["Settings scale"], slider = MENU_SCALE },
 		{ text = L["Move frames"], icon = "resize", disabled = not (M and M.Unlock) or nil, onClick = function() O.MoveFrame(nil) end },
 		{ text = L["Reset this page\226\128\166"], icon = "reset", danger = true,
 			disabled = (hidden or not (p and K.pageShowsSetting(p))) or nil, onClick = function() O.AskResetPage(p) end },
@@ -1349,7 +1749,7 @@ function render(opts)
 	local w = win()
 	if not w then return end
 	local scroll = opts.keep and w.Scroll:GetVerticalScroll() or 0
-	-- ··· stays open through a layout its Menu scale slider set off (the
+	-- ··· stays open through a layout its Settings scale slider set off (the
 	-- window resized); any other list goes with the page it was opened on.
 	if not W.MenuShown(B.Menu) then W.HideMenu() end
 	O.HideMore()
@@ -1378,6 +1778,7 @@ function render(opts)
 	shown = true
 	B.depKeys = {}
 	headerMode(true)
+	sidebarMode(true)
 	W.ShellLayout(w)
 	-- What stands beside the rows: the page's live preview (the tab's own,
 	-- else its page's), on a page that has one, in the Preview panel.
@@ -1407,7 +1808,7 @@ function render(opts)
 	if filtering then
 		drawCrumb(nil, filterLabel("changed"), nil)
 	else
-		drawCrumb(g.label, p.name, p.subtitle or SUBTITLES[p.key])
+		drawCrumb(g.label, flatPage(g) and tab.name or p.name, p.subtitle or SUBTITLES[p.key])
 	end
 	local h = view.Refresh()
 	view:SetHeight(h)
@@ -1415,6 +1816,9 @@ function render(opts)
 	if filtering then
 		-- All (back to the page), then a jump tab per card ("Guide 3").
 		list, active = changedTabs(view)
+	elseif flatPage(g) then
+		-- The group's rows are the tabs: no folder tabs.
+		list, active = nil, nil
 	elseif #tabs > 1 or tabs[1].name ~= "" then
 		list, active = {}, tab.name
 		for i, t in ipairs(tabs) do
@@ -1518,9 +1922,10 @@ function render(opts)
 		markSeen(all)
 	end
 	-- The Changed view is the whole window's: no sidebar row is its place.
-	B.navKey = not filtering and p.key or nil
+	B.navKey = not filtering and (flatPage(g) and tabKey(p, tab) or p.key) or nil
 	W.ShellNav(w, G.NavItems(), B.navKey, navSelect)
 	changedKeys(filtering)
+	hookPins(view)
 	O.UndoAnchor(w)
 	-- What Options.lua holds as on screen: the page and its tab, so leaving a
 	-- search (or the switch) comes back here.

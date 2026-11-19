@@ -1,9 +1,12 @@
 -- The settings window's own widgets beside core's kit, loaded with it
 -- (Polestar_Options), never at login: a setting's compact control
--- (W.PinControl), the folder tabs (W.FolderTabs), a card's Legend header and
--- its pill switch (W.LegendHeader, W.PillSwitch), the header's "Search
--- first" (W.SearchFirst) and its ··· menu (W.HeaderMenu). They join core's kit (Polestar/Theme/Widgets.lua) under the
--- same names.
+-- (W.PinControl), the sidebar's rows of pins and the profile card
+-- (W.NavParts), its icon rail and fly-out (W.ShellNavRail, W.ShellFlyout),
+-- the folder tabs (W.FolderTabs), a card's Legend header and its pill switch
+-- (W.LegendHeader, W.PillSwitch), the header's "Search first"
+-- (W.SearchFirst) and its ··· menu (W.HeaderMenu). They join core's kit
+-- (Polestar/Theme/Widgets.lua) under the same names; core's sidebar
+-- (W.ShellNav) calls them only for rows this window gives it.
 
 local ns = Polestar
 local Theme, W = ns.Theme, ns.Widgets
@@ -18,10 +21,10 @@ local sliderParts, sliderPaint, roundTo, SLIDER_W = P.sliderParts, P.sliderPaint
 local textWidth = W.TextWidth
 
 ---------------------------------------------------------------------------
--- A setting's own compact control (the ··· menu's slider row): its label,
--- then a switch at its right (toggle, one 36px line), a slider under it with
--- its value at the label's right (slider), or a face under it that opens its
--- choices (dropdown, font). It acts on c.key (c.get / c.set where the
+-- A setting's own compact control (the ··· menu's slider row, a pin on the
+-- sidebar): its label, then a switch at its right (toggle, one 36px line), a
+-- slider under it with its value at the label's right (slider), or a face
+-- under it that opens its choices (dropdown, font). It acts on c.key (c.get / c.set where the
 -- setting has them), as its home row does, and repaints when the setting
 -- changes. Off (W.SetDisabledWhen: its home row's state) it dims and sets
 -- nothing. A click on its label calls f.psOnClick. Any other kind is its
@@ -213,6 +216,287 @@ do
 			return f
 		end
 		return W.Bind(f, c.key)
+	end
+end
+
+-- A rail icon's fly-out: a panel at the icon's right listing items ({ key,
+-- label } choices; { heading = true, label } a muted heading), each a click
+-- that calls onSelect(key) and closes it. One for every window; it goes once
+-- the pointer is on neither the icon nor the panel. -> the panel
+do
+	local flyout
+	local FLY_ROW, FLY_PAD, FLY_MIN = 28, 6, 160
+	local function flyHeld(fly)
+		local a = fly.psAnchor
+		return (fly.IsMouseOver and fly:IsMouseOver() == true) or (a and a.IsMouseOver and a:IsMouseOver() == true)
+	end
+
+	function W.ShellFlyout(anchor, items, onSelect)
+		if not flyout then
+			flyout = CreateFrame("Frame", nil, ns.UIParent)
+			flyout:SetFrameStrata("DIALOG")
+			flyout:SetClampedToScreen(true)
+			flyout:EnableMouse(true)
+			flyout.psMenu = true
+			Theme.Skin(flyout, "panel")
+			flyout.rows = {}
+			-- A short grace, so the pointer crosses the gap from the icon to it.
+			flyout:SetScript("OnUpdate", function(self, elapsed)
+				if flyHeld(self) then
+					self.psAway = 0
+				else
+					self.psAway = (self.psAway or 0) + (elapsed or 0)
+					if self.psAway > 0.3 then self:Hide() end
+				end
+			end)
+			flyout:Hide()
+		end
+		local fly = flyout
+		fly.psAnchor, fly.psOnSelect, fly.psAway = anchor, onSelect, 0
+		local wd, y = FLY_MIN, FLY_PAD
+		for i, item in ipairs(items or {}) do
+			local b = fly.rows[i]
+			if not b then
+				b = CreateFrame("Button", nil, fly)
+				b:SetHeight(FLY_ROW)
+				hoverTexture(b)
+				b.Label = W.Text(b, "body", "textDim")
+				b.Label:SetJustifyH("LEFT")
+				b.Label:SetPoint("LEFT", b, "LEFT", 12, 0)
+				b:SetScript("OnClick", function(self)
+					fly:Hide()
+					if not self.psHeading and fly.psOnSelect then fly.psOnSelect(self.psKey) end
+				end)
+				fly.rows[i] = b
+			end
+			b.psKey, b.psHeading = item.key, item.heading and true or false
+			b.Label:SetText(item.label or "")
+			W.Color(b.Label, item.heading and "textMuted" or "textDim")
+			if item.heading then b:Disable() else b:Enable() end
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", fly, "TOPLEFT", 0, -y)
+			b:SetPoint("TOPRIGHT", fly, "TOPRIGHT", 0, -y)
+			b:Show()
+			wd = max(wd, math.ceil(textWidth(b.Label)) + 24)
+			y = y + FLY_ROW
+		end
+		for i = #(items or {}) + 1, #fly.rows do fly.rows[i]:Hide() end
+		fly:SetSize(wd, y + FLY_PAD)
+		fly:ClearAllPoints()
+		fly:SetPoint("TOPLEFT", anchor, "TOPRIGHT", 4, FLY_PAD)
+		fly:SetFrameLevel((anchor:GetFrameLevel() or 0) + 20)
+		fly:Show()
+		return fly
+	end
+
+	-- The fly-out, made or not (nil).
+	function W.ShellFlyoutFrame() return flyout end
+
+	-- The fly-out closed (f: only one opened from that window's list).
+	function W.ShellFlyoutHide(f)
+		if not (flyout and flyout:IsShown()) then return end
+		local a = flyout.psAnchor
+		if f and a and rawget(a, "psShell") ~= f then return end
+		flyout:Hide()
+	end
+end
+
+-- The sidebar's own rows and layout (core's W.ShellNav asks for them: W.NavParts
+-- rows, W.NavRowAfter, W.NavRowEnter), for the new settings page only.
+do
+	local PROFILE = 48
+
+	-- A pinned setting: its live control (W.PinControl) on the text edges, one a
+	-- key, made the first time it is pinned, off while item.disabled() says so,
+	-- its label a click that calls onSelect(item.key).
+	local function pinOf(f, item)
+		f.navPins = rawget(f, "navPins") or {}
+		local pc = f.navPins[item.pin]
+		if not pc or pc.psSpec ~= item.control then
+			if pc then pc:Hide() end
+			pc = W.PinControl(f.NavScroll.Child, item.control)
+			f.navPins[item.pin] = pc
+		end
+		return pc
+	end
+	W.NavParts.pin = {
+		reset = function(f) for _, pc in pairs(rawget(f, "navPins") or {}) do pc:Hide() end end,
+		height = function(item, f) return pinOf(f, item):GetHeight() end,
+		place = function(f, item, y)
+			local pc, pad = pinOf(f, item), max(12, SHELL.side - (f.psNavRoom or 0))
+			pc:ClearAllPoints()
+			pc:SetPoint("TOPLEFT", f.NavScroll.Child, "TOPLEFT", SHELL.side, -y)
+			pc:SetPoint("TOPRIGHT", f.NavScroll.Child, "TOPRIGHT", -pad, -y)
+			pc.psLabel = item.label or pc.psLabel
+			pc.psOnClick = function() if f.psOnNav then f.psOnNav(item.key) end end
+			if item.choices and rawget(pc, "Face") then pc.psChoices = item.choices end
+			if item.disabled then W.SetDisabledWhen(pc, item.disabled) else pc:Refresh() end
+			pc:Show()
+		end,
+	}
+
+	-- The profile card at the list's foot: its glyph, its name over a muted
+	-- caption, and its action button (item.action) at the right, which calls
+	-- onSelect(item.key).
+	local function cardOf(f)
+		local card = rawget(f, "NavProfile")
+		if card then return card end
+		card = CreateFrame("Frame", nil, f.NavScroll.Child)
+		card:SetHeight(PROFILE)
+		card.Icon = W.Tex(card, "ARTWORK", "layers", "textDim")
+		card.Icon:SetSize(16, 16)
+		card.Icon:SetPoint("LEFT", card, "LEFT", SHELL.side, 0)
+		card.Action = W.Button(card, "", function() if f.psOnNav and card.psKey then f.psOnNav(card.psKey) end end, { height = 24, ghost = true })
+		card.Action.psTight = true
+		card.Action:SetPoint("RIGHT", card, "RIGHT", -SHELL.side + 8, 0)
+		card.Caption = W.Text(card, "small", "textMuted")
+		card.Caption:SetPoint("BOTTOMLEFT", card.Icon, "RIGHT", 12, 1)
+		card.Caption:SetPoint("RIGHT", card.Action, "LEFT", -8, 0)
+		card.Name = W.Text(card, "body", "text")
+		card.Name:SetPoint("TOPLEFT", card.Icon, "RIGHT", 12, -1)
+		card.Name:SetPoint("RIGHT", card.Action, "LEFT", -8, 0)
+		f.NavProfile = card
+		return card
+	end
+	W.NavParts.profile = {
+		reset = function(f) if rawget(f, "NavProfile") then f.NavProfile:Hide() end end,
+		height = function() return PROFILE end,
+		place = function(f, item, y)
+			local card = cardOf(f)
+			card.psKey = item.key
+			card.Name:SetText(item.label or tostring(item.profile))
+			card.Caption:SetText(item.caption or "")
+			W.SetButtonText(card.Action, item.action or "")
+			card.Action:SetShown(item.action ~= nil)
+			card.Action.psTip = item.tip
+			card:ClearAllPoints()
+			card:SetPoint("TOPLEFT", f.NavScroll.Child, "TOPLEFT", 0, -y)
+			card:SetPoint("TOPRIGHT", f.NavScroll.Child, "TOPRIGHT", 0, -y)
+			card:Show()
+		end,
+	}
+
+	-- An empty run as tall as the list is short of its view: the rows after it
+	-- sit at the view's foot.
+	W.NavParts.fill = {
+		reset = function() end,
+		place = function() end,
+		height = function(item, f, items)
+			local total = 0
+			for _, it in ipairs(items or {}) do
+				if it ~= item and not it.fill then total = total + W.NavRowHeight(it, f, items) end
+			end
+			return max(0, W.ShellNavHeight(f) - total)
+		end,
+	}
+
+	-- A row's marks as this window draws them: on the rail the icon alone (the
+	-- page's ring at its corner); else an open group's icon and label lit, and a
+	-- page under it (item.indent) a tree row: its guide line under the group's
+	-- icon, a 2px accent segment on it while active, no icon. Only on the new
+	-- page's settings window: the classic page and the guides window keep
+	-- core's rows (their active row's bar).
+	function W.NavRowAfter(b, item, on)
+		local f = b.psShell
+		local O = ns.UI and ns.UI.Options
+		if not (O and O.Grouped and f == rawget(O, "frame") and O.Grouped.On()) then
+			if rawget(b, "Guide") then
+				b.Guide:Hide()
+				b.Tick:Hide()
+			end
+			return
+		end
+		local rail = rawget(f, "psNavRail")
+		local sub = item.indent and not rail and true or false
+		if sub and not rawget(b, "Guide") then
+			b.Guide = W.Divider(b, true)
+			b.Tick = W.Tex(b, "ARTWORK", nil, "accent")
+			b.Tick:SetSize(2, 16)
+		end
+		if rawget(b, "Guide") then
+			b.Guide:ClearAllPoints()
+			b.Guide:SetPoint("TOP", b, "TOPLEFT", SHELL.side + 8, 0)
+			b.Guide:SetPoint("BOTTOM", b, "BOTTOMLEFT", SHELL.side + 8, 0)
+			b.Guide:SetShown(sub)
+			b.Tick:ClearAllPoints()
+			b.Tick:SetPoint("CENTER", b, "LEFT", SHELL.side + 8, 0)
+			b.Tick:SetShown(sub and on)
+		end
+		b.psSub = sub
+		b.Icon:SetSize(16, 16)
+		if item.heading or item.group then return end
+		if sub then
+			b.Bar:Hide()
+			b.Icon:Hide()
+			b.Label:ClearAllPoints()
+			b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side + 28, 0)
+			b.Label:SetPoint("RIGHT", b, "RIGHT", -(b.psRight or 12), 0)
+		end
+		local empty = item.count == 0
+		W.Color(b.Label, (on or item.open) and "text" or (empty and "textMuted" or (item.indent and "textDim" or "navRest")))
+		W.Color(b.Icon, (on or item.open) and "accent" or (empty and "textOff" or "textDim"))
+		b.Label:SetShown(not rail)
+		if rail then
+			b.Icon:SetSize(20, 20)
+			b.Icon:ClearAllPoints()
+			b.Icon:SetPoint("CENTER", b, "LEFT", (f.psSidebar or SHELL.sidebar) / 2, 0)
+			b.Count:Hide()
+			b.Dot:Hide()
+			b.Chevron:Hide()
+			b.Changed:ClearAllPoints()
+			b.Changed:SetPoint("CENTER", b.Icon, "TOPRIGHT", 2, 0)
+			b.Changed:SetShown(item.new == true)
+		end
+	end
+
+	-- On the rail a row's icon opens its fly-out, else names it. -> handled
+	function W.NavRowEnter(b, f)
+		local item = b.psItem
+		if not (item and rawget(f, "psNavRail")) then return false end
+		if item.flyout then
+			W.ShellFlyout(b, item.flyout, f.psOnNav)
+		elseif item.label then
+			W.Tooltip(b, "ANCHOR_RIGHT", item.label)
+		end
+		return true
+	end
+
+	-- The sidebar folded to an icon rail (on) or at its full width: the rail is
+	-- as wide as its icons (SHELL.side either side of a 24 box), the main column
+	-- takes the room it gives up, and the lockup's words and the version line go
+	-- while it is folded (the emblem stays, centred). The caller lays its page
+	-- out again, and draws the list (W.ShellNav) for the rail.
+	function W.ShellNavRail(f, on)
+		on = on and true or false
+		if (rawget(f, "psNavRail") or false) == on then return end
+		f.psNavRail = on or nil
+		f.psSidebarFull = rawget(f, "psSidebarFull") or f.psSidebar or SHELL.sidebar
+		local wd = on and (SHELL.side * 2 + 24) or f.psSidebarFull
+		f.psSidebar = wd
+		f.Sidebar:SetWidth(wd)
+		f.NavScroll.Child:SetWidth(wd - 1)
+		f.psNavRoom = nil
+		f.Wordmark:SetShown(not on)
+		f.Tagline:SetShown(not on)
+		f.Status:SetShown(not on)
+		-- The emblem and its glow stay square: the glow gives up width to the
+		-- rail rather than spill past it or squash.
+		local glow = rawget(f.Emblem, "Glow")
+		if glow then
+			glow.psFull = glow.psFull or glow:GetWidth()
+			local gs = on and min(wd, glow.psFull) or glow.psFull
+			glow:SetSize(gs, gs)
+		end
+		if not rawget(f, "Rail") then
+			f.Emblem:ClearAllPoints()
+			if on then
+				f.Emblem:SetPoint("TOP", f.Sidebar, "TOP", 0, -(47 - f.Emblem:GetHeight() / 2))
+			else
+				f.Emblem:SetPoint("TOPLEFT", f.Sidebar, "TOPLEFT", SHELL.side - 6, -(47 - f.Emblem:GetHeight() / 2))
+			end
+		end
+		if on then f.Stage:Hide() else W.ShellStatus(f) end
+		W.ShellLayout(f)
 	end
 end
 

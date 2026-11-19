@@ -8646,17 +8646,19 @@ button (`W.HeaderScale`). The switch only keeps the choice; `UI.Options.Kit` han
 window and the page it shows.
 
 Switched on, the new page (`UI/Grouped.lua`, the same rows from the same registry) lays the window out in
-fewer doors: the window's own sidebar as a tree of groups (`G.TREE`: Guiding, Look, Setup, About), the one
-shown open on its pages; each page's own tabs as folder tabs (`W.FolderTabs`: an icon before each label, a
-dot after it while a row on the tab is off its default); a search-first header (a "Group > Page" crumb, the
-wide search, the switch, Peek, Fold, Reload UI and the ··· menu for Menu scale, Move frames and the resets,
-Undo beside the crumb) with no footer; an All / Changed filter (Changed: one card per page with changes); a
-jump index for tabs of more than 30 rows; Legend card headers with their changed count and Reset and a pill
-for a module's switch; and the live preview of a page beside the rows (`optionsPreviewHidden`). `UI/Kit.lua`
-holds the widgets only this window uses (`W.PinControl`, `W.FolderTabs`, `W.LegendHeader`, `W.PillSwitch`,
-`W.SearchFirst` and `W.HeaderMenu`), so `Theme/Widgets.lua` stays small and nothing extra loads at login.
-`UI.Options.Kit` hands the layout the registry and the window's own builders; `O.Select`, the sidebar, the
-search, the relayout, LB / RB and a jump to a row ask `UI.Options.Grouped` first while it is on.
+fewer doors: a sidebar tree of groups (`G.TREE`: Guiding, Look, Quality of Life, Setup) with each page's
+changed count, Expand all (`PolestarDB.optionsNavAll`), an icon rail with fly-outs (`optionsRail`), live pinned
+settings, About and Guiding Stars, and the profile card at its foot; each page's own tabs as folder tabs; a search-first header (a "Group > Page"
+crumb, the wide search, the switch, Peek, Fold, Reload UI and the ··· menu for Settings scale, Move frames and the
+resets, Undo beside the crumb) with no footer; an All / Changed filter (Changed: one card per page with
+changes); a jump index for tabs of more than 30 rows; Legend card headers with their changed count and Reset
+and a pill for a module's switch; and the live preview of a page beside the rows (`optionsPreviewHidden`).
+`UI/Kit.lua` holds the widgets only this window uses (`W.PinControl`, the sidebar's pin and profile rows
+`W.NavParts`, `W.ShellNavRail`, `W.ShellFlyout`, `W.FolderTabs`, `W.LegendHeader`, `W.PillSwitch`,
+`W.HeaderMenu`), so `Theme/Widgets.lua` stays small and nothing extra loads at login; `W.ShellNav` calls them
+only for rows this window gives it (`part`, `W.NavRowAfter`, `W.NavRowEnter`). `UI.Options.Kit` hands the layout the registry and
+the window's own builders; `O.Select`, the sidebar, the search, the relayout, LB / RB and a jump to a row ask
+`UI.Options.Grouped` first while it is on.
 
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
