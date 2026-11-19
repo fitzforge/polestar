@@ -1,6 +1,7 @@
 ---
 section: players
 ---
-- At level 36 or above, Alliance players can hunt Sin'Dall while looking for
-  Lashtail Raptors and hand the paw to Ajeck on the same visit. If you are
-  below 36 or skip the tiger, the later Stranglethorn guide still covers her.
+- If you carry Tiger Mastery at level 36 or above, you can hunt Sin'Dall while
+  looking for Lashtail Raptors. Ajeck's hand-in appears at the hunters' camp
+  only once you have the paw. If you leave the hunt for later, keep the quest
+  for your next Stranglethorn visit.

@@ -8747,8 +8747,46 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) {
 		const along = compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along);
 		const goals = along.map((st) => [st.along, st.goals.map((go) => [go.t, go.quest, go.item, go.optional])]);
-		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? [['hunters', [['collect', 188, 3879, true]]]] : [], `${g}: only the optional paw on the raptor hill, no other along work`);
+		const tiger = [['hunters', [['collect', 188, 3879, true]]], ['rebel', [['turnin', 188, undefined, true]]]];
+		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? tiger : [], `${g}: only the optional hill hunt and its camp hand-in`);
 	}
+});
+
+test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once the paw is ready", { skip }, () => {
+	const pack = buildSimPack(['forever/alliance/30-40/04b-stranglethorn-vale.guide']);
+	try {
+		const guide = pack.guides[0];
+		const stepOf = (q, t) => guide.steps.findIndex(s => s.goals.some(g => g.quest === q && g.t === t)) + 1;
+		const hunt = stepOf(195, 'kill'), camp = stepOf(195, 'turnin'), handIn = stepOf(188, 'turnin');
+		assert.ok(hunt && camp && handIn);
+		const [seen] = playGuide(pack, guide, { race: 'Human', cls: 'WARRIOR', faction: 'Alliance',
+			before: `w.setLevel(36); w.complete({187,194}); w.accept(195,{10},"Raptor Mastery")
+				w.accept(188,{{type="item",text="Paw of Sin'Dall",required=1}},"Tiger Mastery")`,
+			script: `local E, w = Polestar.Engine, stub.world
+				local function settle() stub.advance(.6); stub.advance(.6) end
+				local function listed()
+					for _,row in ipairs(E.GetAlong()) do
+						for _,g in ipairs(row.goals) do if g.quest==188 and g.t=="turnin" then return true end end
+					end
+					return false
+				end
+				E.SkipUpTo(${hunt}); settle(); w.finish(195); settle()
+				w.moveTo(1434,35.56,10.57); settle()
+				assert(E.GetLiveStep()==${camp})
+				local out = { premature=listed(), earlyAim=E.AimAlong(${handIn},1),
+					earlyRow=E.GetStepView(${handIn}).goals[1].status }
+				for _,row in ipairs(E.GetWhileHereList()) do assert(row.quest~=188 or row.t~="turnin") end
+				w.turnIn(195); settle()
+				local wp=E.GetWaypoint()
+				out.nextQuest=E.GetGuide().steps[wp.stepIndex or E.GetLiveStep()].goals[wp.goalIndex].quest
+				w.addItem(3879); w.progress(188,1,1); settle()
+				out.ready=listed(); out.canAim=E.AimAlong(${handIn},1); settle()
+				wp=E.GetWaypoint(); out.giver=E.GetGuide().steps[wp.stepIndex].goals[wp.goalIndex].npc
+				w.turnIn(188); w.removeItem(3879); settle(); out.after=listed()
+				emit(out)` });
+		assert.deepEqual(seen, { premature: false, earlyAim: false, earlyRow: 'na', nextQuest: 196,
+			ready: true, canAim: true, giver: 717, after: false });
+	} finally { pack.dispose(); }
 });
 
 
