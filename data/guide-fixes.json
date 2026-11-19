@@ -18,15 +18,31 @@
 			"issue": 3144
 		},
 		{
-			"id": "searing-rim-slavers",
+			"id": "searing-group-bounty",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "accept"
+			},
+			"tip": "Take the bounty from the board only if you want to hunt the linked dwarf packs with a group.",
+			"note": "Only a group opting in takes this bounty on the Alliance route. The seed separates its two outdoor hunts from the solo dagger quest and keeps the hand-in for players who finished it.",
+			"source": {
+				"kind": "recording",
+				"ref": "Culling the Competition: nine guide followers died eleven times, median level 49.1."
+			},
+			"issue": 3144,
+			"when": "group 7729"
+		},
+		{
+			"id": "searing-surface-slavers-careful",
 			"faction": "Alliance",
 			"at": {
 				"quest": 7729,
 				"goal": "objective",
 				"objective": 2
 			},
-			"tip": "Careful: Slavers call allies within 15 yards and can net you. Pull back onto open ground on the north rim below Thorium Point. Leave any pair with another pack close by.",
-			"note": "Pull away from the other packs on the north rim; a net can leave the player in a linked camp. The seed keeps the two kills and their dagger on the loop through the north-rim spawns at 43.29,28.24 and 46.49,25.27 (Searing Gorge, Era); a single point would still offer alternatives on the floor. The furnace and ridge items have their own step.",
+			"tip": "Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty.",
+			"note": "A Taskmaster stands within eight yards of the first surface Slaver; a Steamsmith is within seven yards of the next. Large circles also admitted dwarves on lower floors. The bounty wants fifteen Slavers and fifteen Taskmasters.",
 			"source": {
 				"kind": "recording",
 				"ref": "Culling the Competition: nine guide followers died eleven times, median level 49.1."
@@ -3674,13 +3690,15 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "JOB OPPORTUNITY: the Dark Iron Taskmasters drive the slaves across the Cauldron, which the Firewatch Ridge step works; an along list kept them on screen from Thorium Point.",
+			"note": "Only players opting in to Culling the Competition hunt these outdoor Taskmasters. Keep the objective off the solo route and out of the mine under the Cauldron.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
-			]
+			],
+			"when": "group 7729",
+			"tip": "With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the Slag Pit."
 		},
 		{
 			"id": "a4060-sg-slavers-in-their-step",
@@ -3691,13 +3709,14 @@
 				"objective": 2
 			},
 			"along": false,
-			"note": "JOB OPPORTUNITY: the Dark Iron Slavers work the Cauldron with the Taskmasters, on the Firewatch Ridge step.",
+			"note": "The group bounty uses Slaver spawns on the surface, not lower mine floors or the general area around a Taskmaster.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
-			]
+			],
+			"when": "group 7729"
 		},
 		{
 			"id": "a4060-sg-daggers-in-their-step",
@@ -3708,13 +3727,14 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "Forging the Shaft: the Thorium Plated Daggers come from the Taskmasters and Slavers of the Cauldron, so the dagger is a goal of the Dark Iron dwarves step, which comes after Velarok gives the quest, and the quest is handed in right after it; the along list from Velarok duplicated them.",
+			"note": "Forging the Shaft: Steamsmiths on the surface at the furnaces drop Thorium Plated Daggers. Keep the solo dagger work at the Smithing Tuyere stop, independent of the linked packs for the group bounty; hand in to Velarok afterwards.",
 			"source": [
 				{
 					"kind": "recording",
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
-			]
+			],
+			"tip": "Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the Smithing Tuyere. Pull from the outside of the camp."
 		},
 		{
 			"id": "a4060-sg-incendosaurs-in-their-step",

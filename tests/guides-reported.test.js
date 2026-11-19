@@ -6641,16 +6641,23 @@ test("Alliance later Stranglethorn: Sin'Dall is a carried hunt, not a new camp t
 	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
 });
 
-test('Culling the Competition: both kills and their daggers search only the north rim', { skip }, () => {
+test('Culling the Competition: linked surface camps are a group choice; solo daggers come from the furnaces', { skip }, () => {
 	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
-	const targets = list.filter(({ goal }) => goal.quest === 7729 && goal.t === 'kill' || goal.quest === 3443 && goal.item === 10551);
-	assert.equal(targets.length, 3);
-	for (const { goal, step } of targets) {
-		assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[43.29, 28.24], [46.49, 25.27]]);
-		assert.deepEqual(goal.spots.map((s) => s.r), [45, 25], 'a Slaver and a Taskmaster spawn inside each circle');
-		if (goal.item === 10551) assert.equal(goal.npc, 5844, 'the dagger targets a Slaver on this hunt');
-		assert.ok(!step.goals.some((g) => g.quest === 7728), 'the Lookouts and Steamsmiths have their own hunt');
+	const bounty = list.filter(({ goal }) => goal.quest === 7729 && ['accept', 'kill'].includes(goal.t));
+	assert.equal(bounty.length, 3);
+	for (const { step } of bounty) assert.ok(step.when.some(p => p.k === 'group' && !p.neg && [p.q].flat().includes(7729)));
+	const target = id => list.find(({ goal }) => goal.npc === id && (goal.quest === 7729 || goal.item === 10551));
+	for (const [id, radius, points] of [
+		[5846, 12, [[43.12, 40.38], [45.68, 39.66], [49.15, 39.93], [44.79, 51.93]]],
+		[5844, 10, [[42.81, 40.54], [43.2, 51.97], [35.32, 58.47]]],
+		[5840, 10, [[38.15, 51.36], [37.69, 49.65], [40.58, 49.48], [40.01, 48.33]]],
+	]) {
+		const { goal, step } = target(id);
+		assert.deepEqual(goal.spots.map(({ x, y, r }) => [x, y, r]), points.map(p => [...p, radius]));
+		assert.equal(goal.count, id === 5840 ? 8 : 15);
+		if (id === 5840) assert.ok(!step.when?.some(p => p.k === 'group'));
 	}
+	assert.ok(target(5840).s > list.find(({ goal }) => goal.item === 18959).s, 'finish missing daggers at the same furnaces');
 });
 
 test('Southwind Village: the reliquary can go back with Umber, with a later fallback', { skip }, () => {
