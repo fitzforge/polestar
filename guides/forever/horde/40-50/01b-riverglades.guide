@@ -281,11 +281,12 @@ step Tan'jani
 # Elites, each behind a group choice: Scoutmaster Vargas (42); Chogg'Zac (41), the two heads Twilight No More! asks
 # for. The rest of the ogre story waits on him (Land of Giants, Bolder'ok and its Ring, Da'grosh's camp in part 4):
 # a player who skips him skips those too, and leaves the zone from the port by Rog'mar.
+# Gobam's errands (Our Ogre Friend 94733, A Boar's Delight 94734, A Treat for a Friend 94737) and Hamur's Step One:
+# Rock (95183) are for players who beat the Ring's fourth bout: taken in Bolder'ok after it, the rocks gathered on
+# the way down to the port, the sweetberries on the pirates' slopes, the riverweed along the river on the ride back
+# up to Bolder'ok after the port (part 4), with the Ring's last two bouts (20 of 23 recorded Ring players did it all).
 # Left out on purpose:
-# - Step One: Rock (95183): Hamur offers it only once Might Makes Right is handed in, when the rock piles are back
-#   in the hills behind you; Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
-# - Our Ogre Friend (94733), A Boar's Delight (94734) and A Treat for a Friend (94737): offered only after the fourth
-#   bout of the Ring, and the sweetberries grow by the Eastsea pirates far to the south-east.
+# - Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
 
 step Tran'gul
   tip Tran'gul stands beside Krom'rosh in the middle of Rog'mar: now that the Farholde camp has had its lesson, he has work in Sunnyglade.
@@ -438,15 +439,18 @@ step The Bloodmaster's Ring: Mog'thar
   complete 94964 @65.7,20.2
   turnin 94964
 
-step The Bloodmaster's Ring: Snufflesnout and Chub'chob
-  when turnedin 94737
-  tip Jezap offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if Mog'thar was a close fight.
-  accept 94965 optional                 -- Snufflesnout (44)
-  complete 94965 @65.7,20.2
-  turnin 94965
-  accept 95063 optional                 -- Chub'chob (45)
-  complete 95063 @65.7,20.2
-  turnin 95063                          -- Clugfist, on the hill
+step Gobam and Hamur
+  when turnedin 94964
+  tip With Mog'thar beaten, Jezap sends you to Gobam, who keeps the Ring's beasts a few steps north-east of the ring; Hamur, just south of the ring, wants good rock. Gobam's boar treat needs Sweetberries from the pirates' slopes north of Powderfuse Port and Riverweed from the river between Rog'mar and Bolder'ok: this guide gathers both and brings you back here after the port, for the Ring's last two bouts.
+  accept 94733                          -- Jezap Jinglesprocket: Our Ogre Friend
+  turnin 94733                          -- Gobam
+  accept 94734                          -- A Boar's Delight
+  accept 95183                          -- Hamur: Step One: Rock
+
+step The rock piles
+  when onquest 95183
+  tip South-east from Bolder'ok on the way down to the port: Hamur's rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp.
+  collect 271892 x10 quest 95183.1      -- Good Rock
 
 # Riverglades for the Horde, part 3 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
@@ -577,6 +581,12 @@ step The pirates' second wave
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
 
+step Sweetberries
+  when level>=44
+  when onquest 94734
+  tip Gobam's Sweetberry bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north.
+  collect 265808 x8 quest 94734.1 @78.9,37.3  -- Sweetberry
+
 step Captain Bentcoin
   when level>=44
   tip East along the cliffs to the far end of the pirates' camp: Captain Bentcoin waits by the water, Captain Haynes beside him.
@@ -632,7 +642,8 @@ step Argo Brinewhistle
 
 # Riverglades for the Horde, part 4 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
-# Order: the hearth to Rog'mar; west through Sunnyglade to Da'grosh's camp below Twilight's
+# Order: Ring players ride back up to Bolder'ok along the river (the riverweed, Gobam and Hamur, the Ring's last two
+# bouts), everyone else hearths; Rog'mar; west through Sunnyglade to Da'grosh's camp below Twilight's
 # Shroud, Crag'rog's cave, the Twilight cult's camps and ogre mine (levels 41-44); out through Twilight's Shroud to
 # Kargath (its flight path), where the Feralas & Tanaris guide picks up.
 # Offered only after another quest is handed in (players' recordings): The Wayward Warrior after Clugfist's Decree;
@@ -648,9 +659,41 @@ step Argo Brinewhistle
 # - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
 #   zone through Twilight's Shroud instead.
 
+step The river: Riverweed
+  when onquest 94734
+  tip From the port, ride north-west to the river and follow it upstream towards Bolder'ok: Gobam's Riverweed grows along its banks between Rog'mar and Bolder'ok.
+  collect 265806 x12 quest 94734.2 @62.6,39.0  -- Riverweed
+
+step Bolder'ok
+  when onquest 95183
+  turnin 95183                          -- Hamur
+
+step Gobam
+  when onquest 94734
+  tip North up the river to Bolder'ok: Hamur just south of the ring, Gobam north-east of it, then Jezap.
+  turnin 94734                          -- Gobam
+  accept 94737                          -- A Treat for a Friend
+  turnin 94737                          -- Jezap Jinglesprocket
+
+step The Bloodmaster's Ring: Snufflesnout
+  when turnedin 94737
+  when group 94965
+  tip Snufflesnout is elite: grouping up is advised.
+  accept 94965                          -- Snufflesnout (44)
+  complete 94965 @65.7,20.2
+  turnin 94965
+
+step The Bloodmaster's Ring: Chub'chob
+  when turnedin 94965
+  when group 95063
+  tip Chub'chob is elite: grouping up is advised.
+  accept 95063                          -- Chub'chob (45)
+  complete 95063 @65.7,20.2
+  turnin 95063                          -- Clugfist, on the hill
+
 step Rog'mar
   when onquest 95428
-  tip Back to Rog'mar from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
+  tip Back to Rog'mar: from Bolder'ok south-west down the river, or from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
   turnin 95428                          -- Krom'rosh: Clugfist's Decree
   accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
 

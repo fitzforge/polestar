@@ -8812,6 +8812,16 @@
 				"q": 99258,
 				"size": 2,
 				"why": "Shen'dralas (both factions, route round 0.4.3, #3145): Mana Mania, Historian Biraxas' task after A Heart of Crystal, is one kill of a Nascent Pylon Protector, a level-43 elite at the quest's own level, so the creature data reads it soloable; an elite is a group mob, so it is a group choice (a group of 2), after A Heart of Crystal. Players' recordings: 8 people took it."
+			},
+			{
+				"q": 94965,
+				"size": 2,
+				"why": "#3145: Snufflesnout (44) is an elite in Bolder'ok's Ring. Players recorded the two final bouts after Gobam's treat; keep each behind a group choice."
+			},
+			{
+				"q": 95063,
+				"size": 2,
+				"why": "#3145: Chub'chob (45) is an elite in Bolder'ok's Ring. Players recorded the two final bouts after Gobam's treat; keep each behind a group choice."
 			}
 		]
 	},
