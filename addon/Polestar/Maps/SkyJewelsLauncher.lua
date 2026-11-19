@@ -4,6 +4,15 @@ if ns.GamepadUI() then return end
 local L = ns.L
 local PACK = "Polestar_SkyJewels"
 
+function ns.SkyJewelsAvailable()
+	local A = C_AddOns
+	if not (A and A.IsAddOnLoadable) then return false end
+	local player = ns.Compat.Readable(UnitGUID("player"))
+	if not player then return false end
+	local ok, loadable = pcall(A.IsAddOnLoadable, PACK, player, true)
+	return ok and loadable == true
+end
+
 function ns.OpenSkyJewels()
 	if ns.Compat.InCombat() then
 		ns.Print(L["Sky Jewels opens after the fight."])
@@ -25,5 +34,3 @@ function ns.OpenSkyJewels()
 end
 
 ns.RegisterCommand("jewels", ns.OpenSkyJewels, L["Play Sky Jewels"])
-SLASH_POLESTAR_SKYJEWELS1 = "/skyjewels"
-SlashCmdList.POLESTAR_SKYJEWELS = function() ns.RunCommand("jewels") end

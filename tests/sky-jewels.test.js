@@ -17,7 +17,42 @@ const skip = (() => {
 })();
 const login = { addons: ['Polestar'], stubs: ['stub_world.lua'], login: true };
 
-test('Sky Jewels loads only when first opened with /skyjewels', { skip }, () => {
+test('the guide menu offers Sky Jewels only when it can load for this character', { skip }, () => {
+	runAddon({
+		...login,
+		script: `
+local pack = "Polestar_SkyJewels"
+local status = "MISSING"
+function C_AddOns.IsAddOnLoadable(name, character, demandLoaded)
+	assert(name == pack and character == UnitGUID("player"), "Expected the current character's addon state")
+	if status == "MISSING" then return false, status end
+	if status == "DISABLED" or not demandLoaded then return false, status end
+	return true
+end
+local menu = Polestar.Theme.GuideParts().nav.Menu
+local entry
+Polestar.Widgets.ShowMenu = function(_, items)
+	entry = nil
+	for _, item in ipairs(items) do
+		if item.text == Polestar.L["Play Sky Jewels"] then entry = item end
+	end
+end
+local function openMenu()
+	Polestar.UI.GuideFrame.OpenMenu(menu)
+	return entry
+end
+assert(not openMenu(), "A missing addon should not get a menu entry")
+status = "DISABLED"
+assert(not openMenu(), "An addon disabled for this character should not get a menu entry")
+status = "DEMAND_LOADED"
+local play = assert(openMenu(), "An available load-on-demand addon should get a menu entry")
+assert(not C_AddOns.IsAddOnLoaded(pack), "Opening the menu should not load the game")
+play.onClick()
+assert(C_AddOns.IsAddOnLoaded(pack) and Polestar.SkyJewels.IsOpen(), "The menu entry did not open the game")`,
+	});
+});
+
+test('Sky Jewels loads only when first opened with /polestar jewels', { skip }, () => {
 	const toc = fs.readFileSync(path.join(ADDONS, 'Polestar_SkyJewels', 'Polestar_SkyJewels.toc'), 'utf8');
 	assert.match(toc, /^## LoadOnDemand:[ \t]*1[ \t]*\r?$/m);
 	runAddon({
@@ -25,8 +60,7 @@ test('Sky Jewels loads only when first opened with /skyjewels', { skip }, () => 
 		script: `
 assert(not C_AddOns.IsAddOnLoaded("Polestar_SkyJewels") and not Polestar.SkyJewels, "Sky Jewels was loaded at login")
 assert(not PolestarSkyJewels, "Sky Jewels created a window at login")
-assert(SLASH_POLESTAR_SKYJEWELS1 == "/skyjewels", "The core slash command is missing")
-SlashCmdList.POLESTAR_SKYJEWELS("")
+SlashCmdList.POLESTAR("jewels")
 assert(C_AddOns.IsAddOnLoaded("Polestar_SkyJewels"), "The slash command did not load Sky Jewels")
 assert(Polestar.SkyJewels.IsOpen(), "The slash command did not open Sky Jewels")`,
 	});

@@ -1,7 +1,7 @@
 local ADDON, game = ...
 local ns = Polestar
 local Board, L = game.SkyJewelsBoard, ns.L
-local SkyJewels = { title = L["Sky Jewels"], command = "/skyjewels" }
+local SkyJewels = { title = L["Sky Jewels"], command = "/polestar jewels" }
 ns.SkyJewels = SkyJewels
 
 local CELL, SIDE, SIDEBAR_X = 46, 134, 354

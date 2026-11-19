@@ -73,7 +73,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
 			end },
 		}) do items[#items + 1] = it end
-		if ns.OpenSkyJewels then
+		if ns.SkyJewelsAvailable and ns.SkyJewelsAvailable() then
 			table.insert(items, 5, { text = L["Play Sky Jewels"], icon = "gamepad", onClick = ns.OpenSkyJewels })
 		end
 		-- Freedoom Arcade (Maps/Arcade.lua), while a copy of it is there.

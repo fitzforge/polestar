@@ -41,7 +41,7 @@ one into the other. The addons:
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
 | `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Sheen/`) | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels, offered on flights by `Maps/Arcade.lua` and loaded on demand the first time Play is pressed; never loaded when his standalone `FreedoomArcade` addon is installed and enabled. Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI` | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py` | yes | yes |
-| `Polestar_SkyJewels` (`addon/Polestar_SkyJewels/`) | Optional match-three game, loaded on the first `/skyjewels` or Play Sky Jewels in the guide menu. Progress lives in Polestar's per-character state. | Addon Lua, generated levels from `tools/sky-jewels.lua` and textures from `tools/media/sky-jewels.js` | yes | yes |
+| `Polestar_SkyJewels` (`addon/Polestar_SkyJewels/`) | Optional match-three game, loaded on the first `/polestar jewels` or Play Sky Jewels in the guide menu. Progress lives in Polestar's per-character state. | Addon Lua, generated levels from `tools/sky-jewels.lua` and textures from `tools/media/sky-jewels.js` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
 A guide goes from a `.guide` file to the game in four steps. An author
@@ -463,6 +463,13 @@ argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `wa
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
 `update` (the update card, Core/Update.lua)).
+
+`Maps/SkyJewelsLauncher.lua` registers `/polestar jewels` with the keyboard
+and mouse interface and exposes Play Sky Jewels in the guide menu when
+`Polestar_SkyJewels` can load for the current character. The game stores the
+current level and settled board in `PolestarCharDB.skyJewels` and the mute
+setting in `PolestarCharDB.skyJewelsMuted`. If a saved board is invalid, the
+game starts a new board at the saved level when that level still exists.
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
