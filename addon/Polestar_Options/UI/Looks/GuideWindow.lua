@@ -570,14 +570,15 @@ local SPECS = {
 					underline = L["Above the step bar"], switcher = L["Title menu"],
 					edge = L["On the top edge"], strip = L["Down the left side"],
 				}
-				local d = names[ns.GetDefault("guideWindow.tabStyle")]
-				return {
-					{ value = "default", label = d and string.format(L["Default (%s)"], d) or L["Default"] },
-					{ value = "underline", label = names.underline },
-					{ value = "switcher", label = names.switcher },
-					{ value = "edge", label = names.edge },
-					{ value = "strip", label = names.strip },
-				}
+				local def = ns.GetDefault("guideWindow.tabStyle")
+				local d = names[def]
+				-- The default's own style is Default: picked by name it would save
+				-- nothing (ns.Set keeps no default) and read back as Default.
+				local list = { { value = "default", label = d and string.format(L["Default (%s)"], d) or L["Default"] } }
+				for _, v in ipairs({ "underline", "switcher", "edge", "strip" }) do
+					if v ~= def then list[#list + 1] = { value = v, label = names[v] } end
+				end
+				return list
 			end },
 		{ kind = "slider", key = "guideWindow.navHeight", label = L["Step bar height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
 			help = L["How tall the bar with the step number, Skip and the menu is."], search = "bar height, header, navigator, taller, shorter, size, step bar height" },
