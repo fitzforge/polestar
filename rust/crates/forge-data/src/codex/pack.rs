@@ -291,9 +291,14 @@ fn status_letter(rec: &V) -> &'static str {
 }
 
 fn encode_item(rec: &V) -> Result<String, String> {
+	// Keep the legacy Lua header empty for items with no level requirement.
+	let req_level = match rec.get("reqLevel") {
+		V::Num(0.0) => String::new(),
+		level => num(&level)?,
+	};
 	let mut parts = vec![
 		num(&rec.get("quality"))? + status_letter(rec),
-		num(&rec.get("reqLevel"))?,
+		req_level,
 		num(&rec.get("spell"))?,
 		num(&rec.get("repFaction"))?,
 		num(&rec.get("repStanding"))?,
@@ -894,6 +899,16 @@ mod tests {
 		assert_eq!(fold_name(&V::str("Ragnaros' Heart")), "ragnaros heart");
 		assert_eq!(fold_name(&V::str("Caf\u{e9}")), "cafe");
 		assert_eq!(esc(&V::str("a;b,c%")), "a%3Bb%2Cc%25");
+	}
+
+	#[test]
+	fn a_zero_item_requirement_leaves_the_legacy_header_empty() {
+		let item = forge_guide::js::parse_json(r#"{"quality":1}"#).unwrap();
+		assert_eq!(encode_item(&item).unwrap(), "1;;;;;;");
+		item.set("reqLevel", 0.0);
+		assert_eq!(encode_item(&item).unwrap(), "1;;;;;;");
+		item.set("reqLevel", 60.0);
+		assert_eq!(encode_item(&item).unwrap(), "1;60;;;;;");
 	}
 
 	#[test]

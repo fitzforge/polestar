@@ -1912,7 +1912,22 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		);
 		o.set("kind", kind);
 		o.set("spell", spell);
-		o.set("reqLevel", opt(c.and_then(|c| c.req_level)));
+		let sparse = c.filter(|c| !c.era);
+		let item = cl.and_then(|cl| cl.item_only.get(&id)).or(sparse);
+		// Era items keep their legacy nonzero level requirements. The new facts come from Forever.
+		let req_level = c.and_then(|c| c.req_level.filter(|&level| !c.era || level != 0.0));
+		for (field, value) in [
+			("reqLevel", req_level),
+			("itemLevel", sparse.and_then(|c| c.item_level)),
+			("allowClass", sparse.and_then(|c| c.allow_class)),
+			("itemClass", item.and_then(|c| c.class_id)),
+			("itemSubclass", item.and_then(|c| c.subclass_id)),
+			("slot", item.and_then(|c| c.inventory_type)),
+		] {
+			if let Some(value) = value {
+				o.set(field, value);
+			}
+		}
 		o.set("repFaction", rep_faction);
 		o.set("repStanding", rep_standing);
 		o.set("reqSkill", opt(c.and_then(|c| c.req_skill)));
@@ -2477,7 +2492,9 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::client::{client_facts, Tables};
 	use crate::codex::Forever;
+	use crate::tables::parse_csv;
 	use forge_guide::js::parse_json;
 
 	fn inputs(quests: &str, mechanics: &str) -> Inputs {
@@ -2518,6 +2535,65 @@ mod tests {
 			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
+	}
+
+	#[test]
+	fn item_filter_fields_preserve_known_zeroes_and_omit_unknowns() {
+		let mut tables = Tables::default();
+		tables.insert(
+			"ItemSparse",
+			parse_csv("ID,Display_lang,RequiredLevel,ItemLevel,AllowableClass\n19019,Thunderfury,60,80,-1\n6948,Hearthstone,0,1,-1\n1,Unusable,0,0,32\n2,Priest Only,0,1,16\n").unwrap(),
+		);
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n19019,2,7,13\n6948,15,0,0\n3,4,1,5\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+		i.forever.items = parse_json(
+			r#"{ "19019": { "name": "Thunderfury" }, "6948": { "name": "Hearthstone" }, "1": { "name": "Unusable" },
+				"2": { "name": "Priest Only" }, "3": { "name": "Item Only" }, "4": { "name": "No Client Data" } }"#,
+		)
+		.unwrap();
+		let items = merge_codex(&i).items;
+		for (id, known, unknown) in [
+			("19019", &[("reqLevel", 60.0), ("itemLevel", 80.0), ("allowClass", 1503.0), ("itemClass", 2.0), ("itemSubclass", 7.0), ("slot", 13.0)][..], &[][..]),
+			("6948", &[("reqLevel", 0.0), ("itemSubclass", 0.0), ("slot", 0.0)], &[]),
+			("1", &[("allowClass", 0.0), ("itemLevel", 0.0)], &["itemClass", "itemSubclass", "slot"]),
+			("2", &[("allowClass", 16.0)], &[]),
+			("3", &[("itemClass", 4.0), ("itemSubclass", 1.0), ("slot", 5.0)], &["reqLevel", "itemLevel", "allowClass"]),
+			("4", &[], &["reqLevel", "itemLevel", "allowClass", "itemClass", "itemSubclass", "slot"]),
+		] {
+			let item = items.get(id);
+			assert!(item.truthy(), "missing item {id}");
+			for &(field, value) in known {
+				assert!(item.get(field).strict_eq(&V::Num(value)), "{id}.{field}: expected {value}, got {:?}", item.get(field));
+			}
+			for field in unknown {
+				assert!(!item.has(field), "{id}.{field} should be absent");
+			}
+		}
+	}
+
+	#[test]
+	fn era_items_keep_legacy_quality_and_level_requirements() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,4,1,5\n2,15,0,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,OverallQualityID,RequiredLevel,ItemLevel,AllowableClass\n1,4,52,57,-1\n2,1,0,1,-1\n").unwrap());
+		let mut era = client_facts(&tables, "era fixture");
+		for item in era.items.values_mut() {
+			item.era = true;
+		}
+		let mut i = inputs("{}", "{}");
+		i.client = Some(era);
+		i.forever.items = parse_json(r#"{ "1": { "name": "Era Gear" }, "2": { "name": "Era Miscellaneous" } }"#).unwrap();
+		let items = merge_codex(&i).items;
+		let gear = items.get("1");
+		assert_eq!(gear.get("quality").num(), 4.0);
+		assert_eq!(gear.get("reqLevel").num(), 52.0);
+		for field in ["itemLevel", "allowClass", "itemClass", "itemSubclass", "slot"] {
+			assert!(!gear.has(field), "Era gear should omit {field}");
+		}
+		let misc = items.get("2");
+		assert_eq!(misc.get("quality").num(), 1.0);
+		assert!(!misc.has("reqLevel"));
 	}
 
 	#[test]

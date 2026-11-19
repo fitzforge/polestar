@@ -739,23 +739,7 @@ fn merged(s: Synth) -> Value {
 
 /// `{ ...b, name }` of a client item.
 fn like(b: &ClientItem, name: &str) -> ClientItem {
-	ClientItem {
-		name: Some(name.to_string()),
-		quality: b.quality,
-		req_level: b.req_level,
-		buy_price: b.buy_price,
-		min_faction: b.min_faction,
-		min_standing: b.min_standing,
-		pvp_rank: b.pvp_rank,
-		req_skill: b.req_skill,
-		req_skill_rank: b.req_skill_rank,
-		class_id: b.class_id,
-		subclass_id: b.subclass_id,
-		inventory_type: b.inventory_type,
-		learn: b.learn,
-		use_: b.use_,
-		era: b.era,
-	}
+	ClientItem { name: Some(name.to_string()), ..b.clone() }
 }
 
 fn find_type(sources: &Value, ty: &str) -> Value {

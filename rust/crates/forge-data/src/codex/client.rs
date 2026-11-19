@@ -5,7 +5,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use forge_guide::races::CLASSES;
+use forge_guide::races::{ALL_CLASSES, CLASSES};
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::util::{int_s, norm_s, num0_s};
@@ -101,6 +101,8 @@ pub struct ClientItem {
 	pub name: Option<String>,
 	pub quality: Option<f64>,
 	pub req_level: Option<f64>,
+	pub item_level: Option<f64>,
+	pub allow_class: Option<f64>,
 	pub buy_price: Option<f64>,
 	pub min_faction: Option<f64>,
 	pub min_standing: Option<f64>,
@@ -151,7 +153,9 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 			ClientItem {
 				name: col(r, "Display_lang").filter(|s| !s.is_empty()).cloned(),
 				quality: int(r, "OverallQualityID"),
-				req_level: truthy_int(r, "RequiredLevel"),
+				req_level: int(r, "RequiredLevel"),
+				item_level: int(r, "ItemLevel"),
+				allow_class: int(r, "AllowableClass").map(|mask| f64::from(to_int32(mask) & ALL_CLASSES as i32)),
 				buy_price: truthy_int(r, "BuyPrice"),
 				min_faction: mf,
 				min_standing: mf.map(|_| int(r, "MinReputation").filter(|n| *n != 0.0).unwrap_or(0.0) + 1.0),
