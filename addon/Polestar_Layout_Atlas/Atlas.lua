@@ -653,7 +653,6 @@ end
 -- stays closed on that step.
 local stepOf = setmetatable({}, { __mode = "k" })
 local closedOn = {} -- card -> the step it was closed on
-A.closedOn = closedOn -- for /polestar atlas test (Test.lua)
 
 -- The parts the window handed over at this layout (guidePlace), taken up by
 -- the cards at guideLayout.

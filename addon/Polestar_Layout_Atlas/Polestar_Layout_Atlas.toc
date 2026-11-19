@@ -32,4 +32,3 @@
 ## X-Polestar-Layout-Stage: beta
 
 Atlas.lua
-Test.lua
