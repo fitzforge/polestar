@@ -7,7 +7,7 @@ use forge_addontest::codex::{sample_codex, write_codex_pack, CodexOpts};
 use forge_addontest::{emitted, is_match, text, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+const FILES: [&str; 4] = ["Core/Core.xml", "Theme/Theme.xml", "Lookup/Options.lua", "UI/UI.xml"];
 
 const ALL_KINDS: [&str; 13] = ["all", "guide", "mount", "pet", "item", "recipe", "tabard", "quest", "npc", "rare", "instance", "zone", "treasure"];
 
@@ -57,6 +57,26 @@ local function type_(text)
 	local box = Polestar.UI.Picker.search
 	box:SetText(text)
 	stub.RunScript(box, "OnTextChanged", true)
+end
+local function menuChoice(text)
+	local menu = _G.PolestarMenu
+	for _, row in ipairs(menu and menu.rows or {}) do
+		if row:IsVisible() and row.Text:GetText() == text then return row end
+	end
+end
+local function choose(button, text)
+	if not (button and button:IsShown()) then return false end
+	button:Click()
+	local row = menuChoice(text)
+	if not row then return false end
+	row:Click()
+	return true
+end
+local function bottom()
+	local scroll = LK.results
+	Polestar.Widgets.ScrollTo(scroll, scroll.psContent - scroll.psView)
+	stub.RunScript(scroll, "OnVerticalScroll", scroll:GetVerticalScroll())
+	return rowTexts(scroll.Child)
 end
 "#;
 
@@ -784,6 +804,196 @@ fn one_kind_shows_a_page_of_50_and_show_more_adds_the_next_only_the_rows_in_view
 }
 
 #[test]
+fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_searching_a_kind() {
+	let out = run(r#"
+		for i = 239, 1, -1 do
+			table.insert(lookupstub.entities, { kind = "item", id = 90000 + i, title = ("Ring %03d"):format(i) })
+		end
+		table.insert(lookupstub.entities, { kind = "item", id = 91000, title = "A Ring", status = "retired" })
+		table.insert(lookupstub.entities, { kind = "item", id = 91001, title = "B Ring", status = "nosource" })
+		Polestar.Lookup.Show("ring")
+		local order = rawget(LK.root, "SearchOrder")
+		local onAll = order and order:IsShown() or false
+		LK.SetKind("item")
+		local controls = {}
+		for _, button in ipairs(Polestar.Gamepad.Collect(PolestarPicker)) do
+			if button == order or button == rawget(LK.root, "Visibility") then controls[button.Label:GetText()] = true end
+		end
+		local before = { rowTexts(LK.results.Child)[1], nav("item").Count:GetText(), LK.Selected().id }
+		LK.More()
+		bottom()
+		local picked = choose(order, "A to Z")
+		local after = { rowTexts(LK.results.Child)[1], nav("item").Count:GetText(), LK.shown.rows,
+			PolestarPicker.Subtitle:GetText(), LK.results:GetVerticalScroll() }
+		local pages, tails = {}, {}
+		for _, left in ipairs({ 191, 141, 91, 41 }) do
+			local tail = bottom()
+			tails[#tails + 1] = { tail[#tail - 1], tail[#tail] }
+			local more = rowFor(LK.results.Child, ("Show more (%d more)"):format(left))
+			if more then more:Click() end
+			pages[#pages + 1] = LK.shown.rows
+		end
+		local tail = bottom()
+		local last = { tail[#tail - 2], tail[#tail - 1], tail[#tail] }
+		type_("")
+		emit({ before = before, picked = picked, after = after, pages = pages, tails = tails, last = last, onAll = onAll,
+			onEmpty = order and order:IsShown() or false, saved = Polestar.GetStored("lookup.searchOrder") or false, controls = controls })"#);
+	assert_eq!(out["picked"], true);
+	assert_eq!(out["onAll"], false);
+	assert_eq!(out["onEmpty"], false);
+	assert_eq!(out["saved"], "az");
+	assert_eq!(out["controls"], json!({ "Best match": true, "Filters": true }));
+	assert_eq!(out["before"], json!(["Ring 239", "241", 90239]));
+	assert_eq!(out["after"], json!(["Ring 001", "241", 50, "241 results for “ring”", 0]));
+	assert_eq!(out["pages"], json!([100, 150, 200, 241]));
+	assert_eq!(out["tails"], json!([["Ring 050", "Show more (191 more)"], ["Ring 100", "Show more (141 more)"], ["Ring 150", "Show more (91 more)"], ["Ring 200", "Show more (41 more)"]]));
+	assert_eq!(out["last"], json!(["Ring 239", "A Ring", "B Ring"]));
+}
+
+#[test]
+fn lookup_visibility_menu_filters_each_status_independently_in_browse_and_search() {
+	let out = run(r#"
+		lookupstub.many(50)
+		for i, status in ipairs({ "retired", "nosource" }) do
+			table.insert(lookupstub.entities, { kind = "mount", id = 92000 + i, title = "Steed " .. status, status = status })
+		end
+		UI.ShowLookup()
+		local filters = rawget(LK.root, "Visibility")
+		local onRecent = filters and filters:IsShown() or false
+		LK.SetKind("mount")
+		local function toggle(text) return choose(filters, text) end
+		local retired, nosource = "Hide no longer obtainable", "Hide no known source"
+		local function counts()
+			local tail = bottom()
+			return { nav("mount").Count:GetText(), PolestarPicker.Subtitle:GetText(), tail[#tail] }
+		end
+		local browseRetired = toggle(retired) and counts()
+		LK.More()
+		local tail = bottom()
+		local browseTail = tail[#tail]
+		local browseSource = toggle(retired) and toggle(nosource) and counts()
+		LK.More()
+		tail = bottom()
+		local browseSourceTail = tail[#tail]
+		type_("steed"); stub.advance(0.3)
+		local searchSource = counts()
+		LK.More()
+		tail = bottom()
+		local searchSourceTail = tail[#tail]
+		local searchBoth = toggle(retired) and counts()
+		local searchRetired = toggle(nosource) and counts()
+		LK.More()
+		tail = bottom()
+		local searchRetiredTail = tail[#tail]
+		LK.SetKind("all")
+		local all = { nav("all").Count:GetText(), LK.shown.groups[1].count }
+		local restored = toggle(retired) and { nav("all").Count:GetText(), LK.shown.groups[1].count }
+		emit({ onRecent = onRecent, browseRetired = browseRetired, browseTail = browseTail, browseSource = browseSource,
+			browseSourceTail = browseSourceTail, searchSource = searchSource, searchSourceTail = searchSourceTail,
+			searchRetired = searchRetired, searchRetiredTail = searchRetiredTail, searchBoth = searchBoth,
+			all = all, restored = restored })
+	"#);
+	assert_eq!(out["onRecent"], false);
+	assert_eq!(out["browseRetired"], json!(["57", "57, from A to Z", "Show more (7 more)"]));
+	assert_eq!(out["browseTail"], "Steed nosource");
+	assert_eq!(out["browseSource"], out["browseRetired"]);
+	assert_eq!(out["browseSourceTail"], "Steed retired");
+	assert_eq!(out["searchSource"], json!(["51", "51 results for “steed”", "Show more (1 more)"]));
+	assert_eq!(out["searchSourceTail"], "Steed retired");
+	assert_eq!(out["searchBoth"], json!(["50", "50 results for “steed”", "Steed 050"]));
+	assert_eq!(out["searchRetired"], out["searchSource"]);
+	assert_eq!(out["searchRetiredTail"], "Steed nosource");
+	assert_eq!(out["all"], json!(["51", 51]));
+	assert_eq!(out["restored"], json!(["52", 52]));
+}
+
+#[test]
+fn keyboard_opens_lookup_header_menus_moves_through_choices_and_returns_to_the_search_box() {
+	let out = run(r#"
+		lookupstub.many(1)
+		Polestar.Lookup.Show("steed")
+		LK.SetKind("mount")
+		local box = UI.Picker.search
+		stub.RunScript(box, "OnTabPressed")
+		local sort = menuChoice("Best match") ~= nil
+		if sort then
+			stub.RunScript(PolestarMenu, "OnKeyDown", "DOWN")
+			stub.RunScript(PolestarMenu, "OnKeyDown", "ENTER")
+		end
+		local focused = box:HasFocus()
+		stub.RunScript(box, "OnTabPressed")
+		local visibility = false
+		if menuChoice("Best match") then
+			stub.RunScript(PolestarMenu, "OnKeyDown", "TAB")
+			visibility = menuChoice("Hide no longer obtainable") ~= nil
+			stub.RunScript(PolestarMenu, "OnKeyDown", "ENTER")
+		end
+		emit({ sort = sort, focused = focused, visibility = visibility,
+			order = Polestar.Get("lookup.searchOrder") or false, hide = Polestar.Get("lookup.hideRetired") or false,
+			returned = box:HasFocus() })
+	"#);
+	assert_eq!(out, json!({ "sort": true, "focused": true, "visibility": true, "order": "az", "hide": true, "returned": true }));
+}
+
+#[test]
+fn kind_tab_keystrokes_and_show_more_with_a_25_000_entry_codex_in_both_orders() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		script: format!(
+			r#"
+			uistub.install()
+			stub.login()
+			local UI, LK = Polestar.UI, Polestar.UI.Lookup
+			{HELPERS}
+			local lines, names = {{}}, {{}}
+			for i = 1, 25000 do
+				local name = ("Ring %05d of %s"):format(25001 - i, i % 2 == 0 and "Valor" or "Agility")
+				names[i] = name
+				lines[i] = "\2" .. Polestar.Search.Fold(name):sub(2) .. "\1" .. i .. ",2,," .. #name .. "\n"
+			end
+			local blob = table.concat(lines)
+			Polestar.Codex.IsLoaded = function() return true end
+			Polestar.Codex.Index = function(kind) if kind == "item" then return blob end end
+			Polestar.Codex.Name = function(_, id) return names[id] end
+			UI.ShowLookup()
+			LK.SetKind("item")
+			local function median(times)
+				table.sort(times)
+				return times[math.ceil(#times / 2)]
+			end
+			for _, order in ipairs({{ "best", "az" }}) do
+				Polestar.Set("lookup.searchOrder", order)
+				local keys, pages = {{}}, {{}}
+				for i = 1, 7 do
+					local at = os.clock()
+					for _, q in ipairs({{ "r", "ring", "valor", "ring agility" }}) do
+						type_(q)
+						stub.advance(0.2)
+					end
+					keys[i] = (os.clock() - at) * 1000 / 4
+					at = os.clock()
+					for _ = 1, 15 do LK.More() end
+					pages[i] = (os.clock() - at) * 1000 / 15
+				end
+				emit({{ order = order, key = median(keys), page = median(pages), rows = LK.shown.rows, count = LK.shown.total }})
+			end
+		"#
+		),
+		..Default::default()
+	});
+	for times in out {
+		let order = text(&times["order"]);
+		let (key, page) = (times["key"].as_f64().unwrap(), times["page"].as_f64().unwrap());
+		println!("{order}, 25,000 entries in Lookup: keystroke {key:.3} ms, Show more {page:.3} ms");
+		assert_eq!(times["count"], 12500);
+		assert_eq!(times["rows"], 800);
+		forge_addontest::assert_timing!(key < 80.0, "{order}: Lookup keystroke took {key:.3} ms");
+		forge_addontest::assert_timing!(page < 15.0, "{order}: Lookup Show more took {page:.3} ms");
+	}
+}
+
+#[test]
 fn while_the_codex_loads_the_section_says_so_and_searches_again_once_it_has() {
 	let out = run(r#"
 		lookupstub.loaded, lookupstub.reason = false, "loading"
@@ -817,6 +1027,7 @@ fn a_names_pack_landing_late_searches_again_and_the_rows_take_the_new_names() {
 #[test]
 fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on_nothing_loads_the_codex() {
 	let out = run(r#"
+		Polestar.Set("lookup.enabled", false)
 		lookupstub.loaded, lookupstub.reason = false, "off"
 		local loads = 0
 		Polestar.Codex.Load = function() loads = loads + 1; return false, "off" end

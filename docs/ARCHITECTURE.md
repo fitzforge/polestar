@@ -1367,10 +1367,11 @@ Polestar.BagSlots.Painter(owner, fn(button, view, itemID, link))  -- view "clien
 Polestar.BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
 Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active corner widgets; EllesmereUI's shown slots with every painter
 
-Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
-   -- result = { kind, id, title, subtitle, quality, score, status, curated }; exact > prefix > word prefix > substring
-Polestar.Search.Browse(kind, opts) -> results, count   -- opts = { offset = 0, limit = 60, subtitles = false }; same result fields without score
-Polestar.Search.BrowseCount(kind) -> count|nil   -- no sort or load; nil when the Codex cannot be read
+Polestar.Search.Query(text, opts) -> results, counts
+   -- opts = { kinds, resultKind, order = "best", limit = 60, perKind, offset, subtitles = false, hideRetired, hideNoSource }
+   -- result = { kind, id, title, subtitle, quality, score, status, curated }; score is present in Best match order
+Polestar.Search.Browse(kind, opts) -> results, count   -- opts = { offset = 0, limit = 60, subtitles = false, hideRetired, hideNoSource }
+Polestar.Search.BrowseCount(kind, opts) -> count|nil   -- opts = { hideRetired, hideNoSource }; nil when the Codex cannot be read
 Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded, reason
 ```
 
@@ -1381,25 +1382,35 @@ Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded
 each in its own `pcall`; forbidden tooltips and secret values are skipped.
 `Search` matches guides (titles, `keywords`, folded once per guide list) and
 the Codex kinds through the pack's prebuilt index (`Codex.Index(kind)`: one
-string of folded names per kind), so a keystroke is a few plain `string.find`
-calls and never decodes a record. Each kind reads at most 200 candidates per
-query, best tiers first (`more[kind]` says there were more); a one-letter
-query matches name prefixes only. Only the results returned are named, and
-subtitles are filled per shown row (`Search.Subtitle`). Generated `lookup/`
-guides are not listed.
+string of folded names per kind). Plain `string.find` jumps between hits,
+and a one-letter Codex query matches name prefixes only. `counts` gives the
+exact positive totals after the visibility filters, with a translated and
+English match for the same id counted once. `resultKind` requests one kind's
+rows and still counts all kinds included by `kinds`. Everything keeps a
+small Best match preview per kind. Best match ranks by availability and
+whether a guide collects the item, then exact, prefix, word prefix,
+substring or all words, kind, display length, title and id. For a single
+Codex kind, the ordered offsets are cached for paging. Best match orders
+equal-score groups by title as pages need them. With `order = "az"`,
+the search filters Browse's cached order. Search decodes no records while
+matching. Lookup uses `Search.Subtitle` when a row comes into view.
+Generated `lookup/` guides are not listed.
 
 `Search.Browse` pages through one kind in folded-name order, with retired
 and no-source entries after obtainable entries. It uses translated folded
-names where the index has them. The first browse sorts the kind and caches
-its line offsets. Later pages name only their own entries. Guides use the
-filtered guide list for this character. `Search.BrowseCount` counts index
-lines once per blob for the sidebar, without sorting.
+names where the index has them. The first browse or alphabetical search
+sorts the kind and caches its line offsets. Browse pages name only their
+own entries. Guides use the
+filtered guide list for this character. Both browse APIs accept the same
+retired and no-source filters as `Search.Query`. `Search.BrowseCount`
+caches index totals by blob and can subtract either status without sorting
+or loading a pack.
 
 Measured with the real pack (lua5.1, `rust/crates/forge-addontest/tests/addontest/lookup-codex.rs` setup):
-the pack loads in about 20 ms (4.4 MB; it never loads at login), the first
-query costs 7 ms (guide headers), a keystroke 1.5–4 ms (1 to 8 letters), a
-detail page (`Lookup.Sources`) 0.1 ms for a mount up to 10 ms for an item
-with 40 drop sources.
+the pack loads in about 20 ms (4.4 MB and loaded on demand). A detail page
+(`Lookup.Sources`) takes 0.1 ms for a mount up to 10 ms for an item with
+40 drop sources. The synthetic Lookup tests measure keystrokes and paging
+at 25,000 entries in both search orders.
 
 ### Guide data (compiled Lua) — the toolchain/Engine contract
 
@@ -9479,7 +9490,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Lookup** (`UI/Lookup.lua`, the hub section "Lookup", order 20;
   `UI.ShowLookup({ query, kind, id })` and `SHOW_LOOKUP(query, kind, id)` open
   the hub at it). `Search.Query` runs when typing pauses for 0.15 s. The
-  sidebar shows Everything, the matched kinds with counts, and the current
+  sidebar shows Everything, the matched kinds with exact counts, and the current
   kind. With an empty search box, Everything lists the recent lookups
   (`CharState().ui.recentLookups`, newest first, at most 10, kept when the
   player opens a page) and a hint. Pick a kind on the scrollable sidebar to
@@ -9487,9 +9498,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   kind in `Search.KINDS` order with its `Search.BrowseCount` total. While
   the Codex is loading or waiting to load, all kinds show without counts.
   If it is unavailable, the sidebar offers Everything and Guides.
-  Everything groups search results by kind with five rows and a "Show all"
-  line per kind. A single kind shows 50 rows at a time for search or browse
-  with `opts.offset` for "Show more". Each row has an item icon or kind
+  Everything groups the best search results by kind with up to five rows
+  and a "Show all" line per kind. A single kind shows 50 rows at a time
+  for search or browse. "Show more" gives the remaining count and advances
+  `opts.offset` until the list is complete. The kind's search header offers
+  Best match (default) and A to Z. On every kind and on Everything during
+  search, Filters can hide no longer obtainable and no known source entries
+  independently. The list and counts reflect both filters. These controls
+  save to `lookup.searchOrder`, `lookup.hideRetired` and `lookup.hideNoSource`.
+  Tab from the search box opens a header menu, Tab within it switches to the
+  other when present, and arrows and Enter pick a choice. On a gamepad,
+  the D-pad reaches the buttons and A opens a menu or picks a choice.
+  Each row has an item icon or kind
   glyph in the gutter, the name in its
   quality colour lifted to 4.5:1 or its subject colour, a muted "No longer
   obtainable" / "No known source" chip for `status`, the subtitle right);

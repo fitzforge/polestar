@@ -5,14 +5,17 @@
 -- character, with one click to a guide.
 --
 -- Typing searches after a short pause. The sidebar shows Everything and
--- the kinds found, with counts. With an empty search, Everything shows the
+-- the kinds found, with exact counts. With an empty search, Everything shows the
 -- recent lookups (CharState().ui.recentLookups) and a hint, and the sidebar
 -- offers each available kind with its total. Pick a kind to browse A to Z,
 -- with unavailable entries last. The list groups results by kind: under
 -- Everything a search shows the first few and a "Show all" line; one kind
--- shows pages of 50 with a "Show more" line. Each row has an icon, the name
--- in its quality or subject colour, and a short subtitle. Only the rows in
--- view are drawn. Up/Down walk the results, and Enter acts on the selection.
+-- shows pages of 50 with a "Show more" line. Its header dropdown selects
+-- Best match or A to Z, and Filters can hide either unavailable status
+-- across browse and search lists. These choices are saved. Each row has an
+-- icon, the name in its quality or subject colour, and a short subtitle.
+-- Only the rows in view are drawn. Up/Down walk the results, and Enter acts
+-- on the selection. Tab from the search box opens the header menus.
 -- Right: the selection's details (its sources asked for once per
 -- selection): a band (the zone art of where it is got, the night band
 -- without) with the kind, the icon and the name; key facts; the sources
@@ -171,13 +174,11 @@ local function reasonShort(reason)
 	return L["Codex unavailable: searching guides only"]
 end
 
--- opts: { perKind, limit, offset (per kind: for the next page) }.
 local function search(text, only, opts)
 	local S = ns.Search
 	if text == "" or not (S and S.Query) then return {}, {} end
-	local o = { limit = opts.limit, perKind = opts.perKind, offset = opts.offset, subtitles = opts.subtitles }
-	if only then o.kinds = only end
-	local results, counts = S.Query(text, o)
+	opts.kinds = only
+	local results, counts = S.Query(text, opts)
 	return results or {}, counts or {}
 end
 
@@ -1330,23 +1331,34 @@ local function stale() LK.gen = LK.gen + 1 end
 -- few results per kind for a search, or totals for browsing, and under one
 -- kind its first page. Search.Subtitle fills subtitles for drawn rows only.
 local cache = {}
+local function listOptions()
+	return {
+		subtitles = false,
+		hideRetired = ns.Get("lookup.hideRetired"),
+		hideNoSource = ns.Get("lookup.hideNoSource"),
+		order = ns.Get("lookup.searchOrder"),
+	}
+end
+
 local function current()
 	if cache.query == query and cache.kind == kind and cache.gen == LK.gen then return cache end
-	local all, counts, list = {}, {}, {}
+	local opts = listOptions()
+	local counts, list = {}, {}
 	if query ~= "" then
-		all, counts = search(query, nil, { perKind = GROUP_MAX, limit = GROUP_MAX * #kinds(), subtitles = false })
 		if kind == "all" then
-			list = all
+			opts.perKind, opts.limit = GROUP_MAX, GROUP_MAX * #kinds()
 		else
-			list = (search(query, { [kind] = true }, { perKind = PAGE, limit = PAGE, offset = 0, subtitles = false }))
+			opts.resultKind, opts.limit = kind, PAGE
 		end
+		list, counts = search(query, nil, opts)
 	else
 		local S = ns.Search
 		if kind ~= "all" and S and S.Browse then
-			list = S.Browse(kind, { offset = 0, limit = PAGE, subtitles = false })
+			opts.limit = PAGE
+			list = S.Browse(kind, opts)
 		end
 		if S and S.BrowseCount then
-			for _, k in ipairs(kinds()) do counts[k.key] = S.BrowseCount(k.key) end
+			for _, k in ipairs(kinds()) do counts[k.key] = S.BrowseCount(k.key, opts) end
 		end
 	end
 	-- A search or browse can load the Codex or learn why it cannot load.
@@ -1365,7 +1377,8 @@ end
 function LK.More()
 	local c = current()
 	if kind == "all" then return end
-	local opts = { perKind = PAGE, limit = PAGE, offset = #c.list, subtitles = false }
+	local opts = listOptions()
+	opts.limit, opts.offset = PAGE, #c.list
 	local more
 	if query == "" then
 		local S = ns.Search
@@ -1391,7 +1404,7 @@ function LK.Nav()
 		elseif c.waiting then
 			n, show = nil, true
 		elseif c.loaded then
-			show = (n or 0) > 0
+			show = (n or 0) > 0 or k.key == kind
 		else
 			show = k.key == "guide"
 		end
@@ -1478,6 +1491,30 @@ local function reveal()
 	end
 end
 
+local ORDER_CHOICES = { { value = "best", text = L["Best match"] }, { value = "az", text = L["A to Z"] } }
+local VISIBILITY_CHOICES = {
+	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"] },
+	{ path = "lookup.hideNoSource", text = L["Hide no known source"] },
+}
+
+local function orderChoice()
+	return ns.Get("lookup.searchOrder") == "az" and ORDER_CHOICES[2] or ORDER_CHOICES[1]
+end
+
+local function showControls()
+	local order, visibility = root.SearchOrder, root.Visibility
+	local showOrder = query ~= "" and kind ~= "all"
+	local showVisibility = query ~= "" or kind ~= "all"
+	if (not showOrder and W.MenuShown(order)) or (not showVisibility and W.MenuShown(visibility)) then W.HideMenu() end
+	order:SetShown(showOrder)
+	visibility:SetShown(showVisibility)
+	if not showVisibility then return 0 end
+	W.SetButtonText(visibility, L["Filters"])
+	if not showOrder then return visibility:GetWidth() + 12 end
+	W.SetButtonText(order, orderChoice().text)
+	return visibility:GetWidth() + order:GetWidth() + 20
+end
+
 function LK.Render()
 	if not (root and root:IsVisible()) then return end
 	local c = current()
@@ -1505,7 +1542,7 @@ function LK.Render()
 		local n = kind == "all" and total or (counts[kind] or #list)
 		subtitle = n == 1 and format(L["1 result for %s"], LQ .. query .. RQ) or format(L["%d results for %s"], n, LQ .. query .. RQ)
 	end
-	W.ShellTitle(shell, title, subtitle)
+	W.ShellTitle(shell, title, subtitle, showControls())
 
 	-- Lay the list out.
 	entries, visible = {}, {}
@@ -1651,6 +1688,41 @@ local function onEnter()
 	LK.Activate()
 end
 
+local function headerMenu(button, box)
+	if not (button and button:IsVisible()) then return end
+	if W.MenuShown(button) then return W.HideMenu() end
+	local order = button == root.SearchOrder
+	local items = {}
+	for i, choice in ipairs(order and ORDER_CHOICES or VISIBILITY_CHOICES) do
+		local path = choice.path or "lookup.searchOrder"
+		local checked = order and choice == orderChoice() or not order and ns.Get(path)
+		items[i] = { text = choice.text, checked = checked, onClick = function()
+			if order then
+				if not checked then ns.Set(path, choice.value) end
+			else
+				ns.Set(path, not checked)
+			end
+		end }
+	end
+	local opts = { current = order, minWidth = button:GetWidth() }
+	if box then
+		box:ClearFocus()
+		opts.keyboard = {
+			done = function() if box:IsVisible() and root:IsVisible() then box:SetFocus() end end,
+			tab = function() headerMenu(order and root.Visibility or root.SearchOrder, box) end,
+		}
+	end
+	W.ShowMenu(button, items, opts)
+end
+
+local function onSearchTab(box)
+	if pending then
+		cancelPending()
+		setQuery(box:GetText())
+	end
+	headerMenu(root.SearchOrder:IsShown() and root.SearchOrder or root.Visibility, box)
+end
+
 function LK.Query() return query end
 
 function LK.SetKind(k)
@@ -1717,6 +1789,14 @@ function LK.Build(parent, hub)
 	root.CodexLine = W.Text(hub.TabRow, "small", "textMuted")
 	root.CodexLine:SetPoint("LEFT", hub.TabRow, "LEFT", SH.pad, 0)
 	root.CodexLine:SetWidth(MID_W - SH.pad * 2)
+	local function openHeaderMenu(button) headerMenu(button) end
+	local opts = { icon = "chevron-down", height = 24 }
+	root.Visibility = W.Button(hub.Header, L["Filters"], openHeaderMenu, opts)
+	root.Visibility:SetPoint("BOTTOMRIGHT", hub.Header, "BOTTOMRIGHT", -SH.pad, 16)
+	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, openHeaderMenu, opts)
+	root.SearchOrder:SetPoint("RIGHT", root.Visibility, "LEFT", -8, 0)
+	root.SearchOrder:Hide()
+	root.Visibility:Hide()
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
@@ -1725,9 +1805,12 @@ function LK.Build(parent, hub)
 	-- only its own state read, the line stayed over the guide list's tabs
 	-- (#2692).
 	root:SetScript("OnHide", function(self)
+		if W.MenuShown(root.SearchOrder) or W.MenuShown(root.Visibility) then W.HideMenu() end
 		if self:IsShown() and parent:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
+		root.SearchOrder:Hide()
+		root.Visibility:Hide()
 	end)
 	buildDetails()
 	return root
@@ -1754,7 +1837,7 @@ if UI.RegisterSection then
 		key = "Lookup", label = L["Lookup"], icon = "search", order = 20,
 		build = LK.Build, render = sectionRender,
 		nav = LK.Nav, onNav = LK.SetKind,
-		search = onSearch, enter = onEnter, step = LK.Step,
+		search = onSearch, enter = onEnter, step = LK.Step, searchTab = onSearchTab,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
 	})
 end
@@ -1833,7 +1916,15 @@ ns.On("PACKS_CHANGED", guidesChanged)
 -- The "New in Forever" mark shows or goes on the pages at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.suggestFrom" or path == "behavior" or path == "" then guidesChanged() end
-	if path == "lookup.enabled" or path == "lookup" then namesChanged() end
+	if path == "lookup.enabled" then namesChanged() end
+	if path == "lookup" or path == "lookup.searchOrder" or path == "lookup.hideRetired" or path == "lookup.hideNoSource" or path == "" then
+		stale()
+		if root and root:IsVisible() then
+			W.ScrollTo(results, 0)
+			refresh()
+			if query ~= "" or kind ~= "all" then selectFirst(true) end
+		end
+	end
 	if path == "ui.newInForever" then LK.Render() end
 end)
 -- Quality colours are lifted against the ground and the icon's hairline is

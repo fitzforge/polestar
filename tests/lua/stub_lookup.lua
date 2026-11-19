@@ -49,7 +49,19 @@ lookupstub.subtitled = 0 -- Search.Subtitle calls (rows drawn)
 
 function Search.Status() return lookupstub.loaded, lookupstub.reason end
 
--- opts: { kinds, limit, perKind, offset (per kind), subtitles = false }
+local function visible(e, opts)
+	return not (opts and ((e.status == "retired" and opts.hideRetired) or (e.status == "nosource" and opts.hideNoSource)))
+end
+
+local function alphabetical(a, b)
+	if (a.status ~= nil) ~= (b.status ~= nil) then return a.status == nil end
+	local ak, bk = a.title:lower(), b.title:lower()
+	if ak ~= bk then return ak < bk end
+	if #a.title ~= #b.title then return #a.title < #b.title end
+	return a.id < b.id
+end
+
+-- opts: { kinds, resultKind, order, hideRetired, hideNoSource, limit, perKind, offset, subtitles }
 function Search.Query(text, opts)
 	lookupstub.queries = lookupstub.queries + 1
 	opts = opts or {}
@@ -57,25 +69,35 @@ function Search.Query(text, opts)
 	local out, counts, taken = {}, {}, {}
 	if q == "" then return out, counts end
 	local limit, perKind, offset = opts.limit or 60, opts.perKind or opts.limit or 60, opts.offset or 0
+	local only = opts.resultKind
+	if not only and opts.kinds then
+		local k = next(opts.kinds)
+		if k and not next(opts.kinds, k) then only = k end
+	end
+	local hits = {}
 	for _, e in ipairs(lookupstub.entities) do
 		local ok = (lookupstub.loaded or GUIDE_KIND[e.kind]) and (not opts.kinds or opts.kinds[e.kind]) and e.title:lower():find(q, 1, true)
-		if ok then
+		if ok and visible(e, opts) then
 			counts[e.kind] = (counts[e.kind] or 0) + 1
-			local n = counts[e.kind]
-			if n > offset and (taken[e.kind] or 0) < perKind and #out < limit then
-				taken[e.kind] = (taken[e.kind] or 0) + 1
-				out[#out + 1] = { kind = e.kind, id = e.id, title = e.title, quality = e.quality, status = e.status, score = 1,
-					subtitle = opts.subtitles ~= false and e.subtitle or nil }
-			end
+			if not only or only == e.kind then hits[#hits + 1] = e end
+		end
+	end
+	if only and opts.order == "az" then table.sort(hits, alphabetical) end
+	for _, e in ipairs(hits) do
+		local at = (taken[e.kind] or 0) + 1
+		taken[e.kind] = at
+		if at > offset and at <= offset + perKind and #out < limit then
+			out[#out + 1] = { kind = e.kind, id = e.id, title = e.title, quality = e.quality, status = e.status, score = 1,
+				subtitle = opts.subtitles ~= false and e.subtitle or nil }
 		end
 	end
 	return out, counts
 end
 
-function Search.BrowseCount(kind)
+function Search.BrowseCount(kind, opts)
 	if not lookupstub.loaded and not GUIDE_KIND[kind] then return nil end
 	local count = 0
-	for _, e in ipairs(lookupstub.entities) do if e.kind == kind then count = count + 1 end end
+	for _, e in ipairs(lookupstub.entities) do if e.kind == kind and visible(e, opts) then count = count + 1 end end
 	return count
 end
 
@@ -88,14 +110,8 @@ function Search.Browse(kind, opts)
 		if not lookupstub.loaded then return out, 0 end
 	end
 	local entries = {}
-	for _, e in ipairs(lookupstub.entities) do if e.kind == kind then entries[#entries + 1] = e end end
-	table.sort(entries, function(a, b)
-		if (a.status ~= nil) ~= (b.status ~= nil) then return a.status == nil end
-		local ak, bk = a.title:lower(), b.title:lower()
-		if ak ~= bk then return ak < bk end
-		if #a.title ~= #b.title then return #a.title < #b.title end
-		return a.id < b.id
-	end)
+	for _, e in ipairs(lookupstub.entities) do if e.kind == kind and visible(e, opts) then entries[#entries + 1] = e end end
+	table.sort(entries, alphabetical)
 	local offset = opts.offset or 0
 	for i = offset + 1, math.min(#entries, offset + (opts.limit or 60)) do
 		local e = entries[i]

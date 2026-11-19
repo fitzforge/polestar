@@ -2168,6 +2168,32 @@ local function menuRowLeave(self)
 	previewToken = previewToken + 1
 end
 
+local function keyboardMenuRow(menu, i)
+	local rows = menu.psKeyRows
+	if rows[menu.psKeyRow] then rows[menu.psKeyRow]:UnlockHighlight() end
+	menu.psKeyRow = min(#rows, max(1, i))
+	if rows[menu.psKeyRow] then rows[menu.psKeyRow]:LockHighlight() end
+end
+
+local function menuKeyDown(self, key)
+	local up, down = key == "UP", key == "DOWN"
+	local enter = key == "ENTER" or key == "NUMPADENTER"
+	local esc, tab = key == "ESCAPE", key == "TAB"
+	if self.SetPropagateKeyboardInput and not (InCombatLockdown and InCombatLockdown()) then
+		self:SetPropagateKeyboardInput(not (up or down or enter or esc or tab))
+	end
+	if up or down then
+		keyboardMenuRow(self, self.psKeyRow + (up and -1 or 1))
+	elseif enter then
+		local row = self.psKeyRows[self.psKeyRow]
+		if row then menuRowClick(row) end
+	elseif esc or tab then
+		local nextMenu = tab and self.psOpts.keyboard.tab
+		W.HideMenu()
+		if nextMenu then nextMenu() end
+	end
+end
+
 local function buildMenu()
 	catcher = CreateFrame("Button", nil, UIParent)
 	catcher:SetAllPoints(UIParent)
@@ -2192,6 +2218,14 @@ local function buildMenu()
 		previewToken = previewToken + 1
 		local f = rawget(menu, "Filter")
 		if f then f:ClearFocus() end
+		local rows = rawget(menu, "psKeyRows")
+		if rows then
+			if rows[menu.psKeyRow] then rows[menu.psKeyRow]:UnlockHighlight() end
+			menu.psKeyRows, menu.psKeyRow = nil, nil
+			menu:EnableKeyboard(false)
+			menu:SetScript("OnKeyDown", nil)
+			menu.psOpts.keyboard.done()
+		end
 	end)
 	menu:Hide()
 	ns.CloseOnEscape("PolestarMenu")
@@ -2425,8 +2459,10 @@ end
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred
 -- on Compact mode and Transparent, hiding Choose guide above them).
+-- opts.keyboard: for a short menu opened by the keyboard, { done(), tab() }.
 function W.ShowMenu(anchor, items, opts)
 	if not menu then buildMenu() end
+	if rawget(menu, "psKeyRows") then W.HideMenu() end
 	menu.psItems, menu.psOpts = items, opts or {}
 	opts = menu.psOpts
 	local f = rawget(menu, "Filter")
@@ -2445,6 +2481,19 @@ function W.ShowMenu(anchor, items, opts)
 	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
 	catcher:Show()
 	menu:Show()
+	if opts.keyboard and not long then
+		local rows, first = {}, 1
+		for _, row in ipairs(menu.rows) do
+			if row:IsShown() and not row.psItem.disabled then
+				rows[#rows + 1] = row
+				if opts.current and row.psItem.checked then first = #rows end
+			end
+		end
+		menu.psKeyRows = rows
+		keyboardMenuRow(menu, first)
+		menu:SetScript("OnKeyDown", menuKeyDown)
+		menu:EnableKeyboard(true)
+	end
 	-- A long list's filter takes the keys at once (not while a gamepad
 	-- drives: its buttons would go to the box).
 	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
@@ -4630,13 +4679,13 @@ end
 
 -- Page title and subtitle. The title keeps its place with or without a
 -- subtitle, so it never jumps between pages.
-function W.ShellTitle(f, title, subtitle)
+function W.ShellTitle(f, title, subtitle, subtitleInset)
 	f.Title:SetText(title or "")
 	-- A longer title may take room from the header's search.
 	if rawget(f, "psSearchW") and rawget(f, "HeaderTools") then f.HeaderTools.Place() end
 	f.psSubtitle = subtitle or ""
 	-- The main column's width between its pads (a hub's narrower column too).
-	f.Subtitle:SetWidth(f.BodyWidth)
+	f.Subtitle:SetWidth(max(1, f.BodyWidth - (subtitleInset or 0)))
 	fitLines(f.Subtitle, f.psSubtitle, SUBTITLE_LINES)
 	f.Subtitle:SetShown(subtitle ~= nil and subtitle ~= "")
 end
