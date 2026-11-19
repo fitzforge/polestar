@@ -6417,6 +6417,20 @@ test('Alliance 40-50 (0.4.3): Hostile Takeover rides with Kebok\'s tusks, the cr
 	assert.equal(s('turnin', 213), s('turnin', 209), 'handed in with the tusks');
 });
 
+// Alliance route round (0.4.3, AuditA50 MUST-1): Janice Felstone's farmhouse stands among Felstone Field's Jabbering
+// Ghouls (54); 50-60/01 sent players there at about 51.7 (recorded followers' 25th percentile, 11 people; 2 of them
+// died there). Better Late Than Never goes with the field's cauldron to 50-60/03 (about 55.6), on the same step, and its
+// parcel still reaches Stormwind on 50-60/06.
+test('Alliance 50-60 (0.4.3): Janice Felstone on the Felstone Field cauldron stop at 55, not at 51', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!bs.some(({ goal }) => [5021, 5022].includes(goal.quest)), 'no Janice on the Burning Steppes guide');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const s = (t, q) => ws[at(ws, `${t} ${q}`, is(t, q))].s;
+	assert.equal(s('accept', 5021), s('turnin', 5216), 'on the cauldron step');
+	assert.equal(s('accept', 5022), s('turnin', 5216), 'the parcel taken there too');
+	assert.ok(goals('forever/alliance/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 5022)(goal)), 'handed in at Stormwind on the Silithus guide');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

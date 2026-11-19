@@ -12483,6 +12483,23 @@
 			]
 		},
 		{
+			"id": "043-wpl-janice-with-the-felstone-cauldron",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5021,
+				"goal": "accept"
+			},
+			"tip": "Janice Felstone's ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for Stormwind.",
+			"note": "0.4.3 route round (Alliance 50-60): Better Late Than Never is taken on 50-60/03's Felstone Field cauldron stop at about 55.6 instead of 50-60/01's Chillwind stop at about 51.7, where the farmhouse's Jabbering Ghouls (54) were two over the player (route-fixes pair task 5216 before accept 5021). The tip says where Janice and the parcel are on the cauldron step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: recorded followers reach 50-60/01's Janice step at a 25th percentile of 51.74 (11 people); 2 follower people died there on the current route (3 deaths at 38.3-39.0,52.7-55.4), Jabbering Ghouls (10801, level 54) seen hostile by 26 people at the farmhouse"
+				}
+			],
+			"issue": 3144
+		},
+		{
 			"id": "epl-plaguehounds-careful",
 			"faction": "Alliance",
 			"at": {

@@ -15,6 +15,9 @@ next forever/alliance/50-60/02-felwood
 # Petty Squabbles (2783) and A Tale of Sorrow (2801), 5,100 XP: Ardalan in Nethergarde Keep, where the flight lands,
 # and the Fallen Hero just over the Swamp of Sorrows border, on the Blasted Lands stop before the hearth.
 # Left out: Dark Iron Legacy (3801).
+# Better Late Than Never (5021, 5022), Janice Felstone at the Felstone Field farmhouse, is taken on the Winterspring
+# guide's Felstone Field cauldron stop at about 55.6 (0.4.3): the Jabbering Ghouls (54) around the farmhouse are two
+# over players here at about 51.7.
 
 # ---------------------------------------------------------------- Azshara
 
@@ -288,12 +291,6 @@ step Chillwind Camp
   accept 5215
   turnin 5215                         -- High Priestess MacDonnell
   accept 5216                         -- keep it: the Felstone Field cauldron waits for the Winterspring guide's Chillwind stop, at about 55
-
-step Janice Felstone
-  tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Dalson's Tears; her parcel lies inside.
-  accept 5021                         -- Upstairs
-  turnin 5021                         -- Janice's Parcel, inside
-  accept 5022                         -- For Stormwind: keep it
 
 step Fly to Morgan's Vigil
   when taxi "Morgan's Vigil"

@@ -14701,15 +14701,16 @@
 			},
 			{
 				"a": [
-					"accept",
-					5021
-				],
-				"b": [
 					"task",
 					5216
 				],
+				"b": [
+					"accept",
+					5021
+				],
 				"faction": "Alliance",
-				"why": "Alliance 40-60 order (2026-11-08, #1228): Janice Felstone's farmhouse (38.4,54.1) is the far end of the ride north from Chillwind Camp, so her parcel comes first. Since fix round 2 (0.4.0) the Felstone Field cauldron itself (Cauldron Lord Bilemaw 53, Jabbering Ghouls 54) waits for the Winterspring guide's Chillwind stop at about 55.6: on 50-60/01 at about 51.6 they were two and three over the player."
+				"why": "Alliance 50-60 route round (0.4.3): Better Late Than Never (5021, 5022) goes with the Felstone Field cauldron to 50-60/03's Chillwind stop at about 55.6. Janice Felstone's farmhouse (38.3,54.1) stands among the field's Jabbering Ghouls (54): on 50-60/01 at about 51.7 (recorded followers' 25th percentile 51.74, 11 people) they were two over the player, and 2 followers died there on the current route (5 more in older versions at the field). The cauldron (36.9,56.4) comes first on the ride north from the camp, the farmhouse just north-east of it, then back south to MacDonnell.",
+				"source": "Alliance route round 2026-11-19"
 			},
 			{
 				"a": [
