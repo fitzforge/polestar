@@ -54,6 +54,7 @@ ns.Search = Search
 local L = ns.L
 local type, ipairs, tostring, tonumber = type, ipairs, tostring, tonumber
 local find, sub, gsub, lower, byte, match, gmatch = string.find, string.sub, string.gsub, string.lower, string.byte, string.match, string.gmatch
+local char = string.char
 local min = math.min
 
 local STATUS = { r = "retired", n = "nosource" }
@@ -371,33 +372,37 @@ local function orderedCodex(kind, blob, extra)
 	local translations = {}
 	if extra then
 		for folded, _, id, _, len in gmatch(extra, BROWSE_LINE) do
-			translations[id] = { folded = folded, len = tonumber(len) }
+			translations[id] = { folded = folded, len = len }
 		end
 	end
 	local order, translatedAt = {}, {}
+	local stringIds = kind == "instance"
 	local retired, nosource = 0, 0
 	for folded, at, rawId, st, len in gmatch(blob, BROWSE_LINE) do
-		local entry = translations[rawId] or { folded = folded, len = tonumber(len) }
-		if translations[rawId] then translatedAt[rawId] = at end
-		entry.at = at
-		entry.id = kind == "instance" and rawId or tonumber(rawId)
-		entry.status = st
+		local translation = translations[rawId]
+		if translation then
+			folded, len = translation.folded, translation.len
+			translatedAt[rawId] = at
+		end
 		if st == "r" then retired = retired + 1 elseif st == "n" then nosource = nosource + 1 end
-		order[#order + 1] = entry
+		local availability = STATUS[st] and "1" or "0"
+		-- NUL ends the folded name before any longer name with the same prefix.
+		-- Lengths and numeric game IDs are plain decimal, so digit count then digits sorts by value.
+		local idWidth = stringIds and "" or char(#rawId)
+		order[#order + 1] = availability .. folded .. "\0" .. char(#len) .. len .. idWidth .. rawId .. "\0" .. st .. at
 	end
-	table.sort(order, function(a, b)
-		local unavailableA, unavailableB = STATUS[a.status] ~= nil, STATUS[b.status] ~= nil
-		if unavailableA ~= unavailableB then return not unavailableA end
-		if a.folded ~= b.folded then return a.folded < b.folded end
-		if a.len ~= b.len then return a.len < b.len end
-		return a.id < b.id
-	end)
+	table.sort(order)
 	-- The two status-specific tails share the same available prefix.
 	local tails, available = { r = {}, n = {} }, #order - retired - nosource
-	for i, entry in ipairs(order) do
-		local tail = tails[entry.status]
-		if tail then tail[#tail + 1] = entry.at end
-		order[i] = entry.at
+	local trailerWidth = #tostring(#blob) + 2 -- offset digits, optional status and NUL
+	for i, key in ipairs(order) do
+		local st, offset = match(key, "%z(%a?)(%d+)$", -trailerWidth)
+		local at = tonumber(offset)
+		order[i] = at
+		if i > available then
+			local tail = tails[st]
+			tail[#tail + 1] = at
+		end
 	end
 	cached = { blob = blob, extra = extra, order = order, available = available, tails = tails, translations = translatedAt }
 	browseIndexes[kind] = cached

@@ -950,7 +950,7 @@ local function ids(rows)
 	for i, row in ipairs(rows) do out[i] = row.id end
 	return out
 end
-local function index(entries)
+local function index(entries, indexedKind)
 	local lines, names = {}, {}
 	for i, e in ipairs(entries) do
 		lines[i] = line(e[1], e[2], e[3])
@@ -958,7 +958,7 @@ local function index(entries)
 	end
 	local blob = table.concat(lines)
 	C.IsLoaded = function() return true end
-	C.Index = function(kind) if kind == "item" then return blob end end
+	C.Index = function(kind) if kind == (indexedKind or "item") then return blob end end
 	C.Name = function(_, id) return names[id] end
 end
 "#;
@@ -1116,6 +1116,39 @@ fn browse_orders_folded_names_by_availability_then_name_length_and_id() {
 }
 
 #[test]
+fn browse_order_matches_the_lua_comparator_for_numeric_and_string_ids() {
+	let [items, instances] = first::<2>(browse(r#"
+		local translated = "Жар"
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 30 then return translated end end
+		local function check(kind, entries)
+			index(entries, kind)
+			local expected = {}
+			for i, e in ipairs(entries) do
+				local name = e[1] == 30 and translated or e[2]
+				expected[i] = { id = e[1], folded = S.Fold(name):sub(2), len = #name,
+					unavailable = e[3] == "r" or e[3] == "n" }
+			end
+			table.sort(expected, function(a, b)
+				if a.unavailable ~= b.unavailable then return not a.unavailable end
+				if a.folded ~= b.folded then return a.folded < b.folded end
+				if a.len ~= b.len then return a.len < b.len end
+				return a.id < b.id
+			end)
+			emit({ ids(S.Browse(kind, { subtitles = false })), ids(expected) })
+		end
+		check("item", { { 100, "Amber" }, { 10, "AMBER" }, { 9, "amber" }, { 1, "Amber!!!" },
+			{ 2, "Amber Ring" }, { 3, "Aardvark", "n" }, { 4, "Bear", "r" },
+			{ 30, "Abacus" }, { 31, "Жар" }, { 32, "Жары" } })
+		check("instance", { { "hall-9", "Hall" }, { "hall-10", "Hall" },
+			{ "hall-100", "Hall" }, { "hall", "Hall" }, { "vault", "Vault" } })
+	"#));
+	assert_eq!(items[0], items[1]);
+	assert_eq!(instances[0], instances[1]);
+}
+
+#[test]
 fn browse_offsets_page_consecutively_naming_only_the_returned_rows_and_deferring_subtitles() {
 	let [page1, page2, counts, lazy] = first::<4>(browse(r#"
 		index({ { 70, "Echo" }, { 2, "Alpha" }, { 25, "Charlie" }, { 9, "Bravo" }, { 50, "Delta" } })
@@ -1236,6 +1269,30 @@ fn browse_requests_a_codex_load_and_count_waits_without_loading_the_pack() {
 #[test]
 fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_not_sort() {
 	let [small, large] = first::<2>(browse(r#"
+		-- Time the previous per-row allocation and Lua sort against the same catalogue.
+		local function comparatorTime(blob)
+			local status = { r = true, n = true }
+			local samples = {}
+			for i = 1, 5 do
+				collectgarbage()
+				local start = os.clock()
+				local order = {}
+				for folded, at, id, st, len in blob:gmatch("\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n") do
+					order[#order + 1] = { folded = folded, at = at, id = tonumber(id), status = st, len = tonumber(len) }
+				end
+				table.sort(order, function(a, b)
+					local unavailableA, unavailableB = status[a.status] ~= nil, status[b.status] ~= nil
+					if unavailableA ~= unavailableB then return not unavailableA end
+					if a.folded ~= b.folded then return a.folded < b.folded end
+					if a.len ~= b.len then return a.len < b.len end
+					return a.id < b.id
+				end)
+				samples[i] = os.clock() - start
+			end
+			table.sort(samples)
+			return samples[3] * 1000
+		end
+
 		local function measure(n)
 			local entries = {}
 			for i = 1, n do entries[i] = { i, string.format("Item %05d", (i * 7919) % n) } end
@@ -1263,7 +1320,8 @@ fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_
 			table.sort = original
 			original(batches)
 			return { count = count, countSorts = countSorts, countNames = countNames, sorts = sorts, first = #first,
-				names = named, cold = cold * 1000, warm = batches[4] * 1000 / 400 }
+				names = named, cold = cold * 1000, warm = batches[4] * 1000 / 400,
+				comparator = n == 25000 and comparatorTime(C.Index("item")) or nil }
 		end
 		emit(measure(2500)); emit(measure(25000))
 	"#));
@@ -1275,8 +1333,10 @@ fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_
 		assert_eq!(measurement["first"], 50);
 		assert_eq!(measurement["names"], 50 * (1 + 7 * 400));
 	}
+	let comparator = num(&large["comparator"]);
 	let (cold, small, large) = (num(&large["cold"]), num(&small["warm"]), num(&large["warm"]));
-	println!("25,000 entries: first browse {cold:.3} ms; later pages {large:.3} ms (2,500 entries: {small:.3} ms)");
+	println!("25,000 entries: first browse {cold:.3} ms, Lua comparator baseline {comparator:.3} ms; later pages {large:.3} ms (2,500 entries: {small:.3} ms)");
+	forge_addontest::assert_timing!(cold < 0.8 * comparator, "first browse: {cold:.3} ms at 25,000, expected under 80% of the Lua comparator baseline ({comparator:.3} ms)");
 	forge_addontest::assert_timing!(large < 2.5 * small.max(0.01), "warm browse: {large:.3} ms at 25,000 vs {small:.3} ms at 2,500");
 }
 
