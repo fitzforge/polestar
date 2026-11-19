@@ -138,7 +138,7 @@ return {
 
 	-- Step 26: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "{spell:18960}을(를) 시전하세요",
 
 	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
@@ -146,7 +146,7 @@ return {
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:11802} Dendrite Starblaze · {npc:5504} Sheldras Moontree
 	["{npc:11802}: the welcome from {npc:5504}"] = "{npc:11802}: {npc:5504}의 환영 인사",
 

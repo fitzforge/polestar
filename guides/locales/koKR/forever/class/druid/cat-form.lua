@@ -39,7 +39,7 @@ return {
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 
 	-- Step 10: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens

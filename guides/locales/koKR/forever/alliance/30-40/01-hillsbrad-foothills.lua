@@ -156,7 +156,7 @@ return {
 
 	-- Step 34: Menethil Harbor
 	["West along the road to Menethil."] = "길을 따라 서쪽 메네실 항구로 가십시오.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 35: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears

@@ -247,7 +247,7 @@ return {
 	-- Step 47: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "동쪽 {area:599}(으)로 가세요. 불타는칼날단 사교도를 빈사 상태로 만든 뒤 죽기 전에 {item:6436}을(를) 사용해 {item:6435}을(를) 하나씩 채우세요. {npc:13019}은(는) 요새 꼭대기 층에서 홀을 가지고 있습니다. 사교도는 가끔(1-5%) {item:20310}도 떨어뜨리니, 얻으면 읽어 보세요. 붉은 {object:176581}은(는) 지금은 두세요. {npc:11876}이(가) 37레벨이라 두 번째 {zone:1443} 방문 때 다시 옵니다.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 48: Ethel Rethor
 	-- {npc:11863} Azore Aldamort

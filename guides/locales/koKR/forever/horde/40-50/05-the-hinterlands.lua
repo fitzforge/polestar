@@ -149,7 +149,7 @@ return {
 	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "아직 {area:75} 비행 경로가 없다면: 화살표가 가장 빠른 길로 안내합니다({object:3202} 비행편과 {zone:1431}, {zone:1430}을(를) 지나는 길). 도착하면 {area:75}의 비행 경로를 익히십시오.",
 
 	-- Step 32: Fel'zerul
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands

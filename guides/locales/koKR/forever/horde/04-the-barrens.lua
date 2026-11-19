@@ -113,7 +113,7 @@ return {
 	["{npc:5911}, beside the flight master"] = "",
 
 	-- Step 23: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "크로스로드로 비행",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "{area:378} 비행 조련사",
 

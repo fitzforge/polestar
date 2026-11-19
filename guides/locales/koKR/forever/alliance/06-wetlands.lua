@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "{spell:18960}을(를) 시전하세요",
 
 	-- Step 2: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
@@ -206,7 +206,7 @@ return {
 	-- Step 37: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "{area:2104}에 귀환석을 귀속했다면 {area:150}(으)로 귀환하고, 아니면 길을 따라 서쪽으로 걸어가세요. {npc:2104}은(는) {area:2103} 꼭대기 층에, {npc:2094}은(는) 배로 가는 길의 부두 옆에 있습니다.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
 	-- {npc:2094} James Halloran
