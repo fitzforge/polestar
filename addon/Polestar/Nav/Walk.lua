@@ -455,7 +455,6 @@ local KEEP = 25       -- yards from where the floor was last on a surface that i
 local ZTOL = 10       -- Routing/PathGrid.lua's ZTOL: surfaces this close the router stands on alike
 local LIFT = 8        -- yards from a lift (Transit.LiftNear): it changes level without moving
 local INDOOR = 2      -- Path.SURFACE_INDOOR
-local WATER = 1       -- Path.SURFACE_WATER
 
 local surf = {}       -- Path.SurfacesAt's out, reused
 local surfArea = {}   -- Path.SurfacesAt's areas (each surface's WMOAreaTable row id, 0: none), reused
@@ -492,17 +491,18 @@ local function seed(n)
 	-- Out of the water (the client says the player is not swimming), a water surface is no floor where a dry one
 	-- lies in the cell: a pier over the sea is the floor, not the sea under it (the lowest of them, from which a
 	-- search swam to the shore and walked the pier back to the player).
+	-- (surf[-i] % 2 == 1: Path.SURFACE_WATER)
 	local dry = false
 	local C = ns.Compat
 	if C and C.IsSwimming and C.IsSwimming() == false then
 		for i = 1, n do
-			if surf[-i] % 2 ~= WATER then dry = true end
+			if surf[-i] % 2 ~= 1 then dry = true end
 		end
 	end
 	local lo, hi = huge, -huge
 	for i = 1, n do
 		local z = surf[i]
-		if not (dry and surf[-i] % 2 == WATER) then
+		if not (dry and surf[-i] % 2 == 1) then
 			if z < lo then lo = z end
 			if z > hi then hi = z end
 		end
