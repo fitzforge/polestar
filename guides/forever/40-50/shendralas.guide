@@ -205,8 +205,11 @@ step Mithera
   accept 99257                        -- Historian Biraxas
 
 step A Heart of Crystal
-  tip The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.
-  collect 286647 quest 99257.1
+  tip Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one Decrepit Pylon Protector back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side.
+  loop
+  goto 43.97,35.59 r 4
+  goto 43.89,35.64 r 4
+  collect 286647 quest 99257.1 npc 252711
 
 step Historian Biraxas
   turnin 99257
