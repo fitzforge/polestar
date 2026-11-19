@@ -11,8 +11,8 @@
 ## Notes-frFR: Fait partie de Polestar : la fenêtre des réglages, ses pages d'apparence et leurs aperçus. Chargé à l'ouverture des réglages.
 ## Title-koKR: Polestar 설정
 ## Notes-koKR: Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.
-## Title-ptBR: Polestar: opções
-## Notes-ptBR: Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.
+## Title-ptBR: Polestar: configurações
+## Notes-ptBR: Parte do Polestar: a janela de configurações, suas páginas de aparência e as prévias delas. Carregado ao abrir as configurações.
 ## Title-ruRU: Polestar: настройки
 ## Notes-ruRU: Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.
 ## Title-zhCN: Polestar 设置

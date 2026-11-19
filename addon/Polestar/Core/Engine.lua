@@ -9819,7 +9819,7 @@ function Own.queueGroupSkips(from, to)
 				queue.seen[q] = true
 				local one = ns.CharState().groupQuests[q] == "skip"
 				queue.skips[#queue.skips + 1] = { quest = q, title = titleOfQuest(q), reason = "group",
-					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Options, Automation, Group quests skips them all"] }
+					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Settings, Automation, Group quests skips them all"] }
 			end
 		end
 	end

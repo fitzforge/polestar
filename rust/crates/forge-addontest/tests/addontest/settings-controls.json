@@ -89,7 +89,7 @@
   {
    "id": "action:POLESTAR_OPTIONS",
    "kind": "binding",
-   "label": "Open Polestar options",
+   "label": "Open Polestar settings",
    "at": [
     "Gamepad > Key bindings > Windows"
    ]
