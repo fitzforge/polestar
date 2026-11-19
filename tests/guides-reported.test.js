@@ -16750,3 +16750,20 @@ test('#2825: escort givers are looked for where they wait, not along their escor
 		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
 	}
 });
+
+// CircusCyaneus (#2837): Ashenvale (Alliance) took Ilkrud's tome to the Zoram Strand and walked back from Talen to
+// Delgren at Maestra's Post. Delgren is on the way north from the Fire Scar Shrine to the coast; after Talen the
+// hearthstone bound at Astranaar takes the player to Shindrell. Ilkrud's tip named the Ruins of Ordil'Aran.
+test('Ashenvale (Alliance): Delgren takes Ilkrud\'s tome on the way to the Zoram Strand; Shindrell after Talen (#2837)', { skip }, () => {
+	const list = goals(ASHENVALE);
+	const tome = at(list, 'collect 5533', (g) => g.t === 'collect' && g.item === 5533);
+	const delgren = at(list, 'turnin 973', is('turnin', 973));
+	const talen = at(list, 'accept 1007', is('accept', 1007));
+	const ruuzel = at(list, 'turnin 1009', is('turnin', 1009));
+	const shindrell = at(list, 'turnin 1008', is('turnin', 1008));
+	assert.ok(tome < delgren && delgren < talen, 'the tome to Delgren before Talen');
+	assert.ok(ruuzel < shindrell, 'Shindrell after Talen');
+	const tip = [list[tome].step.note, list[tome].step.tip].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /Ordil'Aran/, 'Ilkrud is in the Fire Scar Shrine');
+	assert.match([list[shindrell].step.note, list[shindrell].step.tip].flat().filter(Boolean).join(' '), /Hearth to /, 'the hearthstone bound at Astranaar');
+});
