@@ -56,6 +56,22 @@ local function color(name, r, g, b)
 end
 
 -- A guide's levels as "12-13" ("12" for one level), for the player's side.
+-- A step title cut to at most TITLE_MAX characters (UTF-8, not bytes) at a
+-- word's end, with an ellipsis, so a long step title keeps the tooltip narrow.
+local TITLE_MAX = 32
+local function shortTitle(t)
+	local n = 0
+	for pos in t:gmatch("()[%z\1-\127\194-\244][\128-\191]*") do
+		n = n + 1
+		if n > TITLE_MAX then
+			local head = t:sub(1, pos - 1)
+			if not t:sub(pos, pos):match("%s") then head = head:match("^(.*%S)%s") or head end
+			return (head:gsub("[%s%p]+$", "")) .. "\226\128\166"
+		end
+	end
+	return t
+end
+
 local function levelsText(g)
 	local G = ns.Guides
 	local lo, hi
@@ -88,6 +104,7 @@ function QoL.KeptLines(itemID)
 			-- and its title when it has one.
 			local step = g.steps and g.steps[s]
 			local title = step and type(step.title) == "string" and step.title ~= "" and step.title or nil
+			if title then title = shortTitle(title) end
 			if E.StepNumberOf then s = E.StepNumberOf(g, s) end
 			text = title and format(L["%s: step %d (%s)"], text, s, title) or format(L["%s: step %d"], text, s)
 		end
