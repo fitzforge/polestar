@@ -12522,6 +12522,28 @@
 			"issue": 3144
 		},
 		{
+			"id": "043-darkwhisper-gorge-mouth-only",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4842,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Follow Donova's directions south to the mouth of Darkwhisper Gorge. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in.",
+			"note": "0.4.3 route round (Alliance 50-60): Strange Sources' step said \"pass them one at a time\" of the elites on the way, which read as an order to fight them. The explore point (Winterspring 59.8,74.2) is about 50 yards short of the first Hederine Slayers (59.4,75.1); the Hederine elites line the gorge from y 75 to 90 (players' recordings: deaths at 59.5,75.7, 60.6,78.9, 61.2,79.3 and 58.8,82.9-86.2, nobody killed one). The tip says to avoid both elite camps: the Frostmaul giants are passed on the road at their east side, the line all 13 recorded crossers rode (places 043-darkwhisper-gorge-by-the-road), and the gorge is not entered. Mount Hyjal's ride in (hyjal-1) names the same camps on the same road.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever npcs.json on Winterspring (1452): Frostmaul Giant 7428 and Frostmaul Preserver 7429 (59-60, rank 1) at 58.1-65.7,65.1-73.0; Hederine Initiate 7461, Manastalker 7462 and Slayer 7463 (57-60, rank 1) at 50.9-64.9,75.1-90.3; Rabid Shardtooth 7446 (59-60) at 56.4-67.1,68.7-74.4"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 13 recorded crossings of Darkwhisper Gorge into Mount Hyjal; Hederine seen hostile by 13 people, killed by none; deaths of hyjal-1 users at the gorge's mouth and along it"
+				}
+			],
+			"issue": 3144
+		},
+		{
 			"id": "epl-plaguehounds-careful",
 			"faction": "Alliance",
 			"at": {

@@ -6446,6 +6446,21 @@ test('Alliance 50-60 (0.4.3): Davil\'s Libram on the Silithus guide\'s Hearthgle
 	assert.ok(!(six[libram].step.when || []).some((p) => p.k === 'onquest' && p.q === 6025), 'not tied to the overlook quest');
 });
 
+// Alliance route round (0.4.3, AuditA50 MUST-2, 06 side): Strange Sources' Darkwhisper Gorge step said "pass them one at
+// a time" of the elites on the way. The Frostmaul giants (59-60, elite) camp across the valley north of the gorge and
+// the Hederine elites (57-60) line the gorge from just past its mouth (3 hyjal-1 users died there riding in). The step
+// now keeps to the road on the giants' east side (all 13 recorded crossers rode it), touches the mouth and turns back.
+test('Alliance 50-60 (0.4.3): Darkwhisper Gorge is touched at its mouth, the Frostmaul and Hederine elites avoided', { skip }, () => {
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const gorge = at(six, 'complete 4842', (g) => g.quest === 4842 && g.t !== 'accept' && g.t !== 'turnin');
+	const tip = [].concat(six[gorge].step.note || []).join(' ');
+	assert.doesNotMatch(tip, /one at a time/, 'no order to fight them');
+	assert.match(tip, /Hederine[^"]*elite/, 'the gorge elites named');
+	assert.match(tip, /turn back/, 'touch the mouth and turn back');
+	const road = six.findIndex(({ goal, s }) => s === six[gorge].s && goal.t === 'goto' && goal.x > 61.5 && goal.y > 66 && goal.y < 70);
+	assert.ok(road >= 0 && road < gorge, 'the road past the giants first');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

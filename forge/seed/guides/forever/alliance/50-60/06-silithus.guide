@@ -380,7 +380,10 @@ step Ranshalla
   complete 4901
 
 step Darkwhisper Gorge
-  tip Follow Donova's directions to the mouth of Darkwhisper Gorge, past the Frostmaul giants: pass them one at a time.
+  tip Follow Donova's directions south to the mouth of Darkwhisper Gorge. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in.
+  goto 62.3,67.0 "The road past the Frostmaul giants"
+  goto 62.1,69.5 "The road past the Frostmaul giants"
+  goto 61.2,71.4 "The road to Darkwhisper Gorge"
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
 
