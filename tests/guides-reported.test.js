@@ -8591,9 +8591,8 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor 
 	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const stalkers = stepOf('the Jungle Stalkers (196)', (g) => g.t === 'kill' && g.quest === 196);
-	// Level tidy 0.4.0: Zanzil's village and Maury (43-44) wait for the level-48 Booty Bay stop, so the raptors follow
-	// the optional Cortello's scroll step on the way north out of town.
-	assert.equal(stalkers, stepOf("Cortello's scroll", (g) => g.t === 'collect' && g.item === 4056) + 1, 'the raptors on the jungle loop, right after leaving Booty Bay (A Meal Served Cold is left out)');
+	const lastTownHandoff = stepOf("Shaky's message", is('turnin', 607));
+	assert.ok(lastTownHandoff < stalkers && stalkers < stepOf('the north-west coast', (g) => g.t === 'collect' && g.quest === 611), 'hunt the stalkers on the northbound sweep, not on a return trip from the coast');
 	assert.ok(goals('forever/alliance/40-50/05-the-hinterlands.guide').some(({ goal }) => goal.t === 'collect' && goal.item === 3924), "Maury's foot on the level-48 Booty Bay stop");
 	const turnin = stepOf('turnin 196', is('turnin', 196));
 	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
@@ -8915,7 +8914,7 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the isla
 	assert.ok(!north.some(({ goal }) => goal.t === 'accept' && [577, 601, 213].includes(goal.quest)), 'no Booty Bay stop at the start of the northern loop');
 	assert.ok(croc > 0 && elem > 0, 'the crocolisks and the elementals worked on the northern loop');
 	assert.equal(northStep('turnin', 577), northStep('turnin', 601), 'both handed in on the last Booty Bay stop');
-	assert.deepEqual(compiled(northFile).steps.filter((st) => st.along).map((st) => st.title), [], '04b: no along steps');
+	assert.ok(!north[croc].step.along && !north[elem].step.along, 'the northern loop takes the character to the crocolisks and elementals instead of leaving them as passing suggestions');
 });
 // Final route review, 30-40 (2026-11-07): the step after the flight into Grom'gol told the player to follow the road south to
 // Grom'gol.
@@ -11870,11 +11869,11 @@ const whenOn = (step, k, q) => (step.when || []).some((p) => p.k === k && !p.neg
 // A step meant for players on a quest (`when onquest|complete Q`) whose goals are all optional is done at once (the
 // Engine's goalsDone skips optional goals), so the guide moved past Carnage's flesh, the yeti fur, the Hillsbrad
 // council and Bartolo's hand-in without leading anyone there. Sweep: ~/work/maintainer/optional-gated-sweep/allopt.py.
-test('Alliance 30-40 audit: a step for players on a quest holds them there (not all of its goals optional)', { skip }, () => {
+test('Alliance 30-40 audit: a main-route step for players on a quest holds them there', { skip }, () => {
 	const bad = [];
 	for (const guide of A3040) {
 		for (const step of compiled(guide).steps) {
-			if (!(step.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && !p.neg)) continue;
+			if (step.along || !(step.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && !p.neg)) continue;
 			const work = step.goals.filter((g) => g.t !== 'note');
 			if (work.length && work.every((g) => g.optional)) bad.push(`${guide}: "${step.title}"`);
 		}

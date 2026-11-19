@@ -438,8 +438,9 @@ return {
 	["Take the road north-west from {area:186} again; she still lies beside it, on the way to {zone:1457}."] = "再次沿著道路從{area:186}向西北走；她仍躺在路旁，在前往{zone:1457}的路上。",
 
 	-- Step 70: Into Darnassus
-	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "進入{zone:1457}",
+	-- {area:1657} Darnassus
+	-- was: ["Into {zone:1457}"] = "進入{zone:1457}"
+	["Into {area:1657}"] = "",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}，在剛進城處的{area:1659}上",
 
@@ -450,10 +451,13 @@ return {
 	-- Step 73: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "出城門後沿路向東：{quest:1683}站在路南、{area:736}旁。把他的號角帶回去交給{quest:1684}。",
+	-- {area:736} Ban'ethil Hollow
+	["East from the city gate to {area:736}"] = "",
 
 	-- Step 75: Darnassus
-	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿著道路向西進入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，完成最後兩隻貓頭鷹。{npc:4241}站在一進城的{area:1659}上。{npc:3516}在城市北端的{area:1658}，{quest:922}就在其南邊；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}在城市南端的月神殿裡。",
+	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
+	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿著道路向西進入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，完成最後兩隻貓頭鷹。{npc:4241}站在一進城的{area:1659}上。{npc:3516}在城市北端的{area:1658}，{quest:922}就在其南邊；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}在城市南端的月神殿裡。"
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}，在{area:1660}上：{spell:71}",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -546,6 +550,8 @@ return {
 	-- Step 93: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林裡。順便向湖南邊的{npc:10897}學會{area:493}的飛行路線，方便以後往返。然後{area:2361}的{npc:11800}可透過對話直接把德魯伊送到{area:702}：她那裡沒有可學的飛行路線。{npc:11802}站在他建築的樓上：從裡面上樓，箭頭分不出樓層。",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "與{quest:5929}交談",
 
@@ -553,24 +559,42 @@ return {
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "落地後，{npc:10118}就在魯瑟蘭村碼頭上。隨後透過傳送門上去，到{area:1658}找{npc:4217}。",
 
-	-- Step 97: The Moonkin Stone
+	-- Step 97: Rut'theran Village flight master
+	-- {area:702} Rut'theran Village
+	["{area:702} flight master"] = "",
+	-- {zone:1457} Darnassus
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+
+	-- Step 98: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "回到{area:702}，飛往{area:442}。{object:177525}在村莊東邊的山丘上：在那裡使用{item:15208}，擊敗月爪梟獸，然後與{npc:12144}交談。",
 
-	-- Step 98: Body and Heart
+	-- Step 99: Auberdine flight master
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
+
+	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "再飛往{area:702}一次，搭傳送門上去找{npc:4217}，然後飛回{area:442}。",
+
+	-- Step 101: Back to Auberdine
+	-- {area:442} Auberdine
+	["Back to {area:442}"] = "",
+	-- {area:702} Rut'theran Village
+	["Take the portal down to the hippogryphs at {area:702}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "搭船前往{zone:1453}",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}的每個任務都會給你一根{item:15908}：對他指定的野獸使用，然後把馴獸棒帶回{area:186}給他。樹林潛伏者在村莊周圍潛行，夜刃捕食者和巨翼惡梟在村莊南邊的樹林遊蕩。",
 	-- ["East to {area:260}"] = "向東前往{area:260}",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "沿著道路向西南離開{area:188}，前往{area:186}。",
+	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿著道路向西進入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，完成最後兩隻貓頭鷹。{npc:4241}站在一進城的{area:1659}上。{npc:3516}在城市北端的{area:1658}，{quest:922}就在其南邊；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}在城市南端的月神殿裡。",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "從港口走進{object:2100}。{npc:5480}在那裡訓練戰士；{npc:6089}和{npc:6090}一起站在{object:2152}旁。{npc:6090}會為了他的杯子和你決鬥。",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "從{area:17203}騎馬穿過城門進入{zone:1429}，沿著道路向西前往{zone:1436}。",
 	-- ["Hearth to {area:186}"] = "用爐石回{area:186}",
+	-- ["Into {zone:1457}"] = "進入{zone:1457}",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "在旅店南邊的山丘上學習{area:442}的飛行路線，然後施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林裡。在{area:2361}學習{area:493}的飛行路線，然後飛往{area:702}（途經{area:442}）。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者分布在往東的道路沿線。月井在{area:260}的西緣。",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "從大槌烏薩爾的巢穴向東北走，回到{area:186}。",

@@ -174,7 +174,8 @@ return {
 
 	-- Step 35: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "从{area:318}向南，经过{area:314}，前往山丘中的{area:317}：枯木巫医站在小屋之间，枯木暗影猎手守在山谷尽头。每个巨魔都可能掉落獠牙。",
+	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
+	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}：在地下",
 
@@ -345,6 +346,8 @@ return {
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{zone:1432}，沿道路前往{area:144}。",
 
 	-- Step 74: Thelsamar
+	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
@@ -381,6 +384,7 @@ return {
 	-- ["Shaman training"] = "萨满祭司训练",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "沿西海岸向南，前往地精的海湾；哨兵鲁鲁在海湾上方的岩石上放哨。",
 	-- ["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "从{object:2691}向南，经过{area:314}，前往山丘中的{area:317}：枯木巫医站在小屋之间，枯木暗影猎手守在山谷尽头。每个巨魔都可能掉落獠牙。",
+	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "从{area:318}向南，经过{area:314}，前往山丘中的{area:317}：枯木巫医站在小屋之间，枯木暗影猎手守在山谷尽头。每个巨魔都可能掉落獠牙。",
 	-- ["South-east from Northfold to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "从诺斯弗德农场向东南，前往{area:314}南边丘陵中的枯木巨魔处；巫医在村里，暗影猎手守着山谷深处。这里的所有巨魔都有可能掉落獠牙。",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}以西湖岸的肯瑞托营地，刚越过边界进入{area:130}：{npc:269127}站在那里。大法师安斯雷姆·鲁因维沃尔站在其东南的穹顶旁。",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "跟着{npc:2713}潜入{area:314}再回来；途中部落兽人会突袭你。",

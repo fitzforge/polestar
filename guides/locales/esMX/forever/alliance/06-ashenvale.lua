@@ -32,11 +32,13 @@ return {
 
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Ve al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar {item:5463}.",
+	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Ve al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar {item:5463}."
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "Al sur de los múrlocs, {npc:3585} espera en {area:416}.",
+	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "Al sur de los múrlocs, {npc:3585} espera en {area:416}."
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -78,23 +80,27 @@ return {
 
 	-- Step 18: The Ruins of Stardust
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
-	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "De vuelta al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.",
+	-- plural, as words: Shadethicket Raincallers = {npc:3783} Shadethicket Raincaller
+	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "",
 
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Sigue el camino al este hasta {area:419}; {npc:3916} está junto al pozo de la luna.",
+	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Sigue el camino al este hasta {area:419}; {npc:3916} está junto al pozo de la luna."
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "De vuelta al oeste por el camino desde {npc:3916}, {area:415} queda de camino a {npc:3664}: {npc:3894} está dentro del edificio de más allá de la posada.",
+	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "De vuelta al oeste por el camino desde {npc:3916}, {area:415} queda de camino a {npc:3664}: {npc:3894} está dentro del edificio de más allá de la posada."
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:412}, al sur del santuario: {npc:3664} y sus abisarios las ocupan. Atrae primero a sus guardias.",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Sigue la costa al norte hasta {area:414}. {npc:3846} acampa en la playa; las nagas Colafuria llenan la orilla.",
+	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Sigue la costa al norte hasta {area:414}. {npc:3846} acampa en la playa; las nagas Colafuria llenan la orilla."
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}, en las ruinas de la orilla",
 	-- {item:5490} Wrathtail Head
@@ -118,7 +124,8 @@ return {
 
 	-- Step 28: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Sigue el camino al sureste desde {area:413} de vuelta a {area:415}: {npc:3845} está junto al maestro de vuelo.",
+	-- was: ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Sigue el camino al sureste desde {area:413} de vuelta a {area:415}: {npc:3845} está junto al maestro de vuelo."
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -209,12 +216,12 @@ return {
 	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Su pedernal sale de los correpantanos Pellejomusgo de camino a {area:309}; {npc:1244} lo recibe en tu próxima visita a {zone:1437}",
 
 	-- Step 44: Ironbeard's Tomb
-	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
-	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
-	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "Al noroeste desde {npc:1244}: los correpantanos y tejebrumas Pellejomusgo recorren las orillas del río por el camino, y casi todos sueltan pedernal. Los lodos negros, carmesí y monstruosos llenan {area:309}, justo al oeste del camino a {area:205} y al norte del campamento de Einar. Cualquier lodo de ahí puede tener la bolsa de {npc:2111}.",
+	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
+	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze · Crimson Oozes = {npc:1031} Crimson Ooze · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
+	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: correpantanos y tejebrumas Pellejomusgo",
+	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "",
 
 	-- Step 45: Menethil
 	["Menethil"] = "Menethil",
@@ -298,7 +305,9 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "Lo siguiente: entrenar en {zone:1453}, luego el camino al este por Elwynn y al sur hasta {zone:1431}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "De vuelta al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "De vuelta a la catedral: {npc:928} está dentro.",
+	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "De vuelta al oeste por el camino desde {npc:3916}, {area:415} queda de camino a {npc:3664}: {npc:3894} está dentro del edificio de más allá de la posada.",
 	-- ["Black Oozes"] = "Mocos negros ({npc:1032})",
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "Los Mocos negros ({npc:1032}) se arrastran por el pantano al norte del camino de {area:1025}, al oeste del campamento de {npc:2093}. Cualquier moco puede tener la bolsa de {npc:2111}.",
 	-- ["Cathedral of Light"] = "La catedral",
@@ -306,13 +315,18 @@ return {
 	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "Escolta a Kerlonian hasta {area:413}, en {zone:1440}.",
 	-- ["Fen Creepers"] = "Trepadores del pantano ({npc:1040})",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "Los Trepadores del pantano ({npc:1040}) se esconden en las charcas al noroeste de {area:1025}.",
+	-- ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Sigue la costa al norte hasta {area:414}. {npc:3846} acampa en la playa; las nagas Colafuria llenan la orilla.",
+	-- ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Sigue el camino al este hasta {area:419}; {npc:3916} está junto al pozo de la luna.",
 	-- ["Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Sigue el camino al este. Los Crocoliscos jóvenes de Los Humedales ({npc:1417}) acechan en las charcas al norte de la excavación.",
 	-- ["Follow the road north to {area:205}, at the foot of the {area:881}. {npc:1071} stands in the dwarves' camp."] = "Sigue el camino al norte hasta {area:205}, al pie de {area:881}. {npc:1071} está en el campamento de los enanos.",
+	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Sigue el camino al sureste desde {area:413} de vuelta a {area:415}: {npc:3845} está junto al maestro de vuelo.",
 	-- ["Follow the road south-east to {area:415}, on the island in the lake."] = "Sigue el camino al sureste hasta {area:415}, en la isla del lago.",
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "Para Bolvar Fordragón en {object:2117}: guárdalo",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "Para los crocoliscos gigantes de la costa norte, en tu próxima visita",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "Para {npc:2228} en {area:271}: guárdalo",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "Desde {area:17203} toma el barco a {area:442}; {npc:3649} está en el extremo norte del pueblo. Luego cabalga al sur por el camino a través de {zone:1439}.",
+	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:412}, al sur del santuario: {npc:3664} y sus abisarios las ocupan. Atrae primero a sus guardias.",
+	-- ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Ve al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar {item:5463}.",
 	-- ["Hearth to Menethil"] = "Piedra de hogar a Menethil",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "¿Tu piedra de hogar está en tiempo de reutilización? Cabalga de vuelta al norte por {area:1276}.",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "Kerlonian duerme en {area:448}, al sur de {zone:1439}. Usa el {item:13536} para despertarlo y llévalo al sur por el camino hasta {zone:1440}, con {npc:11219} en {area:413}; vuelve a tocar el cuerno cada vez que se duerma.",
@@ -320,12 +334,14 @@ return {
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "Los Correpantanos Pellejomusgo ({npc:1010}) y los Tejebruma Pellejomusgo recorren las orillas del río justo al oeste y al sur de {npc:1244}; casi todos sueltan pedernal.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Los Raptores jaspeados ({npc:1020}) y los Estridadores jaspeados recorren las colinas al oeste de la excavación.",
 	-- ["Next: fly to {area:42}."] = "Siguiente: vuela a {area:42}.",
+	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "Al noroeste desde {npc:1244}: los correpantanos y tejebrumas Pellejomusgo recorren las orillas del río por el camino, y casi todos sueltan pedernal. Los lodos negros, carmesí y monstruosos llenan {area:309}, justo al oeste del camino a {area:205} y al norte del campamento de Einar. Cualquier lodo de ahí puede tener la bolsa de {npc:2111}.",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "Solo si obtuviste {quest:337} en {zone:1431}",
 	-- ["Raptor valley"] = "El valle de los raptores",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "Cabalga al este por el camino de {zone:1437}, al sur por {area:836} hasta {zone:1432} y al oeste por el túnel hasta {zone:1426}, hasta {area:1537}.",
 	-- ["Ride south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}. {npc:4080} and {npc:4077} camp on the {area:1076} south-west of the crag."] = "Cabalga al sur pasando {area:421} hasta el túnel de {area:1276}; sale en {area:461}, en la Sierra Espolón. {npc:4080} y {npc:4077} acampan en {area:1076}, al suroeste del risco.",
 	-- ["Ride west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Cabalga al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar la {item:5463}.",
 	-- ["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "Al sur desde el campamento de {npc:3987}, {area:415} queda de camino al oeste: {npc:3691} en la posada, {npc:3894} dentro del edificio de más allá.",
+	-- ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "Al sur de los múrlocs, {npc:3585} espera en {area:416}.",
 	-- ["Take the boat from {area:17203} to {area:442} and fly to {area:702}; {npc:11401} is in the Temple of the Moon. Then fly back to {area:442}."] = "Toma el barco de {area:17203} a {area:442} y vuela a {area:702}; {npc:11401} está en el templo de la Luna. Luego vuela de vuelta a {area:442}.",
 	-- ["Take the boat from {area:17203} to {area:442}. Join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then fly to {area:702} (by way of {area:442})."] = "Toma el barco de {area:17203} a {area:442}. Une las dos mitades del colgante en el {item:15885} y lanza {spell:18960}: {npc:11802} está en {area:2361}. Luego vuela a {area:702} (pasando por {area:442}).",
 	-- ["Take the portal up to the {area:1658}, then fly back to {area:442}."] = "Toma el portal para subir a {area:1658} y luego vuela de vuelta a {area:442}.",
@@ -344,6 +360,7 @@ return {
 	-- ["West of Mystral Lake, the stardust bushes grow among the ruins."] = "Al oeste del Lago Mystral, los arbustos de polvo estelar crecen entre las ruinas.",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "mata Asaltantes Faucedraco ({npc:1034}) y Correpantanos en el campamento Faucedraco, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
+	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: correpantanos y tejebrumas Pellejomusgo",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} y {npc:258785} están en {object:32386}, en {object:32362}.",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: para {npc:2104}, en el castillo",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}, en la biblioteca real",

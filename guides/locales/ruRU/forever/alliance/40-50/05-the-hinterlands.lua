@@ -95,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "«Морской Волк» Маккинли, если гайд по Тернистой долине его не выдал",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, верхний этаж, если гайд по Тернистой долине его не выдал",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, если гайд по Тернистой долине его не выдал",
+	["{npc:2487}, top floor"] = "{npc:2487} – верхний этаж",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, внутри, если гайд по Тернистой долине его не выдал",
+	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}: убивайте их по пути",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Карты и приказы лежат в пиратском лагере на месте {area:43}, чуть южнее места {area:35}; его головорезы ходят по берегу. Чернокнижники и головорезы (41-43) теперь ниже вас по уровню.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487} – верхний этаж",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Капитаны шайки Кровавого Паруса",
@@ -133,6 +126,8 @@ return {
 	["{npc:2535} and {npc:2536}"] = "{npc:2535} и {npc:2536}",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} и {npc:2536} стоят вместе в холмах чуть севернее деревни Занзила.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Холмы горилл",
@@ -153,8 +148,6 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "для NPC {npc:2616} в Тераморе: сохраните, гайд по Ун'Горо начинается там",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "Следующее поручение {npc:2498} про Занзила начинается в зоне {zone:1441}: пропустите его.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "Следующее задание Маккинли отправляет вас к элитным ограм: пропустите его.",
 
 	-- Step 30: Monogrammed Sash
@@ -177,6 +170,7 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "«Морской Волк» Маккинли, если гайд по Тернистой долине его не выдал",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Пеплогривые кабаны и краснокаменные василиски обитают на склонах к юго-западу от крепости. Держитесь подальше от зловепрей южнее: у них 52-й уровень.",
 	-- ["Back to {area:144}"] = "Вернитесь: {area:144}",
 	-- ["Boars and basilisks"] = "Кабаны и василиски",
@@ -202,6 +196,9 @@ return {
 	-- ["The {area:1517} dig"] = "Раскопки: {area:1517}",
 	-- ["the book on her table"] = "книга на ее столе",
 	-- ["the soil comes from {zone:1449}, later"] = "почва — из зоны {zone:1449}, позже",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, верхний этаж, если гайд по Тернистой долине его не выдал",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, если гайд по Тернистой долине его не выдал",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, внутри, если гайд по Тернистой долине его не выдал",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, на вершине дерева",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, рядом с ней",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",

@@ -32,11 +32,13 @@ return {
 
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}的岸邊。泰洛尼斯的屍體躺在鹽沫魚人之間；任何魚人都可能掉落{item:5463}。",
+	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}的岸邊。泰洛尼斯的屍體躺在鹽沫魚人之間；任何魚人都可能掉落{item:5463}。"
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "在魚人南邊，{npc:3585}在{area:416}等著。",
+	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "在魚人南邊，{npc:3585}在{area:416}等著。"
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -78,23 +80,27 @@ return {
 
 	-- Step 18: The Ruins of Stardust
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
-	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "向北穿過{area:1276}回去：在{area:421}西邊，星塵灌木生長在廢墟之間。",
+	-- plural, as words: Shadethicket Raincallers = {npc:3783} Shadethicket Raincaller
+	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "",
 
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向東前往{area:419}；{npc:3916}站在月井旁。",
+	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向東前往{area:419}；{npc:3916}站在月井旁。"
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "從{npc:3916}沿路往西回去，{area:415}就在前往{npc:3664}的路上：{npc:3894}在旅店後方的建築內。",
+	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "從{npc:3916}沿路往西回去，{area:415}就在前往{npc:3664}的路上：{npc:3894}在旅店後方的建築內。"
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
 
 	-- Step 21: Ilkrud Magthrull
-	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "從{area:415}向西南到神龕以南的{area:412}：{npc:3664}和他的虛空行者佔著那裡。先把他的守衛拉出來。",
+	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北前往{area:414}。{npc:3846}在海灘上紮營；怒尾納迦遍布海岸。",
+	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北前往{area:414}。{npc:3846}在海灘上紮營；怒尾納迦遍布海岸。"
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}，在海岸上的廢墟裡",
 	-- {item:5490} Wrathtail Head
@@ -118,7 +124,8 @@ return {
 
 	-- Step 28: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "沿路從{area:413}向東南返回{area:415}：{npc:3845}站在飛行管理員旁。",
+	-- was: ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "沿路從{area:413}向東南返回{area:415}：{npc:3845}站在飛行管理員旁。"
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -209,12 +216,12 @@ return {
 	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "它的燧石出自前往{area:309}途中的苔皮沼奔者；下次{zone:1437}之行時交給{npc:1244}",
 
 	-- Step 44: Ironbeard's Tomb
-	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
-	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
-	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有苔皮沼奔者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
+	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
+	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze · Crimson Oozes = {npc:1031} Crimson Ooze · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
+	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：苔皮沼奔者和苔皮織霧者",
+	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "",
 
 	-- Step 45: Menethil
 	["Menethil"] = "米奈希爾",
@@ -298,7 +305,9 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "下一步：在{zone:1453}訓練，然後沿路向東穿過艾爾文森林，再向南到{zone:1431}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "向北穿過{area:1276}回去：在{area:421}西邊，星塵灌木生長在廢墟之間。",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "回到光明大教堂：{npc:928}站在裡面。",
+	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "從{npc:3916}沿路往西回去，{area:415}就在前往{npc:3664}的路上：{npc:3894}在旅店後方的建築內。",
 	-- ["Black Oozes"] = "黑色軟泥怪",
 	-- ["Black Oozes creep through the marsh north of the {area:1025} road, west of {npc:2093}'s camp. Any ooze may hold {npc:2111}'s bag."] = "黑色軟泥怪在{area:1025}道路北邊、{npc:2093}營地西邊的沼澤中爬行。任何軟泥怪都可能帶著{npc:2111}的袋子。",
 	-- ["Cathedral of Light"] = "光明大教堂",
@@ -306,12 +315,17 @@ return {
 	-- ["Escort Kerlonian to {area:413} in {zone:1440}."] = "護送克羅尼亞·恒影到{zone:1440}的{area:413}。",
 	-- ["Fen Creepers"] = "沼澤爬行者",
 	-- ["Fen Creepers hide in the marsh pools north-west of the {area:1025}."] = "沼澤爬行者躲在{area:1025}西北方的沼澤水池中。",
+	-- ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北前往{area:414}。{npc:3846}在海灘上紮營；怒尾納迦遍布海岸。",
+	-- ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向東前往{area:419}；{npc:3916}站在月井旁。",
 	-- ["Follow the road north to {area:205}, at the foot of the {area:881}. {npc:1071} stands in the dwarves' camp."] = "沿道路向北前往{area:881}山腳下的{area:205}。{npc:1071}站在矮人營地裡。",
+	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "沿路從{area:413}向東南返回{area:415}：{npc:3845}站在飛行管理員旁。",
 	-- ["Follow the road south-east to {area:415}, on the island in the lake."] = "沿道路向東南前往湖中島上的{area:415}。",
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "給{object:2117}的伯瓦爾·弗塔根公爵：先留著",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "北海岸的巨型鱷魚，下次來時再打",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "給{area:271}的{npc:2228}：先留著",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "從{area:17203}搭船到{area:442}；{npc:3649}站在村子北端。然後沿道路向南騎過{zone:1439}。",
+	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "從{area:415}向西南到神龕以南的{area:412}：{npc:3664}和他的虛空行者佔著那裡。先把他的守衛拉出來。",
+	-- ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}的岸邊。泰洛尼斯的屍體躺在鹽沫魚人之間；任何魚人都可能掉落{item:5463}。",
 	-- ["Hearth to Menethil"] = "用爐石回到米奈希爾港",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "爐石在冷卻中？向北騎回去穿過{area:1276}。",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "克羅尼亞·恒影睡在{zone:1439}南部的{area:448}。使用{item:13536}叫醒他，沿道路向南帶他進入{zone:1440}，到{area:413}找{npc:11219}；每當他睡著就再吹一次號角。",
@@ -319,9 +333,11 @@ return {
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "蘚皮沼澤行者和蘚皮織霧者在{npc:1244}西邊和南邊不遠的河岸遊蕩；幾乎每一隻都會掉落燧石。",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "雜斑迅猛龍和雜斑尖嘯龍在挖掘場西邊的丘陵遊蕩。",
 	-- ["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
+	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有苔皮沼奔者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "只有在{zone:1431}拾取了{quest:337}時",
 	-- ["Raptor valley"] = "迅猛龍山谷",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "沿{zone:1437}的道路向東騎，向南穿過{area:836}進入{zone:1432}，再向西穿過隧道進入{zone:1426}，前往{area:1537}。",
+	-- ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "在魚人南邊，{npc:3585}在{area:416}等著。",
 	-- ["Take the boat from {area:17203} to {area:442} and fly to {area:702}; {npc:11401} is in the Temple of the Moon. Then fly back to {area:442}."] = "從{area:17203}搭船到{area:442}，飛往{area:702}；{npc:11401}在Temple of the Moon。然後飛回{area:442}。",
 	-- ["Take the boat from {area:17203} to {area:442}. Join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then fly to {area:702} (by way of {area:442})."] = "從{area:17203}搭船到{area:442}。把兩半墜飾合成{item:15885}，施放{spell:18960}：{npc:11802}在{area:2361}。然後飛往{area:702}（途經{area:442}）。",
 	-- ["Take the portal up to the {area:1658}, then fly back to {area:442}."] = "搭傳送門上到{area:1658}，然後飛回{area:442}。",
@@ -339,6 +355,7 @@ return {
 	-- ["Venture Co. loggers"] = "風險投資公司樵夫",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龍喉營地刷龍喉襲擊者和龍喉沼澤行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
+	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：苔皮沼奔者和苔皮織霧者",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：給城堡裡的{npc:2104}",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}，在皇家圖書館",

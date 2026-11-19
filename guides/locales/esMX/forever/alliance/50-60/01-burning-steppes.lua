@@ -195,36 +195,27 @@ return {
 	-- {area:199} Felstone Field · {zone:1452} Winterspring
 	["keep it: the {area:199} cauldron waits for the {zone:1452} guide's Chillwind stop, at about 55"] = "guárdala: el caldero de {area:199} espera a la parada en Vientofrío de la guía de {zone:1452}, hacia el nivel 55",
 
-	-- Step 45: Janice Felstone
-	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
-	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "El fantasma de {npc:10778} vaga junto a la granja de {area:199}, al oeste de {area:200}; su paquete está adentro.",
-	["Upstairs"] = "Arriba",
-	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "{object:175894}, adentro",
-	-- {zone:1453} Stormwind
-	["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
-
-	-- Step 46: Fly to Morgan's Vigil
+	-- Step 45: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["Fly to {area:2418}"] = "Vuela a {area:2418}",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Maestro de vuelo de {area:3197}",
 
-	-- Step 47: Fly to Lakeshire
+	-- Step 46: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "Vuela a {area:69}",
 
-	-- Step 48: Morgan's Vigil flight master
+	-- Step 47: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "Maestro de vuelo de {area:2418}",
 	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
 	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "Cabalga al este saliendo de {area:69} y sube por el paso hasta {zone:1428}: {area:2418} está en lo alto.",
 
-	-- Step 49: Morgan's Vigil
+	-- Step 48: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "{area:2418} está en el sureste de las Estepas, en lo alto del paso que sube desde Crestagrana.",
 
-	-- Step 50: Level 52 at Dreadmaul Rock
+	-- Step 49: Level 52 at Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	["Level 52 at {area:249}"] = "Nivel 52 en {area:249}",
 	-- {area:249} Dreadmaul Rock · {area:1417} Sunken Temple
@@ -233,137 +224,137 @@ return {
 	-- {npc:7033} Firegut Ogre
 	["grind on {npc:7033}"] = "farmea {npc:7033}",
 
-	-- Step 51: Dreadmaul Rock
+	-- Step 50: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Los ogros Pirontraña ocupan la gran roca al norte de la Vigilia, con los toscos en su lado este.\nCuidado: los Canes del Núcleo fugados (nivel 60) deambulan por las Estepas, algunos en las laderas al oeste y al sur de {area:249}: atrae a los ogros sobre la propia roca y mira alrededor antes de atraer a cada uno.",
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}, bajo tierra",
 
-	-- Step 52: Morgan's Vigil
+	-- Step 51: Morgan's Vigil
 	-- {npc:9177} Oralius · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain
 	-- plural, as words: Blackrock Medallions = {item:11467} Blackrock Medallion
 	["{npc:9177}' next tasks ({npc:9176}, and fifty Blackrock Medallions) send you among the Blackrock orcs of 55-58 at the foot of {area:254}: skip them."] = "Las siguientes tareas de {npc:9177} ({npc:9176} y cincuenta medallones Roca Negra) te mandan entre los orcos Roca Negra de nivel 55-58 al pie de {area:254}: omítelas.",
 
-	-- Step 53: Flame Crest
+	-- Step 52: Flame Crest
 	-- {area:251} Flame Crest
 	["Follow the road west, then climb north to the goblin camp on {area:251}."] = "Sigue el camino al oeste y luego sube al norte hasta el campamento goblin en {area:251}.",
 
-	-- Step 54: Ruins of Thaurissan: kill these as you meet them
+	-- Step 53: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: mata a estos según te los encuentres",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Usa {item:12284} sobre un {npc:7047} en las laderas al este de {area:251} justo antes de que muera, luego saquea la esencia que deja.\nCuidado: un {npc:8981} (nivel 56, raro) recorre las laderas junto a las crías, y los {npc:7040} y dracónidos a su alrededor son élite: usa el Incarcinatrix sobre una cría del borde y mira alrededor antes de atraer a cada uno.",
 
-	-- Step 55: Ruins of Thaurissan
+	-- Step 54: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron (no name in this language: may be words)
 	-- plural, as words: War Reavers = {npc:7039} War Reaver · Thaurissan Firewalkers = {npc:7037} Thaurissan Firewalker
 	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest {area:251}.\nCareful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and {npc:8978} (57) holds the {object:147516} camp south-west of {area:251}: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp."] = "Las reliquias son las piedras talladas repartidas por {area:250}, alrededor de {area:251}: haz clic en ellas hasta recuperar la información. Toma las del borde sur de las ruinas, las más cercanas a {area:251}.\nCuidado: los atracadores de guerra y caminafuegos Thaurissan de las ruinas son de nivel 53-55, y {npc:8978} (57) ocupa el campamento Hierro Negro al suroeste de {area:251}: toma las reliquias del borde de las ruinas, atrae de uno en uno y mantente lejos del campamento.",
 
-	-- Step 56: Flame Crest
+	-- Step 55: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Ends with {quest:4808} in {area:2255}, {zone:1452}: keep it"] = "Termina con {quest:4808} en {area:2255}, {zone:1452}: guárdala",
 
-	-- Step 57: Cyrus Therepentous
+	-- Step 56: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Abre el {item:10569} de {zone:1427} para obtener su {item:10575} y luego dile a {npc:9459} que traes pruebas de tus hazañas: no hay que pelear con ningún dragón.",
 	["Below ground"] = "Bajo tierra",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, del tesoro",
 
-	-- Step 59: A Taste of Flame
+	-- Step 58: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:9461} es un élite de nivel 54: la mayoría de las clases lo hacen solas a nivel 56, pero puede que necesites ayuda. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
-	-- Step 61: Level 52.08
+	-- Step 60: Level 52.08
 	["Level 52.08"] = "Nivel 52.08",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "Si te saltaste {quest:4022}, mata enemigos aquí hasta el nivel 52.08 para seguir el plan de la ruta. O, con un grupo, haz en su lugar la mazmorra {area:1417}.",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "farmea {npc:9690}",
 
-	-- Step 62: Morgan's Vigil
+	-- Step 61: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Cabalga de vuelta al este por el camino hasta la Vigilia.",
 
-	-- Step 63: Fly to Nethergarde Keep
+	-- Step 62: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "Vuela a {area:1438}",
 
-	-- Step 64: Ambassador Ardalan
+	-- Step 63: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
 	["Ardalan is inside {area:1438}."] = "Ardalan está dentro de {area:1438}.",
 	-- {npc:3546} Bernie Heisten · {quest:87295} Deflective Surface
 	["{npc:3546}: {quest:87295}, the scales come from the basilisks ahead"] = "{npc:3546}: {quest:87295}, las escamas vienen de los basiliscos más adelante",
 
-	-- Step 65: Swamp of Sorrows
+	-- Step 64: Swamp of Sorrows
 	-- {zone:1419} Blasted Lands · {zone:1435} Swamp of Sorrows · {npc:10996} Fallen Hero · {area:75} Stonard
 	["Ride north out of the {zone:1419} into the {zone:1435}: the {npc:10996} stands by the road from the {zone:1419}. Keep clear of {area:75}, the Horde town to the north-east."] = "Cabalga al norte desde {zone:1419} hacia {zone:1435}: {npc:10996} está junto al camino que viene de {zone:1419}. Mantente lejos de {area:75}, el pueblo de la Horda al noreste.",
 
-	-- Step 66: Fallen Hero of the Horde
+	-- Step 65: Fallen Hero of the Horde
 	["Listen to his tale, then ride back south to Kum'isha."] = "Escucha su historia y luego cabalga de vuelta al sur con Kum'isha.",
 
-	-- Step 67: Back to the Blasted Lands
+	-- Step 66: Back to the Blasted Lands
 	-- {zone:1419} Blasted Lands
 	["Back to the {zone:1419}"] = "De vuelta a {zone:1419}",
 	["Bloodmages' camp"] = "Campamento de los magos de sangre",
 
-	-- Step 68: Blasted Lands: kill these as you meet them
+	-- Step 67: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
 	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: mata a estos según te los encuentres",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Regresa al sur hacia {zone:1419} por las bestias de los magos de sangre: las hienas risitas famélicas rondan las colinas secas al sur del campamento de los magos de sangre, los aguijoneros Scorpok corretean por el centro del norte y los {npc:5982} sobrevuelan toda la zona. Los jabalíes Cenicrín y los basiliscos Rocarroja comparten las laderas al suroeste del bastión.\nCuidado: dos élites rondan aquí: {npc:221740} (50) en el centro de la zona, alrededor de 44,34, y {npc:247015} (55) en la cresta, alrededor de 39,32. Si ves uno, caza en otro lugar.",
 
-	-- Step 70: Kum'isha the Collector
+	-- Step 69: Kum'isha the Collector
 	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos · {npc:247015} Vek'zol
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him."] = "Kum'isha espera en {area:2517}, la colina al suroeste del bastión. Los enemigos de {zone:1419} del camino sueltan los trozos draenetistas imperfectos; llévale los que tengas. Llega a su colina directo desde el bastión, por el camino, y vete por el mismo lado.\nCuidado: Felcular, {npc:7664} e Ilifar son todos élites de nivel 60. Razelikh lanza {spell:2691}, {spell:8255} y Diezmar, y a medida que baja su salud suma {object:141891}, {spell:10854} y luego Enfurecer al 15%.\nCuidado: {npc:247015}, un élite de nivel 55, está junto a la colina de Kum'isha (alrededor de 50,35) y al oeste (alrededor de 39,32), y los campamentos Machacamiedo y Juramorte a su alrededor son de nivel 53-55: consigue los trozos de los enemigos del camino desde el bastión, no a su lado.",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363} recorre esta zona: busca dentro del círculo del mapa",
 
-	-- Step 71: The bloodmages
+	-- Step 70: The bloodmages
 	["The bloodmages"] = "Los magos de sangre",
 	-- {zone:1419} Blasted Lands
 	["Ride north to the bloodmages' camp beside the road into the {zone:1419}."] = "Cabalga al norte hasta el campamento de los magos de sangre junto al camino hacia {zone:1419}.",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "El segundo nivel de los magos de sangre paga las mismas partes con un objeto de beneficio y sin experiencia: omítelo.",
 
-	-- Step 72: Bernie Heisten
+	-- Step 71: Bernie Heisten
 	-- {npc:3546} Bernie Heisten · {area:1438} Nethergarde Keep
 	["Back to {npc:3546} in {area:1438} before you hearth."] = "Vuelve con {npc:3546} en {area:1438} antes de usar la Piedra de hogar.",
 
-	-- Step 73: To Ironforge
+	-- Step 72: To Ironforge
 	-- {zone:1455} Ironforge
 	["Hearth back to {zone:1455}'s inn."] = "Usa la piedra de hogar para volver a la posada de {zone:1455}.",
 
-	-- Step 74: Fly to Thelsamar
+	-- Step 73: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Vuela a {area:144}",
 
-	-- Step 77: Fly to Ironforge
+	-- Step 76: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
-	-- Step 80: Royal Historian Archesonus
+	-- Step 79: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}: the relics you read in the Steppes are his."] = "Archesonus está junto al rey Magni en {object:171709}: las reliquias que leíste en las Estepas son suyas.",
 
-	-- Step 81: Fly to Menethil Harbor
+	-- Step 80: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 
-	-- Step 83: Fly to Rut'theran Village
+	-- Step 82: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
-	-- Step 84: Rut'theran Village
+	-- Step 83: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "Los lechúcicos salvajes están en {zone:1452}: guárdala",
 
-	-- Step 87: Darnassus
+	-- Step 86: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "El portal de {area:702} sube a {zone:1457}: {npc:9047} espera en {area:1658}, en el norte de la ciudad.",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
@@ -371,13 +362,13 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455} no tiene instructor de druidas",
 
-	-- Step 88: Mathrengyl Bearwalker
+	-- Step 87: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217} is upstairs in the druids' building of the {area:1658}: go in by its south door."] = "{npc:4217} está arriba en el edificio de los druidas de {area:1658}: entra por su puerta sur.",
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, arriba",
 
-	-- Step 89: Gracina Spiritmight
+	-- Step 88: Gracina Spiritmight
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740} está junto a Tyrande en el Templo de la Luna, al sur de la ciudad.",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
@@ -385,11 +376,11 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1422} Western Plaguelands
 	["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "Para {npc:5594} en {area:976}, en la guía de {zone:1422}: guárdalo",
 
-	-- Step 90: Portal to Teldrassil
+	-- Step 89: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
-	-- Step 91: Daryn Lightwind
+	-- Step 90: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 
@@ -402,6 +393,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:69}."] = "Vuela de {zone:1455} a {area:69}.",
 	-- ["Fly to {area:1438}."] = "Vuela a {area:1438}.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "Vuela a {area:150} y toma el barco a {area:442}, y luego el barco a {area:702}.",
+	-- ["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "Desde el muelle de {area:442}, vuela a {area:415}.",
 	-- ["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him."] = "Kum'isha espera en {area:2517}, la colina al suroeste del bastión. Los enemigos de {zone:1419} del camino sueltan los fragmentos de draenetista imperfectos; llévale los que tengas.\nCuidado: Felcular, {npc:7664} e Ilifar son todos élites de nivel 60. Razelikh lanza {spell:2691}, {spell:8255} y Diezmar, y a medida que baja su salud suma {object:141891}, {spell:10854} y luego Enfurecer al 15%.\nCuidado: {npc:247015}, un élite de nivel 55, está junto a la colina de Kum'isha (alrededor de 50,35) y al oeste (alrededor de 39,32): consigue los fragmentos de los enemigos del camino desde el bastión, no a su lado.",
 	-- ["Level 52"] = "Nivel 52",
@@ -425,6 +417,7 @@ return {
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "El santuario está en la esquina suroeste de {area:16}, al sur de {area:3137}.",
 	-- ["The {quest:4296}"] = "{quest:4296}",
 	-- ["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 52 con los ogros de {area:249}, de camino a {area:251}: las entregas de allí te llevan al nivel 53. O, con un grupo, haz en su lugar la mazmorra {area:1417}.",
+	-- ["Upstairs"] = "Arriba",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Usa {item:12284} en una {npc:7047} en las laderas al este de {area:251} justo antes de que muera, y luego saquea la esencia que deja.",
 	-- ["Wildkin feathers"] = "Plumas de lechúcico salvaje",
 	-- ["grind on {npc:6375}"] = "farmea {npc:6375}",
@@ -432,6 +425,7 @@ return {
 	-- ["grind on {npc:7034}"] = "farmea {npc:7034}",
 	-- ["{area:199} cauldron"] = "Caldero de {area:199}",
 	-- ["{item:11467}; inside"] = "{item:11467}; adentro",
+	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "El fantasma de {npc:10778} vaga junto a la granja de {area:199}, al oeste de {area:200}; su paquete está adentro.",
 	-- ["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075} vigila el caldero de {area:199}, al oeste de Andorhal.",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: la guía anterior te vincula aquí, así que esto suele marcarse de inmediato",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363} espera en {area:2517}, la colina al suroeste de la fortaleza. Los enemigos de {zone:1419} del camino sueltan los trozos draenetistas imperfectos; llévale los que tengas.",
@@ -440,5 +434,6 @@ return {
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty."] = "{npc:9176} y los orcos Roca Negra ocupan los campamentos y el bastión al pie de {area:254}, al oeste de {area:251}. Atráelos de uno en uno; cualquier orco o huargo puede soltar un medallón, así que mátalos hasta tener cincuenta.",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176} y los orcos Roca Negra ocupan los campamentos y la fortaleza al pie de {area:254}, al oeste de {area:251}. Atráelos de a uno; cualquier orco o huargo puede soltar un medallón, así que mátalos hasta tener cincuenta.\nCuidado: {npc:9176} tiene un guardia vinculado que se suma a la pelea, y un segundo soldado patrulla cerca; despeja la patrulla antes de atraerlo.\nCuidado: los Juramentados del Fuego, elementales de fuego de nivel 60, deambulan por las Estepas, algunos entre los campamentos Roca Negra: mira antes de atraer a cada uno y déjalos pasar.",
 	-- ["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177}: los orcos Roca Negra sueltan los medallones; tenla abierta por todas las Estepas",
+	-- ["{object:175894}, inside"] = "{object:175894}, adentro",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455} no tiene instructor de druidas: toma el portal para subir a {zone:1457} y entrena en {area:1658}; luego baja de vuelta a {area:702}.",
 }

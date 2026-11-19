@@ -56,32 +56,32 @@ forever/alliance/06-wetlands	step 11	1:9664,2522>6421,819	no way on either map
 forever/alliance/06-wetlands	step 21	0:-3490,-1722>-3560,-1959	detour 2.12x straight on grid, no named passage
 forever/alliance/06-wetlands	step 22	0:-3588,-1991>-3526,-1882	detour 4.25x straight on grid, no named passage
 forever/alliance/06-wetlands	step 23	0:-3568,-1765>-3560,-1959	detour 3.45x straight on grid, no named passage
-forever/alliance/06-wetlands	step 34	0:-3256,-2716>-3705,-2375	detour 2.12x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 51	1:2896,-1380>3068,-1627	detour 5.22x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 52	1:3316,-1434>2896,-1380	detour 4.67x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 53	1:2896,-1380>2951,-2812	detour 1.76x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 61	1:1773,-2680>1829,-2751	detour 1.91x straight on grid, no named passage
-forever/alliance/06-wetlands	step 62	1:1821,-2628>2953,-3214	no way on either map
-forever/alliance/06-wetlands	step 64	1:2482,-2142>2896,-1380	detour 1.85x straight on grid, no named passage
-forever/alliance/06-wetlands	step 65	1:2896,-1380>2782,-1552	detour 4.69x straight on grid, no named passage
-forever/alliance/06-wetlands	step 66	1:2782,-1552>2896,-1380	detour 4.52x straight on grid, no named passage
-forever/alliance/06-wetlands	step 67	1:2896,-1380>3169,-1212	detour 6.60x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 68	1:3169,-1212>2766,-407	detour 3.07x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 71	1:2092,-1167>1790,-1232	detour 2.04x straight on grid, no named passage
-forever/alliance/06-wetlands	step 73	1:1613,-1457>1790,-1232	detour 1.74x straight on grid, no named passage
-forever/alliance/06-wetlands	step 80	1:3185,194>3277,-584	detour 1.68x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 81	1:3277,-584>2766,-407	detour 1.56x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 91	0:-8550,722>-8557,827	detour 1.59x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 93	0:-8348,386>-8575,882	detour 1.56x straight on leffe, no named passage
-forever/alliance/06-wetlands	step 94	0:-8575,882>-8774,845	detour 2.50x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 35	0:-3256,-2716>-3705,-2375	detour 2.12x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 58	1:2896,-1380>3068,-1627	detour 5.22x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 59	1:3316,-1434>2896,-1380	detour 4.67x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 60	1:2896,-1380>2951,-2812	detour 1.76x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 68	1:1773,-2680>1829,-2751	detour 1.91x straight on grid, no named passage
+forever/alliance/06-wetlands	step 69	1:1821,-2628>2953,-3214	no way on either map
+forever/alliance/06-wetlands	step 71	1:2482,-2142>2896,-1380	detour 1.85x straight on grid, no named passage
+forever/alliance/06-wetlands	step 72	1:2896,-1380>2782,-1552	detour 4.69x straight on grid, no named passage
+forever/alliance/06-wetlands	step 73	1:2782,-1552>2896,-1380	detour 4.52x straight on grid, no named passage
+forever/alliance/06-wetlands	step 74	1:2896,-1380>3169,-1212	detour 6.60x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 75	1:3169,-1212>2766,-407	detour 3.07x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 78	1:2092,-1167>1790,-1232	detour 2.04x straight on grid, no named passage
+forever/alliance/06-wetlands	step 80	1:1613,-1457>1790,-1232	detour 1.74x straight on grid, no named passage
+forever/alliance/06-wetlands	step 87	1:3185,194>3277,-584	detour 1.68x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 88	1:3277,-584>2766,-407	detour 1.56x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 98	0:-8550,722>-8557,827	detour 1.59x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 100	0:-8348,386>-8575,882	detour 1.56x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 101	0:-8575,882>-8774,845	detour 2.50x straight on leffe, no named passage
 forever/alliance/07-thousand-needles	step 20	0:-10596,-1199>-10581,-1319	detour 1.54x straight on leffe, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 8	0:-2951,-3271>-3049,-3251	detour 1.60x straight on grid, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 14	0:-2645,-2447>-2650,-2463	detour 1.53x straight on leffe, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 16	0:-2648,-2440>-2651,-2455	detour 1.55x straight on leffe, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 22	0:-2648,-2440>-2651,-2455	detour 1.55x straight on leffe, no named passage
-forever/alliance/30-40/01-hillsbrad-foothills	step 64	0:-8682,433>-8691,325	detour 2.15x straight on leffe, no named passage
-forever/alliance/30-40/01-hillsbrad-foothills	step 65	0:-8691,325>-8424,401	detour 2.29x straight on leffe, no named passage
-forever/alliance/30-40/01-hillsbrad-foothills	step 66	0:-8424,401>-8527,856	detour 1.65x straight on leffe, no named passage
+forever/alliance/30-40/01-hillsbrad-foothills	step 67	0:-8682,433>-8691,325	detour 2.15x straight on leffe, no named passage
+forever/alliance/30-40/01-hillsbrad-foothills	step 68	0:-8691,325>-8424,401	detour 2.29x straight on leffe, no named passage
+forever/alliance/30-40/01-hillsbrad-foothills	step 69	0:-8424,401>-8527,856	detour 1.65x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 4	1:-15,1081>163,1262	detour 1.51x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 7	1:-360,2488>-460,2611	detour 3.45x straight on leffe, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 15	0:-11310,-200>-11564,-565	detour 1.53x straight on grid, no named passage
@@ -90,8 +90,8 @@ forever/alliance/30-40/04-stranglethorn-vale	step 31	1:3826,165>426,1781	detour 
 forever/alliance/30-40/04b-stranglethorn-vale	step 2	0:-8998,804>-8841,490	detour 1.52x straight on leffe, no named passage
 forever/alliance/30-40/04b-stranglethorn-vale	step 5	0:-11312,-188>-11618,-48	detour 1.59x straight on leffe, no named passage
 forever/alliance/30-40/04b-stranglethorn-vale	step 7	0:-11564,-565>-11505,-606	detour 1.84x straight on grid, no named passage
-forever/alliance/30-40/04b-stranglethorn-vale	step 10	0:-12150,643>-12153,783	detour 1.53x straight on leffe, no named passage
-forever/alliance/30-40/04b-stranglethorn-vale	step 14	0:-11631,-50>-11297,-203	detour 1.52x straight on leffe, no named passage
+forever/alliance/30-40/04b-stranglethorn-vale	step 9	0:-12150,643>-12153,783	detour 1.53x straight on leffe, no named passage
+forever/alliance/30-40/04b-stranglethorn-vale	step 15	0:-11631,-50>-11297,-203	detour 1.52x straight on leffe, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 18	0:-8498,811>-8548,387	detour 1.71x straight on leffe, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 37	0:-1426,-3028>-1559,-3073	detour 3.20x straight on leffe, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 58	0:634,-292>485,-213	detour 1.80x straight on grid, no named passage
@@ -101,13 +101,13 @@ forever/alliance/30-40/05-arathi-highlands	step 72	0:-4650,-1127>-4822,-1156	det
 forever/alliance/30-40/06-badlands	step 5	0:-6608,-3412>-6455,-3397	detour 1.63x straight on leffe, no named passage
 forever/alliance/30-40/06b-desolace	step 2	0:-5422,-2929>-3901,-602	detour 1.94x straight on leffe, no named passage
 forever/alliance/30-40/06b-desolace	step 18	1:-360,2488>-460,2611	detour 3.45x straight on leffe, no named passage
-forever/alliance/40-50/01-stranglethorn-vale	step 28	0:-14411,432>-14125,486	detour 1.97x straight on grid, no named passage
-forever/alliance/40-50/01-stranglethorn-vale	step 58	0:-8467,519>-8348,386	detour 2.42x straight on leffe, no named passage
-forever/alliance/40-50/01-stranglethorn-vale	step 63	0:-8978,1042>-8655,1344	detour 2.77x straight on leffe, no named passage
-forever/alliance/40-50/01-stranglethorn-vale	step 65	1:6342,557>9963,2284	no way on either map
-forever/alliance/40-50/01-stranglethorn-vale	step 68	1:10126,2534>8645,841	no way on either map
-forever/alliance/40-50/01-stranglethorn-vale	step 70	1:8645,841>6547,944	no way on either map
-forever/alliance/40-50/01-stranglethorn-vale	step 84	0:-8467,519>-8346,514	detour 1.96x straight on grid, no named passage
+forever/alliance/40-50/01-stranglethorn-vale	step 30	0:-14411,432>-14125,486	detour 1.97x straight on grid, no named passage
+forever/alliance/40-50/01-stranglethorn-vale	step 63	0:-8467,519>-8348,386	detour 2.42x straight on leffe, no named passage
+forever/alliance/40-50/01-stranglethorn-vale	step 68	0:-8978,1042>-8652,1328	detour 2.72x straight on leffe, no named passage
+forever/alliance/40-50/01-stranglethorn-vale	step 70	1:6342,557>9963,2284	no way on either map
+forever/alliance/40-50/01-stranglethorn-vale	step 73	1:10126,2534>8645,841	no way on either map
+forever/alliance/40-50/01-stranglethorn-vale	step 75	1:8645,841>6545,930	no way on either map
+forever/alliance/40-50/01-stranglethorn-vale	step 88	0:-8467,519>-8346,514	detour 1.96x straight on grid, no named passage
 forever/alliance/40-50/01b-riverglades	step 7	0:-8518,-3866>-8452,-3520	detour 2.62x straight on leffe, no named passage
 forever/alliance/40-50/01b-riverglades	step 12	0:-8704,-3356>-8801,-3347	detour 3.27x straight on grid, no named passage
 forever/alliance/40-50/01b-riverglades	step 13	0:-8837,-3347>-8704,-3356	detour 1.82x straight on grid, no named passage
@@ -120,9 +120,9 @@ forever/alliance/40-50/01b-riverglades	step 74	0:-7307,-5558>-6892,-5212	detour 
 forever/alliance/40-50/01b-riverglades	step 82	0:-8158,-5534>-9084,-5120	detour 1.77x straight on leffe, no named passage
 forever/alliance/40-50/01b-riverglades	step 85	0:-9089,-5124>-9044,-5096	detour 3.10x straight on leffe, no named passage
 forever/alliance/40-50/01b-riverglades	step 88	0:-9126,-4985>-9160,-4884	detour 1.77x straight on leffe, no named passage
-forever/alliance/40-50/01b-riverglades	step 94	0:-8475,-3904>-8052,-3376	detour 1.99x straight on leffe, no named passage
-forever/alliance/40-50/01b-riverglades	step 97	0:-7786,-3162>-7619,-3181	detour 1.56x straight on grid, no named passage
-forever/alliance/40-50/01b-riverglades	step 109	0:-8449,342>-8413,541	detour 2.01x straight on leffe, no named passage
+forever/alliance/40-50/01b-riverglades	step 94	0:-8475,-3904>-8051,-3376	detour 1.99x straight on leffe, no named passage
+forever/alliance/40-50/01b-riverglades	step 98	0:-7786,-3162>-7619,-3181	detour 1.56x straight on grid, no named passage
+forever/alliance/40-50/01b-riverglades	step 110	0:-8449,342>-8413,541	detour 2.01x straight on leffe, no named passage
 forever/alliance/40-50/02-badlands	step 6	0:-7022,-3306>-6771,-3132	detour 1.54x straight on leffe, no named passage
 forever/alliance/40-50/02-badlands	step 24	0:265,-2029>285,-2001	detour 1.93x straight on leffe, no named passage
 forever/alliance/40-50/02-badlands	step 26	0:223,-2608>-4,-2807	detour 2.04x straight on grid, no named passage
@@ -135,30 +135,31 @@ forever/alliance/40-50/04-tanaris	step 31	1:8705,994>8801,968	detour 1.87x strai
 forever/alliance/40-50/04-tanaris	step 32	1:8801,968>9647,2527	no way on either map
 forever/alliance/40-50/04-tanaris	step 33	1:9637,2494>9959,2285	detour 1.80x straight on leffe, no named passage
 forever/alliance/40-50/04-tanaris	step 40	1:9948,2630>8645,841	no way on either map
-forever/alliance/40-50/04-tanaris	step 41	1:8645,841>6406,823	no way on either map
+forever/alliance/40-50/04-tanaris	step 41	1:8645,841>6418,820	no way on either map
 forever/alliance/40-50/04-tanaris	step 45	0:265,-2029>285,-2001	detour 1.93x straight on leffe, no named passage
 forever/alliance/40-50/05-the-hinterlands	step 19	0:-14432,458>-14608,338	detour 4.81x straight on leffe, no named passage
-forever/alliance/40-50/05-the-hinterlands	step 25	0:-13374,-7>-13350,-29	detour 1.61x straight on leffe, no named passage
+forever/alliance/40-50/05-the-hinterlands	step 25	0:-13646,-332>-13350,-29	detour 1.61x straight on leffe, no named passage
 forever/alliance/40-50/06-searing-gorge	step 6	0:-7020,-1786>-6998,-1749	detour 2.21x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 7	0:-7024,-1780>-7001,-1735	detour 1.72x straight on grid, no named passage
 forever/alliance/40-50/06-searing-gorge	step 9	0:-6392,-1986>-6554,-1169	detour 1.57x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 11	0:-6498,-1160>-6492,-986	detour 3.28x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 14	0:-6492,-986>-6655,-928	detour 2.12x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 22	0:-6684,-1195>-6512,-1188	detour 2.26x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 36	0:-7030,-1783>-6679,-1199	detour 1.65x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 37	0:-6681,-1194>-6517,-1180	detour 2.29x straight on grid, no named passage
-forever/alliance/40-50/06-searing-gorge	step 41	0:-4595,-962>-4614,-928	detour 2.67x straight on leffe, no named passage
+forever/alliance/40-50/06-searing-gorge	step 12	0:-6498,-1160>-6492,-986	detour 3.28x straight on grid, no named passage
+forever/alliance/40-50/06-searing-gorge	step 15	0:-6492,-986>-6655,-928	detour 2.12x straight on grid, no named passage
+forever/alliance/40-50/06-searing-gorge	step 26	0:-6684,-1195>-6512,-1188	detour 2.26x straight on grid, no named passage
+forever/alliance/40-50/06-searing-gorge	step 41	0:-7030,-1783>-6679,-1199	detour 1.65x straight on grid, no named passage
+forever/alliance/40-50/06-searing-gorge	step 42	0:-6681,-1194>-6517,-1180	detour 2.29x straight on grid, no named passage
+forever/alliance/40-50/06-searing-gorge	step 46	0:-4595,-962>-4614,-928	detour 2.67x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 14	1:3475,-5268>3499,-5635	detour 1.94x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 16	1:3464,-5302>4026,-5403	detour 1.60x straight on leffe, no named passage
 forever/alliance/50-60/01-burning-steppes	step 22	1:3921,-5788>4604,-5983	detour 1.73x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 54	0:-7499,-2176>-7551,-2311	detour 2.50x straight on grid, no named passage
-forever/alliance/50-60/01-burning-steppes	step 72	0:-10888,-2934>-10944,-3368	detour 1.56x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 80	0:-4650,-1127>-4862,-1022	detour 1.65x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 84	1:6342,557>8708,991	no way on either map
-forever/alliance/50-60/01-burning-steppes	step 85	1:8702,989>8801,968	detour 1.73x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 87	1:8801,968>10179,2605	no way on either map
-forever/alliance/50-60/01-burning-steppes	step 90	1:9637,2494>9948,2630	detour 1.57x straight on leffe, no named passage
-forever/alliance/50-60/01-burning-steppes	step 91	1:9948,2630>8705,994	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 53	0:-7499,-2176>-7551,-2311	detour 2.50x straight on grid, no named passage
+forever/alliance/50-60/01-burning-steppes	step 64	0:-10944,-3368>-10632,-3010	detour 1.61x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 71	0:-10888,-2934>-10944,-3368	detour 1.56x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 79	0:-4650,-1127>-4862,-1022	detour 1.65x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 83	1:6342,557>8708,991	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 84	1:8702,989>8801,968	detour 1.73x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 86	1:8801,968>10179,2605	no way on either map
+forever/alliance/50-60/01-burning-steppes	step 89	1:9637,2494>9948,2630	detour 1.57x straight on leffe, no named passage
+forever/alliance/50-60/01-burning-steppes	step 90	1:9948,2630>8705,994	no way on either map
 forever/alliance/50-60/02-felwood	step 2	1:8645,841>3806,-1475	no way on either map
 forever/alliance/50-60/02-felwood	step 9	1:3724,-1025>3726,-889	detour 3.74x straight on grid, no named passage
 forever/alliance/50-60/02-felwood	step 11	1:4561,-212>4828,-340	detour 4.44x straight on leffe, no named passage
@@ -182,21 +183,21 @@ forever/alliance/50-60/04-western-plaguelands	step 75	1:-894,-3771>6394,-2539	de
 forever/alliance/50-60/04-western-plaguelands	step 77	1:6396,-2533>7797,-2575	detour 1.73x straight on grid, no named passage
 forever/alliance/50-60/04-western-plaguelands	step 79	1:7802,-2574>7456,-2494	detour 1.78x straight on grid, no named passage
 forever/alliance/50-60/04-western-plaguelands	step 88	1:-6411,-301>-6398,-314	detour 1.85x straight on leffe, no named passage
-forever/alliance/50-60/06-silithus	step 5	1:4007,-1310>4043,-1315	detour 2.40x straight on grid, no named passage
-forever/alliance/50-60/06-silithus	step 8	1:3988,-1308>4043,-1315	detour 1.70x straight on grid, no named passage
-forever/alliance/50-60/06-silithus	step 12	1:5340,-590>4007,-1310	no way on either map
-forever/alliance/50-60/06-silithus	step 49	1:6714,-4656>6649,-5109	detour 1.53x straight on grid, no named passage
-forever/alliance/50-60/06-silithus	step 75	1:7458,-2487>8708,991	no way on either map
-forever/alliance/50-60/06-silithus	step 76	1:8702,989>8801,968	detour 1.73x straight on leffe, no named passage
-forever/alliance/50-60/06-silithus	step 77	1:8801,968>9634,2493	no way on either map
-forever/alliance/50-60/06-silithus	step 81	1:9948,2630>8645,841	no way on either map
-forever/alliance/50-60/06-silithus	step 82	1:8645,841>6421,819	no way on either map
-forever/alliance/50-60/06-silithus	step 85	0:-8655,676>-8449,342	detour 1.53x straight on leffe, no named passage
-forever/alliance/50-60/06-silithus	step 86	0:-8814,363>-8791,329	detour 2.73x straight on leffe, no named passage
-forever/alliance/50-60/06-silithus	step 89	0:-4641,-1086>-4822,-1156	detour 1.55x straight on leffe, no named passage
-forever/alliance/50-60/06-silithus	step 98	0:2558,-1813>2332,-2070	detour 1.79x straight on grid, no named passage
-forever/alliance/50-60/06-silithus	step 100	0:2558,-1813>2842,-1553	detour 1.86x straight on grid, no named passage
-forever/alliance/50-60/06-silithus	step 101	0:2842,-1553>2558,-1813	detour 1.86x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 2	1:6714,-4656>6649,-5109	detour 1.53x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 18	1:4007,-1310>4043,-1315	detour 2.40x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 21	1:3988,-1308>4043,-1315	detour 1.70x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 25	1:5340,-590>4007,-1310	no way on either map
+forever/alliance/50-60/06-silithus	step 62	1:6714,-4656>6649,-5109	detour 1.53x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 89	1:7458,-2487>8708,991	no way on either map
+forever/alliance/50-60/06-silithus	step 90	1:8702,989>8801,968	detour 1.73x straight on leffe, no named passage
+forever/alliance/50-60/06-silithus	step 91	1:8801,968>9634,2493	no way on either map
+forever/alliance/50-60/06-silithus	step 95	1:9948,2630>8645,841	no way on either map
+forever/alliance/50-60/06-silithus	step 96	1:8645,841>6421,819	no way on either map
+forever/alliance/50-60/06-silithus	step 99	0:-8655,676>-8449,342	detour 1.53x straight on leffe, no named passage
+forever/alliance/50-60/06-silithus	step 100	0:-8814,363>-8791,329	detour 2.73x straight on leffe, no named passage
+forever/alliance/50-60/06-silithus	step 103	0:-4641,-1086>-4822,-1156	detour 1.55x straight on leffe, no named passage
+forever/alliance/50-60/06-silithus	step 112	0:2558,-1813>2332,-2070	detour 1.79x straight on grid, no named passage
+forever/alliance/50-60/06-silithus	step 114	0:2558,-1813>2842,-1553	detour 1.86x straight on grid, no named passage
 forever/alliance/dwarf/01-dun-morogh	step 41	0:-5380,318>-5672,-294	detour 1.50x straight on leffe, no named passage
 forever/alliance/dwarf/01-dun-morogh	step 43	0:-5750,-366>-5643,-497	detour 1.63x straight on leffe, no named passage
 forever/alliance/dwarf/01-dun-morogh	step 53	0:-5400,-1019>-5349,-1037	detour 1.51x straight on leffe, no named passage
@@ -206,17 +207,17 @@ forever/alliance/dwarf/01-dun-morogh	step 70	0:-5676,-1600>-5620,-1684	detour 1.
 forever/alliance/dwarf/01-dun-morogh	step 74	0:-5712,-1585>-5794,-1389	detour 1.74x straight on grid, no named passage
 forever/alliance/dwarf/01-dun-morogh	step 76	0:-5387,-1281>-5517,-1303	detour 1.67x straight on grid, no named passage
 forever/alliance/dwarf/01-dun-morogh	step 79	0:-5482,-2446>-5311,-2510	detour 1.73x straight on grid, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 83	0:-5166,-2325>-5833,-2602	detour 1.83x straight on grid, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 84	0:-5845,-2630>-5822,-2811	detour 2.22x straight on grid, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 85	0:-5828,-2809>-5836,-2603	detour 2.12x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 93	0:-5674,-2874>-5311,-2510	detour 2.73x straight on grid, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 95	0:-4818,-1154>-4829,-1282	detour 2.11x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 101	0:-4633,-929>-4611,-927	detour 6.58x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 104	0:-5039,-1198>-5019,-1272	detour 1.73x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 105	0:-5011,-1271>-5041,-1202	detour 1.80x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 111	0:-8429,604>-8549,720	detour 2.23x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 112	0:-8549,720>-8841,490	detour 1.52x straight on leffe, no named passage
-forever/alliance/dwarf/01-dun-morogh	step 113	0:-8832,486>-8793,611	detour 1.68x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 83	0:-5166,-2325>-5830,-2601	detour 1.84x straight on grid, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 84	0:-5845,-2630>-5828,-2809	detour 2.29x straight on grid, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 86	0:-5828,-2809>-5836,-2603	detour 2.12x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 94	0:-5674,-2874>-5311,-2510	detour 2.73x straight on grid, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 96	0:-4818,-1154>-4829,-1282	detour 2.11x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 105	0:-4633,-929>-4611,-927	detour 6.58x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 108	0:-5039,-1198>-5019,-1272	detour 1.73x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 109	0:-5011,-1271>-5041,-1202	detour 1.80x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 116	0:-8429,604>-8549,720	detour 2.23x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 117	0:-8549,720>-8841,490	detour 1.52x straight on leffe, no named passage
+forever/alliance/dwarf/01-dun-morogh	step 118	0:-8832,486>-8793,611	detour 1.68x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 40	0:-5380,318>-5672,-294	detour 1.50x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 42	0:-5750,-366>-5643,-497	detour 1.63x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 52	0:-5400,-1019>-5349,-1037	detour 1.51x straight on leffe, no named passage
@@ -225,16 +226,16 @@ forever/alliance/gnome/01-dun-morogh	step 65	0:-5724,-1597>-5751,-1628	detour 2.
 forever/alliance/gnome/01-dun-morogh	step 68	0:-5676,-1600>-5620,-1684	detour 1.82x straight on grid, no named passage
 forever/alliance/gnome/01-dun-morogh	step 73	0:-5387,-1281>-5517,-1303	detour 1.67x straight on grid, no named passage
 forever/alliance/gnome/01-dun-morogh	step 77	0:-5482,-2446>-5311,-2510	detour 1.73x straight on grid, no named passage
-forever/alliance/gnome/01-dun-morogh	step 81	0:-5166,-2325>-5833,-2602	detour 1.83x straight on grid, no named passage
-forever/alliance/gnome/01-dun-morogh	step 82	0:-5845,-2630>-5822,-2811	detour 2.22x straight on grid, no named passage
+forever/alliance/gnome/01-dun-morogh	step 81	0:-5166,-2325>-5830,-2601	detour 1.84x straight on grid, no named passage
+forever/alliance/gnome/01-dun-morogh	step 82	0:-5845,-2630>-5828,-2809	detour 2.29x straight on grid, no named passage
 forever/alliance/gnome/01-dun-morogh	step 83	0:-5828,-2809>-5836,-2603	detour 2.12x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 91	0:-5674,-2874>-5311,-2510	detour 2.73x straight on grid, no named passage
 forever/alliance/gnome/01-dun-morogh	step 93	0:-4818,-1154>-4829,-1282	detour 2.11x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 101	0:-5039,-1198>-5035,-1236	detour 3.46x straight on leffe, no named passage
 forever/alliance/gnome/01-dun-morogh	step 102	0:-5035,-1236>-5039,-1198	detour 3.41x straight on leffe, no named passage
-forever/alliance/gnome/01-dun-morogh	step 108	0:-8429,604>-8549,720	detour 2.23x straight on leffe, no named passage
-forever/alliance/gnome/01-dun-morogh	step 109	0:-8549,720>-8841,490	detour 1.52x straight on leffe, no named passage
-forever/alliance/gnome/01-dun-morogh	step 110	0:-8832,486>-8793,611	detour 1.68x straight on leffe, no named passage
+forever/alliance/gnome/01-dun-morogh	step 109	0:-8429,604>-8549,720	detour 2.23x straight on leffe, no named passage
+forever/alliance/gnome/01-dun-morogh	step 110	0:-8549,720>-8841,490	detour 1.52x straight on leffe, no named passage
+forever/alliance/gnome/01-dun-morogh	step 111	0:-8832,486>-8793,611	detour 1.68x straight on leffe, no named passage
 forever/alliance/human/01-elwynn-forest	step 29	0:-9402,-28>-9380,-69	detour 1.59x straight on leffe, no named passage
 forever/alliance/human/01-elwynn-forest	step 34	0:-9399,-144>-9515,-136	detour 1.64x straight on leffe, no named passage
 forever/alliance/human/01-elwynn-forest	step 54	0:-9816,152>-9473,110	detour 1.53x straight on grid, no named passage
@@ -253,11 +254,14 @@ forever/alliance/nightelf/01-teldrassil	step 90	1:8694,955>6111,557	no way on ei
 forever/alliance/nightelf/01-teldrassil	step 91	1:6313,546>6342,547	detour 3.25x straight on leffe, no named passage
 forever/alliance/nightelf/01-teldrassil	step 94	1:7456,-2494>8694,955	no way on either map
 forever/alliance/nightelf/01-teldrassil	step 95	1:8694,955>10156,2559	no way on either map
-forever/alliance/nightelf/01-teldrassil	step 97	1:10179,2564>6325,92	no way on either map
-forever/alliance/nightelf/01-teldrassil	step 98	1:6325,92>10156,2559	no way on either map
+forever/alliance/nightelf/01-teldrassil	step 97	1:10179,2564>8645,841	no way on either map
+forever/alliance/nightelf/01-teldrassil	step 98	1:8645,841>6325,92	no way on either map
+forever/alliance/nightelf/01-teldrassil	step 100	1:6342,557>10156,2559	no way on either map
+forever/alliance/nightelf/01-teldrassil	step 101	1:10179,2564>8645,841	no way on either map
 forever/alliance/nightelf/02-darkshore	step 5	1:6368,581>6342,547	detour 1.87x straight on leffe, no named passage
 forever/alliance/nightelf/02-darkshore	step 7	1:6342,547>6277,610	detour 1.92x straight on leffe, no named passage
-forever/alliance/nightelf/02-darkshore	step 19	1:6750,50>6435,368	detour 1.56x straight on leffe, no named passage
+forever/alliance/nightelf/02-darkshore	step 24	1:6750,50>6435,368	detour 1.56x straight on leffe, no named passage
+forever/alliance/nightelf/02-darkshore	step 25	1:6342,547>6429,603	detour 1.54x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 3	2991:4014,1811>4062,1800	detour 3.02x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 33	2991:3347,1801>3345,1828	detour 1.97x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 52	2991:2580,1952>2739,2003	detour 1.65x straight on leffe, no named passage
@@ -274,7 +278,7 @@ forever/alliance/skyborne/01-zephras-isle	step 95	2991:3510,1229>3091,1083	detou
 forever/alliance/skyborne/01-zephras-isle	step 96	2991:3090,605>3091,582	detour 3.73x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 97	2991:3091,582>2991,65	no way on either map
 forever/alliance/skyborne/01-zephras-isle	step 98	2991:2966,97>1992,530	no way on either map
-forever/alliance/skyborne/01-zephras-isle	step 102	2991:1992,530>1864,571	detour 1.76x straight on leffe, no named passage
+forever/alliance/skyborne/01-zephras-isle	step 102	2991:1992,530>1855,574	detour 1.71x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 106	0:-8449,342>-8549,720	detour 1.51x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 107	0:-8549,720>-8416,553	detour 1.95x straight on leffe, no named passage
 forever/horde/02-the-barrens	step 45	1:7991,-2681>8019,-2677	detour 2.02x straight on leffe, no named passage
@@ -335,9 +339,9 @@ forever/horde/30-40/01-hillsbrad-foothills	step 19	0:-9,-922>-28,-929	detour 1.6
 forever/horde/30-40/01-hillsbrad-foothills	step 27	0:-485,-1344>-43,-961	detour 2.12x straight on leffe, no named passage
 forever/horde/30-40/02-thousand-needles	step 3	1:1779,-3995>1932,-4209	detour 2.91x straight on leffe, no named passage
 forever/horde/30-40/02-thousand-needles	step 5	1:1922,-4212>1678,-4316	detour 1.63x straight on leffe, no named passage
-forever/horde/30-40/02-thousand-needles	step 45	1:-1768,3265>-360,2488	detour 1.58x straight on leffe, no named passage
-forever/horde/30-40/02-thousand-needles	step 48	1:-360,2488>-457,2611	detour 3.48x straight on leffe, no named passage
-forever/horde/30-40/02-thousand-needles	step 55	1:-1331,1708>-1562,3095	detour 1.52x straight on leffe, no named passage
+forever/horde/30-40/02-thousand-needles	step 46	1:-1733,3190>-360,2488	detour 1.59x straight on leffe, no named passage
+forever/horde/30-40/02-thousand-needles	step 49	1:-360,2488>-457,2611	detour 3.48x straight on leffe, no named passage
+forever/horde/30-40/02-thousand-needles	step 57	1:-1331,1708>-1562,3095	detour 1.52x straight on leffe, no named passage
 forever/horde/30-40/03-stranglethorn-vale	step 5	1:1776,-3992>1932,-4209	detour 2.86x straight on leffe, no named passage
 forever/horde/30-40/03-stranglethorn-vale	step 6	1:1932,-4209>1678,-4316	detour 1.57x straight on leffe, no named passage
 forever/horde/30-40/03-stranglethorn-vale	step 29	0:-12143,638>-12017,382	detour 1.56x straight on leffe, no named passage
@@ -353,7 +357,7 @@ forever/horde/30-40/05-arathi-highlands	step 21	0:-1018,-3504>-945,-3521	detour 
 forever/horde/30-40/05-arathi-highlands	step 22	0:-945,-3521>-970,-3656	detour 2.14x straight on leffe, no named passage
 forever/horde/30-40/05-arathi-highlands	step 32	0:-937,-3476>-945,-3535	detour 1.66x straight on leffe, no named passage
 forever/horde/30-40/05-arathi-highlands	step 36	0:-1505,-2173>-1665,-1849	detour 1.73x straight on leffe, no named passage
-forever/horde/40-50/01-stranglethorn-vale	step 60	0:-10460,-3320>-10477,-3452	detour 1.96x straight on grid, no named passage
+forever/horde/40-50/01-stranglethorn-vale	step 62	0:-10460,-3320>-10477,-3452	detour 1.96x straight on grid, no named passage
 forever/horde/40-50/01b-riverglades	step 17	0:-8012,-4826>-8040,-4859	detour 1.51x straight on leffe, no named passage
 forever/horde/40-50/01b-riverglades	step 22	0:-8012,-4826>-7953,-4793	detour 1.56x straight on leffe, no named passage
 forever/horde/40-50/01b-riverglades	step 24	0:-8497,-3793>-8452,-3520	detour 3.18x straight on leffe, no named passage
@@ -361,6 +365,7 @@ forever/horde/40-50/01b-riverglades	step 26	0:-8833,-2673>-8704,-3356	detour 1.6
 forever/horde/40-50/01b-riverglades	step 27	0:-8704,-3356>-8801,-3347	detour 3.27x straight on grid, no named passage
 forever/horde/40-50/01b-riverglades	step 28	0:-8837,-3347>-8704,-3356	detour 1.82x straight on grid, no named passage
 forever/horde/40-50/01b-riverglades	step 36	0:-8565,-4278>-8226,-4317	detour 2.10x straight on leffe, no named passage
+forever/horde/40-50/01b-riverglades	step 57	0:-7376,-5317>-7265,-5452	detour 1.62x straight on leffe, no named passage
 forever/horde/40-50/01b-riverglades	step 70	0:-8165,-5764>-8200,-5750	detour 1.56x straight on leffe, no named passage
 forever/horde/40-50/01b-riverglades	step 75	0:-8170,-5740>-7806,-5667	detour 1.91x straight on grid, no named passage
 forever/horde/40-50/01b-riverglades	step 76	0:-7534,-5762>-7750,-6315	detour 1.74x straight on leffe, no named passage

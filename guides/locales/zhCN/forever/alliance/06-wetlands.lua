@@ -149,9 +149,9 @@ return {
 
 	-- Step 28: Mosshide gnolls
 	["Mosshide gnolls"] = "",
-	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:1025} Green Belt
-	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-23) on the hill north of the road, between the Angerfang camp and the {area:1025}, drop them. Almost every one carries some."] = "",
+	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
+	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
+	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
 
 	-- Step 29: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
@@ -270,78 +270,106 @@ return {
 
 	-- Step 48: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}, at the inn, if you missed her first visit"] = "",
+
+	-- Step 49: Teronis' Corpse
+	-- {area:415} Astranaar · {area:441} Lake Falathim
+	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "",
+
+	-- Step 50: Glowing Gem
+	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
+	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "",
+
+	-- Step 51: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3691}, at the {area:415} inn"] = "",
+
+	-- Step 52: Raene Wolfrunner's delivery
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}'s delivery"] = "",
+	-- {npc:3916} Shael'dryn
+	["Take her message to {npc:3916} on the way east"] = "",
+
+	-- Step 53: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691} stands in the inn, beside the innkeeper."] = "{npc:3691}站在旅店里，旅店老板旁边。",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {zone:1439} Darkshore
 	["{npc:3691}: {quest:990}, if you still carry it from {zone:1439}"] = "{npc:3691}：{quest:990}，如果你还带着从{zone:1439}拿来的任务",
 
-	-- Step 49: Melyria and Illiyana
+	-- Step 54: Melyria and Illiyana
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "哨兵梅丽瑞亚·霜影和{npc:3901}",
 	-- {area:415} Astranaar
 	["The two stand together at the western end of the road, south-west of {area:415}."] = "两人一起站在{area:415}西南、道路的西端。",
 
-	-- Step 50: Therysil
+	-- Step 55: Therysil
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["{npc:3585} stands at the {area:416}, a short walk from Melyria and {npc:3901}."] = "{npc:3585}站在{area:416}，离梅丽瑞亚和{npc:3901}不远。",
 	-- {npc:3585} Therysil · {quest:945} Therylune's Escape · {zone:1439} Darkshore
 	["{npc:3585}: {quest:945}, if you still carry it from {zone:1439}"] = "{npc:3585}：{quest:945}，如果你还带着从{zone:1439}拿来的任务",
 
-	-- Step 51: Shael'dryn
+	-- Step 56: Raene Wolfrunner's message
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}'s message"] = "",
+	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
+	["Follow the road east to the {area:419}. {npc:3916} stands by the moonwell."] = "",
+
+	-- Step 57: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向东到{area:419}；{npc:3916}站在月亮井旁。",
 
-	-- Step 52: Dartol's Rod
+	-- Step 58: Dartol's Rod
 	["Dartol's Rod"] = "达图尔的变形魔棒",
 	-- {item:5475} Wooden Key
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "月亮井北边的疯狂的古树和{npc:3919}带着{item:5475}；它能打开的旧箱子就在它们中间。",
 
-	-- Step 54: Anilia
+	-- Step 60: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿道路向东到{area:429}的萨特营地；{npc:3920}躲在营地边缘。",
 	-- {npc:3920} Anilia · {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["{npc:3920}: {quest:1031}, from {npc:4619} (level 32): a fight for a group at this level"] = "{npc:3920}：{quest:1031}，目标是{npc:4619}（32级）：当前等级需要组队",
 
-	-- Step 55: Geltharis
+	-- Step 61: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch. He is level 32, above you here, among level 29-30 satyrs: grouping up is advised."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。他是32级，高于你目前的等级，周围还有29-30级的萨特：建议组队。",
 
-	-- Step 56: Forest Song
+	-- Step 62: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "{area:2358}是道路东端的暗夜精灵前哨：{npc:3848}站在那里，{npc:221269}在她东边几步远。",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}：在{area:430}追寻她丈夫的踪迹，从湖边返回时顺路完成",
 
-	-- Step 57: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 63: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "{area:432}：沿途击杀以下目标",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遗忘者的营地位于{area:2358}南侧树林中。\n被遗忘者营地西侧的林荫熊怪营地周围有生锈的箱子，不断打开，直到找到剑柄。\n注意：营地由约 28–30 级的非精英被遗忘者守卫，部分敌人处于潜行状态，桌子周围的敌人通常会一同参战。",
 
-	-- Step 58: Fallen Sky Lake
+	-- Step 64: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "{npc:3931}在箱子西南侧的{quest:1035}岸边巡逻；途中可在湖北侧找到{object:669176}。\n注意：岛屿附近还有其他怪物，部分位于水下。先清理周围，避免拉神谕者时其他敌人加入战斗。",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 
-	-- Step 59: Satyrnaar
+	-- Step 65: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "从湖边向北前往{area:2358}西边不远处的{area:430}萨特营地：{object:19901}就在营地里，旁边是{object:673431}，里面有{item:281014}。\n注意：{area:428}的魔草潜行者经常潜行，{area:430}也有萨特施法者。",
 	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
 	["{item:281014}, from {object:673431}"] = "{item:281014}，从{object:673431}中获取",
 
-	-- Step 60: Kayneth Stillwind
+	-- Step 66: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "可选：{npc:3848}还提供{quest:1012}，需要到{area:432}深处对付3名32级德鲁伊，之后再回来找她。洞内有潜行怪物，刷新也很快。此任务目前高于路线等级，仅在组队或想多拿经验时接取；主线流程不需要完成。",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}，在东边几步远",
 
-	-- Step 61: The Dor'Danil Barrow Den's entrance
+	-- Step 67: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "{area:432}的入口",
 
-	-- Step 62: Insane druids
+	-- Step 68: Insane druids
 	["Insane druids"] = "发狂的德鲁伊",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "3名德鲁伊分散在{area:432}内：从被遗忘者营地南面的洞口进入，别从他们上方的山丘翻过去。{npc:3940}在东侧洞厅，{npc:3941}在东北端最深处，{npc:3942}在西端。\n注意：洞内怪物密集、刷新很快，还有潜行亡灵和巡逻队，战斗时容易引来其他敌人。",
@@ -352,19 +380,19 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "{npc:3942}，位于{area:432}内部",
 
-	-- Step 64: Night Run
+	-- Step 70: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "第二个{object:19901}在{area:428}的山谷里，就在向西的路上。",
 
-	-- Step 66: Hidden Shrine
+	-- Step 72: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "隐蔽的神龛在月亮井东南方不远处的山丘上；沿蜿蜒的小路上去。",
 
-	-- Step 68: The Howling Vale
+	-- Step 74: The Howling Vale
 	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
 	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
 	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "穿过隧道进入{area:419}；书在西端的废墟里。小心：恐狼撕裂者和恐狼影法师（28-30级）在书周围紧密成群，32级稀有怪{npc:3792}在山谷中游走。从隧道里一次引一只狼，先让族长走过去。",
 
-	-- Step 69: Astranaar
+	-- Step 75: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
 	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "{npc:3691}和{npc:3961}在旅店内；{npc:3894}在旅店正南方的建筑内。",
 	-- {npc:3691} Raene Wolfrunner · {quest:1025} An Aggressive Defense · {npc:3897} Krolg
@@ -376,12 +404,12 @@ return {
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}，在旅店南侧的建筑内",
 
-	-- Step 70: The Foulweald
+	-- Step 76: The Foulweald
 	["The Foulweald"] = "污林",
 	-- {npc:3897} Krolg · {area:415} Astranaar
 	["On the way south-east to {npc:3897}: the Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "在向东南前往{npc:3897}的途中：污林熊怪住在{area:415}东南、道路南边的树林里。巢穴守望者和熊怪守卫着巢穴。",
 
-	-- Step 71: Mystral Lake
+	-- Step 77: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}站在{area:421}东岸的{area:420}，就在通往{npc:3897}的道路北边。污浊的水元素在湖中游荡；27级水元素{npc:12759}也在其中走动，同样会掉落护腕。",
@@ -390,65 +418,65 @@ return {
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "击杀元素获得5个{item:12220}，然后使用{item:5456}",
 
-	-- Step 72: Krolg
+	-- Step 78: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。先在他附近使用{item:5462}：他只会和熊怪形态的你交谈。",
 
-	-- Step 73: Ran Bloodtooth
+	-- Step 79: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696}和守卫就在{npc:3897}东侧扎营。\n注意：营地附近有游荡的狼和蜘蛛，可能加入战斗；部分狼会两只一起出现。",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
 	["{item:5388}, from {npc:3696}"] = "{item:5388}，击杀{npc:3696}获得",
 
-	-- Step 75: Melyria and Illiyana
+	-- Step 81: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "从{npc:3897}沿南面山丘向西前往{area:416}：哨兵梅丽瑞亚·霜影和{npc:3901}一起站在旁边。",
 
-	-- Step 76: Illiyana
+	-- Step 82: Illiyana
 	-- {npc:3901} Illiyana
 	["{npc:3901} stands beside Melyria."] = "{npc:3901}站在梅莉瑞亚旁边。",
 	-- {npc:3901} Illiyana · {item:5461} Branch of Cenarius
 	["{npc:3901}: the {item:5461}"] = "{npc:3901}：{item:5461}",
 
-	-- Step 77: The Branch of Cenarius, taken alone
+	-- Step 83: The Branch of Cenarius, taken alone
 	-- {quest:1031} The Branch of Cenarius
 	["{quest:1031}, taken alone"] = "{quest:1031}，单人接取",
 	-- {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["Not grouped? {quest:1031} ({npc:4619}, 32) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "没有组队？{quest:1031}（{npc:4619}，32级）在当前等级需要组队：放弃它，路线之后不会再回来做。",
 
-	-- Step 78: Insane Druids, taken alone
+	-- Step 84: Insane Druids, taken alone
 	-- {quest:1012} Insane Druids
 	["{quest:1012}, taken alone"] = "{quest:1012}，单人接取",
 	-- {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Not grouped? {quest:1012} (the {area:432}) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "没有组队？{quest:1012}（{area:432}）在当前等级需要组队：放弃它，路线之后不会再回来做。",
 
-	-- Step 79: Delgren the Purifier
+	-- Step 85: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {quest:967} The Tower of Althalaxx · {zone:1439} Darkshore
 	["{npc:3663}: {quest:967}, if you still carry it from {zone:1439}"] = "{npc:3663}：{quest:967}，如果你还带着从{zone:1439}拿来的任务",
 
-	-- Step 80: Delgren the Purifier
+	-- Step 86: Delgren the Purifier
 	-- {area:413} Maestra's Post
 	["North to {area:413}."] = "向北前往{area:413}。",
 
-	-- Step 81: Dal Bloodclaw
+	-- Step 87: Dal Bloodclaw
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
 	["From {area:413}, east to the Thistlefur camp north of {area:415}: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "从{area:413}向东前往{area:415}北边的蓟皮熊怪营地：{npc:3987}率领那里的熊怪。然后向南前往{area:415}。\n注意：拉他时附近的熊怪通常会一起加入战斗。先清掉他路线上的熊怪，就能单独对付他。",
 
-	-- Step 82: Astranaar
+	-- Step 88: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "从{npc:3987}的营地向南前往{area:415}：{npc:3691}在旅店里，飞行管理员在西端。",
 
-	-- Step 83: Fly to Auberdine
+	-- Step 89: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飞往{area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "{area:415}的飞行管理员",
 
-	-- Step 85: Caitlin Grassman
+	-- Step 91: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
 	["Off the boat, {npc:1480} stands beside Menethil's inn, on the way to the flight master."] = "下船后，{npc:1480}站在米奈希尔的旅店旁，就在去飞行管理员的路上。",
 
-	-- Step 86: Fly to Ironforge
+	-- Step 92: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {npc:1571} Shellei Brondir
@@ -456,66 +484,66 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "{area:150}的飞行管理员",
 
-	-- Step 88: High Explorer Magellas
+	-- Step 94: High Explorer Magellas
 	-- {quest:98824} Prehistoric Prism · {npc:5387} High Explorer Magellas · {object:32356} Hall of Explorers · {object:32372} Great Forge
 	["{quest:98824}: {npc:5387} stands in the {object:32356}, north-east of the {object:32372}."] = "{quest:98824}：{npc:5387}在{object:32356}，位于{object:32372}东北方。",
 
-	-- Step 89: Ironforge priests
+	-- Step 95: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "{zone:1455}的牧师",
 	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 
-	-- Step 90: Tram to Stormwind City
+	-- Step 96: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
 
-	-- Step 91: Baros Alexston
+	-- Step 97: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
 	["{npc:1646} stands in the {object:2098}."] = "{npc:1646}站在{object:2098}。",
 	-- {npc:1646} Baros Alexston · {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {quest:97914}, {npc:3649}'s letter, if you still carry it"] = "{npc:1646}：{quest:97914}，{npc:3649}的信，如果你还带着",
 
-	-- Step 92: Cathedral of Light
+	-- Step 98: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
 	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "从{object:171524}乘{area:2257}前往{zone:1453}的{object:28027}，然后步行到{object:2098}。",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}，在光明大教堂",
 
-	-- Step 93: Stormwind Keep
+	-- Step 99: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["Only if you looted {quest:337} in {zone:1431}"] = "仅当你在{zone:1431}拾取了{quest:337}",
 
-	-- Step 94: Lord Grayson Shadowbreaker
+	-- Step 100: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker
 	["Back to the Cathedral of Light: {npc:928} stands inside."] = "回到光明大教堂：{npc:928}站在里面。",
 	-- {npc:2228} Lieutenant Farren Orinelle · {area:271} Southshore
 	["For {npc:2228} in {area:271}: keep it"] = "交给{area:271}的{npc:2228}：先留着",
 
-	-- Step 95: Warden Thelwater
+	-- Step 101: Warden Thelwater
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square
 	["For your {area:717} run: {npc:1719} keeps the {area:717}'s gate, south of the {object:2098}."] = "为{area:717}之行做准备：{npc:1719}看守着{area:717}的大门，位于{object:2098}南边。",
 
-	-- Step 96: Warden Thelwater
+	-- Step 102: Warden Thelwater
 	-- {npc:1719} Warden Thelwater · {quest:389} Bazil Thredd · {npc:1646} Baros Alexston
 	["{npc:1719}: {quest:389}, from {npc:1646}"] = "{npc:1719}：{quest:389}，来自{npc:1646}",
 
-	-- Step 98: Stockade
+	-- Step 104: Stockade
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square · {npc:1663} Dextren Ward · {quest:389} Bazil Thredd
 	["{area:717} is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is {npc:1719}'s, south of the {object:2098}.\nInside: the Defias prisoners, convicts and insurgents for Thelwater, {npc:1663}'s hand for Millstipe, and {quest:389} at the far end."] = "{area:717}是适合23-29级左右五人小队的地下城，打一次不到一小时。大门由{npc:1719}看守，位于{object:2098}南边。\n副本内：塞尔沃特要的迪菲亚囚犯、罪犯和叛乱者，米尔斯迪普要的{npc:1663}的手，以及最深处的{quest:389}。",
 
-	-- Step 99: Warden Thelwater
+	-- Step 105: Warden Thelwater
 	-- {npc:1719} Warden Thelwater
 	["{npc:1719}, at the gate"] = "{npc:1719}，在大门处",
 
-	-- Step 101: Jorgen and Elling Trias
+	-- Step 107: Jorgen and Elling Trias
 	-- {npc:4959} Jorgen · {npc:482} Elling Trias
 	["{npc:4959} and {npc:482}"] = "{npc:4959}和{npc:482}",
 	-- {npc:482} Elling Trias · {object:2096} Trade District
 	["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}，在{object:2096}的奶酪店",
 
-	-- Step 102: Trade District
+	-- Step 108: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "下一步：飞往{area:42}。",
 

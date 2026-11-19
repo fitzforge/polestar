@@ -438,8 +438,8 @@ return {
 	["Take the road north-west from {area:186} again; she still lies beside it, on the way to {zone:1457}."] = "다시 {area:186}에서 북서쪽 길로 가세요. 그녀는 아직 {zone:1457}(으)로 가는 길가에 누워 있습니다.",
 
 	-- Step 70: Into Darnassus
-	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	-- {area:1657} Darnassus
+	["Into {area:1657}"] = "",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "",
 
@@ -450,10 +450,13 @@ return {
 	-- Step 73: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "",
+	-- {area:736} Ban'ethil Hollow
+	["East from the city gate to {area:736}"] = "",
 
 	-- Step 75: Darnassus
-	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다.",
+	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
+	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다."
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -546,6 +549,8 @@ return {
 	-- Step 93: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있고, {quest:5929}은(는) 북서쪽 숲에 있습니다. 나중을 위해 호수 남쪽의 {npc:10897}에게서 {area:493} 비행 경로를 배우세요. 그다음 {area:2361}의 {npc:11800}이(가) 대화로 드루이드를 {area:702}까지 곧장 태워 줍니다. 배울 비행 경로는 아닙니다. {npc:11802}은(는) 건물 위층에 있습니다. 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "{quest:5929}와(과) 대화하세요",
 
@@ -553,21 +558,38 @@ return {
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 97: The Moonkin Stone
+	-- Step 97: Rut'theran Village flight master
+	-- {area:702} Rut'theran Village
+	["{area:702} flight master"] = "",
+	-- {zone:1457} Darnassus
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+
+	-- Step 98: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{area:702}(으)로 다시 내려가 {area:442}(으)로 날아가세요. {object:177525}은(는) 마을 바로 동쪽 언덕에 있습니다. 그곳에서 {item:15208}을(를) 사용하고, 초승달발톱을 물리친 뒤 {npc:12144}와(과) 대화하세요.",
 
-	-- Step 98: Body and Heart
+	-- Step 99: Auberdine flight master
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
+
+	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "한 번 더 {area:702}(으)로 날아가 차원문을 타고 {npc:4217}에게 간 뒤, {area:442}(으)로 날아가세요.",
+
+	-- Step 101: Back to Auberdine
+	-- {area:442} Auberdine
+	["Back to {area:442}"] = "",
+	-- {area:702} Rut'theran Village
+	["Take the portal down to the hippogryphs at {area:702}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 {npc:1996}은(는) 마을 남쪽 숲을 돌아다닙니다.",
 	-- ["East to {area:260}"] = "동쪽 {area:260}(으)로",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "{area:188}에서 남서쪽 길을 따라 {area:186}(으)로 가세요.",
+	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "항구에서 {object:2100}(으)로 걸어가세요. {npc:5480}이(가) 그곳에서 전사를 가르칩니다. {npc:6089}와(과) {npc:6090}은(는) {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 머그잔을 걸고 당신과 싸웁니다.",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "{area:17203}에서 도시 성문을 지나 {zone:1429}(으)로 간 뒤 서쪽 길을 따라 {zone:1436}(으)로 가세요.",
 	-- ["Hearth to {area:186}"] = "귀환석으로 {area:186}에 가기",

@@ -72,16 +72,18 @@ return {
 
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。"
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "對墓地裡的年老的、垂死的或{npc:4702}使用；別把它殺了",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "被馴服的科多獸，在{npc:11596}的營地：和它對話，五次",
 
 	-- Step 14: Kolkar Village
-	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
-	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "科卡爾半人馬在{area:609}周圍的平原上遊蕩；牠們的耳朵是給{npc:5752}的。",
+	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
+	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
 	-- Step 15: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
@@ -107,8 +109,10 @@ return {
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "在米奈希爾的碼頭搭船前往{area:442}。{npc:3649}站在{area:442}飛行管理員的北邊。",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "基澤爾頓車隊在{area:2407}等候。",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "怨怒薩特佔據{area:608}東邊的{area:603}廢墟。",
+	-- ["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "科卡爾半人馬在{area:609}周圍的平原上遊蕩；牠們的耳朵是給{npc:5752}的。",
 	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "荒土蠍在往南道路上的{area:2407}周圍山丘獵食。",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。",
 	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "對{npc:4700}使用{npc:11596}的{item:13892}，把馴服的科多獸帶回他的營地，共五次；老邁的科多獸也會掉落獸皮。",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "跟著車隊向南經過{area:609}；途中科卡爾伏擊者會襲擊車隊。待在附近直到它停在{area:2617}。伏擊者是34-35級，而且分波出現：如果你低於33級就跳過。",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",

@@ -235,9 +235,9 @@ return {
 	["For {npc:266} in {area:69}, Redridge"] = "為了赤脊山{area:69}的{npc:266}",
 
 	-- Step 45: Jangolode Mine
-	-- {area:918} Molsen Farm
+	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "向北經過{area:918}回到礦坑：狗頭人掘地工在礦坑內工作。",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "狗頭人掘地工",
 
@@ -246,16 +246,16 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry."] = "向西南前往海岸，在{area:918}西邊。河爪礦工在採石場工作。",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "河爪礦工",
 
 	-- Step 47: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
 	["{area:20}: kill these as you meet them"] = "{area:20}：遇到就殺",
-	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
+	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "迪菲亞掠奪者和搶劫者佔據{area:108}以西的農場，位於海岸道路和{area:20}之間。{object:1166}立在{area:219}的農舍裡，就混在他們當中：{npc:1646}的指南針在裡面。\n小心：{area:113}的洞穴裡擠滿了迪菲亞，在那裡很容易一次拉來好幾隻。",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}，來自{object:1166}",
 
@@ -370,9 +370,11 @@ return {
 	["{item:6529}, from {npc:5494}"] = "{item:6529}，向{npc:5494}購買",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "向北經過{area:918}回到礦坑：狗頭人掘地工在礦坑內工作。",
 	-- ["Back to {area:108}"] = "返回{area:108}",
 	-- ["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon."] = "迪菲亞巡路者和迪菲亞拳匪在{area:20}巡邏；迪菲亞路霸（17級）成對巡邏其南邊和東邊的丘陵：把牠們分開拉。鐵匠鋪內的{area:1581}入口是小隊地城。",
 	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}."] = "迪菲亞搶劫者和迪菲亞強奪者佔據了{area:108}西邊的農場，位於海岸道路和{area:20}之間。",
+	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "迪菲亞掠奪者和搶劫者佔據{area:108}以西的農場，位於海岸道路和{area:20}之間。{object:1166}立在{area:219}的農舍裡，就混在他們當中：{npc:1646}的指南針在裡面。\n小心：{area:113}的洞穴裡擠滿了迪菲亞，在那裡很容易一次拉來好幾隻。",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids). {npc:11026} works in the {object:28027}, {npc:279} in the {object:2096}."] = "飛往或騎往{zone:1453}。訓練師：{object:2100}（戰士、盜賊）、大教堂（聖騎士、牧師）、{object:2101}（法師、術士）、公園（德魯伊）。{npc:11026}在{object:28027}工作，{npc:279}在{object:2096}。",
 	-- ["Fly or ride to {zone:1453}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "飛往或騎往{zone:1453}。{npc:5480}在{object:2100}訓練戰士；{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你決鬥。",
 	-- ["Fly or walk to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "飛往或步行前往{zone:1453}。訓練師：{object:2100}（戰士、盜賊），大教堂（聖騎士、牧師），{object:2101}（法師、術士），公園（德魯伊）。",
@@ -392,6 +394,7 @@ return {
 	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills."] = "{npc:117}和河爪斥候（11-13級）在海岸南邊的山丘上遊蕩，從{area:111}上方一直到東邊的{area:916}。更南邊和西邊的狗頭人是13-19級：待在北邊的山丘。",
 	-- ["Riverpaw Gnolls and Scouts roam the hills between the coast and the {area:916}."] = "河爪豺狼人和河爪斥候在海岸與{area:916}之間的丘陵遊蕩。",
 	-- ["Sacks of Oats"] = "一袋燕麥",
+	-- ["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry."] = "向西南前往海岸，在{area:918}西邊。河爪礦工在採石場工作。",
 	-- ["The gnoll hills"] = "豺狼人丘陵",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "礦坑在豺狼人營地西南方。{item:247816}在入口附近；狗頭人地卜師佔據隧道。",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "礦坑在豺狼人營地西南方。{item:247816}散落在入口附近；隧道裡是狗頭人地卜師。\n小心：{npc:471}（7-10級）、礦坑蜘蛛（7-9級）和{npc:248474}（7級）都是礦坑深處的精英：在入口附近一次拉一隻狗頭人，若有精英過來就退出去；有朋友同行會輕鬆些。",

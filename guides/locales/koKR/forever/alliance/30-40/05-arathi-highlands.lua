@@ -174,7 +174,8 @@ return {
 
 	-- Step 35: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "{area:318}에서 남쪽으로 {area:314}을(를) 지나 언덕의 {area:317}까지 가세요. 의술사는 오두막 사이에 서 있고, 어둠사냥꾼은 계곡 맨 끝을 지킵니다. 모든 트롤이 엄니를 떨어뜨릴 수 있습니다.",
+	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
+	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "",
 
@@ -345,6 +346,8 @@ return {
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "{zone:1455}에서 동쪽 굴을 지나 {zone:1426}을(를) 거쳐 {zone:1432}에 들어간 뒤, 길을 따라 {area:144}까지 가세요.",
 
 	-- Step 74: Thelsamar
+	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
@@ -375,6 +378,7 @@ return {
 	-- ["Shaman training"] = "주술사 훈련",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "서쪽 해안을 따라 남쪽으로 고블린의 만까지 가세요. 롤로는 그 위 바위에서 망을 봅니다.",
 	-- ["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "{object:2691}에서 남쪽으로 {area:314}을(를) 지나 언덕의 {area:317}까지 가세요. 의술사는 오두막 사이에 서 있고, 어둠사냥꾼은 계곡 맨 끝을 지킵니다. 모든 트롤이 엄니를 떨어뜨릴 수 있습니다.",
+	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "{area:318}에서 남쪽으로 {area:314}을(를) 지나 언덕의 {area:317}까지 가세요. 의술사는 오두막 사이에 서 있고, 어둠사냥꾼은 계곡 맨 끝을 지킵니다. 모든 트롤이 엄니를 떨어뜨릴 수 있습니다.",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "남서쪽으로 {area:279} 서쪽 호숫가의 키린 토 야영지로 가세요. {area:130} 경계를 막 넘은 곳으로, {npc:269127}이(가) 그곳에 서 있습니다. 대마법사 앤자이럼은 그 남동쪽, 돔 옆에 서 있습니다.",
 	-- ["Subdue the succubus"] = "서큐버스 제압",
 	-- ["Summon Succubus"] = "서큐버스 소환",

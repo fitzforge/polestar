@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, adentro",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "Dentro de {area:498}",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "Fangoengranaje",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Toma el camino al suroeste desde Theramore hasta Fangoengranaje, el campamento goblin al borde de {area:511}. {npc:270723} y {npc:270727} están juntos en el campamento.",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "La {item:280092} crece en la ciénaga al este del campamento: recógela primero. Luego las Proles abrasadoras y los vástagos (41-43) y los dragonantes Pirocabello anidan en la ciénaga al norte y al oeste de Fangoengranaje, de regreso; todos sueltan las escamas mudadas.\nCuidado: los Horrocrustos Pirocabello y los Clamafuegos son de nivel 43-44 y lanzan fuego: atráelos de uno en uno.",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Luego cabalga de vuelta al noreste hasta el maestro de vuelo de Theramore.",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Brujo: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -173,6 +169,7 @@ return {
 	-- ["Blue Pearls from Stranglethorn"] = "Perlas azules de Vega de Tuercespina",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Vuela a {area:392}; {npc:6251} enseña en la casa junto al banco. Después, vuela de regreso a Isla Theramore.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Vuela a {area:608}, cabalga hacia el sur por {zone:1443} hasta {zone:1444} y sigue el camino hasta el muelle de {area:1108}; el barco cruza a {area:1116}, donde empieza la siguiente guía.",
+	-- ["Inside {area:498}"] = "Dentro de {area:498}",
 	-- ["On to Feathermoon"] = "Rumbo a Bastión Plumaluna",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Cabalga hacia el norte hasta {area:144} y vuela a {area:271}. {npc:3980} predica junto a la posada.",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Cabalga hacia el noreste fuera de {area:271} por el camino hacia {area:47}; {area:348} está justo pasando la frontera. {npc:5635} recibe en la cima, {quest:1450} cuida el aviario y {npc:7884} está junto a la posada.",

@@ -134,53 +134,51 @@ return {
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Maître de vol de {area:3197}",
 
-	-- Step 35: Aurora Skycaller
+	-- Step 35: Carlin Redpath: Heroes of Darrowshire
+	-- {area:190} Hearthglen
+	["The libram is inside {area:190} among elite Scarlet guards. Take this for the later group visit."] = "",
+
+	-- Step 36: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
 	["Ride north-west to {area:2276}, at the edge of the {area:2277}."] = "Allez au nord-ouest jusqu'à {area:2276}, en bordure de {area:2277}.",
 
-	-- Step 36: Villains of Darrowshire
+	-- Step 37: Villains of Darrowshire
 	-- {area:2624} Blackwood Lake · {area:2623} Infectis Scar
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "Le crâne d'Horgus se trouve à {area:2624} et l'épée de Marduk dans {area:2623}, chacun là où des fantômes se battent ; des Chiens pestiférés adultes chassent dans les plaines entre les deux.",
 	-- {item:12956} Skull of Horgus
 	["{item:12956}; underwater"] = "{item:12956} ; sous l'eau",
 
-	-- Step 37: Eastern Plaguelands: kill these as you meet them
+	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Chevauchez vers l'ouest jusqu'à {area:2627}. Chiens pestiférés chétifs ({npc:8596}), Chauves-souris pestiférées ({npc:8600}) et Larves putrides ({npc:8603}) parcourent ses bois ; remplissez {item:15042} aux grandes termitières et tuez les Chiens pestiférés frénétiques ({npc:8598}) plus au nord.",
 
-	-- Step 38: Augustus the Touched
+	-- Step 39: Augustus the Touched
 	-- {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby.\nCareful: the Frenzied Plaguehounds north-east of the hut are 57-58, a level or two over you: pull them one at a time."] = "Chevauchez vers le nord jusqu'à {area:2627}. {npc:12384} vit dans la cabane en ruine, et son livre de reçus est dans l'auberge en ruine voisine.\nAttention : les Chiens pestiférés frénétiques au nord-est de la cabane sont 57-58, un niveau ou deux au-dessus de vous : attirez-les un par un.",
 
-	-- Step 39: Augustus the Touched
+	-- Step 40: Augustus the Touched
 	-- {npc:8598} Frenzied Plaguehound
 	["{npc:8598}, 170 yd north-east"] = "{npc:8598}, à 170 mètres au nord-est",
 
-	-- Step 40: Plaguewood: kill these as you meet them
+	-- Step 41: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277} : tuez-les au passage",
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Attention : les Chiens pestiférés frénétiques sont 57-58 : attirez-les un par un.",
 
-	-- Step 41: Tirion Fordring
+	-- Step 42: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Cross the river west to {npc:1855}'s hut."] = "Traversez la rivière vers l'ouest jusqu'à la cabane de {npc:1855}.",
 
-	-- Step 43: Tirion Fordring
+	-- Step 44: Tirion Fordring
 	["Listen to his story"] = "Écouter son histoire",
 	-- {npc:11886} Mercutio Filthgorger
 	["{npc:11886} is elite: grouping up is advised"] = "{npc:11886} est un élite : mieux vaut être en groupe",
-
-	-- Step 44: Davil's Libram
-	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
-	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} se trouve dans l'hôtel de ville de {area:190}, à l'ouest de {npc:1855} : les gardes écarlates sont très rapprochés.",
-	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "{item:12954} ; à l'intérieur",
 
 	-- Step 46: The Undercroft
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
@@ -320,8 +318,6 @@ return {
 	["On {npc:7583}"] = "Sur {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "Effrayez {npc:7583} avec {item:12928}",
-	-- {area:3197} Chillwind Camp
-	["For {area:3197}: keep it"] = "Pour {area:3197} : gardez-la",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "{npc:7876}, côté nord de la ville : le goudron est à Un'Goro, gardez-la",
 
@@ -385,47 +381,53 @@ return {
 	-- {npc:13220} Layo Starstrike
 	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "Les Druides torturés et les Sentinelles torturées hantent le village en ruine au sud-ouest de {npc:13220}.",
 
-	-- Step 96: The Hive'Ashi tower
+	-- Step 95: Dusty Reliquary
+	-- {area:2738} Southwind Village · {npc:11801} Rabine Saturna
+	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "",
+	-- {object:179565} Dusty Reliquary
+	["{object:179565}; inside"] = "",
+
+	-- Step 97: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "La tour de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Revenez vers le sud-ouest jusqu'à la tour de {area:2742} à {area:2738} ; gravissez-la et tuez les embusqués qui surgissent pour l'objet incrusté.",
 
-	-- Step 97: Layo Starstrike
+	-- Step 98: Layo Starstrike
 	-- {area:493} Moonglade
 	["Umber in {area:493}: keep it"] = "Umber à {area:493} : gardez-la",
 
-	-- Step 99: Krakle
+	-- Step 100: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
 	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "En arrivant de {zone:1451}, {area:543} se trouve juste à l'entrée du cratère : le gobelin {npc:10302} est assis au bord de l'eau.",
 
-	-- Step 100: Un'Goro Crater: kill these as you meet them
+	-- Step 101: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
 	["{zone:1449}: kill these as you meet them"] = "{zone:1449} : tuez-les au passage",
 
-	-- Step 101: Krakle's Thermometer
+	-- Step 102: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Chevauchez vers l'est jusqu'à {area:537}, gravissez-la et utilisez {npc:10541} sur les évents de lave près du sommet.",
 
-	-- Step 102: Krakle
+	-- Step 103: Krakle
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Se termine auprès de {npc:9298} au {zone:1452} : gardez-la",
 
-	-- Step 103: Marshal's Refuge
+	-- Step 104: Marshal's Refuge
 	-- {npc:9618} Karna Remtravel · {npc:9117} J.D. Collie
 	["North to the refuge, for the quests the first Un'Goro visit left: {npc:9618} stands just outside and {npc:9117} in the cave at the back; the expedition's other three wait for your next stop here."] = "Allez au nord jusqu'au refuge, pour les quêtes laissées par la première visite d'Un'Goro : {npc:9618} se tient juste devant et {npc:9117} dans la grotte au fond ; les trois autres membres de l'expédition attendent votre prochain passage ici.",
 
-	-- Step 104: Northern Pylon
+	-- Step 105: Northern Pylon
 	["Northern Pylon"] = "Le Pylône nord",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "Le pylône se dresse sur la pente à l'est du refuge. Les {npc:9166} tournent au-dessus des pentes alentour : ils comptent pour {npc:9997}.",
 
-	-- Step 105: A-Me 01
+	-- Step 106: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Chevauchez vers l'est jusqu'à {area:1943}, où le robot se tient parmi les gorilles. N'entrez pas dans la grotte profonde.",
 	["Below ground"] = "Sous terre",
 
-	-- Step 106: Ironstone Plateau: kill these as you meet them
+	-- Step 107: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
 	["{area:1943}: kill these as you meet them"] = "{area:1943} : tuez-les au passage",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -438,20 +440,20 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "{item:11480} ; sous terre",
 
-	-- Step 108: Lakkari Tar Pits: kill these as you meet them
+	-- Step 109: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "{area:538} : tuez-les au passage",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Les Bêtes du goudron et les Seigneurs du goudron se vautrent dans les {area:538}, au sud du refuge, sur le chemin qui descend dans le cratère.",
 
-	-- Step 109: The crater
+	-- Step 110: The crater
 	["The crater"] = "Le cratère",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
 	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Les Bêtes du goudron se vautrent dans les {area:538} ; les élémentaires de feu de la {area:537}, au centre, portent la cendre ; les guêpes Gorishi de la {area:540}, au sud, portent la glande. Toutes les créatures du cratère peuvent laisser tomber de la {item:11018}.\nAttention : les Ouvriers Gorishi qui passent sous 45 % de vie ont 50 % de chances d'appeler à l'aide leurs alliés à moins de 25 m.",
 
-	-- Step 110: Torwa Pathfinder
+	-- Step 111: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619} campe au pied de la rampe qui descend dans le cratère.",
 	-- {quest:4291} The Scent of Lar'korwi
@@ -461,55 +463,55 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, si un ravasaure a laissé tomber l'écaille depuis la première visite",
 
-	-- Step 111: Damaged Blue Crystal
+	-- Step 112: Damaged Blue Crystal
 	-- {item:280417} Damaged Blue Crystal · {npc:9619} Torwa Pathfinder
 	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "Le {item:280417} se trouve à courte distance à l'ouest du camp de {npc:9619}.",
 
-	-- Step 114: Ironstone Plateau: kill these as you meet them
+	-- Step 115: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Les gorilles vivent sur le {area:1943}, à l'est de {area:541}. Gardez leurs peaux pour {npc:9619}. Évitez la grotte la plus profonde : {npc:9622} est de niveau 55.\nAttention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Il y a dans la zone une grotte pleine de singes, et y combattre attire beaucoup de renforts.",
 
-	-- Step 116: U'cha
+	-- Step 117: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Chevauchez vers le nord par le côté est jusqu'au plateau des gorilles. {npc:9622}, un gorille de niveau 55, se tient dans sa grotte la plus profonde : éliminez d'abord les gorilles de l'entrée.",
 
-	-- Step 117: Lar'korwi
+	-- Step 118: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Le repaire de {npc:9684} se trouve dans la jungle au nord de {npc:9619}, sous les falaises est : utilisez-y la {item:11568}. {npc:9684} est de niveau 56 : commencez avec toute votre vie.",
 
-	-- Step 118: Eastern Pylon and the crate
+	-- Step 119: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Pylône est et la caisse",
 	-- {npc:9684} Lar'korwi · {item:11113} Crate of Foodstuffs
 	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "Le pylône se dresse sur les falaises est au-dessus du repaire de {npc:9684} ; la {item:11113} de l'expédition se trouve au camp abandonné dans la jungle est.",
 
-	-- Step 119: Torwa Pathfinder
+	-- Step 120: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "Traversez le sud du cratère jusqu'à {npc:9619}, près de la rampe.",
 
-	-- Step 120: The Marshlands: kill these as you meet them
+	-- Step 121: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "{area:1942} : tuez-les au passage",
 
-	-- Step 121: The Gorishi hive
+	-- Step 122: The Gorishi hive
 	["The Gorishi hive"] = "La ruche Gorishi",
 	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "Allez vers l'ouest le long du sud du cratère : la ruche gorishi l'occupe. Utilisez la fiole à grattage sur un couvoir, une salle aux larves suspendues.",
 
-	-- Step 122: Bones and equipment
+	-- Step 123: Bones and equipment
 	["Bones and equipment"] = "Os et équipement",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Traversez le sud du cratère vers l'ouest : des Os de dinosaure jonchent le sol au sud-ouest, parmi les stégodons : ceux-ci sont élites, ramassez les os autour d'eux et prenez le reste sur les Diémétradons. L'{item:11112} de l'expédition se trouve dans la jungle sud-ouest.",
 
-	-- Step 123: Western Pylon
+	-- Step 124: Western Pylon
 	["Western Pylon"] = "Pylône ouest",
 	["The pylon stands on the western cliffs."] = "Le pylône se dresse sur les falaises ouest.",
 
-	-- Step 124: Ringo
+	-- Step 125: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} est assis sur la pente sud-est de {area:537}, au milieu du cratère.",
 
-	-- Step 125: Escort Ringo
+	-- Step 126: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escorter {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
@@ -530,6 +532,7 @@ return {
 	-- ["Fly to {area:392}."] = "Volez jusqu'à {area:392}.",
 	-- ["Follow the road south-west out of the pass to {area:3425}."] = "Suivez la route vers le sud-ouest à la sortie du col jusqu'à {area:3425}.",
 	-- ["For {area:1377}: keep it"] = "Pour {area:1377} : gardez-la",
+	-- ["For {area:3197}: keep it"] = "Pour {area:3197} : gardez-la",
 	-- ["For {zone:1453}: keep it"] = "Pour {zone:1453} : gardez-la",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Depuis {area:392}, volez jusqu'à {area:2255} puis allez au sud jusqu'à {area:2250}.",
 	-- ["Gaeriyan in {area:976}: keep it"] = "Gaeriyan à {area:976} : gardez-la",
@@ -570,6 +573,8 @@ return {
 	-- ["{area:200} cauldron"] = "Chaudron de {area:200}",
 	-- ["{area:201} cauldron"] = "Chaudron de {area:201}",
 	-- ["{item:11834} on the way"] = "{item:11834} en chemin",
+	-- ["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} se trouve dans l'hôtel de ville de {area:190}, à l'ouest de {npc:1855} : les gardes écarlates sont très rapprochés.",
+	-- ["{item:12954}; inside"] = "{item:12954} ; à l'intérieur",
 	-- ["{item:12955} lies east of the barn at {area:201}."] = "{item:12955} se trouve à l'est de la grange de {area:201}.",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}, auprès de {npc:11056}",
 	-- ["{item:13853} on the way"] = "{item:13853} en chemin",

@@ -92,8 +92,9 @@ return {
 	["{item:7908}, in the chest"] = "{item:7908}, dans le coffre",
 
 	-- Step 21: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}.",
+	-- {area:1519} Stormwind · {object:2100} Old Town
+	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}."
+	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332} : Poisons, et {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -148,6 +149,7 @@ return {
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Suivez la route vers le sud depuis {area:1002} jusqu'à {zone:1431} ; {area:42} se trouve du côté est de la forêt.",
 	-- ["Head back east along the road to the {area:245}."] = "Retournez vers l'est par la route jusqu'à {area:245}.",
 	-- ["Head back east to {area:42}."] = "Retournez vers l'est jusqu'à {area:42}.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}.",
 	-- ["Hearth to {area:42}"] = "Pierre de foyer vers {area:42}",
 	-- ["Level 22 and 24 spells"] = "Sorts des niveaux 22 et 24",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Pas de {item:4371} pour {quest:174} ? {npc:3133} en vend dans la maison voisine de celle de {npc:276}, en quantité limitée ; {npc:1448}, à {area:150}, en vend aussi.\nLa maison de {npc:276} se trouve à l'extrémité est de la ville. {npc:3133} vend des articles d'ingénierie dans la maison voisine.",

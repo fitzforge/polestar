@@ -17,30 +17,83 @@ return {
 	["{area:493} flight path on the way"] = "Ruta de vuelo de {area:493} por el camino",
 	["Lots of flying between zones"] = "Muchos vuelos entre zonas",
 
-	-- Step 1: Ratchet
-	-- {area:541} Marshal's Refuge · {area:392} Ratchet
-	["Fly from {area:541} to {area:392}."] = "Vuela de {area:541} a {area:392}.",
-	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "{npc:8496}, dentro",
+	-- Step 1: Back from Mount Hyjal
+	-- {zone:2482} Mount Hyjal
+	["Back from {zone:2482}"] = "",
+	-- {zone:1452} Winterspring · {area:392} Ratchet
+	["Coming back from Hyjal? Finish the nearby {zone:1452} errands first. Once you reach 60 you can stop; {area:392} and the rest of the guide are still there if you want to finish your quest log."] = "",
+	-- {npc:11755} Harlo Wigglesworth · {area:2255} Everlook
+	["{npc:11755}, in {area:2255}"] = "",
 
-	-- Step 2: Fly to Talrendis Point
-	-- {area:3137} Talrendis Point
-	["Fly to {area:3137}"] = "Vuela a {area:3137}",
+	-- Step 2: Winterfall Village
+	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity · {area:2255} Everlook · {npc:10738} High Chief Winterfall
+	["{npc:11556}'s {quest:8464} waited for this visit: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out."] = "{quest:8464} de {npc:11556} esperaba esta visita: el poblado fúrbolg está justo al este de {area:2255}, con chamanes (56-57), vigías de la guarida (55-56) y ursas (57-58). Mata primero a los chamanes, que curan. {npc:10738}, en la cueva del fondo, es élite: no entres.",
+
+	-- Step 3: Starfall Village
+	-- {area:2253} Starfall Village
+	["Ride north-west up the road to {area:2253}."] = "Cabalga hacia el noroeste por el camino hasta {area:2253}.",
+
+	-- Step 4: Jaron Stoneshaper's camp
+	-- {npc:10301} Jaron Stoneshaper
+	["{npc:10301}'s camp"] = "El campamento de {npc:10301}",
+	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
+	["Ride back east past {area:2255} and south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
+
+	-- Step 5: Jaron Stoneshaper's supplies
+	-- {npc:10301} Jaron Stoneshaper
+	["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
+	-- {npc:10301} Jaron Stoneshaper
+	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Recoge los suministros alrededor del carro y recupera el amuleto de {npc:10301} de las lechubestias cercanas.",
+
+	-- Step 6: Ranshalla
+	-- {npc:10300} Ranshalla · {area:2250} Owl Wing Thicket · {area:2255} Everlook · {object:177404} Altar of Elune
+	["{npc:10300} waits at {area:2250}, south of {area:2255}.\nProtect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "{npc:10300} espera en {area:2250}, al sur de {area:2255}.\nProtege a {npc:10300} mientras enciende las antorchas camino del {object:177404}.",
+
+	-- Step 9: Donova Snowden
+	["Keep this for the next visit to the gorge mouth"] = "",
+
+	-- Step 10: Everlook flight master
+	-- {area:2255} Everlook
+	["{area:2255} flight master"] = "",
+	["Maethrya, the Alliance flight master"] = "",
+
+	-- Step 11: Marshal's Refuge flight master
+	-- {area:541} Marshal's Refuge
+	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
+	["Gryfe, the flight master"] = "",
+
+	-- Step 12: Reach Ratchet
+	-- {area:392} Ratchet
+	["Reach {area:392}"] = "",
+	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:16227} Bragok
+	["Reach {area:392} by an available route. If your flight master offers Theramore instead, fly there, ride west into the {zone:1413} and follow the road north to {area:392}. Speak to {npc:16227} in town if you still need the flight path."] = "",
+
+	-- Step 13: Ratchet flight master
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 3: Felwood
+	-- Step 14: Ratchet
+	-- {npc:8496} Liv Rizzlefix · {area:392} Ratchet · {zone:1452} Winterspring · {area:2255} Everlook · {area:541} Marshal's Refuge
+	["{npc:8496} is in {area:392}. From {zone:1452}, leave by Maethrya in {area:2255}; from Un'Goro, leave by Gryfe at {area:541}."] = "",
+	-- {npc:8496} Liv Rizzlefix
+	["{npc:8496}, inside"] = "{npc:8496}, dentro",
+
+	-- Step 15: Fly to Talrendis Point
+	-- {area:3137} Talrendis Point
+	["Fly to {area:3137}"] = "Vuela a {area:3137}",
+
+	-- Step 16: Felwood
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "El {area:2479}",
 
-	-- Step 4: The Emerald Sanctuary
+	-- Step 17: The Emerald Sanctuary
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
 	["From {area:3137} ride into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "Desde {area:3137}, cabalga hasta {zone:1448}: {area:2479} es el campamento de los druidas en el camino, justo pasada la frontera de {zone:1440}.",
 	["Inside"] = "",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Espera un momento a {npc:9116}",
 
-	-- Step 5: Shadow Hold braziers
+	-- Step 18: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "Braseros de {area:1770}",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:11172} Silvery Claws · {item:13140} Blood Red Key · {npc:11018} Arko'narin
@@ -58,28 +111,28 @@ return {
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, in her cell; below ground"] = "",
 
-	-- Step 6: Arko'narin
+	-- Step 19: Arko'narin
 	-- {area:1770} Shadow Hold
 	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
 
-	-- Step 8: Irontree Woods
+	-- Step 21: Irontree Woods
 	-- {area:1767} Irontree Woods
 	-- plural, as words: Irontree Stompers = {npc:7139} Irontree Stomper · Felpaw Ravagers = {npc:8961} Felpaw Ravager · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
 	["Follow the road north to {area:1767}. The Irontree Stompers carry the heart; finish the claws on the Angerclaw Grizzlies and Felpaw Ravagers of the north.\nCareful: Ancient Irontree Walkers, level 59 elites, stand among the treants in the middle of {area:1767}: take the Stompers on the north side (about 48,21)."] = "Sigue el camino al norte hasta {area:1767}. Los vapuleadores Troncoferro llevan el corazón; termina las garras con los griseznos Zarpira y devastadores Zarpayel del norte.\nCuidado: los Caminantes ancestrales Troncoferro, élites de nivel 59, están entre los ents en el centro de {area:1767}: enfréntate a los vapuleadores del lado norte (hacia 48,21).",
 	-- plural, as words: Irontree Stompers = {npc:7139} Irontree Stomper
 	["Irontree Stompers"] = "Vapuleadores Troncoferro",
 
-	-- Step 9: Arei
+	-- Step 22: Arei
 	-- {npc:9598} Arei · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
 	["{npc:9598} waits in {area:1767}. Escort her out of the woods and keep her alive.\nCareful: Three {quest:5086} ambush you soon after the escort starts."] = "{npc:9598} espera en {area:1767}. Escóltala fuera del bosque y mantenla con vida.\nCuidado: tres {quest:5086} te emboscan poco después de empezar la escolta.",
 
-	-- Step 10: Felpaw Village
+	-- Step 23: Felpaw Village
 	-- {area:1769} Timbermaw Hold
 	["Ride north to the Deadwood furbolgs' village by the {area:1769} cave mouth."] = "Cabalga al norte hasta el poblado de los fúrbolgs Muertobosque junto a la entrada de la cueva de {area:1769}.",
 	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["{quest:5085}: {npc:9298} in {zone:1452}, keep it"] = "{quest:5085}: {npc:9298} en {zone:1452}, guárdala",
 
-	-- Step 11: A Final Blow
+	-- Step 24: A Final Blow
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
 	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9518} Rakaiah
@@ -93,18 +146,18 @@ return {
 	-- {npc:9517} Shadow Lord Fel'dan
 	["{npc:9517}; below ground"] = "",
 
-	-- Step 12: The Emerald Sanctuary
+	-- Step 25: The Emerald Sanctuary
 	["Ride back south along the road to the Sanctuary."] = "Vuelve al sur por el camino hasta el Santuario.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
 	-- {item:11169} Book of Aquor
 	["Keep the {item:11169}, the claws and the heart he hands back"] = "Guarda el {item:11169}, las garras y el corazón que te devuelve",
 
-	-- Step 13: Forest Song
+	-- Step 26: Forest Song
 	-- {zone:1448} Felwood · {area:3137} Talrendis Point · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1440} Ashenvale
 	["Ride south out of {zone:1448} toward {area:3137}: {npc:3848}'s camp at {area:2358} is just over the {zone:1440} border, on the way."] = "Cabalga al sur desde {zone:1448} hacia {area:3137}: el campamento de {npc:3848} en {area:2358} está justo pasada la frontera de {zone:1440}, de camino.",
 
-	-- Step 15: Fly to Gadgetzan
+	-- Step 28: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {npc:9616} Laris Geardawdle · {zone:1455} Ironforge · {zone:1452} Winterspring · {area:976} Gadgetzan
@@ -112,58 +165,60 @@ return {
 	-- {area:3137} Talrendis Point
 	["{area:3137} flight master"] = "",
 
-	-- Step 16: Fly to Auberdine
+	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Vuela a {area:442}",
 
-	-- Step 17: Boat to Menethil Harbor
+	-- Step 30: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Barco a {area:150}",
 
-	-- Step 18: Fly to Ironforge
+	-- Step 31: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 19: Laris Geardawdle
+	-- Step 32: Laris Geardawdle
 	["Its jars are filled on the Un'Goro visit"] = "Sus jarras se llenan en la visita a Un'Goro",
 
-	-- Step 20: Fly to Menethil Harbor
+	-- Step 33: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
-	-- Step 22: Fly to Gadgetzan
+	-- Step 35: Fly to Gadgetzan
 	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 
-	-- Step 23: Gadgetzan
+	-- Step 36: Gadgetzan
 	-- {area:976} Gadgetzan · {quest:5801} Fire Plume Forged
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Vuela a {area:976}. Compra dos lingotes de torio en la casa de subastas de aquí para {quest:5801}.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
+	-- {npc:5411} Krinkle Goodsteel · {area:537} Fire Plume Ridge
+	["{npc:5411}: take this before {area:537}"] = "",
 
-	-- Step 24: Aquementas
+	-- Step 37: Aquementas
 	-- {item:11169} Book of Aquor · {quest:4005} Aquementas
 	["Ride east into the hills. Use the {item:11169} to summon {quest:4005}, then defeat him for the totem."] = "Cabalga al este hacia las colinas. Usa el {item:11169} para invocar a {quest:4005} y derrótalo para conseguir el tótem.",
 
-	-- Step 25: Broken Pillar
+	-- Step 38: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Cabalga al suroeste hasta el campamento de {npc:7771} en el {area:1938}.",
 
-	-- Step 27: The Slithering Scar
+	-- Step 40: The Slithering Scar
 	-- {area:540} The Slithering Scar · {npc:10041} Gorishi Hive Queen
 	["Take the road west down into the crater and ride to the {area:540}, the silithid cave in the south. The {npc:10041} waits in its deepest chamber."] = "Toma el camino al oeste, baja al cráter y cabalga hasta {area:540}, la cueva silítida del sur. La {npc:10041} espera en su cámara más profunda.",
 
-	-- Step 28: Fire Plume Ridge
+	-- Step 41: Fire Plume Ridge
 	-- {area:537} Fire Plume Ridge · {item:14644} Skeleton Key Mold · {npc:9616} Laris Geardawdle
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Empty Pure Sample Jars = {item:11953} Empty Pure Sample Jar · Primal Oozes = {npc:6557} Primal Ooze
 	["Climb {area:537} in the middle of the crater and use the {item:14644} by the lava lake at the top, with two Thorium Bars in your bags. Fill {npc:9616}'s Empty Pure Sample Jars on the Primal Oozes in the pools around the ridge."] = "Sube a {area:537}, en el centro del cráter, y usa el {item:14644} junto al lago de lava de la cima, con dos lingotes de torio en tus bolsas. Llena las jarras de muestra pura vacías de {npc:9616} con los mocos primarios de las charcas alrededor de la cresta.",
 	["Use the jars on slain oozes"] = "Usa las jarras en los mocos muertos",
 
-	-- Step 29: Marshal's Refuge
+	-- Step 42: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Ride north to {area:541}. Use {npc:10980} beside {npc:10977}."] = "Cabalga al norte hasta {area:541}. Usa {npc:10980} junto a {npc:10977}.",
 	-- {npc:9117} J.D. Collie
@@ -173,27 +228,25 @@ return {
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10977} with {npc:10980}"] = "",
 
-	-- Step 30: Fly to Cenarion Hold
+	-- Step 43: Fly to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Fly to {area:3425}"] = "",
-	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "Maestro de vuelo de {area:541}",
 
-	-- Step 31: Cenarion Hold
+	-- Step 44: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
-	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189}, upstairs"] = "{npc:15189}, en el piso de arriba",
-	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: sus textos crepusculares salen de la excavación tras la siguiente parada aquí",
-	-- {npc:15181} Commander Mar'alith
-	["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: el Campamento Barbabronce viene después, de camino al sur",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
 	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, en las tiendas de la Alianza: para {npc:17080} en {area:2743}",
+	-- {npc:15181} Commander Mar'alith
+	["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: el Campamento Barbabronce viene después, de camino al sur",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: los fragmentos de tablilla salen de la excavación Crepuscular",
+	-- {npc:15306} Bor Wildmane
+	["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: sus textos crepusculares salen de la excavación tras la siguiente parada aquí",
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189}, upstairs"] = "{npc:15189}, en el piso de arriba",
 
-	-- Step 32: Silithus: kill these as you meet them
+	-- Step 45: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "",
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -201,11 +254,11 @@ return {
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 33: Cenarion Hold
+	-- Step 46: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
 	["{npc:15190}, upstairs beside {npc:15189}"] = "",
 
-	-- Step 34: Hive'Ashi: kill these as you meet them
+	-- Step 47: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi
@@ -217,148 +270,128 @@ return {
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Diez más para {quest:8323}",
 
-	-- Step 35: Hive'Zora
+	-- Step 48: Hive'Zora
 	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
 	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} acampa fuera de {area:2743}, la colmena del oeste. Recoge una silitista en uno de los géiseres rojos cercanos y llévala al extractor de la Alianza de su campamento.\nCuidado: pierdes la silitista si montas, entras en sigilo o usas {spell:642}, {spell:5384} o Esfumarse. Traslación y {spell:17} no hacen que la sueltes.",
 
-	-- Step 37: Southwind Village
+	-- Step 50: Southwind Village
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary
 	-- plural, as words: Tortured Sentinels = {npc:12179} Tortured Sentinel
 	["Ride east to the ruins of {area:2738}. The {object:179565} lies among the ruined buildings, watched by Tortured Sentinels."] = "Cabalga al este hasta las ruinas de {area:2738}. El {object:179565} está entre los edificios en ruinas, vigilado por centinelas torturadas.",
 	-- {object:179565} Dusty Reliquary
 	["{object:179565}; inside"] = "",
 
-	-- Step 38: Hermit Ortell
+	-- Step 51: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "El ermitaño se esconde entre las rocas al sureste de {area:2738}.",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 39: Bronzebeard's Encampment
+	-- Step 52: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Campamento Barbabronce",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {npc:15190} Noggle Ficklespragg
 	["Ride south-west to the dwarves' camp near the southern mountains and question {npc:15171} and {npc:15170}. {npc:15190}'s satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away."] = "Cabalga al suroeste hasta el campamento enano cerca de las montañas del sur e interroga a {npc:15171} y {npc:15170}. La cartera de {npc:15190} está en la arena, al sureste del campamento, donde patrulla Pinzamorten, un escórpido élite: cógela cuando se aleje.",
 
-	-- Step 40: The Twilight Post
+	-- Step 53: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "El {area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
 	["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Cuidado: los guardianes Crepusculares son de nivel 60, uno o dos por encima de ti: limpia primero los cultores que rodean a cada uno y lucha contra el guardián con la salud completa.\n{npc:11803} ocupa el campamento de los cultores en el extremo suroeste.",
 
-	-- Step 41: Twilight Keeper Mayna
+	-- Step 54: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "Cabalga al norte por el lado oeste hasta el pequeño campamento de Mayna.\nCuidado: Mayna es de nivel 60: limpia primero su campamento y lucha contra ella con la salud completa.",
 
-	-- Step 42: Twilight Keeper Havunth
+	-- Step 55: Twilight Keeper Havunth
 	-- {area:3425} Cenarion Hold
 	["Havunth's camp sits just west of {area:3425}.\nCareful: Havunth is level 60: clear his camp first and fight him at full health."] = "El campamento de Havunth está justo al oeste de {area:3425}.\nCuidado: Havunth es de nivel 60: limpia primero su campamento y lucha contra él con la salud completa.",
 
-	-- Step 43: Hermit Ortell
+	-- Step 56: Hermit Ortell
 	["Ride back south-east to the hermit."] = "Vuelve al sureste hasta el ermitaño.",
 	["Hand him the ten texts you kept"] = "Entrégale los diez textos que guardaste",
 
-	-- Step 44: Cenarion Hold
+	-- Step 57: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 45: Gadgetzan
+	-- Step 58: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}."] = "Vuela a {area:976}.",
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus
 	["{npc:7740} in {zone:1457}: keep it"] = "{npc:7740} en {zone:1457}: guárdala",
 
-	-- Step 46: Fly to Everlook
+	-- Step 59: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
-	-- Step 49: Winterfall Village
-	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity · {area:2255} Everlook · {npc:10738} High Chief Winterfall
-	["{npc:11556}'s {quest:8464} waited for this visit: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out."] = "{quest:8464} de {npc:11556} esperaba esta visita: el poblado fúrbolg está justo al este de {area:2255}, con chamanes (56-57), vigías de la guarida (55-56) y ursas (57-58). Mata primero a los chamanes, que curan. {npc:10738}, en la cueva del fondo, es élite: no entres.",
-
-	-- Step 50: Starfall Village
-	-- {area:2253} Starfall Village
-	["Ride north-west up the road to {area:2253}."] = "Cabalga hacia el noroeste por el camino hasta {area:2253}.",
-
-	-- Step 52: Jaron Stoneshaper's camp
-	-- {npc:10301} Jaron Stoneshaper
-	["{npc:10301}'s camp"] = "El campamento de {npc:10301}",
-	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
-	["Ride back east past {area:2255} and south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
-
-	-- Step 53: Jaron Stoneshaper's supplies
-	-- {npc:10301} Jaron Stoneshaper
-	["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
-	-- {npc:10301} Jaron Stoneshaper
-	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Recoge los suministros alrededor del carro y recupera el amuleto de {npc:10301} de las lechubestias cercanas.",
-
-	-- Step 54: Ranshalla
-	-- {npc:10300} Ranshalla · {area:2250} Owl Wing Thicket · {area:2255} Everlook · {object:177404} Altar of Elune
-	["{npc:10300} waits at {area:2250}, south of {area:2255}.\nProtect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "{npc:10300} espera en {area:2250}, al sur de {area:2255}.\nProtege a {npc:10300} mientras enciende las antorchas camino del {object:177404}.",
-
-	-- Step 55: Darkwhisper Gorge
+	-- Step 68: Darkwhisper Gorge
 	-- {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge
-	["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Sigue las indicaciones de {npc:9298} hasta la entrada de {area:2256}, pasando a los gigantes Machacahielo: pásalos de uno en uno.",
+	-- plural, as words: Frostmaul Giants = {npc:7428} Frostmaul Giant · Hederine Slayers = {npc:7463} Hederine Slayer · Rabid Shardtooths = {npc:7446} Rabid Shardtooth
+	["Follow {npc:9298}'s directions south to the mouth of {area:2256}. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in."] = "",
+	["The road past the Frostmaul giants"] = "",
+	-- {area:2256} Darkwhisper Gorge
+	["The road to {area:2256}"] = "",
 
-	-- Step 56: Starfall Village
+	-- Step 69: Starfall Village
 	-- {area:2255} Everlook · {area:2253} Starfall Village
 	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "",
 
-	-- Step 58: Felwood
+	-- Step 71: Felwood
 	-- {quest:5086} Toxic Horrors
 	["The {quest:5086}"] = "",
 
-	-- Step 59: Toxic Horrors
+	-- Step 72: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
 	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
 	["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "Cuidado: los Caminantes ancestrales Troncoferro, élites de nivel 59, están entre {quest:5086}: ataca a los Horrores en la punta noreste del campamento (hacia 50.6,22.4), de uno en uno, y busca un caminante antes de cada ataque.",
 
-	-- Step 60: Kernda
+	-- Step 73: Kernda
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {zone:1452} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "{npc:11558}, justo dentro de la cueva: recorre esta zona: busca dentro del círculo del mapa",
 
-	-- Step 61: Kernda
+	-- Step 74: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
 
-	-- Step 62: Meilosh
+	-- Step 75: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {zone:1452} Winterspring
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {zone:1452} top-up on the Winterfall furbolgs gets you both."] = "",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "",
 
-	-- Step 66: Winterspring: kill these as you meet them
+	-- Step 79: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "",
 	-- {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 70: Umber
+	-- Step 83: Umber
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
 	["Take the {area:1769} tunnel from its {zone:1452} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Toma el túnel de {area:1769} desde su entrada en {zone:1452}, al oeste de {npc:9298}, y sigue el ramal de {area:493} hasta {area:2361}. {npc:11939} estudia a orillas del lago.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
 
-	-- Step 71: Rabine Saturna
+	-- Step 84: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {npc:11939} Umber
 	["{npc:11801}'s house stands in {area:2361}, east of {npc:11939}."] = "La casa de {npc:11801} está en {area:2361}, al este de {npc:11939}.",
 
-	-- Step 73: Sindrayl
+	-- Step 87: Sindrayl
 	-- {npc:10897} Sindrayl · {area:493} Moonglade · {area:2361} Nighthaven
 	["{npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn."] = "{npc:10897}, el maestro de vuelo de {area:493}, está al sur del lago, fuera de {area:2361}: aprende la ruta de vuelo con él. La maestra de vuelo de {area:2361} solo lleva a druidas, desde su diálogo, y no tiene ruta de vuelo que aprender.",
 
-	-- Step 74: Fly to Rut'theran Village
+	-- Step 88: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 
-	-- Step 75: Rut'theran Village
+	-- Step 89: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
 	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "",
 
-	-- Step 77: Darnassus
+	-- Step 91: Darnassus
 	-- {zone:1457} Darnassus
 	["Take the portal up to {zone:1457}."] = "Toma el portal hasta {zone:1457}.",
 	-- {npc:7740} Gracina Spiritmight
@@ -366,35 +399,35 @@ return {
 	-- {npc:4155} Idriana
 	["{npc:4155}, in the bank"] = "{npc:4155}, en el banco",
 
-	-- Step 79: Darnassus
+	-- Step 93: Darnassus
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, atop the {area:1658}"] = "{npc:3516}, en lo alto del {area:1658}",
 
-	-- Step 80: Portal to Teldrassil
+	-- Step 94: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
-	-- Step 81: Fly to Auberdine
+	-- Step 95: Fly to Auberdine
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
-	-- Step 83: Fly to Stormwind
+	-- Step 97: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 
-	-- Step 84: Stormwind
+	-- Step 98: Stormwind
 	-- {npc:3520} Ol' Emma
 	["{npc:3520}, who walks the canals"] = "{npc:3520}, que pasea por los canales",
 	-- {npc:10778} Janice Felstone
 	["For {npc:10778}: keep it"] = "Para {npc:10778}: guárdala",
 
-	-- Step 85: Stormwind Keep
+	-- Step 99: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, in SI:7"] = "{npc:332}, en IV:7",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
 	["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} en {area:3197}: guárdala",
 
-	-- Step 86: Stormwind
+	-- Step 100: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
 	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {item:4306} Silk Cloth
@@ -408,21 +441,21 @@ return {
 	-- {item:14047} Runecloth
 	["{item:14047}, from your bags"] = "",
 
-	-- Step 87: Tram to Ironforge
+	-- Step 101: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 88: Ironforge
+	-- Step 102: Ironforge
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
 	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} no tiene instructor de chamanes",
 
-	-- Step 89: Fly to Southshore
+	-- Step 103: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 
-	-- Step 93: Chillwind Camp
+	-- Step 107: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} es élite de nivel 61",
 	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
@@ -430,65 +463,79 @@ return {
 	-- {npc:11053} High Priestess MacDonnell · {area:201} Gahrron's Withering
 	["{npc:11053}: {area:201}'s cauldron, on this loop"] = "{npc:11053}: la caldera de {area:201}, en este recorrido",
 
-	-- Step 94: Andorhal
+	-- Step 108: Andorhal
 	["Andorhal"] = "Andorhal",
 	-- {npc:10667} Chromie · {npc:1852} Araj the Summoner
 	["{npc:10667} waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. {npc:1852} guards his phylactery in the middle of the town."] = "{npc:10667} espera en la posada en ruinas del lado oeste de Andorhal, la ciudad en ruinas al norte del campamento. {npc:1852} protege su filacteria en el centro del pueblo.",
 	["Araj is elite: grouping up is advised."] = "Araj es élite: se recomienda ir en grupo.",
 
-	-- Step 95: Felstone Field
+	-- Step 109: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "El fantasma de {npc:10778} vaga junto a la granja de {area:199}, al oeste de Andorhal. Los necrófagos farfullantes del campo llevan la otra mitad del amuleto: combina las dos mitades.",
 	["Upstairs"] = "",
 
-	-- Step 96: Northridge Lumber Camp
+	-- Step 110: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "Cabalga al norte por el camino hasta el aserradero y deja el barril de termitas en el centro.",
 
-	-- Step 97: Kirsta Deepshadow
+	-- Step 111: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
 	["{npc:11610} hides at the Northridge lumber camp's edge."] = "{npc:11610} se esconde al borde del campamento maderero de Cresta Norte.",
 
-	-- Step 98: Radley and Durgen
+	-- Step 112: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} recorre el aserradero Crestanorte al este de {npc:11610}; {npc:11611} protege la torre del acceso sur de {area:190}.\nCuidado: hay guardias en la base de la torre y otro más patrulla a su alrededor. Acaba con ellos antes de enfrentarte a Durgen para que no se unan al combate.",
 
-	-- Step 99: Kirsta Deepshadow
+	-- Step 113: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
 	["{npc:11610} hides at the lumber camp's edge."] = "{npc:11610} se esconde al borde del campamento maderero.",
 
-	-- Step 100: Hearthglen overlook
+	-- Step 114: Hearthglen overlook
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "Mirador de {area:190}",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
 
-	-- Step 102: Gahrron's Withering
+	-- Step 115: Davil's Libram
+	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1839} Scarlet High Clerist
+	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
+	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
+	-- {item:12954} Davil's Libram
+	["{item:12954}; inside"] = "",
+
+	-- Step 117: Gahrron's Withering
 	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath · {item:12955} Redpath's Shield
 	["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Cabalga al sureste hasta {area:201}: el {npc:11078} guarda la caldera y el {item:12955} está al este del granero.",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Para la {npc:11053} en {area:3197}, al final de esta guía",
 
-	-- Step 103: Tirion Fordring (optional)
+	-- Step 119: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
 	["{npc:1855} (optional)"] = "{npc:1855} (opcional)",
 	-- {npc:1855} Tirion Fordring · {quest:5781} Of Forgotten Memories
 	["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} vive en una pequeña choza junto al río fronterizo, al noreste del campamento maderero. Entrega {quest:5781} si la terminaste.",
 
-	-- Step 104: Eastern Plaguelands
+	-- Step 120: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
 	["The lake for {quest:5845}"] = "",
 
-	-- Step 105: Of Lost Honor
+	-- Step 121: Of Lost Honor
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 106: Light's Hope Chapel
+	-- Step 122: Light's Hope Chapel
 	["Ride south-east from the lake to the chapel."] = "Cabalga al sureste desde el lago hasta la capilla.",
+
+	-- Step 124: Carlin Redpath: the Scourge Champions
+	-- {npc:11063} Carlin Redpath
+	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
+	["{npc:11063}: the Scourge Champions"] = "",
+
+	-- Step 125: Caretaker Alen
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale
 	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, keep it"] = "{npc:11038}, junto a las tumbas al sur de la capilla: {npc:11140} está en {area:2627}, guárdala",
 
-	-- Step 107: Scourge Champions
+	-- Step 126: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "Campeones de la Plaga",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
@@ -498,23 +545,23 @@ return {
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["{item:13155}, from the Scourge Champions"] = "{item:13155}, de los campeones de la Plaga",
 
-	-- Step 108: Light's Hope Chapel
+	-- Step 127: Light's Hope Chapel
 	-- {npc:10667} Chromie
 	["{npc:10667} in Andorhal: keep it"] = "{npc:10667} en Andorhal: guárdala",
 
-	-- Step 109: Infiltrator Hameya
+	-- Step 128: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
 	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "Cabalga al norte hasta el borde noreste de {area:2277}.\nCuidado: los trols del camino a {area:2273} son de nivel 57-59. Huyen con poca salud y piden ayuda, así que a menudo traen más enemigos consigo.",
 
-	-- Step 110: Tirion Fordring
+	-- Step 129: Tirion Fordring
 	-- {quest:5845} Of Lost Honor
 	["{quest:5845}: the route takes it and fetches the Symbol, so its hand-in holds"] = "{quest:5845}: la ruta la acepta y consigue el Símbolo, así que su entrega se mantiene",
 
-	-- Step 111: Egan
+	-- Step 130: Egan
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {npc:11140} Egan
 	["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "Cruza el río al este de la choza de {npc:1855} hasta {area:2627}: {npc:11140} está junto a la choza en ruinas de Augustus.",
 
-	-- Step 112: Level 59.85
+	-- Step 131: Level 59.85
 	["Level 59.85"] = "",
 	-- {npc:11140} Egan · {area:2627} Terrordale · {area:2261} Undercroft · {area:2298} Caer Darrow · {npc:10667} Chromie · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
@@ -522,21 +569,21 @@ return {
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {zone:1423} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {zone:1423}"] = "sube de nivel con {npc:14564} en {area:2627}, {zone:1423}",
 
-	-- Step 113: Marris Stead
+	-- Step 132: Marris Stead
 	-- {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
 	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "",
 
-	-- Step 114: Undercroft
+	-- Step 133: Undercroft
 	-- {area:2261} Undercroft · {npc:11886} Mercutio Filthgorger
 	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Cabalga al suroeste hasta {area:2261}. El montículo de tierra está dentro. {npc:11886} es élite: se recomienda ir en grupo.\nCuidado: con Mercutio llegan unos cuatro enemigos no élite. Caminan hasta la tumba en vez de aparecer allí mismo.",
 
-	-- Step 116: Chromie
+	-- Step 135: Chromie
 	-- {npc:10667} Chromie · {area:3197} Chillwind Camp
 	["{npc:10667} waits upstairs in the ruined inn on the west side of Andorhal, on the way back to {area:3197}."] = "{npc:10667} espera en el piso de arriba de la posada en ruinas del lado oeste de Andorhal, de camino de vuelta a {area:3197}.",
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "",
 
-	-- Step 118: Chillwind Camp
+	-- Step 137: Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Ride back south-west to {area:3197}."] = "Vuelve al suroeste hasta {area:3197}.",
 	-- {zone:1453} Stormwind
@@ -545,9 +592,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber."] = "De vuelta en {area:1770}: {npc:9861} y {npc:9860} protegen a {npc:9517} en su cámara más profunda.",
 	-- ["Dredge Crushers roam the dunes between {area:2743} and {area:3425}, on your way back. {npc:15181} only offers {quest:8304} from level 58."] = "Los trituradores de arrastre deambulan por las dunas entre {area:2743} y {area:3425}, de camino. {npc:15181} solo ofrece {quest:8304} a partir de nivel 58.",
+	-- ["Fly from {area:541} to {area:392}."] = "Vuela de {area:541} a {area:392}.",
 	-- ["Fly to {area:3137} in {area:16} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "Vuela a {area:3137} en {area:16} y cabalga al oeste por el camino hasta {area:2358}, justo pasada la frontera de {zone:1440}.",
 	-- ["Fly to {area:3137} in {zone:1447} and ride west along the road to {area:2358}, just over the {zone:1440} border."] = "Vuela a {area:3137} en {zone:1447} y cabalga al oeste por el camino hasta {area:2358}, justo pasada la frontera de {zone:1440}.",
 	-- ["Follow the road south-west out of the pass to {area:3425}."] = "Sigue el camino al suroeste desde el paso hasta {area:3425}.",
+	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Sigue las indicaciones de {npc:9298} hasta la entrada de {area:2256}, pasando a los gigantes Machacahielo: pásalos de uno en uno.",
 	-- ["Go back down to {area:702}, take the boat to {area:442} and the boat on to {area:17203}. Bring sixty Silk, sixty Mageweave and sixty {item:14047} for {npc:14722}: buy what you lack at the Auction House."] = "Vuelve a bajar a {area:702}, toma el barco a {area:442} y luego el barco a {area:17203}. Lleva sesenta de paño de seda, sesenta de tela de paño mágico y sesenta {item:14047} para {npc:14722}: compra lo que te falte en la casa de subastas.",
 	-- ["Grind to 58"] = "Sube a nivel 58",
 	-- ["Grind to 59"] = "Sube a nivel 59",

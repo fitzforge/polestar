@@ -92,8 +92,9 @@ return {
 	["{item:7908}, in the chest"] = "{item:7908}, no baú",
 
 	-- Step 21: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Siga para o norte por Elwynn até {zone:1453}; Mathias Shaw fica na SI:7, em {object:2100}.",
+	-- {area:1519} Stormwind · {object:2100} Old Town
+	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Siga para o norte por Elwynn até {zone:1453}; Mathias Shaw fica na SI:7, em {object:2100}."
+	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Venenos e {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -145,6 +146,7 @@ return {
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Siga a estrada para noroeste, passando o cemitério, até o acampamento de {npc:311}, no extremo oeste da floresta. {npc:893} fica ao lado de {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.",
 	-- ["Head back east to {area:42}."] = "Volte para leste até {area:42}.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Siga para o norte por Elwynn até {zone:1453}; Mathias Shaw fica na SI:7, em {object:2100}.",
 	-- ["Level 22 and 24 spells"] = "Feitiços dos níveis 22 e 24",
 	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "A seguir: {zone:1453} para treinar, depois o barco de {area:17203} para {area:442}, rumo a {zone:1440}.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Lobos Hediondos Raivosos vagam pela mata ao redor do cemitério e de {npc:289}; Lobos Hediondos Famintos, pelas colinas a nordeste dele. Veneracnas Pigmeias rastejam a leste do cemitério e deixam cair o veneno. Qualquer carniçal da metade norte do cemitério pode deixar cair uma presa.",

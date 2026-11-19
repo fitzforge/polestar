@@ -76,7 +76,9 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "Zurück in die Hügel: Nur die Eisdistelmatriarchinnen (56-57) und -patriarchen (57-58) tragen die Hörner.\nVorsicht: Nimm die Matriarchinnen am Rand der Hügel einzeln und lass die Patriarchen in Ruhe: Die Hörner droppen bei beiden.",
+	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -129,9 +131,15 @@ return {
 	-- Step 26: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Kessel im {area:199}",
-	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Nach Nordwesten aus dem Lager zu {area:199}, westlich von Andorhal: {npc:11075} (53) bewacht den Kessel zwischen den Plappernden Ghulen (54).",
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}."] = "",
+	-- {npc:10778} Janice Felstone
+	["{npc:10778}, upstairs in the farmhouse"] = "",
+	-- {object:175894} Janice's Parcel
+	["{object:175894}, inside"] = "",
+	-- {zone:1453} Stormwind · {zone:1451} Silithus
+	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 
 	-- Step 27: Chillwind Camp
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
@@ -190,6 +198,7 @@ return {
 	["The next guide starts here and flies to {area:3197}."] = "Der nächste Guide beginnt hier und fliegt nach {area:3197}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "Zurück in die Hügel: Nur die Eisdistelmatriarchinnen (56-57) und -patriarchen (57-58) tragen die Hörner.\nVorsicht: Nimm die Matriarchinnen am Rand der Hügel einzeln und lass die Patriarchen in Ruhe: Die Hörner droppen bei beiden.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Zurück in die Hügel: Nur die Ice Thistle Matriarchs und Patriarchs tragen die Hörner.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "Zurück in die Hügel: Nur die Eisdistelmatriarchinnen und Eisdistelpatriarchen tragen die Hörner. Töte weiter Yetis bis Stufe 54: Harlos Wildekinquests sind vorher rot.",
 	-- ["Fly to {area:271}"] = "Flieg nach {area:271}",
@@ -197,6 +206,7 @@ return {
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Folge {npc:9298}s Wegbeschreibung zum Eingang von {area:2256}, vorbei an den Frosthagelriesen: Passiere sie einzeln.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowshire: Sprich mit ihnen",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Eisdistelyetis leben in den Hügeln südlich von {area:2244}, Eiswindschimären im Tal Richtung {area:2255}.",
+	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Nach Nordwesten aus dem Lager zu {area:199}, westlich von Andorhal: {npc:11075} (53) bewacht den Kessel zwischen den Plappernden Ghulen (54).",
 	-- ["Optional: {area:1417}"] = "Optional: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Sammle die Vorräte um den Wagen auf und hol dir {npc:10301}s Amulett von den Eulenbestien in der Nähe zurück.",
 	-- ["Pristine Yeti Horns"] = "Makellose Yetihörner",

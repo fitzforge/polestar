@@ -149,9 +149,9 @@ return {
 
 	-- Step 28: Mosshide gnolls
 	["Mosshide gnolls"] = "",
-	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:1025} Green Belt
-	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-23) on the hill north of the road, between the Angerfang camp and the {area:1025}, drop them. Almost every one carries some."] = "",
+	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
+	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
+	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
 
 	-- Step 29: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
@@ -270,78 +270,106 @@ return {
 
 	-- Step 48: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}, at the inn, if you missed her first visit"] = "",
+
+	-- Step 49: Teronis' Corpse
+	-- {area:415} Astranaar · {area:441} Lake Falathim
+	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "",
+
+	-- Step 50: Glowing Gem
+	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
+	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "",
+
+	-- Step 51: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3691}, at the {area:415} inn"] = "",
+
+	-- Step 52: Raene Wolfrunner's delivery
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}'s delivery"] = "",
+	-- {npc:3916} Shael'dryn
+	["Take her message to {npc:3916} on the way east"] = "",
+
+	-- Step 53: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691} stands in the inn, beside the innkeeper."] = "{npc:3691} fica na estalagem, ao lado do estalajadeiro.",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {zone:1439} Darkshore
 	["{npc:3691}: {quest:990}, if you still carry it from {zone:1439}"] = "{npc:3691}: {quest:990}, se ainda estiver com ela, de {zone:1439}",
 
-	-- Step 49: Melyria and Illiyana
+	-- Step 54: Melyria and Illiyana
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "Melyria e {npc:3901}",
 	-- {area:415} Astranaar
 	["The two stand together at the western end of the road, south-west of {area:415}."] = "Os dois ficam juntos no extremo oeste da estrada, a sudoeste de {area:415}.",
 
-	-- Step 50: Therysil
+	-- Step 55: Therysil
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["{npc:3585} stands at the {area:416}, a short walk from Melyria and {npc:3901}."] = "{npc:3585} fica em {area:416}, a uma curta caminhada de Melyria e {npc:3901}.",
 	-- {npc:3585} Therysil · {quest:945} Therylune's Escape · {zone:1439} Darkshore
 	["{npc:3585}: {quest:945}, if you still carry it from {zone:1439}"] = "{npc:3585}: {quest:945}, se ainda estiver com ela, de {zone:1439}",
 
-	-- Step 51: Shael'dryn
+	-- Step 56: Raene Wolfrunner's message
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}'s message"] = "",
+	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
+	["Follow the road east to the {area:419}. {npc:3916} stands by the moonwell."] = "",
+
+	-- Step 57: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Siga a estrada para leste até o {area:419}; {npc:3916} fica junto ao poço lunar.",
 
-	-- Step 52: Dartol's Rod
+	-- Step 58: Dartol's Rod
 	["Dartol's Rod"] = "Bastão de Transformação de Dartol",
 	-- {item:5475} Wooden Key
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "Os Ancientes Enlouquecidos e Ancientes Fenescidos ao norte do poço lunar carregam a {item:5475}; o baú gasto que ela abre fica entre eles.",
 
-	-- Step 54: Anilia
+	-- Step 60: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Siga a estrada para leste até os acampamentos de sátiros de {area:429}; {npc:3920} se esconde na borda deles.",
 	-- {npc:3920} Anilia · {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["{npc:3920}: {quest:1031}, from {npc:4619} (level 32): a fight for a group at this level"] = "{npc:3920}: {quest:1031}, de {npc:4619} (nível 32): uma luta para grupo neste nível",
 
-	-- Step 55: Geltharis
+	-- Step 61: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch. He is level 32, above you here, among level 29-30 satyrs: grouping up is advised."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho. Ele é de nível 32, acima de você aqui, entre sátiros de nível 29-30: recomenda-se formar grupo.",
 
-	-- Step 56: Forest Song
+	-- Step 62: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "{area:2358}, o posto avançado dos elfos noturnos no extremo leste da estrada: {npc:3848} fica lá, e {npc:221269} a alguns passos a leste dela.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: o rastro do marido dela em {area:430}, no caminho de volta do lago",
 
-	-- Step 57: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 63: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "{area:432}: vá matando estes pelo caminho",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "O acampamento dos Renegados fica na mata ao sul de {area:2358}.\nBaús enferrujados ficam em volta dos acampamentos furbolg Umbrárvore a oeste dos Renegados; abra até achar o do pomo.\nCuidado: Renegados não elite de nível 28-30 guardam o acampamento. Alguns estão furtivos, e os que ficam em volta da mesa costumam vir juntos.",
 
-	-- Step 58: Fallen Sky Lake
+	-- Step 64: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "O {npc:3931} anda pela margem do {quest:1035}, a sudoeste dos baús; o {object:669176} está ao norte do lago, no caminho.\nCuidado: outros monstros, alguns debaixo d'água, ficam perto da ilha. Limpe-os antes para não entrarem na briga quando você puxar o Oráculo.",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
 
-	-- Step 59: Satyrnaar
+	-- Step 65: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ao norte do lago, até o acampamento dos sátiros em {area:430}, logo a oeste de {area:2358}: o {object:19901} fica nele, e {object:673431} está ao lado, com o {item:281014}.\nCuidado: os Ladinos Malmíscar de {area:428} costumam ficar furtivos, e {area:430} tem sátiros lançadores de feitiço.",
 	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
 	["{item:281014}, from {object:673431}"] = "{item:281014}, de {object:673431}",
 
-	-- Step 60: Kayneth Stillwind
+	-- Step 66: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "Opcional: {npc:3848} também oferece {quest:1012}, três druidas de nível 32 no fundo de {area:432}, uma caverna de monstros furtivos que renascem rápido, e a volta até ela depois. Está acima do seu nível aqui: pegue só se estiver em grupo ou quiser a XP extra; o guia não precisa dela.",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, a alguns passos a leste",
 
-	-- Step 61: The Dor'Danil Barrow Den's entrance
+	-- Step 67: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "Entrada de {area:432}",
 
-	-- Step 62: Insane druids
+	-- Step 68: Insane druids
 	["Insane druids"] = "Druidas insanos",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas estão dentro de {area:432}, afastados uns dos outros: entre pela boca, ao sul do acampamento dos Renegados, não por cima da colina acima deles. {npc:3940} está nos salões do leste, {npc:3941} no ponto mais fundo, no extremo nordeste, e {npc:3942} no extremo oeste.\nCuidado: a toca tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então monstros extras costumam entrar na luta.",
@@ -352,19 +380,19 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "{npc:3942}, dentro de {area:432}",
 
-	-- Step 64: Night Run
+	-- Step 70: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "O segundo {object:19901} fica no vale de {area:428}, no caminho para oeste.",
 
-	-- Step 66: Hidden Shrine
+	-- Step 72: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "O santuário fica na colina logo a sudeste do poço lunar; suba pela trilha sinuosa.",
 
-	-- Step 68: The Howling Vale
+	-- Step 74: The Howling Vale
 	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
 	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
 	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "Pegue o túnel para {area:419}; o tomo está nas ruínas no extremo oeste. Cuidado: Dilaceradores Terrolobo e Tece-sombras (28-30) ficam em grupos fechados em volta do tomo, e {npc:3792}, um raro de nível 32, anda pelo vale. Puxe os lobos um de cada vez a partir do túnel e deixe o Senhor da Matilha passar primeiro.",
 
-	-- Step 69: Astranaar
+	-- Step 75: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
 	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "{npc:3691} e {npc:3961} estão na estalagem; {npc:3894} está no prédio logo ao sul dela.",
 	-- {npc:3691} Raene Wolfrunner · {quest:1025} An Aggressive Defense · {npc:3897} Krolg
@@ -376,12 +404,12 @@ return {
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}, dentro do prédio ao sul da estalagem",
 
-	-- Step 70: The Foulweald
+	-- Step 76: The Foulweald
 	["The Foulweald"] = "Os Torpeflora",
 	-- {npc:3897} Krolg · {area:415} Astranaar
 	["On the way south-east to {npc:3897}: the Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "No caminho para sudeste até {npc:3897}: os furbolgs Imundaflora vivem na mata ao sul da estrada, a sudeste de {area:415}. O Vigia da Toca e os Ursas guardam a toca.",
 
-	-- Step 71: Mystral Lake
+	-- Step 77: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} fica em {area:420}, na margem leste de {area:421}, logo ao norte da estrada para {npc:3897}. Elementais da Água Contaminados andam pelo lago; {npc:12759}, um elemental da água de nível 27, anda entre eles e também deixa cair as braçadeiras.",
@@ -390,65 +418,65 @@ return {
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mate os elementais por 5 Braçadeiras Elementais Intactas e depois use o {item:5456}",
 
-	-- Step 72: Krolg
+	-- Step 78: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}. Use {item:5462} perto dele primeiro: ele só fala com você na forma de furbolg.",
 
-	-- Step 73: Ran Bloodtooth
+	-- Step 79: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} e os guardas dele acampam logo a leste de {npc:3897}.\nCuidado: lobos e aranhas andam perto do acampamento e podem entrar na briga. Alguns lobos andam em dupla.",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
 	["{item:5388}, from {npc:3696}"] = "{item:5388}, de {npc:3696}",
 
-	-- Step 75: Melyria and Illiyana
+	-- Step 81: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "A oeste de {npc:3897}, pelas colinas do sul, até {area:416}: Melyria e {npc:3901} ficam juntas ao lado dele.",
 
-	-- Step 76: Illiyana
+	-- Step 82: Illiyana
 	-- {npc:3901} Illiyana
 	["{npc:3901} stands beside Melyria."] = "{npc:3901} fica ao lado de Melyria.",
 	-- {npc:3901} Illiyana · {item:5461} Branch of Cenarius
 	["{npc:3901}: the {item:5461}"] = "{npc:3901}: o {item:5461}",
 
-	-- Step 77: The Branch of Cenarius, taken alone
+	-- Step 83: The Branch of Cenarius, taken alone
 	-- {quest:1031} The Branch of Cenarius
 	["{quest:1031}, taken alone"] = "{quest:1031}, pega sozinho",
 	-- {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["Not grouped? {quest:1031} ({npc:4619}, 32) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "Sem grupo? {quest:1031} ({npc:4619}, 32) é uma luta para grupo neste nível: abandone-a, a rota não volta para ela.",
 
-	-- Step 78: Insane Druids, taken alone
+	-- Step 84: Insane Druids, taken alone
 	-- {quest:1012} Insane Druids
 	["{quest:1012}, taken alone"] = "{quest:1012}, pega sozinho",
 	-- {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Not grouped? {quest:1012} (the {area:432}) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "Sem grupo? {quest:1012} ({area:432}) é uma luta para grupo neste nível: abandone-a, a rota não volta para ela.",
 
-	-- Step 79: Delgren the Purifier
+	-- Step 85: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {quest:967} The Tower of Althalaxx · {zone:1439} Darkshore
 	["{npc:3663}: {quest:967}, if you still carry it from {zone:1439}"] = "{npc:3663}: {quest:967}, se ainda estiver com ela, de {zone:1439}",
 
-	-- Step 80: Delgren the Purifier
+	-- Step 86: Delgren the Purifier
 	-- {area:413} Maestra's Post
 	["North to {area:413}."] = "Ao norte, até {area:413}.",
 
-	-- Step 81: Dal Bloodclaw
+	-- Step 87: Dal Bloodclaw
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
 	["From {area:413}, east to the Thistlefur camp north of {area:415}: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "De {area:413}, siga para leste até o acampamento Pelocardo, ao norte de {area:415}: {npc:3987} lidera os furbolgs ali. Depois vá para o sul, até {area:415}.\nCuidado: os furbolgs perto dele costumam entrar na luta quando ele é puxado. Matar primeiro os que estão no caminho dele permite enfrentá-lo sozinho.",
 
-	-- Step 82: Astranaar
+	-- Step 88: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Ao sul do acampamento de {npc:3987} até {area:415}: {npc:3691} na estalagem, o mestre de voo no extremo oeste.",
 
-	-- Step 83: Fly to Auberdine
+	-- Step 89: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Voe para {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "Mestre de voo de {area:415}",
 
-	-- Step 85: Caitlin Grassman
+	-- Step 91: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
 	["Off the boat, {npc:1480} stands beside Menethil's inn, on the way to the flight master."] = "Ao descer do barco, {npc:1480} fica ao lado da estalagem de Menethil, no caminho para o mestre de voo.",
 
-	-- Step 86: Fly to Ironforge
+	-- Step 92: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- {npc:1571} Shellei Brondir
@@ -456,66 +484,66 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Mestre de voo de {area:150}",
 
-	-- Step 88: High Explorer Magellas
+	-- Step 94: High Explorer Magellas
 	-- {quest:98824} Prehistoric Prism · {npc:5387} High Explorer Magellas · {object:32356} Hall of Explorers (no name in this language: may be words) · {object:32372} Great Forge (no name in this language: may be words)
 	["{quest:98824}: {npc:5387} stands in the {object:32356}, north-east of the {object:32372}."] = "{quest:98824}: {npc:5387} fica em {object:32356}, a nordeste de {object:32372}.",
 
-	-- Step 89: Ironforge priests
+	-- Step 95: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
 	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} e {npc:258785} estão no {object:32386}, na {object:32362}.",
 
-	-- Step 90: Tram to Stormwind City
+	-- Step 96: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Tram to {zone:1453}"] = "Metrô para {zone:1453}",
 
-	-- Step 91: Baros Alexston
+	-- Step 97: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
 	["{npc:1646} stands in the {object:2098}."] = "{npc:1646} fica em {object:2098}.",
 	-- {npc:1646} Baros Alexston · {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {quest:97914}, {npc:3649}'s letter, if you still carry it"] = "{npc:1646}: {quest:97914}, a carta de {npc:3649}, se ainda estiver com ela",
 
-	-- Step 92: Cathedral of Light
+	-- Step 98: Cathedral of Light
 	["Cathedral of Light"] = "Catedral da Luz",
 	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Pegue o {area:2257} em {object:171524} até o {object:28027} de {zone:1453}, depois ande até a {object:2098}.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, na Catedral da Luz",
 
-	-- Step 93: Stormwind Keep
+	-- Step 99: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["Only if you looted {quest:337} in {zone:1431}"] = "Só se você saqueou {quest:337} em {zone:1431}",
 
-	-- Step 94: Lord Grayson Shadowbreaker
+	-- Step 100: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker
 	["Back to the Cathedral of Light: {npc:928} stands inside."] = "De volta à Catedral da Luz: {npc:928} fica lá dentro.",
 	-- {npc:2228} Lieutenant Farren Orinelle · {area:271} Southshore
 	["For {npc:2228} in {area:271}: keep it"] = "Para {npc:2228} em {area:271}: guarde-o",
 
-	-- Step 95: Warden Thelwater
+	-- Step 101: Warden Thelwater
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square
 	["For your {area:717} run: {npc:1719} keeps the {area:717}'s gate, south of the {object:2098}."] = "Para a masmorra {area:717}: {npc:1719} guarda o portão de {area:717}, ao sul de {object:2098}.",
 
-	-- Step 96: Warden Thelwater
+	-- Step 102: Warden Thelwater
 	-- {npc:1719} Warden Thelwater · {quest:389} Bazil Thredd · {npc:1646} Baros Alexston
 	["{npc:1719}: {quest:389}, from {npc:1646}"] = "{npc:1719}: {quest:389}, de {npc:1646}",
 
-	-- Step 98: Stockade
+	-- Step 104: Stockade
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square · {npc:1663} Dextren Ward · {quest:389} Bazil Thredd
 	["{area:717} is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is {npc:1719}'s, south of the {object:2098}.\nInside: the Defias prisoners, convicts and insurgents for Thelwater, {npc:1663}'s hand for Millstipe, and {quest:389} at the far end."] = "{area:717} é uma masmorra para um grupo de cinco, por volta dos níveis 23 a 29, e percorrê-la leva menos de uma hora. O portão é o de {npc:1719}, ao sul de {object:2098}.\nLá dentro: os prisioneiros, condenados e insurgentes Défias para Thelwater, a mão de {npc:1663} para Millstipe e {quest:389} no fundo.",
 
-	-- Step 99: Warden Thelwater
+	-- Step 105: Warden Thelwater
 	-- {npc:1719} Warden Thelwater
 	["{npc:1719}, at the gate"] = "{npc:1719}, no portão",
 
-	-- Step 101: Jorgen and Elling Trias
+	-- Step 107: Jorgen and Elling Trias
 	-- {npc:4959} Jorgen · {npc:482} Elling Trias
 	["{npc:4959} and {npc:482}"] = "{npc:4959} e {npc:482}",
 	-- {npc:482} Elling Trias · {object:2096} Trade District
 	["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}, a loja de queijos no {object:2096}",
 
-	-- Step 102: Trade District
+	-- Step 108: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "Próximo: voe até {area:42}.",
 

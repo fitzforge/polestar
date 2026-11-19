@@ -235,9 +235,9 @@ return {
 	["For {npc:266} in {area:69}, Redridge"] = "Para {npc:266} en {area:69}, Montañas Crestagrana",
 
 	-- Step 45: Jangolode Mine
-	-- {area:918} Molsen Farm
+	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "De regreso al norte, más allá de {area:918}, hasta la mina: los Cavadores kóbold trabajan adentro.",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "Cavadores kóbold",
 
@@ -246,16 +246,16 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry."] = "Al suroeste, hacia la costa, al oeste de {area:918}. Los Mineros Zarparrío trabajan la cantera.",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "Mineros Zarparrío",
 
 	-- Step 47: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
 	["{area:20}: kill these as you meet them"] = "{area:20}: mata a estos según te los encuentres",
-	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
+	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "Los saqueadores y desvalijadores Defias ocupan las granjas al oeste de {area:108}, entre el camino de la costa y {area:20}. {object:1166} está en la casa de {area:219}, entre ellos: la brújula de {npc:1646} está adentro.\nCuidado: La cueva de {area:113} tiene muchos Defias muy juntos, así que es fácil atraer a varios a la vez ahí.",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}, de {object:1166}",
 
@@ -370,9 +370,11 @@ return {
 	["{item:6529}, from {npc:5494}"] = "{item:6529}, de {npc:5494}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "De regreso al norte, más allá de {area:918}, hasta la mina: los Cavadores kóbold trabajan adentro.",
 	-- ["Back to {area:108}"] = "De vuelta a {area:108}",
 	-- ["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon."] = "Los Acechacaminos Defias y los Nudillos Defias recorren {area:20}; los Bandoleros Defias (nivel 17) patrullan en parejas las colinas al sur y al este: sepáralos. La entrada a {area:1581}, en la herrería, es un calabozo de grupo.",
 	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}."] = "Los Saqueadores Defias y los Despojadores Defias ocupan las granjas al oeste de {area:108}, entre el camino de la costa y {area:20}.",
+	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "Los saqueadores y desvalijadores Defias ocupan las granjas al oeste de {area:108}, entre el camino de la costa y {area:20}. {object:1166} está en la casa de {area:219}, entre ellos: la brújula de {npc:1646} está adentro.\nCuidado: La cueva de {area:113} tiene muchos Defias muy juntos, así que es fácil atraer a varios a la vez ahí.",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "Vuela o cabalga a {zone:1453}. Instructores: {object:2100} (guerreros, pícaros), la catedral (paladines, sacerdotes), {object:2101} (magos, brujos), el parque (druidas).",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids). {npc:11026} works in the {object:28027}, {npc:279} in the {object:2096}."] = "Vuela o cabalga a {zone:1453}. Instructores: {object:2100} (guerreros, pícaros), la catedral (paladines, sacerdotes), {object:2101} (magos, brujos), el parque (druidas). {npc:11026} trabaja en {object:28027}; {npc:279}, en {object:2096}.",
 	-- ["Fly or ride to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "Vuela o cabalga a {zone:1453}. {npc:376} está en la Cathedral of Light.",
@@ -395,6 +397,7 @@ return {
 	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills."] = "Los Gnomos de la Garra del Río y sus Exploradores (nivel 11-13) merodean por las colinas al sur de la costa, desde encima de {area:111} hasta el {area:916} hacia el este. Los gnomos más al sur y al oeste son de nivel 13-19: quédate en las colinas del norte.",
 	-- ["Riverpaw Gnolls and Scouts roam the hills between the coast and the {area:916}."] = "Los Gnolls Zarparrío ({npc:117}) y los Exploradores Zarparrío recorren las colinas entre la costa y {area:916}.",
 	-- ["Sacks of Oats"] = "Sacos de avena",
+	-- ["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry."] = "Al suroeste, hacia la costa, al oeste de {area:918}. Los Mineros Zarparrío trabajan la cantera.",
 	-- ["The gnoll hills"] = "Las colinas de los gnolls",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.\nCuidado: {npc:471} (7-10), las Arañas de mina (7-9) y {npc:248474} (7) son élites en lo profundo de la mina: atrae a los kóbolds de uno en uno cerca de la entrada y retírate si viene un élite; son más fáciles con un amigo.",

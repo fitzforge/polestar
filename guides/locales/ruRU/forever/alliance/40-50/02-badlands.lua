@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, внутри",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "Внутри: {area:498}",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "Шестермуть",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Езжайте по дороге на юго-запад из Терамора в Шестермуть, лагерь гоблинов на краю места {area:511}. {npc:270723} и {npc:270727} стоят вместе в лагере.",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092} растет в болоте к востоку от лагеря: сначала соберите его. Затем опаляющие малыши дракона и дракончики (41-43) и драконы Огнегривых гнездятся в болоте к северу и западу от Шестермути, на обратном пути; все они роняют сброшенную чешую.\nОсторожно: огнегривые чешуйчатые губители и призыватели огня 43-44 уровня и колдуют огонь: подманивайте их по одному.",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Затем езжайте обратно на северо-восток к распорядителю полетов Терамора.",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "Распорядитель полетов: Терамор",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Чернокнижник: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -172,6 +168,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Летите сюда: {area:392}; {npc:6251} обучает в доме у банка. Затем возвращайтесь на остров Терамор.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Летите сюда: {area:608}; езжайте на юг через зону {zone:1443} в зону {zone:1444} и по дороге до причала ({area:1108}); корабль переправит вас сюда: {area:1116}. Там начинается следующий гайд.",
+	-- ["Inside {area:498}"] = "Внутри: {area:498}",
 	-- ["On to Feathermoon"] = "В Крепость Оперенной Луны",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Езжайте на север. Цель: {area:144}; оттуда летите сюда: {area:271}. {npc:3980} проповедует у таверны.",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток во {area:47}; {area:348} – сразу за границей. {npc:5635} принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",

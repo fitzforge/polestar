@@ -92,8 +92,9 @@ return {
 	["{item:7908}, in the chest"] = "{item:7908}, en el cofre",
 
 	-- Step 21: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por el Bosque de Elwynn hasta {zone:1453}; Mathias Shaw está en el SI:7, en {object:2100}.",
+	-- {area:1519} Stormwind · {object:2100} Old Town
+	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por el Bosque de Elwynn hasta {zone:1453}; Mathias Shaw está en el SI:7, en {object:2100}."
+	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Venenos y {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -143,6 +144,7 @@ return {
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte del {area:492} puede soltar una costilla: Comecarnes, Masticahuesos Oseral, Propagadores de la Peste y Comesesos.\nCuidado: un {npc:948} lanza {spell:3428} al morir, lo que trae más enemigos.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Sigue el camino al noroeste, pasado el cementerio, hasta el campamento de {npc:311}, en el extremo oeste del bosque. {npc:893} está junto a {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Sigue el camino al sur desde {area:1002} hasta {zone:1431}; {area:42} está en el lado este del bosque.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por el Bosque de Elwynn hasta {zone:1453}; Mathias Shaw está en el SI:7, en {object:2100}.",
 	-- ["Level 22 and 24 spells"] = "Hechizos de nivel 22 y 24",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Los Lobos feroces rabiosos recorren el bosque alrededor del cementerio y de {npc:289}; los Lobos feroces hambrientos, las colinas al noreste de él. Las Telarácnidas pigmeovenenosas merodean al este del cementerio y sueltan el veneno. Cualquier necrófago de la mitad norte del cementerio puede soltar un colmillo.",
 	-- ["Ride back east along the road to the {area:245}."] = "Vuelve al este por el camino hasta {area:245}.",

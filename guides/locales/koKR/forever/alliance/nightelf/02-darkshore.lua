@@ -73,40 +73,67 @@ return {
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}: 데스릴 사티로스",
 
 	-- Step 13: Auberdine
+	-- {npc:3701} Tharnariun Treetender
+	["{npc:3701}: the bears are on the loop ahead"] = "",
 	["Fill the tube at the moonwell in the village"] = "마을의 달샘에서 시험관을 채우십시오",
 
-	-- Step 14: Blackwood furbolgs
+	-- Step 14: Cerellean Whiteclaw
+	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran
+	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
+	-- {npc:3644} Cerellean Whiteclaw
+	-- was: ["{npc:3644}, on the pier"] = "{npc:3644}, 부두 위"
+	["{npc:3644}, on the pier"] = "",
+
+	-- Step 15: Rabid Thistle Bear on the way
+	-- {npc:2164} Rabid Thistle Bear
+	["{npc:2164} on the way"] = "",
+
+	-- Step 16: Blackwood furbolgs
 	["Blackwood furbolgs"] = "검은나무일족 펄볼그",
 	-- {area:442} Auberdine
-	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "검은나무일족 길잡이와 바람술사가 {area:442} 남동쪽 야영지를 차지하고 있습니다.\n주의: 바람술사(13-14)는 원거리에서 주문을 쓰고 펄볼그가 둘씩 서 있습니다. 한 마리씩 끌어오세요.",
+	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
+	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "검은나무일족 길잡이와 바람술사가 {area:442} 남동쪽 야영지를 차지하고 있습니다.\n주의: 바람술사(13-14)는 원거리에서 주문을 쓰고 펄볼그가 둘씩 서 있습니다. 한 마리씩 끌어오세요."
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "",
 
-	-- Step 15: The southern beaches
+	-- Step 17: The southern beaches
 	["The southern beaches"] = "남쪽 해변",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다. 더 남서쪽의 잿빛안개멀록 점술사와 잿빛안개멀록 바다사냥꾼(18-20) 사이에 사체가 세 개 더 있습니다. 가이드는 레벨이 더 가까워지는 마지막 순환 때 이들을 처리합니다.",
 
-	-- Step 16: Ameth'Aran
+	-- Step 18: Onu
+	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade · {npc:2165} Grizzled Thistle Bear
+	["East from the beached creature, up into the {quest:952}: {npc:3616} is the ancient there, with Arbal and {npc:11218} asleep beside him. Careful: a {npc:2165} (16-17) can roam the woods south of the grove."] = "",
+
+	-- Step 19: Ameth'Aran
 	-- {area:447} Ameth'Aran
 	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
 
-	-- Step 17: The red crystal
+	-- Step 20: Anaya's Pendant
+	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
+	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
+
+	-- Step 21: The red crystal
 	["Back north-east into the mountains to the crystal."] = "북동쪽 산으로 돌아가 수정에게 가십시오.",
 
-	-- Step 18: Bashal'Aran
+	-- Step 23: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
 
-	-- Step 20: Boat to Stormwind Harbor
+	-- Step 25: Cerellean Whiteclaw
+	-- {npc:3644} Cerellean Whiteclaw
+	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, 배로 가는 길, 부두가 해안과 만나는 곳"
+	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
+
+	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 21: Manifest Clerk Philmor
+	-- Step 27: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
 	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
 
-	-- Step 22: Stormwind flight master
+	-- Step 28: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 	-- {npc:483} Elaine Trias
@@ -114,33 +141,34 @@ return {
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
 	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
 
-	-- Step 23: Baros Alexston
+	-- Step 29: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
-	-- Step 24: Woo Ping
+	-- Step 30: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 25: Woo Ping
+	-- Step 31: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 26: Druid trainer
+	-- Step 32: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
-	-- Step 28: Class trainer
+	-- Step 34: Class trainer
 	["Class trainer"] = "직업 전문가",
 
-	-- Step 29: Shaman trainer
+	-- Step 35: Shaman trainer
 	["Shaman trainer"] = "",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "검은나무일족 길잡이와 검은나무일족 풍수사가 {area:442} 남동쪽 야영지를 지키고 있습니다.",
+	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "검은나무일족 길잡이와 바람술사가 {area:442} 남동쪽 야영지를 차지하고 있습니다.\n주의: 바람술사(13-14)는 원거리에서 주문을 쓰고 펄볼그가 둘씩 서 있습니다. 한 마리씩 끌어오세요.",
 	-- ["Into {area:148}"] = "{area:148}(으)로",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "배는 마을 서쪽에 정박합니다. 비행 조련사는 여관 남쪽 언덕에 있고, 퀘스트 제공자들은 큰길을 따라 흩어져 있습니다.",
 	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: 16레벨 {npc:3667}. 높은태생에게서 떨어뜨려 끌어오십시오",

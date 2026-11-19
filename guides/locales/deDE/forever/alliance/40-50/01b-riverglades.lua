@@ -25,8 +25,9 @@ return {
 	["The western {zone:2548}"] = "Die westlichen {zone:2548}",
 
 	-- Step 3: Scout Bolain
-	-- {npc:260026} Scout Bolain
-	["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} wartet neben der Straße östlich des Passes.",
+	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -454,11 +455,16 @@ return {
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "Nach Westen über den Fluss nach {area:16736}: Die Holzstapel der Bauern rund um das Lager geben die Holzbündel.\nVorsicht: {npc:263380}, ein Elite (Stufe 42), streift am Fluss beim Lager umher: Kommt er in deine Richtung, zieh dich zurück und lass ihn vorbeiziehen.",
 
-	-- Step 94: Sergeant Riftan
+	-- Step 94: The Western Front
+	-- {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+
+	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "Nach Norden das lange Tal hinauf Richtung {area:16685}: {npc:258023} hält ein kleines Lager unterhalb der Festung des Schattenhammerkults.",
 
-	-- Step 95: The Twilight camps
+	-- Step 96: The Twilight camps
 	["The Twilight camps"] = "Die Lager des Schattenhammers",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -468,7 +474,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "Töte einen {npc:258652}",
 
-	-- Step 96: Marshal Ryan
+	-- Step 97: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250} liegt verwundet zwischen den Lagern am Westrand des Tals.\nVorsicht: {npc:256881} und {npc:256891} (Elite, 46) halten die Festung nördlich von ihm: Nähere dich Ryan von Süden.",
 	-- {npc:257250} Marshal Ryan
@@ -476,74 +482,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}: für {npc:257558} in {area:16724}",
 
-	-- Step 97: The ogre mine
+	-- Step 98: The ogre mine
 	["The ogre mine"] = "Die Ogermine",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "Nördlich der Lager lässt der Kult Ogerminenarbeiter in einer Mine schuften, angetrieben von den Unterwerfern des Schattenhammers.\nVorsicht: Twilight-Vollstrecker (Elite, Stufe 45) laufen auf ihrem Weg durch die Lager am Mineneingang vorbei. Warte, bis einer vorbei ist, bevor du hineingehst, und zieh die Arbeiter und Unterwerfer zu dir nach draußen.",
 
-	-- Step 99: Bring Me His Head
+	-- Step 100: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881} ist ein Elite (Stufe 46) in der Festung am Ende des Tals, umgeben von den Vollstreckern: Eine Gruppe wird empfohlen.",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}: für {npc:257591}",
 
-	-- Step 100: Back to Farholde Keep
+	-- Step 101: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "Zurück nach {area:16724}",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "Dein Ruhestein ist im Gasthaus von {area:16724} gebunden: Benutze ihn oder reite zurück nach Süden zur Burg.",
 
-	-- Step 101: Farholde Keep
+	-- Step 102: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "Vom Gasthaus aus: {npc:260070} auf dem Weg hinein, dann {npc:257558} und {npc:257591} in der Burg.",
 
-	-- Step 103: Demar Brant
+	-- Step 104: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}: für {npc:278088} in {zone:1453}",
 
-	-- Step 104: The Twilight Threat
+	-- Step 105: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}: Kilgars Kopf für {npc:1748} in {object:2117}",
 
-	-- Step 105: Sister Rowland
+	-- Step 106: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}, in der Kathedrale an der Südwestecke der Festung.",
 
-	-- Step 106: Stormwind
+	-- Step 107: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087} fliegt nach {zone:1453}. {npc:278088} wartet auf dem {object:2098}.",
 
-	-- Step 108: Train before the Badlands
+	-- Step 109: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "Vor dem {zone:1418} trainieren",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "Im {zone:2548} gibt es keinen Klassenlehrer, und der Guide für {zone:1418} & {zone:1425} kommt an keinem vorbei: {npc:257087} fliegt nach {zone:1453}, wo du trainierst, bevor du weiterziehst.",
 
-	-- Step 109: Your class trainer
+	-- Step 110: Your class trainer
 	["Your class trainer"] = "Dein Klassenlehrer",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "Im {zone:2548} gibt es keinen Klassenlehrer: Trainiere hier in {zone:1453}, bevor du weiterfliegst.",
 
-	-- Step 110: Stormwind flight master
+	-- Step 111: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 
-	-- Step 111: Shaman trainer
+	-- Step 112: Shaman trainer
 	["Shaman trainer"] = "Schamanenlehrer",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "Weder im {zone:2548} noch in {zone:1453} gibt es einen Schamanenlehrer, und der Guide für {zone:1418} & {zone:1425} kommt an keinem vorbei: Flieg nach {area:1537} und trainiere dort; {area:144} ist nur ein kurzer Flug weiter.",
 
-	-- Step 112: Leave Stormwind
+	-- Step 113: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "{zone:1453} verlassen",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "Der nächste Guide beginnt im {zone:1418}, südlich von {zone:1432}: Flieg nach {area:144}. Der Greifenmeister von {zone:1453} steht im Bereich {object:2096}.",
 
-	-- Step 113: Loch Modan
+	-- Step 114: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "Noch keine Flugroute nach {area:144}: Geh nach {zone:1455} (mit der {area:2257} von {zone:1453} aus), reite aus den Toren nach Osten durch {zone:1426} und den Tunnel nach {zone:1432} und weiter die Straße entlang nach {area:144}.",
 
-	-- Step 114: Fly to Thelsamar
+	-- Step 115: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Flieg nach {area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -551,6 +557,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
+	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} wartet neben der Straße östlich des Passes.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: Vergrabe die Andenken",
 }

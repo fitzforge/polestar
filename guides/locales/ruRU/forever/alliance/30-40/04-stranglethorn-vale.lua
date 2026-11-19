@@ -28,9 +28,6 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737} – в таверне",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496} – наверху в таверне",
 
@@ -127,7 +124,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} собирает страницы ({item:2755}): они падают почти со всех гуманоидов в джунглях. По ходу дела собирайте из страниц главы.",
 	-- {npc:729} Sin'Dall
-	["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "сохраните его: {npc:729} (37) будет в гайде 40-50 по Тернистой долине, примерно на 41 уровне",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "сохраните его: ящеры-кнутохвосты будут на втором круге (04b), у холма {npc:729}",
@@ -226,6 +223,7 @@ return {
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Руда падает с кобольдов из племени Сухоусов (зона {zone:1417})",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "Торсен патрулирует дорогу к северу от лагеря, в сторону места {area:99}.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Идите назад на север; {area:310} – к западу от дороги, в середине джунглей. Осколки падают с хрустальных василисков, которые там водятся.",
+	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "сохраните его: {npc:729} (37) будет в гайде 40-50 по Тернистой долине, примерно на 41 уровне",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "В городе {area:1537} нет учителя друидов: в районе {object:171524} сядьте на поезд ({area:2257}) до города {zone:1453} и обучитесь у NPC {npc:5504}.",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859} – на верхнем этаже у причалов",
 	-- ["{npc:729} and the Lashtail raptors"] = "{npc:729} и ящеры-кнутохвосты",

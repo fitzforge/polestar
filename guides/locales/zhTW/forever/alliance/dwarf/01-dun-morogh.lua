@@ -209,8 +209,9 @@ return {
 	["{npc:1243} camps south-west of it, by the road to Coldridge."] = "{npc:1243}在它西南紮營，靠近去冷嶺的路。",
 
 	-- Step 34: Dun Morogh: kill these as you meet them
-	-- {zone:1426} Dun Morogh
-	["{zone:1426}: kill these as you meet them"] = "{zone:1426}：沿途遇到就擊殺",
+	-- {area:1} Dun Morogh
+	-- was: ["{zone:1426}: kill these as you meet them"] = "{zone:1426}：沿途遇到就擊殺"
+	["{area:1}: kill these as you meet them"] = "",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
 	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "峭壁野豬和小黑熊在朗博肖特的營地往東北到{area:131}和補給站之間的原野上遊蕩：在走回去的路上擊殺牠們。",
@@ -315,8 +316,9 @@ return {
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}：由南門旁的{npc:257597}接收",
 
 	-- Step 50: Steelgrill's Depot
-	-- {area:131} Kharanos · {zone:1426} Dun Morogh
-	["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "從{area:131}沿路向東北前往補給站，從這裡開始一輪走完{zone:1426}整個東部。",
+	-- {area:131} Kharanos · {area:1} Dun Morogh
+	-- was: ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "從{area:131}沿路向東北前往補給站，從這裡開始一輪走完{zone:1426}整個東部。"
+	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "",
 	-- {npc:1377} Pilot Stonegear
 	["{npc:1377}, beside him"] = "{npc:1377}，在他旁邊",
 
@@ -390,8 +392,9 @@ return {
 	["Snow Leopards and boars roam the snow between the ranch and the quarry. Blacksmiths: Copper Bars come from smelting {item:2770} or the trade vendors."] = "雪豹和野豬在牧場與採掘場之間的雪地上遊蕩。鐵匠：銅錠可以熔煉{item:2770}取得，或向商業用品商人購買。",
 
 	-- Step 75: Protecting the Herd
-	-- {npc:1388} Vagash · {zone:1432} Loch Modan
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。",
+	-- {npc:1388} Vagash · {area:38} Loch Modan
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
 	["Below ground"] = "地下",
 
 	-- Step 76: Amberstill Ranch
@@ -399,16 +402,18 @@ return {
 	["On the road back west to {zone:1455}."] = "在回西邊{zone:1455}的路上。",
 
 	-- Step 78: South Gate Outpost
-	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。"
+	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
 
 	-- Step 79: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597}在{area:806}西北方農場上方的洞穴裡等候；上山的小路從農場後方開始。",
 
 	-- Step 81: Braldir Ashmantle
-	-- {zone:1432} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
+	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
+	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。"
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
 
 	-- Step 82: North Gate Outpost
 	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
@@ -416,18 +421,26 @@ return {
 
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "隧道崗哨",
-	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道，進入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。",
+	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
+	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道，進入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。"
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
 
 	-- Step 84: Stonesplinter troggs
 	["Stonesplinter troggs"] = "碎石穴居人",
-	-- {area:923} Stonesplinter Valley
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "",
+	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
 
-	-- Step 85: Back to the tunnel post
+	-- Step 85: Linen for John Turner
+	-- {npc:6175} John Turner
+	["Linen for {npc:6175}"] = "",
+	-- {item:2589} Linen Cloth · {npc:6175} John Turner · {zone:1455} Ironforge
+	-- plural, as words: Stonesplinter Troggs = {npc:1161} Stonesplinter Trogg
+	["Keep ten {item:2589} for {npc:6175} in {zone:1455}. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps."] = "",
+
+	-- Step 86: Back to the tunnel post
 	["Back to the tunnel post"] = "回到隧道崗哨",
 
-	-- Step 86: Thelsamar
+	-- Step 87: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell · {npc:1963} Vidra Hearthstove · {area:2101} Stoutlager Inn · {npc:1681} Brock Stoneseeker · {npc:1572} Thorgrum Borrelson
 	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "沿路向北到{area:144}。{npc:1340}在穿過鎮子的路上巡邏，{npc:1963}站在{area:2101}外，{npc:1681}在鎮子東邊；{npc:1572}照看獅鷲。",
 	-- {npc:1572} Thorgrum Borrelson
@@ -435,7 +448,7 @@ return {
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
 	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572}：交給{zone:1455}的{npc:4256}",
 
-	-- Step 87: The west hills and the Algaz Station
+	-- Step 88: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
 	["The west hills and the {area:925}"] = "西邊的丘陵和{area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
@@ -455,7 +468,7 @@ return {
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "交給{zone:1453}的{npc:5413}",
 
-	-- Step 88: Silver Stream Mine
+	-- Step 89: Silver Stream Mine
 	-- {item:5026} Fire Tar
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
 	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats. Shamans: the Tunnel Rat Geomancers (level 12-13) here carry the {item:5026}.\nCareful: the Tunnel Rat Geomancers (12-13) cast from range in the narrow tunnels: pull them one at a time."] = "沿山丘向東前往湖北端的礦坑：礦工聯盟的箱子在坑道裡，周圍有更多坑道鼠。薩滿：這裡的坑道鼠地卜師（12-13級）身上帶有{item:5026}。\n小心：坑道鼠地卜師（12-13級）會在狹窄坑道中遠程施法：一次引一隻。",
@@ -465,15 +478,15 @@ return {
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
 	["{item:5026}: Tunnel Rat Geomancers"] = "{item:5026}：坑道鼠地卜師",
 
-	-- Step 89: Back to the Algaz Station
+	-- Step 90: Back to the Algaz Station
 	-- {area:925} Algaz Station
 	["Back to the {area:925}"] = "回到{area:925}",
 
-	-- Step 90: Thelsamar
+	-- Step 91: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
 	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "沿著道路向南前往{area:144}，途中收集完耳朵、肉和膿液。{npc:1340}在穿過城鎮的道路上巡邏。",
 
-	-- Step 91: The Reagent Pouch
+	-- Step 92: The Reagent Pouch
 	-- {item:6652} Reagent Pouch
 	["The {item:6652}"] = "{item:6652}",
 	-- {area:923} Stonesplinter Valley
@@ -483,14 +496,14 @@ return {
 	-- plural, as words: Stonesplinter Seers = {npc:1166} Stonesplinter Seer
 	["{item:6652}: Stonesplinter Seers"] = "{item:6652}：碎石怪先知",
 
-	-- Step 92: The Fire Spirit Stone
+	-- Step 93: The Fire Spirit Stone
 	["The Fire Spirit Stone"] = "火焰靈石",
 	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember · {object:61934} Brazier of the Dormant Flame
 	["Back north to {npc:257808}'s camp above the tunnel. {npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "向北回到隧道上方{npc:257808}的營地。{npc:257808}會給你{item:6636}。爬上營地上方的山峰，在靈石旁喝下靈契並擊敗{npc:5893}，然後把牠的{item:6655}放進永恆之火神殿頂端的{object:61934}。",
 	-- {item:6636} Fire Sapta
 	["{item:6636}, beside the Spirit Stone"] = "{item:6636}，在靈石旁邊",
 
-	-- Step 93: Back to Bruegs Kindleborn
+	-- Step 94: Back to Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn
 	["Back to {npc:257597}"] = "返回{npc:257597}",
 	-- {npc:257597} Bruegs Kindleborn · {zone:1455} Ironforge
@@ -498,7 +511,7 @@ return {
 	-- {npc:257597} Bruegs Kindleborn · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:257597}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:257597}：{npc:2523}、你的{item:5176}和{item:263412}",
 
-	-- Step 94: Golnir Bouldertoe
+	-- Step 95: Golnir Bouldertoe
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge · {npc:1573} Gryth Thurden · {area:144} Thelsamar
 	["{npc:4256} works at the {object:32372}'s north end, and {npc:1573} keeps the gryphons in the {object:32372}, where the flight from {area:144} lands."] = "{npc:4256}在{object:32372}北端工作，{npc:1573}在{object:32372}照料獅鷲，從{area:144}起飛的航班就降落在這裡。",
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge
@@ -506,81 +519,98 @@ return {
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge
 	["{npc:1573}, the gryphon master in the {object:32372}"] = "{npc:1573}，{object:32372}的獅鷲管理員",
 
-	-- Step 95: Tinker Town
+	-- Step 96: Tinker Town
 	-- {object:32372} Great Forge · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {object:171709} High Seat · {object:32359} Military Ward
 	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "從{object:32372}向東進入{object:171524}：{object:660964}就在它的郵箱旁。從這裡攻略繞城一圈：向北到{object:32383}，向西到{object:32362}，向南穿過平民區到{object:171709}，向東穿過{object:32359}，再回到{object:171524}坐地鐵。",
 	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}，在{object:171524}的郵箱旁",
 
-	-- Step 96: Forlorn Cavern
+	-- Step 97: Forlorn Cavern
 	-- {object:32372} Great Forge · {npc:258098} Eldrun Stormbreaker · {object:32383} Forlorn Cavern · {npc:6120} Lago Blackwrench
 	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "在{object:32372}以北：薩滿訓練師{npc:258098}站在{object:32383}的南端，盜賊和術士訓練師以及{npc:6120}就在他北邊。",
 	-- {npc:6120} Lago Blackwrench · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6120}: {npc:6122} in {zone:1453} takes it"] = "{npc:6120}：由{zone:1453}的{npc:6122}接收",
 
-	-- Step 97: The Tome of Divinity
-	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從 {object:32383} 向西進入 {object:32362}：{npc:5149}、{npc:6179} 和 {npc:6178} 都在 {object:32386} 內，其中 {npc:6179} 和 {npc:6178} 在樓上；上樓的樓梯入口就在 {npc:5149} 東北側。乞丐 {npc:6175} 在城裡遊蕩。他需要十塊 {item:2589}：{zone:1426} 的穴居人和食人妖會掉落，也可從拍賣行購買。",
+	-- Step 98: The Tome of Divinity
+	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries · {npc:6175} John Turner · {item:2589} Linen Cloth
+	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. John needs ten {item:2589}. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it."] = "",
 	-- {quest:2997} Tome of Divinity
 	["From the {quest:2997} she gives you"] = "來自她給你的{quest:2997}",
-	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
-	["Use the {item:6866} on {npc:6177}"] = "對{npc:6177}使用{item:6866}",
 
-	-- Step 98: Narm Faulk
+	-- Step 99: Linen for The Tome of Divinity
+	-- {quest:1648} The Tome of Divinity
+	["Linen for {quest:1648}"] = "",
+	-- {zone:1455} Ironforge · {area:134} Gol'Bolar Quarry
+	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
+	["If you're short on cloth, leave {zone:1455} through the Commons and follow the road down the mountain, then east to {area:134}. Kill Rockjaw Skullthumpers on the quarry's western edge. If the missing cloth is affordable at the Auction House, you can buy it instead."] = "",
+
+	-- Step 100: John Turner
+	-- {area:1537} Ironforge · {npc:6175} John Turner
+	["Follow the road back to {area:1537} if you left the city. {npc:6175} walks through the Commons."] = "",
+
+	-- Step 101: Tiza Battleforge and Muiredon Battleforge
+	-- {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge
+	["{npc:6179} and {npc:6178}"] = "",
+
+	-- Step 102: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
 	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "離開{zone:1455}往回走，沿路向東到{area:212}。{npc:6177}死在岸邊：對他使用{item:6866}。在湖邊潛行的黑鐵間諜身上帶著那份名冊。",
+	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
+	["Use the {item:6866} on {npc:6177}"] = "對{npc:6177}使用{item:6866}",
 	-- {item:6847} Dark Iron Script
 	["{item:6847}: Dark Iron Spies"] = "{item:6847}：黑鐵間諜",
 
-	-- Step 100: Muiredon Battleforge
+	-- Step 104: Muiredon Battleforge
 	-- {npc:6179} Tiza Battleforge
 	["{npc:6179}: Redemption"] = "{npc:6179}：救贖",
 
-	-- Step 101: Mystic Ward
+	-- Step 105: Mystic Ward
 	-- {object:32386} Hall of Mysteries · {object:32362} Mystic Ward
 	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "聖騎士、牧師和法師訓練師在{object:32362}裡的{object:32386}中。",
 	-- {npc:11406} High Priest Rohan · {quest:5639} Desperate Prayer
 	["{npc:11406}: {quest:5639}, his own copy of the letter"] = "{npc:11406}：{quest:5639}，他自己那份信",
 
-	-- Step 102: High Seat
+	-- Step 106: High Seat
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
 	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "向南穿過平民區：{npc:1274}在{object:171709}裡，和麥格尼國王在一起。",
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
 	["{npc:1274}, in the {object:171709} with King Magni"] = "{npc:1274}，在{object:171709}裡，和麥格尼國王在一起",
 
-	-- Step 103: Buliwyf Stonehand
+	-- Step 107: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "趁在這裡：向{npc:11865}學習{spell:197}（{object:32359}，10銀）；雙手武器讓聖騎士升級最快。",
 
-	-- Step 104: Military Ward
+	-- Step 108: Military Ward
 	-- {object:32359} Military Ward · {npc:11865} Buliwyf Stonehand · {object:32390} Hall of Arms
 	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "向東到{object:32359}：戰士訓練師和{npc:11865}在{object:32390}裡，獵人訓練師就在旁邊。",
 
-	-- Step 105: Buliwyf Stonehand
+	-- Step 109: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11865}學習{spell:197}（{object:32359}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 106: Buliwyf Stonehand
+	-- Step 110: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
 	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11865}學習{spell:199}（{object:32359}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 107: Druid trainer
+	-- Step 111: Druid trainer
 	["Druid trainer"] = "德魯伊訓練師",
-	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
-	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "{npc:5505}在{zone:1453}；{zone:1426}沒有德魯伊訓練師",
+	-- {npc:5505} Theridran · {zone:1453} Stormwind · {area:1} Dun Morogh
+	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "",
 
-	-- Step 108: The Deeprun Tram
+	-- Step 112: The Deeprun Tram
 	-- {area:2257} Deeprun Tram
 	["The {area:2257}"] = "{area:2257}",
 	-- {object:171524} Tinker Town · {area:2257} Deeprun Tram · {zone:1453} Stormwind
 	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "向東回到{object:171524}：{area:2257}從它的東端出發，坐它去{zone:1453}。",
 
-	-- Step 109: Tram to Stormwind
+	-- Step 113: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺，{npc:12997}請你幫忙滅鼠：用他的{item:17117}對付站臺周圍的礦道鼠，交掉之後，再把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。",
+	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺，{npc:12997}請你幫忙滅鼠：用他的{item:17117}對付站臺周圍的礦道鼠，交掉之後，再把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。"
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}，在{zone:1455}站臺",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -588,63 +618,74 @@ return {
 	-- {npc:13016} Deeprun Rat
 	["Catch {npc:13016}"] = "抓住{npc:13016}",
 
-	-- Step 110: Nipsy
+	-- Step 114: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District
 	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "坐地鐵到{zone:1453}：{npc:13018}在{zone:1453}站臺等著。{npc:5413}站在{object:28027}裡，就在地鐵車廂外。",
 	-- {npc:13018} Nipsy · {zone:1453} Stormwind
 	["{npc:13018}, on the {zone:1453} platform"] = "{npc:13018}，在{zone:1453}站臺",
 
-	-- Step 111: Baros Alexston
+	-- Step 115: From the tram to Stormwind
+	-- {area:1519} Stormwind
+	["From the tram to {area:1519}"] = "",
+
+	-- Step 116: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
 	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "從{object:28027}向西南到{object:2098}：順路去{zone:1436}裡{npc:1646}的老房子，他的羅盤在那兒。飛行管理員和{object:2096}在廣場南邊。",
 
-	-- Step 112: Stormwind flight master
+	-- Step 117: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
-	-- Step 113: Woo Ping
+	-- Step 118: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓聖騎士升級最快。",
 
-	-- Step 114: Woo Ping
+	-- Step 119: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；獵人的近戰武器主要看屬性，而雙手武器屬性最多。",
 
-	-- Step 115: Woo Ping
+	-- Step 120: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "順便：在{npc:11867}處學習劍（{object:2096}，10銀幣）；主手持劍能讓盜賊穩定升級。",
 
-	-- Step 116: Defensive Stance
+	-- Step 121: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
 	["{npc:5480} trains warriors in {object:2100}, near Osric's shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480}在{object:2100}奧斯里克的商店附近訓練戰士；從{zone:1455}出發的地鐵抵達其北邊的{object:28027}。{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你打一架。如果{npc:5480}沒有提供{quest:1638}，直接去找{npc:6089}：即使沒有該任務，他也會給你{quest:1639}。",
 
-	-- Step 117: Woo Ping
+	-- Step 122: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 118: Woo Ping
+	-- Step 123: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；升級期間，法杖的法術屬性比單手武器更多。",
 
-	-- Step 119: Gakin the Darkbinder
+	-- Step 124: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 	-- {quest:1688} Surena Caledon · {zone:1436} Westfall
 	["{quest:1688}: her choker and The Binding are on {zone:1436}'s east-Elwynn loop"] = "{quest:1688}：她的項圈和「束縛」在{zone:1436}的艾爾文東部環線上",
 
-	-- Step 121: Goldshire
+	-- Step 126: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
 	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "從正門離開{zone:1453}，沿路向南到{area:87}：先走艾爾文森林東部，再去{zone:1436}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "穿過隧道回到農場上方{npc:257597}的洞穴。",
+	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道，進入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。",
+	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
+	-- ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "從{area:131}沿路向東北前往補給站，從這裡開始一輪走完{zone:1426}整個東部。",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "沿著道路上到{zone:1455}，向你的職業訓練師學習。{area:2257}從城市東邊的{object:171524}出發。搭乘它前往{zone:1453}。",
+	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "從正門離開{zone:1453}，向南前往{area:87}，再沿著道路向東前往{area:62}。{npc:881}（9級）站在農舍旁。",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "烈酒村和{area:133}道路周圍的麻瘋地精身上帶著齒輪和零件。冰爪熊、老峭壁野豬和雪豹在湖周圍的山丘上遊蕩。",
 	-- ["Level 4 spells, before Gozwin's camp"] = "4級法術，在前往戈茲溫的營地之前學習",
+	-- ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺，{npc:12997}請你幫忙滅鼠：用他的{item:17117}對付站臺周圍的礦道鼠，交掉之後，再把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。",
 	-- ["Stonesplinter Seers (level 13) stand among the troggs in the south of {area:923}, south of {npc:257808}; Tunnel Rat Geomancers (level 12) work the {area:149} at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time."] = "碎石怪先知（13級）站在{npc:257808}營地南邊、{area:923}南部的穴居人之間；坑道鼠地卜師（12級）在湖北端的{area:149}工作。穴居人成群出現，有些會從遠處投擲：一次拉一隻。",
 	-- ["Subdue the voidwalker"] = "制服虛空行者",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "地鐵抵達{object:28027}。{npc:5480}在{object:2100}訓練戰士；{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你打一架。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。",
+	-- ["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從 {object:32383} 向西進入 {object:32362}：{npc:5149}、{npc:6179} 和 {npc:6178} 都在 {object:32386} 內，其中 {npc:6179} 和 {npc:6178} 在樓上；上樓的樓梯入口就在 {npc:5149} 東北側。乞丐 {npc:6175} 在城裡遊蕩。他需要十塊 {item:2589}：{zone:1426} 的穴居人和食人妖會掉落，也可從拍賣行購買。",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026}和{item:6652}",
 	-- ["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}：由{zone:1455}的{npc:11406}接收",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}，在地下：露營入門，鐵匠",
@@ -659,5 +700,7 @@ return {
 	-- ["{npc:265813}, {skill:129}: for {npc:2326}"] = "{npc:265813}，{skill:129}：交給{npc:2326}",
 	-- ["{npc:2756} stands by {npc:8416} at the door of {area:77}. Gozwin's camp is in the hills just north-west; the {npc:269075} prowls around it."] = "{npc:2756}和{npc:8416}一起站在{area:77}門口。戈茲溫的營地就在西北方的山丘上；{npc:269075}在營地周圍徘徊。",
 	-- ["{npc:5392}: Camping 101, miners"] = "{npc:5392}：露營入門，礦工",
+	-- ["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "{npc:5505}在{zone:1453}；{zone:1426}沒有德魯伊訓練師",
+	-- ["{zone:1426}: kill these as you meet them"] = "{zone:1426}：沿途遇到就擊殺",
 	-- ["{zone:1455} class quests"] = "{zone:1455}職業任務",
 }

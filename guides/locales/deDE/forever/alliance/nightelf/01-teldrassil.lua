@@ -438,8 +438,9 @@ return {
 	["Take the road north-west from {area:186} again; she still lies beside it, on the way to {zone:1457}."] = "Nimm wieder die Straße von {area:186} nach Nordwesten; sie liegt noch daneben, auf dem Weg nach {zone:1457}.",
 
 	-- Step 70: Into Darnassus
-	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "Hinein nach {zone:1457}",
+	-- {area:1657} Darnassus
+	-- was: ["Into {zone:1457}"] = "Hinein nach {zone:1457}"
+	["Into {area:1657}"] = "",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}, auf {area:1659} direkt hinter dem Stadteingang",
 
@@ -450,10 +451,13 @@ return {
 	-- Step 73: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "Zurück durch das Stadttor und die Straße nach Osten: {quest:1683} steht südlich davon, bei {area:736}. Bring sein Horn zu {quest:1684} zurück.",
+	-- {area:736} Ban'ethil Hollow
+	["East from the city gate to {area:736}"] = "",
 
 	-- Step 75: Darnassus
-	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen nach {zone:1457} und benutze {item:279378} im Gasthaus auf {area:1659} und am Tunneleingang unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht auf {area:1659} direkt hinter dem Stadteingang. {npc:3516} ist in {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende.",
+	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
+	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen nach {zone:1457} und benutze {item:279378} im Gasthaus auf {area:1659} und am Tunneleingang unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht auf {area:1659} direkt hinter dem Stadteingang. {npc:3516} ist in {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende."
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}, auf {area:1660}: {spell:71}",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -546,6 +550,8 @@ return {
 	-- Step 93: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} sitzt im Wald im Nordwesten. Lerne die Flugroute von {area:493} bei {npc:10897} südlich des Sees, für spätere Reisen. Dann fliegt {npc:11800} in {area:2361} Druiden über ihr Gesprächsmenü direkt nach {area:702}: Bei ihr gibt es keine Flugroute zu lernen. {npc:11802} steht oben in seinem Gebäude: Geh drinnen hoch, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Sprich mit dem {quest:5929}",
 
@@ -553,15 +559,31 @@ return {
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "{npc:10118} steht am Steg von Rut'theran, wo du landest. Nimm dann das Portal hinauf zu {npc:4217} in der {area:1658}.",
 
-	-- Step 97: The Moonkin Stone
+	-- Step 97: Rut'theran Village flight master
+	-- {area:702} Rut'theran Village
+	["{area:702} flight master"] = "",
+	-- {zone:1457} Darnassus
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+
+	-- Step 98: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "Der {object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Geh zurück hinab nach {area:702} und flieg nach {area:442}. Der {object:177525} steht in den Hügeln gleich östlich des Dorfs: Benutze dort den {item:15208}, besiege Mondklaue und sprich mit dem {npc:12144}.",
 
-	-- Step 98: Body and Heart
+	-- Step 99: Auberdine flight master
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
+
+	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "Flieg noch einmal nach {area:702} und nimm das Portal hinauf zu {npc:4217}, dann flieg zurück nach {area:442}.",
+
+	-- Step 101: Back to Auberdine
+	-- {area:442} Auberdine
+	["Back to {area:442}"] = "",
+	-- {area:702} Rut'theran Village
+	["Take the portal down to the hippogryphs at {area:702}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/sit by {npc:265811}'s campfire until you get Boosted Rest"] = "Mit /sit am Lagerfeuer von {npc:265811} sitzen, bis du Verbesserter Ruhebonus bekommst",
@@ -574,6 +596,7 @@ return {
 	-- ["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442} for the boat."] = "Flieg von {npc:3841} zurück nach {area:702}, gib {item:16263} bei {npc:10118} am Steg ab und flieg dann zurück nach {area:442} zum Schiff.",
 	-- ["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442} for the boat."] = "Flieg noch einmal nach {area:702} und nimm das Portal hinauf zu {npc:4217}, dann flieg zurück nach {area:442} zum Boot.",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "Folge der Straße nach Südwesten aus {area:188} hinaus nach {area:186}.",
+	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen nach {zone:1457} und benutze {item:279378} im Gasthaus auf {area:1659} und am Tunneleingang unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht auf {area:1659} direkt hinter dem Stadteingang. {npc:3516} ist in {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende.",
 	-- ["Follow the road west into {zone:1457}. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092} and {npc:7999} are in the Temple of the Moon at the south end. {npc:7316} is in the west of the city, on the way to the pink portal down to Rut'theran."] = "Folge der Straße nach Westen nach {zone:1457}. {npc:4241} steht auf der {area:1659} gleich hinter dem Stadteingang. {npc:3516} ist im {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092} und {npc:7999} sind im Tempel des Mondes am Südende. {npc:7316} ist im Westen der Stadt, auf dem Weg zum rosa Portal hinab nach Rut'theran.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "Geh vom Hafen in {object:2100}. {npc:5480} bildet dort Krieger aus; {npc:6089} und {npc:6090} stehen zusammen beim {object:2152}. {npc:6090} kämpft mit dir um seinen Krug.",
 	-- ["From {area:17203}, head through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "Geh von {area:17203} durch die Stadttore nach {zone:1429} und folge der Straße nach Westen nach {zone:1436}.",
@@ -581,6 +604,7 @@ return {
 	-- ["Gnarlpine Mystics and Ferocitas camp north-east of {area:260}. Ferocitas drops the {item:8049}: open it for the jewel."] = "Mystiker der Knarzklauen und Ferocitas der Traumfresser lagern nordöstlich von {area:260}. Ferocitas lässt den {item:8049} fallen: Öffne ihn für das Juwel.",
 	-- ["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel."] = "Mystiker der Knarzklauen und {npc:7234} lagern nordöstlich von {area:260}. {npc:7234} lässt {item:8049} fallen: Öffne sie für das Juwel.",
 	-- ["Hearth to {area:186}"] = "Ruhestein nach {area:186}",
+	-- ["Into {zone:1457}"] = "Hinein nach {zone:1457}",
 	-- ["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks."] = "Lerne den Flugpunkt bei {npc:3841}, wo du landest. Der Fischstand von {npc:4200} ist direkt nördlich von ihr, bei den Docks.",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Hol dir die Flugroute von {area:442} auf dem Hügel südlich des Gasthauses, dann wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} sitzt im Wald im Nordwesten. Hol dir die Flugroute von {area:493} in {area:2361} und flieg nach {area:702} (über {area:442}).",
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "Räudige Nachtsäbler und Disteleber streifen nördlich von {area:256} umher, auf dem Weg zur Höhle. {npc:8584} wartet zwischen den Bäumen westlich des Höhleneingangs; {npc:1994} sitzt tief drinnen.",

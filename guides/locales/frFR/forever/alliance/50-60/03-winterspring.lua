@@ -76,7 +76,9 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "Retour aux collines : seuls les Matriarches (56-57) et Patriarches (57-58) Chardon de glace portent les cornes.\nAttention : prenez les Matriarches en bordure des collines, une à la fois, et laissez les Patriarches : les cornes tombent sur les deux.",
+	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -129,9 +131,15 @@ return {
 	-- Step 26: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Chaudron de {area:199}",
-	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Sortez du camp vers le nord-ouest jusqu'à {area:199}, à l'ouest d'Andorhal : le {npc:11075} (53) garde le chaudron parmi les Goules jacassantes (54).",
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}."] = "",
+	-- {npc:10778} Janice Felstone
+	["{npc:10778}, upstairs in the farmhouse"] = "",
+	-- {object:175894} Janice's Parcel
+	["{object:175894}, inside"] = "",
+	-- {zone:1453} Stormwind · {zone:1451} Silithus
+	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 
 	-- Step 27: Chillwind Camp
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
@@ -190,6 +198,7 @@ return {
 	["The next guide starts here and flies to {area:3197}."] = "Le guide suivant commence ici et vole vers {area:3197}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "Retour aux collines : seuls les Matriarches (56-57) et Patriarches (57-58) Chardon de glace portent les cornes.\nAttention : prenez les Matriarches en bordure des collines, une à la fois, et laissez les Patriarches : les cornes tombent sur les deux.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Retournez dans les collines : seuls les Matriarches et Patriarches Chardon de glace portent les cornes.",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Attention : {npc:10411} devient invisible hors combat et appelle des Gargouilles Aile-de-roc dès qu'un combat commence. Il n'en existe que 3 et ils réapparaissent toutes les 15 min.",
 	-- ["Fly to {area:271}"] = "Prendre un vol pour {area:271}",
@@ -199,6 +208,7 @@ return {
 	-- ["Hearth to {area:2255}"] = "Pierre de foyer vers {area:2255}",
 	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers {area:2268}",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Les Yétis Chardon de glace vivent dans les collines au sud de {area:2244}, les Chimères Noroît dans la vallée vers {area:2255}.",
+	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Sortez du camp vers le nord-ouest jusqu'à {area:199}, à l'ouest d'Andorhal : le {npc:11075} (53) garde le chaudron parmi les Goules jacassantes (54).",
 	-- ["On the way"] = "En chemin",
 	-- ["Optional: {area:1417}"] = "Facultatif : {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Ramassez les fournitures autour du chariot et reprenez l'amulette de {npc:10301} aux chouettards voisins.",

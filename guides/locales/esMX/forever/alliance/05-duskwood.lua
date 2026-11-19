@@ -92,8 +92,9 @@ return {
 	["{item:7908}, in the chest"] = "{item:7908}, en el cofre",
 
 	-- Step 21: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por Elwynn hasta {zone:1453}; Mathias Shaw está en el IV:7, en {object:2100}.",
+	-- {area:1519} Stormwind · {object:2100} Old Town
+	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por Elwynn hasta {zone:1453}; Mathias Shaw está en el IV:7, en {object:2100}."
+	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Venenos y {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -144,6 +145,7 @@ return {
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: comecarnes, roehuesos, propagadores de peste y comecerebros.\nCuidado: {npc:948} lanza {spell:3428} al morir, lo que trae enemigos de más.",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Sigue el camino al noroeste pasando el cementerio hasta el campamento de {npc:311}, en el extremo oeste del bosque. {npc:893} está junto a {npc:311}.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Sigue el camino al sur desde {area:1002} hacia {zone:1431}; {area:42} está en el lado este del bosque.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Ve al norte por Elwynn hasta {zone:1453}; Mathias Shaw está en el IV:7, en {object:2100}.",
 	-- ["Level 22 and 24 spells"] = "Hechizos de nivel 22 y 24",
 	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "Siguiente: {zone:1453} para entrenar, y luego el barco de {area:17203} a {area:442} para ir a {zone:1440}.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Los lobos temibles rabiosos deambulan por el bosque alrededor del cementerio y de {npc:289}; los lobos temibles famélicos, por las colinas al noreste de él. Las telarácnidas venenosas pigmeas se arrastran al este del cementerio y sueltan el veneno. Cualquier necrófago de la mitad norte del cementerio puede soltar un colmillo.",

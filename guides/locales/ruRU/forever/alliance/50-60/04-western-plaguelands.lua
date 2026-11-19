@@ -134,53 +134,51 @@ return {
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Распорядитель полетов: {area:3197}",
 
-	-- Step 35: Aurora Skycaller
+	-- Step 35: Carlin Redpath: Heroes of Darrowshire
+	-- {area:190} Hearthglen
+	["The libram is inside {area:190} among elite Scarlet guards. Take this for the later group visit."] = "",
+
+	-- Step 36: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
 	["Ride north-west to {area:2276}, at the edge of the {area:2277}."] = "Езжайте на северо-запад: {area:2276}, на краю зоны {area:2277}.",
 
-	-- Step 36: Villains of Darrowshire
+	-- Step 37: Villains of Darrowshire
 	-- {area:2624} Blackwood Lake · {area:2623} Infectis Scar
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "Череп Хоргуса лежит здесь: {area:2624}, а меч Мардука – здесь: {area:2623}; оба там, где сражаются призраки. На равнинах между ними охотятся взрослые чумные псы.",
 	-- {item:12956} Skull of Horgus
 	["{item:12956}; underwater"] = "",
 
-	-- Step 37: Eastern Plaguelands: kill these as you meet them
+	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: убивайте их по пути",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Езжайте на запад: {area:2627}. По лесам бродят карликовые чумные псы, чумные нетопыри и личинки-падальщики; наполните предмет {item:15042} у больших термитников и убейте бесноватых чумных псов дальше к северу.",
 
-	-- Step 38: Augustus the Touched
+	-- Step 39: Augustus the Touched
 	-- {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby.\nCareful: the Frenzied Plaguehounds north-east of the hut are 57-58, a level or two over you: pull them one at a time."] = "Скачите на север сюда: {area:2627}. {npc:12384} живет в разрушенной хижине, а его книга расписок лежит в разрушенной таверне поблизости.\nОсторожно: бесноватые чумные псы к северо-востоку от хижины 57-58-го уровня, на уровень-два выше вас: атакуйте их по одному.",
 
-	-- Step 39: Augustus the Touched
+	-- Step 40: Augustus the Touched
 	-- {npc:8598} Frenzied Plaguehound
 	["{npc:8598}, 170 yd north-east"] = "{npc:8598} – 170 ярдов к северо-востоку",
 
-	-- Step 40: Plaguewood: kill these as you meet them
+	-- Step 41: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}: убивайте их по пути",
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Осторожно: бесноватые чумные псы 57–58-го уровня, выманивайте их по одному.",
 
-	-- Step 41: Tirion Fordring
+	-- Step 42: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Cross the river west to {npc:1855}'s hut."] = "Перейдите реку на запад к хижине {npc:1855}.",
 
-	-- Step 43: Tirion Fordring
+	-- Step 44: Tirion Fordring
 	["Listen to his story"] = "Выслушайте его историю",
 	-- {npc:11886} Mercutio Filthgorger
 	["{npc:11886} is elite: grouping up is advised"] = "{npc:11886} – элитный противник: лучше собрать группу",
-
-	-- Step 44: Davil's Libram
-	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
-	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} лежит в ратуше ({area:190}) к западу от {npc:1855}: стражи Алого ордена стоят плотно.",
-	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
 
 	-- Step 46: The Undercroft
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
@@ -320,8 +318,6 @@ return {
 	["On {npc:7583}"] = "У персонажа {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "Напугайте {npc:7583} с помощью предмета {item:12928}",
-	-- {area:3197} Chillwind Camp
-	["For {area:3197}: keep it"] = "Для места {area:3197}: сохраните задание",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "",
 
@@ -385,47 +381,53 @@ return {
 	-- {npc:13220} Layo Starstrike
 	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "Истерзанные друиды и часовые бродят по разрушенной деревне к юго-западу от {npc:13220}.",
 
-	-- Step 96: The Hive'Ashi tower
+	-- Step 95: Dusty Reliquary
+	-- {area:2738} Southwind Village · {npc:11801} Rabine Saturna
+	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "",
+	-- {object:179565} Dusty Reliquary
+	["{object:179565}; inside"] = "",
+
+	-- Step 97: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "Башня: {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Езжайте обратно на юго-запад к башне ({area:2742}, {area:2738}); поднимитесь на нее и убейте засаду, которая появляется ради покрытого коркой предмета.",
 
-	-- Step 97: Layo Starstrike
+	-- Step 98: Layo Starstrike
 	-- {area:493} Moonglade
 	["Umber in {area:493}: keep it"] = "Умбер ({area:493}): сохраните задание",
 
-	-- Step 99: Krakle
+	-- Step 100: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
 	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
 
-	-- Step 100: Un'Goro Crater: kill these as you meet them
+	-- Step 101: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
 	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: убивайте их по пути",
 
-	-- Step 101: Krakle's Thermometer
+	-- Step 102: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Езжайте на восток к вулкану ({area:537}), поднимитесь на него и используйте {npc:10541} у лавовых отдушин у вершины.",
 
-	-- Step 102: Krakle
+	-- Step 103: Krakle
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Завершается у NPC {npc:9298} (зона {zone:1452}): сохраните",
 
-	-- Step 103: Marshal's Refuge
+	-- Step 104: Marshal's Refuge
 	-- {npc:9618} Karna Remtravel · {npc:9117} J.D. Collie
 	["North to the refuge, for the quests the first Un'Goro visit left: {npc:9618} stands just outside and {npc:9117} in the cave at the back; the expedition's other three wait for your next stop here."] = "На север к убежищу – за заданиями, оставшимися с первого визита в Ун'Горо: {npc:9618} стоит прямо у входа, а {npc:9117} – в пещере в глубине; трое других членов экспедиции подождут вашей следующей остановки здесь.",
 
-	-- Step 104: Northern Pylon
+	-- Step 105: Northern Pylon
 	["Northern Pylon"] = "Северный пилон",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "Пилон стоит на склоне к востоку от убежища. По склонам вокруг него кружат жутедактили ({npc:9166}): они засчитываются для {npc:9997}.",
 
-	-- Step 105: A-Me 01
+	-- Step 106: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Езжайте на восток: {area:1943}, где робот стоит среди горилл. Не заходите там в глубокую пещеру.",
 	["Below ground"] = "Под землей",
 
-	-- Step 106: Ironstone Plateau: kill these as you meet them
+	-- Step 107: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
 	["{area:1943}: kill these as you meet them"] = "{area:1943}: убивайте их по пути",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -438,20 +440,20 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "{item:11480}; под землей",
 
-	-- Step 108: Lakkari Tar Pits: kill these as you meet them
+	-- Step 109: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "{area:538}: убивайте их по пути",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Смоляные чудища и смоляные повелители барахтаются здесь: {area:538} – к югу от убежища, по пути вниз в кратер.",
 
-	-- Step 109: The crater
+	-- Step 110: The crater
 	["The crater"] = "Кратер",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
 	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
 
-	-- Step 110: Torwa Pathfinder
+	-- Step 111: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
 	-- {quest:4291} The Scent of Lar'korwi
@@ -461,55 +463,55 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, если с первого визита с равазавра выпала чешуя",
 
-	-- Step 111: Damaged Blue Crystal
+	-- Step 112: Damaged Blue Crystal
 	-- {item:280417} Damaged Blue Crystal · {npc:9619} Torwa Pathfinder
 	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "{item:280417} – недалеко к западу от лагеря {npc:9619}.",
 
-	-- Step 114: Ironstone Plateau: kill these as you meet them
+	-- Step 115: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
 
-	-- Step 116: U'cha
+	-- Step 117: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Езжайте на север по восточной стороне к плато горилл. {npc:9622}, горилла 55-го уровня, сидит в самой глубокой пещере: сначала перебейте горилл у входа.",
 
-	-- Step 117: Lar'korwi
+	-- Step 118: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Логово зверя {npc:9684} – в джунглях к северу от {npc:9619}, под восточными утесами: используйте там {item:11568}. {npc:9684} – 56-го уровня: начинайте бой с полным здоровьем.",
 
-	-- Step 118: Eastern Pylon and the crate
+	-- Step 119: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Восточный пилон и ящик",
 	-- {npc:9684} Lar'korwi · {item:11113} Crate of Foodstuffs
 	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "Пилон стоит на восточных утесах над логовом зверя {npc:9684}; {item:11113} экспедиции – в заброшенном лагере в восточных джунглях.",
 
-	-- Step 119: Torwa Pathfinder
+	-- Step 120: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "Пересеките юг кратера и вернитесь к {npc:9619} у спуска.",
 
-	-- Step 120: The Marshlands: kill these as you meet them
+	-- Step 121: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "{area:1942}: убивайте их по пути",
 
-	-- Step 121: The Gorishi hive
+	-- Step 122: The Gorishi hive
 	["The Gorishi hive"] = "Улей Гориши",
 	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "На запад вдоль южной части кратера: ее занимает улей силитидов Гориши. Используйте пузырек для соскоба в инкубаторе – камере со свисающими личинками.",
 
-	-- Step 122: Bones and equipment
+	-- Step 123: Bones and equipment
 	["Bones and equipment"] = "Кости и оборудование",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "На запад через южную часть кратера: кости динозавров лежат на земле на юго-западе, среди стегодонов. Они элитные: подбирайте кости вокруг них, а остальные добудьте с диметродонов. {item:11112} экспедиции лежит в юго-западных джунглях.",
 
-	-- Step 123: Western Pylon
+	-- Step 124: Western Pylon
 	["Western Pylon"] = "Западный пилон",
 	["The pylon stands on the western cliffs."] = "Пилон стоит на западных утесах.",
 
-	-- Step 124: Ringo
+	-- Step 125: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} сидит на юго-восточном склоне вулкана ({area:537}) в середине кратера.",
 
-	-- Step 125: Escort Ringo
+	-- Step 126: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Сопроводите NPC {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
@@ -526,6 +528,7 @@ return {
 	-- ["Ends with {npc:9298} in {area:618}: keep it"] = "Завершается у NPC {npc:9298} (зона {area:618}): сохраните",
 	-- ["Fly to {area:392}."] = "Летите сюда: {area:392}.",
 	-- ["For {area:1377}: keep it"] = "Для зоны {area:1377}: сохраните задание",
+	-- ["For {area:3197}: keep it"] = "Для места {area:3197}: сохраните задание",
 	-- ["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Летите: {area:392} → {area:2255}, затем езжайте на юг: {area:2250}.",
 	-- ["Radley and Durgen"] = "Рэдли и Дурген",
@@ -556,6 +559,7 @@ return {
 	-- ["{area:199} cauldron"] = "Котел: {area:199}",
 	-- ["{area:200} cauldron"] = "Котел: {area:200}",
 	-- ["{area:201} cauldron"] = "Котел: {area:201}",
+	-- ["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} лежит в ратуше ({area:190}) к западу от {npc:1855}: стражи Алого ордена стоят плотно.",
 	-- ["{item:12955} lies east of the barn at {area:201}."] = "{item:12955} лежит к востоку от амбара ({area:201}).",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}: продает {npc:11056}",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}: ее сопровождение будет позже по маршруту",

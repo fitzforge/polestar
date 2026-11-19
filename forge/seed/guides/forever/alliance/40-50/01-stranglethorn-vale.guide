@@ -359,7 +359,7 @@ step Kurzen's Compound
 
 step Lake Nazferiti
   zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti, on the ride to Zul'Mamwe: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, with Venture Co. Agents (39) walking among them. Stealthed Shadowmaw Panthers prowl the jungle south and east of the lake: keep to the shore camps.
+  tip Head south from the compound to Lake Nazferiti. The Venture Co. Geologists in the shore camps carry the Tumbled Crystals; Venture Co. Agents (39) walk among them. Stay on the shore: stealthed Shadowmaw Panthers prowl the jungle south and east of the lake.
   collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
 
 step Panther Mastery

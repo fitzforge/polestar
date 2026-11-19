@@ -33,7 +33,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "На юг по дороге: палатки охотников стоят чуть к западу от нее. {npc:717} и Хеминг дали вам эти задания на первом круге: берите их сейчас, только если не взяли тогда.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, если 30-40/04 его не дал: {npc:729} – в гайде 40-50 по Тернистой долине",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, если гайд 30-40/04 его не дал: ящеры-кнутохвосты, после руин в джунглях",
@@ -55,22 +55,17 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "",
 
-	-- Step 8: Lake Nazferiti
-	-- {area:37} Lake Nazferiti
-	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "От лагеря на юг к озеру ({area:37}): упавшие кристаллы носят геологи Торговой компании из лагерей на его берегу. Осторожно: среди них ходят агенты Торговой компании (39): берите геологов по краям лагерей, по одному. Тенебрюхие пантеры (37-38) в незаметности рыщут в джунглях к югу и востоку от озера: держитесь лагерей на берегу.",
-
-	-- Step 9: The jungle ruins
+	-- Step 8: The jungle ruins
 	["The jungle ruins"] = "Руины в джунглях",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "На запад через джунгли к руинам троллей: в каждых лежит одна каменная табличка с легендами троллей, первые две – в руинах к юго-западу от лагеря Эрнестуэя, последние две – на холме на северо-западе.\nОсторожно: мурлоки Соленой Чешуи на берегу у второй таблички – элита (35-37): плывите к табличке по воде и держитесь от них подальше.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "",
 
-	-- Step 10: Water Elementals
+	-- Step 9: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "Остров с призраками лежит у самого берега к западу от второй таблички: из воды вокруг него поднимаются малые элементали воды.",
 
-	-- Step 11: The Ruins of Zul'Kunda
+	-- Step 10: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
@@ -83,18 +78,28 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "Для NPC {npc:4631} ({area:35}), в конце этого круга",
 
+	-- Step 11: Sin'Dall on the raptor hill
+	-- {npc:729} Sin'Dall
+	["{npc:729} on the raptor hill"] = "",
+	-- {npc:729} Sin'Dall
+	["{npc:729} (37) prowls the hilltop."] = "",
+
 	-- Step 12: The Lashtail raptors
 	["The Lashtail raptors"] = "Ящеры-кнутохвосты",
-	-- {npc:729} Sin'Dall
+	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "На восток от руин к вершине холма к юго-западу от лагеря Эрнестуэя: ящеры-кнутохвосты бегают в джунглях вокруг него. Оставьте NPC {npc:729}, большого тигра (37) на вершине, для гайда по Тернистой долине 40-50: здесь у вас около 35-го уровня. Затем идите к палаткам охотников.",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 13: Nesingwary's Expedition
+	-- Step 13: Ajeck Rouack
+	-- {npc:717} Ajeck Rouack
+	["Hand the paw to {npc:717} beside Hemet."] = "",
+
+	-- Step 14: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}: тропические ловцы будут в гайде 40-50",
 
-	-- Step 14: Rebel Camp
+	-- Step 15: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "На северо-восток по дороге к месту {area:99}, затем обратно на юг через джунгли.",
 	-- {npc:733} Sergeant Yohwa
@@ -102,14 +107,14 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "сохраните его: знахари из племени Дробителей Черепов (41-42) ждут гайда по Тернистой долине 40-50",
 
-	-- Step 15: Snapjaw Crocolisks
+	-- Step 16: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Кроколиски-хрустогрызы",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "Кроколиски-хрустогрызы греются вдоль реки посреди джунглей, по пути на юг в {area:35}.",
 
-	-- Step 16: Booty Bay
+	-- Step 17: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, внутри",
 	-- {npc:2496} Baron Revilgaz
@@ -130,14 +135,17 @@ return {
 	["{npc:4631}, on the docks"] = "{npc:4631} – на пристани",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "На восток от руин к вершине холма к юго-западу от лагеря Эрнестуэя: ящеры-кнутохвосты бегают в джунглях вокруг него. Оставьте NPC {npc:729}, большого тигра (37) на вершине, для гайда по Тернистой долине 40-50: здесь у вас около 35-го уровня. Затем идите к палаткам охотников.",
 	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "На восток в {area:99}, по пути обратно в лагерь Эрнестуэя.",
 	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Для персонажей 35-36 уровня, но несколько заданий здесь 37-41 уровня: намеренно, ради опыта. Тролли из племени Дробителей Черепов в задании {quest:205} – 39-42 уровня, так что выманивайте их по одному.",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Обойдите по кругу руины троллей на севере и в центре: в каждых лежит одна каменная табличка с легендами троллей. В джунглях вокруг них в незаметности рыщут тенебрюхие пантеры; упавшие кристаллы носят члены Торговой компании из лагеря у озера ({area:37}).",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "На север вдоль побережья к руинам на холме: там лежат две последние таблички. Подбирайте выпадающие страницы «Зеленых холмов».",
 	-- ["Skullsplitter trolls"] = "Тролли из племени Дробителей Черепов",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "От лагеря на юг к озеру ({area:37}): упавшие кристаллы носят геологи Торговой компании из лагерей на его берегу, а тенебрюхие пантеры в незаметности рыщут в джунглях к югу и востоку от него.",
+	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "От лагеря на юг к озеру ({area:37}): упавшие кристаллы носят геологи Торговой компании из лагерей на его берегу. Осторожно: среди них ходят агенты Торговой компании (39): берите геологов по краям лагерей, по одному. Тенебрюхие пантеры (37-38) в незаметности рыщут в джунглях к югу и востоку от озера: держитесь лагерей на берегу.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Тролли из племени Дробителей Черепов занимают руины к востоку от дороги между лагерем Эрнестуэя и местом {object:3202}.",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "На запад через джунгли к руинам троллей: в каждых лежит одна каменная табличка с легендами троллей, первые две – в руинах к юго-западу от лагеря Эрнестуэя, последние две – на холме на северо-западе.",
+	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, если 30-40/04 его не дал: {npc:729} – в гайде 40-50 по Тернистой долине",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: тенебрюхие пантеры рыщут вокруг озера ({area:37}), после лагеря ({area:101})",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: для NPC {npc:773} ({area:35})",
 }

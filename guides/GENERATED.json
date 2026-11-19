@@ -18,7 +18,7 @@
     "forever/alliance/30-40/05-arathi-highlands.guide": "a805b63a2b218aab3f0c1f21fde65c19fd2f0ec15cf5ad98abaec34e7df1d38c",
     "forever/alliance/30-40/06-badlands.guide": "bc7eadead14f11528032b82ca144ee6c0849da3397b043170ac6227a8bb47f4f",
     "forever/alliance/30-40/06b-desolace.guide": "6378e9d44c9eca67b02fcd32347ce9a2688a6d0bf969ae86012722b6583d1655",
-    "forever/alliance/40-50/01-stranglethorn-vale.guide": "8d226908284dddf5e5bdbfb0b79b4b938a84058e3a3a176998e01be065f141f2",
+    "forever/alliance/40-50/01-stranglethorn-vale.guide": "8711e68bedb29281757983e3861bf848c4a9a0b5b406c795b0b29b0f7c6723b6",
     "forever/alliance/40-50/01b-riverglades.guide": "3b19bcc2ed738aa5f279b9d61a052627afc820683a43b5ded61416695b49bc75",
     "forever/alliance/40-50/02-badlands.guide": "a33bb67229911146efe59eccd03ba16eaf5cfa23d08f19cec5369dea1fba8327",
     "forever/alliance/40-50/03-feralas.guide": "4dfaf6a79b860e2bd0d6568458dbd59aeaee76e01ac4e1f3a856b3fd50247eff",
@@ -68,6 +68,6 @@
     "forever/horde/tauren/01-mulgore.guide": "c35d104496d79e6243ce1fe50207b531e3850e5e4661016a5a3a5f804b33fd76",
     "forever/horde/troll/01-durotar.guide": "c476d61af4c6b603b57d362113ba2dfa4c2f29d8f8254a7600e011b81643374a",
     "forever/horde/undead/01-tirisfal-glades.guide": "9e24e07f1f32c2f1da6619059c9e2642fe4e1bb2acbab138739a4d1f1de8b75c",
-    "legs.json": "0440c1950391a1a17fa3e0977675c2e605884edc54a307d34165504846a74515"
+    "legs.json": "317d31eacb756ebc4587b2c8a4dc58fb5a3a0dd40ff8861331c0a586489bb28e"
   }
 }

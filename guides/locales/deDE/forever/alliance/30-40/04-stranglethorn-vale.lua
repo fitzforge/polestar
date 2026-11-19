@@ -28,9 +28,6 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773}: Nesingwarys Lager, auf dem Weg",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, in der Taverne",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737}: die Tumbled Crystals, auf der nördlichen Runde",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, oben in der Taverne",
 
@@ -127,7 +124,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} sammelt die {item:2755}: Die Seiten lässt fast jeder Humanoide im Dschungel fallen. Füg die Seiten unterwegs zu Kapiteln zusammen.",
 	-- {npc:729} Sin'Dall
-	["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "Behalte sie: {npc:729} (37) kommt im Schlingendorn-Guide für 40-50, mit etwa 41",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "Behalte sie: Die Schmetterschwänze kommen in der zweiten Runde (04b), rund um den Hügel von {npc:729}",
@@ -236,6 +233,7 @@ return {
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Geh zurück nach Norden; die {area:310} liegt westlich der Straße mitten im Dschungel. Die Kristallrückenbasilisken dort lassen die Splitter fallen.",
 	-- ["grind on {npc:1085}"] = "Grinde an {npc:1085}",
 	-- ["grind on {npc:682}"] = "Grinde an {npc:682}",
+	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "Behalte sie: {npc:729} (37) kommt im Schlingendorn-Guide für 40-50, mit etwa 41",
 	-- ["{area:150} flight master"] = "Flugmeister von {area:150}",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} hat keinen Druidenlehrer: Nimm die {area:2257} von {object:171524} nach {zone:1453} und trainiere bei {npc:5504}.",
 	-- ["{area:301}: kill these as you meet them"] = "{area:301}: Töte diese, sobald sie dir begegnen",

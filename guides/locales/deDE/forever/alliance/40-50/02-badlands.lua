@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, drinnen",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "In {area:498}",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "Morastwinkel",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Nimm die Straße südwestlich aus Theramore nach Morastwinkel, dem Goblinlager am Rand des {area:511}. {npc:270723} und {npc:270727} stehen zusammen im Lager.",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "Die {item:280092} wächst im Sumpf östlich des Lagers: Sammle sie zuerst. Dann nisten die Sengenden Jungtiere und Welpen (41-43) und die Drachkin der Feuermähnen im Sumpf nördlich und westlich von Morastwinkel, auf dem Rückweg; alle lassen die abgeworfenen Schuppen fallen.\nVorsicht: Die Bannschuppen und Flammenrufer der Feuermähnen sind 43-44 und wirken Feuerzauber: Zieh sie einzeln.",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Reite dann zurück nach Nordosten zum Flugmeister von Theramore.",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "Flugmeister von Theramore",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Hexenmeister: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -173,6 +169,7 @@ return {
 	-- ["Blue Pearls from Stranglethorn"] = "Blaue Perlen aus dem Schlingendorntal",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Flieg nach {area:392}; {npc:6251} lehrt im Haus bei der Bank. Flieg danach zurück nach Theramore.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Flieg nach {area:608}, reite nach Süden durch {zone:1443} nach {zone:1444} und folge der Straße zum Steg an der {area:1108}; das Schiff fährt hinüber zur {area:1116}, wo der nächste Guide beginnt.",
+	-- ["Inside {area:498}"] = "In {area:498}",
 	-- ["On to Feathermoon"] = "Weiter nach Feathermoon",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Reite nach Norden nach {area:144} und flieg nach {area:271}. {npc:3980} predigt beim Gasthaus.",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {area:47}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",

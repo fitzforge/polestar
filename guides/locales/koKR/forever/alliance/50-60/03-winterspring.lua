@@ -76,7 +76,9 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "온전한 설인 뿔",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "언덕으로 돌아가세요. 뿔은 맹렬한 얼음엉겅퀴설인(56-57)과 얼음엉겅퀴설인 우두머리(57-58)만 가지고 있습니다.\n주의: 맹렬한 얼음엉겅퀴설인을 언덕 가장자리에서 하나씩 잡고, 우두머리는 피하세요. 뿔은 둘 다에게서 나옵니다.",
+	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -129,9 +131,15 @@ return {
 	-- Step 26: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "{area:199} 가마솥",
-	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "야영지에서 북서쪽으로 안돌할 서쪽의 {area:199}까지 가세요. {npc:11075}(53)이(가) 비명소리 구울(54) 사이에서 가마솥을 지킵니다.",
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}."] = "",
+	-- {npc:10778} Janice Felstone
+	["{npc:10778}, upstairs in the farmhouse"] = "",
+	-- {object:175894} Janice's Parcel
+	["{object:175894}, inside"] = "",
+	-- {zone:1453} Stormwind · {zone:1451} Silithus
+	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 
 	-- Step 27: Chillwind Camp
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
@@ -190,12 +198,14 @@ return {
 	["The next guide starts here and flies to {area:3197}."] = "다음 가이드는 여기서 시작해 {area:3197}(으)로 날아갑니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "언덕으로 돌아가세요. 뿔은 맹렬한 얼음엉겅퀴설인(56-57)과 얼음엉겅퀴설인 우두머리(57-58)만 가지고 있습니다.\n주의: 맹렬한 얼음엉겅퀴설인을 언덕 가장자리에서 하나씩 잡고, 우두머리는 피하세요. 뿔은 둘 다에게서 나옵니다.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "언덕으로 돌아가세요. 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인만 뿔을 지니고 있습니다.",
 	-- ["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "남쪽 길을 따라 동쪽으로 {area:139}에 들어가세요. {area:2262}의 폐허는 그 남쪽에 있습니다. {npc:10926}의 유령은 남쪽 끝의 무너진 집 옆에서 놀고 있습니다.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "{npc:9298}의 안내를 따라 서리망치거인들을 지나 {area:2256} 입구로 가세요. 거인은 하나씩 지나가세요.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "{npc:11064} 해방: 대화하기",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "얼음엉겅퀴설인은 {area:2244} 남쪽 언덕에, 서리바람 키메라는 {area:2255} 쪽 계곡에 삽니다.",
+	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "야영지에서 북서쪽으로 안돌할 서쪽의 {area:199}까지 가세요. {npc:11075}(53)이(가) 비명소리 구울(54) 사이에서 가마솥을 지킵니다.",
 	-- ["Optional: {area:1417}"] = "선택: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "마차 주변의 보급품을 줍고, 근처 올빼미야수에게서 {npc:10301}의 목걸이를 되찾으세요.",
 	-- ["Pristine Yeti Horns"] = "온전한 설인 뿔",

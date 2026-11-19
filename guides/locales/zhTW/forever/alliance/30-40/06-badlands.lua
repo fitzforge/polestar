@@ -25,8 +25,8 @@ return {
 	-- {area:346} Hammertoe's Digsite
 	["{area:346}: kill these as you meet them"] = "{area:346}：遇到就殺",
 	-- {npc:269577} Dorgaron
-	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "暗爐矮人在挖掘場北邊紮營；揉皺的地圖和{npc:269577}的採礦盔帽在他們的帳篷之間。暗爐隧道工和暗爐巫師身上帶著雷杜爾的鋤頭和{npc:269577}的文物。峭壁山狗在周圍的山坡上遊蕩。",
+	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote · Shadowforge Ruffians = {npc:4845} Shadowforge Ruffian
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "",
 	-- {item:278403} Explorers' League Mining Helmet
 	["{item:278403}, in the Shadowforge camp"] = "{item:278403}，在暗爐營地裡",
 	-- {item:7847} Buzzard Gizzard
@@ -141,6 +141,7 @@ return {
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "次級石元素在{npc:2921}西邊的{area:1878}遊蕩；每個石元素都可能掉落{npc:1470}要的石元素碎片。",
 	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "瑪洛迪半人馬佔據墓地西邊的{area:607}；每一種都會掉落圖騰。",
 	-- ["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "石元素在{npc:2921}東南方遊蕩；巨型禿鷲和老峭壁山狗則在牠們西邊的平原上。",
+	-- ["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it."] = "暗爐矮人在挖掘場北邊紮營；揉皺的地圖和{npc:269577}的採礦盔帽在他們的帳篷之間。暗爐隧道工和暗爐巫師身上帶著雷杜爾的鋤頭和{npc:269577}的文物。峭壁山狗在周圍的山坡上遊蕩。",
 	-- ["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "暗爐矮人在挖掘場北邊紮營；揉皺的地圖在他們的帳篷之間。暗爐隧道工和暗爐巫師身上帶著雷杜爾的鋤頭。峭壁山狗在周圍的山坡上遊蕩。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}高塔北邊的西北海岸；卡尼托的背包就在外海的海底，任何納迦都可能掉落拉克摩爾的金鑰匙。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；擊殺他取得{quest:6027}。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}高塔北邊的西北海岸；卡尼托的背包就在外海的海底。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；擊殺他取得{quest:6027}。",

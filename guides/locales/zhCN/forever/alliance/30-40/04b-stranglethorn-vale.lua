@@ -33,7 +33,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "沿道路向南：猎人的帐篷就在道路西边。{npc:717}和赫米特在第一轮已给过这些任务：只有当时没接才现在接取。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}，若30-40/04中未接取：{npc:729}，在40-50级荆棘谷指南中处理",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，若30-40/04中未接取：鞭尾迅猛龙，在丛林废墟之后处理",
@@ -55,22 +55,17 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "{object:288}：在地下",
 
-	-- Step 8: Lake Nazferiti
-	-- {area:37} Lake Nazferiti
-	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶。小心：风险投资公司特工（39级）在他们中间走动：一次只打营地边缘的一个地质学家。深喉猎豹（37-38级）潜行在湖南边和东边的丛林中：沿湖岸营地行动。",
-
-	-- Step 9: The jungle ruins
+	-- Step 8: The jungle ruins
 	["The jungle ruins"] = "丛林废墟",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "向西穿过丛林前往巨魔废墟：每处都有一块记载巨魔传说的石板，前两块在奈辛瓦里营地西南的废墟中，后两块在西北的山丘上。\n小心：第二块石板附近岸边的盐鳞鱼人是精英（35-37级）：从水中游到石板处，远离它们。",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}：在水下的{object:58}中寻找",
 
-	-- Step 10: Water Elementals
+	-- Step 9: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "闹鬼岛屿就在第二块石板以西的近海：次级水元素在周围水中出现。",
 
-	-- Step 11: The Ruins of Zul'Kunda
+	-- Step 10: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
@@ -83,18 +78,28 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "交给{area:35}的{npc:4631}，在这一圈结束时",
 
+	-- Step 11: Sin'Dall on the raptor hill
+	-- {npc:729} Sin'Dall
+	["{npc:729} on the raptor hill"] = "",
+	-- {npc:729} Sin'Dall
+	["{npc:729} (37) prowls the hilltop."] = "",
+
 	-- Step 12: The Lashtail raptors
 	["The Lashtail raptors"] = "鞭尾迅猛龙",
-	-- {npc:729} Sin'Dall
+	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "从废墟向东前往奈辛瓦里营地西南的山顶：鞭尾迅猛龙在周围丛林中游荡。山顶上的大老虎{npc:729}（37级）留给40-50级荆棘谷指南：你现在大约35级。然后前往猎人的帐篷。",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 13: Nesingwary's Expedition
+	-- Step 13: Ajeck Rouack
+	-- {npc:717} Ajeck Rouack
+	["Hand the paw to {npc:717} beside Hemet."] = "",
+
+	-- Step 14: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}：丛林捕猎者留到40-50级",
 
-	-- Step 14: Rebel Camp
+	-- Step 15: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "沿路向东北前往{area:99}，然后穿过丛林返回南边。",
 	-- {npc:733} Sergeant Yohwa
@@ -102,14 +107,14 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "保留它：劈颅巫医（41-42级）留给40-50级荆棘谷指南",
 
-	-- Step 15: Snapjaw Crocolisks
+	-- Step 16: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
 
-	-- Step 16: Booty Bay
+	-- Step 17: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}：在屋内",
 	-- {npc:2496} Baron Revilgaz
@@ -130,6 +135,7 @@ return {
 	["{npc:4631}, on the docks"] = "{npc:4631}，在码头上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "从废墟向东前往奈辛瓦里营地西南的山顶：鞭尾迅猛龙在周围丛林中游荡。山顶上的大老虎{npc:729}（37级）留给40-50级荆棘谷指南：你现在大约35级。然后前往猎人的帐篷。",
 	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "向东前往{area:99}，顺路返回奈辛瓦里营地。",
 	-- ["Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it."] = "沿西海岸向北，前往赫米特·奈辛瓦里营地以西近海的闹鬼岛屿，次级水元素在周围水中出现。",
 	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "适合35到36级的角色，但这里有几个任务是37-41级：这是有意安排的，为了它们的经验值。{quest:205}的劈颅巨魔为39-42级，所以一次拉一只。",
@@ -143,9 +149,11 @@ return {
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往劈颅废墟时会经过。",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "沿路向南：猎人的帐篷就在道路西侧。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶，深喉猎豹潜行在湖南边和东边的丛林中。",
+	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶。小心：风险投资公司特工（39级）在他们中间走动：一次只打营地边缘的一个地质学家。深喉猎豹（37-38级）潜行在湖南边和东边的丛林中：沿湖岸营地行动。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈颅巨魔占据奈辛瓦里和{object:3202}之间道路东边的废墟。",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "向西穿过丛林前往巨魔废墟：每处都有一块记载巨魔传说的石板，前两块在奈辛瓦里营地西南的废墟中，后两块在西北的山丘上。",
 	-- ["grind on {npc:1152}"] = "刷{npc:1152}升级",
+	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}，若30-40/04中未接取：{npc:729}，在40-50级荆棘谷指南中处理",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}：完成{area:101}之后，深喉猎豹在{area:37}周围游荡",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：交给{area:35}的{npc:773}",
 	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",

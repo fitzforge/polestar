@@ -33,7 +33,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "Para o sul pela estrada: as barracas dos caçadores ficam logo a oeste dela. {npc:717} e Rosarães deram estas no primeiro circuito: aceite agora só se não as pegou.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, se o 30-40/04 não a deu: {npc:729}, no guia 40-50 da Selva do Espinhaço",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, se o 30-40/04 não a deu: os Raptores Batecauda, depois das ruínas da selva",
@@ -55,22 +55,17 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "{object:288}, no subterrâneo",
 
-	-- Step 8: Lake Nazferiti
-	-- {area:37} Lake Nazferiti
-	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "Do complexo, siga para o sul até {area:37}: os Geólogos da Empreendimentos S.A. nos acampamentos da margem carregam os Cristais Rolados. Cuidado: Agentes da Empreendimentos S.A. (39) andam entre eles: ataque os Geólogos nas bordas dos acampamentos, um de cada vez. Panteras Umbragorja (37-38) rondam furtivas na selva ao sul e a leste do lago: fique nos acampamentos da margem.",
-
-	-- Step 9: The jungle ruins
+	-- Step 8: The jungle ruins
 	["The jungle ruins"] = "As ruínas da selva",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "Para o oeste pela selva até as ruínas trolls: cada uma guarda uma tabuleta de pedra das lendas trolls, as duas primeiras nas ruínas a sudoeste do acampamento do Rosarães, as duas últimas na colina a noroeste.\nCuidado: os murlocs Salescama na costa perto da segunda tabuleta são elite (35-37): nade até a tabuleta pela água e mantenha distância deles.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}: {object:58}; debaixo d'água",
 
-	-- Step 10: Water Elementals
+	-- Step 9: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "A ilha assombrada fica logo ao largo da costa, a oeste da segunda tabuleta: os Elementais Inferiores da Água surgem da água em volta dela.",
 
-	-- Step 11: The Ruins of Zul'Kunda
+	-- Step 10: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
@@ -83,18 +78,28 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "Para o {npc:4631}, em {area:35}, no fim deste circuito",
 
+	-- Step 11: Sin'Dall on the raptor hill
+	-- {npc:729} Sin'Dall
+	["{npc:729} on the raptor hill"] = "",
+	-- {npc:729} Sin'Dall
+	["{npc:729} (37) prowls the hilltop."] = "",
+
 	-- Step 12: The Lashtail raptors
 	["The Lashtail raptors"] = "Os raptores Batecauda",
-	-- {npc:729} Sin'Dall
+	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "Das ruínas, siga para o leste até o topo da colina a sudoeste do acampamento do Rosarães: os Raptores Batecauda correm pela selva em volta dela. Deixe {npc:729}, o grande tigre (37) no topo da colina, para o Guia de Selva do Espinhaço 40-50: você está por volta do nível 35 aqui. Depois, siga para as tendas dos caçadores.",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 13: Nesingwary's Expedition
+	-- Step 13: Ajeck Rouack
+	-- {npc:717} Ajeck Rouack
+	["Hand the paw to {npc:717} beside Hemet."] = "",
+
+	-- Step 14: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}: os Espreitadores da Selva ficam para o 40-50",
 
-	-- Step 14: Rebel Camp
+	-- Step 15: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "Siga a estrada para o nordeste até {area:99} e depois volte para o sul pela selva.",
 	-- {npc:733} Sergeant Yohwa
@@ -102,14 +107,14 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "guarde-a: os Mandingueiros Rachacrânio (41-42) ficam para o Guia de Selva do Espinhaço 40-50",
 
-	-- Step 15: Snapjaw Crocolisks
+	-- Step 16: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocoliscos Arapuca",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "Crocoliscos Arapuca tomam sol ao longo do rio no meio da selva, no caminho para o sul até {area:35}.",
 
-	-- Step 16: Booty Bay
+	-- Step 17: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, lá dentro",
 	-- {npc:2496} Baron Revilgaz
@@ -130,6 +135,7 @@ return {
 	["{npc:4631}, on the docks"] = "{npc:4631}, nas docas",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "Das ruínas, siga para o leste até o topo da colina a sudoeste do acampamento do Rosarães: os Raptores Batecauda correm pela selva em volta dela. Deixe {npc:729}, o grande tigre (37) no topo da colina, para o Guia de Selva do Espinhaço 40-50: você está por volta do nível 35 aqui. Depois, siga para as tendas dos caçadores.",
 	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "Para o leste até {area:99}, no caminho de volta ao acampamento do Rosarães.",
 	-- ["Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it."] = "Siga a costa oeste para o norte até a ilha assombrada, ao largo da costa a oeste do acampamento do Rosarães: os Elementais Inferiores da Água surgem da água em volta dela.",
 	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "Para personagens de nível 35 a 36, mas várias missões aqui são de nível 37-41: de propósito, pela experiência. Os trolls Rachacrânio de {quest:205} são de nível 39-42, então puxe um de cada vez.",
@@ -143,9 +149,11 @@ return {
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "Crocolíscos Arapuca tomam sol ao longo do rio no meio da selva, no caminho para o sul até as ruínas Rachacrânio.",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "Para o sul pela estrada: as barracas dos caçadores ficam logo a oeste dela.",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "Do complexo, siga para o sul até {area:37}: os Geólogos da Empreendimentos S.A. nos acampamentos da margem carregam os Cristais Rolados, e as Panteras Umbragorja rondam furtivas na selva ao sul e a leste dele.",
+	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "Do complexo, siga para o sul até {area:37}: os Geólogos da Empreendimentos S.A. nos acampamentos da margem carregam os Cristais Rolados. Cuidado: Agentes da Empreendimentos S.A. (39) andam entre eles: ataque os Geólogos nas bordas dos acampamentos, um de cada vez. Panteras Umbragorja (37-38) rondam furtivas na selva ao sul e a leste do lago: fique nos acampamentos da margem.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Os trolls Rachacrânio dominam as ruínas a leste da estrada, entre Rosarães e {object:3202}.",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "Para o oeste pela selva até as ruínas trolls: cada uma guarda uma tabuleta de pedra das lendas trolls, as duas primeiras nas ruínas a sudoeste do acampamento do Rosarães, as duas últimas na colina a noroeste.",
 	-- ["grind on {npc:1152}"] = "mate {npc:1152} até subir",
+	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, se o 30-40/04 não a deu: {npc:729}, no guia 40-50 da Selva do Espinhaço",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: as Panteras Umbragorja rondam {area:37}, depois de {area:101}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, em {area:35}",
 	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",

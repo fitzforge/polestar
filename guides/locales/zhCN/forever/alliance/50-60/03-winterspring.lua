@@ -76,7 +76,9 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "完美的雪人角",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "回到丘陵：只有冰蓟雪人女王（56-57级）和冰蓟雪人族长（57-58级）身上有角。\n注意：在丘陵边缘逐个击杀冰蓟雪人女王，别碰族长：两者都会掉落角。",
+	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -129,9 +131,15 @@ return {
 	-- Step 26: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "{area:199}的大锅",
-	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "从营地向西北前往安多哈尔以西的{area:199}：{npc:11075}（53级）在喋喋不休的食尸鬼（54级）之间守着大锅。",
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}."] = "",
+	-- {npc:10778} Janice Felstone
+	["{npc:10778}, upstairs in the farmhouse"] = "",
+	-- {object:175894} Janice's Parcel
+	["{object:175894}, inside"] = "",
+	-- {zone:1453} Stormwind · {zone:1451} Silithus
+	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 
 	-- Step 27: Chillwind Camp
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
@@ -190,6 +198,7 @@ return {
 	["The next guide starts here and flies to {area:3197}."] = "下一份指南从这里开始，飞往{area:3197}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "回到丘陵：只有冰蓟雪人女王（56-57级）和冰蓟雪人族长（57-58级）身上有角。\n注意：在丘陵边缘逐个击杀冰蓟雪人女王，别碰族长：两者都会掉落角。",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "返回山丘：只有冰蓟雪人女王和冰蓟雪人王携带角。",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "回到山丘：只有冰蓟雪人女王和冰蓟雪人族长携带角。一直杀雪人到54级：在此之前哈尔罗·巴纳比的枭兽任务是红色的。",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "注意：{npc:10411}在非战斗状态下会隐形，开战后会召唤石翼石像鬼。总共只有三个刷新点，刷新间隔为 15 分钟。",
@@ -199,6 +208,7 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "解放{npc:11064}：与它们交谈",
 	-- ["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "从{area:271}出发，沿道路向北穿过奥特兰克前往{area:3197}。",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "冰蓟雪人住在{area:2244}以南的山丘，冰风奇美拉在通往{area:2255}的山谷中。",
+	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "从营地向西北前往安多哈尔以西的{area:199}：{npc:11075}（53级）在喋喋不休的食尸鬼（54级）之间守着大锅。",
 	-- ["Optional: {area:1417}"] = "可选：{area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "拾取马车周围的补给，并从附近的枭兽身上夺回{npc:10301}的护符。",
 	-- ["Pristine Yeti Horns"] = "完美的雪人角",

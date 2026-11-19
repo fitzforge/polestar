@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "진흙톱니",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "테라모어에서 남서쪽 길을 따라 {area:511} 가장자리의 고블린 야영지인 진흙톱니로 가십시오. {npc:270723}와(과) {npc:270727}은(는) 야영지에 함께 있습니다.",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092}은(는) 야영지 동쪽 늪에서 자랍니다: 먼저 채집하십시오. 그런 다음 돌아오는 길에 진흙톱니 북쪽과 서쪽 늪에 둥지를 튼 갓 부화한 화염 새끼용과 새끼용(41-43), 화염갈기혈족 용족을 처치하십시오. 모두 허물 비늘을 떨어뜨립니다.\n주의: 화염갈기혈족 맹독전사와 화염술사는 43-44레벨이며 화염 주문을 씁니다: 하나씩 끌어오십시오.",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "그런 다음 북동쪽으로 돌아가 테라모어의 비행 조련사에게 가십시오.",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "테라모어 섬 비행 조련사",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

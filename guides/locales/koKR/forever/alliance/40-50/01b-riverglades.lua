@@ -25,8 +25,9 @@ return {
 	["The western {zone:2548}"] = "{zone:2548} 서부",
 
 	-- Step 3: Scout Bolain
-	-- {npc:260026} Scout Bolain
-	["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
+	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -454,11 +455,16 @@ return {
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "강을 건너 서쪽 {area:16736}(으)로 가십시오. 야영지 주변의 농부 장작더미에서 나무 묶음을 얻습니다.\n주의: 정예 {npc:263380}(42레벨)이(가) 야영지 옆 강을 배회합니다. 다가오면 물러나서 지나가게 두십시오.",
 
-	-- Step 94: Sergeant Riftan
+	-- Step 94: The Western Front
+	-- {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+
+	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "긴 골짜기를 따라 북쪽 {area:16685}(으)로 가십시오. {npc:258023}은(는) 황혼의 교단 요새 아래 작은 야영지에 있습니다.",
 
-	-- Step 95: The Twilight camps
+	-- Step 96: The Twilight camps
 	["The Twilight camps"] = "황혼의 야영지",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -468,7 +474,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "{npc:258652} 처치",
 
-	-- Step 96: Marshal Ryan
+	-- Step 97: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250}은(는) 골짜기 서쪽 끝 야영지 사이에 부상당한 채 쓰러져 있습니다.\n주의: {npc:256881}와(과) {npc:256891}(정예, 46)이(가) 그의 북쪽 요새를 지키고 있습니다. 라이언에게는 남쪽에서 접근하십시오.",
 	-- {npc:257250} Marshal Ryan
@@ -476,74 +482,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}: {area:16724}의 {npc:257558}에게",
 
-	-- Step 97: The ogre mine
+	-- Step 98: The ogre mine
 	["The ogre mine"] = "오우거 광산",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "야영지 북쪽 광산에서 교단이 황혼의 정복자를 시켜 오우거 광부들을 부리고 있습니다.\n주의: 황혼의 집행자(정예, 45레벨)가 야영지를 오가며 광산 입구를 지나갑니다. 지나간 뒤에 들어가고, 광부와 정복자는 밖으로 끌어내십시오.",
 
-	-- Step 99: Bring Me His Head
+	-- Step 100: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}은(는) 골짜기 끝 요새에 있는 정예(46레벨)이며 주위에 집행자들이 있습니다. 파티를 권장합니다.",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}: {npc:257591}에게",
 
-	-- Step 100: Back to Farholde Keep
+	-- Step 101: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "{area:16724}(으)로 귀환",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "귀환석이 {area:16724} 여관에 지정되어 있습니다. 사용하거나 남쪽 성채로 말을 타고 돌아가십시오.",
 
-	-- Step 101: Farholde Keep
+	-- Step 102: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "여관에서: 들어가는 길에 {npc:260070}, 이어서 성채 안의 {npc:257558}와(과) {npc:257591}.",
 
-	-- Step 103: Demar Brant
+	-- Step 104: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}: {zone:1453}의 {npc:278088}에게",
 
-	-- Step 104: The Twilight Threat
+	-- Step 105: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}: 킬가르의 머리를 {object:2117}의 {npc:1748}에게",
 
-	-- Step 105: Sister Rowland
+	-- Step 106: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}, 성채 남서쪽 모퉁이의 대성당에 있습니다.",
 
-	-- Step 106: Stormwind
+	-- Step 107: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087}을(를) 통해 {zone:1453}(으)로 날아갈 수 있습니다. {npc:278088}은(는) {object:2098}에서 기다리고 있습니다.",
 
-	-- Step 108: Train before the Badlands
+	-- Step 109: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "{zone:1418}에 가기 전에 수련하기",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "{zone:2548}에는 직업 상급자가 없고, {zone:1418} & {zone:1425} 가이드도 상급자를 거치지 않습니다: {npc:257087}을(를) 통해 {zone:1453}(으)로 날아가서 계속 가기 전에 수련하십시오.",
 
-	-- Step 109: Your class trainer
+	-- Step 110: Your class trainer
 	["Your class trainer"] = "직업 상급자",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "{zone:2548}에는 직업 상급자가 없습니다: 계속 날아가기 전에 이곳 {zone:1453}에서 수련하십시오.",
 
-	-- Step 110: Stormwind flight master
+	-- Step 111: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 111: Shaman trainer
+	-- Step 112: Shaman trainer
 	["Shaman trainer"] = "",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}과(와) {zone:1453}에는 주술사 상급자가 없고, {zone:1418} & {zone:1425} 가이드도 상급자를 거치지 않습니다: {area:1537}(으)로 날아가서 수련하십시오. {area:144}은(는) 거기서 조금만 더 날아가면 됩니다.",
 
-	-- Step 112: Leave Stormwind
+	-- Step 113: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "{zone:1453} 떠나기",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "다음 가이드는 {zone:1432} 남쪽의 {zone:1418}에서 시작합니다: {area:144}(으)로 날아가십시오. {zone:1453}의 그리폰 조련사는 {object:2096}에 있습니다.",
 
-	-- Step 113: Loch Modan
+	-- Step 114: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "아직 {area:144}(으)로 가는 비행 경로가 없다면: {zone:1453}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 간 뒤, 성문을 나와 동쪽으로 {zone:1426}을(를) 지나 터널을 통해 {zone:1432}(으)로 들어가서 길을 따라 {area:144}까지 가십시오.",
 
-	-- Step 114: Fly to Thelsamar
+	-- Step 115: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "{area:144}(으)로 비행",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -551,6 +557,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
+	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: 유품 묻기",
 }

@@ -28,9 +28,6 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773} : camp de Nesingwary, sur le chemin",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, dans la taverne",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737} : les Cristaux réduits, lors de la boucle nord",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, à l'étage de la taverne",
 
@@ -127,7 +124,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} collectionne {item:2755} : les pages tombent de presque tous les humanoïdes de la jungle. Assemblez les pages en chapitres au fur et à mesure.",
 	-- {npc:729} Sin'Dall
-	["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "gardez-la : {npc:729} (37) vient dans le guide Strangleronce 40-50, vers le niveau 41",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "gardez-la : les Raptors flagellants viennent lors de la deuxième boucle (04b), autour de la colline de {npc:729}",
@@ -244,6 +241,7 @@ return {
 	-- ["grind on {npc:1085}"] = "tuez en boucle : {npc:1085}",
 	-- ["grind on {npc:1096}"] = "tuez en boucle : {npc:1096}",
 	-- ["grind on {npc:682}"] = "tuez en boucle : {npc:682}",
+	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "gardez-la : {npc:729} (37) vient dans le guide Strangleronce 40-50, vers le niveau 41",
 	-- ["{area:108} flight master"] = "Maître de vol de {area:108}",
 	-- ["{area:150} flight master"] = "Maître de vol du {area:150}",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} n'a pas de maître des druides : prenez le {area:2257} depuis {object:171524} jusqu'à {zone:1453} et entraînez-vous auprès de {npc:5504}.",

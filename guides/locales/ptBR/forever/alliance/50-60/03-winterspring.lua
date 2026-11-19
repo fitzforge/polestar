@@ -76,7 +76,9 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Chifres Impolutos de Yeti",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "De volta às colinas: só as Matriarcas Cardo de Gelo (56-57) e os Patriarcas (57-58) têm os chifres.\nCuidado: pegue as Matriarcas na borda das colinas, uma de cada vez, e deixe os Patriarcas: os chifres caem dos dois.",
+	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -129,9 +131,15 @@ return {
 	-- Step 26: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Caldeirão de {area:199}",
-	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw
+	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Saia do acampamento para noroeste até {area:199}, a oeste de Andorhal: {npc:11075} (53) guarda o caldeirão entre os Carniçais Grasnantes (54).",
+	["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}."] = "",
+	-- {npc:10778} Janice Felstone
+	["{npc:10778}, upstairs in the farmhouse"] = "",
+	-- {object:175894} Janice's Parcel
+	["{object:175894}, inside"] = "",
+	-- {zone:1453} Stormwind · {zone:1451} Silithus
+	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 
 	-- Step 27: Chillwind Camp
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
@@ -190,6 +198,7 @@ return {
 	["The next guide starts here and flies to {area:3197}."] = "O próximo guia começa aqui e voa para o {area:3197}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.\nCareful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both."] = "De volta às colinas: só as Matriarcas Cardo de Gelo (56-57) e os Patriarcas (57-58) têm os chifres.\nCuidado: pegue as Matriarcas na borda das colinas, uma de cada vez, e deixe os Patriarcas: os chifres caem dos dois.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "De volta às colinas: só as Matriarcas e os Patriarcas Cardo de Gelo carregam os chifres.",
 	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "De volta às colinas: só as Matriarcas e os Patriarcas Cardo de Gelo levam os chifres. Continue matando yetis até o nível 54: as missões de plumacuns de Harlo ficam vermelhas antes disso.",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: o {npc:10411} fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa. Só existem 3, e elas renascem a cada 15 min.",
@@ -199,6 +208,7 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos da Vila das Flechas: fale com eles",
 	-- ["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "De {area:271}, siga para o norte pela estrada por Alterac até {area:3197}.",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Yetis Cardo de Gelo vivem nas colinas ao sul da {area:2244}, Quimeras Ventogelantes no vale rumo a {area:2255}.",
+	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Saia do acampamento para noroeste até {area:199}, a oeste de Andorhal: {npc:11075} (53) guarda o caldeirão entre os Carniçais Grasnantes (54).",
 	-- ["Optional: {area:1417}"] = "Opcional: {area:1417}",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Pegue os suprimentos em volta da carroça e tome de volta o amuleto de {npc:10301} dos corujursos próximos.",
 	-- ["Pristine Yeti Horns"] = "Chifres Impolutos de Yeti",

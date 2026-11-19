@@ -95,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"바다늑대\" 맥킨리, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	["{npc:2498}, inside"] = "",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "해도와 명령서는 {area:35} 바로 남쪽 {area:43}의 해적 야영지에 있습니다. 해적 검객들이 해안을 돌아다닙니다. 흑마법사와 검객(41-43)은 이제 레벨이 낮습니다.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "붉은해적단 선장들",
@@ -133,6 +126,8 @@ return {
 	["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}와(과) {npc:2536}은(는) 잔질의 마을 바로 북쪽 언덕에 함께 서 있습니다.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "고릴라 언덕",
@@ -153,8 +148,6 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "테라모어의 {npc:2616}에게: 간직하십시오. 운고로 가이드가 그곳에서 끝납니다",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}의 다음 잔질 심부름은 {zone:1441}에서 시작합니다. 건너뛰세요.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "맥킨리의 다음 임무는 정예 오우거를 잡으러 보냅니다. 건너뛰세요.",
 
 	-- Step 30: Monogrammed Sash
@@ -177,6 +170,7 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"바다늑대\" 맥킨리, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "잿빛갈기멧돼지와 붉은바위 바실리스크가 요새 남서쪽 비탈에 함께 있습니다. 더 남쪽의 지옥멧돼지는 52레벨이니 피하십시오.",
 	-- ["Back to {area:144}"] = "{area:144}(으)로 돌아가기",
 	-- ["Boars and basilisks"] = "멧돼지와 바실리스크",
@@ -203,6 +197,9 @@ return {
 	-- ["the book on her table"] = "그녀의 탁자 위 책",
 	-- ["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 구합니다",
 	-- ["{area:144} flight master"] = "{area:144} 비행 조련사",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
