@@ -13086,15 +13086,15 @@
 			"issue": 2801
 		},
 		{
-			"id": "h-043-flats-south-from-33",
+			"id": "h-043-flats-south-from-34",
 			"faction": "Horde",
 			"at": {
 				"quest": 1175,
 				"goal": "objective",
 				"objective": 2
 			},
-			"when": "level>=33",
-			"note": "0.4.3 route round (Horde 30-40): the Shimmering Flats' south (Saltstone Crystalhides 32-33, Gazers 34-35) on 30-40/02's first flats visit shows only from level 33. Players following the guide handed A Bump in the Road in at a 25th percentile of 32.3 and The Swarm Grows at 32.6, the levels after the work, with the Gazers and the dig's Invaders at 35: two to three over. Below 33 the southern flats, the Rustmaul dig, Moktar Krin and Zherin come on the way out of Desolace: after the last Shadowprey stop a flight to Gadgetzan (its flight path is learnt on the first visit), the work north of it, the hand-ins, and a flight from Gadgetzan to Orgrimmar, where 30-40/03 starts (its first flight, from Shadowprey, shows only outside Orgrimmar). Players following the guide are about 33.7-34 by then (level model about 33). Those later steps are hand-written copies (`when onquest`, `when complete`): no record kind writes a copy with its own conditions yet. The accepts stay where they are.",
+			"when": "level>=34",
+			"note": "Level 35 Gazers and Invaders are safe from 34. Anyone below 34 on the first pass carries the quests through Desolace. On the return from Gadgetzan, finish only the missing XP on northern Scorpid Reavers and Crystalhides before entering either camp.",
 			"source": [
 				{
 					"kind": "recording",
@@ -13108,15 +13108,15 @@
 			"pr": 3145
 		},
 		{
-			"id": "h-043-rustmaul-dig-from-33",
+			"id": "h-043-rustmaul-dig-from-34",
 			"faction": "Horde",
 			"at": {
 				"quest": 1147,
 				"goal": "objective",
 				"objective": 1
 			},
-			"when": "level>=33",
-			"note": "0.4.3 route round (Horde 30-40): the Rustmaul dig (Searchers 32-33, Hive Drones 33-34, Invaders 34-35 in the hive cave, the Silithid Ravager 37 rare) on 30-40/02's first flats visit shows only from level 33, with the southern flats: see h-043-flats-south-from-33.",
+			"when": "level>=34",
+			"note": "0.4.3 route round (Horde 30-40): the Rustmaul dig (Searchers 32-33, Hive Drones 33-34, Invaders 34-35 in the hive cave, the Silithid Ravager 37 rare) on 30-40/02's first flats visit shows only from level 34, with the southern flats: see h-043-flats-south-from-34.",
 			"source": [
 				{
 					"kind": "recording",
@@ -13138,7 +13138,7 @@
 				"objective": 1
 			},
 			"when": "onquest 1148",
-			"note": "0.4.3 route round (Horde 30-40): Parts of the Swarm (1148) starts from the Cracked Silithid Carapace of the dig's first kill, so its step on 30-40/02's first flats visit shows only with the quest in the log: below 33 the dig waits for the way out of Desolace (h-043-flats-south-from-33).",
+			"note": "0.4.3 route round (Horde 30-40): Parts of the Swarm (1148) starts from the Cracked Silithid Carapace of the dig's first kill, so its step on 30-40/02's first flats visit shows only with the quest in the log: below 34 the dig waits for the way out of Desolace (h-043-flats-south-from-34).",
 			"source": [
 				{
 					"kind": "client",
@@ -13155,7 +13155,7 @@
 				"goal": "turnin"
 			},
 			"when": "complete 1147",
-			"note": "0.4.3 route round (Horde 30-40): Moktar Krin's hand-in of The Swarm Grows on 30-40/02's first flats visit shows only once the dig is done: below 33 the dig and the hand-in come on the way out of Desolace (h-043-flats-south-from-33).",
+			"note": "0.4.3 route round (Horde 30-40): Moktar Krin's hand-in of The Swarm Grows on 30-40/02's first flats visit shows only once the dig is done: below 34 the dig and the hand-in come on the way out of Desolace (h-043-flats-south-from-34).",
 			"source": [
 				{
 					"kind": "client",
@@ -13172,7 +13172,7 @@
 				"goal": "turnin"
 			},
 			"when": "complete 1175",
-			"note": "0.4.3 route round (Horde 30-40): Trackmaster Zherin's hand-in of A Bump in the Road on 30-40/02's first flats visit shows only once the southern flats are done: below 33 they come on the way out of Desolace (h-043-flats-south-from-33).",
+			"note": "0.4.3 route round (Horde 30-40): Trackmaster Zherin's hand-in of A Bump in the Road on 30-40/02's first flats visit shows only once the southern flats are done: below 34 they come on the way out of Desolace (h-043-flats-south-from-34).",
 			"source": [
 				{
 					"kind": "client",

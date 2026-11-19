@@ -36,8 +36,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 # the ship.
 # On the flats the north (30-32) comes first and the south and the silithid dig (32-35) after the
 # raceway's hand-ins (level tidy 2026-11-15: at 31-32 the Gazers and Invaders, 34-35, were three over),
-# from level 33 (0.4.3: players following the guide reached them at 32.3-32.8, a 25th percentile, with the
-# Gazers and Invaders at 35). Below 33 they wait for the way out: after Desolace, from Shadowprey, a flight
+# from level 34 (0.4.3: players following the guide reached them at 32.3-32.8, a 25th percentile, with the
+# Gazers and Invaders at 35). Below 34 they wait for the way out: after Desolace, from Shadowprey, a flight
 # to Gadgetzan, the south and the dig, Moktar Krin, the raceway and a flight from Gadgetzan to Orgrimmar,
 # where the next guide starts. The quests stay in the log meanwhile; the accepts don't move.
 #
@@ -50,7 +50,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
 # the clam beds, Sar'theris Strand and Rackmore's chest (one walk north) -> Sargeron
 # -> Kolkar Village -> Ghost Walker Post -> Shadowprey, where the next guide flies to Orgrimmar
-# (below 33 on the flats: fly to Gadgetzan -> the southern flats and the dig -> Moktar Krin -> the
+# (below 34 on the flats: fly to Gadgetzan -> the southern flats and the dig -> Moktar Krin -> the
 # raceway -> fly from Gadgetzan to Orgrimmar).
 #
 # Optional extras:
@@ -275,36 +275,40 @@ step Mirage Raceway
 step Level 32
   when level<32
   zone Thousand Needles
-  tip Desolace's quests are 32-38, the flats' south and the silithid dig 32-35 (from level 33; below it they wait for the way out of Desolace). Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the Razorfen Kraul dungeon instead.
+  tip Desolace's quests are 32-38, the flats' south and the silithid dig 32-35 (from level 34; below it they wait for the way out of Desolace). Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 75.0,60.0 map 1441 "Scorpid Reavers"
   level 32 grind 4140                 -- grind on Scorpid Reaver
 
 step The southern flats
-  when level>=33
+  when level>=34
   zone Thousand Needles
   tip South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.
-  tip Careful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together.
+  tip Pull one Gazer at a time from the edge of the camp.
   kill 4151 quest 1175.2 @78.4,87.9 map 1441
   kill 4150 quest 1175.3 @77.1,88.4 map 1441
 
 step The Rustmaul Dig Site
-  when level>=33
+  when level>=34
   zone Thousand Needles
   tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a Cracked Silithid Carapace: open it.
   tip Careful: Hive Drones call for help when they fall to 20% health, and the Silithid Ravager (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.
   kill 4130 quest 1147.1 @69.8,83.3 map 1441
   kill 4133 quest 1147.2 @68.0,85.7 map 1441
   kill 4131 quest 1147.3 @64.8,86.0 map 1441
-  collect 5877 x1
+  collect 5877 x1 npc 4130 @69.8,83.3 map 1441
   accept 1148 item 5877
 
 step Parts of the Swarm
   when onquest 1148
+  when level>=34
   zone Thousand Needles
-  tip Keep killing silithid at the dig site for the heart, the talons and the carapaces.
-  collect 5855 quest 1148.1
-  collect 5854 quest 1148.2
-  collect 5853 quest 1148.3
+  tip Gather the heart, talons and carapaces from the normal silithid. Leave the rare Silithid Ravager (37) alone.
+  loop
+  goto 69.9,82.5 map 1441
+  goto 71.7,83.3 map 1441
+  collect 5855 npc 4130 quest 1148.1
+  collect 5854 npc 4130 quest 1148.2
+  collect 5853 npc 4130 quest 1148.3
 
 step Moktar Krin
   when complete 1147
@@ -504,13 +508,41 @@ step Drulzegar Skraghook
 step Fly to Gadgetzan
   when onquest 1147,1175
   zone Desolace
-  tip The Shimmering Flats' south and the silithid dig waited for level 33: do them now, on the way to the next guide. Fly to Gadgetzan; the flats are a short ride north from there.
+  tip The Shimmering Flats' south and the silithid dig waited for level 34: do them now, on the way to the next guide. Fly to Gadgetzan; the flats are a short ride north from there.
   goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Gadgetzan"
   zone Tanaris
 
+step Return for Parts of the Swarm
+  when onquest 1148
+  when !complete 1148
+  when !onquest 1147,1175
+  zone Desolace
+  tip Still gathering parts after handing in the other flats quests? Fly back to Gadgetzan.
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Level 34
+  when level<34
+  when onquest 1147,1175
+  zone Thousand Needles
+  tip Still short of 34? Follow the road north past the raceway to hunt Scorpid Reavers (31-32) and nearby Saltstone Crystalhides (32-33), away from the southern Gazers and the hive. Stop as soon as you reach 34. Or, with a group, run Razorfen Kraul.
+  goto 75.5,67.8 map 1441 "Scorpid Reavers"
+  level 34 grind 4140
+
+step Level 34 for Parts of the Swarm
+  when level<34
+  when onquest 1148
+  when !complete 1148
+  when !onquest 1147,1175
+  zone Thousand Needles
+  tip For the parts alone, stay north of the raceway on the Scorpid Reavers (31-32) until 34, then ride south to the dig.
+  goto 75.5,67.8 map 1441 "Scorpid Reavers"
+  level 34 grind 4140
+
 step The southern flats
   when onquest 1175
+  when level>=34
   zone Thousand Needles
   tip North from Gadgetzan over the Thousand Needles border: the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far south of the Shimmering Flats.
   tip Careful: pull the Gazers one at a time from the camp's edge, never two together.
@@ -519,22 +551,28 @@ step The southern flats
 
 step The Rustmaul Dig Site
   when onquest 1147
+  when level>=34
   zone Thousand Needles
   tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a Cracked Silithid Carapace: open it.
   tip Careful: Hive Drones call for help when they fall to 20% health, and the Silithid Ravager (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.
   kill 4130 quest 1147.1 @69.8,83.3 map 1441
   kill 4133 quest 1147.2 @68.0,85.7 map 1441
   kill 4131 quest 1147.3 @64.8,86.0 map 1441
-  collect 5877 x1
+  collect 5877 x1 npc 4130 @69.8,83.3 map 1441
   accept 1148 item 5877
 
 step Parts of the Swarm
   when onquest 1148
+  when !complete 1148
+  when level>=34
   zone Thousand Needles
-  tip Keep killing silithid at the dig site for the heart, the talons and the carapaces. Korran at the Crossroads takes them on the Dustwallow guide's way.
-  collect 5855 quest 1148.1
-  collect 5854 quest 1148.2
-  collect 5853 quest 1148.3
+  tip Gather the parts from normal silithid, not the rare Ravager. Korran at the Crossroads takes them on the Dustwallow guide's way.
+  loop
+  goto 69.9,82.5 map 1441
+  goto 71.7,83.3 map 1441
+  collect 5855 npc 4130 quest 1148.1
+  collect 5854 npc 4130 quest 1148.2
+  collect 5853 npc 4130 quest 1148.3
 
 step Moktar Krin
   when complete 1147

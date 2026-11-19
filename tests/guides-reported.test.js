@@ -2201,12 +2201,8 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: no vials among the weste
 	assert.equal(list[i('turnin 7321', is('turnin', 7321))].s, list[i('turnin 539', is('turnin', 539))].s, 'on the Tarren Mill stop with Darthalia');
 });
 
-// Level tidy (2026-11-15): the Shimmering Flats' silithid dig (Invaders 34-35) and the Gazers (34-35) came first on the
-// flats at about 31 (calibrated level model), three levels over the player. The flats' north (basilisks, tortoises,
-// Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins now come first, then one top-up to 32 on the
-// Scorpid Reavers (31-32, at most a level over), then the Gazers, the dig and Moktar Krin, all on the same visit
-// before Gadgetzan. With players' recorded 25th percentile 33.1-33.2 there, 32 puts the Gazers and Invaders (35) at most
-// two over at the top of their camps, with tips; Desolace's Kolkar top-up went (the flats' one covers it).
+// The first visit still does the northern flats and the raceway hand-ins before its top-up to 32 on Scorpid Reavers.
+// The top-up to 34 is only for underlevel characters returning to finish the southern camps.
 test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the raceway\'s hand-ins, on the same visit', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
 	const firstHandIn = at(list, 'turnin 1105', is('turnin', 1105));
@@ -2217,25 +2213,25 @@ test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the
 		['turnin 1175', is('turnin', 1175)],
 	]) assert.ok(at(list, what, pred) > firstHandIn, `${what} after the raceway's first hand-ins`);
 	assert.ok(at(list, 'turnin 1175', is('turnin', 1175)) < at(list, 'accept 5561', is('accept', 5561)), 'the whole flats before Desolace');
-	const levels = list.filter(({ goal }) => goal.t === 'level');
-	assert.equal(levels.length, 1, 'one top-up');
+	const levels = list.slice(0, at(list, 'accept 5561', is('accept', 5561))).filter(({ goal }) => goal.t === 'level');
+	assert.equal(levels.length, 1, 'one top-up before Desolace');
 	const [flats] = levels;
 	assert.equal(flats.goal.level + (flats.goal.frac || 0), 32);
 	assert.equal(flats.goal.grind, 4140, 'on the Scorpid Reavers (31-32)');
 	const fi = list.indexOf(flats);
 	assert.ok(firstHandIn < fi && fi < at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3), 'after the hand-ins, before the Gazers');
 	const gazers = list[at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3)].step;
-	assert.match([gazers.note, gazers.tip].flat().filter(Boolean).join(' '), /Gazers can still be two over you/, 'the Gazers step says how to pull them');
+	assert.match([gazers.note, gazers.tip].flat().filter(Boolean).join(' '), /one Gazer at a time/i, 'the Gazers step says how to pull them');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	assert.ok(pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1105' && `${p.b}` === 'task,1147'), 'a record the build keeps');
 });
 
 // 0.4.3 route round (Horde 30-40): players following the guide still met the southern flats' Gazers and the dig's
-// Invaders (35) at a 25th percentile of 32.3-32.8, two to three over. The flats' first visit does them only from 33;
+// Invaders (35) at a 25th percentile of 32.3-32.8, two to three over. The flats' first visit does them only from 34;
 // below it they come on the way out of Desolace (Shadowprey -> fly to Gadgetzan -> the south and the dig -> Moktar
 // Krin -> the raceway -> fly from Gadgetzan to Orgrimmar), each step only for whoever still has the quest, and the
 // next guide's first flight from Shadowprey only outside Orgrimmar.
-test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the Rustmaul dig from 33, else on the way out of Desolace', { skip }, () => {
+test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the Rustmaul dig from 34, else on the way out of Desolace', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
 	const work = (g) => g.t === 'kill' && (g.quest === 1147 || (g.quest === 1175 && g.oi >= 2));
 	const desolace = at(list, 'accept 5561', is('accept', 5561));
@@ -2243,19 +2239,26 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	const first = list.filter(({ goal }, i) => work(goal) && i < desolace);
 	const late = list.filter(({ goal }, i) => work(goal) && i > lastShadowprey);
 	assert.equal(first.length, 5, 'the south (2) and the dig (3) on the first visit');
-	assert.ok(first.every(({ step }) => levelFrom(step) >= 33), 'the first visit\'s south and dig only from 33');
+	assert.ok(first.every(({ step }) => levelFrom(step) === 34), 'the first visit\'s south and dig only from 34');
 	assert.equal(late.length, 5, 'the same work again after the last Shadowprey stop');
-	assert.ok(late.every(({ step, goal }) => levelFrom(step) === 0 && holdsQuest(step, goal.quest)), 'the way out only for whoever still has the quest');
+	assert.ok(late.every(({ step, goal }) => levelFrom(step) === 34 && holdsQuest(step, goal.quest)), 'the way out from 34 only for whoever still has the quest');
 	for (const q of [1147, 1175]) {
 		const hand = list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === q);
 		assert.equal(hand.length, 2, `turnin ${q} on each pass`);
 		assert.ok(hand.every(({ step }) => (step.when || []).some((p) => p.k === 'complete' && !p.neg && [].concat(p.q).includes(q))), `turnin ${q} only once its work is done`);
 	}
 	const parts = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 1148);
-	assert.ok(parts.length >= 6 && parts.every(({ step }) => holdsQuest(step, 1148)), 'Parts of the Swarm only with the quest in the log');
+	assert.ok(parts.length >= 6 && parts.every(({ step }) => levelFrom(step) === 34 && holdsQuest(step, 1148)), 'Parts of the Swarm only with the quest in the log');
+	for (const { goal } of parts) assert.equal(goal.npc, 4130, 'all three parts from regular Searchers, never the rare Ravager');
 	const toGadgetzan = list.findIndex(({ goal }, i) => i > lastShadowprey && goal.t === 'fly' && goal.location === 'Gadgetzan');
 	assert.ok(toGadgetzan > lastShadowprey && toGadgetzan < list.indexOf(late[0]), 'a flight to Gadgetzan first');
 	assert.ok(holdsQuest(list[toGadgetzan].step, 1147) && holdsQuest(list[toGadgetzan].step, 1175), 'only while one of them is in the log');
+	const top = list.findIndex(({ goal }, i) => i > toGadgetzan && goal.t === 'level' && goal.level === 34 && goal.grind === 4140);
+	assert.ok(top > toGadgetzan && top < list.indexOf(late[0]), 'an underlevel returner finishes 34 on northern Reavers before either camp');
+	assert.ok(list[top].step.when.some(p => p.k === 'level' && p.op === '<' && p.n === 34));
+	assert.ok([1147, 1175].every(q => holdsQuest(list[top].step, q)));
+	assert.ok(list.slice(top + 1, list.indexOf(late[0])).some(({ goal, step }) => goal.t === 'level' && goal.level === 34 && goal.grind === 4140 && holdsQuest(step, 1148) && step.when.some(p => p.k === 'complete' && p.neg && [].concat(p.q).includes(1148))), 'a character carrying only unfinished parts also stops at 34');
+	assert.ok(list.slice(toGadgetzan + 1, top).some(({ goal, step }) => goal.t === 'fly' && goal.location === 'Gadgetzan' && holdsQuest(step, 1148) && step.when.some(p => p.k === 'complete' && p.neg && [].concat(p.q).includes(1148))), 'return also works with only unfinished parts');
 	const toOrg = list.findIndex(({ goal }, i) => i > lastShadowprey && goal.t === 'fly' && goal.location === 'Orgrimmar');
 	assert.ok(toOrg > list.indexOf(late.at(-1)), 'then on to Orgrimmar, where the next guide starts');
 	assert.ok((list[toOrg].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Desolace'), 'not for a character still in Desolace');
@@ -2264,7 +2267,7 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	assert.ok((opener.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Orgrimmar'), 'the next guide\'s first flight only outside Orgrimmar');
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	for (const [q, oi] of [[1175, 2], [1147, 1]]) {
-		assert.ok(fixes.some((r) => r.faction === 'Horde' && r.at.quest === q && r.at.objective === oi && r.when === 'level>=33'), `a record the build keeps for ${q}`);
+		assert.ok(fixes.some((r) => r.faction === 'Horde' && r.at.quest === q && r.at.objective === oi && r.when === 'level>=34'), `a record the build keeps for ${q}`);
 	}
 });
 
