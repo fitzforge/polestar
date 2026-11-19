@@ -807,11 +807,11 @@ fn search_an_item_only_a_third_pack_collects_ranks_as_curated_only_while_that_pa
 }
 
 #[test]
-fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_lazy_subtitles() {
+fn search_one_letter_queries_count_all_name_prefixes_paging_with_offset_lazy_subtitles() {
 	let [one, page1, page2, lazy] = first::<4>(run_with(
 		r#"
 		local names = {}
-		for i = 1, 400 do names[i] = { 100000 + i, (i % 2 == 0 and "Kestrel " or "Old Kestrel ") .. i } end
+		for i = 1, 600 do names[i] = { 100000 + i, (i % 2 == 0 and "Kestrel " or "Old Kestrel ") .. i } end
 		local lines = {}
 		for i, e in ipairs(names) do lines[i] = "\2" .. Polestar.Search.Fold(e[2]):sub(2) .. "\1" .. e[1] .. ",2,," .. #e[2] .. "\n" end
 		local blob = table.concat(lines)
@@ -822,8 +822,8 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 			Index = function(kind) if kind == "item" then return blob end end,
 			Name = function(kind, id) return byId[id] end,
 			Item = none, Npc = none, Quest = none, Object = none, Instance = none, Zone = none, Faction = none, Spell = none }
-		local res, counts, more = Polestar.Search.Query("k", { kinds = { item = true } })
-		emit({ n = #res, count = counts.item, more = more.item or false, first = res[1] and res[1].title })
+		local res, counts = Polestar.Search.Query("k", { kinds = { item = true } })
+		emit({ n = #res, count = counts.item, first = res[1] and res[1].title })
 		local a = Polestar.Search.Query("kestrel", { kinds = { item = true }, perKind = 50, subtitles = false })
 		local b = Polestar.Search.Query("kestrel", { kinds = { item = true }, perKind = 50, offset = 50, subtitles = false })
 		emit({ n = #a, first = a[1].title, last = a[#a].title }); emit({ n = #b, first = b[1].title })
@@ -836,7 +836,7 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	"#,
 		&Opts { with_pack: false, ..Default::default() },
 	));
-	assert_eq!(one, json!({ "n": 60, "count": 200, "more": false, "first": "Kestrel 2" }), "one letter: names starting with k only, not the word \"Kestrel\" in \"Old Kestrel\"");
+	assert_eq!(one, json!({ "n": 60, "count": 300, "first": "Kestrel 2" }), "one letter: names starting with k only, not the word \"Kestrel\" in \"Old Kestrel\"");
 	assert_eq!(page1, json!({ "n": 50, "first": "Kestrel 2", "last": "Kestrel 100" }));
 	assert_eq!(page2["n"], 50);
 	assert_ne!(page2["first"], page1["first"]);
@@ -862,13 +862,13 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 		Polestar.Search.Query("unmatched", opts)
 		collectgarbage(); collectgarbage()
 		emit((collectgarbage("count") - before) * 1024 / #base)
-		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
-		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+		local rows, counts = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item })
 	"#,
 		&Opts { with_pack: false, ..Default::default() },
 	));
 	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
-	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+	assert_eq!(matches, json!([1, "Silver Blade", 5000]), "exact translation before English word matches, one id once");
 }
 
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every
@@ -929,6 +929,7 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 		&Opts { with_pack: false, ..Default::default() },
 	));
 	let ms = |t: &Value| format!("keystroke {:.3} ms, one scan {:.3} ms", num(&t["key"]), num(&t["scan"]));
+	println!("2,500 names: {}; 25,000 names: {}", ms(&small), ms(&large));
 	// Here (Linux, lua5.1): a keystroke ~3 scans, 25,000 names ~2.5x 2,500; a Lua pass over every line alone
 	// costs ~35 scans.
 	forge_addontest::assert_timing!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
@@ -964,6 +965,139 @@ end
 
 fn browse(script: &str) -> Vec<Value> {
 	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, ..Default::default() })
+}
+
+#[test]
+fn search_finds_the_best_match_beyond_200_and_pages_the_same_matches_in_browse_order() {
+	let [best, all, az, total, ranked] = first::<5>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 235 do entries[i] = { i, ("Ring %03d"):format(236 - i) } end
+		entries[236], entries[237], entries[238] = { 236, "Ring" }, { 237, "A Ring", "r" }, { 238, "B Ring", "n" }
+		index(entries)
+		local opts = { kinds = { item = true }, limit = 50, subtitles = false }
+		local best, counts = S.Query("ring", opts)
+		emit({ best[1].id, counts.item })
+		local all, totals = S.Query("ring", { perKind = 5, subtitles = false })
+		emit({ all[1].id, totals.item, #all })
+		opts.order = "az"
+		local pages = {}
+		for offset = 0, 200, 50 do
+			opts.offset = offset
+			local page, counts = S.Query("ring", opts)
+			for _, row in ipairs(page) do pages[#pages + 1] = row.id end
+			assert(counts.item == 238, "every page counts all matches")
+		end
+		emit(pages)
+		emit(ids(S.Browse("item", { limit = 300, subtitles = false })))
+		opts.order, opts.offset = "best", 200
+		emit(ids(S.Query("ring", opts)))
+	"#,
+	));
+	assert_eq!(best, json!([236, 238]));
+	assert_eq!(all, json!([236, 238, 5]));
+	assert_eq!(az, total);
+	assert_eq!(arr(&az).len(), 238);
+	assert_eq!(arr(&ranked).as_slice(), &arr(&total)[200..], "Best match reaches the same tail in this fixture");
+}
+
+#[test]
+fn search_alphabetises_translated_names_and_guides_without_changing_the_matches() {
+	let [initial, translated, guides] = first::<3>(browse(
+		&[
+			TEST_PACK,
+			r#"
+		index({ { 1, "Ring of Valor" }, { 2, "Ring of Agility" }, { 3, "Band of Power" } })
+		local opts = { kinds = { item = true }, order = "az", subtitles = false }
+		emit(ids(S.Query("ring", opts)))
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) return ({ "Anneau", "Z Ring", "B Ring" })[id] end
+		Polestar.Fire("NAMES_LOADED")
+		local rows, counts = S.Query("ring", opts)
+		emit({ ids(rows), counts.item })
+		for i, title in ipairs({ "Ring", "A Ring", "Z Ring" }) do
+			assert(Polestar.RegisterGuide({ id = "test/ring-" .. i, pack = "test", title = title, steps = { { goals = { { t = "note", text = "x" } } } } }))
+		end
+		opts.kinds = { guide = true }
+		emit(ids(S.Query("ring", opts)))
+	"#,
+		]
+		.concat(),
+	));
+	assert_eq!(initial, json!([2, 1]));
+	assert_eq!(translated, json!([[1, 3, 2], 3]));
+	assert_eq!(guides, json!(["test/ring-2", "test/ring-1", "test/ring-3"]));
+}
+
+#[test]
+fn search_and_browse_count_only_entries_with_visible_statuses() {
+	let [retired, nosource, both, restored] = first::<4>(browse(
+		r#"
+		index({ { 1, "Ring" }, { 2, "A Ring", "r" }, { 3, "B Ring", "n" }, { 4, "Z Ring" }, { 5, "Blade" } })
+		local function check(hideRetired, hideNoSource)
+			local opts = { hideRetired = hideRetired, hideNoSource = hideNoSource, subtitles = false }
+			local search, counts = S.Query("ring", opts)
+			local rows, count = S.Browse("item", opts)
+			opts.order, opts.kinds = "az", { item = true }
+			local az, azCounts = S.Query("ring", opts)
+			return { ids(search), counts.item, ids(rows), count, S.BrowseCount("item", opts), ids(az), azCounts.item }
+		end
+		emit(check(true, false)); emit(check(false, true)); emit(check(true, true)); emit(check(false, false))
+	"#,
+	));
+	assert_eq!(retired, json!([[1, 4, 3], 3, [5, 1, 4, 3], 4, 4, [1, 4, 3], 3]));
+	assert_eq!(nosource, json!([[1, 4, 2], 3, [5, 1, 4, 2], 4, 4, [1, 4, 2], 3]));
+	assert_eq!(both, json!([[1, 4], 2, [5, 1, 4], 3, 3, [1, 4], 2]));
+	assert_eq!(restored, json!([[1, 4, 2, 3], 4, [5, 1, 4, 2, 3], 5, 5, [1, 4, 2, 3], 4]));
+}
+
+#[test]
+fn search_kind_keystrokes_and_more_pages_at_25_000_entries_in_both_orders() {
+	let [best, az] = first::<2>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 25000 do
+			entries[i] = { i, ("Ring %05d of %s"):format(25001 - i, i % 2 == 0 and "Valor" or "Agility") }
+		end
+		index(entries)
+		S.Browse("item", { limit = 1, subtitles = false }) -- warm the shared A to Z order
+		local function median(times)
+			table.sort(times)
+			return times[math.ceil(#times / 2)]
+		end
+		local function measure(order)
+			local opts = { resultKind = "item", order = order, limit = 50, perKind = 50, subtitles = false }
+			local key, page, counts = {}, {}
+			for i = 1, 7 do
+				local at = os.clock()
+				for _, query in ipairs({ "r", "ring", "valor", "ring agility" }) do
+					opts.offset = 0
+					local rows
+					rows, counts = S.Query(query, opts)
+					if #rows ~= 50 then return { count = counts.item, pageRows = #rows, query = query } end
+				end
+				key[i] = (os.clock() - at) * 1000 / 4
+				at = os.clock()
+				for j = 1, 30 do
+					opts.offset = j * 50
+					local rows = S.Query("ring agility", opts)
+					if #rows ~= 50 then return { count = counts.item, pageRows = #rows } end
+				end
+				page[i] = (os.clock() - at) * 1000 / 30
+			end
+			return { count = counts.item, key = median(key), page = median(page) }
+		end
+		emit(measure("best")); emit(measure("az"))
+	"#,
+	));
+	for (order, times) in [("Best match", best), ("A to Z", az)] {
+		assert_eq!(times["count"], 12500, "{order}: every match is available to page: {times}");
+		let (key, page) = (num(&times["key"]), num(&times["page"]));
+		println!("{order}, 25,000 entries: keystroke {key:.3} ms, Show more {page:.3} ms");
+		forge_addontest::assert_timing!(key < 50.0, "{order}: kind keystroke took {key:.3} ms");
+		forge_addontest::assert_timing!(page < 1.0, "{order}: the cached page took {page:.3} ms");
+	}
 }
 
 #[test]
