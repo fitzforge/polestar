@@ -2301,7 +2301,7 @@ fn a_layout_s_settings_defaults_sit_between_the_player_s_values_and_polestar_s()
 			return { ok = ok, msg = msg or false }
 		end
 		local out = { bad = {
-			try("b1", { ["ui.scale"] = 1 }),
+			try("b1", { ["ui.layout"] = "bare" }),
 			try("b2", { ["guideWindow.nope"] = true }),
 			try("b3", { ["guideWindow.tabs"] = "no" }),
 			try("b4", { ["guideWindow.targetBarColor"] = "nope" }),
@@ -2346,8 +2346,8 @@ fn a_layout_s_settings_defaults_sit_between_the_player_s_values_and_polestar_s()
 		emit(out)"##,
 	);
 	let bad: Vec<String> = out["bad"].as_array().unwrap().iter().map(|b| b["msg"].as_str().unwrap_or("").to_string()).collect();
-	assert_eq!(bad[0], "defaults key \"ui.scale\" is not a guide window setting (guideWindow.<name>)");
-	assert_eq!(bad[1], "defaults key \"guideWindow.nope\" is not a guide window setting (guideWindow.<name>)");
+	assert_eq!(bad[0], "defaults key \"ui.layout\" is not a setting a layout can default (group.name, not ui.layout or ui.skin)");
+	assert_eq!(bad[1], "defaults key \"guideWindow.nope\" is not a setting a layout can default (group.name, not ui.layout or ui.skin)");
 	assert_eq!(bad[2], "defaults[\"guideWindow.tabs\"] must be a boolean, like Polestar's default");
 	assert_eq!(bad[3], "defaults[\"guideWindow.targetBarColor\"] must be false or a colour");
 	assert_eq!(bad[4], "defaults[\"guideWindow.bgOpacity\"] must be false, true or a number");

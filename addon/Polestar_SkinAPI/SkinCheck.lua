@@ -633,7 +633,7 @@ local function readLayoutDefaults(t)
 	local out = {}
 	local base = ns.GetBaseDefault or ns.GetDefault
 	for path, v in pairs(t) do
-		local key = type(path) == "string" and path:match("^[%w_]+%.[%w_.]*([%w_]+)$")
+		local key = type(path) == "string" and path:match("^[%w_]+%.[%w_.]-([%w_]+)$")
 		local d
 		if key and path ~= "ui.layout" and path ~= "ui.skin" then d = base(path) end
 		if d == nil or type(d) == "table" then
