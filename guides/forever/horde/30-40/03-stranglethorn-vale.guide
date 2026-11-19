@@ -12,6 +12,7 @@ next forever/horde/30-40/04-dustwallow-marsh
 
 step Fly to Orgrimmar
   only !Druid
+  when !zone "Orgrimmar"
   zone Desolace
   goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Orgrimmar"
@@ -20,7 +21,7 @@ step Fly to Orgrimmar
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly from Shadowprey Village to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to Orgrimmar from there.
+  tip Fly from Shadowprey Village (or from Gadgetzan, after the Shimmering Flats' south) to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to Orgrimmar from there.
   fly "Thunder Bluff"
   train class
 
@@ -90,7 +91,8 @@ step Grom'gol
 # Stranglethorn's northern half at 34-36, between Desolace and Dustwallow (the 2026-11-07
 # re-order; before it, it came straight after Desolace and Hillsbrad).
 #
-# Flow: Shadowprey Village (where the previous guide ends) -> fly to Orgrimmar (Alliance
+# Flow: Shadowprey Village (where the previous guide ends; Orgrimmar for a character who did the
+# Shimmering Flats' south on the way out, below 33 on the flats) -> fly to Orgrimmar (Alliance
 # Relations, training) -> fly to Ratchet (Gazlowe, Dizzywig) -> boat to Booty Bay (flight
 # path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
 # the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->

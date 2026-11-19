@@ -2230,6 +2230,44 @@ test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the
 	assert.ok(pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1105' && `${p.b}` === 'task,1147'), 'a record the build keeps');
 });
 
+// 0.4.3 route round (Horde 30-40): players following the guide still met the southern flats' Gazers and the dig's
+// Invaders (35) at a 25th percentile of 32.3-32.8, two to three over. The flats' first visit does them only from 33;
+// below it they come on the way out of Desolace (Shadowprey -> fly to Gadgetzan -> the south and the dig -> Moktar
+// Krin -> the raceway -> fly from Gadgetzan to Orgrimmar), each step only for whoever still has the quest, and the
+// next guide's first flight from Shadowprey only outside Orgrimmar.
+test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the Rustmaul dig from 33, else on the way out of Desolace', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const work = (g) => g.t === 'kill' && (g.quest === 1147 || (g.quest === 1175 && g.oi >= 2));
+	const desolace = at(list, 'accept 5561', is('accept', 5561));
+	const lastShadowprey = at(list, 'turnin 6142 (Mai\'Lahii)', is('turnin', 6142));
+	const first = list.filter(({ goal }, i) => work(goal) && i < desolace);
+	const late = list.filter(({ goal }, i) => work(goal) && i > lastShadowprey);
+	assert.equal(first.length, 5, 'the south (2) and the dig (3) on the first visit');
+	assert.ok(first.every(({ step }) => levelFrom(step) >= 33), 'the first visit\'s south and dig only from 33');
+	assert.equal(late.length, 5, 'the same work again after the last Shadowprey stop');
+	assert.ok(late.every(({ step, goal }) => levelFrom(step) === 0 && holdsQuest(step, goal.quest)), 'the way out only for whoever still has the quest');
+	for (const q of [1147, 1175]) {
+		const hand = list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === q);
+		assert.equal(hand.length, 2, `turnin ${q} on each pass`);
+		assert.ok(hand.every(({ step }) => (step.when || []).some((p) => p.k === 'complete' && !p.neg && [].concat(p.q).includes(q))), `turnin ${q} only once its work is done`);
+	}
+	const parts = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 1148);
+	assert.ok(parts.length >= 6 && parts.every(({ step }) => holdsQuest(step, 1148)), 'Parts of the Swarm only with the quest in the log');
+	const toGadgetzan = list.findIndex(({ goal }, i) => i > lastShadowprey && goal.t === 'fly' && goal.location === 'Gadgetzan');
+	assert.ok(toGadgetzan > lastShadowprey && toGadgetzan < list.indexOf(late[0]), 'a flight to Gadgetzan first');
+	assert.ok(holdsQuest(list[toGadgetzan].step, 1147) && holdsQuest(list[toGadgetzan].step, 1175), 'only while one of them is in the log');
+	const toOrg = list.findIndex(({ goal }, i) => i > lastShadowprey && goal.t === 'fly' && goal.location === 'Orgrimmar');
+	assert.ok(toOrg > list.indexOf(late.at(-1)), 'then on to Orgrimmar, where the next guide starts');
+	assert.ok((list[toOrg].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Desolace'), 'not for a character still in Desolace');
+	const stv = goals('forever/horde/30-40/03-stranglethorn-vale.guide');
+	const opener = stv.find(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
+	assert.ok((opener.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Orgrimmar'), 'the next guide\'s first flight only outside Orgrimmar');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [q, oi] of [[1175, 2], [1147, 1]]) {
+		assert.ok(fixes.some((r) => r.faction === 'Horde' && r.at.quest === q && r.at.objective === oi && r.when === 'level>=33'), `a record the build keeps for ${q}`);
+	}
+});
+
 // Dungeons in the route (0.4.0, the grind-tip rule): a grind step names a dungeon only when its run is in the route
 // in the same or the next guide, on the same continent: Razorfen Kraul in Thousand Needles; Scarlet Monastery,
 // Blackfathom Deeps and Razorfen Downs are not route dungeons in Horde 30-40. (Hillsbrad has no grind steps since the
