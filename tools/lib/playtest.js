@@ -186,8 +186,8 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
-			Polestar.Engine.SetGuide(${luaValue(g.id)})
-			SIM_GUIDE = Polestar.Engine.GetGuide() -- a hand-over may replace it before SIMULATE starts
+			assert(Polestar.Engine.SetGuide(${luaValue(g.id)}), ${luaValue(`guide not registered: ${g.id}`)})
+			SIM_GUIDE = Polestar.Guides.Get(${luaValue(g.id)}) -- the requested guide, even if an immediate hand-over changes the active tab
 			stub.advance(0.6)
 			${script == null ? SIMULATE : script}
 			${handOver ? handOverCheck(handOver, g.id) : ''}`,
@@ -480,6 +480,7 @@ function chainDone(guides, g, persona, groups = 'skip', chosen = dungeonPicker(n
 		const from = queue.pop();
 		if (seen.has(from.id)) continue;
 		seen.add(from.id);
+		if (!guideFits(from, persona)) continue;
 		for (const s of from.steps) {
 			if (!onlyFits(s.only, persona) || !groupsFit(s.when, groups) || !dungeonsFit(s.when, chosen)) continue;
 			for (const x of s.goals) {
@@ -506,7 +507,7 @@ function chainDone(guides, g, persona, groups = 'skip', chosen = dungeonPicker(n
 	// A guide no other leads into whose step waits on a quest another guide hands in (`when turnedin`: The Eye of
 	// Bhossca, a class guide of its own, after The Horn of Xelthos's 78307) is played as by a character who did that
 	// guide: the quest is done.
-	const elsewhere = (q) => !into.has(g.id) && !handIn.has(q) && guides.some((o) => o.id !== g.id && o.steps.some((s) => s.goals.some((x) => x.t === 'turnin' && x.quest === q)));
+	const elsewhere = (q) => !into.has(g.id) && !handIn.has(q) && guides.some((o) => o.id !== g.id && guideFits(o, persona) && o.steps.some((s) => s.goals.some((x) => x.t === 'turnin' && x.quest === q)));
 	for (const s of g.steps) {
 		for (const p of s.when || []) if (p.k === 'turnedin' && !p.neg) for (const q of [].concat(p.q)) if (turned.has(q) || elsewhere(q)) done.add(q);
 		for (const x of s.goals) {

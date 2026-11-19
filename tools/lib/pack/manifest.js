@@ -168,7 +168,17 @@ function readManifest(dir, { official = false, extra = null } = {}) {
 	if (diags.some((d) => d.severity === 'error')) return { manifest: null, diags };
 	const manifest = {};
 	for (const key of KEYS) if (typeof obj[key] === 'string' && obj[key] !== '') manifest[key] = obj[key];
-	if (!manifest.folder) manifest.folder = defaultFolder(manifest.title, manifest.id);
+	const folder = manifest.folder || defaultFolder(manifest.title, manifest.id);
+	if (extra) {
+		// This checkout's bundled addon must load under the same owner as the release build.
+		const key = manifest.id !== extra.id ? 'id' : manifest.author !== 'Polestar' ? 'author' :
+			manifest.folder && manifest.folder !== defaultFolder(manifest.title, manifest.id) ? 'folder' : null;
+		if (key) {
+			const expected = { id: `set id to "${extra.id}"`, author: 'set author to "Polestar"', folder: 'leave folder out' };
+			return { manifest: null, diags: [...diags, { file, line: keyLine(text, key), severity: 'error', message: `invalid ${key} for ${extra.source}/pack.json`, hint: expected[key] }] };
+		}
+		manifest.folder = extra.folder;
+	} else manifest.folder = folder;
 	return { manifest, diags };
 }
 

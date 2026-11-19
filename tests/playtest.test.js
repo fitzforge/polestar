@@ -11,10 +11,10 @@ const path = require('node:path');
 const { quiet, polestar } = require('./helpers/cli');
 const { tmpdir } = require('./helpers/tmp');
 const { needs } = require('./helpers/data');
-const { DATA_DIR } = require('./helpers/dsl');
+const { DATA_DIR, fixtureData } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, buildSimPack, playGuide, chainDone, dungeonPicker } = require('../tools/lib/playtest');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -86,6 +86,27 @@ test('a guide starts with the prerequisites its accepts need that the guides cha
 	assert.deepEqual(chainDone(guides, c, { race: 'Dwarf', faction: 'Alliance', cls: 'WARRIOR' }), { done: [7003], carried: [739], open: [6127] });
 	assert.deepEqual(chainDone(guides, c, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [7003, 7638, 7721], carried: [739], open: [6127] });
 	assert.deepEqual(chainDone(guides, a, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [], carried: [], open: [] });
+});
+
+test('shared routes inherit only work the arriving character’s guide can give', () => {
+	const who = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
+	const prior = (id, next, quest, faction, races) => ({ id, next, faction, races, steps: [{ goals: [{ t: 'turnin', quest }] }] });
+	const h = prior('horde', 'shared', 130);
+	const a = prior('alliance', 'shared', 140, 'Alliance');
+	const elf = prior('elf', 'shared', 150, null, ['NightElf']);
+	const beyond = prior('upstream', 'alliance', 160);
+	const g = { id: 'shared', steps: [{ goals: [{ t: 'accept', quest: 170, pre: [130, 140, 150, 160] }] }] };
+	assert.deepEqual(chainDone([h, a, elf, beyond, g], g, who).done, [130]);
+});
+
+test('a refused guide cannot play an already open guide in its place', { skip: !hasLua && 'no Lua 5.1' }, () => {
+	const pack = buildSimPack([{ file: 'fallback.guide', text: 'guide forever/test/fallback\ntitle Fallback\nlevels 1-2\nzone Elwynn Forest\n\nstep Warm-up\n  task "Take a look"\n' }], fixtureData());
+	try {
+		const [fallback] = pack.guides;
+		pack.loads += `\nassert(Polestar.Engine.SetGuide(${JSON.stringify(fallback.id)}))`;
+		const guide = { ...fallback, id: 'missing/guide' };
+		assert.throws(() => playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' }), /guide not registered: missing\/guide/);
+	} finally { pack.dispose(); }
 });
 
 test('the chain credits a turn-in behind `when group` only when the play answers do; `when !group` only when it skips', () => {

@@ -38,6 +38,7 @@ test("this checkout's experimental/ may give its own reserved id and no other; t
 		const ours = resolvePack({ pack: path.join(ROOT, 'experimental') });
 		assert.equal(ours.official, false);
 		assert.equal(ours.manifest && ours.manifest.id, 'polestar-experimental', JSON.stringify(ours.diags));
+		assert.equal(ours.manifest.folder, extra.folder, 'the addon registers the guide under this owner, not the community-pack name');
 	}
 	const dir = tmpdir('polestar-reserved-');
 	fs.writeFileSync(path.join(dir, 'pack.json'), JSON.stringify({ ...manifest('polestar-experimental'), author: 'Polestar' }));

@@ -21,7 +21,7 @@ const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
 const { DATA, SOURCES } = require('../tools/lib/paths');
-const { ownExtra, resolvePack } = require('../tools/lib/pack/locate');
+const { resolvePack } = require('../tools/lib/pack/locate');
 const { loadWeb } = require('../tools/lib/codex/web');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
@@ -16445,8 +16445,7 @@ for (const [faction, race, death] of [['Horde', 'Orc', 92592], ['Alliance', 'Hum
 	test(`${faction} Mount Hyjal: carried fights respect the actual level and group answer`, { skip }, () => {
 		const id = 'polestar-experimental/hyjal-1';
 		const pack = resolvePack({ pack: path.join(__dirname, '..', 'experimental') });
-		// The client reserves this extra's id for its shipped addon folder, not a generic community pack.
-		const manifest = { ...pack.manifest, folder: ownExtra(pack.dir).folder };
+		const { manifest } = pack;
 		const text = fs.readFileSync(path.join(pack.dir, 'guides/hyjal-1.guide'), 'utf8');
 		for (const [level, answer] of [[57, 'skip'], [58, 'skip'], [59, 'skip'], [57, 'do']]) {
 			const who = { race, raceName: race, faction, cls: 'WARRIOR', className: 'Warrior', level };
@@ -16475,7 +16474,7 @@ for (const [faction, race, death] of [['Horde', 'Orc', 92592], ['Alliance', 'Hum
 for (const [faction, race, ever, moon] of [['Alliance', 'Human', 52, 49], ['Horde', 'Orc', 53, 69]]) {
 	test(`${faction} Mount Hyjal: Bluebell's flight menu, the hearth and the first visit`, { skip }, () => {
 		const pack = resolvePack({ pack: path.join(__dirname, '..', 'experimental') });
-		const manifest = { ...pack.manifest, folder: ownExtra(pack.dir).folder };
+		const { manifest } = pack;
 		const src = fs.readFileSync(path.join(pack.dir, 'guides/hyjal-1.guide'), 'utf8');
 		const segment = src.slice(src.indexOf('step Hearth to Everlook'), src.indexOf('step Orokai'));
 		const returning = src.slice(src.indexOf('step Fly to Everlook', src.indexOf('step Moonglade flight path')), src.indexOf('step Nami'));

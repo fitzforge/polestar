@@ -282,9 +282,11 @@ them.
 2. **Write**: `polestar find <text>` prints quest, NPC, object, item, inn
    and flight-point lines ready to paste. In the game, `/polestar where`
    prints where you stand as a guide line.
-3. **Check**: `forge guide lint` checks every guide against the game's data,
-   and `polestar playtest` plays each one to the end, for each race that
-   can reach it and each class it has steps for.
+3. **Check**: `forge guide lint` checks every guide against the game's data.
+   `polestar playtest` plays the requested guide for the races and classes that
+   can follow it. If the addon refuses to load that guide, the test fails.
+   Quest history comes from guides the character can follow. Playtest checks
+   the order of instructions and hand-ins; it does not measure walking time.
 4. **Try**: `polestar play` opens the real addon in your browser with your
    pack loaded, and `polestar install` copies it into the game's AddOns
    folder (restart the game the first time).
