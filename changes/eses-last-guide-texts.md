@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,106 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,176 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -16,6 +16,7 @@ section: players
   Skinning, Hydraxian Waterlords, Warsong Gulch, Western Plaguelands,
   Confounding Flash and Contingency Plan, Call of Earth, The Drowned City
   (Alliance), Divine Grace and Feedback, Tailoring, Tome of Divinity, Hex of
-  Weakness and Shadowguard and Touch of Weakness and Dark Sacrifice guides,
+  Weakness and Shadowguard, Touch of Weakness and Dark Sacrifice, Haggard's
+  Weapons, Horde Hillsbrad Foothills and Alliance Arathi Highlands guides,
   plus texts that repeat English the locale already translates, filled with
   the locale's own wording.

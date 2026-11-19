@@ -16,11 +16,11 @@ return {
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
 	["{npc:252377} in {area:16638}"] = "{npc:252377} en {area:16638}",
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar · {npc:257196} Zaal Stormshield · {area:16629} Shrine of Akir
-	["At 10, {npc:252377} stands with the trainers by {area:16638}'s west gate. A cultist, {npc:257196}, holds her family's shield at the {area:16629}."] = "",
+	["At 10, {npc:252377} stands with the trainers by {area:16638}'s west gate. A cultist, {npc:257196}, holds her family's shield at the {area:16629}."] = "A nivel 10, {npc:252377} está con los instructores junto a la puerta oeste de {area:16638}. Un sectario, {npc:257196}, tiene el escudo de su familia en {area:16629}.",
 
 	-- Step 2: Zaal Stormshield
 	-- {area:16638} Valanaar · {area:16629} Shrine of Akir · {npc:257196} Zaal Stormshield · {item:263993} Skybreaker Bulwark
-	["Head north-west from {area:16638} to the {area:16629}. {npc:257196} stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the {item:263993}."] = "",
+	["Head north-west from {area:16638} to the {area:16629}. {npc:257196} stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the {item:263993}."] = "Ve al noroeste desde {area:16638} hasta {area:16629}. {npc:257196} está al oeste de la subida al santuario, entre los guardianes, clamaespíritus y maestros de espadas del culto: atráelos de a uno antes de enfrentarlo. Suelta {item:263993}.",
 	-- {item:263993} Skybreaker Bulwark · {npc:257196} Zaal Stormshield
 	["{item:263993}, from {npc:257196}"] = "{item:263993}, de {npc:257196}",
 
