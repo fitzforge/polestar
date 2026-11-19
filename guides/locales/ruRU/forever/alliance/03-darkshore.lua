@@ -160,7 +160,7 @@ return {
 
 	-- Step 29: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
-	["{zone:1439}: kill these as you meet them"] = "",
+	["{zone:1439}: kill these as you meet them"] = "{zone:1439}: убивайте их по пути",
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
 	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "Лунопарды рыщут по холмам между руинами ({quest:954}) и башней. {quest:1002} стоит на холме к западу от башни.",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
@@ -183,7 +183,7 @@ return {
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["Scaber Stalks; below ground"] = "",
 	-- {item:5270} Death Cap
-	["{item:5270}; below ground"] = "",
+	["{item:5270}; below ground"] = "{item:5270}; под землей",
 
 	-- Step 33: The northern Blackwood camp
 	["The northern Blackwood camp"] = "",
@@ -196,7 +196,7 @@ return {
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
 	-- {npc:6788} Den Mother
-	["{npc:6788}, below ground"] = "",
+	["{npc:6788}, below ground"] = "{npc:6788}, под землей",
 
 	-- Step 35: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore

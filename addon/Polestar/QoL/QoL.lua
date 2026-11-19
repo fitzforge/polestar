@@ -329,6 +329,8 @@ function QoL.Coalesce(fn)
 		other = false
 		fn()
 	end
+	-- The perf probe's report names each by the line that made it.
+	ns.NoteMadeAt(run, ADDON .. "/QoL/QoL.lua")
 	local function due() ns.SafeCall(run) end
 	local function schedule()
 		if scheduled then return end

@@ -7,7 +7,10 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { Proj } = require('../tools/lib/flow/data');
 const { measure, compare, narrow, renderMd, tripsOf, stopsOf, placed, travel } = require('../tools/lib/flowdiff/analyse');
-const { traced, branchesOf } = require('../tools/lib/flowdiff/play');
+const { traced, branchesOf, playKey } = require('../tools/lib/flowdiff/play');
+const { levelOffsetLua, parseLevelOffset } = require('../tools/lib/playtest-level');
+const flowDiff = require('../tools/commands/flow-diff');
+const { quiet } = require('./helpers/cli');
 
 // Two zones side by side on one continent, 10 yd per map percent: map 1 "West" from x 0 to 1,000 yd, map 2 "East"
 // from 1,000 to 2,000. A place is [continent, the frame's top-to-bottom yards, left-to-right yards].
@@ -158,6 +161,22 @@ test('the play traces SIMULATE through its own act() and skips quests first', ()
 	assert.match(out, /emit\(FLOW\)\n$/);
 	assert.throws(() => traced('emit({})', []), /can't trace/);
 	assert.throws(() => traced('local function act(i, g, r)\nend\n', [533]), /can't skip/);
+});
+
+test('--level-offset: an offset play has a cache key of its own, a plain play keeps its key; the value is a whole number', async () => {
+	const g = { id: 'x/a', steps: [], _ast: { source: 'x/a.guide' } };
+	const persona = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
+	const plain = playKey('e', g, persona, '', 'sim');
+	assert.equal(playKey('e', g, persona, '', 'sim', 0), plain);
+	assert.notEqual(playKey('e', g, persona, '', 'sim', 1), plain);
+	assert.notEqual(playKey('e', g, persona, '', 'sim', 1), playKey('e', g, persona, '', 'sim', 2));
+	assert.equal(levelOffsetLua(0), '');
+	assert.match(levelOffsetLua(-2), /w\.level = math\.min\(60, math\.max\(1, w\.level \+ off\)\)/);
+	assert.deepEqual([parseLevelOffset(undefined), parseLevelOffset('3'), parseLevelOffset('-1')], [0, 3, -1]);
+	assert.match(parseLevelOffset('1.5').error, /whole number/);
+	const bad = await quiet(() => flowDiff.run(['--base', 'origin/next', '--level-offset', 'x']));
+	assert.equal(bad.result, 2);
+	assert.match(bad.out, /--level-offset takes a whole number/);
 });
 
 test('branches: each start race down its guides\' default `next`, experimental choices left out', () => {

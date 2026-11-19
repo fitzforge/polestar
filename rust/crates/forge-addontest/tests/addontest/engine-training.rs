@@ -499,3 +499,50 @@ fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_re
 	assert_eq!(none["steps"], false, "{none}");
 	assert_eq!(none["trainer"], none["planner"], "{none}");
 }
+
+// Kill stutter (0.4.1): the guide window's training banner asks for the trainer on the guide's way on every
+// repaint (each kill and loot while training is due), and each answer priced up to four trainers with three
+// route plans each. The answer is kept while the player stays put on the same step: ten repaints in a second
+// plan routes once. Walking on in small steps, after a trainer window and at a level-up, it is the same as the
+// uncached answer.
+#[test]
+fn the_banner_s_trainer_on_the_route_is_priced_once_for_repaints_on_one_spot_and_matches_the_uncached_pick() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local first = E.TrainingAdvice().trainer.npc
+		local p0 = plans
+		for _ = 1, 10 do stub.advance(0.1); E.TrainingAdvice() end
+		local repaints = plans - p0
+		-- The cached pick against a fresh one (a trainer window closing drops the cache), walking south-west.
+		local same, n = true, 0
+		local x, y = 51.9, 30.4
+		for k = 1, 30 do
+			x, y = x - 0.3, y + 0.9
+			w.moveTo(1413, x, y)
+			stub.advance(0.1)
+			local kept = E.NearestClassTrainer(true).npc
+			stub.fire("TRAINER_CLOSED")
+			local fresh = E.NearestClassTrainer(true).npc
+			n = n + 1
+			if kept ~= fresh then same = false end
+		end
+		w.setLevel(14)
+		stub.advance(0.5)
+		local afterLevel = E.NearestClassTrainer(true).npc
+		stub.fire("TRAINER_CLOSED")
+		emit({ first = first ~= nil, repaints = repaints, plans = p0, same = same, n = n, level = afterLevel == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["first"], true);
+	assert_eq!(out["same"], true, "the kept pick differs from a fresh one on the walk");
+	assert_eq!(out["level"], true);
+	// Measured: 0.4.1 planned 12 routes for each repaint (120 for the ten); kept, none.
+	assert!(out["repaints"].as_u64().unwrap() <= 2, "route plans for ten repaints on one spot: {} (the first answer took {})", out["repaints"], out["plans"]);
+}

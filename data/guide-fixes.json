@@ -4595,8 +4595,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.",
-			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
+			"tip": "Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.",
+			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp. #2706: players' recordings to 2026-11-17 show two tiger groups of about the same size, west of the camp (27-33, 6-18, about 620 kills) and east of it (42-48, 9-21, about 600 kills; 47 contributors at 45-48, 15-18); the step's arrow takes the eastern group, which lies on the way to the geologists, so the tip names both.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -4678,6 +4678,41 @@
 				}
 			],
 			"issue": 2587
+		},
+		{
+			"id": "2822-howin-death-to-the-dragonmaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98291,
+				"goal": "accept"
+			},
+			"tip": "Death to the Dragonmaw is a group quest: 16 elite Dragonmaw (29-30) in Dragonmaw Retreat, just east of Howin. Skip it if you are alone.",
+			"note": "#2822 (swork1): Howin Kindfeather's Death to the Dragonmaw is asked as a group quest at Howin on the Wetlands loop of 30-40/01-hillsbrad-foothills, after Razormaw Needling and Trying Times are handed in (route-fixes deliberate.group); its kills have their own `when group 98291` step in Dragonmaw Retreat and its hand-in a `when group 98291` step back at Howin.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: 37 people took Death to the Dragonmaw, 18 handed it in, 14 abandoned it; every kill of its Dragonmaw Reclaimers (834), Soulbinders (381) and Infiltrators (265) was of an elite at 29-30, Howin Kindfeather (270637) gives and takes it"
+				}
+			],
+			"issue": 2822
+		},
+		{
+			"id": "2822-dragonmaw-retreat-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98291,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of Howin.",
+			"note": "#2822: the kill step of Death to the Dragonmaw's group branch says where its elites camp; players' recordings place the kills at Wetlands 52-57,39-49.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-17: the Dragonmaw Reclaimer (271351) seen hostile by 115 people and killed 839 times by 48 people, at Wetlands 54-57,39-49"
+				}
+			],
+			"issue": 2822
 		},
 		{
 			"id": "1313-thandol-span-saboteurs",
@@ -5305,7 +5340,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.",
+			"tip": "The Slitherblade naga hold the north-west coast north of Azore's tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater (Water Breathing helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.",
 			"note": "Final route review 0.3.6 (2026-11-09), Alliance side of horde-3040-book-of-the-ancients-statue: the Alliance Desolace south loop (30-40/06) collected the book with no use of the Gem of the Serpent (15766, the quest's source item) and called Lord Kragaru (12369) a centaur chieftain who camps on the coast; he is summoned at the Serpent Statue (object 177673), 28.24,6.67.",
 			"source": [
 				{
@@ -12983,6 +13018,72 @@
 					"ref": "players' in-game recordings to 2026-11-16: Brakk offered Camping 101: Tailoring to 4 people who knew Tailoring, every one with A Peon's Burden (2161) and Camping 101: Cooking (96655) handed in; the learned data has both as its prerequisites (4 counted voters)"
 				}
 			]
+		},
+		{
+			"id": "2825-tanaris-tooga-wanders-the-valley",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1560,
+				"goal": "accept"
+			},
+			"tip": "The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.",
+			"note": "#2825's sweep of escort givers: players find Tooga along the valley's west edge, most at 30.0-30.6,70.4-70.9, not at its north end; the accept's point is in data/places.json (2825-tanaris-tooga-giver).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 at 28.4-32.1,60.6-74.1, 14 of them from 70.4 south"
+			},
+			"issue": 2825
+		},
+		{
+			"id": "2801-desolace-karnitol-satchel-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1456,
+				"goal": "objective",
+				"objective": 1
+			},
+			"optional": true,
+			"note": "The Karnitol Shipwreck (1456): Karnitol's Satchel drops only from the Slitherblade Tidehunters (6 spawns) and Sea Witches (14), at about one kill in five, most of them underwater, while the step's tip sent players to the sea floor. Many players gave up on it (#2801). It is collected while the step kills naga for Rackmore's golden key and the Book of the Ancients, and never holds the route.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 48 runs of 1456 by 30 people; the satchel's loot came with a kill of a Slitherblade Tidehunter (4716) or Sea Witch (4719) each time one was recorded; of 28 people who took the quest, 12 handed it in and 11 abandoned it without finishing"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "items.json 6245 Karnitol's Satchel: drops from npc 4716 and 4719 (20%)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2801 (Gindry, 0.4.0.1): an hour of farming without the satchel"
+				}
+			],
+			"issue": 2801
+		},
+		{
+			"id": "2801-desolace-karnitol-satchel-optional-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1456,
+				"goal": "turnin"
+			},
+			"optional": true,
+			"note": "The Karnitol Shipwreck (1456) is handed in at Nijel's Point only by a player who found the satchel: see 2801-desolace-karnitol-satchel-optional.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 48 runs of 1456 by 30 people; the satchel's loot came with a kill of a Slitherblade Tidehunter (4716) or Sea Witch (4719) each time one was recorded; of 28 people who took the quest, 12 handed it in and 11 abandoned it without finishing"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "items.json 6245 Karnitol's Satchel: drops from npc 4716 and 4719 (20%)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2801 (Gindry, 0.4.0.1): an hour of farming without the satchel"
+				}
+			],
+			"issue": 2801
 		}
 	]
 }

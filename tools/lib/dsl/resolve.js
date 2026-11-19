@@ -202,16 +202,17 @@ function sourceNpcs(data, first, sources) {
 	return out.length ? out : undefined;
 }
 
-// Which of a collect's NPC sources spawn at each of its spots (#1616).
-// Centaur Bounty's ears drop from every centaur tribe in Desolace and its
-// spots run through all their camps, while `fromNpcs` names the five of the
-// goal's point: at a Magram camp the target button named Kolkar. Only when
-// some spot holds a source `fromNpcs` leaves out: those follow in `fromNpcs`
-// (the most spawns at the spots first, up to MAX_SPOT_NPCS), and `fromNpcsAt`
-// gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the
-// sources spawning there (within its radius and a yard), most spawns first:
-// "1,2;3,4;;5". Left out when that string would pass MAX_SPOT_NPCS_TEXT.
-function spotNpcs(data, goal, sources, map, f) {
+// A collect's target names follow each spot's connected spawn areas (#1869):
+// overlapping bear populations share targets, while separate centaur camps
+// stay apart (#1616). The spot's own sources (radius + 1 yd) lead, then other
+// kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted
+// when a source was missing from `fromNpcs`; its original order and caps stay.
+// If the expanded mapping exceeds the text cap, retain the local mapping.
+// `linked` (default: every source): the sources an area may add. A
+// hand-placed point passes the droppers at the point: the author chose that
+// camp over the others, so a chain of spawns must not bring the others back
+// (Hillsbrad's 32-34 yetis beside the Foothill Caverns, #1695).
+function spotNpcs(data, goal, sources, map, f, linked) {
 	const spots = goal.spots || [];
 	if (spots.length < 2 || !data.mapSize(map)) return;
 	const mobs = [];
@@ -221,6 +222,8 @@ function spotNpcs(data, goal, sources, map, f) {
 		const pts = spawnPointsOf(data, [s], map, f);
 		if (name && pts.length) mobs.push({ id: s.id, name, pts });
 	}
+	const initial = goal.fromNpcs || [];
+	if (mobs.every((m) => initial.some((n) => n.npc === m.id))) return;
 	const at = spots.map((spot) => {
 		const here = [];
 		mobs.forEach((m, i) => {
@@ -229,12 +232,38 @@ function spotNpcs(data, goal, sources, map, f) {
 		});
 		return here.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
 	});
-	const list = [...(goal.fromNpcs || [])];
+	const local = packSpotNpcs(initial, mobs, at);
+	const links = mobs.map((m) => !linked || linked.some((s) => s && s.kind === 'npc' && s.id === m.id));
+	const pts = mobs.flatMap((m) => m.pts);
+	const owners = mobs.flatMap((m, i) => m.pts.map(() => i));
+	const areas = spawnAreas(pts, data.frame(map));
+	const expanded = spots.map((spot, si) => {
+		const counts = mobs.map(() => 0);
+		for (const area of areas) {
+			if (!area.some((p) => distance(data, map, pts[p][0], pts[p][1], spot.x, spot.y) <= spot.r + 1)) continue;
+			for (const p of area) counts[owners[p]]++;
+		}
+		const localIds = new Set(at[si].map(([i]) => i));
+		const extra = counts.map((n, i) => [i, n]).filter(([i, n]) => n > 0 && links[i] && !localIds.has(i));
+		extra.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+		return [...at[si], ...extra];
+	});
+	// Reserve every original local name before connected additions: the 32-name
+	// cap must not evict a creature that spawns at one of the marker circles.
+	const joined = packSpotNpcs(local.list, mobs, expanded);
+	if (!local.missingSources && !joined.missingSources) return;
+	const result = joined.packed.length <= MAX_SPOT_NPCS_TEXT ? joined : local;
+	if ((!local.missingSources && result === local) || result.packed.length > MAX_SPOT_NPCS_TEXT) return;
+	goal.fromNpcs = result.list;
+	goal.fromNpcsAt = result.packed;
+}
+
+function packSpotNpcs(initial, mobs, at) {
+	const list = [...initial];
 	const ids = list.map((n) => n.npc);
 	const total = mobs.map(() => 0);
 	for (const here of at) for (const [i, n] of here) total[i] += n;
 	const left = mobs.map((_, i) => i).filter((i) => total[i] > 0 && !ids.includes(mobs[i].id));
-	if (!left.length) return;
 	left.sort((a, b) => total[b] - total[a] || a - b);
 	for (const i of left) {
 		if (list.length >= MAX_SPOT_NPCS) break;
@@ -242,9 +271,7 @@ function spotNpcs(data, goal, sources, map, f) {
 		ids.push(mobs[i].id);
 	}
 	const packed = at.map((here) => here.map(([i]) => ids.indexOf(mobs[i].id)).filter((k) => k >= 0).map((k) => k + 1).join(',')).join(';');
-	if (packed.length > MAX_SPOT_NPCS_TEXT) return;
-	goal.fromNpcs = list;
-	goal.fromNpcsAt = packed;
+	return { list, packed, missingSources: left.length > 0 };
 }
 
 // The quests that hand item `item` over when taken (their `sourceItem`), by
@@ -522,12 +549,9 @@ function walk(data, map, spots, x, y) {
 	return out;
 }
 
-// The stray spawns of `pts` (see spawnSpots, "Strays"): the groups of at most
-// STRAY_MAX spawns, linked within STRAY_YARDS, beside one group holding at
-// least STRAY_SHARE of them. -> Set of points
-function strayPoints(pts, frame) {
-	const strays = new Set();
-	if (pts.length <= SPOT_CAP) return strays;
+// Connected spawn areas, including small groups: point indices, so one NPC
+// kind appearing in two distant camps does not connect those camps.
+function spawnAreas(pts, frame) {
 	const { sx, sy } = scaleOf(frame);
 	const root = pts.map((_, i) => i);
 	const find = (i) => (root[i] === i ? i : (root[i] = find(root[i])));
@@ -544,14 +568,23 @@ function strayPoints(pts, frame) {
 		}
 	}
 	const groups = new Map();
-	pts.forEach((p, i) => {
+	pts.forEach((_, i) => {
 		const g = find(i);
 		if (!groups.has(g)) groups.set(g, []);
-		groups.get(g).push(p);
+		groups.get(g).push(i);
 	});
-	const sizes = [...groups.values()];
-	if (Math.max(...sizes.map((g) => g.length)) < STRAY_SHARE * pts.length) return strays;
-	for (const g of sizes) if (g.length <= STRAY_MAX) for (const p of g) strays.add(p);
+	return [...groups.values()];
+}
+
+// The stray spawns of `pts` (see spawnSpots, "Strays"): the groups of at most
+// STRAY_MAX spawns, linked within STRAY_YARDS, beside one group holding at
+// least STRAY_SHARE of them. -> Set of points
+function strayPoints(pts, frame) {
+	const strays = new Set();
+	if (pts.length <= SPOT_CAP) return strays;
+	const groups = spawnAreas(pts, frame);
+	if (Math.max(...groups.map((g) => g.length)) < STRAY_SHARE * pts.length) return strays;
+	for (const g of groups) if (g.length <= STRAY_MAX) for (const i of g) strays.add(pts[i]);
 	return strays;
 }
 
@@ -709,6 +742,39 @@ function applyLoop(step, s, data, err) {
 		setIf(goal, 'z', goalHeight(data, goal));
 		for (const p of goal.spots) setIf(p, 'z', spotHeight(data, goal, p));
 	}
+	step.goals = step.goals.filter((g) => g.t !== 'goto');
+}
+
+// `skill <Profession> <N> nearest` (docs/GUIDE_FORMAT.md, "Smart targets"; #2529): the step's `goto` points
+// are the places to do it, each for the characters its own `only` and the step's name (faction, races).
+// They become the goal's `candidates`, so the arrow leads to the one nearest the player when the step comes
+// up, as for `train … nearest`; the gotos leave the step.
+const SIDE_TAG = { Alliance: 'A', Horde: 'H' };
+function applyNearest(step, s, err, faction) {
+	const at = s.goals.findIndex((g) => g.verb === 'skill' && g.nearest);
+	if (at < 0) return;
+	const ln = s.goals[at].line;
+	if (s.loop) return err(ln, '`skill … nearest` picks one of the step\'s points, `loop` walks them all: drop one of the two');
+	if (s.goals[at].explicitCoords) return err(ln, '`skill … nearest` takes its places from the step\'s `goto` points: drop `@x,y`');
+	const gotos = step.goals.filter((g) => g.t === 'goto');
+	if (gotos.some((g) => g.x === undefined)) return; // its coordinates' error is reported
+	if (gotos.length < 2) return err(ln, '`skill … nearest` needs at least two `goto` points in its step', 'list the places as `goto x,y` lines; for one place, drop `nearest`');
+	const own = gotos.find((g) => g.optional);
+	if (own) return err(own._line, 'a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick');
+	const outer = step.only || {};
+	const goal = step.goals[at];
+	goal.candidates = gotos.map((g) => {
+		const o = g.only || {};
+		const c = { map: g.map, x: g.x, y: g.y };
+		if (g.f) c.f = g.f;
+		const sides = o.factions || outer.factions || (faction ? [faction] : null);
+		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
+		const races = o.races || outer.races;
+		if (races) c.races = races;
+		const classes = o.classes || outer.classes;
+		if (classes) c.classes = classes;
+		return c;
+	});
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
 
@@ -984,7 +1050,9 @@ function resolveGuide(ast, data, diag, opts = {}) {
 					);
 				}
 			}
-			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map)) {
+			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
+			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
+			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace) {
 				const name = (id) => {
 					const z = data.zone(id);
 					return z && z.name ? `${id} (${z.name})` : String(id);
@@ -1022,6 +1090,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
 			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
+		applyNearest(step, s, err, guide.faction);
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
@@ -2286,7 +2355,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (v === 'collect' && goal.npc === undefined) {
 				const own = pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, near);
 				setIf(goal, 'fromNpcs', sourceNpcs(data, own[0], own));
-				spotNpcs(data, goal, sources, goal.map, goal.f);
+				spotNpcs(data, goal, sources, goal.map, goal.f, own);
 			}
 		}
 	}

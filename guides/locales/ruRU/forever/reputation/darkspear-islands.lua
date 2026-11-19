@@ -35,7 +35,7 @@ return {
 
 	-- Step 8: Darkspear Raiders to Friendly
 	-- {faction:2798} Darkspear Raiders
-	["{faction:2798} to Friendly"] = "",
+	["{faction:2798} to Friendly"] = "{faction:2798} до уровня «Дружелюбие»",
 	-- {npc:275276} Nizook Boof
 	["Neutral to Friendly is 3000 reputation. Forever has not said how much a game pays by itself; the sure part is the Warbringer's 100 for every 3 marks, which is one win, so at most 30 wins from Neutral even before the games' own reputation. Each new bracket (40, 50, 60) brings a new first win for {npc:275276} (200) and a new first mark quest (150)."] = "",
 	-- {npc:15350} Horde Warbringer · {quest:98887} Conflict at Darkspear Islands
@@ -43,7 +43,7 @@ return {
 
 	-- Step 9: Darkspear Raiders to Honored
 	-- {faction:2798} Darkspear Raiders
-	["{faction:2798} to Honored"] = "",
+	["{faction:2798} to Honored"] = "{faction:2798} до уровня «Уважение»",
 	-- {npc:263570} Creeg Bothunk · {npc:275276} Nizook Boof · {item:272059} Darkspear Voodoo Seal · {item:272060} Relentless Raider's Seal
 	["Friendly to Honored is 6000 reputation. Friendly opens the first rewards at {npc:263570}, the quartermaster beside {npc:275276}: the trinkets {item:272059} and {item:272060} for levels 33 and 48 (1g49s to 11g85s), and food, bandages and draughts for the battleground (5s to 20s). A Darkspear care package for Friendly also exists in Forever's data."] = "",
 	-- {npc:263570} Creeg Bothunk
@@ -53,7 +53,7 @@ return {
 
 	-- Step 10: Darkspear Raiders to Revered
 	-- {faction:2798} Darkspear Raiders
-	["{faction:2798} to Revered"] = "",
+	["{faction:2798} to Revered"] = "{faction:2798} до уровня «Почтение»",
 	-- {item:272064} Insurgent's Band · {item:272068} Darkspear Signet · {item:272072} Darkspear Warding Pendant · {item:272063} Darkspear Raider's Cloak
 	["Honored to Revered is 12000 reputation. Honored opens {item:272064}, {item:272068}, {item:272072} and {item:272063} for levels 28, 38, 48 and 58 (1g11s to 12g6s): rings, neck and cloak that fit the bracket you are in."] = "",
 	-- {npc:263570} Creeg Bothunk
@@ -61,7 +61,7 @@ return {
 
 	-- Step 11: Darkspear Raiders to Exalted
 	-- {faction:2798} Darkspear Raiders
-	["{faction:2798} to Exalted"] = "",
+	["{faction:2798} to Exalted"] = "{faction:2798} до уровня «Превознесение»",
 	-- {item:272079} Darkspear Raider's Reaper · {item:272083} Darkspear Insurgent's Spellblade · {item:272091} Darkspear Skirmisher's Bludgeon · {item:272087} Tome of the Darkspear Prophecy
 	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:272079} (two-handed axe), {item:272083} (dagger), {item:272091} (mace) and the {item:272087} (off-hand), 1g44s to 37g15s."] = "",
 	-- {npc:263570} Creeg Bothunk
@@ -95,7 +95,7 @@ return {
 
 	-- Step 20: Theramore Expeditionary Force to Friendly
 	-- {faction:2799} Theramore Expeditionary Force
-	["{faction:2799} to Friendly"] = "",
+	["{faction:2799} to Friendly"] = "{faction:2799} до уровня «Дружелюбие»",
 	-- {npc:275273} Brelinda McFarry
 	["Neutral to Friendly is 3000 reputation. Forever has not said how much a game pays by itself; the sure part is the Brigadier General's 100 for every 3 marks, which is one win, so at most 30 wins from Neutral even before the games' own reputation. Each new bracket (40, 50, 60) brings a new first win for {npc:275273} (200) and a new first mark quest (150)."] = "",
 	-- {npc:15351} Alliance Brigadier General · {quest:98895} Darkspear Islands Clash
@@ -103,7 +103,7 @@ return {
 
 	-- Step 21: Theramore Expeditionary Force to Honored
 	-- {faction:2799} Theramore Expeditionary Force
-	["{faction:2799} to Honored"] = "",
+	["{faction:2799} to Honored"] = "{faction:2799} до уровня «Уважение»",
 	-- {npc:263569} Bryanna Embreeze · {area:385} Northwatch Hold · {item:271903} Enriched Seal · {item:271904} Volunteer's Lucky Seal
 	["Friendly to Honored is 6000 reputation. Friendly opens the first rewards at {npc:263569}, the quartermaster at {area:385}: the trinkets {item:271903} and {item:271904} for levels 33 and 48 (1g49s to 11g85s), and food, bandages and draughts for the battleground. A Theramore care package for Friendly also exists in Forever's data."] = "",
 	-- {npc:263569} Bryanna Embreeze
@@ -113,7 +113,7 @@ return {
 
 	-- Step 22: Theramore Expeditionary Force to Revered
 	-- {faction:2799} Theramore Expeditionary Force
-	["{faction:2799} to Revered"] = "",
+	["{faction:2799} to Revered"] = "{faction:2799} до уровня «Почтение»",
 	-- {item:271913} Militant's Band · {item:271908} Theramore Signet · {item:271917} Seal of the Expedition · {item:271907} Expeditionary's Cape
 	["Honored to Revered is 12000 reputation. Honored opens {item:271913}, {item:271908}, {item:271917} and {item:271907} for levels 28, 38, 48 and 58 (1g11s to 12g6s): rings, neck and cloak that fit the bracket you are in."] = "",
 	-- {npc:263569} Bryanna Embreeze
@@ -121,7 +121,7 @@ return {
 
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
-	["{faction:2799} to Exalted"] = "",
+	["{faction:2799} to Exalted"] = "{faction:2799} до уровня «Превознесение»",
 	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
 	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "От почтения до превознесения – 21000 репутации, половина пути. Почтение открывает оружие для 28, 38, 48 и 58-го уровней: {item:271924} (двуручный топор), {item:271928} (кинжал), Зазубренная булава партизана и {item:271932} (для левой руки), от 1з 44с до 37з 15с.",
 	-- {npc:263569} Bryanna Embreeze

@@ -1672,6 +1672,11 @@ L["Worth doing near here: %s"] = "附近值得做的：%s"
 L["%d left out here"] = "此处略过 %d 个"
 L["Left out here"] = "此处略过"
 L["Turn off Skip grey quests"] = "关闭跳过灰色任务"
+-- L["This guide stays open in its tab and picks up by itself at that level."] = ""
+-- L["Click to switch to its tab"] = ""
+-- L["Click to open it in a new tab"] = ""
+-- L["Hides this line until more quests are off your route."] = ""
+-- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2577,7 +2582,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "暂停时隐藏步骤的地图标记"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "暂停时，步骤目标的标记、目标区域、“顺便完成”以及后续步骤也会从地图上移除。"
 L["No quest automation while paused"] = "暂停时不自动处理任务"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "用于暂停或恢复 Polestar 的按键或手柄按钮。你活着离开地下城时，它也会自动恢复。"
 L["Let a following addon show the way"] = "让跟随 Polestar 的插件指路"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "当其他插件自行显示 Polestar 的目标时，隐藏 Polestar 的箭头，例如 Naowh Forever 的 Waypoint Pin 在开启 Follow Polestar 时就会这样做。此时该插件也会设置游戏自带的地图标记。"
@@ -2607,6 +2611,7 @@ L["Repair: gear worn below"] = "修理：装备耐久低于"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "当你的任一装备耐久低于此比例时，提醒你修理。0：从不提醒。"
 L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更高版本）从 Polestar_Arcade 文件夹运行 Freedoom 项目的三个 Freedoom 关卡（BSD 许可）。"
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -4609,6 +4614,7 @@ L["Jump anyway"] = "仍要跳转"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在这片大陆上打开任意一位飞行管理员的地图一次，Polestar 就能知道你的飞行路线。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南适用于%s角色。Polestar 不会引导你完成它。"
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -4773,6 +4779,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["After turn-ins: at least +1 level"] = ""
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
+
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
@@ -4983,3 +4999,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略过灰色任务及其交还，除非后续任务需要先完成它们。"
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "没有可清理的垃圾物品。Ctrl+Alt+点击物品可将其标记为垃圾。"
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"

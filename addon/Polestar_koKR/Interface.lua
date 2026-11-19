@@ -1672,6 +1672,11 @@ L["Worth doing near here: %s"] = "근처에서 할 만한 퀘스트: %s"
 L["%d left out here"] = "여기서 %d개 제외됨"
 L["Left out here"] = "여기서 제외됨"
 L["Turn off Skip grey quests"] = "회색 퀘스트 건너뛰기 끄기"
+-- L["This guide stays open in its tab and picks up by itself at that level."] = ""
+-- L["Click to switch to its tab"] = ""
+-- L["Click to open it in a new tab"] = ""
+-- L["Hides this line until more quests are off your route."] = ""
+-- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2577,7 +2582,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "일시 정지 중 단계의 지도 핀 숨기기"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "일시 정지 중에는 단계 목표의 핀, 그 지역, 이곳에 온 김에, 다가올 단계도 지도에서 사라집니다."
 L["No quest automation while paused"] = "일시 정지 중 퀘스트 자동화 끄기"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "Polestar를 일시 정지하거나 다시 시작하는 키 또는 게임패드 버튼입니다. 던전에서 살아서 나오면 자동으로 다시 시작하기도 합니다."
 L["Let a following addon show the way"] = "Polestar를 따르는 애드온이 길 안내"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "다른 애드온이 Polestar의 목표를 직접 표시하는 동안 Polestar의 화살표를 숨깁니다. Follow Polestar를 켠 Naowh Forever의 Waypoint Pin이 그렇게 합니다. 그때는 그 애드온이 게임의 지도 핀도 설정합니다."
@@ -2607,6 +2611,7 @@ L["Repair: gear worn below"] = "수리: 장비 내구도가 다음 미만일 때
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "장비 중 하나의 내구도가 이 비율 미만이면 수리를 알립니다. 0: 알리지 않음."
 L["play Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade 플레이"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama의 Freedoom Arcade(GPL-2.0 이상)가 Freedoom 프로젝트의 Freedoom 3개 레벨(BSD 라이선스)을 Polestar_Arcade 폴더에서 실행합니다."
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4609,6 +4614,7 @@ L["Jump anyway"] = "그래도 이동"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "이 대륙에서 아무 비행 조련사의 지도를 한 번 열면 Polestar가 당신의 비행 경로를 알게 됩니다."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "이 가이드는 %s 캐릭터용입니다. Polestar가 이 가이드를 안내하지 않습니다."
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4773,6 +4779,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["After turn-ins: at least +1 level"] = ""
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
+
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
@@ -4974,3 +4990,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "이후 퀘스트에 먼저 필요하지 않으면 회색 퀘스트와 그 제출을 뺍니다."
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "공간을 만들 잡동사니가 없습니다. 아이템을 Ctrl+Alt-클릭하여 잡동사니로 표시하십시오."
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."

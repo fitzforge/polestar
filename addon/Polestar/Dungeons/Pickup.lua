@@ -414,9 +414,11 @@ local function insideOnly(r)
 			local within, outside = false, false
 			for _, src in ipairs(sources) do
 				local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
-				if not x then
+				if (src.type == "drop" or src.type == "object") and src.instance then
+					within = true -- the Codex names its instance, even for an object it holds no record of (#2883)
+				elseif not x then
 					outside = true -- a vendor, a craft, a source the Codex does not hold
-				elseif src.instance or x.instance then
+				elseif x.instance then
 					within = true
 				elseif x.spawns and #x.spawns > 0 then
 					outside = true

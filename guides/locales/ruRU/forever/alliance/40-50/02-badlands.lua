@@ -10,7 +10,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn, where the flight lands. His mushrooms grow in the {area:1517} dig at the {zone:1418}' northern edge, on this guide's loop back north."] = "{npc:1470} находится под землей в месте {area:144}, у таверны, куда прилетает грифон. Его грибы растут на раскопках ({area:1517}) у северного края зоны {zone:1418}, на обратном пути этого гайда на север.",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, под землей",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
@@ -54,7 +54,7 @@ return {
 
 	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "В зону {zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
@@ -62,7 +62,7 @@ return {
 
 	-- Step 14: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "В зону {zone:1418}",
 
 	-- Step 15: Badlands
 	-- {area:1517} Uldaman
@@ -72,13 +72,13 @@ return {
 	-- {area:1517} Uldaman · {zone:1418} Badlands
 	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
 	-- {item:8047} Magenta Fungus Cap
-	["{item:8047}; below ground"] = "",
+	["{item:8047}; below ground"] = "{item:8047}; под землей",
 	-- {object:2743} Carved Stone Urn
 	["{object:2743}; below ground"] = "",
 
 	-- Step 17: Back to Loch Modan
 	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	["Back to {zone:1432}"] = "Обратно: {zone:1432}",
 
 	-- Step 18: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Езжайте обратно на север к Раскопкам Сталекрута.",
@@ -97,7 +97,7 @@ return {
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}, наверху",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "Следующее поручение Ролея – здесь: {area:796}. Пропустите его.",
 
@@ -109,9 +109,9 @@ return {
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток во {zone:1425}; {area:348} – сразу за границей. {npc:5635} принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}, внутри",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, внутри",
 
 	-- Step 25: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -132,18 +132,18 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Распорядитель полетов: {area:348}",
 
 	-- Step 30: Theramore
 	["Theramore"] = "Остров Терамор",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, внутри",
 
 	-- Step 31: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "Внутри: {area:498}",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Шестермуть",

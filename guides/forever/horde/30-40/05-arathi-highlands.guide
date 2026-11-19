@@ -52,6 +52,8 @@ next forever/horde/30-40/06-badlands
 # ---------------------------------------------------------------- The Undercity
 
 step Zeppelin to Undercity
+  when !zone "Tirisfal Glades"
+  when !zone "Undercity"
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 

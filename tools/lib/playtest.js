@@ -44,6 +44,7 @@ const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
 const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
 const { personaVariants, personaTables, updatePoints, SNAPSHOT_LUA } = require('./playtest-personas');
+const { levelOffsetLua } = require('./playtest-level');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
 
@@ -557,7 +558,9 @@ function playData(dir, diag) {
 // simulator takes the guide's optional `train` of each like any goal and then
 // plays the steps behind `when skill` they open (on its own it takes no
 // optional goal, so it never learns a profession).
-async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
+// `levelOffset` (a whole number): the player is that many levels ahead of the
+// guide's level (tools/lib/playtest-level.js).
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null, levelOffset = 0 }) {
 	// Validate before loading data. The pool starts processes only when a play is queued.
 	const pool = honest ? null : new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const dataDiag = new Diagnostics();
@@ -631,7 +634,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 			for (const { race, faction } of personas) {
 				for (const cls of classesFor(data, g, race, faction, classes)) {
 					const pre = chainDone(chained, g, { race, faction, cls }, groups, chosen);
-					const before = [
+					const before = levelOffsetLua(levelOffset) + [
 						pre.done.length ? `w.complete(${luaValue(pre.done)})` : '',
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
 						...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`),

@@ -1710,11 +1710,15 @@ end
 
 -- With no search queued (PathJobs.lua's rest): drop the strings of clusters whose decode never finished and trim the
 -- decoded graph to its resting ceiling. Decoded grids and the decoder's scratch stay for the next search (within
--- Path.cacheKB), until Idle; of the endpoint trees, the newest Path.restTrees (a walk asked again from where the last
--- one started or ended reads them), the older ones' costs staying in st.ends. While a search runs st.endTrees keeps
--- up to Path.lua's ENDTREES; at rest, each tree a city's cluster can make 2-3 MB.
+-- Path.cacheKB), until Idle; of the endpoint trees, Path.restTrees stay, the older ones' costs staying in st.ends. While
+-- a search runs st.endTrees keeps up to Path.lua's ENDTREES; at rest, each tree a city's cluster can make 2-3 MB.
+-- The newest start's tree (a walk's start or a batch's source, searched outward) is the one least likely read again:
+-- the player has moved on by the next search. It goes to release (Path.lua's pool, while it has room) as one of the
+-- restTrees, for the next search's first connection to fill instead of growing a new tree key by key (0.4.1 emptied
+-- the pool at every rest, so every search grew its first trees new: rehashes of up to 32,768 keys inside one frame's
+-- slice); the newest of the others keep their trees (a walk asked again to the same goal reads its tree).
 Path.restTrees = 2
-local function Rest()
+local function Rest(release)
 	for _, st in pairs(states) do
 		if st.D.packed then
 			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
@@ -1723,8 +1727,23 @@ local function Rest()
 			end
 		end
 		local kept = st.endTrees
-		if kept and #kept > Path.restTrees then
-			for _ = 1, #kept - Path.restTrees do
+		if kept then
+			local keep = Path.restTrees
+			if release then
+				for i = #kept, 1, -1 do
+					local entry = kept[i]
+					local tree = entry.tree
+					if not entry.back and tree then
+						table.remove(kept, i)
+						st.endNodes = (st.endNodes or 0) - (entry.size or 0)
+						entry.tree = nil
+						release(tree)
+						keep = keep - 1
+						break
+					end
+				end
+			end
+			for _ = 1, #kept - keep do
 				local gone = table.remove(kept, 1)
 				st.endNodes = (st.endNodes or 0) - (gone.size or 0)
 				gone.tree = nil

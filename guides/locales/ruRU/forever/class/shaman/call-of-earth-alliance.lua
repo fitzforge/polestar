@@ -52,6 +52,6 @@ return {
 	-- {item:6656} Rough Quartz · {area:77} Anvilmar · {item:5175} Earth Totem
 	["Bring the {item:6656} back to Teo inside {area:77}. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "",
 	-- {npc:257446} Teo Hammerstorm · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:257446}: {spell:8071} and your {item:5175}"] = "",
+	["{npc:257446}: {spell:8071} and your {item:5175}"] = "{npc:257446}: {spell:8071} и ваш {item:5175}",
 	["the level 4 shaman spells"] = "",
 }

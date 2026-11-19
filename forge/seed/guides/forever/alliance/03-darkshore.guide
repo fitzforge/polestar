@@ -19,6 +19,7 @@ next forever/alliance/03-loch-modan
 # Mushrooms' hand-in, and the Tower of Althalaxx (965, 966) is done on the north loop, by Buzzbox 323.
 
 step Boat to Auberdine
+  when !zone "Darkshore"
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live
 

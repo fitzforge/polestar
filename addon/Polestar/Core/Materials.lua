@@ -99,9 +99,18 @@ end
 -- The ways
 ---------------------------------------------------------------------------
 
+-- A goal's material way: "gather" (`collect … gather`), "auction" or nil.
+local function wayOf(goal)
+	local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
+	if way and goal.item then return way end
+	return nil
+end
+
 -- Per guide's steps (weak: steps a guide releases take theirs along): item -> { gather = { { goal, step } },
--- auction = { ... } }, the steps walked once.
+-- auction = { ... } }, the steps walked once. Built for the guides whose ways are asked (the running ones and the
+-- windows'); Materials.Tracked takes only the items (itemSets) of the others.
 local indexes = setmetatable({}, { __mode = "k" })
+local itemSets = setmetatable({}, { __mode = "k" }) -- steps -> { [item] = true }, until their index is built
 function Materials.Index(guide)
 	local steps = guide and guide.steps
 	if not steps then return {} end
@@ -110,8 +119,8 @@ function Materials.Index(guide)
 	ix = {}
 	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
-			local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
-			if way and goal.item then
+			local way = wayOf(goal)
+			if way then
 				local e = ix[goal.item]
 				if not e then
 					e = { gather = {}, auction = {} }
@@ -122,8 +131,22 @@ function Materials.Index(guide)
 			end
 		end
 	end
-	indexes[steps] = ix
+	indexes[steps], itemSets[steps] = ix, nil
 	return ix
+end
+
+-- The materials of a guide's steps, keys only: their index once built, else the items alone, walked once.
+local function itemsOf(steps)
+	local set = indexes[steps] or itemSets[steps]
+	if set then return set end
+	set = {}
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if wayOf(goal) then set[goal.item] = true end
+		end
+	end
+	itemSets[steps] = set
+	return set
 end
 
 -- The first goal of `list` that is this character's (its step's and its own `only`).
@@ -274,8 +297,9 @@ function Materials.Tracked()
 	local tabs = E and E.TabIds and E.TabIds() or {}
 	for _, h in ipairs(G and G.List and G.List() or {}) do
 		local def = (h.category == "Professions" or tabs[h.id]) and G.Get(h.id)
-		if def and rawget(def, "steps") then
-			for item in pairs(Materials.Index(def)) do tracked[item] = true end
+		local steps = def and rawget(def, "steps")
+		if steps then
+			for item in pairs(itemsOf(steps)) do tracked[item] = true end
 		end
 	end
 	return tracked

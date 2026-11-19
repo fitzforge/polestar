@@ -421,6 +421,45 @@ fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_read
 	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
 }
 
+#[test]
+fn moving_a_route_stroke_updates_both_ends_without_reapplying_its_unchanged_look() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(0.5)
+		local mm = R.GetMinimapFrame()
+		local line, shadow = mm.lines[1], mm.outlines[1]
+		local ends, styles = 0, 0
+		for _, region in ipairs({ line, shadow }) do
+			for _, method in ipairs({ "SetVertexColor", "SetThickness", "SetAlpha", "Show", "Hide", "SetStartPoint", "SetEndPoint" }) do
+				local fn = region[method]
+				region[method] = function(...)
+					if method == "SetStartPoint" or method == "SetEndPoint" then ends = ends + 1 else styles = styles + 1 end
+					return fn(...)
+				end
+			end
+		end
+		stub.fire("PLAYER_STARTED_MOVING")
+		for i = 1, 30 do nav.place(i / 10, -i / 10); stub.advance(1 / 60) end
+		local r = { ends = ends, styles = styles, width = line:GetThickness() }
+		Polestar.Set("nav.dotColor", "magenta")
+		Polestar.Set("nav.minimapDotsSize", 1.2)
+		Polestar.Set("nav.minimapRouteAlpha", 0.5)
+		stub.advance(0.1)
+		local red, green, blue = line:GetVertexColor()
+		r.rgb, r.alpha, r.wider = { red, green, blue }, line:GetAlpha(), line:GetThickness() > r.width
+		emit(r)"#,
+	);
+	assert!(f(&out["ends"]) >= 60.0, "the core follows every rendered frame, both ends");
+	assert_eq!(out["styles"], 0, "movement alone does not write tint, alpha, thickness or visibility again");
+	assert_eq!(out["rgb"], json!([1, 0.3, 0.85]));
+	assert_eq!(out["alpha"], 0.5);
+	assert_eq!(out["wider"], true);
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "В зону {zone:1452}",
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
@@ -24,7 +24,7 @@ return {
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}: сохраните для Чумных земель; внутри",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
-	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
+	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} ходит по месту {area:2255}: ищите внутри круга на карте",
 
 	-- Step 7: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -38,11 +38,11 @@ return {
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:14047} Runecloth · {area:1584} Blackrock Depths · {area:2577} Dire Maul
 	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Top up here first to level 55 on its Pathfinders (53-54) at the camp's edge: the Den Watchers inside are 55-56. Killing them raises your Timbermaw reputation and fills your bags with {item:14047} for Meilosh. Or, with a group, run {area:1584} or {area:2577} instead."] = "Западный лагерь племени Зимней Спячки стоит на холмах между NPC {npc:11556} и {npc:9298}. Сначала доберите здесь 55-й уровень на следопытах (53-54) на краю лагеря: дозорные логова внутри — 55-56-го уровня. Их убийство повышает репутацию у Древобрюхих и наполняет сумки предметом {item:14047} для Мелиоша. Или, если есть группа, пройдите вместо этого {area:1584} или {area:2577}.",
 	-- {npc:7442} Winterfall Pathfinder
-	["grind on {npc:7442}"] = "",
+	["grind on {npc:7442}"] = "убивайте: {npc:7442}",
 
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: убивайте их по пути",
 	-- {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth
 	["Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh."] = "С любого фурболга здесь может выпасть {item:12771} (примерно один из десяти: попадется за то число убийств, что нужно для этих заданий) и {quest:8471} (примерно один из тридцати): щелкните правой кнопкой мыши по выпавшему. Сохраните {item:14047}, которая падает с фурболгов, для Мелиоша.",
 
@@ -67,7 +67,7 @@ return {
 
 	-- Step 14: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "",
+	["{area:2247}: kill these as you meet them"] = "{area:2247}: убивайте их по пути",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Chillwind Ravagers = {npc:7449} Chillwind Ravager
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Йети с Холмов ледополоха живут на холмах к югу от места {area:2244}, хладноветрые химеры — в долине по пути к месту {area:2255}.\nОсторожно: йети с Холмов ледополоха 55-56-го уровня, а химеры 55-57-го: бейте ледополохов-разбойников (53-55) и стылодыхов-слетков (53-55) на краю холмов, а хладновеев-опустошителей (57-59) не трогайте.",
@@ -109,7 +109,7 @@ return {
 	-- Step 22: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Распорядитель полетов: {area:2255}",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -117,7 +117,7 @@ return {
 
 	-- Step 24: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
 	-- Step 25: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Чистое Сердце, Дума, Доблестный Кулак и Макдоннел стоят в центре лагеря, у распорядителя полетов.",
@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "В зону {zone:1423}",
 
 	-- Step 32: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
@@ -183,7 +183,7 @@ return {
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Зельдарр — элитный: лучше собрать группу. Он ждет на самом дне ({area:2261}) — склепа на юго-западе зоны.",
 	-- {item:15785} Zaeldarr's Head
-	["{item:15785}; below ground"] = "",
+	["{item:15785}; below ground"] = "{item:15785}; под землей",
 
 	-- Step 37: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp

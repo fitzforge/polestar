@@ -455,7 +455,9 @@ registered commands with their `help` lines (already translated:
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `tab <n>`, `close`, `path` (the route choice), `install` and `welcome` (`SHOW_WELCOME`),
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
-`discord` (`SHOW_DISCORD`), `debug`, and in Core/Pause.lua `pause` (no
+`discord` (`SHOW_DISCORD`), `debug`, in Core/Perf.lua `perf` (no argument
+toggles, `on`, `off`, `report`, `reset`; see "Caught errors and the Polestar
+Discord"), and in Core/Pause.lua `pause` (no
 argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
@@ -479,6 +481,14 @@ Polestar.NoteError(err)       -- notes an error Polestar caught (SafeCall, Hooks
 Polestar.Errors() -> { { msg, count, seq }, ... }   -- this session's, oldest first, the last 5 kept
 Polestar.NoteBlocked(addon, fn)   -- notes a protected call the game blocked from Polestar or Polestar_*
 Polestar.Blocked() -> { { addon, fn, count, at, seq }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.OwnAddon(name) -> bool  -- one of Polestar's own addons (Polestar, or a Polestar_* whose Author is Polestar)
+Polestar.OurSite(stack, skip) -> "Polestar/Core/Engine.lua:812" | nil   -- the first line of our code in a debugstack() text, past the files in skip
+Polestar.SetProbe(timed | nil)   -- the perf probe's way in: every handler goes to timed(fn, kind, where, ...); nil puts the plain dispatchers back
+Polestar.PROBE                -- the probe's kinds: EVENT 1, MESSAGE 2, SAFE 3, CALL 4
+Polestar.HandlerPlace(kind, where, fn) -> at, of | nil   -- fn's place among the live handlers of an event or message
+Polestar.NoteMadeAt(fn, from) -> fn / MadeAt(fn) -> site | nil   -- where a callback run through a shared function was made (past Init.lua and `from`), for the perf probe's names
+Polestar.Perf.Start() / Stop() / Reset() / IsOn() / Ran() / Cost()   -- the perf probe (/polestar perf); Cost: ms a call
+Polestar.Perf.ReportText() / ReportLines()   -- all it measured / the report's section; nil when it has not run this session
 Polestar.DiscordURL           -- the Polestar Discord's invite
 ```
 
@@ -507,6 +517,35 @@ not `/polestar debug` prints them; the report ends its details with its last
 five lines under "Log:", before anything else gives way to Discord's 2000
 characters, after the quest log ("Quest log 12/40: 783 1/3, 7 done, …", left
 out when empty) and the Settings section.
+
+The perf probe (`Core/Perf.lua`, `/polestar perf`, off at every login) finds
+which of Polestar's handlers make a player's game stutter. Off, none of it
+runs: the event frame, `Fire`, `Safe`'s callbacks and `SafeCall` are the
+plain ones (only each `QoL.Coalesce` notes where it was made as it loads,
+`NoteMadeAt`, so the report can tell the refreshes apart). On,
+`Polestar.SetProbe` swaps in copies that hand each handler to the probe,
+and the probe wraps Polestar_Nav's `Path.after` (the walking router's
+search slices); it times each with `debugprofilestop` (its own cost,
+measured when it starts, is about a microsecond a call) and keeps, per
+handler, the calls, total and own milliseconds and the slowest call; the
+last 200 spikes (a call of 2 ms or more, with its event or message, nested
+or not, and the step, quest log count, combat and map then; a frame where
+Polestar's handlers, or the game's profiler's figures for Polestar and
+Polestar_Nav, came to 5 ms or more, with its three slowest calls); the game
+frames of 50 ms or more and how many were Polestar's; and every 5 seconds
+`C_AddOnProfiler`'s figures for each of Polestar's addons, all addons, the
+whole game and the five addons with the highest peak and the most frames
+over 10 ms. A handler is named by where it was made while the probe was on
+("timer Nav/Nav.lua:259") or as noted (`MadeAt`), else by its name in
+Polestar's tables ("Nav.Refresh"), else by its place among its event's
+handlers ("QUEST_LOG_UPDATE #3/14"). A profiler figure far above what the
+handlers add up to means the time is in code the probe does not wrap (a
+bare OnUpdate or C_Timer: UI/NameTargets.lua's watcher, Alts/Snapshot.lua's
+write, Nav/Journey.lua's tell). `/polestar perf report` shows it all in the copy window; once it has
+run, the report's details carry a compact section ("Perf: on 10m02s · …",
+the worst call, the worst frame, the handlers with the most time, the
+profiler's line) after the quest log. No names, realms or positions: only
+the map's number.
 
 The Settings section (UI/Report.lua, `settingsSection`) lists the settings
 of the profile in use that differ from their registered defaults, so a
@@ -793,8 +832,11 @@ What it takes, and how:
   while-here pins (`Nav/Layers.lua`) and the upcoming-step pins
   (`Nav/Upcoming.lua`).
 - With `pause.automation` (off by default): quest auto-accept, turn-in,
-  closing skipped quest windows (`Core/Automation.lua`) and the reward pick
-  (`QoL/Rewards.lua`).
+  closing skipped quest windows (`Core/Automation.lua`), the reward pick
+  (`QoL/Rewards.lua`), and the flight master's map opening from the gossip
+  and its flight taken as the map opens (`qol.flightAutoOpen`,
+  `qol.flightAutoTake`: `QoL/Flight.lua`; `qol.skipGossip` leaves a lone
+  taxi option too, `Flight.PauseHolds`; #2945).
 
 Party chat progress lines go on as before. The report's Routes line says
 "paused armed" or "paused inside" while paused.
@@ -1207,9 +1249,14 @@ through `Compat.OpenWorldMap(uiMapID)` (`C_Map.OpenWorldMap`, the global
 from addon code taints the map frame (NAV_QA C3), and
 `rust/crates/forge-addontest/tests/addontest/compat.rs` rejects any other code that opens or moves the world
 map. The quest log, the world map's side panel, opens only through
-`Compat.OpenQuestLog(questID)` (the client's `QuestMapFrame_OpenToQuestDetails`,
-under the same rules; `Compat.CanOpenQuestLog()`), and the same test rejects its
-openers elsewhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
+`Compat.OpenQuestLog(questID)`: the quest selected (`C_QuestLog.SetSelectedQuest`)
+and the map opened through `C_Map.OpenWorldMap` at the quest's zone
+(`GetQuestUiMapID`), under the same rules (`Compat.CanOpenQuestLog()`; no
+fallback without `C_Map.OpenWorldMap`). The client's Lua openers
+(`QuestMapFrame_OpenToQuestDetails`, `OpenQuestLog`) are never called, not even
+in Compat: from addon code they write the quest's page into the map's tables
+in Polestar's name, and the map's quest pins are blocked in combat while it
+stays open (#2924). The same test rejects them everywhere. Routing the rest keeps Forever specifics in few places and lets other modules' tests
 replace Compat with a fake.
 
 Coordinates: map percent `x, y` in **0–100**. World coordinates follow
@@ -1718,7 +1765,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 #### Smart logic
 
 - **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, z?, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
-  (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT).
+  (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT;
+  `skill … nearest` gives places with no `npc`: the step's gotos, #2529).
   The Engine filters by the character's faction (and races/classes when given),
   then picks the cheapest by `Polestar.Nav.EstimateTravel(from, to)` seconds when
   Nav provides it, else world distance on the same continent with a large penalty
@@ -2461,7 +2509,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
   where the way in is unchanged). A missing quest no guide leading here
-  gives is a gap of the route and keeps its "Requires" line. Nothing shows in
+  gives is a gap of the route and keeps its "Requires" line. A hand-in of a
+  quest the player carries unfinished, which the guide never works (its work
+  is in an earlier guide: Fire Taboo's flint, #2871; Panther Mastery's
+  panthers, #2792), is planned the same way (`Own.workChains`): that quest's
+  work goals from the guides leading here, never their accept or hand-in, go
+  before the hand-in under the same zone and 5-minute rules; one that cannot
+  go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
   `checkShape` carries saved check-offs and skips to the new step numbers; a
@@ -2648,14 +2702,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `UI.ShowQuestRoom("carried")`: each quest
   with who takes it in and where, an Abandon button on a grey one, and
   Guide me (the Lookup planner kind `carried`, `lookup/carried/log`: one
-  stop per ender, nearest first). While you're here hands them in too
+  stop per ender, nearest first). While you're here lists them too
   (Engine `Own.hereStranded`, after `Own.hereGroups`): a finished quest no
   step of the loaded guide from the live one on hands in, whose ender
   stands on the player's map, is a hand-in line
   at step `Own.STRAND_STEP` (-2) with its built goal (`Own.strandGoal`,
   cached per map), measured like a later step's hand-in and ranked after the
   route's next steps, its sub-line and tooltip saying why (`hereSub`,
-  `hereTip`).
+  `hereTip`). Auto turn-in hands one in only when an open tab's guide hands
+  that quest in at any step (`Own.openGuidesHandIn`, #2918); one no open
+  guide has is left to the player.
 - **Missable quests** (`Core/Closes.lua`, setting `behavior.warnClosing`,
   default off). `Closes.For(q, title)` lists what taking `q` closes for good
   for this character: the guide accepts whose `closedBy` names `q`, across
@@ -3471,7 +3527,8 @@ quests, and only while its goal is not done: the giver of a repeatable keeps
 offering it); a While-you're-here hand-in line up in the active tab
 (`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
 held, of a group quest not answered for, of a quest the group waits on or
-one left out); and an accept of the next steps at the NPC whose window is
+one left out, nor a stranded hand-in no open guide has, #2918); and an
+accept of the next steps at the NPC whose window is
 open (`Own.aheadWants`, "While you're here" above, with its guards); never choose among
 multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
@@ -6101,13 +6158,17 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
 slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
-100 fps, halving the frame rate while a search ran) and wait out combat. A
-decode yields at its slice points to its very end. Once the queue is empty
-the router rests: `Rest` trims the decoded graph to `Path.graphRestKB` and the
-endpoint trees to the newest `Path.restTrees` (2; up to four while a search
-runs), the endpoint trees' spare pool (one tree, filled only while a run
-gives up more than it keeps) empties, and decoded clusters, the decoder's
-scratch and the kept endpoint trees stay for the
+100 fps, halving the frame rate while a search ran) and wait out combat; for
+`Path.calmSeconds` (1) after a fight they take `Path.calmBudget` (1 ms) a
+frame, as the kill that ends it updates the game, the guide and the quest log
+at once. A decode yields at its slice points to its very end. Once the queue
+is empty the router rests: `Rest` trims the decoded graph to
+`Path.graphRestKB` and keeps `Path.restTrees` (2) endpoint trees (up to four
+while a search runs): the newest start's goes to the spare pool (emptied first;
+it also takes trees a run gives up), for the next search's first connection
+to fill instead of growing a new tree (0.4.1 emptied the pool at every rest),
+the newest of the others stay, and decoded clusters, the
+decoder's scratch and the kept endpoint trees stay for the
 next search (a walk from nearby reads the same clusters: 0.3.1 decoded them
 again for every search); after `Path.restSeconds` (60) with no search `Idle`
 drops them, except the one `Path.SurfacesAt` reads (the player's floor, until
@@ -7423,6 +7484,7 @@ Polestar.QoL.Bind.OnGossip() -> bool         -- GOSSIP_SHOW (Toggles.lua: after 
 Polestar.QoL.Flight.TakeSlot() -> slot, cost | nil   -- the marked node the step key flies to: map open, the window on the live step, the node reachable (TaxiNodeGetType), cost from TaxiNodeCost
 Polestar.QoL.Flight.Take() -> bool                   -- the press: TakeTaxiNode(slot) when GetMoney covers the cost, else prints what it costs
 Polestar.QoL.Flight.AutoTake() -> bool               -- qol.flightAutoTake: Take() as the map opens, once per open
+Polestar.QoL.Flight.PauseHolds(option) -> bool       -- the taxi gossip option while the pause holds the automation (pause.automation): left to the player
 ```
 
 - By default the flight is only taken by a press of the player's: while the
@@ -7436,7 +7498,8 @@ Polestar.QoL.Flight.AutoTake() -> bool               -- qol.flightAutoTake: Take
   (`Flight.Take`: the marked node, the live step, reachable, the cost
   covered, else the price printed). Shift held now or when a flight
   master's gossip opened leaves the map to the player; a replan while it is
-  open never flies.
+  open never flies. Paused with `pause.automation` on, neither this nor
+  `qol.flightAutoOpen` acts (see "Pause").
 - `Flight.Highlight` fires `FLIGHT_MARK_CHANGED(slot | nil)` after every
   mark (the map opening, a replan while it is open) and on
   `TAXIMAP_CLOSED`; the buttons refresh on it.
@@ -7932,10 +7995,11 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   Lookup page shows it as a "Chain" fact ("Step 6 of 11") and a Chain section
   under its sources, a click on another quest's row opening its page (its
   tooltip says so). The guide window's quest tooltip (a goal row) adds
-  `ChainTooltipText`'s line while Lookup is on and the Codex is loaded; a hover never loads it. The walk is kept per
-  quest (`Codex.FollowUps` reads every quest the first time) until a quest is
-  turned in or taken, a level is gained or the Codex loads
-  (`Lookup.ResetChains`); the states are read on every call.
+  `ChainTooltipText`'s line while Lookup is on and the Codex is loaded; a
+  hover never loads it. `Codex.FollowUps` builds one sorted prerequisite index
+  on first use and discards it if another quest chunk registers. The walk
+  itself is kept per quest until a quest is turned in or taken, a level is
+  gained or the Codex loads (`Lookup.ResetChains`); states are read on every call.
 - **Quest steps** (`Lookup.QuestStep`): a collect goal names who gives the
   item as a compiled goal does (`from`, `fromId`, `fromKind`, `fromRank`,
   `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a
@@ -9113,7 +9177,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   under `ui.reduceMotion`), follows the window, flips below it when the
   screen has no room above (rechecked after a drag), or when above it would
   cover the quest buttons or their target list (`Buttons.Covers`, rechecked on
-  `QUEST_BUTTONS_PLACED`, #2629), and hides with it. It
+  `QUEST_BUTTONS_PLACED`, #2629: fired once a frame at most, the card placed
+  again only when the covered boxes changed, #2772), and hides with it. It
   shows for a chain of the character's class whose start has a giver for
   its race and side (`starts[q].r`, "<race>:<A|H>"), not a level-1 one (learned
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last
@@ -10236,7 +10301,10 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   unchanged dead observations remain throttled. The full vignette scan runs
   at most every 2 s and never in combat. Nothing is detected inside instances.
 - **The decision**: off, instance, path off, players and pets, not a rare →
-  skip; muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
+  skip; on the player's side → skip (a unit alive with `UnitCanAttack`
+  false; a vignette whose NPC the loaded Codex gives the player's faction);
+  the faction leaders the 0.4.1 Codex listed as rares (`Rares.NOT_RARE`) are
+  never rares (no alert, pin or list row); muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
   off, or alerted within `rares.cooldown` minutes → recorded only; in combat
   without `rares.combatAlerts` → held until `PLAYER_REGEN_ENABLED` (dropped
   after a minute); otherwise the alert fires immediately (`RARE_SPOTTED(alert)`,

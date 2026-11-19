@@ -11,7 +11,7 @@ return {
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
 	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "Задание «{quest:1260}» – у таверны; {npc:4897}, поставщица в нескольких шагах к югу, продает специи, которые нужны Ярлу.",
 	-- {quest:1260} Morgan Stern
-	["{quest:1260}, inside"] = "",
+	["{quest:1260}, inside"] = "{quest:1260}, внутри",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
 	["{npc:4964}, on the top floor of {area:514}"] = "",
 	-- {npc:271167} Guard Jameson · {quest:98233} Sword in the Slime
@@ -66,7 +66,7 @@ return {
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, внутри",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
 	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
 
@@ -105,7 +105,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
 	-- Step 21: Riding at 40
 	["Riding at 40"] = "Верховая езда на 40-м уровне",
@@ -136,11 +136,11 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "Распорядитель полетов: {area:42}",
 
 	-- Step 27: Booty Bay
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, наверху",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "для NPC {npc:770} ({area:99}), на северном круге",
 	-- {npc:2494} Privateer Bloads · {area:35} Booty Bay
@@ -153,7 +153,7 @@ return {
 	["{npc:2498}, inside: keep it, Zanzil's village (43-44) waits for the level-48 {area:35} stop"] = "{npc:2498}, внутри: оставьте его, деревня Занзила (43-44) подождет до остановки ({area:35}) на 48-м уровне",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Следующее поручение Морского Рога ведет обратно в Нагорье Арати: пропустите его.",
 	-- {npc:2542} Catelyn the Blade
-	["{npc:2542}, upstairs"] = "",
+	["{npc:2542}, upstairs"] = "{npc:2542}, наверху",
 	["Upstairs"] = "Наверху",
 
 	-- Step 28: Bloodsail camp
@@ -270,7 +270,7 @@ return {
 
 	-- Step 48: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
-	["{area:103}: kill these as you meet them"] = "",
+	["{area:103}: kill these as you meet them"] = "{area:103}: убивайте их по пути",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
@@ -289,13 +289,13 @@ return {
 	-- {area:35} Booty Bay
 	["Follow the road south to {area:35}."] = "Следуйте по дороге на юг до {area:35}.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, наверху",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
 	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: для задания «{quest:2864}» (зона {zone:1446}), сохраните",
 
 	-- Step 56: Fly to Stormwind
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 57: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
@@ -324,9 +324,9 @@ return {
 
 	-- Step 64: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
 	-- Step 67: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -342,11 +342,11 @@ return {
 
 	-- Step 70: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Корабль: {area:17203}",
 
 	-- Step 71: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "",
+	["Fly to {area:42}"] = "Летите сюда: {area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 

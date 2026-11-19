@@ -14,7 +14,7 @@ return {
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
-	["{area:411}: kill these as you meet them"] = "",
+	["{area:411}: kill these as you meet them"] = "{area:411}: убивайте их по пути",
 	-- {area:411} Bathran's Haunt · {item:5366} Glowing Soul Gem
 	["North of Maestra's Post, plant bundles lie around the ruins of {area:411}. Dark Strand cultists hold the ruins just south of them: any of them can drop the {item:5366}."] = "К северу от Заставы Мейстры вокруг руин ({area:411}) лежат пучки трав. Сектанты из клана Темной Нити удерживают руины чуть южнее: с любого из них может выпасть {item:5366}.",
 	-- {quest:1010} Bathran's Hair
@@ -26,9 +26,9 @@ return {
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
-	["{npc:3691}: {quest:990}, from {area:442}"] = "",
+	["{npc:3691}: {quest:990}, from {area:442}"] = "{npc:3691}: {quest:990}, из места {area:442}",
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
+	["{npc:3894}, inside"] = "{npc:3894}, внутри",
 
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
@@ -69,7 +69,7 @@ return {
 
 	-- Step 16: Windshear Crag: kill these as you meet them
 	-- {area:461} Windshear Crag
-	["{area:461}: kill these as you meet them"] = "",
+	["{area:461}: kill these as you meet them"] = "{area:461}: убивайте их по пути",
 	-- {area:461} Windshear Crag
 	["The Venture Co. clear the forest of {area:461}. Loggers and Deforesters work all over it; the Operators run the shredders and one carries the blueprints."] = "Торговая компания вырубает лес ({area:461}). Лесорубы и лесозаготовители работают повсюду; операторы управляют крошшерами, у одного из них чертежи.",
 
@@ -124,7 +124,7 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:415} Astranaar
-	["{area:415} flight master"] = "",
+	["{area:415} flight master"] = "Распорядитель полетов: {area:415}",
 
 	-- Step 30: Terenthis
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -174,7 +174,7 @@ return {
 	-- Step 37: Whelgar's Excavation Site
 	["The excavation site sits on the hill south of the road."] = "Раскопки находятся на холме к югу от дороги.",
 	-- {npc:1076} Merrin Rockweaver
-	["{npc:1076}, below ground"] = "",
+	["{npc:1076}, below ground"] = "{npc:1076}, под землей",
 
 	-- Step 38: The raptor hills
 	["The raptor hills"] = "Холмы ящеров",
@@ -221,11 +221,11 @@ return {
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "",
 	-- {npc:1480} Caitlin Grassman
-	["{npc:1480}, inside"] = "",
+	["{npc:1480}, inside"] = "{npc:1480}, внутри",
 	-- {npc:2086} Valstag Ironjaw
 	["{npc:2086}, in the keep"] = "{npc:2086}, в крепости",
 	-- {npc:1242} Karl Boran
-	["{npc:1242}, on the pier"] = "",
+	["{npc:1242}, on the pier"] = "{npc:1242} – на пристани",
 
 	-- Step 46: Fly to Ironforge
 	-- {area:1537} Ironforge
@@ -233,7 +233,7 @@ return {
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn: you have both flight paths since your first trip east."] = "",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
 	-- Step 47: Ironforge
 	-- {object:32372} Great Forge · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
@@ -245,15 +245,15 @@ return {
 
 	-- Step 48: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Пока вы здесь: выучите {spell:197} у {npc:11865} ({object:32359}, 10 серебра); двуручное оружие быстрее всего прокачивает воина.",
 
 	-- Step 49: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Пока вы здесь: выучите {spell:199} у {npc:11865} ({object:32359}, 10 серебра); двуручное оружие быстрее всего прокачивает воина.",
 
 	-- Step 50: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Пока вы здесь: выучите {spell:197} у {npc:11865} ({object:32359}, 10 серебра); двуручное оружие быстрее всего прокачивает паладина.",
 
 	-- Step 51: Tram to Stormwind
 	-- {zone:1453} Stormwind

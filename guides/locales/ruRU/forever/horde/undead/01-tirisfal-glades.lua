@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Deathknell: kill these as you meet them
 	-- {area:154} Deathknell
-	["{area:154}: kill these as you meet them"] = "",
+	["{area:154}: kill these as you meet them"] = "{area:154}: убивайте их по пути",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Скелеты-костетрясы бродят по разрушенным домам в северной половине места {area:154}. Молодые падальщики и сумеречницы бродят вокруг деревни; косматые падальщики и облезлые сумеречницы – в ее восточной части. {npc:1661} нужны их лапы и крылья: убивайте их по пути, пока зачищаете скелетов.",
@@ -52,13 +52,13 @@ return {
 	-- Step 7: Back to the church
 	["Back to the church"] = "Назад к церкви",
 	-- {npc:1661} Novice Elreth
-	["{npc:1661}, inside"] = "",
+	["{npc:1661}, inside"] = "{npc:1661}, внутри",
 	-- {npc:244808} Aramis Hammerhand · {spell:635} Holy Light · {npc:259377} Injured Deathguard
 	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "",
 	-- {npc:1569} Shadow Priest Sarvis
-	["{npc:1569}, inside"] = "",
+	["{npc:1569}, inside"] = "{npc:1569}, внутри",
 	-- {npc:244808} Aramis Hammerhand
-	["{npc:244808}, inside"] = "",
+	["{npc:244808}, inside"] = "{npc:244808}, внутри",
 	-- {npc:1570} Executor Arren
 	["{npc:1570}, in the church"] = "{npc:1570}, в церкви",
 
@@ -140,7 +140,7 @@ return {
 	-- {area:159} Brill
 	["Holland walks around the north side of {area:159}, a few steps from Dillinger."] = "Холланд ходит по северной части места {area:159}, в нескольких шагах от Диллинджера.",
 	-- {npc:10665} Junior Apothecary Holland · {area:159} Brill
-	["{npc:10665} walks around {area:159}: look inside the circle on the map"] = "",
+	["{npc:10665} walks around {area:159}: look inside the circle on the map"] = "{npc:10665} ходит по месту {area:159}: ищите внутри круга на карте",
 
 	-- Step 25: Dry Branches
 	["Dry Branches"] = "Сухие ветки",
@@ -211,7 +211,7 @@ return {
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
 	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "{npc:1518} – в доме аптекаря на западной стороне площади, {npc:1515} – перед таверной, рядом с ним плакат «Разыскивается», {npc:1499} – в ратуше на северной стороне площади. Таверна – в конце, за один заход.",
 	-- {npc:1518} Apothecary Johaan
-	["{npc:1518}, inside"] = "",
+	["{npc:1518}, inside"] = "{npc:1518}, внутри",
 	-- {npc:246152} Shari Stilwell
 	["{npc:246152}, the Paladin trainer"] = "{npc:246152}, учитель паладинов",
 	-- {npc:1515} Executor Zygand
@@ -264,13 +264,13 @@ return {
 
 	-- Step 48: Coleman Farthing and Gretchen Dedmar
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar
-	["{npc:1500} and {npc:1521}"] = "",
+	["{npc:1500} and {npc:1521}"] = "{npc:1500} и {npc:1521}",
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar · {area:159} Brill
 	["Still in the inn: from level 7 {npc:1500} on the ground floor and {npc:1521} upstairs offer their quests; below 7 they wait for the next {area:159} visit."] = "",
 	-- {npc:1500} Coleman Farthing
 	["{npc:1500}, in the inn"] = "{npc:1500}, в таверне",
 	-- {npc:1521} Gretchen Dedmar
-	["{npc:1521}, upstairs"] = "",
+	["{npc:1521}, upstairs"] = "{npc:1521}, наверху",
 
 	-- Step 49: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
@@ -292,7 +292,7 @@ return {
 
 	-- Step 53: Cold Hearth Manor: kill these as you meet them
 	-- {area:166} Cold Hearth Manor
-	["{area:166}: kill these as you meet them"] = "",
+	["{area:166}: kill these as you meet them"] = "{area:166}: убивайте их по пути",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
 	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} и изуродованные трупы бродят по полям чуть к западу от места {area:159}; дряхлые псы тьмы бродят там и дальше на запад вдоль дороги к персонажу {npc:10666}. Йохану нужна их кровь, {npc:3549} – их шкуры.",
@@ -339,12 +339,12 @@ return {
 
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
-	["{zone:1420}: kill these as you meet them"] = "",
+	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: убивайте их по пути",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Большие сумеречницы (6-7) летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья. Сумеречницы-вампиры (8-9) подальше тоже их роняют, но бьют сильнее.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу, вокруг места {area:164}. {npc:1753} (11-й уровень) пока оставьте в его хижине: гайд вернется к нему в конце.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей. Прямо к северу от места {area:159} на берегу прыгуны и младшие оракулы (7-9), а илистых жителей (9-10) рядом нет.",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
-	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "",
+	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675} ходит по месту {area:164}: ищите внутри круга на карте",
 
 	-- Step 61: Brill
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
@@ -352,7 +352,7 @@ return {
 	-- {npc:246152} Shari Stilwell · {quest:91282} A Second Home · {quest:96899} Bandarion Keep
 	["{npc:246152}, the Paladin trainer: {quest:91282}, to {quest:96899}"] = "",
 	-- {npc:1499} Magistrate Sevren
-	["{npc:1499}, inside"] = "",
+	["{npc:1499}, inside"] = "{npc:1499}, внутри",
 	-- {npc:2129} Dark Cleric Beryl · {item:16607} Acolyte's Sacrificial Robes
 	["{npc:2129}, upstairs: the {item:16607}"] = "{npc:2129}, наверху: {item:16607}",
 
@@ -410,7 +410,7 @@ return {
 
 	-- Step 71: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
-	["Back to {zone:1420}"] = "",
+	["Back to {zone:1420}"] = "Обратно: {zone:1420}",
 	["The Scarlet camp"] = "Лагерь Алого ордена",
 
 	-- Step 72: Tirisfal Glades: kill these as you meet them
@@ -429,7 +429,7 @@ return {
 
 	-- Step 76: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
-	["{area:165}: kill these as you meet them"] = "",
+	["{area:165}: kill these as you meet them"] = "{area:165}: убивайте их по пути",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
 	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "Идите по дороге на восток мимо фермы культа. Кровоточащие ужасы и странствующие духи бродят у могил в восточной части фермы, где растет {quest:99142}: Линнее нужно по восемь каждых.\nКелейники из Алого ордена стоят лагерем чуть к северо-востоку от могил; {npc:1664} стоит среди них.\nПауки прячутся в лесу на дальнем восточном краю прогалин.\nОсторожно: Терзатель (13) – элита, он рыщет к западу и северу от лагеря келейников Алого ордена: высматривайте его, прежде чем выманивать.",
@@ -464,13 +464,13 @@ return {
 
 	-- Step 82: Paladin: Bandarion Keep
 	-- {quest:96899} Bandarion Keep
-	["Paladin: {quest:96899}"] = "",
+	["Paladin: {quest:96899}"] = "Паладин: {quest:96899}",
 	-- {npc:246349} Breton Samuels
 	["{npc:246349} waits at the keep's gate beside Leonid."] = "",
 
 	-- Step 83: Paladin: Murlocs at the Gates
 	-- {quest:91285} Murlocs at the Gates
-	["Paladin: {quest:91285}"] = "",
+	["Paladin: {quest:91285}"] = "Паладин: {quest:91285}",
 	-- {area:16881} Shadowvale
 	["The Vile Fin murlocs lurk on the bluffs just east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
@@ -490,7 +490,7 @@ return {
 
 	-- Step 85: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190}"] = "",
+	["{npc:246389} and {npc:259190}"] = "{npc:246389} и {npc:259190}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "",
 
@@ -506,7 +506,7 @@ return {
 
 	-- Step 89: Brill
 	-- {npc:2132} Carolai Anise
-	["{npc:2132}, inside"] = "",
+	["{npc:2132}, inside"] = "{npc:2132}, внутри",
 	-- {area:159} Brill · {zone:1421} Silverpine Forest
 	["The next guide walks south from {area:159} into {zone:1421}."] = "",
 
