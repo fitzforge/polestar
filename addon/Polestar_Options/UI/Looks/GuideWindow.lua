@@ -57,6 +57,7 @@ for part, keys in pairs({
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
 	xp = { "pace" },
+	journey = { "journeyStyle" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
 end
@@ -336,6 +337,8 @@ function UI.GuideWindowScene(band)
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp },
+			-- The sample Journey (made with the first layout that shows it).
+			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
 		}) do
 			light(key, parts)
 		end
