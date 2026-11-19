@@ -238,8 +238,8 @@ end
 -- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }. to.reach (yards, with to.z): when no walk reaches
 -- the goal's own floor, the walk to the nearest surface within reach on its level that one reaches (job.reached = { x,
 -- y, z }, Routing/Path.lua `nearby`); FindMany takes from.reach alike for its source.
--- opts.walkLevel ~= nil selects strict player routing. It requires the actual faction and
--- a known level; no ground answer (including either end of a transport) may cross a veto.
+-- opts.walkLevel ~= nil selects player routing. Ground segments, including the approaches
+-- to transport, must avoid opposing settlements. Zone level affects cost, not access.
 -- Find, FindCoarse and FindCost all materialize before publishing; failure is
 -- "no safe walking route". A strict batch publishes a target only after that same check.
 -- Returns a Cancel handle.

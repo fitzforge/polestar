@@ -879,7 +879,7 @@ local function setMode(m)
 		distText:SetText(L["Underwater target — no verified walk"])
 	elseif m == "unsafe" then
 		distText:SetTextColor(Nav.RGB("text"))
-		distText:SetText(L["No safe walking route for your faction or level"])
+		distText:SetText(L["No safe walking route"])
 	elseif m == "unmapped" then
 		distText:SetTextColor(Nav.RGB("textDim"))
 		distText:SetText(L["The last steps here aren't mapped"])

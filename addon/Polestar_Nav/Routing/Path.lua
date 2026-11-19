@@ -133,12 +133,11 @@ local Safe = { refusal = "no safe walking route" }
 function Safe.setup(job)
 	local d = Polestar and Polestar.Nav and Polestar.Nav.danger
 	if not Costs.Profile(job.profile) then return "unknown faction" end
-	if type(job.walkLevel) ~= "number" or not (job.walkLevel >= 1 and job.walkLevel % 1 == 0) then return "unknown level" end
 	if not d or type(d.Blocked) ~= "function" then return "missing danger policy" end
 	if not State(job.map) then return "missing walking data" end
-	local blocked, map, profile, level = d.Blocked, job.map, job.profile, job.walkLevel
+	local blocked, map, profile = d.Blocked, job.map, job.profile
 	job.policy = blocked
-	job.check = function(x, y, X, Y) return blocked(map, x, y, X, Y, profile, level) end
+	job.check = function(x, y, X, Y) return blocked(map, x, y, X, Y, profile) end
 end
 function Safe.segment(job, x, y, X, Y)
 	local why = job.check(x, y, X, Y)
@@ -181,6 +180,17 @@ function Safe.joinEnd(st, P, keep, points, first)
 	local at = first and 2 or n
 	table.insert(points, at, { map=st.map, x=x, y=y, z=z })
 	table.insert(keep, at, cell)
+end
+-- A distant snapped start can invent the first segment just as a substituted
+-- goal can invent the last. Check the bearing the route actually draws.
+function Safe.departure(st, P, from, b)
+	local dx = st.x0 + (P.x[1] + .5) * st.cs - from.x
+	local dy = st.y0 + (P.y[1] + .5) * st.cs - from.y
+	local dz = from.z and zOf(grid(st, P.k[1]), P.n[1]) - from.z or 0
+	if dx*dx + dy*dy + dz*dz <= ARRIVE*ARRIVE then return true end
+	return b and from.z and b.z
+		and (Path.FinalDrySight(st.map, from.x, from.y, from.z, b.x, b.y, b.z)
+			or Path.FootprintDrySight(st.map, from.x, from.y, from.z, b.x, b.y, b.z))
 end
 -- A decoded cluster owns one bounded cache for its current policy. Local cells (not
 -- floors) identify this symmetric XY predicate, including long directed jump arcs.
@@ -353,7 +363,7 @@ function Safe.weights(st, profile, style, danger, job, from, to)
 	local base, hmin = weights(st, profile, style, danger)
 	if not job.check then return base, hmin end
 	return { min = base and base.min or 1, kinds = kindMults(base), danger = base and base.danger,
-		tag = (base and base.tag or profile) .. ":strict:" .. job.walkLevel .. ":" .. tostring(job.policy)
+		tag = (base and base.tag or profile) .. ":strict:" .. profile .. ":" .. tostring(job.policy)
 			.. (job.filtered and ":checked" or ":candidate"),
 		check = job.filtered and job.check, policy = job.policy, from = from, to = to }, hmin
 end
@@ -2055,6 +2065,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		Safe.joinEnd(st, P, keep, points, true)
 		Safe.joinEnd(st, P, keep, points, false)
 	end
+	if job.check and not Safe.departure(st, P, from, points[2]) then return nil, "unreachable" end
 	local wetYards, drawnYards = 0, 0
 	for i = 2, #points do
 		local p, q = keep[i - 1], keep[i]
@@ -3050,24 +3061,27 @@ local function localAnswer(map, from, to, profile, style, danger, solve)
 		for _, z in ipairs(from.floors) do if abs(points[1].z - z) <= 1 then matched = true; break end end
 		if not matched then return end
 	end
-	local active = st.zoned and dangerOf(danger)
-	local yards = 0
+	local active = st.zoned and type(danger) == "table" and next(danger) and danger
+	local yards, weighted = 0, 0
 	for i = 2, #points do
 		local a, b = points[i - 1], points[i]
+		local multiplier = 1
 		if active then
-			-- Test the whole chunk rectangle, not samples that can jump a zone corner.
+			-- A higher-level zone makes this corridor less attractive, never impassable.
 			local side = 100 / 3
 			for r = floor(math.min(a.x, b.x) / side), floor(math.max(a.x, b.x) / side) do
 				for c = floor(math.min(a.y, b.y) / side), floor(math.max(a.y, b.y) / side) do
 					local zone = Path.ZoneAt(map, (r + .5) * side, (c + .5) * side)
-					if not zone or active[zone] then return end
+					local factor = zone and active[zone]
+					if type(factor) == "number" and factor > multiplier then multiplier = factor end
 				end
 			end
 		end
-		yards = yards + math.sqrt((a.x - b.x)^2 + (a.y - b.y)^2)
+		local distance = sqrt((a.x - b.x)^2 + (a.y - b.y)^2)
+		yards, weighted = yards + distance, weighted + distance * multiplier
 	end
 	local ground = kind == "ground" or kind == "ground-native"
-	return points, yards * Costs.Mult(ground and Costs.CLASS.GENTLE or Costs.CLASS.INDOOR, profile, style), yards, kind
+	return points, weighted * Costs.Mult(ground and Costs.CLASS.GENTLE or Costs.CLASS.INDOOR, profile, style), yards, kind
 end
 
 local function preferSupported(job, points, cost)

@@ -706,7 +706,7 @@ end
 -- The sampler's taxi and ride-instruction states never enter this function.
 local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
 	local D=Nav.danger
-	if D.Blocked(pc,px,py,px+dn,py+dw,C.GetPlayerFaction(),D.Level()) then return "unsafe" end
+	if D.Blocked(pc,px,py,px+dn,py+dw,C.GetPlayerFaction()) then return "unsafe" end
 	return "travel",d,angle,dn,dw,measured
 end
 
@@ -886,7 +886,7 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 	end
 	if c == nil then return true end
 	local C, D = ns.Compat, Nav.danger
-	return not D.Blocked(c, x, y, gx, gy, C.GetPlayerFaction(), D.Level())
+	return not D.Blocked(c, x, y, gx, gy, C.GetPlayerFaction())
 end
 
 local function recordSample(sampled, state, ...)

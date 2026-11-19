@@ -488,7 +488,7 @@ local function updateTrail(world, minimap)
 					gap = pc ~= b.c or not Nav.CanDrawGroundApproach(pc, px, py, b.wx, b.wy)
 				else
 					local a = run[#run]
-					gap = not a or a.c ~= b.c or Nav.danger.Blocked(a.c, a.wx, a.wy, b.wx, b.wy, C.GetPlayerFaction(), Nav.danger.Level())
+					gap = not a or a.c ~= b.c or Nav.danger.Blocked(a.c, a.wx, a.wy, b.wx, b.wy, C.GetPlayerFaction())
 				end
 			end
 			if gap then

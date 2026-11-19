@@ -1124,7 +1124,7 @@ local function sight(x1, y1, x2, y2, z2, z1)
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
 	local ok, clear = pcall(P.Sight, sightC, x1, y1, z1 or sightZ, x2, y2, z2 or nil, profile)
-	return ok and clear == true and not Nav.danger.Blocked(sightC,x1,y1,x2,y2,profile,Nav.danger.Level())
+	return ok and clear == true and not Nav.danger.Blocked(sightC,x1,y1,x2,y2,profile)
 end
 
 -- While the floor is unknown indoors: the candidate floors (a new list) the player stands on one of, checked within
@@ -1387,7 +1387,7 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 			for i = 1, n do
 				local q = points[i]
 				if type(q) ~= "table" or type(q.x) ~= "number" or type(q.y) ~= "number" then return callback(false) end
-				if not checked and Nav.danger.Blocked(pc, x, y, q.x, q.y, o.profile, o.walkLevel) then return callback(false) end
+				if not checked and Nav.danger.Blocked(pc, x, y, q.x, q.y, o.profile) then return callback(false) end
 				if i > 1 then
 					local dx, dy = q.x - x, q.y - y
 					along = along + sqrt(dx * dx + dy * dy)
@@ -2721,7 +2721,7 @@ local function build(ground)
 					local c, x, y = from.c, from.wx, from.wy
 					if i == ci and pc == c then x, y = px, py end
 					-- A later leg's own evidence is independent of a refusal here.
-					if c == to.c and not Nav.danger.Blocked(c, x, y, to.wx, to.wy, C.GetPlayerFaction(), Nav.danger.Level()) then
+					if c == to.c and not Nav.danger.Blocked(c, x, y, to.wx, to.wy, C.GetPlayerFaction()) then
 						pt(pts, c, x, y)
 						pt(pts, to.c, to.wx, to.wy)
 						straight = true

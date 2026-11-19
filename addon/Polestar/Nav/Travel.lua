@@ -801,7 +801,7 @@ local function planBody(p, S)
 			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map, node)] = true
 		end
 	end
-	local boarding = p.liveTaxi and not walkOnly and not p.noFlights and Travel.BoardingAt(p.c, p.wx, p.wy, p.z, faction, level)
+	local boarding = p.liveTaxi and not walkOnly and not p.noFlights and Travel.BoardingAt(p.c, p.wx, p.wy, p.z, faction)
 	if boarding and not taxiV[boarding.node.id] then boarding = nil end
 	local rideTo, rideCost, dockEnd, dockOf, dockSide, portalV = {}, {}, {}, {}, {}, {}
 	for _, t in ipairs(walkOnly and {} or transports) do
@@ -1035,8 +1035,7 @@ local function planBody(p, S)
 							if p.timeWalks then cost = y end
 						end
 						tw[v], ty[v] = cost, y
-						certified[v] = type(checked) == "table" and type(level) == "number" and
-							level >= 1 and level <= 60 and level == floor(level) and checked.walkLevel == level and
+						certified[v] = type(checked) == "table" and checked.walkLevel == (level or 0) and
 							((faction == 1 and checked.profile == "Alliance") or (faction == 2 and checked.profile == "Horde"))
 					elseif cost == false and (portalV[v] or checked) then
 						nw[v] = true
@@ -1223,9 +1222,12 @@ local function planBody(p, S)
 	local side = faction == 1 and "Alliance" or faction == 2 and "Horde" or nil
 	local function walk(u, v, cost, secs, du, tu, measured)
 		if not hooks and du + cost >= dist[v] then return end
-		-- The price alone proves nothing. Only an exact, current-profile strict
-		-- measurement can stand in for screening the estimated line.
-		if vc[u] ~= vc[v] or (not measured and Nav.danger.Blocked(vc[u],vx[u],vy[u],vx[v],vy[v],side,p.level)) then return end
+		-- A measured detour need not follow the chord, but both ends are still on foot.
+		if vc[u] ~= vc[v] then return end
+		if measured then
+			if Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[u], vy[u], side)
+				or Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then return end
+		elseif Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[v], vy[v], side) then return end
 		if hooks then
 			local f, t = hookWalk.from, hookWalk.to
 			f.c, f.wx, f.wy, t.c, t.wx, t.wy = vc[u], vx[u], vy[u], vc[v], vx[v], vy[v]
@@ -1414,7 +1416,7 @@ local function planBody(p, S)
 				if fl then
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
-						if v and boarding.reachable[fl[i]] and not Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side, level) then
+						if v and boarding.reachable[fl[i]] and not Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then
 							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP
 							relax(v, du + s, tu + s, FLY, u)
 						end
@@ -1817,13 +1819,12 @@ local DISCOVERED_TYPE = { CURRENT = true, REACHABLE = true, UNREACHABLE = true }
 -- Require a currently open flight offer, the player's own observed position
 -- on the authored node floor, and the same start as the plan (never an ETA
 -- from a hypothetical point). No exit from this interaction leads to ground.
-function Travel.BoardingAt(pc, px, py, pz, faction, level)
+function Travel.BoardingAt(pc, px, py, pz, faction)
 	local b, C = Travel.taxiOffer, ns.Compat
 	if not b or not C or not C.GetPlayerUnitPosition or not GetTaxiMapID or GetTaxiMapID() ~= b.map then return nil end
 	local n = b.node
 	if not n or n.c ~= pc or not n.z or type(pz) ~= "number" or (faction ~= 1 and faction ~= 2) then return nil end
-	if not (C.GetPlayerFaction and C.GetPlayerFaction() == (faction == 1 and "Alliance" or "Horde")
-		and type(level) == "number" and level >= 1 and level <= 60 and level == floor(level) and level == Nav.danger.Level()) then return nil end
+	if b.faction ~= faction or not C.GetPlayerFaction or C.GetPlayerFaction() ~= (faction == 1 and "Alliance" or "Horde") then return nil end
 	local x, y, z, c = C.GetPlayerUnitPosition()
 	if not (x and y and z and c == n.c and math.abs(z - n.z) <= 2 and math.abs(z - pz) <= 1) then return nil end
 	local dx, dy, dz = x - n.wx, y - n.wy, z - n.z
@@ -1844,7 +1845,7 @@ local function recordTaxiMap()
 	if mapID and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes then
 		local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, mapID)
 		if ok and type(list) == "table" then
-			local offer, current = { map = mapID, reachable = {} }, 0
+			local offer, current = { map = mapID, faction = playerFaction, reachable = {} }, 0
 			local states = Enum and Enum.FlightPathState
 			for _, info in ipairs(list) do
 				local id = type(info) == "table" and info.nodeID
@@ -3415,7 +3416,7 @@ function Travel.Aim(pc, px, py)
 				progressYards = yards(pc, px, py, to.c, to.wx, to.wy) * WALK_DETOUR
 				return "walk", to.c, to.wx, to.wy
 			end
-			if pc==to.c and Nav.danger.Blocked(pc,px,py,to.wx,to.wy,ns.Compat.GetPlayerFaction(),Nav.danger.Level()) then return "unsafe" end
+			if pc == to.c and Nav.danger.Blocked(pc, px, py, to.wx, to.wy, ns.Compat.GetPlayerFaction()) then return "unsafe" end
 			-- At a crossing or chain waypoint: plan again from here (the next Refresh). A crossing's end reached, near
 			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg); the far end,
 			-- the crossing walked through.
@@ -3454,13 +3455,18 @@ function Travel.Aim(pc, px, py)
 		elseif kind == "fly" then
 			local from = leg.from
 			if leg.taxiOffer then
-				if leg.taxiOffer ~= Travel.BoardingAt(pc, px, py, leg.boardZ, playerFaction, Nav.danger.Level()) then
+				if leg.taxiOffer ~= Travel.BoardingAt(pc, px, py, leg.boardZ, playerFaction) then
 					dirty = true
 					return "unsafe"
 				end
 				return "instruction", pc, px, py
 			end
 			if yards(pc, px, py, from.c, from.wx, from.wy) > LEAVE then dirty = true end
+			-- Off the flight master, this bearing is an approach on foot, not part of the flight.
+			if pc == from.c and Nav.danger.Blocked(pc, px, py, from.wx, from.wy, ns.Compat.GetPlayerFaction()) then
+				dirty = true
+				return "unsafe"
+			end
 			return "instruction", from.c, from.wx, from.wy
 		else
 			local to = leg.to

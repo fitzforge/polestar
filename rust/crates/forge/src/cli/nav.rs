@@ -86,12 +86,9 @@ under <root>/data/sources/wago), into <layers>/hubs.json.
 
 usage: forge nav layers ground --from <reviewed export dir> --out <Nav dir>
 
-Imports the two-build ground policy: areas.json (tiles in source order, each [map, column, row,
-256 row-major policy bytes]), hubs.json (forge nav layers hubs), creatures.json (in source order,
-each [map, startX, startY, endX, endY, radius, Alliance threshold, Horde threshold, reaction bits]).
-Capsule coordinates and radii are quantized whole yards. The local export is required; Forge
-rebuilds the three spatial indexes, refuses any unreviewed change in their payloads, and writes
-only derived Lua. It does not extract terrain or infer spawn reactions from player recordings.";
+Imports areas.json (tiles in source order, each [map, column, row, 256 row-major policy bytes])
+and hubs.json (from forge nav layers hubs). Forge checks both local exports and both derived
+indexes against their reviewed hashes before writing DangerAreas.lua and DangerHubs.lua.";
 
 pub fn main() {
 	super::exit("nav", main2());

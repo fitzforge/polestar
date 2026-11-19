@@ -73,36 +73,75 @@ fn run_real(script: &str) -> Value {
 }
 
 #[test]
-fn a_flight_over_high_level_ground_does_not_admit_the_walk_or_an_unsafe_approach() {
-	let out = run_real(r#"
+fn the_nethergarde_flight_can_cross_stonard_but_its_ground_legs_cannot() {
+	let out = run_real(
+		r#"
 		local N = Polestar.Nav
-		local a, b = N.GetTaxiNode(2), N.GetTaxiNode(6) -- Stormwind and Ironforge
+		local a, b, town = N.GetTaxiNode(45), N.GetTaxiNode(71), N.GetTaxiNode(56)
 		local function trip(from, to, faction, level, foot)
 			local legs = N.PlanRoute({ c = from.c, wx = from.wx, wy = from.wy, map = from.map, target = to,
-				faction = faction, level = level, known = { [2] = true, [6] = true }, walkOnly = foot })
+				faction = faction, level = level, known = { [45] = true, [71] = true }, walkOnly = foot })
 			local kinds = {}
-			for _, leg in ipairs(legs or {}) do kinds[#kinds + 1] = leg.kind end
+			for _, leg in ipairs(legs or {}) do
+				if foot then
+					assert(leg.kind == "walk" and not N.danger.Blocked(0, leg.from.wx, leg.from.wy, leg.to.wx, leg.to.wy, "Alliance"),
+						"a detour must keep every on-foot segment out of Stonard")
+				elseif leg.kind == "fly" then
+					assert(leg.from.id == 45 and leg.to.id == 71 and leg.seconds == 210, "6251-yard flight")
+				end
+				kinds[#kinds + 1] = leg.kind
+			end
 			return table.concat(kinds, ",")
 		end
-		local high = { c = 0, map = 1422, wx = 1383, wy = -383 }
-		emit({ fly = trip(a, b, 1, 20), foot = trip(a, b, 1, 20, true), enemy = trip(a, b, 2, 60),
-			boarding = trip(high, b, 1, 20), landing = trip(a, high, 1, 20), unknown = trip(a, b, 1, nil) })
-	"#);
-	assert_eq!(out, json!({ "fly": "fly,walk", "foot": "", "enemy": "", "boarding": "", "landing": "", "unknown": "" }));
+		assert(N.danger.Blocked(0, a.wx, a.wy, b.wx, b.wy, "Alliance") == "opposing-settlement")
+		trip(a, b, 1, 20, true) -- the full road network may offer a detour
+		local out = { fly = trip(a, b, 1, 20), enemy = trip(a, b, 2, 60),
+			boarding = trip(town, b, 1, 20), landing = trip(a, town, 1, 20), unknown = trip(a, b, 1, nil) }
+		N.RegisterTravelData({}, true) -- leave only the straight walk; no alternate road or flight
+		out.foot = trip(a, b, 1, 20, true)
+		emit(out)"#,
+	);
+	assert_eq!(out, json!({ "fly": "fly,walk", "foot": "", "enemy": "", "boarding": "", "landing": "", "unknown": "fly,walk" }));
+}
+
+#[test]
+fn a_flight_instruction_never_points_back_through_an_enemy_town_on_foot() {
+	let out = run_real(
+		r#"
+		local N, nav = Polestar.Nav, stub.nav
+		local a, b, town = N.GetTaxiNode(45), N.GetTaxiNode(71), N.GetTaxiNode(56)
+		nav.faction = "Alliance"
+		Polestar.CharState().flags.taxi = { [45] = true, [71] = true }
+		Polestar.CharState().flags.taxiSeen = { [0] = true }
+		nav.era[b.map] = { c = 0, top = -7031.25, bottom = -8983.333, left = -266.667, right = -3195.833 }
+		nav.place(a.wx, a.wy, a.c)
+		N.SetTarget(b.map, b.x, b.y, b.name, b.f)
+		assert(N.GetRoute()[1].kind == "fly" and N.Sample() == "instruction")
+		nav.place(town.wx, town.wy, town.c)
+		local foot = N.Sample()
+		nav.taxi = true
+		emit({ foot, (N.Sample()) })"#,
+	);
+	assert_eq!(out, json!(["unsafe", "taxi"]));
 }
 
 #[test]
 fn an_unqualified_measurement_cannot_clear_a_blocked_ground_walk() {
-	let out = run_real(r#"
+	let out = run_real(
+		r#"
 		local N = Polestar.Nav
-		local function plan(level, checked)
-			return N.PlanRoute({ c = 0, wx = 1383, wy = -383, map = 1422, walkOnly = true,
-				target = { c = 0, wx = 1403, wy = -383, map = 1422, label = "Western Plaguelands" },
+		local a, b, town = N.GetTaxiNode(45), N.GetTaxiNode(71), N.GetTaxiNode(56)
+		N.RegisterTravelData({}, true) -- measure only the specified walk, not another way to the destination
+		local function plan(from, to, level, checked)
+			return N.PlanRoute({ c = from.c, wx = from.wx, wy = from.wy, map = from.map, walkOnly = true, target = to,
 				level = level, faction = 1, walkCost = function() return 20, 20, checked end }) ~= nil
 		end
-		emit({ plan(nil, { profile = "Alliance" }), plan(10, { walkLevel = 10, profile = "Horde" }),
-			plan(10, { walkLevel = 60, profile = "Alliance" }), plan(10, nil) })"#);
-	assert_eq!(out, json!([false, false, false, false]));
+		local own = { walkLevel = 10, profile = "Alliance" }
+		emit({ plan(a, b, nil, { profile = "Alliance" }), plan(a, b, 10, { walkLevel = 10, profile = "Horde" }),
+			plan(a, b, 10, { walkLevel = 60, profile = "Alliance" }), plan(a, b, 10, nil),
+			plan(town, b, 10, own), plan(a, town, 10, own) })"#,
+	);
+	assert_eq!(out, json!([false, false, false, false, false, false]));
 }
 
 #[test]
@@ -148,22 +187,23 @@ fn a_cached_flight_estimate_is_not_reused_after_releasing_as_a_ghost() {
 }
 
 #[test]
-fn historical_crossings_do_not_clear_an_underlevel_walk_on_build_70532() {
+fn a_level_gap_alone_does_not_forbid_moonglade_ground_on_build_70532() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
 		before: "stub.clientBuild = \"70532\"".into(),
 		addons: vec![nav()],
 		script: r#"
 			stub.nav.useGameGround()
-			local D = Polestar.Nav.danger
-			-- Sample the level-23 area between Nighthaven and the druid teleport.
-			-- None of its ground tiles are verified low-level passes.
+			local N = Polestar.Nav
 			for x = 7800, 7990, 5 do
 				for y = -2675, -2410, 5 do
-					assert(D.Blocked(1, x, y, x, y, "Alliance", 12), "unverified ground cleared")
+					assert(not N.danger.Blocked(1, x, y, x, y, "Alliance"), "outside the opposing settlement")
 				end
 			end
-			emit(true)"#.into(),
+			local legs = N.PlanRoute({ c = 1, wx = 7800, wy = -2675, map = 1450, faction = 1, level = 12, walkOnly = true,
+				target = { c = 1, wx = 7990, wy = -2410, map = 1450 } })
+			emit(legs and #legs == 1 and legs[1].kind == "walk")"#
+			.into(),
 		..Default::default()
 	});
 	assert_eq!(out, vec![json!(true)]);

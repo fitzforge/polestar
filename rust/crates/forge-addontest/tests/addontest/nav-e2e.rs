@@ -982,13 +982,14 @@ fn the_walking_maps_load_on_demand_only_with_walk_real_paths_on_nav_navrouting_o
 		})
 		.remove(0)
 	};
-	// The known creature range crosses this chord at level one, but not at level eight.
+	// The mine has kobolds, but the walk from Goldshire does not enter an enemy settlement.
 	let off = run1(false, 8);
 	assert_eq!(serde_json::json!([off["loads"], off["data"], off["chokepoints"], off["finds"]]), serde_json::json!([0, false, false, 0]), "routing off: no maps in memory, no search");
 	assert_eq!(off["state"], "travel", "the arrow still points (straight)");
-	assert_eq!(run1(false, 1)["state"], "unsafe", "routing off does not hide a known ground danger");
-	let on = run1(true, 8);
+	assert_eq!(run1(false, 1)["state"], "travel", "ordinary enemies do not suppress the compass");
+	let on = run1(true, 1);
 	assert_eq!(serde_json::json!([on["loads"], on["data"], on["chokepoints"]]), serde_json::json!([1, true, true]), "routing on: loaded once at login");
+	assert_eq!(on["state"], "travel", "a level-one Alliance character is guided from Goldshire");
 	assert!(f(&on["finds"]) >= 1.0);
 }
 
@@ -1012,7 +1013,7 @@ fn cluster_file(wx: f64, wy: f64) -> (i64, Option<String>) {
 }
 
 const DAMAGED_MAP: &str = r#"
-	w.setLevel(8) -- no creature veto here: missing geometry must itself suppress the bearing
+	w.setLevel(8)
 	place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 	local f = guide()
 	for _ = 1, 20 do stub.advance(0.05) end
