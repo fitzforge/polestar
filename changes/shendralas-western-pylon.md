@@ -8,3 +8,4 @@ section: players
   happened) and where to come back to life. The Tattered Journal and the
   Magram Village fragment steps say how to keep the Magram, Necrokhans
   included, from turning on you. For both factions.
+- A Heart of Crystal uses the same west-side pull instead of pointing into the patrols east of the pylon.

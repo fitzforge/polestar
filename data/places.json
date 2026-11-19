@@ -2787,6 +2787,31 @@
 			"issue": 2825
 		},
 		{
+			"id": "shendralas-crystal-heart-west-face",
+			"quest": 99257,
+			"objective": 1,
+			"path": {
+				"map": 2652,
+				"frame": "live",
+				"points": [
+					[
+						43.97,
+						35.59
+					],
+					[
+						43.89,
+						35.64
+					]
+				]
+			},
+			"note": "Use the same two west-side pulls as the pylon repair. The Necrokhans and a Corpsefeeder patrol the opposite side.",
+			"source": {
+				"kind": "recording",
+				"ref": "Western pylon repairs from the west face and deaths on the east side."
+			},
+			"issue": 3145
+		},
+		{
 			"id": "043-hillsbrad-skulls-southern-fields",
 			"quest": 546,
 			"objective": 1,

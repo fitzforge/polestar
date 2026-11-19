@@ -2908,6 +2908,9 @@ test('forever/40-50/shendralas.guide: the western pylon is repaired from its qui
 	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
 	assert.ok(pin && pin.x <= kill.x && pin.y > kill.y, 'approach the west edge from the south');
 	assert.deepEqual(kill.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
+	const crystal = steps.flatMap((s) => s.goals).find((g) => g.t === 'collect' && g.quest === 99257);
+	assert.equal(crystal.npc, 252711);
+	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), kill.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
 	const tips = approach.note || '';
 	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
 	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
