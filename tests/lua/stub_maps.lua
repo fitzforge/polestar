@@ -18,11 +18,28 @@
 local world = stub.world
 local m = { saved = {}, taxi = nil, instance = nil, took = {} }
 stub.maps = m
+stub.clientBuild = "70532"
+
+-- useWorld can be called before or after the addon loads. Only this synthetic
+-- scene installs its ground; other uses of the map API retain the real data.
+local function installGround()
+	local d = Polestar and Polestar.Nav and Polestar.Nav.danger
+	if m.testWorld and d and not m.addGround then
+		require("stub_ground")(m, d, {world.maps[9000], world.maps[9001]})
+	end
+end
+local addonLoaded = stub.addonLoaded
+function stub.addonLoaded(name)
+	if name == "Polestar" then installGround() end
+	addonLoaded(name)
+end
 
 -- One map percent is 20 yards; (50, 50) is the world origin.
 function m.useWorld()
 	world.addMap(9000, { name = "Testshire", c = 0, top = 1000, bottom = -1000, left = 1000, right = -1000 })
 	world.addMap(9001, { name = "Far Isle", c = 1, top = 500, bottom = -500, left = 500, right = -500 })
+	m.testWorld = true
+	installGround()
 end
 
 function m.mapPoint(wx, wy)

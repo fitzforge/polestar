@@ -14,6 +14,8 @@
 --   stub.nav.withTomTom()                 install a recording TomTom (the addon itself, loaded)
 --   stub.nav.showWorldMap(mapID)          open the world map on mapID (see the map section)
 
+stub.clientBuild = "70532" -- navigation fixtures use this build's walking data
+
 local nav = {
 	player = { c = 0, wx = 0, wy = 0 },
 	facing = 0,
@@ -83,7 +85,8 @@ function Compat.IsInInstance() return nav.instance end
 function Compat.IsIndoors() return nav.indoors end
 function Compat.IsSwimming() return nav.swimming end
 function Compat.GetMapName(map) return nav.maps[map] and nav.maps[map].name end
-function Compat.GetPlayerInfo() return { name = "Testchar", level = 10, faction = nav.faction, class = nav.class } end
+function Compat.GetPlayerInfo() return { name = "Testchar", level = nav.level, faction = nav.faction, class = nav.class } end
+function Compat.GetPlayerLevel() return nav.level end
 function Compat.GetPlayerFaction() if nav.faction == "Alliance" or nav.faction == "Horde" then return nav.faction end end
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
 -- A spell's and an item's full cooldown in seconds, from the client's GetSpellBaseCooldown and GetItemSpell (a test
@@ -104,7 +107,8 @@ function Compat.IsShiftKeyDown() return stub.keys.shift end
 -- Travel: run speed, Hearthstone cooldown, the flight map
 ---------------------------------------------------------------------------
 
-nav.faction = "Neutral"
+nav.faction = "Alliance"
+nav.level = 10
 nav.items = {}
 nav.bind = nil
 nav.npcUnit = nil
@@ -186,6 +190,9 @@ function stub.addonLoaded(name)
 	if name == "Polestar" and Polestar then
 		Polestar.Compat = Polestar.Compat or Compat
 		Polestar.Engine = Polestar.Engine or Engine
+		if Polestar.Compat == Compat and Polestar.Nav and Polestar.Nav.danger then
+			require("stub_ground")(nav, Polestar.Nav.danger, nav.maps)
+		end
 		if not Polestar.RegisterMapFrames then
 			function Polestar.RegisterMapFrames(t)
 				for id, b in pairs(t.era or {}) do nav.era[id] = b end
