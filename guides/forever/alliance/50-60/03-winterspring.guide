@@ -113,9 +113,8 @@ step Everlook
 # ---------------------------------------------------------------- The east
 
 step Pristine Yeti Horns
-  tip Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.
-  tip Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.
-  collect 12367 quest 977.1
+  tip Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. Leave the higher-level Patriarchs alone.
+  collect 12367 quest 977.1 npc 7459 @65.88,43.57 map 1452 -- Loot the horns from Ice Thistle Matriarchs
 
 step Everlook
   turnin 977

@@ -6499,6 +6499,14 @@ test('Voodoo Dues: Jon-Jon’s spyglass and Maury’s foot are on the same hill'
 	assert.notEqual(step(3925), step(3926));
 });
 
+test('Winterspring: Pristine Yeti Horns track the item but target only the lower-level Matriarch', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const { goal } = list[at(list, 'Pristine Yeti Horn', (g) => g.item === 12367 && g.quest === 977 && g.t === 'collect')];
+	assert.equal(goal.npc, 7459);
+	assert.equal(goal.fromAlsoId, undefined);
+	assert.ok(Math.abs(goal.x - 65.88) < 0.1 && Math.abs(goal.y - 43.57) < 0.1);
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
@@ -13947,7 +13955,6 @@ test("#1556's follow-up: an item only one or two creatures drop names them at an
 	for (const [guide, item, ids] of [
 		['forever/horde/orc/01-durotar.guide', 4891, [3110, 3231]],
 		['forever/horde/30-40/02-thousand-needles.guide', 15878, [11562, 11563]],
-		['forever/alliance/50-60/03-winterspring.guide', 12367, [7459, 7460]],
 	]) {
 		const list = goals(guide);
 		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];

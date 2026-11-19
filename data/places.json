@@ -2,6 +2,24 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "pristine-horns-matriarch-on-west-edge",
+			"faction": "Alliance",
+			"quest": 977,
+			"objective": 1,
+			"at": {
+				"map": 1452,
+				"x": 65.88,
+				"y": 43.57,
+				"frame": "era"
+			},
+			"note": "A Matriarch spawn on the western edge, away from the higher-level Patriarchs.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Ice Thistle Matriarch 7459 and Ice Thistle Patriarch 7460, Winterspring spawn positions and level ranges."
+			},
+			"issue": 3144
+		},
+		{
 			"id": "jon-jon-spyglass-on-the-hill",
 			"faction": "Alliance",
 			"quest": 609,
