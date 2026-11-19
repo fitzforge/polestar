@@ -9207,6 +9207,16 @@
 				"q": 5121,
 				"size": 3,
 				"why": "High Chief Winterfall: a level 59 elite with his guards in the cave at the back of Winterfall Village, at the player's level on 07 (about 59.5): a group choice after Donova's Winterfall Runners, with his log (5123, The Final Piece) and Words of the High Chief (5128) to Kelek Skykeeper at 07's last stop: 16,000 XP for a group (Horde fix pass, 2026-11-20)."
+			},
+			{
+				"q": 5041,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): Supplies for the Crossroads' three crates lie in the Razormane camp east of the Crossroads among Forever's Razormane Flesheaters and Berserkers (18-19, elite; 62 spawns over 54.8-60.0,21.1-27.4, 7 to 13 of them within a map unit of each crate), at a route level of 15-16. No later Horde visit passes the camp at their level, so Thork's accept is a group choice with the house's elite tip (975 XP, no follow-up)."
+			},
+			{
+				"q": 872,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): The Disruption Ends sends players of about 16-17 back into the Razormane camp's eastern half, where Kreenig Snarlsnout has 7 elite Flesheater and Berserker (18-19) spawns within a map unit and every Defender and Geomancer spawn is 0.1-1.0 units from an elite. Players' recordings: of 19 people on 0.4.x who handed it in, 5 died in the camp while following the guide (3 of them at 19-20, on the quest's own step). A group choice with the house's elite tip (1050 XP, no follow-up); Disrupt the Attacks (871, the western half) stays solo with its tip."
 			}
 		]
 	},
