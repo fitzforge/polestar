@@ -3,7 +3,7 @@
 -- `buy`'s, a `craft`'s reagents, the item an `accept` starts from, a quest's
 -- items until its turn-in). They are never sold as junk (QoL/Vendor.lua),
 -- their bag slot carries a lock (QoL/BagGlow.lua), their tooltip says which
--- step needs them, in the warning colour while a merchant is open, and
+-- step of which guide needs them, in the warning colour while a merchant is open, and
 -- opening a merchant with any that sell in the bags names them in chat
 -- first, so none goes by mistake.
 --
@@ -56,11 +56,22 @@ end
 function QoL.KeptLine(itemID)
 	local s = QoL.Kept(itemID)
 	if not s then return nil end
-	-- The step as the player counts it (#942: steps not theirs left out).
+	-- The step as the player counts it (#942: steps not theirs left out), its
+	-- title when it has one, and the guide's, so the line says what it is for.
 	local E = ns.Engine
+	local guide = E and E.GetGuide and E.GetGuide()
+	local step = guide and guide.steps and guide.steps[s]
+	local title = step and type(step.title) == "string" and step.title ~= "" and step.title or nil
+	local name = guide and (guide.title or guide.id) or "?"
 	if E and E.StepNumber then s = E.StepNumber(s) end
-	if atMerchant then return format(L["Don't sell: the guide needs it at step %d"], s), color("warning", 1, 0.6, 0.25) end
-	return format(L["Kept for the guide: step %d needs it"], s), color("accent", 1, 0.82, 0)
+	if atMerchant then
+		local r, g, b = color("warning", 1, 0.6, 0.25)
+		if title then return format(L["Don't sell: used in step %d (%s) in %s"], s, title, name), r, g, b end
+		return format(L["Don't sell: used in step %d in %s"], s, name), r, g, b
+	end
+	local r, g, b = color("accent", 1, 0.82, 0)
+	if title then return format(L["Used in step %d (%s) in %s"], s, title, name), r, g, b end
+	return format(L["Used in step %d in %s"], s, name), r, g, b
 end
 
 -- Hooks (Core/Hooks.lua) owns the tooltips; a partial load without it has none.

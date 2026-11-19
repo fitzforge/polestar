@@ -7801,9 +7801,10 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   in the log, kept for the first later step that hands it in. Steps and
   goals for another character, and those the player skipped, keep nothing.
 - **Never sold:** QoL/Vendor.lua's grey selling passes over a kept item.
-- **Marked:** its tooltip (Hooks.ItemLines, owner "keep") reads "Kept for
-  the guide: step N needs it" in the accent colour, and "Don't sell: the
-  guide needs it at step N" in the warning colour while a merchant is open;
+- **Marked:** its tooltip (Hooks.ItemLines, owner "keep") reads "Used in
+  step N (<step title>) in <guide>" in the accent colour (no title: "Used in
+  step N in <guide>"), and the same after "Don't sell: " in the warning colour
+  while a merchant is open;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.

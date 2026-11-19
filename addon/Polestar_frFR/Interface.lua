@@ -3438,8 +3438,10 @@ L["Forget %s"] = "Oublier %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personnages est désactivé. Activez-le dans Options > Découverte > Recherche."
 
 -- QoL/Keep.lua
-L["Don't sell: the guide needs it at step %d"] = "Ne pas vendre : le guide en a besoin à l'étape %d"
-L["Kept for the guide: step %d needs it"] = "Conservé pour le guide : l'étape %d en a besoin"
+L["Don't sell: used in step %d (%s) in %s"] = "Ne pas vendre : utilisé à l'étape %d (%s) de %s"
+L["Don't sell: used in step %d in %s"] = "Ne pas vendre : utilisé à l'étape %d de %s"
+L["Used in step %d (%s) in %s"] = "Utilisé à l'étape %d (%s) de %s"
+L["Used in step %d in %s"] = "Utilisé à l'étape %d de %s"
 L["Keep %s: a later step of the guide needs it."] = "Gardez %s : une étape suivante du guide en a besoin."
 L["Keep %s: later steps of the guide need them."] = "Gardez %s : des étapes suivantes du guide en ont besoin."
 

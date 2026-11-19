@@ -3437,8 +3437,10 @@ L["Forget %s"] = "忘记 %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "“角色”功能已关闭。请在“选项 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
-L["Don't sell: the guide needs it at step %d"] = "请勿出售：指南的步骤 %d 需要它"
-L["Kept for the guide: step %d needs it"] = "为指南保留：步骤 %d 需要它"
+L["Don't sell: used in step %d (%s) in %s"] = "不要出售：用于步骤 %d（%s），%s"
+L["Don't sell: used in step %d in %s"] = "不要出售：用于步骤 %d，%s"
+L["Used in step %d (%s) in %s"] = "用于步骤 %d（%s），%s"
+L["Used in step %d in %s"] = "用于步骤 %d，%s"
 L["Keep %s: a later step of the guide needs it."] = "请保留%s：指南后续的步骤需要它。"
 L["Keep %s: later steps of the guide need them."] = "请保留%s：指南后续的步骤需要它们。"
 

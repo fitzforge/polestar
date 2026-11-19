@@ -3437,8 +3437,10 @@ L["Forget %s"] = "%s 삭제"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "캐릭터가 꺼져 있습니다. 설정 > 발견 > 찾아보기에서 켜십시오."
 
 -- QoL/Keep.lua
-L["Don't sell: the guide needs it at step %d"] = "팔지 마십시오: 가이드의 %d단계에 필요합니다"
-L["Kept for the guide: step %d needs it"] = "가이드용으로 보관: %d단계에 필요"
+L["Don't sell: used in step %d (%s) in %s"] = "판매 금지: %d단계(%s)에 사용 - %s"
+L["Don't sell: used in step %d in %s"] = "판매 금지: %d단계에 사용 - %s"
+L["Used in step %d (%s) in %s"] = "%d단계(%s)에 사용 - %s"
+L["Used in step %d in %s"] = "%d단계에 사용 - %s"
 L["Keep %s: a later step of the guide needs it."] = "%s을(를) 보관하십시오: 가이드의 이후 단계에 필요합니다."
 L["Keep %s: later steps of the guide need them."] = "%s을(를) 보관하십시오: 가이드의 이후 단계들에 필요합니다."
 
