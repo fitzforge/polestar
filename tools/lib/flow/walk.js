@@ -61,7 +61,9 @@ function applies(only, race, cls, faction) {
 	return true;
 }
 
-// A `when` list as the walk reads it: levels, and dungeons by `dungeons` ("all", or map ids "36,34": the dungeons the
+// A `when` list as the walk reads it: levels (`level`: the character's level with the share of it done, e.g. 12.4; a
+// whole-level condition reads the whole level, one with a point inside a level, `when level>=12.5`, the share too, as
+// Own.predicateHolds does), and dungeons by `dungeons` ("all", or map ids "36,34": the dungeons the
 // player runs; "" none) in the style `dungeonQuests` ("all": every quest of a dungeon run, "way": only the quests on the
 // way): `when dungeon "<X>"` holds when X is run, `when dungeon "<X>" all` (compiled `all = true`) only when it is run
 // with every quest. With `walk`, the character's state as the Engine reads it: onquest / complete (accepted and not
@@ -92,9 +94,10 @@ function whenOk(when, level, walk = null, dungeons = '', dungeonQuests = 'all') 
 		if (walk && k === 'zone') ok = c.name === walk.zone;
 		if (k === 'knows') ok = false;
 		if (k === 'level') {
-			const n = c.n ?? 0;
+			const n = (c.n ?? 0) + (c.frac || 0);
 			const op = c.op ?? '>=';
-			ok = op === '>=' ? level >= n : op === '<' ? level < n : op === '<=' ? level <= n : op === '>' ? level > n : level === n;
+			const lv = c.frac ? level : Math.floor(level + 1e-9);
+			ok = op === '>=' ? lv >= n : op === '<' ? lv < n : op === '<=' ? lv <= n : op === '>' ? lv > n : lv === n;
 		} else if (k === 'dungeon') {
 			ok = dungeons === 'all' || dungeons.split(',').includes(String(c.map));
 			if (c.all) ok = ok && dungeonQuests === 'all';
@@ -278,7 +281,7 @@ class Walk {
 			this.labelsPlayed = new Set();
 			for (let si = 1; si <= g.steps.length; si++) {
 				const step = g.steps[si - 1];
-				if (!applies(step.only, race, cls, faction) || !whenOk(step.when, this.effLevel(), this, dungeons, dungeonQuests)) continue;
+				if (!applies(step.only, race, cls, faction) || !whenOk(step.when, this.effLv(), this, dungeons, dungeonQuests)) continue;
 				if (step.label) this.labelsPlayed.add(step.label);
 				if (dyn) {
 					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls, faction));
@@ -338,15 +341,21 @@ class Walk {
 		while (gid && guides.has(gid) && !seen.has(gid)) {
 			seen.add(gid);
 			yield gid;
-			gid = chain.nextOf(guides.get(gid), this.effLevel());
+			gid = chain.nextOf(guides.get(gid), this.effLv());
 		}
 	}
 
-	// The character's level for a decision: the modelled level, or with levelOffset the level of the character that
-	// many levels ahead of it (1 to 60).
+	// The character's level with the share of it done (12.4): the modelled one, or with levelOffset the level of the
+	// character that many levels ahead of it (1 to 60). `when level` conditions read it.
+	effLv(L = this.L, xp = this.xp) {
+		const lv = L + xp / XP_TO_LEVEL[Math.min(L, 59)];
+		return this.levelOffset ? Math.min(60, Math.max(1, lv + this.levelOffset)) : lv;
+	}
+
+	// The character's whole level, for every other decision on it (min levels, the While-here mob gate).
 	effLevel(L = this.L, xp = this.xp) {
 		if (!this.levelOffset) return L;
-		return Math.min(60, Math.max(1, Math.floor(L + xp / XP_TO_LEVEL[Math.min(L, 59)] + this.levelOffset + 1e-9)));
+		return Math.floor(this.effLv(L, xp) + 1e-9);
 	}
 
 	// --- along work
@@ -710,7 +719,7 @@ class Walk {
 		let k = 0;
 		const npc = c.go.npc, obj = c.go.object;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.effLevel(), null, this.dungeons, this.dungeonQuests)) continue;
+			if (s2 <= si || !whenOk(step.when, this.effLv(), null, this.dungeons, this.dungeonQuests)) continue;
 			if (s2 === c.si) return true;
 			for (const [, o] of gl) {
 				if ((npc != null && o.npc === npc) || (obj != null && o.object === obj)) {
@@ -746,7 +755,7 @@ class Walk {
 			const go = c.go;
 			const q = go.quest;
 			if (!this.acceptAt.has(q) || this.turninAt.has(q)) continue;
-			if (!whenOk(c.step.when, eL, null, this.dungeons, this.dungeonQuests)) continue;
+			if (!whenOk(c.step.when, this.effLv(), null, this.dungeons, this.dungeonQuests)) continue;
 			if (go.t === 'turnin') {
 				if (this.dynTurned.has(q) || this.liveTurnins.has(q) || !this.ready(q)) continue;
 				let budget = WH_SECONDS;
@@ -955,7 +964,7 @@ class Walk {
 		const npc = go.npc;
 		if (npc == null) return;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.effLevel(), null, this.dungeons, this.dungeonQuests)) continue;
+			if (s2 <= si || !whenOk(step.when, this.effLv(), null, this.dungeons, this.dungeonQuests)) continue;
 			for (const [gi2, o] of gl) {
 				const q2 = o.quest;
 				if (o.t !== 'accept' || o.npc !== npc || q2 == null || this.acceptAt.has(q2)) continue;

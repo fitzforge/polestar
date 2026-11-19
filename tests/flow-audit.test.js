@@ -209,6 +209,22 @@ test('with a level offset the walk decides at the character\'s level: `when leve
 	assert.deepEqual([dyn(0), dyn(1)], [0, 1]);
 });
 
+// Own.predicateHolds: `when level>=2.5` (compiled n 2, frac 0.5) reads the level with the share of it done; a
+// whole-level condition reads the whole level (`when level<=2` holds at 2.4).
+test('a `when level` with a point inside a level reads the share of the level done; a whole-level one the whole level', (t) => {
+	const data = loadData(dataDir(t));
+	const steps = (frac) => {
+		const g = guide('test/p', [
+			[{ t: 'level', level: 2, frac, ...at(10, 10) }],
+			{ when: [{ k: 'level', op: '>=', n: 2, frac: 0.5 }], goals: [goto_(10.01, 10)] },
+			{ when: [{ k: 'level', op: '<=', n: 2 }], goals: [goto_(10.02, 10)] },
+		], { races: ['Orc'] });
+		return [...new Set(new Walk({ chain: ['test/p'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data }).entries.map((e) => e.step))];
+	};
+	assert.deepEqual(steps(0.4), [1, 3], 'at 2.4: not 2.5 yet, and still level 2');
+	assert.deepEqual(steps(0.6), [1, 2, 3], 'at 2.6: past 2.5');
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
