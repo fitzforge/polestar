@@ -25,6 +25,7 @@
 --     Results have the same fields without a score, A to Z with unavailable
 --     entries last. The order is cached on first use, and only the page is named.
 --   Search.BrowseCount(kind, opts) -> count|nil   -- same visibility filters; no sorting or loading
+--   Search.Release()   -- frees the per-search caches; the hub calls it when it hides
 --   Search.Subtitle(result) -> text|nil   -- guides "Zone · 1-6"; Codex entities Lookup.Subtitle
 --   Search.KINDS = { { key, label }, ... }   -- display order
 --   Search.Status() -> codexLoaded, reason   -- reason: Data.Pack's code
@@ -166,8 +167,14 @@ end
 -- source. It outranks the match tier, so among items the ones a guide covers
 -- come first and a retired mount never sits above the ones on sale. (The
 -- UIs group results by kind, so this mostly reorders within a kind.)
+-- The one formula every result is ranked by; the Codex scan calls it with
+-- a kind weight worked out once per kind (KIND_W * its KINDS position).
+local STANDING_W, TIER_W, KIND_W = 10000000, 1000000, 10000
+local function rankScore(standing, t, kindWeight, len)
+	return standing * STANDING_W + t * TIER_W - kindWeight - min(len, 9999)
+end
 local function score(t, kind, len, standing)
-	return (standing or 1) * 10000000 + t * 1000000 - (KIND_INDEX[kind] or 99) * 10000 - min(len, 9999)
+	return rankScore(standing or 1, t, (KIND_INDEX[kind] or 99) * KIND_W, len)
 end
 
 ---------------------------------------------------------------------------
@@ -175,6 +182,8 @@ end
 ---------------------------------------------------------------------------
 
 local guideIndex, guideCount, guideSource, pagedSearch
+-- kind -> Browse's A to Z order of its Codex lines (orderedCodex)
+local browseIndexes = {}
 -- item id -> true when a guide of the suggestion source or ours `collects` it
 local curated = {}
 
@@ -288,7 +297,9 @@ if ns.On then
 	-- Guides.List leaves hidden packs' guides out: re-index when one switches.
 	ns.On("GUIDES_REGISTERED", function() guideIndex = nil end)
 	ns.On("PACKS_CHANGED", function() guideIndex = nil end)
-	ns.On("NAMES_LOADED", function() localIndex, pagedSearch = {}, nil end)
+	-- Dungeons sort by their map names, which no translated index line
+	-- carries into Browse's cache key: sort them again when the names change.
+	ns.On("NAMES_LOADED", function() localIndex, pagedSearch, browseIndexes.instance = {}, nil, nil end)
 	ns.On("CODEX_LOADED", function() pagedSearch = nil end)
 end
 
@@ -321,7 +332,7 @@ end
 -- Browse
 ---------------------------------------------------------------------------
 
-local browseCounts, browseIndexes = {}, {}
+local browseCounts = {}
 local guideBrowseSource, guideOrder
 local BROWSE_LINE = "\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n"
 
@@ -377,12 +388,18 @@ local function orderedCodex(kind, blob, extra)
 	end
 	local order, translatedAt = {}, {}
 	local stringIds = kind == "instance"
+	-- Dungeons have no translated index lines; their client names (the ones
+	-- the rows show) come from the map names, so sort by those.
+	local mapNames = stringIds and localised()
 	local retired, nosource = 0, 0
 	for folded, at, rawId, st, len in gmatch(blob, BROWSE_LINE) do
 		local translation = translations[rawId]
 		if translation then
 			folded, len = translation.folded, translation.len
 			translatedAt[rawId] = at
+		elseif mapNames then
+			local shown = localName(kind, rawId)
+			if shown then folded, len = sub(fold(shown), 2), tostring(#shown) end
 		end
 		if st == "r" then retired = retired + 1 elseif st == "n" then nosource = nosource + 1 end
 		local availability = STATUS[st] and "1" or "0"
@@ -525,6 +542,10 @@ local function guideTier(g, q, body, short, words)
 	return best
 end
 
+-- Best match order: score, then title, then id. searchCodex's before and
+-- keep, and orderBucket's sort keys, give this same order; they repeat it
+-- inline because they run for every hit that ties (a call there cost a
+-- keystroke about 5%).
 local function bestFirst(a, b)
 	if a.score ~= b.score then return a.score > b.score end
 	if a.title ~= b.title then return a.title < b.title end
@@ -551,7 +572,16 @@ end
 
 -- A later keystroke often finds lines the last one found too. Cache the
 -- query-independent part of their score by offset, without storing names.
+-- It makes an Everything keystroke about a third faster and grows to about
+-- 50 bytes a Codex line (some 2 MB with every line), so Search.Release
+-- drops it when the searches close.
 local scoreIndexes = {}
+
+-- Free what only a search in progress needs: the score cache and the paged
+-- kind's matches. Browse's A to Z orders stay (they are slow to rebuild).
+function Search.Release()
+	scoreIndexes, pagedSearch = {}, nil
+end
 local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full, cap)
 	local hideRetired, hideNoSource = opts.hideRetired, opts.hideNoSource
 	local useLocalName = show and not az and localised()
@@ -575,8 +605,18 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	local sorted = az and orderedCodex(kind, blob, extra)
 	local marked = az and {}
 	local usesCurated = ranked and next(curated) ~= nil
-	local kindWeight = (KIND_INDEX[kind] or 99) * 10000
+	local kindWeight = (KIND_INDEX[kind] or 99) * KIND_W
 	local filter = hideRetired or hideNoSource
+	-- rankScore without the length for each standing and tier, worked out
+	-- once rather than for every hit (a call there costs a filtered keystroke
+	-- about 5%). A hit scores this minus min(len, 9999), rankScore's length
+	-- term. ceiling[1] is the best an uncurated line can reach at a tier.
+	local ceiling = {}
+	for standing = 0, 2 do
+		ceiling[standing] = {}
+		for t = WORDS, EXACT do ceiling[standing][t] = rankScore(standing, t, kindWeight, 0) end
+	end
+	local tierCeiling = ceiling[1]
 	local floorScore
 	local baseScores
 	if ranked and not (seen or filter or full) then
@@ -595,6 +635,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		if not entry.title then entry.title = name(entry.id) end
 		return entry.title
 	end
+	-- bestFirst's order, naming rows only when their scores tie.
 	local function before(a, b)
 		if a.score ~= b.score then return a.score > b.score end
 		local an, bn = title(a), title(b)
@@ -615,10 +656,12 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		if floorScore and s < floorScore then return end
 		local last = #hits
 		local tail = last == cap and hits[last]
+		-- A full list takes it only when it ranks above the last entry (s is
+		-- at least the floor); names are asked for only when the scores tie.
 		local text
 		if tail and s == tail.score then
 			text = name(id)
-			local against = title(tail)
+			local against = title(tail) -- not before(entry, tail): no entry yet
 			if text > against or (text == against and id >= tail.id) then return end
 		end
 		local entry = { at = at, id = id, score = s, translation = translation, title = text }
@@ -633,7 +676,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	local function scan(source, translation)
 		scanNames(source, kind, terms, ranked, function(at, t)
 			if floorScore and not (seen or filter or usesCurated)
-				and floorScore > 10000000 + t * 1000000 - kindWeight then
+				and floorScore > tierCeiling[t] then
 				n = n + 1
 				return
 			end
@@ -644,10 +687,11 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 					local st, len = match(source, RANK_NO_ID, at)
 					local standing = st ~= "" and 0 or 1
 					if standing == 1 and usesCurated and curated[tonumber(match(source, RAW_ID, at))] then standing = 2 end
-					base = standing * 10000000 - kindWeight - min(tonumber(len), 9999)
+					-- The tier is the only part that depends on the query.
+					base = rankScore(standing, 0, kindWeight, tonumber(len))
 					baseScores[at] = base
 				end
-				local s = base + t * 1000000
+				local s = base + t * TIER_W
 				if not floorScore or s >= floorScore then keep(at, match(source, RAW_ID, at), s) end
 				return
 			end
@@ -662,7 +706,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 			if not prior then n = n + 1 end
 			if ranked then
 				local standing = st ~= "" and 0 or usesCurated and curated[tonumber(rawId)] and 2 or 1
-				local s = standing * 10000000 + t * 1000000 - kindWeight - min(tonumber(len), 9999)
+				local s = ceiling[standing][t] - min(tonumber(len), 9999)
 				if not seen then
 					if not floorScore or s >= floorScore then
 						keep(at, rawId or (not buckets and match(source, RAW_ID, at)), s)

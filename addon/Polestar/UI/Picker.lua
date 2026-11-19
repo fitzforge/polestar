@@ -1786,7 +1786,6 @@ end
 --     nav = fn() -> items, activeKey,  -- optional: its index ({ key, label, icon, count })
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
---     searchTab = fn(editBox),         -- optional: Tab from the search box
 --     searchPlaceholder = "...",       -- optional; or a list of wordings, longest first (the first that fits shows)
 --   })
 ---------------------------------------------------------------------------
@@ -2259,10 +2258,6 @@ local function build()
 		local s = activeSection()
 		if s and s.step then s.step(d) elseif not s then step(d) end
 	end)
-	win.Search:SetScript("OnTabPressed", function(self)
-		local s = activeSection()
-		if s and s.searchTab then s.searchTab(self) end
-	end)
 
 	-- Middle: the header, tab row and list end where the details begin; no
 	-- footer, the list runs to the window's bottom.
@@ -2295,6 +2290,12 @@ local function build()
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
+	-- Every search (Lookup and the guide list's Codex rows) runs in the hub:
+	-- closing it frees what only a search in progress needs.
+	win:HookScript("OnHide", function()
+		local S = ns.Search
+		if S and S.Release then S.Release() end
+	end)
 	-- A gamepad moves through the hub (UI/Gamepad.lua): LB / RB step the
 	-- rail's sections, X loads the guide on a focused row, Y closes a
 	-- Continue card's tab.

@@ -15,7 +15,7 @@
 -- across browse and search lists. These choices are saved. Each row has an
 -- icon, the name in its quality or subject colour, and a short subtitle.
 -- Only the rows in view are drawn. Up/Down walk the results, and Enter acts
--- on the selection. Tab from the search box opens the header menus.
+-- on the selection.
 -- Right: the selection's details (its sources asked for once per
 -- selection): a band (the zone art of where it is got, the night band
 -- without) with the kind, the icon and the name; key facts; the sources
@@ -1316,7 +1316,8 @@ local function selectFirst(reset)
 	end
 	if visible[1] then
 		LK.Select(visible[1].kind, visible[1].id, visible[1], true)
-	elseif reset and sel then
+	elseif sel then
+		-- Nothing listed: nothing for Enter to act on.
 		LK.Select()
 	end
 end
@@ -1366,6 +1367,9 @@ local function current()
 	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
 	if query == "" and kind ~= "all" and kind ~= "guide" and not (loaded or waiting) then
 		kind, list = "all", {}
+		-- Nothing can look a Codex entry up now. Clear it here, not through
+		-- LK.Select: this runs inside a render.
+		if sel and sel.kind ~= "guide" then sel, sourceSel, detailCache = nil, nil, {} end
 	end
 	local total = 0
 	if query ~= "" then for _, n in pairs(counts) do total = total + n end end
@@ -1608,6 +1612,15 @@ function LK.Render()
 	elseif query == "" and kind == "all" then
 		empty = loaded and L["Type a name in the search box: a mount you saw, an item you want, an NPC or a quest."]
 			or L["Type a name in the search box to search the guides."]
+	elseif query == "" and #list == 0 then
+		-- Browsing one kind: the Codex waits (combat), or Filters hide it all.
+		if not loaded and kind ~= "guide" then
+			empty = LK.ReasonText(reason)
+		elseif ns.Get("lookup.hideRetired") or ns.Get("lookup.hideNoSource") then
+			empty = L["Filters hide every entry here."]
+		else
+			empty = L["Nothing to list here."]
+		end
 	elseif query ~= "" and #list == 0 then
 		empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
 		if reason == "off" then
@@ -1688,7 +1701,7 @@ local function onEnter()
 	LK.Activate()
 end
 
-local function headerMenu(button, box)
+local function headerMenu(button)
 	if not (button and button:IsVisible()) then return end
 	if W.MenuShown(button) then return W.HideMenu() end
 	local order = button == root.SearchOrder
@@ -1704,23 +1717,7 @@ local function headerMenu(button, box)
 			end
 		end }
 	end
-	local opts = { current = order, minWidth = button:GetWidth() }
-	if box then
-		box:ClearFocus()
-		opts.keyboard = {
-			done = function() if box:IsVisible() and root:IsVisible() then box:SetFocus() end end,
-			tab = function() headerMenu(order and root.Visibility or root.SearchOrder, box) end,
-		}
-	end
-	W.ShowMenu(button, items, opts)
-end
-
-local function onSearchTab(box)
-	if pending then
-		cancelPending()
-		setQuery(box:GetText())
-	end
-	headerMenu(root.SearchOrder:IsShown() and root.SearchOrder or root.Visibility, box)
+	W.ShowMenu(button, items, { current = order, minWidth = button:GetWidth() })
 end
 
 function LK.Query() return query end
@@ -1789,11 +1786,10 @@ function LK.Build(parent, hub)
 	root.CodexLine = W.Text(hub.TabRow, "small", "textMuted")
 	root.CodexLine:SetPoint("LEFT", hub.TabRow, "LEFT", SH.pad, 0)
 	root.CodexLine:SetWidth(MID_W - SH.pad * 2)
-	local function openHeaderMenu(button) headerMenu(button) end
 	local opts = { icon = "chevron-down", height = 24 }
-	root.Visibility = W.Button(hub.Header, L["Filters"], openHeaderMenu, opts)
+	root.Visibility = W.Button(hub.Header, L["Filters"], headerMenu, opts)
 	root.Visibility:SetPoint("BOTTOMRIGHT", hub.Header, "BOTTOMRIGHT", -SH.pad, 16)
-	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, openHeaderMenu, opts)
+	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, headerMenu, opts)
 	root.SearchOrder:SetPoint("RIGHT", root.Visibility, "LEFT", -8, 0)
 	root.SearchOrder:Hide()
 	root.Visibility:Hide()
@@ -1837,7 +1833,7 @@ if UI.RegisterSection then
 		key = "Lookup", label = L["Lookup"], icon = "search", order = 20,
 		build = LK.Build, render = sectionRender,
 		nav = LK.Nav, onNav = LK.SetKind,
-		search = onSearch, enter = onEnter, step = LK.Step, searchTab = onSearchTab,
+		search = onSearch, enter = onEnter, step = LK.Step,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
 	})
 end
@@ -1902,7 +1898,8 @@ end)
 local function namesChanged()
 	stale()
 	refresh()
-	if query == "" and kind ~= "all" and root and root:IsVisible() then selectFirst(#visible == 0) end
+	-- A list that was empty while the Codex loaded selects its first row now.
+	if (query ~= "" or kind ~= "all") and root and root:IsVisible() then selectFirst() end
 end
 ns.On("CODEX_LOADED", namesChanged)
 ns.On("NAMES_LOADED", namesChanged)

@@ -1373,6 +1373,7 @@ Polestar.Search.Query(text, opts) -> results, counts
 Polestar.Search.Browse(kind, opts) -> results, count   -- opts = { offset = 0, limit = 60, subtitles = false, hideRetired, hideNoSource }
 Polestar.Search.BrowseCount(kind, opts) -> count|nil   -- opts = { hideRetired, hideNoSource }; nil when the Codex cannot be read
 Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded, reason
+Polestar.Search.Release()   -- frees the per-search caches (score cache, the paged kind's matches); the hub calls it when it hides
 ```
 
 `Hooks` owns the client hooks: `TooltipDataProcessor.AddTooltipPostCall`
@@ -1393,7 +1394,12 @@ substring or all words, kind, display length, title and id. For a single
 Codex kind, the ordered offsets are cached for paging. Best match orders
 equal-score groups by title as pages need them. With `order = "az"`,
 the search filters Browse's cached order. Search decodes no records while
-matching. Lookup uses `Search.Subtitle` when a row comes into view.
+matching. An Everything search caches each matched line's
+query-independent score by offset, which makes a keystroke about a third
+faster and costs about 50 bytes a line (some 2 MB with the whole Codex).
+Every search runs in the hub, so the hub's `OnHide` calls `Search.Release`
+to drop that cache and the paged kind's matches. Browse's A to Z orders
+stay. Lookup uses `Search.Subtitle` when a row comes into view.
 Generated `lookup/` guides are not listed.
 
 `Search.Browse` pages through one kind in folded-name order, with retired
@@ -9506,9 +9512,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   search, Filters can hide no longer obtainable and no known source entries
   independently. The list and counts reflect both filters. These controls
   save to `lookup.searchOrder`, `lookup.hideRetired` and `lookup.hideNoSource`.
-  Tab from the search box opens a header menu, Tab within it switches to the
-  other when present, and arrows and Enter pick a choice. On a gamepad,
-  the D-pad reaches the buttons and A opens a menu or picks a choice.
+  On a gamepad, the D-pad reaches the buttons and A opens a menu or picks a
+  choice.
   Each row has an item icon or kind
   glyph in the gutter, the name in its
   quality colour lifted to 4.5:1 or its subject colour, a muted "No longer

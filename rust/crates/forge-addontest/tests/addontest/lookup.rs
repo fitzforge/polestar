@@ -1203,6 +1203,39 @@ fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change(
 }
 
 #[test]
+fn browse_orders_dungeons_by_the_client_names_their_rows_show() {
+	let [early, translated, english] = first::<3>(browse(
+		r#"
+		index({ { "alpha-keep", "Alpha Keep" }, { "bravo-halls", "Bravo Halls" }, { "charlie-vault", "Charlie Vault" } }, "instance")
+		local maps = { ["alpha-keep"] = 1, ["bravo-halls"] = 2, ["charlie-vault"] = 3 }
+		local shown = { "Zitadelle Alpha", "Bravohallen", "Charlie-Gewölbe" }
+		C.Instance = function(id) return maps[id] and { map = maps[id] } end
+		local lang, pack = true, false
+		Polestar.Names.Localised = function() return lang end
+		Polestar.Names.Instance = function(map) return lang and pack and shown[map] or nil end
+		local function page()
+			local out = {}
+			for i, row in ipairs(S.Browse("instance", { limit = 3, subtitles = false })) do out[i] = row.title end
+			return out
+		end
+		-- Before the names pack: the English names, in their order.
+		emit(page())
+		-- The same index, sorted again once the map names arrive.
+		pack = true
+		Polestar.Fire("NAMES_LOADED")
+		emit(page())
+		-- An English client (a new index, so a new sort) keeps the English order.
+		lang = false
+		index({ { "charlie-vault", "Charlie Vault" }, { "alpha-keep", "Alpha Keep" }, { "bravo-halls", "Bravo Halls" } }, "instance")
+		emit(page())
+	"#,
+	));
+	assert_eq!(early, json!(["Alpha Keep", "Bravo Halls", "Charlie Vault"]));
+	assert_eq!(translated, json!(["Bravohallen", "Charlie-Gewölbe", "Zitadelle Alpha"]), "A to Z by the names the rows show, after NAMES_LOADED");
+	assert_eq!(english, json!(["Alpha Keep", "Bravo Halls", "Charlie Vault"]));
+}
+
+#[test]
 fn browse_guides_respects_the_character_filter_and_updates_when_guides_register() {
 	let [a, b, counts] = first::<3>(run(&(guides()
 		+ r#"
@@ -1220,6 +1253,29 @@ fn browse_guides_respects_the_character_filter_and_updates_when_guides_register(
 	assert_eq!(a, json!(["test/alpha", "test/alliance-strider"]));
 	assert_eq!(b, json!(["test/aardvark", "test/alpha"]));
 	assert_eq!(counts, json!([5, 5, 6]));
+}
+
+#[test]
+fn release_frees_the_score_cache_and_the_next_search_finds_the_same_rows() {
+	let [kb, before, after] = first::<3>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 5000 do entries[i] = { i, ("Ring %04d"):format(i) } end
+		index(entries)
+		local function top() return ids(S.Query("r", { perKind = 5, subtitles = false })) end
+		-- A one-letter prefix matches every line, so every line's score is cached.
+		local first = top()
+		collectgarbage(); collectgarbage()
+		local held = collectgarbage("count")
+		S.Release()
+		collectgarbage(); collectgarbage()
+		emit(held - collectgarbage("count"))
+		emit(first)
+		emit(top())
+	"#,
+	));
+	assert!(num(&kb) > 100.0, "5,000 cached scores freed only {kb} KB");
+	assert_eq!(after, before, "released caches change no results");
 }
 
 #[test]

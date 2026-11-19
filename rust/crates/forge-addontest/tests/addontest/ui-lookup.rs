@@ -127,6 +127,20 @@ fn guide_lookup_button_opens_lookup_with_search_focus_without_changing_the_guide
 // #2769 (Liquidor): a search, another section, then Lookup again. The hub empties its box on the way, and the sidebar
 // drew before Lookup took up the empty search: its kinds still counted the old results under an empty box.
 #[test]
+fn closing_the_hub_frees_the_search_caches_switching_sections_does_not() {
+	let out = run(r#"
+		local released = 0
+		Polestar.Search.Release = function() released = released + 1 end
+		Polestar.Lookup.Show("saber")
+		Polestar.UI.Picker.ShowSection("Guides")
+		local switched = released
+		PolestarPicker:Hide()
+		emit({ switched = switched, closed = released })"#);
+	assert_eq!(out["switched"], 0, "another section of the open hub keeps them");
+	assert_eq!(out["closed"], 1);
+}
+
+#[test]
 fn a_search_left_for_another_section_is_gone_from_lookup_s_sidebar_when_it_shows_again() {
 	let out = run(r#"
 		Polestar.Lookup.Show("saber")
@@ -664,16 +678,62 @@ fn browsing_a_kind_returns_to_everything_when_lookup_is_turned_off() {
 		rowFor(LK.results.Child, "Deathcharger's Reins"):Click()
 		nav("item"):Click()
 		local before = LK.shown.kind
+		local picked = LK.Selected() and LK.Selected().kind or false
 		lookupstub.loaded, lookupstub.reason = false, "off"
 		Polestar.Fire("SETTING_CHANGED", "lookup.enabled")
-		emit({ before = before, kind = LK.shown.kind, active = PolestarPicker.NavScroll.psActive,
-			navs = navKeys(), rows = rowTexts(LK.results.Child), hint = LK.shown.empty })"#);
+		emit({ before = before, picked = picked, kind = LK.shown.kind, active = PolestarPicker.NavScroll.psActive,
+			navs = navKeys(), rows = rowTexts(LK.results.Child), hint = LK.shown.empty,
+			selected = LK.Selected() ~= nil })"#);
 	assert_eq!(out["before"], "item");
+	assert_eq!(out["picked"], "item");
+	assert_eq!(out["selected"], false, "no Codex entry stays selected once nothing can look it up");
 	assert_eq!(out["kind"], "all");
 	assert_eq!(out["active"], "all");
 	assert_eq!(out["navs"], json!(["all", "guide"]));
 	assert_eq!(out["rows"], json!(["Deathcharger's Reins"]));
 	assert_eq!(out["hint"], "Type a name in the search box to search the guides.");
+}
+
+#[test]
+fn an_empty_browse_list_says_why_filters_hide_everything_or_the_codex_waits_for_combat() {
+	let out = run(r#"
+		UI.ShowLookup()
+		LK.SetKind("mount")
+		for _, e in ipairs(lookupstub.entities) do
+			if e.kind == "mount" then e.status = e.status or "retired" end
+		end
+		Polestar.Set("lookup.hideRetired", true)
+		Polestar.Set("lookup.hideNoSource", true)
+		local filtered = { kind = LK.shown.kind, rows = LK.shown.rows, empty = LK.shown.empty }
+		Polestar.Set("lookup.hideRetired", false)
+		Polestar.Set("lookup.hideNoSource", false)
+		lookupstub.loaded, lookupstub.reason = false, "combat"
+		Polestar.Fire("CODEX_LOADED")
+		local combat = { kind = LK.shown.kind, rows = LK.shown.rows, empty = LK.shown.empty }
+		emit({ filtered = filtered, combat = combat })"#);
+	assert_eq!(out["filtered"], json!({ "kind": "mount", "rows": 0, "empty": "Filters hide every entry here." }));
+	assert_eq!(out["combat"], json!({ "kind": "mount", "rows": 0, "empty": "The Codex loads when combat ends." }));
+}
+
+#[test]
+fn a_search_with_no_matches_clears_the_selection_so_enter_acts_on_nothing() {
+	let out = run(r#"
+		UI.ShowLookup()
+		LK.SetKind("item")
+		local before = LK.Selected() and LK.Selected().id or false
+		type_("zzzzzzz")
+		stub.advance(0.3)
+		local after, rows = LK.Selected() and LK.Selected().id or false, LK.shown.rows
+		stub.RunScript(Polestar.UI.Picker.search, "OnEnterPressed")
+		local calls = #lookupstub.calls
+		type_("")
+		emit({ before = before ~= false, after = after, rows = rows, calls = calls,
+			browsing = LK.Selected() ~= nil })"#);
+	assert_eq!(out["before"], true, "browsing selects the first row");
+	assert_eq!(out["after"], false);
+	assert_eq!(out["rows"], 0);
+	assert_eq!(out["calls"], 0, "Enter guides to nothing");
+	assert_eq!(out["browsing"], true, "clearing the search selects the first row again");
 }
 
 #[test]
@@ -905,34 +965,6 @@ fn lookup_visibility_menu_filters_each_status_independently_in_browse_and_search
 	assert_eq!(out["searchRetiredTail"], "Steed nosource");
 	assert_eq!(out["all"], json!(["51", 51]));
 	assert_eq!(out["restored"], json!(["52", 52]));
-}
-
-#[test]
-fn keyboard_opens_lookup_header_menus_moves_through_choices_and_returns_to_the_search_box() {
-	let out = run(r#"
-		lookupstub.many(1)
-		Polestar.Lookup.Show("steed")
-		LK.SetKind("mount")
-		local box = UI.Picker.search
-		stub.RunScript(box, "OnTabPressed")
-		local sort = menuChoice("Best match") ~= nil
-		if sort then
-			stub.RunScript(PolestarMenu, "OnKeyDown", "DOWN")
-			stub.RunScript(PolestarMenu, "OnKeyDown", "ENTER")
-		end
-		local focused = box:HasFocus()
-		stub.RunScript(box, "OnTabPressed")
-		local visibility = false
-		if menuChoice("Best match") then
-			stub.RunScript(PolestarMenu, "OnKeyDown", "TAB")
-			visibility = menuChoice("Hide no longer obtainable") ~= nil
-			stub.RunScript(PolestarMenu, "OnKeyDown", "ENTER")
-		end
-		emit({ sort = sort, focused = focused, visibility = visibility,
-			order = Polestar.Get("lookup.searchOrder") or false, hide = Polestar.Get("lookup.hideRetired") or false,
-			returned = box:HasFocus() })
-	"#);
-	assert_eq!(out, json!({ "sort": true, "focused": true, "visibility": true, "order": "az", "hide": true, "returned": true }));
 }
 
 #[test]
