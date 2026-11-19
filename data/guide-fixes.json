@@ -10404,7 +10404,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.",
+			"tip": "Careful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps.",
 			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): the Dun Morogh guides' Loch Modan loop works the Stonesplinter troggs and scouts (224, 267) at about 12-13, where Headsplitter (269185, level 15) walks the valley. Players' recordings: 23 people did it at a median of 13.3, 1 died there, 2 abandoned.",
 			"source": [
 				{
@@ -13084,6 +13084,101 @@
 				{
 					"kind": "questie",
 					"ref": "quest 963 starter and ender Cerellean Whiteclaw (3644); objective Anaya's Pendant from Anaya Dawnrunner (3667, level 16)"
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-jang-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92745,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "Back north past Molsen Farm to the mine. Careful: pull the four Kobold Diggers from the mouth of Jangolode Mine, one at a time. There is no need to go deeper.",
+			"note": "Careful: pull the four Kobold Diggers from the mouth of Jangolode Mine, one at a time. There is no need to go deeper.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Guide followers on State of the Mines: 20 people, 37 deaths, including deaths inside Jangolode Mine."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-quarry-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92745,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry. Careful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave.",
+			"note": "Careful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Guide followers on The People’s Militia and State of the Mines died around Gold Coast Quarry."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-moon-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 13,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook. Alexston's Chest stands in the farmhouse at the Alexston Farmstead, among them: Baros' compass is inside. Careful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it.",
+			"note": "Careful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "The People’s Militia: 26 followers died 53 times, including at Alexston Farmstead and the quarry."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-stardust-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1034,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins. Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
+			"note": "Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "The Ruins of Stardust: 16 guide followers died 27 times, median level 23.8."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-ooze-camp",
+			"faction": "Alliance",
+			"at": {
+				"quest": 470,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "North-west from Rethiel: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of Ironbeard's Tomb drop flint, almost every one. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Careful: Black and Crimson Oozes also drop Sida's Bag. Pull those instead of fighting the larger Monstrous Oozes (25–26). Careful: Maddened Rotclaws (25-26) roam the Green Belt around Rethiel and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp.",
+			"note": "Careful: Black and Crimson Oozes also drop Sida's Bag. Pull those instead of fighting the larger Monstrous Oozes (25–26).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3349: Black, Crimson and Monstrous Oozes all drop Sida’s Bag."
 				}
 			],
 			"pr": 3144

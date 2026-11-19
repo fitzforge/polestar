@@ -608,6 +608,29 @@ step North Gate Outpost
   collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
   turnin 417                                  -- Pilot Hammerfoot
 
+step The tunnel post
+  zone Loch Modan
+  tip East through the South Gate tunnel into Loch Modan. Mountaineer Cobbleflint and Captain Rugelfuss stand at the dwarven post just past it.
+  enter "Loch Modan" @22.03,73 live
+  accept 224                                  -- Mountaineer Cobbleflint
+  accept 267                                  -- Captain Rugelfuss
+
+step Stonesplinter troggs
+  zone Loch Modan
+  loop
+  goto 29.57,72.89 r 40
+  goto 32.37,72.36 r 40
+  tip North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.
+  tip Careful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps.
+  kill 1161 x10 quest 224.1                   -- Stonesplinter Trogg
+  kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
+  collect 2536 quest 267.1                    -- Trogg Stone Tooth
+
+step Back to the tunnel post
+  zone Loch Modan
+  turnin 224                                  -- Mountaineer Cobbleflint
+  turnin 267                                  -- Captain Rugelfuss
+
 step Amberstill Ranch
   tip On the road back west to Ironforge.
   turnin 95212                                -- Rudra Amberstill

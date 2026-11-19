@@ -535,8 +535,11 @@ step The tunnel post
 
 step Stonesplinter troggs
   zone Loch Modan
+  loop
+  goto 29.57,72.89 r 40
+  goto 32.37,72.36 r 40
   tip North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.
-  tip Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.
+  tip Careful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps.
   kill 1161 x10 quest 224.1                   -- Stonesplinter Trogg
   kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
   collect 2536 quest 267.1                    -- Trogg Stone Tooth

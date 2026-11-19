@@ -139,6 +139,7 @@ step Webwinder Path
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
+  tip Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
@@ -278,9 +279,12 @@ step Rethiel the Greenwarden
 
 step Ironbeard's Tomb
   zone Wetlands
-  tip North-west from Rethiel: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of Ironbeard's Tomb drop flint, almost every one. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
+  tip North-west from Rethiel: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of Ironbeard's Tomb drop flint, almost every one. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Careful: Black and Crimson Oozes also drop Sida's Bag. Pull those instead of fighting the larger Monstrous Oozes (25–26).
   tip Careful: Maddened Rotclaws (25-26) roam the Green Belt around Rethiel and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp.
-  collect 2611 quest 277 @44.6,33.6 map 1437 -- Crude Flint: the Mosshide Fenrunners and Trappers by the river
+  loop
+  goto 45.34,32.49 map 1437 era
+  goto 43.56,34.58 map 1437 era
+  collect 2611 quest 277 -- Crude Flint: the Mosshide Fenrunners and Trappers by the river
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil

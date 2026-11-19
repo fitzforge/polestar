@@ -4376,6 +4376,7 @@ test('Fire Taboo (Alliance): the flint is hunted west of the Maddened Rotclaws, 
 		const list = goals(guide);
 		const { step, goal } = list[at(list, 'collect 2611', (g) => g.t === 'collect' && g.item === 2611)];
 		assert.ok(goal.x >= 42 && goal.x <= 47 && goal.y >= 31 && goal.y <= 36, `${guide}: the flint at the river camp, not ${goal.x},${goal.y}`);
+		assert.ok(goal.spots?.length >= 2 && goal.spots.every(({ x, y }) => x >= 43 && x <= 46 && y >= 32 && y <= 35), 'no Rotclaw or high-level gnoll camps among the map markers');
 		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: Maddened Rotclaws/, `${guide}: the Rotclaws named`);
 	}
 });
@@ -16834,4 +16835,11 @@ test('Ashenvale (Alliance): the first visit is one sweep up the west, no Shael\'
 	const w = (t, q) => wet[at(wet, `${t} ${q}`, is(t, q))].s;
 	assert.equal(w('accept', 1024), w('accept', 1035), '06-wetlands takes 1024 on its first Astranaar stop, with Pelturas');
 	assert.equal(w('turnin', 1024), w('accept', 1026), 'and hands it to Shael\'dryn with 1026');
+});
+
+for (const guide of DUN_MOROGHS) test(`${guide}: the Trogg Threat only marks the north valley camps`, { skip }, () => {
+	const list = goals(guide);
+	const { goal } = list[at(list, 'the Trogg Stone Tooth', (g) => g.t === 'collect' && g.item === 2536)];
+	assert.ok(goal.spots?.length >= 2, 'more than one camp to search');
+	assert.ok(goal.spots.every(({ x, y }) => x >= 29 && x <= 34 && y >= 70 && y <= 75), 'no high-level camps among the alternatives');
 });
