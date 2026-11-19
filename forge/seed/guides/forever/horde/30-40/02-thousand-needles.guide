@@ -536,7 +536,7 @@ step Level 34 for Parts of the Swarm
   when !complete 1148
   when !onquest 1147,1175
   zone Thousand Needles
-  tip For the parts alone, stay north of the raceway on the Scorpid Reavers (31-32) until 34, then ride south to the dig.
+  tip For the parts alone, stay north of the raceway on the Scorpid Reavers (31-32) until 34, then ride south to the dig. Or, with a group, run Razorfen Kraul.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
