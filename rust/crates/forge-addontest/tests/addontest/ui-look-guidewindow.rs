@@ -235,8 +235,9 @@ fn the_preview_draws_a_copy_of_the_window_by_its_settings_without_touching_the_l
 		local rows = #GF.rows
 		local f = Polestar.UI.GuideWindowPreview(UIParent)
 		f:Show()
-		-- A band with the room for 220 of the window: the window, taller, is cut there.
-		local h = f:Layout(900, 305)
+		-- A band with the room for 160 of the window: the window, more than 1/0.6 as tall, is cut there (a window
+		-- less than that taller is scaled down to fit instead, to 60%).
+		local h = f:Layout(900, 225)
 		local g = f.Scene
 		local C = g.Copy
 		-- The sample's current goal: the kill the arrow points at.
@@ -266,7 +267,7 @@ fn the_preview_draws_a_copy_of_the_window_by_its_settings_without_touching_the_l
 		emit({ h = h, before = before, after = after, rows = #GF.rows == rows, liveText = size(liveRow.Text),
 			window = g.Window ~= F, unnamed = g.Window:GetName() == nil, scale = g.psScale, footScroll = footScroll, topScroll = topScroll,
 			hot = next(rawget(f, "Hots") or {}) ~= nil })"#);
-	assert_eq!(out["h"], 280, "the band: 20 over, the window cut at its room (305 less the pads and the hint line's room), 20 under");
+	assert_eq!(out["h"], 200, "the band: 20 over, the window cut at its room (225 less the pads and the hint line's room), 20 under");
 	let b = &out["before"];
 	let a = &out["after"];
 	assert_eq!(b["text"], 14, "the preview's goals at the goal role's size");
