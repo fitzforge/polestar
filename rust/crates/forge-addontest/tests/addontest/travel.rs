@@ -114,10 +114,14 @@ fn a_flight_instruction_never_points_back_through_an_enemy_town_on_foot() {
 		Polestar.CharState().flags.taxi = { [45] = true, [71] = true }
 		Polestar.CharState().flags.taxiSeen = { [0] = true }
 		nav.era[b.map] = { c = 0, top = -7031.25, bottom = -8983.333, left = -266.667, right = -3195.833 }
-		nav.place(a.wx, a.wy, a.c)
+		local function stand(node)
+			nav.place(node.wx, node.wy, node.c)
+			function nav.Compat.GetPlayerMapPosition() return node.map, node.x, node.y end
+		end
+		stand(a)
 		N.SetTarget(b.map, b.x, b.y, b.name, b.f)
 		assert(N.GetRoute()[1].kind == "fly" and N.Sample() == "instruction")
-		nav.place(town.wx, town.wy, town.c)
+		stand(town)
 		local foot = N.Sample()
 		nav.taxi = true
 		emit({ foot, (N.Sample()) })"#,

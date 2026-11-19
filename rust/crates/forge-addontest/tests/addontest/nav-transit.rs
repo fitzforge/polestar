@@ -357,7 +357,6 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 	assert_eq!(out[4], 0);
 }
 
-
 // --- review fixes ---------------------------------------------------------------
 
 fn travel_data() -> PathBuf {

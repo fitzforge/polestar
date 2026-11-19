@@ -640,10 +640,7 @@ fn an_exhausted_walk_on_a_slope_needs_a_proven_last_stride_then_an_actual_visit(
 		stand(15.5, 0)    -- still outside the visit sphere, now one proven stride remains
 		stand(16.5, 0)    -- actual XYZ within five yards
 		emit(out)"#);
-	assert_eq!(
-		out,
-		json!([["unmapped", false, false, false, false, 0], ["travel", 4.5, 0, true, false, 0], ["arrived", 3.5, 0, false, true, 1]])
-	);
+	assert_eq!(out, json!([["unmapped", false, false, false, false, 0], ["travel", 4.5, 0, true, false, 0], ["arrived", 3.5, 0, false, true, 1]]));
 }
 
 #[test]
@@ -712,10 +709,7 @@ fn a_corpse_walk_probe_returns_the_checked_path_not_a_distance_or_a_substitute_f
 		probe(9); ghost = false; request.done(line, 40, {walkChecked=true})
 		probe(9); request.done(nil, "no safe walking route", {blockedReason="opposing-settlement"})
 		emit({ sent, results })"#);
-	assert_eq!(out, json!([[9, true, true], [
-		[40, true], [40, false], [40, false], [false, false], [false, false],
-		[false, false], [false, false], [false, false], [false, false], [false, false]
-	]]));
+	assert_eq!(out, json!([[9, true, true], [[40, true], [40, false], [40, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]]));
 }
 
 #[test]

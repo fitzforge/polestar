@@ -734,7 +734,13 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let regions = regions::check(addon_dir, &manifest, listed, &mut problems);
 	for (rel, want) in listed {
 		let (dir, name) = rel.split_once('/').unwrap_or(("", ""));
-		let ours = if dir == "Nav" { own_file(name) } else if regions.contains(dir) { name == "Pages.lua" } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
+		let ours = if dir == "Nav" {
+			own_file(name)
+		} else if regions.contains(dir) {
+			name == "Pages.lua"
+		} else {
+			PARTS.iter().any(|p| p.1 == dir) && own_part_file(name)
+		};
 		if !ours {
 			problems.push(format!("{rel} in PACK.json is not a packed file"));
 			continue;
