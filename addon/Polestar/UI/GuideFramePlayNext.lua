@@ -26,13 +26,20 @@ ns.UI.GuideFrame.Part(function(GF)
 		card.Art:SetPoint("TOPLEFT", card, "TOPLEFT", 1, -1)
 		card.Art.Fade:Hide()
 		card.Art.Top:Hide()
-		card.Eyebrow = W.Text(card, "label", "accent")
+		-- The transparent style's ground (PN.Style): a light scrim over the world.
+		card.Scrim = card:CreateTexture(nil, "BACKGROUND")
+		card.Scrim:SetTexture(Theme.Media("white"))
+		card.Scrim:SetAllPoints(card)
+		card.Scrim:Hide()
+		-- Strings from GF.Text: outlined while the window is transparent.
+		local T = GF.Text or W.Text
+		card.Eyebrow = T(card, "label", "accent")
 		card.Eyebrow:SetText(L["Play next"])
-		card.Title = W.Text(card, "heading", "text")
-		card.Why = W.Text(card, "note", "textDim")
+		card.Title = T(card, "heading", "text")
+		card.Why = T(card, "note", "textDim")
 		card.Why:SetWordWrap(true)
 		if card.Why.SetMaxLines then card.Why:SetMaxLines(2) end
-		card.Steps = W.Text(card, "small", "textMuted")
+		card.Steps = T(card, "small", "textMuted")
 		card.Start = W.Button(card, L["Start"], function(b) if b.psAction then b.psAction() end end, { primary = true, width = START_W, height = START_H })
 		card.Start:SetWidth(START_W)
 		card.Start.psDefault = true -- a gamepad starts here (UI/GamepadGuide.lua)
@@ -42,6 +49,22 @@ ns.UI.GuideFrame.Part(function(GF)
 		other.psAction = function() UI.ShowPicker() end
 		other:Hide()
 	end)
+
+	-- The window's style: transparent drops the panel for a light scrim (the
+	-- Here panel's, GF.PaintHerePanel) and outlines the link. Run on each Paint
+	-- and on a style change (GF.ApplyStyle).
+	function PN.Style()
+		if not card then return end
+		local clear = GF.Transparent and GF.Transparent() or false
+		card.psBare = clear or nil
+		Theme.Repaint(card)
+		card.Scrim:SetShown(clear)
+		if clear then
+			local r, g, b = Theme.Color("scrim")
+			card.Scrim:SetVertexColor(r, g, b, Theme.House("clearShade") or 0.35)
+		end
+		if other and other.Label then Theme.SetOutline(other.Label, clear and GF.Outline and GF.Outline() or nil) end
+	end
 
 	function PN.card() return card end
 	function PN.other() return other end
@@ -56,6 +79,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	function PN.Paint(nextGuide, fromId)
 		if not card then return end
 		other:Show()
+		PN.Style()
 		if not nextGuide then card:Hide() return end
 		local E = ns.Engine
 		local fx, fy
