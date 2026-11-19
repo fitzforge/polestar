@@ -832,6 +832,11 @@ function StaticPopup_Hide(which)
 end
 function q.showPopup(which) q.shownPopups[which] = { which = which } end
 
+-- The replace-enchant confirmations (GameDialogDefs.lua's REPLACE_ENCHANT and
+-- REPLACE_TRADESKILL_ENCHANT Accepts).
+function C_Item.ReplaceEnchant() call("ReplaceEnchant") end
+function C_Item.ReplaceTradeskillEnchant() call("ReplaceTradeskillEnchant") end
+
 GuildInviteFrame = CreateFrame("Frame", "GuildInviteFrame", UIParent)
 GuildInviteFrame:Hide()
 GuildInviteFrame:SetScript("OnHide", function() call("GuildInviteFrame:Hide") end)

@@ -398,6 +398,15 @@ return {
 			if said:find("tracker is off", 1, true) then return "the tracker is off" end
 			return said:find("Level %d+: ") and "the session's pace" or said
 		end,
+		-- Enchanting your own item over an enchant: the game's question answered.
+		["qol.autoReplaceEnchant"] = function()
+			q.calls = {}
+			q.showPopup("REPLACE_ENCHANT")
+			stub.fire("REPLACE_ENCHANT", "Minor Stamina", "Lesser Agility")
+			stub.runTimers()
+			q.shownPopups.REPLACE_ENCHANT = nil
+			return calls("ReplaceEnchant")
+		end,
 		["Quality of Life:Reset session"] = { press = true, prepare = function() q.gainXP(50); stub.advance(0.2) end,
 			probe = function() local st = QoL.GetXPStats(); return st and st.sessionXP or false end },
 		-- The game's own setting (no Polestar key): the client's CVar as the row leaves it; put back as it was (a

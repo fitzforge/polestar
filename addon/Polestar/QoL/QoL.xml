@@ -23,6 +23,7 @@
 	<Script file="Wear.lua"/>
 	<Script file="Flight.lua"/>
 	<Script file="Bind.lua"/>
+	<Script file="Enchant.lua"/>
 	<Script file="Gossip.lua"/>
 	<Script file="Death.lua"/>
 	<Script file="Breath.lua"/>

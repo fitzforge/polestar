@@ -7478,6 +7478,33 @@ Polestar.QoL.Bind.OnGossip() -> bool         -- GOSSIP_SHOW (Toggles.lua: after 
   completes the goal from the bind as it does for one by hand
   (`HEARTHSTONE_BOUND`).
 
+### Replacing an enchant on your own gear — QoL/Enchant
+
+`QoL/Enchant.lua`, behind `qol.autoReplaceEnchant` (Quality of Life → Game →
+Game options; off by default, as it overwrites an enchant for the player,
+#3126).
+
+```lua
+Polestar.QoL.Enchant.ANSWER                    -- event -> the C_Item call its popup's Accept makes
+Polestar.QoL.Enchant.OnReplace(event, existing, replacement)  -- REPLACE_ENCHANT, REPLACE_TRADESKILL_ENCHANT
+```
+
+- Enchanting an item that already has an enchant fires `REPLACE_ENCHANT`
+  (a scroll or an item used on gear) or `REPLACE_TRADESKILL_ENCHANT` (cast
+  from the profession window), both with the names of the enchant on the
+  item and the new one, and Blizzard shows the popup of the same name. Its
+  Accept calls `C_Item.ReplaceEnchant()` or
+  `C_Item.ReplaceTradeskillEnchant()` (Blizzard_StaticPopup_Game
+  GameDialogDefs.lua and Mainline/GameDialogDefs.lua), and neither popup has
+  an OnCancel.
+- Registered only while the setting is on (`QoL.WhileOn`). Unless Shift is
+  held, it makes the same call inside the event (the first answer takes on
+  Forever's client, checked in game in #3126), closes the popup
+  (`QoL.ClosePopup`) and prints "Replaced <old> with <new>.", or "Replaced
+  the enchant." when the client keeps a name secret.
+- `TRADE_REPLACE_ENCHANT`, the same question in a trade window, is not
+  answered: the item is someone else's.
+
 ### The step key on the flight map — QoL/Flight, QoL/Buttons
 
 ```lua
