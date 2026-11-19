@@ -2887,6 +2887,28 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "043-darkwhisper-gorge-by-the-road",
+			"quest": 4842,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[62.3, 67.0],
+					[62.1, 69.5],
+					[61.2, 71.4],
+					[59.8, 74.2]
+				]
+			},
+			"note": "Strange Sources (0.4.3 route round, Alliance 50-60/06): the gorge's explore point (59.8,74.2) lies just south of the Frostmaul Giants' and Preservers' camp (59-60, elite; spawns on both sides of the road at 58.1-65.7,65.1-73.0), and the straight line from Ranshalla's altar cut through it. The arrow keeps to the road on the camp's east side, the line every recorded crosser rode, to the mouth, which is about 50 yards short of the first Hederine Slayers: the step's tip says to turn back there.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-19: all 13 recorded crossings toward Darkwhisper Gorge rode the road at x 61.6-62.5 from y 64 to 71 (61.9,64.4, 62.4,67.0, 62.1,69.5, 61.2,71.4, 60.3,73.0) with no deaths on that stretch; Frostmaul Giants seen hostile by 11 people, killed by none. data/forever npcs.json: Frostmaul Giant 7428 and Preserver 7429 at 58.06-65.66,65.09-72.98, Hederine Slayer 7463 nearest at 59.4,75.1"
+			},
+			"issue": 3144
 		}
 	]
 }
