@@ -1,7 +1,7 @@
 -- The settings window's own widgets beside core's kit, loaded with it
 -- (Polestar_Options), never at login: a setting's compact control
--- (W.PinControl), the header's "Search first" (W.SearchFirst) and its ···
--- menu (W.HeaderMenu). They join core's kit (Polestar/Theme/Widgets.lua) under the
+-- (W.PinControl), the folder tabs (W.FolderTabs), the header's "Search
+-- first" (W.SearchFirst) and its ··· menu (W.HeaderMenu). They join core's kit (Polestar/Theme/Widgets.lua) under the
 -- same names.
 
 local ns = Polestar
@@ -212,6 +212,171 @@ do
 			return f
 		end
 		return W.Bind(f, c.key)
+	end
+end
+
+do
+	-- Folder tabs (the new settings page's tab band): each tab a box open at
+	-- the foot, its icon before its label and a dot after it; the active one
+	-- RISE taller, on the body's ground, the band's hairline open under it; the
+	-- resting ones on the shade, their foot closed. TOP: the band's room over a
+	-- resting tab. PAD: inside a box's ends. A tab's tooltip names it once the
+	-- labels give way to the icons.
+	local FOLDER = { TOP = 8, RISE = 4, GAP = 6, PAD = 14, ICON = 14, ICON_GAP = 8, DOT = 7, DOT_GAP = 6, END = 8 }
+
+	-- The icon, the label and the dot laid out in the tab. -> the tab's width
+	local function placeFolderTab(b)
+		local compact = b.psCompact
+		b.Icon:ClearAllPoints()
+		b.Icon:SetPoint("LEFT", b, "LEFT", FOLDER.PAD, 0)
+		b.Label:ClearAllPoints()
+		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", FOLDER.ICON_GAP, 0)
+		b.Label:SetShown(not compact)
+		local x = FOLDER.PAD + FOLDER.ICON
+		if not compact then x = x + FOLDER.ICON_GAP + b.Label:GetStringWidth() end
+		b.Dot:ClearAllPoints()
+		if b.psDot then
+			b.Dot:SetPoint("LEFT", b, "LEFT", x + FOLDER.DOT_GAP, 0)
+			x = x + FOLDER.DOT_GAP + FOLDER.DOT
+		end
+		return floor(x + FOLDER.PAD + 0.5)
+	end
+
+	local function paintFolderTab(b)
+		local on = b.psOn
+		b.Ground:SetShown(not on)
+		b.Under:SetShown(not on)
+		W.Color(b.Label, on and "text" or "textDim")
+		W.Color(b.Icon, on and "accent" or "textDim")
+		b.Dot:SetTexture(Theme.Media(b.psDot == "hollow" and "ring" or "circle"))
+		b.Dot:SetShown(b.psDot ~= nil)
+	end
+
+	local function folderTab(f, i)
+		local b = f.buttons[i]
+		if b then return b end
+		b = CreateFrame("Button", nil, f)
+		b.Ground = W.Tex(b, "BACKGROUND")
+		b.Ground:SetAllPoints(b)
+		W.Color(b.Ground, "shade", 0.22)
+		b.Top = W.Divider(b)
+		b.Top:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+		b.Top:SetPoint("TOPRIGHT", b, "TOPRIGHT", 0, 0)
+		b.Left = W.Divider(b, true)
+		b.Left:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+		b.Left:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
+		b.Right = W.Divider(b, true)
+		b.Right:SetPoint("TOPRIGHT", b, "TOPRIGHT", 0, 0)
+		b.Right:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+		-- The foot: the band's hairline under a resting tab.
+		b.Under = W.Divider(b)
+		b.Under:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
+		b.Under:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+		-- The hairline in the gap before this tab.
+		b.Gap = W.Divider(f)
+		b.Icon = W.Tex(b, "ARTWORK", "gear", "textDim")
+		b.Icon:SetSize(FOLDER.ICON, FOLDER.ICON)
+		b.Label = W.Text(b, "label", "textDim")
+		b.Dot = W.Tex(b, "ARTWORK", "circle", "accent")
+		b.Dot:SetSize(FOLDER.DOT, FOLDER.DOT)
+		-- The layout's own shape: no skin kind (a skin's tab draws its own
+		-- selected bar, a game look's its tab art over the box); the box in
+		-- the theme's tokens, the hover in its wash.
+		W.Hover(b)
+		b:SetScript("OnClick", function(self)
+			W.HideTooltip(self)
+			if f.psOnSelect then f.psOnSelect(self.psKey) end
+		end)
+		b:SetScript("OnEnter", function(self)
+			if not self.psOn then W.Color(self.Label, "text") end
+			if f.compact or self.Label:IsTruncated() then W.Tooltip(self, "ANCHOR_BOTTOM", self.psTip) end
+		end)
+		b:SetScript("OnLeave", function(self)
+			if not self.psOn then W.Color(self.Label, "textDim") end
+			W.HideTooltip(self)
+		end)
+		f.buttons[i] = b
+		return b
+	end
+
+	-- tabs: { { key, label, icon, dot = "filled" | "hollow" | nil } }; opts:
+	-- { active (a key), onSelect(key), rightWidth (what stands at the band's
+	-- right end), width (the band's, else the parent's) }. A single tab is no
+	-- choice: none is drawn. Where the tabs pass the band's room, every label
+	-- gives way to its icon (f.compact). -> the frame (f.buttons, f:Set(tabs,
+	-- active, opts))
+	function W.FolderTabs(parent, tabs, opts)
+		local f = CreateFrame("Frame", nil, parent)
+		f:SetAllPoints(parent)
+		f.buttons = {}
+		f.Lead = W.Divider(f)
+		f.Tail = W.Divider(f)
+		local rule = rawget(parent, "Rule")
+		f:SetScript("OnShow", function(self) if rule and self.psOwnRule then rule:Hide() end end)
+		f:SetScript("OnHide", function() if rule then rule:Show() end end)
+		function f:Set(list, active, o)
+			if o then self.psOpts = o end
+			o = self.psOpts or {}
+			if active == nil then active = o.active end
+			o.active = active
+			self.psOnSelect = o.onSelect
+			self.psList = list
+			local n = list and #list or 0
+			if n == 1 then n = 0 end
+			local x0 = SHELL.pad
+			local room = (o.width or parent:GetWidth() or 0) - x0 - (o.rightWidth or 0) - FOLDER.END
+			local rest = SHELL.tabs - FOLDER.TOP
+			local widths, total = {}, 0
+			for i = 1, n do
+				local t, b = list[i], folderTab(self, i)
+				b.psKey, b.psTip, b.psIcon, b.psDot = t.key, t.label, t.icon or "gear", t.dot
+				b.psOn = t.key == active
+				b.Label:SetText(t.label)
+				b.Icon:SetTexture(Theme.Media(b.psIcon))
+				b.psCompact = false
+				widths[i] = placeFolderTab(b)
+				total = total + widths[i] + (i > 1 and FOLDER.GAP or 0)
+			end
+			self.compact = n > 0 and total > room
+			local x, prev = x0, nil
+			for i = 1, n do
+				local b = self.buttons[i]
+				b.psCompact = self.compact
+				b:SetSize(placeFolderTab(b), b.psOn and rest + FOLDER.RISE or rest)
+				b:ClearAllPoints()
+				b:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", x, 0)
+				paintFolderTab(b)
+				b.Gap:ClearAllPoints()
+				if prev then
+					b.Gap:SetPoint("BOTTOMLEFT", prev, "BOTTOMRIGHT", 0, 0)
+					b.Gap:SetPoint("BOTTOMRIGHT", b, "BOTTOMLEFT", 0, 0)
+				end
+				b.Gap:SetShown(prev ~= nil)
+				b:Show()
+				x = x + b:GetWidth() + FOLDER.GAP
+				prev = b
+			end
+			for i = n + 1, #self.buttons do
+				self.buttons[i]:Hide()
+				self.buttons[i].Gap:Hide()
+			end
+			-- The band's hairline: from its left end to the first tab, from the
+			-- last to its right end (the parent's own while there are none).
+			self.psOwnRule = n > 0
+			self.Lead:ClearAllPoints()
+			self.Tail:ClearAllPoints()
+			if n > 0 then
+				self.Lead:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+				self.Lead:SetPoint("BOTTOMRIGHT", self.buttons[1], "BOTTOMLEFT", 0, 0)
+				self.Tail:SetPoint("BOTTOMLEFT", prev, "BOTTOMRIGHT", 0, 0)
+				self.Tail:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+			end
+			self.Lead:SetShown(n > 0)
+			self.Tail:SetShown(n > 0)
+			if rule then rule:SetShown(not (self:IsShown() and n > 0)) end
+			return self
+		end
+		return f:Set(tabs, (opts or {}).active, opts or {})
 	end
 end
 

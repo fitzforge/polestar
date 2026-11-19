@@ -9,8 +9,10 @@
 --                    classic pages, another addon's among them); a page with
 --                    settings new to the player has a ring, else a dot while
 --                    one is off its default
---   a page           its own tabs, the classic page's, in the tab row, and
---                    each tab's rows as the classic page lays them out
+--   a page           its own tabs, the classic page's, as folder tabs in the
+--                    tab band (an icon before each label, a dot after it for
+--                    a row off its default), and each tab's rows as the
+--                    classic page lays them out
 --   the header       "Search first": a "Group › Page" crumb and the
 --                    description, then the wide search, the switch, Peek,
 --                    Fold, Reload UI and ··· (Menu scale, Move frames, the
@@ -387,8 +389,62 @@ function G.NavKey()
 end
 
 ---------------------------------------------------------------------------
--- The chrome: the header's crumb, the index
+-- The chrome: the folder tabs, the index
 ---------------------------------------------------------------------------
+
+-- A folder tab's icon: the tab's own, else its page's, else the page of
+-- its first section's first row (a reference's home); one taken by a tab
+-- before it in the bar gives way to the first free one of TAB_ICONS. All of
+-- them glyphs of Media/UI.
+G.TAB_ICONS = { "sliders", "window", "menu", "gear", "layers", "star", "flag", "info", "eye", "palette", "bolt", "plug", "check" }
+
+local function sectionPageIcon(t)
+	local sec = t.sections and t.sections[1]
+	local c = sec and sec.controls[1]
+	if not c then return nil end
+	local home = rawget(c, "ref") and O.HomeOf(c) or c
+	local hp = home and rawget(home, "page")
+	return hp and hp.icon
+end
+
+-- -> the icon of tab t in page p's bar (unique in it)
+function G.TabIcon(p, t)
+	local used = {}
+	for _, x in ipairs(pageTabs(p)) do
+		local pick
+		for _, cand in ipairs({ rawget(x, "icon") or false, p.icon or false, sectionPageIcon(x) or false }) do
+			if cand and not used[cand] then pick = cand break end
+		end
+		if not pick then
+			for _, cand in ipairs(G.TAB_ICONS) do
+				if not used[cand] then pick = cand break end
+			end
+		end
+		pick = pick or "gear"
+		if x == t then return pick end
+		used[pick] = true
+	end
+	return rawget(t, "icon") or p.icon or "gear"
+end
+
+-- A folder tab's dot: "filled" while a row on the tab is off its default,
+-- "hollow" while the only change is under a parent whose children are
+-- closed, else nil.
+function G.TabDot(t)
+	local hidden = false
+	for _, sec in ipairs(t and t.sections or {}) do
+		if K.sectionShown(sec) then
+			if toggleChanged(sec) then return "filled" end
+			for _, c in ipairs(homeRows(sec)) do
+				if rowChanged(c) then
+					local parent = rawget(c, "psChildOf")
+					if parent and not O.KidsOpen(parent) then hidden = true else return "filled" end
+				end
+			end
+		end
+	end
+	return hidden and "hollow" or nil
+end
 
 -- The header's line one: the breadcrumb, "Group › Page", then the
 -- description (the header lays them out, W.HeaderScale's "Search first").
@@ -666,8 +722,10 @@ end
 local function hideChrome()
 	local w = win()
 	if not w then return end
+	if rawget(w, "FolderTabs") then w.FolderTabs:Hide() end
 	for _, v in pairs(B.views) do v:Hide() end
 	if B.Strip then B.Strip:Hide() end
+	w.psKeepTabRow, w.psTabRoom = nil, nil
 	W.ShellTabs(w, nil)
 	B.entries = nil
 	W.ShellLayout(w)
@@ -790,18 +848,29 @@ function render(opts)
 	B.depKeys = {}
 	headerMode(true)
 	W.ShellLayout(w)
-	-- The page's tabs in the tab row (none for a page of one unnamed tab).
-	local list
-	if #tabs > 1 or tabs[1].name ~= "" then
-		list = {}
-		for i, t in ipairs(tabs) do list[i] = { key = t.name, label = t.name } end
-	end
-	W.ShellTabs(w, list, tab.name, function(key) render({ page = p, tab = key }) end)
+	-- The title, the band: the page's folder tabs.
+	w.psKeepTabRow = true
+	W.ShellTabs(w, nil)
+	local list, active
 	local view = tabView(p, tab)
 	drawCrumb(g.label, p.name, p.subtitle or SUBTITLES[p.key])
 	local h = view.Refresh()
 	view:SetHeight(h)
 	view:Show()
+	if #tabs > 1 or tabs[1].name ~= "" then
+		list, active = {}, tab.name
+		for i, t in ipairs(tabs) do
+			list[i] = { key = t.name, label = t.name, icon = G.TabIcon(p, t), dot = G.TabDot(t) }
+		end
+	end
+	local folder = { active = active, width = w.psMainW,
+		onSelect = function(key) render({ page = p, tab = key }) end }
+	if rawget(w, "FolderTabs") then
+		w.FolderTabs:Set(list, active, folder)
+	else
+		w.FolderTabs = W.FolderTabs(w.TabRow, list, folder)
+	end
+	w.FolderTabs:Show()
 	-- The index under the tabs, for a long tab.
 	local entries
 	if not p.custom and (view.psRows or 0) > LONG then

@@ -2942,8 +2942,8 @@ end
 
 -- The parts the settings window's own widgets build on: its colour rows,
 -- picture cards, inline extras, cogs, section cards, action rows and tiles
--- are Polestar_Options/UI/Controls.lua's, its compact controls, header and
--- ··· menu UI/Kit.lua's, loaded with the window, never at login.
+-- are Polestar_Options/UI/Controls.lua's, its compact controls, folder tabs,
+-- header and ··· menu UI/Kit.lua's, loaded with the window, never at login.
 W.RowParts = {
 	settingRow = settingRow, fitLabel = fitLabel, dimRow = dimRow, rowEnter = rowEnter,
 	simpleTip = simpleTip, hideTip = hideTip, hoverTexture = hoverTexture,
@@ -4575,6 +4575,9 @@ function W.Shell(name, opts)
 	local tabRule = W.Divider(f.TabRow)
 	tabRule:SetPoint("BOTTOMLEFT", f.TabRow, "BOTTOMLEFT", 0, 0)
 	tabRule:SetPoint("BOTTOMRIGHT", f.TabRow, "BOTTOMRIGHT", 0, 0)
+	-- Folder tabs (W.FolderTabs) draw the hairline themselves, open under
+	-- the active tab.
+	f.TabRow.Rule = tabRule
 
 	-- Footer bar.
 	f.Footer = CreateFrame("Frame", nil, main)
