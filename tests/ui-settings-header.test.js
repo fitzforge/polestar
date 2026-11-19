@@ -57,8 +57,8 @@ test('the new page has a breadcrumb line and a search row, and no footer', () =>
 		emit({ crumb = f.Title:GetText(), footer = f.Footer:IsShown(), searchW = f.Search:GetWidth(), mainW = f.psMainW,
 			tools = tools, searchLeftOfSwitch = byRight[G.Switch()] == f.Search or byRight[G.Switch()] == f.Install, scale = f.HeaderTools:IsShown(),
 			crumbG = { G.Crumb() } })`);
-	assert.equal(out.crumb, 'Quality of Life › Quests');
-	assert.deepEqual(out.crumbG, ['Quality of Life', 'Quests']);
+	assert.equal(out.crumb, 'Quality of Life › Essentials');
+	assert.deepEqual(out.crumbG, ['Quality of Life', 'Essentials']);
 	assert.equal(out.footer, false);
 	assert.ok(out.searchW > out.mainW * 0.5, `the wide search (${out.searchW} of ${out.mainW})`);
 	// The header's Install button, where this window is wide enough for it, stands between the switch and the search.
