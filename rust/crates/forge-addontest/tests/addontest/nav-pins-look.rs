@@ -316,6 +316,7 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		"nav.minimapPins",
 		"nav.pinBacking",
 		"nav.pulseSeconds",
+		"nav.spawnSpots",
 		"nav.stepAlpha",
 		"nav.stepColor",
 		"nav.stepColorMode",
