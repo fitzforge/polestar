@@ -6,6 +6,97 @@
 			{
 				"a": [
 					"turnin",
+					96797
+				],
+				"b": [
+					"accept",
+					2783
+				],
+				"faction": "Alliance",
+				"why": "From the Nethergarde landing, visit Connar and Ardalan together before Bernie on the way out.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					2783
+				],
+				"b": [
+					"accept",
+					87295
+				],
+				"faction": "Alliance",
+				"why": "From the Nethergarde landing, visit Connar and Ardalan together before Bernie on the way out.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					9415
+				],
+				"b": [
+					"accept",
+					8304
+				],
+				"faction": "Alliance",
+				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					8304
+				],
+				"b": [
+					"accept",
+					8284
+				],
+				"faction": "Alliance",
+				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					8284
+				],
+				"b": [
+					"accept",
+					8318
+				],
+				"faction": "Alliance",
+				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					8318
+				],
+				"b": [
+					"accept",
+					8281
+				],
+				"faction": "Alliance",
+				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"accept",
+					8281
+				],
+				"b": [
+					"accept",
+					8278
+				],
+				"faction": "Alliance",
+				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"turnin",
 					606
 				],
 				"b": [

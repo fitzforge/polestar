@@ -222,12 +222,12 @@ step Fly to Cenarion Hold
 step Cenarion Hold
   zone Silithus
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  accept 8278                         -- Beetix Ficklespragg, upstairs
-  accept 8281                         -- Windcaller Proudhorn
-  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
-  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
   accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
+  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
   accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
+  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
+  accept 8281                         -- Windcaller Proudhorn
+  accept 8278                         -- Beetix Ficklespragg, upstairs
 
 step Silithus: kill these as you meet them
   zone Silithus

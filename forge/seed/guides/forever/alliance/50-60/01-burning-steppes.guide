@@ -409,8 +409,8 @@ step Fly to Nethergarde Keep
 step Ambassador Ardalan
   tip Ardalan is inside Nethergarde Keep.
   turnin 96797                        -- Lieutenant Connar
-  accept 87295                        -- Bernie Heisten: Deflective Surface, the scales come from the basilisks ahead
   accept 2783 @67.6,19.3 map 1419
+  accept 87295                        -- Bernie Heisten: Deflective Surface, the scales come from the basilisks ahead
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
