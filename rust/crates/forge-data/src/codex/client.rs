@@ -96,6 +96,26 @@ fn key(n: Option<f64>) -> i64 {
 	n.map(|x| x as i64).unwrap_or(i64::MIN)
 }
 
+fn stat_codes(row: &Row) -> Vec<i64> {
+	let mut codes: Vec<_> = (0..10).filter_map(|i| row.get(&format!("StatModifier_bonusStat_{i}"))?.parse::<i64>().ok()).filter(|&code| code >= 0).collect();
+	codes.sort_unstable();
+	codes.dedup();
+	codes
+}
+
+#[cfg(test)]
+#[test]
+fn item_sparse_stat_codes_are_nonnegative_unique_and_sorted() {
+	let mut tables = Tables::default();
+	tables.insert(
+		"ItemSparse",
+		parse_csv("ID,StatModifier_bonusStat_0,StatModifier_bonusStat_1,StatModifier_bonusStat_2,StatModifier_bonusStat_3,StatModifier_bonusStat_4,StatModifier_bonusStat_9\n19019,7,-1,7,0,,3\n6948,-1,-1,-1,-1,-1,-1\n").unwrap(),
+	);
+	let client = client_facts(&tables, "test");
+	assert_eq!(client.items[&19019].stat_codes, [0, 3, 7]);
+	assert!(client.items[&6948].stat_codes.is_empty());
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct ClientItem {
 	pub name: Option<String>,
@@ -103,6 +123,7 @@ pub struct ClientItem {
 	pub req_level: Option<f64>,
 	pub item_level: Option<f64>,
 	pub allow_class: Option<f64>,
+	pub stat_codes: Vec<i64>,
 	pub buy_price: Option<f64>,
 	pub min_faction: Option<f64>,
 	pub min_standing: Option<f64>,
@@ -156,6 +177,7 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 				req_level: int(r, "RequiredLevel"),
 				item_level: int(r, "ItemLevel"),
 				allow_class: int(r, "AllowableClass").map(|mask| f64::from(to_int32(mask) & ALL_CLASSES as i32)),
+				stat_codes: stat_codes(r),
 				buy_price: truthy_int(r, "BuyPrice"),
 				min_faction: mf,
 				min_standing: mf.map(|_| int(r, "MinReputation").filter(|n| *n != 0.0).unwrap_or(0.0) + 1.0),

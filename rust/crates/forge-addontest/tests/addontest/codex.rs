@@ -75,7 +75,7 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 }
 
 #[test]
-fn codex_filter_facts_round_trip_without_decoding_records() {
+fn codex_filter_facts_round_trip() {
 	let codex = json!({ "items": {
 		"647": { "name": "Destiny", "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 8,
 			"levelsSource": "era", "typeSource": "forever" },
@@ -129,6 +129,61 @@ assert(C.Item(6948).reqLevel == nil)
 }
 
 #[test]
+fn codex_stat_postings_cover_item_kinds_and_preserve_amount_sources() {
+	let codex = json!({ "items": {
+		"647": { "name": "Destiny", "levelsSource": "era" },
+		"17142": { "name": "Shard of the Defiler", "levelsSource": "client", "stats": { "32": 0, "36": 0 } },
+		"19019": { "name": "Thunderfury", "levelsSource": "client", "statAmountSource": "forever", "stats": { "3": 5, "7": 8 } },
+		"20257": { "name": "Seafury Gauntlets", "levelsSource": "era", "statAmountSource": "era", "stats": { "4": 10, "5": 9, "7": 9, "32": 0, "43": 7 } },
+		"20000": { "name": "An unknown item" },
+		"20001": { "name": "A mount", "kind": "mount", "levelsSource": "client", "statAmountSource": "era", "stats": { "7": 10 } },
+		"20002": { "name": "Ahn'Qiraj Wand [PH]", "levelsSource": "client", "stats": { "7": 0 } },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.ItemStats(19019) == nil and not C.IsLoaded())
+assert(C.Load())
+emit(C.StatCodes())
+local stamina = C.StatItems(7)
+assert(stamina[19019] == 8 and stamina[20001] == 10 and stamina[647] == nil and stamina[20002] == nil)
+assert(C.StatItems(99) == nil and C.StatAmountSource(99, 19019) == nil)
+assert(C.StatAmountSource(7, '19019') == 'forever' and C.StatAmountSource(7, 20001) == 'era')
+assert(C.StatItems(36)[17142] == 0 and C.StatAmountSource(36, 17142) == nil)
+assert(C.StatItems(7) == stamina) -- touching this entry keeps it resident
+assert(C.StatItems(3)[19019] == 5 and C.StatItems(7) == stamina)
+assert(C.StatItems(32)[17142] == 0 and C.StatItems(7) == stamina)
+local crit = C.StatItems(32)
+assert(crit[20257] == 0 and C.StatAmountSource(32, 17142) == nil and C.StatAmountSource(32, 20257) == nil)
+assert(C.StatItems(3)[19019] == 5 and C.StatItems(36)[17142] == 0)
+assert(C.StatItems(32) ~= crit) -- two other lists evicted it
+emit(C.ItemStats('19019'))
+emit(C.ItemStats(17142))
+emit(C.ItemStats(20001))
+emit(C.ItemStats(20257))
+local empty = C.ItemStats(647)
+assert(type(empty) == 'table' and next(empty) == nil)
+assert(C.ItemStats(20000) == nil and C.ItemStats(20002) == nil and C.ItemStats(12345) == nil)
+assert(C.FilterFacts('item', 19019).levelsSource == 'client' and C.FilterFacts('mount', 20001).levelsSource == 'client')
+C.RegisterIndex('mount', '')
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.ItemStats(19019) == nil)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!([3, 4, 5, 7, 32, 36, 43]));
+	assert_eq!(out[1], json!([{ "code": 3, "amount": 5, "amountSource": "forever" }, { "code": 7, "amount": 8, "amountSource": "forever" }]));
+	assert_eq!(out[2], json!([{ "code": 32 }, { "code": 36 }]));
+	assert_eq!(out[3], json!([{ "code": 7, "amount": 10, "amountSource": "era" }]));
+	assert_eq!(
+		out[4],
+		json!([{ "code": 4, "amount": 10, "amountSource": "era" }, { "code": 5, "amount": 9, "amountSource": "era" },
+			{ "code": 7, "amount": 9, "amountSource": "era" }, { "code": 32 }, { "code": 43, "amount": 7, "amountSource": "era" }])
+	);
+}
+
+#[test]
 fn codex_filter_facts_are_dormant_with_an_old_or_misaligned_index() {
 	run(
 		r#"
@@ -139,6 +194,7 @@ local index = '\2thunderfury\00119019,4,,11\n'
 C.RegisterIndex('item', index)
 assert(C.Load() and C.Index('item') == index and C.Item(19019).reqLevel == 60)
 assert(not C.HasFilters() and C.FilterColumn('item') == nil and C.FilterFacts('item', 19019) == nil)
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.StatAmountSource(7, 19019) == nil and C.ItemStats(19019) == nil)
 assert(C.DecodeFilter(nil, 1) == nil and C.FilterCategory(1) == nil and C.FilterCategoryId(2, 7) == nil)
 for _, kind in ipairs({ 'mount', 'pet', 'recipe', 'tabard' }) do C.RegisterIndex(kind, '') end
 local columns = { item = {2, string.rep('\0', 10)}, mount = {0, ''}, pet = {0, ''}, recipe = {0, ''}, tabard = {0, ''} }
@@ -149,6 +205,10 @@ C.RegisterFilters(2, '', columns)
 assert(not C.HasFilters())
 C.RegisterFilters(1, '', columns)
 assert(C.HasFilters() and C.FilterFacts('item', 19019) ~= nil)
+C.RegisterStats(2, '', '')
+assert(C.StatCodes() == nil and C.ItemStats(19019) == nil)
+C.RegisterStats(1, '', '')
+assert(#C.StatCodes() == 0 and C.ItemStats(19019) == nil)
 C.RegisterIndex('item', '\2other\0011,0,,5\n')
 assert(not C.HasFilters() and C.FilterFacts('item', 19019) == nil)
 "#,

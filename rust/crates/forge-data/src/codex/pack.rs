@@ -1,7 +1,7 @@
 //! tools/lib/codex/pack.js `emitPack`: the Codex -> the load-on-demand addon Polestar_Codex
 //! (record strings in long Lua string literals, decoded by addon/Polestar/Lookup/Codex.lua).
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::Write as _;
 
 use forge_guide::js::{num_str, str_to_num, V};
@@ -19,6 +19,10 @@ const FILTER_BYTES: usize = 5;
 const SLOT_CODES: u16 = 36; // unknown + InventoryType 0..34
 const MAX_CATEGORIES: usize = (4096 / SLOT_CODES as usize) - 1; // id 0 is unknown
 const UNKNOWN_SUBCLASS: u8 = 255;
+const STAT_VERSION: u8 = 1;
+const MAX_STAT_OFFSET: usize = 0xFF_FFFF;
+const MIN_STAT_AMOUNT: f64 = -536_870_912.0;
+const MAX_STAT_AMOUNT: f64 = 536_870_911.0;
 
 fn from_letter(f: &str) -> Result<char, String> {
 	Ok(match f {
@@ -166,6 +170,83 @@ fn encode_filter(item: &V, categories: &[(u8, u8)]) -> Result<[u8; FILTER_BYTES]
 	let [a, b, c, _] = levels.to_le_bytes();
 	let [d, e] = type_and_sources.to_le_bytes();
 	Ok([a, b, c, d, e])
+}
+
+fn stat_varint(out: &mut Vec<u8>, mut value: u32) {
+	while value >= 128 {
+		out.push((value as u8 & 127) | 128);
+		value >>= 7;
+	}
+	out.push(value as u8);
+}
+
+fn stat_offset(offset: usize) -> Result<[u8; 3], String> {
+	if offset > MAX_STAT_OFFSET {
+		return Err(format!("codex item stats: postings exceed the version {STAT_VERSION} limit of {MAX_STAT_OFFSET} bytes"));
+	}
+	let [a, b, c, _] = (offset as u32).to_le_bytes();
+	Ok([a, b, c])
+}
+
+/// Stat pack v1 uses one directory entry per code: u8 raw code, u24 LE byte
+/// offset into the postings blob. Each list ends at the next offset or blob
+/// end. Lists span all searchable item-backed kinds since item IDs are unique
+/// across them. In each list, ID starts at 0 and rows are `(delta, amountWord)`
+/// as unsigned 32-bit LEB128. `amountWord` puts a ZigZag signed amount in the
+/// high bits and the 2-bit filter source code in the low bits. A zero word
+/// means present with unknown amount. Coverage comes from Index levelsSource.
+fn encode_stats<'a>(items: &V, ids: impl Iterator<Item = &'a str>) -> Result<(Vec<u8>, Vec<u8>), String> {
+	let mut by_code: BTreeMap<u8, Vec<(u32, u32)>> = BTreeMap::new();
+	for id in ids {
+		let item = items.get(id);
+		let stats = item.get("stats");
+		if stats.is_nullish() {
+			continue;
+		}
+		let error = |details: &str| format!("codex item stats: item {id} {details}");
+		let stats = stats.as_obj().ok_or_else(|| error("requires a stats object"))?;
+		if stats.keys().is_empty() {
+			continue;
+		}
+		let numeric_id = id.parse::<u32>().ok().filter(|&id| id != 0).ok_or_else(|| error("ID is outside 1..=4294967295"))?;
+		if filter_source(&item, "levelsSource") == 0 {
+			return Err(error("has stats without levelsSource"));
+		}
+		let source = u32::from(filter_source(&item, "statAmountSource"));
+		for (code, amount) in stats.entries() {
+			let code = code.parse::<u8>().map_err(|_| error(&format!("stat code {code} is outside 0..=255")))?;
+			let amount = amount
+				.as_num()
+				.filter(|n| (MIN_STAT_AMOUNT..=MAX_STAT_AMOUNT).contains(n) && n.fract() == 0.0)
+				.ok_or_else(|| error(&format!("stat {code} amount {amount:?} must be an integer in {MIN_STAT_AMOUNT}..={MAX_STAT_AMOUNT}")))? as i32;
+			let word = if amount == 0 {
+				0
+			} else {
+				if source == 0 {
+					return Err(error(&format!("stat {code} has a known amount without statAmountSource")));
+				}
+				let zigzag = ((amount << 1) ^ (amount >> 31)) as u32;
+				(zigzag << 2) | source
+			};
+			by_code.entry(code).or_default().push((numeric_id, word));
+		}
+	}
+	let mut directory = Vec::with_capacity(by_code.len() * 4);
+	let mut postings = Vec::new();
+	for (code, mut list) in by_code {
+		directory.push(code);
+		directory.extend(stat_offset(postings.len())?);
+		list.sort_unstable();
+		let mut previous = 0;
+		for (id, word) in list {
+			let delta = id.checked_sub(previous).filter(|&delta| delta > 0).ok_or_else(|| format!("codex item stats: duplicate item {id} for code {code}"))?;
+			stat_varint(&mut postings, delta);
+			stat_varint(&mut postings, word);
+			previous = id;
+		}
+	}
+	stat_offset(postings.len())?;
+	Ok((directory, postings))
 }
 
 fn one_line(v: &V) -> String {
@@ -872,19 +953,16 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let mut lines = header();
 	lines.push("if not C.RegisterIndex then return end".into());
 	lines.push(String::new());
-	let categories = index
-		.iter()
-		.filter(|(kind, _)| ITEM_KINDS.contains(kind))
-		.flat_map(|(_, entries)| entries.iter())
-		.filter_map(|(id, ..)| item_category(&items.get(id)).transpose())
-		.collect::<Result<BTreeSet<_>, _>>()?;
+	let index_entries = |kind| index.iter().rev().find(|(k, _)| *k == kind).map(|(_, entries)| entries.as_slice()).unwrap_or(&[]);
+	let item_entries = || ITEM_KINDS.into_iter().flat_map(index_entries);
+	let categories = item_entries().filter_map(|(id, ..)| item_category(&items.get(id)).transpose()).collect::<Result<BTreeSet<_>, _>>()?;
 	if categories.len() > MAX_CATEGORIES {
 		return Err(format!("codex item filter: {} categories exceed the version {FILTER_VERSION} limit of {MAX_CATEGORIES}", categories.len()));
 	}
 	let categories: Vec<_> = categories.into_iter().collect();
 	let mut filter_lines = Vec::new();
 	for kind in SEARCH_KINDS {
-		let entries = index.iter().rev().find(|(k, _)| *k == kind).map(|(_, e)| e.as_slice()).unwrap_or(&[]);
+		let entries = index_entries(kind);
 		let item_backed = ITEM_KINDS.contains(&kind);
 		let mut blob = String::new();
 		let mut filters = Vec::with_capacity(if item_backed { entries.len() * FILTER_BYTES } else { 0 });
@@ -908,6 +986,11 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	lines.push(format!("\tC.RegisterFilters({FILTER_VERSION}, {}, {{", lua_bytes(&directory)));
 	lines.extend(filter_lines);
 	lines.push("\t})".into());
+	lines.push("end".into());
+	lines.push(String::new());
+	let (directory, postings) = encode_stats(items, item_entries().map(|(id, ..)| id.as_str()))?;
+	lines.push("if C.RegisterStats then".into());
+	lines.push(format!("\tC.RegisterStats({STAT_VERSION}, {}, {})", lua_bytes(&directory), lua_bytes(&postings)));
 	lines.push("end".into());
 	lines.push(String::new());
 	out.push(("Index.lua".into(), lines.join("\n")));
@@ -1079,6 +1162,61 @@ mod tests {
 				assert_eq!((facts.0, facts.4), (Some(id), Some(cat)), "{kind} row {}", i + 1);
 			}
 		}
+	}
+
+	#[test]
+	fn stat_postings_round_trip_signed_amounts_and_every_source() {
+		let (lua, _) = filter_lua();
+		let items = parse_json(
+			r#"{
+			"2":{"levelsSource":"client","statAmountSource":"client","stats":{"7":5}},
+			"19019":{"levelsSource":"client","statAmountSource":"forever","stats":{"7":8,"51":0}},
+			"25001":{"levelsSource":"client","stats":{"7":0}},
+			"4294967295":{"levelsSource":"era","statAmountSource":"era","stats":{"7":-536870912,"51":536870911}}
+		}"#,
+		)
+		.unwrap();
+		let (dir, postings) = encode_stats(&items, ["4294967295", "25001", "2", "19019"].into_iter()).unwrap();
+		assert_eq!(dir[0], 7);
+		assert_eq!(dir[4], 51);
+		lua.load(format!(
+			r#"
+local C = Polestar.Codex
+local columns = {{}}
+for _, kind in ipairs({{ 'item', 'mount', 'pet', 'recipe', 'tabard' }}) do
+	C.RegisterIndex(kind, '')
+	columns[kind] = {{ 0, '' }}
+end
+C.RegisterFilters(1, '', columns)
+C.RegisterStats({STAT_VERSION}, {}, {})
+local stats = C.StatItems(7)
+assert(stats[2] == 5 and stats[19019] == 8 and stats[25001] == 0 and stats[4294967295] == -536870912)
+assert(C.StatAmountSource(7, 2) == 'client' and C.StatAmountSource(7, 19019) == 'forever')
+assert(C.StatAmountSource(7, 25001) == nil and C.StatAmountSource(7, 4294967295) == 'era')
+stats = C.StatItems(51)
+assert(stats[19019] == 0 and stats[4294967295] == 536870911 and stats[2] == nil)
+"#,
+			lua_bytes(&dir),
+			lua_bytes(&postings)
+		))
+		.exec()
+		.unwrap();
+	}
+
+	#[test]
+	fn stat_postings_reject_overflow() {
+		for (id, code, amount, expected) in [
+			("4294967296", "7", "8", "ID is outside"),
+			("1", "256", "8", "stat code 256 is outside"),
+			("1", "7", "536870912", "must be an integer in"),
+			("1", "7", "-536870913", "must be an integer in"),
+		] {
+			let items = parse_json(&format!(r#"{{"{id}":{{"levelsSource":"client","statAmountSource":"era","stats":{{"{code}":{amount}}}}}}}"#)).unwrap();
+			let error = encode_stats(&items, std::iter::once(id)).unwrap_err();
+			assert!(error.contains(expected), "{error}");
+		}
+		assert_eq!(stat_offset(MAX_STAT_OFFSET).unwrap(), [255; 3]);
+		assert!(stat_offset(MAX_STAT_OFFSET + 1).unwrap_err().contains("postings exceed"));
 	}
 
 	#[test]

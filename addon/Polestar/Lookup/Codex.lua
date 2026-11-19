@@ -39,13 +39,28 @@
 --       allowClass uses Blizzard's class bits; sources are numeric codes.)
 --   Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category,
 --       itemClass, itemSubclass, levelsSource, typeSource } | nil
---       (builds an id-to-row map for that kind on first use; sources are strings.
+--       (scans the Index for the ID and counts preceding newlines, linear in
+--       the bytes scanned with no retained row map or record decode; sources are strings.
 --       Quality stays in Index and Item. A searchable row with all fields unknown yields {}.)
 --   Codex.FilterCategory(category) -> itemClass, itemSubclass | nil
 --   Codex.FilterCategoryId(itemClass, itemSubclass) -> category | nil
 --       (directory IDs start at 1; nil subclass for a class-only entry)
 --   Codex.FilterSource(code) -> "client" | "forever" | "era" | nil
 --       Filter accessors never load the pack. Old packs have no column, facts or categories.
+--   Codex.StatCodes() -> { code, ... } | nil   -- sorted raw codes; nil before stat registration
+--   Codex.StatItems(code) -> { [itemId] = amount } | nil   -- 0 = present, amount unknown
+--       (read-only to callers; O(postings for code) on a miss, two most recent maps cached)
+--       The two largest maps (codes 7 and 5) retain about 480 KiB in 64-bit Lua 5.1.
+--       This cache is allocated on demand and excluded from the pack's memoryKB.
+--   Codex.StatAmountSource(code, id) -> "client" | "forever" | "era" | nil
+--       (reads one list up to the ID; nil for missing stat or unknown amount)
+--   Codex.ItemStats(id) -> { { code, amount, amountSource }, ... } | nil
+--       (sorted by code; nil amount and source for presence only. Presence source is
+--       FilterFacts(...).levelsSource. Returns {} for known-empty and nil for unknown.
+--       Looks up the filter row across item-backed kinds and scans each stat list up
+--       to the ID, with no retained results. Stat accessors never load the pack.)
+--       Presence-only codes: 13–15, 31–32, 36–37, 47, 50–56, 83, 90–92, 96, 98,
+--       112–115, 117, 119, 121, 124, 127, 128, 131, 132, 135, 136.
 --   Codex.WithRole(role) -> { npcId, ... } sorted (role as in npc.roles: "vendor",
 --       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers)
 --   Codex.Loot(kind, id) -> { itemId, ... }   -- kind "rare" | "npc" (npc + rare) | "treasure" |
@@ -57,6 +72,7 @@
 --       fn returning false stops the walk. "item" is plain items only (no overlap).
 --   Codex.Register(group, names, records, lo, hi) ; Codex.RegisterIndex(kind, blob)   -- pack files only
 --   Codex.RegisterFilters(version, categories, columns)   -- pack files only
+--   Codex.RegisterStats(version, directory, postings)   -- pack files only
 --
 -- Records use the codex JSON field names (data/forever/codex/*.json), with
 -- 1-based arrays; JSON nulls are absent. An item's, NPC's, object's or
@@ -78,9 +94,11 @@ local char, byte, sub, find, gsub, gmatch = string.char, string.byte, string.sub
 -- group -> { chunk, ... }; chunk = { lo, hi (numeric id range | nil), names (blob), recs (blob | nil) }
 local chunks = {}
 local indexes = {} -- kind -> search blob
-local filterColumns, filterCategories, filterRows
+local filterColumns, filterCategories
 local FILTER_BYTES = 5
 local FILTER_SOURCE = { "client", "forever", "era" }
+local statDirectory, statPostings
+local recentStatCode, recentStatItems, olderStatCode, olderStatItems
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
 -- "\n" .. questId .. "\t" .. follow-up ids, comma-separated, in pack order .. "\n" .. ...,
@@ -568,7 +586,9 @@ end
 function Codex.RegisterIndex(kind, blob)
 	if type(kind) ~= "string" or type(blob) ~= "string" then return end
 	if IS_ITEM[kind] and indexes[kind] ~= blob then
-		filterColumns, filterCategories, filterRows = nil, nil, nil
+		filterColumns, filterCategories = nil, nil
+		statDirectory, statPostings = nil, nil
+		recentStatCode, recentStatItems, olderStatCode, olderStatItems = nil, nil, nil, nil
 	end
 	indexes[kind] = blob
 end
@@ -586,7 +606,7 @@ function Codex.RegisterFilters(version, categories, columns)
 		for _ in gmatch(index, "\n") do count = count + 1 end
 		if count ~= column[1] then return end
 	end
-	filterColumns, filterCategories, filterRows = columns, categories, {}
+	filterColumns, filterCategories = columns, categories
 end
 
 function Codex.HasFilters()
@@ -643,31 +663,162 @@ function Codex.FilterSource(code)
 	return FILTER_SOURCE[code]
 end
 
-function Codex.FilterFacts(kind, id)
-	local blob = Codex.FilterColumn(kind)
-	id = tonumber(id)
-	if not (blob and id) then return nil end
-	local rows = filterRows[kind]
-	if not rows then
-		-- Index orders the IDs but has variable-width lines. This map keeps
-		-- only numeric IDs and row numbers; reading it never decodes records.
-		rows = {}
-		local row = 0
-		for rawId in gmatch(indexes[kind], "\1([^,]*),[^\n]*\n") do
-			row = row + 1
-			local key = tonumber(rawId)
-			if key then rows[key] = row end
-		end
-		filterRows[kind] = rows
+local function filterRow(kind, id)
+	local column = filterColumns and filterColumns[kind]
+	if not (column and id) then return nil end
+	local index = indexes[kind]
+	local match = find(index, "\1" .. id .. ",", 1, true)
+	if not match then return nil end
+	local row, at = 1, find(index, "\n", 1, true)
+	while at and at < match do
+		row = row + 1
+		at = find(index, "\n", at + 1, true)
 	end
-	local row = rows[id]
-	if not row then return nil end
+	return column[2], row
+end
+
+function Codex.FilterFacts(kind, id)
+	local blob, row = filterRow(kind, tonumber(id))
+	if not blob then return nil end
 	local req, ilvl, allow, slot, category, levels, types = Codex.DecodeFilter(blob, row)
 	local class, subclass = Codex.FilterCategory(category)
 	return {
 		reqLevel = req, itemLevel = ilvl, allowClass = allow, slot = slot, category = category,
 		itemClass = class, itemSubclass = subclass, levelsSource = FILTER_SOURCE[levels], typeSource = FILTER_SOURCE[types],
 	}
+end
+
+-- See pack.rs encode_stats for the v1 wire format. An offset is zero-based;
+-- adding 1 makes it a Lua substring position, including for the end sentinel.
+local function statOffset(directory, at)
+	local a, b, c = byte(directory, at + 1, at + 3)
+	return 1 + a + b * 256 + c * 65536
+end
+
+function Codex.RegisterStats(version, directory, postings)
+	if version ~= 1 or not filterColumns or type(directory) ~= "string" or type(postings) ~= "string" then return end
+	if #directory % 4 ~= 0 or #directory > 1024 or #postings > 16777215 then return end
+	if #directory == 0 and #postings ~= 0 then return end
+	local previousCode, previousAt = -1, 0
+	for at = 1, #directory, 4 do
+		local code, first = byte(directory, at), statOffset(directory, at)
+		if code <= previousCode or first <= previousAt or first > #postings or (at == 1 and first ~= 1) then return end
+		previousCode, previousAt = code, first
+	end
+	statDirectory, statPostings = directory, postings
+	recentStatCode, recentStatItems, olderStatCode, olderStatItems = nil, nil, nil, nil
+end
+
+function Codex.StatCodes()
+	if not statDirectory then return nil end
+	local codes = {}
+	for at = 1, #statDirectory, 4 do codes[#codes + 1] = byte(statDirectory, at) end
+	return codes
+end
+
+local function statBounds(at)
+	local finish = at + 4 <= #statDirectory and statOffset(statDirectory, at + 4) or #statPostings + 1
+	return statOffset(statDirectory, at), finish
+end
+
+local function statCodeBounds(code)
+	if not statDirectory or type(code) ~= "number" then return nil end
+	local lo, hi = 0, #statDirectory / 4 - 1
+	while lo <= hi do
+		local i = floor((lo + hi) / 2)
+		local at = i * 4 + 1
+		local key = byte(statDirectory, at)
+		if key == code then return statBounds(at) end
+		if key < code then lo = i + 1 else hi = i - 1 end
+	end
+end
+
+local function statVarint(at, finish)
+	local value, place = 0, 1
+	while at < finish and place <= 268435456 do
+		local b = byte(statPostings, at)
+		value = value + (b % 128) * place
+		at = at + 1
+		if b < 128 then
+			if value <= 4294967295 then return value, at end
+			return nil
+		end
+		place = place * 128
+	end
+end
+
+local function statPosting(id, at, finish)
+	local delta, nextAt = statVarint(at, finish)
+	if not delta or delta == 0 or id + delta > 4294967295 then return nil end
+	local word, after = statVarint(nextAt, finish)
+	if word then return id + delta, word, after end
+end
+
+local function statAmount(word)
+	local zigzag = floor(word / 4)
+	if zigzag % 2 == 0 then return zigzag / 2 end
+	return -(zigzag + 1) / 2
+end
+
+local function itemStatWord(id, at, finish)
+	local postingId = 0
+	while at < finish do
+		local word
+		postingId, word, at = statPosting(postingId, at, finish)
+		if not postingId or postingId > id then return nil end
+		if postingId == id then return word end
+	end
+end
+
+function Codex.StatItems(code)
+	if not statDirectory or type(code) ~= "number" then return nil end
+	if code == recentStatCode then return recentStatItems end
+	if code == olderStatCode then
+		recentStatCode, recentStatItems, olderStatCode, olderStatItems = olderStatCode, olderStatItems, recentStatCode, recentStatItems
+		return recentStatItems
+	end
+	local at, finish = statCodeBounds(code)
+	if not at then return nil end
+	local items, id = {}, 0
+	while at < finish do
+		local word
+		id, word, at = statPosting(id, at, finish)
+		if not id then return nil end
+		items[id] = statAmount(word)
+	end
+	olderStatCode, olderStatItems = recentStatCode, recentStatItems
+	recentStatCode, recentStatItems = code, items
+	return items
+end
+
+function Codex.StatAmountSource(code, id)
+	local at, finish = statCodeBounds(code)
+	id = tonumber(id)
+	if not (at and id) then return nil end
+	local word = itemStatWord(id, at, finish)
+	return word and FILTER_SOURCE[word % 4]
+end
+
+function Codex.ItemStats(id)
+	if not statDirectory then return nil end
+	id = tonumber(id)
+	local levels
+	for _, kind in ipairs(ITEM_GROUPS) do
+		local blob, row = filterRow(kind, id)
+		if blob then
+			levels = select(6, Codex.DecodeFilter(blob, row))
+			break
+		end
+	end
+	if not levels then return nil end
+	local stats = {}
+	for at = 1, #statDirectory, 4 do
+		local word = itemStatWord(id, statBounds(at))
+		if word then
+			stats[#stats + 1] = { code = byte(statDirectory, at), amount = word ~= 0 and statAmount(word) or nil, amountSource = FILTER_SOURCE[word % 4] }
+		end
+	end
+	return stats
 end
 
 function Codex.IsLoaded()

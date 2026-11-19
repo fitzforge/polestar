@@ -800,7 +800,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	}
 	// Loot ranking, availability and the dungeon journal use the legacy facts above.
 	// The item records and the pack can now take the fallback facts, including rarity.
-	inputs.item_db.fill(&m.items);
+	inputs.item_db.fill(&m.items, cl);
 	let meta_v = V::Obj(meta.clone());
 	let pack_files = pack::emit_pack(
 		&pack::PackCodex {
