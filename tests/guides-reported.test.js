@@ -11728,6 +11728,7 @@ test('Horde Badlands: finish the basin drops on lower prey below 40 and warn at 
 	const wings = at(list, 'wings', g => g.t === 'collect' && g.item === 3404);
 	const back = at(list, 'turnin 711', is('turnin', 711));
 	assert.equal(list[wings].goal.npc, 2830, 'the wings do not send a character to the giants before the basin gate');
+	assert.deepEqual(list[wings].goal.spots.map(({ x, y }) => [x, y]), [[49.5, 63.8], [50.3, 60]], 'both wing spots stay on the Stonevault hills');
 	assert.deepEqual(list.filter(({ goal }) => goal.item === 7848 && goal.t === 'collect').map(({ goal }) => goal.npc), [2735, 92, 2735], 'the incidental shards stay with the local lesser or regular elementals');
 	for (const [item, x, y] of [[7847, 57.5, 28.6], [6166, 52.4, 60.6], [7846, 52.4, 60.6]]) {
 		const rows = list.filter(({ goal }) => goal.t === 'collect' && goal.item === item);

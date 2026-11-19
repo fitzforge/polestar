@@ -69,8 +69,11 @@ step Lotwil Veriatus
 step Rock Elementals
   zone Badlands
   tip South-east from Lotwil's camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of Agmond's End; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop Jarkal's Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop Neeka's jawbones and Jarkal's fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too.
-  collect 4627 quest 711 @40.4,77.1 map 1418
-  collect 7848 npc 92 quest 2258.3 @40.4,75.8 map 1418
+  loop
+  goto 40.4,75.8 map 1418
+  goto 41.8,77.1 map 1418
+  collect 4627 npc 92 quest 711
+  collect 7848 npc 92 quest 2258.3
 
 step Agmond's End
   when group 709
@@ -80,7 +83,14 @@ step Agmond's End
 step Stonevault troggs
   tip The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End. Hunt Stonevault Bonesnappers (39-40) for the flakes. At 38, pick the 39s; leave the Shamans (40-41) alone.
   collect 5797 npc 2893 quest 1108 @50.2,67.1 map 1418
-  collect 3404 npc 2830 quest 703 @49.5,63.8 map 1418
+
+step Buzzards by the Stonevault hills
+  zone Badlands
+  tip Gather Rigglefuzz's wings from the Buzzards on these hills. Leave the giants to the west alone.
+  loop
+  goto 49.5,63.8 map 1418
+  goto 50.3,60.0 map 1418
+  collect 3404 npc 2830 quest 703
 
 step Feral Crag Coyotes
   when level<40
