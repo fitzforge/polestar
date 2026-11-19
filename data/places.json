@@ -38,42 +38,6 @@
 			"issue": 3144
 		},
 		{
-			"id": "searing-north-rim-taskmaster",
-			"faction": "Alliance",
-			"quest": 7729,
-			"objective": 1,
-			"at": {
-				"map": 1427,
-				"x": 43.5,
-				"y": 27.5,
-				"frame": "era"
-			},
-			"note": "Work the outer rim below Thorium Point, not the crowded furnaces.",
-			"source": {
-				"kind": "pfquest",
-				"ref": "Dark Iron taskmaster (5846), north rim spawns in Searing Gorge"
-			},
-			"issue": 3144
-		},
-		{
-			"id": "searing-north-rim-slaver",
-			"faction": "Alliance",
-			"quest": 7729,
-			"objective": 2,
-			"at": {
-				"map": 1427,
-				"x": 43.5,
-				"y": 27.5,
-				"frame": "era"
-			},
-			"note": "Work the outer rim below Thorium Point, not the crowded furnaces.",
-			"source": {
-				"kind": "pfquest",
-				"ref": "Dark Iron slaver (5844), north rim spawns in Searing Gorge"
-			},
-			"issue": 3144
-		},
-		{
 			"id": "stranglethorn-young-panthers-across-the-river",
 			"quest": 190,
 			"objective": 1,

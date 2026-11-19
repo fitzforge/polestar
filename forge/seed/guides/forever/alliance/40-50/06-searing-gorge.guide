@@ -67,11 +67,17 @@ step Velarok Windblade
   accept 3443
 
 step Dark Iron dwarves
-  tip Hunt the Taskmasters and Slavers on the north rim below Thorium Point for the Thorium Plated Dagger. The Steamsmiths at the furnaces carry the Smithing Tuyere; the Lookouts on the southern ridges carry the Spyglass. Keep the Grimesilt Outhouse Key if a dwarf drops it.
+  loop
+  goto 43.29,28.24 map 1427 r 25
+  goto 46.49,25.27 map 1427 r 25
+  tip Pull Taskmasters and Slavers from the north rim for the Thorium Plated Daggers.
   tip Careful: Slavers call allies within 15 yards and can net you. Pull back onto open ground on the north rim below Thorium Point. Leave any pair with another pack close by.
-  kill 5846 quest 7729 @43.5,27.5 map 1427 -- Dark Iron Taskmaster
-  kill 5844 quest 7729 @43.5,27.5 map 1427 -- Dark Iron Slaver
+  kill 5846 quest 7729                -- Dark Iron Taskmaster
+  kill 5844 quest 7729                -- Dark Iron Slaver
   collect 10551 quest 3443            -- Thorium Plated Dagger
+
+step The furnaces and southern ridges
+  tip The Steamsmiths at the furnaces carry the Smithing Tuyere; the Lookouts on the southern ridges carry the Spyglass. Keep the Grimesilt Outhouse Key if a dwarf drops it.
   collect 18959 quest 7728            -- Smithing Tuyere
   collect 18960 quest 7728            -- Lookout's Spyglass
   collect 11818 x1 optional           -- Grimesilt Outhouse Key

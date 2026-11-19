@@ -6538,6 +6538,16 @@ test('Alliance Hyjal return: the Everlook opener uses the character’s own leve
 	} finally { pack.dispose(); }
 });
 
+test('Culling the Competition: both kills and their daggers search only the north rim', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const targets = list.filter(({ goal }) => goal.quest === 7729 && goal.t === 'kill' || goal.quest === 3443 && goal.item === 10551);
+	assert.equal(targets.length, 3);
+	for (const { goal, step } of targets) {
+		assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[43.29, 28.24], [46.49, 25.27]]);
+		assert.ok(!step.goals.some((g) => g.quest === 7728), 'the Lookouts and Steamsmiths have their own hunt');
+	}
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
