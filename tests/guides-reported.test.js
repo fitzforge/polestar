@@ -6492,6 +6492,13 @@ test('Riverglades (Alliance 0.4.3): early visitors are warned at the first step 
 	assert.ok(list[riftan].s - list[warn].s <= 1, 'right before the camp');
 });
 
+test('Voodoo Dues: Jon-Jon’s spyglass and Maury’s foot are on the same hill', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(step(3925), step(3924));
+	assert.notEqual(step(3925), step(3926));
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

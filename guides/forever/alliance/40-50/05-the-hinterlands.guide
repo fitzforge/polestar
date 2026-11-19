@@ -157,11 +157,11 @@ step Zanzil's village
   tip Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
   collect 4016 quest 621              -- Zanzil's Mixture
   collect 3926 quest 609              -- Chucky's Huge Ring
-  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
 
 step Maury and Jon-Jon
   tip Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together in the hills just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
+  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass, from Jon-Jon the Crow
 
 step Gorilla hills
   tip Ride back south-east to the Mistvale gorilla hills above Booty Bay. Witch Doctor Unbagwa sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first.
