@@ -10,7 +10,7 @@
 				"objective": 1
 			},
 			"tip": "Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. Leave the higher-level Patriarchs alone.",
-			"note": "Patriarchs reach 58. Keep their drops in the item data, but target the lower-level source here.",
+			"note": "Patriarchs reach 58. Keep their drops in the item data, but target only Matriarchs at the two western spawns (65.88,43.57 and 68.32,41.07, Era); the seed loop prevents the arrow offering the eastern cave as an alternative.",
 			"source": {
 				"kind": "recording",
 				"ref": "At the horn step followers were level 55.14 at the lower quartile; twelve people killed Patriarchs for horns."

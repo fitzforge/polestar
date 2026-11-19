@@ -6505,7 +6505,7 @@ test('Winterspring: Pristine Yeti Horns track the item but target only the lower
 	const { goal } = list[at(list, 'Pristine Yeti Horn', (g) => g.item === 12367 && g.quest === 977 && g.t === 'collect')];
 	assert.equal(goal.npc, 7459);
 	assert.equal(goal.fromAlsoId, undefined);
-	assert.ok(Math.abs(goal.x - 65.88) < 0.1 && Math.abs(goal.y - 43.57) < 0.1);
+	assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[65.88, 43.57], [68.32, 41.07]]);
 });
 
 test('Alliance Hyjal hand-back: a high-level Vizzie return starts in Everlook; everyone else keeps the Ratchet route', { skip }, () => {
