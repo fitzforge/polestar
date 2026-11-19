@@ -372,7 +372,7 @@ step Reach Winterspring
 
 step Safe passage from Hyjal
   when zone "Mount Hyjal"
-  tip Check Bluebell's flight map. Take Moonglade only if she offers it. A druid who knows Teleport: Moonglade can go directly. If your Hearthstone is bound in Everlook, wait for it to be ready; otherwise arrange a summon to Moonglade or pause the guide here. Do not leave through the gorge on your own.
+  tip Check Bluebell's flight map. Take Moonglade only if she offers it. A druid who knows Teleport: Moonglade can go directly. If your Hearthstone is bound in Everlook, wait for it to be ready; otherwise arrange a summon to Moonglade or pause here. A ready Hearthstone bound elsewhere can take you out safely, but that inn is not a route to Moonglade. Do not leave through the gorge on your own.
   enter "Moonglade"
 
 step Fly to Moonglade
@@ -470,8 +470,16 @@ step Nami
   turnin 92008                          -- Nami
   accept 92009                          -- Crate Expectations
 
-step Fly to the Tainted Foothills
-  fly "Tainted Foothills"
+step Everlook flight map
+  when zone "Winterspring"
+  when subzone "Everlook"
+  tip Open your flight master's map now. Take Tainted Foothills only if the flight is offered and you can pay the fare. Do not carry the crate through Darkwhisper Gorge.
+  talk 11138 only Alliance               -- Maethrya
+  talk 11139 only Horde                  -- Yugrek
+
+step Land at the Tainted Foothills
+  tip Wait until you land at Bluebell. If your Everlook flight master does not offer Tainted Foothills, or you cannot pay the fare, pause here. Stay out of the gorge. If the cells fizzle, return to Nami for a fresh crate.
+  enter "Tainted Foothills"
   zone Mount Hyjal
 
 step Kaylaena's workshop

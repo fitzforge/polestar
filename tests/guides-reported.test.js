@@ -1640,7 +1640,7 @@ test(`yiliev0's report (#672): the healing step leads to the Injured Deathguard 
 // `E` the Engine) emits. `data`: the reference data to compile with (a copy
 // with a correction applied, as `data build` applies it), else data/forever.
 // `text` plays that text in the guide's place.
-function engineRun(guide, who, { before = '', after = '', script, data: own, text, manifest }) {
+function engineRun(guide, who, { before = '', after = '', script, data: own, text, manifest, fullAddon = false }) {
 	const ref = own || (data = data || loadData(DATA));
 	const file = path.join(OFFICIAL_DIR, guide);
 	const { guides } = compileSources([{ file, text: text ?? fs.readFileSync(file, 'utf8') }], ref, undefined, { pack: manifest?.id });
@@ -1653,7 +1653,7 @@ function engineRun(guide, who, { before = '', after = '', script, data: own, tex
 				w.race, w.raceName, w.faction, w.class, w.className = "${who.race}", "${who.raceName}", "${who.faction}", "${who.cls}", "${who.className}"
 				w.level = ${who.level}
 				${before}`,
-			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			addons: fullAddon ? ['Polestar'] : [{ name: 'Polestar', files: ['Core/Core.xml'] }],
 			saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false } } }' },
 			script: `do local ns = {}
 				${loads}
@@ -16510,7 +16510,7 @@ for (const [faction, race, ever, moon] of [['Alliance', 'Human', 52, 49], ['Hord
 			});
 		}
 		for (const e of [false, true]) for (const m of [false, true]) {
-			for (const [zone, stone] of [['Mount Hyjal', 'ready'], ['Mount Hyjal', 'absent'], ['Mount Hyjal', 'cooldown'], ['Mount Hyjal', 'away'], ['Winterspring', 'ready'], ['Moonglade', 'ready']]) {
+			for (const [zone, stone] of [['Mount Hyjal', 'ready'], ['Mount Hyjal', 'absent'], ['Mount Hyjal', 'cooldown'], ['Mount Hyjal', 'away'], ['Winterspring', 'ready'], ['Moonglade', 'ready'], ['The Barrens', 'away']]) {
 				const out = plan(zone, e, m, stone);
 				const goals = Object.values(out.goals), fly = goals.find(g => g.t === 'fly');
 				const msg = `${zone}, Everlook=${e}, Moonglade=${m}, hearth=${stone}: ${JSON.stringify(out)}`;
@@ -16524,7 +16524,10 @@ for (const [faction, race, ever, moon] of [['Alliance', 'Human', 52, 49], ['Hord
 					assert.equal(fly, undefined, msg);
 					assert.equal(out.arrowMap, undefined, msg);
 					assert.ok(goals.some(g => g.t === 'enter' && g.subject === 'Moonglade' && g.x == null && g.y == null), msg);
-					if (zone === 'Mount Hyjal') assert.match([].concat(out.note || []).join(' '), /flight map/i, msg);
+					if (zone === 'Mount Hyjal') {
+						assert.match([].concat(out.note || []).join(' '), /flight map/i, msg);
+						if (stone === 'away') assert.match([].concat(out.note || []).join(' '), /inn is not a route/i, msg);
+					}
 				}
 			}
 			const back = plan('Moonglade', e, m, 'absent', returning);
@@ -16535,6 +16538,73 @@ for (const [faction, race, ever, moon] of [['Alliance', 'Human', 52, 49], ['Hord
 				assert.equal(back.arrowMap, undefined, JSON.stringify(back));
 				assert.ok(goals.some(g => g.t === 'enter' && g.subject === 'Winterspring'));
 				assert.match([].concat(back.note || []).join(' '), /pause here/i);
+			}
+		}
+	});
+}
+
+// A taxi destination is not a walking waypoint across Darkwhisper Gorge. Opening the
+// correct faction map, paying for a ride, and landing at Bluebell are distinct events.
+for (const [faction, race, ever, moon, master] of [['Alliance', 'Human', 52, 49, 11138], ['Horde', 'Orc', 53, 69, 11139]]) {
+	test(`${faction} Mount Hyjal: Nami's crate waits for the Everlook flight and Bluebell landing`, { skip }, () => {
+		const pack = resolvePack({ pack: path.join(__dirname, '..', 'experimental') });
+		const manifest = { ...pack.manifest, folder: ownExtra(pack.dir).folder };
+		const src = fs.readFileSync(path.join(pack.dir, 'guides/hyjal-1.guide'), 'utf8');
+		const from = src.indexOf('step Nami\n');
+		const text = src.slice(0, src.indexOf('\nstep ')) + '\n' + src.slice(from, src.indexOf('step Ketharas\n', from));
+		const who = { race, raceName: race, faction, cls: 'WARRIOR', className: 'Warrior', level: 58 };
+		for (const e of [false, true]) for (const m of [false, true]) {
+			for (const scenario of ['ride', 'not offered', 'unlearned', 'short fare', 'wrong origin', 'wrong master', 'other landing']) {
+				const local = scenario !== 'wrong origin';
+				const offered = scenario !== 'not offered' && scenario !== 'unlearned';
+				const atMaster = scenario === 'wrong master' ? (master === 11138 ? 11139 : 11138) : master;
+				const out = engineRun('polestar-experimental/hyjal-1', who, { manifest, text, fullAddon: true,
+					before: `w.addMap(1452,{ name="Winterspring",c=1,left=-316.667,right=-7416.667,top=8533.333,bottom=3800 })
+						w.addMap(2482,{ name="Mount Hyjal",c=1,left=-922.916,right=-4395.834,top=6304.166,bottom=3989.583 })
+						${local ? 'w.moveTo(1452,61.33,36.92); w.setZone("Winterspring","Everlook"); w.onQuest(92008,{})' :
+							`w.addMap(1450,{ name="Moonglade",c=1,left=-1381.25,right=-3689.583,top=8491.666,bottom=6952.083 }); w.moveTo(1450,${faction === 'Alliance' ? '47.91,67.11' : '32.15,66.33'}); w.setZone("Moonglade"); w.complete({92008}); w.onQuest(92009,{1})`}
+						w.money = ${scenario === 'short fare' ? 329 : 330}; TaxiNodeCost = function(i) return i == 2 and 330 or 0 end`,
+					after: `local c = Polestar.CharState(); c.flags.taxi = { [${ever}] = ${e}, [${moon}] = ${m}, [3242] = ${scenario !== 'unlearned'} }`,
+					script: `assert(E.GetGuide().id == "polestar-experimental/hyjal-1" and Polestar.Nav); local rows = {}; local function record()
+						stub.advance(0.6); local i = E.GetLiveStep(); local v = E.GetStepView(i); local wp = E.GetWaypoint(); local npc
+						for _,g in ipairs(v.goals) do if g.t == "talk" and g.status ~= "na" and g.status ~= "done" then npc = E.GetGuide().steps[i].goals[g.index].npc end end
+						local target = Polestar.Nav.GetTarget(); local legs = Polestar.Nav.GetRoute()
+						rows[#rows+1] = { title=v.title, npc=npc, map=wp and wp.map, targetMap=target and target.map, legs=legs and #legs or 0, note=v.note, crate=w.log[92009]~=nil }
+					end
+					record(); if not w.log[92009] then w.turnIn(92008); w.accept(92009, {1}) end; record()
+					if ${local} then
+						w.moveTo(1452,${atMaster === 11138 ? '62.33,36.64' : '60.49,36.34'}); w.taxi(${atMaster}, "Everlook, Winterspring", ${offered ? '{"Tainted Foothills, Mount Hyjal"}' : '{}'}); record()
+						if ${scenario !== 'wrong master'} and TaxiNodeGetType(2)=="REACHABLE" and GetMoney()>=TaxiNodeCost(2) then
+							w.money=w.money-TaxiNodeCost(2); w.onTaxi=true; w.close(); w.moveTo(2482,55.1,82.55); w.setZone("Mount Hyjal","Tainted Foothills"); record()
+							w.onTaxi=false; ${scenario === 'other landing' ? 'w.moveTo(2482,68.64,44.11);' : ''} w.setZone("Mount Hyjal","${scenario === 'other landing' ? 'Summit of Eternity' : 'Tainted Foothills'}"); stub.fire("PLAYER_CONTROL_GAINED"); record()
+							if ${scenario !== 'other landing'} then w.finish(92009); record() end
+						end
+					end; emit(rows)`,
+				});
+				const [nami, departure, menu, airborne, landed, delivered] = Object.values(out);
+				const why = `${faction}, Everlook=${e}, Moonglade=${m}, ${scenario}: ${JSON.stringify(out)}`;
+				if (local) assert.equal(nami.title, 'Nami', why);
+				else assert.equal(nami.crate, true, why);
+				assert.equal(departure.crate, true, why);
+				if (local) {
+					assert.equal(departure.npc, master, why);
+					assert.equal(departure.map, 1452, why);
+					assert.equal(menu.map, scenario === 'wrong master' ? 1452 : undefined, why);
+					assert.match([].concat(menu.note).join(' '), /fare/i, why);
+				} else assert.equal(departure.map, undefined, why);
+				for (const v of [departure, menu, airborne].filter(Boolean)) {
+					assert.notEqual(v.title, "Kaylaena's workshop", why);
+					assert.equal(v.targetMap, v.map, why);
+					if (!v.map) assert.equal(v.legs, 0, why);
+				}
+				if (scenario === 'ride') {
+					assert.equal(airborne.map, undefined, why);
+					assert.equal(landed.title, "Kaylaena's workshop", why);
+					assert.equal(delivered.map, 2482, why);
+				} else if (scenario === 'other landing') {
+					assert.equal(landed.title, 'Land at the Tainted Foothills', why);
+					assert.equal(landed.targetMap, undefined, why);
+				} else assert.equal(landed, undefined, why);
 			}
 		}
 	});
