@@ -55,6 +55,7 @@ step Fly to Ratchet
 
 step Liv Rizzlefix
   tip Liv's workshop is at the north end of Ratchet's docks; Marvon's Chest stands inside it.
+  accept 4502
   turnin 4147
   collect 10556 quest 3444.1          -- Stone Circle: Marvon's Chest
 
@@ -77,67 +78,64 @@ step Dokimi's crates
 
 # ---------------------------------------------------------------- Orgrimmar
 
-step Fly to Orgrimmar
-  zone Orgrimmar
-  fly "Orgrimmar"
-
-step Vehena
-  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7833 optional
-  turnin 7834 optional
-  turnin 7835 optional
-  accept 7836 optional
-
-step Rashona Straglash
-  tip In the Valley of Honor.
-  turnin 7826 optional
-  turnin 7827 optional
-  turnin 7831 optional
-  accept 7824 optional
-  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
-
-# ---------------------------------------------------------------- Valormok
-
 step Fly to Valormok
-  zone Azshara
+  when onquest 91497,3562,3563,91500,91538
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
   fly "Valormok"
+  zone Azshara
+
+step Jediga
+  turnin 3562
+  turnin 3563
+
+step Magus Rimtori
+  when onquest 91497
+  tip Return to the east end of the Thalassian Base Camp, keeping clear of the Blackmaw Thrall on the west. At the Sin'dorei Tome: hand in the seals, then use it to call Magus Rimtori.
+  tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.
+  turnin 91497                        -- Sin'dorei Tome of Summoning
+
+step An Explosive Gambit
+  when turnedin 91497
+  accept 91500                        -- An Explosive Gambit
+  collect 10597 quest 91500.1         -- Head of Magus Rimtori
+  accept 91538                        -- Sin'dorei Tome of Summoning: for Jediga in Valormok
 
 step Valormok
-  turnin 3562                         -- Jediga
-  turnin 3563
-  turnin 3564
-  turnin 3504                         -- Ag'tor Bloodfist
-  accept 3505
+  turnin 91500
+  accept 91531
+  turnin 91538
+  accept 91547
 
-step Ruins of Eldarath
-  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
-  goto 35.0,55.0 "Ruins of Eldarath"
-  complete 3568
+step Fly to Orgrimmar
+  when zone "The Barrens"
+  tip No business in Valormok? Fly straight from the Crossroads.
+  fly "Orgrimmar"
 
-step Thalassian Base Camp
-  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms.
-  kill 6199 quest 3505.1
-  kill 6198 quest 3505.2
+step Fly to Orgrimmar
+  when zone "Azshara"
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
 
-step Magus Rimtori's camp
-  tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there, then kill the Magus.
-  complete 3505 @59.53,31.47 era
-  turnin 3505                         -- Kaldorei Tome of Summoning
-  accept 3506
-  collect 10597 quest 3506            -- Magus Rimtori
+step Paladin trainer
+  only Paladin
+  when level>=56
+  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
-step Ag'tor Bloodfist
-  tip Ride back west to Valormok.
-  turnin 3506
-  accept 3507
+step Orgrimmar
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=56
+  zone Orgrimmar
+  tip Fly to Orgrimmar and train.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Belgrom and Zevrost
+  turnin 91531
+  turnin 91547
 
 # ---------------------------------------------------------------- Orgrimmar and the Undercity
-
-step Belgrom Rockmaul
-  zone Orgrimmar
-  tip Fly to Orgrimmar; Belgrom is in the Valley of Honor.
-  fly "Orgrimmar"
-  turnin 3507
 
 step Zeppelin to the Undercity
   zone Durotar
@@ -163,3 +161,8 @@ step Owen Thadd
   accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
   turnin 79095 optional
 
+step Level 55
+  when level<55
+  tip If you are still below 55 after the city deliveries and Felstone Field, finish the level on the Diseased Wolves (53-54) east of the farm, on the road to Tirion. Caretaker Alen needs level 55 at Light's Hope Chapel. Or, with a group, run the Blackrock Depths dungeon instead.
+  goto 42.5,54.1 map 1422 "Diseased Wolves"
+  level 55 grind 1817

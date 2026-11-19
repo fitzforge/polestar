@@ -1,7 +1,7 @@
 guide forever/horde/50-60/03-winterspring
 title Winterspring & Feralas
 faction Horde
-levels 54-56
+levels 54-55
 zone Winterspring
 next forever/horde/50-60/04-azshara
 # Built from the playthrough simulator's consensus route (Horde, visits
@@ -74,6 +74,7 @@ step Everlook
 
 step Ice Thistle yetis
   tip The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in.
+  tip At 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs.
   collect 12366 quest 3783
 
 step Umi Rumplesnicker
@@ -91,6 +92,7 @@ step Umi Rumplesnicker
 
 step Chillwind chimaeras
   tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  tip At 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone.
   collect 12444 quest 4809
 
 step Felnok Steelspring
@@ -100,6 +102,7 @@ step Felnok Steelspring
 
 step Raging Owlbeasts
   tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
+  tip At 54, take owlbeasts no higher than 55.
   kill 7451 quest 4521.1
 
 step Donova Snowden
@@ -108,13 +111,13 @@ step Donova Snowden
   turnin 3908                         -- Linken's letter
   turnin 6603
   accept 3909
-  accept 4842
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
 
 step Frostfire Winterfall camps
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
   kill 7442 quest 5082.1
+  tip If you are 54, take the level 55 Den Watchers and leave the 56s.
   kill 7440 quest 5082.2
   kill 7441 quest 5082.3
   kill 7450 quest 4521.2
@@ -131,20 +134,11 @@ step Donova Snowden
 
 # ---------------------------------------------------------------- Darkwhisper Gorge and Winterfall Village
 
-step Darkwhisper Gorge
-  tip Ride east, then south down Frostwhisper Gorge. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of Darkwhisper Gorge, at the south end.
-  goto 59.8,74.2 "Darkwhisper Gorge"
-  complete 4842
-
 step Winterfall Village
   tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out.
   kill 7439 quest 8464.1
   kill 7440 quest 8464.2
   kill 7438 quest 8464.3
-
-step Donova Snowden
-  tip Ride back west to Frostfire Hot Springs.
-  turnin 4842
 
 step Salfa
   turnin 8464
@@ -162,9 +156,6 @@ step Salfa
 
 step Back to Everlook
   hearth "Everlook"
-
-step Grind to 55
-  level 55 grind 7440 -- grind on Winterfall Den Watcher at Winterfall Village, Winterspring
 
 step A Little Luck
   accept 6606                         -- Harlo Wigglesworth
@@ -212,6 +203,9 @@ step Bluff Runner Windstrider
   accept 1000
 
 step Elder Rise
+  turnin 92346                         -- Nara Wildmane
+  turnin 3518                          -- Magatha Grimtotem
+  accept 3562                          -- Take the payment to Jediga on the next Valormok stop
   turnin 3761                         -- Ghede
   accept 3782                         -- Arch Druid Hamuul Runetotem
   turnin 1000

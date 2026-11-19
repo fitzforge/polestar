@@ -137,11 +137,26 @@ step Donova Snowden
   turnin 5086
   accept 5087
 
+step Strange Sources
+  when group 4842
+  tip Only with help: level 59-60 elite Frostmaul giants flank the road to Darkwhisper Gorge. Alone, skip the gorge and stay on the road to Everlook.
+  accept 4842
+
+step Salfa
+  accept 8464
+
 step Winterfall Runners
   tip The runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
   collect 12829 quest 5087.1
   turnin 5087                         -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
+
+step Darkwhisper Gorge
+  when group 4842
+  when onquest 4842
+  tip With your group, follow the road south between the elite Frostmaul giants. Turn back as soon as the quest credits at the mouth of Darkwhisper Gorge; do not enter the Hederine camp.
+  goto 59.8,74.2 "Darkwhisper Gorge"
+  complete 4842
 
 step Everlook
   tip Ride east along the road to Everlook.
@@ -149,9 +164,32 @@ step Everlook
 
 # ---------------------------------------------------------------- Level 60
 
+step Winterfall Village
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall (59, elite) and Xandivious (62) are in the cave at the back: stay out.
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+  kill 7439 quest 8464.1
+
+step Level 59.9
+  zone Winterspring
+  when level<59.9
+  tip Stay on the village's western edge for Winterfall Ursas (57-58). Leave the cave and its elite chief alone. Top up only until the last hand-ins can take you to 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  goto 65.2,37.8 map 1452 "Winterfall Ursas"
+  level 59.9 grind 7438
+
+step Strange Sources
+  when complete 4842
+  turnin 4842
+
+step Salfa
+  turnin 8464
+
 step Grind to 60
-  tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
-  goto 60.1,71.2 "Frostwhisper Gorge"
-  level 60 grind 7446 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
-  train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
-  train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook
+  when level<60
+  tip If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of Salfa. There is no need to cross the gorge.
+  goto 30.6,35.6 map 1452 "Winterfall Den Watchers"
+  level 60 grind 7440
+
+step Training
+  train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Orgrimmar
+  train class optional only Druid,Paladin -- Thunder Bluff

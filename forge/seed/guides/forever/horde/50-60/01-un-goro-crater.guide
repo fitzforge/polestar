@@ -136,11 +136,13 @@ step Lakkari Tar Pits: kill these as you meet them
   kill 6510 quest 4145.3
   collect 11114 quest 3882
   collect 11830 quest 4503.1
+  tip At 52, hunt the 51-53 ones and leave the 54s.
   kill 9167 quest 4501.2
+  tip If you are still 51, take level 52 Trappers and leave the 53s alone.
   kill 6512 quest 4145.2
 
 step Research Equipment
-  tip The expedition's lost equipment lies in the south-west jungle.
+  tip The expedition's lost equipment lies in the south-west jungle. If you still need bones or scales, take the smaller Diemetradons and leave the level 53-55 Elders alone.
   collect 11112 quest 3881.2 @38.5,66.1
 
 step The Slithering Scar
