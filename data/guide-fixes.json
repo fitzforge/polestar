@@ -735,6 +735,24 @@
 			]
 		},
 		{
+			"id": "a043-valanaar-alvarion",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92679,
+				"goal": "accept",
+				"guide": "forever/alliance/skyborne/01-zephras-isle"
+			},
+			"note": "Talk to Alvarion at the first Valanaar stop instead of coming back after the skyhoppers.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "92679 starts with Alvarion Windfield at the west side of Valanaar and has no prerequisite."
+				}
+			],
+			"pr": 3144,
+			"tip": "Speak to Alvarion by the inn on the west side, then cross town to Lotheluum and Ealaane."
+		},
+		{
 			"id": "zephras-skycutter-from-valanaar",
 			"faction": "Alliance",
 			"at": {

@@ -375,6 +375,9 @@ step Fendaal Windstone
   turnin 98512                                -- Fendaal Windstone
 
 step Valanaar, the turncoat
+  tip Speak to Alvarion by the inn on the west side, then cross town to Lotheluum and Ealaane.
+  accept 92679                                -- Alvarion Windfield
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 94484                                -- Lotheluum Starbreeze
   accept 94896                                -- Ealaane Nimbuswalker
   accept 94897
@@ -408,8 +411,6 @@ step The road to Valanaar
   level 10 only Hunter
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
-  accept 92679                                -- Alvarion Windfield
-  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 93317                                -- Nyalah Brightfire, inside
 
 step Class trainer

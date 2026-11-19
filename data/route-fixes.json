@@ -16095,6 +16095,19 @@
 				"faction": "Alliance",
 				"why": "Grove of the Ancients (952), from Fandral in Darnassus at the end of Teldrassil, went to Onu only on 03-darkshore-return, carried about 8 hours through Westfall, Darkshore and Loch Modan. Onu stands at the Grove about 550 yd east of nightelf/02-darkshore's southern beaches step (Beached Sea Creature 4728), so it is handed in there; 03-darkshore-return keeps its `when onquest 952` step for a character still carrying it.",
 				"source": "0.4.3 route round (#3144): flow audit with baked legs 2026-11-19"
+			},
+			{
+				"a": [
+					"accept",
+					92679
+				],
+				"b": [
+					"accept",
+					94484
+				],
+				"faction": "Alliance",
+				"why": "Blood Tithe starts on the west side of Valanaar, on the walk into town from Fendaal. Hear Alvarion before crossing to Lotheluum and hunting the skyhoppers.",
+				"source": "#3144: 92679 giver and first-visit walk from Fendaal"
 			}
 		],
 		"leftout": [

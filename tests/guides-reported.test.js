@@ -11404,6 +11404,13 @@ test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist
 	assert.ok(Math.hypot(eggs.x - 42.1, eggs.y - 39.4) < 1.5, `the Small Eggs lead to the Galestriders by the village (${eggs.x},${eggs.y})`);
 });
 
+test('Valanaar (Alliance): listen to Alvarion before hunting the skyhoppers', { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	const take = at(list, 'Blood Tithe', is('accept', 92679));
+	const story = at(list, 'Alvarion’s story', (g) => g.t === 'talk' && g.quest === 92679);
+	assert.ok(take < story && story < at(list, 'skyhoppers', is('kill', 93949)));
+});
+
 // Final route review 0.3.6: the group branch's WANTED: Vulgara the Insatiable (93318) was handed to Danarii Bellowveil
 // after Valanaar's inn, a walk back north-west to Shen'dar and south-east again. It goes to her on the Shen'dar stop
 // after the hippogryph loop, where her own quest (92551) is handed in, before the road to Fendaal and Valanaar.
