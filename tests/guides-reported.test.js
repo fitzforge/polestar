@@ -867,9 +867,14 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 		// Far Watch Post (Kargal, Uzzek) comes first on the walk from Orgrimmar; the Crossroads stop takes Meats to Orgrimmar.
 		const first = list[at(list, `${race}: accept 6365`, is('accept', 6365))].step;
 		assert.ok(list.findIndex(({ goal }) => is('accept', 842)(goal)) < list.findIndex(({ step }) => step === first), `${race}: Far Watch Post (Crossroads Conscription) before the Crossroads`);
-		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
+		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 871], ['accept', 867]]) {
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
+		// 0.4.3: Supplies for the Crossroads became a group choice (its crates lie among the Razormane camp's elites); a
+		// character who chooses it still takes it from Thork on this stop, in the group step right after it.
+		const s = list.find(({ step }) => step === first).s;
+		const supplies = list.find(({ goal }) => is('accept', 5041)(goal));
+		assert.ok(supplies && supplies.s === s + 1, `${race}: Supplies for the Crossroads in the step right after the first Crossroads stop`);
 		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
 	}
 });
@@ -7044,6 +7049,31 @@ test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razorm
 	assert.ok(take < kreenig && kreenig < boar && boar < give, 'Crossroads, the camp, Crossroads');
 	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
 	assert.ok(group.some((g) => g.q === 97003 && g.size >= 2), 'a group record the build keeps');
+});
+
+// 0.4.3 route round (Horde 12-30 audit, MUST): Forever put elite Razormane Flesheaters and Berserkers (18-19) into the
+// camp east of the Crossroads, on top of Thork's supply crates and Kreenig Snarlsnout; 5 of 19 0.4.x players who did The
+// Disruption Ends died in the camp. Supplies for the Crossroads and The Disruption Ends are group choices, and the
+// "Finish the Raptor Heads" point is on the open plains north of Echeyakee's lair, away from the elites.
+test('The Barrens (Horde): the Razormane camp\'s elite half is a group choice, and the raptor heads finish away from it (0.4.3)', { skip }, () => {
+	const list = goals(BARRENS);
+	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	for (const q of [5041, 872]) {
+		const takes = list.filter(({ goal }) => is('accept', q)(goal));
+		assert.ok(takes.length > 0, `accept ${q} is in the guide`);
+		for (const { step } of takes) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q)), `accept ${q}: only for a group (${step.title})`);
+		assert.ok(group.some((g) => g.q === q && g.size >= 2), `${q}: a group record the build keeps`);
+	}
+	const work = list.filter(({ goal }) => goal.quest === 872 && goal.t !== 'accept' && goal.t !== 'turnin');
+	for (const { step } of work) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(872)), `872's work: only for a group (${step.title})`);
+	// Disrupt the Attacks (the camp's western half) stays on the solo route.
+	assert.ok(list.some(({ step, goal }) => is('accept', 871)(goal) && !(step.when || []).some((p) => p.k === 'group')), '871 stays solo');
+	const data = loadData(DATA);
+	const elites = [267308, 267314].flatMap((id) => data.npcs[id].spawns[1413].pts);
+	const finish = list.find(({ step, goal }) => step.title === 'Finish the Raptor Heads' && goal.t === 'collect' && goal.quest === 869);
+	assert.ok(finish && finish.goal.x != null, 'the finish step has a point');
+	const near = Math.min(...elites.map(([x, y]) => Math.hypot(x - finish.goal.x, y - finish.goal.y)));
+	assert.ok(near >= 5, `the raptor heads finish ${near.toFixed(1)} map units from the nearest elite quilboar (at least 5)`);
 });
 
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar

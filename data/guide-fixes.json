@@ -278,6 +278,29 @@
 			"issue": 1575
 		},
 		{
+			"id": "043-barrens-centaur-bracers-kolkar-camp",
+			"faction": "Horde",
+			"at": { "quest": 855, "goal": "objective", "objective": 1 },
+			"tip": "Careful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts Regthar's Counterattack!, Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) charge his watch post: keep away from it until the attack is over.",
+			"note": "Centaur Bracers is the Horde 12-30 band's top death spot for players following the guide: the Kolkar (Wranglers 12-13, Stormers 13-14, Marauders 15-16) are at or under the route's level, but they stand in packs, and Counterattack! (4021) sends Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) at Regthar's post whenever anyone starts it. The deaths cluster at 43-46,23-28, the Kolkar camp west of the pools and around Regthar. A Careful line on the step (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 21 people following the guide died 40 times on Centaur Bracers (median level 16.5), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 3272 Kolkar Wrangler 12-13, 3273 Kolkar Stormer 13-14, 3275 Kolkar Marauder 15-16, 9524 Kolkar Invader 16-17, 9456 Warlord Krom'zar 20 elite" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-840-only-while-carried",
+			"faction": "Horde",
+			"at": { "quest": 840, "goal": "turnin", "guide": "forever/horde/02-the-barrens" },
+			"when": "onquest 840",
+			"note": "Conscript of the Horde (840) is handed to Kargal Battlescar on the Barrens guide's Far Watch Post stop only by characters still carrying it: Warriors and Shamans hand it in at the end of their Durotar guide (h01-840-far-watch-warriors-orc/troll), and the playtest read the hand-in as never accepted for them. Its own step comes first; Crossroads Conscription (842) and the rest of the stop follow for everyone.",
+			"source": [
+				{ "kind": "client", "ref": "quests.json 842 Crossroads Conscription: pre 840; the Durotar guides' Far Watch Post steps (when onquest 840) hand 840 in for Warriors and Shamans" }
+			],
+			"pr": 3145
+		},
+		{
 			"id": "2025-barrens-barrow-dens-terrans",
 			"faction": "Horde",
 			"at": {
@@ -3543,14 +3566,14 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.",
+					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just north of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
 					"map": 1413,
-					"x": 55.0,
-					"y": 23.5
+					"x": 56.5,
+					"y": 13.5
 				}
 			},
 			"faction": "Horde",
-			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee.",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 56.5,13.5, just north of Echeyakee's lair, where 21 Screecher spawns lie within 3 units and the nearest elite is 7.9 units south.",
 			"source": [
 				{
 					"kind": "recording",
