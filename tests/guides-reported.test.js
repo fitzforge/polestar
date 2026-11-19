@@ -4367,6 +4367,19 @@ test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gn
 	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
 });
 
+// Route review 0.4.3: Fire Taboo's flint pointed at 51.2,30.9, on the Green Belt among the Maddened Rotclaws (25-26,
+// none west of x 50), where players following the guide died 26 times at 24.0-24.8. Both flint steps (06-ashenvale at
+// about 24, #2871's catch-up in 06-wetlands) point at the Fenrunners' and Trappers' camp by the river at 43-46,32-35
+// and name the Rotclaws in a Careful tip.
+test('Fire Taboo (Alliance): the flint is hunted west of the Maddened Rotclaws, with a Careful tip (route review 0.4.3)', { skip }, () => {
+	for (const guide of [ASHENVALE, WETLANDS]) {
+		const list = goals(guide);
+		const { step, goal } = list[at(list, 'collect 2611', (g) => g.t === 'collect' && g.item === 2611)];
+		assert.ok(goal.x >= 42 && goal.x <= 47 && goal.y >= 31 && goal.y <= 36, `${guide}: the flint at the river camp, not ${goal.x},${goal.y}`);
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: Maddened Rotclaws/, `${guide}: the Rotclaws named`);
+	}
+});
+
 // #2881 (gidi, Horde Dustwallow Marsh): Questioning Reethe (1273) is an escort (Ogron walks to Reethe with whoever took
 // it), but its text never says escort, so the guide window showed no escort line under its accept. The correction marks
 // it; the compiled guides carry it from the next data build.
@@ -9460,7 +9473,10 @@ test('Alliance 12-20: Fire Taboo is taken from Rethiel at 22-24, its flint on th
 	const wet = goals(WETLANDS);
 	const hand = wet.find(({ goal }) => is('turnin', 277)(goal));
 	assert.ok(hand && wet.some(({ goal, s }) => is('accept', 275)(goal) && s === hand.s), 'handed in with Blisters on the Land taken');
-	assert.ok(!wet.some(({ goal }) => (goal.t === 'collect' && goal.item === 2611) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
+	// #2871 added a flint step for a character who reaches 06-wetlands still carrying Fire Taboo short of its flint
+	// (`when onquest 277`); the route player arrives with it done, so it is neither taken nor worked again there.
+	const carriedOnly = (step) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && (p.q || []).includes(277));
+	assert.ok(!wet.some(({ step, goal }) => ((goal.t === 'collect' && goal.item === 2611) && !carriedOnly(step)) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
 	assert.equal(wet.filter(({ step, goal }) => goal.npc === 1244 && !dungeonOnly(step)).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops of the solo route (Fire Taboo and Blisters in, Blisters out)');
 });
 

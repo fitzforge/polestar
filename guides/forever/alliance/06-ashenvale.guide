@@ -297,8 +297,9 @@ step Rethiel the Greenwarden
 
 step Ironbeard's Tomb
   zone Wetlands
-  tip North-west from Rethiel: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
-  collect 2611 quest 277                  -- Crude Flint: Mosshide Fenrunners and Mistweavers
+  tip North-west from Rethiel: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of Ironbeard's Tomb drop flint, almost every one. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
+  tip Careful: Maddened Rotclaws (25-26) roam the Green Belt around Rethiel and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp.
+  collect 2611 quest 277 @44.6,33.6 map 1437 -- Crude Flint: the Mosshide Fenrunners and Trappers by the river
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil
