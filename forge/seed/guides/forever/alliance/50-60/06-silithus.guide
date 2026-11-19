@@ -765,7 +765,7 @@ step Kirsta Deepshadow
 step Gahrron's Withering
   when onquest 5225
   zone Western Plaguelands
-  tip Ride south-east to Gahrron's Withering: Cauldron Lord Soulwrath guards the cauldron, and Redpath's Shield lies east of the barn.
+  tip Ride south-east to Gahrron's Withering. Cauldron Lord Soulwrath guards the cauldron.
   collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
   turnin 5225                         -- Scourge Cauldron
   accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
@@ -773,6 +773,7 @@ step Gahrron's Withering
 step Redpath's Shield
   when group 5168
   when onquest 5168
+  tip The shield lies east of the barn. Take your group around the barn to reach it.
   collect 12955 quest 5168.2          -- Redpath's Shield
 
 step Tirion Fordring (optional)

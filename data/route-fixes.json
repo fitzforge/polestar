@@ -10876,6 +10876,21 @@
 				"issue": "#2635"
 			},
 			{
+				"q": 991,
+				"reason": "Catch-up in forever/alliance/06-wetlands: if the player missed Raene's Cleansing in 06-ashenvale, Raene sends them to Teronis on the western loop. The steps show only when 991 has not been handed in. The chain through 1023 and 1024 opens 1026 and 1025.",
+				"issue": "#3144"
+			},
+			{
+				"q": 1023,
+				"reason": "Catch-up in forever/alliance/06-wetlands: after finding Teronis, collect his gem at Lake Falathim if 1023 is not handed in. Pay Raene on the way back from the western posts, before taking her message east.",
+				"issue": "#3144"
+			},
+			{
+				"q": 1024,
+				"reason": "Catch-up in forever/alliance/06-wetlands: a player who missed this part in 06-ashenvale takes Raene's message on the way east and pays Shael'dryn before 1026 and 1025. Skip this delivery when 1024 is already handed in.",
+				"issue": "#3144"
+			},
+			{
 				"q": 3524,
 				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): a Night Elf who skipped forever/alliance/nightelf/01-teldrassil arrives without Washed Ashore (3524, 4681), so Beached Sea Turtle and Beached Sea Creature (4722, 4723, 4728) were hidden. The guide's Auberdine and beach steps for 3524 (written for other races, who never follow this guide) now show `when !turnedin 3524`, and Gwennyth takes 3524 and gives 4681 before the skeletal turtle step the guide works anyway: 675 and 975 XP at full rate at 12, on the beach the guide walks. Recordings: 110 players took 3524 at 11-21.",
 				"issue": "#2635"

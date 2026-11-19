@@ -9064,8 +9064,8 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) {
 		const along = compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along);
 		const goals = along.map((st) => [st.along, st.goals.map((go) => [go.t, go.quest, go.item, go.optional])]);
-		const tiger = [['hunters', [['collect', 188, 3879, true]]], ['rebel', [['turnin', 188, undefined, true]]]];
-		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? tiger : [], `${g}: only the optional hill hunt and its camp hand-in`);
+		const tiger = [['rebel', [['turnin', 188, undefined, true]]]];
+		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? tiger : [], `${g}: only the ready hand-in belongs on the camp's Along list`);
 	}
 });
 
@@ -9081,16 +9081,16 @@ test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once 
 				w.accept(188,{{type="item",text="Paw of Sin'Dall",required=1}},"Tiger Mastery")`,
 			script: `local E, w = Polestar.Engine, stub.world
 				local function settle() stub.advance(.6); stub.advance(.6) end
-				local function listed()
+				local function listed(verb)
 					for _,row in ipairs(E.GetAlong()) do
-						for _,g in ipairs(row.goals) do if g.quest==188 and g.t=="turnin" then return true end end
+						for _,g in ipairs(row.goals) do if g.quest==188 and g.t==(verb or "turnin") then return true end end
 					end
 					return false
 				end
 				E.SkipUpTo(${hunt}); settle(); w.finish(195); settle()
 				w.moveTo(1434,35.56,10.57); settle()
 				assert(E.GetLiveStep()==${camp})
-				local out = { premature=listed(), earlyAim=E.AimAlong(${handIn},1),
+				local out = { premature=listed(), huntStillListed=listed("collect"), earlyAim=E.AimAlong(${handIn},1),
 					earlyRow=E.GetStepView(${handIn}).goals[1].status }
 				for _,row in ipairs(E.GetWhileHereList()) do assert(row.quest~=188 or row.t~="turnin") end
 				w.turnIn(195); settle()
@@ -9101,7 +9101,7 @@ test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once 
 				wp=E.GetWaypoint(); out.giver=E.GetGuide().steps[wp.stepIndex].goals[wp.goalIndex].npc
 				w.turnIn(188); w.removeItem(3879); settle(); out.after=listed()
 				emit(out)` });
-		assert.deepEqual(seen, { premature: false, earlyAim: false, earlyRow: 'na', nextQuest: 196,
+		assert.deepEqual(seen, { premature: false, huntStillListed: false, earlyAim: false, earlyRow: 'na', nextQuest: 196,
 			ready: true, canAim: true, giver: 717, after: false });
 	} finally { pack.dispose(); }
 });
@@ -15813,7 +15813,7 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 		if (q === 195) assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
 		else {
 			const paw = stv2[at(stv2, 'collect the paw', is('collect', 188))];
-			assert.ok(paw.goal.optional && paw.step.along, 'the paw never holds the raptor hunt');
+			assert.ok(paw.goal.optional, 'the paw never holds the raptor hunt');
 			assert.ok(paw.step.when.some(p => p.k === 'level' && !p.neg && p.op === '>=' && p.n === 36), "no Sin'Dall hunt below 36");
 			assert.ok(paw.step.when.some(p => p.k === 'onquest' && !p.neg && p.q.length === 1 && p.q[0] === 188), 'the tiger only shows for a player holding Tiger Mastery');
 			assert.ok(stv2[at(stv2, 'turn in the paw', is('turnin', 188))].goal.optional, 'no paw needed to leave camp');
@@ -17249,6 +17249,8 @@ test('Alliance Wetlands: Raene’s delivery continues after the Glowing Gem, inc
 	try {
 		const wet = pack.guides.find(g => g.id === 'forever/alliance/06-wetlands');
 		const seq = ['accept:991', 'turnin:991', 'accept:1023', 'collect:1023', 'turnin:1023', 'accept:1024', 'turnin:1024', 'accept:1026', 'turnin:1046'];
+		const stop = (q,t) => wet.steps.findIndex(s => s.goals.some(g => g.quest === q && g.t === t));
+		assert.ok(stop(990,'turnin') < stop(991,'accept') && stop(991,'turnin') < stop(1022,'accept') && stop(1022,'accept') < stop(1023,'turnin'), 'pay the carried delivery on arrival; visit the western posts before bringing the gem back east');
 		for (const [state, seed, start] of [
 			['fresh', '', 0],
 			['at Teronis', 'w.onQuest(991,{})', 1],

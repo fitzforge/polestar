@@ -100,7 +100,6 @@ step The Ruins of Zul'Kunda
 step Sin'Dall on the raptor hill
   when level>=36
   when onquest 188
-  along until hunters
   collect 3879 quest 188 optional     -- Sin'Dall (37) prowls the hilltop.
 
 step The Lashtail raptors

@@ -400,6 +400,12 @@ step Astranaar
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Raene Wolfrunner
+  zone Ashenvale
+  when onquest 990
+  tip Raene Wolfrunner stands in the inn, beside the innkeeper.
+  turnin 990                          -- Raene Wolfrunner: Trek to Ashenvale, if you still carry it from Darkshore
+
+step Raene Wolfrunner
   when !turnedin 991
   accept 991                          -- Raene Wolfrunner, at the inn, if you missed her first visit
 
@@ -414,20 +420,6 @@ step Glowing Gem
   accept 1023
   collect 5463 quest 1023             -- Glowing Gem
 
-step Raene Wolfrunner
-  when !turnedin 1023
-  turnin 1023                         -- Raene Wolfrunner, at the Astranaar inn
-
-step Raene's delivery
-  when !turnedin 1024
-  accept 1024                         -- Take her message to Shael'dryn on the way east
-
-step Raene Wolfrunner
-  zone Ashenvale
-  when onquest 990
-  tip Raene Wolfrunner stands in the inn, beside the innkeeper.
-  turnin 990                          -- Raene Wolfrunner: Trek to Ashenvale, if you still carry it from Darkshore
-
 step Melyria and Illiyana
   tip The two stand together at the western end of the road, south-west of Astranaar.
   accept 1021                         -- Illiyana
@@ -438,6 +430,14 @@ step Therysil
   when onquest 945
   tip Therysil stands at the Shrine of Aessina, a short walk from Melyria and Illiyana.
   turnin 945                          -- Therysil: Therylune's Escape, if you still carry it from Darkshore
+
+step Raene Wolfrunner
+  when !turnedin 1023
+  turnin 1023                         -- Raene Wolfrunner, at the Astranaar inn
+
+step Raene's delivery
+  when !turnedin 1024
+  accept 1024                         -- Take her message to Shael'dryn on the way east
 
 step Raene's message
   when !turnedin 1024

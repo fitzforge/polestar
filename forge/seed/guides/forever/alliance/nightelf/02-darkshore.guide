@@ -142,7 +142,7 @@ step The southern beaches
 
 step Onu
   when onquest 952
-  tip East from the beached creature, up into the Grove of the Ancients: Onu is the ancient there, with Arbal and Kerlonian Evershade asleep beside him. Careful: a Grizzled Thistle Bear (16-17) can roam the woods south of the grove.
+  tip From the beached creature, head east to the Grove of the Ancients. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. Onu stands beside Arbal and the sleeping Kerlonian Evershade.
   turnin 952 only NightElf                    -- Onu
 
 step Ameth'Aran
