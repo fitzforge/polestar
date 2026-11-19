@@ -20,13 +20,18 @@
 --                    description, then the wide search, the switch, Peek,
 --                    Fold, Reload UI and ··· (Menu scale, Move frames, the
 --                    resets); Undo beside the crumb; no footer
---   the tab band     at its right end the filter
+--   the tab band     at its right end the filter, then Preview (on a page
+--                    with a live preview: shows or hides it)
 --   All / Changed    a filter over the whole window: Changed shows one card
 --                    per page with changes ("Group › Page", its count, its
 --                    Reset, a link there) and a jump tab for each; Esc, the
 --                    close button and the switch go back to the page
 --   the index        under the tabs, for a tab of more than 30 rows: its
 --                    sections as jump links, the one in view lit as the selected tab
+--   beside the rows  on a page with a live preview (UI/Preview.lua), that
+--                    preview alone; under a 1240 wide window over the rows.
+--                    Preview in the tab band hides it
+--                    (PolestarDB.optionsPreviewHidden, account-wide)
 --   dependency line  a section whose on/off lives in another tab says so
 --                    first, with the way to it
 --
@@ -65,10 +70,12 @@ G.TREE = {
 }
 
 -- SEP: a crumb's separator (" › "). WIDE: the window width from which the
--- filter shows both its buttons. LONG: rows past which a tab shows its
--- index. STRIP: the index's height.
+-- side card stands beside the rows. LONG: rows past which a tab shows its
+-- index. STRIP: the index's height. SIDE: the side card's width bounds and
+-- its gap to the rows and to the window's edge.
 local SEP = " \226\128\186 "
 local WIDE, LONG, STRIP = 1240, 30, 34
+local SIDE = { MIN = 300, MAX = 400, GAP = 16, EDGE = 16 }
 
 local SUBTITLES = {
 	guidewindow = L["The guide window's frame, bars, step card, tips and progress bar."],
@@ -87,6 +94,29 @@ local B = { views = {}, links = {}, depKeys = {} }
 local shown = false
 local render, changedKeys, changedTabs, changedJump
 
+-- The Preview panel hidden (its button): PolestarDB.optionsPreviewHidden,
+-- account-wide, not a setting: true hidden, false shown, nil not chosen yet
+-- (shown beside the rows, hidden where it would stand over them).
+local function previewHidden(wide)
+	local v = ns.DB().optionsPreviewHidden
+	if v == nil then return not wide end
+	return v and true or false
+end
+
+-- The side card's old saved choice (PolestarDB.optionsSideHidden) moved
+-- into optionsPreviewHidden, while that one is not chosen yet; once a
+-- session. -> nothing
+local migrated = false
+function G.MigrateSaved()
+	if migrated then return end
+	migrated = true
+	local db = ns.DB()
+	if db.optionsSideHidden ~= nil and db.optionsPreviewHidden == nil then
+		db.optionsPreviewHidden = db.optionsSideHidden and true or false
+	end
+	db.optionsSideHidden = nil
+end
+
 function G.On()
 	return ns.DB().optionsLayout == "grouped"
 end
@@ -94,7 +124,11 @@ end
 local function win() return K.window() end
 
 local function dropViews()
-	for _, v in pairs(B.views) do v:Hide() end
+	for _, v in pairs(B.views) do
+		v:Hide()
+		local host = rawget(v, "PreviewHost")
+		if host then host:Hide() end
+	end
 	B.views = {}
 end
 
@@ -399,10 +433,10 @@ function G.NavKey()
 end
 
 ---------------------------------------------------------------------------
--- The chrome: the folder tabs, the filter, the index
+-- The chrome: the filter, the index, the side card
 ---------------------------------------------------------------------------
 
--- A button of the band's right end (the filter's).
+-- A button of the band's right end (the filter's, Preview).
 local function bandButton()
 	local w = win()
 	local b = CreateFrame("Button", nil, w.TabRow)
@@ -558,10 +592,60 @@ end
 -- The filter's buttons, from the band's right end leftward (the tests read them).
 function G._filters() return B.filters or {} end
 
+-- Does page p show a live preview (a tab of it on screen registers one)?
+-- -> bool
+function G.HasPreview(p)
+	if not p or p.custom then return false end
+	for _, t in ipairs(pageTabs(p)) do
+		if t.preview then return true end
+	end
+	return false
+end
+
+-- The tab whose preview page p shows on tab t: t's own, else the first of
+-- the page's tabs on screen with one. -> tab, or nil
+local function previewTabOf(p, t)
+	if t and t.preview then return t end
+	if not (p and not p.custom) then return nil end
+	for _, pt in ipairs(pageTabs(p)) do
+		if pt.preview then return pt end
+	end
+end
+
+-- Preview, left of the filter: shows or hides the Preview panel for the
+-- account, lit while it is open; on a page with a live preview only (none
+-- in the Changed view). -> the width taken
+local function drawPreview(g, wide, from)
+	local w = win()
+	local b = B.PreviewBtn
+	if not b then
+		b = bandButton()
+		b:SetScript("OnClick", function(self)
+			W.HideTooltip(self)
+			G.SetPreviewHidden(self.psOn)
+		end)
+		B.PreviewBtn = b
+	end
+	if st.filter == "changed" or not G.HasPreview(B.page) then
+		b:Hide()
+		return 0
+	end
+	local open = not previewHidden(wide)
+	b.psTip = open and L["Hide preview"] or L["Show preview"]
+	b.psTipLines = { open and L["The rows take the full width. Polestar keeps this for all your characters."]
+		or L["A live view of what these settings change, beside the rows."] }
+	local wd = dressFilter(b, L["Preview"], nil, open, true, nil, "eye")
+	b:ClearAllPoints()
+	b:SetPoint("BOTTOMRIGHT", w.TabRow, "BOTTOMLEFT", w.psMainW - SH.pad + 8 - (from or 0), 6)
+	return wd + 4
+end
+-- The Preview button (the tests read it). -> button, or nil before the first draw
+function G.PreviewButton() return B.PreviewBtn end
+
 -- What stands at the band's right end, from the end leftward: each
 -- fn(g, wide, from) lays its widgets out `from` in from the end. -> the
 -- width taken
-local RIGHT_END = { drawFilter }
+local RIGHT_END = { drawFilter, drawPreview }
 local function drawRightEnd(g, wide)
 	local used = 0
 	for _, fn in ipairs(RIGHT_END) do used = used + fn(g, wide, used) end
@@ -761,10 +845,45 @@ local function drawStrip(entries, count, width)
 	lightLink(lit)
 end
 
--- The body's scroll starts under the index while one stands there.
+-- The Preview panel: the page's live preview alone, beside the rows (over
+-- them in a narrow window, with its close button).
+local function side()
+	if B.Side then return B.Side end
+	local w = win()
+	local f = CreateFrame("Frame", nil, w.Content)
+	f:SetFrameStrata(w:GetFrameStrata())
+	f:SetFrameLevel(w.Scroll:GetFrameLevel() + 6)
+	f:EnableMouse(true)
+	-- Over the rows (a narrow window) it must hide them: its ground is opaque.
+	f.psMenu = true
+	Theme.Skin(f, "panel")
+	f.Close = W.IconButton(f, "close", 22, L["Close"], function() G.SetPreviewHidden(true) end, 11)
+	f.Close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
+	f.Close:SetFrameLevel(f:GetFrameLevel() + 4)
+	f:Hide()
+	B.Side = f
+	return f
+end
+G._side = function() return B.Side end
+
+-- The Preview panel hidden (true) or shown, for the account. -> nothing
+function G.SetPreviewHidden(hidden)
+	ns.DB().optionsPreviewHidden = hidden and true or false
+	if shown then render({ keep = true }) end
+end
+
+-- The body's scroll stops short of the side card while it stands beside it.
 local function scrollRoom()
 	local w = win()
 	local sf = w.Scroll
+	if not rawget(sf, "psGroupedSetPoint") then
+		local set = sf.SetPoint
+		sf.psGroupedSetPoint = set
+		sf.SetPoint = function(self, point, rel, relPoint, x, y)
+			if point == "BOTTOMRIGHT" and (B.room or 0) > 0 then x = -(4 + B.room) end
+			return set(self, point, rel, relPoint, x, y)
+		end
+	end
 	sf:ClearAllPoints()
 	local ph = w.psPreviewH or 0
 	sf:SetPoint("TOPLEFT", w.Content, "TOPLEFT", 0, -(4 + ph))
@@ -1076,12 +1195,22 @@ local function hideChrome()
 	if not w then return end
 	for _, b in ipairs(B.filters or {}) do b:Hide() end
 	if rawget(w, "FolderTabs") then w.FolderTabs:Hide() end
-	for _, v in pairs(B.views) do v:Hide() end
+	if B.Side then B.Side:Hide() end
+	if B.PreviewBtn then B.PreviewBtn:Hide() end
+	if B.host then
+		B.host:Hide()
+		B.host = nil
+	end
+	for _, v in pairs(B.views) do
+		v:Hide()
+		local host = rawget(v, "PreviewHost")
+		if host then host:Hide() end
+	end
 	if B.Strip then B.Strip:Hide() end
 	changedKeys(false)
 	w.psKeepTabRow, w.psTabRoom = nil, nil
 	W.ShellTabs(w, nil)
-	B.entries = nil
+	B.room, B.sideMode, B.entries = 0, nil, nil
 	W.ShellLayout(w)
 end
 
@@ -1250,9 +1379,24 @@ function render(opts)
 	B.depKeys = {}
 	headerMode(true)
 	W.ShellLayout(w)
+	-- What stands beside the rows: the page's live preview (the tab's own,
+	-- else its page's), on a page that has one, in the Preview panel.
 	local filtering = st.filter == "changed"
 	if not filtering then B.from = nil end
+	local previewTab = not filtering and G.HasPreview(p) and previewTabOf(p, tab) or nil
+	-- Shown (its button, for the account): beside the rows in a wide
+	-- window, over them in a narrow one. Hidden: the rows take the width.
 	local wide = w:GetWidth() >= WIDE
+	local sideW = min(SIDE.MAX, max(SIDE.MIN, floor(w.psMainW * 0.34)))
+	local hidden = previewHidden(wide)
+	local beside = previewTab ~= nil and wide and not hidden
+	local over = previewTab ~= nil and not wide and not hidden
+	B.sideMode = (beside or over) and "preview" or nil
+	B.room = beside and (sideW + SIDE.GAP + SIDE.EDGE - 4) or 0
+	local fullW = w.BodyWidth
+	if beside then
+		w.BodyWidth = w.psMainW - SH.pad - sideW - SIDE.GAP - SIDE.EDGE
+	end
 	-- The title, the band: the page's folder tabs, the filter at its right
 	-- end (the band's row kept for it, the classic tabs off).
 	w.psKeepTabRow = true
@@ -1309,7 +1453,7 @@ function render(opts)
 		end
 		-- One section is the tab itself: no index for it.
 		if #entries > 1 then
-			drawStrip(entries, string.format(L["%d settings"], view.psRows), w.psMainW)
+			drawStrip(entries, string.format(L["%d settings"], view.psRows), beside and (w.BodyWidth + SH.pad * 2) or w.psMainW)
 		else
 			entries = nil
 		end
@@ -1321,6 +1465,48 @@ function render(opts)
 	else
 		if B.Strip then B.Strip:Hide() end
 		W.ShellPreview(w, nil)
+	end
+	-- The Preview panel.
+	local f = side()
+	if B.host then
+		B.host:Hide()
+		B.host = nil
+	end
+	if B.sideMode then
+		local ph = w.psPreviewH or 0
+		f:ClearAllPoints()
+		f:SetPoint("TOPRIGHT", w.Content, "TOPRIGHT", -SIDE.EDGE, -(ph + 12))
+		f:SetPoint("BOTTOMRIGHT", w.Content, "BOTTOMRIGHT", -SIDE.EDGE, 12)
+		f:SetWidth(sideW)
+		f.Close:SetShown(over and true or false)
+		f:Show()
+		local room = f:GetHeight()
+		if not room or room <= 0 then room = w:GetHeight() - SH.header - SH.tabs - (rawget(w, "psNoFooter") and 0 or SH.footer) - ph - 24 end
+		UI.Preview.Place(w, view, previewTab, sideW - 24, max(80, room - 24) / UI.Preview.MAX)
+		local host = rawget(view, "PreviewHost")
+		local hh = w.psPreviewH or 0
+		W.ShellPreview(w, entries and #entries > 0 and strip() or nil, entries and #entries > 0 and STRIP or 0)
+		if host and host.Frame and hh > 0 and not view.empty then
+			host:SetParent(f)
+			host:ClearAllPoints()
+			host:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -12)
+			host:SetSize(sideW - 24, hh)
+			host:Show()
+			B.host = host
+		else
+			-- The preview laid nothing out: no empty panel, the rows take the
+			-- width (laid out again for it).
+			f:Hide()
+			B.sideMode, B.room = nil, 0
+			if beside then
+				w.BodyWidth = fullW
+				h = view.Refresh()
+				view:SetHeight(h)
+				if entries and #entries > 0 then drawStrip(entries, string.format(L["%d settings"], view.psRows), w.psMainW) end
+			end
+		end
+	else
+		f:Hide()
 	end
 	scrollRoom()
 	W.ShellBody(w, h)
@@ -1637,6 +1823,7 @@ function fitSwitch()
 end
 
 local function ensureSwitch()
+	G.MigrateSaved()
 	local w = win()
 	if not w or B.Switch then return end
 	local b = CreateFrame("Button", nil, w.Header)
@@ -1677,6 +1864,7 @@ end
 local show = UI.ShowOptions
 function UI.ShowOptions(...)
 	-- The saved choices moved before the first render (show draws the page).
+	G.MigrateSaved()
 	local r = show(...)
 	ensureSwitch()
 	if B.Switch then B.Switch.Sw:Refresh() placeSwitch() fitSwitch() end

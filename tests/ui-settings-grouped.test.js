@@ -325,6 +325,47 @@ test('the sidebar opens the group shown on its pages, and a page picked there is
 	assert.ok(!out.guidingPages.includes('theme'), "Look's pages fold away");
 });
 
+// The Preview panel: only a page with a live preview has one (and its
+// Preview button); Guiding's pages and Setup's have neither, and their rows
+// take the width. The button hides the panel for the account.
+test('the Preview panel stands only beside a page with a live preview, and its button hides it for the account', () => {
+	const [out] = run(`
+		local G = O.Grouped
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.Set("ui.optionsSize", { 1500, 900 })
+		Polestar.UI.ShowOptions()
+		local names = {}
+		for _, key in ipairs({ "guide", "guidewindow", "arrow", "theme", "profiles" }) do
+			O.Select(key)
+			local b = G.PreviewButton()
+			names[key] = (b and b:IsShown()) and b.Label:GetText() or false
+		end
+		O.Select("guidewindow")
+		local narrowed = O.frame.BodyWidth
+		local b = G.PreviewButton()
+		local shownTip = b.psTip
+		stub.RunScript(b, "OnClick")
+		emit({ names = names, hidden = PolestarDB.optionsPreviewHidden or false, shownTip = shownTip, hiddenTip = b.psTip,
+			still = b:IsShown(), grew = O.frame.BodyWidth > narrowed })`);
+	assert.deepEqual(out.names, { guide: false, guidewindow: 'Preview', arrow: 'Preview', theme: 'Preview', profiles: false });
+	assert.equal(out.shownTip, 'Hide preview');
+	assert.equal(out.hidden, true, 'hidden, saved for the account');
+	assert.equal(out.hiddenTip, 'Show preview', 'the button stays, to show it again');
+	assert.equal(out.still, true);
+	assert.equal(out.grew, true, 'the rows take the width');
+	// Not chosen yet, a narrow window keeps the panel off its rows; the button shows it.
+	const [narrow] = run(`
+		local G = O.Grouped
+		Polestar.Set("ui.optionsSize", { 860, 800 })
+		Polestar.UI.ShowOptions()
+		O.Select("guidewindow")
+		local b = G.PreviewButton()
+		local tip = b.psTip
+		stub.RunScript(b, "OnClick")
+		emit({ tip = tip, after = b.psTip, saved = PolestarDB.optionsPreviewHidden })`, 'PolestarDB = { settings = {}, optionsLayout = "grouped" }');
+	assert.deepEqual(narrow, { tip: 'Show preview', after: 'Hide preview', saved: false }, 'narrow: hidden until the button shows it, then saved shown');
+});
+
 // Move frames is the second item of the header's ··· menu (unlock mode, the
 // window steps aside and comes back); the new page has no footer.
 test('Move frames is in ··· and opens unlock mode; the new page shows no footer', () => {

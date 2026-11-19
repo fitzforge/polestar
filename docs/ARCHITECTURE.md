@@ -8651,12 +8651,12 @@ shown open on its pages; each page's own tabs as folder tabs (`W.FolderTabs`: an
 dot after it while a row on the tab is off its default); a search-first header (a "Group > Page" crumb, the
 wide search, the switch, Peek, Fold, Reload UI and the ··· menu for Menu scale, Move frames and the resets,
 Undo beside the crumb) with no footer; an All / Changed filter (Changed: one card per page with changes); a
-jump index for tabs of more than 30 rows; and Legend card headers with their changed count and Reset and a
-pill for a module's switch. `UI/Kit.lua` holds the widgets only this window uses (`W.PinControl`,
-`W.FolderTabs`, `W.LegendHeader`, `W.PillSwitch`, `W.SearchFirst` and `W.HeaderMenu`), so
-`Theme/Widgets.lua` stays small and nothing extra loads at login. `UI.Options.Kit` hands the layout the
-registry and the window's own builders; `O.Select`, the sidebar, the search, the relayout, LB / RB and a
-jump to a row ask `UI.Options.Grouped` first while it is on.
+jump index for tabs of more than 30 rows; Legend card headers with their changed count and Reset and a pill
+for a module's switch; and the live preview of a page beside the rows (`optionsPreviewHidden`). `UI/Kit.lua`
+holds the widgets only this window uses (`W.PinControl`, `W.FolderTabs`, `W.LegendHeader`, `W.PillSwitch`,
+`W.SearchFirst` and `W.HeaderMenu`), so `Theme/Widgets.lua` stays small and nothing extra loads at login.
+`UI.Options.Kit` hands the layout the registry and the window's own builders; `O.Select`, the sidebar, the
+search, the relayout, LB / RB and a jump to a row ask `UI.Options.Grouped` first while it is on.
 
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever

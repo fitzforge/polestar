@@ -4781,7 +4781,7 @@ local function refreshMarks()
 		navSig = sig
 		W.ShellNav(win, items, O.Grouped and O.Grouped.NavKey() or (query == "" and current and current.key or nil), navSelect)
 	end
-	-- The new page lays its own page out (UI/Grouped.lua): no classic preview over it.
+	-- The new page places its tab's preview in its side card (UI/Grouped.lua).
 	local newPage = O.Grouped and O.Grouped.On()
 	if query == "" and not newPage and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
 		placePreview(O.view, O.view.psTab, true)
