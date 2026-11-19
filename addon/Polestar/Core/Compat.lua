@@ -297,6 +297,16 @@ function Compat.IsIndoors()
 	return inside and true or false
 end
 
+-- Whether the player is swimming (IsSwimming): true or false, nil when the
+-- client lacks it, it errors, or keeps it secret. Nav/Walk.lua seeds the
+-- walking floor with it: out of the water, a pier's water below is no floor.
+function Compat.IsSwimming()
+	if not IsSwimming then return nil end
+	local ok, swimming = pcall(IsSwimming)
+	if not ok or (swimming ~= nil and readable(swimming) == nil) then return nil end
+	return swimming and true or false
+end
+
 function Compat.IsShiftKeyDown()
 	return IsShiftKeyDown and IsShiftKeyDown() and true or false
 end
