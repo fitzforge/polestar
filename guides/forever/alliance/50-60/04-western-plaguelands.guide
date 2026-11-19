@@ -205,8 +205,12 @@ step Fly to Light's Hope Chapel
 step Light's Hope Chapel
   zone Eastern Plaguelands
   turnin 5210                         -- Carlin Redpath
-  accept 5168
   accept 5181
+
+step Carlin Redpath: Heroes of Darrowshire
+  when group 5168
+  tip The libram is inside Hearthglen among elite Scarlet guards. Take this for the later group visit.
+  accept 5168
 
 step Aurora Skycaller
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.

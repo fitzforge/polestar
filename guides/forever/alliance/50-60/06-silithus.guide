@@ -653,9 +653,10 @@ step Hearthglen overlook
   complete 6025 @45.8,18.3
 
 step Davil's Libram
+  when group 5168
   when onquest 5168
   zone Western Plaguelands
-  tip Davil's Libram lies in Hearthglen's town hall, at the back of the town below the overlook (about 42.5,19.0). Careful: the Scarlet Paladins (55-56) and Sentinels around the hall are elite, so are the Scarlet Priests (55-57) inside, and a Scarlet High Clerist (63, elite) stands a few steps from the libram. Pull the Paladins one at a time from the door, take the libram and walk out: don't fight beside the Clerist. With a friend it's easy.
+  tip Careful: Scarlet Paladins (55-56) and priests guard Davil's Libram inside Hearthglen's town hall. They are elite, and a Scarlet High Clerist (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach.
   collect 12954 quest 5168.1          -- Davil's Libram; inside
 
 step Kirsta Deepshadow
@@ -663,12 +664,16 @@ step Kirsta Deepshadow
   turnin 6025
 
 step Gahrron's Withering
-  when onquest 5225,5168
+  when onquest 5225
   zone Western Plaguelands
   tip Ride south-east to Gahrron's Withering: Cauldron Lord Soulwrath guards the cauldron, and Redpath's Shield lies east of the barn.
   collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
   turnin 5225                         -- Scourge Cauldron
   accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
+
+step Redpath's Shield
+  when group 5168
+  when onquest 5168
   collect 12955 quest 5168.2          -- Redpath's Shield
 
 step Tirion Fordring (optional)
@@ -689,16 +694,23 @@ step Light's Hope Chapel
   zone Eastern Plaguelands
   tip Ride south-east from the lake to the chapel.
   turnin 5181                         -- Carlin Redpath
+
+step Carlin Redpath
+  when complete 5168
   turnin 5168
   accept 5206
+
+step Caretaker Alen
   accept 5281                         -- Caretaker Alen, by the graves south of the chapel: Egan is in Terrordale, keep it
 
 step Scourge Champions
+  when onquest 5206
   tip Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.
   kill 8529 optional                  -- Scourge Champion
   collect 13155 quest 5206.1 @81.5,44.0 -- Resonating Skull, from the Scourge Champions
 
 step Light's Hope Chapel
+  when onquest 5206
   turnin 5206                         -- Carlin Redpath
   accept 5941                         -- Chromie in Andorhal: keep it
 
@@ -744,6 +756,7 @@ step Artist Renfray
   turnin 5846                         -- Inside
 
 step Chromie
+  when onquest 5941
   zone Western Plaguelands
   tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
   turnin 5941                         -- Chromie, upstairs

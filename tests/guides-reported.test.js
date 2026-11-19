@@ -6439,6 +6439,7 @@ test('Alliance 50-60 (0.4.3): Davil\'s Libram on the Silithus guide\'s Hearthgle
 	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.quest === 5168 && goal.t === 'collect'), 'no Hearthglen trip on the Western Plaguelands guide');
 	const six = goals('forever/alliance/50-60/06-silithus.guide');
 	const libram = at(six, 'collect 12954', (g) => g.t === 'collect' && g.item === 12954);
+	assert.ok(six[libram].step.when.some((p) => p.k === 'group' && [p.q].flat().includes(5168)), 'no solo visit inside the elite hall');
 	assert.ok(libram > at(six, 'complete 6025', (g) => g.quest === 6025 && g.t !== 'accept' && g.t !== 'turnin'), 'after the overlook');
 	assert.ok(libram < at(six, 'collect 12955', (g) => g.t === 'collect' && g.item === 12955), "before Redpath's Shield");
 	assert.ok(libram < at(six, 'turnin 5168', is('turnin', 5168)), 'before Carlin Redpath');
@@ -10691,7 +10692,7 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Carlin Redpath\'s 
 	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
 	const [villains, heroes, marauders, alen] = [idx('turnin', 5181), idx('turnin', 5168), idx('accept', 5206), idx('accept', 5281)];
 	assert.ok(villains < heroes && heroes < marauders && marauders < alen, 'Carlin, Carlin, Carlin, then Alen');
-	assert.equal(list[villains].s, list[alen].s, 'one Light\'s Hope stop');
+	assert.ok(!list.slice(villains, alen + 1).some(({ goal }) => !['accept', 'turnin'].includes(goal.t)), 'one chapel visit; the group hand-in adds no travel or other work');
 	assert.ok(!list.slice(villains, alen + 1).some(({ step }) => /Chillwind/.test(step.note || '')), 'no tip about riding to Chillwind Camp');
 });
 

@@ -12539,7 +12539,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Davil's Libram lies in Hearthglen's town hall, at the back of the town below the overlook (about 42.5,19.0). Careful: the Scarlet Paladins (55-56) and Sentinels around the hall are elite, so are the Scarlet Priests (55-57) inside, and a Scarlet High Clerist (63, elite) stands a few steps from the libram. Pull the Paladins one at a time from the door, take the libram and walk out: don't fight beside the Clerist. With a friend it's easy.",
+			"tip": "Careful: Scarlet Paladins (55-56) and priests guard Davil's Libram inside Hearthglen's town hall. They are elite, and a Scarlet High Clerist (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach.",
 			"note": "0.4.3 route round (Alliance 50-60): Davil's Libram (object 176206 at Western Plaguelands 42.52,18.99) is taken on 50-60/06's Hearthglen visit right after the overlook (route-fixes pair task 6025 before task 5168), not on 50-60/04's detour from Tirion's hut at about 56. The town hall's guards are elite in our data (rank 1; the High Clerists rank 2), so the step names them. Their rank wants an in-game check on the current build: if the Paladins are not elite, the tip can drop that part.",
 			"source": [
 				{
