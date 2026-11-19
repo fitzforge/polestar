@@ -4540,9 +4540,13 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.",
-			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'. #1458 (Fyurie): the objective is written as the Kombobulator use plus a talk to the tamed kodo at Smeed's camp (5561.1), not a kill, and the tip sits on that goal.",
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides.",
+			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'. #1458 (Fyurie): the objective is written as the Kombobulator use plus a talk to the tamed kodo at Smeed's camp (5561.1), not a kill, and the tip sits on that goal. Ancient Kodos can be tamed without fighting them; the lower-level Aged Kodos drop the hides at the same stop.",
 			"source": [
+				{
+					"kind": "recording",
+					"ref": "First Desolace visit: five guide followers died at the graveyard while working on Reagents for Reclaimers Inc. (1459)."
+				},
 				{
 					"kind": "in-game-check",
 					"ref": "#1234: Gray's report, a 5 minute debuff after taming one kodo that the kodo's window at Smeed's clears"
@@ -6112,6 +6116,43 @@
 			"pr": 3144
 		},
 		{
+			"id": "badlands-alliance-shadowforge-ruffians-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 719,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/06-badlands"
+			},
+			"tip": "The Shadowforge dwarves camp just north of the digsite; the crumpled map and Dorgaron's mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and Dorgaron's artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them.",
+			"note": "Route review 0.4.3 (Alliance 30-40): Shadowforge Ruffians (4845, 36-37, elite) spawn 24 times at 44-55,9-36, most of them at 46-55,9-27 between the pass from Loch Modan and the Shadowforge camp, where Hammertoe's Digsite's goals are worked at about 37.5-38; the step never named them.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 4845 spawns on map 1418"
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "loch-modan-alliance-riverglades-at-41",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2500,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Leave the Riverglades for about level 41: its Western Front has elite patrols. After Stranglethorn, the Riverglades guide takes you from Ironforge to Lakeshire, then through Blackrock Pass.",
+			"note": "Route review 0.4.3 (Alliance 30-40 and 40-50): players who walk into the Riverglades on their own come in at about 38 (median; 25th percentile 37.1) with this guide open, and die there about twice as often per quest as players following 40-50/01b (41-45), mostly at the Western Front camps (Champions 43-44, Twilight Enforcers 45 elite). The guide's end says when and where the route goes there; 40-50/01b's first step carries the same warning.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Riverglades events (route review 0.4.3, Alliance 40-50): 59 people outside 40-50/01b arrived at 38.0 median, 4.1 deaths per 100 quest events against 2.3 for followers of 01b"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "ba3040-menethil-glorin-in-the-tavern",
 			"faction": "Alliance",
 			"at": {
@@ -6151,14 +6192,19 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from the Stone of East Binding, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk.",
-			"note": "Review (0.3.6): Witherbark Village is worked on the way south from the eastern circle to Quae instead of between Northfold and the shards. Witch Doctors (2555) 61-68,64-77; Shadow Hunters (2557, the knife) 66-69,78-82.",
+			"tip": "South from Drywhisker Gorge, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths.",
+			"note": "Witherbark Village follows Drywhisker Gorge on the way to Quae. The Witch Doctors (2555) stand at 61-68,64-77 and the Shadow Hunters (2557) at 66-69,78-82; elite Witherbark Goliaths patrol the Shadow Hunters' end of the valley.",
 			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json: Witherbark Goliath (218032), level 35 elite, map 1417 at 67-70,72-82"
+				},
 				{
 					"kind": "pfquest",
 					"ref": "data/forever/npcs.json 2555, 2557"
 				}
-			]
+			],
+			"pr": 3144
 		},
 		{
 			"id": "ba3040-arathi-quae-from-witherbark",
