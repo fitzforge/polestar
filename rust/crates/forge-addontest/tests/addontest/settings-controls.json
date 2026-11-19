@@ -2366,9 +2366,9 @@
   {
    "id": "maps.flightArcade",
    "kind": "toggle",
-   "label": "Show arcade icons on flights",
+   "label": "Offer Freedoom Arcade on flights",
    "at": [
-    "Integrations > Flight Arcade"
+    "Integrations > Freedoom Arcade"
    ]
   }
  ],

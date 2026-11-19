@@ -25,7 +25,7 @@ pub fn stubs_dir() -> PathBuf {
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
 /// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, the Skin API's checks (with the first
 /// skin or scheme another addon registers) and the game looks and Hearth (the first time one is painted).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Arcade"];
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Arcade", "Polestar_SkyJewels"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]

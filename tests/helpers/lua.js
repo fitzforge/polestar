@@ -34,8 +34,8 @@ const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTA
 const STUBS = path.join(ROOT, 'tests', 'lua');
 // Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the settings
 // window, the Skin API's checks (with the first skin or scheme another addon registers), the game looks
-// and Hearth (the first time one is painted) and Freedoom Arcade (Polestar_Arcade: the first Play).
-const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Arcade'];
+// and Hearth (the first time one is painted), Freedoom Arcade and Sky Jewels (the first Play).
+const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Arcade', 'Polestar_SkyJewels'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');

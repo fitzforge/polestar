@@ -1,10 +1,12 @@
-local ADDON, ns = ...
-local Board, L = ns.SkyJewelsBoard, ns.L
+local ADDON, game = ...
+local ns = Polestar
+local Board, L = game.SkyJewelsBoard, ns.L
 local SkyJewels = { title = L["Sky Jewels"], command = "/skyjewels" }
 ns.SkyJewels = SkyJewels
 
 local CELL, SIDE, SIDEBAR_X = 46, 134, 354
-local media = "Interface\\AddOns\\" .. ADDON .. "\\Media\\SkyJewels\\"
+local LANDING = 10
+local media = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
 local zones = {
 	{ name = L["Nightbloom Glade"], art = "zone-nightbloom" },
 	{ name = L["Sunstone Canyon"], art = "zone-sunstone" },
@@ -18,6 +20,7 @@ for i = 1, 6 do icons[i] = media .. "jewel-" .. i .. ".tga" end
 local bonusName = { [Board.row] = L["Row sweep"], [Board.column] = L["Column sweep"], [Board.burst] = L["Burst"] }
 local frame, state, selected, soundHandle
 local slots, motion
+local ticker, wasOnTaxi
 local readout, render
 
 local function stopSound()
@@ -112,13 +115,14 @@ function readout()
 	if finished then
 		local message = L["Out of moves"]
 		if won then
-			message = last and L["Congratulations!\nAll %d levels complete!\nThanks for playing!\nby %s"]:format(#Board.levels, "RikyZ90")
+			message = last and L["Congratulations!\nAll %d levels complete!\nThanks for playing!"]:format(#Board.levels)
 				or L["Level %d complete!"]:format(state.level)
 		end
 		frame.Result.Title:SetText(message)
 		W.SetButtonText(frame.Next, won and (last and L["Play again"] or L["Next level"]) or L["Retry level"])
 		status()
 	end
+	frame.Result.Credit:SetShown(won and last)
 	frame.Result:SetShown(finished)
 	frame.Hint:SetShown(not finished)
 end
@@ -162,6 +166,7 @@ end
 local function swapRelics(a, b)
 	local before = Board.Copy(state.tiles)
 	local waves = Board.Move(state, a, b)
+	-- Save the resolved board before playing any animation a close can interrupt.
 	if waves then save() end
 	local ax, ay = Board.Position(a)
 	local bx, by = Board.Position(b)
@@ -243,10 +248,26 @@ local function click(i)
 	end
 end
 
-local function solid(parent, layer, r, g, b, a)
-	local t = parent:CreateTexture(nil, layer)
-	t:SetColorTexture(r, g, b, a)
-	return t
+local function onCombat()
+	if SkyJewels.Close() then
+		ns.Print(L["Sky Jewels paused for combat. Type %s to continue."]:format(SkyJewels.command))
+	end
+end
+
+local function landingSoon()
+	if not ns.Get("maps.flightTimer") then return false end
+	local _, left, source = ns.Maps.GetFlight()
+	return source == "learned" and left and left <= LANDING
+end
+
+local function checkFlight()
+	local onTaxi = ns.Compat.IsOnTaxi()
+	if (wasOnTaxi and not onTaxi) or (onTaxi and landingSoon()) or ns.Arcade.IsOpen() then
+		if SkyJewels.Close() then ns.Print(L["Sky Jewels progress saved."]) end
+		return false
+	end
+	wasOnTaxi = onTaxi
+	return true
 end
 
 local function build()
@@ -268,12 +289,18 @@ local function build()
 	f.ZoneArt:SetAlpha(0.32)
 	ns.CloseOnEscape("PolestarSkyJewels")
 	f:SetScript("OnHide", function(self)
+		ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onCombat)
+		if ticker then ticker:Cancel(); ticker = nil end
 		motion = nil
 		self:SetScript("OnUpdate", nil)
 		selectTile(nil)
 		stopSound()
 	end)
 	f:SetScript("OnShow", function()
+		if ns.Compat.InCombat() then onCombat(); return end
+		if not checkFlight() then return end
+		ns.RegisterEvent("PLAYER_REGEN_DISABLED", onCombat)
+		ticker = ns.NewTicker(0.5, checkFlight)
 		status()
 		render(state.tiles)
 		readout()
@@ -314,8 +341,7 @@ local function build()
 	board:SetSize(Board.size * CELL, Board.size * CELL)
 	board:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -65)
 	if board.SetClipsChildren then board:SetClipsChildren(true) end
-	local backdrop = solid(board, "BACKGROUND", 0.025, 0.035, 0.06, 0.40)
-	backdrop:SetAllPoints(board)
+	W.Color(W.Fill(board, "shade"), "shade", 0.40)
 	local pieces = CreateFrame("Frame", nil, board)
 	pieces:SetAllPoints(board)
 	pieces:SetFrameLevel(board:GetFrameLevel() + 2)
@@ -325,29 +351,34 @@ local function build()
 		local slot = CreateFrame("Button", nil, board)
 		slot:SetPoint("TOPLEFT", board, "TOPLEFT", (x - 1) * CELL, -(y - 1) * CELL)
 		slot:SetSize(CELL, CELL)
-		local shade = (x + y) % 2 * 0.016
-		local cell = solid(slot, "BACKGROUND", 0.077 + shade, 0.098 + shade, 0.15 + shade, 0.50)
+		local cell = W.Tex(slot, "BACKGROUND")
+		W.Color(cell, (x + y) % 2 == 0 and "panel" or "panelAlt", 0.50)
 		cell:SetPoint("TOPLEFT", slot, "TOPLEFT", 1, -1)
 		cell:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", -1, 1)
-		local hover = solid(slot, "HIGHLIGHT", 0.63, 0.78, 0.94, 0.20)
+		local hover = W.Tex(slot, "HIGHLIGHT", nil, "hover")
 		hover:SetAllPoints(cell)
-		slot.Selected = solid(slot, "ARTWORK", 1, 0.70, 0.22, 0.39)
+		slot.Selected = W.Tex(slot, "ARTWORK", nil, "accentLine")
 		slot.Selected:SetAllPoints(cell)
 		slot.Selected:Hide()
-		slot.Flash = solid(slot, "OVERLAY", 1, 0.85, 0.49, 1)
+		slot.Flash = W.Tex(slot, "OVERLAY")
 		slot.Flash:SetAllPoints(cell)
+		slot.Flash:SetAlpha(0)
+		W.Painter(slot.Flash, function(tex)
+			local r, g, b = Theme.Color("accent")
+			tex:SetVertexColor(r, g, b, tex:GetAlpha())
+		end)
 		slot.Icon = pieces:CreateTexture(nil, "ARTWORK")
 		local badge = CreateFrame("Frame", nil, pieces)
 		badge:SetSize(16, 16)
 		badge:SetPoint("BOTTOMRIGHT", slot.Icon, "BOTTOMRIGHT", -2, 2)
-		solid(badge, "BACKGROUND", 0.93, 0.69, 0.28, 1):SetAllPoints(badge)
-		local inset = solid(badge, "BORDER", 0.13, 0.08, 0.03, 1)
+		W.Fill(badge, "accent")
+		local inset = W.Tex(badge, "BORDER", nil, "onAccent")
 		inset:SetPoint("TOPLEFT", badge, "TOPLEFT", 1, -1)
 		inset:SetPoint("BOTTOMRIGHT", badge, "BOTTOMRIGHT", -1, 1)
-		badge.Horizontal = solid(badge, "ARTWORK", 1, 0.94, 0.67, 1)
+		badge.Horizontal = W.Tex(badge, "ARTWORK", nil, "accent")
 		badge.Horizontal:SetSize(10, 2)
 		badge.Horizontal:SetPoint("CENTER")
-		badge.Vertical = solid(badge, "ARTWORK", 1, 0.94, 0.67, 1)
+		badge.Vertical = W.Tex(badge, "ARTWORK", nil, "accent")
 		badge.Vertical:SetSize(2, 10)
 		badge.Vertical:SetPoint("CENTER")
 		slot.Badge = badge
@@ -361,10 +392,10 @@ local function build()
 	f.Moves = label("body", "text", x, 94)
 	label("note", "textDim", x, 128, L["Score"])
 	f.Score = label("title", "text", x, 145)
-	local progress = solid(f, "ARTWORK", 0.22, 0.23, 0.28, 1)
+	local progress = W.Tex(f, "ARTWORK", nil, "track")
 	progress:SetPoint("TOPLEFT", f, "TOPLEFT", x, -171)
 	progress:SetSize(SIDE, 5)
-	f.Fill = solid(f, "OVERLAY", 0.98, 0.68, 0.32, 1)
+	f.Fill = W.Tex(f, "OVERLAY", nil, "accent")
 	f.Fill:SetPoint("TOPLEFT", progress, "TOPLEFT")
 	f.Fill:SetHeight(5)
 	f.GoalIcon = f:CreateTexture(nil, "ARTWORK")
@@ -381,10 +412,11 @@ local function build()
 	result:SetFrameLevel(pieces:GetFrameLevel() + 3)
 	result:EnableMouse(true)
 	result:Hide()
-	solid(result, "BACKGROUND", 0.025, 0.035, 0.06, 0.88):SetAllPoints(result)
+	W.Color(W.Fill(result, "panel"), "panel", 0.96)
 	result.Title = W.Text(result, "display", "title")
 	result.Title:SetWidth(Board.size * CELL - 32)
 	result.Title:SetJustifyH("CENTER")
+	result.Title:SetWordWrap(true)
 	result.Title:SetPoint("BOTTOM", result, "CENTER", 0, 10)
 	f.Result = result
 	f.Next = W.Button(result, "", function()
@@ -393,6 +425,10 @@ local function build()
 		start(level)
 	end, { primary = true, height = 32 })
 	f.Next:SetPoint("TOP", result, "CENTER", 0, -3)
+	result.Credit = W.Text(result, "note", "textDim")
+	result.Credit:SetPoint("TOP", f.Next, "BOTTOM", 0, -12)
+	result.Credit:SetJustifyH("CENTER")
+	result.Credit:SetText(L["by %s"]:format("RikyZ90"))
 	f.Status = label("note", "textDim", 16, 397)
 	f.Status:SetPoint("RIGHT", f, "RIGHT", -16, 0)
 	f.Status:SetWordWrap(false)
@@ -402,14 +438,23 @@ end
 function SkyJewels.IsOpen() return frame and frame:IsShown() or false end
 
 function SkyJewels.Open()
+	if ns.Compat.InCombat() then return false end
 	if SkyJewels.IsOpen() then return true end
+	wasOnTaxi = ns.Compat.IsOnTaxi()
+	if wasOnTaxi and landingSoon() then
+		ns.Print(L["The flight is almost over. Open the arcade after landing."])
+		return false
+	end
 	if not frame then frame = build() end
 	local player = ns.CharState()
 	state = player.skyJewels
-	if not Board.Valid(state) then start(1) end
+	if not Board.Valid(state) then
+		local level = type(state) == "table" and state.level
+		start(type(level) == "number" and Board.levels[level] and level or 1)
+	end
 	ns.Widgets.SetButtonText(frame.Mute, player.skyJewelsMuted and L["Sound off"] or L["Sound on"])
 	frame:Show()
-	return true
+	return SkyJewels.IsOpen()
 end
 
 function SkyJewels.Close()

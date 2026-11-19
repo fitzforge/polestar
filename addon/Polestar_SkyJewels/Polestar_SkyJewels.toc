@@ -1,0 +1,15 @@
+## Interface: 16001
+## Title: Polestar Sky Jewels
+## Notes: Part of Polestar: a match-three game with 60 levels. Loaded when you choose to play.
+## Author: Polestar
+## Version: 0.4.1.1
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+SkyJewelsLevels.lua
+SkyJewelsBoard.lua
+SkyJewels.lua

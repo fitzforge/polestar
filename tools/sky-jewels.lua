@@ -1,10 +1,10 @@
--- From the repo root: lua tools/sky-jewels.lua > addon/Polestar/Maps/SkyJewelsLevels.lua
+-- From the repo root: lua tools/sky-jewels.lua > addon/Polestar_SkyJewels/SkyJewelsLevels.lua
 -- Use --verify to test the installed level table without regenerating it.
 local root = assert(arg[0]:match("^(.*)tools[/\\]sky%-jewels%.lua$"), "Run using the path to tools/sky-jewels.lua")
-local maps = root .. "addon/Polestar/Maps/"
+local addon = root .. "addon/Polestar_SkyJewels/"
 local ns, verify = {}, arg[1] == "--verify"
-if verify then assert(loadfile(maps .. "SkyJewelsLevels.lua"))("Polestar", ns) end
-assert(loadfile(maps .. "SkyJewelsBoard.lua"))("Polestar", ns)
+if verify then assert(loadfile(addon .. "SkyJewelsLevels.lua"))("Polestar_SkyJewels", ns) end
+assert(loadfile(addon .. "SkyJewelsBoard.lua"))("Polestar_SkyJewels", ns)
 local Board = ns.SkyJewelsBoard
 local FIRST, LAST, BAND_SIZE, POLICIES = 9, 60, 7, 20
 local modes = { "score", "collect", "bonus", "collect", "sprint", "bonus", "both" }

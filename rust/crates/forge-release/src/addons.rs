@@ -55,7 +55,7 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the six always shipped, Freedoom Arcade's folder when there, the walking maps' part
+/// The release's folders: the six always shipped, optional games when there, the walking maps' part
 /// addons when written, our guides' faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
 /// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
 /// the language folders), then the skin addons.
@@ -65,7 +65,7 @@ pub fn release_addons(addons: &Path) -> Release {
 	let parts = forge_guide::races::RACE_FILES.iter().map(|r| forge_guide::project::part_addon(guides, r));
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
-	names.extend(std::iter::once(ARCADE.to_string()).filter(|n| has_toc(addons, n)));
+	names.extend([ARCADE, "Polestar_SkyJewels"].into_iter().filter(|n| has_toc(addons, n)).map(str::to_string));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
@@ -184,6 +184,15 @@ mod tests {
 	fn addon(root: &Path, name: &str) {
 		std::fs::create_dir_all(root.join(name)).unwrap();
 		std::fs::write(root.join(name).join(format!("{name}.toc")), "## Interface: 16001\n## Version: 0.1.0\n").unwrap();
+	}
+
+	#[test]
+	fn an_optional_game_is_shipped_when_its_manifest_is_present() {
+		let root = tmp("sky-jewels");
+		assert!(!release_addons(&root).names.iter().any(|n| n == "Polestar_SkyJewels"));
+		addon(&root, "Polestar_SkyJewels");
+		assert!(release_addons(&root).names.iter().any(|n| n == "Polestar_SkyJewels"));
+		std::fs::remove_dir_all(root).unwrap();
 	}
 
 	#[test]

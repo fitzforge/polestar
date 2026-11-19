@@ -23,7 +23,7 @@ fn file_globals(rel: &str) -> &'static [&'static str] {
 		"addon/Polestar_Arcade/src/minimap.lua" => &["FreedoomArcade_OnAddonCompartmentClick"],
 		"addon/Polestar/Nav/Journey.lua" => &["TomTom"],
 		"addon/Polestar_Nav/Routing/Costs.lua" => &["Polestar_NavCosts"],
-		"addon/Polestar/Maps/Arcade.lua" => &["SLASH_POLESTAR_SKYJEWELS1"],
+		"addon/Polestar/Maps/SkyJewelsLauncher.lua" => &["SLASH_POLESTAR_SKYJEWELS1"],
 		"addon/Polestar/Maps/MinimapButton.lua" => &["Polestar_OnAddonCompartmentClick", "Polestar_OnAddonCompartmentEnter", "Polestar_OnAddonCompartmentLeave"],
 		_ => &[],
 	}
