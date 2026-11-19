@@ -1,3 +1,5 @@
+warning: addon/Polestar_ItemDB/Forever.lua: missing, skipping Codex item fallback from this file
+warning: addon/Polestar_ItemDB/Items.lua: missing, skipping Codex item fallback from this file
 warning: repgates.json: 20031 Essence Mango: quest 8196 is not in the Codex
 warning: repgates.json: 20076 Zandalar Signet of Mojo: quest 8246 is not in the Codex
 warning: repgates.json: 20077 Zandalar Signet of Might: quest 8246 is not in the Codex

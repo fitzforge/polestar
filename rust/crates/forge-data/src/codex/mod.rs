@@ -17,6 +17,7 @@ pub mod client;
 pub mod elites;
 pub mod heights;
 pub mod instances;
+pub mod itemdb;
 pub mod journal;
 pub mod memory;
 pub mod merge;
@@ -41,7 +42,7 @@ use util::{kstr, sort_keys_deep};
 
 #[derive(Clone)]
 pub struct Options {
-	/// The checkout: data/codex/*.json, guides/, package.json, addon/Polestar/Lookup/Codex.lua.
+	/// The checkout: data/codex/*.json, guides/, package.json, addon/Polestar/Lookup/Codex.lua and addon/Polestar_ItemDB/.
 	pub root: PathBuf,
 	/// data/forever (default <root>/data/forever).
 	pub data_dir: PathBuf,
@@ -129,6 +130,8 @@ pub struct Inputs {
 	/// record learn`), with the corrections it never overrides.
 	pub learned: crate::learn::Snapshot,
 	pub client: Option<ClientFacts>,
+	/// The checkout's Forever and Classic Era ItemDB tables, used for missing item facts.
+	pub item_db: itemdb::ItemDb,
 	/// The cached web facts: { npc, object, item, spell, listed }.
 	pub web: Option<V>,
 	pub curated: Vec<f64>,
@@ -442,6 +445,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	// Forever's cached web facts, release builds only.
 	let web = if opts.local_extras { None } else { Some(load_web(&opts.sources_dir)?) };
 	let mut warnings = Vec::new();
+	let item_db = itemdb::ItemDb::load(&opts.root, &mut warnings)?;
 	let (mut atlasloot, mut rarescanner) = (None, None);
 	if opts.local_extras {
 		let dir = match &opts.addons {
@@ -512,6 +516,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		recorded: recorded::load(&lib.join(recorded::FILE))?,
 		learned: crate::learn::Snapshot::load(&opts.root)?,
 		client: Some(cl),
+		item_db,
 		web,
 		curated: curated_collects(&texts),
 		curated_gates: curated_rep_gates(&texts),
@@ -793,6 +798,9 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 		);
 		meta.set("parity", summary);
 	}
+	// Loot ranking, availability and the dungeon journal use the legacy facts above.
+	// The item records and the pack can now take the fallback facts, including rarity.
+	inputs.item_db.fill(&m.items);
 	let meta_v = V::Obj(meta.clone());
 	let pack_files = pack::emit_pack(
 		&pack::PackCodex {

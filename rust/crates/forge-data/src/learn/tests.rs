@@ -313,6 +313,7 @@ fn the_codex_takes_recorded_prerequisites_and_objective_spots() {
 		recorded: V::obj(),
 		learned,
 		client: None,
+		item_db: Default::default(),
 		web: None,
 		curated: Vec::new(),
 		curated_gates: V::Null,

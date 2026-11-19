@@ -1914,6 +1914,15 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		o.set("spell", spell);
 		let sparse = c.filter(|c| !c.era);
 		let item = cl.and_then(|cl| cl.item_only.get(&id)).or(sparse);
+		// levelsSource covers reqLevel, itemLevel, quality and allowClass. typeSource covers
+		// itemClass, itemSubclass and slot. The values are client, forever and era. An absent
+		// flag means the group is unknown, though a legacy Era CSV or dungeon display value may exist.
+		if sparse.is_some_and(|c| c.req_level.is_some() || c.item_level.is_some() || c.quality.is_some() || c.allow_class.is_some()) {
+			o.set("levelsSource", "client");
+		}
+		if item.is_some_and(|c| c.class_id.is_some() || c.subclass_id.is_some() || c.inventory_type.is_some()) {
+			o.set("typeSource", "client");
+		}
 		// Era items keep their legacy nonzero level requirements. The new facts come from Forever.
 		let req_level = c.and_then(|c| c.req_level.filter(|&level| !c.era || level != 0.0));
 		for (field, value) in [
@@ -2520,6 +2529,7 @@ mod tests {
 			recorded: V::obj(),
 			learned: Default::default(),
 			client: None,
+			item_db: Default::default(),
 			web: None,
 			curated: Vec::new(),
 			curated_gates: V::Null,

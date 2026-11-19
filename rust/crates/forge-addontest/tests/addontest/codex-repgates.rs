@@ -84,6 +84,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		recorded: V::obj(),
 		learned: Default::default(),
 		client: None,
+		item_db: Default::default(),
 		web: None,
 		curated: Vec::new(),
 		curated_gates: V::Null,

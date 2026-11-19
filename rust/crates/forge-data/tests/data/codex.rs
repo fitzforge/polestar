@@ -73,6 +73,99 @@ fn codex_matches_golden() {
 	check.finish("codex build");
 }
 
+#[test]
+fn itemdb_fills_missing_codex_item_groups_and_packs_rarity() {
+	use serde_json::{json, Value};
+	use std::fs;
+
+	let (root, data) = setup("codex-itemdb");
+	let mut opts = options(&root, &data);
+	let sources = root.join("data/sources");
+	common::copy_tree(&opts.sources_dir, &sources);
+	opts.sources_dir = sources;
+	let file = opts.sources_dir.join("wago/1.60.1.70450/Item.csv");
+	let mut client_items = fs::read_to_string(&file).unwrap();
+	client_items.push_str("\n12413,4,1,1,5,0,-1,0,0,0,0,0,0,0,0,0,0\n");
+	fs::write(file, client_items).unwrap();
+
+	let file = data.join("items.json");
+	let mut items: Value = serde_json::from_str(&fs::read_to_string(&file).unwrap()).unwrap();
+	for (id, name) in [(645, "Unknown Item"), (647, "Destiny"), (744, "Thunderbrew's Boot Flask"), (3456, "Dog Whistle"), (6948, "Hearthstone"), (12413, "Thorium Leggings"), (246164, "Skullthumper")]
+	{
+		items[id.to_string()] = json!({ "id": id, "name": name });
+	}
+	fs::write(file, items.to_string()).unwrap();
+	let build = || codex::build_logged(&opts, &|_| {}).unwrap();
+	let item_records = |out: &codex::Output| -> Value { serde_json::from_str(&out.json.iter().find(|(name, _)| name == "items.json").unwrap().1).unwrap() };
+	let before = build();
+	let before_items = item_records(&before);
+	let itemdb = root.join("addon/Polestar_ItemDB");
+	fs::create_dir_all(&itemdb).unwrap();
+	fs::write(
+		itemdb.join("Forever.lua"),
+		r#"DB.Register(nil, {
+[744]="19 44 0 2 9 0 cls0",
+[3456]="12 30 25 3 4 0",
+[6948]="17 99 99 4 2 8 cls16",
+[246164]="21 13 7 2 2 4 dmin12 dmax23 speed2500 cls32",
+})
+DB.RegisterLeveling({}, { names = { npcs = {
+[645]="Cookie",
+[647]="Captain Greenskin",
+} } })"#,
+	)
+	.unwrap();
+	fs::write(
+		itemdb.join("Items.lua"),
+		r#"DB.Register({ schema = 1, build = "1.15.9.70576", count = 3 }, {
+[647]="17 57 52 4 2 8 dmin112 dmax168 speed2600",
+[744]="12 99 10 3 4 1",
+[12413]="17 55 45 0 2 8 cls16",
+})"#,
+	)
+	.unwrap();
+
+	let after = build();
+	let items = item_records(&after);
+	let expect = |id: &str, facts: Value| {
+		for (field, value) in facts.as_object().unwrap() {
+			assert_eq!(&items[id][field], value, "{id}.{field}");
+		}
+		for field in ["kind", "status", "sources"] {
+			assert_eq!(items[id][field], before_items[id][field], "{id}.{field}");
+		}
+	};
+	expect(
+		"647",
+		json!({ "levelsSource": "era", "reqLevel": 52, "itemLevel": 57, "quality": 4, "allowClass": 1503,
+		"typeSource": "era", "itemClass": 2, "itemSubclass": 8, "slot": 17 }),
+	);
+	expect("3456", json!({ "levelsSource": "forever", "itemLevel": 30, "typeSource": "forever" }));
+	expect(
+		"744",
+		json!({ "levelsSource": "forever", "reqLevel": 0, "itemLevel": 44, "quality": 2, "allowClass": 1503,
+		"typeSource": "forever", "itemClass": 9, "itemSubclass": 0, "slot": 19 }),
+	);
+	expect(
+		"12413",
+		json!({ "levelsSource": "era", "quality": 0, "allowClass": 16,
+		"typeSource": "client", "itemClass": 4, "itemSubclass": 1, "slot": 5 }),
+	);
+	expect("246164", json!({ "levelsSource": "forever", "allowClass": 0 }));
+	expect("6948", json!({ "levelsSource": "client", "typeSource": "client" }));
+	for field in ["reqLevel", "itemLevel", "quality", "allowClass", "itemClass", "itemSubclass", "slot"] {
+		assert_eq!(items["6948"][field], before_items["6948"][field], "6948.{field}");
+	}
+	assert_eq!(items["645"], before_items["645"]);
+	assert!(items["645"].get("levelsSource").is_none());
+	assert!(items["645"].get("typeSource").is_none());
+	for name in ["npcs.json", "objects.json", "instances.json", "journal.json"] {
+		assert_eq!(after.json.iter().find(|(n, _)| n == name), before.json.iter().find(|(n, _)| n == name), "{name}");
+	}
+	let index = &after.pack.iter().find(|(name, _)| name == "Index.lua").unwrap().1;
+	assert!(index.contains(r"\002destiny\001647,4,n,7\n"));
+}
+
 /// Every quest on the release build's dungeon pages: (id, its XP).
 fn page_xp(journal: &str) -> Vec<(i64, Option<f64>)> {
 	let j: serde_json::Value = serde_json::from_str(journal).unwrap();

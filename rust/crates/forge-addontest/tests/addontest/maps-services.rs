@@ -707,6 +707,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		recorded: V::obj(),
 		learned: Default::default(),
 		client: None,
+		item_db: Default::default(),
 		web: None,
 		curated: Vec::new(),
 		curated_gates: V::Null,

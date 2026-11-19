@@ -155,11 +155,14 @@ pub fn decode(id: f64, s: &str) -> Result<Rec, String> {
 	Ok(rec)
 }
 
-/// Era Items.lua text -> id -> record.
-fn read_era_items(text: &str) -> Result<FxHashMap<u64, Rec>, String> {
+/// Generated ItemDB item rows, keyed by item ID. Filter raw rows before decoding them.
+pub(crate) fn read_item_rows(text: &str, mut keep: impl FnMut(&str, &str) -> bool) -> Result<FxHashMap<u64, Rec>, String> {
 	let re = regex::Regex::new(r#"\[(\d+)\]="([^"]*)""#).unwrap();
 	let mut out = FxHashMap::default();
 	for m in re.captures_iter(text) {
+		if !keep(&m[1], &m[2]) {
+			continue;
+		}
 		let id = str_to_num(&m[1]);
 		out.insert(id as u64, decode(id, &m[2])?);
 	}
@@ -339,7 +342,7 @@ fn sorted_num_keys(o: &Obj) -> Vec<(f64, forge_guide::js::Str)> {
 
 /// buildForeverPack(flb, eraText).
 pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
-	let era = read_era_items(era_text)?;
+	let era = read_item_rows(era_text, |_, _| true)?;
 	let mut warnings = Vec::new();
 	let mut overlay: Vec<Rec> = Vec::new();
 	let mut names: Vec<(f64, V)> = Vec::new();

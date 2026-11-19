@@ -702,6 +702,7 @@ fn inputs(s: Synth) -> Inputs {
 		recorded: v(&s.recorded),
 		learned: Default::default(),
 		client: Some(s.client),
+		item_db: Default::default(),
 		web: s.web.as_ref().map(v),
 		curated: s.curated,
 		curated_gates: V::obj(),
