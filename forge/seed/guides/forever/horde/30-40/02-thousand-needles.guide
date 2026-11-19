@@ -507,6 +507,14 @@ step Drulzegar Skraghook
 
 # ---------------------------------------------------------------- The southern flats, on the way out
 
+step Cracked Silithid Carapace
+  when has 5877
+  when !onquest 1148
+  when !turnedin 1148
+  zone Desolace
+  tip If you kept the cracked carapace, open it before deciding whether to return to the flats.
+  accept 1148 item 5877
+
 step Fly to Gadgetzan
   when onquest 1147,1175
   zone Desolace
