@@ -29,7 +29,7 @@ return {
 	-- {npc:1059} Ana'thek the Cruel · {quest:586} Speaking with Gan'zulah · {npc:1060} Mogh the Undying
 	["Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.\n{npc:1059} (45) carries the Broken Armor for {quest:586}: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.\nCareful: {npc:1060}, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him."] = "Ve al este, a las ruinas Partecráneos al este de la mina de la Compañía Ventura. Los cazadores de cabezas, rabiosos y cazadores recorren las ruinas.\n{npc:1059} (45) lleva la Armadura rota para {quest:586}: recorre las ruinas del suroeste con dos guardias y a veces está en una pequeña cueva allí. Atrae primero a los guardias.\nCuidado: {npc:1060}, un trol élite (nivel 44), está en las ruinas del sur, hacia 47.7,44.3: aleja de él a los cazadores de cabezas y rabiosos.",
 	-- {npc:669} Skullsplitter Hunter
-	["{npc:669} walks around here: look inside the circle on the map"] = "",
+	["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669} da vueltas por aquí: búscalo dentro del círculo del mapa",
 
 	-- Step 5: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -37,7 +37,7 @@ return {
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 	-- {object:2076} Bubbling Cauldron
-	["the {object:2076} again: Yenniku's fate"] = "",
+	["the {object:2076} again: Yenniku's fate"] = "{object:2076} otra vez: el destino de Yenniku",
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks bask beside the road south, on the ride to {area:35}"] = "{npc:2519}: los basiliscos toman el sol junto al camino del sur, de camino a {area:35}",
 
@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 18: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -116,7 +116,7 @@ return {
 
 	-- Step 20: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "Montar requiere nivel 40 y cuesta 100 de oro; al aprenderlo recibes una montura. Cada raza lo aprende con el instructor de su propia raza: el tuyo es {npc:7953} en {area:367}, a poca distancia al sur de {zone:1454} por el camino de {zone:1411}, con los raptores de Zjolnir (20 de oro cada uno) a su lado. Luego vuelve al maestro de vuelo de {zone:1454}.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, instructor de equitación",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
@@ -154,7 +154,7 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392}, por el Corcel vil",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
+	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "Vuela de {zone:1454} a {area:392}; {npc:6251} está en la colina sobre los muelles.",
 
 	-- Step 31: Fly to Freewind Post
 	-- {area:392} Ratchet
@@ -170,9 +170,9 @@ return {
 
 	-- Step 39: Mirage Raceway
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "Si llegaste volando a {area:976}: el circuito de carreras está a poca distancia a caballo al norte, cruzando la frontera de {zone:1446}.\nEl camino de {area:484} a {zone:1446} pasa por {area:2240} en {area:439}: {npc:4454} está en el campamento de los gnomos junto a la pista, {npc:4630} y {npc:4709} junto al campamento de los goblins. Primero {npc:4630}, luego {npc:4709}, que sale corriendo a entretener a Rizzle; después toma los planos de Rizzle del campamento de los gnomos y llévaselos a {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de parte de Martek en {zone:1418}",
 
 	-- Step 40: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -212,11 +212,11 @@ return {
 	["{area:985}: kill these as you meet them"] = "{area:985}: mátalos según te los encuentres",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Los magos de las sombras, pícaros y asesinos acampan al sureste de {area:976}.\nAl sureste de Gadgetzan, los bandidos Erramundos acampan en las dunas; {npc:7847} está en el campamento del este.\nCuidado: los pícaros Erramundos mantienen Acechar fuera de combate, así que pícaros ocultos pueden unirse a una pelea que empieces en un campamento.\nCuidado: dos pícaros Erramundos en sigilo lo acompañan a donde vaya. En su campamento de aparición, dos magos de las sombras y sus esbirros están lo bastante cerca para unirse a la pelea. Afuera, junto a las torres, puedes pelear con él sin ellos.",
 
 	-- Step 48: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
+	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "Vuelve al noreste, al puerto: {npc:7881}, {npc:15165} y el Jefe de seguridad reciben lo que te dio {area:1336}. {area:976} está al oeste.",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "para {area:35}, hacia el nivel 51 (40-50/06)",
 
@@ -226,7 +226,7 @@ return {
 
 	-- Step 52: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
-	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
+	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777} da vueltas por {area:1099}: búscalo dentro del círculo del mapa",
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: el encargo de {npc:263190} de {zone:2548}, si lo llevas",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
@@ -248,7 +248,7 @@ return {
 
 	-- Step 56: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
-	["{zone:1444}: kill these as you meet them"] = "",
+	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: mata a estos según te los encuentres",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Los duendes dardo revolotean sobre la arboleda justo al oeste de Mojache; casi todos sueltan un ala. Los Alfas Zarpaleña dirigen los campamentos al suroeste: mátalos antes de una hora.\nCuidado: la mayoría de los Alfas están en pequeños campamentos de tiendas con 2-4 gnolls más que se unen al combate, y otros gnolls patrullan entre los campamentos.",
 
 	-- Step 58: Grimtotem camp
@@ -274,21 +274,21 @@ return {
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.\nCareful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge."] = "Cabalga hacia el oeste desde la colmena hasta las ruinas de ogros bajo {area:1105}. Están llenas de chamanes, brujos y destructores; los Señores de la Magia del extremo sur llevan el orbe.\nCuidado: los Señores de la Magia (45-46) y los chamanes lanzan hechizos a distancia y las ruinas están abarrotadas: atráelos de uno en uno desde el borde.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} da vueltas por {area:2522}: búscalo dentro del círculo del mapa",
 
 	-- Step 63: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
-	["{area:1105} yetis"] = "",
+	["{area:1105} yetis"] = "Yetis de {area:1105}",
 	-- {area:1105} Feral Scar Vale
-	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Al noroeste de las ruinas, los yetis tienen su guarida en {area:1105}; cualquier yeti de ahí puede soltar un pellejo grueso.",
 
 	-- Step 64: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Solo con la baliza de socorro: cualquier bestia, gnoll u ogro de {zone:1444} puede soltarla, más o menos una vez cada cien; úsala para empezar la misión. El robot está en una pequeña cueva en el lado norte de {area:1105}, justo al noroeste de las ruinas. Escóltalo hasta el muelle de {area:1108}; yetis y gorilas te emboscan en el camino. Su recompensa espera en {area:35} para una visita posterior.\nCuidado: aparecen tres emboscadas durante la escolta, y el robot te avisa antes de cada una. La primera son 3 yetis, justo después de que el robot sale de la cueva y sube hacia el camino. La segunda son 3 gorilas, en el sendero que corre junto al acantilado. La tercera son unos 4 gnolls, uno de ellos lanzador de hechizos, donde la ruta se desvía hacia el muelle.",
 
 	-- Step 65: Camp Mojache
 	-- {zone:1444} Feralas
-	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "los yetis Cicatriz de Ira, en la próxima visita a {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010} en {zone:1454}",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas
