@@ -70,12 +70,26 @@ test('no player-visible "~" is written into the text at the sites: each takes Th
 	const sites = [
 		'Polestar/Maps/FlightTimer.lua', 'Polestar/Maps/TravelPins.lua', 'Polestar/QoL/Death.lua', 'Polestar/Quests/Timed.lua',
 		'Polestar/UI/GuideFrameStatus.lua', 'Polestar/UI/RouteChoice.lua', 'Polestar_Options/UI/Looks/Trackers.lua',
+		'Polestar/UI/Materials.lua', 'Polestar/UI/AuctionBuys.lua', 'Polestar/UI/UI.lua',
 	];
 	for (const rel of sites) {
 		const code = fs.readFileSync(path.join(ADDON, rel), 'utf8').split('\n').filter((l) => !/^\s*--/.test(l)).join('\n');
 		// A "~" inside a string literal that is not Lua's "~=".
 		const hits = code.match(/"[^"\n]*~(?!=)[^"\n]*"/g) || [];
 		assert.deepEqual(hits, [], `${rel} still writes "~" into its text`);
+		// Nor a "≈", which a face without it draws as a box (#3039).
+		assert.deepEqual(code.match(/"[^"\n]*\u2248[^"\n]*"/g) || [], [], `${rel} still writes "≈" into its text`);
 		assert.match(code, /Approx\(/, `${rel} takes the sign from Theme.Approx`);
 	}
+});
+
+// #3039: a material's price ("≈ 87s") wrote the sign into the translated text.
+test('a material goal\'s price takes the sign of the face it is drawn in', () => {
+	const script = 'emit(Polestar.UI.MaterialsLine({ t = "auction", materials = { bank = 0, mail = 0, alts = {}, toGet = 5, price = 87 } }))';
+	const [inter] = lua(script);
+	assert.match(inter, new RegExp(`${APPROX} `));
+	const [ru] = lua(`Polestar.Set("ui.font", "game"); ${script}`,
+		'function GetLocale() return "ruRU" end\nSTANDARD_TEXT_FONT = "Fonts\\\\FRIZQT___CYR.TTF"');
+	assert.match(ru, /~ /);
+	assert.doesNotMatch(ru, new RegExp(APPROX));
 });

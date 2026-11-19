@@ -407,7 +407,7 @@ function AU.Layout()
 		-- Its price for that many, once a search showed it (the materials' prices: Materials.Price).
 		local M = ns.Materials
 		local price = M and M.Price and M.Price(e.item, e.need)
-		if price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(price)) end
+		if price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(price) end
 		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
 		r:Show()
 		y = y + ROW_H + 6
@@ -428,7 +428,7 @@ function AU.Layout()
 		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
 		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 		local parts = { e.section }
-		if e.price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(e.price)) end
+		if e.price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(e.price) end
 		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
 		fill(r, e.item, e.toBuy, format(L["%d %s"], e.toBuy, ns.Compat.GetItemName(e.item) or e.name), concat(parts, DOT), open)
 		r:Show()

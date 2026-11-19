@@ -634,7 +634,7 @@ function UI.MaterialsLine(goal)
 	if goal.t == "auction" and m.toGet > 0 then
 		parts[#parts + 1] = format(L["%s to buy"], thousands(m.toGet))
 		if m.price then
-			local price = format(L["≈ %s"], money(m.price))
+			local price = Theme.Approx() .. " " .. money(m.price)
 			if m.listed then price = price .. " " .. format(L["(only %s listed)"], thousands(m.listed)) end
 			if m.age and m.age > 3 * 86400 then price = price .. " " .. L["(old price)"] end
 			parts[#parts + 1] = price
