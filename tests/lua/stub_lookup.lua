@@ -6,6 +6,7 @@
 --   lookupstub.calls     every Lookup.Guide call: { kind, id, index }
 --   lookupstub.loaded / lookupstub.reason   what Search.Status reports
 --   lookupstub.entities  the searchable entities, in score order
+--   lookupstub.queries / lookupstub.browsed / lookupstub.subtitled   Search calls
 --   lookupstub.sources[kind .. ":" .. id] = { rows }; .entity[...] = record
 --   lookupstub.curated[kind .. ":" .. id] = guideId
 --   lookupstub.guideResult = nil, "reason"  to make Guide fail
@@ -37,11 +38,13 @@ local GUIDE_KIND = { guide = true }
 local Search = {}
 Search.KINDS = {
 	{ key = "guide", label = "Guides" }, { key = "mount", label = "Mounts" }, { key = "pet", label = "Pets" },
-	{ key = "item", label = "Items" }, { key = "recipe", label = "Recipes" }, { key = "quest", label = "Quests" },
-	{ key = "npc", label = "NPCs" }, { key = "rare", label = "Rares" }, { key = "instance", label = "Dungeons" },
+	{ key = "item", label = "Items" }, { key = "recipe", label = "Recipes" }, { key = "tabard", label = "Tabards" },
+	{ key = "quest", label = "Quests" }, { key = "npc", label = "NPCs" }, { key = "rare", label = "Rares" },
+	{ key = "instance", label = "Dungeons and raids" },
 	{ key = "zone", label = "Zones" }, { key = "treasure", label = "Treasures" },
 }
 lookupstub.queries = 0
+lookupstub.browsed = 0
 lookupstub.subtitled = 0 -- Search.Subtitle calls (rows drawn)
 
 function Search.Status() return lookupstub.loaded, lookupstub.reason end
@@ -67,6 +70,41 @@ function Search.Query(text, opts)
 		end
 	end
 	return out, counts
+end
+
+function Search.BrowseCount(kind)
+	if not lookupstub.loaded and not GUIDE_KIND[kind] then return nil end
+	local count = 0
+	for _, e in ipairs(lookupstub.entities) do if e.kind == kind then count = count + 1 end end
+	return count
+end
+
+function Search.Browse(kind, opts)
+	lookupstub.browsed = lookupstub.browsed + 1
+	opts = opts or {}
+	local out = {}
+	if not lookupstub.loaded and not GUIDE_KIND[kind] then
+		if lookupstub.reason ~= "off" and Polestar.Codex.Load then Polestar.Codex.Load() end
+		if not lookupstub.loaded then return out, 0 end
+	end
+	local entries = {}
+	for _, e in ipairs(lookupstub.entities) do if e.kind == kind then entries[#entries + 1] = e end end
+	table.sort(entries, function(a, b)
+		if (a.status ~= nil) ~= (b.status ~= nil) then return a.status == nil end
+		local ak, bk = a.title:lower(), b.title:lower()
+		if ak ~= bk then return ak < bk end
+		if #a.title ~= #b.title then return #a.title < #b.title end
+		return a.id < b.id
+	end)
+	local offset = opts.offset or 0
+	for i = offset + 1, math.min(#entries, offset + (opts.limit or 60)) do
+		local e = entries[i]
+		local row = { kind = e.kind, id = e.id, title = e.title, quality = e.quality, status = e.status,
+			curated = lookupstub.curated[e.kind .. ":" .. e.id] and true or nil, subtitle = e.kind == "guide" and e.subtitle or nil }
+		if opts.subtitles ~= false and row.subtitle == nil then row.subtitle = Search.Subtitle(row) end
+		out[#out + 1] = row
+	end
+	return out, #entries
 end
 
 function Search.Subtitle(res)

@@ -4,17 +4,15 @@
 -- treasures), and for the selection, where to get it, ranked for this
 -- character, with one click to a guide.
 --
--- Search only, never browsing: nothing lists a whole data set. The hub's
--- search box drives it while the section is shown (typing searches after a
--- short pause; Up/Down walk the results, Enter acts on the selection). An
--- empty search shows the recent lookups (CharState().ui.recentLookups) and
--- a hint. The sidebar filters the current results by kind: Everything, then
--- the kinds found, with their counts. Under the 152 line, left: the results
--- grouped by kind, one line each (icon in the gutter, the name in its
--- quality or subject colour, a short subtitle right); under Everything a
--- kind shows its first few and a "Show all" line; a kind shows a page of
--- results and a "Show more" line for the next. Only the rows in view are
--- drawn.
+-- Typing searches after a short pause. The sidebar shows Everything and
+-- the kinds found, with counts. With an empty search, Everything shows the
+-- recent lookups (CharState().ui.recentLookups) and a hint, and the sidebar
+-- offers each available kind with its total. Pick a kind to browse A to Z,
+-- with unavailable entries last. The list groups results by kind: under
+-- Everything a search shows the first few and a "Show all" line; one kind
+-- shows pages of 50 with a "Show more" line. Each row has an icon, the name
+-- in its quality or subject colour, and a short subtitle. Only the rows in
+-- view are drawn. Up/Down walk the results, and Enter acts on the selection.
 -- Right: the selection's details (its sources asked for once per
 -- selection): a band (the zone art of where it is got, the night band
 -- without) with the kind, the icon and the name; key facts; the sources
@@ -1309,13 +1307,17 @@ local function folderRow(i)
 	return f
 end
 
-local function selectFirst()
-	if sel then
+local function selectFirst(reset)
+	if sel and not reset then
 		for _, res in ipairs(visible) do
 			if res.kind == sel.kind and res.id == sel.id then return end
 		end
 	end
-	if visible[1] then LK.Select(visible[1].kind, visible[1].id, visible[1], true) end
+	if visible[1] then
+		LK.Select(visible[1].kind, visible[1].id, visible[1], true)
+	elseif reset and sel then
+		LK.Select()
+	end
 end
 
 -- Bumped when what a search finds may have changed (the Codex or the
@@ -1323,10 +1325,10 @@ end
 LK.gen = 0
 local function stale() LK.gen = LK.gen + 1 end
 
--- The current search, run once per query and kind (the hub asks for the
+-- The current list, built once per query and kind (the hub asks for the
 -- sidebar's counts and the section's list in one render): the counts with a
--- few results per kind, and under one kind its first page. Subtitles are
--- filled for the rows drawn only (Search.Subtitle).
+-- few results per kind for a search, or totals for browsing, and under one
+-- kind its first page. Search.Subtitle fills subtitles for drawn rows only.
 local cache = {}
 local function current()
 	if cache.query == query and cache.kind == kind and cache.gen == LK.gen then return cache end
@@ -1338,11 +1340,19 @@ local function current()
 		else
 			list = (search(query, { [kind] = true }, { perKind = PAGE, limit = PAGE, offset = 0, subtitles = false }))
 		end
+	else
+		local S = ns.Search
+		if kind ~= "all" and S and S.Browse then
+			list = S.Browse(kind, { offset = 0, limit = PAGE, subtitles = false })
+		end
+		if S and S.BrowseCount then
+			for _, k in ipairs(kinds()) do counts[k.key] = S.BrowseCount(k.key) end
+		end
 	end
-	-- After the search: its first one loads the pack (or learns it is missing).
+	-- A search or browse can load the Codex or learn why it cannot load.
 	local loaded, reason = status()
 	local total = 0
-	for _, n in pairs(counts) do total = total + n end
+	if query ~= "" then for _, n in pairs(counts) do total = total + n end end
 	cache = { query = query, kind = kind, gen = LK.gen, list = list, counts = counts, total = total, loaded = loaded, reason = reason }
 	return cache
 end
@@ -1350,22 +1360,39 @@ end
 -- The next page of the shown kind.
 function LK.More()
 	local c = current()
-	if kind == "all" or query == "" then return end
-	local more = search(query, { [kind] = true }, { perKind = PAGE, limit = PAGE, offset = #c.list, subtitles = false })
+	if kind == "all" then return end
+	local opts = { perKind = PAGE, limit = PAGE, offset = #c.list, subtitles = false }
+	local more
+	if query == "" then
+		local S = ns.Search
+		if not (S and S.Browse) then return end
+		more = S.Browse(kind, opts)
+	else
+		more = search(query, { [kind] = true }, opts)
+	end
 	for _, res in ipairs(more) do c.list[#c.list + 1] = res end
 	LK.Render()
 end
 
--- The hub sidebar under the search: Everything, then the kinds this search
--- found, with their counts (the one shown always), as many as the sidebar
--- holds above its foot; the rest are a "Show all" away in the list.
-local NAV_MAX = 10
+-- The sidebar scrolls through the kinds found by the search or available
+-- to browse. The counts appear as soon as the Codex can be read.
 function LK.Nav()
 	local c = current()
 	local items = { { key = "all", label = L["Everything"], icon = "search", count = query ~= "" and c.total or nil } }
+	local waiting = c.reason == "loading" or c.reason == "notloaded" or c.reason == "combat"
 	for _, k in ipairs(kinds()) do
-		local n = c.counts[k.key] or 0
-		if (n > 0 and #items <= NAV_MAX) or (k.key == kind and query ~= "") then
+		local n, show = c.counts[k.key], false
+		if query ~= "" then
+			n = n or 0
+			show = n > 0 or k.key == kind
+		elseif waiting then
+			n, show = nil, true
+		elseif c.loaded then
+			show = (n or 0) > 0
+		else
+			show = k.key == "guide"
+		end
+		if show then
 			items[#items + 1] = { key = k.key, label = k.label, icon = KIND[k.key] and KIND[k.key].icon or k.icon or "search", count = n }
 		end
 	end
@@ -1466,10 +1493,11 @@ function LK.Render()
 	end
 
 	-- The header: what the list holds.
-	local title = (kind == "all" or query == "") and L["Lookup"] or kindLabel(kind)
+	local title = kind == "all" and L["Lookup"] or kindLabel(kind)
 	local subtitle
 	if query == "" then
-		subtitle = L["Every guide, item, mount, NPC, quest and place, and where to get it."]
+		subtitle = kind == "all" and L["Every guide, item, mount, NPC, quest and place, and where to get it."]
+			or format(L["%d, from A to Z"], counts[kind] or #list)
 	else
 		local n = kind == "all" and total or (counts[kind] or #list)
 		subtitle = n == 1 and format(L["1 result for %s"], LQ .. query .. RQ) or format(L["%d results for %s"], n, LQ .. query .. RQ)
@@ -1502,8 +1530,7 @@ function LK.Render()
 		entries[#entries + 1] = { t = "action", y = y, text = text, glyph = glyph, act = act, tip = tip }
 		y = y + ROW_H
 	end
-	if query == "" then
-		-- No search: the recent lookups, never a data set.
+	if query == "" and kind == "all" then
 		local recent = LK.Recent()
 		if #recent > 0 then
 			folder(L["Recent lookups"], #recent)
@@ -1538,10 +1565,10 @@ function LK.Render()
 	local empty
 	if reason == "loading" and #list == 0 then
 		empty = L["Loading the Codex\226\128\166"]
-	elseif query == "" then
+	elseif query == "" and kind == "all" then
 		empty = loaded and L["Type a name in the search box: a mount you saw, an item you want, an NPC or a quest."]
 			or L["Type a name in the search box to search the guides."]
-	elseif #list == 0 then
+	elseif query ~= "" and #list == 0 then
 		empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
 		if reason == "off" then
 			empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
@@ -1593,7 +1620,7 @@ local function setQuery(text)
 	if not (root and root:IsVisible()) then return end
 	W.ScrollTo(results, 0)
 	refresh()
-	if query ~= "" then selectFirst() end
+	if query ~= "" or kind ~= "all" then selectFirst(query == "") end
 end
 
 -- The hub's search box, while this section is shown: each keystroke
@@ -1624,11 +1651,13 @@ end
 function LK.Query() return query end
 
 function LK.SetKind(k)
-	kind = k or "all"
+	k = k or "all"
+	local changed = kind ~= k
+	kind = k
 	if root and root:IsVisible() then
 		W.ScrollTo(results, 0)
 		refresh()
-		if query ~= "" then selectFirst() end
+		if query ~= "" or kind ~= "all" then selectFirst(changed and query == "") end
 	end
 end
 
@@ -1711,7 +1740,7 @@ local function sectionRender()
 		query = hub
 		LK.message = nil
 		LK.Render()
-		if query ~= "" then selectFirst() end
+		if query ~= "" or kind ~= "all" then selectFirst(query == "") end
 		return
 	end
 	LK.Render()
@@ -1767,7 +1796,7 @@ function UI.ShowLookup(opts)
 	cancelPending()
 	opening = false
 	refresh()
-	if not sel and query ~= "" then selectFirst() end
+	if not sel and (query ~= "" or kind ~= "all") then selectFirst() end
 	if P.search then P.search:SetFocus() end
 end
 
@@ -1787,12 +1816,13 @@ end)
 local function namesChanged()
 	stale()
 	refresh()
+	if query == "" and kind ~= "all" and root and root:IsVisible() then selectFirst(#visible == 0) end
 end
 ns.On("CODEX_LOADED", namesChanged)
 ns.On("NAMES_LOADED", namesChanged)
 local function guidesChanged()
 	stale()
-	LK.Render()
+	if query == "" then refresh() else LK.Render() end
 end
 ns.On("GUIDES_REGISTERED", guidesChanged)
 ns.On("PACKS_CHANGED", guidesChanged)
@@ -1800,6 +1830,7 @@ ns.On("PACKS_CHANGED", guidesChanged)
 -- The "New in Forever" mark shows or goes on the pages at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.suggestFrom" or path == "behavior" or path == "" then guidesChanged() end
+	if path == "lookup.enabled" or path == "lookup" then namesChanged() end
 	if path == "ui.newInForever" then LK.Render() end
 end)
 -- Quality colours are lifted against the ground and the icon's hairline is

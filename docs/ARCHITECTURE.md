@@ -1369,6 +1369,8 @@ Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active c
 
 Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
    -- result = { kind, id, title, subtitle, quality, score, status, curated }; exact > prefix > word prefix > substring
+Polestar.Search.Browse(kind, opts) -> results, count   -- opts = { offset = 0, limit = 60, subtitles = false }; same result fields without score
+Polestar.Search.BrowseCount(kind) -> count|nil   -- no sort or load; nil when the Codex cannot be read
 Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded, reason
 ```
 
@@ -1385,6 +1387,13 @@ query, best tiers first (`more[kind]` says there were more); a one-letter
 query matches name prefixes only. Only the results returned are named, and
 subtitles are filled per shown row (`Search.Subtitle`). Generated `lookup/`
 guides are not listed.
+
+`Search.Browse` pages through one kind in folded-name order, with retired
+and no-source entries after obtainable entries. It uses translated folded
+names where the index has them. The first browse sorts the kind and caches
+its line offsets. Later pages name only their own entries. Guides use the
+filtered guide list for this character. `Search.BrowseCount` counts index
+lines once per blob for the sidebar, without sorting.
 
 Measured with the real pack (lua5.1, `rust/crates/forge-addontest/tests/addontest/lookup-codex.rs` setup):
 the pack loads in about 20 ms (4.4 MB; it never loads at login), the first
@@ -9469,22 +9478,26 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   picking one opens the Lookup section at it.
 - **Lookup** (`UI/Lookup.lua`, the hub section "Lookup", order 20;
   `UI.ShowLookup({ query, kind, id })` and `SHOW_LOOKUP(query, kind, id)` open
-  the hub at it). Search only, never browsing: the hub's search box drives it
-  (`Search.Query`, run when typing pauses for 0.15 s; the section's `search`,
-  `enter`, `step` hooks); an empty search lists the recent lookups
+  the hub at it). `Search.Query` runs when typing pauses for 0.15 s. The
+  sidebar shows Everything, the matched kinds with counts, and the current
+  kind. With an empty search box, Everything lists the recent lookups
   (`CharState().ui.recentLookups`, newest first, at most 10, kept when the
-  player opens a page) and a hint. Sidebar (its `nav`): Everything and the
-  kinds the search found, with counts; a kind filters the results only.
-  Left: the results grouped by kind (five per kind under Everything with a
-  "Show all" line; under one kind pages of 50, `opts.offset` for "Show more"),
-  one line each (item icon or kind glyph in the gutter, the name in its
+  player opens a page) and a hint. Pick a kind on the scrollable sidebar to
+  browse it A to Z with `Search.Browse`. The sidebar shows each nonempty
+  kind in `Search.KINDS` order with its `Search.BrowseCount` total. While
+  the Codex is loading or waiting to load, all kinds show without counts.
+  If it is unavailable, the sidebar offers Everything and Guides.
+  Everything groups search results by kind with five rows and a "Show all"
+  line per kind. A single kind shows 50 rows at a time for search or browse
+  with `opts.offset` for "Show more". Each row has an item icon or kind
+  glyph in the gutter, the name in its
   quality colour lifted to 4.5:1 or its subject colour, a muted "No longer
   obtainable" / "No known source" chip for `status`, the subtitle right);
   only the rows in view are drawn, and only they get a subtitle
-  (`Search.Subtitle`). Lookup has no tabs, so no tab row: it comes back only
-  to say why the Codex is not there to search ("Loading the Codex…"
-  re-queries on `CODEX_LOADED`); Enter is named in each row's tooltip. Right: the selection
-  on a band (the zone art of its best located source), facts, the ranked
+  (`Search.Subtitle`). Lookup uses the tab row to show Codex availability.
+  On `CODEX_LOADED` it refreshes the list and sidebar counts. Enter is
+  named in each row's tooltip. The pane on the right shows the selection's
+  band (the zone art of its best located source), facts, the ranked
   sources of `Lookup.Sources` (asked once per selection; label, detail,
   travel, chance / price / standing; ones this character cannot use dimmed
   with `whyText`), a "Guide" button on the selected source, and pinned

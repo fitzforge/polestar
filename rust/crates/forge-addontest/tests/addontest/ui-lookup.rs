@@ -9,6 +9,8 @@ use serde_json::{json, Value};
 
 const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 
+const ALL_KINDS: [&str; 13] = ["all", "guide", "mount", "pet", "item", "recipe", "tabard", "quest", "npc", "rare", "instance", "zone", "treasure"];
+
 const HELPERS: &str = r#"
 local function shownRows(parent)
 	local out = {}
@@ -34,6 +36,22 @@ local function navKeys()
 	local out = {}
 	for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() then out[#out + 1] = b.psKey end end
 	return out
+end
+local function navCounts()
+	local out = {}
+	for _, key in ipairs(navKeys()) do
+		local count = nav(key).Count
+		out[#out + 1] = count:IsShown() and count:GetText() or false
+	end
+	return out
+end
+local function fillKinds()
+	for i, k in ipairs(Polestar.Search.KINDS) do
+		if Polestar.Search.BrowseCount(k.key) == 0 then
+			local id = k.key == "instance" and "test-instance" or 100000 + i
+			table.insert(lookupstub.entities, { kind = k.key, id = id, title = k.label .. " example" })
+		end
+	end
 end
 local function type_(text)
 	local box = Polestar.UI.Picker.search
@@ -343,7 +361,7 @@ fn without_the_codex_pack_the_section_says_what_is_missing_and_still_finds_guide
 	assert!(!is_match(text(&out["idle"]["note"]), r"tools/polestar|codex build"), "no developer command in a player message");
 	assert!(is_match(text(&out["idle"]["list"]), r"search the guides"));
 	assert!(is_match(text(&out["idle"]["codex"]), r"Codex not installed"));
-	assert_eq!(out["idle"]["navs"], json!(["all"]), "no kind is offered that nothing was found in");
+	assert_eq!(out["idle"]["navs"], json!(["all", "guide"]));
 	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Items, mounts, NPCs and quests are searched once the Codex loads\."));
 	assert_eq!(out["rows"], json!(["Westfall"]));
 	assert_eq!(out["sel"], "Open in new tab");
@@ -520,10 +538,11 @@ fn a_dungeon_also_opens_in_the_dungeons_section_beside_the_guide_to_its_entrance
 }
 
 #[test]
-fn an_empty_search_lists_the_recent_lookups_newest_first_at_most_10_never_a_data_set() {
+fn everything_on_an_empty_search_shows_the_ten_most_recent_lookups_and_every_kind_in_the_sidebar() {
 	let out = run(r#"
+		fillKinds()
 		UI.ShowLookup()
-		local first = { rows = #rowTexts(LK.results.Child), empty = LK.shown.empty, queries = lookupstub.queries }
+		local first = { rows = #rowTexts(LK.results.Child), empty = LK.shown.empty, queries = lookupstub.queries, browsed = lookupstub.browsed }
 		Polestar.Lookup.Show(nil, "mount", 8631)
 		Polestar.Lookup.Show(nil, "mount", 13335)
 		-- Typing selects the first result for you: that is no lookup of yours.
@@ -538,12 +557,175 @@ fn an_empty_search_lists_the_recent_lookups_newest_first_at_most_10_never_a_data
 	assert_eq!(out["first"]["rows"], 0);
 	assert!(is_match(text(&out["first"]["empty"]), r"Type a name in the search box"));
 	assert_eq!(out["first"]["queries"], 0, "nothing is searched for an empty box");
+	assert_eq!(out["first"]["browsed"], 0, "Everything does not browse any kind");
 	assert_eq!(out["auto"], 2);
 	assert_eq!(out["recent"]["rows"], json!(["Lelanai", "Deathcharger's Reins", "Reins of the Striped Frostsaber"]));
 	assert!(is_match(text(&out["recent"]["empty"]), r"Type a name"), "the hint under the recent lookups");
-	assert_eq!(out["recent"]["navs"], json!(["all"]));
+	assert_eq!(out["recent"]["navs"], json!(ALL_KINDS));
 	assert_eq!(out["saved"], "Baron Rivendare");
 	assert!(out["n"].as_f64().unwrap() <= 10.0);
+}
+
+#[test]
+fn empty_search_offers_every_nonempty_kind_with_its_total_when_the_codex_is_loaded() {
+	let out = run(r#"
+		UI.ShowLookup()
+		local sparse = navKeys()
+		fillKinds()
+		Polestar.Fire("CODEX_LOADED")
+		emit({ sparse = sparse, keys = navKeys(), counts = navCounts(), browsed = lookupstub.browsed })"#);
+	assert_eq!(out["sparse"], json!(["all", "guide", "mount", "item", "quest", "npc", "zone"]));
+	assert_eq!(out["keys"], json!(ALL_KINDS));
+	assert_eq!(out["counts"], json!([false, "1", "7", "1", "1", "1", "1", "2", "2", "1", "1", "2", "1"]));
+	assert_eq!(out["browsed"], 0);
+}
+
+#[test]
+fn empty_search_offers_only_everything_and_guides_when_the_codex_is_unavailable() {
+	let out = run(r#"
+		local states = {}
+		for _, reason in ipairs({ "missing", "disabled", "off", "nosearch" }) do
+			lookupstub.loaded, lookupstub.reason = false, reason
+			if reason == "nosearch" then Polestar.Search = nil end
+			UI.ShowLookup()
+			Polestar.Fire("CODEX_LOADED")
+			states[reason] = navKeys()
+		end
+		emit(states)"#);
+	for reason in ["missing", "disabled", "off", "nosearch"] {
+		assert_eq!(out[reason], json!(["all", "guide"]), "{reason}");
+	}
+}
+
+#[test]
+fn empty_search_offers_kinds_without_counts_before_the_codex_loads_and_populates_the_open_kind_afterward() {
+	let out = run(r#"
+		fillKinds()
+		lookupstub.loaded, lookupstub.reason = false, "notloaded"
+		UI.ShowLookup()
+		local waiting = { keys = navKeys(), counts = navCounts() }
+		Polestar.Codex.Load = function() lookupstub.reason = "loading" end
+		LK.SetKind("mount")
+		local loading = { keys = navKeys(), counts = navCounts(), empty = LK.shown.empty, rows = LK.shown.rows }
+		lookupstub.loaded, lookupstub.reason = true, nil
+		Polestar.Fire("CODEX_LOADED")
+		emit({ waiting = waiting, loading = loading, counts = navCounts(), rows = LK.shown.rows,
+			selected = LK.Selected() and LK.Selected().id })"#);
+	for state in ["waiting", "loading"] {
+		assert_eq!(out[state]["keys"], json!(ALL_KINDS), "{state}");
+		assert_eq!(out[state]["counts"], json!(vec![false; 13]), "{state}");
+	}
+	assert_eq!(out["loading"]["empty"], "Loading the Codex\u{2026}");
+	assert_eq!(out["loading"]["rows"], 0);
+	assert_eq!(out["counts"][2], "7");
+	assert_eq!(out["rows"], 7);
+	assert_eq!(out["selected"], 13335);
+}
+
+#[test]
+fn browsing_a_kind_pages_alphabetically_with_muted_entries_last_and_subtitles_only_for_drawn_rows() {
+	let out = run(r#"
+		lookupstub.many(46)
+		UI.ShowLookup()
+		LK.SetKind("mount")
+		local scroll, W = LK.results, Polestar.Widgets
+		local page = { rows = LK.shown.rows, painted = LK.painted, subtitled = lookupstub.subtitled,
+			title = PolestarPicker.Title:GetText(), sub = PolestarPicker.Subtitle:GetText(), top = rowTexts(scroll.Child)[1] }
+		W.ScrollTo(scroll, scroll.psContent - scroll.psView)
+		stub.RunScript(scroll, "OnVerticalScroll", scroll:GetVerticalScroll())
+		local more = rowFor(scroll.Child, "Show more (3 more)")
+		if more then more:Click() end
+		W.ScrollTo(scroll, scroll.psContent - scroll.psView)
+		stub.RunScript(scroll, "OnVerticalScroll", scroll:GetVerticalScroll())
+		local tail = rowTexts(scroll.Child)
+		local chips = {}
+		for _, title in ipairs({ "Reins of the Frostsaber", "Reins of the Shadowsaber" }) do
+			local r = rowFor(scroll.Child, title)
+			chips[#chips + 1] = r and r.Status:IsShown() and r.Status.Text:GetText() or false
+		end
+		emit({ page = page, rows = LK.shown.rows, last = { tail[#tail - 2], tail[#tail - 1], tail[#tail] }, chips = chips,
+			browsed = lookupstub.browsed, queries = lookupstub.queries, subtitled = lookupstub.subtitled })"#);
+	assert_eq!(out["page"]["rows"], 50);
+	assert_eq!(out["page"]["title"], "Mounts");
+	assert_eq!(out["page"]["sub"], "53, from A to Z");
+	assert_eq!(out["page"]["top"], "Deathcharger's Reins");
+	assert_eq!(out["page"]["painted"], out["page"]["subtitled"]);
+	assert!(out["page"]["subtitled"].as_u64().unwrap() < 50);
+	assert_eq!(out["rows"], 53);
+	assert_eq!(out["last"], json!(["Steed 046", "Reins of the Frostsaber", "Reins of the Shadowsaber"]));
+	assert_eq!(out["chips"], json!(["No longer obtainable", "No known source"]));
+	assert_eq!(out["browsed"], 2);
+	assert_eq!(out["queries"], 0);
+	assert!(out["subtitled"].as_u64().unwrap() < 53);
+}
+
+#[test]
+fn typing_in_a_kind_uses_relevance_and_clearing_restores_alphabetical_browsing() {
+	let out = run(r#"
+		UI.ShowLookup()
+		LK.SetKind("mount")
+		local top = rowTexts(LK.results.Child)[1]
+		type_("saber"); stub.advance(0.3)
+		local matched = { top = rowTexts(LK.results.Child)[1], keys = navKeys() }
+		type_("")
+		emit({ top = top, matched = matched, kind = LK.Kind(), cleared = rowTexts(LK.results.Child)[1],
+			selected = LK.Selected() and LK.Selected().id })"#);
+	assert_eq!(out["top"], "Deathcharger's Reins");
+	assert_eq!(out["matched"], json!({ "top": "Reins of the Striped Frostsaber", "keys": ["all", "mount", "item", "quest"] }));
+	assert_eq!(out["kind"], "mount");
+	assert_eq!(out["cleared"], out["top"]);
+	assert_eq!(out["selected"], 13335);
+}
+
+#[test]
+fn browsing_selects_the_first_row_and_supports_arrows_enter_click_and_double_click() {
+	let out = run(r#"
+		table.insert(lookupstub.entities, { kind = "item", id = 100001, title = "Axe" })
+		UI.ShowLookup()
+		LK.SetKind("item")
+		local first = LK.Selected() and LK.Selected().id
+		local box = Polestar.UI.Picker.search
+		stub.RunScript(box, "OnArrowPressed", "DOWN")
+		local down = LK.Selected() and LK.Selected().id
+		stub.RunScript(box, "OnArrowPressed", "UP")
+		local up, recent = LK.Selected() and LK.Selected().id, #LK.Recent()
+		local body = LK.results.Child
+		local fang = rowFor(body, "Sabertooth Fang")
+		if fang then fang:Click() end
+		local clicked = LK.Recent()[1] and LK.Recent()[1].id
+		stub.RunScript(box, "OnEnterPressed")
+		local entered = lookupstub.calls[1] and lookupstub.calls[1][2]
+		local axe = rowFor(body, "Axe")
+		if axe then stub.RunScript(axe, "OnDoubleClick") end
+		emit({ first = first, down = down, up = up, recent = recent, clicked = clicked,
+			entered = entered, double = lookupstub.calls[2] and lookupstub.calls[2][2] })"#);
+	assert_eq!(out, json!({ "first": 100001, "down": 4386, "up": 100001, "recent": 0, "clicked": 4386, "entered": 4386, "double": 100001 }));
+}
+
+#[test]
+fn every_kind_including_zones_and_treasures_can_be_scrolled_to_and_clicked() {
+	let out = run(r#"
+		fillKinds()
+		UI.ShowLookup()
+		PolestarPicker:SetHeight(440)
+		Polestar.UI.Picker.Render()
+		local scroll = PolestarPicker.NavScroll
+		local scrolled, clicked = {}, {}
+		local keys = navKeys()
+		for _, key in ipairs(keys) do
+			local b = nav(key)
+			local y = -select(5, b:GetPoint(1))
+			Polestar.Widgets.ScrollTo(scroll, math.min(y, math.max(0, scroll.psContent - scroll.psView)))
+			local top = scroll:GetVerticalScroll()
+			assert(y >= top and y + b:GetHeight() <= top + scroll.psView, key .. " is in the sidebar viewport")
+			b:Click()
+			clicked[#clicked + 1] = LK.Kind()
+			scrolled[key] = top > 0
+		end
+		emit({ clicked = clicked, scrolled = scrolled })"#);
+	assert_eq!(out["clicked"], json!(ALL_KINDS));
+	assert_eq!(out["scrolled"]["zone"], true);
+	assert_eq!(out["scrolled"]["treasure"], true);
 }
 
 #[test]

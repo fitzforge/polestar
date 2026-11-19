@@ -16,6 +16,11 @@
 --     (perKind: 20 with several kinds, else limit). A one-letter query
 --     matches the first 250 name prefixes per kind only; more[kind] = true
 --     when there were more (counts then say "at least").
+--   Search.Browse(kind, opts) -> results, count
+--     opts = { offset = 0, limit = 60, subtitles = false }
+--     Results have the same fields without a score, A to Z with unavailable
+--     entries last. The order is cached on first use, and only the page is named.
+--   Search.BrowseCount(kind) -> count|nil   -- no sorting or loading; nil when the Codex cannot be read
 --   Search.Subtitle(result) -> text|nil   -- guides "Zone · 1-6"; Codex entities Lookup.Subtitle
 --   Search.KINDS = { { key, label }, ... }   -- display order
 --   Search.Status() -> codexLoaded, reason   -- reason: Data.Pack's code
@@ -277,6 +282,106 @@ if ns.On then
 	-- Guides.List leaves hidden packs' guides out: re-index when one switches.
 	ns.On("GUIDES_REGISTERED", function() guideIndex = nil end)
 	ns.On("PACKS_CHANGED", function() guideIndex = nil end)
+	ns.On("NAMES_LOADED", function() localIndex = {} end)
+end
+
+local META = "^([^,]*),(%d*),(%a?),(%d+)"
+
+---------------------------------------------------------------------------
+-- Browse
+---------------------------------------------------------------------------
+
+local browseCounts, browseIndexes = {}, {}
+local guideBrowseSource, guideOrder
+local BROWSE_LINE = "\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n"
+
+function Search.BrowseCount(kind)
+	if kind == "guide" then return #guideList() end
+	local blob = codexBlob(kind)
+	if not blob then return Search.Status() and ns.Codex.Index and 0 or nil end
+	local cached = browseCounts[kind]
+	if cached and cached.blob == blob then return cached.count end
+	local count = 0
+	for _ in gmatch(blob, "\n") do count = count + 1 end
+	browseCounts[kind] = { blob = blob, count = count }
+	return count
+end
+
+local function orderedGuides(list)
+	if guideBrowseSource == list then return guideOrder end
+	local order = {}
+	for i = 1, #list do order[i] = i end
+	table.sort(order, function(i, j)
+		local a, b = list[i], list[j]
+		if a.folded ~= b.folded then return a.folded < b.folded end
+		if #a.title ~= #b.title then return #a.title < #b.title end
+		return a.id < b.id
+	end)
+	guideBrowseSource, guideOrder = list, order
+	return order
+end
+
+local function orderedCodex(kind, blob)
+	local cached = browseIndexes[kind]
+	local extra = translatedBlob(kind, blob)
+	if cached and cached.blob == blob and cached.extra == extra then return cached.order end
+
+	local translations = {}
+	if extra then
+		for folded, _, id, _, len in gmatch(extra, BROWSE_LINE) do
+			translations[id] = { folded = folded, len = tonumber(len) }
+		end
+	end
+	local order = {}
+	for folded, at, rawId, st, len in gmatch(blob, BROWSE_LINE) do
+		local entry = translations[rawId] or { folded = folded, len = tonumber(len) }
+		entry.at = at
+		entry.id = kind == "instance" and rawId or tonumber(rawId)
+		entry.unavailable = STATUS[st] ~= nil
+		order[#order + 1] = entry
+	end
+	table.sort(order, function(a, b)
+		if a.unavailable ~= b.unavailable then return not a.unavailable end
+		if a.folded ~= b.folded then return a.folded < b.folded end
+		if a.len ~= b.len then return a.len < b.len end
+		return a.id < b.id
+	end)
+	-- Keep the base line offsets; the sort keys and translations are temporary.
+	for i = 1, #order do order[i] = order[i].at end
+	browseIndexes[kind] = { blob = blob, extra = extra, order = order }
+	browseCounts[kind] = { blob = blob, count = #order }
+	return order
+end
+
+function Search.Browse(kind, opts)
+	opts = opts or {}
+	local results = {}
+	local offset, limit = opts.offset or 0, opts.limit or DEFAULT_LIMIT
+	if kind == "guide" then
+		local list = guideList()
+		local order = orderedGuides(list)
+		for i = offset + 1, min(#order, offset + limit) do
+			local g = list[order[i]]
+			results[#results + 1] = { kind = kind, id = g.id, title = g.title, subtitle = g.subtitle }
+		end
+		return results, #order
+	end
+
+	local C = ns.Codex
+	if codexOn() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
+	local blob = codexBlob(kind)
+	if not blob then return results, 0 end
+	guideList() -- fills the curated set, also used by Query
+	local order = orderedCodex(kind, blob)
+	for i = offset + 1, min(#order, offset + limit) do
+		local rawId, quality, st = match(blob, META, order[i])
+		local id = kind == "instance" and rawId or tonumber(rawId)
+		local result = { kind = kind, id = id, title = (localised() and localName(kind, id)) or C.Name(kind, id) or rawId,
+			quality = tonumber(quality), status = STATUS[st], curated = curated[id] or nil }
+		if opts.subtitles ~= false then Search.Subtitle(result) end
+		results[#results + 1] = result
+	end
+	return results, #order
 end
 
 ---------------------------------------------------------------------------
@@ -296,8 +401,6 @@ local function keep(top, cap, s, i)
 	scores[pos], idx[pos] = s, i
 	if n < cap then top.n = n + 1 end
 end
-
-local META = "^([^,]*),(%d*),(%a?),(%d+)"
 
 -- Candidates read per kind and query, best tiers first. A broad query ("s",
 -- "in", "gar eth") can touch thousands of names; past this the rest only
