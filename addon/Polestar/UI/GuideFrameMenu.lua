@@ -98,7 +98,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
 		ns.Theme.SkinHook("guideMenu", items, button)
-		W.ShowMenu(button, items)
+		-- Every entry in view: not a list to filter.
+		W.ShowMenu(button, items, { short = true })
 	end
 
 	-- "Reopen closed tab", the last tab closed (Engine.ClosedTabs) back as it
