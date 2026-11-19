@@ -300,7 +300,7 @@ class Walk {
 					if (tt === 'getfp' && go.node != null && applies(go.only, race, cls, faction)) this.taxiKnown.add(go.node);   // learnt at its step, optional or not
 					if (go.optional || !applies(go.only, race, cls, faction)) continue;
 					this.curGi = gi;
-					if (tt === 'turnin' && this.dynTurned.has(go.quest)) continue;   // handed in already, on a While-here line
+					if (tt === 'turnin' && (this.dynTurned.has(go.quest) || this.turninAt.has(go.quest))) continue;   // handed in already: on a While-here line, or on an earlier step (the Engine reads it done)
 					if (tt === 'accept' && this.acceptAt.has(go.quest)) continue;
 					if (OBJ_TYPES.has(tt) && go.quest != null) {
 						const okey = okeyOf(go);

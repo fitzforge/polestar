@@ -225,6 +225,21 @@ test('a `when level` with a point inside a level reads the share of the level do
 	assert.deepEqual(steps(0.6), [1, 2, 3], 'at 2.6: past 2.5');
 });
 
+// A quest the route gives twice (an early step for a character already at its level, the later visit for everyone):
+// done on the early one, the later visit's accept, work and hand-in read done, as the Engine reads them; the walk
+// neither walks to its NPC again nor counts its XP twice.
+test('a quest handed in on an earlier step is not handed in again on a later one', (t) => {
+	const data = loadData(dataDir(t));
+	const g = guide('test/twice', [
+		[accept(1, 10, 10.0, 10.0), kill(1, 10.1, 10.0), turnin(1, 10, 10.0, 10.0)],
+		[goto_(30.0, 30.0)],
+		[accept(1, 10, 10.0, 10.0), kill(1, 10.1, 10.0), turnin(1, 10, 10.0, 10.0)],
+	], { races: ['Orc'] });
+	const w = new Walk({ chain: ['test/twice'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data });
+	assert.deepEqual(w.entries.filter((e) => e.goal.t === 'turnin').map((e) => e.step), [1], 'one hand-in, on the first step');
+	assert.ok(!w.entries.some((e) => e.step === 3), 'nothing left to do on the later step');
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
