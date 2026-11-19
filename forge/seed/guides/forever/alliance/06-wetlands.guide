@@ -325,8 +325,6 @@ step Shindrell Swiftfire
   accept 95737                        -- Llana: Seeking Caitlin, for Caitlin Grassman in Menethil Harbor
 
 step Astranaar
-  tip Raene Wolfrunner is in the inn, Pelturas Whitemoon inside the building beyond it.
-  accept 1024                         -- Raene Wolfrunner, in the inn: for Shael'dryn in the Howling Vale, on this visit's way east
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Raene Wolfrunner
@@ -348,7 +346,6 @@ step Therysil
 
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
-  turnin 1024
   accept 1026
 
 step Dartol's Rod

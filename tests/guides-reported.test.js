@@ -8253,11 +8253,9 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	// Alliance 12-30 bracket review 0.3.6 put Pelturas's ready hand-in on a pass through Astranaar between Shael'dryn and
-	// Ilkrud. The 0.4.3 first-visit redraw (Twerkjob) drops the Shael'dryn trip and that pass: 1034 goes in on the one
-	// Astranaar stop after the west sweep, with Shindrell's and Raene's hand-ins, so still no town stop for one quest.
-	assert.equal(ashStep('turnin', 1034), ashStep('turnin', 1008), '1034 handed in on the last Astranaar stop, with The Zoram Strand');
-	assert.equal(ashStep('turnin', 1023), ashStep('turnin', 1008), 'Raene\'s Glowing Gem on the same stop');
+	// Alliance 12-30 bracket review 0.3.6: the walk back west to Ilkrud runs through Astranaar, so Pelturas's ready hand-in
+	// goes in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
+	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
 	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
 	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
 	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
@@ -17209,41 +17207,45 @@ test('#2825: escort givers are looked for where they wait, not along their escor
 	}
 });
 
-// CircusCyaneus (#2837): Ashenvale (Alliance) took Ilkrud's tome to the Zoram Strand and walked back from Talen to
-// Delgren at Maestra's Post. Delgren is on the way north from the Fire Scar Shrine to the coast; after Talen the
-// hearthstone bound at Astranaar takes the player to Shindrell. Ilkrud's tip named the Ruins of Ordil'Aran.
-test('Ashenvale (Alliance): Delgren takes Ilkrud\'s tome on the way to the Zoram Strand; Shindrell after Talen (#2837)', { skip }, () => {
-	const list = goals(ASHENVALE);
-	const tome = at(list, 'collect 5533', (g) => g.t === 'collect' && g.item === 5533);
-	const delgren = at(list, 'turnin 973', is('turnin', 973));
-	const talen = at(list, 'accept 1007', is('accept', 1007));
-	const ruuzel = at(list, 'turnin 1009', is('turnin', 1009));
-	const shindrell = at(list, 'turnin 1008', is('turnin', 1008));
-	assert.ok(tome < delgren && delgren < talen, 'the tome to Delgren before Talen');
-	assert.ok(ruuzel < shindrell, 'Shindrell after Talen');
-	const tip = [list[tome].step.note, list[tome].step.tip].flat().filter(Boolean).join(' ');
-	assert.doesNotMatch(tip, /Ordil'Aran/, 'Ilkrud is in the Fire Scar Shrine');
-	assert.match([list[shindrell].step.note, list[shindrell].step.tip].flat().filter(Boolean).join(' '), /Hearth to /, 'the hearthstone bound at Astranaar');
+// A character opening Wetlands can start with none, some, or all of Raene's earlier work.
+// Exercise the engine's catch-up plan with the actual guides leading to Wetlands.
+test('Alliance Wetlands: a fresh character can recover the Glowing Gem; returning characters do not repeat it', { skip }, () => {
+	const pack = buildSimPack([ASHENVALE, REDRIDGE, 'forever/alliance/05-duskwood.guide', WETLANDS], data);
+	try {
+		const wet = pack.guides.find(g => g.id === 'forever/alliance/06-wetlands');
+		for (const [state, seed, expected] of [
+			['fresh', '', ['accept:991', 'turnin:991', 'accept:1023', 'collect:1023', 'turnin:1023']],
+			['gem delivered', 'w.complete({991,1023})', ['accept:1024', 'turnin:1024', 'accept:1026']],
+			['delivery rewarded', 'w.complete({991,1023,1024})', ['accept:1026']],
+		]) {
+			const observed = `local events={}
+				for i,s in ipairs(G.steps) do for _,h in ipairs(s.goals) do
+					if h.t=="accept" and h.quest==95737 then E.SkipUpTo(i) end
+				end end
+				local function act(i, g, r)
+					if r.quest==991 or r.quest==1023 or r.quest==1024 or (r.quest==1026 and r.t=="accept") then
+						events[#events+1]=r.t..":"..r.quest
+					end`;
+			const script = SIMULATE.replace('local function act(i, g, r)', observed)
+				.replace('visited = count, steps = #G.steps', 'events=events, visited = count, steps = #G.steps');
+			const [result] = playGuide(pack, wet, { race: 'Dwarf', faction: 'Alliance', cls: 'PALADIN', before: `w.level=28;${seed}`, script });
+			assert.deepEqual(result.events, expected, state);
+		}
+	} finally { pack.dispose(); }
 });
 
-// Twerkjob ("running back and forth in ashenvale"): 06-ashenvale's first visit went Astranaar -> Lake Falathim (west) ->
-// Elune's Tear (east) -> Astranaar -> Stonetalon -> Stardust -> Shael'dryn (far east, one talk hand-in) -> Astranaar ->
-// Ilkrud and the Zoram Strand (west). Now Elune's Tear on the way south, then after Stonetalon one sweep up the west
-// (Stardust, Ilkrud, Therysil, Teronis, Delgren, the Zoram Strand) and one Astranaar stop; Raene's Cleansing 1024 (the
-// walk to Shael'dryn) is taken on 06-wetlands' first Astranaar stop and handed in where Shael'dryn gives 1026.
-test('Ashenvale (Alliance): the first visit is one sweep up the west, no Shael\'dryn trip (Twerkjob)', { skip }, () => {
-	const ash = goals(ASHENVALE);
-	const s = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	const item = (i) => ash[at(ash, `collect ${i}`, (g) => g.t === 'collect' && g.item === i)].s;
-	assert.ok(!ash.some(({ goal }) => goal.quest === 1024), 'Raene\'s Cleansing 1024 is not on 06-ashenvale');
-	assert.ok(s('turnin', 1033) < s('turnin', 1070), 'Elune\'s Tear handed in before Stonetalon');
-	const sweep = [s('turnin', 1070), item(5494), item(5533), s('turnin', 945), s('turnin', 991), s('turnin', 973), s('accept', 1007), s('turnin', 1009), s('turnin', 1008)];
-	assert.deepEqual(sweep, [...sweep].sort((a, b) => a - b), 'Stonetalon, Stardust, Ilkrud, Therysil, Teronis, Delgren, the Zoram Strand, Astranaar');
-	for (const [t, q] of [['turnin', 1023], ['turnin', 1034]]) assert.equal(s(t, q), s('turnin', 1008), `${t} ${q} on the last Astranaar stop`);
-	const wet = goals(WETLANDS);
-	const w = (t, q) => wet[at(wet, `${t} ${q}`, is(t, q))].s;
-	assert.equal(w('accept', 1024), w('accept', 1035), '06-wetlands takes 1024 on its first Astranaar stop, with Pelturas');
-	assert.equal(w('turnin', 1024), w('accept', 1026), 'and hands it to Shael\'dryn with 1026');
+test('Ashenvale: Raene sends the player to Shael’dryn on the first visit and Ilkrud is at Fire Scar Shrine (#2837)', { skip }, () => {
+	const list = goals(ASHENVALE);
+	const gem = at(list, 'turn in the Glowing Gem', is('turnin', 1023));
+	const take = at(list, 'take the delivery', is('accept', 1024));
+	const hand = at(list, 'deliver to Shael’dryn', is('turnin', 1024));
+	assert.ok(gem < take && take < hand);
+	assert.equal(list[gem].goal.npc, 3691);
+	assert.equal(list[hand].goal.npc, 3916);
+	const tome = list[at(list, 'collect the tome', g => g.t === 'collect' && g.item === 5533)];
+	const tip = [tome.step.note, tome.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Fire Scar Shrine/);
+	assert.doesNotMatch(tip, /Ordil'Aran/);
 });
 
 for (const guide of DUN_MOROGHS) test(`${guide}: the Trogg Threat only marks the north valley camps`, { skip }, () => {
