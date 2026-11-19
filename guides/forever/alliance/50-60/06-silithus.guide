@@ -331,6 +331,8 @@ step Cenarion Hold
 # ---------------------------------------------------------------- Silithus
 
 step Southwind Village
+  when onquest 5527
+  when !complete 5527
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
   collect 22201 quest 5527.1          -- Dusty Reliquary; inside
 
@@ -524,6 +526,7 @@ step Umber
   accept 6845
 
 step Rabine Saturna
+  when complete 5527
   tip Rabine Saturna's house stands in Nighthaven, east of Umber.
   turnin 5527
 
@@ -532,6 +535,8 @@ step Rabine Saturna: Uncovering Past Secrets
   turnin 6845
 
 step Umber
+  when turnedin 6845
+  when !turnedin 1185
   turnin 1185 direct
 
 step Sindrayl
@@ -767,6 +772,10 @@ step Light's Hope Chapel
 step Carlin Redpath
   when complete 5168
   turnin 5168
+
+step Carlin Redpath: the Scourge Champions
+  when turnedin 5168
+  when turnedin 5181
   accept 5206
 
 step Caretaker Alen

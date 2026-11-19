@@ -5,6 +5,19 @@
 		"pairs": [
 			{
 				"a": [
+					"task",
+					1125
+				],
+				"b": [
+					"task",
+					5527
+				],
+				"faction": "Alliance",
+				"why": "Take Rabine's reliquary while clearing Southwind Village, ready to hand in at the next Nighthaven stop.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
 					"turnin",
 					4504
 				],

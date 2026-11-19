@@ -563,6 +563,12 @@ step Southwind Village
   kill 12178 quest 1125.1             -- Tortured Druid
   kill 12179 quest 1125.2             -- Tortured Sentinel
 
+step Dusty Reliquary
+  when level>=56
+  when onquest 5527
+  tip The reliquary is inside the ruined building on the south-east side of Southwind Village. Take it while you are clearing the Sentinels, and give it to Rabine when you see him next.
+  collect 22201 quest 5527.1          -- Dusty Reliquary; inside
+
 step Layo Starstrike
   turnin 1125
   accept 1126

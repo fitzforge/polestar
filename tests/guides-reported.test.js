@@ -6548,6 +6548,17 @@ test('Culling the Competition: both kills and their daggers search only the nort
 	}
 });
 
+test('Southwind Village: the reliquary can go back with Umber, with a later fallback', { skip }, () => {
+	const four = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const early = at(four, 'reliquary', (g) => g.item === 22201);
+	assert.equal(four[early].s, four[at(four, 'Tortured Sentinel', (g) => g.npc === 12179 && g.quest === 1125)].s + 1);
+	assert.ok(four[early].step.when.some((p) => p.k === 'level' && p.n === 56 && p.op === '>='));
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const fallback = six[at(six, 'reliquary fallback', (g) => g.item === 22201)];
+	assert.ok(fallback.step.when.some((p) => p.k === 'complete' && p.not && p.q === 5527));
+	assert.ok(six.some(({ goal, step }) => is('turnin', 5527)(goal) && step.when.some((p) => p.k === 'complete' && p.q === 5527)));
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
