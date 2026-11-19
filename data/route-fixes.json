@@ -6409,6 +6409,12 @@
 				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
 			},
 			{
+				"a": ["accept", 4300],
+				"b": ["accept", 5535],
+				"faction": "Horde",
+				"why": "#3145: Jes'rimon offers Bone-Bladed Weapons on the first Orgrimmar visit, before Loh'atu's Azshara hunts. Take March of the Silithid on that visit too if Zilzibin offers it; there is no need to come back from Valormok for work already in the log."
+			},
+			{
 				"a": ["accept", 99411],
 				"b": ["task", 748],
 				"faction": "Horde",

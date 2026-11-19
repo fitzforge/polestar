@@ -12896,6 +12896,47 @@ test('Horde Azshara guides: chain accepts from an earlier guide wait until the q
 	assert.ok((work.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5051)), 'the charm\'s work only with 5051 in the log');
 });
 
+
+test('Horde Azshara: Kroum sends the player to the city with unfinished business', { skip }, () => {
+	const guide = compiled('forever/horde/40-50/06-azshara.guide');
+	const pos = (t, id) => guide.steps.findIndex((s) => s.goals.some((g) => g.t === t && (g.quest ?? g.node) === id));
+	const loh = pos('accept', 5535), valormok = pos('getfp', 44), pala = pos('accept', 3762);
+	assert.ok(pos('turnin', 32) >= 0 && pos('turnin', 32) < pos('accept', 4494) && pos('accept', 4494) < loh);
+	assert.ok(pos('accept', 4300) >= 0 && pos('accept', 4300) < loh && loh < valormok && valormok < pala);
+	const pack = writeTestPack([{ ...guide, steps: guide.steps.slice(valormok, pala + 1) }], data);
+	try {
+		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", {})`).join('\n');
+		// Both reports unlock March at 50. Bone-Bladed Weapons can become available separately at 48.
+		for (const [level, report, carried, nodes, expected] of [
+			[50, 32, [4300, 4494], [22, 23], 'fly:22'],
+			[49, 32, [4300], [22, 23], 'fly:22'],
+			[50, 32, [4300], [22, 23], 'fly:23'],
+			[50, 7732, [4300], [22, 23], 'fly:23'],
+			[50, null, [4300], [22, 23], 'fly:22'],
+			[48, null, [], [22, 23], 'fly:23'],
+			[50, 32, [4300], [22], 'fly:22'],
+			[50, 32, [4300, 4494], [], 'accept:3762'],
+		]) {
+			const [next] = runAddon({
+				stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+				before: `local w=stub.world; w.faction,w.race,w.raceName,w.level="Horde","Orc","Orc",${level}
+					w.addMap(1447,{name="Azshara",c=1,left=0,right=1000,top=1000,bottom=0}); w.moveTo(1447,22,49.7); w.zone="Azshara"`,
+				script: `${loads}
+					local w,E=stub.world,Polestar.Engine; stub.login()
+					w.complete({${report ?? ''}})
+					for _,q in ipairs({${carried.join(',')}}) do w.accept(q,{{type="item",required=1}}) end
+					Polestar.CharState().flags.taxi={[44]=true}
+					for _,node in ipairs({${nodes.join(',')}}) do Polestar.CharState().flags.taxi[node]=true end
+					assert(E.SetGuide(${JSON.stringify(guide.id)})); stub.advance(2)
+					for _,g in ipairs(E.GetGuide().steps[E.GetLiveStep()].goals) do
+						if g.t=="fly" or g.t=="accept" then emit(g.t..":"..tostring(g.node or g.quest)); break end
+					end`,
+			}).emitted;
+			assert.equal(next, expected, `level ${level}, report ${report}, carried ${carried}, known flights ${nodes}`);
+		}
+	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
+});
+
 // Position sweep (0.3.6, the patrol check): Sentinel Shayla Nightbreeze walks the road west of Dolanaar
 // (10 people took her bounty and 13 handed it in along the road from 41.3,50.8 to 38.2,54.4, half of them 70-130 yd
 // from the arrow); the steps said she stands beside the gate.
