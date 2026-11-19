@@ -22,6 +22,8 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # only from the Subchiefs (35-36, three of them beside Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over
 # players here (fix round 1, 0.4.0). Zimmix Sputterspark (97329, 97331), Kebok's ears (189) and the Stolen Shipments
 # (97328) from the first loop are worked in the ruins of Zul'Kunda here, beside the third tablet.
+# Route review 0.4.3: Hostile Takeover (213) left this loop for 40-50/01-stranglethorn-vale (Kebok gives it there at about
+# 41): Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players here at about 35.7.
 
 step Collin Mauren
   when complete 1078
@@ -66,11 +68,6 @@ step Kurzen's Compound
   kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
-
-step Lake Nazferiti
-  zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
-  collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
 
 step The jungle ruins
   tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
@@ -137,7 +134,6 @@ step Booty Bay
   turnin 577                          -- Drizzlik, inside
   turnin 601                          -- Baron Revilgaz, upstairs in the tavern
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
-  turnin 213                          -- Kebok
   turnin 189                          -- Kebok, upstairs
   turnin 210                          -- Krazek, upstairs
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.

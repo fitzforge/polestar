@@ -28,6 +28,8 @@ next forever/alliance/30-40/02-desolace
 # Zimmix Sputterspark's rescue (97329, 97331), Kebok's Bloodscalp ears (189) and the Stolen Shipments (97328) are worked
 # in the ruins of Zul'Kunda on 04b's second loop, at about 36: the ruins' core holds Berserkers, Headhunters and Witch
 # Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
+# Route review 0.4.3: Kebok's Hostile Takeover (213) is taken, worked and handed in on 40-50/01-stranglethorn-vale at about
+# 41: Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players on 04b's loop.
 
 step Boat to Booty Bay
   when !zone "Stranglethorn Vale"
@@ -49,7 +51,6 @@ step Booty Bay
   accept 201                          -- Krazek: Nesingwary's camp, on the way
   accept 616                          -- Krazek
   accept 189                          -- Kebok, in the tavern
-  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578

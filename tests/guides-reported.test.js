@@ -13384,22 +13384,34 @@ test('Alliance Arathi: Northfold, the shards and the gorge, then Witherbark Vill
 // tablets, where the guide listed them (the arrow went from Zul'Kunda south to 36,34 and back north), and the Rebel Camp
 // was visited three times. Panther Mastery is now taken on the way in, the lake worked right after Kurzen's Compound,
 // and the Rebel Camp's hand-ins made on one stop after the tablets.
-test('Alliance Stranglethorn 35: Lake Nazferiti after Kurzen\'s Compound, the tablets west, the Rebel Camp once at the end', { skip }, () => {
+// Since the 0.4.3 route review the lake's Tumbled Crystals (Hostile Takeover, 213) are worked on 40-50/01 at about 41
+// (next case): the tablets follow the compound, and wherever the route gathers the crystals it is at Lake Nazferiti.
+test('Alliance Stranglethorn 35: the tablets after Kurzen\'s Compound, the crystals only at Lake Nazferiti, the Rebel Camp once at the end', { skip }, () => {
 	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const kurzen = stepOf('kill 938', (g) => g.t === 'kill' && g.quest === 574);
-	const crystals = stepOf('collect 4106', (g) => g.t === 'collect' && g.item === 4106);
 	const tablets = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 207).map(({ s }) => s);
-	assert.equal(crystals, kurzen + 1, 'Lake Nazferiti right after the compound');
-	assert.ok(tablets.every((s) => s > crystals), 'the tablets after the lake');
-	for (const { goal } of list.filter(({ goal }) => goal.t === 'collect' && goal.item === 4106)) {
-		assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
+	assert.equal(Math.min(...tablets), kurzen + 1, 'the tablets right after the compound');
+	for (const file of ['forever/alliance/30-40/04b-stranglethorn-vale.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']) {
+		for (const { goal } of goals(file).filter(({ goal }) => goal.t === 'collect' && goal.item === 4106)) {
+			assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${file}: ${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
+		}
 	}
 	// Level tidy (0.4.0, #2365): Panther Mastery (Shadowmaw 37-38) and Troll Witchery (Skullsplitters 39-42) are worked in 40-50/01.
 	assert.ok(!list.some(({ goal }) => [192, 193, 205].includes(goal.quest) && goal.t !== 'accept'), 'no Panther Mastery or Troll Witchery work at 35-36');
 	const rebel = list.filter(({ goal }) => goal.t === 'turnin' && [329, 330, 331, 574, 207].includes(goal.quest)).map(({ s }) => s);
 	assert.equal(new Set(rebel).size, 1, 'every Rebel Camp hand-in on one stop');
 	assert.ok(rebel[0] > Math.max(...tablets), 'after the last tablet');
+});
+
+// Route review 0.4.3 (Alliance 30-40): on 04b's loop, at about 35.7, Lake Nazferiti's Tumbled Crystals had players farm
+// the Venture Co. Geologists among thirteen Venture Co. Agents (39); 0.4.x followers of the guide died there 16 times
+// (6 people). Hostile Takeover (213) is no longer taken, worked or handed in on Stranglethorn's two 30-40 loops: Kebok
+// gives it on 40-50/01-stranglethorn-vale, which passes the lake at about 41.
+test('Alliance Stranglethorn 33-36: Hostile Takeover (213) is not in the 30-40 loops (Venture Co. Agents 39 at the lake)', { skip }, () => {
+	for (const file of ['forever/alliance/30-40/04-stranglethorn-vale.guide', 'forever/alliance/30-40/04b-stranglethorn-vale.guide']) {
+		assert.ok(!goals(file).some(({ goal }) => goal.quest === 213 || (goal.t === 'collect' && goal.item === 4106)), `${file}: nothing of Hostile Takeover`);
+	}
 });
 
 // #1531 (Discord, Undead Warlock 27): Ursangous, Sharptalon and Shadumbra drop their trophies only once The Ashenvale
