@@ -7078,16 +7078,27 @@ test('The Barrens (Horde): the Razormane camp\'s elite half is a group choice, a
 		for (const { step } of takes) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q)), `accept ${q}: only for a group (${step.title})`);
 		assert.ok(group.some((g) => g.q === q && g.size >= 2), `${q}: a group record the build keeps`);
 	}
-	const work = list.filter(({ goal }) => goal.quest === 872 && goal.t !== 'accept' && goal.t !== 'turnin');
-	for (const { step } of work) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(872)), `872's work: only for a group (${step.title})`);
+	for (const q of [5041, 872]) {
+		const work = list.filter(({ goal }) => goal.quest === q && goal.t !== 'accept');
+		assert.ok(work.some(({ goal }) => goal.t !== 'turnin'), `${q} has a group objective`);
+		for (const { step } of work) assert.ok(step.when?.some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q)), `${q}: only with its group choice (${step.title})`);
+	}
 	// Disrupt the Attacks (the camp's western half) stays on the solo route.
 	assert.ok(list.some(({ step, goal }) => is('accept', 871)(goal) && !(step.when || []).some((p) => p.k === 'group')), '871 stays solo');
 	const data = loadData(DATA);
-	const elites = [267308, 267314].flatMap((id) => data.npcs[id].spawns[1413].pts);
+	const elites = [267308, 267314].flatMap((id) => {
+		const spawns = data.npcs[id].spawns[1413];
+		return spawns.pts.concat(spawns.more || []);
+	});
 	const finish = list.find(({ step, goal }) => step.title === 'Finish the Raptor Heads' && goal.t === 'collect' && goal.quest === 869);
 	assert.ok(finish && finish.goal.x != null, 'the finish step has a point');
-	const near = Math.min(...elites.map(([x, y]) => Math.hypot(x - finish.goal.x, y - finish.goal.y)));
-	assert.ok(near >= 5, `the raptor heads finish ${near.toFixed(1)} map units from the nearest elite quilboar (at least 5)`);
+	for (const { goal } of list.filter(({ goal }) => (goal.t === 'collect' && goal.quest === 869) || (goal.t === 'kill' && goal.quest === 871))) {
+		assert.ok(goal.spots?.length >= 2, `quest ${goal.quest} uses an authored hunting area`);
+		for (const p of [goal, ...goal.spots]) {
+			const distance = Math.min(...elites.map(([x, y]) => Math.hypot(x - p.x, y - p.y)));
+			assert.ok(distance >= (goal.quest === 869 ? 5 : 1), `${goal.quest}: unsafe spot ${p.x},${p.y}`);
+		}
+	}
 });
 
 // 0.4.3 route round (Horde 12-30 audit, FLOW): Souvenirs of Death pointed at Hillsbrad's town square, among the
@@ -7098,13 +7109,16 @@ test('Hillsbrad (Horde 22-25): the skulls point is in the southern fields, not t
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	const skulls = list[at(list, 'collect 546', (g) => g.t === 'collect' && g.quest === 546)];
 	const data = loadData(DATA);
-	const from = (id) => Math.min(...data.npcs[id].spawns[1424].pts.map(([x, y]) => Math.hypot(x - skulls.goal.x, y - skulls.goal.y)));
-	assert.ok(from(2335) >= 5, `Magistrate Burnside ${from(2335).toFixed(1)} map units away`);
-	assert.ok(from(2387) >= 2.5, `the nearest Councilman ${from(2387).toFixed(1)} map units away`);
-	assert.ok(from(2267) <= 1, `among the Peasants (${from(2267).toFixed(1)})`);
+	for (const { goal } of list.filter(({ goal }) => (goal.quest === 546 && goal.t === 'collect') || (goal.quest === 528 && goal.t === 'kill'))) {
+		assert.ok(goal.spots?.length >= 2, 'search the fields');
+		for (const p of [goal, ...goal.spots]) {
+			const from = (id) => Math.min(...data.npcs[id].spawns[1424].pts.map(([x, y]) => Math.hypot(x - p.x, y - p.y)));
+			assert.ok(from(2335) >= 5 && from(2387) >= 2.5 && from(2267) <= 1, `unsafe Hillsbrad spot ${p.x},${p.y}`);
+		}
+	}
 	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /Magistrate Burnside \(30\)/, 'the tip names Burnside');
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
-	assert.ok(places.some((p) => p.quest === 546 && p.objective === 1 && p.at && Math.hypot(p.at.x - skulls.goal.x, p.at.y - skulls.goal.y) < 0.2), 'a places.json record holds the point');
+	assert.deepEqual(places.find((p) => p.quest === 546 && p.objective === 1)?.path?.points, skulls.goal.spots.map(({ x, y }) => [x, y]), 'the whole field loop is recorded');
 });
 
 // 0.4.3 route round (Horde 12-30 audit, FLOW; #2013's pattern): the Barrens & Stonetalon guide opens in Thunder Bluff for
