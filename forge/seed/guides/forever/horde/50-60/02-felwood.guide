@@ -1,7 +1,7 @@
 guide forever/horde/50-60/02-felwood
-title Felwood & Western Plaguelands
+title Western Plaguelands, Azshara & Felwood
 faction Horde
-levels 52-55
+levels 52-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
 # Built from the playthrough simulator's consensus route (Horde, visits
@@ -88,17 +88,6 @@ step Scarlet forward camp
   interact 176088
   complete 5096
 
-step Dalson's Tears farmhouse
-  tip The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A Wandering Skeleton carries the outhouse key; Farmer Dalson comes out when you open the outhouse and carries the cabinet key.
-  accept 5058                         -- Mrs. Dalson's Diary
-  turnin 5058
-  accept 5060                         -- Locked Cabinet
-  accept 5059                         -- Outhouse
-  collect 12738 quest 5059
-  turnin 5059
-  collect 12739 quest 5060 @48.1,49.7 -- Farmer Dalson
-  turnin 5060
-
 step Sorrow Hill
   tip Argent Officer Pureheart stands at the south end of the Sorrow Hill graveyard, where the road from Tarren Mill comes in; Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
   turnin 5152                         -- Marlene Redpath
@@ -131,6 +120,7 @@ step Chromie
 
 step Diseased Wolves
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
+  tip At 52, take the level 53 wolves; leave the 54s alone.
   kill 1817 quest 4984
 
 step Level 53
@@ -228,10 +218,140 @@ step The Bulwark
 
 # ---------------------------------------------------------------- To Felwood
 
-step To Felwood
-  zone Ashenvale
-  tip Ride back to the Undercity, take the zeppelin to Orgrimmar and fly to Splintertree Post. Follow the road west out of Splintertree and take the fork north into Felwood.
+step Fly to Valormok
+  zone Orgrimmar
+  tip Azshara's camps are 46-53, right at your level now: fly over before Felwood.
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Valormok"
+  zone Azshara
+
+step Valormok
+  accept 91488                        -- Kurll: Mosshoof hides on the way through Azshara
+  accept 3517                         -- Jediga
+  accept 3505                         -- Ag'tor Bloodfist
+  accept 91568                        -- Izvi Gildfizz
+  accept 91569                        -- Izvi Gildfizz: Blue Gold, a wand from the blood elves' arcanists
+
+step Ruins of Eldarath: kill these as you meet them
+  zone Azshara
+  tip Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time.
+  collect 10540 quest 3517
+  collect 10538 quest 3517
+  collect 10541 quest 3517
+  collect 10539 quest 3517
+
+step Ruins of Eldarath
+  when onquest 3568
+  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
+  goto 35.0,55.0 "Ruins of Eldarath"
+  complete 3568
+
+step Mosshoof hides
+  tip Look for Mosshoof Runners, Stags and Coursers between Valormok and the coast. They drop the hides for Kurll.
+  collect 238463 x5 quest 91488.1
+
+step Makrinni Burrowers
+  tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.
+  collect 246684 quest 91568
+
+step Ekkal
+  tip On north-east across the middle of Azshara: Ekkal camps by the road.
+  accept 86746                        -- Ekkal: The Legashi Threat, the satyrs north of the blood elves' camp
+
+step Kim'jael
+  tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms, just north of the blood elves.
+  accept 3601
+
+step Thalassian Base Camp
+  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms. Kim'jael's four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry Izvi's wand.
+  tip Careful: a Blackmaw Thrall, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side.
+  kill 6199 quest 3505.1
+  kill 6198 quest 3505.2 @56.2,29.9
+  collect 10717 quest 3601
+  collect 10715 quest 3601
+  collect 10718 quest 3601
+  collect 10722 quest 3601
+  collect 246680 quest 91569.1        -- Mana-Siphoning Wand, from the Blood Elf Arcanists
+
+step Magus Rimtori's camp
+  tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers.
+  complete 3505 @59.53,31.47 map 1447 era
+  turnin 3505                         -- Kaldorei Tome of Summoning
+  accept 91497                        -- Sin'dorei Tome of Summoning: Seals of the Sin'dorei
+
+step Seals of the Sin'dorei
+  tip Each of the camp's three officers (53) carries a seal: Lieutenant Suncrest in the middle of the camp, Ranger Lydrea at its eastern end, and Magister Hawkhelm, who walks its western half: take him on the east side of his walk, where the arrow points.
+  tip Careful: the Blackmaw Thrall, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east.
+  collect 246725 quest 91497.1        -- Seal of the Warden, from Lieutenant Suncrest
+  collect 246721 quest 91497.2        -- Seal of the Warrior, from Magister Hawkhelm
+  collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea
+
+step The Legashi satyrs
+  tip The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: Ekkal wants five of each kind.
+  kill 6200 quest 86746.1             -- Legashi Satyr
+  kill 6201 quest 86746.2             -- Legashi Rogue
+  kill 6202 quest 86746.3             -- Legashi Hellcaller
+
+step Kim'jael
+  tip Back north-west to Kim'jael.
+  turnin 3601
+  accept 5534
+
+step Ruins of Eldarath: Some Rune
+  tip Ride south to the northern edge of the Ruins of Eldarath. The Spitelash Sirens and Myrmidons (50-52) there carry Kim'jael's rune; it doesn't drop often, so work your way along the edge until it does.
+  collect 13815 quest 5534.1 @47.5,44.5
+
+step Kim'jael
+  tip Back north to Kim'jael with the rune, then south-west along the road.
+  turnin 5534
+
+step Ekkal
+  tip South-west along the road: Ekkal takes the satyrs.
+  turnin 86746
+
+step Valormok
+  tip Ride back west to Valormok.
+  turnin 91488                        -- Kurll
+  turnin 3517                         -- Jediga
+  accept 3518                         -- Magatha is at the next Thunder Bluff stop
+  accept 92346                        -- Nara Wildmane is there too
+  turnin 91568                        -- Izvi Gildfizz
+  turnin 91569                        -- Izvi Gildfizz
+  accept 3541
+  accept 3542
+  accept 3561
+  note Keep the seals for the tome. Return after Winterspring for Magus Rimtori (55).
+
+step Archmage Xylem
+  tip Xylem's tower stands on the cliff just north of Valormok: Sanath Lim-yo, in Valormok, teleports you up for free (talk to him); otherwise the path winds up its north side.
+  turnin 3561                         -- Upstairs
+  accept 3565
+
+step Jediga
+  turnin 3565
+
+step Fly back to Orgrimmar
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
+
+step Jes'rimon
+  zone Orgrimmar
+  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
+  accept 3563                         -- Keep the payment for the return to Valormok
+
+step Fly to Splintertree Post
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
   fly "Splintertree Post"
+  zone Ashenvale
+
+# ---------------------------------------------------------------- To Felwood
+
+step Felwood
+  zone Felwood
+  goto 50.9,81.6 "Emerald Sanctuary"
 
 # ---------------------------------------------------------------- Emerald Sanctuary and Jaedenar
 
@@ -295,12 +415,55 @@ step Bloodvenom Post
   accept 4505                         -- Winna Hazzard
   accept 4521                         -- Trull Failbane: the owlbeasts are in Winterspring
 
+step Shatter Scar Vale
+  tip East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters.
+  goto 41.6,43.0 "Southern crater"
+  goto 40.4,41.2 "Western crater"
+  goto 42.2,40.3 "Northern crater"
+  complete 5156
+  kill 9878 quest 5156.1
+  kill 9879 quest 5156.2
+
+step Statue of Malorne
+  tip The Statue of Malorne stands just south of the vale, by the road north: its bauble starts a quest for Winna Hazzard, handed in on the last ride north past Bloodvenom Post.
+  accept 86612 object 661778 @42.0,47.3 -- Statue of Malorne
+
+step Irontree Woods
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are Kelek's.
+  kill 8957 quest 4120.1
+  kill 8961 quest 4120.2
+  collect 277958 quest 86577.1        -- Putrescent Bear Organs, from the Angerclaw bears
+  collect 277959 quest 86577.2        -- Putrescent Wolf Organs, from the Felpaw wolves
+
+step Irontree Woods
+  collect 11503 quest 4102            -- Below ground
+
+# ---------------------------------------------------------------- Back south
+
 step The Jadefire moonwell
-  tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
+  tip On the return from Irontree, ride south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
   collect 12567 quest 4505 @32.3,66.6
 
-step Winna Hazzard
-  turnin 4505
+step Overlord Ror
+  tip Ror stands at the far south end of Deadwood Village.
+  collect 15879 quest 6162 @48.2,94.3
+
+step Emerald Sanctuary
+  tip Stop at the Sanctuary on the ride north from Ror.
+  turnin 5156                         -- Taronn Redfeather
+  turnin 5157                         -- Greta Mosshoof
+  accept 5158
+  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  turnin 86577                        -- Kelek Skykeeper
+  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
+
+# ---------------------------------------------------------------- North to Winterspring
+
+step Bloodvenom Post
+  tip Ride north up the road to Bloodvenom Post, on the way to the tunnel.
+  turnin 6162                         -- Dreka'Sur
+  turnin 86612                        -- Winna Hazzard: the Stag Lord's Bauble
+  turnin 4505                         -- Winna Hazzard
   accept 4506
 
 step Winna's kitten
@@ -311,74 +474,36 @@ step Winna's kitten
 step Winna Hazzard
   turnin 4506
 
-step Shatter Scar Vale
-  tip East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters.
-  kill 9878 quest 5156.1
-  kill 9879 quest 5156.2
-  goto 41.6,43.0 "Southern crater"
-  goto 40.4,41.2 "Western crater"
-  goto 42.2,40.3 "Northern crater"
-  complete 5156
-
-step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  collect 11503 quest 4102
+step Level 54
+  when level<54
+  tip On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the Alcaz Prison dungeon or the Blackrock Depths dungeon instead.
+  goto 51.3,15.4 map 1448 "Irontree Woods"
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
+  level 54 grind 8957
 
 step Nafien
-  tip The road ends at Nafien, outside the Timbermaw Hold tunnel in the far north-east.
+  tip Follow the road north past Felpaw Village to Nafien at the tunnel entrance.
   turnin 8462
   accept 8461
 
 step Felpaw Village
   tip The Deadwood furbolg village just west of the tunnel. Chieftain Bloodmaw (56) stands among them. Meilosh, a friendly furbolg, sits at the north end of the village.
+  tip Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
+  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
+  accept 6031 optional                -- Meilosh: keep 30 Runecloth for him; he trades only at Neutral with the Timbermaw; below ground
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
-  accept 6031 optional                -- Meilosh: keep 30 Runecloth for him; he trades only at Neutral with the Timbermaw
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
+  collect 20741                       -- Deadwood Ritual Totem
+  accept 8470
 
 step Nafien
   turnin 8461
   accept 8465
-  accept 8467 optional                -- Only with 5 Deadwood Headdress Feathers
-  turnin 8467 optional
+  turnin 8467 direct optional
   note Keep Speak to Salfa for Winterspring.
 
-# ---------------------------------------------------------------- Back south
-
-step Emerald Sanctuary
-  tip Ride the road south through Felwood to the Sanctuary.
-  turnin 5156                         -- Taronn Redfeather
-  turnin 5157                         -- Greta Mosshoof
-  accept 5158
-  turnin 5385 optional                -- Jessir Moonbow
-  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
-  note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
-
-step Overlord Ror
-  tip Ror stands at the far south end of Deadwood Village.
-  collect 15879 quest 6162 @48.2,94.3
-
-# ---------------------------------------------------------------- North to Winterspring
-
-step Bloodvenom Post
-  tip Ride north up the road again.
-  turnin 6162                         -- Dreka'Sur
-
-step Felpaw Village
-  tip Back at Felpaw Village, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation.
-  level 54 grind 7157 -- grind on Deadwood Avengers at Felpaw Village, Felwood
-  turnin 8470 optional                -- Kernda, at the tunnel mouth
-
-# Re-seeded for flow in 0.3.5: Speak to Salfa is handed in where the tunnel
-# comes out, instead of on a later ride back west from Everlook.
-step Through Timbermaw Hold
-  zone Winterspring
-  tip Walk into the Timbermaw Hold tunnel beside Nafien and never attack the Timbermaw furbolgs inside. Salfa stands at the tunnel's Winterspring exit; then follow the road east to Everlook, the goblin town where the next guide starts.
-  turnin 8465                           -- Salfa
-  accept 8464
-  getfp "Everlook"
-  sethome "Everlook"
+step Timbermaw Hold
+  tip Step into the cave: Kernda stands just inside.
+  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map

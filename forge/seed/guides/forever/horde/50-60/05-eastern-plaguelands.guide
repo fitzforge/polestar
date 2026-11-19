@@ -1,9 +1,10 @@
 guide forever/horde/50-60/05-eastern-plaguelands
-title Eastern Plaguelands, Winterspring & Tanaris
+title Eastern Plaguelands, Felwood & Winterspring
 faction Horde
 levels 56-58
 zone Eastern Plaguelands
 next forever/horde/50-60/06-silithus
+next polestar-experimental/hyjal-1
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -121,6 +122,7 @@ step Infiltrator Hameya
 
 step Northdale
   tip Frenzied Plaguehounds and Monstrous Plaguebats share the fields around Northdale and Eastwall Tower, south of Zul'Mashar.
+  tip Still 56? Take level 57 hounds and level 56-57 bats; leave the level 58s.
   kill 8598 quest 5542.3
   kill 8602 quest 6042.2
   kill 8601 quest 6042.1
@@ -177,6 +179,15 @@ step Kernda
   tip Only if a Winterfall Ritual Totem dropped for you: Kernda waits at the Felwood entrance of Timbermaw Hold, and speaks to you only at Neutral with the Timbermaw.
   turnin 8471 optional
 
+step Faustron
+  zone Moonglade
+  tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Faustron, the Horde's flight master, stands by the tunnel's Moonglade exit: take his flight path on the way past.
+  getfp "Moonglade" npc 12740           -- Faustron
+
+step Moonglade
+  zone Moonglade
+  goto 51.7,45.1 "Rabine Saturna"
+
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
@@ -198,38 +209,16 @@ step Donova Snowden
 
 step Moontouched Owlbeasts
   tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
+  tip At 56, take the level 57 owlbeasts rather than the 58s.
   kill 7453 quest 4741
 
-step Back to Thunder Bluff
-  hearth "Thunder Bluff"
+step Pristine Yeti Horns
+  tip Umi's horns, carried from your last Everlook stop: the yeti hills start just south-east of Everlook. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time.
+  tip At 56, stick to yetis no higher than 57.
+  collect 12367 quest 977             -- Below ground
 
-# ---------------------------------------------------------------- Tanaris
-
-step Gadgetzan
-  zone Tanaris
-  fly "Gadgetzan"
-
-step Sprinkle
-  tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
-  kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
-
-step Gaeriyan
-  when onquest 3912
-  tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
-  use 11243 @54.0,28.7 map 1446         -- Videre Elixir
-  turnin 3912
-  accept 3913
-  turnin 3913                         -- A Conspicuous Gravestone
-  accept 3914
-  note Linken's Sword goes back to Linken in Un'Goro: keep it.
-
-step Marvon Rivetseeker
-  tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
-  turnin 3444
-
-# ---------------------------------------------------------------- On to Silithus
-
-step On to Silithus
-  zone Un'Goro Crater
-  tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
-  fly "Marshal's Refuge"
+step Umi Rumplesnicker
+  turnin 977
+  accept 5163
+  note Umi's third prank targets goblins in Gadgetzan, Un'Goro and Everlook: keep it for later.
+  note Everlook is this guide's last stop. The Silithus guide flies on to Gadgetzan; choose Mount Hyjal only if you have help crossing the gorge south of town. Elites line the road.

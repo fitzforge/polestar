@@ -11302,6 +11302,41 @@
 				],
 				"reason": "Horde level tidy, round 3 (0.4.0): Kim'jael's \"Missing\" Equipment (level 53, 6,550 XP) is taken with Kim'jael Indeed!'s hand-in on 50-60/04's Thalassian Base Camp trip (about 55.9). Some Rune drops from the Spitelash Sirens and Myrmidons (50-52), which reach the northern edge of the Ruins of Eldarath (about 47,44), 800 yd south of Kim'jael: a short ride there and back before the road west, about 2.5 minutes mounted plus the kills. Players' recordings: the rune looted off Sirens (6195) and Myrmidons (6196), handed in at Kim'jael.",
 				"issue": "-"
+			},
+			{
+				"q": 91488,
+				"reason": "Kurll takes Mosshoof hides from the herds on the Valormok loop.",
+				"issue": "#3145"
+			},
+			{
+				"q": 3518,
+				"reason": "Carry Jediga's tablet to Magatha on Elder Rise on the next Thunder Bluff stop.",
+				"issue": "#3145"
+			},
+			{
+				"q": 92346,
+				"reason": "Jediga's message is for Nara on the route's Elder Rise stop.",
+				"issue": "#3145"
+			},
+			{
+				"q": 3562,
+				"reason": "Take Magatha's payment back to Jediga on the return for Magus Rimtori.",
+				"issue": "#3145"
+			},
+			{
+				"q": 3563,
+				"reason": "Take Jes'rimon's payment back to Jediga with Magatha's.",
+				"issue": "#3145"
+			},
+			{
+				"q": 4502,
+				"reason": "Liv gives Volcanic Activity at the workshop in Ratchet; the route visits Fire Plume Ridge before Silithus and returns by Ratchet.",
+				"issue": "#3145"
+			},
+			{
+				"q": 4301,
+				"reason": "Hunt U'cha (55) on the plateau on the second crater visit rather than on the first at 51. Torwa already takes Lar'korwi's head that visit.",
+				"issue": "#3145"
 			}
 		],
 		"skip": [
@@ -11831,24 +11866,6 @@
 				"faction": "Horde",
 				"reason": "#2390 (Rohkin, Kazu): Belgrom Rockmaul no longer offers Betrayed (3504) on Forever. Players' recordings: Ag'tor Bloodfist (8576) offered Betrayed (3505) directly to 5 people at 49-52 with 3504 neither in their log nor done; Belgrom's windows (47 people) never offered 3504. The chain starts at 3505 from Ag'tor (corrections 3505 pre []).",
 				"issue": "#2390"
-			},
-			{
-				"q": 3518,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Stealing Knowledge (3517; the Ruins of Eldarath's Spitelash camp is 50-55) moved from 40-50/06 at about 50 to 50-60/04-azshara. After that visit the route has no Thunder Bluff stop for every class, so the delivery to Magatha is left out.",
-				"issue": "-"
-			},
-			{
-				"q": 3562,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Magatha's Payment to Jediga needs the delivery to Magatha (3518), left out with Stealing Knowledge's move to 50-60/04-azshara.",
-				"issue": "-"
-			},
-			{
-				"q": 3563,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Jes'rimon's Payment to Jediga: the delivery to Jes'rimon (3541) is now made on 50-60/04-azshara's Orgrimmar stop, after which the route never returns to Valormok for the payment. Left out.",
-				"issue": "-"
 			},
 			{
 				"q": 553,
@@ -13196,30 +13213,6 @@
 				],
 				"faction": "Alliance",
 				"why": "c18 review (Alliance 50-60): Mystery Goo goes to Donova Snowden with The New Springs on the later Winterspring leg, as v1 hands it in (50-60/06-silithus:276); on the first Felwood pass it pulled the trip through the Timbermaw tunnel and back (Human.json order[2204])"
-			},
-			{
-				"a": [
-					"turnin",
-					1126
-				],
-				"b": [
-					"turnin",
-					4292
-				],
-				"faction": "Horde",
-				"why": "c18 review (Horde 50-60): Torwa Pathfinder stands at the crater's entrance (71.6,76.0), and the route leaves Silithus through the Un'Goro pass after Layo's last hand-in (Hive in the Tower, Valor's Rest) and crosses Un'Goro to Marshal's Refuge for the flight to Gadgetzan: Torwa is a ride across the crater on that crossing. c18 instead flew from Cenarion Hold to Marshal's Refuge for The Bait for Lar'korwi and The Apes of Un'Goro alone and hearthed back to Silithus (Orc 50-60/06-silithus:207-238; Orc.json order[1902-1908], then Layo at [1913] and the Marshal's Refuge flight at [1915]). Their hand-ins wait for that exit (a pair that moves the hand-ins later; one before the Silithus arrival split Silithus in two in a no-search cut)"
-			},
-			{
-				"a": [
-					"turnin",
-					1126
-				],
-				"b": [
-					"turnin",
-					4289
-				],
-				"faction": "Horde",
-				"why": "c18 review (Horde 50-60): The Apes of Un'Goro goes to Torwa with The Bait for Lar'korwi on the way out of Silithus through Un'Goro (pair above; Orc.json order[1903-1907])"
 			},
 			{
 				"a": [
@@ -14865,15 +14858,15 @@
 			},
 			{
 				"a": [
-					"task",
-					8279
+					"turnin",
+					8277
 				],
 				"b": [
 					"accept",
 					8318
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 accept levels (2026-11-08): Secret Communication (minimum level 57) is taken and handed in to Bor Wildmane on the Cenarion Hold stop after the Twilight camps: the Encrypted Twilight Texts drop with or without the quest. Taken on arrival at 56.6, the level model ground 252 minutes to 57 before the accept."
+				"why": "Bor opens at level 57. Finish Beetix's northern hunt and meet that minimum before taking the texts for the west camp."
 			},
 			{
 				"a": [
@@ -15619,15 +15612,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					4102
-				],
-				"b": [
 					"task",
 					6162
 				],
+				"b": [
+					"turnin",
+					4102
+				],
 				"faction": "Horde",
-				"why": "Flow, Felwood (Horde 50-60/02, 0.3.6): Cleansing Felwood goes to Maybess on the Sanctuary stop that hands in Taronn's and Greta's quests, before Overlord Ror in Deadwood Village; the solo top-up then grinds the Deadwood where Ror stands instead of after a ride back to the Sanctuary and down again.",
+				"why": "Hand in to Maybess and Taronn on the northbound road from Ror to Dreka'Sur. There is no longer a Deadwood top-up or a trip back south after the Sanctuary.",
 				"source": "review"
 			},
 			{
@@ -16743,7 +16736,7 @@
 			},
 			{
 				"q": 4507,
-				"guide": "forever/horde/50-60/05-eastern-plaguelands",
+				"guide": "forever/horde/50-60/06-silithus",
 				"reason": "It needs 8 quests from 06-azshara first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,935 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
@@ -16818,6 +16811,24 @@
 				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
 				"reason": "Death to the Dragonmaw, a group choice at Howin, needs his Razormaw Needling (98245) and Trying Times (98246) from 06-wetlands first (10 Razormaw Incisors and 12 Perfect Razormaw Eggs): too long to bring back for a group-only quest. A character who starts here without them is not offered it.",
 				"issue": "#2822"
+			},
+			{
+				"q": 91500,
+				"guide": "forever/horde/50-60/04-azshara",
+				"reason": "Only after 91497 is handed in. A fresh starter flies from the Crossroads to Orgrimmar rather than repeating the Thalassian camp for the seals.",
+				"issue": "#3145"
+			},
+			{
+				"q": 91538,
+				"guide": "forever/horde/50-60/04-azshara",
+				"reason": "The tome delivery shares Rimtori's stop and depends on her seals. Without them there is no return trip to Valormok.",
+				"issue": "#3145"
+			},
+			{
+				"q": 4301,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "Torwa offers the pelt after The Apes of Un'Goro. A fresh arrival skips the pelt and the cave instead of repeating the first crater hunt.",
+				"issue": "#3145"
 			}
 		]
 	}

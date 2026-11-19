@@ -2,7 +2,7 @@
 guide forever/horde/50-60/03-winterspring
 title Winterspring
 faction Horde
-levels 55-56
+levels 54-55
 zone Winterspring
 next forever/horde/50-60/04-azshara
 
@@ -32,6 +32,7 @@ step Frostfire Hot Springs: kill these as you meet them
   tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
   kill 7442 quest 5082.1
   kill 7441 quest 5082.3
+  tip If you are 54, take the level 55 Den Watchers and leave the 56s.
   kill 7440 quest 5082.2
   kill 7450 quest 4521.2
   collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
@@ -49,6 +50,7 @@ step Donova Snowden
 
 step Raging Owlbeasts
   tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook. Careful: the biggest are level 56: pull them one at a time.
+  tip At 54, take owlbeasts no higher than 55.
   kill 7451 quest 4521.1
 
 step Winterspring
@@ -132,10 +134,12 @@ step Everlook
 
 step Ice Thistle yetis
   tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
+  tip At 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs.
   collect 12366 quest 3783
 
 step Chillwind chimaeras
   tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  tip At 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone.
   collect 12444 quest 4809
 
 step Everlook
@@ -185,6 +189,9 @@ step Bluff Runner Windstrider
   turnin 7822 direct optional
 
 step Elder Rise
+  turnin 92346                         -- Nara Wildmane
+  turnin 3518                          -- Magatha Grimtotem
+  accept 3562                          -- Take the payment to Jediga on the next Valormok stop
   turnin 3761                         -- Ghede
   accept 3782                         -- Arch Druid Hamuul Runetotem
   turnin 1000

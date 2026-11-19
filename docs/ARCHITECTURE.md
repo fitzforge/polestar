@@ -2086,12 +2086,15 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   first: each the goal view of its later step with `step`, `here` = "work" |
   "turnin", `left`, `yards` and `hereText`, "Kill Kobold Vermin, 2 more";
   `Engine.AimWhileHere(i)` and `Engine.DismissWhileHere(i)` take the line's
-  place in the list, 1 by default). `Own.hereBuild` builds the
+  place in the list, 1 by default). Work gated by `when group` is offered remotely only
+  after **Do**, even if the character already carries the quest. Changing the answer to
+  **Skip** or back to **Ask** withdraws it; the live route still asks at the step itself.
+  `Own.hereBuild` builds the
   candidates (`Own.hereAll`, route order) the frame after an `evaluate`
   (`Own.hereLater`, so a step change's frame holds only the evaluation and
   what it announces) and only when something
   changed them (`Own.hereDirty`: a step change of the active tab, another
-  guide, the quest log, the level, a new zone, the `behavior.whileHere*`
+  guide, the quest log, the level, a new zone, group answers, the `behavior.whileHere*`
   settings): the open kill, collect, interact and use goals with a place on
   the player's continent, and the placed `complete` goals (no escort) of
   quests the guide gives none of those (#2484: /sit by Eleanor's campfire for

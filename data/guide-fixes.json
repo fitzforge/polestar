@@ -4521,7 +4521,7 @@
 				"goal": "accept"
 			},
 			"level": 58,
-			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the second Cenarion Hold stop. Since the 0.4.0 tidy the top-up to 58 is on the Dredge Crushers on the way south-east to Ortell, before that stop.",
+			"note": "After the southern hunts, hand in Noggle's Last Hope, Stepping Up Security and Bor's texts before topping up for Dearest Natalia (minimum 58). At 57 the lower Rock Stalkers and Dredge Crushers are in range; leave 59s alone.",
 			"source": [
 				{
 					"kind": "client",
@@ -4572,23 +4572,6 @@
 			},
 			"level": 56,
 			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 55.5 (rested level model, 0.4.0 tidy): a top-up to 56 on the Noxious Plaguebats (54-56) on the way east, which Nathanos' Un-Life's Little Annoyances wants, comes first (only below 56).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-ortell-58",
-			"faction": "Horde",
-			"at": {
-				"quest": 8278,
-				"goal": "objective",
-				"objective": 3
-			},
-			"level": 58,
-			"note": "Ortell's Rock Stalkers (57-59) and the south of Silithus: a top-up to 58 on the Dredge Crushers (57-58) Windcaller Proudhorn wants, on the way south-east, comes first (only below 58); it also opens Dearest Natalia (8304, minimum 58), 0.4.0 tidy.",
 			"source": [
 				{
 					"kind": "client",
@@ -12880,7 +12863,7 @@
 				"objective": 1
 			},
 			"level": 54,
-			"note": "Horde 0.4.0 audit, round 2: Felwood had seven top-ups to fractional levels (53.34 to 54.87; about 13 hours in the level model), the first in the Scarlet camp of Western Plaguelands (Medics, Invokers and Festering Ghouls up to 55, two over the players). Two whole-level steps replace them with the same route time: 54 on the Angerclaw Grizzlies and Felpaw Ravagers (51-52) of Irontree Woods before Felpaw Village (Den Watchers 53-54, Deadwood Avengers 54-55), and 55 at the end of the guide before Winterspring. Both name Blackrock Depths and the Sunken Temple as the group choice.",
+			"note": "After the Sanctuary and Bloodvenom hand-ins, top up only if still below 54 before the level 55 Deadwood Avengers. Finish Talo's grizzlies and ravagers on the ride north. #3145.",
 			"source": [
 				{
 					"kind": "client",
@@ -12889,20 +12872,16 @@
 			]
 		},
 		{
-			"id": "h-audit-040-r2-felwood-level-55-before-winterspring",
+			"id": "3145-horde-level-55-chapel",
 			"faction": "Horde",
 			"at": {
-				"quest": 3908,
-				"goal": "turnin"
+				"quest": 5281,
+				"goal": "accept"
 			},
 			"level": 55,
-			"note": "Horde 0.4.0 audit, rounds 2 and 4: see h-audit-040-r2-felwood-level-54-irontree. The second whole-level top-up is the last step of 50-60/02-felwood, before Winterspring's quests (55-58). Round 4: it grinds on Felpaw Village's Deadwood furbolgs (Den Watchers and Shamans 53-54, Avengers 54-55; the level model reaches it at about 54.4) on the road north to Timbermaw Hold's tunnel, which the next guide takes, instead of the Jaedenar Hounds (50-51) back south: mobs at the player's level give more experience per kill, and the kills raise the Timbermaw reputation the tunnel's furbolgs check.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "npcs 7156 Deadwood Den Watcher 53-54, 7157 Deadwood Avenger 54-55, 7158 Deadwood Shaman 53-54, 7125 Jaedenar Hound 50-51"
-				}
-			]
+			"note": "Alen needs 55 at Light's Hope. Finish Winterspring's level 53-55 beasts, the city deliveries and Felstone Field before topping up on Diseased Wolves if necessary.",
+			"source": {"kind": "client", "ref": "quest 5281 minimum level 55; npc 1817, Diseased Wolf, level 53-54; npc 7447, Fledgling Chillwind, level 53-55, drops item 12444"},
+			"issue": 3145
 		},
 		{
 			"id": "h-audit-040-r2-barrens-level-20-before-orgrimmar",
