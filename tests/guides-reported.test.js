@@ -15385,9 +15385,13 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	for (const q of [188, 195]) {
 		assert.ok(!stv.some(({ goal }) => goal.quest === q && !['accept', 'turnin'].includes(goal.t)), `04: ${q} not worked at 34`);
 		assert.ok(stv.some(({ goal }) => is('accept', q)(goal)), `04: ${q} taken where its giver hands in the elder tigers and raptors`);
-		// Fix round 2 (0.4.0): Sin'Dall (188, 37) is worked on 40-50/01 at about 41 (players reach 04b's hill at about 35.5).
 		if (q === 195) assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
-		else assert.ok(!stv2.some(({ goal }) => goal.quest === q && goal.t !== 'accept'), `04b: ${q} not worked at 35`);
+		else {
+			const paw = stv2[at(stv2, 'collect the paw', is('collect', 188))];
+			assert.ok(paw.goal.optional && paw.step.along, 'the paw never holds the raptor hunt');
+			assert.ok(paw.step.when.some(p => p.k === 'level' && !p.neg && p.op === '>=' && p.n === 36), "no Sin'Dall hunt below 36");
+			assert.ok(stv2[at(stv2, 'turn in the paw', is('turnin', 188))].goal.optional, 'no paw needed to leave camp');
+		}
 	}
 	const level = stv.filter(({ goal }) => goal.t === 'level').at(-1).goal;
 	assert.notEqual(level.npc, 1085, '04: the top-up to 34 is not on the elder tigers (34-35)');
