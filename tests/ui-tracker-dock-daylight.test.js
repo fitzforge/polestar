@@ -102,3 +102,17 @@ test('the released standalone Daylight host retains ownership without duplicate 
 	const [out] = run(`assert(not PolestarDaylightDockTabs and not p.UI.TrackerDock.DaylightHost);emit({ok=true})`, {standalone:true});
 	assert.deepEqual(out, {ok:true});
 });
+
+test('Daylight dock surfaces belong to Polestar visibility and hiding restores the external quest list', () => {
+	const [out] = run(`
+quests,guide=tabs();guide:Click()
+assert(PolestarDaylightDockTabs:GetParent()==p.UIParent)
+assert(PolestarDaylightDockContent:GetParent()==p.UIParent)
+p.SetHidden(true);stub.advance(0.3)
+assert(not PolestarDaylightDockTabs:IsVisible() and not PolestarDaylightDockContent:IsVisible())
+assert(d.view:IsVisible() and d.bar:IsVisible(),'external quest list not restored')
+p.SetHidden(false);stub.advance(0.3)
+assert(PolestarDaylightDockTabs:IsVisible())
+emit({ok=true})`);
+	assert.deepEqual(out, {ok:true});
+});

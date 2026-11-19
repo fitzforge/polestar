@@ -155,13 +155,13 @@ function Skin.InstallDaylightDock()
 		local gf = p.UI.GuideFrame
 		if not (gf and gf.frame and tracker.built and tracker.view) or gf.dock then return false end
 		original = {parent = gf.frame:GetParent(), strata = gf.frame:GetFrameStrata(), level = gf.frame:GetFrameLevel()}
-		strip = CreateFrame("Frame", "PolestarDaylightDockTabs", UIParent)
+		strip = CreateFrame("Frame", "PolestarDaylightDockTabs", ns.UIParent)
 		strip.rule = strip:CreateTexture(nil, "ARTWORK")
 		strip.rule:SetColorTexture(1, 1, 1, 1)
 		strip.rule:SetPoint("BOTTOMLEFT")
 		strip.rule:SetPoint("BOTTOMRIGHT")
 		strip.rule:SetHeight(1)
-		holder = CreateFrame("Frame", "PolestarDaylightDockContent", UIParent)
+		holder = CreateFrame("Frame", "PolestarDaylightDockContent", ns.UIParent)
 		holder:SetHeight(1)
 		holder:EnableMouse(true)
 		holder:Hide()
