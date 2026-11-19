@@ -15146,15 +15146,16 @@ function Engine.KeptItems()
 end
 
 -- The guides after the active one that Polestar goes on with (Engine.NextGuide
--- from each in turn), at most Own.AHEAD, stopping at none or at one already
--- listed (a loop): their ids, in route order.
-Own.AHEAD = 3
-function Own.guidesAhead()
+-- from each in turn), at most Own.ahead.n, stopping at none or at one already
+-- listed (a loop): their ids, in route order. One Own key holds all of it
+-- (Own.ahead: n, key, index, ids, build): a key more on Own doubles its table.
+Own.ahead = { n = 3, key = false, index = {} }
+function Own.ahead.ids()
 	local ids, seen = {}, {}
 	local id = guide and guide.id
 	if not id then return ids end
 	seen[id] = true
-	for _ = 1, Own.AHEAD do
+	for _ = 1, Own.ahead.n do
 		id = Engine.NextGuide(id)
 		if not id or seen[id] then break end
 		seen[id] = true
@@ -15163,7 +15164,7 @@ function Own.guidesAhead()
 	return ids
 end
 
--- { [itemID] = { guideId, ... } } for the guides ahead (Own.guidesAhead): the
+-- { [itemID] = { guideId, ... } } for the guides ahead (Own.ahead.ids): the
 -- items their steps use, by the same goals as Engine.KeptItems (`use`,
 -- `collect`, `buy`, `auction`, an `accept`'s item, a `craft`'s reagents).
 -- The filter for a guide that is not loaded is the raw one: a step that is a
@@ -15177,9 +15178,8 @@ end
 -- Rebuilt when the active guide or the chain after it changes, not per
 -- hover. Steps are decoded to scan and released again (a guide no tab shows);
 -- the index holds ids only.
-Own.ahead = { key = false, index = {} }
-function Own.aheadIndex()
-	local ids = Own.guidesAhead()
+function Own.ahead.build()
+	local ids = Own.ahead.ids()
 	local key = (guide and guide.id or "") .. ">" .. table.concat(ids, ">")
 	local a = Own.ahead
 	if a.key == key then return a.index end
@@ -15226,7 +15226,7 @@ function Engine.ItemGuides(itemID)
 	local out = {}
 	local s = Engine.KeptItems()[itemID]
 	if s and guide then out[1] = { guide = guide, step = s } end
-	for _, id in ipairs(Own.aheadIndex()[itemID] or NONE) do
+	for _, id in ipairs(Own.ahead.build()[itemID] or NONE) do
 		local g = Guides.Get(id)
 		if g then out[#out + 1] = { guide = g } end
 	end
