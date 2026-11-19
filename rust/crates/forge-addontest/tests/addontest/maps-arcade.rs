@@ -1,19 +1,18 @@
-//! Freedoom Arcade on flights (addon/Polestar/Maps/Arcade.lua): the card under the flight timer, the game opened
-//! through FreedoomArcadeAPI or else the standalone addon's slash command (never toggled closed), the game put
-//! away 10 seconds before landing, on the landing itself and in a fight on the way, and Polestar_Arcade, the copy in
+//! Flight Arcade (addon/Polestar/Maps/Arcade.lua): game icons below the flight HUD, the games put away 10 seconds
+//! before landing, on the landing itself and in a fight on the way, and Polestar_Arcade, the copy in
 //! Polestar's download: loaded on demand, never beside the standalone addon, its commands left to whoever has them.
-//! With the setting off nothing of it is made or loaded, and flights leave nothing behind. Runs Core, Theme, Nav and
+//! With the setting off no flight UI is made or loaded, and flights leave nothing behind. Runs Core, Theme, Nav and
 //! Maps against stub_world.lua + stub_maps.lua (the small travel world: West Hold to Mid Camp, flown here in a set
 //! time).
 
-use forge_addontest::run::addons_dir;
+use forge_addontest::run::{addons_dir, lua_value};
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "../Polestar_Options/Maps/Options.lua"];
 
 const PRELUDE: &str = r#"
-local M, A = Polestar.Maps, Polestar.Arcade
+local M, A, J = Polestar.Maps, Polestar.Arcade, Polestar.SkyJewels
 local m = stub.maps
 Polestar.Nav.RegisterTravelData(m.travel, true)
 Polestar.CharState().flags.taxi = { [1] = true, [2] = true, [3] = true }
@@ -56,10 +55,12 @@ local function land()
 	m.land()
 	stub.advance(1)
 end
--- The card under the flight timer: "ask", "row" or false (not shown).
-local function card()
-	local c = stub.frame("PolestarArcadeOffer")
-	return c ~= nil and c:IsShown() and c.mode or false
+local function shortcuts()
+	return stub.frame("PolestarFlightArcade")
+end
+local function hud()
+	local f = shortcuts()
+	return f ~= nil and f:IsShown()
 end
 local notices = {}
 local show = Polestar.Nav.alerts.ShowNotice
@@ -70,7 +71,9 @@ end
 local function chat()
 	local out = {}
 	for _, s in ipairs(stub.messages) do
-		if s:find("Freedoom Arcade") then out[#out + 1] = (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		if s:find("Freedoom Arcade") or s:find("Sky Jewels") or s:find("flight is almost over") then
+			out[#out + 1] = (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
+		end
 	end
 	return out
 end
@@ -82,7 +85,7 @@ arcadeFrames = 0
 local createFrame = CreateFrame
 CreateFrame = function(...)
 	local info = debug.getinfo(2, "S")
-	if info and info.source:find("Maps/Arcade.lua", 1, true) then arcadeFrames = arcadeFrames + 1 end
+	if info and info.source:gsub("\\", "/"):find("Maps/Arcade.lua", 1, true) then arcadeFrames = arcadeFrames + 1 end
 	return createFrame(...)
 end
 "#;
@@ -113,20 +116,18 @@ fn without_the_api_play_opens_by_the_command_once_and_landing_only_warns() {
 	let out = run(r#"
 		local f = standalone(false)
 		takeoff(300)
-		local asked = card()
-		stub.frame("PolestarArcadeOffer").Ask.Play:Click()
-		local afterPlay = { card = card(), open = f:IsShown() }
+		shortcuts().Doom:Click()
+		local afterPlay = { hud = hud(), open = f:IsShown() }
 		A.Open()
 		local again = f:IsShown()
 		stub.advance(300 - 1 - 9)
-		local landing = { open = f:IsShown(), card = card() }
+		local landing = { open = f:IsShown(), hud = hud() }
 		land()
-		emit({ asked = asked, afterPlay = afterPlay, again = again, calls = calls, landing = landing, notices = notices, chat = chat() })"#);
-	assert_eq!(out["asked"], "ask");
-	assert_eq!(out["afterPlay"], json!({ "card": false, "open": true }));
+		emit({ afterPlay = afterPlay, again = again, calls = calls, landing = landing, notices = notices, chat = chat() })"#);
+	assert_eq!(out["afterPlay"], json!({ "hud": false, "open": true }));
 	assert_eq!(out["again"], true, "a second Play never toggles the window closed");
 	assert_eq!(out["calls"], json!(["slash:"]));
-	assert_eq!(out["landing"], json!({ "open": true, "card": false }));
+	assert_eq!(out["landing"], json!({ "open": true, "hud": false }));
 	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Close Freedoom Arcade to get your keys back.", 10]]));
 	assert_eq!(out["chat"], json!({}), "nothing said after the landing");
 }
@@ -138,7 +139,7 @@ fn with_the_api_landing_saves_pauses_and_closes_and_the_landing_says_how_to_cont
 	let out = run(r#"
 		local f = standalone(true)
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		local open = f:IsShown()
 		stub.advance(300 - 1 - 12)
 		local before = { open = f:IsShown(), calls = #calls }
@@ -154,88 +155,103 @@ fn with_the_api_landing_saves_pauses_and_closes_and_the_landing_says_how_to_cont
 	assert_eq!(out["chat"], json!(["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."]));
 }
 
-// Under a minute to go: no card and no row, the whole flight.
 #[test]
-fn a_flight_under_a_minute_offers_nothing() {
+fn a_short_flight_shows_two_icon_buttons_by_the_timer_and_no_prompt() {
 	let out = run(r#"
 		standalone(true)
 		takeoff(50)
-		local seen = card()
-		stub.advance(20)
-		emit({ seen = seen, later = card(), asked = A.Trip().asked, calls = calls })"#);
-	assert_eq!(out, json!({ "seen": false, "later": false, "asked": false, "calls": {} }));
-}
-
-// After "Not now" the row stays under the timer until a minute is left; then nothing.
-#[test]
-fn not_now_leaves_the_row_until_a_minute_is_left() {
-	let out = run(r#"
-		standalone(true)
-		takeoff(120)
-		local first = card()
-		stub.frame("PolestarArcadeOffer").Ask.Later:Click()
-		local row = card()
-		stub.advance(62)
-		emit({ first = first, row = row, late = card(), setting = Polestar.Get("maps.flightArcade") })"#);
-	assert_eq!(out, json!({ "first": "ask", "row": "row", "late": false, "setting": true }));
-}
-
-// The setting off: nothing on a flight. "Don't ask again" turns it off from the card.
-#[test]
-fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
-	let off = run_with(
-		r#"
-		standalone(true)
-		takeoff(300)
-		emit({ card = card(), calls = calls })"#,
-		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
+		local f = shortcuts()
+		local point, anchor, relative = f:GetPoint(1)
+		local labels, icons = 0, {}
+		for _, b in ipairs({ f.Jewels, f.Doom }) do
+			for _, region in ipairs({ b:GetRegions() }) do
+				if region:GetObjectType() == "FontString" and (region:GetText() or "") ~= "" then labels = labels + 1 end
+				local texture = region:GetObjectType() == "Texture" and region:GetTexture()
+				if type(texture) == "string" then
+					local icon = texture:match("(jewel%-5)") or (texture == Polestar.Theme.Media("icon-skull") and "skull")
+					if icon then icons[#icons + 1] = icon end
+				end
+			end
+		end
+		emit({ hud = hud() and f.Jewels:IsVisible() and f.Doom:IsVisible(), icons = icons, labels = labels,
+			tooltips = { f.Jewels.psTip, f.Doom.psTip }, requested = #calls,
+			underTimer = anchor == stub.frame("PolestarFlightTimer") and point == "TOP" and relative == "BOTTOM",
+			prompt = stub.frame("PolestarArcadeOffer") ~= nil })"#);
+	assert_eq!(
+		out,
+		json!({ "hud": true, "icons": ["jewel-5", "skull"], "labels": 0, "tooltips": ["Sky Jewels", "Freedoom Arcade"], "requested": 0,
+			"underTimer": true, "prompt": false })
 	);
-	assert_eq!(off, json!({ "card": false, "calls": {} }));
-	let never = run(r#"
+}
+
+#[test]
+fn changing_the_setting_midflight_hides_and_restores_the_shortcuts() {
+	let out = run(r#"
 		standalone(true)
 		takeoff(300)
-		local c = stub.frame("PolestarArcadeOffer")
-		c.Ask.Never:SetChecked(true)
-		c.Ask.Later:Click()
-		local now = card()
-		stub.advance(5)
-		emit({ now = now, later = card(), setting = Polestar.Get("maps.flightArcade"), calls = calls })"#);
-	assert_eq!(never, json!({ "now": false, "later": false, "setting": false, "calls": {} }));
+		local before = hud()
+		Polestar.Set("maps.flightArcade", false)
+		stub.advance(1)
+		local off = hud()
+		Polestar.Set("maps.flightArcade", true)
+		stub.advance(1)
+		emit({ before = before, off = off, restored = hud(), calls = calls })"#);
+	assert_eq!(out, json!({ "before": true, "off": false, "restored": true, "calls": {} }));
 }
 
-// Neither copy there: no card, and /polestar arcade says why.
 #[test]
-fn with_no_copy_of_the_game_nothing_is_offered() {
+fn without_freedoom_only_sky_jewels_is_offered() {
 	let out = run(r#"
 		takeoff(300)
-		local seen = card()
+		local f = shortcuts()
+		local visible = hud() and f.Jewels:IsVisible() and not f.Doom:IsVisible()
+		local fits = f:GetWidth() == f.Jewels:GetWidth()
 		Polestar.RunCommand("arcade")
-		emit({ available = A.Available(), seen = seen, chat = chat() })"#);
-	assert_eq!(out, json!({ "available": false, "seen": false, "chat": ["Polestar: Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] }));
+		f.Jewels:Click()
+		emit({ visible = visible, fits = fits, open = J.IsOpen(), hud = hud(), chat = chat() })"#);
+	assert_eq!(out, json!({ "visible": true, "fits": true, "open": true, "hud": false, "chat": ["Polestar: Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] }));
 }
 
-// In a fight or an instance the card waits.
 #[test]
-fn no_card_in_a_fight() {
+fn both_games_refuse_to_open_in_the_last_ten_seconds() {
+	let out = run(r#"
+		standalone(true)
+		takeoff(50)
+		local _, left = M.GetFlight()
+		stub.advance(left - A.LANDING + 0.5)
+		Polestar.RunCommand("arcade")
+		SlashCmdList.POLESTAR_SKYJEWELS()
+		emit({ hud = hud(), doom = A.IsOpen(), jewels = J.IsOpen(), calls = calls, chat = chat() })"#);
+	assert_eq!(
+		out,
+		json!({ "hud": false, "doom": false, "jewels": false, "calls": {}, "chat": [
+			"Polestar: The flight is almost over. Open the arcade after landing.",
+			"Polestar: The flight is almost over. Open the arcade after landing."
+		] })
+	);
+}
+
+#[test]
+fn no_shortcuts_in_a_fight() {
 	let out = run(r#"
 		standalone(true)
 		stub.inCombat = true
 		takeoff(300)
-		emit({ card = card() })"#);
-	assert_eq!(out, json!({ "card": false }));
+		emit({ hud = hud() })"#);
+	assert_eq!(out, json!({ "hud": false }));
 }
 
 // Polestar_Arcade, the copy in the download: not loaded at login (nothing of it in memory); the first Play loads
 // it, its own saved variables and window name, minimap button hidden, the commands its own while nobody has
-// them, the window in Polestar's look; on landing it is saved, paused and closed through its API.
+// them, the window in Polestar's look; on landing the title screen closes without a game to save.
 #[test]
 fn polestar_arcade_loads_on_the_first_play_only_and_is_put_away_before_landing() {
 	let out = run(r#"
 		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
 		local atLogin = { loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), engine = FreedoomArcade ~= nil, api = FreedoomArcadeAPI ~= nil, which = A.Which() }
 		takeoff(300)
-		local asked = card()
-		A.Play()
+		local available = hud() and shortcuts().Doom:IsVisible()
+		shortcuts().Doom:Click()
 		local win = _G.Polestar_ArcadeFrame
 		local played = {
 			loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), version = FreedoomArcadeAPI and FreedoomArcadeAPI.version,
@@ -248,9 +264,9 @@ fn polestar_arcade_loads_on_the_first_play_only_and_is_put_away_before_landing()
 		stub.advance(300 - 1 - 9)
 		local landing = { open = win:IsShown(), paused = FreedoomArcade.G.state ~= "level" or FreedoomArcade.G.paused }
 		land()
-		emit({ atLogin = atLogin, asked = asked, played = played, landing = landing, notices = notices, chat = chat() })"#);
+		emit({ atLogin = atLogin, available = available, played = played, landing = landing, notices = notices, chat = chat() })"#);
 	assert_eq!(out["atLogin"], json!({ "loaded": false, "engine": false, "api": false, "which": "Polestar_Arcade" }));
-	assert_eq!(out["asked"], "ask");
+	assert_eq!(out["available"], true);
 	assert_eq!(
 		out["played"],
 		json!({
@@ -259,8 +275,8 @@ fn polestar_arcade_loads_on_the_first_play_only_and_is_put_away_before_landing()
 		})
 	);
 	assert_eq!(out["landing"], json!({ "open": false, "paused": true }));
-	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Freedoom Arcade is saved and paused.", 10]]));
-	assert_eq!(out["chat"], json!(["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."]));
+	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Freedoom Arcade closed.", 10]]));
+	assert_eq!(out["chat"], json!(["Polestar: Landed. Type /doom to reopen Freedoom Arcade."]));
 }
 
 // The standalone addon installed and enabled: Polestar opens that one and never loads its own copy.
@@ -287,7 +303,7 @@ fn polestar_arcade_never_takes_commands_another_addon_registered() {
 	assert_eq!(out, json!({ "loaded": true, "kept": true, "ours": false }));
 }
 
-// The setting off: nothing of the Arcade is made at login or on a flight (no driver, no card), Polestar_Arcade stays
+// The setting off: nothing of the Arcade is made at login or on a flight (no driver, no HUD), Polestar_Arcade stays
 // unloaded and nothing runs. On, nothing is made at login either: the first flight makes what it needs.
 #[test]
 fn with_the_setting_off_a_flight_makes_and_loads_nothing() {
@@ -296,20 +312,20 @@ fn with_the_setting_off_a_flight_makes_and_loads_nothing() {
 		local atLogin = arcadeFrames
 		takeoff(300)
 		stub.advance(60)
-		local inFlight = { frames = arcadeFrames, trip = A.Trip() ~= nil, card = stub.frame("PolestarArcadeOffer") ~= nil }
+		local inFlight = { frames = arcadeFrames, trip = A.Trip() ~= nil, hud = shortcuts() ~= nil }
 		land()
 		emit({ atLogin = atLogin, inFlight = inFlight, after = arcadeFrames,
 			loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), engine = FreedoomArcade ~= nil, chat = chat() })"#;
 	let off = run_with(flight, Some(OFF));
-	assert_eq!(off, json!({ "atLogin": 0, "inFlight": { "frames": 0, "trip": false, "card": false }, "after": 0, "loaded": false, "engine": false, "chat": {} }));
+	assert_eq!(off, json!({ "atLogin": 0, "inFlight": { "frames": 0, "trip": false, "hud": false }, "after": 0, "loaded": false, "engine": false, "chat": {} }));
 	let on = run(flight);
 	assert_eq!(on["atLogin"], 0, "nothing made before the first flight");
 	assert_eq!(on["inFlight"]["trip"], true);
-	assert_eq!(on["inFlight"]["card"], true);
-	assert_eq!(on["loaded"], false, "the card alone loads nothing of the game");
+	assert_eq!(on["inFlight"]["hud"], true);
+	assert_eq!(on["loaded"], false, "showing the shortcuts loads nothing of the game");
 }
 
-// The setting off, the game opened on a flight anyway (the command, or Play with "Don't ask again"): Polestar still
+// The setting off, the game opened on a flight anyway through the command: Polestar still
 // puts it away before landing, since it opened it.
 #[test]
 fn the_game_opened_on_a_flight_with_the_setting_off_is_still_put_away() {
@@ -333,47 +349,47 @@ fn the_game_opened_on_a_flight_with_the_setting_off_is_still_put_away() {
 	);
 }
 
-// A landing sooner than the timer said (or a game reopened in the last 10 seconds): the landing puts it away.
+// A landing sooner than the timer said still puts the game away.
 #[test]
 fn the_landing_puts_away_a_game_still_open() {
 	let out = run(r#"
 		local f = standalone(true)
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		stub.advance(60)
 		local open = f:IsShown()
 		land()
-		emit({ open = open, after = f:IsShown(), card = card(), trip = A.Trip() ~= nil, calls = calls, chat = chat() })"#);
+		emit({ open = open, after = f:IsShown(), hud = hud(), trip = A.Trip() ~= nil, calls = calls, chat = chat() })"#);
 	assert_eq!(
 		out,
-		json!({ "open": true, "after": false, "card": false, "trip": false, "calls": ["Open", "Close:true"],
+		json!({ "open": true, "after": false, "hud": false, "trip": false, "calls": ["Open", "Close:true"],
 			"chat": ["Polestar: Landed. Freedoom Arcade is saved and paused: type /doom to continue."] })
 	);
 }
 
 // A fight on the way: the game is saved, paused and closed at once (keys back for the fight), one line says how to go
-// on; no card in the fight; the row comes back after it; the landing has nothing more to say.
+// on; the shortcuts return after combat and the landing has nothing more to say.
 #[test]
 fn a_fight_on_the_way_puts_the_game_away() {
 	let out = run(r#"
 		local f = standalone(true)
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		stub.advance(5)
 		stub.inCombat = true
 		stub.fire("PLAYER_REGEN_DISABLED")
-		local fight = { open = f:IsShown(), card = card() }
+		local fight = { open = f:IsShown(), hud = hud() }
 		stub.advance(2)
-		local during = card()
+		local during = hud()
 		stub.inCombat = false
 		stub.fire("PLAYER_REGEN_ENABLED")
 		stub.advance(1)
-		local after = card()
+		local after = hud()
 		land()
 		emit({ fight = fight, during = during, after = after, calls = calls, chat = chat() })"#);
 	assert_eq!(
 		out,
-		json!({ "fight": { "open": false, "card": false }, "during": false, "after": "row", "calls": ["Open", "Close:true"],
+		json!({ "fight": { "open": false, "hud": false }, "during": false, "after": true, "calls": ["Open", "Close:true"],
 			"chat": ["Polestar: Freedoom Arcade is saved and paused for the fight: type /doom to continue."] })
 	);
 }
@@ -399,7 +415,7 @@ fn only_the_fight_that_paused_the_game_ends_with_the_reminder_2899() {
 			return out
 		end
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		FreedoomArcade.G.InitNew(2, 1, 1)
 		stub.advance(300)
 		land()
@@ -428,7 +444,7 @@ fn a_loading_screen_ends_the_flight_and_puts_the_game_away_a_zone_border_does_no
 	let out = run(r#"
 		local f = standalone(true)
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		stub.advance(5)
 		stub.fire("ZONE_CHANGED_NEW_AREA")
 		stub.fire("ZONE_CHANGED")
@@ -446,14 +462,73 @@ fn a_loading_screen_ends_the_flight_and_puts_the_game_away_a_zone_border_does_no
 	);
 }
 
-// Flight after flight with the card, the game opened and put away: no frame and no memory left behind by any of them.
+#[test]
+fn sky_jewels_saves_a_move_before_the_animation_finishes_and_resumes_after_reload() {
+	let out = run(r#"
+		takeoff(50)
+		local B, player = Polestar.SkyJewelsBoard, Polestar.CharState()
+		player.skyJewels = B.Start(9)
+		shortcuts().Jewels:Click()
+		local win = stub.frame("PolestarSkyJewels")
+		local slots = {}
+		for _, child in ipairs({ win:GetChildren() }) do
+			for _, tile in ipairs({ child:GetChildren() }) do
+				if tile:GetObjectType() == "Button" and tile.Selected and tile.Icon then slots[#slots + 1] = tile end
+			end
+		end
+		assert(#slots == B.count, "Sky Jewels tiles missing")
+		-- Level 9's seeded board has a match when swapping the third and fourth tiles.
+		slots[3]:Click()
+		local _, left = M.GetFlight()
+		stub.advance(left - A.LANDING - 0.1)
+		slots[4]:Click()
+		local animating = win:GetScript("OnUpdate") ~= nil
+		local savedWhileAnimating = player.skyJewels.moves == 15 and B.Valid(player.skyJewels)
+		stub.advance(0.6)
+		local paused = not J.IsOpen() and win:GetScript("OnUpdate") == nil
+		land()
+		emit({ animating = animating, savedWhileAnimating = savedWhileAnimating, paused = paused, state = player.skyJewels,
+			notices = notices, chat = chat() })"#);
+	assert_eq!(out["animating"], true);
+	assert_eq!(out["savedWhileAnimating"], true);
+	assert_eq!(out["paused"], true);
+	assert_eq!(out["state"]["level"], 9);
+	assert_eq!(out["state"]["moves"], 15);
+	assert_eq!(out["state"]["score"], 30);
+	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Sky Jewels progress saved.", 10]]));
+	assert_eq!(out["chat"], json!(["Polestar: Landed. Sky Jewels progress saved. Type /skyjewels to continue."]));
+	let saved = format!("PolestarCharDB = {{ skyJewels = {} }}", lua_value(&out["state"]));
+	let resumed = run_with(
+		r#"
+		SlashCmdList.POLESTAR_SKYJEWELS()
+		local win = stub.frame("PolestarSkyJewels")
+		emit({ open = J.IsOpen(), level = win.Level:GetText(), moves = win.Moves:GetText(), state = Polestar.CharState().skyJewels })"#,
+		Some(&saved),
+	);
+	assert_eq!(resumed, json!({ "open": true, "level": "Level 9 / 60", "moves": "Moves left: 15", "state": out["state"] }));
+}
+
+#[test]
+fn opening_either_arcade_game_puts_the_other_away() {
+	let out = run(r#"
+		standalone(true)
+		takeoff(300)
+		shortcuts().Doom:Click()
+		Polestar.RunCommand("jewels")
+		local jewels = J.IsOpen() and not A.IsOpen()
+		Polestar.RunCommand("arcade")
+		emit({ jewels = jewels, doom = A.IsOpen() and not J.IsOpen(), calls = calls })"#);
+	assert_eq!(out, json!({ "jewels": true, "doom": true, "calls": ["Open", "Close:true", "Open"] }));
+}
+
+// Flight after flight with the shortcuts, the game opened and put away: no frame and no memory left behind by any of them.
 #[test]
 fn flights_leave_nothing_behind() {
 	let out = run(r#"
 		local f = standalone(true)
 		local function flight()
 			takeoff(120)
-			A.Play()
+			shortcuts().Doom:Click()
 			stub.advance(120)
 			land()
 			for k in pairs(stub.messages) do stub.messages[k] = nil end
@@ -466,13 +541,13 @@ fn flights_leave_nothing_behind() {
 		for _ = 1, 25 do flight() end
 		collectgarbage("collect"); collectgarbage("collect")
 		emit({ frames = #stub.frames - frames, made = arcadeFrames - made, kb = collectgarbage("count") - kb,
-			open = f:IsShown(), trip = A.Trip() ~= nil, card = card() })"#);
+			open = f:IsShown(), trip = A.Trip() ~= nil, hud = hud() })"#);
 	assert_eq!(out["frames"], 0, "{out}");
 	assert_eq!(out["made"], 0, "{out}");
 	assert!(out["kb"].as_f64().unwrap() < 24.0, "memory grew over 25 flights: {out}");
 	assert_eq!(out["open"], false);
 	assert_eq!(out["trip"], false);
-	assert_eq!(out["card"], false);
+	assert_eq!(out["hud"], false);
 }
 
 // No taint: neither Polestar's flight code nor the game it ships calls a protected function, a secure template or a
@@ -515,7 +590,7 @@ fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
 	let template = regex::Regex::new(r#""Secure\w*Template""#).unwrap();
 	let comment = regex::Regex::new(r"--.*$").unwrap();
 	let dir = addons_dir();
-	let mut files = vec![dir.join("Polestar/Maps/Arcade.lua")];
+	let mut files = vec![dir.join("Polestar/Maps/Arcade.lua"), dir.join("Polestar/Maps/SkyJewels.lua"), dir.join("Polestar/Maps/SkyJewelsBoard.lua")];
 	let mut src: Vec<_> = std::fs::read_dir(dir.join("Polestar_Arcade/src")).unwrap().map(|e| e.unwrap().path()).collect();
 	src.sort();
 	files.extend(src);
@@ -533,14 +608,15 @@ fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
 	let out = run(r#"
 		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
 		takeoff(300)
-		A.Play()
+		shortcuts().Doom:Click()
 		stub.advance(5)
 		stub.inCombat = true
 		stub.fire("PLAYER_REGEN_DISABLED")
 		stub.advance(1)
 		stub.inCombat = false
 		stub.fire("PLAYER_REGEN_ENABLED")
-		A.Play()
+		stub.advance(1)
+		shortcuts().Doom:Click()
 		stub.advance(300)
 		land()
 		emit({ open = _G.Polestar_ArcadeFrame:IsShown(), underGameFrames = stub.underGameFrames, mapWrites = stub.mapWrites })"#);

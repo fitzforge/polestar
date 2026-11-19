@@ -152,13 +152,18 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()',
 	},
 	{
-		// Freedoom Arcade on a flight (Maps/Arcade.lua): the card asking to play, under the timer.
-		key: 'hud-arcade-ask', title: 'the flight timer and the card asking to play Freedoom Arcade (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
-		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("ask")',
+		key: 'hud-arcade', title: 'the arcade shortcuts beneath the flight timer', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarFlightArcade'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: `local f = PolestarFlightTimer
+f.Dest:SetText("Stormwind"); f.Time:SetText("4:12")
+Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show()
+stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }
+Polestar.Compat.IsOnTaxi = function() return true end
+Polestar.Fire("FLIGHT_STARTED")
+Polestar.Arcade.Tick()`,
 	},
 	{
-		key: 'hud-arcade-row', title: 'the flight timer and its Play Freedoom Arcade row (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
-		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("row")',
+		key: 'sky-jewels-window', title: 'Sky Jewels', roots: ['PolestarSkyJewels'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: 'math.randomseed(1); assert(Polestar.Arcade.Open("jewels"))',
 	},
 	{
 		// Polestar_Arcade's window, loaded on demand as the first Play loads it, in the look's frame.

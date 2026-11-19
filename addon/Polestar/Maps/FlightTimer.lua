@@ -368,7 +368,7 @@ ns.RegisterEvent("TAXIMAP_OPENED", function()
 end)
 
 local function onTake(slot)
-	if not ns.Get("maps.flightTimer") then return end
+	if not (ns.Get("maps.flightTimer") or ns.Get("maps.flightArcade")) then return end
 	local dest = slots[slot]
 	if not dest then
 		local id, name = Client.TaxiSlot(slot)
