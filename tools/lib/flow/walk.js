@@ -66,8 +66,8 @@ function applies(only, race, cls, faction) {
 // Own.predicateHolds does), and dungeons by `dungeons` ("all", or map ids "36,34": the dungeons the
 // player runs; "" none) in the style `dungeonQuests` ("all": every quest of a dungeon run, "way": only the quests on the
 // way): `when dungeon "<X>"` holds when X is run, `when dungeon "<X>" all` (compiled `all = true`) only when it is run
-// with every quest. With `walk`, the character's state as the Engine reads it: onquest / complete (accepted and not
-// handed in), turnedin, available (not yet taken or handed in), `done <label>`, taxi (a flight path learnt on the walk:
+// with every quest. With `walk`, the character's state as the Engine reads it: onquest (accepted and not handed in),
+// complete (also every objective the guides write for it played: ready), turnedin, available (not yet taken or handed in), `done <label>`, taxi (a flight path learnt on the walk:
 // its getfp lines, the flights taken), bound (the inn of the walk's last sethome), has (an item the walk got: collected,
 // bought, a quest's starting item, with its count), zone (the zone of the walk's last goal); so a `taxi`/`!taxi` or
 // `bound`/`!bound` pair plays one side, not both. knows never holds (the walk learns no spells: a fresh character does
@@ -83,6 +83,7 @@ function whenOk(when, level, walk = null, dungeons = '', dungeonQuests = 'all') 
 			const turned = (q) => walk.turninAt.has(q) || walk.dynTurned.has(q);
 			if (k === 'turnedin') ok = qs.every(turned);
 			else if (k === 'available') ok = qs.some((q) => !walk.acceptAt.has(q) && !turned(q));
+			else if (k === 'complete') ok = qs.some((q) => walk.acceptAt.has(q) && !turned(q) && walk.ready(q));
 			else ok = qs.some((q) => walk.acceptAt.has(q) && !turned(q));
 		}
 		if (walk && k === 'taxi') ok = walk.taxiKnown.has(c.node);
@@ -268,6 +269,7 @@ class Walk {
 		this.chain = [];
 		this.stepDng = new Map();
 		this.labelsPlayed = new Set();
+		this.need = new Map();             // quest -> the objective goals the guides write for it (ready)
 		if (dyn) this.dynPrepare(chain, guides);
 		const doneObj = this.doneObj;
 		for (const gid of this.chainIter(chain, guides)) {
@@ -277,6 +279,15 @@ class Walk {
 			g.steps.forEach((step, k) => {
 				const dz = dungeonOf(step.when);
 				if (dz) this.stepDng.set(`${gid}#${k + 1}`, dz);
+				// the strict walk learns a quest's written objectives guide by guide (`when complete`, ready); the dynamic
+				// walk has them for the whole chain from dynPrepare
+				if (!dyn && applies(step.only, race, cls, faction)) {
+					for (const go of list(step.goals)) {
+						if (go.quest == null || !OBJ_TYPES.has(go.t) || go.optional || !applies(go.only, race, cls, faction)) continue;
+						if (!this.need.has(go.quest)) this.need.set(go.quest, new Set());
+						this.need.get(go.quest).add(okeyOf(go));
+					}
+				}
 			});
 			this.labelsPlayed = new Set();
 			for (let si = 1; si <= g.steps.length; si++) {

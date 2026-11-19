@@ -240,6 +240,23 @@ test('a quest handed in on an earlier step is not handed in again on a later one
 	assert.ok(!w.entries.some((e) => e.step === 3), 'nothing left to do on the later step');
 });
 
+// `when complete <quest>` (the Engine: IsQuestReadyForTurnIn) holds only once the quest's work is done: taken but
+// not worked (its work step held back by a level), the hand-in step is not played and the quest stays in the log.
+test('a `when complete` step plays only once the quest\'s work is done', (t) => {
+	const data = loadData(dataDir(t));
+	const play = (workLevel) => {
+		const g = guide('test/ready', [
+			[accept(1, 10, 10.0, 10.0)],
+			{ when: [{ k: 'onquest', q: [1] }, { k: 'level', op: '>=', n: workLevel }], goals: [kill(1, 10.1, 10.0)] },
+			{ when: [{ k: 'complete', q: 1 }], goals: [turnin(1, 10, 10.0, 10.0)] },
+		], { races: ['Orc'] });
+		const w = new Walk({ chain: ['test/ready'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data });
+		return [...new Set(w.entries.map((e) => e.step))];
+	};
+	assert.deepEqual(play(1), [1, 2, 3], 'worked, then handed in');
+	assert.deepEqual(play(5), [1], 'not worked: not handed in either');
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
