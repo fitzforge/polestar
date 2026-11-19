@@ -423,6 +423,8 @@ local function texture(owner, index, dot, soft)
 		line:SetColorTexture(1, 1, 1, 1)
 		if soft then outline:SetTexture(SOFT_TEXTURE) else outline:SetColorTexture(1, 1, 1, 1) end
 	end
+	-- Changing the texture invalidates the applied vertex colour.
+	line.psRouteAlpha, outline.psRouteAlpha = nil, nil
 	line:SetTexCoord(0, 1, 0, 1)
 	outline:SetTexCoord(0, 1, 0, 1)
 end
@@ -457,12 +459,41 @@ local function startDrawIn()
 	if goalC and not sparkling and not ns.Get("ui.reduceMotion") and ns.Get("nav.drawIn") ~= false then drawInAt = sparkleClock() end
 end
 
+-- Position changes every frame; the appearance normally doesn't. Keep the
+-- actual colour components: a theme can change a palette table in place.
+local function strokeLook(region, color, alpha, width, shadow)
+	local r, g, b = color[1], color[2], color[3]
+	if r ~= region.psRouteR or g ~= region.psRouteG or b ~= region.psRouteB or alpha ~= region.psRouteAlpha then
+		region.psRouteR, region.psRouteG, region.psRouteB, region.psRouteAlpha = r, g, b, alpha
+		if shadow then region:SetAlpha(alpha) end
+		region:SetVertexColor(r, g, b)
+		if not shadow then region:SetAlpha(alpha) end
+	end
+	if width ~= region.psRouteWidth then
+		region.psRouteWidth = width
+		region:SetThickness(width)
+	end
+end
+
+-- A skin can write directly to pooled lines. On an explicit theme refresh,
+-- reapply their appearance even if the theme returned the same RGB values.
+local themeRevision = 0
+
 -- owner.opacity (nav.worldRouteAlpha, nav.minimapRouteAlpha) fades every
 -- stroke; nav.lineOutline sets how strongly the outline (or the line's soft
 -- shadow) shows under it, none at 0. count: the strokes to show (default:
 -- the draw-in's share of them).
 local function paint(owner, strokes, count)
 	local lines, outlines, opacity = owner.lines, owner.outlines, owner.opacity or 1
+	local themeChanged = owner.psRouteTheme ~= themeRevision
+	if themeChanged then
+		owner.psRouteTheme = themeRevision
+		for i = 1, #lines do
+			local line, outline = lines[i], outlines[i]
+			line.psRouteAlpha, line.psRouteWidth = nil, nil
+			outline.psRouteAlpha, outline.psRouteWidth, outline.psRouteVisible = nil, nil, nil
+		end
+	end
 	local n = count or drawInto(strokes.n)
 	for index = 1, n do
 		local line, outline = lines[index], outlines[index]
@@ -478,27 +509,27 @@ local function paint(owner, strokes, count)
 		local thickness = strokes.under[index]
 		if thickness > 0 and outlineK > 0 then
 			local k = (soft and SOFT_ALPHA or UNDER_ALPHA) * outlineK
-			outline:SetAlpha(alpha * (k < 1 and k or 1))
-			outline:SetThickness(thickness)
+			strokeLook(outline, under, alpha * (k < 1 and k or 1), thickness, true)
 			outline:SetStartPoint("TOPLEFT", owner, x1 - ux, y1 - uy)
 			outline:SetEndPoint("TOPLEFT", owner, x2 + ux, y2 + uy)
-			outline:SetVertexColor(under[1], under[2], under[3]) -- the theme's scrim, re-read on every paint
-			outline:Show()
-		else
+			if not outline.psRouteVisible then
+				outline:Show()
+				outline.psRouteVisible = true
+			end
+		elseif outline.psRouteVisible ~= false then
 			-- A joint or a chevron: no outline of its own.
 			outline:Hide()
+			outline.psRouteVisible = false
 		end
-		local c = strokes.color[index]
-		line:SetVertexColor(c[1], c[2], c[3])
-		line:SetAlpha(alpha)
-		line:SetThickness(strokes.width[index])
+		strokeLook(line, strokes.color[index], alpha, strokes.width[index], false)
 		line:SetStartPoint("TOPLEFT", owner, x1, y1)
 		line:SetEndPoint("TOPLEFT", owner, x2, y2)
-		line:Show()
+		if themeChanged or index > owner.used then line:Show() end
 	end
 	for index = n + 1, owner.used do
 		lines[index]:Hide()
 		outlines[index]:Hide()
+		outlines[index].psRouteVisible = false
 	end
 	owner.used = n
 end
@@ -1299,6 +1330,7 @@ ns.OnLogin(function()
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()
+			themeRevision = themeRevision + 1
 			recolor()
 			revision = revision + 1
 			refreshWorld()

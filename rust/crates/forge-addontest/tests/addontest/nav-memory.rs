@@ -45,7 +45,10 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// two (Path.restTrees). Eastern Kingdoms, 0.4.0's maps: live 55,826 -> 43,739, allocated 65,487 -> 61,633, rest
 /// 51,022 -> 37,339, idle 19,728 -> 19,729; Kalimdor live 29,052 -> 28,172, allocated 7,887 -> 7,005, rest 29,044 ->
 /// 26,242. Budgets lowered: live 57,500 -> 44,500, allocated 66,000 -> 62,000, rest 53,000 -> 38,000.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 44500.0), ("allocated", 62000.0), ("rest", 38000.0), ("idle", 22500.0)];
+/// 0.4.1.1 (2026-11-18): at rest the newest start's endpoint tree goes to the pool (still two trees held) and the next
+/// search's first connection fills it. Eastern Kingdoms allocated 61,867 -> 61,465 (budget lowered 62,000 -> 61,600);
+/// live 43,746 -> 43,747, rest 37,346 -> 37,347; Kalimdor unchanged.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 44500.0), ("allocated", 61600.0), ("rest", 38000.0), ("idle", 22500.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
 /// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on

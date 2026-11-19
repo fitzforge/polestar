@@ -40,7 +40,7 @@ return {
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "То же объявление: {npc:7847} будет гораздо позже, после места {area:976}",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, внутри",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
 	["{npc:7882}: {quest:97530}, the bangles come from the ogres on your way south"] = "{npc:7882}: {quest:97530}, браслеты падают с огров по пути на юг",
 	-- {npc:7881} Stoley
@@ -48,7 +48,7 @@ return {
 
 	-- Step 7: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: убивайте их по пути",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Езжайте обратно на запад к месту {area:976}. По пути дюны занимают бандиты и воры из шайки Скитальцев Пустыни; у любого из них может быть бурдюк с водой.\nОсторожно: разбойники Скитальцев Пустыни (43-44-й уровень) передвигаются в незаметности, так что могут подойти незамеченными.",
@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: убивайте их по пути",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Идите вдоль побережья на юг к пиратской бухте. Пираты Южных морей заполонили пляж и корабли: двигайтесь по краю и выманивайте по одному. {npc:7883} стоит на дальней стороне; украденный груз ({npc:7881}) лежит в лагере.\nОсторожно: рядом с NPC {npc:7883} стоят два-три пирата, а как только начнется бой, к нему присоединятся многие пираты из городка.",
 	-- {quest:2873} Stoley's Shipment
@@ -68,7 +68,7 @@ return {
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, внутри",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
 	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
@@ -130,7 +130,8 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Сопровождение: {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины ({quest:3362}): забирайте его с края и не трогайте кактусовых чудищ (48-50). Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
+	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины ({quest:3362}): забирайте его с края и не трогайте кактусовых чудищ (48-50). Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его."
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, рядом с ней: Оазис",
 
@@ -192,9 +193,9 @@ return {
 
 	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "Летите сюда: {area:348}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
@@ -208,7 +209,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, внутри",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}: {quest:86620}, яйца в холмах чуть восточнее места {area:348}",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
@@ -231,6 +232,7 @@ return {
 	-- ["Rizzle's plans"] = "Чертежи Риззла",
 	-- ["The Wanted poster by {npc:7882}"] = "Плакат «Розыск!» у NPC {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины. Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
+	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины ({quest:3362}): забирайте его с края и не трогайте кактусовых чудищ (48-50). Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
 	-- ["Underwater"] = "Под водой",
 	-- ["Wastewander bandits"] = "Бандиты из шайки Скитальцев Пустыни",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Пока {npc:4709} заговаривает Риззлу зубы, его чертежи лежат без охраны в лагере гномов по ту сторону трассы.",

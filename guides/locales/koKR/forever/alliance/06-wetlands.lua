@@ -147,11 +147,17 @@ return {
 	-- {item:3337} Dragonmaw War Banner
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "",
 
-	-- Step 28: Rethiel the Greenwarden
+	-- Step 28: Mosshide gnolls
+	["Mosshide gnolls"] = "",
+	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:1025} Green Belt
+	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
+	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-23) on the hill north of the road, between the Angerfang camp and the {area:1025}, drop them. Almost every one carries some."] = "",
+
+	-- Step 29: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
 	["Follow the road east to the {area:1025}; {npc:1244} stands by the river. {quest:277}'s flint came with you from your last {zone:1437} visit."] = "",
 
-	-- Step 29: Howin Kindfeather
+	-- Step 30: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
@@ -160,28 +166,28 @@ return {
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the Razormaw eggs, on the same loop"] = "",
 
-	-- Step 30: Einar Stonegrip
+	-- Step 31: Einar Stonegrip
 	-- {npc:270637} Howin Kindfeather · {npc:2093} Einar Stonegrip
 	["East from {npc:270637}: {npc:2093} stands beside the road."] = "",
 	-- {npc:2093} Einar Stonegrip · {npc:2094} James Halloran
 	["{npc:2093}: for {npc:2094} in Menethil"] = "",
 
-	-- Step 31: Fen Creepers along the river
+	-- Step 32: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
 	["Fen Creepers along the river"] = "",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "",
 
-	-- Step 32: Rethiel the Greenwarden
+	-- Step 33: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
 	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
 
-	-- Step 33: Rethiel the Greenwarden
+	-- Step 34: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:260808} Highland Horror
 	["For your {area:17732} run, on the way back west: {npc:1244} wants the root core of a {npc:260808} inside."] = "{area:17732} 공략용(서쪽으로 돌아가는 길): {npc:1244}은(는) 내부의 {npc:260808}에게서 나오는 뿌리 핵을 원합니다.",
 
-	-- Step 34: Excavation Site: Wetlands
+	-- Step 35: Excavation Site: Wetlands
 	-- {area:17732} Excavation Site: Wetlands · {npc:260808} Highland Horror · {npc:1244} Rethiel the Greenwarden · {npc:260326} Relic Guardian · {item:270865} Titan Relic · {npc:1077} Prospector Whelgar
 	["{area:17732} is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.\nInside: the Thicket raptors and Shadetooth drop the hides for Halloran, a {npc:260808} the root core for {npc:1244}. Saltspine, Shadetooth and the {npc:260326} are the bosses; the {npc:260326} drops a {item:270865}, which starts a quest for {npc:1077}."] = "{area:17732}은(는) 약 28~31레벨 5인 파티용 던전입니다. 입구는 서쪽 길 바로 남쪽, 웰가르의 발굴지 동쪽에 있습니다.\n내부: Thicket 랩터와 Shadetooth가 할로란에게 줄 가죽을, {npc:260808}이(가) {npc:1244}에게 줄 뿌리 핵을 떨어뜨립니다. Saltspine, Shadetooth, {npc:260326}이(가) 우두머리이며, {npc:260326}은(는) {npc:1077}에게 가는 퀘스트를 시작하는 {item:270865}을(를) 떨어뜨립니다.",
 	-- {quest:98815} Highland Hides
@@ -189,7 +195,7 @@ return {
 	-- {quest:95646} Horrors in the Highland
 	["{quest:95646}: the root core, inside"] = "{quest:95646}: 뿌리 핵, 내부",
 
-	-- Step 35: Prospector Whelgar
+	-- Step 36: Prospector Whelgar
 	-- {item:270865} Titan Relic · {area:17732} Excavation Site: Wetlands · {npc:1077} Prospector Whelgar
 	["The {item:270865} from your {area:17732} run: {npc:1077} is below ground in his dig, west of the entrance on the way back west."] = "{area:17732} 공략에서 얻은 {item:270865}: {npc:1077}은(는) 서쪽으로 돌아가는 길, 입구 서쪽의 발굴지 지하에 있습니다.",
 	-- {npc:1077} Prospector Whelgar
@@ -197,7 +203,7 @@ return {
 	-- {npc:1077} Prospector Whelgar · {npc:5387} High Explorer Magellas · {zone:1455} Ironforge
 	["{npc:1077}: for {npc:5387} in {zone:1455}, at the end of this guide"] = "{npc:1077}: {zone:1455}의 {npc:5387}에게, 이 가이드 마지막에",
 
-	-- Step 36: Captain Stoutfist
+	-- Step 37: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "{area:2104}에 귀환석을 귀속했다면 {area:150}(으)로 귀환하고, 아니면 길을 따라 서쪽으로 걸어가세요. {npc:2104}은(는) {area:2103} 꼭대기 층에, {npc:2094}은(는) 배로 가는 길의 부두 옆에 있습니다.",
 	["On the top floor"] = "",
@@ -206,7 +212,7 @@ return {
 	-- {npc:2094} James Halloran
 	["{npc:2094}, by the docks, on the way to the boat"] = "",
 
-	-- Step 37: Level 28
+	-- Step 38: Level 28
 	["Level 28"] = "28레벨",
 	-- {zone:1437} Wetlands · {zone:1440} Ashenvale
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
@@ -214,27 +220,27 @@ return {
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "{npc:1418} 사냥",
 
-	-- Step 38: James Halloran
+	-- Step 39: James Halloran
 	-- {npc:2094} James Halloran
 	["Your Excavation Site hides: {npc:2094}, by the docks."] = "발굴 현장 가죽: 부두 옆의 {npc:2094}.",
 
-	-- Step 39: Boat to Auberdine
+	-- Step 40: Boat to Auberdine
 	-- {area:442} Auberdine
 	["The boat to {area:442} leaves from the far end of Menethil's western pier."] = "",
 
-	-- Step 40: Thundris Windweaver
+	-- Step 41: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}, up the road from the dock."] = "{npc:3649}은(는) 부두에서 길을 따라 올라간 {area:442}의 북쪽 끝에 서 있습니다.",
 	-- {item:279915} Nord'el · {npc:270844} Sylessa Duskwhisper · {area:150} Menethil Harbor
 	["{item:279915}, from {npc:270844} in {area:150}"] = "{item:279915}, {area:150}의 {npc:270844}에게서",
 
-	-- Step 41: Thundris Windweaver
+	-- Step 42: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "",
 	-- {area:442} Auberdine
 	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
 
-	-- Step 42: Auberdine
+	-- Step 43: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
 	["{npc:3693} stands by the flight master. No {quest:990} yet? Give it a minute after the hand-in: {npc:3694} comes to {npc:3693}'s side shortly after Volcor's escort is handed in. Changing layer can also find her."] = "{npc:3693}은(는) 비행 조련사 옆에 서 있습니다. 아직 {quest:990}이(가) 없습니까? 제출 후 잠시 기다리세요. 볼코르 호위 퀘스트를 제출하면 곧 {npc:3694}이(가) {npc:3693} 옆으로 옵니다. 레이어를 바꿔도 그녀를 찾을 수 있습니다.",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
@@ -242,15 +248,15 @@ return {
 	-- {npc:3694} Sentinel Selarin · {quest:990} Trek to Ashenvale · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, once she comes: {quest:990}, for {npc:3691} in {area:415}"] = "{npc:3694}, 그녀가 오면: {quest:990}, {area:415}의 {npc:3691}에게",
 
-	-- Step 43: Gershala Nightwhisper
+	-- Step 44: Gershala Nightwhisper
 	-- {area:2797} Blackfathom Deeps · {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis
 	["Your {area:2797} brain stems: {npc:8997} stands a short walk west of {npc:3693}."] = "{area:2797}의 뇌줄기: {npc:8997}은(는) {npc:3693}에서 서쪽으로 조금 걸어가면 서 있습니다.",
 
-	-- Step 44: Fly to Astranaar
+	-- Step 45: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 
-	-- Step 45: Shindrell Swiftfire
+	-- Step 46: Shindrell Swiftfire
 	-- {npc:3845} Shindrell Swiftfire · {npc:3970} Llana · {area:415} Astranaar
 	["{npc:3845} and {npc:3970} stand by {area:415}'s flight master."] = "{npc:3845}와(과) {npc:3970}은(는) {area:415}의 비행 조련사 옆에 서 있습니다.",
 	-- {quest:4581} Kayneth Stillwind · {area:2358} Forest Song
@@ -258,84 +264,84 @@ return {
 	-- {npc:3970} Llana · {quest:95737} Seeking Caitlin · {npc:1480} Caitlin Grassman · {area:150} Menethil Harbor
 	["{npc:3970}: {quest:95737}, for {npc:1480} in {area:150}"] = "{npc:3970}: {quest:95737}, {area:150}의 {npc:1480}에게",
 
-	-- Step 46: Astranaar
+	-- Step 47: Astranaar
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "",
 
-	-- Step 47: Raene Wolfrunner
+	-- Step 48: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691} stands in the inn, beside the innkeeper."] = "{npc:3691}은(는) 여관 안 여관주인 옆에 서 있습니다.",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {zone:1439} Darkshore
 	["{npc:3691}: {quest:990}, if you still carry it from {zone:1439}"] = "{npc:3691}: {quest:990}, {zone:1439}에서 받아 아직 가지고 있다면",
 
-	-- Step 48: Melyria and Illiyana
+	-- Step 49: Melyria and Illiyana
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "파수꾼 멜리리아 프로스트섀도와 {npc:3901}",
 	-- {area:415} Astranaar
 	["The two stand together at the western end of the road, south-west of {area:415}."] = "",
 
-	-- Step 49: Therysil
+	-- Step 50: Therysil
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["{npc:3585} stands at the {area:416}, a short walk from Melyria and {npc:3901}."] = "{npc:3585}은(는) {area:416}에 서 있으며, 멜리리아와 {npc:3901}에게서 조금만 걸어가면 됩니다.",
 	-- {npc:3585} Therysil · {quest:945} Therylune's Escape · {zone:1439} Darkshore
 	["{npc:3585}: {quest:945}, if you still carry it from {zone:1439}"] = "{npc:3585}: {quest:945}, {zone:1439}에서 받아 아직 가지고 있다면",
 
-	-- Step 50: Shael'dryn
+	-- Step 51: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "길을 따라 동쪽으로 {area:419}까지 가세요. {npc:3916}은(는) 달샘 옆에 서 있습니다.",
 
-	-- Step 51: Dartol's Rod
+	-- Step 52: Dartol's Rod
 	["Dartol's Rod"] = "다르톨의 변신마법봉",
 	-- {item:5475} Wooden Key
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "달샘 북쪽의 광기어린 고대정령과 부패한 고대정령이 {item:5475}을(를) 지니고 있습니다. 그 열쇠로 여는 낡은 궤짝은 그들 사이에 있습니다.",
 
-	-- Step 53: Anilia
+	-- Step 54: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "길을 따라 동쪽으로 {area:429}의 사티로스 야영지까지 가십시오. {npc:3920}은(는) 야영지 가장자리에 숨어 있습니다.",
 	-- {npc:3920} Anilia · {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["{npc:3920}: {quest:1031}, from {npc:4619} (level 32): a fight for a group at this level"] = "{npc:3920}: {quest:1031}, {npc:4619}(32레벨)에게서: 이 레벨에서는 파티가 필요한 전투",
 
-	-- Step 54: Geltharis
+	-- Step 55: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch. He is level 32, above you here, among level 29-30 satyrs: grouping up is advised."] = "{npc:4619}은(는) {area:429} 사티로스의 우두머리이며 나뭇가지를 지니고 있습니다. 32레벨로 지금의 당신보다 높고, 29-30레벨 사티로스들 사이에 있습니다. 파티를 짜는 것을 권장합니다.",
 
-	-- Step 55: Forest Song
+	-- Step 56: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "길 동쪽 끝의 나이트 엘프 전초기지 {area:2358}: {npc:3848}이(가) 그곳에 있고, {npc:221269}은(는) 그녀에게서 동쪽으로 몇 걸음 떨어져 있습니다.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: 호수에서 돌아오는 길에 {area:430}에서 남편의 흔적 찾기",
 
-	-- Step 56: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 57: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
-	-- Step 57: Fallen Sky Lake
+	-- Step 58: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
 
-	-- Step 58: Satyrnaar
+	-- Step 59: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "호수에서 북쪽으로, {area:2358} 바로 서쪽에 있는 {area:430}의 사티로스 야영지로 가십시오. 그 안에 {object:19901}이(가) 있고, 그 옆에 {item:281014}이(가) 든 {object:673431}이(가) 있습니다.\n주의: {area:428}의 펠머스크 도적은 은신해 있는 경우가 많고, {area:430}에는 사티로스 주문시전자가 있습니다.",
 	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
 	["{item:281014}, from {object:673431}"] = "{item:281014}, {object:673431}에서",
 
-	-- Step 59: Kayneth Stillwind
+	-- Step 60: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, 동쪽으로 몇 걸음",
 
-	-- Step 60: The Dor'Danil Barrow Den's entrance
+	-- Step 61: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "",
 
-	-- Step 61: Insane druids
+	-- Step 62: Insane druids
 	["Insane druids"] = "미치광이 드루이드",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
@@ -346,19 +352,19 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "",
 
-	-- Step 63: Night Run
+	-- Step 64: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "두 번째 {object:19901}은(는) 서쪽으로 가는 길, {area:428} 골짜기에 있습니다.",
 
-	-- Step 65: Hidden Shrine
+	-- Step 66: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "제단은 달샘 바로 남동쪽 언덕 위에 있습니다. 구불구불한 길을 따라 올라가십시오.",
 
-	-- Step 67: The Howling Vale
+	-- Step 68: The Howling Vale
 	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
 	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
 	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "굴을 지나 {area:419}(으)로 들어가십시오. 마법책은 서쪽 끝 폐허에 있습니다. 주의: 공포늑대 살점찢개와 그림자술사(28-30)가 마법책 주위에 빽빽하게 무리 지어 있고, 32레벨 희귀 몹인 {npc:3792}이(가) 골짜기를 돌아다닙니다. 굴에서 늑대를 하나씩 끌어내고, 무리 우두머리가 먼저 지나가게 두십시오.",
 
-	-- Step 68: Astranaar
+	-- Step 69: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
 	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "",
 	-- {npc:3691} Raene Wolfrunner · {quest:1025} An Aggressive Defense · {npc:3897} Krolg
@@ -370,12 +376,12 @@ return {
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside the building south of the inn"] = "",
 
-	-- Step 69: The Foulweald
+	-- Step 70: The Foulweald
 	["The Foulweald"] = "썩은나무 숲",
 	-- {npc:3897} Krolg · {area:415} Astranaar
 	["On the way south-east to {npc:3897}: the Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "{npc:3897}에게 남동쪽으로 가는 길에: 더러운숲 펄볼그는 {area:415} 남동쪽, 길 남쪽 숲에 삽니다. 굴 감시자와 우르사가 굴을 지킵니다.",
 
-	-- Step 70: Mystral Lake
+	-- Step 71: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}은(는) {area:421} 동쪽 호숫가의 {area:420}, {npc:3897}에게 가는 길 바로 북쪽에 서 있습니다. 타락한 물의 정령이 호수를 돌아다니며, 27레벨 물의 정령인 {npc:12759}도 그들 사이를 돌아다니고 팔보호구를 떨어뜨립니다.",
@@ -384,65 +390,65 @@ return {
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요",
 
-	-- Step 71: Krolg
+	-- Step 72: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "타락하지 않은 펄볼그 {npc:3897}은(는) {area:421} 아래 길 남쪽에 앉아 있습니다. 먼저 그의 근처에서 {item:5462}을(를) 사용하세요. 그는 펄볼그 모습일 때만 말을 겁니다.",
 
-	-- Step 72: Ran Bloodtooth
+	-- Step 73: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
 	["{item:5388}, from {npc:3696}"] = "",
 
-	-- Step 74: Melyria and Illiyana
+	-- Step 75: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "",
 
-	-- Step 75: Illiyana
+	-- Step 76: Illiyana
 	-- {npc:3901} Illiyana
 	["{npc:3901} stands beside Melyria."] = "{npc:3901}은(는) 멜리리아 옆에 서 있습니다.",
 	-- {npc:3901} Illiyana · {item:5461} Branch of Cenarius
 	["{npc:3901}: the {item:5461}"] = "{npc:3901}: {item:5461}",
 
-	-- Step 76: The Branch of Cenarius, taken alone
+	-- Step 77: The Branch of Cenarius, taken alone
 	-- {quest:1031} The Branch of Cenarius
 	["{quest:1031}, taken alone"] = "{quest:1031}, 혼자 받은 경우",
 	-- {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["Not grouped? {quest:1031} ({npc:4619}, 32) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "파티가 없습니까? {quest:1031}({npc:4619}, 32)은(는) 이 레벨에서는 파티가 필요한 전투입니다. 포기하세요. 경로는 이 퀘스트를 위해 돌아오지 않습니다.",
 
-	-- Step 77: Insane Druids, taken alone
+	-- Step 78: Insane Druids, taken alone
 	-- {quest:1012} Insane Druids
 	["{quest:1012}, taken alone"] = "{quest:1012}, 혼자 받은 경우",
 	-- {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Not grouped? {quest:1012} (the {area:432}) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "파티가 없습니까? {quest:1012}({area:432})은(는) 이 레벨에서는 파티가 필요한 전투입니다. 포기하세요. 경로는 이 퀘스트를 위해 돌아오지 않습니다.",
 
-	-- Step 78: Delgren the Purifier
+	-- Step 79: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {quest:967} The Tower of Althalaxx · {zone:1439} Darkshore
 	["{npc:3663}: {quest:967}, if you still carry it from {zone:1439}"] = "{npc:3663}: {quest:967}, {zone:1439}에서 받아 아직 가지고 있다면",
 
-	-- Step 79: Delgren the Purifier
+	-- Step 80: Delgren the Purifier
 	-- {area:413} Maestra's Post
 	["North to {area:413}."] = "",
 
-	-- Step 80: Dal Bloodclaw
+	-- Step 81: Dal Bloodclaw
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
 	["From {area:413}, east to the Thistlefur camp north of {area:415}: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "{area:413}에서 동쪽으로 {area:415} 북쪽의 엉겅퀴털 야영지로 가세요. {npc:3987}이(가) 그곳 펄볼그를 이끌고 있습니다. 그런 다음 남쪽 {area:415}(으)로 가세요.\n주의: 그를 끌면 근처 펄볼그가 대개 함께 덤빕니다. 그의 이동 경로에 있는 펄볼그를 먼저 처치하면 그와 혼자 싸울 수 있습니다.",
 
-	-- Step 81: Astranaar
+	-- Step 82: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "{npc:3987}의 야영지에서 남쪽으로 {area:415}까지 가십시오. {npc:3691}은(는) 여관 안에, 비행 조련사는 서쪽 끝에 있습니다.",
 
-	-- Step 82: Fly to Auberdine
+	-- Step 83: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "{area:442}(으)로 비행",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
-	-- Step 84: Caitlin Grassman
+	-- Step 85: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
 	["Off the boat, {npc:1480} stands beside Menethil's inn, on the way to the flight master."] = "배에서 내리면 비행 조련사에게 가는 길, 메네실 여관 옆에 {npc:1480}이(가) 서 있습니다.",
 
-	-- Step 85: Fly to Ironforge
+	-- Step 86: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {npc:1571} Shellei Brondir
@@ -450,66 +456,66 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 87: High Explorer Magellas
+	-- Step 88: High Explorer Magellas
 	-- {quest:98824} Prehistoric Prism · {npc:5387} High Explorer Magellas · {object:32356} Hall of Explorers (no name in this language: may be words) · {object:32372} Great Forge (no name in this language: may be words)
 	["{quest:98824}: {npc:5387} stands in the {object:32356}, north-east of the {object:32372}."] = "{quest:98824}: {npc:5387}은(는) {object:32372} 북동쪽의 {object:32356}에 서 있습니다.",
 
-	-- Step 88: Ironforge priests
+	-- Step 89: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "{zone:1455} 사제",
 	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}와(과) {npc:258785}은(는) {object:32362}의 {object:32386}에 있습니다.",
 
-	-- Step 89: Tram to Stormwind City
+	-- Step 90: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
 
-	-- Step 90: Baros Alexston
+	-- Step 91: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
 	["{npc:1646} stands in the {object:2098}."] = "{npc:1646}은(는) {object:2098}에 서 있습니다.",
 	-- {npc:1646} Baros Alexston · {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {quest:97914}, {npc:3649}'s letter, if you still carry it"] = "{npc:1646}: {quest:97914}, 아직 가지고 있다면 {npc:3649}의 편지",
 
-	-- Step 91: Cathedral of Light
+	-- Step 92: Cathedral of Light
 	["Cathedral of Light"] = "빛의 대성당",
 	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "{object:171524}에서 {area:2257}을(를) 타고 {zone:1453}의 {object:28027}(으)로 간 뒤, {object:2098}까지 걸어가세요.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, 빛의 대성당 안",
 
-	-- Step 92: Stormwind Keep
+	-- Step 93: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["Only if you looted {quest:337} in {zone:1431}"] = "{zone:1431}에서 {quest:337}을(를) 획득한 경우에만",
 
-	-- Step 93: Lord Grayson Shadowbreaker
+	-- Step 94: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker
 	["Back to the Cathedral of Light: {npc:928} stands inside."] = "빛의 대성당으로 돌아가세요. {npc:928}이(가) 안에 서 있습니다.",
 	-- {npc:2228} Lieutenant Farren Orinelle · {area:271} Southshore
 	["For {npc:2228} in {area:271}: keep it"] = "{area:271}의 {npc:2228}에게: 보관하세요",
 
-	-- Step 94: Warden Thelwater
+	-- Step 95: Warden Thelwater
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square
 	["For your {area:717} run: {npc:1719} keeps the {area:717}'s gate, south of the {object:2098}."] = "{area:717} 공략용: {npc:1719}은(는) {object:2098} 남쪽에서 {area:717} 입구를 지키고 있습니다.",
 
-	-- Step 95: Warden Thelwater
+	-- Step 96: Warden Thelwater
 	-- {npc:1719} Warden Thelwater · {quest:389} Bazil Thredd · {npc:1646} Baros Alexston
 	["{npc:1719}: {quest:389}, from {npc:1646}"] = "{npc:1719}: {npc:1646}에게서 받은 {quest:389}",
 
-	-- Step 97: Stockade
+	-- Step 98: Stockade
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square · {npc:1663} Dextren Ward · {quest:389} Bazil Thredd
 	["{area:717} is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is {npc:1719}'s, south of the {object:2098}.\nInside: the Defias prisoners, convicts and insurgents for Thelwater, {npc:1663}'s hand for Millstipe, and {quest:389} at the far end."] = "{area:717}은(는) 약 23~29레벨 5인 파티용 던전이며, 공략에 1시간이 채 걸리지 않습니다. 입구는 {object:2098} 남쪽, {npc:1719}이(가) 지키는 문입니다.\n내부: 텔워터를 위한 데피아즈단 죄수, 죄인, 폭도, 밀스타이프를 위한 {npc:1663}의 손, 그리고 맨 끝의 {quest:389}.",
 
-	-- Step 98: Warden Thelwater
+	-- Step 99: Warden Thelwater
 	-- {npc:1719} Warden Thelwater
 	["{npc:1719}, at the gate"] = "{npc:1719}, 입구",
 
-	-- Step 100: Jorgen and Elling Trias
+	-- Step 101: Jorgen and Elling Trias
 	-- {npc:4959} Jorgen · {npc:482} Elling Trias
 	["{npc:4959} and {npc:482}"] = "{npc:4959}와(과) {npc:482}",
 	-- {npc:482} Elling Trias · {object:2096} Trade District
 	["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}, {object:2096}의 치즈 가게",
 
-	-- Step 101: Trade District
+	-- Step 102: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "다음: {area:42}(으)로 날아가세요.",
 

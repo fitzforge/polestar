@@ -64,11 +64,11 @@ return {
 	-- Step 15: Druid trainer
 	["Druid trainer"] = "Учитель друидов",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}, Зона: {zone:1412}; в зоне {zone:1454} нет учителя друидов",
 
 	-- Step 16: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Летите сюда: {area:431}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
@@ -123,7 +123,7 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959} – с волков-сквернолапов",
 	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "",
+	["grind on {npc:8957}"] = "убивайте: {npc:8957}",
 
 	-- Step 27: Irontree Woods
 	["Below ground"] = "Под землей",

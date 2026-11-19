@@ -82,6 +82,8 @@ mod engine_already_across;
 mod engine_alt_start;
 #[path = "engine-carried.rs"]
 mod engine_carried;
+#[path = "engine-carried-work.rs"]
+mod engine_carried_work;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]
@@ -206,6 +208,8 @@ mod engine_when_cooldown;
 mod engine_when_dungeon;
 #[path = "engine-when-group.rs"]
 mod engine_when_group;
+#[path = "engine-when-handin.rs"]
+mod engine_when_handin;
 #[path = "engine-when-knows.rs"]
 mod engine_when_knows;
 #[path = "engine-when-skill.rs"]
@@ -362,6 +366,8 @@ mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
 mod pause;
+#[path = "perf-probe.rs"]
+mod perf_probe;
 mod placeholders;
 mod profiles;
 mod qol;

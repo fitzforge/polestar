@@ -8759,6 +8759,11 @@
 				"why": "#2587 (swork1): Bring Back a Bang's Stolen Explosives lie on Direforge Hill among the same elite Dark Irons (players' recordings: 103 loots by 34 people, all at Wetlands 60-63,24-29). Asked as a group quest on the Dun Modr stop; the solo route leaves it out."
 			},
 			{
+				"q": 98291,
+				"size": 2,
+				"why": "#2822 (swork1): Howin Kindfeather's Death to the Dragonmaw is 16 kills in Dragonmaw Retreat just east of him (players' kills at Wetlands 54-57,39-49), every one elite: Dragonmaw Reclaimer, Soulbinder and Infiltrator, 29-30 (players' recordings: 834, 381 and 265 elite kills). Recorded: 37 people took it, 18 handed it in (8 of them in a group), 14 abandoned it. Asked as a group quest at Howin after Razormaw Needling and Trying Times; the solo route leaves it out. Its follow-up Stopping the Cycle (98297, a level 34 elite Subdued Dragonspawn at the Dragonmaw Gates, about 1,000 yards east) and Word to Ironforge (98300) stay out."
+			},
+			{
 				"q": 1090,
 				"size": 2,
 				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
@@ -16779,6 +16784,12 @@
 				"guide": "forever/horde/50-60/07-felwood",
 				"reason": "It needs 4 quests from 05-eastern-plaguelands first (Toxic Horrors (5086), Mystery Goo (5085), Falling to Corruption (5084), Winterfall Firewater (5083); about 17,400 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
+			},
+			{
+				"q": 98291,
+				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+				"reason": "Death to the Dragonmaw, a group choice at Howin, needs his Razormaw Needling (98245) and Trying Times (98246) from 06-wetlands first (10 Razormaw Incisors and 12 Perfect Razormaw Eggs): too long to bring back for a group-only quest. A character who starts here without them is not offered it.",
+				"issue": "#2822"
 			}
 		]
 	}

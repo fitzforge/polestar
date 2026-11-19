@@ -788,6 +788,32 @@
 		},
 		"note": "Daniel Stitchsong (npc 256734) stands at Three Corners in Redridge Mountains, 9.96,72.71 in the live map frame (map 1433), as marked in the player's report. The lookup led to 11.90,69.10 live instead. Replaces the map's existing points."
 	},
+	"256899": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							44.9,
+							51.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 65 kills of Chogg'Zac by 51 people (47 established), the median of each person's kill spots 44.91,51.19 live, four in five people within 0.75 of it, 49 of the 51 west of 46"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2882: the reporter stood on him at 44.74,50.95 live; he does not move"
+			}
+		],
+		"note": "Chogg'Zac (npc 256899), the elite Twilight No More! (95427) sends you after in the Sunnyglade cave, stands in one spot at 44.9,51.2 in the live map frame (Riverglades, map 2548). The data listed 14 points spread from 44.95 to 48.19, so Krol'dok Stronghold's pick-up guide aimed at x 46.70, about 80-90 yards east of him (#2882)."
+	},
 	"257196": {
 		"addSpawns": {
 			"2521": {
@@ -3273,5 +3299,291 @@
 			}
 		],
 		"note": "Veyric Thunderhame, who takes Call of Air (94789) and gives the rest of the Alliance Shaman chain, stands in the hills of Arathi Highlands. The merged data also put him at Eldrun Stormbreaker's spot in Ironforge, so the nearest ender for 94789 was in Ironforge and While you're here offered the hand-in there (#2851)."
+	},
+	"255906": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							16.2,
+							73.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 64 kills of Snargl by 57 people, the median of each person's kill spots 16.23,73.10, four in five people within 0.52 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 255906, as merged in our data: 17 points on map 2548, the nearest 0.2 from that spot, the farthest 7.4"
+			}
+		],
+		"note": "Snargl (npc 255906), an elite, is where players kill it: 16.2,73.1 (Riverglades, map 2548). The merged data listed 17 points around it, up to 7.4 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"256891": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							29.8,
+							41.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 27 kills of Executioner Morg by 18 people, the median of each person's kill spots 29.77,41.19, four in five people within 0.38 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 256891, as merged in our data: 38 points on map 2548, the nearest 0.2 from that spot, the farthest 12.5"
+			}
+		],
+		"note": "Executioner Morg (npc 256891), an elite, is where players kill it: 29.8,41.2 (Riverglades, map 2548). The merged data listed 38 points around it, up to 12.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"263615": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							59.5,
+							29.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 34 kills of Krek the Noxious by 30 people, the median of each person's kill spots 59.49,29.03, four in five people within 0.78 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 263615, as merged in our data: 26 points on map 2548, the nearest 0.1 from that spot, the farthest 5.9"
+			}
+		],
+		"note": "Krek the Noxious (npc 263615), an elite, is where players kill it: 59.5,29.0 (Riverglades, map 2548). The merged data listed 26 points around it, up to 5.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"272116": {
+		"set": {
+			"spawns": {
+				"1438": {
+					"f": "l",
+					"pts": [
+						[
+							51.4,
+							44.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 29 kills of Xethorr the Wicked by 22 people, the median of each person's kill spots 51.41,44.77, four in five people within 0.82 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 272116, as merged in our data: 8 points on map 1438, the nearest 0.3 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Xethorr the Wicked (npc 272116), an elite, is where players kill it: 51.4,44.8 (Teldrassil, map 1438). The merged data listed 8 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271458": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							60.9,
+							22.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 58 kills of Neru by 43 people, the median of each person's kill spots 60.85,22.00, four in five people within 0.81 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271458, as merged in our data: 31 points on map 1437, the nearest 0.1 from that spot, the farthest 7.5"
+			}
+		],
+		"note": "Neru (npc 271458), an elite, is where players kill it: 60.9,22.0 (Wetlands, map 1437). The merged data listed 31 points around it, up to 7.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271462": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							67.6,
+							71.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 46 kills of Golm by 35 people, the median of each person's kill spots 67.62,71.21, four in five people within 0.84 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271462, as merged in our data: 52 points on map 1437, the nearest 0.3 from that spot, the farthest 41.8"
+			}
+		],
+		"note": "Golm (npc 271462), an elite, is where players kill it: 67.6,71.2 (Wetlands, map 1437). The merged data listed 52 points around it, up to 41.8 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271338": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							77.4,
+							47.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 49 kills of Ados by 34 people, the median of each person's kill spots 77.41,47.06, four in five people within 0.43 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271338, as merged in our data: 37 points on map 1437, the nearest 0.2 from that spot, the farthest 4.9"
+			}
+		],
+		"note": "Ados (npc 271338), an elite, is where players kill it: 77.4,47.1 (Wetlands, map 1437). The merged data listed 37 points around it, up to 4.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"259897": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "l",
+					"pts": [
+						[
+							49.7,
+							87.9
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 12 kills of Old Fire-Eye by 11 people, the median of each person's kill spots 49.69,87.86, four in five people within 0.63 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 259897, as merged in our data: 38 points on map 1421, the nearest 0.2 from that spot, the farthest 15.5"
+			}
+		],
+		"note": "Old Fire-Eye (npc 259897), an elite, is where players kill it: 49.7,87.9 (Silverpine Forest, map 1421). The merged data listed 38 points around it, up to 15.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222233": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							74.9,
+							25.4
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 10 kills of Ohk'zi by 9 people, the median of each person's kill spots 74.90,25.45, four in five people within 0.46 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222233, as merged in our data: 4 points on map 1444, the nearest 0.1 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Ohk'zi (npc 222233), an elite, is where players kill it: 74.9,25.4 (Feralas, map 1444). The merged data listed 4 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222286": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							66.7,
+							38.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 14 kills of Namida Grimtotem by 9 people, the median of each person's kill spots 66.73,38.66, four in five people within 0.34 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222286, as merged in our data: 4 points on map 1444, the nearest 0.0 from that spot, the farthest 1.7"
+			}
+		],
+		"note": "Namida Grimtotem (npc 222286), an elite, is where players kill it: 66.7,38.7 (Feralas, map 1444). The merged data listed 4 points around it, up to 1.7 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"218032": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "l",
+					"pts": [
+						[
+							69.3,
+							81.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 19 kills of Witherbark Goliath by 8 people, the median of each person's kill spots 69.29,81.66, four in five people within 0.29 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 218032, as merged in our data: 17 points on map 1417, the nearest 0.1 from that spot, the farthest 10.2"
+			}
+		],
+		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
 	}
 }

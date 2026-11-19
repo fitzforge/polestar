@@ -236,26 +236,30 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "",
 
-	-- Step 45: Ethel Rethor
+	-- Step 45: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+
+	-- Step 46: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "해안을 따라 북쪽으로 간 뒤 내륙으로 들어가 {area:2405}의 폐허가 된 탑으로 가세요. {npc:11863}이(가) 안에서 기다립니다. 해안의 조개와 나가는 {area:599} 이후, {area:2406}까지 북쪽으로 한 번에 이동하며 처리합니다.",
 
-	-- Step 46: Thunder Axe Fortress
+	-- Step 47: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "동쪽 {area:599}(으)로 가세요. 불타는칼날단 사교도를 빈사 상태로 만든 뒤 죽기 전에 {item:6436}을(를) 사용해 {item:6435}을(를) 하나씩 채우세요. {npc:13019}은(는) 요새 꼭대기 층에서 홀을 가지고 있습니다. 사교도는 가끔(1-5%) {item:20310}도 떨어뜨리니, 얻으면 읽어 보세요. 붉은 {object:176581}은(는) 지금은 두세요. {npc:11876}이(가) 37레벨이라 두 번째 {zone:1443} 방문 때 다시 옵니다.",
 	["On the top floor"] = "",
 
-	-- Step 47: Ethel Rethor
+	-- Step 48: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "{npc:11863}의 다음 심부름인 {item:15803}에는 {area:2406}의 {npc:12369}(38)이(가) 필요합니다. 레벨이 높으니 건너뛰세요.",
 
-	-- Step 48: Rackmore's Log
+	-- Step 49: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}은(는) {npc:11863}의 탑 바로 남서쪽, 해안으로 내려가는 길의 땅바닥에 놓여 있습니다. 읽어 보세요. 두 열쇠는 퀘스트를 받은 상태에서만 떨어집니다.",
 
-	-- Step 49: Clam beds
+	-- Step 50: Clam beds
 	["Clam beds"] = "조개 서식지",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -268,29 +272,34 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, 마른집게 게에게서 획득",
 
-	-- Step 50: Sar'theris Strand
+	-- Step 51: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "{item:15881}을(를) 얻으러 북쪽 {area:598}(으)로 계속 가세요. 칼날비늘 나가라면 누구든 떨어뜨릴 수 있습니다.\n주의: 해변 북쪽 절반은 미르미돈(34-35)과 바다 마녀, 예언자(34-36, 시전자)가 차지하고 있어 33레벨이면 최대 2레벨 높습니다. 열쇠가 나올 때까지 남쪽 절반의 나가와 마녀(32-33)를 잡고, 북쪽은 38레벨의 두 번째 {zone:1443} 방문 때 처리하세요.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, 칼날비늘 나가에게서 획득",
 
-	-- Step 51: Rackmore's Chest
+	-- Step 52: Sar'theris Strand: Other Fish to Fry
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	-- {npc:4714} Slitherblade Myrmidon
+	["{npc:4714}, in the strand's southern half"] = "",
+
+	-- Step 53: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "북쪽 끝에서 헤엄쳐 {area:2406}(으)로 가세요. {object:177786}은(는) 해안의 {object:177673} 옆에 있습니다. 두 열쇠로 여세요. 석상은 건드리지 마세요.",
 
-	-- Step 52: Sargeron
+	-- Step 54: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "",
 
-	-- Step 53: Khan Dez'hepah
+	-- Step 55: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 54: Ghost Walker Post
+	-- Step 56: Ghost Walker Post
 	["South-west down the road to the post."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
@@ -299,18 +308,24 @@ return {
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}이(가) 이제 '켄타우로스 현상금'을 줍니다. 38레벨의 두 번째 {zone:1443} 방문 때 {area:607}(으)로 가는 길에 받습니다.",
 
-	-- Step 55: Shadowprey Village
+	-- Step 57: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "",
-	-- {item:14547} Hand of Iruxos · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "타이가의 {item:14547}, 드룰제가의 '더 중요한 일'과 {zone:1443}의 다른 37-40 퀘스트는 38레벨의 두 번째 방문 때 합니다. 다음 가이드는 {zone:1454}(으)로 날아가 {zone:1434}행 비행선을 탑니다.",
+	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
+	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "타이가의 {item:14547}, 드룰제가의 '더 중요한 일'과 {zone:1443}의 다른 37-40 퀘스트는 38레벨의 두 번째 방문 때 합니다. 다음 가이드는 {zone:1454}(으)로 날아가 {zone:1434}행 비행선을 탑니다."
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+
+	-- Step 58: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
+	["{npc:12340}, near {npc:12031}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "남쪽으로 돌아가 {npc:11863}의 탑으로 가세요.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "북쪽으로 계속 가서 {area:598}에 도착하세요. 해변은 칼날비늘 전사, 나가, 마녀가 지키고 있습니다. 한 번에 하나씩 끌어내세요. 칼날비늘 나가라면 누구나 {item:15881}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "그늘수렵 마을의 {quest:5381}과(와) 해안의 나가는 33레벨이 필요합니다. 그보다 낮습니까? {npc:11596}의 야영지에서 동쪽으로 조금 떨어진 {area:609}의 콜카르일족 켄타우로스(30-32)가 레벨이 맞는 가장 가까운 야영지입니다. 33레벨이 될 때까지 처치하십시오. 야영지 북쪽 비탈의 Scorpashi Lashers(34-35)는 레벨이 더 높습니다. 또는 파티와 함께 대신 {area:1717} 던전을 도십시오.",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "북쪽 끝에서 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하세요. {npc:12369}(38)이(가) 나타납니다. 처치하여 {quest:6027}을(를) 얻으세요. 레벨이 훨씬 높으니 먼저 생명력을 가득 회복하세요. {object:177786}은(는) 석상 옆 해안에 있습니다. 두 열쇠로 여세요.",
+	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "타이가의 {item:14547}, 드룰제가의 '더 중요한 일'과 {zone:1443}의 다른 37-40 퀘스트는 38레벨의 두 번째 방문 때 합니다. 다음 가이드는 {zone:1454}(으)로 날아가 {zone:1434}행 비행선을 탑니다.",
 	-- ["grind on {npc:4635}"] = "{npc:4635} 사냥",
 	-- ["{item:15766}, on the {object:177673}"] = "{item:15766}, {object:177673}에 사용",
 }

@@ -110,7 +110,7 @@ return {
 	-- {item:782} Painted Gnoll Armband
 	["{item:782}, from the Riverpaw gnolls"] = "",
 	-- {item:1931} Huge Gnoll Claw · {npc:448} Hogger
-	["{item:1931}, from {npc:448}"] = "",
+	["{item:1931}, from {npc:448}"] = "{item:1931}, у персонажа {npc:448}",
 
 	-- Step 18: The farms south of Goldshire
 	-- {area:87} Goldshire
@@ -118,13 +118,13 @@ return {
 	-- {area:87} Goldshire · {quest:87} Goldtooth · {area:57} Fargodeep Mine · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch
 	["The Stonefields' farm and the Maclures' farm lie on either side of the road south of {area:87}. {quest:87} guards the back of {area:57}; {npc:330} the boar roams the {area:62}."] = "",
 	-- {item:1006} Brass Collar · {npc:330} Princess
-	["{item:1006}, from {npc:330}"] = "",
+	["{item:1006}, from {npc:330}"] = "{item:1006}, у персонажа {npc:330}",
 
 	-- Step 19: Goldtooth and the kelp
 	-- {quest:87} Goldtooth
 	["{quest:87} and the kelp"] = "",
 	-- {item:981} Bernice's Necklace · {quest:87} Goldtooth
-	["{item:981}, from {quest:87}"] = "",
+	["{item:981}, from {quest:87}"] = "{item:981}: {quest:87}",
 	-- {item:1256} Crystal Kelp Frond · {area:18} Crystal Lake
 	["{item:1256}, from the murlocs of {area:18}"] = "",
 
@@ -134,7 +134,7 @@ return {
 
 	-- Step 21: Shipment to Stormwind
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
-	["{npc:279}, in the {object:2096}"] = "",
+	["{npc:279}, in the {object:2096}"] = "{npc:279}, {object:2096}",
 
 	-- Step 22: Eastvale
 	["Eastvale"] = "",
@@ -205,9 +205,9 @@ return {
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10905}",
 	-- {item:13194} Felstone Field Cauldron Key · {npc:11075} Cauldron Lord Bilemaw
-	["{item:13194}, from {npc:11075}"] = "",
+	["{item:13194}, from {npc:11075}"] = "{item:13194}, у персонажа {npc:11075}",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "{object:176361}",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, in the farmhouse"] = "",
 
@@ -215,7 +215,7 @@ return {
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears · {area:199} Felstone Field
 	["{npc:11077} guards the cauldron at {area:200}, north-east of {area:199}."] = "",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "{object:177289}",
 
 	-- Step 36: Chillwind Camp: the Writhing Haunt
 	-- {area:3197} Chillwind Camp · {area:202} Writhing Haunt
@@ -225,13 +225,13 @@ return {
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["{npc:11076} guards the cauldron at the {area:202}, the farm east of {area:200}."] = "",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "{object:176393}",
 
 	-- Step 39: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}, in the east of the zone."] = "",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "{object:176392}",
 
 	-- Step 40: Chillwind Camp: done
 	-- {area:3197} Chillwind Camp

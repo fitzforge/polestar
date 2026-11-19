@@ -93,7 +93,8 @@ const MODS = {
 	money: ['text', 'optional', 'only', 'either'],
 	task: ['optional', 'only', 'either', ...COORDS],
 	note: ['optional', 'only', ...COORDS],
-	skill: [...COMMON, ...COORDS],
+	// `skill <Profession> <N> nearest`: the step's `goto` points are its places; the arrow takes the nearest (#2529).
+	skill: [...COMMON, ...COORDS, 'nearest'],
 	learn: [...COMMON, ...COORDS, 'npc', 'item', 'nearest'],
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
 	cast: [...COMMON, ...COORDS],
