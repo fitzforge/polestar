@@ -484,6 +484,11 @@
 		{"token": "object:696751", "name": "邮箱", "source": "client-wdb", "build": "1.60.1.70862", "sha256": "b1751d162d01a9d90045c2977be71eb35c0a35b38e173e9b014b8c787e223943", "ref": 1448},
 		{"token": "object:697118", "name": "风石阵", "source": "client-wdb", "build": "1.60.1.70862", "sha256": "74e024b20b07913b67f8a2e0cb49de6a89fec4952def635c6eb721e77ede15d7", "ref": 1448},
 		{"token": "object:703257", "name": "邮箱", "source": "client-wdb", "build": "1.60.1.70862", "sha256": "b1751d162d01a9d90045c2977be71eb35c0a35b38e173e9b014b8c787e223943", "ref": 1448},
-		{"token": "object:706992", "name": "基础营火", "source": "client-wdb", "build": "1.60.1.70862", "sha256": "b1751d162d01a9d90045c2977be71eb35c0a35b38e173e9b014b8c787e223943", "ref": 1448}
+		{"token": "object:706992", "name": "基础营火", "source": "client-wdb", "build": "1.60.1.70862", "sha256": "b1751d162d01a9d90045c2977be71eb35c0a35b38e173e9b014b8c787e223943", "ref": 1448},
+		{"token": "npc:256389", "name": "塔茉琳·阿尔德里奇", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
+		{"token": "npc:256390", "name": "玛尔希·贝克", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
+		{"token": "npc:256736", "name": "休伊·阳光谷", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
+		{"token": "npc:256742", "name": "黛安·轻步", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
+		{"token": "quest:93862", "name": "归还箱子", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "95cd11cce55c7346504924c6611a02f5014150baf7ab5adc09a987886621c1ae", "ref": 3133}
 	]
 }
