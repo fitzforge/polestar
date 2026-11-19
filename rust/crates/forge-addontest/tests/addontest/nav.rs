@@ -567,19 +567,289 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 	let out = run(r#"
 		local m, x, y = nav.mapPoint(20, 0)
 		N.SetTarget(m, x, y, "Upstairs", nil, nil, 30)
-		local floor = 10
-		N.walk.Floor = function() return floor end
-		nav.place(15, 0)                   -- 5 yd across, 20 yd below
+		local z = 10
+		nav.Compat.GetPlayerUnitPosition = function()
+			local p = nav.player
+			return p.wx, p.wy, z, p.c
+		end
+		nav.place(15, 0)                   -- 5 yd across, 20 yd below; no mapped stairs
 		stub.advance(0.2)
-		local seen = { { A.GetMode(), N.FloorHint(), A.floorIcon:IsShown() } }
-		floor = 50                         -- above it
+		local seen = { { A.GetMode(), N.FloorHint(), A.floorIcon:IsShown(), A.dial:IsShown(), A.distText:GetText(),
+			N.CanDrawGroundApproach(), #N.GetRouteGeometry().legs } }
+		z = 50                             -- above it
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), N.FloorHint() }
-		floor = 29                         -- on its floor
+		z = 29                             -- 5 yd horizontally, but still outside the 3D visit
 		stub.advance(0.2)
-		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown() }
+		seen[#seen + 1] = { A.GetMode(), A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
+		nav.place(16, 0)                   -- within the sphere on its floor
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
+		z = nil                            -- losing the live measurement hides the ring
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
+		z = 29                             -- not a departure: no second chime
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
 		emit(seen)"#);
-	assert_eq!(out, json!([["travel", "up", true], ["travel", "down"], ["arrived", true, false]]));
+	assert_eq!(
+		out,
+		json!([
+			["unmapped", "up", true, false, "The last steps here aren't mapped", false, 0],
+			["unmapped", "down"],
+			["unmapped", false, false, 0],
+			["arrived", true, false, true, 1],
+			["unmapped", false, 1],
+			["arrived", true, 1]
+		])
+	);
+}
+
+#[test]
+fn an_exhausted_walk_on_a_slope_needs_a_proven_last_stride_then_an_actual_visit() {
+	let out = run(r#"
+		local function height(x) return 16 + 0.7 * x end
+		nav.Compat.GetPlayerUnitPosition = function()
+			local p = nav.player
+			return p.wx, p.wy, height(p.wx), p.c
+		end
+		local answer
+		N.Path = {
+			Find = function(c, from, to, callback)
+				answer = function() callback({ from, to }, 20, {}) end
+				return { map = c }
+			end,
+			-- This test slope has one measured strip. There is no proof beside it.
+			FootprintDrySight = function(c, x, y, z, gx, gy, gz)
+				return c == 0 and x >= 15 and x < gx and y == 0 and gy == 0
+					and gx == 20 and z == height(x) and gz == height(gx)
+			end,
+		}
+		local m, x, y = nav.mapPoint(20, 0)
+		N.SetTarget(m, x, y, "Top of the slope", nil, nil, height(20))
+		N.Sample()
+		answer()
+		local out = {}
+		local function stand(x, y)
+			nav.place(x, y)
+			stub.advance(0.2)
+			local state, _, _, dx, dy, measured = N.Sample()
+			out[#out + 1] = {state, dx or false, dy or false, measured or false, A.ring:IsShown(), #stub.sounds}
+		end
+		stand(15.5, 0.5)  -- within the follower's horizontal reach, beside the proven strip
+		stand(15.5, 0)    -- still outside the visit sphere, now one proven stride remains
+		stand(16.5, 0)    -- actual XYZ within five yards
+		emit(out)"#);
+	assert_eq!(
+		out,
+		json!([["unmapped", false, false, false, false, 0], ["travel", 4.5, 0, true, false, 0], ["arrived", 3.5, 0, false, true, 1]])
+	);
+}
+
+#[test]
+fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
+	let out = run(r#"
+		nav.Compat.GetPlayerUnitPosition = function() return 0, 0, 12, 0 end
+		local request, calls
+		N.Path = { Find = function(_, from, to, answer)
+			calls = calls + 1
+			request = { from = from, to = to, answer = answer }
+			return request
+		end }
+		local out = {}
+		local function probe()
+			calls = 0
+			N.walk.Probe(0, 0, 0, 20, 0, 14, function(yards)
+				out[#out + 1] = { yards, calls }
+			end)
+		end
+		local start, goal = { x = 0, y = 0, z = 12 }, { x = 20, y = 0, z = 14 }
+		probe()
+		request.answer(nil, "no safe walking route", {})
+		probe()
+		request.answer({start, goal}, 20, { reached = goal })
+		probe()
+		request.answer({start, { x = 20, y = 0, z = 5 }}, 20, {})
+		probe()
+		request.answer({start, { x = 10, y = 0, z = 14 }}, 10, {})
+		probe()
+		request.answer(nil, "unreachable", {})
+		probe()
+		request.answer({ { x = 0, y = 0, z = 20 }, goal }, 20, {})
+		probe()
+		out[#out + 1] = { request.from.z, request.to.z }
+		request.answer({ start, { x = 0, y = 15, z = 12 }, goal }, 100, {})
+		emit(out)"#);
+	assert_eq!(out, json!([[false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
+}
+
+#[test]
+fn a_corpse_walk_probe_returns_the_checked_path_not_a_distance_or_a_substitute_floor() {
+	let out = run(r#"
+		local ghost, request, results = true, nil, {}
+		UnitIsGhost = function() return ghost end
+		N.Path = { Find = function(_, from, to, done, opts)
+			request = { from = from, to = to, done = done, opts = opts }
+			return request
+		end }
+		local start, bend, corpse = {x=0,y=0,z=9}, {x=0,y=15,z=9}, {x=20,y=0}
+		local line = { start, bend, corpse }
+		local function probe(z, goalZ)
+			N.walk.Probe(0, 0, 0, 20, 0, goalZ, function(yards, _, _, path)
+				results[#results+1] = { yards, path == line }
+			end, true, z)
+		end
+		probe(9)
+		local sent = { request.from.z, request.to.z == nil, request.opts.waterWalking }
+		request.done(line, 40, {walkChecked=true})             -- unknown corpse floor stays unknown
+		probe(9); request.done(line, 40, {})                   -- legacy distance only
+		probe(nil); request.done(line, 40, {walkChecked=true}) -- no known starting floor
+		probe(30); request.done(line, 40, {walkChecked=true})  -- same XY, other starting floor
+		probe(9, 30); request.done(line, 40, {walkChecked=true})
+		probe(9); request.done(line, 40, {walkChecked=true, reached=bend})
+		probe(9); nav.level = nav.level + 1; request.done(line, 40, {walkChecked=true})
+		probe(9); nav.faction = "Horde"; request.done(line, 40, {walkChecked=true})
+		probe(9); ghost = false; request.done(line, 40, {walkChecked=true})
+		probe(9); request.done(nil, "no safe walking route", {blockedReason="opposing-settlement"})
+		emit({ sent, results })"#);
+	assert_eq!(out, json!([[9, true, true], [
+		[40, true], [40, false], [40, false], [false, false], [false, false],
+		[false, false], [false, false], [false, false], [false, false], [false, false]
+	]]));
+}
+
+#[test]
+fn a_checked_corpse_detour_waits_for_its_live_bearing_and_keeps_the_ordinary_held_radius() {
+	let out = run(r#"
+		UnitIsGhost = function() return true end
+		IsIndoors = function() return true end
+		nav.Compat.GetPlayerUnitPosition = function() return nav.player.wx, nav.player.wy, 9, 0 end
+		local request
+		N.Path = { Find = function(_, from, to, done)
+			request = { from = from, to = to, done = done }
+			return request
+		end }
+		nav.useTravelWorld()
+		nav.place(0, 0)
+		local m, x, y = nav.mapPoint(200, 0)
+		N.Hold(m, x, y, "Corpse")
+		-- The planner has priced the detour; its separate live search is pending.
+		local leg = N.travel.CurrentLeg()
+		leg.corpseGround = true
+		local state, _, angle = N.Sample()
+		local pending = { state, angle == nil, #N.GetRouteGeometry().legs }
+		request.done({ request.from, {x=0,y=80,z=9}, {x=200,y=80,z=9}, request.to }, 360, {walkChecked=true})
+		local moved, _, _, dx, dy, measured = N.Sample()
+		local clear = { moved, measured, dx == 0 and dy > 0, N.CanDrawGroundApproach(0,0,0,200,0), #N.GetRouteGeometry().legs[1].pts }
+		nav.place(193, 0)
+		emit({ pending, clear, N.Sample() == "arrived", N.IsHeld(), N.GetTarget().z == nil })"#);
+	assert_eq!(out, json!([["unmapped", true, 0], ["travel", true, true, false, 4], true, true, true]));
+}
+
+#[test]
+fn walking_measures_keep_stacked_origins_and_targets_separate() {
+	let out = run(r#"
+		local W = N.walk
+		local places = { { wx = 600, wy = 0, z = 30, start = true },
+			{ wx = 50, wy = 0, z = 10 }, { wx = 50, wy = 0, z = 30 } }
+		-- Two flat decks with no stairs between them.
+		N.Path = { FindMany = function(map, goal, points, done, opts)
+			local costs, job = {}, { yards = {} }
+			for i, p in ipairs(points) do
+				local clear = p.z == goal.z and not N.danger.Blocked(map, p.x, p.y, goal.x, goal.y, opts.profile, opts.walkLevel)
+				costs[i] = clear and math.abs(p.x - goal.x) or false
+				job.yards[i] = costs[i]
+				if clear then job.walkChecked = true end
+			end
+			done(costs, nil, job)
+			return job
+		end }
+		W.Measure(0, 0, 0, false, places, 10)
+		local low = W.Measured(0, 0, 0, false, 10)
+		local newFloor = W.Measured(0, 0, 0, false, 30) == nil
+		W.Measure(0, 0, 0, false, places, 30)
+		local high = W.Measured(0, 0, 0, false, 30)
+		emit({ newFloor, low(0, 50, 0, false, 10), low(0, 50, 0, false, 30),
+			high(0, 50, 0, false, 10), high(0, 50, 0, false, 30),
+			high(0, 600, 0, true, 30), high(0, 600, 0, true, 10) == nil,
+			high(0, 600, 0, true) == nil, W.Measured(0, 0, 0, false) == nil })"#);
+	assert_eq!(out, json!([true, 50, false, false, 50, 600, true, true, true]));
+}
+
+#[test]
+fn a_walk_measure_deferred_in_combat_starts_with_the_current_policy_and_goal_floor() {
+	let out = run(r#"
+		local W = N.walk
+		local m, x, y = nav.mapPoint(600, 0)
+		N.SetTarget(m, x, y, "Upper deck", nil, nil, 30)
+		local c, gx, gy, gz = N.GetTargetWorld()
+		local calls, profile, level, floor = 0
+		N.Path = { FindMany = function(_, from, _, _, opts)
+			calls, profile, level, floor = calls + 1, opts.profile, opts.walkLevel, from.z
+			return {}
+		end }
+		stub.inCombat = true
+		W.Measure(c, gx, gy, false, { { wx = 0, wy = 0, start = true }, { wx = 50, wy = 0 } }, gz)
+		local queued = calls == 0
+		nav.faction, nav.level = "Horde", 27
+		stub.inCombat = false
+		W:Refresh()
+		emit({ queued, calls, profile, level, floor })"#);
+	assert_eq!(out, json!([true, 1, "Horde", 27, 30]));
+}
+
+#[test]
+fn an_empty_walking_batch_is_not_a_refusal_and_does_not_ask_or_replan_again() {
+	let out = run(r#"
+		target(600, 0)
+		local c, gx, gy = N.GetTargetWorld()
+		local asks, refreshes, done = 0, 0, nil
+		local places = {{wx=0,wy=0,start=true},{wx=50,wy=0}}
+		N.Path = {FindMany = function(_, _, _, cb) asks, done = asks + 1, cb; return {} end}
+		N.travel.Remeasured = function() refreshes = refreshes + 1 end
+		N.walk.Measure(c, gx, gy, false, places)
+		done(nil, "unsupported", {})
+		local cost = N.walk.Measured(c, gx, gy, false)
+		N.walk.Measure(c, gx, gy, false, places)
+		emit({ asks, refreshes, cost(c, 0, 0, true) == nil, cost(c, 50, 0, false) == nil })"#);
+	assert_eq!(out, json!([1, 0, true, true]));
+}
+
+#[test]
+fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and_landing_intact() {
+	let out = run(r#"
+		local hubs = N.danger.hubBins[0].Alliance
+		nav.place(0, 0)
+		hubs[0] = {0, 55, 6^2}
+		target(0, 766)
+		local direct = { N.Sample(), #N.GetRouteGeometry().legs }
+		hubs[0] = nil
+		nav.useTravelWorld()
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		nav.place(0, 600)
+		target(0, -780)
+		local function pathCounts()
+			local legs = N.GetRouteGeometry().legs
+			local counts = {}
+			for i, leg in ipairs(legs) do counts[i] = { leg.kind, #leg.pts } end
+			return counts
+		end
+		local before = pathCounts()
+		-- The itinerary is in place. Refuse just the live approach to the flight master.
+		hubs[5] = {0, 670, 6^2}
+		local refused = N.Sample()
+		local after = pathCounts()
+		local _, ci = N.GetRoute()
+		-- Reading the map must not advance the flight, even at its boarding spot.
+		nav.place(0, 790)
+		pathCounts()
+		local _, still = N.GetRoute()
+		nav.place(0, 600)
+		hubs[5] = nil
+		local clear = N.Sample()
+		emit({ direct, before, refused, after, still == ci, clear, pathCounts() })"#);
+	let full = json!([["walk", 2], ["flight", 2], ["walk", 2]]);
+	assert_eq!(out, json!([["unsafe", 0], full, "unsafe", [["walk", 0], ["flight", 2], ["walk", 2]], true, "travel", full]));
 }
 
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour

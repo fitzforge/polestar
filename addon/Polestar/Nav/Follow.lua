@@ -330,6 +330,23 @@ local function mustStay(xs, ys, zs, n, j, moves, at)
 	return moves ~= nil and (KEEP_MOVE[moves[at + j - 2]] or KEEP_MOVE[moves[at + j - 1]]) or false
 end
 
+-- XY sight is not enough to discard a crest on a bridge or a bend in a ramp's grade.
+local function followsHeight(xs, ys, zs, i, j)
+	local a, b = zs[i], zs[j]
+	if not (a and b) then return true end
+	local x, y = xs[i], ys[i]
+	local dx, dy = xs[j] - x, ys[j] - y
+	local d2 = dx * dx + dy * dy
+	if d2 == 0 then return false end
+	for k = i + 1, j - 1 do
+		if zs[k] then
+			local t = ((xs[k] - x) * dx + (ys[k] - y) * dy) / d2
+			if t < 0 or t > 1 or abs(a + (b - a) * t - zs[k]) > 3 then return false end
+		end
+	end
+	return true
+end
+
 function Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at)
 	if n < 3 or not sight then return n end
 	-- A fresh path's doubled-back marks come after it is smoothed (Follow.Mark, on the smoothed points): the last
@@ -347,19 +364,20 @@ function Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at)
 				local dx, dy = xs[j] - x1, ys[j] - y1
 				if dx * dx + dy * dy > span2 then break end
 				last = j
-				if mustStay(xs, ys, zs, n, j, moves, at) then break end
+				if (xs.detail and xs.detail[j]) or mustStay(xs, ys, zs, n, j, moves, at) then break end
 			end
 		end
 		local best, j = i + 1, last
 		while j > i + 1 and reads < SMOOTH_READS do
 			reads = reads + 1
-			if sight(x1, y1, xs[j], ys[j], zs[j], z1) then best = j break end
+			if followsHeight(xs, ys, zs, i, j) and sight(x1, y1, xs[j], ys[j], zs[j], z1) then best = j break end
 			local nj = i + floor((j - i) * SMOOTH_STEP)
 			if nj >= j then nj = j - 1 end
 			j = nj
 		end
 		out = out + 1
 		xs[out], ys[out], zs[out] = xs[best], ys[best], zs[best]
+		if xs.detail then xs.detail[out] = xs.detail[best] end
 		i = best
 	end
 	for k = out + 1, n do xs[k], ys[k], zs[k] = nil, nil, nil end
@@ -492,7 +510,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		-- the point between them: aiming on, not at their feet); any later one
 		-- (the far side of a hairpin) must be HYST yards nearer.
 		local need = (a == best + 1 or a <= passTo) and 0 or HYST
-		if bestD == nil or d + need < bestD or (need == 0 and d == bestD and bestT == 1) then
+		-- Map conversion can put a player 1e-10 yd short of a surveyed bend.
+		-- Yield to its adjacent piece at the vertex, never across a hairpin or a stop.
+		local atBend = xs.absoluteDry and a == best + 1 and abs(px - ax) < 1e-7 and abs(py - ay) < 1e-7
+		if bestD == nil or d + need < bestD or atBend or (need == 0 and d == bestD and bestT == 1) then
 			best, bestD, bestT = a, d, t
 		end
 	end
@@ -517,6 +538,20 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	-- Aim: slide along the path from the projection.
 	local limit = n
 	if stop and stop < limit then limit = stop end
+	-- Coarse sight can see through the obstruction a surveyed turn goes around. The
+	-- next such turn limits both kinds of look-ahead. Projection still passes it
+	-- normally; a player who has already walked around it need not backtrack.
+	if xs.detail then
+		for j = idx, limit do
+			local at = start - left[j]
+			if at - S.along > SIGHT_AHEAD then break end
+			if xs.detail[j] then
+				limit = j
+				if S.sightAt and S.sightAt > at then S.sightAt = nil end
+				break
+			end
+		end
+	end
 	-- The player's own segment drops or climbs to another floor at its end, a point they have not come within
 	-- REACH of (the projection's own block): the aim goes no further than that point. Measured from that point's
 	-- floor, the path beyond it lay on the aim's floor, so the corridor (or a road's join) ran on past the drop, the

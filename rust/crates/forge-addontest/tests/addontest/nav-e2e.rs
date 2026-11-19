@@ -110,6 +110,7 @@ fn before(files: &[PathBuf]) -> String {
 	let list = files.iter().map(|p| lua_string(&p.to_string_lossy())).collect::<Vec<_>>().join(", ");
 	format!(
 		r#"local w = stub.world
+stub.clientBuild = "70532" -- same client as the packaged navigation fixtures
 {}
 stub.packs.Polestar_Nav = {{ {list} }}
 -- UnitPosition: the world position the live map frame gives, z as set, the instance map id.
@@ -962,11 +963,11 @@ fn the_walking_maps_load_on_demand_only_with_walk_real_paths_on_nav_navrouting_o
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let files = nav_files(&ns);
-	let run1 = |routing: bool| {
+	let run1 = |routing: bool, level: u8| {
 		let addons = polestar_addons();
 		emitted(&RunAddon {
 			stubs: vec!["stub_world.lua", "stub_encoding.lua", "stub_packs.lua"],
-			before: before(&files),
+			before: format!("{}\nstub.world.level = {level}", before(&files)),
 			addons,
 			saved: vec![("Polestar".into(), format!("PolestarDB = {{ schema = 1, settings = {{ nav = {{ navRouting = {routing} }} }} }}"))],
 			login: true,
@@ -981,10 +982,12 @@ fn the_walking_maps_load_on_demand_only_with_walk_real_paths_on_nav_navrouting_o
 		})
 		.remove(0)
 	};
-	let off = run1(false);
+	// The known creature range crosses this chord at level one, but not at level eight.
+	let off = run1(false, 8);
 	assert_eq!(serde_json::json!([off["loads"], off["data"], off["chokepoints"], off["finds"]]), serde_json::json!([0, false, false, 0]), "routing off: no maps in memory, no search");
 	assert_eq!(off["state"], "travel", "the arrow still points (straight)");
-	let on = run1(true);
+	assert_eq!(run1(false, 1)["state"], "unsafe", "routing off does not hide a known ground danger");
+	let on = run1(true, 8);
 	assert_eq!(serde_json::json!([on["loads"], on["data"], on["chokepoints"]]), serde_json::json!([1, true, true]), "routing on: loaded once at login");
 	assert!(f(&on["finds"]) >= 1.0);
 }
@@ -1008,7 +1011,8 @@ fn cluster_file(wx: f64, wy: f64) -> (i64, Option<String>) {
 	(k, file)
 }
 
-const STRAIGHT: &str = r#"
+const DAMAGED_MAP: &str = r#"
+	w.setLevel(8) -- no creature veto here: missing geometry must itself suppress the bearing
 	place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 	local f = guide()
 	for _ = 1, 20 do stub.advance(0.05) end
@@ -1033,20 +1037,19 @@ fn with_maps_and(files: &[PathBuf], extra: &str, script: &str) -> Value {
 }
 
 #[test]
-fn a_map_whose_files_are_all_missing_from_nav_xml_leaves_the_straight_arrow_on_that_map_with_no_lua_error() {
+fn a_map_with_no_walking_data_gives_no_bearing_when_routing_is_enabled() {
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let mine = Regex::new(r"[\\/]Nav0(_\d+)?\.lua$").unwrap();
 	let files: Vec<PathBuf> = nav_files(&ns).into_iter().filter(|p| !mine.is_match(&p.to_string_lossy())).collect();
-	let out = with_maps(&files, STRAIGHT);
+	let out = with_maps(&files, DAMAGED_MAP);
 	assert_eq!(out["available"], false, "no data for map 0");
-	assert_eq!(out["state"], "travel");
-	assert!(f(&out["toTarget"]) < 1.0, "the arrow points at the goal itself ({})", out["toTarget"]);
-	assert_ne!(out["measured"], true, "its distance is the straight one");
+	assert_eq!(out["state"], "unmapped");
+	assert!(out["toTarget"].is_null(), "no bearing across unmapped ground");
 }
 
 #[test]
-fn a_corrupted_grid_block_of_the_map_leaves_the_straight_arrow_for_that_walk_with_no_lua_error() {
+fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
 	skip_unless_ready!();
 	let (k, file) = cluster_file(-9444.062, 77.667);
 	let file = file.expect("Goldshire's cluster is in one part file");
@@ -1063,16 +1066,16 @@ fn a_corrupted_grid_block_of_the_map_leaves_the_straight_arrow_for_that_walk_wit
 	let (_ns_tmp, ns) = ns_file();
 	let swap = |p: PathBuf| if p.file_name().is_some_and(|n| n.to_string_lossy() == file) && p.starts_with(parts_dir()) { bad.clone() } else { p };
 	let out = if parts_dir() == nav_dir() {
-		with_maps(&nav_files(&ns).into_iter().map(swap).collect::<Vec<_>>(), STRAIGHT)
+		with_maps(&nav_files(&ns).into_iter().map(swap).collect::<Vec<_>>(), DAMAGED_MAP)
 	} else {
 		let part = forge_nav::pack::part_of(0).unwrap();
 		let list: Vec<String> = toc_files(part).unwrap().into_iter().map(swap).map(|p| lua_string(&p.to_string_lossy())).collect();
-		with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{ {} }}", list.join(", ")), STRAIGHT)
+		with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{ {} }}", list.join(", ")), DAMAGED_MAP)
 	};
 	assert_eq!(out["available"], true, "the map is there");
 	assert_eq!(out["points"], 0, "no path through the broken cluster ({})", out["cost"]);
-	assert_eq!(out["state"], "travel");
-	assert!(f(&out["toTarget"]) < 1.0, "the arrow points at the goal itself ({})", out["toTarget"]);
+	assert_eq!(out["state"], "unmapped");
+	assert!(out["toTarget"].is_null(), "no bearing across a damaged walking block");
 }
 
 /// Geo.toWorld (tools/lib/planner/geo.js): the frame of f's set first ("e": Era, else the live one), the other when
@@ -1196,6 +1199,7 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 	let out = run(
 		r#"
 		w.faction = "Horde"
+		w.setLevel(30) -- Compare the landings with the character in Ashenvale's level range.
 		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [29] = true, [58] = true, [61] = true, [77] = true }
 		local by = {}
 		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n end
@@ -1222,11 +1226,11 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 		local n = 0
 		while n < 400 and route().engine ~= "path" do stub.advance(0.05); aim(); n = n + 1 end
 		r.after = route()
-		local tc, tx, ty = N.GetTargetWorld()
+		local tc, tx, ty, tz = N.GetTargetWorld()
 		r.target = { tx, ty }
 		r.splinter = { splinter.wx, splinter.wy }
-		local cost = N.walk.Measured(tc, tx, ty, false)
-		r.measured = { sun = cost(1, sun.wx, sun.wy), splinter = cost(1, splinter.wx, splinter.wy) }
+		local cost = N.walk.Measured(tc, tx, ty, false, tz)
+		r.measured = { sun = cost(1, sun.wx, sun.wy, false, sun.z), splinter = cost(1, splinter.wx, splinter.wy, false, splinter.z) }
 		r.straight = { sun = dist(sun.wx, sun.wy, tx, ty), splinter = dist(splinter.wx, splinter.wy, tx, ty) }
 		-- The engine's walk from Sun Rock Retreat: how far it runs from the straight line over the ridge.
 		local pts = E.FindSync(1, { x = sun.wx, y = sun.wy }, { x = tx, y = ty })
@@ -1277,6 +1281,7 @@ fn ashenvale_west_of_astranaar_where_a_ridge_makes_the_straight_choices_measured
 	let out = run(
 		r#"
 		w.faction = "Horde"
+		w.setLevel(30)
 		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [58] = true, [61] = true, [77] = true }
 		local by, byName = {}, {}
 		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n; byName[n.name] = n end
@@ -1293,12 +1298,12 @@ fn ashenvale_west_of_astranaar_where_a_ridge_makes_the_straight_choices_measured
 			N.SetTarget(1440, g[1], g[2], "Behind the ridge", "e")
 			aim()
 			local before = lands()
-			local tc, tx, ty = N.GetTargetWorld()
+			local tc, tx, ty, tz = N.GetTargetWorld()
 			local n = 0
-			while n < 400 and not N.walk.Measured(tc, tx, ty, false) do stub.advance(0.05); aim(); n = n + 1 end
+			while n < 400 and not N.walk.Measured(tc, tx, ty, false, tz) do stub.advance(0.05); aim(); n = n + 1 end
 			local node = before and byName[before]
-			local cost = N.walk.Measured(tc, tx, ty, false)
-			local m = node and cost and cost(1, node.wx, node.wy)
+			local cost = N.walk.Measured(tc, tx, ty, false, tz)
+			local m = node and cost and cost(1, node.wx, node.wy, false, node.z)
 			local off = 0
 			if node and m then
 				-- How far the engine's walk from that landing runs from the straight line.
@@ -2248,7 +2253,8 @@ fn a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arri
 		for _ = 1, 40 do stub.advance(0.05); aim() end
 		Polestar.Fire("WAYPOINT_CHANGED", { map = 1456, x = 78.6, y = 28.6, f = "e", label = "Hamuul Runetotem", kind = "turnin", r = 5 })
 		for _ = 1, 600 do aim(); stub.advance(0.05) end
-		local r = { measured = N.walk.Measured(1, HAMUUL[1], HAMUUL[2], false) ~= nil }
+		local tc, tx, ty, tz = N.GetTargetWorld()
+		local r = { measured = N.walk.Measured(tc, tx, ty, false, tz) ~= nil }
 		-- Flown to Thunder Bluff, 365 yd from him.
 		place(1456, -1197.2, 29.7, 0)
 		for _ = 1, 100 do aim(); stub.advance(0.05) end
@@ -2896,17 +2902,17 @@ fn camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728() 
 		local function look()
 			for _, l in ipairs(route()) do if l:find("^fly") then flew[#flew + 1] = table.concat(route(), " ") end end
 		end
-		local tc, tx, ty = N.GetTargetWorld()
+		local tc, tx, ty, tz = N.GetTargetWorld()
 		local by = {}
 		for _, nd in ipairs(N.GetTravelData().taxi) do by[nd.id] = nd end
 		local xr = by[25]
 		local n = 0
-		local function crossroads() local cost = N.walk.Measured(tc, tx, ty, false) return cost and cost(1, xr.wx, xr.wy, false) end
+		local function crossroads() local cost = N.walk.Measured(tc, tx, ty, false, tz) return cost and cost(1, xr.wx, xr.wy, false, xr.z) end
 		while n < 1200 and type(crossroads()) ~= "number" do stub.advance(0.05); aim(); look(); n = n + 1 end
 		for _ = 1, 200 do stub.advance(0.05); aim(); look() end
-		local cost = N.walk.Measured(tc, tx, ty, false)
-		local pc, py_ = cost(1, px, py, true)
-		local xc, xy = cost(1, xr.wx, xr.wy, false)
+		local cost = N.walk.Measured(tc, tx, ty, false, tz)
+		local pc, py_ = cost(1, px, py, true, N.walk.Floor(1, px, py))
+		local xc, xy = cost(1, xr.wx, xr.wy, false, xr.z)
 		emit({ after = route(), flew = flew, player = { pc, py_ }, crossroads = { xc, xy }, straight = dist(xr.wx, xr.wy, tx, ty) })"#,
 		true,
 	);
@@ -3005,14 +3011,17 @@ fn t_1972_from_darkshire_watcher_biggs_is_the_walk_through_deadwind_pass_not_a_f
 			for _ = 1, 400 do aim(); stub.advance(0.05) end
 			local r = { route = route() }
 			-- The walks the engine measured into the target, from the flight masters of the way.
-			local tc, tx, ty = N.GetTargetWorld()
-			local measured = N.walk.Measured and N.walk.Measured(tc, tx, ty)
+			local tc, tx, ty, tz = N.GetTargetWorld()
+			local measured = N.walk.Measured(tc, tx, ty, false, tz)
 			if measured then
 				r.measured = {}
-				for name, p in pairs({ darkshire = { 1431, 77.59, 44.38 }, lakeshire = { 1433, 30.43, 58.99 }, farholde = { 2548, 60.59, 81.57 } }) do
-					local c, wx, wy = C.MapToWorld(p[1], p[2], p[3], "e")
-					local cost, yd = measured(c, wx, wy)
-					r.measured[name] = { cost = cost or false, yards = yd or false }
+				local names = { Darkshire = "darkshire", Lakeshire = "lakeshire", ["Farholde Keep"] = "farholde" }
+				for _, node in ipairs(N.GetTravelData().taxi) do
+					local name = names[node.name]
+					if name then
+						local cost, yd = measured(node.c, node.wx, node.wy, false, node.z)
+						r.measured[name] = { cost = cost or false, yards = yd or false }
+					end
 				end
 			end
 			return r

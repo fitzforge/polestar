@@ -69,7 +69,104 @@ fn run(script: &str) -> Value {
 
 // The addon's own travel data (Nav/TravelData.lua), no fixture world.
 fn run_real(script: &str) -> Value {
-	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: script.to_string(), ..Default::default() }).remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: format!("stub.nav.useGameGround()\n{script}"), ..Default::default() }).remove(0)
+}
+
+#[test]
+fn a_flight_over_high_level_ground_does_not_admit_the_walk_or_an_unsafe_approach() {
+	let out = run_real(r#"
+		local N = Polestar.Nav
+		local a, b = N.GetTaxiNode(2), N.GetTaxiNode(6) -- Stormwind and Ironforge
+		local function trip(from, to, faction, level, foot)
+			local legs = N.PlanRoute({ c = from.c, wx = from.wx, wy = from.wy, map = from.map, target = to,
+				faction = faction, level = level, known = { [2] = true, [6] = true }, walkOnly = foot })
+			local kinds = {}
+			for _, leg in ipairs(legs or {}) do kinds[#kinds + 1] = leg.kind end
+			return table.concat(kinds, ",")
+		end
+		local high = { c = 0, map = 1422, wx = 1383, wy = -383 }
+		emit({ fly = trip(a, b, 1, 20), foot = trip(a, b, 1, 20, true), enemy = trip(a, b, 2, 60),
+			boarding = trip(high, b, 1, 20), landing = trip(a, high, 1, 20), unknown = trip(a, b, 1, nil) })
+	"#);
+	assert_eq!(out, json!({ "fly": "fly,walk", "foot": "", "enemy": "", "boarding": "", "landing": "", "unknown": "" }));
+}
+
+#[test]
+fn an_unqualified_measurement_cannot_clear_a_blocked_ground_walk() {
+	let out = run_real(r#"
+		local N = Polestar.Nav
+		local function plan(level, checked)
+			return N.PlanRoute({ c = 0, wx = 1383, wy = -383, map = 1422, walkOnly = true,
+				target = { c = 0, wx = 1403, wy = -383, map = 1422, label = "Western Plaguelands" },
+				level = level, faction = 1, walkCost = function() return 20, 20, checked end }) ~= nil
+		end
+		emit({ plan(nil, { profile = "Alliance" }), plan(10, { walkLevel = 10, profile = "Horde" }),
+			plan(10, { walkLevel = 60, profile = "Alliance" }), plan(10, nil) })"#);
+	assert_eq!(out, json!([false, false, false, false]));
+}
+
+#[test]
+fn coincident_docks_keep_their_own_source_floors_when_requesting_measured_walks() {
+	let out = run(r#"
+		local function dock(name, c, x, z)
+			return { name, c, x, 0, c == 0 and 9000 or 9001, 50, 50, "e", nil, z }
+		end
+		N.RegisterTravelData({ taxi = {}, flights = {}, inns = {}, transports = {
+			{ id = "lower", kind = "boat", faction = 1, ab = 20, ba = 20, waitA = 0, waitB = 0,
+				a = dock("Lower", 0, 100, 5), b = dock("Across", 1, 0, 0) },
+			{ id = "upper", kind = "boat", faction = 1, ab = 20, ba = 20, waitA = 0, waitB = 0,
+				a = dock("Upper", 0, 100, 35), b = dock("Across", 1, 300, 0) } } }, true)
+		local places, lookups = {}, {}
+		local legs = N.PlanRoute({ c = 0, wx = 100, wy = 0, z = 12, faction = 1, level = 15,
+			target = { c = 0, wx = 500, wy = 0, z = 14, label = "Testshire" }, places = places,
+			walkCost = function(c, x, y, start, z)
+				if x == 100 and y == 0 then lookups[#lookups + 1] = z or -1 end
+			end })
+		local origins = {}
+		for _, p in ipairs(places) do
+			if p.wx == 100 and p.wy == 0 then origins[#origins + 1] = p.z or -1 end
+		end
+		table.sort(origins); table.sort(lookups)
+		emit({ origins, lookups, legs[1].from.z, legs[#legs].to.z })"#);
+	assert_eq!(out, json!([[5, 12, 35], [5, 12, 35], 12, 14]));
+}
+
+#[test]
+fn a_cached_flight_estimate_is_not_reused_after_releasing_as_a_ghost() {
+	let out = run(r#"
+		known(1, 2)
+		nav.place(0, 600)
+		local m, x, y = nav.mapPoint(0, -780)
+		local to = { map = m, x = x, y = y }
+		local alive = N.EstimateTravel(nil, to)
+		function UnitIsGhost(unit) return unit == "player" end
+		local ghost = N.EstimateTravel(nil, to)
+		emit({ alive, ghost })"#);
+	let flying = out[0].as_f64().unwrap();
+	let walking = out[1].as_f64().unwrap();
+	assert!(flying < walking / 2.0 && (walking - 1380.0 * 1.25 / 7.0).abs() < 2.0, "{out}");
+}
+
+#[test]
+fn historical_crossings_do_not_clear_an_underlevel_walk_on_build_70532() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		before: "stub.clientBuild = \"70532\"".into(),
+		addons: vec![nav()],
+		script: r#"
+			stub.nav.useGameGround()
+			local D = Polestar.Nav.danger
+			-- Sample the level-23 area between Nighthaven and the druid teleport.
+			-- None of its ground tiles are verified low-level passes.
+			for x = 7800, 7990, 5 do
+				for y = -2675, -2410, 5 do
+					assert(D.Blocked(1, x, y, x, y, "Alliance", 12), "unverified ground cleared")
+				end
+			end
+			emit(true)"#.into(),
+		..Default::default()
+	});
+	assert_eq!(out, vec![json!(true)]);
 }
 
 #[test]
@@ -139,7 +236,7 @@ fn takes_a_known_flight_over_a_long_walk_and_walks_when_no_flight_is_known() {
 fn issue_1603_a_measured_road_walk_never_beats_a_faster_flight_and_a_near_tie_walks() {
 	let out = run(r#"
 		local function plan(yards, rate)
-			local legs = N.PlanRoute({ c = 0, wx = 0, wy = 790, faction = 1, known = { [1] = true, [2] = true }, speed = 7,
+			local legs = N.PlanRoute({ c = 0, wx = 0, wy = 790, faction = 1, level = nav.level, known = { [1] = true, [2] = true }, speed = 7,
 				target = { c = 0, wx = 0, wy = -820, label = "Kobolds" },
 				walkCost = function(_, _, _, start) if start then return yards * rate, yards end end })
 			local out = {}
@@ -643,7 +740,7 @@ fn walking_past_a_flight_master_not_learnt_to_near_a_known_one_learns_it_and_fli
 				wx = 1612.5 + (-5143.75 - 1612.5) * 0.3096,
 				wy = 2622.917 + (-7510.417 - 2622.917) * 0.5167,
 			},
-			faction = 2, known = { [22] = true, [23] = true, [25] = true },
+			faction = 2, level = 23, known = { [22] = true, [23] = true, [25] = true },
 		})
 		emit(legs)"#,
 	);
@@ -774,7 +871,8 @@ fn estimatetravel_stays_cheap_for_a_burst_of_candidates_on_the_real_network() {
 		login: true,
 		script: r#"
 			local N, nav = Polestar.Nav, stub.nav
-			nav.faction = "Alliance"
+			nav.useGameGround()
+			nav.faction, nav.level = "Alliance", 25
 			Polestar.RegisterMapFrames({ era = { [1436] = { c = 0, left = 3016.667, right = -483.333, top = -9400, bottom = -11733.333 },
 				[1433] = { c = 0, left = -1570.833, right = -3741.667, top = -8575, bottom = -10022.916 } } })
 			nav.place(-10500, 1046, 0)
@@ -964,11 +1062,10 @@ fn a_class_flight_node_flies_that_class_alone_with_no_path_learnt() {
 			flights = { 4, 2, 1400 }, inns = {} }, true)
 		nav.place(0, 600)
 		known(2)
-		local C = Polestar.Compat
-		C.GetPlayerInfo = function() return { faction = "Alliance", class = "WARRIOR" } end
+		nav.class = "WARRIOR"
 		target(0, -780, "Kobolds")
 		local warrior = route()
-		C.GetPlayerInfo = function() return { faction = "Alliance", class = "DRUID" } end
+		nav.class = "DRUID"
 		target(0, -780, "Kobolds")
 		emit({ warrior = warrior, druid = route() })"#);
 	assert_eq!(out["warrior"], json!(["walk|Kobolds"]));

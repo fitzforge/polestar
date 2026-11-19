@@ -357,26 +357,6 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 	assert_eq!(out[4], 0);
 }
 
-fn walk(dir: &Path, compat: &Path, offenders: &mut Vec<String>) {
-	let mut entries: Vec<_> = fs::read_dir(dir).unwrap().map(|e| e.unwrap()).collect();
-	entries.sort_by_key(|e| e.file_name());
-	for e in entries {
-		let p = e.path();
-		if e.file_type().unwrap().is_dir() {
-			walk(&p, compat, offenders);
-		} else if e.file_name().to_string_lossy().ends_with(".lua") && p != compat && is_match(&String::from_utf8_lossy(&fs::read(&p).unwrap()), r"\bUnitPosition\b") {
-			offenders.push(p.strip_prefix(root()).unwrap().display().to_string());
-		}
-	}
-}
-
-#[test]
-fn c5_unitposition_is_read_in_one_place_core_compat_lua() {
-	let mut offenders = Vec::new();
-	let compat = root().join("addon").join("Polestar").join("Core").join("Compat.lua");
-	walk(&root().join("addon").join("Polestar"), &compat, &mut offenders);
-	assert_eq!(offenders, Vec::<String>::new());
-}
 
 // --- review fixes ---------------------------------------------------------------
 

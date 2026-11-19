@@ -126,6 +126,16 @@ function fake.settle(job, fn)
 	local costs, yards = {}, {}
 	for i, p in ipairs(job.targets) do
 		local c, y = fn(p.x, p.y)
+		-- This fixture's walks are polylines with one segment. An uncredited
+		-- answer remains usable for neither faction, even if it carries a cost.
+		if c and not job.unchecked then
+			local o = job.opts
+			if Polestar.Nav.danger.Blocked(job.map, job.from.x, job.from.y, p.x, p.y, o.profile, o.walkLevel) then
+				c, y = false, false
+			else
+				job.walkChecked = true
+			end
+		end
 		costs[i] = c
 		if y == nil then y = c end
 		yards[i] = y
@@ -1887,7 +1897,7 @@ fn terrain_a_measure_that_keeps_the_way_keeps_the_route_and_its_progress_its_lat
 }
 
 #[test]
-fn terrain_fallbacks_a_place_the_engine_finds_no_walk_from_or_none_found_at_all_keeps_the_straight_estimate() {
+fn a_refused_landing_cannot_win_on_a_straight_estimate_and_no_safe_walk_leaves_no_landing() {
 	let out = run_many(
 		&[
 			TERRAIN,
@@ -1896,7 +1906,7 @@ fn terrain_fallbacks_a_place_the_engine_finds_no_walk_from_or_none_found_at_all_
 		nav.place(900, 900)
 		target(0, 0)
 		N.Sample()
-		-- Ridge Roost unreachable (a tower the engine cannot snap from): not left out, straight x1.25.
+		-- No walk descends from Ridge Roost. Use the landing with a measured way instead.
 		fake.settle(fake.of(true)[1], function(x, y) if at(x, y, 0, 300) then return false end return terrain(x, y) end)
 		r.one = route()
 		-- Another target: nothing found from anywhere (the target snapped off the ground).
@@ -1910,9 +1920,8 @@ fn terrain_fallbacks_a_place_the_engine_finds_no_walk_from_or_none_found_at_all_
 		]
 		.concat(),
 	);
-	assert_eq!(out["one"], json!({ "lands": "Ridge Roost, Testshire", "yards": 375, "seconds": 54, "engine": false }));
-	assert_eq!(out["none"]["lands"], "Ridge Roost, Testshire");
-	assert_eq!(out["none"]["engine"], false);
+	assert_eq!(out["one"], json!({ "lands": "Road Roost, Testshire", "yards": 750, "seconds": 107, "engine": "cost" }));
+	assert!(out["none"]["lands"].is_null(), "no landing has a walk to the second target: {out}");
 	assert_eq!(out["batches"], 2, "a target whose measure found nothing is not asked again");
 }
 
@@ -2120,7 +2129,27 @@ fn later_walks_a_search_whose_walk_leaves_the_route_is_cancelled_none_starts_in_
 // Review of travel-terrain (2026-10-16): each fix with the test that fails without it.
 
 #[test]
-fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_priced_above_the_straight_distance_and_the_next_plan_measures_it_again() {
+fn a_numeric_walk_price_without_ground_checks_cannot_move_the_landing() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		local job = fake.of(true)[1]
+		job.unchecked = true
+		fake.settle(job, terrain)
+		local measured = N.walk.Measured(0, 0, 0, false)
+		emit({ lands = route().lands, quoted = measured and measured(0, 0, -700) or false })"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out, json!({"lands":"Ridge Roost, Testshire","quoted":false}));
+}
+
+#[test]
+fn a_checked_measure_is_not_reused_after_the_start_moves_and_the_next_plan_measures_again() {
 	let out = run_many(
 		&[
 			TERRAIN,
@@ -2132,9 +2161,8 @@ fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_pri
 		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt(x * x + y * y) * 1.1) end)
 		local cost = N.walk.Measured(0, 0, 0, false)
 		r.here = cost(0, 0, 600, true)
-		r.closer = cost(0, 0, 500, true)
-		-- 360 yd sideways and closer: the measure less the yards moved (299) is under the straight 500.
-		r.aside = cost(0, 300, 400, true)
+		r.closer = cost(0, 0, 500, true) or false
+		r.aside = cost(0, 300, 400, true) or false
 		nav.place(300, 400)
 		T.Replan()
 		local again = fake.of(true)
@@ -2146,8 +2174,8 @@ fn review_1_past_50_yd_from_where_it_was_measured_the_player_s_walk_is_never_pri
 		.concat(),
 	);
 	assert_eq!(out["here"], 660);
-	assert_eq!(out["closer"], 560, "the measure less the yards moved, while it beats straight");
-	assert_eq!(out["aside"], 500, "never above the straight distance x1.0 (not straight x1.25)");
+	assert_eq!(out["closer"], false, "the remaining walk was not checked from this spot");
+	assert_eq!(out["aside"], false, "a lateral move has no certified connector");
 	assert_eq!(out["batches"], 2, "walked away: measured again with the next plan");
 	assert!(out["points"].as_array().unwrap().iter().any(|p| p[0] == 300 && p[1] == 400), "from where the player now stands");
 }
@@ -2217,10 +2245,14 @@ fn the_player_alone_walked_away_only_the_player_s_walk_is_measured_again_the_pla
 		r.style = job.opts.style == first.opts.style
 		fake.settle(job, function() return 600, 590 end)
 		local cost = N.walk.Measured(0, 0, 0, false)
-		r.road = { cost(0, 0, -700) }
-		r.ridge = { cost(0, 0, 300) }
-		r.home = { cost(0, 900, 900) }
-		r.player = { cost(0, 300, 400, true) }
+		local function price(x, y, player)
+			local c, yards = cost(0, x, y, player)
+			return { c, yards }
+		end
+		r.road = price(0, -700)
+		r.ridge = price(0, 300)
+		r.home = price(900, 900)
+		r.player = price(300, 400, true)
 		T.Replan()
 		r.after = #fake.of(true)
 		emit(r)"#,
@@ -2777,7 +2809,7 @@ fn test_gap_handed_off_to_shortest_path_forever_refresh_cancels_the_measure_and_
 // hostile towns a walk enters are said; a later rule scales walk costs.
 
 #[test]
-fn profile_every_search_carries_the_player_s_faction_as_opts_profile_a_neutral_faction_sends_none_and_still_routes() {
+fn searches_carry_the_player_faction_and_an_unknown_faction_gets_no_ground_bearing() {
 	let out = run_many(
 		&[
 			TERRAIN,
@@ -2793,10 +2825,6 @@ fn profile_every_search_carries_the_player_s_faction_as_opts_profile_a_neutral_f
 		r.hordeAim = aim()[1]
 		nav.faction = "Neutral"
 		target(0, -300)
-		N.Sample()
-		job = fake.of(false)[#fake.of(false)]
-		r.none = { job.profile or false, job.waterWalking == true }
-		fake.resolve(0, 0, 50, -150, 0, -300)
 		r.noneAim = aim()
 		nav.faction = "Alliance"
 		nav.place(900, 900)
@@ -2810,9 +2838,7 @@ fn profile_every_search_carries_the_player_s_faction_as_opts_profile_a_neutral_f
 	);
 	assert_eq!(out["horde"], json!(["Horde", "table", false]), "the arrow's own walk: opts {{ waterWalking, profile }}");
 	assert_eq!(out["hordeAim"], "travel");
-	assert_eq!(out["none"], json!([false, false]), "neutral or unread: no profile");
-	assert_eq!(head(&out["noneAim"], 2), json!(["travel", 316]), "and it routes");
-	heads(&out["noneAim"], (0.0, 0.0), (50.0, -150.0), "along its path");
+	assert_eq!(out["noneAim"], json!(["unsafe"]), "unknown faction must not get a walking bearing");
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 
@@ -3472,6 +3498,7 @@ fn zone_danger_the_planner_s_straight_walk_1200_yd_through_a_zone_far_above_cost
 		-- Along the walk from (0, 1200) to (0, 0): the start's zone from y = 1100,
 		-- another to y = 500 (half the walk's 12 samples), the target's below.
 		-- A new Path.ZoneAt per layout (Danger keeps the zones per chunk for one).
+		nav.addGround(0, 1, -1, 1201, -1)
 		local function layout(home, between, there)
 			Polestar_NavEngine.ZoneAt = function(map, x, y)
 				if y >= 1100 then return home elseif y > 500 then return between end

@@ -192,14 +192,73 @@ fn the_committed_traveldata_lua_has_the_flight_points_forever_added_on_their_liv
 	);
 }
 
+// The airborne network and the walk to the flight master are independent. Below-ground
+// placements near Stonard have no certified separation from a player of unknown height.
+#[test]
+fn stonards_air_connection_is_known_but_a_missing_floor_does_not_clear_its_ground() {
+	let out = nav_run(r#"
+		stub.nav.useGameGround()
+		local N = Polestar.Nav
+		local lengths = N.GetTravelData().flights[56]
+		local yards
+		for i = 1, #lengths - 1, 2 do
+			if lengths[i] == 3203 then yards = lengths[i + 1] end
+		end
+		local function at(level)
+			return N.danger.CreatureBlocked(0, -10457, -3279, -10457, -3279.2, "Horde", level)
+		end
+		emit({ yards, at(45), at(60), at(60.5), at(nil) })"#);
+	assert_eq!(out, json!([5085, "enemy faction creature", "enemy faction creature", "unknown level", "unknown level"]));
+}
+
 // A Horde character at Stonard's flight master who knows Rog'mar is flown there (the planner over the committed
 // network), in the 170 s players take.
 #[test]
 fn from_stonard_a_horde_character_who_knows_rog_mar_flies_there() {
 	let out = nav_run(
 		r#"
-			local legs = Polestar.Nav.PlanRoute({ c = 0, wx = -10457, wy = -3279, faction = 2, known = { [56] = true, [3203] = true }, speed = 7,
-				target = { c = 0, wx = -7930, wy = -4800, label = "Rog'mar" } })
+			local N, nav = Polestar.Nav, stub.nav
+			nav.useGameGround()
+			nav.faction, nav.level = "Horde", 45
+			nav.place(-10457, -3279, 0)
+			local floor = 21.5
+			nav.Compat.GetPlayerUnitPosition = function() return nav.player.wx, nav.player.wy, floor, nav.player.c end
+			local p = { c = 0, wx = -10457, wy = -3279, z = floor, faction = 2, level = 45, liveTaxi = true,
+				known = { [56] = true, [3203] = true }, speed = 7, target = { c = 0, wx = -7930, wy = -4800, label = "Rog'mar" } }
+			local function open(state)
+				nav.taxiMap = { mapID = 1415, nodes = { { 56, 0 }, { 3203, state } } }
+				stub.fire("TAXIMAP_OPENED", 1)
+			end
+			assert(not N.PlanRoute(p), "knowing a node does not prove boarding")
+			open(2)
+			assert(not N.PlanRoute(p), "unselectable destination")
+			open(1)
+			nav.faction = "Alliance"
+			assert(not N.PlanRoute(p), "flight offer cannot be borrowed by the other faction")
+			nav.faction, nav.level = "Horde", nil
+			assert(not N.PlanRoute(p), "flight offer with unread player level")
+			nav.level = 45
+			floor = nil
+			assert(not N.PlanRoute(p), "unobserved floor")
+			floor = -4
+			assert(not N.PlanRoute(p), "stacked floor")
+			floor = 21.5
+			p.wx = p.wx - 10
+			assert(not N.PlanRoute(p), "plan begins outside interaction range")
+			p.wx = nav.player.wx
+			p.walkOnly = true
+			assert(not N.PlanRoute(p), "ghost cannot board")
+			p.walkOnly = nil
+			local destination = p.target
+			p.target = { c = 0, wx = -8840.6, wy = 489.7, label = "Enemy capital" }
+			assert(not N.PlanRoute(p), "boarding is not permission for the destination walk")
+			p.target = destination
+			local legs = N.PlanRoute(p)
+			assert(legs and legs[1].kind == "fly" and legs[1].from.id == 56, "board here without a ground approach")
+			assert(legs[#legs].kind == "walk" and legs[#legs].to.wx == -7930 and legs[#legs].to.wy == -4800)
+			nav.taxiMap = nil
+			stub.fire("TAXIMAP_CLOSED")
+			assert(not N.PlanRoute(p), "closed flight map cannot authorize later boarding")
 			local out = {}
 			for _, l in ipairs(legs or {}) do
 				out[#out + 1] = { l.kind, l.kind == "fly" and l.stops and l.stops[#l.stops].id or false, math.floor(l.seconds + 0.5) }
