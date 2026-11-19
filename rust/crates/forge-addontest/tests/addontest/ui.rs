@@ -3110,13 +3110,14 @@ fn the_next_spot_of_an_area_objective_takes_the_arrow_there_over_a_point_picked_
 
 #[test]
 fn labels_kept_in_tables_are_in_the_client_language_the_group_line_and_the_guide_menu_s_tabs() {
+	let strings = [("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt"), ("Guides", "Anleitungen")];
 	let out = run_with(
 		r#"
 		UI.ShowPicker()
 		local tabs = {}
 		for _, b in ipairs(PolestarPicker.tabButtons) do if b:IsShown() then tabs[#tabs + 1] = b.Label:GetText() end end
 		emit({ elite = UI.GroupLine({ party = { kind = "elite", rank = 2 } }), tabs = tabs, title = PolestarPicker.Title:GetText() })"#,
-		&fake_locale("itIT", &[("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt"), ("Guides", "Anleitungen")]),
+		&fake_locale("itIT", &strings),
 		"",
 	)
 	.remove(0);
