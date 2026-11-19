@@ -349,7 +349,7 @@
 			"id": "043-hillsbrad-skulls-stay-out-of-the-square",
 			"faction": "Horde",
 			"at": { "quest": 546, "goal": "objective", "objective": 1 },
-			"tip": "Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. The town square holds the Councilmen (24-26), and Magistrate Burnside (30) stands in the town hall. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.",
+			"tip": "Careful: Wait until level 23 to hunt the Peasants; at 23, pick the level 24s. Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.",
 			"note": "Souvenirs of Death and Battle of Hillsbrad: the skulls point moved from the town square to the southern fields (places.json 043-hillsbrad-skulls-southern-fields); the step's Careful line now also names the Councilmen and Magistrate Burnside, whom the old point stood among.",
 			"source": [
 				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7)" },

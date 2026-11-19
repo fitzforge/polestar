@@ -117,7 +117,7 @@ step Stanley
 step Hillsbrad Fields: kill these as you meet them
   zone Hillsbrad Foothills
   tip The Peasants work the southern fields, south-east of Hillsbrad town. Every Hillsbrad human drops skulls; the Peasants drop them most often, so work the fields and stay out of the town square.
-  tip Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. The town square holds the Councilmen (24-26), and Magistrate Burnside (30) stands in the town hall. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.
+  tip Careful: Wait until level 23 to hunt the Peasants; at 23, pick the level 24s. Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.
   loop
   goto 35.2,46.4 map 1424 era
   goto 36.44,45.43 map 1424 era
