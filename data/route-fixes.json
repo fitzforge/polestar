@@ -6287,6 +6287,18 @@
 				],
 				"faction": "Alliance",
 				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
+			},
+			{
+				"a": ["accept", 99411],
+				"b": ["task", 748],
+				"faction": "Horde",
+				"why": "Horde 0.4.3 route round (Mulgore): Ahab Wheathoof stands at Bloodhoof's north edge, 70 yd from Yaw Sharpmane on the first visit (Kyle's Gone Missing!, level 7 from 5), and Kyle's Tender Strider Meat drops from the Adult Plainstriders that Poison Water kills next. The quest was taken on the third visit and its meat hunted at the Thunderhorn well, with a 628 yd walk back to the village for Kyle (flow audit, every Tauren branch). Players' recordings: 27 people accepted it at a median level of 7.07."
+			},
+			{
+				"a": ["task", 99411],
+				"b": ["task", 756],
+				"faction": "Horde",
+				"why": "Horde 0.4.3 route round (Mulgore): Kyle is fed and Ahab takes the hand-in on the Bloodhoof visit after the Winterhoof well, the meat already in the bags from Poison Water, before the walk north-west to the Prairie Stalkers and Flatland Cougars."
 			}
 		],
 		"notes": [

@@ -294,7 +294,10 @@ step The Crossroads
   turnin 844                          -- Sergra Darkthorn
   accept 845
   turnin 871                          -- Thork
-  turnin 5041
+
+step Thork
+  when group 5041
+  turnin 5041                         -- Thork
 
 step Thork
   when group 872
@@ -409,13 +412,16 @@ step The Crossroads
   turnin 903                          -- Sergra Darkthorn
   accept 881
   turnin 848                          -- Apothecary Helbrim
-  turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
   accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
   accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
   accept 877                          -- Tonga Runetotem: the bubbling fissure at the Stagnant Oasis, on the Verog pass
+
+step Thork
+  when group 872
+  turnin 872                          -- Thork, on the tower
 
 step Gur'ak
   when group 97003
@@ -457,8 +463,8 @@ step Echeyakee
 
 step Finish the Raptor Heads
   when !has 5062 x12
-  tip Still short of twelve? Sunscale Screechers are thickest on the open plains just north of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.
-  collect 5062 quest 869.1 @56.5,13.5 map 1413 era
+  tip Still short of twelve? Sunscale Screechers are thickest on the open plains just west of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.
+  collect 5062 quest 869.1 @54.3,15.9 map 1413 era
 
 step The Crossroads
   label q869

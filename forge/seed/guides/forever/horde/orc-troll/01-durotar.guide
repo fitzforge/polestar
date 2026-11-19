@@ -192,18 +192,15 @@ step North end of the valley
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-step Galgar
-  tip Galgar stands just outside the Den's entrance.
-  turnin 789                          -- Gornek
-  turnin 4402                         -- Galgar
-
 step Back at the Den
+  turnin 789                          -- Gornek
   turnin 792 only !Warlock            -- Zureetha Fargaze
   turnin 1485 only Warlock            -- Ruzan
   accept 1499 only Warlock
   turnin 1499 only Warlock            -- Zureetha Fargaze
   accept 794
   accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
+  turnin 4402                         -- Galgar, just outside the Den's entrance
 
 step Lazy Peons
   tip The peons doze around the Den, east and south of it.

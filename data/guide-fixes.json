@@ -301,6 +301,41 @@
 			"pr": 3145
 		},
 		{
+			"id": "043-hillsbrad-skulls-stay-out-of-the-square",
+			"faction": "Horde",
+			"at": { "quest": 546, "goal": "objective", "objective": 1 },
+			"tip": "Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. The town square holds the Councilmen (24-26), and Magistrate Burnside (30) stands in the town hall. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.",
+			"note": "Souvenirs of Death and Battle of Hillsbrad: the skulls point moved from the town square to the southern fields (places.json 043-hillsbrad-skulls-southern-fields); the step's Careful line now also names the Councilmen and Magistrate Burnside, whom the old point stood among.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7)" },
+				{ "kind": "pfquest", "ref": "npcs.json 2387 Hillsbrad Councilman 24-26, 2335 Magistrate Burnside 30 (29.7,41.6)" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-24-thunder-bluff-only-with-its-flight-path",
+			"faction": "Horde",
+			"at": { "quest": 97538, "goal": "accept", "guide": "forever/horde/04-the-barrens" },
+			"tip": "Tal, the wind rider master, stands on the central rise. Tah Winterhoof and Zangen Stonehoof stand a short walk east of him.",
+			"note": "The Barrens & Stonetalon guide opens in Thunder Bluff for Pigments for Paints (97538) and The Sacred Flame (1195), optional quests worked on this guide's and the next one's walks. A player without Thunder Bluff's flight path (The Elder Crone skipped on 05-stonetalon-mountains, or a fresh start at this guide) was sent from Orgrimmar to Camp Taurajo, up through Mulgore and back to Camp Taurajo by air: the Camp Taurajo-Thunder Bluff bounce #2013 reported from the next guide. The flight to Thunder Bluff and the elders' step (`when taxi \"Thunder Bluff\"` in the guide; a record's `when` cannot name a flight path yet) are only for players who know the flight path; the others fly straight to Camp Taurajo and learn it on 07-ashenvale's Thunder Bluff stop, which every Horde route makes. Apothecary Zamah's step (1067, a carrier of the Elder Crone chain) keeps its hand-in, and a carrier without the flight path takes it from Tal right after.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#2013 (thadude3, Orc Warlock 28): a Thunder Bluff trip from Camp Taurajo with nothing to do there, flown straight back" },
+				{ "kind": "client", "ref": "05-stonetalon-mountains' Thunder Bluff step (when onquest 1063,1064,1065) takes the flight path; 07-ashenvale's Thunder Bluff stop takes it for everyone" }
+			],
+			"issue": 2013
+		},
+		{
+			"id": "043-durotar-troll-galgar-on-the-den-return",
+			"faction": "Horde",
+			"at": { "quest": 4402, "goal": "turnin", "guide": "forever/horde/troll/01-durotar" },
+			"step": { "after": { "quest": 5441, "goal": "accept" } },
+			"note": "01-durotar (troll): Galgar's Cactus Apple Surprise (4402) is handed in on the one \"Back to the Den\" step after the valley loop, with Gornek, Zureetha and Foreman Thazz'ril, as the Orc guide does; Galgar stands just outside the Den's entrance. Its own step before the class trainer sent the player to the entrance and back into the Den (flow audit: an avoidable 325 yd backtrack on every Troll branch).",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json Galgar 42.73,67.23 and Gornek 42.06,68.33, Durotar" }
+			],
+			"pr": 3145
+		},
+		{
 			"id": "2025-barrens-barrow-dens-terrans",
 			"faction": "Horde",
 			"at": {
@@ -3566,14 +3601,14 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just north of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
+					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just west of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
 					"map": 1413,
-					"x": 56.5,
-					"y": 13.5
+					"x": 54.3,
+					"y": 15.9
 				}
 			},
 			"faction": "Horde",
-			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 56.5,13.5, just north of Echeyakee's lair, where 21 Screecher spawns lie within 3 units and the nearest elite is 7.9 units south.",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 54.3,15.9, just west of Echeyakee's lair, beside a Screecher spawn, with 10 of the creature table's Screecher spawns within 3 units and the nearest elite 5.9 units south.",
 			"source": [
 				{
 					"kind": "recording",

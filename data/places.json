@@ -2707,6 +2707,24 @@
 				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
 			},
 			"issue": 2825
+		},
+		{
+			"id": "043-hillsbrad-skulls-southern-fields",
+			"quest": 546,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 35.2,
+				"y": 46.4,
+				"frame": "era"
+			},
+			"note": "Souvenirs of Death: every Hillsbrad human drops the skulls, and the goal pointed at 30.3,40.3, the town square, with 4 Hillsbrad Councilman spawns (24-26) within 2 map units (the nearest 0.8 away) and Magistrate Burnside (30) 1.5 away in the town hall, at a route level of about 25. It is the Horde 12-30 band's second death spot for players following the guide. The point moves to the southern fields, where 9 of the 15 Hillsbrad Peasant spawns (24-25) lie within 2.5 units, the same Peasants Battle of Hillsbrad (528) needs on that step; one Councilman spawn is 2.8 units away, the rest 5 or more, and Burnside 6.7 (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 2267 Hillsbrad Peasant (15 spawns, 9 at 33.7-36.4,44.3-47.4), 2387 Hillsbrad Councilman 24-26 (29.3-32.4,39.7-46.4), 2335 Magistrate Burnside 30 (29.7,41.6)" }
+			],
+			"pr": 3145
 		}
 	]
 }
