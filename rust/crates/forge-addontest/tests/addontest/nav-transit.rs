@@ -341,6 +341,11 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 		COOL[556] = { GetTime(), 900 }
 		COOL[3567] = { GetTime(), 1.5 } -- the global cooldown does not count
 		emit(names(T.Teleports(T.Now())))
+		-- Each one's full cooldown as the client tells it (Astral Recall's against the Hearthstone's, Nav/Travel.lua).
+		GetSpellBaseCooldown = function(id) if id == 556 then return 900000, 0 end return 0, 0 end
+		local lengths = {}
+		for _, t in ipairs(T.Teleports(T.Now())) do lengths[#lengths + 1] = t.length or false end
+		emit(lengths)
 		Polestar.Set("nav.teleports", false)
 		emit(#T.Teleports(T.Now()))
 	"#);
@@ -348,7 +353,8 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 	assert_eq!(out[1], json!([["Teleport: Orgrimmar", 0, 1454, false], ["Teleport: Moonglade", 0, 1450, false], ["Astral Recall", 0, false, true]]));
 	let cooling: Vec<Value> = out[2].as_array().unwrap().iter().map(|t| json!([t[0], t[1]])).collect();
 	assert_eq!(json!(cooling), json!([["Teleport: Orgrimmar", 0], ["Teleport: Moonglade", 0], ["Astral Recall", 900]]));
-	assert_eq!(out[3], 0);
+	assert_eq!(out[3], json!([false, false, 900]), "Astral Recall's 15 minutes as the client tells them; none told, none assumed");
+	assert_eq!(out[4], 0);
 }
 
 fn walk(dir: &Path, compat: &Path, offenders: &mut Vec<String>) {

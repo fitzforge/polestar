@@ -294,6 +294,100 @@ pub struct JournalInputs<'a> {
 	pub attunement_table: &'a V,
 	/// The XP forever-db gives each quest (`load_store_xp`): what the pages show first.
 	pub store_xp: &'a FxHashMap<i64, f64>,
+	/// recorded.json's `dungeons`: per instance map, players' entries with a boss kill (`levels_of`).
+	pub recorded_dungeons: &'a V,
+	/// data/codex/levels.json rows by dungeon key (`load_levels_table`): the named exceptions.
+	pub levels_table: &'a V,
+}
+
+/// People with a boss kill a dungeon needs before their entries set its floor.
+pub const FLOOR_PEOPLE: f64 = 5.0;
+/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns. 8: the 0.4.0
+/// recordings of 2026-11-15 (7,940 sessions: 79 people in the Deadmines, 78 in Wailing Caverns, 74 in Ruins of
+/// Lordaeron) put the late tail of the early dungeons 5.5 to 7.2 levels over the Group Finder's top (players back
+/// for a carry or a drop), their 25th percentile unchanged (19.5, 20.4, 18.2); a broken join or a 60 top is many
+/// more levels out.
+pub const CHECK_SLACK: f64 = 8.0;
+
+/// A dungeon's range and floor (journal pages' `minLevel`, `maxLevel`, `floor`).
+#[derive(Clone, Debug, PartialEq)]
+pub struct Levels {
+	pub min: V,
+	pub max: V,
+	pub floor: V,
+}
+
+/// A dungeon's range and floor. With a Group Finder row (a dungeon the client's finder lists): the
+/// range is the finder's, its bottom never under the client's own minimum (`min`, MinLevelSquish);
+/// without one (raids) the range stays the client's minimum and the bosses' top (`max`). A curated
+/// `max` (levels.json) overrides the top. The floor, the level a guide's dungeon steps start at and
+/// the hub's "For your level" starts at, is the bottom or players' 25th percentile entry where
+/// [`FLOOR_PEOPLE`] people with a boss kill were recorded, whichever is higher, to a tenth of a level
+/// (the point a guide's `when level>=` gate takes); a curated `floor` overrides it.
+pub fn levels_of(min: V, max: V, finder: Option<&super::client::Finder>, rec: &V, curated: &V) -> Levels {
+	let (min, max) = match finder {
+		Some(f) => (V::Num(if min.is_num() { min.num().max(f.min) } else { f.min }), V::Num(f.max)),
+		None => (min, max),
+	};
+	let max = if curated.get("max").is_num() { curated.get("max") } else { max };
+	let p25 = rec.get("p25");
+	let floor = if curated.get("floor").is_num() {
+		curated.get("floor")
+	} else if min.is_num() {
+		let recorded = rec.get("people").as_num().is_some_and(|n| n >= FLOOR_PEOPLE) && p25.is_num();
+		V::Num(if recorded { ((p25.num() * 10.0).round() / 10.0).max(min.num()) } else { min.num() })
+	} else {
+		V::Null
+	};
+	Levels { min, max, floor }
+}
+
+/// The build's check of a Group Finder range against players' recorded entries ([`FLOOR_PEOPLE`]
+/// people with a boss kill or more): their 25th percentile is not under the finder's minimum, and
+/// their 90th is not more than [`CHECK_SLACK`] over the top. A broken join or a client row gone
+/// wrong (a 60 top, a placeholder boss level) shows up here. A levels.json row with
+/// `overleveledRuns` (players run the dungeon well above its range: the recordings show full clears
+/// in a party far over its top) skips the 90th percentile part only; the range and floor stay.
+pub fn recorded_check(name: &str, finder: Option<&super::client::Finder>, top: &V, rec: &V, curated: &V) -> Vec<String> {
+	let mut out = Vec::new();
+	let Some(f) = finder else { return out };
+	if !rec.get("people").as_num().is_some_and(|n| n >= FLOOR_PEOPLE) {
+		return out;
+	}
+	let (p25, p90) = (rec.get("p25"), rec.get("p90"));
+	if p25.is_num() && p25.num() < f.min {
+		out.push(format!("{name}: players' 25th percentile entry level ({}) is under the Group Finder's minimum ({})", p25.num(), f.min));
+	}
+	let overleveled = curated.get("overleveledRuns") == V::Bool(true);
+	if !overleveled && p90.is_num() && top.is_num() && p90.num() > top.num() + CHECK_SLACK {
+		out.push(format!("{name}: players' 90th percentile entry level ({}) is more than {CHECK_SLACK} over the top ({})", p90.num(), top.num()));
+	}
+	out
+}
+
+/// `data/codex/levels.json`: the named exceptions to a dungeon's range and floor, by dungeon key.
+/// Each row has a `key`, a `max`, a `floor` or `overleveledRuns: true` (the recorded check's 90th
+/// percentile only), a `source` cited the corrections' way (`super::is_source_citation`) and a
+/// `note`; a malformed row throws.
+pub fn load_levels_table(text: &str) -> Result<V, String> {
+	let out = Obj::new();
+	for r in forge_guide::js::parse_json(text)?.get("levels").items() {
+		let key = r.get("key");
+		let level = |f: &str| r.get(f).is_undef() || (r.get(f).is_num() && r.get(f).num() >= 1.0 && r.get(f).num() <= 60.0);
+		let overleveled = r.get("overleveledRuns");
+		let ok = key.as_str().is_some_and(|k| !k.is_empty())
+			&& (r.get("max").is_num() || r.get("floor").is_num() || overleveled == V::Bool(true))
+			&& (overleveled.is_undef() || overleveled == V::Bool(true))
+			&& level("max")
+			&& level("floor")
+			&& super::is_source_citation(&r.get("source"))
+			&& r.get("note").as_str().is_some_and(|n| !n.is_empty());
+		if !ok || out.get(&key.to_js_string()).truthy() {
+			return Err(format!("levels.json: bad row {}", forge_guide::js::stringify(&r, None)));
+		}
+		out.set(&key.to_js_string(), r);
+	}
+	Ok(V::Obj(out))
 }
 
 fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
@@ -314,6 +408,29 @@ fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
 		});
 	}
 	m
+}
+
+/// journal.js `zoneOfAreas(m, zonesIn, quests)`: the zone of an instance whose entrance is not known,
+/// the zone map (UiMap type 3, or 6 an orphan zone) of the outdoor areas the client names after it
+/// (`InstanceMap::zones`), where the most of its quests start or end when there are several, else
+/// the lowest id.
+fn zone_of_areas(m: &InstanceMap, zones_in: &V, quests: &[V]) -> Option<f64> {
+	if m.zones.is_empty() {
+		return None;
+	}
+	let mut found: Vec<f64> = zones_in
+		.values()
+		.into_iter()
+		.filter(|z| {
+			let (a, t) = (z.get("areaId"), z.get("type"));
+			a.truthy() && m.zones.contains(&a.num()) && (t.is_nullish() || t.num() == 3.0 || t.num() == 6.0)
+		})
+		.map(|z| z.get("id").num())
+		.collect();
+	let at = |p: V, id: f64| p.truthy() && p.get("map").is_num() && p.get("map").num() == id;
+	let givers = |id: f64| quests.iter().filter(|q| at(q.get("start"), id) || at(q.get("finish"), id)).count();
+	found.sort_by(|a, b| givers(*b).cmp(&givers(*a)).then(super::util::by_num(*a, *b)));
+	found.first().copied()
 }
 
 /// An ordered set of strings (JS Set).
@@ -786,11 +903,19 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			}
 		}
 	}
-	// 3b. the cited table's quests.
+	// 3b. the cited table's quests; a row with `exclude` takes off a quest a rule put on the page wrongly (City of
+	// Dalaran's city quests, filed under an area the client puts on the dungeon's map, #2560 sweep).
 	for r in inp.journal_quests {
 		let Some(&pi) = page_ix.get(&r.get("instance").to_js_string()) else { continue };
-		let rec = codex_quest(&r.get("quest"));
 		let qid = r.get("quest").num();
+		if r.get("exclude").truthy() {
+			if !has_q(&on_page[pi].1, qid) {
+				warnings.push(format!("journal-quests.json: quest {} is not on {}'s page to leave out", kstr(&r.get("quest")), r.get("instance").to_js_string()));
+			}
+			on_page[pi].1.retain(|(x, _)| *x != qid);
+			continue;
+		}
+		let rec = codex_quest(&r.get("quest"));
 		if !rec.truthy() {
 			warnings.push(format!("journal-quests.json: quest {} is not in the Codex", kstr(&r.get("quest"))));
 		} else if !has_q(&on_page[pi].1, qid) {
@@ -929,6 +1054,40 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				}
 			}
 		}
+		// A cited row's `inside` (journal-quests.json): the quest is picked up (`start`) or handed in (`finish`)
+		// inside this instance at someone the data has not placed, so no rule above can tell: Alcaz Prison's
+		// prisoners and Kor'kron, whom players' recordings see only as a window inside (#2560). A giver or ender
+		// the data places outside stays, with a warning.
+		for r in inp.journal_quests.iter().filter(|r| r.get("instance").as_str() == Some(k.as_str())) {
+			let Some(q) = quests.iter().find(|q| q.get("id").strict_eq(&r.get("quest"))) else { continue };
+			for part in r.get("inside").items() {
+				let part = part.to_js_string();
+				let p = q.get(&part);
+				if !p.truthy() {
+					let o = Obj::new();
+					for f in ["kind", "id", "name", "map", "x", "y", "f"] {
+						o.set(f, V::Null);
+					}
+					o.set("inside", true);
+					q.set(&part, V::Obj(o));
+				} else if p.get("map").is_nullish() && p.get("kind").as_str() != Some("item") {
+					p.set("inside", true);
+				} else {
+					warnings.push(format!("journal-quests.json: quest {} has its {part} outside {k}; its row's inside is left out", kstr(&q.get("id"))));
+					continue;
+				}
+				if part == "start" {
+					q.set("inside", true);
+				}
+			}
+		}
+		// A quest Forever hands in at one talk, never in the log (quests.json `direct`: Pozzik's Indurium Ore, the
+		// Sparklematic 5200): nothing to pick up before the run; the hand-in guide hands it in after (#2241).
+		for q in &quests {
+			if inp.fv_quests.get(&kstr(&q.get("id"))).get("direct").truthy() {
+				q.set("direct", true);
+			}
+		}
 		let chain = Obj::new();
 		for q in &quests {
 			for cid in q.get("chain").items() {
@@ -966,6 +1125,15 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("level", nn(b.get("level")));
 					let n = jnorm(&b.get("name"));
 					o.set("encounter", encounter_of.iter().find(|x| x.0 == n).map(|x| x.1.clone()).unwrap_or(V::Null));
+					let source = inst
+						.get("bosses")
+						.items()
+						.into_iter()
+						.find(|x| b.get("npc").truthy() && x.get("npc").strict_eq(&b.get("npc")))
+						.or_else(|| inst.get("bosses").items().into_iter().find(|x| jnorm(&x.get("name")) == n));
+					if let Some(source) = source {
+						o.set("loot", source.get("loot"));
+					}
 					V::Obj(o)
 				})
 				.collect(),
@@ -985,6 +1153,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("encounter", nn(b.get("encounter")));
 					let items = b.get("items");
 					o.set("items", if items.truthy() { items } else { V::arr() });
+					o.set("loot", b.get("loot"));
 					o.set("level", if n.truthy() { or_null(n.get("level")) } else { V::Null });
 					V::Obj(o)
 				})
@@ -1046,6 +1215,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				page.set("npc", npc.clone());
 				page.set("level", level);
 				page.set("quests", V::from(tied));
+				let loot = b.get("loot");
+				if !loot.is_empty() {
+					page.set("loot", loot);
+				}
 				if object.truthy() {
 					page.set("object", object.clone());
 				}
@@ -1061,7 +1234,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			})
 			.collect();
 		let lv = inst.get("levels");
-		let zone = if entrance.truthy() { entrance.get("map") } else { V::Null };
+		let zone = if entrance.truthy() { entrance.get("map") } else { m.and_then(|m| zone_of_areas(m, inp.fv_zones, &quests)).map(V::Num).unwrap_or(V::Null) };
 		let zname = if zone.truthy() {
 			let z = codex.zones.get(&kstr(&zone));
 			let z = if z.truthy() { z } else { inp.fv_zones.get(&kstr(&zone)) };
@@ -1080,7 +1253,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		page.set("name", if iname.truthy() { iname } else { V::str(&k) });
 		let imap = inst.get("map");
 		page.set("map", if !imap.is_nullish() { imap } else { m.map(|m| V::Num(m.id)).unwrap_or(V::Null) });
-		page.set("kind", if inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid) { "raid" } else { "dungeon" });
+		let raid = inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid);
+		page.set("kind", if raid { "raid" } else { "dungeon" });
 		page.set("forever", inst.get("forever").truthy());
 		let min_level = if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null };
 		let mut max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
@@ -1093,9 +1267,29 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				max_level = V::Num(top);
 			}
 		}
-		page.set("minLevel", min_level);
-		page.set("maxLevel", max_level);
-		page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
+		// The client's Group Finder for a dungeon it lists, the named exceptions over it, players'
+		// recorded entries for the floor (`levels_of`).
+		let finder = m.and_then(|m| m.finder.as_ref()).filter(|_| !raid);
+		let rec = inp.recorded_dungeons.get(&kstr(&page.get("map")));
+		let curated = inp.levels_table.get(&k);
+		let levels = levels_of(min_level, max_level, finder, &rec, &curated);
+		warnings.extend(recorded_check(&page.get("name").to_js_string(), finder, &levels.max, &rec, &curated));
+		page.set("minLevel", levels.min);
+		page.set("maxLevel", levels.max);
+		page.set("floor", levels.floor);
+		// The group size: the Group Finder's (the smallest wing's, and the largest where they differ:
+		// the Blackrock Spires), else the Map table's (raids; its 10 for the old 5-player dungeons was
+		// their instance cap, not the party).
+		match finder {
+			Some(f) => {
+				page.set("players", f.players);
+				page.set("playersMax", if f.players_max > f.players { V::Num(f.players_max) } else { V::Null });
+			}
+			None => {
+				page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
+				page.set("playersMax", V::Null);
+			}
+		}
 		page.set("zone", zone);
 		page.set("zoneName", zname);
 		page.set("entrance", entrance);
@@ -1109,7 +1303,9 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 
 /// `loadJournalQuests()`: journal-quests.json rows (a malformed row throws); a row's `source` is a
 /// URL, a web quest database citation (`super::is_web_citation`) or a source cited the corrections'
-/// way, such as players' recordings (`super::is_source_citation`).
+/// way, such as players' recordings (`super::is_source_citation`). A row's optional `inside` lists
+/// `start` and/or `finish`: where the quest is picked up or handed in inside the instance; its
+/// optional `exclude: true` takes the quest off the instance's page instead (no `inside` then).
 pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 	let rows = forge_guide::js::parse_json(text)?.get("quests").items();
 	static URL: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^https?://").unwrap());
@@ -1117,7 +1313,11 @@ pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 		let q = r.get("quest");
 		let src = r.get("source");
 		let cited = if let Some(s) = src.as_str() { URL.is_match(s) } else { super::is_web_citation(&src) || super::is_source_citation(&src) };
-		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited {
+		let ins = r.get("inside");
+		let inside_ok = ins.is_undef() || (ins.is_arr() && !ins.items().is_empty() && ins.items().iter().all(|p| matches!(p.as_str(), Some("start" | "finish"))));
+		let ex = r.get("exclude");
+		let exclude_ok = ex.is_undef() || (matches!(ex, V::Bool(true)) && ins.is_undef());
+		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited || !inside_ok || !exclude_ok {
 			return Err(format!("journal-quests.json: bad row {}", forge_guide::js::stringify(r, None)));
 		}
 	}
@@ -1211,7 +1411,9 @@ fn summary_of(p: &V) -> V {
 	o.set("forever", if p.get("forever").truthy() { p.get("forever") } else { V::Null });
 	o.set("minLevel", p.get("minLevel"));
 	o.set("maxLevel", p.get("maxLevel"));
+	o.set("floor", p.get("floor"));
 	o.set("players", p.get("players"));
+	o.set("playersMax", p.get("playersMax"));
 	o.set("zone", p.get("zone"));
 	o.set("zoneName", p.get("zoneName"));
 	o.set("entrance", p.get("entrance"));
@@ -1404,6 +1606,29 @@ mod tests {
 		}
 	}
 
+	// #2560: a row may say the quest is picked up and/or handed in inside the instance; nothing else.
+	#[test]
+	fn a_rows_inside_lists_start_and_or_finish_2560() {
+		let with =
+			|inside: &str| format!(r#"{{ "quests": [{{ "quest": 96335, "instance": "alcaz-prison", "source": {{ "kind": "recording", "ref": "6 people" }}, "inside": {inside}, "note": "n" }}] }}"#);
+		for ok in [r#"["start"]"#, r#"["finish"]"#, r#"["start", "finish"]"#] {
+			assert!(load_journal_quests(&with(ok)).is_ok(), "{ok}");
+		}
+		for bad in ["[]", r#"["giver"]"#, "true", r#""start""#] {
+			assert!(load_journal_quests(&with(bad)).is_err(), "{bad}");
+		}
+	}
+
+	// The #2560 sweep: a row may take a quest off its page (`exclude: true`), never together with `inside`.
+	#[test]
+	fn a_rows_exclude_is_true_and_never_beside_inside() {
+		let with = |extra: &str| format!(r#"{{ "quests": [{{ "quest": 96609, "instance": "city-of-dalaran", "source": {{ "kind": "recording", "ref": "9 people" }}{extra}, "note": "n" }}] }}"#);
+		assert!(load_journal_quests(&with(r#", "exclude": true"#)).is_ok());
+		for bad in [r#", "exclude": false"#, r#", "exclude": 1"#, r#", "exclude": true, "inside": ["start"]"#] {
+			assert!(load_journal_quests(&with(bad)).is_err(), "{bad}");
+		}
+	}
+
 	// Fitz, 0.3.8: a dungeon's quests and the three nearest prerequisites before each carry its mark, decided at
 	// build time. Nearest is breadth-first through the quests' own prerequisites: a quest of the dungeon keeps its
 	// own mark; a prerequisite of two dungeons keeps the lower one's; a side's mark leaves out the other side's
@@ -1448,5 +1673,96 @@ mod tests {
 		const _: () = assert!(CHAIN_MAX < 30);
 		let (a, _) = marks_of(&dungeons, &cq, &fq);
 		assert_eq!(a, "200:deep;300:deep;400:deep;129:deep:200;128:deep:200;127:deep:200;301:deep:300;302:deep:300;303:deep:300;403:deep:400;401:deep:400:b");
+	}
+
+	fn finder(min: f64, max: f64) -> super::super::client::Finder {
+		super::super::client::Finder { min, max, players: 5.0, players_max: 5.0 }
+	}
+
+	fn rec(people: f64, p25: f64, p90: f64) -> V {
+		parse_json(&format!(r#"{{ "people": {people}, "p25": {p25}, "p90": {p90} }}"#)).unwrap()
+	}
+
+	/// Fitz, 2026-11-13: a dungeon's range is the client's Group Finder's (never under the client's own
+	/// minimum), its floor the bottom or players' recorded 25th percentile entry where 5 people with a boss kill
+	/// were recorded, whichever is higher; levels.json's rows override a top or a floor; raids keep theirs.
+	#[test]
+	fn levels_take_the_group_finder_range_and_the_recorded_floor_named_exceptions_win() {
+		let none = V::obj();
+		// Razorfen Kraul: client 25, finder 29-38, 61 people at 30.9.
+		let rfk = levels_of(V::Num(25.0), V::Num(33.0), Some(&finder(29.0, 38.0)), &rec(61.0, 30.9, 35.4), &none);
+		assert_eq!((rfk.min.num(), rfk.max.num(), rfk.floor.num()), (29.0, 38.0, 30.9));
+		// Wailing Caverns: the finder's 15 is under the client's 17.
+		assert_eq!(levels_of(V::Num(17.0), V::Num(22.0), Some(&finder(15.0, 24.0)), &none, &none).min.num(), 17.0);
+		// Sunken Temple: one recorded person sets nothing; the finder's 50 is the floor.
+		let st = levels_of(V::Num(45.0), V::Num(55.0), Some(&finder(50.0, 60.0)), &rec(1.0, 51.9, 51.9), &none);
+		assert_eq!((st.min.num(), st.floor.num()), (50.0, 50.0));
+		// Ragefire Chasm: 71 people at 13.78, the floor to a tenth of a level (a guide's gate is written that way).
+		assert_eq!(levels_of(V::Num(13.0), V::Num(16.0), Some(&finder(13.0, 18.0)), &rec(71.0, 13.78, 19.0), &none).floor.num(), 13.8);
+		// The named exceptions: a top (The Hall of Thanes 18) and a floor (Krol'dok Stronghold 43).
+		let hot = levels_of(V::Num(13.0), V::Num(16.0), Some(&finder(13.0, 20.0)), &rec(53.0, 14.4, 17.8), &parse_json(r#"{ "max": 18 }"#).unwrap());
+		assert_eq!((hot.max.num(), hot.floor.num()), (18.0, 14.4));
+		let krol = levels_of(V::Num(40.0), V::Num(44.0), Some(&finder(40.0, 47.0)), &rec(16.0, 43.6, 45.7), &parse_json(r#"{ "floor": 43 }"#).unwrap());
+		assert_eq!((krol.max.num(), krol.floor.num()), (47.0, 43.0));
+		// A raid (no finder row) keeps the client's minimum and its bosses' top.
+		let mc = levels_of(V::Num(60.0), V::Num(60.0), None, &none, &none);
+		assert_eq!((mc.min.num(), mc.max.num(), mc.floor.num()), (60.0, 60.0, 60.0));
+	}
+
+	#[test]
+	fn the_recorded_check_warns_on_a_finder_range_players_entries_contradict() {
+		let (f, none) = (finder(15.0, 22.0), V::obj());
+		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9), &none).is_empty(), "p90 2.9 over the top: inside the slack");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9), &none).len(), 1, "a p25 under the finder's minimum");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(16.0), &rec(75.0, 17.9, 24.9), &none).len(), 1, "a p90 more than 8 over the top");
+		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0), &none).is_empty(), "under 5 people: no check");
+		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0), &none).is_empty(), "no finder row: no check");
+		// A row with overleveledRuns skips the 90th percentile only; the 25th is still checked.
+		let over = parse_json(r#"{ "overleveledRuns": true }"#).unwrap();
+		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 18.2, 30.4), &over).is_empty(), "overleveledRuns: no p90 warning");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 18.2, 30.4), &none).len(), 1, "without it the same entries warn");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 14.0, 30.4), &over).len(), 1, "overleveledRuns keeps the p25 check");
+	}
+
+	#[test]
+	fn a_levels_row_needs_a_key_a_level_a_cited_source_and_a_note() {
+		let row = |body: &str| format!(r#"{{ "levels": [ {body} ] }}"#);
+		let ok = r#"{ "key": "the-hall-of-thanes", "max": 18, "source": { "kind": "in-game-check", "ref": "Fitz, 2026-11-13" }, "note": "n" }"#;
+		assert!(load_levels_table(&row(ok)).unwrap().get("the-hall-of-thanes").get("max").num() == 18.0);
+		let over = r#"{ "key": "ruins-of-lordaeron", "overleveledRuns": true, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#;
+		assert!(load_levels_table(&row(over)).unwrap().get("ruins-of-lordaeron").get("overleveledRuns") == V::Bool(true));
+		for bad in [
+			r#"{ "key": "x", "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 70, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "source": "https://example.org", "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "source": { "kind": "in-game-check", "ref": "r" } }"#,
+			r#"{ "key": "x", "overleveledRuns": false, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "overleveledRuns": 1, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#,
+		] {
+			assert!(load_levels_table(&row(bad)).is_err(), "{bad}");
+		}
+		assert!(load_levels_table(&row(&format!("{ok}, {ok}"))).is_err(), "one row per dungeon");
+	}
+
+	/// The named exceptions Fitz approved, and nothing else: The Hall of Thanes' top of 18 (his in-game check)
+	/// is the only top override, Krol'dok Stronghold's floor of 43 (its only slot in the guides sits at players'
+	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The one
+	/// check-only row, Ruins of Lordaeron's overleveledRuns (0.4.1: players' recorded runs above level 25 are
+	/// full clears in a party of five), changes no range or floor.
+	#[test]
+	fn levels_json_holds_exactly_the_two_named_exceptions() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/levels.json")).unwrap();
+		let t = load_levels_table(&text).unwrap();
+		let mut keys: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") != V::Bool(true)).collect();
+		keys.sort();
+		assert_eq!(keys, ["kroldok-stronghold", "the-hall-of-thanes"]);
+		let hot = t.get("the-hall-of-thanes");
+		assert_eq!((hot.get("max").num(), hot.get("floor").is_undef()), (18.0, true), "the only top override");
+		let krol = t.get("kroldok-stronghold");
+		assert_eq!((krol.get("floor").num(), krol.get("max").is_undef()), (43.0, true), "the only floor exception");
+		let checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
+		assert_eq!(checks, ["ruins-of-lordaeron"], "the one check-only row");
+		let ruins = t.get("ruins-of-lordaeron");
+		assert!(ruins.get("max").is_undef() && ruins.get("floor").is_undef(), "check-only: no range or floor");
 	}
 }

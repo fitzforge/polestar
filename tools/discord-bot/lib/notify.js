@@ -10,6 +10,7 @@
 // channel instead.
 
 const I = require('./issue');
+const { UPDATE_MARK } = require('./update');
 const { statusTags, withStatus } = require('./discord');
 
 const MAX_REASON = 1200;
@@ -30,10 +31,10 @@ const labelNames = (issue) => (issue.labels || []).map((l) => (typeof l === 'str
 const isReleased = (label) => label.startsWith('released:');
 
 // What maintainers said on the issue, newest first: not the bot's copies of
-// Discord follow-ups or its pull request lists.
+// Discord follow-ups, its update replies or its pull request lists.
 function maintainerComments(comments) {
 	return comments
-		.filter((c) => TEAM.has(c.author_association) && c.body && !c.body.includes(I.FOLLOWUP_MARK) && !c.body.includes('<!-- polestar:pr-') && !(c.user && c.user.type === 'Bot'))
+		.filter((c) => TEAM.has(c.author_association) && c.body && !c.body.includes(I.FOLLOWUP_MARK) && !c.body.includes(UPDATE_MARK) && !c.body.includes('<!-- polestar:pr-') && !(c.user && c.user.type === 'Bot'))
 		.reverse();
 }
 

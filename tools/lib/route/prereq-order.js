@@ -6,7 +6,9 @@
 // prerequisites (tools/lib/data/prereqs.js: every one of `all`, one of `any`)
 // handed in by an earlier line that the same character plays: steps and goals
 // whose `only` lets the character in and whose `when` holds. `when group` is
-// played both ways (the solo route and the group one).
+// played both ways (the solo route and the group one). `when taxi` holds once
+// the character knows the flight path: its race's from character creation, or
+// a getfp or flight line played before the step.
 //
 // Lint's check (rust/crates/forge-guide/src/validate.rs) counts a hand-in
 // anywhere in the guides leading into a guide, from any start and for any race.
@@ -30,12 +32,14 @@
 const { blockingPrereqs } = require('../data/prereqs');
 const { RACE_FILES, RACE_BY_FILE } = require('../game/races');
 const { questOpen, raceBit } = require('../sim/run');
-const { goalLines, whenHolds, fits } = require('../playtest-honest');
+const { goalLines, whenHolds, fits, START_NODES, taxiNodes, taxiNode } = require('../playtest-honest');
 
 const FACTIONS = ['Alliance', 'Horde'];
 
+// A leveling guide of one faction's route, or one both factions' routes pass through (no `faction`, such as
+// forever/40-50/shendralas: each side goes on to its own next guide).
 function leveling(g) {
-	return (g.category == null || g.category === 'Leveling') && FACTIONS.includes(g.faction);
+	return (g.category == null || g.category === 'Leveling') && (FACTIONS.includes(g.faction) || g.faction == null);
 }
 
 // A path's races: the start's `race` header, else its faction's races.
@@ -45,23 +49,25 @@ function racesOf(g) {
 }
 
 // Every path from each start: guides no other leveling guide leads to (a
-// cycle with no way in starts at its first guide).
+// cycle with no way in starts at its first guide). A path keeps to its start's
+// faction: a guide for both factions goes on to that faction's next guide, and
+// never starts a path itself.
 function paths(guides) {
 	const list = guides.filter(leveling);
 	const byId = new Map(list.map((g) => [g.id, g]));
-	const options = (g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => byId.has(id));
-	const into = new Set(list.flatMap(options));
+	const options = (g, side) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => byId.has(id) && (!side || byId.get(id).faction == null || byId.get(id).faction === side));
+	const into = new Set(list.flatMap((g) => options(g)));
 	const out = [];
 	const reached = new Set();
 	const walk = (path) => {
 		const g = path[path.length - 1];
 		reached.add(g.id);
-		const next = options(g).filter((id) => !path.some((p) => p.id === id));
+		const next = options(g, path[0].faction).filter((id) => !path.some((p) => p.id === id));
 		if (!next.length) out.push(path);
 		for (const id of next) walk([...path, byId.get(id)]);
 	};
-	for (const g of list) if (!into.has(g.id)) walk([g]);
-	for (const g of list) if (!reached.has(g.id)) walk([g]);
+	for (const g of list) if (g.faction && !into.has(g.id)) walk([g]);
+	for (const g of list) if (g.faction && !reached.has(g.id)) walk([g]);
 	return out;
 }
 
@@ -72,7 +78,9 @@ function playPath(path, data, persona, groups, report, recorded) {
 		return !q || questOpen(q, persona.faction, rbit, persona.cls);
 	};
 	const log = new Set();
-	const w = { done: new Set(), held: (q) => log.has(q), has: () => true, level: 1, groups, bound: null };
+	const nodes = taxiNodes(data);
+	const node = (x) => taxiNode(nodes, persona.faction, x);
+	const w = { done: new Set(), held: (q) => log.has(q), has: () => true, level: 1, groups, bound: null, node, known: new Set(START_NODES[persona.race] || []) };
 	const questOf = (id) => data.quests[id] || null;
 	for (const g of path) {
 		w.level = Math.max(w.level, g.minLevel || 1);
@@ -83,6 +91,10 @@ function playPath(path, data, persona, groups, report, recorded) {
 			s.goals.forEach((x, gi) => {
 				if (!fits(x.only, persona)) return;
 				if (x.t === 'level') w.level = Math.max(w.level, Math.floor(x.level || 0));
+				if (x.t === 'getfp' || x.t === 'fly') {
+					const n = node(x);
+					w.known.add(n ? n.id : x.location);
+				}
 				const direct = x.t === 'turnin' && x.direct === true;
 				if (x.t === 'accept' || direct) {
 					const q = data.quests[x.quest];

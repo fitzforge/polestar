@@ -1924,9 +1924,11 @@ fn settings_apply_live_scale_alpha_visibility_pins_position_and_blizzard_waypoin
 		PolestarDB.settings.nav.arrowLocked = true
 		Polestar.Set("nav.arrowScale", 1.5)
 		r.scale, r.alpha, r.mouse = A.frame:GetScale(), A.frame:GetAlpha(), A.frame:IsMouseEnabled()
-		stub.RunScript(A.frame, "OnDragStart")
-		r.drags = A.frame:IsMovable() and A.frame.moving == true
-		A.frame:StopMovingOrSizing()
+		stub.cursor = { 900, 500 }
+		stub.RunScript(A.frame, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.RunScript(A.frame, "OnMouseUp", "LeftButton")
+		r.drags = A.frame:IsMovable() and Polestar.DragMoved(A.frame)
 		Polestar.Set("nav.arrow", false)
 		r.hidden = not A.frame:IsShown()
 		Polestar.Set("nav.arrow", true)
@@ -1939,7 +1941,12 @@ fn settings_apply_live_scale_alpha_visibility_pins_position_and_blizzard_waypoin
 		-- Dragging saves the position; it is re-applied from settings.
 		A.frame:ClearAllPoints()
 		A.frame:SetPoint("CENTER", UIParent, "CENTER", 120, -40)
-		stub.RunScript(A.frame, "OnDragStop")
+		local left, top = A.frame:GetLeft(), A.frame:GetTop()
+		stub.cursor = { 900, 500 }
+		stub.RunScript(A.frame, "OnMouseDown", "LeftButton")
+		stub.cursor = { 920, 470 }
+		stub.RunScript(A.frame, "OnMouseUp", "LeftButton")
+		r.want = { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = left + 20 / 1.5, y = top - 30 / 1.5 }
 		r.saved = PolestarDB.settings.nav.arrowPos
 		A.frame:ClearAllPoints()
 		Polestar.Set("nav.arrowScale", 1)
@@ -1962,8 +1969,8 @@ fn settings_apply_live_scale_alpha_visibility_pins_position_and_blizzard_waypoin
 	assert_eq!(out["back"], true);
 	assert_eq!(out["pinOff"], true);
 	assert_eq!(out["pinOn"], true);
-	assert_eq!(out["saved"], json!({ "point": "CENTER", "relPoint": "CENTER", "x": 120, "y": -40 }));
-	assert_eq!(out["reapplied"], json!(["CENTER", "CENTER", 120, -40]));
+	assert_eq!(out["saved"], out["want"], "where the pointer left it, by its corner (the arrow at 1.5)");
+	assert_eq!(out["reapplied"], json!(["TOPLEFT", "BOTTOMLEFT", out["want"]["x"], out["want"]["y"]]));
 	assert_eq!(out["reset"], json!(["TOP", "TOP", 0, -140]));
 	assert_eq!(out["userWaypoints"], json!([["set", 9000, 0.5, 0.45], ["track", true], ["set", 9000, 0.45, 0.5], ["track", true], ["clear"]]));
 }
@@ -1981,11 +1988,13 @@ fn with_the_lock_on_only_a_shift_drag_moves_the_arrow_and_the_movable_wash_shows
 			stub.RunScript(f, "OnLeave")
 			return seen
 		end
+		-- A press, the pointer's travel, the release (ns.DragWindow): did the arrow move?
 		local function drag()
-			stub.RunScript(f, "OnDragStart")
-			local started = f.moving == true
-			f:StopMovingOrSizing()
-			return started
+			stub.cursor = { 900, 500 }
+			stub.RunScript(f, "OnMouseDown", "LeftButton")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(f, "OnMouseUp", "LeftButton")
+			return Polestar.DragMoved(f)
 		end
 		r.unlocked = { drag(), hover() }
 		Polestar.Set("ui.lockHud", true)
@@ -1994,20 +2003,20 @@ fn with_the_lock_on_only_a_shift_drag_moves_the_arrow_and_the_movable_wash_shows
 		stub.keys.shift = true
 		r.shift = { drag(), hover() }
 		-- Shift let go mid-drag: the drag carries on and its end saves the spot.
-		stub.RunScript(f, "OnDragStart")
+		local left, top = f:GetLeft(), f:GetTop()
+		stub.cursor = { 900, 500 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
 		stub.keys.shift = false
-		f:ClearAllPoints()
-		f:SetPoint("CENTER", UIParent, "CENTER", 80, 20)
-		stub.RunScript(f, "OnDragStop")
+		stub.cursor = { 980, 520 }
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
 		r.saved = PolestarDB.settings.nav.arrowPos
-		r.stopped = f.moving
+		r.want = { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = left + 80, y = top + 20 }
 		emit(r)"#);
 	assert_eq!(out["unlocked"], json!([true, [true, "Drag to move."]]), "off by default: a plain drag moves it");
 	assert_eq!(out["locked"], json!([false, [false, "Shift-drag to move."]]), "locked: a plain drag does nothing, no wash");
 	assert_eq!(out["mouse"], true, "locked, the arrow still takes the mouse for clicks");
 	assert_eq!(out["shift"], json!([true, [true, "Shift-drag to move."]]), "locked: Shift-drag moves it");
-	assert_eq!(out["saved"], json!({ "point": "CENTER", "relPoint": "CENTER", "x": 80, "y": 20 }));
-	assert_eq!(out["stopped"], false);
+	assert_eq!(out["saved"], out["want"], "where the pointer let go, by its corner");
 }
 
 #[test]
@@ -2017,12 +2026,16 @@ fn with_the_lock_on_a_drag_that_does_not_move_the_arrow_does_not_save_its_spot()
 		stub.advance(0.1)
 		local f = A.frame
 		Polestar.Set("ui.lockHud", true)
-		stub.RunScript(f, "OnDragStart")
-		stub.RunScript(f, "OnDragStop")
+		local function drag()
+			stub.cursor = { 900, 500 }
+			stub.RunScript(f, "OnMouseDown", "LeftButton")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(f, "OnMouseUp", "LeftButton")
+		end
+		drag()
 		local refused = Polestar.Get("nav.arrowPos") == nil
 		stub.keys.shift = true
-		stub.RunScript(f, "OnDragStart")
-		stub.RunScript(f, "OnDragStop")
+		drag()
 		emit({ refused = refused, shift = Polestar.Get("nav.arrowPos") ~= nil })"#);
 	assert_eq!(out["refused"], true, "a plain drag on the locked arrow leaves nav.arrowPos alone");
 	assert_eq!(out["shift"], true, "a Shift-drag still saves the spot");

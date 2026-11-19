@@ -285,13 +285,19 @@ fn the_gear_opens_one_route_tab_where_only_the_drawn_style_s_section_shows_and_t
 		"nav.zeppelinColor",
 		"nav.tramColor",
 		"nav.minimapRoute",
-		"nav.minimapRouteSize",
 		"nav.minimapRouteAlpha",
 	] {
 		for style in ["line", "dots", "sparkle"] {
 			assert!(has(style, key), "{key} shows with the {style} style: {}", out[style]);
 		}
 	}
+	// The minimap size: a row per style, the one of the style drawn (the dots' under reduced motion).
+	for (style, key) in [("line", "nav.minimapLineSize"), ("dots", "nav.minimapDotsSize"), ("sparkle", "nav.minimapSparkleSize")] {
+		for other in ["line", "dots", "sparkle"] {
+			assert_eq!(has(other, key), other == style, "{key} shows with the {style} style alone: {}", out[other]);
+		}
+	}
+	assert!(has("reduced", "nav.minimapDotsSize") && !has("reduced", "nav.minimapSparkleSize"), "reduced motion draws dots at the dots' minimap size");
 	for key in ["nav.lineWidth", "nav.walkedFade", "nav.routeChevrons", "nav.flightDash"] {
 		assert!(has("line", key) && !has("dots", key) && !has("sparkle", key), "{key}: the line's section alone");
 	}
@@ -315,24 +321,25 @@ fn the_gear_opens_one_route_tab_where_only_the_drawn_style_s_section_shows_and_t
 }
 
 // Issue #1381 (moved from the Line style window): the dots' colour and the minimap line's opacity and size, each
-// reset by right-click; the minimap size slider follows the chosen style; the Minimap header switch; "Route line on
+// reset by right-click; the minimap size is the drawn style's own row; the Minimap header switch; "Route line on
 // the minimap" stays under Map > Guide & quests too, waiting for "Guide pin on the minimap".
 #[test]
-fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_follows_the_style() {
+fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_is_the_drawn_style_s() {
 	let out = page(&format!(
 		r#"{ROWS}
 		UI.ShowOptions("routelines")
 		local _, m = rows("dots")
 		local colour = m["nav.dotColor"]
 		local r = {{ colourWithDots = W.Enabled(colour) }}
-		local slider = m["nav.minimapRouteSize"]
-		local function shows() return slider.Slider:GetValue() end
-		Polestar.Set("nav.lineStyle", "line"); r.line = shows()
-		Polestar.Set("nav.lineStyle", "dots"); r.dots = shows()
-		Polestar.Set("nav.lineStyle", "sparkle"); r.sparkle = shows()
+		local KEYS = {{ line = "nav.minimapLineSize", dots = "nav.minimapDotsSize", sparkle = "nav.minimapSparkleSize" }}
+		local function size(style) local _, c = rows(style); return c[KEYS[style]] end
+		r.line, r.dots = size("line").Slider:GetValue(), size("dots").Slider:GetValue()
+		local slider = size("sparkle")
+		r.sparkle = slider.Slider:GetValue()
 		r.sizeWithSparkle = W.Enabled(slider)
 		stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
 		r.after = {{ Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }}
+		r.changed = W.Modified("nav.minimapSparkleSize")
 		slider:Click("RightButton")
 		r.sizeReset = Polestar.Get("nav.minimapSparkleSize")
 		r.max = select(2, slider.Slider:GetMinMaxValues())
@@ -348,7 +355,7 @@ fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_fol
 		-- The minimap section's switch in its header: off dims its rows.
 		local header = m["nav.minimapRoute"]
 		if header then header:Click() end
-		r.headerOff, r.sizeWhileOff = Polestar.Get("nav.minimapRoute"), W.Enabled(m["nav.minimapRouteSize"])
+		r.headerOff, r.sizeWhileOff = Polestar.Get("nav.minimapRoute"), W.Enabled(m["nav.minimapDotsSize"])
 		if header then header:Click("RightButton") end
 		r.headerReset = Polestar.Get("nav.minimapRoute")
 		UI.ShowOptions("map")
@@ -365,8 +372,9 @@ fn the_dot_colour_and_the_minimap_look_reset_by_right_click_the_minimap_size_fol
 	));
 	assert_eq!(out["colourWithDots"], true);
 	assert_eq!(out["sizeWithSparkle"], true, "the minimap look holds for every style");
-	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
+	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "each style's row holds its own size");
 	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
+	assert_eq!(out["changed"], true, "and its row reads as changed");
 	assert_eq!(out["sizeReset"], 1.5);
 	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
 	assert_eq!(out["reset"], json!(["route", 1]), "right-click restores each default");
@@ -433,7 +441,7 @@ fn the_preview_paints_the_route_with_the_maps_painters_and_runs_no_onupdate_whil
 	assert!(f(&out["world"]) > 10.0 && out["worldShown"] == out["world"], "the world panel's route painted: {out}");
 	assert!(f(&out["minimap"]) > 0.0, "and the minimap disc's");
 	assert_eq!(out["still"], true, "no OnUpdate for a still line");
-	assert_eq!(out["hotspots"], json!(["nav.boatColor", "nav.flightColor", "nav.minimapRouteSize", "nav.walkColor"]), "click targets on the preview");
+	assert_eq!(out["hotspots"], json!(["nav.boatColor", "nav.flightColor", "nav.minimapLineSize", "nav.walkColor"]), "click targets on the preview, the minimap's the drawn style's size");
 	assert_eq!(out["jumped"], true, "a click on the flight jumps to its row");
 	assert_eq!(out["red"], json!([1, 0, 0]), "a setting repaints it");
 	assert_eq!(out["width"], 8);

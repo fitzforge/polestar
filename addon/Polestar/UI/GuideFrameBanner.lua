@@ -15,12 +15,14 @@ ns.UI.GuideFrame.Part(function(GF)
 	end)
 
 	---------------------------------------------------------------------------
-	-- Banners: the tab the player just closed, with its Reopen (for
+	-- Banners: a guide of the other faction, whose it is (Engine.OtherFaction,
+	-- never dismissed, after the way back from a trip); the tab the player just closed, with its Reopen (for
 	-- GF.CLOSED_SECONDS, shown even with no tab left); "Continue automatically"
 	-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 	-- quest the live step waits on
 	-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
-	-- dismissed); the dungeon it waits on ("Dungeons in my route": Ask me; Run
+	-- dismissed; after Skip it, its undo for SKIPPED_SECONDS); the dungeon it
+	-- waits on ("Dungeons in my route": Ask me; Run
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
@@ -29,18 +31,21 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- chosen dungeon's run, until inside, "No group? Skip it", and a few steps
 	-- before it the start-looking line; then the end of a leveling
 	-- guide reached with steps still open (Start the next guide, GF.EndOffer),
-	-- then the out-levelled offer
+	-- then a fresh start on a guide much of whose quest XP follows on from an
+	-- earlier one (Engine.FreshStart: Open that guide in a tab), then the
+	-- out-levelled offer
 	-- (while its guide is active), then the training reminder, the riding one,
-	-- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
-	-- nearly full while the step collects (QoL/Space.lua: delete the cheapest
-	-- junk, two clicks), then gear worth wearing from loot or a merchant
-	-- (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
+	-- then a Class guide that just opened (QoL/ClassQuests.lua), then a flight
+	-- map to open once where Polestar doesn't know the flight paths yet (#1795),
+	-- then the bags nearly full while the step collects (QoL/Space.lua: delete
+	-- the cheapest junk, two clicks), then gear worth wearing from loot or a
+	-- merchant (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
 	-- build (UI/UpdateCard.lua: Update; shown with no guide open too). Taking
 	-- or dismissing one lets the next through.
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil }
+	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -61,6 +66,47 @@ ns.UI.GuideFrame.Part(function(GF)
 		return nav and nav.Trip and nav.Trip() or nil
 	end
 
+	-- The flight map notice (#1795, #2189): on a continent where no flight map has opened yet for this character,
+	-- Polestar can't tell the flight paths it has from those it lacks (Nav.GetTaxiSeen), so the route flies from and to
+	-- the ones it may have at a cost (Nav.TaxiMaybe), and players read the flight masters they had as ones to learn.
+	-- Once the route flies from, through or to one of those on the player's continent (a flight the player skips was
+	-- the route's own first, so the notice is up by then), the banner asks them to open any flight master's map there
+	-- once: until a flight map opens there, or for good once closed there (flags.taxiMapAsked[continent]).
+	-- notices.taxiMap holds the continent; elsewhere the notice waits.
+	local function playerContinent()
+		local C = ns.Compat
+		return C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition() or nil
+	end
+
+	-- The player's continent when route `legs` fly from, through or to a flight master there the character may have,
+	-- and the notice was not closed there; else nil.
+	local function maybeFlightHere(legs)
+		local N, pc = ns.Nav, playerContinent()
+		if pc == nil or type(legs) ~= "table" or not (N and N.TaxiMaybe) then return nil end
+		local asked = ns.CharState().flags.taxiMapAsked
+		if asked and asked[pc] then return nil end
+		for _, leg in ipairs(legs) do
+			if leg.kind == "fly" and type(leg.stops) == "table" then
+				for _, s in ipairs(leg.stops) do
+					if s.c == pc and N.TaxiMaybe(s.id) then return pc end
+				end
+			end
+		end
+		return nil
+	end
+
+	-- The continent the flight map notice stands for, while the player is there and no flight map has opened there;
+	-- else nil.
+	local function taxiMapNotice()
+		local c = notices.taxiMap
+		if c == nil or c ~= playerContinent() then return nil end
+		local N = ns.Nav
+		local seen = N and N.GetTaxiSeen and N.GetTaxiSeen()
+		local asked = ns.CharState().flags.taxiMapAsked
+		if (seen and seen[c]) or (asked and asked[c]) then return nil end
+		return c
+	end
+
 	-- The end of the active leveling guide reached while steps are still open
 	-- (Engine.GuideEnded; the guide-end window's "Back to step N", UI/GuideEnd.lua):
 	-- what to start from here, { guideId, label = "The Barrens (12–16)" } or
@@ -74,7 +120,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local nextId = E.NextGuide and E.NextGuide(g.id)
 		local nextGuide = nextId and G and G.Get and G.Get(nextId)
 		if nextGuide then
-			local lv = UI.LevelRange(nextGuide.minLevel, nextGuide.maxLevel)
+			local lv = UI.GuideLevels(nextGuide)
 			return { guideId = g.id, label = (nextGuide.title or nextId) .. (lv and (" (" .. lv .. ")") or "") }
 		end
 		local choice = E.GetRouteChoice and E.GetRouteChoice(g.id)
@@ -93,10 +139,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip): the way back first.
 		local t = navTrip()
 		if t then return "trip", t end
+		-- A guide of the other faction (an import, an old saved tab): whose it
+		-- is, for as long as it is open; never dismissed (#2462).
+		local side = g ~= nil and E.OtherFaction and E.OtherFaction(g.id)
+		if side then return "faction", side end
 		-- The tab just closed, until it is open again.
 		local ct = notices.closedTab
 		if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
 		if notices.questSkip then return "questSkip", notices.questSkip end
+		-- A group quest just skipped at its banner, while that answer stands.
+		local gs = notices.groupSkip
+		if gs and ns.CharState().groupQuests[gs.quest] == "skip" then return "groupSkip", gs end
 		-- "Continue automatically" moved on from a finished leveling guide.
 		local c = notices.continued
 		if c and g ~= nil and g.id == c.to then return "continued", c end
@@ -108,10 +161,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
 		if gq then return "group", { quest = gq, title = gtitle } end
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
-		local dq = E and E.DungeonQuestion and E.DungeonQuestion()
+		-- None of the dungeon notices while dungeons in the route are held back (ns.dungeonRoute).
+		local dq = ns.dungeonRoute and E and E.DungeonQuestion and E.DungeonQuestion()
 		if dq then return "dungeon", dq end
 		-- After "No group? Skip it": the quests kept in the log, until closed.
-		if notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
+		if ns.dungeonRoute and notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
 		local k = notices.stepSkip
 		if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 		local s = notices.skipped
@@ -119,10 +173,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local a = E and awayNotice(E, g)
 		if a then return "away", a end
 		-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
-		local dr = E and E.DungeonRun and E.DungeonRun()
+		local dr = ns.dungeonRoute and E and E.DungeonRun and E.DungeonRun()
 		local C = ns.Compat
 		if dr and not (C and C.IsInInstance and C.IsInInstance()) then return "dungeonRun", dr end
-		local ds = E and E.DungeonSoon and E.DungeonSoon()
+		local ds = ns.dungeonRoute and E and E.DungeonSoon and E.DungeonSoon()
 		if ds and notices.soonSeen ~= ds.map then return "dungeonSoon", ds end
 		-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
 		local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()
@@ -132,11 +186,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local en = GF.EndOffer(E, g)
 		if en then return "ended", en end
+		-- Much of the guide's quest XP follows on from an earlier guide: once per
+		-- guide and session (notices.freshSeen), taken or dismissed.
+		local fr = g ~= nil and not notices.freshSeen[g.id] and E.FreshStart and E.FreshStart()
+		if fr then return "fresh", fr end
 		local o = notices.outlevel
 		if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
 		if notices.train then return "train", notices.train end
 		if notices.riding then return "riding", notices.riding end
 		if notices.classQuest then return "classQuest", notices.classQuest end
+		local tm = taxiMapNotice()
+		if tm then return "taxiMap", tm end
 		local Q = ns.QoL
 		local bags = Q and Q.Space and Q.Space.Banner and Q.Space.Banner()
 		if bags then return "bags", bags end
@@ -181,7 +241,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- What has been done on step i so far, as one string (GF.Scrub compares it).
 	function GF.ScrubMark(E, i)
-		local v = E.GetStepView(i)
+		local v = E.GetStepView(i, true)
 		if not v then return "" end
 		local parts = { tostring(v.status) }
 		for g, goal in ipairs(v.goals or {}) do
@@ -274,15 +334,34 @@ ns.UI.GuideFrame.Part(function(GF)
 		end)
 	end
 
+	-- "Skip it" at a group quest's banner (#2404): the banner offers the undo
+	-- for SKIPPED_SECONDS, as a skipped quest or step does.
+	local function groupSkipped(quest, title)
+		local notice = { quest = quest, title = title }
+		notices.groupSkip = notice
+		ns.After(SKIPPED_SECONDS, function()
+			if notices.groupSkip == notice then
+				notices.groupSkip = nil
+				if F and ns.IsLoggedIn() then GF.Layout() end
+			end
+		end)
+	end
+
 	local function trainerPlace(t)
 		local zone = t.map and UI.MapName(t.map) or nil
 		if t.npcName and zone then return t.npcName .. ", " .. zone end
 		return t.npcName or zone
 	end
 
-	-- One link-style action in the banner (label, chevron).
+	-- One link-style action in the banner (label, chevron), `x` right of the
+	-- text's left edge. It never runs past the text's column: a label too long
+	-- for it (a guide's whole title) is cut short with "…".
 	local function placeLink(link, text, x, y)
+		link.Label:SetWordWrap(false)
+		link.Label:SetWidth(0)
 		link.Label:SetText(text)
+		local room = floor(banner.Text:GetWidth() - x - 16)
+		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
 		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
 		link:ClearAllPoints()
 		link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
@@ -298,6 +377,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
+		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
 			local lines = {}
@@ -341,14 +421,34 @@ ns.UI.GuideFrame.Part(function(GF)
 			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
 			banner:SetHeight(h)
 			return h
+		elseif kind == "faction" then
+			-- Another faction's guide (Engine.OtherFaction): the arrow stays off in it.
+			banner.Icon:SetTexture(Theme.Media("flag"))
+			banner.Text:SetText(string.format(L["This guide is for %s characters. Polestar won't guide you through it."], ns.FactionName(n) or n))
+			banner.Jump:Hide()
+			banner.Close:Hide()
+			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+			banner:SetHeight(h)
+			return h
+		elseif kind == "taxiMap" then
+			-- A continent where Polestar doesn't know the flight paths yet (taxiMapNotice): open a flight map there once.
+			banner.Icon:SetTexture(Theme.Media("icon-fly"))
+			banner.Text:SetText(L["Open any flight master's map once on this continent so Polestar knows your flight paths."])
+			banner.Jump:Hide()
+			banner.Close:Show()
+			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+			banner:SetHeight(h)
+			return h
 		elseif kind == "closedTab" then
 			banner.Icon:SetTexture(Theme.Media("close"))
 			banner.Text:SetText(string.format(L["Closed %s"], n.title))
 			placeLink(banner.Jump, L["Reopen"], 0, -4)
 			banner.Close:Show()
-		elseif kind == "questSkip" then
+		elseif kind == "questSkip" or kind == "groupSkip" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
-			banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
+			local text = string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"])
+			if kind == "questSkip" then text = text .. "  \194\183  " .. L["and the quests that follow from it"] end
+			banner.Text:SetText(text)
 			placeLink(banner.Jump, L["Undo"], 0, -4)
 			banner.Close:Show()
 		elseif kind == "lost" then
@@ -422,6 +522,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(L["You've reached the end of this guide."])
 			placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
 			banner.Close:Show()
+		elseif kind == "fresh" then
+			-- What the quests it leaves out cost in grinding, and the guide they follow on from.
+			banner.Icon:SetTexture(Theme.Media("icon-level"))
+			local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
+			if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
+			banner.Text:SetText(text)
+			placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
+			banner.Close:Show()
 		elseif kind == "outlevel" then
 			banner.Icon:SetTexture(Theme.Media("icon-level"))
 			-- Finished quests the route hands in before the guide the jump goes to
@@ -431,7 +539,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local text = L["You have outlevelled this guide."]
 			if n.left then
 				local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
-				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%d XP)"], what, n.left.xp) or what)
+				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%s XP)"], what, ns.Thousands(n.left.xp)) or what)
 				if n.asked then text = text .. "\n" .. L["Jump anyway? They stay in your log, and the guide lists who takes each in."] end
 			end
 			banner.Text:SetText(text)
@@ -488,23 +596,27 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif n.classKind == "PALADIN" then
 				title = L["Level 40: class mount (Paladin)"]
 				body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
+			elseif n.classKind == "PALADIN_FORSAKEN" then
+				title = L["Level 40: class mount (Paladin)"]
+				body  = L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."]
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
-				local baseGold = n.tier == 1 and L["100 g"] or L["1,000 g"]
-				local bodyParts = { tierName .. DOT .. baseGold }
+				-- Gold as "1,000 g", in the client's thousands and gold symbol.
+				local function gold(g) return ns.Thousands(g) .. " " .. (ns.CoinSymbols()) end
+				local bodyParts = { tierName .. DOT .. gold(n.tier == 1 and 100 or 1000) }
 				-- Discount: always mention; "Honored: Xg" when standing is confirmed.
 				local C = ns.Compat
 				local standing = n.factionID and C and C.GetFactionStanding and C.GetFactionStanding(n.factionID)
 				if standing and standing >= 5 then
 					-- Discounted gold: tier 1 = 90 g, tier 2 = 900 g.
 					local discountedGold = n.tier == 1 and 90 or 900
-					bodyParts[#bodyParts + 1] = string.format(L["Honored: %d g"], discountedGold)
+					bodyParts[#bodyParts + 1] = string.format(L["Honored: %s"], gold(discountedGold))
 				else
 					bodyParts[#bodyParts + 1] = L["10% off at Honored"]
 				end
-				-- Balance: gold-only to match "100 g" / "1,000 g" style.
-				bodyParts[#bodyParts + 1] = string.format(L["You have %d g."], floor(copper / 10000))
+				-- Balance: in gold, as the prices are.
+				bodyParts[#bodyParts + 1] = string.format(L["You have %s."], gold(floor(copper / 10000)))
 				body = table.concat(bodyParts, DOT)
 			end
 			banner.Text:SetText(title .. "\n" .. body)
@@ -530,13 +642,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			local title = n.free == 0 and L["Your bags are full."]
 				or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
 			local j, Q = n.junk, ns.QoL
-			if j then
+			-- One line: the bags, then the spare bag or the cheapest junk with its
+			-- link under it; without either, the bags alone.
+			if n.spare then
+				-- A spare bag to equip comes before any delete (#2369).
+				local s = n.spare
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
+				placeLink(banner.Jump, L["Equip it"], 0, -4)
+			elseif j then
 				local worth = j.value < math.huge and Q.Money(j.value) or "?"
-				banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
 			else
-				banner.Text:SetText(title .. "\n" .. L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."])
+				banner.Text:SetText(title)
 				banner.Jump:Hide()
+				oneLine = true
 			end
 			banner.Close:Show()
 		elseif kind == "wear" then
@@ -557,7 +677,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end
@@ -581,7 +701,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "log" then
 			if UI.ShowQuestRoom then UI.ShowQuestRoom() end
 		elseif kind == "group" then
-			if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
+			if E and E.AnswerGroup then
+				E.AnswerGroup(n.quest, "skip")
+				if GF.live then groupSkipped(n.quest, n.title) end
+			end
+		elseif kind == "groupSkip" then
+			-- Unanswered again: the step asks once more.
+			notices.groupSkip = nil
+			if E and E.AnswerGroup then E.AnswerGroup(n.quest, nil) end
 		elseif kind == "dungeon" then
 			if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
 		elseif kind == "dungeonRun" then
@@ -603,6 +730,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif E and E.StartNext then
 				E.StartNext(n.guideId)
 			end
+		elseif kind == "fresh" then
+			notices.freshSeen[n.guideId] = true
+			if E and E.OpenTab then E.OpenTab(n.from, true) end
 		elseif kind == "outlevel" then
 			-- Finished quests the jump would leave behind: the first click asks.
 			if n.left and not n.asked then
@@ -635,7 +765,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
 		elseif kind == "bags" then
-			-- The first click arms the item, the second deletes it.
+			-- Equips a spare bag; else the first click arms the item, the second deletes it.
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
@@ -671,7 +801,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Dismiss the visible notice (training: until the next due level; a step on
 	-- screen that is not the live one: until another step is; a Class guide: for
 	-- good, or with `later` (the Later link) until a higher level; the bags:
-	-- until they have room again; a gear offer: that copy only).
+	-- until they have room again; a gear offer: that copy only; a fresh start:
+	-- that guide's, for the session).
 	function GF.DismissBanner(later)
 		local kind, n = bannerNotice()
 		if kind == "trip" then
@@ -679,7 +810,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "away" then
 			-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 			notices.away = n.guideId .. ":" .. n.index
-		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" then
+		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" or kind == "faction" then
 			-- a group quest, a lost one or a dungeon is answered, never dismissed
 		elseif kind == "dungeonSoon" then
 			-- closed for this dungeon's run
@@ -694,12 +825,20 @@ ns.UI.GuideFrame.Part(function(GF)
 			notices.classQuest = nil
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId, later == true) end
+		elseif kind == "taxiMap" then
+			-- for good on that continent
+			local flags = ns.CharState().flags
+			flags.taxiMapAsked = flags.taxiMapAsked or {}
+			flags.taxiMapAsked[n] = true
+			notices.taxiMap = nil
 		elseif kind == "bags" then
 			ns.QoL.Space.Dismiss()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Dismiss()
 		elseif kind == "update" then
 			UI.UpdateCard.DismissBanner()
+		elseif kind == "fresh" then
+			notices.freshSeen[n.guideId] = true
 		elseif kind == "ended" then
 			notices.endSeen = n.guideId
 		elseif kind then
@@ -787,6 +926,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not F then return end
 			notices.classQuest = notice
 			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- ROUTE_CHANGED(legs): a flight the route takes from, through or to a flight
+		-- master the character may have on this continent brings the flight map
+		-- notice (taxiMapNotice).
+		ns.On("ROUTE_CHANGED", function(legs)
+			if not F then return end
+			local c = maybeFlightHere(legs)
+			if c == nil or notices.taxiMap == c then return end
+			notices.taxiMap = c
+			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- A flight map opened: once Nav/Travel.lua has recorded its continent (its
+		-- own handler), the flight map notice for it goes.
+		ns.RegisterEvent("TAXIMAP_OPENED", function()
+			if not (F and notices.taxiMap ~= nil) then return end
+			ns.After(0, function()
+				if ns.IsLoggedIn() then GF.Layout() end
+			end)
 		end)
 		-- RIDING_MONEY: player's gold changed while a riding banner is pending; re-render
 		-- so the "Take me there" button appears/disappears based on affordability.

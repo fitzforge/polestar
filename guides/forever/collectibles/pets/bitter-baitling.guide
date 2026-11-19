@@ -44,6 +44,7 @@ step Schools of Tastyfish
   collect 19807 x40                   -- Speckled Tastyfish
 
 step Back to Riggle
+  when has 19807 x40
   tip Hurry back and hand the 40 Tastyfish to Riggle: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, Jang still pays a little gold for every 5 Tastyfish.
   turnin 8193 direct
   collect 274026 "Extravagant Extravaganza Coin" @27.4,76.9 -- The winner's coin, from Riggle

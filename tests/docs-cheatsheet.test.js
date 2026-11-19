@@ -99,8 +99,10 @@ test('the step examples, in page order, make a guide that lints clean', () => {
 		const word = ex.split(' ')[0].toLowerCase();
 		if (word === 'step') lines.push(ex, '  note Example', '');
 		else if (word === 'loop') lines.push(`step Example ${i + 1}`, `  ${ex}`, '  goto 47.6,35.1', '  goto 52.3,26.8', '  kill 6', ''); // a loop needs points and a goal
+		else if (/^skill .* nearest$/.test(ex)) lines.push(`step Example ${i + 1}`, '  goto 47.6,35.1', '  goto 52.3,26.8', `  ${ex}`, ''); // its places are the step's points
 		else if (word === 'background') lines.push(`step Example ${i + 1}`, '  along until camp', `  ${ex}`, '  note Example', ''); // on an `along until` step
 		else if (word === 'section') lines.push(ex, '', `step Example ${i + 1}`, '  note Example', ''); // in column 0, over the steps after it
+		else if (/ either$/.test(ex)) lines.push(`step Example ${i + 1}`, `  ${ex}`, '  task "The other way" either', ''); // a set is two goals or more
 		else lines.push(`step Example ${i + 1}`, `  ${ex}`, ...(VERBS.includes(word) ? [] : ['  note Example']), '');
 	});
 	const taken = list.map((ex) => /^accept (\d+)/.exec(ex)).filter(Boolean).map((m) => m[1]);

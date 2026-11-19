@@ -17,6 +17,7 @@ return {
 	["{npc:13219}, 200g"] = "{npc:13219}, 200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Frostwolf Howler"] = "Frostwolf Howler",
 	-- ["The Forever client lists it at 200g and level 60, and asks for no riding rank."] = "Der Forever-Client listet ihn für 200g ab Stufe 60 und verlangt keinen Reitrang.",
 	-- ["{area:2839} (level 51+) raises {faction:729}: win, capture towers and graveyards, and hand in the battleground's turn-ins. {npc:13219} waits at the Horde end of {zone:1416} outside the battleground; {npc:13218} inside {area:2839} sells the same mount."] = "Das {area:2839} (ab Stufe 51) steigert den Ruf bei {faction:729}: Gewinne, erobere Türme und Friedhöfe und gib die Abgaben des Schlachtfelds ab. {npc:13219} wartet am Horde-Ende von {zone:1416} vor dem Schlachtfeld; {npc:13218} im {area:2839} verkauft dasselbe Reittier.",
 }

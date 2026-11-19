@@ -34,15 +34,10 @@ local chips = {} -- every chip made, to repaint on a theme change
 local tip -- the panel, built on first hover
 local owner -- the chip the panel is open for
 
-local function thousands(n)
-	local s = tostring(floor(n or 0))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	if out:sub(1, 1) == "," then out = out:sub(2) end
-	return out
-end
+local thousands = ns.Thousands
 
 function LevelTip.Text(levels)
-	if levels >= 0.995 then return format(L["+%s levels"], format("%.1f", levels)) end
+	if levels >= 0.995 then return format(L["+%s levels"], ns.Decimal(levels, 1)) end
 	return format(L["+%d%% of a level"], max(1, floor(levels * 100 + 0.5)))
 end
 
@@ -81,7 +76,7 @@ function LevelTip.Shares(s)
 	end
 	for _, r in ipairs(rows) do
 		if whole then
-			r.text = format(L["+%s levels"], format("%.1f", r.units / 10))
+			r.text = format(L["+%s levels"], ns.Decimal(r.units / 10, 1))
 		elseif r.units < 1 then
 			r.text = L["<1%"]
 		else

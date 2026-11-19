@@ -32,6 +32,26 @@ test('the corrections are one file per section in forever-db/corrections', () =>
 	assert.ok(!fs.existsSync(path.join(__dirname, '..', 'tools', 'lib', 'data', 'corrections.json')), 'the old single file is gone');
 });
 
+// JSON keeps the last of two entries with the same id, silently: a second "92474" entry added for its objectives
+// dropped the first one's race fix (2026-11-17). Each id is one entry per file.
+test('no correction file has the same id twice', () => {
+	const dup = [];
+	for (const s of SECTIONS) {
+		const seen = new Set();
+		for (const m of fs.readFileSync(path.join(PUBLIC_DIR, `${s}.json`), 'utf8').matchAll(/^\t"([^"]+)":/gm)) {
+			if (seen.has(m[1])) dup.push(`${s}.json ${m[1]}`);
+			seen.add(m[1]);
+		}
+	}
+	assert.deepEqual(dup, []);
+});
+
+test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
+	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
+	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
+	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -269,10 +289,76 @@ test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd
 	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
 });
 
+// Ataxia (#2337): Nerlokh offers Khan Jehn only once his Valley of Bones chain is done, ending with Checking Things Out
+// (93122), whose quest data names Khan Jehn as its next quest; the data had no prerequisite, so the quest read as open
+// from the first visit to him (0.3.7.2's centaur reputation guide sent players to take it there).
+test('Khan Jehn waits for Checking Things Out, the end of Nerlokh\'s chain (#2337)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [253177] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(93128), { all: [93122], any: [] }, 'Nerlokh: Khan Jehn');
+	assert.equal(corrections.quests[93128].set.races, null, 'still open to every race');
+});
+
+// Sable (#2507): Shadumbra walks a long path through Raynewood Retreat, and the kill step pointed only at her spawn at
+// its western end (57.5,56.05). Her points follow the path players kill her on, from the road to its north-east end;
+// the two other Ashenvale hunt targets walk paths too (Forever's world database, players' recordings).
+test('Shadumbra has her whole path through Raynewood Retreat, not one spot at its western end (#2507)', () => {
+	const pts = corrections.npcs[12677]?.set?.spawns?.[1440]?.pts || [];
+	assert.ok(pts.some(([x, y]) => x === 57.5 && y === 56.05), 'her spawn stays one of them');
+	assert.ok(pts.some(([x, y]) => x > 61 && y < 50.5), 'the north-east end, where the report found her');
+	assert.ok(pts.length >= 4, `points along the path: ${JSON.stringify(pts)}`);
+	for (const [id, name] of [[12678, 'Ursangous'], [12676, 'Sharptalon']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[1440]?.pts || []).length >= 4, `${name}: points along his path`);
+	}
+});
+
+// Logan (#2672) and a Korean report (#1237): Nikova Raskol walks a loop through Old Town, and the Stockade's pick-up
+// guide pointed at one corner of it (76.4,63.7) while players met her anywhere on it. #2519: quest givers and enders
+// who walk a path of 140 yd or more in Forever's world database, have one spot in the data and no walk circle, and
+// whom 3 or more people met more than 25 yd from that spot in players' recordings, get points along their path.
+test('quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)', () => {
+	const nikova = corrections.npcs[1721]?.set?.spawns?.[1453];
+	assert.equal(nikova?.f, 'l', "Nikova's points are in the live frame, as her spot");
+	const pts = nikova?.pts || [];
+	assert.ok(pts.some(([x, y]) => x > 76 && y > 63), 'the corner the guide pointed at stays one of them');
+	for (const [x, y, where] of [[73, 55, 'north end'], [76, 60, 'east side'], [71, 59, 'west side']]) {
+		assert.ok(pts.some(([px, py]) => Math.hypot(px - x, py - y) < 1.5), `her loop's ${where} (${x},${y}), where players met her`);
+	}
+	for (const [id, map, name] of [[1481, 1437, 'Bart Tidewater'], [1742, 1420, 'Deathguard Bartholomew'], [2616, 1445, 'Privateer Groy'], [3140, 1411, 'Lar Prowltusk'], [5639, 1454, 'Craven Drok']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[map]?.pts || []).length >= 3, `${name}: points along the path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
 	}, 'replace the old Redridge point rather than keeping it as another destination');
+});
+
+// rockzors (#1235), JonnyDisco (#1250): Image of Archmage Modera offers Heart of Disruption only once the level 30 lead-in
+// is handed in to her: An Alarming Request (92432) for the Alliance, Blood in the Streets (92434) for the Horde. The data
+// had the lead-ins as optional, so the City of Dalaran pick-up guide sent level 28 characters to Silverpine for nothing.
+test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in the Streets (Horde) (#1235, #1250)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
+	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
+});
+
+// Kaxe (#2774): Aza'bek, who sells the Soothing Spices for "Swamp Eye" Jarl, stands still at the Crossroads (one TDB
+// spawn, no path), and 56 people opened the vendor window there. The merged data had five points over about 220 yd, and the
+// Horde Dustwallow Marsh guide's `buy 3713 nearest` pointed at one of them, 64 yd from the vendor.
+test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)', () => {
+	assert.deepEqual(corrections.npcs[248198]?.set?.spawns, {
+		1413: { f: 'e', pts: [[49.74, 29.35]] },
+	});
+});
+
+// Logan (#2851): Veyric Thunderhame, who takes Call of Air (94789), stands only in Arathi Highlands (12 people opened his
+// window at 59.8,27.6, none met him in Ironforge). The merged data also gave him Eldrun Stormbreaker's Ironforge spot, so
+// While you're here offered the hand-in beside Eldrun.
+test('Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker\'s spot (#2851)', () => {
+	assert.deepEqual(corrections.npcs[259023]?.set?.spawns, {
+		1417: { f: 'l', pts: [[59.72, 27.59]] },
+	});
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -313,6 +399,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
 	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
+});
+
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
@@ -477,4 +575,104 @@ test('every stable master by title has the stable master role (#2010)', () => {
 		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
 	}
 	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
+});
+
+// #2199: Fiery Menace! counts npc 5858, which the game calls the Searing Lava Spider ("Searing Lava Spider slain" in the
+// quest log, each tick a kill of 5858); the merged data kept its Classic name, Greater Lava Spider, so the step named a
+// spider no one sees. Sweep (the names of quest NPCs where the client's own name differs from the data's): Velarok
+// Windblade (8479), whose Divine Retribution reads "Velarok Story", was still Kalaran Windblade on his goals.
+test('the Searing Lava Spider and Velarok Windblade have the names the game shows (#2199)', () => {
+	assert.equal(corrections.npcs[5858].set.name, 'Searing Lava Spider');
+	assert.equal(corrections.npcs[8479].set.name, 'Velarok Windblade');
+	assert.ok(!corrections.npcs[5857], 'npc 5857 keeps its own name');
+});
+
+// #1575 (danger gate census): QuestieDB places Infernal 278863, a level 30 elite, at 133 points in the starting zones
+// and capitals. No player has met it or died to it there, while 337 people's recordings logged other creatures within
+// 40 yd of those points; the danger gate flagged the starting zones' quests, and the compiler's "Elite: group advised"
+// (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
+test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
+	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
+});
+
+// Blood of My Blood (93429, Karana at the Harborage) had no objective in the data, so the Fallow Sanctuary step's kill
+// line could not count. Players' recordings tick its one line ("Lost One slain" x10) on a kill of any of the
+// sanctuary's Lost One Hunters, Muckdwellers, Seers and Riftseekers.
+test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
+	const [o, ...rest] = corrections.quests[93429].set.objectives;
+	assert.deepEqual(rest, []);
+	assert.equal(o.type, 'kill');
+	assert.equal(o.count, 10);
+	assert.deepEqual(o.credit, [759, 760, 761, 762]);
+	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
+});
+
+// Dungeon quests whose Forever XP is about twice the Classic QuestXP the merged data has (#394), corrected from dated
+// in-game evidence. (Restored after 0.4.0: the JS data builder's case went with the builder; the corrections and the
+// release data still carry it.)
+test('corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)', (t) => {
+	const xp = { 377: 4400, 959: 2650, 1486: 3100 }; // Crime and Punishment (The Stockade), Trouble at the Docks and Deviate Hides (Wailing Caverns)
+	for (const [q, want] of Object.entries(xp)) assert.equal(corrections.quests[q].set.xp, want, `${q} in the corrections`);
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	for (const [q, want] of Object.entries(xp)) assert.equal(quests[q].xp, want, `${q} in the release data`);
+});
+
+// MgM's report (#462): QuestieDB's Forever store gives Deviate Hides (1486) an Orgrimmar Mailbox and Poor Old Blanchy
+// (151) a Stormwind one as a second giver, so the Wailing Caverns pick-up page sent a player from Tirisfal to the
+// Orgrimmar mailbox. Forever's quest data has only the NPC. (Restored after 0.4.0, as #394's.)
+test("MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)", (t) => {
+	assert.deepEqual(corrections.quests[1486].set.start, { npc: [5767], object: [], item: [] });
+	assert.deepEqual(corrections.quests[151].set.start, { npc: [238], object: [], item: [] });
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	assert.deepEqual([quests[1486].start, quests[151].start], [{ npc: [5767], object: [], item: [] }, { npc: [238], object: [], item: [] }]);
+});
+
+// --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0).
+
+// Indexmatch, Bennistrov (#1410, #1411, #1572): the Image of Archmage Modera stands only at the Kirin Tor camp on the
+// Silverpine lake shore; a second spot by Dalaran's sewer entrance in Alterac sent players there.
+test('the Image of Archmage Modera stands only at the Kirin Tor camp in Silverpine (#1410, #1572)', () => {
+	assert.deepEqual(corrections.npcs[269127].set.spawns, { 1421: { f: 'e', pts: [[68.62, 45.18]] } });
+});
+
+// Aducan (#2464): the data had Overmaster Pyron only on the whole Eastern Kingdoms map; he stands in Searing Gorge's
+// Grinding Quarry.
+test('Overmaster Pyron stands in Searing Gorge\'s Grinding Quarry (#2464)', () => {
+	const spawns = corrections.npcs[9026].set.spawns;
+	assert.deepEqual(Object.keys(spawns), ['1427']);
+	for (const [x, y] of spawns[1427].pts) assert.ok(x > 22 && x < 30 && y > 72 && y < 86, `${x},${y} in the quarry`);
+});
+
+// Merlin, Steffen (#1487, #1321): Starving Arcane and Heart of Disruption are offered only after An Alarming Request
+// (level 30) is handed in to the Image of Archmage Modera.
+test('Starving Arcane and Heart of Disruption wait for An Alarming Request (#1487, #1321)', () => {
+	for (const q of [92457, 92458]) {
+		const { all, any } = blockingPrereqs({ id: q, start: { npc: [269127] }, ...corrections.quests[q].set });
+		assert.deepEqual([...all, ...any], [92432], `${q}`);
+	}
+});
+
+// Colored McLovin (#2389): the last Unending Torment step pointed at Faranell; the serum is given at a spot in the
+// Apothecarium.
+test('Unending Torment\'s serum is given at its Apothecarium spot (#2389)', () => {
+	const [o] = corrections.quests[97292].set.objectives;
+	assert.deepEqual([o.type, o.map, o.x, o.y], ['event', 1458, 44.9, 62.9]);
+});
+
+// Facts the release data takes from the merged sources and players' recordings rather than a correction.
+// swork1 (#2256): Howin Kindfeather offers Death to the Dragonmaw only once Trying Times is handed in. Smitty (#2437):
+// Open the Maw only after Dragonmaw Rumors. rAmandaK (#2508): Trouble in the Deeps is the lead-in to The Essence of
+// Aku'Mai, so Lookup skips it once that is taken.
+test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) wait for their quests, Trouble in the Deeps leads to The Essence of Aku\'Mai (#2508)', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	const pre = (q) => { const { all, any } = blockingPrereqs(quests[q]); return [...all, ...any]; };
+	assert.ok(pre(98291).includes(98246), 'Death to the Dragonmaw after Trying Times');
+	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
+	assert.equal(quests[6562].breadcrumbFor, 6563);
 });

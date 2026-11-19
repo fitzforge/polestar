@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 29] = [
+pub const GUIDE_KEYS: [&str; 31] = [
 	"id",
 	"pack",
 	"title",
@@ -48,6 +48,7 @@ pub const GUIDE_KEYS: [&str; 29] = [
 	"classes",
 	"minLevel",
 	"maxLevel",
+	"factionLevels",
 	"category",
 	"folder",
 	"keywords",
@@ -68,6 +69,7 @@ pub const GUIDE_KEYS: [&str; 29] = [
 	"names",
 	"written",
 	"sections",
+	"fresh",
 	"steps",
 ];
 /// `image` follows note, so a step without one is emitted as before; so does `section`.
@@ -76,27 +78,34 @@ pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "w
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
 /// `taxi` predicate's flight master, sits where no other predicate has a value).
-pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+pub const WHEN_KEYS: [&str; 22] =
+	["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent", "faction", "standing", "points"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 84] = [
+pub const GOAL_KEYS: [&str; 90] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
 	"zone",
 	"spell",
 	"spellName",
+	// A `buff` or `equip` goal the other way round: done while the aura is gone or the item is not worn (format 11).
+	"off",
 	"faction",
 	"factionName",
 	"standing",
+	// Points inside a `rep` goal's standing (format 11).
+	"points",
 	"achievement",
 	"achievementName",
 	"criteria",
 	"quest",
 	"title",
 	"target",
+	// A kill or talk on one of the game's placeholder targets (#2614): the engine reads it by its quest-log line.
+	"logLine",
 	"npc",
 	"npcName",
 	"object",
@@ -104,7 +113,11 @@ pub const GOAL_KEYS: [&str; 84] = [
 	"item",
 	"itemName",
 	"count",
+	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
+	"gather",
 	"oi",
+	// Part of the objective's count this goal is done at (format 11).
+	"upto",
 	"skill",
 	"skillLine",
 	"rank",
@@ -151,6 +164,8 @@ pub const GOAL_KEYS: [&str; 84] = [
 	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
 	"lvl",
 	"optional",
+	// One of its step's `either` set (format 11).
+	"either",
 	"only",
 	"profLine",
 	"profName",
@@ -230,6 +245,8 @@ pub const ONLY_KEYS: [&str; 3] = ["classes", "races", "factions"];
 const PACK_KEYS: [&str; 8] = ["id", "title", "author", "version", "license", "website", "source", "notes"];
 pub const FRAME_KEYS: [&str; 5] = ["c", "left", "right", "top", "bottom"];
 const LVL_KEYS: [&str; 2] = ["min", "max"];
+/// A leveling guide's `fresh` header (fresh.rs) in this key order.
+pub const FRESH_KEYS: [&str; 4] = ["from", "share", "xp", "needs"];
 
 fn header_main() -> String {
 	header("lua", crate::format::COMPILE_COMMAND, "the .guide files")
@@ -601,6 +618,13 @@ fn step_lines(steps: &V, ind: &str, shared: &Shared) -> Vec<String> {
 	out
 }
 
+/// A guide's `factionLevels` (`levels <min>-<max> <Faction>`): each faction's range, Alliance first.
+fn faction_levels(v: &V) -> String {
+	let parts: Vec<String> =
+		["Alliance", "Horde"].iter().filter(|f| v.get(f).truthy()).map(|f| format!("{f} = {{ min = {}, max = {} }}", scalar(&v.get(f).get("min"), 2), scalar(&v.get(f).get("max"), 2))).collect();
+	format!("{{ {} }}", parts.join(", "))
+}
+
 /// `deferred` (a race part's guide, docs/PACK_FORMAT.md "Race parts"): the
 /// steps as one source string (`stepsSrc`, `return { ... }`, run on first
 /// read) with `stepCount`, and the guide registers only for a character of
@@ -661,6 +685,10 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			out.push("\t\t\tsteps = {".into());
 			out.extend_from_slice(&lines[1..lines.len() - 1]);
 			out.push("\t\t\t},".into());
+		} else if k == "factionLevels" {
+			out.push(format!("\t\t\tfactionLevels = {},", faction_levels(&v)));
+		} else if k == "fresh" {
+			out.push(format!("\t\t\tfresh = {},", inline(&v, &Keys::Fixed(&FRESH_KEYS), 2)));
 		} else if k == "nextWhen" {
 			// guide id -> its predicates, in the order of nextChoices.
 			let parts: Vec<String> = v.keys().iter().map(|id| format!("[{}] = {}", lua_string(id), list(&v.get(id), Some(&WHEN_KEYS), 2))).collect();
@@ -765,6 +793,10 @@ pub fn guide_data(guide: &V) -> V {
 				})
 				.collect();
 			out.set("steps", V::from(steps));
+		} else if k == "factionLevels" {
+			out.set(k, data_inline(&v, &Keys::Sorted, 2));
+		} else if k == "fresh" {
+			out.set(k, data_inline(&v, &Keys::Fixed(&FRESH_KEYS), 2));
 		} else if k == "nextWhen" {
 			let m = Obj::new();
 			for id in v.keys() {
@@ -1014,6 +1046,7 @@ pub fn emit_experimental(entries: &[V]) -> String {
 					format!("{{ {} }}", parts.join(", "))
 				}
 				"start" | "focus" => inline(&v, &Keys::Fixed(&POINT_KEYS), 2),
+				"factionLevels" => faction_levels(&v),
 				_ if v.is_arr() => list(&v, None, 2),
 				_ => scalar(&v, 2),
 			};
@@ -1090,8 +1123,10 @@ pub fn emit_map_frames(frames: &V, pack_id: &str) -> String {
 /// the Era bounds of every map they stand on. `z`: the trainer's spawn height
 /// (heights.js); the header then names CMaNGOS classic-db.
 /// trainers: the reminder's candidates (one per town and class); by_class:
-/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer.
-pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
+/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer;
+/// tops: { npcId: level }, the highest level a trainer that stops short of the
+/// cap teaches (#2477), left out when empty.
+pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V, tops: &V) -> String {
 	let heights = trainers.iter().any(|t| !t.get("z").is_undef());
 	let mut out = vec![
 		header(
@@ -1121,6 +1156,14 @@ pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
 		out.push(format!("\t{cls} = {{ {} }},", ids.join(", ")));
 	}
 	out.push("})".into());
+	let ids = numeric_keys(tops);
+	if !ids.is_empty() {
+		out.extend(["".into(), "ns.RegisterClassTrainerTops({".into()]);
+		for id in ids {
+			out.push(format!("\t[{}] = {},", num_str(id), num_str(tops.get(&num_str(id)).num())));
+		}
+		out.push("})".into());
+	}
 	format!("{}\n", out.join("\n"))
 }
 

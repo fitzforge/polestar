@@ -2,7 +2,8 @@
  "_about": "Every control of the settings window in a release (its setting key, its binding's action, or the English label of a control without either), with where that release showed it. tests/addontest/settings-coverage.rs fails when one is no longer reachable in the settings window. A release's list is checked once this build is that release or later. Written from each release's own window (every page, tab and section it registered).",
  "_retired": {
 		"qol.trainAll": "0.3.7.1 removed trainer bulk purchases (Train All); a saved value is ignored and Polestar never buys at a trainer",
-		"qol.trainAllButton": "0.3.7.1 removed trainer bulk purchases (Train All button)"
+		"qol.trainAllButton": "0.3.7.1 removed trainer bulk purchases (Train All button)",
+		"ui.pickerFaction": "0.4.0 removed the guide menu's faction filter (#2462): the menu lists the character's own side only; a saved value is ignored"
 	},
 	"0.3.6": [
   {
@@ -2360,7 +2361,18 @@
    ]
   }
  ],
- "0.4.0": [
+ "0.4.0": [],
+ "0.4.1": [
+  {
+   "id": "maps.flightArcade",
+   "kind": "toggle",
+   "label": "Offer Freedoom Arcade on flights",
+   "at": [
+    "Integrations > Freedoom Arcade"
+   ]
+  }
+ ],
+ "0.4.2": [
   {
    "id": "behavior.dungeons",
    "kind": "dropdown",

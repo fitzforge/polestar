@@ -174,7 +174,19 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
 - **Route fixes' optional quests** (`post::optional_by_fixes`, the guides as written): each goal
   line but the hand-in of a quest `deliberate.optional` lists (the rare-drop chains: The Green
   Hills of Stranglethorn and its chapters, Study of the Elements: Rock) is written `optional`, so
-  no step waits on the drop; the hand-in applies only to a player who has the quest done.
+  no step waits on the drop; the hand-in applies only to a player who has the quest done. Not in
+  a `when group` step: only the player who chose the group way follows it, and a step of
+  optional goals only is done at once, so that player would get no arrow (the pack check's rule).
+- **The pack check's order and travel rules** (`post::along_before_label`, `post::flight_hops`,
+  `post::carried_hand_ins`, last on the guides as written, after the race lists): an `along until`
+  whose labelled step the route put first gets the label on the next step that works or hands in
+  its quest (with none, the along lists its goals until done); a flight to a stop where a character
+  has nothing to do, followed by another flight from there, is one flight from the first flight
+  master for those characters, read per character as the check reads it (`only` on steps and
+  lines; a `when` step, work or a walk onto another continent between keeps the stop), a flight
+  there and straight back goes, and the steps between keep an `only` for whoever still needs them;
+  a hand-in or objective of a quest nothing on the chain accepts is `when onquest` it, in place or
+  as a step of its own, for a player who carries the quest in.
 - **Weapon skills** (forge-writer `weapons.rs`, #655): where a guide already
   stops in Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff or
   Undercity at level 10 or later, each class with a weapon skill that city's
@@ -290,7 +302,10 @@ word (`src/guide.rs`):
 
 Every line keeps its exact text and where it came from (file and line). The
 writer moves v1's lines; it does not re-render them. That is why its output can
-be compared byte for byte with the old JavaScript writer.
+be compared byte for byte with the old JavaScript writer. A split `loop` step's
+gotos are its circuit, not one goal's travel: every piece with work gets them
+(copied where the route's lines bring none), and a piece of nothing but accepts
+and hand-ins drops `loop`.
 
 ### 2. Put the goals in the route's order
 
@@ -1279,7 +1294,9 @@ routes. `forge build` itself writes each start to `out/guides/<start>/`.
 writes every start of a build's routes the way the guides stage does: the
 default options, each faction's shared guides made once for its starts, and the
 two factions at once. It writes `<dir>/<Start>/`, `<Start>.fixes.json`,
-`<Start>.log` and `<Start>.status` (`ok`, or why the start was not written).
+`<Start>.log` and `<Start>.status` (`ok`, or why the start was not written),
+and for a tree the pack check refuses, `<Start>.pack-errors.txt` with every
+error it found (the status names five).
 `--starts Orc,Human` writes only those; `--no-pass-by` and `--no-nearby-fp` leave out those two
 rules, as for `apply-route`. It is the writer-only rewrite of a round's routes, and the writer gate
 uses it. Its `<Start>.log` holds the rules' decisions (`level fit: …`, `pass-by: …`, `nearby fp: …`,

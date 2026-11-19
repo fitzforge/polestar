@@ -59,6 +59,7 @@ local NPCS = {
 	{ "Smith", { "vendor", "repair" } }, { "Grocer", { "vendor" } }, { "Banker", { "banker" } }, { "Auctioneer", { "auctioneer" } },
 	{ "Battlemaster", { "battlemaster" } }, { "Spirit Healer", { "spirithealer" } }, { "Stable Master", { "stablemaster" } },
 	{ "Warrior Trainer", { "trainer", "class:WARRIOR" } }, { "Alchemy Trainer", { "trainer", "trainer:171" } }, { "Weapon Master", { "trainer", "weapon" } },
+	{ "Transmogrifier", { "transmogrifier" } },
 }
 return {
 	setup = function()
@@ -95,6 +96,10 @@ return {
 			Each = function(kind, fn) for id, o in pairs(objects) do fn(id, o.name) end end,
 			Object = function(id) return objects[id] end,
 		}
+		-- In as the game has them before the maps draw: the Codex's arrival (CODEX_LOADED) and the flight paths known
+		-- (the taxi map's events in the game) redraw the services and the travel pins.
+		Polestar.Fire("CODEX_LOADED")
+		Polestar.Maps.RefreshTravelPins()
 	end,
 	probes = {
 		["maps.taxiPins"] = function() return drawn("maps.taxi") end,
@@ -112,6 +117,7 @@ return {
 		["maps.serviceFilters.battlemaster"] = service("battlemaster"),
 		["maps.serviceFilters.spirithealer"] = service("spirithealer"),
 		["maps.serviceFilters.stablemaster"] = service("stablemaster"),
+		["maps.serviceFilters.transmogrifier"] = service("transmogrifier"),
 		["maps.serviceFilters.trainer"] = service("trainer"),
 		["maps.serviceFilters.vendor"] = service("vendor"),
 		["maps.reveal"] = revealed,

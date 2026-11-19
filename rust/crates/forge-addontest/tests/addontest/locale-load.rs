@@ -66,7 +66,14 @@ fn a_german_client_has_its_strings_before_the_first_file_reads_one_and_opens_no_
 	let out = run("deDE", true);
 	assert_eq!(
 		out[0],
-		json!(["Nächster Schritt", "Vorheriger Schritt", "Säuberung im Koboldlager", "Polestar-Guides", 1, "Polestar_deDE/Interface.lua Polestar_deDE/Names.lua Polestar_deDE/Texts.lua"]),
+		json!([
+			"Nächster Schritt",
+			"Vorheriger Schritt",
+			"Säuberung im Koboldlager",
+			"Polestar-Guides",
+			1,
+			"Polestar_deDE/Interface.lua Polestar_deDE/Names.lua Polestar_deDE/Subzones.lua Polestar_deDE/Texts.lua"
+		]),
 		"the key binding's name is read while Core/Commands.lua loads; the folder loads once, names and guide texts with it"
 	);
 }

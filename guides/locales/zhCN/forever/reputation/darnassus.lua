@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1438}东北面的暗夜精灵起始林地，60级时用30分钟可获得约1,050点声望。任务给予者都在大树{area:256}周围。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1438}东北面的暗夜精灵起始林地，60级时用30分钟可获得约1,050点声望。任务给予者都在大树{area:256}周围。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -53,8 +53,8 @@ return {
 	["{npc:8584}, outside the spider cave"] = "{npc:8584}，在蜘蛛洞外",
 
 	-- Step 7: Dolanaar
-	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：通往{faction:69}道路上的村庄，60级时用45分钟可获得约1,250点声望。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
+	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "可选：通往{faction:69}道路上的村庄，60级时用45分钟可获得约1,250点声望。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。\n{npc:2151}在村庄西边的道路上巡逻：如果她不在箭头处，就沿道路走，直到遇到她。",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -72,6 +72,8 @@ return {
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "{area:186}：首次交还",
+	-- {npc:2151} Moon Priestess Amara
+	["{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "{npc:2151}在村子西边的道路上巡逻：如果她不在箭头处，沿着道路走直到遇见她。",
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
@@ -92,7 +94,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：从{area:702}乘船前往{zone:1439}的{area:442}，60级时约一小时可获得1,400点声望。任务给予者沿镇上的街道和码头分布。在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：从{area:702}乘船前往{zone:1439}的{area:442}，60级时约一小时可获得1,400点声望。任务给予者沿镇上的街道和码头分布。在Forever中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -100,6 +102,7 @@ return {
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	["the corrupt furbolg camp south of town"] = "镇子南边被腐化的熊怪营地",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处",
 	-- {npc:2164} Rabid Thistle Bear

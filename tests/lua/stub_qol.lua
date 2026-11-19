@@ -142,13 +142,46 @@ function UnitName(unit)
 	if t then return t.name end
 	return unitName(unit)
 end
--- Portraits: the texture keeps the name of the unit it was drawn from;
--- q.portraits lists every draw.
+-- Portraits: the texture keeps the name of the unit it was drawn from, and
+-- shows it as "portrait:<name>"; q.portraits lists every draw.
 q.portraits = {}
 function SetPortraitTexture(tex, unit)
 	local t = targetOf(unit)
 	tex.portraitOf = t and t.name
+	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
 	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
+end
+-- Models, as the client: a PlayerModel's SetCreature draws a creature only
+-- from the client's creature cache (q.creatures[id] = name; model.creature
+-- is what it drew, nil for an empty model), and a model hidden (its own Hide,
+-- or a parent's with stub.cascadeVisibility) drops what it drew unless
+-- SetKeepModelOnHide(true). The tooltip of a creature's unit link
+-- (C_TooltipInfo.GetHyperlink) names a cached one; an uncached one gets an
+-- empty tooltip and the client asks the server (q.creatureAsks counts the
+-- asks), whose answer lands in the cache q.creatureDelay seconds later with
+-- no event (q.serverCreatures = false: the server never answers).
+q.creatures, q.creatureAsks, q.creatureDelay, q.serverCreatures = {}, 0, 0.5, true
+M.SetCreature = function(self, id) self.creature = q.creatures[id] and id or nil end
+M.SetKeepModelOnHide = function(self, keep) self.keepModel = keep and true or false end
+local function dropModel(self) if not self.keepModel then self.creature = nil end end
+local createModel = CreateFrame
+function CreateFrame(kind, ...)
+	local f = createModel(kind, ...)
+	if kind == "PlayerModel" then f:HookScript("OnHide", dropModel) end
+	return f
+end
+C_TooltipInfo = C_TooltipInfo or {}
+local hyperlink = C_TooltipInfo.GetHyperlink
+function C_TooltipInfo.GetHyperlink(link, ...)
+	local id = tonumber(tostring(link):match("^unit:Creature%-0%-0%-0%-0%-(%d+)%-"))
+	if not id then return hyperlink and hyperlink(link, ...) or { lines = {} } end
+	local name = q.creatures[id]
+	if name then return { lines = { { leftText = name } } } end
+	q.creatureAsks = q.creatureAsks + 1
+	if q.serverCreatures then
+		C_Timer.After(q.creatureDelay, function() q.creatures[id] = q.creatures[id] or ("Creature " .. id) end)
+	end
+	return { lines = {} }
 end
 C_NamePlate = C_NamePlate or {}
 function C_NamePlate.GetNamePlates()
@@ -296,6 +329,23 @@ function DeleteCursorItem()
 	q.deleted = q.deleted or {}
 	if s then table.insert(q.deleted, s.itemID) end
 	q.bags[c[1]].slots[c[2]] = nil
+	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
+end
+-- Bag slots 1..4 are inventory slots 20..23. PutItemInBag puts the bag on the
+-- cursor into that bag slot when the slot is empty (q.items[id].bagSize
+-- slots): the bag leaves its bag slot and the bags update a moment later.
+-- With the slot taken, the bag stays on the cursor.
+function C_Container.ContainerIDToInventoryID(bag) return 19 + bag end
+function PutItemInBag(invSlot)
+	local c = q.cursor
+	call("PutItemInBag", invSlot)
+	local into = invSlot - 19
+	if not c or not q.bags[into] or q.bags[into].size > 0 then return end
+	local s = q.bags[c[1]].slots[c[2]]
+	q.cursor = nil
+	q.bags[c[1]].slots[c[2]] = nil
+	q.bags[into].size = (q.items[s.itemID] or {}).bagSize or 6
+	q.worn[invSlot] = s.itemID
 	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
 end
 function GetInventoryItemID(unit, slot) if unit == "player" then return q.worn[slot] end end
@@ -579,8 +629,20 @@ end
 -- Quest rewards: q.choices = { { id, count }, ... }; reward buttons like QuestInfo's
 ---------------------------------------------------------------------------
 
+-- QuestInfoRewardsFrame (Mainline QuestInfo.xml): 285 wide, its Rewards heading (QuestTitleFont) and the choose
+-- line (QuestFont, in the quest material's text colour) above the choices.
 QuestInfoRewardsFrame = CreateFrame("Frame", "QuestInfoRewardsFrame", UIParent)
+QuestInfoRewardsFrame:SetSize(285, 10)
 QuestInfoRewardsFrame.RewardButtons = {}
+QuestInfoRewardsFrame.Header = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.Header:SetFont(STANDARD_TEXT_FONT, 18, "")
+QuestInfoRewardsFrame.Header:SetText("Rewards")
+QuestInfoRewardsFrame.Header:SetPoint("TOPLEFT", QuestInfoRewardsFrame, "TOPLEFT", 0, 0)
+QuestInfoRewardsFrame.Header:SetSize(285, 0)
+QuestInfoRewardsFrame.ItemChooseText = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.ItemChooseText:SetFont(STANDARD_TEXT_FONT, 13, "")
+QuestInfoRewardsFrame.ItemChooseText:SetText("You will be able to choose one of these rewards:")
+QuestInfoRewardsFrame.ItemChooseText:SetTextColor(0.18, 0.1, 0.03)
 QuestInfoFrame = CreateFrame("Frame", "QuestInfoFrame", UIParent)
 QuestInfoFrame.rewardsFrame = QuestInfoRewardsFrame
 
@@ -840,7 +902,7 @@ function q.step(goals, index)
 		views[g] = {
 			index = g, t = goal.t, status = goal.status or "active",
 			subject = goal.subject or goal.target or goal.itemName or goal.location,
-			quest = goal.quest, npc = goal.npc, item = goal.item,
+			quest = goal.quest, npc = goal.npc, item = goal.item, progress = goal.progress,
 		}
 	end
 	local steps = {}
@@ -874,6 +936,14 @@ function Nav.Hold(map, x, y, label, f)
 	q.nav.held, q.nav.target = t, t
 	table.insert(q.nav.sets, t)
 	return t
+end
+-- Nav.HoldNothing (a corpse inside a dungeon whose entrance is not known):
+-- no target until Nav.Unhold, which brings back the one from before.
+local NOTHING = { nothing = true }
+function Nav.HoldNothing()
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = NOTHING, nil
+	return NOTHING
 end
 function Nav.Unhold()
 	if not q.nav.held then return end

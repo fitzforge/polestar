@@ -10,13 +10,12 @@ return {
 	["Oozes"] = "軟泥怪",
 	-- {item:20768} Oozing Bag · {npc:12387} Large Vile Slime · {zone:1422} Western Plaguelands · {item:20769} Disgusting Oozeling
 	-- plural, as words: Vile Slimes = {npc:1806} Vile Slime · Devouring Oozes = {npc:1808} Devouring Ooze
-	["Oozes drop the {item:20768} about once in 20-30 kills; the best are the Vile Slimes, Devouring Oozes and the {npc:12387} in the ooze field of eastern {zone:1422} (level 54-57). Open every bag: most hold potions or herbs, and only about one bag in 50 holds the {item:20769}, so expect over a thousand kills. Both the bags and the pet can be traded: unopened bags on the Auction House are lottery tickets, the pet itself the sure buy."] = "",
+	["Oozes drop the {item:20768} about once in 20-30 kills; the best are the Vile Slimes, Devouring Oozes and the {npc:12387} in the ooze field of eastern {zone:1422} (level 54-57). Open every bag: most hold potions or herbs, and only about one bag in 50 holds the {item:20769}, so expect over a thousand kills. Both the bags and the pet can be traded: unopened bags on the Auction House are lottery tickets, the pet itself the sure buy."] = "軟泥怪約每20到30次擊殺掉落一個{item:20768}；最好的是{zone:1422}東部軟泥場地裡的邪惡軟泥怪、吞噬軟泥怪和{npc:12387}（54到57級）。每個袋子都開啟：大多是藥水或草藥，約每50個袋子才有一個裝著{item:20769}，所以預期要殺上千只。袋子和寵物都能交易：拍賣行裡未開封的袋子像買彩票，寵物本身才是穩的買賣。",
 	-- plural, as words: Oozing Bags = {item:20768} Oozing Bag
-	["Open your Oozing Bags"] = "",
+	["Open your Oozing Bags"] = "打開你的滲液背包",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Oozes drop the {item:20768}: the Vile Slimes, Large Vile Slimes and Devouring Oozes of Western Plaguelands, and the oozes of {zone:1448}, {zone:1449} and {zone:1423}, at about 0.07-0.09% per kill in our data. The waypoint is a {npc:1806} spawn in eastern {zone:1422}."] = "軟泥怪會掉落{item:20768}：西瘟疫之地的可憎的軟泥怪、可憎的大軟泥怪和吞噬淤泥怪，以及{zone:1448}、{zone:1449}和{zone:1423}的軟泥怪，依我們的資料每次擊殺約0.07-0.09%。路徑點是{zone:1422}東部的一個{npc:1806}重生點。",
-	-- ["Open the {item:20768}"] = "打開{item:20768}",
 	-- ["Open the {item:20768} from your bags."] = "從背包打開{item:20768}。",
 	-- ["Vile Slimes, {zone:1422}"] = "可憎的軟泥怪，{zone:1422}",
 }

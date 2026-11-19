@@ -22,8 +22,8 @@ return {
 	-- Step 2: The emissary in Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The emissary in {zone:1454}"] = "",
-	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8275} Taking Back Silithus
-	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "",
+	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8276} Taking Back Silithus
+	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8276}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "",
 
 	-- Step 3: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {zone:1451} Silithus · {faction:609} Cenarion Circle · {npc:15270} Huum Wildmane · {quest:8318} Secret Communication · {item:20404} Encrypted Twilight Text
@@ -91,7 +91,7 @@ return {
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
 	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
-	["{item:20452}, from the {object:180503}"] = "",
+	["{item:20452}, from the {object:180503}"] = "{item:20452}, из ящика ({object:180503})",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
 	["{item:20452}, from {item:20424} and {item:3713}"] = "",
 
@@ -103,7 +103,7 @@ return {
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
-	["The {area:3100}"] = "",
+	["The {area:3100}"] = "{area:3100}",
 	-- {zone:1451} Silithus
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
 	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "",
@@ -127,7 +127,7 @@ return {
 	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
 	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
-	["{npc:15171} and {npc:15170}"] = "",
+	["{npc:15171} and {npc:15170}"] = "{npc:15171} и {npc:15170}",
 	-- {item:20385} Deathclasp's Pincer
 	["{item:20385}, elite: group of 2 or 3"] = "",
 
@@ -140,12 +140,12 @@ return {
 
 	-- Step 20: Rubbings and brains
 	["Rubbings and brains"] = "",
-	-- {object:210337} Glyphed Crystal (no name in this language: may be words) · {item:20453} Geologist's Transcription Kit · {area:2742} Hive'Ashi · {area:2743} Hive'Zora · {area:2744} Hive'Regal · {quest:8308} Brann Bronzebeard's Lost Letter
+	-- {object:210337} Glyphed Crystal · {item:20453} Geologist's Transcription Kit · {area:2742} Hive'Ashi · {area:2743} Hive'Zora · {area:2744} Hive'Regal · {quest:8308} Brann Bronzebeard's Lost Letter
 	["Rutgar and Frankal hand out the next two quests at their camp. Each hive has a {object:210337} to rub with the {item:20453}, and its silithid drop the brains: {area:2742} north of the Hold, {area:2743} in the west, {area:2744} in the south. Inside {area:2744} waits Mistress Natalia (level 62 elite, mind control and fear; group of 3 to 5). Now and then a hive silithid drops {quest:8308}: it starts a quest for Rutgar worth 100."] = "",
 	-- {item:20456} Hive'Regal Rubbing · {area:2744} Hive'Regal
 	["{item:20456}, deep in {area:2744}"] = "",
 	-- {quest:8308} Brann Bronzebeard's Lost Letter
-	["{quest:8308}, a rare drop"] = "",
+	["{quest:8308}, a rare drop"] = "{quest:8308}, редкая добыча",
 
 	-- Step 21: Mistress Natalia
 	["Mistress Natalia"] = "",
@@ -179,7 +179,7 @@ return {
 
 	-- Step 27: Umber in Nighthaven
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} in {area:2361}"] = "",
+	["{npc:11939} in {area:2361}"] = "{npc:11939} ({area:2361})",
 
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "",
@@ -190,7 +190,7 @@ return {
 
 	-- Step 29: Encrypted Twilight Texts to Revered
 	-- {quest:8319} Encrypted Twilight Texts
-	["{quest:8319} to Revered"] = "",
+	["{quest:8319} to Revered"] = "{quest:8319} до уровня «Почтение»",
 	-- {npc:15306} Bor Wildmane · {quest:8319} Encrypted Twilight Texts · {npc:14479} Twilight Lord Everun · {item:20733} Formula: Enchant Cloak - Greater Nature Resistance · {item:22773} Pattern: Sylvan Crown
 	["Honored to Revered is 12,000 reputation. {npc:15306} takes 10 {quest:8319} for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the {npc:14479} and Prophet until Exalted. Honored opens Kania's {item:20733} (10g), Mishta's {item:22773} (5g) and Forever's new Honored patterns (7g 50s each)."] = "",
 	-- {npc:15306} Bor Wildmane
@@ -214,7 +214,7 @@ return {
 
 	-- Step 32: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "",
-	-- {object:180456} Lesser Wind Stone (no name in this language: may be words) · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
+	-- {object:180456} Lesser Wind Stone · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
 	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "",
 	-- {item:20513} Abyssal Crest
 	["{item:20513}: Templar, group of 1 to 3"] = "",
@@ -227,7 +227,7 @@ return {
 
 	-- Step 33: Signets and scepters to Exalted
 	["Signets and scepters to Exalted"] = "",
-	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone (no name in this language: may be words) · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
+	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
 	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "",
 	["10 texts: 100"] = "",
@@ -257,7 +257,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Abyssal Crests, Abyssal Signets and Abyssal Scepters are repeatable at {npc:15306} once their opening quests are done."] = "{item:20513}, {item:20514} и {item:20515} можно сдавать NPC {npc:15306} повторно после вводных заданий.",
 	-- ["Encrypted Twilight Texts repeats: {npc:15306} takes more texts again and again. The cultist camps are the place to farm them."] = "Задание с текстами повторяется: {npc:15306} принимает: {item:20404} – снова и снова. Фармите их в лагерях культистов.",
-	-- ["Encrypted Twilight Texts to Friendly"] = "Зашифрованные тексты Сумеречных ({item:20404}) до уровня «Дружелюбие»",
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "Дальше основную репутацию дают рейд {area:3454} и сдача знаков Совета Бездны (талисманы, перстни, скипетры).",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "Продолжайте фармить лагеря Сумеречного Молота. В облачении культиста Сумеречного Молота и со станционным медальоном (задание «Станционный медальон» от NPC {npc:15282}) можно призывать храмовников у камней ветра ({object:180461}); {item:20513} с них сдавайте NPC {npc:15306}.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "Проходите {area:3454} и сдавайте знаки Совета Бездны до превознесения.",

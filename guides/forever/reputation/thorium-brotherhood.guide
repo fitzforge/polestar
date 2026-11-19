@@ -60,7 +60,7 @@ step Golems and Dark Iron dwarves
   collect 18959 quest 7728.1          -- Smithing Tuyere, Dark Iron Steamsmiths
   collect 18960 quest 7728.2          -- Lookout's Spyglass, Dark Iron Lookouts
 
-step Greater Lava Spiders
+step Searing Lava Spiders
   tip The spiders roam the lava pools and plateaus of the south-west.
   kill 5858 x20 quest 7724.1
 
@@ -137,6 +137,7 @@ step Gaining Acceptance to Honored
 step The Shadowforge Key
   zone Burning Steppes
   tip Optional, and it saves every later trip to Lokhtos the Ring of Law fight. Franclorn Forgewright is a ghost in the middle of Blackrock Mountain: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after Fineous Darkvire in Blackrock Depths, who always drops Ironfel; place it on Franclorn's monument in the Shrine of Thaurissan and the Shadowforge Key falls out. Blackrock Depths is a five-player dungeon: group up.
+  level 52
   accept 3801 optional                -- Franclorn Forgewright, as a ghost
   turnin 3801
   accept 3802 optional

@@ -101,39 +101,47 @@ function Theme.UndoSkinPreset()
 end
 
 ---------------------------------------------------------------------------
--- The picker's cards
+-- The looks' miniatures
 ---------------------------------------------------------------------------
 
--- A card is a small picture of a skin as it draws itself: a guide window
--- (its paint and band, a tab, the step bar, the person to talk to, two goals
--- with their tick boxes, the progress) beside the arrow, built here as the
--- window builds its own (UI/GuideFrame*.lua) and painted by that skin's own
--- painters, sizes, palette, fonts and media while the Theme answers for it
--- (I.drawing), whatever skin is in use; the game's looks draw the client's
--- own art there as on the window, over the look's ground and gold edge.
--- Under the arrow the skin's accent, with
--- its own second accent and glow (what tells its variants apart). The live
--- skin is left alone; a skin's hooks are for its live surfaces and stay off
--- the cards. Nothing on a card is kept for the live repaint: the cards
--- paint themselves again after it (Theme.OnChanged).
-local L, Nav, UI = ns.L, ns.Nav, ns.UI
-local Arrow = Nav and Nav.arrow
+-- A look's miniature: its guide window cut down to what tells one look from
+-- another, drawn whole at a size where its text still reads (never the full
+-- window shrunk to a third of itself, where the client drops the text and
+-- only the frame's lines are left): the window's frame and ground, its
+-- header band with the guide's tab, the person to talk to, the goal the
+-- arrow is on (lit as the window lights it, with its tick box) and a foot
+-- with the step's progress, the palette's accents as dots and an accent
+-- button. Built here as the window builds its parts (UI/GuideFrame*.lua) and
+-- painted by that skin's own painters, sizes, palette, fonts and media while
+-- the Theme answers for it (I.drawing), whatever skin is in use; the game's
+-- looks draw the client's own art there, over the look's ground and gold
+-- edge. On a card it sits in the middle at one scale with even margins, on
+-- the same dusk on every card. The live skin is left alone; a skin's hooks
+-- are for its live surfaces and stay off the miniatures. Nothing on one is
+-- kept for the live repaint: they paint themselves again after it
+-- (Theme.OnChanged). One component for every picture of a look: the Theme
+-- page's skin, variant and scheme cards, Install's look page (UI/Welcome.lua)
+-- and the Profiles page's cards (alone: filling its frame, no margin).
+local L, UI = ns.L, ns.UI
 local drawing, paint, paintFont = I.drawing, I.paint, I.paintFont
 local floor, max, min = math.floor, math.max, math.min
 local STATUS_BAR = "Interface\\TargetingFrame\\UI-StatusBar"
--- The window's width in its own units (drawn at the card's scale; its height
--- follows the skin's sizes), its person's header, its step's progress.
-local WIN_W, PERSON_H, DONE = 236, 44, 8 / 29
--- The step: the guide window page's demo (UI/Looks/GuideWindow.lua), its
--- first two goals.
-local GOALS = {
-	{ t = "kill", status = "done", verb = L["Kill"], subject = L["Kobold Vermin"], subjectKind = "npc", progress = { cur = 10, max = 10 } },
-	{ t = "kill", status = "active", verb = L["Kill"], subject = L["Kobold Worker"], subjectKind = "npc", progress = { cur = 3, max = 8 },
-		current = true },
-}
+-- The miniature's width in its own units (its height follows the skin's
+-- sizes), its person's line and its foot; the margin round it on a card, the
+-- least scale its text is drawn at (smaller art crops it, never shrinks the
+-- text past legibility); the step's progress.
+local MINI_W, PERSON_H, FOOT_H, MARGIN, LEAST, DONE = 248, 34, 34, 10, 0.72, 11 / 29
+-- The goal the arrow is on: the guide window page's demo step's
+-- (UI/Looks/GuideWindow.lua).
+local GOAL = { t = "kill", status = "active", verb = L["Kill"], subject = ns.Names.Or("npc", 257, "Kobold Worker"), subjectKind = "npc",
+	progress = { cur = 3, max = 8 }, current = true }
 
-local function text(parent, justify)
+-- A string with its role's face on it from the start: the client refuses a
+-- string's text before it has a font ("Font not set"), which stopped every
+-- miniature after its frame.
+local function text(parent, role, justify)
 	local fs = parent:CreateFontString(nil, "OVERLAY")
+	paintFont(fs, role)
 	fs:SetWordWrap(false)
 	fs:SetJustifyH(justify or "LEFT")
 	return fs
@@ -145,7 +153,8 @@ local function tex(parent, layer, sub, media)
 	return t
 end
 
--- A string's text, then its role's face in the skin and its colour.
+-- A string's text, then its role's face in the skin (a script font follows
+-- the text) and its colour.
 local function say(fs, role, s, token)
 	fs:SetText(s)
 	paintFont(fs, role)
@@ -162,10 +171,15 @@ end
 
 local redraw
 
--- The guide window's frames on `art` (a card's picture area, or a frame the
--- window alone is drawn on), made on its first draw.
+-- The miniature's frames on `art` (a card's picture area, or a frame it
+-- fills alone), made on its first draw.
 local function build(art)
 	local p = {}
+	-- The same dusk behind every card's window (a miniature drawn alone
+	-- has none).
+	p.world = tex(art, "BACKGROUND", -8)
+	p.world:SetAllPoints(art)
+	p.world:SetVertexColor(0.055, 0.065, 0.085, 1)
 	local win = CreateFrame("Frame", nil, art)
 	win.psGuide = true
 	p.win = win
@@ -182,7 +196,7 @@ local function build(art)
 		if i <= 2 then t:SetHeight(1) else t:SetWidth(1) end
 		p.hintEdge[i] = t
 	end
-	-- The band behind the tabs and the step bar.
+	-- The band behind the tab strip.
 	p.sky = tex(win, "BACKGROUND", -5, "band")
 	p.sky:SetPoint("TOPLEFT", win, "TOPLEFT", 1, -1)
 	p.sky:SetPoint("TOPRIGHT", win, "TOPRIGHT", -1, -1)
@@ -209,9 +223,9 @@ local function build(art)
 	tab.Icon = tex(tab, "ARTWORK", 0, "icon-level")
 	tab.Icon:SetSize(12, 12)
 	tab.Icon:SetPoint("LEFT", tab, "LEFT", 9, 0)
-	tab.Label = text(tab)
+	tab.Label = text(tab, "small")
 	tab.Label:SetPoint("LEFT", tab.Icon, "RIGHT", 6, 0)
-	tab.Range = text(tab)
+	tab.Range = text(tab, "small")
 	tab.Range:SetPoint("LEFT", tab.Label, "RIGHT", 4, 0)
 	-- Hearth's framed tab.
 	tab.Frame = tex(tab, "BACKGROUND", -7)
@@ -219,63 +233,37 @@ local function build(art)
 	tab.Frame:SetPoint("BOTTOMRIGHT", tab, "BOTTOMRIGHT", 0, 0)
 	tab.Frame:SetHeight(24)
 	p.strip, p.tab = strip, tab
-	-- The step bar: ‹ 8 / 29 › and the guide's title; Hearth's title bar.
-	local nav = CreateFrame("Frame", nil, win)
-	nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
-	nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-	nav.TitleBar = tex(nav, "BACKGROUND", -4)
-	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 4, 0)
-	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", -4, 1)
-	nav.Prev = tex(nav, "ARTWORK", 0, "chevron-left")
-	nav.Next = tex(nav, "ARTWORK", 0, "chevron-right")
-	nav.Count = text(nav, "CENTER")
-	nav.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 2, 0)
-	nav.Next:SetPoint("LEFT", nav.Count, "RIGHT", 2, 0)
-	nav.Title = text(nav)
-	nav.Title:SetPoint("LEFT", nav.Next, "RIGHT", 8, 0)
-	nav.Rule = tex(nav, "BORDER", 0)
-	nav.Rule:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
-	nav.Rule:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 0)
-	p.nav = nav
 	-- The person to talk to.
 	local person = CreateFrame("Frame", nil, win)
-	person:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
-	person:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
+	person:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
+	person:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
 	person:SetHeight(PERSON_H)
 	person.Icon = person:CreateTexture(nil, "ARTWORK")
 	person.Icon:SetTexture(Theme.VerbIcon("talk"))
-	person.Name = text(person)
-	person.Where = text(person)
-	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+	person.Name = text(person, "name")
 	person.Rule = tex(person, "ARTWORK", 0)
 	person.Rule:SetHeight(1)
 	p.person = person
-	-- The goals: one done, the one the arrow is on.
-	p.rows = {}
-	local above = person
-	for i, goal in ipairs(GOALS) do
-		local r = CreateFrame("Frame", nil, win)
-		r:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, 0)
-		r:SetPoint("TOPRIGHT", above, "BOTTOMRIGHT", 0, 0)
-		r.Mark = tex(r, "ARTWORK", 0)
-		r.Mark:SetWidth(2)
-		r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
-		r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
-		r.Icon = r:CreateTexture(nil, "ARTWORK")
-		r.Text = text(r)
-		r.Check = CreateFrame("CheckButton", nil, r)
-		r.Check:EnableMouse(false)
-		r.psGoal = goal
-		p.rows[i] = r
-		above = r
-	end
-	-- The progress: the house's line and percent, the game's status bar.
+	-- The goal the arrow is on.
+	local r = CreateFrame("Frame", nil, win)
+	r:SetPoint("TOPLEFT", person, "BOTTOMLEFT", 0, 0)
+	r:SetPoint("TOPRIGHT", person, "BOTTOMRIGHT", 0, 0)
+	r.Mark = tex(r, "ARTWORK", 0)
+	r.Mark:SetWidth(2)
+	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
+	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
+	r.Icon = r:CreateTexture(nil, "ARTWORK")
+	r.Text = text(r, "goal")
+	r.Check = CreateFrame("CheckButton", nil, r)
+	r.Check:EnableMouse(false)
+	r.psGoal = GOAL
+	p.rows = { r }
+	-- The foot: the step's progress (the house's line, the game's status
+	-- bar), the palette's accents as dots, and an accent button.
 	local foot = CreateFrame("Frame", nil, win)
 	foot:SetPoint("BOTTOMLEFT", win, "BOTTOMLEFT", 0, 0)
 	foot:SetPoint("BOTTOMRIGHT", win, "BOTTOMRIGHT", 0, 0)
-	foot.Pct = text(foot, "RIGHT")
 	foot.Track = tex(foot, "BACKGROUND", 0)
-	foot.Track:SetPoint("RIGHT", foot.Pct, "LEFT", -8, 0)
 	foot.Fill = tex(foot, "ARTWORK", 0)
 	foot.Fill:SetPoint("TOPLEFT", foot.Track, "TOPLEFT", 0, 0)
 	foot.Fill:SetPoint("BOTTOMLEFT", foot.Track, "BOTTOMLEFT", 0, 0)
@@ -287,26 +275,23 @@ local function build(art)
 	bar.Bg:SetVertexColor(0, 0, 0, 0.75)
 	Theme.Border(bar, 0.42, 0.329, 0.125, 1)
 	foot.Status = bar
+	local button = CreateFrame("Button", nil, foot)
+	button:EnableMouse(false)
+	button.psTextButton, button.psPrimary = true, true
+	button.Label = text(button, "label", "CENTER")
+	button.Label:SetPoint("CENTER", button, "CENTER", 0, 0)
+	foot.Button = button
 	p.foot = foot
+	-- The accent, then the skin's own second accent and glow (what tells
+	-- its variants apart).
+	p.accent, p.accent2, p.glow = tex(foot, "ARTWORK", 0, "circle"), tex(foot, "ARTWORK", 0, "circle"), tex(foot, "ARTWORK", 0, "circle")
 	art.psSkinCard = p
 	return p
 end
 
--- A card's own parts round the window, made on its first draw as a card: the
--- world behind it (the same dusk on every card), the arrow's dial
--- (Nav/Arrow.lua; its texts left out) and the swatches; and its repaints at
--- a new size and on showing after a live repaint it missed.
-local function cardParts(art, p)
-	p.world = tex(art, "BACKGROUND", -8)
-	p.world:SetAllPoints(art)
-	p.world:SetVertexColor(0.055, 0.065, 0.085, 1)
-	if Arrow and Arrow.BuildDial then
-		local holder = CreateFrame("Frame", nil, art)
-		holder:SetSize(Arrow.WIDTH, Arrow.HEIGHT)
-		p.holder, p.dial = holder, Arrow.BuildDial(holder)
-	end
-	p.accent, p.accent2, p.glow = tex(art, "ARTWORK", 0), tex(art, "ARTWORK", 0), tex(art, "ARTWORK", 0)
-	for _, t in ipairs({ p.accent, p.accent2, p.glow }) do t:SetHeight(3) end
+-- A card repaints at a new size, and on showing after a live repaint it
+-- missed.
+local function hookCard(art, p)
 	art:HookScript("OnSizeChanged", function(self)
 		if self:IsVisible() then redraw(self) end
 	end)
@@ -329,28 +314,73 @@ local function own(c, like)
 	return false
 end
 
--- The window on `w` x `h`, in the skin the Theme answers for: its parts as
+-- The foot's accent button as the window's own primary buttons are dressed
+-- (W.Button): the skin's button paint, then the accent fill and onAccent
+-- text, the house's lit line inside its top; the game's looks and Hearth
+-- draw their own primary (the game's red button, Hearth's plank).
+local function paintButton(b, h)
+	b:SetHeight(h)
+	say(b.Label, "label", L["Accept"], "buttonText")
+	b:SetWidth(max(56, floor(b.Label:GetStringWidth() + 2 * min(14, Theme.Metric("buttonPad", 16)) + 0.5)))
+	paint(b, "button")
+	local d = b.psSkin
+	if Theme.GameSkin() or Theme.SkinKey() == "hearth" then
+		if b.psBorder then for i = 1, 4 do b.psBorder[i]:Hide() end end
+		if b.psTopHi then b.psTopHi:Hide() end
+		return
+	end
+	local r, g, bb = Theme.Accent()
+	if d and d.bg then d.bg:SetVertexColor(r, g, bb, 1) end
+	if b.psBorder then for i = 1, 4 do b.psBorder[i]:SetVertexColor(r, g, bb, 1) end end
+	b.Label:SetTextColor(Theme.Color("onAccent"))
+	local hi = b.psTopHi
+	if Theme.SkinKey() == "polestar" then
+		if not hi then
+			hi = tex(b, "ARTWORK", 7)
+			hi:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
+			hi:SetPoint("TOPRIGHT", b, "TOPRIGHT", -1, -1)
+			b.psTopHi = hi
+		end
+		hi:SetHeight(Theme.Pixel(b))
+		hi:SetVertexColor(1, 1, 1, 0.55)
+		hi:Show()
+	elseif hi then
+		hi:Hide()
+	end
+end
+
+-- The miniature on `w` x `h`, in the skin the Theme answers for: its parts as
 -- the window's GF.ApplySkin, GF.ApplyStyle, GF.RenderTabs, GF.PaintTab and
--- paintRow dress them. On a card it takes the left two thirds; `alone`, the
--- whole of it. -> where the room right of it starts
-local function paintWindow(p, w, h, alone)
+-- paintRow dress them; in the middle of a card with even margins, or
+-- (`alone`) filling it.
+-- fit: a card too small for the least scale (Install's look thumbnails)
+-- shows the whole window shrunk to it, a picture, not a crop.
+local function paintMini(p, w, h, alone, fit)
 	local M = Theme.Metric
 	local pad = max(4, M("guidePad", 14))
-	local tabH, navH, footH, rowH = M("guideTabs", 28), M("guideNav", 34), M("guideFoot", 26), M("guideRow", 24)
+	local tabH, rowH = M("guideTabs", 28), M("guideRow", 24)
 	local icon, check = 15, M("guideCheck", 18)
 	local textX = pad + icon + M("guideIconGap", 10)
 	local look, kit = Theme.SkinKey(), Theme.Kit()
 	local hearth = look == "hearth"
+	local game = Theme.GameSkin() and true or false
 	local win = p.win
-	local winH = tabH + navH + PERSON_H + #p.rows * rowH + 4 + footH
-	win:SetSize(WIN_W, winH)
-	local inset = alone and 0 or 4
-	local k = alone and min(w / WIN_W, h / winH) or min((w * 0.66 - 6) / WIN_W, (h - 8) / winH)
+	-- The goal's row holds two lines, as the guide window's row grows when
+	-- its goal wraps ("Töte Kobold Worker" over "3/8"): the count stays whole,
+	-- and every miniature is the same height whether its look's font wraps
+	-- the line or not.
+	local _, goalSize = Theme.FontSpec("goal")
+	local goalH = max(rowH, floor((goalSize or 12) * 2.4 + 6.5))
+	local winH = tabH + PERSON_H + goalH + FOOT_H
+	win:SetSize(MINI_W, winH)
+	local margin = alone and 0 or fit and 2 or MARGIN
+	local k = min((w - 2 * margin) / MINI_W, (h - 2 * margin) / winH)
+	if not (alone or fit) then k = max(LEAST, k) end
 	win:SetScale(k)
 	win:ClearAllPoints()
-	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", inset / k, -inset / k)
+	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", floor((w - MINI_W * k) / 2 + 0.5) / k, -floor((h - winH * k) / 2 + 0.5) / k)
+	p.world:SetShown(not alone)
 	paint(win, "window")
-	local game = Theme.GameSkin() and true or false
 	p.hint:SetShown(game)
 	for _, t in ipairs(p.hintEdge) do t:SetShown(game) end
 	if game then
@@ -359,12 +389,11 @@ local function paintWindow(p, w, h, alone)
 		for _, t in ipairs(p.hintEdge) do t:SetVertexColor(er, eg, eb, 1) end
 	end
 	-- The band: Polestar's own look's, its media the skin's.
-	local head = tabH + navH
 	local band = look == "polestar" and Theme.ShowsBand()
 	p.sky:SetTexture(Theme.SkinMedia("band") or Theme.Media("band"))
 	p.stars:SetTexture(Theme.SkinMedia("bandStars") or Theme.Media("band-stars"))
-	p.sky:SetHeight(head)
-	local x0, x1, y0, y1 = Theme.BandCoords(WIN_W - 2, head, 30)
+	p.sky:SetHeight(tabH)
+	local x0, x1, y0, y1 = Theme.BandCoords(MINI_W - 2, tabH, 30)
 	p.sky:SetTexCoord(x0, x1, y0, y1)
 	p.stars:SetTexCoord(x0, x1, y0, y1)
 	local r, g, b = Theme.Color("sky")
@@ -383,7 +412,7 @@ local function paintWindow(p, w, h, alone)
 	tab.Selected:SetVertexColor(Theme.Wash("hover"))
 	tab.Bar:SetVertexColor(Theme.Color("accent"))
 	tab.Icon:SetVertexColor(Theme.Color("accent"))
-	say(tab.Label, "small", L["Elwynn Forest"], "text")
+	say(tab.Label, "small", ns.Names.Or("area", 12, "Elwynn Forest"), "text")
 	say(tab.Range, "small", "(1\226\128\14710)", "textDim")
 	local framed = Theme.KitTab(tab, true, nil, true)
 	tab.Frame:SetShown(hearth)
@@ -391,85 +420,83 @@ local function paintWindow(p, w, h, alone)
 	tab.Selected:SetShown(not (hearth or framed))
 	tab.Bar:SetShown(not (hearth or framed))
 	if hearth or framed then tab.Label:SetTextColor(Theme.Color("title")) end
-	-- The step bar.
-	local nav = p.nav
-	nav:SetHeight(navH)
-	nav.TitleBar:SetShown(hearth)
-	if hearth then gradient(nav.TitleBar, { Theme.Color("sky") }, { Theme.Color("skyBottom") }) end
-	local ni = M("guideNavIcon", 14)
-	nav.Prev:SetSize(ni, ni)
-	nav.Next:SetSize(ni, ni)
-	nav.Prev:ClearAllPoints()
-	nav.Prev:SetPoint("LEFT", nav, "LEFT", pad - 1, 0)
-	nav.Prev:SetVertexColor(Theme.Color("textDim"))
-	nav.Next:SetVertexColor(Theme.Color("textDim"))
-	say(nav.Count, "number", "8 / 29", "text")
-	say(nav.Title, "small", L["Elwynn Forest"], "textDim")
-	if look == "halo" then
-		nav.Rule:SetVertexColor(Theme.Color("accentLine"))
-	elseif hearth then
-		nav.Rule:SetVertexColor(Theme.Color("titleLine"))
-	elseif kit then
-		nav.Rule:SetVertexColor(Theme.Color("separator"))
-	else
-		nav.Rule:SetVertexColor(Theme.Wash("divider"))
-	end
-	nav.Rule:SetHeight(Theme.Pixel(nav))
 	-- The person, over a game look's quest header; Hearth's gold separator.
 	local person = p.person
 	Theme.KitHeader(person, true)
 	person.Icon:SetSize(icon + 1, icon + 1)
 	person.Icon:ClearAllPoints()
-	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", pad - 1, -11)
+	person.Icon:SetPoint("LEFT", person, "LEFT", pad - 1, 0)
 	person.Icon:SetVertexColor(Theme.Color("textDim"))
 	person.Name:ClearAllPoints()
-	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", textX, -10)
+	person.Name:SetPoint("LEFT", person, "LEFT", textX, 0)
+	person.Name:SetPoint("RIGHT", person, "RIGHT", -pad, 0)
 	say(person.Name, "name", L["Marshal Dughan"], "personName")
-	say(person.Where, "small", L["Goldshire"], "textDim")
 	person.Rule:SetShown(hearth)
 	person.Rule:ClearAllPoints()
 	person.Rule:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", pad, 0)
 	person.Rule:SetPoint("BOTTOMRIGHT", person, "BOTTOMRIGHT", -pad, 0)
 	person.Rule:SetVertexColor(Theme.Color("separator"))
-	-- The goals: the glyph, the line as the window writes it, the tick box
-	-- in the skin's paint; the game's looks light the one to do now.
-	for _, row in ipairs(p.rows) do
-		local goal = row.psGoal
-		local done, current = goal.status == "done", goal.current and true or false
-		row:SetHeight(rowH)
-		row.Mark:SetShown(current)
-		row.Mark:SetVertexColor(Theme.Color("accent"))
-		row.Icon:SetSize(icon, icon)
-		row.Icon:ClearAllPoints()
-		row.Icon:SetPoint("CENTER", row, "LEFT", pad + icon / 2, 0)
-		row.Icon:SetTexture(done and Theme.Media("check") or Theme.VerbIcon(goal.t))
-		row.Icon:SetVertexColor(Theme.Color(done and "success" or (current and "accent" or "textDim")))
-		Theme.KitRowLit(row, current and not done, nil, M("guideLitInset", 4))
-		row.Check:SetSize(check, check)
-		row.Check:ClearAllPoints()
-		row.Check:SetPoint("RIGHT", row, "RIGHT", -(pad - 3), 0)
-		paint(row.Check, "checkbox")
-		row.Check:SetChecked(done)
-		row.Check:SetAlpha(done and 0.45 or 1)
-		row.Text:ClearAllPoints()
-		row.Text:SetPoint("LEFT", row, "LEFT", textX, 0)
-		row.Text:SetPoint("RIGHT", row.Check, "LEFT", -4, 0)
-		local line = UI and UI.GoalLine and UI.GoalLine(goal) or (goal.verb .. " " .. goal.subject)
-		say(row.Text, "goal", line, done and "textMuted" or "text")
+	-- The goal: its glyph, its line as the window writes it, the tick box in
+	-- the skin's paint; lit as the window lights the goal to do now.
+	local row = p.rows[1]
+	row:SetHeight(goalH)
+	row.Mark:SetVertexColor(Theme.Color("accent"))
+	row.Icon:SetSize(icon, icon)
+	row.Icon:ClearAllPoints()
+	row.Icon:SetPoint("CENTER", row, "LEFT", pad + icon / 2, 0)
+	row.Icon:SetTexture(Theme.VerbIcon(GOAL.t))
+	row.Icon:SetVertexColor(Theme.Color("accent"))
+	Theme.KitRowLit(row, true, nil, M("guideLitInset", 4))
+	row.Check:SetSize(check, check)
+	row.Check:ClearAllPoints()
+	row.Check:SetPoint("RIGHT", row, "RIGHT", -(pad - 3), 0)
+	paint(row.Check, "checkbox")
+	row.Check:SetChecked(false)
+	row.Text:ClearAllPoints()
+	row.Text:SetPoint("LEFT", row, "LEFT", textX, 0)
+	-- A width, not a right anchor: a line too long for it breaks before its
+	-- count, whatever the client's break rules are, so the count starts the
+	-- second line whole ("3/8", never "3/" over "8").
+	local textW = MINI_W - textX - (pad - 3) - check - 4
+	row.Text:SetWidth(textW)
+	local line = UI and UI.GoalLine and UI.GoalLine(GOAL) or (GOAL.verb .. " " .. GOAL.subject)
+	row.Text:SetWordWrap(true)
+	say(row.Text, "goal", line, "text")
+	local fs = row.Text
+	if (fs.GetUnboundedStringWidth and fs:GetUnboundedStringWidth() or fs:GetStringWidth()) > textW then
+		fs:SetText((line:gsub(" +(|c%x%x%x%x%x%x%x%x%d+/%d+|r)$", "\n%1")))
 	end
-	-- The progress: the game's status bar in Hearth and the game's looks,
-	-- else the house's line.
-	local foot, bar = p.foot, p.foot.Status
-	foot:SetHeight(footH)
+	-- The foot: the accent button at the right, the accents' dots left of
+	-- it, the progress in what is left (the game's status bar in Hearth and
+	-- the game's looks, else the house's line).
+	local foot, bar, button = p.foot, p.foot.Status, p.foot.Button
+	foot:SetHeight(FOOT_H)
+	paintButton(button, kit and 22 or 20)
+	button:ClearAllPoints()
+	button:SetPoint("RIGHT", foot, "RIGHT", -pad, 0)
+	local pal = Theme.Palette()
+	local dots = { { p.accent, pal.accent } }
+	for _, t in ipairs({ { p.accent2, pal.accent2, pal.accent }, { p.glow, pal.arrowGlow, pal.arrowNear } }) do
+		if own(t[2], t[3]) then dots[#dots + 1] = { t[1], t[2] } else t[1]:Hide() end
+	end
+	local x = -(pad + button:GetWidth() + 10)
+	for i = #dots, 1, -1 do
+		local t, c = dots[i][1], dots[i][2]
+		t:SetSize(7, 7)
+		t:ClearAllPoints()
+		t:SetPoint("RIGHT", foot, "RIGHT", x, 0)
+		t:SetVertexColor(c[1], c[2], c[3], 1)
+		t:Show()
+		x = x - 11
+	end
+	local right = -x + 6
 	foot.Track:SetShown(not game)
 	foot.Fill:SetShown(not game)
-	foot.Pct:SetShown(not game)
-	bar:SetShown(game and true or false)
+	bar:SetShown(game)
 	if game then
-		local inset = kit and 10 or 0
 		bar:ClearAllPoints()
-		bar:SetPoint("LEFT", foot, "LEFT", pad + inset, 0)
-		bar:SetPoint("RIGHT", foot, "RIGHT", -pad - inset, 0)
+		bar:SetPoint("LEFT", foot, "LEFT", pad, 0)
+		bar:SetPoint("RIGHT", foot, "RIGHT", -right, 0)
 		bar:SetHeight(kit and 12 or 14)
 		bar:SetValue(DONE)
 		if Theme.KitStatus(bar) then
@@ -488,87 +515,70 @@ local function paintWindow(p, w, h, alone)
 			gradient(bar:GetStatusBarTexture(), { 0.91, 0.722, 0 }, { 0.478, 0.345, 0 })
 		end
 	else
-		foot.Pct:ClearAllPoints()
-		foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -pad, 0)
-		say(foot.Pct, "number", floor(DONE * 100 + 0.5) .. "%", "textDim")
 		foot.Track:ClearAllPoints()
 		foot.Track:SetPoint("LEFT", foot, "LEFT", pad, 0)
-		foot.Track:SetPoint("RIGHT", foot.Pct, "LEFT", -8, 0)
+		foot.Track:SetPoint("RIGHT", foot, "RIGHT", -right, 0)
 		foot.Track:SetHeight(3)
 		foot.Track:SetVertexColor(Theme.Wash("progress"))
-		foot.Fill:SetWidth(max(0.01, (WIN_W - pad * 2 - 36) * DONE))
+		foot.Fill:SetWidth(max(0.01, (MINI_W - pad - right) * DONE))
 		foot.Fill:SetVertexColor(Theme.Color("accent"))
-	end
-	return 4 + WIN_W * k + 4
-end
-
--- The arrow right of the window, from `left` to the card's edge, in the
--- skin's own design, dart, glow and colours, pointing ahead-left; the
--- swatches under it.
-local cardLook = {}
-local function paintArrow(p, w, h, left)
-	local art = p.win:GetParent()
-	local room = max(8, w - 4 - left)
-	local mid = left + room / 2
-	local size = min(room * 0.8, h * 0.5)
-	local top = (h - size) / 2 - 8
-	if p.dial then
-		local s = size / Arrow.DIAL
-		p.holder:SetScale(s)
-		p.holder:ClearAllPoints()
-		p.holder:SetPoint("TOP", art, "TOPLEFT", mid / s, -top / s)
-		if Nav.ReadPalette then Nav.ReadPalette() end
-		Arrow.ReadSkin()
-		Arrow.ReadLook(cardLook)
-		Arrow.PaintDial(p.dial, cardLook, Arrow.StyleFor("skin"), "travel", 0.5, 400)
-		p.dial.distText:Hide()
-		p.dial.labelText:Hide()
-		p.dial.etaText:Hide()
-	end
-	-- The accent, then the skin's own second accent and glow (none for a
-	-- palette that only derives them: Polestar's own skins, a scheme).
-	local pal = Theme.Palette()
-	local swatch = max(4, floor(room * 0.2))
-	local shown = { { p.accent, pal.accent, nil, swatch * 2 } }
-	for _, t in ipairs({ { p.accent2, pal.accent2, pal.accent }, { p.glow, pal.arrowGlow, pal.arrowNear } }) do
-		if own(t[2], t[3]) then
-			shown[#shown + 1] = { t[1], t[2], nil, swatch }
-		else
-			t[1]:Hide()
-		end
-	end
-	local width = -2
-	for _, s in ipairs(shown) do width = width + s[4] + 2 end
-	local x = mid - width / 2
-	for _, s in ipairs(shown) do
-		local t, c = s[1], s[2]
-		t:ClearAllPoints()
-		t:SetPoint("TOPLEFT", art, "TOPLEFT", x, -(top + size + 10))
-		t:SetWidth(s[4])
-		t:SetVertexColor(c[1], c[2], c[3], 1)
-		t:Show()
-		x = x + s[4] + 2
 	end
 end
 
 -- Every card drawn (its art -> what it shows), to paint again after the
 -- live repaint.
 local drawn = setmetatable({}, { __mode = "k" })
+-- While the cards on screen are drawn again in one go (the theme's listener
+-- below): a resolver's answer for the variant in use is put back once, after
+-- the last (repaint.live: the live skin's card was among them).
+local repaint
+
+-- The cards' palettes by skin, variant and scheme: resolved once, until the
+-- theme next changes (a live repaint too). A look previewed under the pointer
+-- (Install's looks) draws without building its palette again. A picture
+-- drawn under other values (a profile's card: O.WithSettings answers ns.Get)
+-- or alone resolves its own.
+local realGet = ns.Get
+local palettes = {}
+Theme.OnChanged(function()
+	for k in pairs(palettes) do palettes[k] = nil end
+end)
+local function paletteOf(id, scheme)
+	local byId = palettes[id]
+	if not byId then
+		byId = {}
+		palettes[id] = byId
+	end
+	local v = previewing[id]
+	if v == nil then v = false end
+	local byVariant = byId[v]
+	if not byVariant then
+		byVariant = {}
+		byId[v] = byVariant
+	end
+	local key = scheme
+	if key == nil then key = false end
+	local pal = byVariant[key]
+	if not pal then
+		pal = resolve(id, scheme)
+		byVariant[key] = pal
+	end
+	return pal
+end
 
 local function paintCard(art, id, scheme, alone)
 	-- The palette: a scheme's card wears it on Polestar's own look.
-	drawing.pal = resolve(id, scheme)
+	drawing.pal = (not alone and ns.Get == realGet) and paletteOf(id, scheme) or resolve(id, scheme)
 	local p = art.psSkinCard or build(art)
 	local W = ns.Widgets
 	local w, h = art:GetWidth() or 0, art:GetHeight() or 0
 	if w < 40 or h < 30 then w, h = (W and W.CARD_W or 156) - 2, W and W.CARD_ART or 88 end
-	if alone then return paintWindow(p, w, h, true) end
-	if not p.card then cardParts(art, p) end
-	paintArrow(p, w, h, paintWindow(p, w, h))
+	if not alone and not p.card then hookCard(art, p) end
+	paintMini(p, w, h, alone, art.psCardFit)
 end
 
 -- Draw skin `id` (its `variant`; Polestar's own look in `scheme`) on `art`:
--- a card, drawn again after every live repaint, or (`alone`) the window
+-- a card, drawn again after every live repaint, or (`alone`) the miniature
 -- alone, filling `art`, drawn once (its caller draws it again).
 local function draw(art, id, variant, scheme, alone)
 	if type(art) ~= "table" or not art.CreateTexture then return end
@@ -584,12 +594,9 @@ local function draw(art, id, variant, scheme, alone)
 	previewing[id], drawing.id, drawing.pal = variant, id, nil
 	local ok, err = pcall(paintCard, art, id, scheme, alone)
 	drawing.id, drawing.pal, previewing[id] = wasId, wasPal, wasVariant
-	if not alone then
-		-- The live skin's own again: the arrow's colours, dart and glow, and
-		-- a resolver's answer for the variant in use.
-		if Nav and Nav.ReadPalette then Nav.ReadPalette() end
-		if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
-		if id == live and SKINS[id].resolve then resolve(id) end
+	-- A resolver's answer for the variant in use again.
+	if not alone and id == live and SKINS[id].resolve then
+		if repaint then repaint.live = id else resolve(id) end
 	end
 	if not ok then error(err, 0) end
 end
@@ -601,9 +608,12 @@ end
 
 -- After every live repaint (a setting, the skin, a variant, the UI scale):
 -- the cards on screen paint again in their own skins, each on its own (one
--- that fails leaves the others drawn), the others when they next show.
+-- that fails leaves the others drawn), the others when they next show. A
+-- dragged slider's repaints leave them to the refresh its end brings
+-- (Theme.OnChanged's full).
 Theme.OnChanged(function()
 	local failed
+	repaint = {}
 	for art in pairs(drawn) do
 		if art:IsVisible() then
 			local ok, err = pcall(redraw, art)
@@ -612,15 +622,20 @@ Theme.OnChanged(function()
 			art.psCardStale = true
 		end
 	end
+	local done = repaint
+	repaint = nil
+	if done.live and SKINS[done.live].resolve then resolve(done.live) end
 	if failed then error(failed, 0) end
-end)
+end, true)
 
 -- The skin picker's card (UI/Looks/Theme.lua): skin `id` drawn on `card` as
 -- it draws itself, the player's own colours over it; the live skin is left
 -- alone. `variant`: one of the skin's variants (its variant cards), else the
--- one in use. Drawn again on its own after every live repaint.
-function Theme.DrawSkinCard(card, id, variant)
+-- one in use. Drawn again on its own after every live repaint. fit: the
+-- whole window shrunk to a small card, never cropped (Install's looks).
+function Theme.DrawSkinCard(card, id, variant, fit)
 	if not SKINS[id] then return end
+	if type(card) == "table" then card.psCardFit = fit and true or nil end
 	draw(card, id, variant, nil)
 end
 

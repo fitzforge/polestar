@@ -77,6 +77,25 @@ fn creatures_seen_are_counted_once_per_level_and_100_yards_rares_once_per_50_yar
 	assert_eq!(out["bad"], json!({}));
 }
 
+// #2894: a world boss (Thrall in Orgrimmar) on a nameplate is a creature seen, no rare sighting: the
+// `rare` record is for rares and rare elites only, so the data build never takes the spots players
+// stood on as his. The census `unit` record keeps his class (`b`).
+#[test]
+fn a_world_boss_seen_is_a_unit_record_and_no_rare_sighting_2894() {
+	let out = run(&format!(
+		"{UNIT}{}",
+		r#"
+		stub.moveTo(40, 40)
+		unit("nameplate1", (stub.creature(4949, "Thrall")), "Thrall", "worldboss", 63)
+		stub.world.units["nameplate1"].react = 5
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+		logout()
+		emit({ recs = recs("unit rare"), bad = malformed() })"#
+	));
+	assert_eq!(out["recs"], json!(["unit|4949|63|b|f|1429|4000|4000|p"]));
+	assert_eq!(out["bad"], json!({}));
+}
+
 #[test]
 fn kills_carry_level_class_and_tap_loot_windows_go_per_source_with_the_open_item_objectives() {
 	let out = run(&format!(

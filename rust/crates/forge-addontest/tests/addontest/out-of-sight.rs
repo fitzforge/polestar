@@ -88,7 +88,8 @@ stub.world.accept(783, {}, "A Threat Within")
 stub.advance(0.5)
 local function look()
 	return { window = PolestarGuideFrame:IsShown(), windowSeen = seen(PolestarGuideFrame), arrowSeen = seen(PolestarNavArrow),
-		targetButton = seen(PolestarTargetButton), on = Polestar.Get("ui.shown") }
+		-- The target button, or beside its list the Polestar mark in its slot.
+		targetButton = seen(PolestarTargetButton) or seen(PolestarTargetAnchor), on = Polestar.Get("ui.shown") }
 end
 local before = look()
 for _, f in ipairs({ PolestarGuideFrame, PolestarNavArrow, PolestarQuestItemButton, PolestarHearthButton }) do veil(f) end
@@ -163,8 +164,11 @@ fn a_window_scale_changed_while_another_addon_keeps_the_window_out_of_sight_keep
 local GF = Polestar.UI.GuideFrame
 uistub.setGuide(uistub.elwynn, 3)
 F.x, F.y = 1500, 300
-stub.RunScript(GF.parts.nav, "OnDragStart")
-stub.RunScript(GF.parts.nav, "OnDragStop")
+-- A drag (ns.DragWindow): press, the pointer's travel, release; the drop saves the spot.
+stub.cursor = { 900, 500 }
+stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+stub.cursor = { 910, 490 }
+stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 local top = F:GetTop()
 veil(F)
 Polestar.Set("ui.scale", 1.2)

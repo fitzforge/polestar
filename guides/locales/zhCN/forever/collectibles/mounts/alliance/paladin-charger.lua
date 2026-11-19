@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "60级的史诗坐骑，可随时召唤：比战马更快的升级。",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60级时，{object:32362}的{npc:5149}会让你去找{zone:1453}光明大教堂的{quest:7638}。",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "60级时，{object:32362}的{npc:5149}会让你去找{zone:1453}光明大教堂的{quest:7670}。",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "格雷森公爵会将香炉祝福为用于 {area:2627} 的 {item:18752}。",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627}在{zone:1423}最西北端、{area:2279}大门以西。站进地面上一块发绿光的区域（即{object:179747}；有些在废屋内），使用{item:18752}：最多会出现三只恐惧谷的灵魂（59-60级）并攻击你。它们的{spell:7713}会使你的所有属性降低30%：逐个对付，并使用{spell:2878}。绿光区域刷新很快，多位圣骑士可以同时在附近做任务。",
 	-- {item:18752} Exorcism Censer
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800}来自瑟银矿脉，{item:18335}来自{zone:1422}的精英怪，两者都很少见：通常在拍卖行购买。",
 	-- ["Arcanite Bars: the Auction House"] = "奥金锭：拍卖行",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "60级时，{object:32362}的{npc:5149}会让你去找{zone:1453}光明大教堂的{quest:7638}。",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "除材料外，还要带150金给{npc:1416}。",
 	-- ["Supply Crates, inside"] = "补给箱，在副本内",
 	-- ["Terrordale Spirits"] = "{npc:14564}",

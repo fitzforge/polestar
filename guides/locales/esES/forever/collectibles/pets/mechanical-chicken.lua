@@ -13,39 +13,54 @@ return {
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
 	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "",
 
-	-- Step 2: Rescue OOX-22/FE
+	-- Step 2: OOX-22/FE's beacon
+	["OOX-22/FE's beacon"] = "",
+	-- {quest:2766} Find OOX-22/FE!
+	["Right-click the beacon: it starts {quest:2766}"] = "",
+
+	-- Step 3: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "Rescata a OOX-22/FE",
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
+	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
 	["Escort OOX-22/FE"] = "Escolta a OOX-22/FE",
 
-	-- Step 3: OOX-17/TN Distress Beacon in Tanaris
+	-- Step 4: OOX-17/TN Distress Beacon in Tanaris
 	-- {item:8623} OOX-17/TN Distress Beacon · {zone:1446} Tanaris
 	["{item:8623} in {zone:1446}"] = "{item:8623} en {zone:1446}",
 	-- {zone:1446} Tanaris
 	-- plural, as words: Treasure Hunting Pirates = {npc:7899} Treasure Hunting Pirate · Ground Pounders = {npc:9396} Ground Pounder
 	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "",
 
-	-- Step 4: Rescue OOX-17/TN
+	-- Step 5: OOX-17/TN's beacon
+	["OOX-17/TN's beacon"] = "",
+	-- {quest:351} Find OOX-17/TN!
+	["Right-click the beacon: it starts {quest:351}"] = "",
+
+	-- Step 6: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "Rescata a OOX-17/TN",
 	-- {area:981} Gaping Chasm · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["OOX-17/TN stands in the hills near the {area:981} in south-east {zone:1446}. Its escort to {area:977} has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in {area:35} too."] = "",
 	["Escort OOX-17/TN"] = "Escolta a OOX-17/TN",
 
-	-- Step 5: OOX-09/HL Distress Beacon in the Hinterlands
+	-- Step 7: OOX-09/HL Distress Beacon in the Hinterlands
 	-- {item:8704} OOX-09/HL Distress Beacon · {zone:1425} Hinterlands
 	["{item:8704} in the {zone:1425}"] = "{item:8704} en {zone:1425}",
 	-- {zone:1425} Hinterlands
 	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "",
 
-	-- Step 6: Rescue OOX-09/HL
+	-- Step 8: OOX-09/HL's beacon
+	["OOX-09/HL's beacon"] = "",
+	-- {quest:485} Find OOX-09/HL!
+	["Right-click the beacon: it starts {quest:485}"] = "",
+
+	-- Step 9: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "Rescata a OOX-09/HL",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
 	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "",
 	["Escort OOX-09/HL"] = "Escolta a OOX-09/HL",
 
-	-- Step 7: Oglethorpe Obnoticus in Booty Bay
+	-- Step 10: Oglethorpe Obnoticus in Booty Bay
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
 	["{npc:7406} in {area:35}"] = "{npc:7406} en {area:35}",
 	-- {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {npc:2490} First Mate Crazz · {quest:3721} An OOX of Your Own · {item:10398} Mechanical Chicken

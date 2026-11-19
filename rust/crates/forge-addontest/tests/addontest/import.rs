@@ -7,7 +7,7 @@
 use forge_addontest::dsl::{fixture_data, plain};
 use forge_addontest::{emitted, is_match, lua_value, text, Addon, RunAddon};
 use forge_guide::diag::Diagnostics;
-use forge_guide::emit::{emit_guides, guide_data, list_keys, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
+use forge_guide::emit::{emit_guides, guide_data, list_keys, FRESH_KEYS, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
 use forge_guide::importstring::{adler32, encode_import, import_string, LIMITS};
 use forge_guide::js::{parse_json, V};
 use forge_guide::project::{compile_sources, CompileOpts, Source};
@@ -240,6 +240,7 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 	assert_eq!(out["keys"]["goal"], sorted(&GOAL_KEYS));
 	assert_eq!(out["keys"]["only"], sorted(&ONLY_KEYS));
 	assert_eq!(out["keys"]["image"], sorted(&IMAGE_KEYS));
+	assert_eq!(out["keys"]["fresh"], sorted(&FRESH_KEYS));
 	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward", "sections"] {
 		assert_eq!(out["keys"][k], sorted(list_keys(k).unwrap()), "{k}");
 	}
@@ -614,7 +615,7 @@ fn a_text_over_the_cap_is_refused_at_once_naming_it_before_any_of_it_is_filled_i
 	.remove(0);
 	assert!(is_match(text(&out["long"]["reason"]), r"holds a text longer than Polestar reads \(guide\.title\): 4096 characters at most"));
 	let seconds = out["long"]["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.2, "refused in {seconds} s");
+	forge_addontest::assert_timing!(seconds < 0.2, "refused in {seconds} s");
 	assert!(is_match(text(&out["key"]["reason"]), r"text longer than Polestar reads \(guide\.written\)"));
 	assert!(is_match(text(&out["ns"]["reason"]), r"text longer than Polestar reads \(guide\.steps\[1\]\.goals\[1\]\.qlvl\)"));
 	assert_eq!(out["imports"], true);

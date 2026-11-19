@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/04-stranglethorn-vale
 title Stranglethorn Vale
 faction Alliance
-levels 33-35
+levels 32-34
 zone Stranglethorn Vale
 next forever/alliance/30-40/02-desolace
 
@@ -13,24 +13,58 @@ next forever/alliance/30-40/02-desolace
 # Since 2026-11-07 Stranglethorn is done in two visits around Desolace: this first loop at 33-35, the second
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 # Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
-# stop, Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it, and the top-up to 34 is three short steps on
-# the loop's own quest mobs (Stranglethorn Tigers, Kurzen Jungle Fighters, elder tigers) instead of one block.
+# stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
+# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
+# Level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (195, 35-36) are hunted on the second loop (04b) at about 36 and
+# Tiger Mastery's Sin'Dall (188, level 37) on 40-50/01-stranglethorn-vale's ride to Nesingwary at about 41, not here at
+# 33-34; Ajeck and Hemet give them here, where the elder tigers and raptors are handed in. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
+# 40-50/01-stranglethorn-vale at about 41; Sir S. J. Erlgadin gives it on this loop's hand-in. Since 0.4.1 the loop
+# starts at Booty Bay (#2419): 30-40/03 ends in Theramore, so the walk to Ratchet and its boat beat the boat to Menethil,
+# the flight to Darkshire and the walk down the jungle and back (level model: 15 minutes less in this guide, no level
+# moves). Booty Bay's quests are taken and the hearthstone bound first; Investigate the Camp, the river crocolisks'
+# skins (30-31, beside the camp) and Private Thorsen's supplies go in on the first Nesingwary and Rebel Camp stops, and
+# the hearthstone brings you back from the coast. Players who know the Stonetalon
+# Peak flight fly there from Auberdine instead of Astranaar, closer to Desolace (#2403); warlocks keep Astranaar.
+# Zimmix Sputterspark's rescue (97329, 97331), Kebok's Bloodscalp ears (189) and the Stolen Shipments (97328) are worked
+# in the ruins of Zul'Kunda on 04b's second loop, at about 36: the ruins' core holds Berserkers, Headhunters and Witch
+# Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
 
-step Fly to Darkshire
-  zone Wetlands
-  goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Darkshire"
-  zone Duskwood
+step Boat to Booty Bay
+  when !zone "Stranglethorn Vale"
+  zone The Barrens
+  tip The boat from Ratchet's dock crosses to Booty Bay, on Stranglethorn's southern cape.
+  goto 63.4,38.5 "Boat to Booty Bay"
 
-step Stranglethorn Vale
+# ---------------------------------------------------------------- Booty Bay
+
+step Booty Bay
   zone Stranglethorn Vale
+  tip Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  getfp "Booty Bay"
+  accept 575                          -- Drizzlik, by the bank; inside
+  accept 605                          -- Crank Fizzlebub, inside
+  sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
+  turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
+  accept 198                          -- Krazek, in the tavern; upstairs: Private Thorsen is at the Rebel Camp, on the way
+  accept 201                          -- Krazek: Nesingwary's camp, on the way
+  accept 616                          -- Krazek
+  accept 189                          -- Kebok, in the tavern
+  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
+  vendor nearest
+  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
+  accept 578
+
+step North to Nesingwary's Expedition
+  zone Stranglethorn Vale
+  tip Follow the main road north the length of the jungle, past the Grom'gol turn-off, to the hunters' camp just west of the road.
   goto 35.7,10.5 "Stranglethorn Vale"
 
 # ---------------------------------------------------------------- Nesingwary's Expedition
 
 step Nesingwary's Expedition
   zone Stranglethorn Vale
-  tip From Duskwood take the road south into Stranglethorn; the hunters' tents stand just west of the road past the Rebel Camp turn-off.
+  tip The hunters' tents stand just west of the road. Krazek's Investigate the Camp only asks you to look around it.
+  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
   accept 583                          -- Barnil Stonepot
   turnin 583                          -- Hemet Nesingwary
   turnin 5762                         -- Hemet Nesingwary, from Thousand Needles
@@ -43,12 +77,16 @@ step Young tigers and panthers
   tip Both roam the grass around the camp and along the road north.
   kill 681 quest 185                  -- Young Stranglethorn Tiger
 
+step River crocolisks
+  tip River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the Rebel Camp.
+  collect 4053 quest 575              -- Large River Crocolisk Skin
+
 step Nesingwary's Expedition
   turnin 185                          -- Ajeck Rouack
   accept 186
 
 step Young Panther
-  kill 683 quest 190                  -- Young Panther
+  kill 683 quest 190 @39.81,11 map 1434 era -- Young Panther
 
 step Nesingwary's Expedition
   turnin 190                          -- Sir S. J. Erlgadin
@@ -57,12 +95,6 @@ step Nesingwary's Expedition
 step Stranglethorn Tigers
   tip The adult tigers prowl the hills just south and west of the camp.
   kill 682 quest 186                  -- Stranglethorn Tiger
-
-step Level 33.2
-  when level<33.2
-  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
-  goto 30.8,11.2 map 1434 "Stranglethorn Tiger"
-  level 33.2 grind 682                 -- grind on Stranglethorn Tiger
 
 step Ajeck Rouack
   turnin 186
@@ -73,18 +105,22 @@ step Ajeck Rouack
 step Panthers, raptors and elder tigers
   tip Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west.
   kill 736 quest 191                  -- Panther
-  accept 635 optional                 -- Gluggle, a rare murloc on the coast west of camp, drops the Pendant of Myzrael: take it if you meet him
+  accept 635 optional                 -- Gluggle (37, rare) on the coast west of camp drops the Pendant of Myzrael: four levels over you, leave him unless you are grouped
+  accept 97328 @31.5,12.8 map 1434    -- Thoroughly Scavenged Supplies, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop
 
 step Sir S. J. Erlgadin
   tip Back east to Nesingwary's camp on the way north to the Rebel Camp.
   turnin 191
+  accept 192                          -- keep it: the Shadowmaw Panthers (37-38) wait for the 40-50 Stranglethorn guide
 
 # ---------------------------------------------------------------- Rebel Camp
 
 step Rebel Camp
   tip Take the road north; the camp sits in the hills to the west.
   tip Private Thorsen offers Jungle Secrets only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes Bookie Herod, which follows from it, as well.
+  tip Private Thorsen spends most of his time at the top of the Rebel Camp's path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path.
   accept 215 @40.3,8.4 optional       -- Private Thorsen, at the foot of the path
+  turnin 198 @38.0,3.4                -- Private Thorsen: at the top of the path by the huts, or on his walk down it
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200                          -- Lieutenant Doren: Bookie Herod's records lie at the edge of Kurzen's Compound, next
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay, later in this guide
@@ -93,18 +129,18 @@ step Rebel Camp
 
 step Kurzen's Compound: kill these as you meet them
   zone Stranglethorn Vale
-  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side.
+  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side.
   turnin 200                          -- Bookie Herod's Records, in the hut
   accept 328                          -- The strongbox is deeper in, by the cave: on the northern loop (04b)
   collect 2633 quest 204.1            -- Jungle Remedy
   kill 937 quest 203                  -- Kurzen Jungle Fighter
   collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
 
-step Level 33.6
-  when level<33.6
-  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+step Level 33.2
+  when level<33.2
+  tip The elder tigers next are 34-35: short of 33.2? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 44.6,10.0 map 1434 "Kurzen Jungle Fighter"
-  level 33.6 grind 937                 -- grind on Kurzen Jungle Fighter
+  level 33.2 grind 937                 -- grind on Kurzen Jungle Fighter
 
 step Rebel Camp
   turnin 203                          -- Sergeant Yohwa
@@ -117,12 +153,6 @@ step Stranglethorn Vale: kill these as you meet them
   kill 1085 quest 187                 -- Elder Stranglethorn Tiger
   kill 685 quest 194                  -- Stranglethorn Raptor
 
-step Level 34
-  when level<34
-  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
-  goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
-  level 34 grind 1085                  -- grind on Elder Stranglethorn Tiger
-
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
   accept 339 optional
@@ -130,73 +160,25 @@ step Nesingwary's Expedition
   accept 341 optional
   accept 342 optional
   turnin 187                          -- Ajeck Rouack
-  accept 188
+  accept 188                          -- keep it: Sin'Dall (37) comes in the 40-50 Stranglethorn guide, at about 41
   turnin 194                          -- Hemet Nesingwary
-  accept 195
+  accept 195                          -- keep it: the Lashtail Raptors come on the second loop (04b), around Sin'Dall's hill
 
-step Sin'Dall and the Lashtail raptors
-  tip Sin'Dall, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to Booty Bay.
-  kill 686 quest 195                  -- Lashtail Raptor
-
-# ---------------------------------------------------------------- Booty Bay
-
-step Down to Booty Bay
-  tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape.
-  getfp "Booty Bay"
-  accept 575                          -- Drizzlik, by the bank; inside
-  accept 605                          -- Crank Fizzlebub, inside
-  sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
-  turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
-  accept 198                          -- Krazek, in the tavern; upstairs
-  turnin 210                          -- Krazek, from Corporal Kaleb
-  accept 201
-  accept 616                          -- Krazek
-  accept 189                          -- Kebok, in the tavern
-  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
-  vendor nearest
-  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
-  accept 578
-
-step Fly to Sentinel Hill
+step The Savage Coast
   zone Stranglethorn Vale
-  goto 27.5,77.7 "Booty Bay flight master"
-  fly "Sentinel Hill"
-  zone Westfall
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 24.4,17.5 "Stranglethorn Vale"
-
-# ---------------------------------------------------------------- The jungle loop
-
-step The Savage Coast: kill these as you meet them
-  zone Stranglethorn Vale
-  tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
-  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
+  tip From Nesingwary's camp head west to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
+  tip The haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @21.9,22.4             -- The haunted island
-  collect 1519 quest 189              -- Bloodscalp Ear
-  collect 3879 quest 188              -- Paw of Sin'Dall
-
-step River crocolisks
-  tip River Crocolisks swim the river by the Rebel Camp.
-  collect 4053 quest 575              -- Large River Crocolisk Skin
-
-step Private Thorsen
-  tip Private Thorsen spends most of his time at the top of the Rebel Camp's path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path.
-  turnin 198 @38.0,3.4
-
-step Nesingwary's Expedition
-  turnin 195                          -- Hemet Nesingwary
-  turnin 188                          -- Ajeck Rouack
-  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
 
 step Booty Bay
+  tip Hearth back to Booty Bay.
   turnin 575                          -- Drizzlik, inside
   accept 577                          -- Drizzlik: the Snapjaw Crocolisks, on the northern loop
   turnin 605                          -- Crank Fizzlebub, inside
   turnin 201                          -- Krazek, upstairs
-  turnin 189                          -- Kebok, upstairs
+  turnin 210                          -- Krazek, from Corporal Kaleb
+  note Kebok's Bloodscalp ears wait for the second Stranglethorn loop: keep the quest.
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
   accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop
 
@@ -216,11 +198,10 @@ step Collin Mauren
   tip Collin Mauren is in the Slaughtered Lamb, in the Mage Quarter.
   turnin 1078
 
-step Druid training
-  only Druid
+step Class training
   zone Stormwind City
-  tip Sheldras Moontree, the druid trainer, stands in Stormwind, north-west of the Mage Quarter.
-  train class
+  tip Your level 34 ranks: the class trainers stand around the Trade District, Old Town, the Cathedral and the Mage Quarter; Sheldras Moontree, the druid trainer, stands north-west of the Mage Quarter. Shamans train in Ironforge, later in 30-40.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
 
 step Boat to Auberdine
   zone Stormwind City
@@ -228,8 +209,27 @@ step Boat to Auberdine
 
 # ---------------------------------------------------------------- To Desolace
 
-step Fly to Astranaar
+step Fly to Stonetalon Peak
+  when taxi "Stonetalon Peak"
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Druid
   zone Darkshore
+  tip You know the Stonetalon Peak flight: it lands closer to Desolace than Astranaar does. From the peak, follow the road south through the mountains to the Charred Vale.
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Stonetalon Peak"
+  zone Stonetalon Mountains
+
+step Fly to Astranaar
+  when !taxi "Stonetalon Peak"
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Astranaar"
+  zone Ashenvale
+
+step Fly to Astranaar
+  when taxi "Stonetalon Peak"
+  only Warlock
+  zone Darkshore
+  tip Warlocks fly to Astranaar for the Heartswood, on the way west.
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
   zone Ashenvale
@@ -242,6 +242,7 @@ step Heartswood
   collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
 
 step Stonetalon Mountains
+  when !zone "Desolace"
   zone Stonetalon Mountains
-  goto 33.7,72.8 "Stonetalon Mountains"
+  goto 30.0,76.5 "Stonetalon Mountains"
 

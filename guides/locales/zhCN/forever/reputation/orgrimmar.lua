@@ -68,7 +68,7 @@ return {
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可选任务点）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:367}和{area:368}：25分钟可获得约700点{faction:76}声望和650点暗矛巨魔声望。{npc:3188}和{npc:3304}在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南边。",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever中，这些旧任务在任何等级都奖励全额声望。{area:367}和{area:368}：25分钟可获得约700点{faction:76}声望和650点暗矛巨魔声望。{npc:3188}和{npc:3304}在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南边。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
 	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要先完成在大兽穴接取的{quest:805}",
 
@@ -94,7 +94,7 @@ return {
 	-- {npc:4949} Thrall · {quest:5726} Hidden Enemies
 	["{npc:4949}: {quest:5726} (optional hub)"] = "{npc:4949}：{quest:5726}（可选任务点）",
 	-- {quest:5726} Hidden Enemies · {faction:76} Orgrimmar · {area:2437} Ragefire Chasm
-	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{quest:5726}：20分钟获得400点{faction:76}声望，需要通关{area:2437}，60级可单刷。",
+	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "在Forever中，这些旧任务在任何等级都提供全额声望。{quest:5726}：20分钟获得400点{faction:76}声望，需要通关{area:2437}，60级可单刷。",
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
@@ -129,7 +129,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362}（可选任务点）",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:362}和{zone:1411}北部：80分钟可获得约1,800点{faction:76}声望和1,650点暗矛巨魔声望。{npc:3142}和{npc:3139}在镇子中央，{npc:3191}在兵营旁，{npc:3147}和{npc:266940}在镇子边缘。",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "Forever中，这些旧任务在任何等级都奖励全额声望。{area:362}和{zone:1411}北部：80分钟可获得约1,800点{faction:76}声望和1,650点暗矛巨魔声望。{npc:3142}和{npc:3139}在镇子中央，{npc:3191}在兵营旁，{npc:3147}和{npc:266940}在镇子边缘。",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}，+100：需要先接取森金村的 {quest:823}",
 
@@ -194,14 +194,14 @@ return {
 	-- Step 31: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "从 {faction:76} 西门出去，过桥进入 {zone:1413}。{npc:3337} 和 {quest:809} 位于 {area:379}。",
-	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
-	["{quest:842}, +100: to {npc:3338}"] = "{quest:842}，+100 点声望：交给 {npc:3338}。",
+	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
+	["{quest:842}, +100: to {quest:860}"] = "{quest:842}，+100 点声望：交给 {quest:860}。",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380}（可选任务点）",
-	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "无限版本中，无论角色等级多少，这些旧任务都提供全额声望。{area:380}：70分钟可获得约1,500点{faction:76}声望，只提供{faction:76}声望。{npc:3338}、{npc:3464}、{npc:3429}、{npc:3449}和{npc:267310}在镇内，{npc:3432}在旅店旁。",
+	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Forever中，无论角色等级多少，这些旧任务都提供全额声望。{area:380}：70分钟可获得约1,500点{faction:76}声望，只提供{faction:76}声望。{quest:860}、{npc:3464}、{npc:3429}、{npc:3449}和{npc:267310}在镇内，{npc:3432}在旅店旁。",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "十字路口周边",
@@ -236,7 +236,7 @@ return {
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819}（可选任务点）",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "在无限版本中，这个任务在任何等级都提供全额声望。{quest:819}出现在{zone:1413}中北部若干位置之一的地面上，多数在十字路口周边的路旁；有人拾取后，就会换到另一处出现。{area:392}的{npc:3292}会为酒桶及首次装酒奖励250点{faction:76}声望，此后每次装酒奖励50点，可无限重复。",
+	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "在Forever中，这个任务在任何等级都提供全额声望。{quest:819}出现在{zone:1413}中北部若干位置之一的地面上，多数在十字路口周边的路旁；有人拾取后，就会换到另一处出现。{area:392}的{npc:3292}会为酒桶及首次装酒奖励250点{faction:76}声望，此后每次装酒奖励50点，可无限重复。",
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819}：在路旁寻找",
 
@@ -327,15 +327,11 @@ return {
 	-- {quest:4721} Wild Guardians · {faction:76} Orgrimmar
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}：300点 {faction:76} 声望。",
 
-	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时也提供全额声望，无限版本中的所有任务都如此。",
+	-- Step 54: Valormok: Betrayed
+	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
+	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "飞往{zone:1447}西部的{area:1237}：在Forever中，{quest:3505}直接从那里的{npc:8576}处开始，无需先拿{npc:4485}的信。{quest:3505}系列任务为53级，和Forever中的所有任务一样，60级也给予全额奖励。{npc:8576}会让你前往东北方，去北部半岛断崖上的血精灵营地。",
 
-	-- Step 55: Valormok
-	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist
-	["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "飞往{zone:1447}西部的{area:1237}。{npc:8576}会派你向东北前往北部半岛高地上的血精灵营地。",
-
-	-- Step 56: Magus Rimtori's camp
+	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的营地",
 	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
@@ -345,7 +341,7 @@ return {
 	-- {object:151286} Kaldorei Tome of Summoning
 	["the {object:151286}"] = "{object:151286}",
 
-	-- Step 57: Valormok and Orgrimmar
+	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar
 	["{area:1237} and {faction:76}"] = "{area:1237} 与 {faction:76}",
 	-- {npc:4485} Belgrom Rockmaul · {faction:76} Orgrimmar
@@ -353,7 +349,7 @@ return {
 	-- {quest:3506} Betrayed · {faction:76} Orgrimmar
 	["{quest:3506}: 300 {faction:76} reputation at 60."] = "{quest:3506}：60 级时奖励 300 点 {faction:76} 声望。",
 
-	-- Step 58: Blackrock Mountain, with a group
+	-- Step 57: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "黑石山，组队前往",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
 	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{zone:1418}的{area:340}提供前往{area:1584}和{area:1583}的{faction:76}声望任务，全部为58到60级，奖励全额发放：“押送囚徒”和“行动：杀死安格弗将军”（各150）、{quest:4724}和{item:12652}（各100）、{quest:4903}（150）、{npc:3144}的智慧（100），以及“为部落而战！”（雷德的头颅，向每座部落主城奖励200）。这些都是地下城任务：小队前往时就接上。",
@@ -362,19 +358,19 @@ return {
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress
 	["{npc:9081}: {quest:4724}, +100, a group of five"] = "{npc:9081}：{quest:4724}，+100 点声望，五人小队",
 
-	-- Step 59: Additional Runecloth to Honored
+	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832}刷到尊敬",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}：每 20 个 {item:14047} 换取 50 点声望，可无限重复。友善到尊敬需要 6,000 点：交还 120 次，共 2,400 个 {item:14047}，再减去任务已奖励的部分（兽人初始为友善 1,000 点：需交还 100 次；亡灵或天裔初始为中立 2,000 点，需先交还 20 次、共 400 个 {item:14047}，才能达到友善）。把身上每 20 个依次交完。",
 
-	-- Step 60: Additional Runecloth to Revered
+	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832}刷到崇敬",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "从尊敬到崇敬需要12,000声望：交还240次，共4,800块 {item:14047}。根据拍卖行每组售价，决定自己刷还是购买。",
 
-	-- Step 61: Additional Runecloth to Exalted
+	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832}刷到崇拜",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor
@@ -385,6 +381,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "这里的黑暗教徒和暗影法师（58-60级）会掉落；在这里击杀天灾军团也会提升{object:92525}声望（见该指南）。也可以去拍卖行购买。",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "这里的砂槌食人魔（45-48级）会掉落。也可以去拍卖行购买。",
+	-- ["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "飞往{zone:1447}西部的{area:1237}。{npc:8576}会派你向东北前往北部半岛高地上的血精灵营地。",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes (about 280 each at a fifth). {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "在经典旧世中，比你低至少 6 级的任务声望奖励会减少（60 级时降至五分之一）；一份无限测试版报告称，任务仍提供全额声望。第一次交还任务时就能看出：如果只给五分之一，就跳过这些任务点。{area:363} 是其中效率最高的：25 分钟约提供 1,400 点 {faction:76} 和 1,400 点暗矛声望（按五分之一计算各约 280 点）。{npc:3143} 在巢穴那间大屋里等待；{npc:10176} 站在屋外。",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes (360 and 330 at a fifth). {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "在经典旧世中，低于你6级及以上的任务奖励会减少（60级时为五分之一）；一份无限服测试版反馈称仍获得全额。第一次交还就能看出实际情况：如果只有五分之一，跳过这些任务据点。{area:362} 和 {zone:1411} 北部：80分钟约得1,800点 {faction:76} 声望和1,650点暗矛声望（按五分之一则为360和330）。{npc:3142} 和 {npc:3139} 站在镇中央，{npc:3191} 在兵营旁，{npc:3147} 和 {npc:266940} 在镇子边缘。",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes (140 and 130 at a fifth). {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "在经典旧世中，低于你6级及以上的任务奖励会减少（60级时为五分之一）；一份无限服测试版反馈称仍获得全额。第一次交还就能看出实际情况：如果只有五分之一，跳过这些任务据点。{area:367} 和 {area:368}：25分钟约得700点 {faction:76} 声望和650点暗矛声望（按五分之一则为140和130）。{npc:3188} 和 {npc:3304} 站在小屋旁，{npc:3194} 靠近水边，{npc:7953} 在村庄南面。",
@@ -399,5 +396,6 @@ return {
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}在{faction:76}收取布料以提升{faction:76}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7832}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}：已交付{item:14047}",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时奖励略少（经典版为30和45）；最后两个按全额奖励。",
+	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时也提供全额声望，Forever中的所有任务都如此。",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
 }

@@ -96,27 +96,29 @@ fn a_quest_with_no_kill_work_is_taken_without_grinding_to_its_level() {
 				&& q.tasks.iter().all(|t| t.work.iter().all(|w| !matches!(w, Work::Kill { .. } | Work::Escort)))
 		})
 		.expect("a quest with no kill work in the slice");
-	// At the level it opens (its level less dangerGap 5 and gateGap 2), take it.
+	// At the level its work opens (its level less dangerGap 5 and gateGap 2), take it and do it.
 	let opens = q.level - 7.0;
 	let mut at = goal(0, "level", None, None, None);
 	at.level = Some(opens);
-	let goals = vec![at, goal(1, "accept", Some(q.id as i64), None, None)];
-	let lvl = |lv: &SimLevels| {
+	let goals = vec![at, goal(1, "accept", Some(q.id as i64), None, None), goal(2, "complete", Some(q.id as i64), None, None)];
+	let play = |lv: &SimLevels| {
 		let mut g = goals.clone();
 		lv.replay(&mut g, 61.0);
-		g[1].lvl_after
+		g
 	};
-	let route = SimLevels::route(&world, "Orc", Some(&params), None).unwrap();
-	let gate = SimLevels::new(&world, "Orc", Some(&params)).unwrap();
-	// The route model takes it where it stands; the gate's grinds to its level less dangerGap first.
-	assert!(lvl(&route) < opens + 1.0, "route model: taken at level {:.1} (quest {} level {})", lvl(&route), q.id, q.level);
-	assert!(lvl(&gate) >= q.level - 5.0, "gate model: {:.1} (quest {} level {})", lvl(&gate), q.id, q.level);
-	// The gate model's grinding up to it is on the accept, which no `level` line writes: the replay
-	// gives each goal its model grind, so the check counts it as unwritten grind (GrindWhy, c14).
-	let mut g = goals.clone();
-	gate.replay(&mut g, 61.0);
-	assert!(g[1].grind > 60.0, "the gate model's grind before the accept: {:.0} s", g[1].grind);
-	let (all, shown) = forge_judge::report::grind_split(&g, 0.0);
+	let route = play(&SimLevels::route(&world, "Orc", Some(&params), None).unwrap());
+	let gate = play(&SimLevels::new(&world, "Orc", Some(&params)).unwrap());
+	// Both models take it where they stand: the game hands a quest over at its minimum level.
+	for (name, g) in [("route", &route), ("gate", &gate)] {
+		assert!(g[1].lvl_after < opens + 1.0 && g[1].grind == 0.0, "{name} model: taken at level {:.1}, {:.0} s ground (quest {} level {})", g[1].lvl_after, g[1].grind, q.id, q.level);
+	}
+	// Its work: the route model does it where it stands (no kill work, no danger); the gate model,
+	// for which every quest fights, grinds to its level less dangerGap first.
+	assert_eq!(route[2].grind, 0.0, "route model: its work at {:.1}", route[2].lvl);
+	assert!(gate[2].grind > 60.0 && gate[2].lvl_after >= q.level - 5.0, "gate model: {:.0} s ground, work done at {:.1} (quest {} level {})", gate[2].grind, gate[2].lvl_after, q.id, q.level);
+	// That grind is on the work, which no `level` line writes: the replay gives each goal its model
+	// grind, so the check counts it as unwritten grind (GrindWhy, c14).
+	let (all, shown) = forge_judge::report::grind_split(&gate, 0.0);
 	assert!(all > shown, "all {all} min, on level goals {shown} min");
 }
 

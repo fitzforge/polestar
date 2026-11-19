@@ -12,9 +12,10 @@ use crate::cmangos::{db_url, DB_REV};
 
 const LIFT_ENTRIES: [f64; 9] = [4170.0, 4171.0, 11898.0, 11899.0, 20649.0, 20652.0, 20655.0, 47296.0, 47297.0];
 const TRAM_ENTRIES: [f64; 6] = [176080.0, 176081.0, 176082.0, 176083.0, 176084.0, 176085.0];
-/// The walk-in portals' triggers: Darnassus and Rut'theran Village (527, 542), and the Wizard's Sanctum's in
-/// Stormwind (704: the tower's top room down to the mage trainers' chamber; 702: back up; #1970).
-const PORTAL_TRIGGERS: [f64; 4] = [527.0, 542.0, 702.0, 704.0];
+/// The walk-in portals' triggers: Darnassus and Rut'theran Village (527, 542), the Wizard's Sanctum's in
+/// Stormwind (704: the tower's top room down to the mage trainers' chamber; 702: back up; #1970), and the
+/// Transpolyporter between Booty Bay and Gnomeregan's Train Depot (1103 there, 1104 back; #2156).
+const PORTAL_TRIGGERS: [f64; 6] = [527.0, 542.0, 702.0, 704.0, 1103.0, 1104.0];
 
 pub struct ClassicDb {
 	pub rev: &'static str,

@@ -11,6 +11,8 @@
 --     (unitToken), with UnitClassification "rare" | "rareelite"
 --     (UnitDocumentation.lua).
 --   * Target and mouseover: PLAYER_TARGET_CHANGED, UPDATE_MOUSEOVER_UNIT.
+--   * Hostility: UnitCanAttack("player", unit) (UnitDocumentation.lua, bool);
+--     a unit on the player's side never alerts (Rares.Decide).
 --   * A player character on any of these paths goes to
 --     Rares.FounderSighting: the founder (Rares.FOUNDER), or nothing.
 --   * Unit reads may be secret values (SecretWhenUnitIdentityRestricted on
@@ -64,6 +66,17 @@ local function fresh(guid, dead)
 	return true
 end
 
+-- A sighting's name, or nil when the client has none to give: a secret, an
+-- empty string, or its "Unknown" placeholder (UNKNOWNOBJECT) for a creature
+-- it has not cached yet. Nil sends the alert down the unnamed path (no
+-- Target macro; a later sighting with the name renames the card, #2254).
+local function nameOf(v)
+	v = readable(v)
+	if type(v) ~= "string" or v == "" or v == UNKNOWNOBJECT then return nil end
+	return v
+end
+D.NameOf = nameOf
+
 -- "Creature-0-4372-0-17-61-0000123456" -> "Creature", 61
 local function guidId(guid)
 	if type(guid) ~= "string" then return nil end
@@ -93,11 +106,17 @@ function D.Unit(unit, source)
 	local class = readable(UnitClassification and UnitClassification(unit))
 	if not CLASS_RARE[class or ""] and not Rares.Known("rare", id) then return nil end
 	local level = readable(UnitLevel(unit))
+	-- UnitCanAttack (bool): false = on the player's side, a friendly NPC
+	-- classed rare (#2929, #2942). Left nil when the client can't say.
+	local can = UnitCanAttack and UnitCanAttack("player", unit)
+	local attackable
+	if UnitCanAttack and not ns.Compat.IsSecret(can) then attackable = can and true or false end
 	return Rares.Sighting({
 		source = source, kind = "rare", id = id, guid = guid,
-		name = readable(UnitName(unit)), classification = class,
+		name = nameOf(UnitName(unit)), classification = class,
 		level = type(level) == "number" and level or nil,
 		dead = dead and true or false,
+		attackable = attackable,
 	})
 end
 
@@ -154,7 +173,7 @@ function D.Vignette(vguid)
 	if not fresh(vguid, dead) then return nil end
 	return Rares.Sighting({
 		source = "vignette", kind = what, id = id, guid = object, vignette = vguid,
-		name = readable(info.name), dead = dead and true or false,
+		name = nameOf(info.name), dead = dead and true or false,
 	}, vignetteWhere(vguid))
 end
 

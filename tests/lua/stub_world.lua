@@ -12,6 +12,8 @@
 --   w.repeatable[308] = true               -- a turn-in never flags it completed
 --   w.complete({ 783, 7 })                 -- already turned in (no events): alts
 --   w.setLevel(4); w.setXP(200); w.addItem(750, 2); w.bind("Goldshire"); w.setZone("Elwynn Forest", "Goldshire"); w.setMoney(150)
+--   w.itemInfo[4306] = { name = "Silk Cloth", classID = 7, subclassID = 5, bind = 0, uncached = true }; w.itemArrives(4306)
+--   w.bank[4306] = 3                       -- in the bank: GetItemCount(id, true) counts it
 --   w.gossip(197, { available = { { questID = 7, title = "..." } }, active = { { questID = 783, isComplete = true } }, options = { { name = "Train me." } } })
 --   w.questDetail(197, 7, { auto = false, pvp = false, objectives = { 10 } })
 --   w.questProgress(197, 783); w.questComplete(197, 783, { choices = 2, money = 0 })
@@ -23,9 +25,12 @@
 --   w.learnRecipe(2330)                    -- profession recipe (NEW_RECIPE_LEARNED)
 --   w.cast(818)                            -- the player casts a spell (UNIT_SPELLCAST_SUCCEEDED)
 --   w.setRep(72, "Stormwind", 5, 1500, 3000, 9000)  -- standing, value, barMin, barMax (UPDATE_FACTION)
+--   w.setAura(1126, true)                  -- the player gains an aura, or with false loses it (UNIT_AURA)
+--   w.deposit(4306)                        -- the bags' stack of an item goes into the bank
+--   w.equip(6256, true)                    -- the player wears an item, or with false takes it off
 --   w.addArea(1429, 40, 30, 60, 50, 87)    -- explorable rect (percent) -> areaID; w.explore(87)
 --   w.addAchievement(9001, "Legacy: ...", { { "Kill 10", 10 }, ... }); w.criteria(9001, 1, 4)
---   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement")  -- remove that client API
+--   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement"|"aura"|"equipment")  -- remove that client API
 --
 -- Client-driven chains work like in game: AcceptQuest() accepts the open
 -- quest, Select*Quest opens its detail/progress panel, CompleteQuest() opens
@@ -62,6 +67,9 @@ local world = {
 	spells = {}, -- spellbook spells
 	recipes = {}, -- learned profession recipes
 	factions = {}, -- factionID -> { name, standing, value, barMin, barMax }
+	auras = {}, -- spellID -> true: the player's buffs and debuffs
+	bank = {}, -- itemID -> count held in the bank
+	equipped = {}, -- itemID -> true: worn
 	areas = {}, -- { map, x1, y1, x2, y2, id }
 	explored = {}, -- areaID -> true
 	achievements = {}, -- id -> { name, completed, criteria = { { text, cur, max, completed } } }
@@ -317,6 +325,24 @@ function world.setRep(id, name, standing, value, barMin, barMax)
 	fire("UPDATE_FACTION")
 end
 
+function world.setAura(id, on)
+	world.auras[id] = on and true or nil
+	fire("UNIT_AURA", "player")
+end
+
+function world.deposit(id)
+	world.bank[id] = (world.bank[id] or 0) + (world.items[id] or 0)
+	world.items[id] = nil
+	fire("BAG_UPDATE", 0)
+	fire("BAG_UPDATE_DELAYED")
+	fire("PLAYERBANKSLOTS_CHANGED", 1)
+end
+
+function world.equip(id, on)
+	world.equipped[id] = on and true or nil
+	fire("PLAYER_EQUIPMENT_CHANGED", 16, not on)
+end
+
 function world.addArea(map, x1, y1, x2, y2, id)
 	table.insert(world.areas, { map = map, x1 = x1, y1 = y1, x2 = x2, y2 = y2, id = id })
 end
@@ -358,6 +384,8 @@ function world.unsupport(feature)
 	elseif feature == "faction" then C_Reputation, GetFactionInfoByID = nil, nil
 	elseif feature == "explore" then C_MapExplorationInfo = nil
 	elseif feature == "achievement" then GetAchievementInfo, GetAchievementNumCriteria, GetAchievementCriteriaInfo = nil, nil, nil
+	elseif feature == "aura" then C_UnitAuras, UnitAura = nil, nil
+	elseif feature == "equipment" then C_Item.IsEquippedItem, IsEquippedItem = nil, nil
 	end
 end
 
@@ -443,9 +471,41 @@ function C_QuestLog.GetInfo(i)
 	if q then return { questID = q, isHeader = false, title = world.log[q].title } end
 end
 
+-- Items the client knows: world.itemInfo[id] = { name, quality, classID,
+-- subclassID, bind (C_Item.GetItemInfo's bindType), icon, uncached = true
+-- (not in the cache: GetItemInfo answers nil until world.itemArrives(id)) }.
+-- An item not listed is one the client does not know. world.bank[id]: the
+-- bank's count, which GetItemCount adds with includeBank.
+world.itemInfo, world.bank, world.itemRequests = {}, {}, {}
 C_Item = {}
-function C_Item.GetItemCount(id) return world.items[id] or 0 end
+function C_Item.GetItemCount(id, includeBank) return (world.items[id] or 0) + (includeBank and world.bank[id] or 0) end
 GetItemCount = C_Item.GetItemCount
+local function itemID(item) return tonumber(item) or tonumber(tostring(item):match("item:(%d+)")) end
+function C_Item.GetItemInfo(item)
+	local id = itemID(item)
+	local it = id and world.itemInfo[id]
+	if not it or it.uncached then return nil end
+	return it.name, ("|cffffffff|Hitem:%d::::::::|h[%s]|h|r"):format(id, it.name), it.quality or 1, 1, 0, "", "", 20, "",
+		it.icon or 134400, 0, it.classID or 7, it.subclassID or 0, it.bind or 0
+end
+function C_Item.GetItemInfoInstant(item)
+	local id = itemID(item)
+	local it = id and world.itemInfo[id]
+	if not it then return nil end
+	return id, "", "", "", it.icon or 134400, it.classID or 7, it.subclassID or 0
+end
+function C_Item.GetItemIconByID(id) local it = world.itemInfo[id]; return it and (it.icon or 134400) or nil end
+function C_Item.GetItemNameByID(id) local it = world.itemInfo[id]; return it and not it.uncached and it.name or nil end
+function C_Item.IsItemDataCachedByID(id) local it = world.itemInfo[id]; return it ~= nil and not it.uncached end
+function C_Item.RequestLoadItemDataByID(id) world.itemRequests[#world.itemRequests + 1] = id end
+-- The server's answer for an item asked for.
+function world.itemArrives(id)
+	local it = world.itemInfo[id]
+	if it then it.uncached = nil end
+	fire("GET_ITEM_INFO_RECEIVED", id, true)
+end
+function C_Item.IsEquippedItem(id) return world.equipped[id] == true end
+IsEquippedItem = C_Item.IsEquippedItem
 
 ---------------------------------------------------------------------------
 -- Client API: maps
@@ -690,6 +750,12 @@ function C_Reputation.GetFactionDataByID(id)
 		atWarWith = false, canToggleAtWar = false, isChild = false, isHeader = false, isHeaderWithRep = false,
 		isCollapsed = false, isWatched = false, hasBonusRepGain = false, canSetInactive = false, isAccountWide = false,
 	}
+end
+
+C_UnitAuras = {}
+function C_UnitAuras.GetPlayerAuraBySpellID(id)
+	if not world.auras[id] then return nil end
+	return { spellId = id, name = "Aura " .. id, isHelpful = true }
 end
 
 C_MapExplorationInfo = {}

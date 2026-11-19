@@ -94,6 +94,9 @@ pub const DATA_KEYS: &[(&str, &[&str])] = &[
 	("Core/Engine.lua", &["Riding"]),
 	// ns.stage (Core/Init.lua), the chip beside the version (Theme/Widgets.lua).
 	("Core/Init.lua", &["Beta"]),
+	// Forever Leveling BiS's specs that Polestar folds into its own (Gear/FLB.lua SPEC_OF), shown through
+	// L[label] in "Scored by Forever Leveling BiS (%s)".
+	("Gear/FLB.lua", &["Bear", "Survival (melee)"]),
 ];
 
 /// The spec labels of Gear/Weights.lua (`label = "..."` in a spec row), shown through L[spec.label].

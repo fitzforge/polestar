@@ -16,6 +16,8 @@
 -- `to` is the list of Polestar keys the weight is given to. A `generic` entry
 -- fills those keys only where no specific entry of the string names them: Dps
 -- covers both weapon slots until MeleeDps or RangedDps say otherwise.
+-- OffHandDps is the off hand's weapon DPS (ohDps); without it an off hand
+-- counts half of the melee weight.
 --
 -- Pawn stats with no Polestar key, so ignored (and named in the import
 -- summary): ArcaneResist, FireResist, FrostResist, NatureResist, ShadowResist
@@ -50,6 +52,7 @@ Gear.PAWN_STATS = {
 	{ pawn = "Rap", to = { "rap" } },
 	{ pawn = "Dps", to = { "dps", "rdps" }, generic = true },
 	{ pawn = "MeleeDps", to = { "dps" } },
+	{ pawn = "OffHandDps", to = { "ohDps" } },
 	{ pawn = "RangedDps", to = { "rdps" } },
 
 	{ pawn = "SpellDamage", to = { "sp" } },

@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "Die Mine, die Zentauren und die Ebenen",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "Zurück zur Mine für die Arbeiter, Aufseher und {quest:765} hinten: Seine {item:281031} starten {quest:98424}, und ihre anderen Seiten liegen in der Mine. Die Galak-Zentauren und Herak lagern östlich des Dorfes. Swoops fliegen überall über {zone:1412}; die Windfury-Harpyien nisten südöstlich des Dorfes; die Palemane-Gnolle lagern westlich davon.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, von {quest:765}",
@@ -123,7 +122,7 @@ return {
 	-- Step 20: The Skywatcher camp: hand in
 	["The Skywatcher camp: hand in"] = "Das Skywatcher-Lager: abgeben",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} bietet {quest:96261} erst an, wenn {quest:96259} abgegeben ist.",
 
 	-- Step 21: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise

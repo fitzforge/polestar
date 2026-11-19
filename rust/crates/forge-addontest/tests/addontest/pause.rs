@@ -459,7 +459,7 @@ fn the_pause_the_guide_key_binding_pauses_and_resumes() {
 	.remove(0);
 	assert_eq!(out, json!({ "seen": ["armed", false], "label": "Pause the guide", "pad": ["Pause the guide", "Pause"] }));
 	let xml = std::fs::read_to_string(addons_dir().join("Polestar/Bindings.xml")).unwrap();
-	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar" searchTags="BINDING_TAG_POLESTAR">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
+	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
 }
 
 // Options, Guide, Window: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by
@@ -781,6 +781,55 @@ fn no_quest_automation_while_paused_also_holds_back_the_reward_auto_pick() {
 	})
 	.remove(0);
 	assert_eq!(out, json!({ "paused": 1, "held": 1, "taken": [2, 2] }), "paused alone picks; with the setting it waits; resumed it picks again");
+}
+
+// The flight master (QoL/Flight.lua, #2945): with "No quest automation while paused" on, a paused Polestar neither
+// opens the flight map from the gossip (qol.flightAutoOpen, nor qol.skipGossip's pick when the taxi option is the
+// only one) nor takes the route's flight as it opens (qol.flightAutoTake); the player picks both. On the QoL
+// harness, as qol.rs's flight tests.
+#[test]
+fn no_quest_automation_while_paused_also_holds_back_the_flight_master_s_map_and_flight() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"])],
+		login: true,
+		script: r#"
+		local q = stub.qol
+		local TAXI = { gossipOptionID = 77, name = "Show me where I can fly.", icon = 132057, orderIndex = 0 }
+		local TALK = { gossipOptionID = 78, name = "Tell me about the gryphons.", icon = 132053, orderIndex = 1 }
+		local function count(name)
+			local n = 0
+			for _, c in ipairs(q.calls) do if c[1] == name then n = n + 1 end end
+			return n
+		end
+		-- One visit: the gossip, then the map (opened by Polestar or by the player), then away.
+		local function visit(options)
+			q.calls = {}
+			q.openGossip(1, { options = options })
+			local opened = count("SelectOption") + count("SelectOptionByIndex")
+			q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+			local flown = count("TakeTaxiNode")
+			stub.fire("TAXIMAP_CLOSED")
+			return { opened, flown }
+		end
+		-- The flight master with another option too, and with the taxi option alone.
+		local function visits() return { visit({ TALK, TAXI }), visit({ TAXI }) } end
+		q.step({ { t = "fly", location = "Lakeshire" } })
+		q.money = 500
+		q.taxiCosts[2] = 300
+		Polestar.Set("qol.flightAutoTake", true); stub.runTimers()
+		Polestar.SetPaused(true, "hand")
+		local paused = visits()
+		Polestar.Set("pause.automation", true)
+		local held = visits()
+		Polestar.SetPaused(false, "hand")
+		emit({ paused = paused, held = held, resumed = visits() })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let acts = json!([[1, 1], [1, 1]]);
+	assert_eq!(out, json!({ "paused": acts, "held": [[0, 0], [0, 0]], "resumed": acts }), "paused alone opens the map and flies; with the setting both wait; resumed both again");
 }
 
 const HERE_WORLD: &str = r#"

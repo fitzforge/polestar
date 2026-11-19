@@ -1205,7 +1205,7 @@ fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 
 /// A `levels` record: the guide's header `levels A-B` reads `A-<levels.top>` when that top is above B:
 /// the level players are at when they leave the guide, above where the route ends it (the guide window
-/// calls a guide outgrown at its top + 2 and offers another). -> the changed lines.
+/// calls a guide outgrown at its top + 3 and offers another). -> the changed lines.
 fn apply_levels(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
 	let Some(top) = r["levels"]["top"].as_u64() else { return Vec::new() };
 	let mut changed = Vec::new();
@@ -1555,6 +1555,68 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[3505, 90902, 99141, 1]);
 		assert_eq!(again, out);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant", "redundant", "redundant", "stale", "not for this start"]);
+	}
+
+	#[test]
+	fn panther_and_horde_tiger_pins_keep_the_existing_hunt_order() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/places.json")).unwrap();
+		let places = json!({ "places": all["places"].as_array().unwrap().iter().filter(|r| r["quest"] == 190 || r["quest"] == 186).collect::<Vec<_>>() });
+		let records = Records { places: Some(&places), ..Records::default() };
+		for (faction, guide) in [
+			("Alliance", include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide")),
+			("Horde", include_str!("../../../../forge/seed/guides/forever/horde/30-40/03-stranglethorn-vale.guide")),
+		] {
+			let file = "stranglethorn-vale.guide".to_string();
+			let mut tree = BTreeMap::from([(file.clone(), guide.to_string())]);
+			apply(&mut tree, std::slice::from_ref(&file), &HashSet::from([186, 190]), Some(faction), records, None);
+			let out = &tree[&file];
+			assert!(out.lines().any(|l| l.starts_with("  kill 683 quest 190 @39.81,11 map 1434 era")), "{faction}: Young Panthers should point across the river");
+			let tiger_pin = out.lines().any(|l| l.starts_with("  kill 682 quest 186 @45,15 map 1434 era"));
+			assert_eq!(tiger_pin, faction == "Horde", "only the Horde tiger arrow changes; Alliance keeps its south/west tip");
+			let goals = |text: &str| {
+				text.lines()
+					.filter(|l| l.starts_with("  ") && !l.trim_start().starts_with("tip "))
+					.map(|l| l.split("--").next().unwrap().split(" @").next().unwrap().trim_end().to_string())
+					.collect::<Vec<_>>()
+			};
+			assert_eq!(goals(guide), goals(out), "{faction}: arrow records must preserve goal order");
+		}
+	}
+
+	// Exercise the route repair with the checkout's actual cat-quest pairs, not just the place pass.
+	#[test]
+	fn cat_hunt_overrides_preserve_the_combined_horde_trips() {
+		use forge_sim::eval::Step;
+		use forge_sim::order::{keep_pairs, Order, Pair};
+		use forge_sim::run::{K_ACCEPT, K_TASK, K_TURNIN};
+		let all: Value = serde_json::from_str(include_str!("../../../../data/route-fixes.json")).unwrap();
+		let cats = [185, 186, 190, 191];
+		let kind = |v: &Value| match v.as_str().unwrap() {
+			"accept" => K_ACCEPT,
+			"task" => K_TASK,
+			_ => K_TURNIN,
+		};
+		let pairs = all["overrides"]["pairs"]
+			.as_array()
+			.unwrap()
+			.iter()
+			.filter(|r| matches!(r["faction"].as_str(), None | Some("Horde")))
+			.filter_map(|r| {
+				let a = r["a"][1].as_u64()? as u32;
+				let b = r["b"][1].as_u64()? as u32;
+				(cats.contains(&a) && cats.contains(&b)).then(|| Pair::new(kind(&r["a"][0]), a, kind(&r["b"][0]), b))
+			})
+			.collect::<Vec<_>>();
+		// First trip: both young cats. Return: hand in 190 before taking 191.
+		// Later trip: adult tigers with 191's panthers; 186's accept stays after the young cats.
+		let steps = [(K_TASK, 185), (K_TASK, 190), (K_TURNIN, 185), (K_ACCEPT, 186), (K_TURNIN, 190), (K_ACCEPT, 191), (K_TASK, 186), (K_TASK, 191)]
+			.into_iter()
+			.map(|(kind, q)| Step { kind, q, task: -1, pt: 0 })
+			.collect::<Vec<_>>();
+		let seed = Order { origin: (0..steps.len() as i64).collect(), steps };
+		let repaired = keep_pairs(&seed, &pairs, &|follow, prerequisite| follow == 191 && prerequisite == 190);
+		let goals = |o: &Order| o.steps.iter().map(|s| (s.kind, s.q)).collect::<Vec<_>>();
+		assert_eq!(goals(&repaired), goals(&seed), "hard pairs must not split the combined hunts or delay the 190 hand-in");
 	}
 
 	#[test]

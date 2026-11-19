@@ -30,7 +30,7 @@
 //!     pre / preAll  blocking prerequisites (forge-guide prereqs, breadcrumbs
 //!               dropped): one of `pre` must be done, and every one of `preAll`
 //!     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
-//!                 4 event (id = 1-based group in `events`, count nil)
+//!                 4 event (id = 1-based group in `events`, count nil), 5 talk (npc)
 //!     events    flat quads map, frame, x, y (frame 0 Era, 1 live)
 //!     skill     required profession skill line; holiday: event id (never "available")
 //!   npcs[id]    = { name, map, frame, n, x1, y1, r1, ..., map, frame, n, ... }
@@ -222,10 +222,25 @@ pub fn quest_faction(q: &V, npcs: &V) -> Val {
 	Val::Num(side as f64)
 }
 
-/// Sorted top-N sources from { "<id>": chance } (ties by id).
-fn top_sources(drops: &V, cap: usize) -> Vec<(f64, f64)> {
-	let mut out: Vec<(f64, f64)> =
-		if drops.is_object() { drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite()).collect() } else { Vec::new() };
+/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]", "[DNT]",
+/// #2614): no drop source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts
+/// in the world, read in the target list's rows for Elwynn Forest's wolves; two "[DNT]" creatures listed as
+/// droppers of the Fractured Elemental Shard).
+fn test_creature(npcs: &V, id: f64) -> bool {
+	thread_local! {
+		static RE: regex::Regex = regex::Regex::new(r"(?i)^(QA)?test\b|\[PH\]|\bunused\b|\bdeprecated\b|\bDEBUG\b").unwrap();
+	}
+	let name = npcs.get(&num_str(id)).get("name");
+	name.as_str().is_some_and(|n| RE.with(|r| r.is_match(n)) || forge_guide::placeholder::banned(n))
+}
+
+/// Sorted top-N sources from { "<id>": chance } (ties by id), the ones `keep` takes.
+fn top_sources(drops: &V, cap: usize, keep: impl Fn(f64) -> bool) -> Vec<(f64, f64)> {
+	let mut out: Vec<(f64, f64)> = if drops.is_object() {
+		drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite() && keep(*id)).collect()
+	} else {
+		Vec::new()
+	};
 	out.sort_by(|a, b| {
 		let d = b.1 - a.1;
 		if d != 0.0 && !d.is_nan() {
@@ -309,6 +324,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				Some("item") => 2,
 				Some("object") => 3,
 				Some("event") => 4,
+				// A talk to an NPC keeps its line's place, so later lines keep the quest log's numbers.
+				Some("talk") => 5,
 				_ => continue,
 			};
 			if kind == 4 {
@@ -328,7 +345,7 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			let Some(oid) = finite(&ob.get("id")) else { continue };
 			objectives.extend([Val::Num(kind as f64), Val::Num(oid), num_or_nil(&ob.get("count"))]);
 			match kind {
-				1 => want_npc.insert(oid as i64),
+				1 | 5 => want_npc.insert(oid as i64),
 				2 => want_item.insert(oid as i64),
 				_ => want_object.insert(oid as i64),
 			};
@@ -392,8 +409,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			warnings.push(format!("item {id} referenced by a quest is missing from items.json"));
 			continue;
 		}
-		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers);
-		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources);
+		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n));
+		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |_| true);
 		let mut vendors = list(&it.get("vendors"));
 		vendors.sort_by(|a, b| a.partial_cmp(b).unwrap());
 		vendors.truncate(o.max_vendors);

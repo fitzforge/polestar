@@ -338,10 +338,11 @@ end
 
 local NOWHERE = "~" -- sorts last
 
--- -> { { head = zone, count } | { key, title, sub, kind, dim } } for the tab
-local function entries()
+-- -> { { head = zone, count } | { key, title, sub, kind, dim } } for a tab (default the open one), and how many rows
+local function entries(kind)
+	kind = kind or tab
 	local out, total = {}, 0
-	if tab == "seen" then
+	if kind == "seen" then
 		local h = Rares.History()
 		local rows = {}
 		local now = serverTime()
@@ -357,9 +358,9 @@ local function entries()
 		for _, r in ipairs(rows) do out[#out + 1] = r end
 		return out, #rows
 	end
-	local all = Rares.ListOf(tab) or {}
+	local all = Rares.ListOf(kind) or {}
 	local unplaced = {}
-	if tab == "rare" then
+	if kind == "rare" then
 		-- Rares with no spawn on any map (instances, unknown places) too.
 		local C = Rares.Codex(false)
 		if C then
@@ -404,16 +405,16 @@ local function entries()
 		end)
 		out[#out + 1] = { head = z == NOWHERE and L["Dungeons and unplaced"] or z, count = #recs, here = z == hereName }
 		for _, rec in ipairs(recs) do
-			local key = Rares.Key(tab, rec.id)
+			local key = Rares.Key(kind, rec.id)
 			local sub
-			if tab == "rare" then
+			if kind == "rare" then
 				sub = Rares.LevelText(rec.level, rec.levelMax)
 				if sub and rec.elite then sub = sub .. "+" end
 			else
 				local n = #rec.spawns
 				sub = n == 1 and L["1 spot"] or format(L["%d spots"], n)
 			end
-			out[#out + 1] = { key = key, title = rec.name, sub = sub, kind = tab, dim = type(ignored) == "table" and ignored[key] }
+			out[#out + 1] = { key = key, title = rec.name, sub = sub, kind = kind, dim = type(ignored) == "table" and ignored[key] }
 			total = total + 1
 		end
 	end
@@ -481,9 +482,15 @@ local function hideBody()
 	detail.EmptyNote:Hide()
 end
 
-local function band(title, sub, map, x, y)
+-- A rare or treasure no source places anywhere (28 rares in the Codex, Capo
+-- the Mean among them): the world map (Azeroth, uiMap 947), dimmed, rather
+-- than the bare night band.
+local WORLD, DIM = 947, { 0.5, 0.5, 0.55 }
+
+local function band(title, sub, map, x, y, nowhere)
 	local d = detail
-	d.psArt = ZoneArt.Paint(d.Art, map, x, y, #(title or "") + 1)
+	d.Art.psTint = nowhere and DIM or nil
+	d.psArt = ZoneArt.Paint(d.Art, nowhere and WORLD or map, x, y, #(title or "") + 1)
 	d.Title:SetText(title or "")
 	d.Sub:SetText(sub or "")
 	d.Title:SetWidth(d.psW - DPAD * 2)
@@ -726,7 +733,7 @@ local function renderEntity(key, w)
 	local zone = spawn and mapName(spawn.map)
 	if zone then facts[#facts + 1] = zone end
 	if entry and entry.t then facts[#facts + 1] = format(L["seen %s"], Rares.AgoText(entry.t, now)) end
-	band(name, concat(facts, DOT), spawn and spawn.map, spawn and spawn.x, spawn and spawn.y)
+	band(name, concat(facts, DOT), spawn and spawn.map, spawn and spawn.x, spawn and spawn.y, spawn == nil)
 	detail.psSpawn, detail.psName, detail.psKey = spawn, name, key
 	actions(spawn ~= nil and ns.Nav ~= nil, rec ~= nil and ns.Lookup ~= nil, Rares.IsIgnored(key))
 	shown.name, shown.facts = name, concat(facts, DOT)
@@ -844,7 +851,7 @@ function RV.SetTab(key)
 	end
 end
 
--- The sidebar index: Rares, Treasures, Seen with their counts.
+-- The sidebar index: Rares, Treasures, Seen with their counts; while searching, what each would list (#2776).
 function RV.Nav()
 	local C = Rares.Codex(false)
 	local seen = 0
@@ -854,6 +861,10 @@ function RV.Nav()
 		r, t = 0, 0
 		C.Each("rare", function() r = r + 1 end)
 		C.Each("treasure", function() t = t + 1 end)
+	end
+	if filter ~= "" then
+		if C then r, t = select(2, entries("rare")), select(2, entries("treasure")) end
+		seen = select(2, entries("seen"))
 	end
 	return {
 		{ key = "rare", label = L["Rares"], icon = "qol-target", count = r },

@@ -26,8 +26,10 @@ return {
 	["Equip {item:18646}, then find {npc:14494}, a ghost on the hillside in the north-west of the {zone:1423}, west of {area:2279}'s gate (if she does not show, take the Eye off and put it back on). {quest:7621} is only talk; {quest:7622} starts the moment you accept it, so prepare first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or {item:13931}, and a stack of {item:8956} or {item:13180} for the skeletons."] = "",
 
 	-- Step 3: The Balance of Light and Shadow
-	-- {object:179694} Death Post (no name in this language: may be words) · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
+	-- {object:179694} Death Post · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
 	["Save 50 peasants before 15 die (the {object:179694} by the path counts the dead). They walk from the cave towards {npc:14494} in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first ({spell:552}), keep {spell:139} on the hurt ones, {spell:2061} the nearly dead, and kill skeletons as they spawn: one {spell:15237} of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and {npc:14494} is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back."] = "",
+	-- {npc:14494} Eris Havenfire
+	["beside {npc:14494}, where the peasants walk to"] = "junto a {npc:14494}, adonde caminan los campesinos",
 
 	-- Step 5: The Eye of Shadow
 	-- {item:18665} The Eye of Shadow · {npc:12397} Lord Kazzak · {zone:1419} Blasted Lands
@@ -38,12 +40,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "Usa {item:18659} con ambos Ojos en tus bolsas: {item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "Equípate {item:18646} para ver a {npc:14494}, un fantasma en la ladera del noroeste de {zone:1423}. Ven con el maná lleno, pociones de maná sublimes y {item:8956}: si fallas, el evento tarda unas dos horas en volver.",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "Salva a 50 campesinos antes de que mueran 15. Mata a los esqueletos que los atacan, cura sus enfermedades (primero los morados) y sana a los heridos con {spell:139}. Tus amigos pueden darte beneficios antes, pero deben quedarse fuera del combate o aparecerá un demonio que matará a todos.",
-	-- ["With both Eyes in your bags: {item:18608}"] = "Con ambos Ojos en tus bolsas: {item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "Primero necesitas {item:18646}: sale de {object:179703} tras {npc:12018} en {area:2717}. {item:18665} lo sueltan demonios élite ({npc:12397}, un jefe del mundo, siempre; los comandantes guardia apocalíptico y los canes de maná, rara vez); se liga al equiparlo, así que también puedes comprarlo.",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "La astilla de {npc:14494} y los dos Ojos forman {item:18608}, el bastón épico de sacerdote que se convierte en Anatema.",
 }

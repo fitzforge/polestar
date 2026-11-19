@@ -201,6 +201,44 @@ fn an_alt_with_quests_already_done_starts_at_the_first_step_that_is_not_done() {
 	);
 }
 
+// A route whose second quest is offered from level 5: its accept and its turn-in wait on the level.
+const LEVEL_GATED: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/level-gated", pack = "test", title = "Level gated",
+	faction = "Alliance", minLevel = 1, maxLevel = 6, zone = 1429,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "William Pestle", goals = {
+			{ t = "accept", quest = 60, title = "Kobold Candles", minLevel = 5, npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+		{ title = "Back to William", goals = {
+			{ t = "turnin", quest = 60, title = "Kobold Candles", npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn progress_does_not_count_a_later_step_done_while_its_quest_waits_on_the_level() {
+	// #2257: a fresh character's bar counted every later step whose quests were above its level as done.
+	let out = run1(Run {
+		guides: LEVEL_GATED,
+		before: "w.level = 1",
+		script: r#"
+			E.SetGuide("test/level-gated"); flush()
+			local d1, t1 = E.GetProgress()
+			local at1 = E.GetStepIndex()
+			stub.world.setLevel(5); flush()
+			local d5, t5 = E.GetProgress()
+			emit({ at1 = at1, level1 = { d1, t1 }, at5 = E.GetStepIndex(), level5 = { d5, t5 } })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "at1": 1, "level1": [0, 3], "at5": 1, "level5": [0, 3] }));
+}
+
 #[test]
 fn only_on_steps_and_goals_filters_by_class_and_race() {
 	let out = run1(Run {
@@ -318,6 +356,46 @@ emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status
 		});
 		assert_eq!(out, json!(["active", expected, "active"]), "{source}, count {count}");
 	}
+}
+
+// #2666 (Malifax, 0.4.0, Thousand Needles & Desolace): Kodo Roundup's step is `use 13892` (the Kodo Kombobulator, at the
+// Kodo Graveyard) then `talk 4700 quest 5561.1` (the tamed kodo, at Smeed's camp), five times. The use has no quest,
+// so it read done only once the talk was, at 5/5: the arrow stayed at the graveyard for every walk back. Now the use
+// reads done from its cast until the talk counts one more (the arrow goes to the camp), then is open again (back to
+// the graveyard); with no count for five minutes (the kodo lost), open again too.
+#[test]
+fn kodo_roundup_the_arrow_goes_to_the_camp_after_each_kombobulator_use_and_back_after_each_count_2666() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/kodo", pack = "test", title = "Kodo", zone = 1429, steps = {
+	{ title = "Kodo Graveyard", goals = {
+		{ t = "use", item = 13892, itemName = "Kodo Kombobulator", map = 1429, x = 30, y = 30 },
+		{ t = "talk", npc = 4700, npcName = "Aged Kodo", quest = 5561, oi = 1, map = 1429, x = 60, y = 60 },
+	} },
+} })
+"#,
+		before: r#"C_Item.GetItemSpell = function(id) if id == 13892 then return "Kodo Kombobulator", 18153 end end"#,
+		script: r#"
+local w = stub.world
+w.addItem(13892, 1)
+w.onQuest(5561, { 5 })
+E.SetGuide("test/kodo"); flush()
+local out = {}
+local function look(label)
+	local wp = E.GetWaypoint()
+	out[#out + 1] = label .. ": " .. E.GetStepView(1).goals[1].status .. " @" .. tostring(wp and wp.x)
+end
+look("start")
+w.cast(18153); flush(); look("tamed")
+w.progress(5561, 1, 1); flush(); look("1/5")
+w.cast(18153); flush(); look("tamed again")
+stub.advance(301); w.progress(5561, 1, 1); flush(); look("lost")
+w.cast(18153); flush(); w.progress(5561, 1, 5); flush(); look("5/5")
+emit(out)
+"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!(["start: active @30", "tamed: done @60", "1/5: active @30", "tamed again: done @60", "lost: active @30", "5/5: done @nil"]));
 }
 
 #[test]
@@ -443,6 +521,147 @@ Polestar.RegisterGuide({ id = "test/binding", pack = "test", title = "Binding", 
 		..Default::default()
 	});
 	assert_eq!(out, json!({ "before": { "index": 2, "use": "active" }, "killed": "done", "after": 3 }));
+}
+
+// #2099 (Corey, a Tauren Druid in The Barrens): Trial of the Lake's step collects a Shrine Bauble and uses it at the
+// shrine, neither tied to the quest. For a Druid who had done the trial the collect stayed open (no bauble in the
+// bags), so the step, and the trip to Moonglade before it, never passed. An untied collect of an item that a later
+// goal of its step uses is done once that use is; before that it counts the bags as ever.
+#[test]
+fn an_untied_collect_of_an_item_its_step_then_uses_is_done_once_the_use_is_2099_shrine_bauble() {
+	const TRIAL: &str = r#"
+Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone = 1429, steps = {
+	{ title = "Dendrite", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Trial of the Lake", goals = {
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1429, x = 47.6, y = 35.1 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1429, x = 47.0, y = 36.0 },
+		{ t = "complete", quest = 7, title = "Kobold Camp Cleanup" },
+		{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let done = run1(Run {
+		guides: TRIAL,
+		before: "w.complete({ 7 })",
+		script: r#"E.SetGuide("test/trial"); flush(); emit({ index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status })"#,
+		..Default::default()
+	});
+	assert_eq!(done, json!({ "index": 3, "collect": "done" }), "the trial handed in before: nothing holds the step");
+	let doing = run1(Run {
+		guides: TRIAL,
+		before: "w.onQuest(7, { 1 })",
+		script: r#"
+			E.SetGuide("test/trial"); flush()
+			local before = { index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status }
+			stub.world.addItem(15877, 1); flush()
+			emit({ before = before, looted = E.GetStepView(2).goals[1].status })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
+}
+
+// #2633 (Redrett, 0.4.0, Riverglades): Fetch 'n' Fletch's step collects a Wood Bundle (no quest) and uses it to
+// fletch one of 20 spears (`use … quest 95951.1`). The first bundle latched the collect done for the rest of the
+// step, so after each use the arrow stayed on the fletching spot instead of going back to the woodpiles. An untied
+// collect of one item that a later use of its step spends towards an objective of more than one is not latched:
+// each use reopens it, and the objective done closes it.
+#[test]
+fn an_item_fetched_again_for_each_use_reopens_after_every_use_until_the_objective_is_done_2633() {
+	const FLETCH: &str = r#"
+Polestar.RegisterGuide({ id = "test/fletch", pack = "test", title = "Riverglades", zone = 1429, steps = {
+	{ title = "Turner's Logging Camp", goals = {
+		{ t = "collect", item = 271629, itemName = "Wood Bundle", count = 1, map = 1429, x = 41.5, y = 61.2 },
+		{ t = "use", item = 271629, itemName = "Wood Bundle", quest = 95951, oi = 1, map = 1429, x = 39.2, y = 62.8 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run1(Run {
+		guides: FLETCH,
+		before: "w.onQuest(95951, { 20 })",
+		script: r#"
+			local w = stub.world
+			local function at() return { collect = E.GetStepView(1).goals[1].status, use = E.GetStepView(1).goals[2].status, arrow = E.GetWaypoint() and E.GetWaypoint().goalIndex or false } end
+			E.SetGuide("test/fletch"); flush()
+			local r = { start = at() }
+			w.addItem(271629, 1); flush()
+			r.looted = at()
+			w.removeItem(271629); w.progress(95951, 1, 1); flush()
+			r.used = at()
+			w.addItem(271629, 1); flush()
+			w.removeItem(271629); w.progress(95951, 1, 20); flush()
+			r.done = { index = E.GetStepIndex(), collect = E.GetStepView(1).goals[1].status }
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "{out}");
+	assert_eq!(out["looted"]["collect"], "done", "a bundle in the bags: {out}");
+	assert_eq!(out["looted"]["arrow"], 2, "on to the fletching: {out}");
+	assert_eq!(out["used"], json!({ "collect": "active", "use": "active", "arrow": 1 }), "1 of 20 fletched: back to the woodpiles: {out}");
+	assert_eq!(out["done"], json!({ "index": 2, "collect": "done" }), "20 of 20: the step is done: {out}");
+}
+
+// #2099 on the shipped guide (addon/Polestar_Guides_Horde), Corey's state: a level 19 Tauren Druid at the Crossroads
+// who had done the aquatic form chain (27, 28, 30, 31) and Lessons Anew (6126, 6127) before The Barrens' Druid
+// block, every flight path in the guide known. Quests the guide hands in up to Trial of the Lake are done; those
+// taken by then and handed in later are in the log with nothing done yet (he carried 16), so his progress stands
+// before the Druid block. The guide stood on "Moonglade" (cast Teleport: Moonglade) with Trial of the Lake's Shrine
+// Bauble still open. With the collect done, the trip there and back passes and the route goes on.
+#[test]
+fn a_druid_who_did_the_aquatic_chain_is_not_sent_to_moonglade_on_the_shipped_barrens_2099() {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Tauren", "Tauren", "Horde", "DRUID", "Druid", 19
+w.money = 500000"#;
+	let script = r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+E.SetGuide("forever/horde/02-the-barrens"); stub.advance(0.25)
+local g = E.GetGuide()
+local moon
+for i, step in ipairs(g.steps) do
+	local goal = step.goals[1]
+	if not moon and #step.goals == 1 and goal.t == "goto" and goal.map == 1450 then moon = i end
+end
+local flags, acceptAt, turninAt = Polestar.CharState().flags, {}, {}
+flags.taxi = {}
+for i, step in ipairs(g.steps) do
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.t == "accept" then acceptAt[x.quest] = acceptAt[x.quest] or i end
+		if x.quest and x.t == "turnin" then turninAt[x.quest] = i end
+		if x.node then flags.taxi[x.node] = true end
+	end
+end
+local done = { 31 }
+for q, i in pairs(turninAt) do if i <= moon + 1 then done[#done + 1] = q end end
+for q, i in pairs(acceptAt) do
+	if i <= moon + 1 and not turninAt[q] then done[#done + 1] = q end
+	if i <= moon + 1 and (turninAt[q] or 0) > moon + 1 then stub.world.onQuest(q, { { required = 1, fulfilled = 0 } }) end
+end
+stub.world.complete(done)
+stub.world.moveTo(1413, 52.02, 30.69); stub.world.setZone("The Barrens", "The Crossroads")
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+if E.GetStepIndex() < moon then E.SkipUpTo(moon); stub.advance(0.25) end
+local wp = E.GetWaypoint()
+emit({ moon = moon, trial = g.steps[moon + 1].goals[5].item, at = E.GetStepIndex(), title = g.steps[E.GetStepIndex()].title, map = wp and wp.map or false })
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: script.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["trial"], 15877, "the step after Moonglade is Trial of the Lake: {out}");
+	let (moon, at) = (out["moon"].as_u64().expect("the Moonglade step"), out["at"].as_u64().unwrap_or(0));
+	assert!(at > moon + 1, "past Moonglade and Trial of the Lake: {out}");
+	assert_ne!(out["map"], 1450, "the arrow is not on Moonglade: {out}");
 }
 
 #[test]
@@ -837,7 +1056,7 @@ fn a_circuit_of_waypoints_in_one_step_costs_one_pass_over_the_step_and_a_later_a
 	assert_eq!(out["open"], n + 1, "every waypoint and the level are open at the start");
 	assert_eq!(json!({ "early": out["early"], "at": out["at"], "late": out["late"], "step": out["step"] }), json!({ "early": "done", "at": "done", "late": "active", "step": 2 }));
 	let seconds = out["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.5, "took {seconds:.2} s of CPU");
+	forge_addontest::assert_timing!(seconds < 0.5, "took {seconds:.2} s of CPU");
 }
 
 #[test]
@@ -1693,6 +1912,152 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	assert_eq!(out["unknown"], json!({ "line": "Hearthstone ready in 10 min", "arrow": false }));
 }
 
+// A character with the riding skill (line 762) reads ride where the walker reads walk: the line under the hearth goal
+// and the arrow's label above it agree.
+#[test]
+fn a_hearth_step_while_the_hearthstone_waits_or_is_not_in_the_bags_says_ride_to_the_inn_for_a_character_who_can_ride() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-ride", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-ride"); flush()
+			local r = { waiting = state() }
+			hs.have = false; changed()
+			r.none = state()
+			-- a ghost walks (Nav/Travel.lua), the line and the arrow alike
+			Polestar.Nav.travel = { IsGhost = function() return true end }; changed()
+			r.ghost = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let ride = json!([1429, 43.8, 65.8, "Ride to Goldshire"]);
+	assert_eq!(out["waiting"], json!({ "line": "Hearthstone ready in 23 min: ride to the inn, or wait for it", "arrow": ride }));
+	assert_eq!(out["none"], json!({ "line": "No Hearthstone in your bags: ride to the inn", "arrow": ride }));
+	assert_eq!(out["ghost"], json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }), "a ghost walks");
+}
+
+// A Shaman's Astral Recall does a hearth step as the Hearthstone does (players asked on Discord, 2026-11-13): while the
+// Hearthstone waits, or is not in the bags, and Astral Recall is ready, the step says "Cast Astral Recall" and the arrow
+// does not walk to the inn; with Astral Recall cooling down too, the Hearthstone's wait as before.
+#[test]
+fn a_hearth_step_while_the_hearthstone_waits_and_astral_recall_is_ready_names_the_spell_and_walks_nowhere() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-recall", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true }
+			Polestar.Transit = Polestar.Transit or {}
+			Polestar.Transit.Teleports = function() return { recall } end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-recall"); flush()
+			local r = { recall = state() }
+			recall.ready = 300; changed()
+			r.bothWait = state()
+			recall.ready = 0; hs.have = false; changed()
+			r.noStone = state()
+			hs.have, hs.remaining = true, 0; changed()
+			r.stoneReady = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["recall"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["bothWait"], json!({ "line": "Hearthstone ready in 23 min: walk to the inn, or wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }));
+	assert_eq!(out["noStone"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["stoneReady"], json!({ "line": false, "arrow": false }), "the Hearthstone ready: the hearth step as before");
+}
+
+// Astral Recall is a Shaman's spell and never shows for another class: a hearth step reads it (Own.bindRecall) only from
+// Nav/Transit.lua's Teleports, which lists a spell only when the client's spell book has it (Core/Compat.lua's
+// IsSpellKnown), whatever the class. With the whole addon (the real Transit and the travel data's Astral Recall): a
+// Warrior whose spell book the stub says nothing about, and a Shaman who has not learned it yet, with the Hearthstone
+// waiting or not in the bags, get the Hearthstone's own line and the walk to the inn, never "Cast Astral Recall"; the
+// Shaman who has learned it gets the spell, so the spell book is what keeps it from the others.
+#[test]
+fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-class", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		full: true,
+		script: r#"
+			local w = stub.world
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				local listed = {}
+				for _, t in ipairs(Polestar.Transit.Teleports()) do listed[#listed + 1] = t.name end
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false, listed = table.concat(listed, ",") }
+			end
+			E.SetGuide("test/hearth-class"); flush()
+			local r = { warrior = state() }
+			hs.have = false; changed()
+			r.warriorNoStone = state()
+			w.class, w.className, w.classID = "SHAMAN", "Shaman", 7
+			hs.have = true; changed()
+			r.shaman = state()
+			hs.have = false; changed()
+			r.shamanNoStone = state()
+			w.learnSpell(556)
+			hs.have = true; changed()
+			r.learned = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let wait = json!({ "line": "Hearthstone ready in 23 min, sooner than the 28 min trip: wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	let no_stone = json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	assert_eq!(out["warrior"], wait, "a Warrior, the stub saying nothing about the spell: the Hearthstone's wait");
+	assert_eq!(out["warriorNoStone"], no_stone, "a Warrior without a Hearthstone: the walk to the inn");
+	assert_eq!(out["shaman"], wait, "a Shaman who has not learned it: the Hearthstone's wait");
+	assert_eq!(out["shamanNoStone"], no_stone, "a Shaman who has not learned it, without a Hearthstone: the walk to the inn");
+	assert_eq!(out["learned"], json!({ "line": "Cast Astral Recall", "arrow": false, "listed": "Astral Recall" }), "learned: the spell");
+}
+
 #[test]
 fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_longer_wait_when_it_is_sooner_travel_when_the_inn_is_close() {
 	let out = run1(Run {
@@ -1854,7 +2219,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			SlashCmdList.POLESTAR("guide test/01-northshire")
 			SlashCmdList.POLESTAR("guide Test/02-Elwynn")
 			emit({ status = status, afterSkip = afterSkip, afterPrev = afterPrev, exact = exact, guide = E.GetGuide().id, msgs = stub.messages,
-				tag = BINDING_TAG_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
+				binding = BINDING_NAME_POLESTAR_NEXT })
 		"#,
 		..Default::default()
 	});
@@ -1874,7 +2239,6 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			"|cff4fd1c5Polestar|r: Guide: Elwynn Forest",
 		])
 	);
-	assert_eq!(out["tag"], "Polestar");
 	assert_eq!(out["binding"], "Next step");
 }
 
@@ -2238,6 +2602,36 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
 }
 
+// A character with the riding skill (line 762), the Hearthstone bound at another inn: ride, the line and the arrow alike.
+#[test]
+fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_ride_to_the_inn_for_a_character_who_can_ride() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-bound-ride", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District"); w.bind("Kharanos")"#,
+		script: r#"
+			Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+			local hs = { have = true, remaining = 0 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			Polestar.Nav.BoundInn = function() return { map = 1426, x = 47.4, y = 52.4, f = "w", npc = 1247 } end
+			E.SetGuide("test/hearth-bound-ride"); flush()
+			local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+			emit({ line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "line": "Your Hearthstone is bound to Kharanos, not Goldshire: ride to the inn", "arrow": [1429, 43.8, 65.8, "Ride to Goldshire"] }));
+}
+
 // #1753 (doctor-house, 0.3.6, Night Elf Hunter 27, Duskwood's Hushed Bank: "kill these as you meet them"): "63x
 // Engine.lua:2311: attempt to compare nil with number". The player fought at the goal's spot, then took the other
 // spot by hand (here an alternative, spot 2) and went there. No candidate was fresh (the fought-over spot counts as
@@ -2430,6 +2824,77 @@ fn readers_of_one_moment_share_a_step_view_and_any_change_gives_a_fresh_one() {
 	assert_eq!(out["tick"], json!(["active", "done"]), "a tick shows at once in the next shared read: {out}");
 }
 
+// The Quality of Life refreshes of one frame (QoL.Coalesce: the bag glow, the buttons...) share the step view the
+// first builds (#2555: a kill built one per refresh), and it reads as a fresh view; another timer of Polestar's
+// between two of them starts a new moment, so the second builds its own. Each refresh still runs once per frame,
+// in the order asked.
+#[test]
+fn the_quality_of_life_refreshes_of_one_frame_share_a_step_view() {
+	let out = run1(Run {
+		full: true,
+		script: r#"
+			local w, QoL = stub.world, Polestar.QoL
+			w.accept(783, {}, "A Threat Within"); flush()
+			local got, order, fresh = {}, {}, true
+			local function statuses(v)
+				local s = {}
+				for _, g in ipairs(v.goals) do s[#s + 1] = tostring(g.status) .. ":" .. tostring(g.text) end
+				return table.concat(s, "|")
+			end
+			local function reader(name)
+				return QoL.Coalesce(function()
+					order[#order + 1] = name
+					got[name] = QoL.CurrentStep()
+					if statuses(got[name]) ~= statuses(E.GetStepView(E.GetStepIndex())) then fresh = false end
+				end)
+			end
+			local a, b, c = reader("a"), reader("b"), reader("c")
+			a(); b(); a(); stub.advance(0.02)
+			local r = { shared = got.a ~= nil and got.a == got.b }
+			got = {}
+			a(); Polestar.After(0, function() end); c(); stub.advance(0.02)
+			r.timer = got.a ~= nil and got.c ~= nil and got.a ~= got.c
+			r.order, r.fresh = table.concat(order), fresh
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "shared": true, "timer": true, "order": "abac", "fresh": true }), "{out}");
+}
+
+// The guide window reads the step views of a moment shared (Engine.GetStepView(i, true)), as the other readers do: a
+// step change built the shown step's view for the window, again for "Then:" and the "Up next" rows, beside the ones
+// the arrow and the buttons build (#2537). Its views read as fresh ones.
+#[test]
+fn the_guide_window_reads_the_moments_shared_step_views() {
+	let out = run1(Run {
+		full: true,
+		script: r#"
+			local w, GF = stub.world, Polestar.UI.GuideFrame
+			PolestarGuideFrame:Show(); flush()
+			local reads, unshared = 0, 0
+			local view = E.GetStepView
+			E.GetStepView = function(i, shared)
+				local src = debug.getinfo(2, "S").source or ""
+				if src:find("UI/GuideFrame", 1, true) then
+					reads = reads + 1
+					if not shared then unshared = unshared + 1 end
+				end
+				return view(i, shared)
+			end
+			w.accept(783, {}); flush()
+			w.turnIn(783); flush()
+			GF.Render()
+			local shown = GF.View and GF.View()
+			local fresh = view(E.GetStepIndex())
+			emit({ read = reads > 0, unshared = unshared, same = shown ~= nil and fresh ~= nil and shown.title == fresh.title
+				and #shown.goals == #fresh.goals })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "read": true, "unshared": 0, "same": true }), "{out}");
+}
+
 // The guide window's progress count without the frame's spike (Engine.ProgressSoon): after a change the count runs
 // over the next frames, 40 steps a frame, and lands with GetProgress's numbers; then it is kept for the evaluation. A
 // change half way starts it again on the new state.
@@ -2493,3 +2958,163 @@ for k = 1, 120 do
 end
 Polestar.RegisterGuide({ id = "test/long", pack = "test", title = "Long", faction = "Alliance", minLevel = 1, maxLevel = 60, zone = 1429, steps = steps })
 "#;
+
+// #2461 (Erisez, Skyborne Druid 51, 0.3.7.2, Horde Azshara): Betrayed (3504) taken early in Orgrimmar and handed in
+// to Ag'tor, who gave the next Betrayed (3505); when the guide reached its "accept Betrayed" step, the accept stayed
+// open (3504 was in neither the log nor, for the client, done) and he had to skip it. A quest whose later chain is in
+// the log or done is behind the player: the loaded quest database's follow-ups (its `pre`/`preAll` read the other
+// way, transitively) that this character can take and that need it (in `preAll`, or a one-of `pre` naming no other
+// quest this character can take) prove it. The accept and its hand-in are then done.
+const BETRAYED: &str = r#"
+Polestar.RegisterGuide({ id = "test/betrayed", pack = "test", title = "Azshara", faction = "Horde", minLevel = 44, maxLevel = 54, zone = 1411, steps = {
+	{ title = "Belgrom Rockmaul", goals = { { t = "accept", quest = 3504, title = "Betrayed", npc = 4485, npcName = "Belgrom Rockmaul", map = 1411, x = 40, y = 40 } } },
+	{ title = "Ag'tor Bloodfist", goals = { { t = "turnin", quest = 3504, title = "Betrayed", npc = 8576, npcName = "Ag'tor Bloodfist", map = 1411, x = 60, y = 60 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+fn betrayed(records: &str, world: &str) -> Value {
+	let script = format!(
+		r#"
+		{}
+		{records}
+		{world}
+		stub.fire("QUEST_LOG_UPDATE"); E.SetGuide("test/betrayed"); flush()
+		local v1, v2 = E.GetStepView(1), E.GetStepView(2)
+		emit({{ index = E.GetStepIndex(), accept = v1.goals[1].status, turnin = v2.goals[1].status }})"#,
+		forge_addontest::questdb::ADD_RECORDS_LUA
+	);
+	run1(Run {
+		guides: BETRAYED,
+		before: r#"w.race, w.raceName, w.faction, w.class, w.className, w.level = "Orc", "Orc", "Horde", "WARRIOR", "Warrior", 51"#,
+		full: true,
+		script: &script,
+		..Default::default()
+	})
+}
+
+// Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives,
+// zone, events, skill, holiday, preAll.
+const BETRAYED_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[3504] = { "Betrayed", 53, 44, 178, nil, 2 },
+	[3505] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, { 3504 } },
+	[3506] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, { 3505 } },
+	[3507] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, { 3506 } },
+	[9001] = { "Either lead-in, Horde", 50, 44, 178, nil, 2 },
+	[9002] = { "Open after 3504 or 9001", 53, 44, 178, nil, 2, nil, nil, nil, { 3504, 9001 } },
+	[9003] = { "Alliance lead-in", 50, 44, 77, nil, 1 },
+	[9004] = { "Open after 3504 or the Alliance lead-in", 53, 44, 178, nil, 2, nil, nil, nil, { 3504, 9003 } },
+})
+"#;
+
+#[test]
+fn an_accept_and_hand_in_are_done_once_a_later_quest_of_the_chain_is_in_the_log_or_done_2461_betrayed() {
+	let held = json!({ "index": 1, "accept": "active", "turnin": "pending" });
+	let past = json!({ "index": 3, "accept": "done", "turnin": "done" });
+	let at = |db: &str, world: &str| betrayed(db, world);
+	assert_eq!(at(BETRAYED_DB, ""), held, "nothing of the chain taken: the accept holds");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(3505, { { required = 10, fulfilled = 1 } })"), past, "Ag'tor's Betrayed in the log (Erisez's state)");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(3507, {})"), past, "a later part in the log: 3507 needs 3506 (preAll), which needs 3505, which needs 3504");
+	assert_eq!(at(BETRAYED_DB, "w.complete({ 3505 })"), past, "a later part done");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(9002, {})"), held, "a quest open after 3504 or another lead-in this character can take proves neither");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(9004, {})"), past, "the other lead-in is the Alliance's: for a Horde character it proves 3504");
+	assert_eq!(at("", "w.onQuest(3505, {})"), held, "no quest database loaded: nothing known, the accept holds as before");
+}
+
+// #2461 on the shipped guides (addon/Polestar_Guides_Horde): Erisez had Ag'tor's Betrayed (3505) in the log while
+// 06-azshara's Orgrimmar step held her on Belgrom's letter (3504). Since #2390 Betrayed starts at Ag'tor Bloodfist in
+// Valormok on Forever, so no Horde guide takes 3504 any more and 50-60/04-azshara takes 3505 from Ag'tor; the
+// engine's rule for an accept that a later part of its chain makes moot stays pinned by the test above.
+#[test]
+fn erisezs_betrayed_no_shipped_horde_guide_holds_on_belgroms_letter_2461() {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "DRUID", "Druid", 50"#;
+	let script = r#"
+stub.login(); stub.advance(0.25)
+local G = Polestar.Guides
+local r = { guides = 0, belgrom = {}, agtor = false }
+for _, h in ipairs(G.List()) do
+	local def = G.Get(h.id)
+	if def and h.id:find("^forever/") then
+		r.guides = r.guides + 1
+		for _, step in ipairs(def.steps or {}) do
+			for _, x in ipairs(step.goals or {}) do
+				if x.t == "accept" and x.quest == 3504 then r.belgrom[#r.belgrom + 1] = h.id end
+				if x.t == "accept" and x.quest == 3505 and h.id == "forever/horde/50-60/04-azshara" then r.agtor = true end
+			end
+		end
+	end
+end
+r.belgrom = table.concat(r.belgrom, ", ")
+emit(r)
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: script.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(out["guides"].as_u64().unwrap_or(0) > 20, "the Horde guides are in: {out}");
+	assert_eq!(out["belgrom"], "", "no Horde guide takes Belgrom's letter (3504): {out}");
+	assert_eq!(out["agtor"], true, "50-60/04-azshara takes Betrayed (3505) from Ag'tor Bloodfist: {out}");
+}
+
+// #2681 and #2683 (roethlar and Fibrasek, Scourge Paladins 24 and 27, 0.4.0.1, Horde 02-the-barrens at Camp
+// Taurajo): "Turn in Ishamuhale" showed done with Ishamuhale (882) still in the log at 0/1, and the step went on to
+// Enraged Thunder Lizards (907), which Jorn Skyseer doesn't offer before Ishamuhale is handed in. The quest
+// database lists Melor Sends Word (1130, from Jorn, from level 20) as needing 882, so a character carrying 1130 made
+// 882 look handed in (#2461's rule); players' recordings show Jorn offering 1130 without 882. A quest still in the
+// log is never handed in, whatever its later chain says: the game takes it out of the log at the hand-in.
+const ISHAMUHALE: &str = r#"
+Polestar.RegisterGuide({ id = "test/barrens", pack = "test", title = "The Barrens", faction = "Horde", minLevel = 14, maxLevel = 30, zone = 1411, steps = {
+	{ title = "Camp Taurajo", goals = {
+		{ t = "turnin", quest = 882, title = "Ishamuhale", npc = 3387, npcName = "Jorn Skyseer", map = 1411, x = 44.9, y = 59.1 },
+		{ t = "accept", quest = 907, title = "Enraged Thunder Lizards", npc = 3387, npcName = "Jorn Skyseer", map = 1411, x = 44.9, y = 59.1 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+// Layout as BETRAYED_DB's: 1130's one-of `pre` is 882, as in 0.4.0.1's quest database.
+const ISHAMUHALE_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[882] = { "Ishamuhale", 19, 10, 178, nil, 2, nil, nil, nil, { 3261 } },
+	[907] = { "Enraged Thunder Lizards", 18, 10, 178, nil, 2, nil, nil, nil, { 882 } },
+	[1130] = { "Melor Sends Word", 30, 20, 178, nil, 2, nil, nil, nil, { 882 } },
+})
+"#;
+
+#[test]
+fn a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale() {
+	let at = |world: &str| {
+		let script = format!(
+			r#"
+			{}
+			{ISHAMUHALE_DB}
+			{world}
+			stub.fire("QUEST_LOG_UPDATE"); E.SetGuide("test/barrens"); flush()
+			local v = E.GetStepView(1)
+			emit({{ index = E.GetStepIndex(), turnin = v.goals[1].status, accept = v.goals[2].status }})"#,
+			forge_addontest::questdb::ADD_RECORDS_LUA
+		);
+		run1(Run {
+			guides: ISHAMUHALE,
+			before: r#"w.race, w.raceName, w.faction, w.class, w.className, w.level = "Scourge", "Undead", "Horde", "PALADIN", "Paladin", 24"#,
+			full: true,
+			script: &script,
+			..Default::default()
+		})
+	};
+	let carrying = at("w.onQuest(882, { { required = 1, fulfilled = 0 } }); w.onQuest(1130, {})");
+	assert_eq!(carrying["index"], 1, "the guide stays at Camp Taurajo: {carrying}");
+	assert_ne!(carrying["turnin"], "done", "Ishamuhale at 0/1 in the log is not handed in, 1130 in the log or not: {carrying}");
+	let alone = at("w.onQuest(882, { { required = 1, fulfilled = 0 } })");
+	assert_eq!(carrying, alone, "1130 in the log changes nothing while 882 is in it");
+	assert_eq!(at("w.onQuest(1130, {}); w.onQuest(907, { { required = 3, fulfilled = 0 } })")["turnin"], "done", "with 882 out of the log and 907 taken, #2461's rule still counts it handed in");
+}

@@ -48,6 +48,8 @@ const { resolve, readTGA } = require('./render');
 const { buildProgram, parseEmitted } = require('../../tests/helpers/lua');
 const { findLua } = require('../lib/lua');
 const { ROOT } = require('../lib/paths');
+// The Share tab's profile in use and its two states, as the studio draws them.
+const SHARE = require('../studio/scenarios/profile-share');
 
 const DRIVER = path.join(ROOT, 'tools', 'play', 'driver.lua');
 const AUDIT_LUA = path.join(__dirname, 'audit.lua');
@@ -150,6 +152,21 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()',
 	},
 	{
+		// Freedoom Arcade on a flight (Maps/Arcade.lua): the card asking to play, under the timer.
+		key: 'hud-arcade-ask', title: 'the flight timer and the card asking to play Freedoom Arcade (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("ask")',
+	},
+	{
+		key: 'hud-arcade-row', title: 'the flight timer and its Play Freedoom Arcade row (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("row")',
+	},
+	{
+		// Polestar_Arcade's window, loaded on demand as the first Play loads it, in the look's frame.
+		key: 'arcade-window', title: "Freedoom Arcade's window from Polestar_Arcade (0.4.0)", roots: ['Polestar_ArcadeFrame'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: `stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }
+assert(Polestar.Arcade.Open(), "the game did not open")`,
+	},
+	{
 		key: 'dialog-confirm', title: 'the confirm dialog', roots: ['PolestarModal'],
 		script: `${TABS}
 Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in this guide are cleared.", action = "Reset", danger = true, onAccept = function() end })`,
@@ -164,6 +181,20 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'settings-theme', title: 'the settings window: Colour', ...scene('settings-theme.svg', 0) },
 	{ key: 'settings-guidewindow', title: 'the settings window: Window', ...scene('settings-guidewindow.svg', 0) },
 	{ key: 'settings-alerts', title: 'the settings window: Alerts', ...scene('settings-alerts.svg', 0) },
+	// The Profiles page's Share tab: Make a string with the Guide window's list
+	// open and a long string made, scrolled to the string's well; a friend's
+	// string pasted, its changes open (yours, theirs).
+	...['export', 'import'].map((state) => ({
+		key: state === 'export' ? 'settings-share' : 'settings-share-import',
+		title: state === 'export'
+			? "the settings window: Profiles, Share (Make a string's checklist, a category's list open, a long string made)"
+			: "the settings window: Profiles, Share (a friend's string pasted, a category's changes open)",
+		roots: ['PolestarOptions'],
+		script: `${SHARE.MINE}
+Polestar.UI.ShowOptions("profiles")
+Polestar.UI.Options.Select("profiles", Polestar.L["Share"])
+${SHARE.STATES[state]}`,
+	})),
 ];
 
 const q = (s) => JSON.stringify(String(s));

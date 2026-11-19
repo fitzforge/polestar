@@ -4,7 +4,7 @@
 		"A new English text fails; so does an entry whose scenes all ran in its locale, with the Codex and quest database built, without it showing (fixed: remove it). `forge i18n leaks --update-baseline` adds what the run found and drops the stale entries; it never takes English from the code or an untranslated string or guide text."
 	],
 	"reasons": {
-		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn)",
+		"no-source": "no source of `i18n names` (the client tables, the web names cache, DingDB, pfQuest) names it in this language: mostly Forever's own NPCs, objects and items; the client shows its own name once the player has seen it (Names.Learn). \"objective:<quest>\": a dungeon quest's objective text no source has, whose event objectives the Dungeons page shows in the quest data's English (the only kind of text taken here: the event has no name of its own to look up)",
 		"same-as-english": "every source names it in this language as in English (a Latin-script client keeps the name): the English is the client's name, and the names addon does not store it",
 		"kept-english": "a translation writes these words as the English does: mostly the names of Forever-only places and items no client names otherwise; a translator can still translate them"
 	},
@@ -32402,13 +32402,6 @@
 				],
 				"english": "Grimlok"
 			},
-			"encounter:594": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
-			},
 			"encounter:595": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -34269,13 +34262,6 @@
 					"guides"
 				],
 				"english": "Polly"
-			},
-			"npc:7273": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
 			},
 			"npc:7311": {
 				"reason": "same-as-english",
@@ -36795,6 +36781,27 @@
 			}
 		},
 		"ruRU": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:255247": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Swarming Imp"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -37162,6 +37169,13 @@
 				],
 				"english": "Rotting Dwarf Corpse"
 			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
+			},
 			"npc:246016": {
 				"reason": "no-source",
 				"scenes": [
@@ -37276,12 +37290,26 @@
 				],
 				"english": "Ravasaur Matriarch"
 			},
-			"npc:253370": {
+			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
-				"english": "[DNT] Kill Credit: Place Explosives"
+				"english": "Kog'thug the Brave"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
+			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
 			},
 			"npc:255391": {
 				"reason": "no-source",
@@ -37297,12 +37325,26 @@
 				],
 				"english": "Blazeroar"
 			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
+			},
 			"npc:255997": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Tidemistress Ca'zass"
+			},
+			"npc:256102": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
 			},
 			"npc:256236": {
 				"reason": "no-source",
@@ -37318,6 +37360,20 @@
 					"rares"
 				],
 				"english": "Reginald Holmsby"
+			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
 			},
 			"npc:256830": {
 				"reason": "no-source",
@@ -37350,6 +37406,13 @@
 				],
 				"english": "Mad Marrius"
 			},
+			"npc:258023": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sergeant Riftan"
+			},
 			"npc:258032": {
 				"reason": "no-source",
 				"scenes": [
@@ -37357,6 +37420,13 @@
 					"rares"
 				],
 				"english": "Twilight Forgemaster"
+			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -37392,6 +37462,13 @@
 					"dungeons"
 				],
 				"english": "Twilight Commander Zarmok"
+			},
+			"npc:259256": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tunk"
 			},
 			"npc:259620": {
 				"reason": "no-source",
@@ -37429,6 +37506,13 @@
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -37572,6 +37656,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:265701": {
 				"reason": "no-source",
 				"scenes": [
@@ -37579,12 +37677,12 @@
 				],
 				"english": "Captain Truman"
 			},
-			"npc:266593": {
+			"npc:268423": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
-				"english": "Sergeant Danneth"
+				"english": "Zalfan Moonshadow"
 			},
 			"npc:271181": {
 				"reason": "no-source",
@@ -37713,6 +37811,20 @@
 				],
 				"english": "Molsen Farm Water Well"
 			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
+			},
+			"object:614679": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
+			},
 			"object:616860": {
 				"reason": "no-source",
 				"scenes": [
@@ -37741,6 +37853,27 @@
 					"guides"
 				],
 				"english": "Fishing Trap"
+			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -37864,6 +37997,20 @@
 			}
 		},
 		"zhCN": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -38165,13 +38312,6 @@
 				],
 				"english": "Archmage Lan'dalock"
 			},
-			"npc:29049": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Arille Azuregaze"
-			},
 			"npc:31439": {
 				"reason": "no-source",
 				"scenes": [
@@ -38349,6 +38489,13 @@
 				],
 				"english": "Tyrant of the Hive"
 			},
+			"npc:227853": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Pix Xizzix"
+			},
 			"npc:228619": {
 				"reason": "no-source",
 				"scenes": [
@@ -38362,6 +38509,13 @@
 					"dungeons"
 				],
 				"english": "Rotting Dwarf Corpse"
+			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
 			},
 			"npc:243046": {
 				"reason": "no-source",
@@ -38684,12 +38838,12 @@
 				],
 				"english": "Fillion Flamebreeze"
 			},
-			"npc:253370": {
+			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
-				"english": "[DNT] Kill Credit: Place Explosives"
+				"english": "Kog'thug the Brave"
 			},
 			"npc:253576": {
 				"reason": "no-source",
@@ -38711,6 +38865,28 @@
 					"guides"
 				],
 				"english": "Vayn Moongaze"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
+			},
+			"npc:255183": {
+				"reason": "no-source",
+				"scenes": [
+					"picker",
+					"rares"
+				],
+				"english": "Jezerelle the Swaying"
+			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
 			},
 			"npc:255391": {
 				"reason": "no-source",
@@ -38748,6 +38924,13 @@
 					"slash"
 				],
 				"english": "Slydris"
+			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
 			},
 			"npc:255997": {
 				"reason": "no-source",
@@ -38832,6 +39015,27 @@
 				],
 				"english": "Huey Sunnydale"
 			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
+			},
+			"npc:256799": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Champion"
+			},
 			"npc:256830": {
 				"reason": "no-source",
 				"scenes": [
@@ -38877,6 +39081,13 @@
 					"guides"
 				],
 				"english": "Teo Hammerstorm"
+			},
+			"npc:257558": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Demar Brant"
 			},
 			"npc:257591": {
 				"reason": "no-source",
@@ -38935,6 +39146,13 @@
 				],
 				"english": "Hervdana Saegrund"
 			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
+			},
 			"npc:258905": {
 				"reason": "no-source",
 				"scenes": [
@@ -38991,6 +39209,13 @@
 					"guides"
 				],
 				"english": "Denaaris Stargale"
+			},
+			"npc:259250": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Alphonse Dumas"
 			},
 			"npc:259385": {
 				"reason": "no-source",
@@ -39073,12 +39298,26 @@
 				],
 				"english": "Captain Dreadrise"
 			},
+			"npc:260146": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
+			},
 			"npc:260243": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -39244,6 +39483,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:264936": {
 				"reason": "no-source",
 				"scenes": [
@@ -39280,13 +39533,6 @@
 				],
 				"english": "Lord Tomas"
 			},
-			"npc:266593": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Sergeant Danneth"
-			},
 			"npc:266901": {
 				"reason": "no-source",
 				"scenes": [
@@ -39310,6 +39556,20 @@
 					"guides"
 				],
 				"english": "Va'xug Firefure"
+			},
+			"npc:268423": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zalfan Moonshadow"
+			},
+			"npc:268425": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ranath Nightstride"
 			},
 			"npc:268592": {
 				"reason": "no-source",
@@ -39797,12 +40057,12 @@
 				],
 				"english": "Mining Tools"
 			},
-			"object:562131": {
+			"object:563442": {
 				"reason": "no-source",
 				"scenes": [
 					"guide"
 				],
-				"english": "Applejack Still"
+				"english": "Kobold Tracks"
 			},
 			"object:578937": {
 				"reason": "no-source",
@@ -39817,6 +40077,13 @@
 					"guides"
 				],
 				"english": "Flutterfly Dust"
+			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
 			},
 			"object:613238": {
 				"reason": "no-source",
@@ -39909,6 +40176,14 @@
 				],
 				"english": "Tomb Weed"
 			},
+			"object:694772": {
+				"reason": "no-source",
+				"scenes": [
+					"guide",
+					"guides"
+				],
+				"english": "Fishing Trap"
+			},
 			"object:694785": {
 				"reason": "no-source",
 				"scenes": [
@@ -39938,6 +40213,27 @@
 					"guides"
 				],
 				"english": "Windstone Formation"
+			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
+			"objective:93404": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",

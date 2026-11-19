@@ -74,7 +74,9 @@ return {
 		["party.share"] = function()
 			n = n + 1
 			local before = sent("1|") + sent("1R|")
-			w.progress(18, 1, n % 8)
+			-- Another count than the log holds now (other checks move it too), so there is progress to share.
+			local o = w.log[18] and w.log[18].objectives[1]
+			w.progress(18, 1, ((o and o.numFulfilled or 0) + 1) % 8)
 			stub.advance(6)
 			return sent("1|") + sent("1R|") - before
 		end,
@@ -123,7 +125,9 @@ return {
 		-- A stranger of your faction targeted out of town, half a minute after the last one (ui-update.rs's meet), on
 		-- a release build (the test build's "0.1.0-test" is none, and only a release asks): the tagged whisper that
 		-- asks their Polestar's version.
-		["update.probe"] = { prepare = function()
+		-- Each read meets another stranger after half a minute, as the asks are paced (once: no reads over a profile
+		-- switch beside the runner's three).
+		["update.probe"] = { once = true, prepare = function()
 			version, Polestar.version = Polestar.version, "0.3.7"
 			Polestar.Update.Listen()
 		end, cleanup = function()

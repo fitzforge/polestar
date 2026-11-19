@@ -38,6 +38,67 @@
 			],
 			"note": "The Befouled Element (1918) starts from the Befouled Water Globe (16408), which Tideress (12759) drops only for a player who has Stonetalon Standstill (25) in the log or handed in. Source: players' in-game recordings to 2026-11-08: the 7 people who took 1918 all had 25 (6 in the log, 1 handed in), 2 people without it killed Tideress and got no globe, and the player report #1346. The loot tables of the Classic servers have only a Horde condition on the globe."
 		},
+		"498": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 2427
+					},
+					"item": 3467,
+					"fact": "Jailor Eston in Durnholde Keep carries the Dull Iron Key: it opens Drull's lock.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 2428
+					},
+					"item": 3499,
+					"fact": "Jailor Marlgen in Durnholde Keep carries the Burnished Gold Key: it opens Tog'thar's lock.",
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "use-item",
+					"target": {
+						"type": "object",
+						"id": 1722
+					},
+					"item": 3499,
+					"fact": "Open Tog'thar's ball and chain with the Burnished Gold Key.",
+					"place": {
+						"map": 1424,
+						"x": 79.79,
+						"y": 39.65,
+						"f": "e"
+					},
+					"confidence": "high"
+				},
+				{
+					"n": 4,
+					"action": "use-item",
+					"target": {
+						"type": "object",
+						"id": 1721
+					},
+					"item": 3467,
+					"fact": "Open Drull's ball and chain with the Dull Iron Key.",
+					"place": {
+						"map": 1424,
+						"x": 75.33,
+						"y": 41.5,
+						"f": "e"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "The Rescue (498): each locked ball and chain opens only with its jailor's key. Source: players' in-game recordings to 2026-11-17: Jailor Eston's (2427) loot held the Dull Iron Key (3467) for 37 people and Jailor Marlgen's (2428) the Burnished Gold Key (3499) for 40; 58 people ticked each lock, Drull's (objective 1) at 75.3,41.6 and Tog'thar's (objective 2) at 79.8,39.6; and Acen's report (#2512), where the guide sent him to the locks without the keys."
+		},
 		"91736": {
 			"kinds": [
 				{
@@ -364,6 +425,131 @@
 				}
 			],
 			"note": "Essence of the Exile (1714) is handed in at Bath'rah's Cauldron (object 89931) straight from the cauldron's window, which opens on the charms it wants (\"The cauldron bubbles. Its vapors beckon...\", then Continue): a player's in-game screenshot (#1699). The game's data marks 1714 as a quest handed in on the spot, repeatable, offered only while Cyclonian is in the log; players' recordings have never shown a quest of that kind accepted (66 such quests handed in, none taken)."
+		},
+		"851": {
+			"kinds": [
+				{
+					"kind": "other",
+					"confidence": "medium"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 3395
+					},
+					"fact": "Verog the Dervish does not wander the Stagnant Oasis on his own: he comes out when you kill the Kolkar centaurs there. Keep killing them until he appears.",
+					"place": {
+						"map": 1413,
+						"x": 53.1,
+						"y": 41.7,
+						"f": "e"
+					},
+					"confidence": "medium"
+				}
+			],
+			"note": "Verog the Dervish (851): Verog (3395) appears at the Stagnant Oasis after Kolkar centaurs are killed there, not as a standing spawn. Source: players' in-game recordings to 2026-11-15: of 76 recorded Verog kills (61 people), 63 came within ten minutes of a Kolkar kill, a median of 25 seconds after the last one (Kolkar Marauders, Bloodchargers, Pack Runners); and Corey's report (#2479)."
+		},
+		"8554": {
+			"kinds": [
+				{
+					"kind": "other",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "turn-in",
+					"target": {
+						"type": "object",
+						"id": 2289
+					},
+					"fact": "Negolash is not standing anywhere: hand in Enticing Negolash (619) at the Ruined Lifeboat on the shore south-east of Booty Bay, with 10 Barbecued Buzzard Wings and 5 Junglevine Wine, and he comes to the boat. Kill him there for Smotts' Cutlass.",
+					"place": {
+						"map": 1434,
+						"x": 32.48,
+						"y": 81.98,
+						"f": "e"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
+		},
+		"96018": {
+			"kinds": [
+				{
+					"kind": "multi-step-in-one-objective",
+					"confidence": "medium"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 264149
+					},
+					"item": 255662,
+					"fact": "With the Mana Sieve in your bags, gather mana before you go to the pylons: the Sieve takes it from the Unstable Mana Rifts, the floating sparks along the road north. Each pylon needs its share of it.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 252711
+					},
+					"fact": "At each pylon, kill a Decrepit Pylon Protector beside it, then use Repair and Recharge Pylon on the pylon.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
+		},
+		"96082": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "use-item-on-mob",
+					"item": 272126,
+					"npcs": [
+						263614
+					]
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 263614
+					},
+					"item": {
+						"id": 272126
+					},
+					"fact": "Use the Makeshift Bandages Brother Lowley gives you on the Wounded Soldiers beside him; each one bandaged counts. Don't kill them.",
+					"place": {
+						"map": 2548,
+						"x": 65.5,
+						"y": 79.3,
+						"f": "l"
+					},
+					"confidence": "high"
+				}
+			],
+			"note": "Doctor's Orderly (96082) is done by using the Makeshift Bandages (272126, given with the quest) on the Wounded Soldiers (263614) at Farholde Keep; the game stores the objective as a kill credit, so a step built from it said \"Kill Wounded Soldier\" (#2831). Source: players' in-game recordings to 2026-11-17: 31 people, every one of their 88 ticks right after a cast of Apply Bandage (spell 1290242) on a Wounded Soldier; the client's item tables give that spell as the bandages' use."
 		}
 	}
 }

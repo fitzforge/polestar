@@ -191,3 +191,36 @@ fn the_route_compiled_with_the_offer_and_without_it_differs_only_in_the_offer() 
 		}
 	}
 }
+
+// Every experimental zone has a way in for each side it is for (project.rs experimental_offered_everywhere, run by
+// every compile of our pack): the pack's first guide (exp-1; exp-2 is led to by exp-1) offered by a route choice
+// of an Alliance guide of ours, never by the default line; exp-horde, for the Horde, only once one of our guides
+// is a Horde one.
+#[test]
+fn every_experimental_zone_is_offered_to_every_side_it_is_for() {
+	let exp = compile_exp();
+	let check = |files: &[(String, String)]| -> Vec<String> {
+		let ours = compile_ours(files);
+		let mut diag = forge_guide::diag::Diagnostics::new();
+		forge_guide::project::experimental_offered_everywhere(&ours.guides, &exp.guides, &mut diag);
+		diag.sorted().iter().filter(|d| d.severity == "error").map(strip).collect()
+	};
+	let missing = |id: &str, side: &str| {
+		format!("exp-{id}.guide:1: experimental guide \"polestar-experimental/exp-{id}\" is for the {side} but no {side} guide of ours offers it: its zone has no way in for them")
+	};
+	assert_eq!(check(&our_files(&["forever/alliance/t-default", "polestar-experimental/exp-1"])), Vec::<String>::new(), "offered; no Horde guide of ours");
+	assert_eq!(check(&our_files(&["forever/alliance/t-default"])), vec![missing("1", "Alliance")], "offered by none");
+	let mut files = our_files(&["forever/alliance/t-default", "polestar-experimental/exp-1"]);
+	files.push(("horde.guide".into(), "guide forever/horde/t-horde\ntitle t-horde\nfaction Horde\nlevels 10-20\nzone Durotar\n\nstep One\n  goto 50.0,50.0 \"Camp\"\n".into()));
+	assert_eq!(check(&files), vec![missing("horde", "Horde")], "a Horde guide of ours: the Horde's zone needs its offer");
+	files.pop();
+	files.push((
+		"horde.guide".into(),
+		"guide forever/horde/t-horde\ntitle t-horde\nfaction Horde\nlevels 10-20\nzone Durotar\nnext polestar-experimental/exp-horde\n\nstep One\n  goto 50.0,50.0 \"Camp\"\n".into(),
+	));
+	assert_eq!(check(&files), vec![missing("horde", "Horde")], "the default line never counts");
+	files.pop();
+	files.push(("horde.guide".into(), "guide forever/horde/t-horde\ntitle t-horde\nfaction Horde\nlevels 10-20\nzone Durotar\nnext forever/horde/t-horde-2\nnext polestar-experimental/exp-horde\n\nstep One\n  goto 50.0,50.0 \"Camp\"\n".into()));
+	files.push(("horde2.guide".into(), "guide forever/horde/t-horde-2\ntitle t-horde-2\nfaction Horde\nlevels 20-30\nzone Durotar\n\nstep One\n  goto 50.0,50.0 \"Camp\"\n".into()));
+	assert_eq!(check(&files), Vec::<String>::new(), "offered to both sides");
+}

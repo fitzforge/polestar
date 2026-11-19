@@ -42,7 +42,8 @@ ns.RegisterDefaults("ui", {
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the game's in Polestar) | "opensans" | "game" | "inter" | "fira"
-	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
+	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale; the guide window has its own (guideTextSize)
+	guideTextSize = 1, -- 0.8..1.4: the same, for the guide window's text only (Theme.TextScope)
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
 	bgColor = false, -- false: the scheme's ground; { r, g, b }: your own
@@ -58,7 +59,6 @@ ns.RegisterDefaults("ui", {
 	borderSize = 1, -- 1..4 physical pixels, growing outward
 	band = true, -- the starlit header band
 	shadow = true, -- the window drop shadow
-	pickerFaction = "auto", -- "auto" | "Alliance" | "Horde" | "All"
 	-- pickerCollapsed = { [folder id] = true }: the guide menu's Browse folders folded away (UI.Picker.IsCollapsed)
 	-- pos = { left, top } once the window has been moved
 })
@@ -96,6 +96,12 @@ function UI.LevelRange(lo, hi)
 	lo, hi = lo or hi, hi or lo
 	if lo == hi then return tostring(lo) end
 	return lo .. "\226\128\147" .. hi
+end
+
+-- Guide (or header) g's levels for the player's side, as LevelRange writes
+-- them (Guides.Levels: a guide both factions play may give each its own).
+function UI.GuideLevels(g)
+	return UI.LevelRange(ns.Guides.Levels(g))
 end
 
 -- Player-facing race names for the client's race files: the client's own
@@ -179,7 +185,7 @@ function UI.GuideMeta(guide)
 	if cat ~= "Leveling" then parts[#parts + 1] = L[cat] end
 	local place = UI.GuidePlace(guide)
 	if place then parts[#parts + 1] = place end
-	local lv = UI.LevelRange(guide.minLevel, guide.maxLevel)
+	local lv = UI.GuideLevels(guide)
 	if lv then parts[#parts + 1] = L["Levels"] .. " " .. lv end
 	return table.concat(parts, "  \194\183  ")
 end
@@ -372,11 +378,7 @@ function UI.GoalDetail(goal)
 end
 
 -- "1,050" for XP amounts.
-local function thousands(n)
-	local s = tostring(math.floor(n + 0.5))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	return (out:gsub("^,", ""))
-end
+local thousands = ns.Thousands
 
 -- "1g 50s" from copper.
 local function money(copper)
@@ -559,7 +561,7 @@ end
 -- Desolace (37–38)"; just the title (or id) when it has none.
 function UI.GuideLabel(g)
 	local title = g.title or g.id
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	return lv and (title .. " (" .. lv .. ")") or title
 end
 
@@ -616,13 +618,41 @@ function UI.ReadingGoal(view, goal)
 	}, { __index = goal })
 end
 
+-- A material goal's line (the Engine's `materials`; Core/Materials.lua): what
+-- the bank, the mail and the other characters hold, and on an Auction House
+-- goal what is still to buy, priced for that many: "40 in your bank  ·  47 to
+-- buy  ·  ≈ 87s". A price older than 3 days says so; one for fewer than that
+-- count says how many are listed.
+function UI.MaterialsLine(goal)
+	local m = goal.materials
+	if type(m) ~= "table" then return nil end
+	local parts = {}
+	if m.bank > 0 then parts[#parts + 1] = format(L["%s in your bank"], thousands(m.bank)) end
+	if m.mail > 0 then parts[#parts + 1] = format(L["%s in your mail"], thousands(m.mail)) end
+	for i = 1, math.min(2, #m.alts) do
+		parts[#parts + 1] = format(L["%s has %s"], m.alts[i].name, thousands(m.alts[i].count))
+	end
+	if goal.t == "auction" and m.toGet > 0 then
+		parts[#parts + 1] = format(L["%s to buy"], thousands(m.toGet))
+		if m.price then
+			local price = format(L["≈ %s"], money(m.price))
+			if m.listed then price = price .. " " .. format(L["(only %s listed)"], thousands(m.listed)) end
+			if m.age and m.age > 3 * 86400 then price = price .. " " .. L["(old price)"] end
+			parts[#parts + 1] = price
+		end
+	end
+	if #parts == 0 then return nil end
+	return table.concat(parts, "  \194\183  ")
+end
+
 -- The one line under a goal in the reading flow, only when it changes what
 -- the player does: why a quest is unavailable, that the goal needs a group,
 -- that it is an escort, how to get the item a quest starts from, which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
 -- farm spot is, where a chosen trainer/vendor is, what a travel step's
--- flight or walk leads to, the goal's own note (a
+-- flight or walk leads to, a material's counts out of the bags and what is
+-- still to buy (UI.MaterialsLine), the goal's own note (a
 -- `complete` goal's objectives are its main line), and an open turn-in's
 -- rewards; then, on a line of its own, that a later guide hands the quest
 -- in (UI.CarriedLine: keep it). The rest of the detail ("for Kobold Camp
@@ -652,6 +682,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if finder then parts[#parts + 1] = finder end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
+	-- A `direct` hand-in: its giver offers it and takes it back in one talk.
+	if goal.directText then parts[#parts + 1] = goal.directText end
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
@@ -666,6 +698,9 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	elseif goal.handInFirst then
 		parts[#parts + 1] = L["Hand in first: your finished quests cover it"]
 	end
+	-- A material: the bank's, the mail's and the other characters' counts, what is still to buy.
+	local mats = UI.MaterialsLine(goal)
+	if mats then parts[#parts + 1] = mats end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
@@ -803,6 +838,16 @@ function UI.StepTotal(E)
 	E = E or ns.Engine
 	if E and E.StepTotal then return E.StepTotal() end
 	return E and E.GetStepCount and E.GetStepCount() or 0
+end
+
+-- "Guide me" under the guide window's "left out here" (#2634): Lookup's
+-- guide to quest q through the quests it needs first (Lookup.QuestChain), in
+-- a new tab; where Lookup cannot build one (off, no Codex), its page for the
+-- quest.
+function UI.LeftOutGuide(q)
+	local Lk = ns.Lookup
+	if not (Lk and Lk.Guide and type(q) == "number") then return end
+	if not Lk.Guide("quest", q) and Lk.Show then Lk.Show(nil, "quest", q) end
 end
 
 -- The groups of a step view (docs/ARCHITECTURE.md, "Focus: one person at a
@@ -966,7 +1011,7 @@ ns.On("SHOW_FRAME", function()
 	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
-ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)
+ns.On("SHOW_OPTIONS", function(section, ask) if UI.ShowOptions then UI.ShowOptions(section, ask) end end)
 -- The guide menu and the options from a key binding or a gamepad chord: open, or close when open.
 ns.On("TOGGLE_PICKER", function()
 	local P = UI.Picker

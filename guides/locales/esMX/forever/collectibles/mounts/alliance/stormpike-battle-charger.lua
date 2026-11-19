@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Stormpike Guard
 	-- {area:2839} Alterac Valley · {faction:730} Stormpike Guard · {npc:13217} Thanthaldis Snowgleam · {zone:1416} Alterac Mountains · {area:287} Hillsbrad · {npc:13216} Gaelden Hammersmith
-	["{area:2839} (level 51+) raises {faction:730}: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. {npc:13217} waits outside the battleground on the {zone:1416} border above {area:287}; {npc:13216} inside {area:2839} sells the same mount."] = "",
+	["{area:2839} (level 51+) raises {faction:730}: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. {npc:13217} waits outside the battleground on the {zone:1416} border above {area:287}; {npc:13216} inside {area:2839} sells the same mount."] = "{area:2839} (nivel 51+) sube {faction:730}: gana, captura torres y cementerios, y entrega las misiones del campo de batalla; la guía de reputación del Valle de Alterac muestra el camino más rápido. {npc:13217} espera afuera del campo de batalla, en el borde de {zone:1416} arriba de {area:287}; {npc:13216}, dentro de {area:2839}, vende la misma montura.",
 
 	-- Step 2: Stormpike Battle Charger
 	-- {skill:762} Riding
-	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Alliance race can ride it."] = "",
+	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Alliance race can ride it."] = "El cliente de Forever la lista a 200 de oro y nivel 60. Corre a toda velocidad, así que para montarla necesitas {skill:762} de oficial; cualquier raza de la Alianza puede montarla.",
 	-- {npc:13217} Thanthaldis Snowgleam
 	["{npc:13217}, 200g"] = "{npc:13217}, 200 o",
 

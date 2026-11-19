@@ -3,11 +3,15 @@
 mod along;
 mod cases_parity;
 mod common;
+mod dump_levels;
 mod engine_parity;
 mod engine_rilua;
 mod frame_default;
 mod fuzz_guide;
 mod guidetext_parity;
+mod honest_bound;
+mod honest_chain_classes;
+mod honest_empty;
 mod honest_parity;
 mod judge_parity;
 mod judge_simlevels;

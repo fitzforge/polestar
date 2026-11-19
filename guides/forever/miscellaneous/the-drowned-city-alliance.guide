@@ -1,0 +1,176 @@
+guide forever/miscellaneous/the-drowned-city-alliance
+title The Drowned City (Alliance)
+category Miscellaneous
+folder The Drowned City
+faction Alliance
+levels 35-40
+zone Stranglethorn Vale
+keywords Drowned City, I'lalai, Sunken Hollow, Vile Reef, Rebel Camp, Nimetz, Yohwa, Kurzen, Dibbs, Southshore, Dalaran, Timear, Abra Cadabra, Karnik, Krazek, Zul'Alai, Var'Taka, Dreadrise, Deathless Marrow, Min'loth, Saltseer, fetish, tablet, rubbing, barrier, dungeon
+reward item 279880 279881
+reward item 279879 279878
+reward item 279882 279930
+reward item 279883 279884
+why Every Alliance quest of the Drowned City in one run, lead-ins included.
+
+# The Drowned City's Alliance quests in one guide: the lead-in at the Rebel
+# Camp in northern Stranglethorn, the pick-ups in Southshore, Dalaran and
+# Booty Bay, one run through the dungeon, then the hand-ins. Steps already
+# done are passed over, so the guide picks up wherever the chain stands.
+#
+# The chain: Sergeant Yohwa's 203 The Second Rebellion and 204 Bad Medicine ->
+# Brother Nimetz's 207 Kurzen's Mystery (the legends of four tablets: objects
+# 54 and 52 in the Ruins of Zul'Kunda, 58 on the sea floor of the Vile Reef,
+# the tablet of the Horde's 629, and 57 in the Bal'lal Ruins) -> 205 Troll
+# Witchery (its Skullsplitters are level 39 to 42, so its step waits for 39)
+# -> 95786 An Acquaintance in Southshore, to Loremaster Dibbs. He gives 95787
+# Take Two With Water (the four rubbings inside, items 270308-270311, as the
+# Horde's 95775) and 95788 Magics of the Drowned City (five I'lalai Fetishes),
+# then 95799 Findings for the Explorer's League (Historian Karnik, Ironforge)
+# and 95798 The Web of Magic (Abra Cadabra, Dalaran). Archmage Timear in
+# Dalaran gives 97130 Ancient Gurubashi Secrets from level 34; the idol drops
+# from Deathless Marrow only while the quest is in the log, so he comes before
+# the run. Krazek in Booty Bay gives both factions 95789 Shady Saltseers and
+# 95791 The Saltseer Captain, from level 34.
+#
+# Inside: as in forever/miscellaneous/the-drowned-city-horde, the goals stand
+# at the entrance (@21.8,27.6, Sunken Hollow) with `group 5`, and the steps
+# follow a run of my own. The fetishes are an `along` goal for the whole run,
+# until the hand-in to Dibbs.
+#
+# Sources (facts only):
+# - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever),
+#   where the idol is a quest item; the hide and charcoal of the rubbing
+#   quests' objective texts are no item (see
+#   forever/miscellaneous/the-drowned-city-horde).
+# - The entrance, the dungeon's levels and what its tablets and Deathless
+#   Marrow give: players' recordings, as 0.4.0 holds them, and the client's
+#   group finder (see forever/miscellaneous/the-drowned-city-horde).
+# - The way through the dungeon: a run of my own, as a Horde character, which
+#   the Horde guide's header describes. Both sides make their rubbings at the
+#   same four tablets and take the idol from the same boss.
+# - Places outside: the client's world map areas for the spawns in
+#   data/forever, and the tablets' heights there (Gri'lek's on the sea floor,
+#   the Zul'Kunda two on the hill).
+# INGAME: where exactly do the tablets and the barrier stand inside? The
+#   recorder has no positions in the dungeon.
+
+step Sergeant Yohwa
+  tip At the Rebel Camp in northern Stranglethorn.
+  accept 203
+  accept 204
+
+step Kurzen's Compound
+  tip South-east of the Rebel Camp. The medicine men, headshrinkers and witch doctors drop the remedies; the Venom Fern Extract is in the Kurzen Supplies.
+  kill 937 x15 quest 203.1
+  collect 2633 x7 quest 204.1
+  collect 2634 quest 204.2
+
+step Rebel Camp
+  turnin 203
+  turnin 204
+  accept 207
+
+step The Emperor's Tomb
+  tip The Fourth Troll Legend, west of the Rebel Camp in the Ruins of Zul'Kunda, on the hill in the north-west.
+  collect 2008 quest 207.4
+
+step Fall of Gurubashi
+  tip The Third Troll Legend, a little south-west in the same ruins.
+  collect 2007 quest 207.3
+
+step Gri'lek the Wanderer
+  tip The Second Troll Legend, further south: the tablet lies on the sea floor of the Vile Reef. Mind your breath.
+  collect 2006 quest 207.2
+
+step Moon Over the Vale
+  tip The First Troll Legend, in the Bal'lal Ruins north-east of the reef.
+  collect 2005 quest 207.1
+
+step Rebel Camp
+  turnin 207
+  accept 205
+
+step Skullsplitter trolls
+  tip The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes.
+  level 39
+  collect 2466 x4 quest 205.1
+
+step Brother Nimetz
+  turnin 205
+  accept 95786
+
+step Loremaster Dibbs
+  zone Hillsbrad Foothills
+  tip In Southshore.
+  turnin 95786
+  accept 95787
+  accept 95788
+
+step Archmage Timear
+  zone Alterac Mountains
+  tip In Dalaran. He gives this from level 34.
+  accept 97130
+
+step Krazek
+  zone Stranglethorn Vale
+  tip In Booty Bay. Both factions take his two quests, from level 34.
+  accept 95789
+  accept 95791
+
+step To the Drowned City
+  tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef: due west of Grom'gol and south-west of the reef's tablet. Grom'gol is the Horde's camp: keep clear of its guards. Water breathing helps.
+  enter "The Drowned City" @21.8,27.6
+
+step I'lalai Fetishes
+  along until dibbs
+  collect 270343 x5 quest 95788.1 @21.8,27.6 group 5 -- Risen Sentries, Profane Necromancers and Undying Offerings drop them.
+
+step First tablet
+  tip Past the Makrura Snappers and Chasm Crawlers waits Zul'Alai, the first boss. The first tablet comes soon after him: click it for the rubbing.
+  collect 270308 quest 95787.1 @21.8,27.6 group 5
+
+step Var'Taka
+  tip Brinescale Explorers and Sorceresses guard the way to Var'Taka, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after Captain Dreadrise.
+  collect 270309 quest 95787.2 @21.8,27.6 group 5
+  kill 258924 @21.8,27.6 optional group 5
+
+step Captain Dreadrise
+  tip The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time.
+  kill 260042 quest 95791.1 @21.8,27.6 group 5
+  kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
+  collect 270310 quest 95787.3 @21.8,27.6 group 5
+  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- One pass through the pirates may give fewer than ten: Krazek takes the quest whenever you have them.
+
+step Deathless Marrow
+  tip Past the Champions of the Deep, Deathless Marrow fights with his guardians. He drops the idol.
+  collect 276894 quest 97130.1 @21.8,27.6 group 5
+
+step Min'loth the Serpent
+  tip The last boss. The fourth tablet is near him, and its rubbing still counts after he dies.
+  collect 270311 quest 95787.4 @21.8,27.6 group 5
+  kill 260243 @21.8,27.6 optional group 5
+
+step Krazek
+  turnin 95791
+  turnin 95789 optional -- Once you have the ten artifacts.
+
+step Loremaster Dibbs
+  label dibbs
+  zone Hillsbrad Foothills
+  turnin 95787
+  turnin 95788
+  accept 95799
+  accept 95798
+
+step Archmage Timear
+  zone Alterac Mountains
+  turnin 97130
+
+step Abra Cadabra
+  tip In Dalaran.
+  turnin 95798
+
+step Historian Karnik
+  zone Ironforge
+  tip In the Hall of Explorers.
+  turnin 95799

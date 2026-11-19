@@ -34,14 +34,26 @@ local function atNpc(rg, npc)
 	return false
 end
 
--- The option the live step wants picked in the open gossip, or nil.
+-- The option the live step wants picked in the open gossip, or nil. The
+-- step's view (each goal's state) only when one of its goals is at this NPC:
+-- most gossip windows are someone else's (a vendor, a flight master), and a
+-- view built at GOSSIP_SHOW, a moment of its own, is built for nothing else.
 function Gossip.Wanted(options, npc)
 	local E = ns.Engine
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live, true)
 	local g = E and E.GetGuide and E.GetGuide()
 	local raw = g and g.steps and g.steps[live] and g.steps[live].goals
-	if not (view and raw and npc) then return nil end
+	if not (raw and npc) then return nil end
+	local here = false
+	for i = 1, #raw do
+		if atNpc(raw[i], npc) then
+			here = true
+			break
+		end
+	end
+	if not here then return nil end
+	local view = E.GetStepView(live, true)
+	if not view then return nil end
 	local service
 	for i, gv in ipairs(view.goals or {}) do
 		local rg = raw[i] or gv

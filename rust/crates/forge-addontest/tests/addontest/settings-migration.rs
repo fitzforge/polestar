@@ -140,8 +140,8 @@ local function ser(v)
 end
 "#;
 
-// The fixtures' two characters, as the client knows them (their faction matters: the guide picker's faction
-// filter, for one, goes back to "auto" on a character of the other faction).
+// The fixtures' two characters, as the client knows them (their faction matters: the guides each one is offered
+// are of its own side).
 const WHO: [&str; 2] = [
 	r#"local w = stub.world; w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction = "Tauren", "Tauren", 6, "WARRIOR", "Warrior", 1, "Horde""#,
 	r#"local w = stub.world; w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction = "Scourge", "Undead", 5, "WARLOCK", "Warlock", 9, "Horde""#,

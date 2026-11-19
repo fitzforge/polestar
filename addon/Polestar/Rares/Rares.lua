@@ -10,9 +10,11 @@
 --
 --   Rares.Decide(s, ctx) -> action, reason          pure
 --     s   = { source = "vignette"|"nameplate"|"target"|"mouseover", kind = "rare"|"treasure",
---             id, name, classification, dead, player, level }
+--             id, name, classification, dead, player, level, attackable }
+--         attackable: a unit's UnitCanAttack("player", unit); false = on the player's side
 --     ctx = { get = fn(key) -> setting (key without "rares."), now = epoch seconds,
---             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool }
+--             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool,
+--             friendly = fn(id) -> bool (the Codex puts the NPC on the player's side) }
 --     action: "alert" | "hold" (alert once combat ends) | "record" (remember, no alert) | "skip"
 --   Rares.Key(kind, id, name) -> "rare:61" | "treasure:2843" | "name:<name>"
 --   Rares.Sighting(s, where) -> action, reason        the live path: decide, record, alert
@@ -29,8 +31,10 @@
 --     ctx = { get, now (GetTime), inCombat, inInstance, self, alerted (GetTime of this session's alert), present }
 --   Rares.FounderSighting(unit, source, guid) -> action, reason   the live path for a player unit
 -- Messages: RARE_SPOTTED(alert) when an alert fires (alert.kind "founder" for
--- the founder); RARES_HISTORY(key) when the history changes; RARE_NEARBY when
--- the rares (and the founder) in range change.
+-- the founder); RARE_NAMED(key, name) when a sighting that alerts nothing
+-- (cooldown, combat hold) carries the name, for a card that went up unnamed;
+-- RARES_HISTORY(key) when the history changes; RARE_NEARBY when the rares
+-- (and the founder) in range change.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -79,6 +83,25 @@ Rares.FOUNDER = "Fitz Polestar"
 local HISTORY_MAX = 400
 local CLASS_RARE = { rare = true, rareelite = true }
 
+-- Faction leaders the 0.4.1 Codex lists as rares (#2929, #2942): players'
+-- sightings of them were taken for rare sightings. They are never rares here,
+-- whatever the Codex says, so they never alert, pin or list.
+local NOT_RARE = {
+	[1284] = true, -- Archbishop Benedictus
+	[1749] = true, -- Lady Katrana Prestor
+	[2425] = true, -- Varimathras
+	[2784] = true, -- King Magni Bronzebeard
+	[3057] = true, -- Cairne Bloodhoof
+	[3516] = true, -- Arch Druid Fandral Staghelm
+	[4949] = true, -- Thrall
+	[4968] = true, -- Lady Jaina Proudmoore
+	[7937] = true, -- High Tinker Mekkatorque
+	[7999] = true, -- Tyrande Whisperwind
+	[10181] = true, -- Lady Sylvanas Windrunner
+	[10540] = true, -- Vol'jin
+}
+Rares.NOT_RARE = NOT_RARE
+
 -- Sounds the alert may play: SOUNDKIT names in Blizzard_SharedXML/Mainline/
 -- SoundKitConstants.lua (Forever 1.60.1), with their ids as the fallback.
 Rares.SOUNDS = {
@@ -111,10 +134,16 @@ function Rares.Decide(s, ctx)
 	if s.player then return "skip", "player" end
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	if kind == "rare" then
+		if s.id and NOT_RARE[s.id] then return "skip", "notRare" end
 		-- A vignette on a creature is a rare by the client's own word; a unit
 		-- must say so itself or be one the Codex knows.
 		local known = s.id and ctx.known and ctx.known("rare", s.id)
 		if source ~= "vignette" and not CLASS_RARE[s.classification or ""] and not known then return "skip", "notRare" end
+		-- Only a rare the player can fight alerts: a unit says so itself (a
+		-- death is still recorded, as before); a vignette has no unit to ask,
+		-- so the Codex's side decides.
+		if s.attackable == false and not s.dead then return "skip", "friendly" end
+		if source == "vignette" and s.id and ctx.friendly and ctx.friendly(s.id) then return "skip", "friendly" end
 	end
 	local key = Rares.Key(kind, s.id, s.name)
 	if not key then return "skip", "unknown" end
@@ -218,15 +247,28 @@ end
 local function known(kind, id)
 	local C = ns.Codex
 	if not (C and C.IsLoaded() and id) then return false end
+	if kind == "rare" and NOT_RARE[id] then return false end
 	return C.Name(kind, id) ~= nil
 end
 Rares.Known = known
+
+-- True when the Codex puts NPC id on the player's side (its faction code
+-- names the player's faction): for a sighting without a unit to ask.
+local function friendly(id)
+	local C = ns.Codex
+	if not (C and C.IsLoaded() and id) then return false end
+	local side = ns.Compat.GetPlayerFaction()
+	local n = side and C.Npc(id)
+	local code = n and n.faction
+	return type(code) == "string" and code:find(side == "Alliance" and "A" or "H", 1, true) ~= nil
+end
+Rares.Friendly = friendly
 
 -- A Codex rare or treasure in one shape (Codex loaded only).
 function Rares.Info(kind, id)
 	local C = Rares.Codex(false)
 	id = tonumber(id)
-	if not (C and id) then return nil end
+	if not (C and id) or (kind ~= "treasure" and NOT_RARE[id]) then return nil end
 	if kind == "treasure" then
 		local o = C.Object(id)
 		if not o then return nil end
@@ -321,7 +363,7 @@ local HOLD_FOR = 60
 local function context()
 	return {
 		get = get, now = serverTime(), history = Rares.History(),
-		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known,
+		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known, friendly = friendly,
 	}
 end
 Rares.Context = context
@@ -358,9 +400,15 @@ local function alertOf(s, where, exact)
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	local info = s.id and Rares.Info(kind, s.id)
 	local unitLevel = s.level and s.level ~= 0 and s.level or nil
+	local key = Rares.Key(kind, s.id, s.name)
+	-- A vignette's name can be unreadable, and a Forever-only rare is not in
+	-- the Codex: an earlier sighting's name, else "Unknown rare" (unnamed:
+	-- no Target macro, and a later sighting with its name renames the card).
+	local seen = key and Rares.History()[key]
+	local name = s.name or (info and info.name) or (seen and seen.name)
 	local a = {
-		kind = kind, id = s.id, key = Rares.Key(kind, s.id, s.name), source = s.source,
-		name = s.name or (info and info.name) or L["Unknown rare"],
+		kind = kind, id = s.id, key = key, source = s.source,
+		name = name or L["Unknown rare"], unnamed = name == nil or nil,
 		level = unitLevel or (info and info.level), levelMax = not unitLevel and info and info.levelMax or nil,
 		elite = s.classification == "rareelite" or (info and info.elite) or false,
 		loot = info and #info.loot or nil,
@@ -485,8 +533,13 @@ function Rares.Sighting(s, where)
 	Rares.Record(s, where, now, action == "alert")
 	if action == "alert" then
 		fire(alertOf(s, where, exact))
-	elseif action == "hold" then
-		held = { s = s, where = where, exact = exact, at = now }
+	else
+		if action == "hold" then held = { s = s, where = where, exact = exact, at = now } end
+		-- Seen again inside the cooldown, now with its name: the card that
+		-- went up without one takes it (Toast.lua).
+		if type(s.name) == "string" and s.name ~= "" and not s.dead then
+			ns.Fire("RARE_NAMED", Rares.Key(s.kind == "treasure" and "treasure" or "rare", s.id, s.name), s.name)
+		end
 	end
 	return action, reason
 end

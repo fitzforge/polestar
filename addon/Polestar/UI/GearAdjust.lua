@@ -166,7 +166,7 @@ local function specMenu(anchor)
 				relist()
 			end }
 	end
-	W.ShowMenu(anchor, items, {})
+	W.ShowMenu(anchor, items, { current = true })
 end
 
 -- A box being typed in whose line is about to show another stat: its number
@@ -198,6 +198,8 @@ function relist()
 	local hint = L["A change is kept as a share of the default, so it carries over when Polestar's defaults change."]
 	if source == "custom" then
 		hint = hint .. " " .. L["A custom scale is in use: these apply once you choose a built-in spec again."]
+	elseif G.UsesFLB and G.UsesFLB(2) then
+		hint = hint .. " " .. L["Forever Leveling BiS scores your items now: these apply once it is off in Settings or Stat weights names a spec."]
 	end
 	F.Hint:SetText(hint)
 	local rows = G.Adjust.Rows(class, spec, lv)
@@ -256,10 +258,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() F:StartMoving() end)
-	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+	ns.DragWindow(head, F)
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEAD_H))

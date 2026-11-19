@@ -228,13 +228,14 @@ step Ironforge: Royal Historian Archesonus
   tip These quests are level 52 to 59, so they pay in full at 60: about 600 Ironforge reputation. Royal Historian Archesonus stands beside King Magni in the High Seat; he sends you to the ruins of Thaurissan in the Burning Steppes.
   level 55
   accept 3702                         -- The Smoldering Ruins of Thaurissan, +10
-  kill 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
+  talk 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
   turnin 3702
   accept 3701                         -- The Smoldering Ruins of Thaurissan, +100
 
 step Morgan's Vigil: Oralius
   zone Burning Steppes
   tip Morgan's Vigil sits in the south-east of the Burning Steppes, at the top of the pass up from Redridge. Oralius wants the Firegut ogres of Dreadmaul Rock, north of the Vigil, thinned out; the Brutes keep to the rock's east side.
+  level 52
   accept 4283                         -- FIFTY! YEP!, +100
   accept 3823                         -- Extinguish the Firegut, +100
   kill 7034 x15 quest 3823.1          -- Firegut Ogre Mage
@@ -245,6 +246,7 @@ step Morgan's Vigil: Oralius
 
 step Thaurissan and Blackrock Stronghold
   tip The Thaurissan relics are the carved stones in the ruins around Flame Crest, west along the road: click twelve of them. Gor'tesh and the Blackrock orcs and worgs hold the camps at the foot of Blackrock Mountain, further west; each may drop a Blackrock Medallion (about one kill in three), and Oralius wants fifty. The orcs are level 50 and up, so they drop Runecloth too: keep it for Additional Runecloth.
+  level 53
   interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 11080 quest 3824.1          -- Gor'tesh's Lopped Off Head
   collect 11467 x50 quest 4283.1      -- Blackrock Medallion
@@ -265,6 +267,7 @@ step Ironforge: Archesonus again
 step Winterspring: Enraged Wildkin
   zone Winterspring
   tip Harlo Wigglesworth in Everlook sends you west to Jaron Stoneshaper at Starfall Village. Jaron's damaged crate and wrecked wagon lie at Mazthoril, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 Ironforge in full.
+  level 56
   accept 6604                         -- Harlo Wigglesworth
   turnin 6604                         -- Jaron Stoneshaper
   accept 4861

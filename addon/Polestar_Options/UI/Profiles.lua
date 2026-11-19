@@ -7,9 +7,11 @@
 --   the choice is this character's own or its class's); then the selected
 --   profile with Use, Copy, Rename and Delete. A click on a card selects it
 --   and Use switches to it, as in the guide menu; Delete takes a second click.
---   Share: a string of a profile (the look, guiding and positions, each
---   switched on or off) to paste anywhere, and pasting someone's: what it
---   holds and what it changes, then into the profile in use or as a new one.
+--   Share: a string of a profile to paste anywhere, holding the categories
+--   ticked on its checklist (P.CATEGORIES; every one but Window positions to
+--   start with), and pasting someone's: a checklist of the categories it
+--   holds, each with what it changes (yours, then theirs), then into the
+--   profile in use or as a new one, with an Undo after.
 -- The work is Core/Profiles.lua's. A tab is built the first time it shows
 -- and laid out again on PROFILES_CHANGED and on setting changes, only while
 -- it is on screen.
@@ -27,7 +29,11 @@ local PAGE, PROFILES, SHARE = L["Profiles"], L["Profiles"], L["Share"]
 -- The last card's value, a profile still to name (a profile name holds no NUL).
 local NEW = "\0new"
 local DOT = "  \194\183  "
-local SHOWN_CHANGES = 8 -- settings named in an import's preview; the rest counted
+-- An open category's list: a line a setting, LIST_MAX at most (the rest counted).
+local LINE, LIST_MAX = 22, 40
+-- The string made: at most this many lines of it show in its well; the rest
+-- scrolls in it, cut inside the well's padding (COPY_PAD over and under).
+local COPY_LINES, COPY_PAD = 3, 8
 -- The settings window's metrics (DESIGN.md "The Row Rule"): section cards
 -- with a 36px header, 36px rows in two halves (stacked below 760), 24 apart.
 local ROW, PAD, GAP, STACK_BELOW = 36, 16, 24, 760
@@ -47,15 +53,20 @@ local editor, editorError
 -- The selected profile's key being set: what the capture says (a key taken
 -- by something else), shown under its actions.
 local keyNote
--- Share: the profile a string is made of (nil: the one in use), which parts
--- go in, the string made (and of which profile), or why none was.
+-- Share: the profile a string is made of (nil: the one in use), the
+-- categories ticked to go in and the one whose list is open, the string
+-- made (and of which profile), or why none was.
 local shareFrom
-local exportAreas = { look = true, guiding = true, positions = true }
+local exportPick, exportOpen = {}, nil
 local exported, exportedCount, exportedFrom, exportError
--- Import: the pasted string's preview or why it was refused, the parts
--- switched on, and the line left by the last import.
+-- Import: the pasted string's preview or why it was refused, the
+-- categories ticked to take and the one open, the line the last import
+-- left and what its Undo takes back.
 local preview, refusal, importDone, importError
-local importAreas = { look = true, guiding = true, positions = true }
+local importPick, importOpen = {}, nil
+local undo
+-- While an import writes its settings: the tab is laid out once, after.
+local busy = false
 
 -- The profile the Profiles tab's section shows: the one picked while it
 -- exists, else the one in use.
@@ -280,29 +291,103 @@ end
 
 function PV.Export()
 	local from = source()
-	local s, n = Profiles().Export(from, { areas = exportAreas })
+	local s, n = Profiles().Export(from, { categories = exportPick })
 	if s then
 		exported, exportedCount, exportedFrom, exportError = s, n, from, nil
 	else
 		exported, exportedCount, exportedFrom, exportError = nil, nil, nil, n
 	end
 	local v = views[SHARE]
-	if v then W.SetCopyText(v.CopyBox, s or "") end
-	relayout()
-	if v and s and v.CopyBox:IsVisible() then
-		v.CopyBox:SetFocus()
-		v.CopyBox:HighlightText()
+	if v then
+		W.SetCopyText(v.CopyBox, s or "")
+		W.ScrollTo(v.CopyScroll, 0)
 	end
+	relayout()
+	if v and s and v.CopyBox:IsVisible() then W.SelectCopy(v.CopyBox) end
+end
+
+-- Every category, ticked when ids is nil or names it (none where core's
+-- profiles are not loaded: a part of Polestar on its own).
+local function picked(ids)
+	local t, P = {}, Profiles()
+	for _, c in ipairs(P and P.CATEGORIES or {}) do t[c.id] = ids == nil or ids[c.id] == true end
+	return t
+end
+
+-- To start with, everything goes in but where frames were dragged to.
+exportPick = picked()
+exportPick.positions = false
+
+-- What an import would change, by category: id -> { change, ... }.
+local function changesBy(list)
+	local by = {}
+	for _, ch in ipairs(list) do
+		local t = by[ch.category]
+		if not t then
+			t = {}
+			by[ch.category] = t
+		end
+		t[#t + 1] = ch
+	end
+	return by
+end
+
+-- A category of the pasted string can be taken while it changes something
+-- or carries settings (a new profile takes those).
+local function takeable(id, by)
+	return preview ~= nil and preview.holds[id] and ((by[id] ~= nil and #by[id] > 0) or (preview.held[id] or 0) > 0) and true or false
+end
+
+local function pickImport(ids)
+	local by = changesBy(Profiles().Changes(preview))
+	importPick = picked(ids)
+	for id, on in pairs(importPick) do importPick[id] = on and takeable(id, by) end
+end
+
+-- side "export" | "import": its categories ticked as ids says (every one
+-- when nil; on Import, those it can take).
+function PV.Pick(side, ids)
+	if side == "import" then
+		if not preview then return end
+		pickImport(ids)
+	else
+		exportPick = picked(ids)
+		if exported then return PV.Export() end
+	end
+	relayout()
+end
+
+-- One category ticked or not.
+function PV.Tick(side, id, on)
+	if side == "import" then
+		importPick[id] = on and true or false
+	else
+		exportPick[id] = on and true or false
+		if exported then return PV.Export() end
+	end
+	relayout()
+end
+
+-- A category's list opened, or folded again: one open at a time.
+function PV.Open(side, id)
+	if side == "import" then
+		importOpen = importOpen ~= id and id or nil
+	else
+		exportOpen = exportOpen ~= id and id or nil
+	end
+	relayout()
 end
 
 function PV.Check(value)
-	importDone, importError = nil, nil
+	importDone, importError, undo, importOpen = nil, nil, nil, nil
 	if (value or ""):gsub("%s+", "") == "" then
 		preview, refusal = nil, nil
 	else
 		preview, refusal = Profiles().Import(value)
 		if preview then
-			importAreas = { look = preview.areas.look > 0, guiding = preview.areas.guiding > 0, positions = preview.areas.positions > 0 }
+			-- Ticked: every part it holds that it can take, but positions made on another screen.
+			pickImport()
+			if preview.otherScreen then importPick.positions = false end
 			local v = views[SHARE]
 			if v then v.ImportName:SetText(Profiles().FreeName(preview.name) or "") end
 		end
@@ -311,18 +396,28 @@ function PV.Check(value)
 end
 
 function PV.ClearImport()
-	preview, refusal, importError = nil, nil, nil
+	preview, refusal, importError, importOpen = nil, nil, nil, nil
 	local v = views[SHARE]
 	if v then v.PasteBox:SetText("") end
 	relayout()
 end
 
-local function finishImport(line)
-	preview, refusal, importError = nil, nil, nil
-	importDone = line
+local function finishImport(line, u)
+	preview, refusal, importError, importOpen = nil, nil, nil, nil
+	importDone, undo = line, u
 	local v = views[SHARE]
 	if v then v.PasteBox:SetText("") end
 	relayout()
+end
+
+-- fn(...) with the tab laid out once, after (an import's or its undo's
+-- settings each fire SETTING_CHANGED). -> what fn returns
+local function quietly(fn, ...)
+	busy = true
+	local ok, a, b = pcall(fn, ...)
+	busy = false
+	if not ok then error(a, 0) end
+	return a, b
 end
 
 -- As a new profile, named in the box beside the buttons, and switched to.
@@ -337,39 +432,59 @@ function PV.ImportNew(name)
 		relayout()
 		return
 	end
-	local ok
-	ok, why = P.Apply(preview, clean, importAreas)
+	local ok, u = quietly(P.Apply, preview, clean, importPick)
 	if not ok then
-		importError = why
+		importError = u
 		relayout()
 		return
 	end
-	P.Switch(clean)
+	quietly(P.Switch, clean)
 	selected = nil
-	finishImport((L["Imported as %s, now in use."]):format(P.Label(clean)))
+	finishImport((L["Imported as %s, now in use."]):format(P.Label(clean)), u)
 end
 
--- Into the profile in use, after the dialog.
+-- Into the profile in use, after the dialog (none when nothing ticked would change).
 function PV.ImportHere()
 	if not preview then return end
 	local P = Profiles()
-	local n = 0
-	for _, path in ipairs(preview.changes) do
-		if importAreas[preview.area[path]] then n = n + 1 end
+	local n = #P.Changes(preview, importPick)
+	if n == 0 then
+		-- Nothing written: P.Apply says why.
+		importError = select(2, P.Apply(preview, P.Active(), importPick))
+		relayout()
+		return
 	end
 	W.Modal({ title = L["Apply to the profile in use?"], icon = "check", action = L["Apply"],
-		text = (L["%s changes to the string's values: %s. Your other settings stay as they are."]):format(P.Label(P.Active()),
-			count(n, L["1 setting"], L["%d settings"])),
+		text = (L["%s takes the string's settings in the parts ticked: %s. The rest stays as it is, and Undo puts it back."]):format(
+			P.Label(P.Active()), count(n, L["1 setting"], L["%d settings"])),
 		onAccept = function()
 			if not preview then return end
-			local ok, why = P.Apply(preview, P.Active(), importAreas)
+			local ok, u = quietly(P.Apply, preview, P.Active(), importPick)
 			if ok then
-				finishImport((L["Applied to %s."]):format(P.Label(P.Active())))
+				finishImport((L["Applied to %s: %s."]):format(P.Label(P.Active()), count(u.count, L["1 setting changed"], L["%d settings changed"])), u)
 			else
-				importError = why
+				importError = u
 				relayout()
 			end
 		end })
+end
+
+-- The last import taken back: the profile in use as it was, or the profile
+-- it made gone and the one before back in use.
+function PV.Undo()
+	local u = undo
+	if not u then return end
+	local P = Profiles()
+	local ok, why = quietly(P.Undo, u)
+	undo, selected = nil, nil
+	if ok and u.made then
+		importDone, importError = (L["Undone: %s is gone and %s is in use again."]):format(P.Label(u.made), P.Label(P.Active())), nil
+	elseif ok then
+		importDone, importError = (L["Undone: %s is as it was."]):format(P.Label(u.profile)), nil
+	else
+		importDone, importError = nil, why
+	end
+	relayout()
 end
 
 ---------------------------------------------------------------------------
@@ -670,7 +785,7 @@ local function infoRow(parent, label, help)
 end
 
 -- A section card (W.SectionCard) with a count after its title and the
--- hairlines between the halves of its rows (Share's Import has two blocks).
+-- hairline between the halves of its rows (a checklist's lines have their own).
 local function newCard(parent, title)
 	local c = W.SectionCard(parent)
 	c:SetTitle(title)
@@ -679,8 +794,6 @@ local function newCard(parent, title)
 	c.Count:Hide()
 	c.Split = W.Divider(c, true)
 	c.Split:Hide()
-	c.Split2 = W.Divider(c, true)
-	c.Split2:Hide()
 	return c
 end
 
@@ -710,8 +823,8 @@ local function headerLink(parent, label, tip, onClick)
 end
 
 -- A line of status inside a card: a glyph (a check for done, a cross for
--- refused) and a note beside it.
-local STATUS = { success = "check", danger = "close", warning = "info" }
+-- refused, an i for a warning or a note) and a note beside it.
+local STATUS = { success = "check", danger = "close", warning = "info", info = "info" }
 local function statusLine(parent)
 	local s = CreateFrame("Frame", nil, parent)
 	s.Icon = W.Tex(s, "ARTWORK", "check", "success")
@@ -729,13 +842,6 @@ local function sourceLine(P)
 	if source == "class" then return (L["Every %s uses it (the class's profile)."]):format(P.ClassName() or "") end
 	return L["Every character on this account uses it, unless one has its own."]
 end
-
-local AREA_LABEL = { look = L["Look"], guiding = L["Guiding"], positions = L["Positions"] }
-local AREA_HELP = {
-	look = L["Everything on the Look pages: theme, colours, fonts, sizes, the arrow, map pins, lines, buttons and alerts."],
-	guiding = L["What Polestar does and shows: the Guide, Map, Questing, Discovery and Quality of Life pages."],
-	positions = L["Where you dragged the guide window, the arrow, the alerts and the panels. Another screen may need them moved again."],
-}
 
 local function profileChoices()
 	local P = Profiles()
@@ -757,6 +863,85 @@ local function overlay(v)
 	top:SetFrameLevel(v:GetFrameLevel() + 6)
 	v.TextLayer = top
 	return top
+end
+
+---------------------------------------------------------------------------
+-- Share's checklists: a row per category (P.CATEGORIES) on Make a string
+-- and on Import, the quick picks in the card's header, and the open row's
+-- list under it.
+---------------------------------------------------------------------------
+
+-- A category's row: its box (ticked: it goes in, or it is taken), its
+-- name, what it holds at the right and a chevron (down while its list is
+-- open); what it holds says the tooltip. A click on the box ticks it,
+-- anywhere else opens or folds the list. With a gamepad the box is a stop
+-- of its own after its row (the settings window's inline extras).
+local function partRow(v, side, c)
+	local R = W.RowParts
+	local row = R.settingRow(v, c.label, c.help)
+	row.psId = c.id
+	row.Box = W.Checkbox(row, function(box) PV.Tick(side, c.id, box:GetChecked()) end)
+	row.Box:SetPoint("LEFT", row, "LEFT", PAD, 0)
+	row.psExtras = { row.Box }
+	row.Label:ClearAllPoints()
+	row.Label:SetPoint("LEFT", row.Box, "RIGHT", 10, 0)
+	row.Label:SetWordWrap(false)
+	row.Chevron = W.Tex(row, "ARTWORK", "chevron-right", "textDim")
+	row.Chevron:SetSize(12, 12)
+	row.Chevron:SetPoint("RIGHT", row, "RIGHT", -PAD, 0)
+	row.Count = W.Text(row, "label", "textMuted")
+	row.Count:SetJustifyH("RIGHT")
+	row.Count:SetPoint("RIGHT", row.Chevron, "LEFT", -8, 0)
+	row:SetScript("OnClick", function() PV.Open(side, c.id) end)
+	row:SetScript("OnEnter", W.RowEnter)
+	row:SetScript("OnLeave", R.hideTip)
+	row:Hide()
+	return row
+end
+
+local function partRows(v, side)
+	local out = {}
+	for _, c in ipairs(Profiles().CATEGORIES or {}) do out[c.id] = partRow(v, side, c) end
+	return out
+end
+
+-- A line of an open list on the view's text layer: the setting's name,
+-- then its value (on Import: yours, a chevron, theirs).
+local function listLine(v)
+	local f = CreateFrame("Frame", nil, overlay(v))
+	f:SetHeight(LINE)
+	f.Name = W.Text(f, "label", "textDim")
+	f.Was = W.Text(f, "label", "textMuted")
+	f.Now = W.Text(f, "label", "text")
+	for _, fs in ipairs({ f.Name, f.Was, f.Now }) do
+		fs:SetWordWrap(false)
+		fs:SetJustifyH("LEFT")
+	end
+	f.Arrow = W.Tex(f, "ARTWORK", "chevron-right", "textMuted")
+	f.Arrow:SetSize(9, 9)
+	return f
+end
+
+-- The quick picks, right to left at the header's right edge: every
+-- category, none, the skin alone, the skin and the fonts.
+local PICKS = {
+	{ L["All"], L["Tick every part."] },
+	{ L["None"], L["Untick every part."], {} },
+	{ L["Skin only"], L["Only Skin & colours."], { skin = true } },
+	{ L["Skin & fonts"], L["Skin & colours and Fonts & text size."], { skin = true, fonts = true } },
+}
+
+local function pickButtons(card, side)
+	local out = {}
+	for i, p in ipairs(PICKS) do
+		local b = W.Button(card.Header, p[1], function() PV.Pick(side, p[3]) end, { ghost = true, height = 22 })
+		b.psTight = true
+		W.SetButtonText(b, p[1])
+		b.psTip, b.psTipLines = p[1], { p[2] }
+		b:Hide()
+		out[i] = b
+	end
+	return out
 end
 
 local function buildProfiles(v)
@@ -831,51 +1016,69 @@ local function buildProfiles(v)
 end
 
 local function buildShare(v)
-	local P = Profiles()
 	v.MakeCard = newCard(v, L["Make a string"])
 	v.ImportCard = newCard(v, L["Import"])
+	v.ExportPicks = pickButtons(v.MakeCard, "export")
+	v.ImportPicks = pickButtons(v.ImportCard, "import")
 
-	v.ExportAreas = {}
-	for _, area in ipairs(P.AREAS) do
-		v.ExportAreas[area] = switchRow(v, AREA_LABEL[area], AREA_HELP[area],
-			function() return exportAreas[area] end,
-			function(on)
-				exportAreas[area] = on and true or false
-				if exported then PV.Export() end
-			end)
-	end
 	v.From = W.Dropdown(v, L["From"], nil, profileChoices, L["The profile the string is made of."], nil, { get = source, set = function(name)
 		shareFrom = name
 		if exported then PV.Export() else relayout() end
 	end })
 	W.CompactRow(v.From)
-	v.CopyBox = W.CopyBox(v, { lines = 3 })
+	v.ExportRows = partRows(v, "export")
+	v.ExportList = {}
+	v.ExportNote = statusLine(v)
+	-- The string made: the copy box's well, the box scrolling in it as the
+	-- report window's does (#1753), so a string of any length stays inside
+	-- the well; a click anywhere on it selects the whole string. The text is
+	-- cut inside the well's padding, never at its border. The page's wheel
+	-- goes on scrolling the page over it: the bar scrolls the box.
+	v.CopyWell = CreateFrame("Frame", nil, v)
+	v.CopyScroll = W.Scroll(v.CopyWell)
+	v.CopyScroll:SetPoint("TOPLEFT", v.CopyWell, "TOPLEFT", 0, -COPY_PAD)
+	v.CopyScroll:SetPoint("BOTTOMRIGHT", v.CopyWell, "BOTTOMRIGHT", 0, COPY_PAD)
+	v.CopyScroll:EnableMouseWheel(false)
+	v.CopyBox = W.ScrollChild(v.CopyScroll, W.CopyBox(v.CopyScroll, { lines = COPY_LINES, well = v.CopyWell }))
+	v.CopyBox:SetTextInsets(10, 10, 0, 0)
+	v.CopyWell:EnableMouse(true)
+	v.CopyWell:SetScript("OnMouseUp", function() W.SelectCopy(v.CopyBox) end)
+	v.CopyWell:Hide()
+	-- The string in the box's font at its text's width, broken anywhere as
+	-- the box breaks it: what the box's height is measured on. Hidden, never
+	-- alpha 0 (#1753).
+	v.CopyMeasure = W.Text(v, "label", "text")
+	v.CopyMeasure:SetJustifyH("LEFT")
+	v.CopyMeasure:SetWordWrap(true)
+	v.CopyMeasure:SetNonSpaceWrap(true)
+	v.CopyMeasure:Hide()
 	v.Made = statusLine(v)
 	v.ExportButton = W.Button(v, L["Make a string"], function() PV.Export() end, { primary = true, height = 24 })
-	v.ExportButton.psTip = L["A line of text holding the parts switched on above, from the profile chosen, to paste anywhere."]
+	v.ExportButton.psTip = L["A line of text holding the parts ticked above, from the profile chosen, to paste anywhere."]
 
 	v.PasteBox = pasteBox(v)
 	v.Status = statusLine(v)
-	v.Changes = text(overlay(v), "note", "textDim")
-	v.ImportAreas = {}
-	for _, area in ipairs(P.AREAS) do
-		v.ImportAreas[area] = switchRow(v, AREA_LABEL[area], AREA_HELP[area],
-			function() return importAreas[area] end,
-			function(on) importAreas[area] = on and true or false end)
-	end
+	v.ImportRows = partRows(v, "import")
+	v.ImportList = {}
 	v.Screen = text(overlay(v), "note", "warning")
 	v.Dropped = text(overlay(v), "note", "warning")
 	v.ImportNameLabel = W.Text(overlay(v), "body", "rowLabel")
 	v.ImportNameLabel:SetText(L["Name"])
 	v.ImportName = field(v, function() PV.ImportNew() end)
 	v.ImportNew = W.Button(v, L["Import as new"], function() PV.ImportNew() end, { primary = true, height = 24 })
-	v.ImportNew.psTip = L["A new profile with the string's settings (the parts switched on), every other setting at its default. Polestar switches to it."]
+	v.ImportNew.psTip = L["A new profile with the string's settings in the parts ticked, every other setting at its default. Polestar switches to it."]
 	v.ImportHere = W.Button(v, L["Apply to current"], function() PV.ImportHere() end, { height = 24 })
-	v.ImportHere.psTip = L["The string's settings (the parts switched on) into the profile in use; the rest stay as they are. Asks first."]
+	v.ImportHere.psTip = L["The string's settings in the parts ticked into the profile in use; everything else stays as it is. Asks first."]
 	v.ImportCancel = W.Button(v, L["Clear"], function() PV.ClearImport() end, { ghost = true, height = 24 })
 	v.ImportCancel.psTip = L["Empty the box."]
 	v.ImportError = text(overlay(v), "note", "warning")
 	v.Done = statusLine(v)
+	v.UndoButton = W.Button(v, L["Undo"], function() PV.Undo() end, { ghost = true, height = 24 })
+	v.UndoButton.psTight = true
+	W.SetButtonText(v.UndoButton, L["Undo"])
+	W.Color(v.UndoButton.Label, "accent")
+	v.UndoButton.psTip, v.UndoButton.psTipLines = L["Undo"], { L["Puts back what that import changed."] }
+	v.UndoButton:Hide()
 	v.Refresh = function() return layoutShare(v) end
 end
 
@@ -905,7 +1108,7 @@ local function line(v, fs, s, width, x, y)
 	return y + fs:GetStringHeight() + 20
 end
 
--- A status line (statusLine): `kind` "success" | "danger" | "warning" puts its glyph before the text. -> y under it
+-- A status line (statusLine): `kind` "success" | "danger" | "warning" | "info" puts its glyph before the text. -> y under it
 local function status(v, s, msg, kind, width, x, y)
 	s:SetShown(msg ~= nil)
 	if not msg then return y end
@@ -913,7 +1116,7 @@ local function status(v, s, msg, kind, width, x, y)
 	s.Icon:SetShown(glyph ~= nil)
 	if glyph then
 		s.Icon:SetTexture(Theme.Media(glyph))
-		W.Color(s.Icon, kind)
+		W.Color(s.Icon, kind == "info" and "textMuted" or kind)
 	end
 	s.Text:ClearAllPoints()
 	s.Text:SetPoint("TOPLEFT", s, "TOPLEFT", glyph and 20 or 0, 0)
@@ -994,11 +1197,16 @@ local function decorateCards(v)
 					chip = W.Chip(card)
 					v.Chips[card] = chip
 				end
-				local cw = W.SetChip(chip, L["In use"], "success")
+				W.SetChip(chip, L["In use"], "success")
+				-- On the picture's bottom left corner, so the name keeps the card's
+				-- width (beside the name, a long "In use", "Используется", left "По
+				-- умолчанию" 20px) and a long one stays clear of the chosen card's
+				-- check in the top right corner; above the picture's own frames (the
+				-- window drawn in the profile's look stands a few levels up).
 				chip:ClearAllPoints()
-				chip:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -8, 7)
-				chip:SetFrameLevel(card:GetFrameLevel() + 3)
-				card.Name:SetWidth(max(20, card:GetWidth() - 20 - cw - 6))
+				chip:SetPoint("BOTTOMLEFT", card.Art, "BOTTOMLEFT", 6, 6)
+				chip:SetFrameLevel(card.Art:GetFrameLevel() + 10)
+				card.Name:SetWidth(max(20, card:GetWidth() - 20))
 			end
 			paintArt(card.Art, name)
 		end
@@ -1140,36 +1348,215 @@ function layoutProfiles(v)
 	return y + 24
 end
 
-local function changeLines()
-	local labels = {}
-	for i, path in ipairs(preview.changes) do
-		if i > SHOWN_CHANGES then break end
-		labels[i] = ns.EscapeText(preview.labels[path])
+-- The quick picks in a card's header while it has a checklist.
+local function placePicks(card, list, shown)
+	local right = -PAD
+	for i = #list, 1, -1 do
+		local b = list[i]
+		b:SetShown(shown)
+		b:ClearAllPoints()
+		b:SetPoint("RIGHT", card.Header, "RIGHT", right, 0)
+		right = right - b:GetWidth() - 2
 	end
-	local s = table.concat(labels, ", ")
-	local more = #preview.changes - #labels
-	if more > 0 then s = s .. ", " .. (L["and %d more"]):format(more) end
-	return #labels > 0 and s or nil
 end
 
--- Make a string: the parts and the profile, the string once made, its line and the button.
+-- A checklist's row at (x, y), `w` wide. e = { count, ticked, enabled, open }
+local function setPartRow(v, row, e, x, y, w)
+	row:SetSize(w, ROW)
+	row.Count:SetText(e.count or "")
+	local right = PAD + 12 + 8 + math.ceil(W.TextWidth(row.Count)) + 12
+	row.Label:SetWidth(max(20, w - PAD - row.Box:GetWidth() - 10 - right))
+	row.Box:SetChecked(e.ticked and true or false)
+	row.Box:SetEnabled(e.enabled ~= false)
+	row:SetAlpha(e.enabled == false and 0.45 or 1)
+	row.Chevron:SetTexture(Theme.Media(e.open and "chevron-down" or "chevron-right"))
+	row.psOpen = e.open and true or nil
+	place(v, row, x, y)
+	row:Show()
+end
+
+-- The lines of an open list: each setting's name (where it sits after it
+-- when two share a name) and values(path) -> yours, theirs (or nil, its
+-- value), by name.
+local function listItems(paths, values)
+	local P = Profiles()
+	local items, names = {}, {}
+	for i, path in ipairs(paths) do
+		local label, where = P.LabelOf(path)
+		local was, now = values(path)
+		items[i] = { path = path, label = label, where = where, was = was, now = now }
+		names[label] = (names[label] or 0) + 1
+	end
+	for _, it in ipairs(items) do
+		it.name = names[it.label] > 1 and it.where and (L["%s (%s)"]):format(it.label, it.where) or it.label
+	end
+	table.sort(items, function(a, b)
+		if a.name ~= b.name then return a.name < b.name end
+		return a.path < b.path
+	end)
+	return items
+end
+
+-- An open list under its row's line, across the card: a line a setting
+-- (on Import: its name, yours, a chevron and theirs), the rest counted; an
+-- item with a note alone says it across the line. -> y under it
+local function layoutList(v, pool, items, compare, x, y, width)
+	local w = width - 2 * PAD
+	local wasX = floor(w * 0.44)
+	local nowX = compare and floor(w * 0.72) or wasX
+	local shown = min(#items, LIST_MAX)
+	local n = shown + (#items > shown and 1 or 0)
+	y = y + 6
+	for i = 1, n do
+		local f = pool[i]
+		if not f then
+			f = listLine(v)
+			pool[i] = f
+		end
+		f:SetWidth(w)
+		f.Name:ClearAllPoints()
+		f.Name:SetPoint("LEFT", f, "LEFT", 28, 0)
+		local item = items[i]
+		local values = i <= shown and not item.note
+		if not values then
+			f.Name:SetWidth(w - 28)
+			f.Name:SetText(item and item.note or (L["and %d more"]):format(#items - shown))
+		else
+			f.Name:SetWidth(max(20, wasX - 28 - 12))
+			f.Name:SetText(item.name)
+			f.Now:ClearAllPoints()
+			f.Now:SetPoint("LEFT", f, "LEFT", nowX, 0)
+			f.Now:SetWidth(max(20, w - nowX))
+			f.Now:SetText(item.now)
+			if compare then
+				f.Was:ClearAllPoints()
+				f.Was:SetPoint("LEFT", f, "LEFT", wasX, 0)
+				f.Was:SetWidth(max(20, nowX - wasX - 24))
+				f.Was:SetText(item.was)
+				f.Arrow:ClearAllPoints()
+				f.Arrow:SetPoint("RIGHT", f, "LEFT", nowX - 8, 0)
+			end
+		end
+		f.Now:SetShown(values)
+		f.Was:SetShown(compare and values)
+		f.Arrow:SetShown(compare and values)
+		place(v, f, x + PAD, y)
+		f:Show()
+		y = y + LINE
+	end
+	for i = n + 1, #pool do pool[i]:Hide() end
+	return y + 6
+end
+
+-- A checklist: its rows in two halves (stacked below STACK_BELOW), each
+-- line's halves split by a hairline, the open row's list under its line.
+-- entries: { { row, count, ticked, enabled, open }, ... }; rows not listed
+-- stay hidden. -> y
+local function layoutChecklist(v, card, entries, pool, items, compare, x, y, width)
+	local two = width >= STACK_BELOW
+	local half = two and floor((width - 1) / 2) or width
+	local per = two and 2 or 1
+	card.psSplits = card.psSplits or {}
+	local splits, used, listed = card.psSplits, 0, false
+	for i = 1, #entries, per do
+		local top, open = y, false
+		for k = 0, per - 1 do
+			local e = entries[i + k]
+			if e then
+				setPartRow(v, e.row, e, x + k * (half + 1), y, half)
+				open = open or e.open
+			end
+		end
+		y = y + ROW
+		if two then
+			used = used + 1
+			local s = splits[used]
+			if not s then
+				s = W.Divider(card, true)
+				splits[used] = s
+			end
+			s:ClearAllPoints()
+			s:SetPoint("TOPLEFT", v, "TOPLEFT", x + half, -top)
+			s:SetHeight(ROW)
+			s:Show()
+		end
+		if open and items then
+			y = layoutList(v, pool, items, compare, x, y, width)
+			listed = true
+		end
+	end
+	for i = used + 1, #splits do splits[i]:Hide() end
+	if not listed then for _, f in ipairs(pool) do f:Hide() end end
+	return y
+end
+
+-- A checklist put away: its rows, hairlines and list.
+local function hideChecklist(card, rows, pool)
+	for _, row in pairs(rows) do row:Hide() end
+	for _, s in ipairs(card.psSplits or {}) do s:Hide() end
+	for _, f in ipairs(pool) do f:Hide() end
+end
+
+-- The string made, its well's top at y: the box as tall as the string in
+-- its font at its width, broken anywhere (the bar's room left at its right,
+-- so the bar never covers it), the view COPY_LINES lines of it tall at most
+-- inside the well's padding, the rest scrolling in it. Measured at every
+-- layout: the width and the font change with the window and the look.
+-- -> y under the well
+local function layoutCopy(v, x, y, width)
+	local w = width - 2 * PAD
+	local bw = w - W.ScrollBarRoom(v.CopyScroll)
+	local m = v.CopyMeasure
+	m:SetWidth(max(1, bw - 20))
+	if m:GetText() ~= exported then m:SetText(exported) end
+	local line = m:GetLineHeight() or 16
+	local content = floor(max(m:GetStringHeight(), line) + 0.5)
+	local view = min(content, floor(COPY_LINES * line + 0.5))
+	v.CopyBox:SetWidth(bw)
+	v.CopyWell:SetSize(w, view + 2 * COPY_PAD)
+	W.SetScrollContent(v.CopyScroll, content, view)
+	v.psCopyTop = y
+	place(v, v.CopyWell, x + PAD, y)
+	return y + view + 2 * COPY_PAD
+end
+
+-- Make a string: the profile it is made of, a checklist of the categories
+-- (how many of its settings off their defaults each holds, and which),
+-- the word on positions while they stay out, the string once made, its
+-- line and the button.
 local function layoutMake(v, P, x, y, width)
 	local card = v.MakeCard
 	y = openCard(card, nil, nil, x, y)
-	local a = v.ExportAreas
-	y = halves(v, card.Split, { a.look, a.guiding, a.positions, v.From }, x, y, width)
-	local made = exported ~= nil
-	v.CopyBox:SetShown(made)
-	if made then
-		v.CopyBox:SetWidth(width - 2 * PAD)
-		place(v, v.CopyBox, x + PAD, y + 12)
-		y = y + 12 + v.CopyBox:GetHeight()
+	placePicks(card, v.ExportPicks, true)
+	y = halves(v, card.Split, { v.From }, x, y, width)
+	local mine = P.Portable(source()) or {}
+	local by = {}
+	for path in pairs(mine) do
+		local id = P.CategoryOf(path)
+		if id then
+			by[id] = by[id] or {}
+			by[id][#by[id] + 1] = path
+		end
 	end
+	local entries = {}
+	for _, c in ipairs(P.CATEGORIES) do
+		local n = by[c.id] and #by[c.id] or 0
+		entries[#entries + 1] = { row = v.ExportRows[c.id], ticked = exportPick[c.id], open = exportOpen == c.id,
+			count = n > 0 and count(n, L["1 setting"], L["%d settings"]) or L["At defaults"] }
+	end
+	local items = exportOpen and listItems(by[exportOpen] or {}, function(path) return nil, P.ValueText(path, mine[path]) end)
+	if items and #items == 0 then items = { { note = L["Every setting here is at its default, so taking this part puts the defaults back."] } } end
+	y = layoutChecklist(v, card, entries, v.ExportList, items, false, x, y, width)
+	y = status(v, v.ExportNote, not exportPick.positions and L["Window positions stay out unless you tick them: on another screen, frames you dragged can land in odd places."] or nil,
+		"info", width, x, y)
+	local made = exported ~= nil
+	v.CopyWell:SetShown(made)
+	if made then y = layoutCopy(v, x, y + 12, width) end
 	-- Its line, the button at the right of it.
 	local msg, kind
 	if made then
 		if exportedCount == 0 then
-			msg, kind = L["Nothing in it: every setting switched on above is at its default."], "warning"
+			msg, kind = L["No settings in it: the parts ticked are at their defaults, so taking it puts the defaults back."], "warning"
 		else
 			msg, kind = (L["%s of %s. Selected for you: copy it with Ctrl+C, then share it anywhere."]):format(
 				count(exportedCount, L["1 setting"], L["%d settings"]), P.Label(exportedFrom)), "success"
@@ -1177,7 +1564,7 @@ local function layoutMake(v, P, x, y, width)
 	elseif exportError then
 		msg, kind = exportError, "danger"
 	else
-		msg = L["Switch on the parts to share and pick the profile, then make the string."]
+		msg = L["Tick the parts to share and pick the profile, then make the string."]
 	end
 	local bw = v.ExportButton:GetWidth()
 	local top = y
@@ -1188,16 +1575,22 @@ local function layoutMake(v, P, x, y, width)
 	return closeCard(card, x, y, width)
 end
 
--- Import: the paste box, then what the string holds and the ways in.
+-- Import: the paste box, then whose it is, a checklist of the categories it
+-- holds (what each changes, yours then theirs) and the ways in; the line
+-- the last import left, with its Undo.
 local function layoutImport(v, P, x, y, width)
 	local card = v.ImportCard
 	y = openCard(card, nil, nil, x, y)
+	local has = preview ~= nil
+	placePicks(card, v.ImportPicks, has)
 	v.PasteBox:SetWidth(width - 2 * PAD)
 	place(v, v.PasteBox, x + PAD, y + 12)
 	y = y + 12 + v.PasteBox:GetHeight()
-	local has = preview ~= nil
+	hideChecklist(card, v.ImportRows, v.ImportList)
 	if has then
-		local n = #preview.changes
+		local list = P.Changes(preview)
+		local by = changesBy(list)
+		local n = #list
 		local active = P.Label(P.Active())
 		local differ
 		if n == 0 then
@@ -1209,18 +1602,27 @@ local function layoutImport(v, P, x, y, width)
 		end
 		local msg = table.concat({ preview.name and P.Label(preview.name) or L["A profile"], count(preview.count, L["1 setting"], L["%d settings"]), differ }, DOT)
 		y = status(v, v.Status, msg, "success", width, x, y)
-		local changes = changeLines()
-		if changes then y = line(v, v.Changes, changes, width, x, y - 14) else v.Changes:Hide() end
-		local list = {}
-		for _, area in ipairs(P.AREAS) do
-			local row = v.ImportAreas[area]
-			local k = preview.areas[area]
-			row:SetShown(k > 0)
-			row.Label:SetText(AREA_LABEL[area] .. DOT .. count(k, L["1 setting"], L["%d settings"]))
-			list[#list + 1] = row
+		local entries = {}
+		for _, id in ipairs(preview.order) do
+			local k = by[id] and #by[id] or 0
+			local can = takeable(id, by)
+			if not can then importPick[id] = false end
+			entries[#entries + 1] = { row = v.ImportRows[id], ticked = importPick[id], enabled = can, open = importOpen == id,
+				count = k > 0 and count(k, L["1 change"], L["%d changes"]) or L["Same as yours"] }
 		end
-		y = halves(v, card.Split2, list, x, y, width)
-		y = line(v, v.Screen, preview.otherScreen and L["The positions were made on another screen or UI scale: things may need moving again."] or nil, width, x, y)
+		local items
+		if importOpen then
+			local theirs, paths = {}, {}
+			for i, ch in ipairs(by[importOpen] or {}) do
+				paths[i] = ch.path
+				theirs[ch.path] = ch.theirs
+			end
+			items = listItems(paths, function(path) return P.ValueText(path, ns.Get(path)), P.ValueText(path, theirs[path]) end)
+			if #items == 0 then items = { { note = L["Nothing here differs from yours."] } } end
+		end
+		y = layoutChecklist(v, card, entries, v.ImportList, items, true, x, y, width)
+		y = line(v, v.Screen, preview.otherScreen and L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] or nil,
+			width, x, y)
 		local dropped
 		if #preview.dropped > 0 then
 			local names = {}
@@ -1245,9 +1647,7 @@ local function layoutImport(v, P, x, y, width)
 		v.ImportName:SetPoint("LEFT", v.ImportNameLabel, "RIGHT", 12, 0)
 		y = y + ROW
 	else
-		for _, fs in ipairs({ v.Changes, v.Screen, v.Dropped }) do fs:Hide() end
-		for _, row in pairs(v.ImportAreas) do row:Hide() end
-		card.Split2:Hide()
+		for _, fs in ipairs({ v.Screen, v.Dropped }) do fs:Hide() end
 		-- Why it was refused, Clear at the right of it.
 		local top = y
 		y = status(v, v.Status, refusal, "danger", width - v.ImportCancel:GetWidth() - 16, x, y)
@@ -1260,7 +1660,16 @@ local function layoutImport(v, P, x, y, width)
 	for _, r in ipairs({ v.ImportNameLabel, v.ImportName, v.ImportNew, v.ImportHere }) do r:SetShown(has) end
 	v.ImportCancel:SetShown(has or refusal ~= nil)
 	y = line(v, v.ImportError, importError, width, x, y)
-	y = status(v, v.Done, importDone, "success", width, x, y)
+	-- What the last import did, its Undo at the right.
+	local canUndo = undo ~= nil and importDone ~= nil
+	v.UndoButton:SetShown(canUndo)
+	local top = y
+	y = status(v, v.Done, importDone, "success", width - (canUndo and v.UndoButton:GetWidth() + 16 or 0), x, y)
+	if canUndo then
+		v.UndoButton:ClearAllPoints()
+		v.UndoButton:SetPoint("RIGHT", v, "TOPLEFT", x + width - PAD, -(top + ROW / 2))
+		y = max(y, top + ROW)
+	end
 	return closeCard(card, x, y + 4, width)
 end
 
@@ -1308,20 +1717,55 @@ function PV.Shown()
 		out.editorError = v.NameError:IsShown() and v.NameError:GetText() or nil
 	end
 	if s then
+		-- A checklist's rows on screen: { id, label, count, ticked, enabled, open }.
+		local function parts(rows)
+			local list = {}
+			for _, c in ipairs(Profiles().CATEGORIES or {}) do
+				local row = rows[c.id]
+				if row and row:IsShown() then
+					list[#list + 1] = { id = c.id, label = row.Label:GetText(), count = row.Count:GetText(), ticked = row.Box:GetChecked() and true or false,
+						enabled = row.Box:IsEnabled() and true or false, open = row.psOpen or false }
+				end
+			end
+			return list
+		end
+		-- An open list's lines on screen: "name: value" or "name: yours > theirs".
+		local function lines(pool)
+			local list = {}
+			for _, f in ipairs(pool) do
+				if f:IsShown() then
+					local t = f.Name:GetText()
+					if f.Now:IsShown() then t = t .. ": " .. (f.Was:IsShown() and f.Was:GetText() .. " > " or "") .. f.Now:GetText() end
+					list[#list + 1] = t
+				end
+			end
+			return list
+		end
 		out.from = s.From.Button.Label:GetText()
 		out.exported = exported
+		out.exportParts, out.exportList = parts(s.ExportRows), lines(s.ExportList)
+		out.note = s.ExportNote:IsShown() and s.ExportNote.Text:GetText() or nil
+		-- The string made in its well: the view the box scrolls in (inside the
+		-- well's padding), the well's size, the box's height and width, whether
+		-- the box holds the whole string and is the view's scroll child.
+		out.copy = s.CopyWell:IsShown() and { view = s.CopyScroll.psView, wellH = s.CopyWell:GetHeight(), well = s.CopyWell:GetWidth(), content = s.CopyBox:GetHeight(),
+			width = s.CopyBox:GetWidth(), whole = s.CopyBox:GetText() == exported, scrolls = s.CopyScroll:GetScrollChild() == s.CopyBox and s.CopyBox:GetParent() == s.CopyScroll } or nil
 		out.copyNote = s.Made:IsShown() and s.Made.Text:GetText() or nil
 		out.preview = s.Status:IsShown() and not refusal and s.Status.Text:GetText() or nil
-		out.changes = s.Changes:IsShown() and s.Changes:GetText() or nil
+		out.importParts, out.importList = parts(s.ImportRows), lines(s.ImportList)
+		out.picks = s.ImportPicks[1]:IsShown()
+		out.screen = s.Screen:IsShown() and s.Screen:GetText() or nil
 		out.dropped = s.Dropped:IsShown() and s.Dropped:GetText() or nil
 		out.refusal = s.Status:IsShown() and refusal and s.Status.Text:GetText() or nil
 		out.done = s.Done:IsShown() and s.Done.Text:GetText() or nil
+		out.undo = s.UndoButton:IsShown()
 		out.importName = s.ImportName:IsShown() and s.ImportName:GetText() or nil
 	end
 	return out
 end
 
 local function changed()
+	if busy then return end
 	for _, v in pairs(views) do
 		if v:IsVisible() then return relayout() end
 		v.psDirty = true

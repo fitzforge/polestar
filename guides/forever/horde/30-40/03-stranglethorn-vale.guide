@@ -2,7 +2,7 @@
 guide forever/horde/30-40/03-stranglethorn-vale
 title Stranglethorn Vale
 faction Horde
-levels 34-36
+levels 33-36
 zone Stranglethorn Vale
 next forever/horde/30-40/04-dustwallow-marsh
 
@@ -72,7 +72,6 @@ step Booty Bay
   vendor nearest
   accept 605                          -- Crank Fizzlebub, inside, on the bottom floor
   turnin 1181                         -- Baron Revilgaz, upstairs
-  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is at Lake Nazferiti, later in this guide
   accept 213                          -- Kebok, upstairs
   accept 189                          -- Kebok
   accept 201                          -- Krazek, upstairs
@@ -95,10 +94,10 @@ step Grom'gol
 # Relations, training) -> fly to Ratchet (Gazlowe, Dizzywig) -> boat to Booty Bay (flight
 # path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
 # the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->
-# Nesingwary -> tigers, panthers, the Venture Co. geologists and Cozzle's footlocker ->
-# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors and Bloodscalp village ->
-# Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol -> the Vile
-# Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
+# Nesingwary -> tigers, panthers and the Venture Co. geologists ->
+# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors, Bloodscalp village and Zimmix
+# at Zul'Kunda -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol
+# (top-up to 35 if needed) -> the Vile Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
 # the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
 # Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
 # the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
@@ -107,8 +106,9 @@ step Grom'gol
 # - Crystal in the Mountains (635) starts from the Pendant of Myzrael, a 0.01-0.08% drop from
 #   the trolls; take it only if one drops (it ends in Arathi).
 # - The Green Hills of Stranglethorn (338-342): its pages drop at about 1% each from the
-#   vale's trolls (or buy them). The chapters are accepted at Nesingwary's camp and turned in
-#   on the next Stranglethorn visit (forever/horde/40-50/01-stranglethorn-vale) if you have them.
+#   vale's trolls (or buy them). Keep every page: the chapters are accepted and turned in together
+#   at Nesingwary's camp on the next Stranglethorn visit (forever/horde/40-50/01-stranglethorn-vale),
+#   so they don't take five quest log slots from 35 to 40.
 #
 # Some Assembly Required (577) is accepted and its skins gathered here, and handed in on the
 # Booty Bay stop of forever/horde/40-50/01-stranglethorn-vale.
@@ -121,6 +121,13 @@ step Grom'gol
 #
 # Not taken: Marg Speaks (1261): Marg's note is offered only after The Troll Witchdoctor
 # (1240), which is turned in at Grom'gol in forever/horde/40-50/01-stranglethorn-vale.
+# Goblin Sponsorship part 4 (1182, 2,850 XP): Foreman Cozzle (38) keeps the key inside the Venture Co. house
+# on Lake Nazferiti, with Venture Co. Agents (39) in and around it, four and five levels over players here
+# (level model 33.6; recorded players killed him at a 25th percentile of 35.7). No later Horde stop passes the
+# house (40-50/01's Venture Co. mine is the southern one), so the errand is left out of the solo route.
+# Anything of Value, Where's the Key? and Zimmix's Great Escape (97328, 97329, 97331) are done on the walk
+# west from Nesingwary's camp, among the Bloodscalp Scouts, Hunters and Mystics (34-35) of Zul'Kunda, and
+# handed in to Wharfmaster Lozgil on the Booty Bay stop, before the top-up to 35.
 
 # ---------------------------------------------------------------- Nesingwary's camp
 
@@ -141,7 +148,7 @@ step Nesingwary's Expedition: kill these as you meet them
   tip River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
   collect 4053 quest 575
   kill 681 quest 185
-  kill 683 quest 190
+  kill 683 quest 190 @39.81,11 map 1434 era
   collect 3901 quest 581
   collect 4614 x1 optional
   accept 635 optional
@@ -154,28 +161,16 @@ step Nesingwary's camp
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
-  tip Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.
-  kill 682 quest 186
-  collect 4106 quest 213
+  tip Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.
+  kill 682 quest 186 @45,15 map 1434 era
+  collect 4106 quest 213 @46.3,21.4 map 1434 -- Tumbled Crystals, from the geologists of the eastern camps
   kill 736 quest 191
-
-step Cozzle's Footlocker
-  zone Stranglethorn Vale
-  when onquest 1182
-  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz.
-  collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
-  collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker
 
 step Nesingwary's camp
   turnin 191                          -- Sir S. J. Erlgadin
   accept 192                          -- The Shadowmaw Panthers come much later, by Grom'gol
   turnin 186                          -- Ajeck Rouack
   accept 187
-  accept 338 optional                 -- Barnil Stonepot
-  accept 339 optional
-  accept 340 optional
-  accept 341 optional
-  accept 342 optional
 
 step Elder Stranglethorn Tigers
   tip The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.
@@ -184,26 +179,41 @@ step Elder Stranglethorn Tigers
 step Nesingwary's camp
   tip Back north to the camp.
   turnin 187                          -- Ajeck Rouack
-  accept 188
+  accept 188                          -- Ajeck Rouack: Sin'Dall (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale
+
+step Thoroughly Scavenged Supplies
+  zone Stranglethorn Vale
+  tip On the walk west from Nesingwary's camp, a pile of Thoroughly Scavenged Supplies lies by the path: it starts Anything of Value, whose Stolen Shipments lie in the Ruins of Zul'Kunda on the coast ahead.
+  accept 97328 object 661516 @31.5,12.85 map 1434
 
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
-  tip Sin'Dall, a level 37 tiger, prowls the hilltop south-west of the camp.
+  tip Leave Sin'Dall, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   collect 3918 quest 605
   collect 1519 quest 189
   kill 685 quest 194
-  collect 3879 quest 188 @31.8,16.4
+
+step Zimmix Sputterspark
+  zone Stranglethorn Vale
+  tip Zimmix Sputterspark is held at the east edge of the Ruins of Zul'Kunda; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his Primitive Key. Then lead him out of the ruins: Wharfmaster Lozgil in Booty Bay takes the news and the shipments.
+  tip Careful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of Zimmix, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by Zimmix first, and pull one at a time if you go north.
+  accept 97329 @23.46,12.79           -- Zimmix Sputterspark
+  collect 277953 quest 97328.1 @24.25,12.24 -- Stolen Shipments, in the ruins
+  collect 277957 quest 97329.1        -- Primitive Key, from the Bloodscalp Scouts, Hunters and Mystics
+  turnin 97329
+  accept 97331
+  complete 97331 @26.8,11.4
+  note Escort Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
 
 step Nesingwary's camp
   turnin 194                          -- Hemet Nesingwary
   accept 195
-  turnin 188                          -- Ajeck Rouack
 
 step Lashtail Raptors
   zone Stranglethorn Vale
-  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh.
+  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them.
   kill 686 quest 195 @32.4,23.2 map 1434
   kill 686 quest 568
 
@@ -216,13 +226,6 @@ step Grom'gol
   accept 582
   accept 570                          -- Far Seer Mok'thardin: the Shadowmaw claws and the tigress fang come at the end of this guide
 
-step Level 35
-  when level<35
-  zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
-  goto 32.4,24.6 map 1434 "Lashtail Raptors"
-  level 35 grind 686                  -- grind on Lashtail Raptor
-
 step Fly to Booty Bay
   zone Stranglethorn Vale
   goto 32.5,29.3 "Grom'gol flight master"
@@ -230,20 +233,27 @@ step Fly to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Baron Revilgaz, Kebok and Krazek upstairs beside the flight master.
+  tip Drizzlik's shop is in the building east of the inn; Crank Fizzlebub is on the inn's bottom floor, Baron Revilgaz, Kebok and Krazek upstairs beside the flight master. Wharfmaster Lozgil stands on the pier.
   turnin 575                          -- Drizzlik, inside
   accept 577
   turnin 605                          -- Crank Fizzlebub, inside
-  turnin 1182                         -- Baron Revilgaz, upstairs
-  accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the way to Tanaris around level 43
   turnin 213                          -- Kebok, upstairs
   turnin 189                          -- Kebok
   turnin 201                          -- Krazek, upstairs
+  turnin 97328                        -- Wharfmaster Lozgil, on the pier: the Stolen Shipments
+  turnin 97331                        -- Wharfmaster Lozgil: Zimmix is safe
 
 step Fly to Grom'gol
   zone Stranglethorn Vale
   goto 26.8,77.0 "Booty Bay flight master"
   fly "Grom'gol"
+
+step Level 35
+  when level<35
+  zone Stranglethorn Vale
+  tip The Vile Reef's and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after Booty Bay's hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of Grom'gol, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher.
+  goto 31.8,19.2 map 1434 "Elder Stranglethorn Tigers"
+  level 35 grind 1085                 -- grind on Elder Stranglethorn Tiger
 
 # ---------------------------------------------------------------- The Vile Reef and the Bloodscalp ruins
 
@@ -253,7 +263,7 @@ step The Vile Reef
 
 step Ruins of Zul'Kunda: kill these as you meet them
   zone Stranglethorn Vale
-  tip The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.
+  tip The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.
   tip The Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a Bloody Bone Necklace. Keep looting pages of The Green Hills of Stranglethorn.
   collect 3915 quest 596
   collect 1532 quest 582
@@ -268,32 +278,14 @@ step Grom'gol
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
-  tip East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.
+  tip East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them; the 38s can be two over you: pull them one at a time and leave the Elders alone.
   collect 3838 quest 570.1
   collect 3839 quest 570.2
   kill 684 quest 192 @41.3,34.8 map 1434
   collect 4104 quest 577 @39.9,28.4
 
-step Green Hills pages
-  tip Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters on your next Stranglethorn visit, at about 40.
-  collect 2725 quest 339.1 optional
-  collect 2728 quest 339.2 optional
-  collect 2730 quest 339.3 optional
-  collect 2732 quest 339.4 optional
-  collect 2734 quest 340.1 optional
-  collect 2735 quest 340.2 optional
-  collect 2738 quest 340.3 optional
-  collect 2740 quest 340.4 optional
-  collect 2742 quest 341.1 optional
-  collect 2744 quest 341.2 optional
-  collect 2745 quest 341.3 optional
-  collect 2748 quest 341.4 optional
-  collect 2749 quest 342.1 optional
-  collect 2750 quest 342.2 optional
-  collect 2751 quest 342.3 optional
-
 step Mosh'Ogg camp
-  tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time.
+  tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time. Careful: the 37s can be two over you: take them from the camp's western edge, never two together.
   kill 1142 quest 569.1
   kill 1144 quest 569.2
 
@@ -308,6 +300,6 @@ step Grom'gol
 step Level 36
   when level<36
   zone Stranglethorn Vale
-  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
-  goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
-  level 36 grind 1142                 -- grind on Mosh'Ogg Brute
+  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone.
+  goto 38.4,31.0 map 1434 "Snapjaw Crocolisks"
+  level 36 grind 1152                 -- grind on Snapjaw Crocolisk

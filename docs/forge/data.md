@@ -200,8 +200,14 @@ forge data check --help
 | Forever's quest data | the addon in your Forever client's AddOns folder (found automatically; `--questie DIR` to point at it, `--no-questie` to leave it out) | quest givers, objectives, XP and more for Forever |
 | An open quest database | `data/sources` (`--pfquest DIR`) | the base layer: quests, NPCs, objects, items for Classic; read through a built-in Lua 5.1 |
 | Cached facts | `data/sources` | spawn heights and objective counts from an open Classic server database, web quest XP |
-| Recordings | `data/recordings/*.json` (`--recordings DIR`) | our own in-game recordings |
+| Recordings | `data/recordings/*.json` (`--recordings DIR`: a release build passes the maintainer's recordings archive) | our own in-game recordings, read one session at a time |
 | Corrections | `forever-db/corrections/` (`--corrections PATH`) | our own fixes, see [Corrections](#corrections) |
+
+The shipped guides follow the full build, the one with the recordings archive. Recordings give a
+quest the game's own objective lines (their order, their counts, talks instead of kills), so a
+guide's objective indices (`quest 4182.3`) can differ from what a build without the archive (a
+contributor's, or the public one) has: `forge guide lint` on such a build may report an index the
+full build has right. Check a reported index against the full build before changing it.
 
 Each source's name, version and licence is recorded in `data/forever/meta.json` under `sources`.
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
@@ -222,10 +228,16 @@ folds them into the store's quests, NPCs, objects and items:
 
 - quest giver and ender lists become the union of what every character sees: a quest both
   factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
-- any other field (objective text, zone, next quest, spawns, drops) changes only when every
-  character sees the same value; otherwise the store's value stays.
+- an NPC's or object's spawn points and the quests it starts and ends become the union too: a
+  summoned demon one faction meets in its own city and the other in theirs has both places (#2038);
+- any other field (objective text, zone, next quest, a quest's prerequisites, an item's droppers)
+  changes only when every character sees the same value; otherwise the store's value stays. An
+  item's faction fixes name the NPCs that hand it over as its droppers (Soothing Spices' vendors),
+  which our data would read as mobs to kill.
 
-The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+The build log lists what changed and every field still kept from the store because characters see
+it differently (check that list at each QuestieDB update: a fact one faction needs that the data
+can't carry is a correction), and `meta.json` counts it under the QuestieDB source's
 `dynamicCorrections`.
 
 ### How the merge works
@@ -240,6 +252,36 @@ The build goes in layers. A later layer wins over an earlier one:
 
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
+
+A rare's sightings in the recordings (its nameplate, the cursor or the target meeting it) are where
+the player stood, up to about 100 yards from the rare. They don't each become a spawn point: each
+map's sightings are grouped (2.5% of the map) and the groups' centres are the places, and where
+another source already places the rare on that map, only a centre farther than that from all of its
+points is added (#2816). Only a true rare's sightings count (classed rare or rare elite, or a vignette's
+with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
+faction leader got the spots where players stood when they saw him (#2894).
+
+Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
+show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
+source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
+knows, whose NPC is friendly to every side that can take the quest, and whose quest text asks for no fight,
+use, emote or escort becomes `talk` (count 1) (`forge-data/src/talk.rs`); a quest whose objectives a correction
+sets is left to the correction. The Codex packs a talk as `s`, the quest database as kind 5, and the guides,
+Lookup and pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the
+data) are corrections with players' recordings behind them (#2543).
+
+Placeholder targets (#2614): Forever's quest data names some objectives by the invisible creature the server
+credits, with the game's internal names: a "[DNT] Kill Credit", a bare "Credit", the battlegrounds' "PvP Tower
+Credit Marker", Alterac Valley's "Trigger Ichman". After the talk rule, a kill or talk objective on such an NPC
+becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed at the NPC's spot when it has one
+(`forge-data/src/credit.rs`; the names in `forge-guide/src/placeholder.rs`). A placeholder text that carries a
+name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
+quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
+Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
+would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
+is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
 
 ### What it writes
 
@@ -321,13 +363,14 @@ first.
 | `forge data extracts --out DIR` | the server-fact extracts, rebuilt from the pinned database dump in `data/sources` | for checking the cached extracts |
 | `forge data itemdb` | `addon/Polestar_ItemDB/Items.lua` and its TOC (size budget 1 MiB) | the Classic Era item tables (ItemSparse, Item, ItemEffect, SpellEffect) |
 | `forge data names [<locale>...]` | `Names.lua`, `LICENSE-DATA.txt`, `CREDITS.md` and the TOC in the language folders `addon/Polestar_<locale>` (committed; our guides' `Texts.lua` there is left alone): the data's names in each client language; `--offline`, `--no-questie`, `--no-tables`, `--build`, `--sources`, `--observed`, `--ding`, `--pfquest`, `--guides`, `--questdb`, `--codex`, `--travel`, `--chokepoints`, `--out`, `--json` (`polestar i18n names` retired) | the client's tables (wago.tools, cached), the names the client showed players (`data/i18n/names-observed/<locale>.json`, [TRANSLATING.md](../TRANSLATING.md#game-names)), the cached web quest database names, DingDB (pinned), pfQuest; the ids of the compiled guides, `addon/Polestar_QuestDB`, `data/forever/codex`, the travel data and the chokepoints |
+| `forge data subzones [<locale>...]` | `Subzones.lua` and the TOC in the language folders `addon/Polestar_<locale>` (committed): the subzone name the client in each language shows on each area of the walking maps, for the rows not named as in English, which the arrow reads to tell a city's floors apart; `--offline`, `--sources`, `--data`, `--nav`, `--out`. Run it after `forge nav pack` | the walking maps' areas (`addon/Polestar_Nav/Nav/Nav<map>.lua`'s `areaNames`) and the Forever client's WMOAreaTable and AreaTable in English and each language (wago.tools, cached) at the client build the data is built from (`forge_data::subzones::BUILD`; data/forever naming another stops it) |
 | `forge data questdb` | `addon/Polestar_QuestDB` (local; in the release zip when built): each kind's records as LuaChunks strings, decoded when read; `--radius YD`, `--droppers N`, `--json` | `data/forever` (quests, npcs, objects, items, map-frames) |
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
 | `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
 
-`itemdb`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
+`itemdb`, `subzones`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.
@@ -370,8 +413,16 @@ single-file form, and a checkout without the folder still has its
 |---|---|---|
 | `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an NPC's `roles`, such as `["flightmaster"]` for a flight master the merged data has without its role, so `forge data travel` matches it to its flight point; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
-| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
+| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate); `dropRequires`: `{ npc: { "<id>": [quest ids] }, object: { "<id>": [quest ids] } }` (source-specific loot requirements; each quest must be held or completed) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
+
+`dropRequires` changes only the named NPC or object's loot, preserving other sources. Its quest
+IDs are all required, but each can be in the log or already turned in; accepting a quest is enough.
+The source must already drop the item (or be added by `addDrops`), and IDs must be positive,
+unique and present in the data. An empty list clears that source's requirement; absent metadata
+changes nothing. The built item's `dropRequires` becomes `requiresQuests` on each affected
+Codex drop/object source. Packing appends the escaped list after provenance, leaving old source
+fields intact; old packs have no condition and older readers ignore the optional tail.
 
 In `addSpawns`, `pts` are `[x, y]` map percentages and `f` names the map frame they are in (`e` for the
 Classic frame, `l` for Forever's). Every entry has a `source`, the evidence for what it sets (`{ kind,
@@ -612,9 +663,9 @@ Every travel-only step of the walk gets each condition (a string, or a list of t
 7836", "!complete 7824"]`) after its `only` and `when` lines; one it already has is not repeated. A
 record may set `at` and `when` both.
 
-**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, and the guide
-window calls a guide outgrown at its top + 2, but players leave it at 33 (players' recordings, four
-people) and half its quests are 32-33:
+**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, but players leave
+it at 33 (players' recordings, four people) and half its quests are 32-33, so its top is where they
+leave (the guide window calls a guide outgrown at its top + 3):
 
 ```json
 { "id": "levels-horde-hillsbrad-arathi-top-33", "at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" },
@@ -710,9 +761,9 @@ Most contributors do not have our `data/sources` and `data/local` folders. The *
 the public part, so `forge build` works without them. The code is `rust/crates/forge/src/pack.rs` and
 `fetch.rs`. The list of what goes in is `rust/crates/forge/src/pack-spec.json`.
 
-**No public data pack has been published yet.** Once it is, `forge data fetch` downloads it from
-the `data-pack` release of the Polestar repository. Until then, `forge data fetch` says so; build
-from your own game client instead (`forge build --wow <path>`).
+`forge data fetch` downloads the public pack from the
+[`data-pack` release](https://github.com/fitzforge/polestar/releases/tag/data-pack) of the Polestar
+repository.
 
 ### What is in it
 
@@ -833,6 +884,11 @@ If anything matches, it writes nothing and lists each hit
 guard. The only exemption is the corrections' section files (`textScanExempt`): they are already public. The guard is
 tested in `rust/crates/forge/tests/pack.rs`.
 
+**Corrections in the pack's KB.** The KB labels every corrected field `correction`, whether
+`forever-db/corrections` or the maintainer's private overlay set it; its `correction_origin` table
+(never packed) says which. The pack keeps a corrected fact, mechanic or step only when the public
+corrections made it, and none from a KB without that table.
+
 To add a file to the pack, add it to a source in `pack-spec.json` with its title, credit, licence and
 URL. A file that is not under a source with a licence does not go in.
 
@@ -863,7 +919,10 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check. There a quest's races or classes that
+  only when their `source.kind` names an independent check. With the KB the same holds for
+  corrections: a public correction (the KB's `correction_origin`) whose `source.kind` names an
+  independent check stands on its own; a value or a mechanics fix the private overlay sets never
+  does. Without the KB a quest's races or classes that
   no source states (a quest only a correction adds, without them) are left out, never published as
   0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version

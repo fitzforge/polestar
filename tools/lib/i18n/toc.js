@@ -53,15 +53,15 @@ const TEXT = {
 	Polestar_Experimental: {
 		title: { deDE: 'Polestar: experimentelle Guides', esES: 'Polestar: guías experimentales', esMX: 'Polestar: guías experimentales', frFR: 'Polestar : guides expérimentaux', koKR: 'Polestar 실험 가이드', ptBR: 'Polestar: guias experimentais', ruRU: 'Polestar: экспериментальные гайды', zhCN: 'Polestar 实验指南', zhTW: 'Polestar 實驗指南' },
 		notes: {
-			deDE: 'Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha). Aus, bis du es unter Optionen, Community-Guides einschaltest.',
-			esES: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.',
-			esMX: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa). Desactivado hasta que lo actives en Opciones, Guías de la comunidad.',
-			frFR: 'Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha). Désactivé tant que vous ne l\'activez pas dans Options, Guides de la communauté.',
-			koKR: 'Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). 설정 > 커뮤니티 가이드에서 켜기 전까지는 꺼져 있습니다.',
-			ptBR: 'Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa). Desligado até você ligá-lo em Opções, Guias da comunidade.',
-			ruRU: 'Часть Polestar: экспериментальные гайды для новых зон Forever (альфа). Выключено, пока вы не включите его в разделе «Настройки», «Гайды сообщества».',
-			zhCN: 'Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版）。在“选项”>“社区指南”中开启前保持关闭。',
-			zhTW: 'Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版）。在「選項」>「社群指南」中開啟前保持關閉。',
+			deDE: 'Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha), gelistet mit den Guides von Polestar.',
+			esES: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.',
+			esMX: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.',
+			frFR: 'Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha), aux côtés des guides de Polestar.',
+			koKR: 'Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). Polestar 가이드와 함께 표시됩니다.',
+			ptBR: 'Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa), junto aos guias do Polestar.',
+			ruRU: 'Часть Polestar: экспериментальные гайды для новых зон Forever (альфа), рядом с гайдами Polestar.',
+			zhCN: 'Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版），与 Polestar 的指南一同列出。',
+			zhTW: 'Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版），與 Polestar 的指南一同列出。',
 		},
 	},
 	Polestar_Guides: {
@@ -204,6 +204,21 @@ const TEXT = {
 			ruRU: 'Часть Polestar: оформления WoW Forever, Blizzard, Classic и Hearth. Загружается, когда вы выбираете одно из них.',
 			zhCN: 'Polestar 的组成部分：WoW Forever、Blizzard、Classic 和 Hearth 皮肤。选择其中一个时加载。',
 			zhTW: 'Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。',
+		},
+	},
+	// Freedoom Arcade by petllama (Maps/Arcade.lua): loaded the first time Play is pressed.
+	Polestar_Arcade: {
+		title: { deDE: 'Polestar Arcade', esES: 'Polestar: arcade', esMX: 'Polestar: arcade', frFR: 'Polestar : arcade', koKR: 'Polestar 아케이드', ptBR: 'Polestar: arcade', ruRU: 'Polestar: аркада', zhCN: 'Polestar 街机', zhTW: 'Polestar 街機' },
+		notes: {
+			deDE: 'Teil von Polestar: Freedoom Arcade von petllama, drei Freedoom-Level zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.',
+			esES: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			esMX: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			frFR: 'Fait partie de Polestar : Freedoom Arcade de petllama, trois niveaux de Freedoom à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.',
+			koKR: 'Polestar의 일부: petllama의 Freedoom Arcade, 비행 중에 즐기는 Freedoom 세 레벨. 플레이를 누르면 불러옵니다.',
+			ptBR: 'Parte do Polestar: Freedoom Arcade de petllama, três níveis de Freedoom para jogar durante um voo. Carregado quando você clica em Jogar.',
+			ruRU: 'Часть Polestar: Freedoom Arcade от petllama, три уровня Freedoom, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».',
+			zhCN: 'Polestar 的组成部分：petllama 的 Freedoom Arcade，飞行途中可玩的三个 Freedoom 关卡。点击“开始游戏”时加载。',
+			zhTW: 'Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。',
 		},
 	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.

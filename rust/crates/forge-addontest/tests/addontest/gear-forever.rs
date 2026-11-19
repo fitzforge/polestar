@@ -1,6 +1,6 @@
 //! Forever's ratings and Polestar's own weights (addon/Polestar/Gear/Gear.lua, Weights.lua, PawnStats.lua, #1529): an
 //! item's ratings read at the client's points per 1%, haste, expertise and armor penetration weighed, and a level
-//! band's weights with Forever's own ratings taken from Weights.lua (no simulation has them).
+//! band's weights with Forever's own ratings worked out from its crit and hit (no simulation has them).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -78,8 +78,10 @@ fn every_spec_weighs_haste_melee_specs_expertise_and_armor_penetration_casters_n
 }
 
 #[test]
-fn a_level_band_keeps_its_own_numbers_and_takes_forever_s_ratings_from_weights_lua() {
+fn a_level_band_keeps_its_own_numbers_and_works_out_forever_s_ratings_from_its_crit_and_hit() {
+	// The formula weights' every rule, for every spec and level: gear_weights::every_spec_s_weights_are_its_band_*.
 	let out = run(r#"
+		local FORMULA = { health = true, mana = true, haste = true, expertise = true, armorPen = true }
 		local diff, banded = {}, 0
 		for class, specs in pairs(G.WEIGHTS) do
 			for key, w in pairs(specs) do
@@ -88,26 +90,31 @@ fn a_level_band_keeps_its_own_numbers_and_takes_forever_s_ratings_from_weights_l
 				for _, level in ipairs({ 1, 24, 25, 40, 59, 60 }) do
 					local got, info = G.WeightsFor(class, key, level)
 					local function bad(k) diff[#diff + 1] = class .. "." .. key .. "@" .. level .. ":" .. k end
+					local own = w
 					if bands then
 						local pick = bands[#bands]
 						for _, b in ipairs(bands) do if level <= b.upTo then pick = b break end end
 						if info ~= pick then bad("band") end
-						for k, v in pairs(pick.weights) do if got[k] ~= v then bad(k) end end
-						for _, k in ipairs({ "haste", "expertise", "armorPen" }) do
-							if got[k] ~= (pick.weights[k] or w[k]) then bad(k) end
-						end
-					else
-						for k, v in pairs(w) do if got[k] ~= v then bad(k) end end
+						own = pick.weights
+					end
+					for k, v in pairs(own) do if not FORMULA[k] and got[k] ~= v then bad(k) end end
+					for _, k in ipairs({ "haste", "expertise", "armorPen" }) do
+						if (own[k] or w[k]) and not got[k] then bad(k) end
 					end
 				end
 			end
 		end
 		local arms = G.WeightsFor("WARRIOR", "arms", 60)
-		emit({ n = #diff, first = diff[1] or false, banded = banded, arms = { haste = arms.haste, expertise = arms.expertise, armorPen = arms.armorPen } })
+		emit({ n = #diff, first = diff[1] or false, banded = banded,
+			arms = { haste = arms.haste, crit = arms.crit, expertise = arms.expertise, hit = arms.hit, armorPen = arms.armorPen, share = G.ArmorShare(60) } })
 	"#);
 	assert_eq!(out[0]["n"], 0, "first difference: {}", out[0]["first"]);
 	assert_eq!(out[0]["banded"], 27, "every spec has bands");
-	assert_eq!(out[0]["arms"], json!({ "haste": 6, "expertise": 8.1, "armorPen": 3 }), "Arms at 60: its band, with Weights.lua's haste, expertise and armor penetration");
+	let a = &out[0]["arms"];
+	let f = |k: &str| a[k].as_f64().unwrap();
+	assert!((f("haste") - f("crit") * 6.0 / 10.0).abs() < 1e-9, "Arms at 60: haste at Weights.lua's 6 per 10 crit: {a}");
+	assert!((f("expertise") - f("hit") * 8.1 / 9.0).abs() < 1e-9, "expertise at 8.1 per 9 hit: {a}");
+	assert!((f("armorPen") - f("crit") * f("share")).abs() < 1e-9, "armor penetration: crit times a level 60 mob's armor share: {a}");
 }
 
 #[test]

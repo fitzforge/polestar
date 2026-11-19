@@ -25,7 +25,9 @@
 --     each -> name | nil, nil on an English client
 --   Names.Get(kind, id) -> name | nil   -- the above by kind (quest npc object
 --     item spell faction map area taxi encounter), and any other kind a pack
---     adds (its table only)
+--     adds (its table only): "subzone", a walking map's area by its
+--     WMOAreaTable row, named as the client's subzone there (the folder's
+--     Subzones.lua, `forge data subzones`; Nav/Walk.lua's floor by subzone)
 --   Names.Cached(kind, id) -> name | nil   -- the same, never asking the
 --     server; an item's name from the pack only (Lookup indexes thousands)
 --   Names.Learn(unit) -> name | nil   -- remembers the name the client shows
@@ -121,9 +123,9 @@ local function load()
 	end
 end
 
-local function fromPack(kind, id)
+local function fromPack(kind, id, cursor)
 	if not ready then load() end
-	return LuaChunks.Unesc(store:Raw(kind, id))
+	return LuaChunks.Unesc(store:Raw(kind, id, cursor))
 end
 
 -- This client language's learned names, or nil before saved variables load.
@@ -256,13 +258,20 @@ function Names.Get(kind, id)
 	return fromPack(kind, id)
 end
 
-function Names.Cached(kind, id)
+-- A game name in the client's language (Names.Get), else `english` through
+-- Polestar's own strings: the names the settings' previews show ("Kobold
+-- Vermin" read "Kobold Vermin" in every language).
+function Names.Or(kind, id, english)
+	return Names.Get(kind, id) or ns.L[english]
+end
+
+function Names.Cached(kind, id, cursor)
 	if not valid(id) then return nil end
 	if kind == "quest" then
 		local t = ns.Compat.GetQuestTitle(id)
 		if t then return t end
 	end
-	return fromPlay(kind, id) or fromPack(kind, id)
+	return fromPlay(kind, id) or fromPack(kind, id, cursor)
 end
 
 -- The client names an NPC (or a quest-giving object, through the "npc"

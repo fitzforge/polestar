@@ -7,6 +7,7 @@ faction Alliance
 levels 10-14
 zone Dun Morogh
 keywords Fire Totem, Searing Totem, Totem of Charged Flames, Fire Sapta, Call of Fire, Ingrid Dunwald, Eldrun Stormbreaker, Bruegs Kindleborn, Braldir Ashmantle, Fire Tar, Reagent Pouch, Tunnel Rat Geomancer, Stonesplinter Seer, Silver Stream Mine, Glowing Ember, Brazier of the Dormant Flame, Shrine of Eternal Flame, Torch of Eternal Flame, South Gate Outpost, Loch Modan, Shaman, class quest, totem
+collects 5176
 reward item 5176
 reward spell 3599 "Searing Totem"
 reward item 263412
@@ -43,19 +44,23 @@ step Bruegs Kindleborn
 step Braldir Ashmantle
   zone Loch Modan
   tip From Bruegs' ledge you can drop carefully down the mountain into Loch Modan, or walk back through the tunnel. Braldir Ashmantle keeps the shrine on the peak just south of Thelsamar: a hidden trail along a cliff ledge, marked by stone totems, climbs to it from the road north of the peak.
+  level 13
   turnin 94465                                -- Braldir Ashmantle
   accept 94466
 
 step Reagent Pouch
   tip The Stonesplinter Seers (level 13-14) stand among the troggs of Stonesplinter Valley in the south of the loch, and in the trogg camps north-east of Thelsamar. They throw Lightning Bolts from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes.
+  level 14
   collect 6652 quest 94466.2                  -- Reagent Pouch
 
 step Fire Tar
   tip The Tunnel Rat Geomancers (level 12-13) work only inside the Silver Stream Mine at the north end of the loch, past Thelsamar. They cast Fire Blast behind a Fire Shield and run for help at low health.
+  level 14
   collect 5026 quest 94466.1                  -- Fire Tar
 
 step Braldir Ashmantle
   tip Back up the trail to Braldir. He makes the Fire Sapta from the tar and the pouch: keep it with the torch.
+  level 13
   turnin 94466                                -- Braldir Ashmantle
   accept 94467
 
@@ -67,6 +72,7 @@ step Lost the Fire Sapta?
 
 step The Shrine of Eternal Flame
   tip Climb on past Braldir to the peak. Drink the Fire Sapta beside the rock statue there to see the Minor Manifestation of Fire (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its Glowing Ember drops every time.
+  level 14
   use 6636 quest 94467.1 @31.9,64.5           -- Fire Sapta, beside the statue
   collect 6655 quest 94467.1                  -- Glowing Ember: Minor Manifestation of Fire
 

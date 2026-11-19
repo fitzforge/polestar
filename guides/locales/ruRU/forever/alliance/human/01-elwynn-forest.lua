@@ -129,8 +129,8 @@ return {
 	["Level 5.77"] = "Уровень 5.77",
 	-- {quest:91752} The Big Picture
 	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Если вы пропустили {quest:91752}, убивайте монстров здесь до уровня 5.77, чтобы не отстать от маршрута.",
-	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "убивайте: {npc:40}",
+	-- {npc:113} Stonetusk Boar
+	["grind on {npc:113}"] = "убивайте: {npc:113}",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Сядьте (/sit) у его костра, пока не получите эффект «{spell:1229451}»",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306} примет его, когда ваш навык {skill:393} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}: для NPC {npc:6306} на берегу озера",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632} примет его, когда ваш навык {skill:165} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}: для NPC {npc:1632} на берегу озера",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651} примет его, когда ваш навык {skill:356} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}: для NPC {npc:1651} на берегу озера",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329} примет его, когда ваш навык {skill:129} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}: для NPC {npc:2329} в таверне «Гордость льва»",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514} примет его, когда ваш навык {skill:164} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}: для NPC {npc:514} в кузнице ({area:87})",
 
@@ -270,6 +280,8 @@ return {
 	["Level 8.39"] = "Уровень 8.39",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "Если вы пропустили {quest:91775}, убивайте монстров здесь до уровня 8.39, чтобы не отставать от маршрута.",
+	-- {npc:40} Kobold Miner
+	["grind on {npc:40}"] = "убивайте: {npc:40}",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
@@ -289,9 +301,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Идите на восток из места {area:87} вдоль берега озера. {npc:383} стоит на берегу к северо-востоку от городка.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "Фукус падает с мурлоков на восточном берегу. Для снятия шкур: серые лесные волки бродят по лесу между озером и местом {area:91}; шкуры дают и лесные хищники дальше к востоку.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "Фукус падает с мурлоков на восточном берегу. Для снятия шкур: серые лесные волки бродят по лесу между озером и местом {area:91}; шкуры дают и лесные хищники дальше к востоку.\nОсторожно: {npc:276180}, редкий мурлок 11-го уровня, ходит вдоль реки у моста ({npc:261}), к востоку от леса хищников: не трогайте его.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "Ветки хрустального фукуса",
 
@@ -309,9 +321,9 @@ return {
 	-- Step 61: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733} и {npc:330}",
-	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
-	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, топор и ящик с инструментами лежат в реке к югу от моста. {npc:330}, большая свинья, роется здесь: {area:62}, к западу от реки, вместе с поросятами ({npc:390}): сначала отманите поросят. По пути убивайте лесных хищников и молодых лесных медведей. Осторожно: {npc:248278} – элита 11-го уровня на берегу мурлоков. Идите за его головой только с группой или с 10-го уровня; иначе не трогайте: это необязательно.",
+	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
+	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "{item:247813}, топор и ящик с инструментами лежат в реке к югу от моста. {npc:330}, большая свинья, роется здесь: {area:62}, к западу от реки, вместе с поросятами ({npc:390}): сначала отманите поросят. По пути убивайте молодых лесных медведей; лесных хищников (9-10-го уровня) оставьте на обратный путь к NPC {npc:261}, после лагеря лесорубов и рудника. Осторожно: {npc:248278} – элита 11-го уровня на берегу мурлоков. Идите за его головой только с группой; иначе не трогайте: это необязательно.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -321,13 +333,14 @@ return {
 	["Level 8.85"] = "Уровень 8.85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "Если вы пропустили {quest:91740}, убивайте монстров здесь до уровня 8.85, чтобы не отставать от маршрута.",
-	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "убивайте: {npc:118}",
+	-- {npc:1922} Gray Forest Wolf
+	["grind on {npc:1922}"] = "убивайте: {npc:1922}",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Лагерь – к северо-востоку от моста. Вязанки дров лежат вокруг лагеря и в лесу к северу от него.",
+	-- {area:86} Stone Cairn Lake
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "Лагерь находится к северо-востоку от моста. Вязанки дров лежат по всему лагерю и в лесу к северу от него.\nОсторожно: Вязолап, элитный гнолл 12-го уровня, бродит по лесу и холмам от лесопилки на север до места {area:86} и лагерей гноллов: держитесь от него подальше, когда увидите.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, внутри",
 
@@ -335,9 +348,9 @@ return {
 	["It lies by the river north-west of the logging camp."] = "Оно лежит у реки к северо-западу от лесозаготовок.",
 
 	-- Step 68: Stone Cairn Lake
-	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse
+	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
-	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.",
+	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.\nОсторожно: волшебники-плуты атакуют издалека, а с ними по берегу ходит {npc:6866} (10): выманивайте их по одному.",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "Красные льняные банданы",
 
@@ -369,8 +382,9 @@ return {
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Идите по дороге на восток мимо места {area:91} к мосту. Добейте лесных хищников и молодых лесных медведей у реки к югу от него.",
 
 	-- Step 75: Stone Cairn Lake
+	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "К северо-востоку от лесозаготовок. Волшебники-плуты из Братства Справедливости стоят лагерем на берегах озера.",
+	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "К северо-востоку от лесопилки. Волшебники-плуты из Братства Справедливости стоят лагерем на берегах озера.\nОсторожно: волшебники-плуты атакуют издалека, а с ними по берегу ходит {npc:6866} (10): выманивайте их по одному.",
 
 	-- Step 76: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "Идите по холмам на юг к башне, по дороге на запад.",
@@ -467,10 +481,12 @@ return {
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Идите по дороге на юг. Цель: {area:120}, по пути в зону {zone:1436}. {npc:963} стоит у казарм; {npc:955} – внутри. Задание {quest:91738} есть у него, только пока у вас {item:247824}: поговорите с ним, и оно сразу перейдет к сдаче.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: для {npc:234} у {area:108}",
+
+	-- Step 92: Sergeant De Vries
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: ему нужен ваш {item:247824}; внутри",
 
-	-- Step 92: Forest's Edge
+	-- Step 93: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Недоростки и гонцы стаи Речной Лапы занимают холмы к югу от гарнизона, вдоль границы с зоной {zone:1436}.",
@@ -482,6 +498,7 @@ return {
 	-- ["Back to the Cathedral of Light."] = "Назад в Собор Света.",
 	-- ["Bait ingredients"] = "Ингредиенты для приманки",
 	-- ["Boar meat"] = "Кабанина",
+	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Идите по дороге на восток мимо места {area:91} к мосту.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Идите по дороге на север от места {area:87} в город {zone:1453}. {npc:6171} и {npc:6173} – в Соборе Света; {npc:6174} стоит здесь: {object:2100} – и просит десять штук: {item:2589} (падает с гуманоидов; продается на аукционе).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Идите по дороге на юг из долины. Цель: {area:87}. {npc:295} – в таверне «Гордость льва»; {npc:240} стоит у кузницы через дорогу, {npc:253} – перед таверной, {npc:241} – у дороги к югу от нее.",
@@ -497,6 +514,7 @@ return {
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей. {npc:248278} тоже бродит по берегу мурлоков: щелкните правой кнопкой по голове, которую он оставит. {npc:248278} – элитный противник: лучше собрать группу.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Мурлоки и речные мурлоки-бегуны занимают восточный берег; груды мусора лежат в их лагере.",
 	-- ["Murlocs and the Collector"] = "Мурлоки и Собиратель",
+	-- ["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "К северо-востоку от лесозаготовок. Волшебники-плуты из Братства Справедливости стоят лагерем на берегах озера.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Езжайте обратно через {area:87} и по дороге на восток. Цель: {area:62}. {npc:881} (9-й уровень) стоит у фермерского дома.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "Езжайте обратно через {area:87} и по дороге на восток. Цель: {area:62}. {quest:1688} (9-й уровень) стоит у фермерского дома.",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Езжайте обратно через {area:87} и на восток. Цель: {area:86}. {npc:6172} лежит к югу от озера: используйте на нем {item:6866}. {item:6846} – у волшебников-плутов из Братства Справедливости вокруг.",
@@ -505,12 +523,15 @@ return {
 	-- ["Speak with {npc:1430}"] = "Поговорить: {npc:1430}",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "Вепри-камнеклыки пасутся между виноградниками и фермой.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "Ферма Стоунфилдов – к западу от рудника. Мамаша и \"Тетушка\" Бернис стоят у дома.",
+	-- ["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Лагерь – к северо-востоку от моста. Вязанки дров лежат вокруг лагеря и в лесу к северу от него.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "Рудник – к юго-западу от лагерей гноллов. {item:247816} лежат у входа; туннели занимают кобольды-геоманты.",
 	-- ["The murloc camp"] = "Лагерь мурлоков",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, топор и ящик с инструментами лежат в реке к югу от моста. {npc:330}, большая свинья, роется здесь: {area:62}, к западу от реки, вместе с поросятами ({npc:390}): сначала отманите поросят. По пути убивайте лесных хищников и молодых лесных медведей.",
+	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, топор и ящик с инструментами лежат в реке к югу от моста. {npc:330}, большая свинья, роется здесь: {area:62}, к западу от реки, вместе с поросятами ({npc:390}): сначала отманите поросят. По пути убивайте лесных хищников и молодых лесных медведей. Осторожно: {npc:248278} – элита 11-го уровня на берегу мурлоков. Идите за его головой только с группой или с 10-го уровня; иначе не трогайте: это необязательно.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Это элитные противники: лучше собрать группу, поищите спутников. {quest:91740} – нужна группа из 2 человек. Если вы один, пропустите: маршрут восполнит опыт за счет убийства монстров.",
 	-- ["Torn Murloc Fins"] = "Рваные плавники мурлока",
 	-- ["Use the {item:6866} on {npc:6172}"] = "Используйте {item:6866}. Цель: {npc:6172}",
+	-- ["grind on {npc:118}"] = "убивайте: {npc:118}",
 	-- ["{area:18} and the wolves"] = "{area:18} и волки",
 	-- ["{area:57}'s mouth"] = "Вход: {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Принцесса",

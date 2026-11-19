@@ -107,12 +107,13 @@ end
 -- Hearth, Polestar_Looks, load on demand but are part of every release); the
 -- walking routes (Polestar_Nav), the Skin API's checks (Polestar_SkinAPI:
 -- only another addon's skin needs them, and says so when they are missing),
+-- Freedoom Arcade (Polestar_Arcade: without it there is no game to offer),
 -- quest and item packs and the language folder of the client's language
 -- (Names.PackName(), none in English) are optional (the arrow falls back to
 -- straight lines, the interface, names and guide texts to English; a source
 -- install may not build the packs), but when present they must be the same
 -- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
 
 local function installed(name)
@@ -175,8 +176,8 @@ local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
--- continents, the experimental guides (Polestar_Experimental, off until
--- switched on). Community addons are never named Polestar_* (pack.json
+-- continents, the experimental guides (Polestar_Experimental, loaded at
+-- login unless switched off). Community addons are never named Polestar_* (pack.json
 -- refuses the prefix) but a skin may be; the old language folders have a
 -- line of their own.
 local function listed()

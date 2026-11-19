@@ -901,6 +901,9 @@ is part of the routes stage's cache key, so changing it rebuilds the routes.
 	],
 	"pairs": [
 		{ "a": ["accept", 100], "b": ["task", 101], "why": "take 100 before working 101" }
+	],
+	"leftout": [
+		{ "q": 6789, "guide": "forever/horde/30-40/02-thousand-needles", "reason": "its starter is a long walk back for little XP", "issue": "#2635" }
 	]
 }
 ```
@@ -920,6 +923,13 @@ is part of the routes stage's cache key, so changing it rebuilds the routes.
 - **`pairs`**: precedence rules in the shape of `deliberate.pairs`, an optional `faction` included. v1's
   order is first made to keep them, then every edit keeps them (a deliberate pair v1 breaks is left
   out instead).
+- **`leftout`**: a second-visit accept the guide leaves out on purpose. `forge guide lint` flags an accept
+  of a leveling guide whose prerequisite only an earlier guide's visit to the same map brings (a character
+  who starts the route between the visits never sees the quest): the guide either brings the prerequisite
+  back itself before the accept, in steps `when !turnedin <the chain's last quest>` so characters who did the
+  first visit see none of it (with an `include` record saying so), or a `leftout` record names the guide
+  (`guide`) and the accept's quest (`q`) with the `reason` it stays out. The route build does not read it;
+  the guide window already says why such a quest is missing.
 
 `reason` and `issue` are shown in the ledgers. `issue` may be a number or a string like `"#457"`.
 Quests the start cannot take are ignored.
@@ -1046,7 +1056,9 @@ maps, the grid) changes the search key.
 
 The written check fails fast: the writer checks every tree it writes as the pack (the report's
 check, `the pack has errors:`) and refuses one with an error, so a bad line stops the routes stage
-at its first write, with the searches kept, not the report after the guides and legs.
+at its first write, with the searches kept, not the report after the guides and legs. The error
+names every start the writer refused, with five of each one's errors; all of a start's errors are
+in `<out>/.forge/flow/<start>.pack-errors.txt`, beside its tree.
 
 A resumed or reused route is the same route an uninterrupted run makes, file for file but the
 search's wall time: the members rebuilt from a checkpoint play on exactly as they would have, and

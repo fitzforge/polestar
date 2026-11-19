@@ -134,6 +134,50 @@ test('the pre-push hook checks the branch name and each commit the remote does n
 	fs.rmSync(repo, { recursive: true, force: true });
 });
 
+// After a rebase onto the base branch or a merge of it, the range from the remote ref's old tip holds
+// commits already public on origin (a contributor's message the rules flag): the hook doesn't check
+// those again, and still refuses a new commit that breaks a rule.
+test('the pre-push hook skips commits already on origin after a merge, and still checks new ones', () => {
+	const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'public-text-known-'));
+	const git = (...args) => {
+		const r = spawnSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', ...args], { cwd: repo, encoding: 'utf8' });
+		assert.equal(r.status, 0, r.stderr);
+		return r.stdout.trim();
+	};
+	git('init', '-q', '-b', 'base');
+	git('commit', '-q', '--allow-empty', '-m', 'Base');
+	const base = git('rev-parse', 'HEAD');
+	// The base branch on origin moved on with a contributor's commit whose message a rule flags.
+	git('commit', '-q', '--allow-empty', '-m', `Contributor's work\n\n${TREE.match[0]}`);
+	const theirs = git('rev-parse', 'HEAD');
+	git('update-ref', 'refs/remotes/origin/base', theirs);
+	// Our branch was pushed at its first commit, then merged the base branch and added a clean commit.
+	git('checkout', '-q', '-b', 'work', base);
+	git('commit', '-q', '--allow-empty', '-m', 'Westfall: turn in at Sentinel Hill');
+	const pushed = git('rev-parse', 'HEAD');
+	git('update-ref', 'refs/remotes/origin/work', pushed);
+	git('merge', '-q', '--no-ff', '-m', 'Merge base', 'base');
+	git('commit', '-q', '--allow-empty', '-m', 'Desolace: the loop ends at the camp');
+	fs.mkdirSync(path.join(repo, 'tools', 'lib'), { recursive: true });
+	for (const f of ['tools/public-text.js', 'tools/lib/public-text.js', 'tools/lib/public-text.json']) fs.copyFileSync(path.join(ROOT, f), path.join(repo, f));
+	const push = (local) => {
+		const r = spawnSync('sh', [path.join(ROOT, 'tools', 'hooks', 'pre-push'), 'origin', 'url'], { cwd: repo, input: `refs/heads/work ${local} refs/heads/work ${pushed}\n`, encoding: 'utf8' });
+		return { status: r.status, out: r.stdout + r.stderr };
+	};
+	const clean = push(git('rev-parse', 'HEAD'));
+	assert.equal(clean.status, 0, clean.out);
+	assert.doesNotMatch(clean.out, new RegExp(theirs.slice(0, 12)), 'the commit already on origin is not checked again');
+	// A new commit of ours that breaks a rule is still refused, and only it is named.
+	git('commit', '-q', '--allow-empty', '-m', `Ours\n\n${MSG.match[0]}`);
+	const ours = git('rev-parse', 'HEAD');
+	const bad = push(ours);
+	assert.equal(bad.status, 1);
+	assert.match(bad.out, new RegExp(`Commit ${ours.slice(0, 12)} message, line 3`));
+	assert.doesNotMatch(bad.out, new RegExp(theirs.slice(0, 12)));
+	silent(bad.out, MSG.match[0], TREE.match[0]);
+	fs.rmSync(repo, { recursive: true, force: true });
+});
+
 // The job checks out only these files from the base branch: each local file the
 // script loads must be among them, and the text comes in through env, never
 // expanded into the shell.

@@ -24,11 +24,14 @@ for (const growUp of [false, true]) {
 			Polestar.Set("ui.growUp", ${growUp})
 			local F = PolestarGuideFrame
 			local nav = GF.parts.nav
-			stub.RunScript(nav, "OnDragStart")
-			-- Where the game's mover leaves it, between whole units.
+			-- A drag (Polestar.DragWindow): the press, the pointer's travel, the release.
+			stub.cursor = { 900, 500 }
+			stub.RunScript(nav, "OnMouseDown", "LeftButton")
+			-- Where the stub lays the window out at the drop, between whole units.
 			F.x, F.y = 412.37, 288.62
 			local left, corner = F:GetLeft(), ${growUp} and F:GetBottom() or F:GetTop()
-			stub.RunScript(nav, "OnDragStop")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(nav, "OnMouseUp", "LeftButton")
 			local point, _, _, x, y = F:GetPoint(1)
 			local pos = Polestar.Get("ui.pos")
 			emit({ left = left, corner = corner, point = point, x = x, y = y, pos = { pos[1], pos[2] } })`);
@@ -46,9 +49,11 @@ for (const growUp of [false, true]) {
 			local F = PolestarGuideFrame
 			local nav = GF.parts.nav
 			-- Dropped between whole units, as the drag test above leaves it.
-			stub.RunScript(nav, "OnDragStart")
+			stub.cursor = { 900, 500 }
+			stub.RunScript(nav, "OnMouseDown", "LeftButton")
 			F.x, F.y = 412.37, 288.62
-			stub.RunScript(nav, "OnDragStop")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(nav, "OnMouseUp", "LeftButton")
 			local left, corner = F:GetLeft(), ${growUp} and F:GetBottom() or F:GetTop()
 			Polestar.Set("ui.scale", 1.3)
 			local point, _, _, x, y = F:GetPoint(1)

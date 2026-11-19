@@ -29,17 +29,19 @@ why A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays 
 
 step Zardeth of the Black Claw
   tip At 25 Zardeth of the Black Claw, in the cellar of the Slaughtered Lamb in the Mage Quarter (beside the warlock trainers), wants two ingredients for a brew. Do it when your leveling takes you to Duskwood and the Wetlands.
-  level 25
+  level 29
   accept 335                          -- Zardeth of the Black Claw
 
 step Tear of Tilloa
   zone Duskwood
   tip Manor Mistmantle stands in the north-east of Duskwood, north of Darkshire. The Tear of Tilloa is a small white flower low in the grass of the fenced garden beside Stalvan's house: hard to see, so sweep the garden with your mouse. Fetid Corpses (level 29) wander the grounds and come quickly: at 25, send your voidwalker at the nearest one, grab the flower and leave. Stalvan Mistmantle (32) is inside the house; leave him alone.
+  level 29
   collect 2779 quest 335.1            -- Tear of Tilloa
 
 step Musquash Root
   zone Wetlands
   tip The root grows at the water's edge in the pool below the small falls east of Dun Algaz, beside the Dark Iron cave below the Stonewrought Dam: a tall, spiky wooden root, not at the foot of the dam itself.
+  level 30
   collect 2784 quest 335.2            -- Musquash Root
 
 step A Noble Brew

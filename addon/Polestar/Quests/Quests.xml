@@ -12,4 +12,5 @@
 	<Script file="Party.lua"/>
 	<Script file="PartyChat.lua"/>
 	<Script file="QuestLogLink.lua"/>
+	<Script file="AuctionBuys.lua"/>
 </Ui>

@@ -9,6 +9,8 @@
 // inputs = {
 //   forever: { items, npcs, objects, quests, zones, factions, professions, trainers,
 //              mapFrames, meta, instances (recorded), dungeons|null },  (data/forever/*.json)
+//   mechanics: data/forever/mechanics.json ({ quests }) | null. A kill it does by using an
+//              item on that NPC keeps useItem; absent, the objectives stay as they were.
 //   atlasloot|null, rarescanner|null                      (--local-extras only)
 //   client: clientFacts(tables) + { instanceMaps, instances: instanceFacts() }|null,
 //   curated: [item ids guides collect], curatedGates: curatedRepGates(), entrances: curatedEntrances(),
@@ -58,7 +60,7 @@ const TYPE_ORDER = ['vendor', 'quest', 'gift', 'craft', 'rep', 'pvp', 'drop', 'o
 const SOURCE_FIELDS = {
 	vendor: ['npc', 'cost', 'limited'],
 	drop: ['npc', 'chance', 'instance'],
-	object: ['object', 'chance'],
+	object: ['object', 'chance', 'instance'],
 	quest: ['quest', 'choice'],
 	gift: ['npc', 'spell'],
 	craft: ['spell', 'skillLine', 'profession', 'skill'],
@@ -68,9 +70,10 @@ const SOURCE_FIELDS = {
 	world: ['minLevel', 'maxLevel'],
 };
 
-// Per item: the strongest drops/objects/vendors are kept; an item many
-// creatures drop also gets one `world` source with their level range.
-const CAP = { drop: 10, object: 6, vendor: 10, container: 6 };
+// Per item: the strongest drops/objects are kept, every vendor (Lookup ranks
+// sellers by travel, #2719); an item many creatures drop also gets one
+// `world` source with their level range.
+const CAP = { drop: 10, object: 6, container: 6 };
 const WORLD_DROP_NPCS = 12;
 // Spawns: clusters per map, maps per entity. A map seen at `few` points or
 // more drops its stray clusters: `stray` points or fewer, where the biggest
@@ -132,10 +135,13 @@ function round1(v) {
 // (dsl/escort.js): its place is where the walk ends, and the arrow belongs
 // at its start, the giver, as in the compiled guides (#256). A Hunter's
 // Taming the Beast beast is kill credit in the data, but it is tamed with
-// the quest's Taming Rod, not killed: `tame` (#565).
-function objectiveOf(o, escort, tame) {
+// the quest's Taming Rod, not killed: `tame` (#565). A kill the mechanics
+// do by using an item on that NPC keeps `useItem`; Lookup says Use. A tame
+// stays a tame (#2468).
+function objectiveOf(o, escort, tame, useItem) {
 	const out = { type: o.type, id: o.id ?? null, count: o.count ?? null, text: o.text ?? null };
 	if (tame && o.type === 'kill') out.tame = true;
+	else if (o.type === 'kill' && useItem) out.useItem = useItem;
 	if (o.type === 'event' && !escort && int(o.map) && Number.isFinite(o.x) && Number.isFinite(o.y)) {
 		out.map = int(o.map);
 		out.x = round1(o.x);
@@ -149,6 +155,47 @@ function objectiveOf(o, escort, tame) {
 // out (a Hunter's Taming the Beast).
 function tamesWithRod(q) {
 	return /\bTaming Rod to tame\b/i.test(q.objectiveText || '');
+}
+
+// data/forever/mechanics.json, or the same shape passed to mergeCodex: the
+// quests map. Missing file: none.
+function mechanicsQuests(inputs) {
+	const m = inputs && inputs.mechanics;
+	if (!m || typeof m !== 'object' || Array.isArray(m)) return {};
+	if (m.quests && typeof m.quests === 'object' && !Array.isArray(m.quests)) return m.quests;
+	return m;
+}
+
+function positiveInt(v) {
+	const n = int(v);
+	return Number.isInteger(n) && n > 0 ? n : null;
+}
+
+// The item a kill objective is really a use of, matching the writer's
+// use_item (objectives.rs): a high or medium use-item-on-mob, then its
+// params item for this NPC (no `npcs` list means every NPC of the quest),
+// else a readSteps use-item on that NPC. No item: the kill stays a kill.
+function useItemOn(mechanics, questId, npcId) {
+	const e = mechanics && mechanics[questId];
+	if (!e) return null;
+	const drives = Array.isArray(e.kinds) && e.kinds.some((k) => k && k.kind === 'use-item-on-mob' && (k.confidence === 'high' || k.confidence === 'medium'));
+	if (!drives) return null;
+	const npc = positiveInt(npcId);
+	if (!npc) return null;
+	const params = Array.isArray(e.params) ? e.params : [];
+	for (const p of params) {
+		if (!p || p.kind !== 'use-item-on-mob') continue;
+		const item = positiveInt(p.item);
+		if (!item) continue;
+		if (!Array.isArray(p.npcs) || p.npcs.some((n) => positiveInt(n) === npc)) return item;
+	}
+	const steps = Array.isArray(e.readSteps) ? e.readSteps : [];
+	for (const s of steps) {
+		const target = s && s.target;
+		const item = s && s.item && positiveInt(s.item.id);
+		if (item && s.action === 'use-item' && target && target.type === 'npc' && positiveInt(target.id) === npc) return item;
+	}
+	return null;
 }
 
 function slug(s) {
@@ -198,6 +245,7 @@ function sortKeysDeep(v) {
 //   creates: { item: [spellId] } (SpellEffect 24, create item; no profession's spell) }
 function clientFacts(tables, build = null) {
 	const items = {};
+	const itemOnly = {};
 	for (const r of tables.ItemSparse || []) {
 		const id = int(r.ID);
 		if (!id) continue;
@@ -219,8 +267,9 @@ function clientFacts(tables, build = null) {
 		};
 	}
 	for (const r of tables.Item || []) {
-		const it = items[int(r.ID)];
-		if (!it) continue;
+		const id = int(r.ID);
+		if (!id) continue;
+		const it = items[id] || (itemOnly[id] = {});
 		it.classId = int(r.ClassID);
 		it.subclassId = int(r.SubclassID);
 		it.inventoryType = int(r.InventoryType);
@@ -232,7 +281,7 @@ function clientFacts(tables, build = null) {
 	for (const r of tables.ItemEffect || []) if (r.ParentItemID) links.push({ item: int(r.ParentItemID), effect: r });
 	links.sort((a, b) => a.item - b.item || int(a.effect && a.effect.ID) - int(b.effect && b.effect.ID));
 	for (const { item, effect } of links) {
-		const it = items[item];
+		const it = items[item] || itemOnly[item];
 		if (!it || !effect) continue;
 		const spell = int(effect.SpellID);
 		if (!spell) continue;
@@ -292,7 +341,7 @@ function clientFacts(tables, build = null) {
 	// Mount.Flags 0x40: hidden from the mount journal until known (retired mounts).
 	const mountHidden = new Set((tables.Mount || []).filter((r) => (int(r.Flags) || 0) & 0x40).map((r) => int(r.SourceSpellID)).filter(Boolean));
 	const petSpells = new Set([...(tables.BattlePetSpecies || []).map((r) => int(r.SummonSpellID)).filter(Boolean), ...summonsPet]);
-	return { build, items, spellNames, mountAura, teaches, mountSpells, mountHidden, petSpells, skillLines, skillAbility, mountSkill: [...new Set(mountSkill)].sort(byId), companionSkill: [...new Set(companionSkill)].sort(byId), spellClass, creates };
+	return { build, items, itemOnly, spellNames, mountAura, teaches, mountSpells, mountHidden, petSpells, skillLines, skillAbility, mountSkill: [...new Set(mountSkill)].sort(byId), companionSkill: [...new Set(companionSkill)].sort(byId), spellClass, creates };
 }
 
 // ---------------------------------------------------------------------------
@@ -741,7 +790,7 @@ function mergeCodex(inputs) {
 			recorded: fv.instances || {},
 			entranceTable: inputs.entranceTable || {},
 			curated: inputs.entrances || [],
-			quality: (id) => (cl.items[id] ? cl.items[id].quality : null),
+			client: cl,
 			web: wh,
 		});
 		Object.assign(instances, built.instances);
@@ -1096,6 +1145,13 @@ function mergeCodex(inputs) {
 			(npc) => !!bossInstance[npc],
 			(s) => s.type === 'drop' && (evidence.cut.drop[id] = evidence.cut.drop[id] || []).push(s.npc),
 		);
+		// A loot condition belongs to this exact source, independent of which input
+		// supplied its chance. Attach it after source merging so it cannot be lost.
+		const requires = (fv.items || {})[id]?.dropRequires;
+		for (const s of sources) {
+			const ids = s.type === 'drop' ? requires?.npc?.[s.npc] : s.type === 'object' ? requires?.object?.[s.object] : null;
+			if (Array.isArray(ids) && ids.length) s.requiresQuests = [...ids];
+		}
 		if (!sources.length && JUNK.test(name)) continue;
 		let kind = 'item';
 		if (mountItems.has(id)) kind = 'mount';
@@ -1193,6 +1249,7 @@ function mergeCodex(inputs) {
 
 	// ----- quests
 	const quests = {};
+	const mechs = mechanicsQuests(inputs);
 	const questIds = new Set([...Object.keys(questsIn), ...Object.keys(questRewards)].map(Number));
 	// Blocking prerequisites only (breadcrumbs, the quest itself and exclusives dropped).
 	const prereqs = (q) => {
@@ -1215,7 +1272,10 @@ function mergeCodex(inputs) {
 				classes: int(q.classes),
 				start: { npc: (q.start && q.start.npc) || [], object: (q.start && q.start.object) || [], item: (q.start && q.start.item) || [] },
 				end: { npc: (q.end && q.end.npc) || [], object: (q.end && q.end.object) || [] },
-				objectives: (q.objectives || []).filter((o) => ['kill', 'item', 'object', 'event'].includes(o.type)).map((o) => objectiveOf(o, isEscort(q), tamesWithRod(q))),
+				objectives: (q.objectives || []).filter((o) => ['kill', 'item', 'object', 'event'].includes(o.type)).map((o) => {
+					const tame = tamesWithRod(q);
+					return objectiveOf(o, isEscort(q), tame, o.type === 'kill' && !tame ? useItemOn(mechs, id, o.id) : null);
+				}),
 				...prereqs(q),
 				zone: int(q.zone),
 				rewards,

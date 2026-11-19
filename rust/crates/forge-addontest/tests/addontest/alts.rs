@@ -198,6 +198,38 @@ emit({ mineLabel = mineLabel, rows = rows, shownRows = s.rows, mine = mine, afte
 }
 
 #[test]
+fn refreshing_the_rested_roster_does_not_read_the_player_again_for_each_saved_alt() {
+	let out = run_ui(
+		r#"
+stub.advance(6)
+Polestar.Fire("SHOW_ALTS")
+local V = Polestar.UI.AltsSection
+V.SetSort("rested")
+local name, xp = UnitName, UnitXP
+local names, experience = 0, 0
+UnitName = function(...) names = names + 1; return name(...) end
+UnitXP = function(...) experience = experience + 1; return xp(...) end
+local function refresh()
+	names, experience = 0, 0
+	V.Render()
+	return { names, experience }
+end
+local one = refresh()
+for i = 1, 24 do
+	local k = "Alt" .. i .. "-Test Realm"
+	PolestarDB.alts.chars[k] = { key = k, level = 18, xpMax = 4000, rested = 10 * i, seen = Polestar.Compat.Now() }
+end
+local many = refresh()
+local s = V.Shown()
+emit({ one = one, many = many, first = s.keys[1], second = s.keys[2], rows = s.rows })"#,
+	);
+	assert_eq!(out["rows"], 25);
+	assert_eq!(out["first"], "Testchar-Test Realm");
+	assert_eq!(out["second"], "Alt24-Test Realm", "largest rested fraction follows the playing character");
+	assert_eq!(out["many"], out["one"], "reading saved characters must not multiply live identity or XP queries");
+}
+
+#[test]
 fn rested_is_live_for_the_current_character_projected_for_another() {
 	let out = run(r#"
 local now = Polestar.Compat.Now()

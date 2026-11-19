@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 6,
+		"portals": 8,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7180,10 +7180,9 @@
 			{
 				"id": "portal-sanctum-chamber",
 				"name": "Wizard's Sanctum",
-				"area": 1519,
+				"area": 0,
 				"a": {
 					"name": "Wizard's Sanctum tower",
-					"area": 1519,
 					"c": 0,
 					"wx": -9020.1,
 					"wy": 880.5,
@@ -7195,7 +7194,6 @@
 				},
 				"b": {
 					"name": "Wizard's Sanctum",
-					"area": 1519,
 					"c": 0,
 					"wx": -9017.5,
 					"wy": 885.9,
@@ -7211,10 +7209,9 @@
 			{
 				"id": "portal-sanctum-tower",
 				"name": "Wizard's Sanctum tower",
-				"area": 1519,
+				"area": 0,
 				"a": {
 					"name": "Wizard's Sanctum",
-					"area": 1519,
 					"c": 0,
 					"wx": -9023.3,
 					"wy": 892.4,
@@ -7226,7 +7223,6 @@
 				},
 				"b": {
 					"name": "Wizard's Sanctum tower",
-					"area": 1519,
 					"c": 0,
 					"wx": -9014.9,
 					"wy": 873.3,
@@ -7238,6 +7234,66 @@
 				},
 				"seconds": 5,
 				"source": "AreaTrigger 702 -> classic-db areatrigger_teleport 702"
+			},
+			{
+				"id": "portal-gnomeregan",
+				"name": "Gnomeregan",
+				"area": 133,
+				"a": {
+					"name": "Booty Bay",
+					"area": 35,
+					"c": 0,
+					"wx": -14468,
+					"wy": 457.5,
+					"map": 1434,
+					"x": 27.63,
+					"y": 77.55,
+					"f": "e"
+				},
+				"b": {
+					"name": "Gnomeregan",
+					"area": 133,
+					"c": 0,
+					"wx": -5095.6,
+					"wy": 756.8,
+					"map": 1426,
+					"x": 21.22,
+					"y": 37.11,
+					"f": "e"
+				},
+				"seconds": 5,
+				"item": 9173,
+				"source": "AreaTrigger 1103 -> classic-db areatrigger_teleport 1103"
+			},
+			{
+				"id": "portal-booty-bay",
+				"name": "Booty Bay",
+				"area": 35,
+				"a": {
+					"name": "Gnomeregan",
+					"area": 133,
+					"c": 0,
+					"wx": -5096.8,
+					"wy": 750.2,
+					"map": 1426,
+					"x": 21.36,
+					"y": 37.15,
+					"f": "e"
+				},
+				"b": {
+					"name": "Booty Bay",
+					"area": 35,
+					"c": 0,
+					"wx": -14460,
+					"wy": 463.3,
+					"map": 1434,
+					"x": 27.54,
+					"y": 77.37,
+					"f": "e"
+				},
+				"seconds": 5,
+				"item": 9173,
+				"source": "AreaTrigger 1104 -> classic-db areatrigger_teleport 1104"
 			},
 			{
 				"id": "portal-rohashi-spires",
@@ -7524,7 +7580,9 @@
 		"zeppelin-orgrimmar-gromgol: TaxiPath 285 has no points, skipped",
 		"zeppelin-undercity-gromgol: TaxiPath 301 has no points, skipped",
 		"airship-zephras-dalaran: npc \"High Order Dockmaster\" not found",
+		"airship-zephras-dalaran: npc \"Arcanist Laurain\" not found",
 		"airship-zephras-mulgore: npc \"Windshapers Dockmaster\" not found",
+		"airship-zephras-mulgore: npc \"Brix Xizzix\" not found",
 		"teleport Teleport: Dalaran (1297659): no destination on a mapped continent, skipped",
 		"inn Thunderbrew Distillery: innkeeper 1247 not in npcs.json",
 		"inn Deepwater Tavern: innkeeper 1464 not in npcs.json",
@@ -7573,6 +7631,7 @@
 		"inn Valanaar: innkeeper 255940 not in npcs.json",
 		"inn Powderfuse Port: innkeeper 255894 not in npcs.json",
 		"inn Rog'mar: innkeeper 256675 not in npcs.json",
-		"inn Farholde Keep: innkeeper 257595 not in npcs.json"
+		"inn Farholde Keep: innkeeper 257595 not in npcs.json",
+		"inn Summit of Eternity: innkeeper 243815 not in npcs.json"
 	]
 }

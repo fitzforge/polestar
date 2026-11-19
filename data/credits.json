@@ -1,23 +1,30 @@
 {
 	"supporters": [
+		"coredump",
 		"Xaden Ryan",
 		"defect",
 		"Jeor",
+		"NoName742",
 		"Tor",
 		"MrBackus",
 		"Kodikat",
 		"vblinden",
+		"DevOpsMage",
+		"Av",
 		"Gray",
 		"Bob",
 		"Hiegard",
 		"dgc1980",
 		"Peter",
+		"Joogz",
 		"Gem",
 		"EpicTibbles",
 		"Kevin S",
 		"WMX",
 		"Varun",
 		"Magic",
+		"Luis Ramirez",
+		"Mev",
 		"P",
 		"s u p r x m x",
 		"JesusCena",
@@ -35,6 +42,11 @@
 		"bitspirit3",
 		"Phoque",
 		"Silverina",
+		"SnerkDevil",
+		"Vardrack",
+		"LordPixels",
+		"Matjie Ball",
+		"wookieeemistake",
 		"LucaNerlich"
 	],
 	"exclude": [
@@ -56,6 +68,8 @@
 		{ "name": "PRDesrochers", "ref": 293 },
 		{ "name": "aronjanosch", "ref": 954 },
 		{ "name": "CDVolvik", "ref": 1012 },
-		{ "name": "IgorMagals", "ref": 724 }
+		{ "name": "IgorMagals", "ref": 724 },
+		{ "name": "Caliber", "ref": 2344 },
+		{ "name": "petllama", "ref": 2228 }
 	]
 }

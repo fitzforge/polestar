@@ -24,7 +24,7 @@ local FOOT_H = 28 + FOOT_PAD * 2
 local ROW_H = 128
 local ROW_GAP = 8
 local COL_X = 248 -- where a row's right column (bar and facts) starts
-local LABEL_W = 124
+local LABEL_W, LABEL_MAX = 124, 180 -- the facts' label column: at least, at most (labelWidth)
 local DOT = "  \194\183  "
 
 local AV = {}
@@ -57,14 +57,7 @@ local function ago(t, now)
 	return days == 1 and L["yesterday"] or format(L["%d days ago"], days)
 end
 
-local function thousands(n)
-	local s = tostring(floor(n))
-	while true do
-		local k
-		s, k = s:gsub("^(-?%d+)(%d%d%d)", "%1,%2")
-		if k == 0 then return s end
-	end
-end
+local thousands = ns.Thousands
 
 
 local function profLine(profs)
@@ -96,13 +89,30 @@ local function rowWidth()
 	return full - SH.pad * 2
 end
 
+-- The facts' label column: as wide as its widest label in the client's
+-- language and 12 more ("Камень возвращения", the client's own name for the
+-- Hearthstone, wants more than 124), within LABEL_W and LABEL_MAX; a label
+-- longer than that is cut on its line. Measured once.
+local labelW
+local function labelWidth(r)
+	if labelW then return labelW end
+	local probe = W.Text(r, "small", "textMuted")
+	local widest = 0
+	for _, s in ipairs({ L["Zone"], L["Hearthstone"], L["Gold"], L["Professions"] }) do widest = max(widest, W.TextWidth(probe, s)) end
+	probe:Hide()
+	labelW = min(LABEL_MAX, max(LABEL_W, floor(widest + 0.5) + 12))
+	return labelW
+end
+
 local function fact(r, i, label)
+	local lw = labelWidth(r)
 	local l = W.Text(r, "small", "textMuted")
 	l:SetPoint("TOPLEFT", r, "TOPLEFT", COL_X, -(52 + (i - 1) * 15))
-	l:SetWidth(LABEL_W)
+	l:SetWidth(lw - 8)
+	l:SetWordWrap(false)
 	l:SetText(label)
 	local v = W.Text(r, "small", "text")
-	v:SetPoint("TOPLEFT", r, "TOPLEFT", COL_X + LABEL_W, -(52 + (i - 1) * 15))
+	v:SetPoint("TOPLEFT", r, "TOPLEFT", COL_X + lw, -(52 + (i - 1) * 15))
 	return v
 end
 
@@ -134,6 +144,9 @@ local function row(i)
 	r.Guide = W.Text(r, "small", "textDim")
 	r.Guide:SetPoint("TOPLEFT", r, "TOPLEFT", 14, -82)
 	r.Guide:SetWidth(COL_X - 14 - 12)
+	-- "Darkshore (16-21) · Schritt 16 von 43": a second line before a cut.
+	r.Guide:SetWordWrap(true)
+	r.Guide:SetMaxLines(2)
 	r.XP = W.ProgressLine(r, 8)
 	r.XP:SetPoint("TOPLEFT", r, "TOPLEFT", COL_X, -16)
 	r.Rested = r.XP:CreateTexture(nil, "BORDER")
@@ -157,18 +170,16 @@ local function row(i)
 	return r
 end
 
-local function restedText(e, now)
-	local rested = Alts.Rested(e, now)
+local function restedText(e, rested, current)
 	if not rested or rested <= 0 or not e.xpMax or e.xpMax <= 0 then return "" end
-	if rested >= Alts.REST_CAP * e.xpMax - 1 then return format(L["Fully rested (%s levels)"], Alts.REST_CAP) end
-	if not Alts.IsCurrent(e) and not e.resting then
+	if rested >= Alts.REST_CAP * e.xpMax - 1 then return format(L["Fully rested (%s levels)"], ns.Decimal(Alts.REST_CAP, 1)) end
+	if not current and not e.resting then
 		return format(L["+%d%% \194\183 not at an inn, slower"], floor(rested / e.xpMax * 100 + 0.5))
 	end
 	return format(L["+%s rested"], thousands(rested))
 end
 
-local function paint(r, e, now, width)
-	local current = Alts.IsCurrent(e)
+local function paint(r, e, now, width, current)
 	local cr, cg, cb
 	if e.class then cr, cg, cb = Theme.ClassColor(e.class) end -- nil would give the player's colour
 	r.psKey = e.key
@@ -194,7 +205,7 @@ local function paint(r, e, now, width)
 	local barW = width - COL_X - 14
 	r.XP:SetWidth(barW)
 	local frac = (e.xpMax and e.xpMax > 0) and min(1, (e.xp or 0) / e.xpMax) or 0
-	local rested = Alts.Rested(e, now)
+	local rested = Alts.Rested(e, now, current)
 	local restedFrac = (rested and e.xpMax and e.xpMax > 0) and min(1, ((e.xp or 0) + rested) / e.xpMax) or 0
 	W.SetProgress(r.XP, frac, barW)
 	r.Rested:SetWidth(max(0.01, barW * restedFrac))
@@ -207,12 +218,12 @@ local function paint(r, e, now, width)
 	else
 		r.Pct:SetText("")
 	end
-	local rt = restedText(e, now)
+	local rt = restedText(e, rested, current)
 	r.RestedText:SetText(rt)
 	r.RestedText:ClearAllPoints()
 	r.RestedText:SetPoint("TOPRIGHT", r, "TOPRIGHT", -14, -30)
 
-	local valueW = barW - LABEL_W
+	local valueW = barW - labelWidth(r)
 	r.Zone:SetText(e.zone or "")
 	r.Hearth:SetText(e.bind or "")
 	r.Gold:SetText(ns.MoneyText(e.money))
@@ -275,9 +286,8 @@ local function entries()
 	return Alts.List(ns.Get("alts.sort")), on
 end
 
-local function subtitle(list, on)
-	local me = Alts.Key()
-	local info = Compat.GetPlayerInfo()
+local function subtitle(list, on, me)
+	local realm = GetRealmName and GetRealmName() or ""
 	local n = #list
 	local realms, nRealms = {}, 0
 	for _, e in ipairs(list) do
@@ -292,11 +302,11 @@ local function subtitle(list, on)
 	elseif nRealms > 1 then
 		sub = format(L["%d characters on %d realms \194\183 each as of their last logout"], n, nRealms)
 	elseif n == 1 and list[1].key == me then
-		sub = format(L["1 character on %s"], info.realm or "")
+		sub = format(L["1 character on %s"], realm)
 	elseif n == 1 then
-		sub = format(L["1 character on %s \194\183 each as of their last logout"], info.realm or "")
+		sub = format(L["1 character on %s \194\183 each as of their last logout"], realm)
 	else
-		sub = format(L["%d characters on %s \194\183 each as of their last logout"], n, info.realm or "")
+		sub = format(L["%d characters on %s \194\183 each as of their last logout"], n, realm)
 	end
 	local Maps = ns.Maps
 	if on and Maps and Maps.GetInstanceStatus and ns.Get("maps.instances") then
@@ -318,7 +328,7 @@ function AV.Render()
 	local me = Alts.Key()
 	if not selected then selected = me end
 
-	local sub = subtitle(list, on)
+	local sub = subtitle(list, on, me)
 	if shellRef then
 		W.ShellTitle(shellRef, L["Characters"], sub)
 		local tabs = {}
@@ -341,7 +351,7 @@ function AV.Render()
 		local r = row(i)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", scroll.Child, "TOPLEFT", SH.pad, -y)
-		shown.rested[i] = paint(r, e, now, width)
+		shown.rested[i] = paint(r, e, now, width, e.key == me)
 		shown.keys[i] = e.key
 		shown.tops[i] = y
 		y = y + ROW_H + ROW_GAP

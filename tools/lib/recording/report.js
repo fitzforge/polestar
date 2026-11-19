@@ -11,7 +11,8 @@
 //
 // - A `step` snapshot (reason step/guide/login) starts a segment: from then
 //   on, until the next snapshot or the session's last event, play time counts
-//   for that guide and step. `complete` snapshots only close a guide.
+//   for that guide and step. `complete` snapshots close a guide and start
+//   unattributed time until the next snapshot.
 // - Play time is the sum of the gaps between consecutive events, each capped
 //   at IDLE_CAP (5 min), and gaps while flagged AFK count zero. So a /reload
 //   costs its few seconds, an AFK break at most 5 minutes, and time between
@@ -107,10 +108,60 @@ function mapSize(maps, map) {
 	return [FALLBACK_W, FALLBACK_H];
 }
 
-// One session -> ordered items: segments and guide completions.
-function sessionItems(s, xpModel) {
-	const events = [...(s.events || [])].filter((e) => e && typeof e.e === 'string' && typeof e.t === 'number');
-	events.sort((a, b) => a.t - b.t);
+// Only complete observed trips exclude distance: recording off/on or a reload
+// can omit an end, so an unmatched start must not suppress later walking.
+// Indices refer to the time-sorted events; chunk membership comes from their
+// original order, since delayed records can overlap the next chunk's timestamp.
+function completedTransports(events, chunks, original) {
+	const gaps = new Set();
+	if (Array.isArray(chunks) && chunks.every((n) => Number.isSafeInteger(n) && n > 0)) {
+		const headers = original.filter((e) => e.e === 'session');
+		for (let i = 1; i < chunks.length; i++) {
+			if (chunks[i] === chunks[i - 1] + 1) continue;
+			// A known gap without its header cannot safely locate either side.
+			if (headers.length !== chunks.length) return [];
+			gaps.add(headers[i]);
+		}
+	}
+	const runs = new Map();
+	if (gaps.size) {
+		let run = 0;
+		for (const e of original) {
+			if (gaps.has(e)) run++;
+			runs.set(e, run);
+		}
+	}
+	const starts = { taxi: null, ride: null };
+	const ranges = [];
+	let previousRun;
+	for (let i = 0; i < events.length; i++) {
+		const e = events[i];
+		const run = runs.get(e);
+		if (run !== previousRun) starts.taxi = starts.ride = null;
+		previousRun = run;
+		if (e.e === 'taxi' || (e.e === 'ride' && e.on === true)) {
+			starts[e.e] = i;
+		} else {
+			const kind = e.e === 'land' ? 'taxi' : e.e === 'ride' && e.on === false ? 'ride' : null;
+			if (kind && starts[kind] !== null) {
+				ranges.push([starts[kind], i, kind]);
+				starts[kind] = null;
+			}
+		}
+	}
+	// Preserve the kind: a ride can include walking before its delayed end,
+	// while a taxi must exclude every sample even when the intervals overlap.
+	return ranges.sort((a, b) => a[0] - b[0]);
+}
+
+// One session -> ordered items: segments and guide completions. Completion
+// state follows the character across sessions until an actual step is opened.
+function sessionItems(s, xpModel, completed) {
+	const original = (s.events || []).filter((e) => e && typeof e.e === 'string' && typeof e.t === 'number');
+	const events = [...original].sort((a, b) => a.t - b.t);
+	const trips = completedTransports(events, s.chunks, original);
+	let tripIndex = 0;
+	const activeTrips = { taxi: null, ride: null };
 	const items = [];
 	let cur = null;
 	let combat = false;
@@ -123,8 +174,20 @@ function sessionItems(s, xpModel) {
 		cur.endCum = endCum;
 		cur = null;
 	};
+	const open = (e, guide, step, c) => {
+		cur = {
+			type: 'segment', guide, step,
+			title: e.title || null, guideTitle: e.guideTitle || null, reason: e.reason || null,
+			start: e.t, end: e.t, startCum: c, obsCum: c, endCum: null,
+			time: 0, combat: 0, afk: 0, idle: 0, yards: 0, deaths: 0, turnins: 0, quests: [],
+		};
+		items.push(cur);
+	};
 	for (let k = 0; k < events.length; k++) {
 		const e = events[k];
+		let completing = false;
+		// Incoming movement belongs to the segment active before this event.
+		const active = cur;
 		if (k > 0 && cur) {
 			const dt = Math.max(0, e.t - events[k - 1].t);
 			const d = afk ? 0 : Math.min(dt, IDLE_CAP);
@@ -138,18 +201,21 @@ function sessionItems(s, xpModel) {
 				const c = snapCum(e);
 				if (e.reason === 'complete') {
 					if (cur && c !== null) cur.obsCum = c;
+					if (typeof e.guide === 'string') {
+						completed.add(e.guide);
+						completing = cur && cur.guide === e.guide;
+					}
 					items.push({ type: 'complete', guide: e.guide, t: e.t });
 					break;
 				}
 				close(e.t, c);
 				combat = e.combat === true;
-				cur = {
-					type: 'segment', guide: typeof e.guide === 'string' ? e.guide : null, step: Number.isInteger(e.step) ? e.step : null,
-					title: e.title || null, guideTitle: e.guideTitle || null, reason: e.reason || null,
-					start: e.t, end: e.t, startCum: c, obsCum: c, endCum: null,
-					time: 0, combat: 0, afk: 0, idle: 0, yards: 0, deaths: 0, turnins: 0, quests: [],
-				};
-				items.push(cur);
+				const guide = typeof e.guide === 'string' ? e.guide : null;
+				const step = Number.isInteger(e.step) ? e.step : null;
+				if (step !== null) completed.delete(guide);
+				// The recorder can flush STEP_CHANGED(nil) after GUIDE_COMPLETED,
+				// or snapshot that finished tab again after a reload.
+				open(e, step === null && completed.has(guide) ? null : guide, step, c);
 				break;
 			}
 			case 'combat':
@@ -171,19 +237,70 @@ function sessionItems(s, xpModel) {
 				if (cur && Number.isInteger(e.lvl) && num(e.xp) !== null) cur.obsCum = xpModel.cum(e.lvl, e.xp);
 				break;
 			case 'taxi':
+			case 'enter':
 				lastPos = null;
 				break;
 			default:
 				break;
 		}
-		if (typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
-			if (lastPos && lastPos.map === e.map && cur) {
+		// Quest points and vignettes locate remote places, not the player.
+		const remotePoint = e.e === 'poi' || e.e === 'treasure' || (e.e === 'rare' && (e.src === 'v' || e.src === 'vignette'));
+		// These positions can come from an earlier dialog or item use. Keep
+		// the event's facts and timing, but leave the walking anchor unchanged.
+		const dialogPosition = e.e === 'accept' || e.e === 'turnin' || (e.e === 'detail' && num(e.item) > 0);
+		// Instance entries carry the cached last outdoor position, not a sample
+		// at their event time. Clear the anchor across the stay (case 'enter'
+		// above): the next outdoor sample may follow a different exit or a
+		// hearthstone. Keep event timing.
+		const entrance = e.e === 'enter';
+		while (tripIndex < trips.length && trips[tripIndex][0] <= k) {
+			const trip = trips[tripIndex++];
+			activeTrips[trip[2]] = trip;
+		}
+		for (const kind of ['taxi', 'ride']) {
+			if (activeTrips[kind] && activeTrips[kind][1] < k) activeTrips[kind] = null;
+		}
+		const { taxi, ride } = activeTrips;
+		const hasPosition = typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null;
+		const rideWalk = ride && k < ride[1] && !taxi && e.e === 'pos' && hasPosition && num(e.speed) > 0;
+		let recordPosition = true;
+		if (taxi) {
+			lastPos = null;
+			recordPosition = k === taxi[1] && (!ride || k === ride[1]);
+		} else if (ride) {
+			// Ride-off means five still ticks, so it can follow a long walk ashore.
+			// Its cached start and positions without own movement cannot anchor that walk.
+			const endpoint = k === ride[1];
+			// Step snapshots have no own speed; do not move a spanning leg into
+			// the newly active step just because its next breadcrumb arrives there.
+			if (k === ride[0] || endpoint || e.e === 'step' || (e.e === 'pos' && !rideWalk)) lastPos = null;
+			recordPosition = endpoint || rideWalk;
+		}
+		if (recordPosition && hasPosition && !remotePoint && !dialogPosition && !entrance) {
+			if (lastPos && lastPos.map === e.map && active) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);
 				const dt = e.t - lastPos.t;
-				if (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED) cur.yards += d;
+				// Positive speed alone also occurs while walking aboard. Require a leg
+				// compatible with the recorded own speeds. The tolerance covers encoding
+				// rounding: 0.1 yd/s, 0.1 s and 0.01% coordinates.
+				let ownMovement = true;
+				if (rideWalk) {
+					const ownLimit = (Math.max(e.speed, lastPos.speed) + 0.05) * (dt + 0.1) + Math.hypot(w, h) / 10000;
+					ownMovement = lastPos.speed > 0 && dt > 0 && d <= ownLimit;
+				}
+				if (ownMovement && (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED)) active.yards += d;
 			}
-			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t };
+			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t, speed: num(e.speed) };
+		}
+		// Include the last movement to completion, then stop attributing play
+		// to this guide. A background tab's completion leaves the active one open.
+		if (completing) {
+			const c = cur.obsCum;
+			close(e.t, c);
+			// STEP_CHANGED(nil) can be missing. Keep subsequent recorded play
+			// as unattributed, with the same AFK state and idle-gap cap.
+			open({ t: e.t }, null, null, c);
 		}
 	}
 	if (cur) close(events.length ? events[events.length - 1].t : cur.start, null);
@@ -236,8 +353,9 @@ function buildReport(sessions, { guide: filter = null, top = 10 } = {}) {
 	for (const [char, list] of byChar) {
 		list.sort((a, b) => (a.started || 0) - (b.started || 0));
 		const items = [];
+		const completed = new Set();
 		list.forEach((s, i) => {
-			for (const it of sessionItems(s, xpModel)) {
+			for (const it of sessionItems(s, xpModel, completed)) {
 				it.sessionIdx = i;
 				items.push(it);
 			}

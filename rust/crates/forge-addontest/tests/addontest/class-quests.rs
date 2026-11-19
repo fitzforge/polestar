@@ -236,6 +236,22 @@ fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
 	assert_eq!(out[0], true);
 }
 
+// coredump's report (#2947): Call of Earth (Horde)'s card read "mobs up to level 9999": one spawn area of the
+// Signet of Akir's droppers carries the level of a mob the game shows as "??". No real level is named.
+#[test]
+fn a_spawn_area_of_no_real_level_is_never_named_on_the_card_2947() {
+	let out = run_qol(
+		r#"
+		local g = { id = "c/earth", title = "Call of Earth", category = "Class", classes = { "SHAMAN" }, minLevel = 4, steps = {
+			{ goals = { { t = "accept", quest = 21, map = 2521 } } },
+			{ goals = { { t = "collect", quest = 21, item = 6, map = 2521, spotsPacked = "43.8,24.1,,40,1,,3;48.9,54.2,781.3,40,3,,9999;65.6,65.6,696,40,1,,10" } } },
+		} }
+		local h = CQ.Heads(g, { class = "SHAMAN" })
+		emit({ mobMax = h.mobMax, line = CQ.HeadsLine(h, g) or false })"#,
+	);
+	assert_eq!(out[0], json!({ "mobMax": 10, "line": "mobs up to level 10" }), "the real levels only");
+}
+
 // Discord feedback via Fitz (2026-11-10): the game offers The Eye of Bhossca (level 35) at 30, and class cards
 // stacked up there. A chain is offered from one level below its first quest's level; the guide list still opens it
 // as soon as its gate does (Engine.StartGate is not touched).
@@ -343,6 +359,30 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
+}
+
+// Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
+// level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
+// when there is no level and the minimum is one (above 1).
+#[test]
+fn the_class_card_shows_the_quest_s_level_not_a_minimum_of_1_horn_of_xelthos() {
+	let out = run_card(
+		r#"
+		local function horn(fields)
+			local accept = { verb = "Accept", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, objName = "Dead Drop", map = 1421, x = 46.5, y = 73.5, status = "active" }
+			for k, v in pairs(fields) do accept[k] = v end
+			uistub.guides["test/horn"] = { id = "test/horn", pack = "guides", title = "The Horn of Xelthos", minLevel = 23, maxLevel = 26,
+				category = "Class", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = {
+				{ title = "C's dead drop", goals = { G("accept", accept) } },
+				{ title = "Back", goals = { G("turnin", { verb = "Turn in", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, map = 1421, x = 46.5, y = 73.5, status = "pending" }) } },
+			} }
+			uistub.setGuide("test/horn", 1)
+			return card().head
+		end
+		uistub.player.class, uistub.player.race, uistub.player.level = "ROGUE", "Human", 23
+		emit({ quest = horn({ minLevel = 1, qlvl = 23 }), noLevel = horn({ minLevel = 1 }), minOnly = horn({ minLevel = 20 }) })"#,
+	);
+	assert_eq!(out[0], json!({ "quest": "ROGUE · LEVEL 23", "noLevel": "ROGUE", "minOnly": "ROGUE · LEVEL 20" }));
 }
 
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
@@ -921,7 +961,8 @@ local function ready()
 	return false
 end
 local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLevel }
-for _, n in ipairs({ 30, 33, 34 }) do stub.world.level = n; r["at" .. n] = ready() end
+-- Each level reached as in game (PLAYER_LEVEL_UP): the engine reads the player's level then, not on every call.
+for _, n in ipairs({ 30, 33, 34 }) do stub.world.setLevel(n); stub.advance(2); r["at" .. n] = ready() end
 emit(r)"#
 			.into(),
 	});

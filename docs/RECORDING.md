@@ -63,6 +63,20 @@ without its name.
 - At login the addon deletes every chunk with
   `seq <= PolestarRecorderAck[PolestarRecorderDB.install]`.
 
+### Summary distance
+
+The summary estimates walking, mounted and swimming distance from position
+records on maps with known bounds. It excludes jumps faster than 40 yards
+per second and boat or flight travel with both a recorded start and end.
+Trips can span consecutive chunks for the same character. Missing chunks
+break both trip matching and the distance between surviving positions.
+
+An incomplete trip keeps the ordinary position-based estimate. Every chunk
+starts with a `session` record, so the format cannot distinguish normal
+chunk rotation from a recording restart that omitted a trip's end. Keeping
+that estimate avoids suppressing later walking after a restart; partial
+recordings can therefore still include some transport distance.
+
 ### Ack file (written by Polestar Client)
 
 `Interface/AddOns/Polestar_Recorder/Ack.lua`, loaded first by the TOC. One
@@ -235,7 +249,7 @@ Fights and loot
 | `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (a catch from a fishing pool has the pool as `o`/srcId; from open water the bobber is left out and `srcKind`/`srcId` are empty), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (the drop-chance denominator) |
 | `gather` | objectId, P, how, skillLineId, rank | a world object gathered with a skill, right after its `loot` (which has the items): `how` `h` herb (Herbalism 182), `m` ore (Mining 186), `f` fishing pool (Fishing 356), `l` lock picked (Lockpicking 633); `rank` = the player's rank in that skill then (the node needs at most that). Once per object per 5 minutes (a pool gives many catches), at most 20 a minute |
 | `unit` | npcId, level, cls, react, P, src | a creature seen on a nameplate, target or mouseover: once per (npcId, level) per session, and once per 100 yd per npcId per session. `react` `h` hostile, `n` neutral, `f` friendly; `src` `p` plate, `t` target, `m` mouseover |
-| `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover) |
+| `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover); P is the player's position for a plate, target or mouseover, the rare's own for a vignette |
 | `treasure` | objectId, P | a treasure vignette |
 | `enter` | instanceId, instanceType, difficulty, P | entering an instance (P = last outdoor position) |
 | `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` (its start is `engage`, in explorer mode) |
@@ -421,7 +435,10 @@ their own client, so nothing trusts a single upload.
   has (a quest's title, level, objectives, giver or ender, rewards, XP, an
   NPC's name, rank or level, a spawn, a learned path, a trainer's list, a
   drop chance) changes only on the evidence of 3 distinct counted voters
-  (for a drop chance, each with 10 kills of their own), or of `local` or
+  (for a drop chance, each with 10 loot windows of their own: a recorded
+  kill may be a death the player only saw, so kills are no samples; an item
+  that drops only for a quest counts only the windows its objective was
+  open for, `wanted`), or of `local` or
   `sent-*`; one counted voter fills only gaps no other source has. Nothing
   a recording says overrides one of Polestar's own corrections
   (`forever-db/corrections`): the build keeps the corrected value and lists

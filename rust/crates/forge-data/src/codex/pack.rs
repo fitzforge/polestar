@@ -266,6 +266,19 @@ fn encode_source(src: &V) -> Result<String, String> {
 		});
 	}
 	parts.push(from_letters(&src.get("from"))?);
+	let requires = src.get("requiresQuests");
+	let has_requires = matches!(ty.as_str(), "drop" | "object") && requires.is_arr() && !requires.is_empty();
+	if has_requires {
+		parts.push(esc(&V::str(&list(&requires)?)));
+	}
+	// An object's instance (#2883) after the requires tail (empty when there is none), so readers that
+	// know only the requires tail ignore it.
+	if ty == "object" && src.get("instance").truthy() {
+		if !has_requires {
+			parts.push(String::new());
+		}
+		parts.push(esc(&src.get("instance")));
+	}
 	Ok(format!("{letter}{}", parts.join(",")))
 }
 
@@ -346,6 +359,11 @@ fn encode_object(rec: &V) -> Result<String, String> {
 		let f = rec.get("faction");
 		parts.push(format!("m{}", if f.truthy() { f.to_js_string() } else { String::new() }));
 	}
+	// The instance it lies in (Upper Blackrock Spire's Rookery Eggs): i<key>, last. A spawn group starts with a map
+	// number, so a reader before it reads no point from it.
+	if rec.get("instance").truthy() {
+		parts.push(format!("i{}", esc(&rec.get("instance"))));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -389,6 +407,24 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
+		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
+		// a<item>. An older reader skips it (no objective kind is a).
+		let use_item = o.get("useItem");
+		if use_item.truthy() {
+			parts.push(format!("a{}", num(&use_item)?));
+		}
+		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
+		// An older reader skips it (no objective kind is m).
+		let summon = o.get("summonItem");
+		if summon.truthy() {
+			parts.push(format!("m{}", num(&summon)?));
+		}
+		// The creatures that item is used on (#2578: Yeh'kinya's Bramble on a dead Vale Screecher): g<npc>,<npc>...
+		// An older reader skips it (no objective kind is g).
+		let on = o.get("summonOn");
+		if summon.truthy() && !on.items().is_empty() {
+			parts.push(format!("g{}", list(&on)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {
@@ -419,6 +455,16 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	// u<quest>. An older reader skips it (no objective kind is u).
 	if rec.get("parent").num() > 0.0 {
 		parts.push(format!("u{}", num(&rec.get("parent"))?));
+	}
+	// How it is done beyond its objectives, our public words (merge.rs `public_how`, #2714): h<text>. An older
+	// reader skips it (no objective kind is h).
+	if rec.get("how").truthy() {
+		parts.push(format!("h{}", esc(&rec.get("how"))));
+	}
+	// Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts): `d`. An older reader skips it (no objective
+	// kind is d).
+	if rec.get("direct").truthy() {
+		parts.push("d".into());
 	}
 	Ok(parts.join(";"))
 }
@@ -656,9 +702,11 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 				(if k.truthy() { k.to_js_string() } else { "item".into() }) == kind
 			})
 			.collect();
+		// Lookup never offers an item with one of the game's placeholder names ("Ahn'Qiraj Wand [PH]", #2614).
 		index.push((
 			kind,
 			ids.iter()
+				.filter(|id| !items.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned))
 				.map(|id| {
 					let it = items.get(id);
 					((*id).clone(), it.get("name"), it.get("quality"), status_letter(&it).to_string())
@@ -676,7 +724,9 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let npc_ids = sorted_ids(npcs);
 	for (group, prefix, rare) in [("npc", "Npcs", false), ("rare", "Rares", true)] {
 		let ids: Vec<&String> = npc_ids.iter().filter(|id| npcs.get(id).get("rare").truthy() == rare).collect();
-		index.push((group, ids.iter().map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
+		// Lookup never offers an NPC with one of the game's placeholder names ("PvP Tower Credit Marker", #2614).
+		let searchable = ids.iter().filter(|id| !npcs.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned));
+		index.push((group, searchable.map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
 		let mut entries: Vec<Entry> = Vec::new();
 		for id in &ids {
 			let n = npcs.get(id);
@@ -734,7 +784,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 			entries.push((id, r.get(name_field), rec, String::new()));
 		}
 		if SEARCH_KINDS.contains(&group) {
-			index.push((group, entries.iter().map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
+			// Lookup never offers a quest the game keeps unused or for tests ("<UNUSED>", "<TEST> HEY MISTER WILSON!",
+			// "REUSE", #2614), nor anything else with a placeholder name.
+			let hidden = |name: &V| name.as_str().is_some_and(|n| forge_guide::placeholder::banned(n) || (group == "quest" && forge_guide::placeholder::unused_quest(n)));
+			index.push((group, entries.iter().filter(|(_, name, ..)| !hidden(name)).map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
 		}
 		emit_group(group, &entries, prefix, &mut out, &mut order);
 	}
@@ -844,6 +897,16 @@ mod tests {
 	}
 
 	#[test]
+	fn drop_requirements_follow_provenance_without_changing_old_fields() {
+		let source = forge_guide::js::parse_json(r#"{"type":"drop","npc":4802,"chance":33,"from":["pfquest"]}"#).unwrap();
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
+		source.set("requiresQuests", forge_guide::js::parse_json("[6563,6564]").unwrap());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p,6563%2C6564");
+		source.set("requiresQuests", V::arr());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
+	}
+
+	#[test]
 	fn an_entrance_carries_its_approximate_flag_and_the_alliance_way_in_after_it() {
 		let line = |entrance: &str| {
 			let rec = forge_guide::js::parse_json(&format!(r#"{{ "kind": "dungeon", "forever": true, "areaId": 279, "map": 2959, "entrance": {entrance}, "levels": null, "bosses": [] }}"#)).unwrap();
@@ -881,5 +944,18 @@ mod tests {
 		assert!(line(r#", "closedBy": [276]"#).ends_with(";x830;c276"), "The Greenwarden: closed by Tramping Paws");
 		assert!(line(r#", "closedBy": [282, 287]"#).ends_with(";x830;c282,287"));
 		assert!(line("").ends_with(";x830"), "nothing closes it: no field");
+	}
+
+	#[test]
+	fn a_quest_record_says_it_is_handed_in_at_one_talk_2686() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 4144, "level": 53, "minLevel": 47, "faction": "A", "races": null, "classes": null, "zone": 1449, "start": {{ "npc": [9119], "object": [], "item": [] }}, "end": {{ "npc": [9119], "object": [] }}, "pre": [4143], "rewards": [], "choices": [], "preAny": [4143], "objectives": [{{ "type": "item", "id": 11315, "count": 3, "text": "Bloodpetal Sprout" }}], "xp": 5300{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
+		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
 	}
 }

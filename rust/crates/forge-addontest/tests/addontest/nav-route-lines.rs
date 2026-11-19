@@ -421,6 +421,45 @@ fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_read
 	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
 }
 
+#[test]
+fn moving_a_route_stroke_updates_both_ends_without_reapplying_its_unchanged_look() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(0.5)
+		local mm = R.GetMinimapFrame()
+		local line, shadow = mm.lines[1], mm.outlines[1]
+		local ends, styles = 0, 0
+		for _, region in ipairs({ line, shadow }) do
+			for _, method in ipairs({ "SetVertexColor", "SetThickness", "SetAlpha", "Show", "Hide", "SetStartPoint", "SetEndPoint" }) do
+				local fn = region[method]
+				region[method] = function(...)
+					if method == "SetStartPoint" or method == "SetEndPoint" then ends = ends + 1 else styles = styles + 1 end
+					return fn(...)
+				end
+			end
+		end
+		stub.fire("PLAYER_STARTED_MOVING")
+		for i = 1, 30 do nav.place(i / 10, -i / 10); stub.advance(1 / 60) end
+		local r = { ends = ends, styles = styles, width = line:GetThickness() }
+		Polestar.Set("nav.dotColor", "magenta")
+		Polestar.Set("nav.minimapDotsSize", 1.2)
+		Polestar.Set("nav.minimapRouteAlpha", 0.5)
+		stub.advance(0.1)
+		local red, green, blue = line:GetVertexColor()
+		r.rgb, r.alpha, r.wider = { red, green, blue }, line:GetAlpha(), line:GetThickness() > r.width
+		emit(r)"#,
+	);
+	assert!(f(&out["ends"]) >= 60.0, "the core follows every rendered frame, both ends");
+	assert_eq!(out["styles"], 0, "movement alone does not write tint, alpha, thickness or visibility again");
+	assert_eq!(out["rgb"], json!([1, 0.3, 0.85]));
+	assert_eq!(out["alpha"], 0.5);
+	assert_eq!(out["wider"], true);
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]
@@ -1374,6 +1413,49 @@ fn on_the_path_every_style_s_first_minimap_mark_sits_by_the_player_s_arrow_even_
 	);
 	for style in ["line", "dots", "sparkle"] {
 		assert!(f(&out[style]) < 25.0, "{style}: the first mark {} px from the arrow", out[style]);
+	}
+}
+
+// The arrow replay (0.3.8): more than LIVE_REACH (60 yd) off the walk with nothing in sight, the line kept the start
+// it last had in reach, so it began away from the player while the arrow pointed back to the walk (12.5% of the
+// moving time on a stray-heavy sample). Now it starts at the player and runs to where the arrow points
+// (Walk.LastAim): the player 80 yd east of a walk running south, the arrow aiming at the walk 10 yd past their place.
+// Within 60 yd nothing changes (the tests above).
+#[test]
+fn far_off_the_walk_with_nothing_in_sight_the_minimap_line_starts_at_the_player_toward_the_arrows_aim() {
+	let out = painted_line(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true) -- no draw-in
+		nav.viewRadius = 150
+		local m, x, y = nav.mapPoint(0, -400)
+		N.SetTarget(m, x, y, "T")
+		geom.legs = { { kind = "walk", pts = { { 0, 0, 0 }, { 0, 0, -200 }, { 0, 0, -400 } }, current = true } }
+		local W = N.walk
+		W.SightAim = function() return nil end
+		W.LastAim = function() return 0, 0, -160 end
+		nav.place(80, -150)
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		stub.advance(0.5)
+		local r = {}
+		local cx, cy = Minimap:GetWidth() / 2, -Minimap:GetHeight() / 2
+		for _, style in ipairs({ "line", "dots" }) do
+			Polestar.Set("nav.lineStyle", style)
+			stub.advance(0.5)
+			local s, best = R.GetStrokes("minimap"), math.huge
+			for i = 1, s.n do
+				for _, p in ipairs({ { s.x1[i], s.y1[i] }, { s.x2[i], s.y2[i] } }) do
+					best = math.min(best, math.sqrt((p[1] - cx) ^ 2 + (p[2] - cy) ^ 2))
+				end
+			end
+			r[style] = best
+		end
+		r.walkPx = 80 / 150 * Minimap:GetWidth() / 2
+		emit(r)"#,
+	);
+	assert!(f(&out["walkPx"]) > 30.0, "the walk lies {} px from the arrow", out["walkPx"]);
+	for style in ["line", "dots"] {
+		assert!(f(&out[style]) < 12.0, "{style}: the first mark {} px from the arrow, the walk {} px off", out[style], out["walkPx"]);
 	}
 }
 

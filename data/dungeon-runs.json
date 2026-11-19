@@ -1,5 +1,5 @@
 {
-	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these.",
+	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `takenEarlier` ({quest, guide, after, gate, note}): a quest of the solo route that a runner takes at an earlier pass of its giver, in a plain `when dungeon \"<Name>\"` step gated at the quest's own level, because the dungeons' experience puts runners over that level sooner; its work and hand-in stay where the solo route has them; `run.insideEnds`: a pick-up's quest handed in inside the dungeon, to an NPC with no place in the data: the run step turns it in at the door's place (`turnin <quest> npc <npc> @<entrance>`), so it leaves the log with the run; `run.insideQuests`: quests given and taken inside, named in the run tip; `run.itemStarts`: quests an item found inside starts, handed in after the run behind `when onquest`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these. Gates (Fitz, 2026-11-13: never a dungeon too low): `run.gate` is the `when level>=` the run step carries, the dungeon's floor in the Codex (data/forever/codex/journal.json: the client's Group Finder minimum, its fixed minimum or players' recorded entry level, whichever is highest; forge guide lint warns of a run gated under it); a pick-up's `gate` is that floor less the levels the calibrated level model plans between the pick-up and the run, or the level its quests ask for when that is higher (forge judge doors --levels checks it), so a player on pace is asked and one far behind is not; a `runStop` pick-up carries the run's gate. The travel steps of a branch that leaves the solo route's way (the runner's trip out to the door and back) carry the run's gate too, and a runner's step that shares a goal with a `soloWay` step keeps that goal in an ungated step of its own, so a runner under the gate still has it. Every quest: a run's quests off the way are steps of its every-quest route, `when dungeon \"<Name>\" all`, which a player who chose only the quests on the way doesn't get; their `pickups`/`handins` entries carry `all: true`, and the run's `allQuests` ({minutes, xp, quests}) says what they add over its way-only set (the flow audit's extra minutes, their XP at the levels they are handed in, their ids), `wayOnly` ({quests}) the quests the plain `when dungeon` steps take. A quest taken before its run and not finished by it (the run under its gate, an objective missed) is dropped with `abandon` at its last hand-in, so none is left in the log. `checks`: the facts a run's steps rest on that wait for an in-game check (`status` `needs-ingame`; `at` the step, `pickup`, `run` or `handin`; `quest` where it is one quest's; `what` to look at).",
 	"runs": [
 		{
 			"dungeon": "The Deadmines",
@@ -550,62 +550,6 @@
 			}
 		},
 		{
-			"dungeon": "Razorfen Kraul",
-			"faction": "Horde",
-			"pickups": [
-				{
-					"quest": 1221,
-					"after": {
-						"guide": "forever/horde/04-the-barrens",
-						"step": "Crane Operator Bigglefuzz"
-					},
-					"note": "Ratchet at the end (~26.6); the Ratchet stops of 02-the-barrens are 3+ levels over"
-				}
-			],
-			"run": {
-				"guide": "forever/horde/07-ashenvale",
-				"after": {
-					"quest": 857,
-					"goal": "turnin",
-					"note": "the road south to the Great Lift (~28); the entrance ~190 yd west of the lift"
-				},
-				"entrance": {
-					"map": 1413,
-					"x": 42.9,
-					"y": 90.2
-				},
-				"objectives": [
-					1221
-				],
-				"insideQuests": [
-					1144
-				],
-				"guard": "onquest 1221"
-			},
-			"handins": [
-				{
-					"quest": 1221,
-					"guide": "forever/horde/30-40/04-dustwallow-marsh",
-					"after": {
-						"step": "Ratchet",
-						"quest": 1270,
-						"goal": "turnin"
-					},
-					"note": "the next Ratchet stop for everyone (~37); a flight back from 07-ashenvale is over the travel budget"
-				}
-			],
-			"leftOut": {
-				"1109": "Going, Going, Guano!: level 33, 3+ levels over at 28",
-				"79360": "Elemental Aid: level 33, 3+ levels over at 28",
-				"1102": "A Vengeful Fate: level 34, Thunder Bluff, 3+ levels over at 28",
-				"1838": "Brutal Armor: Warrior class chain",
-				"6522": "An Unholy Alliance: a Small Scroll from inside, for Varimathras in the Undercity"
-			},
-			"budget": {
-				"flow": "04-the-barrens +0.1 km, hub visits +1 (Mebok on the Ratchet stop); 07-ashenvale +0.2 km (the entrance ~190 yd off the Great Lift road); 30-40/04-dustwallow-marsh +0.2 km (Mebok's hand-in); no avoidable backtracks or hub revisits"
-			}
-		},
-		{
 			"dungeon": "Blackfathom Deeps",
 			"faction": "Alliance",
 			"pickups": [
@@ -789,10 +733,10 @@
 				96394
 			],
 			"run": {
-				"guide": "forever/alliance/03-loch-modan",
+				"guide": "forever/alliance/02-westfall",
 				"after": {
-					"step": "Into Ironforge",
-					"note": "Ironforge's gate (~19.5); the door is on the city's west side, west of Afadra Dunwall"
+					"step": "Shaman training",
+					"note": "the last Stormwind stop (~16): Shamans already in Ironforge for training, the others by the Deeprun Tram; the door is on the city's west side, west of Afadra Dunwall (players' recordings: 53 people entered at a median of 15.9, most while on 02-westfall)"
 				},
 				"entrance": {
 					"map": 1455,
@@ -820,22 +764,22 @@
 			"handins": [
 				{
 					"quest": 96403,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 96394,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 96393,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 98423,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run",
 					"when": "onquest"
 				}
@@ -844,7 +788,7 @@
 				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
 			},
 			"budget": {
-				"flow": "03-loch-modan +0.3 km, +7.3 min, hub visits +1.0 (mean over the starts; Human/Night Elf branches +3 within Ironforge: Filch/Afadra, the door, back), no avoidable hub revisits; Dwarf/Gnome start passed givers hub +1 (Thom Filch at ~11, 3+ over)"
+				"flow": "02-westfall: moved from 03-loch-modan's Ironforge stop (~21) to the level players run it (0.4.0 route audit); the tram round trip from the Dwarven District for the non-Shaman classes is the added travel, re-measure with the flow audit"
 			}
 		},
 		{
@@ -1235,6 +1179,11 @@
 			"dungeon": "Razorfen Kraul",
 			"faction": "Alliance",
 			"why": "No giver on a stop the route makes in its window (Mebok in Ratchet, Falfindel in Feralas, Veyric Thunderhame in the Arathi Highlands are off the route then); the nearest point the route passes in the window is 1,041 yd from the door (30-40/03-ashenvale's way into the Barrens)."
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Horde",
+			"why": "Out of the route for now: the 21-30 audit took the run out of the Ashenvale & Thousand Needles guide, where the route is about 28 and the dungeon's entrance floor about 31; the dungeon guide layer brings it back at the start of the 30-40 Thousand Needles guide, from Freewind Post."
 		},
 		{
 			"dungeon": "Excavation Site: Wetlands",

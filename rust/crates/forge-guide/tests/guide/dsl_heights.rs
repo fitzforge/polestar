@@ -114,6 +114,32 @@ fn a_use_bound_to_an_objective_at_an_object_or_a_creature_gets_that_ones_spawn_z
 	assert!(uses[3].get("z").is_none(), "a use bound to no objective: {}", uses[3]);
 }
 
+/// #2126 (Pilsnerinn, Thousand Needles, Horde 26-30): `use 5868 quest 1197.1 @42.0,31.5`, the Filled Etched Phial on
+/// the Ancient Brazier deep in Splithoof Hold, had no height while the Cloven Hoof's collect beside it had the
+/// brazier's: the arrow climbed the Great Lift to the hill over the cave. A use bound to an item objective stands for
+/// the objects the item comes out of (items.json `drops.object`): the nearest spawn of one within 15 yards gives its
+/// height; one farther gives none (an item only creatures drop gives none either: the #1782 case above).
+#[test]
+fn a_use_bound_to_an_item_objective_gets_the_spawn_z_of_the_object_its_item_comes_out_of_2126() {
+	let data = height_data();
+	data.quests.set(
+		"1197",
+		v(&json!({ "id": 1197, "title": "The Sacred Flame", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [197], "object": [], "item": [] }, "end": { "npc": [197], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [{ "type": "item", "id": 5869, "count": 1, "text": "Cloven Hoof" }],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"] })),
+	);
+	data.items.set("5869", v(&json!({ "id": 5869, "name": "Cloven Hoof", "drops": { "npc": {}, "object": { "20807": 100 } }, "vendors": [], "questItem": true })));
+	let brazier = at(&data, 40.0, 50.0);
+	data.spawnz.get("object").set("20807", v(&json!([[1415, brazier.0 + 2.0, brazier.1, -70.5]])));
+	let src = guide_text(&["step Splithoof Hold", "  accept 1197", "  use 1210 quest 1197.1 @40,50", "  use 1210 quest 1197.1 @40,52"]);
+	let r = compile_with(&src, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let uses: Vec<Value> = goals(&r).into_iter().filter(|g| g["t"] == "use").collect();
+	assert_eq!(uses[0]["z"], -70.5, "the brazier the hoof comes out of, 2 yd off: {}", uses[0]);
+	assert!(uses[1].get("z").is_none(), "the brazier's spawn is over 15 yd from this point: {}", uses[1]);
+}
+
 /// #1786 (Redrett): `goto 28.5,55.0 "Azurelode Mine"` leads to the miners (`kill 2269 quest 539.2`, z 21.3) in the
 /// next step, but had no height: the walk ended on the hill the mine runs under. A goto gets the height of the goal
 /// it leads to (a later goal of its step, or one of the next), the nearest within 15 yards; none from farther, from
@@ -215,11 +241,21 @@ fn class_trainers_lua_carries_a_trainers_z_and_its_header_then_names_classic_db(
 	let khelden = r#"{ "npc": 198, "npcName": "Khelden Bremen", "map": 1429, "x": 49.66, "y": 39.4, "f": "e", "faction": "A", "classes": ["MAGE"] }"#;
 	let with_z = parse_json(khelden).unwrap();
 	with_z.set("z", 57.25);
-	let lua = forge_guide::emit::emit_class_trainers(&[with_z], &V::obj(), &V::obj());
+	let lua = forge_guide::emit::emit_class_trainers(&[with_z], &V::obj(), &V::obj(), &V::obj());
 	assert_match(&lua, r#"\{ npc = 198, npcName = "Khelden Bremen", map = 1429, x = 49\.66, y = 39\.4, z = 57\.25, f = "e", faction = "A""#);
 	assert_match(lua.lines().next().unwrap(), r"spawnz\.json \(CMaNGOS classic-db spawn heights");
-	let plain_lua = forge_guide::emit::emit_class_trainers(&[parse_json(khelden).unwrap()], &V::obj(), &V::obj());
+	let plain_lua = forge_guide::emit::emit_class_trainers(&[parse_json(khelden).unwrap()], &V::obj(), &V::obj(), &V::obj());
 	assert_no_match(plain_lua.lines().next().unwrap(), r"classic-db");
+}
+
+// #2477: the trainers that stop short of the level cap (the starting areas' teach to 6) go to the engine with the
+// highest level they teach; none, no block.
+#[test]
+fn class_trainers_lua_names_the_trainers_that_stop_short_of_the_cap_2477() {
+	let tops = parse_json(r#"{"911":6,"248415":6}"#).unwrap();
+	let lua = forge_guide::emit::emit_class_trainers(&[], &V::obj(), &V::obj(), &tops);
+	assert!(lua.ends_with("ns.RegisterClassTrainerTops({\n\t[911] = 6,\n\t[248415] = 6,\n})\n"), "{lua}");
+	assert!(!forge_guide::emit::emit_class_trainers(&[], &V::obj(), &V::obj(), &V::obj()).contains("RegisterClassTrainerTops"));
 }
 
 #[test]

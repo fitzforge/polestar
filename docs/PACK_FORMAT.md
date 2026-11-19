@@ -16,7 +16,7 @@ The handbook is [PACKS.md](PACKS.md).
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
 [Polestar's own extra packs](#polestars-own-extra-packs) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Format 11](#format-11) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -326,7 +326,7 @@ testing (alpha). It is built from `experimental/` in the checkout
   one `Polestar.RegisterExperimental({ ... })` call (Core/Guides.lua), an
   entry per offered guide, in id order, with its header as its guide
   registers it (`id`, `pack`, `title`, `faction`, `races`, `classes`,
-  `minLevel`, `maxLevel`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
+  `minLevel`, `maxLevel`, `factionLevels`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
   `names`/`written` those texts use) and its route until it hands back to one
   of ours: `topLevel` (the highest `maxLevel` on the way), `questIds` (its
   accepts, each once; another faction's lines and a dungeon run's steps,
@@ -401,6 +401,10 @@ hold:
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
 | `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
 | `"taxi"` | `name`; optional `node` (format 10) | the character knows that flight path ([Format 10](#format-10)) |
+| `"rep"` | `faction` (the faction's id), `standing` (1 Hated .. 8 Exalted); optional `name`, `points` (format 11) | the standing with the faction is `standing` or higher (`Compat.GetFactionStanding`); with `points`, that many points into `standing`, or any higher standing. A faction the character has not met is below every standing |
+| `"buff"` | `spell` (format 11) | the player has the aura of that spell id, a buff or a debuff (`Compat.PlayerHasAura`); while the client refuses to say, neither `buff` nor `!buff` holds |
+| `"equipped"` | `item` (format 11) | the player wears the item (`Compat.IsItemEquipped`); while the client cannot say, neither `equipped` nor `!equipped` holds |
+| `"indoors"` | nothing more (format 11) | the player is indoors (`Compat.IsIndoors`); while the client cannot say, neither holds |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -586,7 +590,8 @@ Guide keys (the compiler writes them in this order):
 | `faction` | no | `"Alliance"` or `"Horde"`; absent: either |
 | `races` | no | list of race file names (`"Human"`, `"Scourge"`, `"NightElf"`, …); absent: any |
 | `classes` | no | list of class file names (`"WARRIOR"`, …); absent: any |
-| `minLevel`, `maxLevel` | no | numbers |
+| `minLevel`, `maxLevel` | no | numbers; with `factionLevels`, the span of both sides' ranges |
+| `factionLevels` | no | a guide both factions play with each side's own levels (GUIDE_FORMAT, "Levels per faction"): `{ Alliance = { min = 45, max = 46 }, Horde = { min = 47, max = 48 } }`. Polestar 0.4.0 reads the player's side's range wherever it uses a guide's levels (`Guides.Levels`); an older Polestar loads the pack and reads `minLevel`/`maxLevel`, so no new format (an import string carrying it needs 0.4.0, whose import reads the key). A side without its `min`/`max` numbers refuses the guide |
 | `category` | no | `"Leveling"` (default), `"Class"`, `"Professions"`, `"Reputation"`, `"Legacy"`, `"Exploration"`, `"Collectibles"`, `"Miscellaneous"`, `"Dungeons"`; the compiler passes another name through with a warning |
 | `folder` | no | the guide menu folder |
 | `keywords` | no | list of extra search words |
@@ -606,6 +611,7 @@ Guide keys (the compiler writes them in this order):
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
 | `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
 | `sections` | no | a profession guide's skill-range headings (`section <Profession> <from>-<to>`, GUIDE_FORMAT.md "Sections"): `{ { skill = "First Aid", skillLine = 129, from = 1, to = 40 }, ... }`, `skill` or `skillLine` (or both) and `from` < `to`; a step's `section` is its index. Polestar 0.3.7 and later start the guide at the range the player's skill is in, ask only for the materials still needed in it and show the range as a heading; older Polestar ignores them and plays the steps from the start, so they do not change the format |
+| `fresh` | no | written by the compiler, never by hand: `{ from = "<guide id>", share = <percent>, xp = <XP>, needs = { <quest ids> } }`, on a leveling guide that other leveling guides lead to, when at least 10% of its quest XP (`xp`, each quest it hands in once) hinges on quests earlier guides take: `share` that percentage, `from` the earlier guide holding most of it, `needs` up to 8 of those quests, most XP first ([GUIDE_FORMAT.md](GUIDE_FORMAT.md), "Fresh starts"). Polestar 0.4.0 and later show a character who opens the guide without those quests a note with a button to `from`, and rank the guide lower in "Suggested for you"; older Polestar ignores it, so it does not change the format |
 | `steps` | yes | list of steps, at least one |
 
 Step keys: `title` (optional), `note` (optional, player-facing), `image`
@@ -636,10 +642,10 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName`, `carriedTo` |
 | `abandon` | `quest`, `title` (format 5) | — |
 | `destroy` | `item`, `itemName` (format 5) | — |
-| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs`, `carriedTo` |
-| `collect` | `item`, `itemName` | `title`, `count`, `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates`, `carriedTo` |
+| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs`, `carriedTo`, `logLine` |
+| `collect` | `item`, `itemName` | `title`, `count`, `gather` (format 10), `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates`, `carriedTo` |
 | `goto` | `map`, `x`, `y` | `text`, `r`, `area` |
-| `talk` | `npc`, `npcName` | `gossip` |
+| `talk` | `npc`, `npcName` | `gossip`, `logLine` (then no `npc`) |
 | `interact` | `object`, `objName` | `title`, `quest`, `oi`, `spread`, `carriedTo` |
 | `use` | `item`, `itemName` | `title`, `quest`, `oi`, `fromNpcs`, `carriedTo` |
 | `sethome` | `location`, or `candidates` | `npc`, `npcName`, `area` |
@@ -651,6 +657,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `cast` | `spell`, `spellName` (format 5) | `map`, `x`, `y` |
 | `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
+| `auction` | `item`, `itemName` (format 10) | `count`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
 | `level` | `level` | `frac` (format 4), `grind` with `npcName`, `map`, `x`, `y`, `f`, `spots`, `spread`, `lvl` |
 | `money` | `money`: copper (format 5) | — |
@@ -671,6 +678,7 @@ The fields:
 | `quest`, `npc`, `object`, `item`, `spell`, `faction`, `achievement` | numeric ids |
 | `title`, `npcName`, `objName`, `itemName`, `spellName`, `factionName`, `achievementName`, `target` | names |
 | `count` | number to collect, kill or buy; on `craft`, the number of items to make |
+| `gather` | on a `collect` (format 10): the goal is its item's gather way in a profession guide, beside an `auction` goal that buys the same item; Polestar applies one of them per item, by what the player chose (gather, buy or mix: [Format 10](#format-10)). `true`, or what the way takes: `{ skill, skillLine, rank }` a profession at that rank, `{ min, max }` the levels of the mobs it drops from as the player levels |
 | `oi` | 1-based quest objective index (`C_QuestLog.GetQuestObjectives`) |
 | `minLevel` | the level an `accept` needs; `qlvl` the quest's level (number or string) |
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
@@ -715,6 +723,7 @@ The fields:
 | `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
 | `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
 | `carriedTo` | on a `complete` or objective goal (`kill`, `collect`, `interact`, `use`, `talk` with `quest`): the id of the later guide of the chain that hands its quest in, this guide not (GUIDE_FORMAT.md, "Quests carried to a later guide"). The guide window says to keep the quest, the guide-end window lists it while it is still in the log, and "Clean up quest log" never calls it unneeded. Older Polestar ignores it |
+| `logLine` | `true` on a `kill` or `talk` the compiler found aimed at one of the game's placeholder targets (a "[DNT] Kill Credit", Alterac Valley's "PvP Graveyard Credit Marker" or "Trigger Ichman", #2614): it carries no `npc`, and `target` (`npcName` on a `talk`) is the name the placeholder carries, else its objective's text, else the goal's note. The guide window reads the goal by its quest-log line, in the game's words, and by that name before the quest is in the log. Older Polestar shows the name with "Kill" |
 | `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1, lvl = 29 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"; `lvl`, when known, the elites' highest level, which also holds back the class-quest offer), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
 Polestar 0.1.0 reads every verb above; 0.2.4 and later read the `group`
@@ -819,17 +828,19 @@ changes, read by Polestar 0.3.0 and later:
   <faction>` with the generated-folder marker, and their `Guides.lua` is
   written like the pack's. Polestar loads the player's faction's part once
   the pack's own files are in, before the player's race part (whose baked
-  legs, `Legs.lua`, name those guides); the other faction's only when the
-  guide menu's faction filter asks for it, or when a saved tab holds a guide
-  no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
-  own faction's guides and the factionless ones, not the other side's.
+  legs, `Legs.lua`, name those guides); the other faction's only when a saved
+  tab holds a guide no loaded part has (the guide menu never lists the other
+  side's guides). A character holds its own faction's guides and the
+  factionless ones, not the other side's.
 
 ## Format 10
 
 The **`taxi`** `when` predicate (on a step, a `skipto` or a `next` option)
-beside everything the earlier formats have, read by Polestar 0.4.0 and later.
-The compiler writes a pack in format 10 only when its guides use it; an older
-Polestar refuses the pack as too new rather than each guide as "bad when".
+and a profession guide's materials, gathered or bought (the **`auction`**
+goal and a collect's **`gather`**), beside everything the earlier formats
+have, read by Polestar 0.4.0 and later. The compiler writes a pack in format
+10 only when its guides use one of them; an older Polestar refuses the pack
+as too new rather than each guide as "bad when" or "unknown verb auction".
 
 `taxi` when predicate: `{ k = "taxi", name = "<Flight point>", node = <id> }`.
 Holds while the character knows the flight path, checked as a `getfp` goal
@@ -842,6 +853,88 @@ names); without it, `name` against the flight maps the character has opened
 (their node's name, or its part before the first comma). A flight path
 Polestar has not seen yet counts as unknown. Learning one evaluates the guide
 again.
+
+A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
+
+- **`auction`**: buy `count` of the item at the Auction House. Its
+  `candidates` are auctioneers (the compiler's: those of the guide's
+  factions; the neutral houses are left out). A bag count like `buy`, and
+  under a guide's `sections` its count shrinks as `collect` and `buy` do.
+- **`gather`** on a `collect`: that collect is the item's gather way.
+- Per item, Polestar applies either its `gather` collects or its `auction`
+  goals, never both: an item with only one of them always takes that one; for
+  the others the player's choice for the guide (gather, buy, or mix: per item,
+  by what the character can gather at its level and with its professions,
+  from `gather`'s `skill`/`skillLine`/`rank` and `min`/`max`) and their own
+  pick per item decide. A goal that does not apply is skipped like any goal
+  for another character.
+
+## Format 11
+
+Format 10 with a goal's **`either`**, an objective goal's **`upto`**, the
+**`buff`**, **`deposit`** and **`equip`** goals, a `rep` goal's **`points`**
+and the **`rep`**, **`buff`**, **`equipped`** and **`indoors`** `when`
+predicates (on a step, a `skipto` or a `next` option). Polestar 0.4.1 and
+later read it. The compiler writes a pack in format 11 only when its guides
+use one of them: an older Polestar would wait for every goal of an `either`
+set, hold a step until the whole objective is done, refuse a guide with the
+others ("unknown verb", "bad when") or count a `rep` goal done at the start
+of its standing, so they need a format of their own.
+
+`either = true` on a goal: the goal is one of its step's set. Once any goal
+of the set that applies to the character is done, the others count as done.
+A quest's `accept` with `either` is a choice, as an `optional` one is: the
+quest's later goals apply only while it is in the log or handed in. An
+`either` that is not `true` refuses the guide.
+
+```lua
+{ title = "Volcor", goals = { { t = "accept", quest = 994, title = "Escape Through Force", either = true }, { t = "accept", quest = 995, title = "Escape Through Stealth", either = true } } }
+```
+
+`buff` goal: `{ t = "buff", spell = <spellId>, spellName = "<Name>" }`. Done
+while the player has the aura of that spell id (`Compat.PlayerHasAura`), and
+latched once its live step had it or the route has moved past it. With `off
+= true` it is done while the aura is gone. May have coordinates, which only
+point the arrow. On a client without an aura API the goal is the player's to
+tick. A goal without a numeric `spell` or a string `spellName`, or with an
+`off` that is not `true`, refuses the guide.
+
+`points` on a `rep` goal: `{ t = "rep", faction = 576, factionName =
+"Timbermaw Hold", standing = 4, points = 1500 }` is done at 1500 points into
+Neutral or at any higher standing; while the character is at that standing
+the goal's progress counts toward the points. `points` that is not a number
+of 1 or more, or on another verb, refuses the guide.
+
+```lua
+{ when = { { k = "rep", name = "Argent Dawn", faction = 529, standing = 6 }, { k = "buff", neg = true, spell = 1126 } }, goals = { ... } }
+```
+
+`deposit` goal: `{ t = "deposit", item = <itemId>, itemName = "<Name>" }`.
+Done once the bags hold none of the item, latched within its live step as a
+`destroy` is (not on a step ahead: an item not in the bags yet is not an
+item put in the bank). With `count = N` it is done once the bank holds N of
+the item (the count with the bank less the bags'), and its progress counts
+them. Polestar reads the counts and moves nothing.
+
+`equip` goal: `{ t = "equip", item = <itemId>, itemName = "<Name>" }`. Done
+while the player wears the item (`Compat.IsItemEquipped`), and latched once
+its live step had it or the route has moved past it. With `off = true` it is
+done while the item is not worn. A client that cannot say makes it the
+player's to tick. An `off` that is not `true`, or on another verb, refuses
+the guide. Polestar equips nothing.
+
+```lua
+{ when = { { k = "equipped", neg = true, item = 6256 }, { k = "indoors", neg = true } }, goals = { { t = "equip", item = 6256, itemName = "Fishing Pole" } } }
+```
+
+`upto = N` on a goal with `quest` and `oi`: the goal is done once the quest
+log's line counts N (or is finished), and its progress runs to N; a line
+whose own count is N or less is read as without it. Not a number: the guide
+is refused.
+
+```lua
+{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, upto = 4 }
+```
 
 ## Import strings
 
@@ -870,7 +963,7 @@ wrap it). The payload is JSON:
 
 | Key | Required | Value |
 |---|---|---|
-| `format` | yes | the guide data's format (above): 10 when the guide has a `taxi` when predicate, 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
+| `format` | yes | the guide data's format (above): 10 when the guide has a `taxi` when predicate, an `auction` goal or a `gather` collect, 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
 | `license` | yes | the licence of the guide, from the pack's `pack.json` |
 | `guide` | yes | one guide exactly as `RegisterGuide(def)` takes it, without `pack`: the keys above, numbers rounded as `Guides.lua` writes them, `preTitles` with the quest ids as the object's keys |
 | `frames` | no | `RegisterMapFrames`'s `era` table for the maps its goals use, by uiMapID. Polestar takes a frame only for a map the guide's goals or their smart targets stand on, and only where no one (Polestar, a community addon, an earlier import) has registered one |
@@ -922,8 +1015,11 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
-  (the `wait` goal) by 0.3.0 and later, and format 10 (the `taxi` when
-  predicate) by 0.4.0 and later.
+  (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
+  predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
+  and format 11 (a goal's `either`, an objective goal's `upto`, the `buff`,
+  `deposit` and `equip` goals, a `rep` goal's `points`, the `rep`, `buff`,
+  `equipped` and `indoors` when predicates) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

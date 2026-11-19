@@ -259,7 +259,9 @@ fn steps_with_sources_keep_only_public_ones() {
          insert into steps values (1, 3, 'talk', 'npc', 12, null, 1, null, 'Talk to him.', 'high', 1, 'quest-text', '[]');
          insert into steps values (1, 4, 'loot', 'object', 13, null, 1, null, 'A guess.', 'medium', 1, 'server', '[]');
          insert into steps values (1, 5, 'loot', 'object', 14, null, 1, null, 'From the comments.', 'high', 1, 'player-notes', '[]');
-         insert into steps values (1, 6, 'loot', 'object', 15, null, 1, null, 'Corrected.', 'high', 1, 'correction', null);",
+         insert into steps values (1, 6, 'loot', 'object', 15, null, 1, null, 'Corrected.', 'high', 1, 'correction', null);
+         create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));
+         insert into correction_origin values ('mechanic', 1, '*', 'public', 'in-game-check');",
     )
     .unwrap();
 	drop(c);
@@ -279,5 +281,63 @@ fn steps_with_sources_keep_only_public_ones() {
 	std::fs::copy(&to, dir.join("forever-kb.sqlite")).unwrap();
 	let found = pack::scan_private(&d.join("p")).unwrap();
 	assert!(found.iter().any(|f| f.contains("steps holds 1 rows from a private or unknown source")), "{found:?}");
+	let _ = std::fs::remove_dir_all(d);
+}
+
+/// The KB labels the public corrections and the maintainer's private overlay alike `correction`;
+/// its `correction_origin` table tells them apart. The public part keeps a corrected fact,
+/// mechanic or step only when the public corrections made it, and none from a KB that cannot
+/// tell (#2585: the 2026-11-03 pack carried the private overlay's corrected facts).
+#[test]
+fn private_overlay_corrections_stay_out() {
+	let d = scratch("private-corrections");
+	let from = d.join("kb.sqlite");
+	kb(&from);
+	let c = Connection::open(&from).unwrap();
+	c.execute_batch(
+		"drop table steps;
+         create table steps(quest integer, n integer, action text, target_kind text, target integer, item integer, count integer, place text, fact text, confidence text, drives integer, source text, evidence text);
+         insert into facts values ('quest', 20, 'races', 'Human', 'correction', 'high', 1, 1);
+         insert into facts values ('quest', 21, 'races', 'Orc', 'correction', 'high', 1, 1);
+         insert into facts values ('npc', 22, 'npc_level', '30', 'correction', 'high', 1, 1);
+         insert into mechanics values (20, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+         insert into mechanics values (21, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+         insert into steps values (20, 1, 'loot', 'object', 15, null, 1, null, 'Corrected in public.', 'high', 1, 'correction', null);
+         insert into steps values (21, 1, 'loot', 'object', 16, null, 1, null, 'Corrected in private.', 'high', 1, 'correction', null);",
+	)
+	.unwrap();
+	drop(c);
+	let s = |v: &[&str]| v.iter().map(|x| x.to_string()).collect::<Vec<_>>();
+	let run = |to: &Path| {
+		pack::public_kb(&from, to, &s(&["eg", "correction"]), &s(&["forever-data", "server", "correction"]), &s(&["player-notes", "quest-text", "server-forever"])).unwrap();
+		let c = Connection::open(to).unwrap();
+		let facts: Vec<(String, i64)> =
+			c.prepare("select kind, id from facts where source = 'correction' order by kind, id").unwrap().query_map([], |r| Ok((r.get(0)?, r.get(1)?))).unwrap().map(Result::unwrap).collect();
+		let mech: Vec<(i64, String)> =
+			c.prepare("select quest, sources from mechanics where quest >= 20 order by quest").unwrap().query_map([], |r| Ok((r.get(0)?, r.get(1)?))).unwrap().map(Result::unwrap).collect();
+		let steps: Vec<i64> = c.prepare("select quest from steps where quest >= 20 order by quest").unwrap().query_map([], |r| r.get(0)).unwrap().map(Result::unwrap).collect();
+		(facts, mech, steps)
+	};
+	// Without the table nothing corrected is packed.
+	let (facts, mech, steps) = run(&d.join("none.sqlite"));
+	assert_eq!((facts, steps), (vec![], vec![]));
+	assert!(mech.iter().all(|(_, s)| !s.contains("correction")), "{mech:?}");
+	// With it, the public ones only.
+	let c = Connection::open(&from).unwrap();
+	c.execute_batch(
+		"create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));
+         insert into correction_origin values ('quest', 20, 'races', 'public', 'recording');
+         insert into correction_origin values ('quest', 21, 'races', 'private', '');
+         insert into correction_origin values ('npc', 22, 'npc_level', 'private', '');
+         insert into correction_origin values ('mechanic', 20, '*', 'public', 'in-game-check');
+         insert into correction_origin values ('mechanic', 21, '*', 'private', '');",
+	)
+	.unwrap();
+	drop(c);
+	let (facts, mech, steps) = run(&d.join("public.sqlite"));
+	assert_eq!(facts, vec![("quest".to_string(), 20)]);
+	// A private fix alone leaves only the marker of a driving mechanic (status and sources withheld).
+	assert_eq!(mech, vec![(20, "[\"correction\"]".to_string()), (21, "[]".to_string())]);
+	assert_eq!(steps, vec![20]);
 	let _ = std::fs::remove_dir_all(d);
 }

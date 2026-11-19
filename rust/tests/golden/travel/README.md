@@ -22,4 +22,8 @@ When the Rust builder's transports gained Zephras Isle's two airships (TaxiPaths
 
 When the Rust builder gained the Wizard's Sanctum's two walk-in portals (area triggers 704 down to the mage trainers' chamber and 702 back up; #1970), input/sources/cmangos/22b51464f162/transit.json gained the two triggers' classic-db teleports (extracted again from the same dump; nothing else in it changed), and expected/TravelData.lua and travel.json gained the two portals from the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed. The JS builder does not know them.
 
+When the Wizard's Sanctum's portal ends lost their AreaTable area (1519, Stormwind City: no area names the Sanctum, so the arrow said "Take the portal to Stormwind City"; #1970), expected/TravelData.lua and travel.json lost it from the two portals' ends (area 0 on the portals) from the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed.
+
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.
+
+When the Zephras Isle airships' ends away from the isle were placed at the NPC on each dock (Arcanist Laurain at the Kirin Tor camp, Brix Xizzix in Mulgore; #2830: the Mulgore stop hangs off the cliff beside its dock), expected/travel.json's warnings gained their two "npc ... not found" lines from the Rust builder (FORGE_GOLDEN_BLESS; the slice has neither NPC, so both ends stay at their stops); nothing else changed.

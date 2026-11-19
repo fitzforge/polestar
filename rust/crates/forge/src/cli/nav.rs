@@ -43,12 +43,12 @@ Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks a
 string literals (--literals base64 keeps base64). Three rules, each off until measured on the
 walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
 (flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
-ends from <root>/data/forever travel.json and spawnz.json, and the travel chains' nodes in
-<root>/data/crossings.json; default all); --ledges on takes our grid's falls of 2 to 14.57 yd (the
-height a fall starts to hurt) into the cell beside a ledge as one-way arcs where his maps lack the
-walk down; --spawns on carries the heights of the NPC and quest object spawns (<root>/data/forever
-spawnz.json, quests.json) that stand within a cell of another floor (the spawn field: a goal with
-no height beside one ends on its floor).
+ends from <root>/data/forever travel.json and spawnz.json, the travel chains' nodes in
+<root>/data/crossings.json, and the ends of the grid joins' ways; default all); --ledges on takes
+our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
+as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
+quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
+another floor (the spawn field: a goal with no height beside one ends on its floor).
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 

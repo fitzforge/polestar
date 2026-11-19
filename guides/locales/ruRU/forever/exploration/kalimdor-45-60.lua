@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "Здесь нужно открыть 7 местностей, 55-й уровень.",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "{zone:1451} – к западу от зоны {zone:1449}, через перевал на ее северо-западе. {area:3425} – нейтральная.",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "Маршрут полета здесь: {area:3425} ({npc:15177}).",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -81,11 +81,9 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "Маршрут полета здесь: {area:2255} (Югрек).",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here. Its creatures are level 54-60."] = "",
+	["9 areas to discover here. Its creatures are level 54-60."] = "Здесь нужно открыть 9 местностей. Существа здесь 54-60-го уровня.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "В зону {zone:2482} можно попасть из зоны {zone:1452} через место {area:2256} на юге. Это зона прокачки Forever для конца игры.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["9 areas to discover here."] = "Здесь нужно открыть 9 местностей.",
-	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} – к западу от зоны {zone:1449}. {area:3425} – нейтральная.",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "Маршруты полета здесь: {area:16849} ({npc:41861}), {area:16853} (Колокольчик).",
 }

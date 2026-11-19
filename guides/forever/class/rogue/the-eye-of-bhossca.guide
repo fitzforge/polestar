@@ -7,11 +7,14 @@ levels 30-35
 zone Silverpine Forest
 keywords The Eye of Bhossca, C's dead drop, Dead Drop, Pyrewood Village, Scarlet Monastery, disguise, Ruby-Adorned Blade, Rogue, solo dungeon
 reward item 277246
-why The Ruby-Adorned Blade, C's payment for a solo job inside the Scarlet Monastery.
+why The Ruby-Adorned Blade, C's payment for a solo job in the Scarlet Monastery, after The Horn of Xelthos.
 
 # C's second job, for Rogues of both factions: The Eye of Bhossca (78676)
 # from the Dead Drop near Pyrewood Village, the eye from inside the Scarlet
 # Monastery, then C's payment (78699) from the same Dead Drop.
+# It follows C's first job, The Horn of Xelthos (its own guide): 78676 needs
+# 78307 (the horn job's payment) handed in (quests.json, QuestieDB 1.1.1;
+# 6 of the 7 recorded Eye takers did 78307 first), so every step waits on it.
 # Forever changes (Forever's Rogue class quest list,
 # data/local/quest-audit/): both quests need level
 # 25 (was 30 and 1) and pay 3450 experience; 78699 is now level 35, pays 75
@@ -38,18 +41,22 @@ why The Ruby-Adorned Blade, C's payment for a solo job inside the Scarlet Monast
 # player evidence, not a guaranteed mail level or a level-gate change.
 
 step C's dead drop
-  tip C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the Dead Drop near Pyrewood Village, in southern Silverpine just south of Shadowfang Keep, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30.
-  level 30
+  when turnedin 78307
+  tip C's next job comes by letter: once you are level 30 and have done the horn job (The Horn of Xelthos, its payment from this Dead Drop handed in), visit any capital city and C's letter arrives in the mailbox; only then does the Dead Drop near Pyrewood Village, in southern Silverpine just south of Shadowfang Keep, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30.
+  level 34
   accept 78676 object 410369                  -- Dead Drop
 
 step The Scarlet Monastery
+  when turnedin 78307
   zone Tirisfal Glades
   tip The monastery stands in the far north-east of Tirisfal Glades. Go in alone, out of any group. Before entering, take the Scarlet Initiate's Uniform from the Supply Locker in the stables behind the monastery and wear it; stealth and suspicious actions remove it, so put it back on after each wing change. In the Graveyard, in the Chamber of Atonement (the first big room), Pick Pocket a Scarlet Scryer or Scarlet Crier for the Scryer's Key. In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message. It sends you back to sit on both benches between the two statues in the Graveyard. Watch for the mechanism's messages, then take the Reliquary Key from the stone coffer: an elite stands by the coffer with a patrol behind it, but from beside the northern mausoleum you can turn the camera until the box shows and click it through the wall (an interact key works too). An elite ghost walks near the mausoleum; the broken piece at its edge keeps you out of its path. Then return to the Library for the locked reliquary and the eye. Avoid fighting through the instance.
+  level 35
   goto 82.6,33.8 live "Scarlet Monastery"
   note Solo route: Graveyard key, Library letter, Graveyard benches and coffer, then Library reliquary for the eye. Read the letter before the bench puzzle; check the disguise each time you change wings.
   collect 210953 "Eye of Bhossca" quest 78676.1 @82.6,33.8 live -- the locked reliquary in the Library
 
 step Back to the dead drop
+  when turnedin 78307
   zone Silverpine Forest
   tip Place the eye in the Dead Drop near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared.
   turnin 78676 object 410369                  -- Dead Drop

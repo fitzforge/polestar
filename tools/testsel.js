@@ -571,6 +571,7 @@ function memAvailableGb() {
 	return gb;
 }
 function runFiles(files, { jobs = Math.max(1, Math.floor(require('node:os').availableParallelism() / 2)), reserveGb = 6, timeoutSec = 600, cwd = ROOT, log = console.log, memAvailable = memAvailableGb } = {}) {
+	if (!Number.isInteger(jobs) || jobs < 1) return Promise.reject(new RangeError('testsel: jobs needs a positive integer'));
 	const { spawn } = require('node:child_process');
 	const queue = [...files];
 	let running = 0;
@@ -619,8 +620,13 @@ function main(argv) {
 		else if (a === '--json') opts.json = true;
 		else if (a === '--all-unmapped') opts.allUnmapped = true;
 		else if (a === '--base') opts.base = argv[++i];
-		else if (a === '--jobs') opts.jobs = Number(argv[++i]);
-		else if (a === '--reserve') opts.reserveGb = Number(argv[++i]);
+		else if (a === '--jobs') {
+			opts.jobs = Number(argv[++i]);
+			if (!Number.isInteger(opts.jobs) || opts.jobs < 1) {
+				console.error('testsel: --jobs needs a positive integer');
+				return 2;
+			}
+		} else if (a === '--reserve') opts.reserveGb = Number(argv[++i]);
 		else if (a === '-h' || a === '--help') {
 			console.log(fs.readFileSync(__filename, 'utf8').split('\n').slice(2, 15).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
 			return 0;

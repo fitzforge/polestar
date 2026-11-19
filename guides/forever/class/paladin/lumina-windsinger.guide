@@ -56,6 +56,7 @@ step Danitha Morr
 step The Sepulcher
   zone Silverpine Forest
   tip Trevan Rol stands in the lower part of the Sepulcher, below the surface; Deathguard Baldren keeps watch near the town's entrance.
+  level 21
   turnin 91858                        -- Trevan Rol
   accept 91859
   turnin 91859                        -- Deathguard Baldren
@@ -63,22 +64,26 @@ step The Sepulcher
 
 step The pyre on Fenris Isle
   tip Fenris Isle lies in the lake north-east of the Sepulcher. The gnolls' pyre, with the Charred Remains, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's.
-  turnin 91860                        -- Charred Remains
+  turnin 91860 object 566037          -- Charred Remains
   accept 91861                        -- from the Charred Remains
 
 step Fenris Keep
   tip Lumina Windsinger is caged in the basement of Fenris Keep, at the north end of the isle. The Rot Hide gnolls (level 18-19) fill the keep: they pull in big groups across floors and players report very fast respawns, so clear a path and keep moving. Any of them can carry the Fenris Isle Key (often the first kill); the rare Rot Hide Bruiser (22) and Snarlmane (23) can too. If her cage is empty, another player is escorting her: wait for her to come back.
+  level 22
   turnin 91861                        -- Lumina Windsinger
   accept 91862
   collect 267412 quest 91862.1        -- Fenris Isle Key, from the Rot Hide gnolls
 
 step Free Lumina
   tip Hand in the key first: starting the escort before that gives the key quest no credit. Then open the cage: Lumina walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the Sepulcher. Stay close and keep her alive; if she dies, take the quest again when she is back in her cage.
+  level 21
   turnin 91862                        -- Lumina Windsinger
   accept 96204
+  complete 96204 @65.7,29.7
 
 step Back to the Sepulcher
   tip Lumina waits beside Trevan Rol in the Sepulcher (a different Lumina from the one you escorted). For The Debt, click through every line of her story.
+  level 23
   turnin 96204                        -- Lumina Windsinger, the Sepulcher
   accept 95034
   talk 259620 quest 95034.1           -- Lumina Windsinger: hear her story to the end
@@ -88,29 +93,42 @@ step Back to the Sepulcher
 
 step A Moon-Kissed Blade
   tip At 20 Lumina asks for a blade that can kill Old Fire-Eye. Talk to Trevan Rol beside her for his Weapon Notes, which list the parts, and keep them: he wants them back with the parts. Three parts, in any order: two from dungeons (a group of five each) and a gem from elite naga outside a third.
-  level 20
+  level 24
   accept 95036                        -- Lumina Windsinger
   collect 267454 npc 248840           -- Trevan's Weapon Notes: talk to Trevan Rol
 
 step The Enchanted Silver Ingot
   tip Shadowfang Keep is the dungeon in south Silverpine, for a group of five in the low to mid 20s. The ingot sits on the table next to Archmage Arugal at the very end. A friend's cleared instance works: walk in and run to the table.
+  level 25
   goto 44.8,67.8 live "Shadowfang Keep"
   collect 267361 quest 95036.3 @44.8,67.8 live -- Enchanted Silver Ingot, on Arugal's table
 
 step Whitestone Oak Lumber
   zone Westfall
   tip The Deadmines lies under Moonbrook in Westfall, Alliance land: a group of five at about 17-24. From the Undercity take the zeppelin to Grom'gol in Stranglethorn Vale and go north through Duskwood into Westfall. The way in is the Moonbrook mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time.
+  level 25
   goto 42.5,71.7 live "The Deadmines, in the Moonbrook mine"
   collect 6994 quest 95036.2 @42.5,71.7 live -- Goblin Woodcarvers, inside
 
 step Ulric Frostveil
   zone Ashenvale
   tip Ulric Frostveil waits at Zoram'gar Outpost on Ashenvale's west coast: take the zeppelin from Grom'gol (or the Undercity) to Orgrimmar, then go north through the Barrens into Ashenvale and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take Ulric's quest before you hunt the naga: the Kor Gem only drops while you have it.
+  level 24
   accept 95042                        -- Ulric Frostveil, Zoram'gar Outpost
+
+# The flooded ruins at the Blackfathom Deeps entrance are not on the walking maps: without a waypoint the arrow
+# led north into Darkshore and up onto the ridge over the dungeon (#2203). The step before the naga leads to the
+# north end of the Zoram Strand, where players' recordings swim into the ruins; from there the arrow is straight.
+step The north end of the Zoram Strand
+  zone Ashenvale
+  tip The naga's flooded ruins lie just past the north end of the Zoram Strand. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins.
+  level 25
+  goto 14.6,13.7 "The north end of the Zoram Strand"
 
 step The Corrupted Kor Gem
   zone Ashenvale
   tip The naga stand in the flooded ruins and passages around the Blackfathom Deeps entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the Corrupted Kor Gem, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group.
+  level 25
   collect 6995 quest 95042.1          -- Corrupted Kor Gem
 
 step The Purified Kor Gem
@@ -130,6 +148,7 @@ step Ott
   zone Hillsbrad Foothills
   tip Ott, the weaponsmith, stands just south of Tarren Mill in Hillsbrad Foothills. Accepting Ott's Masterwork starts the forging: step back and wait near him until he is done.
   turnin 95111                        -- Ott, Tarren Mill
+  level 24
   accept 95125
   complete 95125                      -- Watch Ott forge the blade
   turnin 95125
@@ -149,9 +168,9 @@ step Two-Handed Swords
 
 step Old Fire-Eye
   zone Silverpine Forest
-  tip Equip the Moonsilver Blade. Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.
+  tip Equip the Moonsilver Blade. Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.
   accept 95140                        -- Lumina Windsinger, the Sepulcher
-  level 22
+  level 25
   kill 259897 quest 95140.1 @47.91,85.33 -- Old Fire-Eye, with the Moonsilver Blade equipped
 
 step Wolfsbane

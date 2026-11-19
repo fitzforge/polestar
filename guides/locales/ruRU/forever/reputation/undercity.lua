@@ -49,7 +49,7 @@ return {
 	-- {area:154} Deathknell · {npc:1667} Meven Korgal
 	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "",
 	-- {item:2885} Scarlet Crusade Documents · {npc:1667} Meven Korgal
-	["{item:2885}, from {npc:1667}"] = "",
+	["{item:2885}, from {npc:1667}"] = "{item:2885}, у персонажа {npc:1667}",
 	-- {quest:383} Vital Intelligence · {npc:1515} Executor Zygand · {area:159} Brill
 	["{quest:383}, +75: to {npc:1515} in {area:159}"] = "",
 
@@ -64,7 +64,8 @@ return {
 	["Around {area:159}"] = "",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
 	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "",
-	["Motivate 5 Deathguards"] = "",
+	-- {area:159} Brill
+	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Подбодрите 5 стражей смерти: стражи смерти вокруг места {area:159}",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills
@@ -76,7 +77,7 @@ return {
 
 	-- Step 12: Agamand Mills again
 	-- {area:157} Agamand Mills
-	["{area:157} again"] = "",
+	["{area:157} again"] = "Снова здесь: {area:157}",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
 	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "",
@@ -106,8 +107,8 @@ return {
 	["{item:14047}: the Scarlet outside {area:2266}"] = "",
 
 	-- Step 17: Undercity: Harbinger Balthazad
-	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity
-	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "",
+	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
+	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "Задания 55-60-го уровня дают полную репутацию. Сначала {area:152}: туда отправляет {npc:10879} у лифтов города {faction:68}. Леди Сильвана (локация: {object:36126}) дает задание {quest:5961} – рекомендацию к NPC {npc:11878}: без нее нельзя сдать задание {quest:6136}, его последнее здесь.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
@@ -115,7 +116,7 @@ return {
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
-	["the {object:176088}"] = "",
+	["the {object:176088}"] = "{object:176088}",
 
 	-- Step 19: Bulwark: the cauldrons
 	-- {area:152} Bulwark
@@ -129,7 +130,7 @@ return {
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
 	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -145,7 +146,7 @@ return {
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["{npc:11077} guards the cauldron at {area:200}."] = "",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "{object:177289}",
 
 	-- Step 23: Bulwark: the Writhing Haunt
 	-- {area:152} Bulwark · {area:202} Writhing Haunt
@@ -155,13 +156,13 @@ return {
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt
 	["{npc:11076} guards the cauldron at the {area:202}."] = "",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "{object:176393}",
 
 	-- Step 26: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}."] = "",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "{object:176392}",
 
 	-- Step 27: Bulwark: done
 	-- {area:152} Bulwark
@@ -171,7 +172,7 @@ return {
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
-	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "",
+	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 525 {faction:68} reputation with Sylvanas's introduction."] = "{npc:11878}, Повелитель следопытов, разбил лагерь на западном краю зоны {zone:1423}. Его задания 58-60-го уровня дают полную репутацию: 525 репутации ({faction:68}) с рекомендацией Сильваны.",
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
@@ -188,11 +189,11 @@ return {
 
 	-- Step 31: Duskwing and Borelgore
 	-- {npc:11897} Duskwing · {npc:11896} Borelgore
-	["{npc:11897} and {npc:11896}"] = "",
+	["{npc:11897} and {npc:11896}"] = "{npc:11897} и {npc:11896}",
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
-	["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "",
+	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 525 репутации ({faction:68}) с рекомендацией Сильваны. Его задания в подземелье {area:2279} («{npc:12337}», «Алый оракул», «Деметрия», «Рамштайн») требуют группы.",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God
@@ -216,7 +217,7 @@ return {
 	-- {quest:2935} Consult Master Gadrin
 	["{quest:2935}, +75 Darkspear"] = "",
 	-- {npc:3188} Master Gadrin · {area:367} Sen'jin Village
-	["{npc:3188}, in {area:367}"] = "",
+	["{npc:3188}, in {area:367}"] = "{npc:3188}, здесь: {area:367}",
 	-- {quest:2936} The Spider God
 	["{quest:2936}, +150 Darkspear"] = "",
 
@@ -232,7 +233,7 @@ return {
 	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
 	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
-	["{item:9324}, from {npc:2707}"] = "",
+	["{item:9324}, from {npc:2707}"] = "{item:9324}, у персонажа {npc:2707}",
 
 	-- Step 39: Tarren Mill and the Undercity
 	-- {area:272} Tarren Mill · {faction:68} Undercity

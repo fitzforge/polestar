@@ -110,6 +110,50 @@ test('the report says how the arrow routes: the route style, then only the routi
 	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
+test('the report lists the travel plan from the current leg: each caption and time, "(maybe)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function travel()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Travel: ") then return line end
+			end
+		end
+		local r = { none = travel() }
+		Polestar.Nav.GetRoute = function()
+			return {
+				{ kind = "walk", label = "Walked already", seconds = 5 },
+				{ kind = "walk", label = "Walk to the flight master", seconds = 83 },
+				{ kind = "fly", label = "Fly to Astranaar", seconds = 185.4, maybe = true },
+				{ kind = "walk", label = "Delgren the Purifier", seconds = 40 },
+			}, 2
+		end
+		r.plan = travel()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no plan: no line');
+	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (maybe) · Delgren the Purifier 0:40');
+});
+
+test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function whereLine()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Where: ") then return line end
+			end
+		end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 0, -9200, 100 end
+		Polestar.Nav.walk = Polestar.Nav.walk or {}
+		Polestar.Nav.walk.Floor = function() return nil end
+		local r = { none = whereLine() }
+		Polestar.Nav.walk.Floor = function() return 15.6 end
+		r.floor = whereLine()
+		emit(r)`);
+	assert.doesNotMatch(out.none, / · z /, 'no floor known: none said');
+	assert.match(out.floor, /^Where: Elwynn Forest · .* · z 16$/);
+});
+
 // The longest report a player can send: every line at its cap in `word`'s
 // script under `locale`, the description at its most letters (or
 // `opts.descLen`), 40 addons and a marked right spot. Returns the report for
@@ -705,6 +749,172 @@ test('the description box takes 1,000 letters: it grows with the text from three
 	assert.equal(out.full.well, 7 * 16 + 16, 'no taller than seven lines');
 	assert.ok(out.full.box > out.full.well && out.full.content === out.full.box, `the text runs on in the scroll (${out.full.box} in ${out.full.well})`);
 	assert.ok(out.full.window <= 720, `the window fits a 720-unit screen (${out.full.window})`);
+});
+
+test('report scrolling survives repeated cursor notifications, while real cursor movement follows the edited line (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local sf, e = F.DescScroll, F.Desc
+		local y = -(sf.psContent - 16)
+		local function cursor(x, cy) stub.RunScript(e, "OnCursorChanged", x, cy, 1, 16) end
+		cursor(10, y)
+		local bottom = sf:GetVerticalScroll()
+		stub.RunScript(sf, "OnMouseWheel", 1)
+		local wheeled = sf:GetVerticalScroll()
+		for i = 1, 3 do cursor(10, y) end
+		local repeated = sf:GetVerticalScroll()
+		cursor(20, y)
+		local horizontal = sf:GetVerticalScroll()
+		stub.RunScript(sf, "OnMouseWheel", 1)
+		e:SetText((e:GetText():gsub("A line", "B line")))
+		stub.RunScript(e, "OnTextChanged", true)
+		cursor(20, y)
+		local edited = sf:GetVerticalScroll()
+		stub.cursor = { 100, 500 }
+		stub.RunScript(sf.Bar, "OnMouseDown", "LeftButton")
+		stub.cursor = { 100, 1000 }
+		stub.RunScript(sf.Bar, "OnUpdate", 0.1)
+		stub.RunScript(sf.Bar, "OnMouseUp", "LeftButton")
+		local dragged = sf:GetVerticalScroll()
+		for i = 1, 3 do cursor(20, y) end
+		local repeatedDrag = sf:GetVerticalScroll()
+		cursor(20, y + 16)
+		local vertical = sf:GetVerticalScroll()
+		cursor(20, 0)
+		emit({ bottom = bottom, wheeled = wheeled, repeated = repeated, horizontal = horizontal, edited = edited,
+			dragged = dragged, repeatedDrag = repeatedDrag, vertical = vertical, firstLine = sf:GetVerticalScroll() })`);
+	assert.ok(out.bottom > 60, 'the description needs scrolling');
+	assert.equal(out.wheeled, out.bottom - 60, 'the wheel moves up');
+	assert.equal(out.repeated, out.wheeled, 'unchanged cursor notifications keep the wheel position');
+	assert.equal(out.horizontal, out.bottom, 'moving along the edited line brings it back into view');
+	assert.equal(out.edited, out.bottom, 'new text follows the cursor even at unchanged coordinates');
+	assert.equal(out.dragged, 0, 'the thumb can reach the first lines');
+	assert.equal(out.repeatedDrag, 0, 'unchanged cursor notifications keep the dragged position');
+	assert.ok(out.vertical > 0 && out.vertical < out.bottom, 'moving to the preceding line follows that line');
+	assert.equal(out.firstLine, 0, 'moving the cursor to the first line scrolls back to the top');
+});
+
+for (const cursorFirst of [true, false]) {
+	test(`report edits at the same caret position follow it with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line of the report.\\n", 30))
+			stub.RunScript(e, "OnTextChanged", false)
+			local y = -(sf.psContent - 16)
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, y, 1, 16) end
+			cursor()
+			local bottom = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local before = sf:GetVerticalScroll()
+			-- A replacement can change the text without changing the caret's
+			-- geometry. Model both notification orders; the stub does not
+			-- establish which order the game client uses.
+			e:SetText((e:GetText():gsub("A line", "B line")))
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			for i = 1, 3 do cursor() end
+			emit({ bottom = bottom, before = before, edited = edited,
+				wheeled = wheeled, repeated = sf:GetVerticalScroll() })`);
+		assert.ok(out.bottom > 60, 'the edited line starts outside the scrolled view');
+		assert.equal(out.before, out.bottom - 60);
+		assert.equal(out.edited, out.bottom, 'the edit reveals the unchanged caret position');
+		assert.equal(out.wheeled, out.bottom - 60);
+		assert.equal(out.repeated, out.wheeled, 'later layout events preserve scrolling after the edit');
+	});
+
+	test(`report edits reveal a new last line with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line.\\n", 10))
+			stub.RunScript(e, "OnTextChanged", false)
+			local old, h = sf.psContent, F.DescMeasure:GetLineHeight()
+			stub.RunScript(e, "OnCursorChanged", 10, -(old - h), 1, h)
+			e:SetText(e:GetText() .. "One more line.\\n")
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, -old, 1, h) end
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			cursor()
+			local repeated = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			cursor()
+			emit({ edited = edited, repeated = repeated, view = sf.psView, content = sf.psContent,
+				caretBottom = old + h, wheeled = wheeled, afterWheel = sf:GetVerticalScroll() })`);
+		assert.equal(out.content, out.caretBottom, 'the new empty last line expands the scroll content');
+		assert.equal(out.edited + out.view, out.caretBottom, 'the new caret is visible after the edit');
+		assert.equal(out.repeated, out.edited, 'repeated layout does not move the viewport');
+		assert.ok(out.wheeled < out.edited, 'the player can scroll away from the new last line');
+		assert.equal(out.afterWheel, out.wheeled, 'layout notifications preserve that manual scroll');
+	});
+}
+
+test('the foreground report description forwards mouse-wheel scrolling to its viewport (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		Polestar.Widgets.ScrollTo(F.DescScroll, F.DescScroll.psContent)
+		local bottom = F.DescScroll:GetVerticalScroll()
+		stub.RunScript(F.Desc, "OnMouseWheel", 1)
+		emit({ enabled = rawget(F.Desc, "mouseWheel") or false, bottom = bottom, after = F.DescScroll:GetVerticalScroll() })`);
+	assert.equal(out.enabled, true);
+	assert.equal(out.after, out.bottom - 60);
+});
+
+test('the report description pads its viewport instead of its multiline text, keeping the outer window size (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		stub.RunScript(F.Desc, "OnTextChanged", false)
+		local function size()
+			return { well = F.DescWell:GetHeight(), view = F.DescScroll.psView, window = F:GetHeight() }
+		end
+		local empty = size()
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		emit({ insets = F.Desc.testInsets, empty = empty, full = size(),
+			top = select(5, F.DescScroll:GetPoint(1)), bottom = select(5, F.DescScroll:GetPoint(2)) })`, `
+		-- Capture a native setting the stub does not model; caret rendering
+		-- itself still needs the game client.
+		local create = CreateFrame
+		CreateFrame = function(kind, ...)
+			local f = create(kind, ...)
+			if kind == "EditBox" then
+				local setInsets = f.SetTextInsets
+				f.SetTextInsets = function(self, ...)
+					self.testInsets = { ... }
+					return setInsets(self, ...)
+				end
+			end
+			return f
+		end`);
+	assert.deepEqual(out.insets, [10, 10, 0, 0], 'multiline text has no vertical insets');
+	assert.equal(out.top, -8);
+	assert.equal(out.bottom, 8);
+	assert.equal(out.empty.well, 64, 'the empty well keeps its height');
+	assert.equal(out.empty.view, 48);
+	assert.equal(out.full.well, 128, 'the full well keeps its height');
+	assert.equal(out.full.view, 112);
+	assert.ok(out.full.window <= 720, 'the window still fits the screen');
 });
 
 // #1753: the report window as doctor-house had it in 0.3.6: 28 other addons,

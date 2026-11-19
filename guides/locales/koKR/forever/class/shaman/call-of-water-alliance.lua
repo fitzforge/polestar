@@ -14,31 +14,31 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:258043} Norric Lochthane · {zone:1432} Loch Modan
-	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "",
+	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "20레벨에 {zone:1455} {object:32362}의 주술사 상급자 {npc:258098}이(가) {zone:1432}의 {npc:258043}에게 보냅니다.",
 
 	-- Step 2: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {area:144} Thelsamar
-	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "",
+	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "{npc:258043}의 굴 오두막은 호수 북서쪽 기슭, {area:146} 아래, {area:144} 북쪽에 있습니다.",
 
 	-- Step 3: Hervdana Saegrund
 	-- {npc:258203} Hervdana Saegrund · {zone:1437} Wetlands · {area:836} Dun Algaz · {zone:1432} Loch Modan
-	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "",
+	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "{npc:258203}의 가족은 {area:836} 동쪽, {zone:1437} 남쪽 폭포 아래 동굴에 삽니다. 마을 안이 아닙니다. {zone:1432} 북쪽의 알가즈 굴을 지나 길에서 동쪽으로 벗어나십시오.",
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "갈색 물주머니",
 	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
+	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "{npc:258203}의 동굴 아래 폭포 밑, 민물과 바닷물이 만나는 곳에서 {item:265732}을(를) 채우십시오. {object:147516} 드워프가 폭포 근처를 돌아다닙니다.",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "붉은 물주머니",
 	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "",
+	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71}은(는) 붉은마루 동쪽 끝의 {area:68}에서 쏟아져 내립니다({zone:1455}에서 {area:69}(으)로 비행). Murloc Nightcrawler가 모여 있는 폭포 아래에서 {item:265747}을(를) 채우세요. 먼저 멀록을 그 자리에서 끌어내세요. 가죽 부대가 수가 세어지지 않고 사라지면 퀘스트를 포기하고 {npc:258203}에게서 다시 받아 새것을 얻으세요.",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "파란 물주머니",
 	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "",
+	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "{area:150}에서 배를 타고 {area:442}(으)로 간 뒤(도중에 {area:271}에 들릅니다), {zone:1439}을(를) 지나 남쪽으로 날아가거나 걸어서 {zone:1440}의 {area:415}(으)로 가십시오. 마을을 둘러싼 호수에서 {item:265772}을(를) 채운 뒤, 배를 타고 메네실로 돌아가십시오.",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -62,7 +62,7 @@ return {
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
 	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
 	-- {npc:5895} Minor Manifestation of Water
-	["{npc:5895}, beside the shrine"] = "",
+	["{npc:5895}, beside the shrine"] = "{npc:5895}, 제단 옆",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
@@ -71,12 +71,5 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394}과(와) {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:258043} in {zone:1432}."] = "20레벨에 {zone:1455}의 주술사 상급자 {npc:258098}이(가) {zone:1432}의 {npc:258043}에게 보냅니다.",
-	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish."] = "{npc:258203}의 동굴 아래 폭포 밑, 민물과 바닷물이 만나는 곳에서 {item:265732}을(를) 채우십시오.",
-	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather."] = "{area:71}은(는) 붉은마루 동쪽 끝의 {area:68}에서 쏟아져 내립니다. {npc:544}이(가) 모여 있는 폭포 아래에서 {item:265747}을(를) 채우세요.",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919}은(는) {area:20} 외곽에 있습니다. 그곳에서 {item:6637}을(를) 마시고 {npc:5894}을(를) 처치해 손목보호구를 얻은 뒤, 그것과 {item:7811}을(를) {object:619896}에 놓으십시오. 나타난 {npc:5895}이(가) {item:7813}을(를) 줍니다.",
-	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "{npc:258043}의 굴 오두막은 호수 북서쪽 가장자리, {area:146} 남쪽에 있습니다.",
-	-- ["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}."] = "{npc:258203}의 가족은 {zone:1437} 남쪽 폭포 아래 동굴에 삽니다.",
-	-- ["{npc:258203}: take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then go south to {area:415}. Fill the {item:265772} in the lake around the town."] = "{npc:258203}: {area:150}에서 배를 타고 {area:442}(으)로 간 뒤(도중에 {area:271}에 들릅니다), 남쪽의 {area:415}(으)로 가십시오. 마을을 둘러싼 호수에서 {item:265772}을(를) 채우십시오.",
-	-- ["{npc:5895}, at the shrine"] = "{npc:5895}, 제단에서",
 }

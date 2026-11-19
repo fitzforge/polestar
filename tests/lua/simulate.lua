@@ -64,6 +64,12 @@ local function act(i, g, r)
 		if w.log[q] then w.abandon(q) end
 	elseif t == "destroy" then
 		if g.item then w.removeItem(g.item) end
+	elseif t == "deposit" then
+		-- Into the bank: what the goal counts, else all the bags hold.
+		if r.count and (w.items[r.item] or 0) < r.count then w.addItem(r.item, r.count - (w.items[r.item] or 0)) end
+		w.deposit(r.item)
+	elseif t == "equip" then
+		w.equip(r.item, not r.off)
 	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]
@@ -71,7 +77,8 @@ local function act(i, g, r)
 		end
 	elseif q and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then w.finish(q) end
-	elseif (t == "collect" or t == "buy") and g.item then
+	-- An auction goal: bought at the Auction House, a bag count as a buy is.
+	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y)
@@ -124,7 +131,12 @@ local function act(i, g, r)
 			w.addItem(r.item, r.count or 1)
 		end
 	elseif t == "rep" then
-		w.setRep(r.faction, r.factionName or tostring(r.faction), r.standing, 0, 0, 3000)
+		-- Points inside the standing (a rep goal with +points): that far along its bar.
+		local points = r.points or 0
+		w.setRep(r.faction, r.factionName or tostring(r.faction), r.standing, points, 0, math.max(3000, points))
+	elseif t == "buff" then
+		-- The aura on the player, or gone for a goal with off.
+		w.setAura(r.spell, not r.off)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)

@@ -5,7 +5,9 @@
 // area's fishing trainer, then a fishing-pool cluster from objects.json (role
 // fishing). Expert comes from a book (professions.json rank `book`), Artisan
 // from Nat Pagle's quest (quests 6608/6609 -> 6607); his four fish are placed
-// on their fishing-location objects (objects.json).
+// on their fishing-location objects (objects.json). Each band names the
+// cooking recipes for its fish, with an optional buy where a seller stands by
+// its water (FISH_RECIPES).
 //
 // Two Classic rules drive the numbers (Forever's notes say fishing is
 // unchanged; the header flags both as ASSUMED):
@@ -17,9 +19,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const R = require('./route');
-const { RACE_GROUPS, REGIONS, raceCondition } = require('./groups');
+const { RACE_GROUPS, REGIONS, TWO_SIDED, raceCondition } = require('./groups');
 const { dist } = require('../../route/geo');
-const { FACTIONS, GUIDE_HEADER, fmt, liveMark, money, zoneName, npcSpawn, rankInfo, flightMaster } = require('./common');
+const { FACTIONS, GUIDE_HEADER, fmt, liveMark, money, zoneName, npcSpawn, rankInfo, flightMaster, vendorSpawns } = require('./common');
 const { byBanners } = require('../sections');
 const { ERA_NOTE } = require('./notes');
 
@@ -31,9 +33,12 @@ const BRIGHT_BAUBLES = 6532;
 const FISH_ATTRACTOR = 6533;
 const FISHING_RACK = 1262990;
 
-// Where each group fishes first: the shore beside its starting area's fishing
-// trainer (`at`), water that loses no fish from skill 25. Zephras Isle has no
-// pools and no base skill in the data: fish beside Valanaar's fishing trainer.
+// Where the faction fishes first: the shore beside each starting area's fishing
+// trainer (`at`), water that loses no fish from skill 25. Below 75 every catch
+// raises the skill, so any of the faction's shores does: the arrow leads to the
+// nearest one wherever the character is (`skill … nearest`, #2529). Zephras
+// Isle has no pools and no base skill in the data: fish beside Valanaar's
+// fishing trainer (Skyborne only).
 const START_SPOTS = {
 	human: { zone: 1429, at: 1651, label: 'Crystal Lake', full: 25 },
 	'dwarf-gnome': { zone: 1426, at: 1700, label: 'Iceflow Lake', full: 25 },
@@ -75,6 +80,33 @@ const PAGLE_FISH = [
 	{ item: 16970, zone: 1435, object: 400007, full: 225, where: 'the Misty Reed Strand (the east shore of Swamp of Sorrows)' },
 ];
 const PAGLE_RATE = 'about one catch in five';
+
+// The cooking recipes for the fish each band's water gives (#1883): the first
+// fish of each pair bites in lakes and rivers, the second on the coast
+// (Classic's fishing loot by zone level). Each recipe's Cooking skill, price
+// and sellers are the data's (professions.json, Cooking). A seller of the
+// step's faction within RECIPE_NEAR yards of its water is on the way: the step
+// offers the recipe there as an optional buy; the tip names the nearest sellers.
+const FISH_RECIPES = {
+	start: [
+		[6291, 6325, 'lakes and rivers'],
+		[6303, 6326, 'the coast'],
+	],
+	next: [
+		[6289, 6328, 'lakes and rivers'],
+		[6361, 6368, 'the coast'],
+	],
+	region: [
+		[6308, 6330, 'lakes and rivers'],
+		[6362, 6369, 'the coast'],
+	],
+};
+const RECIPE_NEAR = 150;
+// Darkshore's own fish, eaten as it is, and the quest that takes six of them (#1883).
+const DARKSHORE_GROUPER = 12238;
+const BLUMP_QUEST = 1141;
+// Caught from its schools: an Alchemy reagent, no food.
+const OILY_BLACKMOUTH = 6358;
 
 // Expected catches from skill `from` to `to` (Classic's rate, see the top).
 function catches(from, to) {
@@ -193,8 +225,8 @@ function render(ctx) {
 	for (const c of [
 		'Fishing 1-300 for both factions. Every catch can raise the skill wherever you',
 		'fish; low skill only makes fish get away in harder waters, so each band sends',
-		'you to water near where you level: the shore beside your starting area\'s',
-		'fishing trainer, then fishing-pool clusters from objects.json. Expert Fishing',
+		'you to water near where you level: the nearest of your faction\'s starting-area',
+		'shores, then fishing-pool clusters from objects.json. Expert Fishing',
 		'is a book sold by Old Man Heming in Booty Bay; Artisan Fishing is Nat Pagle\'s',
 		'quest in Dustwallow Marsh (four rare fish). About 1,300 catches in all.',
 		'',
@@ -204,11 +236,53 @@ function render(ctx) {
 		"+ 95 (25 starting areas, 75 their neighbours, 150, 225 Stranglethorn, 300",
 		"Feralas); Forever's notes say fishing is unchanged. In-game check: catches",
 		'from 150 to 160, and fish lost at skill 1 in a starting area.',
+		"ASSUMED: which fish bite in each band's water (Classic's fishing loot by zone",
+		'level: lakes and rivers, the coast); the cooking recipes, their prices and',
+		'their sellers are the data\'s.',
 	])
 		L.push(c ? `# ${c}` : '#');
 
+	// What a spot step adds for the band's catch (`band`: FISH_RECIPES key): the
+	// cooking recipes with their nearest sellers of the faction (an optional buy at
+	// one standing by the water), Darkshore's Grouper, and the Oily Blackmouth of
+	// a water with its schools.
+	const catchNotes = (band, faction, def, pt) => {
+		const P = ctx.data.professionNamed('Cooking') || {};
+		const mats = P.materials || {};
+		const parts = [];
+		const buys = [];
+		for (const [raw, item, water] of FISH_RECIPES[band] || []) {
+			const m = mats[item];
+			const r = (P.recipes || []).find((x) => x.recipeItem === item);
+			if (!m || !r) continue;
+			const sellers = vendorSpawns(ctx, item, faction, (m.vendors || {})[faction])
+				.filter((v) => v.pt.c === pt.c)
+				.sort((a, b) => dist(pt, a.pt) - dist(pt, b.pt) || a.id - b.id);
+			if (!sellers.length) continue;
+			if (dist(pt, sellers[0].pt) <= RECIPE_NEAR) buys.push(`buy ${item} x1 npc ${sellers[0].id} optional`);
+			const who = sellers.slice(0, 2).map((v) => `${v.name} (${zoneName(ctx, v.map)})`);
+			parts.push(`${itemName(ctx, item)} for the ${itemName(ctx, raw)} of ${water} (Cooking ${r.learnedAt}, ${money(m.buy)}: ${who.join(' or ')})`);
+		}
+		let tip = parts.length ? ` To cook what you catch: ${parts.join('; ')}.` : '';
+		if (def.zone === 1439 && faction === 'Alliance') {
+			const q = ctx.data.quest(BLUMP_QUEST);
+			const giver = q && q.start && (q.start.npc || [])[0];
+			const want = q && (q.objectives || []).find((o) => o.type === 'item' && o.id === DARKSHORE_GROUPER);
+			const pole = q && ((((q.web || {}).items || [])[0]) || [])[0];
+			tip += ` ${itemName(ctx, DARKSHORE_GROUPER)} bites only here: eat it as it is.`;
+			if (giver && want) tip += ` ${ctx.data.npc(giver).name} (${zoneName(ctx, def.zone)}) takes ${want.count} for ${q.title}${pole ? `, which gives the ${itemName(ctx, pole)}` : ''}.`;
+		}
+		const schools = Object.keys(((ctx.data.item(OILY_BLACKMOUTH) || {}).drops || {}).object || {}).some((o) => (((ctx.data.objects[o] || {}).spawns) || {})[String(def.zone)]);
+		if (schools) {
+			const al = ctx.data.professionNamed('Alchemy') || {};
+			const oil = (al.recipes || []).find((x) => (x.reagents || []).some((g) => g.item === OILY_BLACKMOUTH));
+			tip += ` ${itemName(ctx, OILY_BLACKMOUTH)} from the schools here is no food${oil ? `: alchemists make ${oil.name} from it (Alchemy ${oil.learnedAt})` : ''}; keep it to sell or trade.`;
+		}
+		return { tip, buys };
+	};
+
 	// Groups that fish the same water share a step.
-	const spotSteps = (groups, spots, faction, from, to, tip) => {
+	const spotSteps = (groups, spots, faction, from, to, tip, band) => {
 		const byKey = new Map();
 		for (const g of groups) {
 			const def = spots[g.key];
@@ -217,9 +291,63 @@ function render(ctx) {
 			byKey.get(key).races.push(...g.races);
 		}
 		for (const { def, races } of byKey.values()) {
-			const s = spotLines(def, anchorFor(ctx, def, faction), to, `${tip}${waterTip(ctx, def, from)}`);
-			step(`Fishing: ${zoneName(ctx, def.zone)} (${from}-${to})`, [`only ${raceCondition(races, [faction])}`, ...s.lines]);
+			const anchor = anchorFor(ctx, def, faction);
+			const c = spot(ctx, def, anchor);
+			const notes = c ? catchNotes(band, faction, def, c.pt) : { tip: '', buys: [] };
+			const s = spotLines(def, anchor, to, `${tip}${waterTip(ctx, def, from)}${notes.tip}`);
+			step(`Fishing: ${zoneName(ctx, def.zone)} (${from}-${to})`, [`only ${raceCondition(races, [faction])}`, ...s.lines.slice(0, -1), ...notes.buys, ...s.lines.slice(-1)]);
 		}
+	};
+
+	// Fishing 1-50 (#2529): one step per faction, its starting areas' shores as the places of a
+	// `skill … nearest` goal, so the arrow leads to the nearest one wherever the character is (an
+	// Undead in Orgrimmar fishes the Durotar coast, a Gnome in Darkshore Rut'theran Village). A
+	// shore only some races reach (Zephras Isle: Skyborne) is theirs alone. The tip names every
+	// shore, and for each cooking recipe the seller nearest each shore.
+	const startStep = (faction) => {
+		const byKey = new Map();
+		for (const g of RACE_GROUPS[faction]) {
+			const def = START_SPOTS[g.key];
+			const key = `${def.zone}|${def.label}`;
+			if (!byKey.has(key)) byKey.set(key, { def, races: [] });
+			byKey.get(key).races.push(...g.races);
+		}
+		const waters = [...byKey.values()].map(({ def, races }) => {
+			const c = spot(ctx, def, anchorFor(ctx, def, faction));
+			if (!c) throw new Error(`Fishing: no water found in ${zoneName(ctx, def.zone)}`);
+			return { def, pt: c.pt, only: races.every((r) => TWO_SIDED.has(r)) ? races : null };
+		});
+		const named = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}` : list[0]);
+		const where = (w) => `${w.def.label} (${zoneName(ctx, w.def.zone)})`;
+		const open = waters.filter((w) => !w.only).map(where);
+		const own = waters.filter((w) => w.only).map((w) => `, and for ${w.only.join(', ')} also ${where(w)}`);
+		const P = ctx.data.professionNamed('Cooking') || {};
+		const mats = P.materials || {};
+		const recipes = [];
+		for (const [raw, item, water] of FISH_RECIPES.start) {
+			const m = mats[item];
+			const r = (P.recipes || []).find((x) => x.recipeItem === item);
+			if (!m || !r) continue;
+			const all = vendorSpawns(ctx, item, faction, (m.vendors || {})[faction]);
+			const sellers = [];
+			for (const w of waters) {
+				const v = all.filter((s) => s.pt.c === w.pt.c).sort((a, b) => dist(w.pt, a.pt) - dist(w.pt, b.pt) || a.id - b.id)[0];
+				if (v && !sellers.some((s) => s.id === v.id)) sellers.push(v);
+			}
+			if (sellers.length) recipes.push(`${itemName(ctx, item)} for the ${itemName(ctx, raw)} of ${water} (Cooking ${r.learnedAt}, ${money(m.buy)}: ${named(sellers.map((v) => `${v.name} (${zoneName(ctx, v.map)})`))})`);
+		}
+		const tip = [
+			`Fish until skill 50, ${about(catches(1, 50))} catches: below 75 every catch raises the skill, so any of your faction's starting-area shores will do and the arrow leads to the nearest: ${named(open)}${own.join('')}.`,
+			'Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.',
+			'Fish get away at these shores below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.',
+			...(recipes.length ? [`To cook what you catch: ${recipes.join('; ')}.`] : []),
+		].join(' ');
+		step(`Fishing (1-50)`, [
+			`only ${faction}`,
+			`tip ${tip}`,
+			...waters.map((w) => `goto ${fmt(w.pt.x)},${fmt(w.pt.y)}${liveMark(w.pt)} map ${w.def.zone} "${w.def.label}"${w.only ? ` only ${raceCondition(w.only, [faction])}` : ''}`),
+			'skill Fishing 50 nearest',
+		]);
 	};
 
 	section('Apprentice');
@@ -233,8 +361,7 @@ function render(ctx) {
 
 	section('Fishing 1-50');
 	const journeyman = rankInfo(ctx, 'Fishing', 'Journeyman');
-	for (const faction of FACTIONS)
-		spotSteps(RACE_GROUPS[faction], START_SPOTS, faction, 1, 50, `Fish here until skill 50, ${about(catches(1, 50))} catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.`);
+	for (const faction of FACTIONS) startStep(faction);
 	// Journeyman opens 50-125: a player past 50 who lacks it is held at its trainer under that range.
 	section('Fishing 50-125');
 	step('Journeyman Fishing', [
@@ -253,6 +380,7 @@ function render(ctx) {
 			50,
 			expert.minSkill,
 			`Fish the pools and open water here until skill ${expert.minSkill}, ${about(catches(50, expert.minSkill))} catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers${note(ctx, NIGHTCRAWLERS, 50, true)} are twice as strong as a Shiny Bauble. The Strong Fishing Pole${note(ctx, STRONG_POLE, 5)} is in limited stock at fishing vendors: buy it when you see it.`,
+			'next',
 		);
 
 	section('Expert Fishing');
@@ -271,7 +399,7 @@ function render(ctx) {
 		? ` Forever's second camping item, the ${rack.recipe.name} (from skill ${rack.recipe.learnedAt}), is a blueprint that drops from Gelihast in Blackfathom Deeps.`
 		: '';
 	for (const faction of FACTIONS)
-		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip}`);
+		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip}`, 'region');
 
 	section('Artisan Fishing: Nat Pagle');
 	const artisan = rankInfo(ctx, 'Fishing', 'Artisan');

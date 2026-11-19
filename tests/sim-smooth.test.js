@@ -192,16 +192,18 @@ test('quest log: a full log skips an accept, or abandons a quest 6+ levels below
 	const ev = evaluator();
 	ev.run.logCap = 2;
 	const rats = quest(ev, 501); // level 2
-	const pelts = quest(ev, 502); // level 4
+	const pelts = quest(ev, 502); // level 4, minimum 2
 	const word = quest(ev, 503);
 	ev.reset();
+	ev.grindTo(2); // Fox Pelts' minimum: a written route's accept under it is refused
 	accept(ev, rats);
 	accept(ev, pelts);
 	work(ev, rats);
 	accept(ev, word);
-	assert.equal(ev.active[word.q], 0, 'level 1: nothing low enough to give up');
+	assert.equal(ev.active[word.q], 0, 'level 2: nothing low enough to give up');
 	assert.equal(ev.logSkipped, 1);
 	ev.reset();
+	ev.grindTo(2);
 	accept(ev, rats);
 	accept(ev, pelts);
 	work(ev, rats);

@@ -13,28 +13,28 @@ return {
 	-- Step 1: Niby the Almighty
 	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "50級時，{npc:14469}和他的小鬼{npc:14470}在{zone:1448}中部、{area:1997}東北的一處高地上等候：從{area:1765}的橋向北走，他們位於道路東側、經過幾隻泥漿怪之後。{npc:14469}會把你派給身旁的{npc:14470}，後者要你從三個地方帶回三份無瑕的惡魔精華。",
 
 	-- Step 2: Azshara
 	-- {zone:1447} Azshara
-	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "",
+	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "雷加什薩特（51-53級）佔據{zone:1447}北部海岸的雷加什營地。每種成員都有四分之三的機率掉落精華；薩特會燒法力，喚獄者會下火雨，所以逐個拉。",
 
 	-- Step 3: Jaedenar
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
 	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
-	["{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南方、道路西側。指南會先等到53級：那裡的軍團士兵是55級。兩座洞穴中，{area:1770}是北邊、位於山坡更高處的那座；另一座沒有軍團士兵。{area:1770}的隧道向北延伸到山丘底下，加德納爾軍團士兵（55級）站在較深處的大廳，從第一段坡道一直到{npc:9516}的房間；牠們會對近戰的人使用上勾拳。每擊殺四隻約有三隻掉落精華，但總共只有約十一隻：一路清進去，必要時等五分鐘重生。{area:1763}和{area:1770}的教徒全都是敵對的。",
+	["{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 54 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南方、道路西側。指南會先等到54級：那裡的軍團士兵是55級。兩座洞穴中，{area:1770}是北邊、位於山坡更高處的那座；另一座沒有軍團士兵。{area:1770}的隧道向北延伸到山丘底下，加德納爾軍團士兵（55級）站在較深處的大廳，從第一段坡道一直到{npc:9516}的房間；牠們會對近戰的人使用上勾拳。每擊殺四隻約有三隻掉落精華，但總共只有約十一隻：一路清進去，必要時等五分鐘重生。{area:1763}和{area:1770}的教徒全都是敵對的。",
 
 	-- Step 4: The Dark Portal
 	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands
-	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "",
+	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "惡魔衛士哨兵（54級）在{zone:1419}南部{area:72}周圍巡邏，每名都帶著一隻地獄獵犬。別去碰57級的拉茲利克僕從：沒有自己的任務就殺不死它們。",
 
 	-- Step 5: Impsy
 	-- {npc:14470} Impsy · {item:18626} Fel Fire · {npc:14467} Kroshius
-	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "",
+	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "回到{npc:14470}處。他會給你{item:18626}：留著它，它能喚醒地獄火{npc:14467}。",
 
 	-- Step 6: Kroshius
 	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
-	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
+	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "{npc:14467}的遺骸躺在{area:1766}，即{npc:14469}以北的燒焦坑洞中：從他的營地沿路向北走，遺骸在道路稍東處。在遺骸旁使用{item:18626}，等他起身。{npc:14467}是精英（55級）：建議組隊；55級以上的術士可以用恐懼和持續傷害單挑，或用奴役惡魔，但火焰法術對他無效，而且他會把你擊退。你死了他會回滿血；他死後三分鐘會再次起身。一隻精英地獄火在遺骸南邊的水池巡邏：把{npc:14467}拉開。他必掉自己的核心。丟了{item:18626}？放棄任務，從{npc:14470}重新接取。",
 	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
 	["{item:18626}, at {object:179677}"] = "{item:18626}，在{object:179677}",
 
@@ -47,5 +47,6 @@ return {
 	-- ["The Felguard Sentries around the {area:72}, in southern {zone:1419}, carry its essence."] = "{zone:1419}南部{area:72}周圍的地獄衛士斥候帶著它的精華。",
 	-- ["The Jaedenar Legionnaires, a short way west of {npc:14469}, carry {area:1763}'s essence."] = "在{npc:14469}西邊不遠處的加德納爾軍團士兵帶著{area:1763}的精華。",
 	-- ["The Legashi satyrs of northern {zone:1447} carry {zone:1447}'s essence."] = "{zone:1447}北部的雷加斯薩特帶著{zone:1447}的精華。",
+	-- ["{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南方、道路西側。指南會先等到53級：那裡的軍團士兵是55級。兩座洞穴中，{area:1770}是北邊、位於山坡更高處的那座；另一座沒有軍團士兵。{area:1770}的隧道向北延伸到山丘底下，加德納爾軍團士兵（55級）站在較深處的大廳，從第一段坡道一直到{npc:9516}的房間；牠們會對近戰的人使用上勾拳。每擊殺四隻約有三隻掉落精華，但總共只有約十一隻：一路清進去，必要時等五分鐘重生。{area:1763}和{area:1770}的教徒全都是敵對的。",
 	-- ["{npc:14467}' remains lie in {area:1766}, north of {npc:14469}. Use the {item:18626} beside them and kill the infernal when he wakes. {npc:14467} is elite: grouping up is advised."] = "{npc:14467}的遺骸在{npc:14469}北邊的{area:1766}。在遺骸旁使用{item:18626}，等地獄火醒來後擊殺他。{npc:14467}是精英：建議組隊。",
 }

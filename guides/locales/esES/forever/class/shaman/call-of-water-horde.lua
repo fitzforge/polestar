@@ -14,11 +14,11 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {area:362} Razor Hill
-	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "A nivel 20, {npc:5892}, en el {object:172957}, te envía con {npc:5901} en {zone:1413}. (Swart, en {area:362}, da la misma carta: lleva cualquiera.)",
 
 	-- Step 2: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village
-	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "A nivel 20, {npc:5906}, instructora de chamanes en {area:1640}, en {zone:1456}, te envía con {npc:5901} en {zone:1413}. ({npc:3066}, en {area:222}, da la misma carta: lleva cualquiera.)",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -107,8 +107,6 @@ return {
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}: {spell:5394} y tu {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}."] = "A nivel 20, {npc:5892}, en el {object:172957}, te envía con {npc:5901} en {zone:1413}.",
-	-- ["At 20 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5901} in the {zone:1413}."] = "A nivel 20, {npc:5906}, instructora de chamanes en {zone:1456}, te envía con {npc:5901} en {zone:1413}.",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "Llena {item:7766} en el abrevadero de los jabaespines",
 	-- ["Fill the {item:7767} at the fountain"] = "Llena {item:7767} en la fuente",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "Llena {item:7768} en {object:107045}",

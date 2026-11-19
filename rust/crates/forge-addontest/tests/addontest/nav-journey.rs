@@ -724,6 +724,51 @@ fn nearby_the_nearest_spawn_of_each_friendly_npc_outside_instances_ranked_by_tra
 	assert_eq!(out[4], "Trainer Tess");
 }
 
+// Nearby's "Flight master" in Nighthaven: Silva Fil'naveth (11800, Alliance) and Bunthen Plainswind (11798, Horde)
+// carry the Codex's flightmaster role but fly Druids only, from their gossip (travel.json class DRUID, taxi nodes 62
+// and 63, each with its npc). Any other class standing beside them is sent to its side's own flight master
+// (Sindrayl, Faustron), a Druid to the nearer class one. First the addon's own travel data (Nav/TravelData.lua) names
+// the two by npc, then a small world: the grove's two class flight masters a few yards off, Sindrayl and Faustron
+// further away.
+fn nearby_flight(faction: &str, class: &str) -> Vec<Value> {
+	run(&format!(
+		r#"
+		local cls = N.TaxiNpcClass or function() end
+		emit({{ cls(11800) or false, cls(11798) or false, cls(10897) or false }})
+		N.RegisterTravelData({{ build = "test", taxi = {{
+			{{ 62, 0, 0, 0, 9000, 52, 50, 1, "Grove, Testshire", "DRUID", nil, 7 }},
+			{{ 63, 0, 0, -8, 9000, 52.4, 50, 2, "Grove, Testshire", "DRUID", nil, 8 }},
+			{{ 49, 0, 0, -600, 9000, 80, 50, 1, "Glade, Testshire" }},
+			{{ 69, 0, 0, 600, 9000, 20, 50, 2, "Glade, Testshire" }},
+		}} }}, true)
+		local npcs = {{
+			[7] = {{ id = 7, name = "Silva", faction = "A", spawns = {{ {{ map = 9000, x = 52, y = 50 }} }} }},
+			[8] = {{ id = 8, name = "Bunthen", faction = "H", spawns = {{ {{ map = 9000, x = 52.4, y = 50 }} }} }},
+			[9] = {{ id = 9, name = "Sindrayl", faction = "A", spawns = {{ {{ map = 9000, x = 80, y = 50 }} }} }},
+			[10] = {{ id = 10, name = "Faustron", faction = "H", spawns = {{ {{ map = 9000, x = 20, y = 50 }} }} }},
+		}}
+		Polestar.Codex = {{
+			IsLoaded = function() return true end,
+			Load = function() return true end,
+			WithRole = function(r) return r == "flightmaster" and {{ 7, 8, 9, 10 }} or r == "vendor" and {{ 9 }} or {{}} end,
+			Npc = function(id) return npcs[id] end,
+		}}
+		nav.faction, nav.class = "{faction}", "{class}"
+		N.nearby.Go("flight")
+		emit(label())
+	"#
+	))
+}
+
+#[test]
+fn nearby_flight_master_a_class_s_own_is_only_that_class_s_so_others_in_nighthaven_go_to_sindrayl_or_faustron() {
+	let real = json!(["DRUID", "DRUID", false]);
+	assert_eq!(nearby_flight("Alliance", "WARRIOR"), vec![real.clone(), json!("Sindrayl")], "an Alliance Warrior");
+	assert_eq!(nearby_flight("Horde", "WARRIOR"), vec![real.clone(), json!("Faustron")], "a Horde Warrior");
+	assert_eq!(nearby_flight("Alliance", "DRUID"), vec![real.clone(), json!("Silva")], "an Alliance Druid: hers, beside him");
+	assert_eq!(nearby_flight("Horde", "DRUID"), vec![real, json!("Bunthen")], "a Horde Druid");
+}
+
 // A French client whose names pack lands after the first /polestar near: the Codex then names its NPCs in
 // French (Codex drops its records on NAMES_LOADED), and so must the places Nearby kept.
 #[test]
@@ -889,7 +934,21 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 	assert_eq!(out["title"], "Nearby services");
 	assert_eq!(
 		out["texts"],
-		json!(["Profession trainer", "Class trainer", "Weapon master", "Repair", "Reagents", "Vendor", "Innkeeper", "Bank", "Mailbox", "Auction house", "Flight master", "Stable master"])
+		json!([
+			"Profession trainer",
+			"Class trainer",
+			"Weapon master",
+			"Repair",
+			"Reagents",
+			"Vendor",
+			"Innkeeper",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Flight master",
+			"Stable master",
+			"Transmogrifier"
+		])
 	);
 	assert_eq!(out["trainers"], json!(["Nearest", "Alchemy", "Mining"]), "no riding trainer");
 	assert_eq!(out["label"], "Far Smith");
@@ -1196,11 +1255,14 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 	]
 	.concat());
 	let (mining, none) = (&out[0], &out[1]);
-	assert_eq!(mining["texts"], json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]));
+	assert_eq!(
+		mining["texts"],
+		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"])
+	);
 	assert_eq!(mining["key"], "trainer");
 	assert_eq!(
 		*none,
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]),
+		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"]),
 		"no profession yet: the nearest trainer of any"
 	);
 }
@@ -1243,4 +1305,26 @@ fn hold_nothing_takes_the_arrow_off_the_corpse_once_it_lets_go_what_is_underneat
 	assert_eq!(out[2], json!({ "label": "Party: Ana", "held": false, "own": true }), "the last point picked while a ghost, same step");
 	assert_eq!(out[3], "Your corpse", "a step change while a ghost");
 	assert_eq!(out[4], "Step two", "alive again: the step's target; the point picked on step one went with that step");
+}
+
+// A corpse inside a dungeon whose entrance is not known (QoL/Death.lua): the arrow held on nothing, no target while
+// the guide's goals go on underneath (Report says "Arrow: none"); Nav.Unhold brings the step's target back.
+#[test]
+fn hold_on_nothing_takes_the_arrow_away_until_unhold_then_the_step_s_target_shows() {
+	let out = run(r#"
+		local function wp(i, x, l) return { map = 9000, x = x, y = 80, label = l, stepIndex = i, goalIndex = 1, kind = "goto", r = 8 } end
+		nav.changeStep(1, wp(1, 50, "Step one"))
+		stub.runTimers()
+		local before = label()
+		N.HoldNothing()
+		emit({ before = before, target = N.GetTarget() ~= nil, held = N.IsHeld() })
+		nav.setWaypoint(wp(1, 55, "Goal two"))
+		stub.runTimers()
+		emit(N.GetTarget() ~= nil)
+		N.Unhold()
+		emit({ label = label(), held = N.IsHeld() })
+	"#);
+	assert_eq!(out[0], json!({ "before": "Step one", "target": false, "held": true }));
+	assert_eq!(out[1], json!(false), "the guide's next goal waits under the hold");
+	assert_eq!(out[2], json!({ "label": "Goal two", "held": false }));
 }

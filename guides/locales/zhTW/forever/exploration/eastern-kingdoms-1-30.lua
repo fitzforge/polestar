@@ -23,40 +23,40 @@ return {
 	-- Step 3: Dun Morogh (1/3)
 	["18 areas to discover here, levels 4-12."] = "此處有18個區域待發現，等級4-12。",
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind City · {object:28027} Dwarven District · {zone:1455} Ironforge
-	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "",
+	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "從{zone:1453}的{object:28027}搭乘{area:2257}前往{zone:1455}，然後從城門離開城市。",
 
 	-- Step 6: Loch Modan (1/2)
 	["11 areas to discover here, levels 10-18."] = "此處有11個區域待發現，等級10-18。",
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:924} Valley of Kings
-	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "",
+	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "穿過南門隧道向東離開{zone:1426}；隧道在{area:924}的矮人國王雕像旁通往{zone:1432}。",
 	-- {area:144} Thelsamar · {npc:1572} Thorgrum Borrelson
 	["Flight path here: {area:144} ({npc:1572})."] = "此處的飛行路線：{area:144}（{npc:1572}）。",
 
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "此處有14個區域待發現，等級9-18。",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "若已開通飛行點，從{area:144}飛往{zone:1453}；否則騎回{zone:1455}，乘{area:2257}。從{zone:1429}向西步行，經過{area:120}進入{zone:1436}。",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "此處的飛行路線：{area:108}（索爾）。",
 
 	-- Step 10: Redridge Mountains (1/2)
 	["11 areas to discover here, levels 15-24."] = "此處有11個區域待發現，等級15-24。",
 	-- {zone:1429} Elwynn Forest · {area:88} Eastvale Logging Camp · {area:1002} Three Corners · {zone:1431} Duskwood
-	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "",
+	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "向東穿過{zone:1429}回去：經過{area:88}的道路在{area:1002}進入赤脊山，也就是{zone:1429}和{zone:1431}的道路交會處。",
 	-- {area:69} Lakeshire · {npc:931} Ariena Stormfeather
 	["Flight path here: {area:69} ({npc:931})."] = "此處的飛行路線：{area:69}（{npc:931}）。",
 
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "此處有13個區域待發現，等級10-30。",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "從{area:1002}沿路向南進入{zone:1431}；{area:42}就在主路東側。暮色森林大部分是24到30級：先做完赤脊山再來。",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "此處的飛行路線：{area:42}（{npc:2409}）。",
 
 	-- Step 14: Wetlands (1/2)
 	["15 areas to discover here, levels 20-30."] = "此處有15個區域待發現，等級20-30。",
 	-- {area:42} Darkshire · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:836} Dun Algaz · {zone:1437} Wetlands
-	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "",
+	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "從{area:42}飛往{zone:1432}的{area:144}，再向北騎過{area:836}山口，進入{zone:1437}。",
 	-- {area:150} Menethil Harbor · {npc:1571} Shellei Brondir
 	["Flight path here: {area:150} ({npc:1571})."] = "此處的飛行路線：{area:150}（{npc:1571}）。",
 	-- {area:1038} Dragonmaw Gates · {area:1037} Grim Batol
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "此處有12個區域待發現，等級20-31。",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "從{area:150}乘船到{area:271}。",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "此處的飛行路線：{area:271}（{npc:2432}）。",
 	-- {area:272} Tarren Mill
@@ -129,7 +129,7 @@ return {
 
 	-- Step 34: Dun Morogh (1/3)
 	-- {area:925} Algaz Station · {area:807} North Gate Pass · {zone:1426} Dun Morogh · {area:131} Kharanos · {zone:1455} Ironforge
-	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "",
+	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "從{area:925}穿過{area:807}隧道向西進入{zone:1426}。{area:131}和{zone:1455}的城門是聯盟的地盤。",
 
 	-- Step 35: Dun Morogh (2/3)
 	-- {area:809} Gates of Ironforge
@@ -174,11 +174,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "穿過{zone:1437}北部的{area:881}進入{zone:1417}（道路外有30級以上的怪物），沿著道路向西經過{area:320}，繼續前往{zone:1424}。",
-	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "從{area:925}穿過隧道向西進入{zone:1426}。{area:131}和{zone:1455}的城門是聯盟的地盤。",
-	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "從{area:925}沿著道路向北穿過{area:836}山口，進入{zone:1437}。",
-	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "穿過城門隧道向東離開{zone:1426}；隧道在{area:925}通往{zone:1432}。",
-	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "赤脊山從{area:1002}開始，也就是{zone:1429}和{zone:1431}的道路交會處。",
-	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "從{zone:1453}的{object:28027}搭乘{area:2257}前往{zone:1455}（或飛往{zone:1455}），然後從城門離開城市。",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431}在{zone:1436}的東邊、{zone:1429}的南邊。它的道路向東通往{area:42}。",
 	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436}在{zone:1429}的西邊：沿著道路經過{area:120}出去。",

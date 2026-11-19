@@ -12,14 +12,19 @@ next forever/alliance/30-40/03-ashenvale
 # Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
 # Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
-# Solo players never see it (when group 474). Howin's Word to Ironforge (98300) is left out: he offers it only after Death to the
-# Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
+# Solo players never see it (when group 474). Death to the Dragonmaw (98291) is a group quest (#2822): 16 elite Dragonmaw
+# (29-30) in Dragonmaw Retreat, just east of Howin. Howin's Word to Ironforge (98300) is left out: he offers it only after
+# Stopping the Cycle (98297), a level 34 elite Subdued Dragonspawn at the Dragonmaw Gates, about 1,000 yards east, which the
+# route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
+# The Dark Iron War (303, the ruins' elites) and Bring Back a Bang (88756, the explosives on Direforge Hill among the same
+# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
-
-step To Deepwater Tavern
-  zone Wetlands
-  goto 10.7,61.0 "Deepwater Tavern"
+# Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are taken on the
+# Menethil stop at about 31 (Captain Halyndor is 30) instead of at 28 in 06-wetlands; 293 goes to Archbishop Benedictus on
+# this guide's Stormwind stop. The Syndicate camp (Syndicate Assassins 505, 510, 511) is worked in 05-arathi-highlands at
+# about 37: its Thieves are 33-34 and its Wizards 34-35, two and three levels over players here. Magistrate Maleb's quest is
+# taken on this Southshore stop, where the route already passes him, and carried to that trip.
 
 step Angerfang Encampment
   when onquest 465,474
@@ -87,12 +92,36 @@ step Captive Fire Elemental
   when group 87491
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.
   accept 87491                        -- Captive Fire Elemental
+  complete 87491 @47.8,16.8 map 1437
   turnin 87491                        -- Roggo Harlbarrow
 
 step Modr
   when group 98310
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
+
+step Motley Garmason
+  when group 303
+  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
+  accept 303                          -- Motley Garmason, in the camp
+
+step Ashlan Stonesmirk
+  when group 88756
+  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
+  accept 88756                        -- Ashlan Stonesmirk, in the camp
+
+step The Dark Iron War
+  when group 303
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; Balgaras the Foul (34, elite) walks among them.
+  kill 1051 quest 303.1               -- Dark Iron Dwarf
+  kill 1053 quest 303.2               -- Dark Iron Tunneler
+  kill 1052 quest 303.3               -- Dark Iron Saboteur
+  kill 1054 quest 303.4               -- Dark Iron Demolitionist
+
+step Direforge Hill
+  when group 88756
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on Direforge Hill: the Stolen Explosives lie among their tents. Then back past the camp and north to the Thandol Span.
+  collect 280806 quest 88756.1 @61.6,26.6 map 1437 -- Stolen Explosives
 
 step Ebenezer Rustlocke
   zone Wetlands
@@ -106,6 +135,14 @@ step Rhag Garmason
   tip Back down the road to Dun Modr: Rhag wants the Dark Iron explosives under the far end of the span destroyed.
   turnin 632                          -- Rhag Garmason
   accept 633
+
+step Motley Garmason
+  when complete 303
+  turnin 303                          -- in the camp, beside Rhag
+
+step Ashlan Stonesmirk
+  when complete 88756
+  turnin 88756                        -- in the camp, beside Rhag
 
 step The Cache of Explosives
   zone Arathi Highlands
@@ -128,6 +165,22 @@ step The Green Belt
 step Howin Kindfeather
   when complete 98246
   turnin 98246                        -- Trying Times: the eggs
+
+step Howin Kindfeather
+  when group 98291
+  tip Death to the Dragonmaw is a group quest: 16 elite Dragonmaw (29-30) in Dragonmaw Retreat, just east of Howin. Skip it if you are alone.
+  accept 98291                        -- Howin Kindfeather
+
+step Dragonmaw Retreat
+  when group 98291
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of Howin.
+  kill 271351 quest 98291.1           -- Dragonmaw Reclaimer
+  kill 271348 quest 98291.2           -- Dragonmaw Soulbinder
+  kill 271346 quest 98291.3           -- Dragonmaw Infiltrator
+
+step Howin Kindfeather
+  when group 98291
+  turnin 98291                        -- back west to Howin
 
 step Prospector Whelgar
   when group 98310
@@ -154,15 +207,31 @@ step Howin Kindfeather
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
 
+step Menethil Harbor
+  zone Wetlands
+  tip James Halloran stands by the docks; First Mate Fitzsimmons sits in the Deepwater Tavern, south of the keep.
+  turnin 98072                        -- James Halloran
+  accept 290                          -- First Mate Fitzsimmons
+
+step Captain Halyndor
+  zone Wetlands
+  tip North along the coast from Menethil to the wreck of the Intrepid: Captain Halyndor (30) is aboard, and the locked strongbox sits in the wreck. Careful: Nightveiled Rotheap, a level 31-32 elite, roams the Wetlands: give it a wide berth.
+  collect 2629 quest 290 @15.4,23.6   -- Intrepid Strongbox Key, from Captain Halyndor
+  turnin 290                          -- Intrepid's Locked Strongbox
+  accept 292
+
+step Glorin Steelbrow
+  zone Wetlands
+  tip Back south to Menethil: Glorin Steelbrow stands in the Deepwater Tavern.
+  turnin 292
+  accept 293                          -- For Archbishop Benedictus in Stormwind, at the end of this guide
+
 step Level 30.8
   when !group 474
   when level<30.8
   tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 30.8 grind 1418                -- grind on Bluegill Raider
-
-step Menethil Harbor
-  turnin 98072                        -- James Halloran
 
 step Boat to Southshore
   zone Wetlands
@@ -184,7 +253,7 @@ step Southshore
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 505                          -- Magistrate Henry Maleb, inside
+  accept 505                          -- Magistrate Henry Maleb, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
 step Bartolo Ginsetti
@@ -232,32 +301,20 @@ step Southshore
 step Southshore
   zone Hillsbrad Foothills
   tip Captain McManus stands north-west of the flight master, on the way north to the yeti cave.
-  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore; you deliver it after the Syndicate camp.
+  tip Hillsbrad's Hoard: Captain McManus hands you a Sealed Company Request for the Hillsbrad council, in the farms west of Southshore.
   accept 98059 optional               -- Captain McManus
 
 step Yeti cave
   when onquest 565
   zone Hillsbrad Foothills
-  tip The yetis live in the cave in the hills north of Southshore, on the way north to the Syndicate camp.
+  tip The yetis live in the cave in the hills north of Southshore.
   tip Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.
   collect 3720 quest 565.4 @44.5,29.4 -- Yeti Fur
-
-step Alterac Mountains
-  zone Alterac Mountains
-  goto 58.3,68.0 "Alterac Mountains"
-
-step Syndicate camp
-  zone Alterac Mountains
-  tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants.
-  kill 2240 quest 505.1               -- Syndicate Footpad
-  kill 2241 quest 505.2               -- Syndicate Thief
-  accept 510 object 1738              -- Syndicate Documents
-  accept 511 object 1738
 
 step Hillsbrad Fields
   when onquest 98059
   zone Hillsbrad Foothills
-  tip South-west from the Syndicate camp to the Hillsbrad Fields farms.
+  tip West from Southshore to the Hillsbrad Fields farms.
   goto 32.5,39.5 "Hillsbrad Fields"
 
 step Hillsbrad council
@@ -275,11 +332,6 @@ step Snapjaws
 
 step Southshore
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  turnin 511                          -- Loremaster Dibbs
-  accept 514
-  turnin 510                          -- Inside
-  accept 512
-  turnin 505                          -- Magistrate Henry Maleb
   turnin 555                          -- Chef Jessen, upstairs
   turnin 98059 optional               -- Captain McManus
 
@@ -294,8 +346,6 @@ step Fly to Ironforge
 step Hall of Explorers
   zone Ironforge
   tip Prospector Stormpike, Historian Karnik and Roetten Stonehammer stand in the Hall of Explorers, north-east of the flight master.
-  turnin 514                          -- Prospector Stormpike, Hall of Explorers
-  accept 525
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
 
@@ -344,14 +394,16 @@ step Stormwind Keep
 step Cathedral of Light
   turnin 269                          -- Bishop Farthing
   accept 270
+  turnin 293                          -- Archbishop Benedictus
 
 step Elling Trias
   turnin 1247
   accept 1248
 
 step Mage Quarter
-  tip Archmage Malin is in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
+  tip Archmage Malin and Collin Mauren are in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
   accept 690                          -- Archmage Malin
+  accept 1078                         -- Collin Mauren: the Saltstone Basilisks at the Mirage Raceway drop the scales, in the next guide
   accept 1301                         -- Connor Rivers
 
 step Druid training

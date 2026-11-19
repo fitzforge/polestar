@@ -35,6 +35,11 @@ local SHARED = {
 	rare = { 1, 0.5, 0.32, 1 }, -- rare NPCs (ember; treasures keep object)
 }
 House.DEFAULT_ACCENT, House.SHARED = DEFAULT_ACCENT, SHARED
+-- Polestar's experimental guides' chip on the house's own schemes (orchid,
+-- redder than the portal violet). Not a shared subject colour: a registered
+-- scheme without its own `experimental` takes its dungeon violet
+-- (Theme.HOUSE_EXTRA), so it never has to be held legible there.
+House.EXPERIMENTAL = { 0.78, 0.49, 1, 1 }
 
 -- A scheme: the grounds (bg window, panel raised panels and popups, panelAlt
 -- controls, sidebar, footer, sky the top of the header band), the text
@@ -138,7 +143,6 @@ House.ROLES = ROLES
 --   edgeKey      its contact line just outside, with the shadow: shade at
 --                this share
 --   openSections the guide window's body sections go without hairlines
---   loneTab      a lone guide tab takes the room its title needs
 --   well         a tick box's well: shade at this share
 --   rareEmber    the rare button's glyph and name in Rare Ember, outlined
 --   dialogFoot   a dialog's and the guide end's footer height (the 4-point
@@ -161,7 +165,6 @@ local TOKENS = {
 	edgeLight = 0.07,
 	edgeKey = 0.42,
 	openSections = true,
-	loneTab = true,
 	well = 0.12,
 	rareEmber = true,
 	dialogFoot = 56,

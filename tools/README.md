@@ -51,12 +51,22 @@ polestar studio list                                  # scenarios and shots
 polestar studio party-sync --checkout ../lodestar-x   # every shot of one, from another branch's worktree
 polestar studio levelup-spells/card-hover             # one shot
 polestar studio --serve quest-loot                    # http://127.0.0.1:4848, re-renders on every Lua change
+polestar studio worst-case --locale deDE --fit        # in a German client, listing the text its frames cut
 polestar studio art import <old cache>                # client art: status | pull <fileID|atlas|path> | import <dir>
 ```
 
 Renders go to `data/local/studio/` (`--out` elsewhere): `<scenario>-<shot>.svg`,
 `.png` and `-closeup.png` (2x; PNGs need `rsvg-convert`). `--world <image>`
-puts one of your own screenshots behind the UI.
+puts one of your own screenshots behind the UI. `--locale <code>` plays the
+shot in that client language (its `Polestar_<code>` folder loads as the
+client loads it; the files end in `-<code>`), and `--fit` lists the text the
+shot's frames cut or let cross their edges, as `i18n fit` does. The preview's
+faces have no CJK or Hangul: those are measured 1em wide and drawn as gaps.
+The `worst-case` scenario plays the realistic limits (a messy or full quest
+log, the longest names the guides show, the screens players use) through
+the stub world, never by changing the addon's frames; `worst-case-looks`
+draws its Quest room, Characters, Profiles and class card in every look at
+UI scales 0.64, 1.0 and 1.5.
 
 Client art (icons, atlases, the game font FRIZQT__.TTF, client tables) lives
 in a local cache, `$POLESTAR_STUDIO_ART` or `~/.cache/polestar-art`, filled
@@ -77,6 +87,7 @@ combat behaviour.
 | `export` | Prints one community guide as an import string (lints its pack first) |
 | `dev` | Rebuilds a pack into the game, and optionally the playground, on every save |
 | `playtest` | Plays a pack's guides to the end for every class they branch on; `--honest` plays them from their lines and the data only, with nothing free |
+| `flow-diff` | Plays the leveling route on two trees (`--base`, `--head` or the working tree) and reports what a change does to its flow: zone revisits, one-quest trips and empty walks, carried quests, walking and flying time, moved quests ([docs/ROUTE-FEEL.md](../docs/ROUTE-FEEL.md#flow-diff-what-one-change-does-to-the-route)) |
 | `guidecheck` | Moved to forge: `forge guide check <dir>` reads written guides as a player would and gives a repair for each line that lacks what it needs (`--fix` writes them); `polestar guidecheck` prints the forge command and exits 2 |
 | `find` | Looks up quests, NPCs, objects, items, inns, flight points and guides, printed as guide lines |
 | `draft` | Drafts a leveling route (`.guide`) from the reference data |
@@ -161,6 +172,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `dsl/` | The guide compiler: lexer, parser, resolver, validation, emitter; project and pack layout; parsing a guide's class, race and faction conditions |
 | `exploration/` | `exploration build`: the exploration guide generator |
 | `find.js` | `find`'s search |
+| `flowdiff/` | `flow-diff`: `play.js` plays one tree's leveling route through that tree's own playtest (its own process per tree), `analyse.js` turns two trees' plays into revisits, trips, carried spans, travel and moved quests |
 | `generated.js` | Writes or checks a command's generated files |
 | `game/` | The game's rules, once for every tool: `xp.js` (XP to level, quest and kill XP, the client's QuestXP table) and `races.js` (races, classes and their mask bits) |
 | `i18n/` | What the JS tools still read (the rest is `forge i18n`, rust/crates/forge-i18n): the locales (`locales.js`), the AddOns-list texts (`toc.js`), reading locale files (`files.js`, with `keys.js`'s tokenizer), a pack's guide texts for the JS compiler (`guides.js`), adapted from Ding! by Yendi; `names.js`: the names addons' folder prefix, the same-as-English file and the ids Polestar's data names (`forge data names` builds the addons) |

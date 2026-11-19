@@ -338,6 +338,18 @@ fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
 	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
 }
 
+// A `turnin ... direct` carries what its giver waits on, as an accept does (the engine lets it go when the guide's
+// accept of that quest was skipped): Stranglethorn Fever (349) under Fin Fizracket's (348) is 9340 under 9341; 9310
+// needs both 9311 and 9312. Not the rest of an accept's gate (closedBy, preTitles), and a plain turn-in gets none.
+#[test]
+fn a_direct_turnin_compiles_its_givers_wait_as_an_accept_does() {
+	let r = compile_with(&guide_text(&["step S", "  accept 9341", "  turnin 9340 direct", "  turnin 9310 direct", "  accept 9300", "  turnin 9300"]), &prereq_data());
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[1]["parent"], g[1].get("pre"), g[1].get("preTitles")]), json!([9341, null, null]), "{}", g[1]);
+	assert_eq!(json!([g[2]["preAll"], g[2].get("parent")]), json!([[9311, 9312], null]), "{}", g[2]);
+	assert!(g[4].get("parent").is_none() && g[4].get("pre").is_none() && g[4].get("preAll").is_none(), "{}", g[4]);
+}
+
 // The Valik rule: a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only while its
 // parent is in the log. Lint warns when the chain does not hold the parent there: never taken before it, or handed in
 // before it; a step that applies only with the parent in the log (`when onquest`) holds it. A parent nobody can start
@@ -368,6 +380,11 @@ fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let rn = compile_with(&none, &data);
 	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
 	assert!(parent_warnings(&none).is_empty());
+	// Another route into the guide handed the parent in; this guide takes it again before the child: held.
+	let first = text("t/one", &["step A", "  accept 9341", "  turnin 9341"], &["next t/two"]);
+	let again = text("t/two", &["step A", "  accept 9341", "step B", "  accept 9340", "  turnin 9341"], &[]);
+	let r = compile_files(&[("1.guide", &first), ("2.guide", &again)], &data, None);
+	assert!(only(&r.warnings, "is offered only while").is_empty(), "{}", r.text);
 }
 
 #[test]
@@ -558,17 +575,37 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 	assert_eq!(w[0].line as usize, line_of(&one, "  accept 7"));
 	assert_eq!(w[0].message, "quest 7 (Kobold Camp Cleanup) is accepted but never turned in later in this guide or a guide after it for some of the characters it applies to (\"t/two\" is for Dwarf only, so its turn-ins do not count)");
 	assert_eq!(w[0].hint.as_deref(), Some("turn it in later in this guide, or pick a `next` guide these characters can follow, or make the accept `optional` when the player may leave it"));
-	// Per route: the route through a Dwarf guide says so; a plain miss does not.
+	// A route choice: each character goes on only through the options it can follow, so a Dwarf-only option's
+	// turn-in counts for the Dwarves and leaves no one else out while another option takes them.
 	let choice = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two, t/three"]);
 	let split = compile_map(&[
 		("1.guide", &choice),
 		("2.guide", &text("t/two", &["step S", "  turnin 7"], &["race Dwarf", "pitch Two"])),
 		("3.guide", &text("t/three", &["step S", "  turnin 7"], &["pitch Three"])),
 	]);
+	assert_eq!(only(&split.warnings, "never turned in"), Vec::<String>::new());
+	// One `next` per kind of character (a guide for both factions handing each to its own next guide, as
+	// Shen'dralas does): each route counts for its own characters, and a miss on one names only that route.
+	let each = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two", "next t/three"]);
+	let human = text("t/two", &["step S", "  turnin 7"], &["race Human", "pitch Two"]);
+	let fine = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"]))]);
+	assert_eq!(only(&fine.warnings, "never turned in"), Vec::<String>::new());
+	let missed = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  level 2"], &["race Dwarf", "pitch Three"]))]);
 	assert_eq!(
-		only(&split.warnings, "never turned in"),
-		vec![format!("1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/two\" for some of the characters it applies to (it is for Dwarf only, so its turn-ins do not count)", line_of(&choice, "  accept 7"))]
+		only(&missed.warnings, "never turned in"),
+		vec![format!(
+			"1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/three\" for some of the characters it applies to",
+			line_of(&each, "  accept 7")
+		)]
 	);
+	// Deeper on the route too: a guide for both kinds in between hands each to its own.
+	let deep = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/mid"])),
+		("2.guide", &text("t/mid", &["step S", "  level 2"], &["race Human, Dwarf", "next t/two", "next t/three"])),
+		("3.guide", &human),
+		("4.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"])),
+	]);
+	assert_eq!(only(&deep.warnings, "never turned in"), Vec::<String>::new());
 	let lone = compile(&guide_text(&["step S", "  accept 7"]));
 	assert_eq!(
 		diags(lone.diag.warnings(), "never turned in")[0].hint.as_deref(),
@@ -745,13 +782,15 @@ fn a_collect_bound_to_a_quest_line_that_is_not_an_item_warns_for_an_item_the_que
 }
 
 /// A quest whose lines are talks the client reveals one at a time (#859), and one whose talk is a legacy
-/// `kill` credit on a friendly npc.
+/// `kill` credit on a friendly npc. 9712 lists Marshal McBride twice: its first and its last line are both a
+/// talk to him.
 fn talk_data() -> Data {
 	let talk = |id: u32, text: &str| json!({ "type": "talk", "id": id, "count": 1, "text": text });
 	data_plus(
 		json!({
 			"9710": like7(json!({ "id": 9710, "title": "Desperate Times", "pre": [], "objectives": [talk(197, "Marshal McBride"), talk(823, "Deputy Willem"), talk(295, "Innkeeper Farley")] })),
 			"9711": like7(json!({ "id": 9711, "title": "A Word", "pre": [], "objectives": [{ "type": "kill", "id": 152, "count": 1, "text": "Brother Danil" }] })),
+			"9712": like7(json!({ "id": 9712, "title": "Patrol Report", "pre": [], "objectives": [talk(197, "Marshal McBride"), talk(823, "Deputy Willem"), talk(197, "Marshal McBride")] })),
 		}),
 		Value::Null,
 		Value::Null,
@@ -789,6 +828,24 @@ fn a_talk_with_quest_compiles_to_a_quest_objective_goal_and_quest_q_takes_the_in
 			(json!("talk"), json!(152), json!("Brother Danil"), json!(9711), json!("A Word"), json!(1), None),
 		]
 	);
+}
+
+#[test]
+fn two_lines_of_a_quest_with_one_npc_each_take_their_own_index_and_quest_q_the_first() {
+	let src = guide_text(&["step S", "  accept 9712", "  talk 197 quest 9712.1", "  talk 823 quest 9712.2", "  talk 197 quest 9712.3", "  talk 197 quest 9712", "  turnin 9712"]);
+	let r = compile_with(&src, &talk_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
+	assert_eq!(
+		talk_goals(&r).iter().map(|g| (g["npc"].clone(), g["oi"].clone())).collect::<Vec<_>>(),
+		vec![(json!(197), json!(1)), (json!(823), json!(2)), (json!(197), json!(3)), (json!(197), json!(1))]
+	);
+	// Another npc on one of the shared lines is still a swapped index.
+	let wrong = guide_text(&["step S", "  accept 9712", "  talk 823 quest 9712.3", "  turnin 9712"]);
+	let w = compile_with(&wrong, &talk_data());
+	let d = diags(w.diag.errors(), r"9712\.3 is");
+	assert_eq!(d.len(), 1, "{}", w.text);
+	assert_eq!(d[0].message, "quest 9712.3 is talk Marshal McBride x1, not this npc; Deputy Willem is 9712.2");
 }
 
 #[test]

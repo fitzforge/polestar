@@ -19,6 +19,7 @@ next forever/alliance/03-loch-modan
 # Mushrooms' hand-in, and the Tower of Althalaxx (965, 966) is done on the north loop, by Buzzbox 323.
 
 step Boat to Auberdine
+  when !zone "Darkshore"
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live
 
@@ -46,9 +47,9 @@ step Boat to Auberdine
 #   Darnassus, a detour off the route, and the chain's last step (943) needs
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
 # - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
-#   Thundris Windweaver's letter goes to Baros Alexston on the Stormwind stop
-#   before the boat back (the end of 03-loch-modan, #1415), his reply (Making Do,
-#   97926, a Shipwright's Satchel) to Thundris where the boat lands
+#   Thundris Windweaver's letter goes to Baros Alexston on 03-loch-modan's
+#   Stormwind stop (the Westfall stretch, #1415), his reply (Making Do, 97926,
+#   a Shipwright's Satchel) to Thundris on the first Auberdine stop
 #   (03-darkshore-return); 06-ashenvale and 06-wetlands keep both as optional
 #   fallbacks for a player who still carries them.
 # - Left out, accepted but never turned in on the route: One Shot. One Kill.
@@ -190,8 +191,7 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
-  interact 175524 quest 4811.1 only Dwarf,Gnome,Human,Skyborne -- Mysterious Red Crystal
-  complete 4811 only Dwarf,Gnome,Human,Skyborne
+  complete 4811 @47.2,48.7 only Dwarf,Gnome,Human,Skyborne -- Mysterious Red Crystal
 
 step Rabid Thistle Bear
   kill 2164 quest 2138

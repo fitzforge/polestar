@@ -500,8 +500,7 @@ function ns.TogglePanel()
 end
 
 -- Key bindings (Bindings.xml), in the "Polestar" section after Polestar's
--- own, with its search tag (Polestar/Core/Commands.lua; set here as well for
--- the Recorder without Polestar). Short names: the rows are ~22 characters.
-BINDING_TAG_POLESTAR = "Polestar"
+-- own, without search tags (Polestar/Core/Commands.lua says why). Short
+-- names: the rows are ~22 characters.
 BINDING_NAME_POLESTAR_RECORDER_TRAIL = L["Recorder: trail on/off"]
 BINDING_NAME_POLESTAR_RECORDER_WINDOW = L["Recorder window"]

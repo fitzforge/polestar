@@ -38,6 +38,8 @@ pub struct RunInputs<'a> {
 	pub notes: Option<&'a serde_json::Value>,
 	/// The checkout's places and guide fixes, applied to the written guides last (fixes.rs).
 	pub records: crate::fixes::Records<'a>,
+	/// data/dungeon-runs.json: where each dungeon of the route is run (apply.rs `dungeons_near`).
+	pub dungeon_runs: Option<&'a serde_json::Value>,
 }
 
 #[derive(Clone, Debug)]
@@ -101,6 +103,7 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		fresh_openers: opts.fresh_openers,
 		pass_by: opts.engine && opts.pass_by,
 		nearby_fp: opts.engine && opts.nearby_fp,
+		dungeon_runs: inp.dungeon_runs,
 	};
 	let r = apply_route(&ai)?;
 	log.extend(r.log.iter().cloned());

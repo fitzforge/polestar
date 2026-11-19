@@ -200,6 +200,22 @@ end
 -- Quest frame
 ---------------------------------------------------------------------------
 
+-- An escort taken in a group (#2708): the escorted NPC sets off the moment
+-- one player takes it, before the others have taken it or handed in the
+-- quest that opens it. In a group its accept is left to the player, with a
+-- word in chat once per quest a session.
+local escortTold = {}
+local function groupEscort(q)
+	if not (IsInGroup and IsInGroup() and ns.Engine.EscortQuest and ns.Engine.EscortQuest(q)) then return false end
+	ns.Debug(("auto-accept left %s (detail): an escort, in a group"):format(tostring(q)))
+	if not escortTold[q] then
+		escortTold[q] = true
+		local title = GetTitleText and GetTitleText()
+		ns.Print(L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."]:format(ns.Quoted(title ~= "" and title or tostring(q))))
+	end
+	return true
+end
+
 local function onDetail()
 	local q = questID()
 	if not (canAccept() and wantsAccept(q)) then
@@ -214,6 +230,7 @@ local function onDetail()
 		ns.Debug(("auto-accept left %s (detail): needs the PvP confirmation"):format(tostring(q)))
 		return false
 	end
+	if groupEscort(q) then return false end
 	noteActed()
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
@@ -253,6 +270,25 @@ local function greetingOffers()
 	return list
 end
 
+-- Of the n quests a window offers (idAt(i) -> quest id): the first the guide
+-- accepts, else the first it hands in `direct`, else nil. Accepts come first:
+-- a direct hand-in whose items are not in the bags opens a progress window
+-- that cannot finish, and picked first it hid the accept behind it at every
+-- visit (#2914: Feathers for Grazle before Speak to Nafien at Grazle).
+local function availablePick(n, idAt, accept, turnin)
+	if accept then
+		for i = 1, n do
+			if wantsAccept(idAt(i)) then return i end
+		end
+	end
+	if turnin then
+		for i = 1, n do
+			if wantsDirect(idAt(i)) then return i end
+		end
+	end
+	return nil
+end
+
 -- Greeting panel (several quests from one NPC/object): turn-ins first, since
 -- they often unlock the follow-up to accept.
 local function onGreeting()
@@ -273,12 +309,10 @@ local function onGreeting()
 	end
 	local numAvailable = GetNumAvailableQuests and GetNumAvailableQuests() or 0
 	if (accept or turnin) and GetAvailableQuestInfo and SelectAvailableQuest then
-		for i = 1, numAvailable do
-			local q = select(5, GetAvailableQuestInfo(i))
-			if (accept and wantsAccept(q)) or (turnin and wantsDirect(q)) then
-				SelectAvailableQuest(i)
-				return true
-			end
+		local i = availablePick(numAvailable, function(k) return (select(5, GetAvailableQuestInfo(k))) end, accept, turnin)
+		if i then
+			SelectAvailableQuest(i)
+			return true
 		end
 	end
 	noteLeft("greeting", greetingOffers())
@@ -305,12 +339,10 @@ local function onGossip()
 	end
 	local available = G.GetAvailableQuests and G.GetAvailableQuests() or {}
 	if (accept or turnin) and G.SelectAvailableQuest then
-		for i = 1, #available do
-			local info = available[i]
-			if (accept and wantsAccept(info.questID)) or (turnin and wantsDirect(info.questID)) then
-				G.SelectAvailableQuest(info.questID)
-				return true
-			end
+		local i = availablePick(#available, function(k) return available[k].questID end, accept, turnin)
+		if i then
+			G.SelectAvailableQuest(available[i].questID)
+			return true
 		end
 	end
 	local ids = {}

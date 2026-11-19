@@ -1,8 +1,9 @@
 -- The settings search's dropdown: as the player types in the header's search
 -- box, a list opens right under it with the best of what the words find
 -- (O.Matches, the search's own scoring). First the places they name, a page,
--- a tab or a section ("Go to page: Arrow"); then the best settings, eight
--- rows in all at most, each the setting's label (the words it matches lit)
+-- a tab or a section ("Go to page: Arrow"); then the best settings (an
+-- inline one on its row when it matched better), eight rows in all at
+-- most, each the setting's label (the words it matches lit)
 -- over where it lives (Page · Tab); last "See all 12 results", the whole
 -- results page. Nothing found: it says so, and the labels nearest the words
 -- ("Did you mean:") are rows that search for them.
@@ -18,7 +19,7 @@
 --
 -- The list hangs under the box as the window's child (the Menu scale and the
 -- window's moves carry it), over the page, on the panel skin as the menus
--- are, in the look's colours: every look draws it.
+-- are, in the look's colours, opaque: every look draws it.
 
 local ns = Polestar
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -113,10 +114,21 @@ local function build()
 	-- The wheel stays with the list: the page under it does not scroll.
 	list:EnableMouseWheel(true)
 	list:SetScript("OnMouseWheel", function() end)
-	-- Painted as the menus are (psMenu: their ground, the look's menuBg), so
-	-- the page under the list never shows through its rows.
+	-- Painted as the menus are (psMenu: a game look draws the menu's art, not
+	-- the box of a card inside the window).
 	list.psMenu = true
 	Theme.Skin(list, "panel")
+	-- Under whatever the look draws (a translucent tile, the client's menu
+	-- art, a skin's paper or gradient), the look's menu ground at full
+	-- strength, 3 in from the edge (inside the art's rounded rim): the page
+	-- under the list never shows through its rows.
+	list.Backing = W.Tex(list, "BACKGROUND", nil, nil, -8)
+	list.Backing:SetPoint("TOPLEFT", list, "TOPLEFT", 3, -3)
+	list.Backing:SetPoint("BOTTOMRIGHT", list, "BOTTOMRIGHT", -3, 3)
+	W.Painter(list.Backing, function(t)
+		local r, g, b = Theme.Color("menuBg")
+		t:SetVertexColor(r, g, b, 1)
+	end)
 	list.None = W.Text(list, "small", "textMuted")
 	list.Hint = W.Text(list, "small", "textMuted")
 	list.Hint:SetText(L["Did you mean:"])

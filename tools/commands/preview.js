@@ -264,9 +264,31 @@ Polestar.UI.LevelTip.Show(Polestar.UI.Picker.details.XP)`;
 // section asks. POLESTAR_DUNGEONS_PACK: a Dungeons1.lua built by `codex build`
 // (local, never committed) used instead of the fixture's; it needs
 // POLESTAR_CLIENT_ART, so those renders land outside the repository.
+// POLESTAR_CODEX_DIR: a whole Polestar_Codex folder built by `forge data codex`
+// (local, never committed), loaded instead of both, so a pick-up or hand-in
+// guide shows the real quests, NPCs and places; same rule for the renders.
 const DUNGEONS_PACK = process.env.POLESTAR_DUNGEONS_PACK || null;
+const CODEX_DIR = process.env.POLESTAR_CODEX_DIR || null;
 let dungeonsPack = null;
+// The stubbed client loads `dir`'s files, in its TOC's order, when the Codex is asked for.
+function codexDirStub(dir) {
+	const toc = fs.readFileSync(path.join(dir, 'Polestar_Codex.toc'), 'utf8');
+	const files = toc.split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')).map((f) => JSON.stringify(path.join(dir, f.replace(/\\/g, '/'))));
+	return `do
+  local __codexFiles = { ${files.join(', ')} }
+  local __load = C_AddOns.LoadAddOn
+  function C_AddOns.LoadAddOn(name)
+    if name ~= "Polestar_Codex" then return __load(name) end
+    if not stub.addonsLoaded[name] then
+      for _, f in ipairs(__codexFiles) do dofile(f) end
+      stub.addonsLoaded[name] = true
+    end
+    return true, nil
+  end
+end`;
+}
 function dungeonsStub() {
+	if (CODEX_DIR) return codexDirStub(CODEX_DIR);
 	if (!dungeonsPack) {
 		const { buildJournal, emitJournal } = require('../lib/codex/journal');
 		const f = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests', 'fixtures', 'codex', 'dungeons.json'), 'utf8'));
@@ -517,13 +539,15 @@ const MODULE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Quests/Quests.xml', '
 // The target button over the world: a step's goals fed straight to the
 // buttons (QoL.CurrentStep), and a frame around the button and its name
 // plate so the picture takes the plate in (the roots' box is the button's).
-function targetScene(goals, { side = 'right', extra = '' } = {}) {
+function targetScene(goals, { side = 'right', extra = '', list = false } = {}) {
 	const area = side === 'left' ? '"RIGHT", PolestarTargetButton, "RIGHT", 4, 0' : '"LEFT", PolestarTargetButton, "LEFT", -4, 0';
-	return `Polestar.Set("qol.buttonTextSide", "${side}")
+	// The single button unless the scene shows the list (qol.targetSimple).
+	return `Polestar.Set("qol.targetSimple", ${list ? 'false' : 'true'})
+Polestar.Set("qol.buttonTextSide", "${side}")
 ${extra}
 local raw = ${goals}
 local view = { index = 1, status = "current", goals = {} }
-for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target, quest = g.quest, npc = g.npc, npcName = g.npcName } end
+for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target, quest = g.quest, npc = g.npc, npcName = g.npcName, progress = g.progress } end
 Polestar.QoL.CurrentStep = function() return view, raw end
 Polestar.QoL.Buttons.Refresh()
 local area = CreateFrame("Frame", "PolestarPreviewTargetArea", UIParent)
@@ -534,6 +558,14 @@ const TIGERS = '{ { t = "kill", target = "Elder Stranglethorn Tiger", group = { 
 const KOBOLDS = '{ { t = "kill", target = "Kobold Vermin" }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer" } }';
 const GIVERS = '{ { t = "turnin", quest = 9, npc = 240, npcName = "Sir S. J. Erlgadin" }, { t = "accept", quest = 10, npc = 241, npcName = "Gryan Stoutmantle" }, { t = "talk", npc = 242, npcName = "Marshal Dughan" } }';
 const TARGET = ['PolestarTargetButton', 'PolestarPreviewTargetArea'];
+// The target list: the Polestar mark and its rows.
+const TARGET_LIST = ['PolestarTargetAnchor', 'PolestarTargetRow1', 'PolestarTargetRow2', 'PolestarTargetRow3', 'PolestarTargetRow4', 'PolestarTargetRow5', 'PolestarPreviewTargetArea'];
+// A kill and a collect with their counts, the Candle's dropper with its item.
+const KOBOLD_COUNTS = '{ { t = "kill", target = "Kobold Vermin", progress = { cur = 3, max = 10, kind = "count" } }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer", progress = { cur = 8, max = 8, kind = "count" } } }';
+// The tigers with their counts: the elite's one-off kill, 4 of 10 and 7 of 10.
+const TIGER_COUNTS = '{ { t = "kill", target = "Elder Stranglethorn Tiger", group = { kind = "elite", rank = 1 }, progress = { cur = 0, max = 1, kind = "count" } }, { t = "kill", target = "Stranglethorn Tiger", progress = { cur = 4, max = 10, kind = "count" } }, { t = "kill", target = "Young Stranglethorn Tiger", progress = { cur = 10, max = 10, kind = "count" } } }';
+// A Stranglethorn Tiger alive on nameplate1: its row turns green.
+const TIGER_CLOSE = 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "nameplate1" then return true end return exists and exists(u) end; UnitIsDead = function() return false end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "nameplate1" then return "Stranglethorn Tiger" end return unitName(u) end';
 // Six more pages from third-party modules, in the game font: the list
 // scrolls in its own area, clear of the version and the stage chip.
 const MANY_PAGES = `Polestar.Set("ui.font", "game")
@@ -731,27 +763,26 @@ const UNDEAD_CHOICE = routeScene('forever/horde/undead/01-tirisfal-glades', 'Tir
 	routeOption('horde/02-barrens.guide', { recommended: true, seconds: 610, quests: 43, zone: 1413, focusX: 51.5, focusY: 30.3 }),
 	routeOption('horde/02-silverpine.guide', { seconds: 140, quests: 40, zone: 1421, focusX: 42.8, focusY: 40.9 }),
 ], 'Hillsbrad Foothills');
-// The route choice's files: the window over the map pins (Nav), which draw
-// each route's start on its painting.
+// The route choice's files (with Nav: the guide window of the same scene
+// draws its map pins).
 const CHOICE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', ...FILES.slice(2)];
 // A zone choice at the end of Feralas for a level 46 Horde character, as the
 // guides and the experimental guides' index write it: Tanaris, recommended,
 // or the detour through Desolace into Shen'dralas, one of Polestar's
 // experimental guides in a zone whose quests are mostly Forever's own (the
-// character has outlevelled it). The routes go on to different guides (no
-// joinsAt), so each card says which.
+// character has outlevelled it), which comes back to Tanaris: the header
+// says so.
 const ZONE_OPTIONS = [
 	{ id: 'forever/horde/40-50/04-tanaris', title: 'Tanaris & Searing Gorge', zoneName: 'Tanaris', minLevel: 46, maxLevel: 48, recommended: true,
 		seconds: 300, quests: 28, zone: 1446, focusX: 52.0, focusY: 28.4,
-		pitch: "Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.",
+		pitch: "Gadgetzan's camps, Tooga's escort, then Thorium Point.",
+		pros: ['Thorium Point on the way', 'Then on to the Hinterlands', 'Stays on the main route'], cons: ['Long runs across the desert'],
 		thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Blasted Lands', thenLevel: 48 },
-	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas (experimental)", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
+	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
 		zone: 2652, focusX: 21.2, focusY: 22.4, experimental: true, newInForever: true, outleveled: true, detour: 'Desolace',
-		pitch: "A detour south of Desolace into Shen'dralas: 11 quests around a fallen Highborne temple, for levels 41-45.",
-		pros: ['About 27,500 quest experience plus the kills', 'Brings you back to the main route where you left it',
-			'Its experience comes off the grinding the route asks for before level 50: about an hour sooner to 60'],
-		cons: ['Its quests are about on level at 43 and a few levels under you at 46', 'Elites walk the Valley of Bones: Corpsefeeders and Magram Necrokhans, level 45',
-			"Experimental: written from a handful of players' recordings"],
+		pitch: 'A fallen Highborne temple south of Desolace.',
+		pros: ['About 27,500 quest experience', 'Then back to the main route', 'Less grinding before level 50'],
+		cons: ['Level 45 elites in the Valley of Bones'],
 		thenId: 'forever/horde/40-50/04-tanaris', thenGuideTitle: 'Tanaris & Searing Gorge', thenLevel: 44 },
 ];
 const ZONE_CHOICE = routeScene('forever/horde/40-50/03-feralas', 'Feralas', ZONE_OPTIONS, null);
@@ -1187,7 +1218,68 @@ uistub.player.faction, uistub.player.race, uistub.player.class, uistub.player.le
 uistub.openTabs({ { uistub.elwynn, 21 } }, 1)
 uistub.setStep(21)
 Polestar.UI.StepList.Toggle(true)`;
+// Thousand Needles & Desolace (Horde 30-33) at 30 without Test of Faith, Skip grey quests on (#2634): at Jandia
+// the window says what the route left out here (`step`: 2), or, on the Level 32 grind (3), why it grinds, what is
+// worth doing near and the cleanup nudge for quests off the route. `open`: the left-out line opened.
+const leftOut = (step, open) => `local TN = 1441
+local function g(t, verb, subject, kind, status, extra)
+	local x = { t = t, verb = verb, subject = subject, subjectKind = kind, map = TN, x = 46.2, y = 51.5, status = status }
+	for k, v in pairs(extra or {}) do x[k] = v end
+	return x
+end
+local steps = {
+	{ title = "Prate Cloudseer", goals = { g("turnin", "Turn in", "Message to Freewind Post", "quest", "done", { npcName = "Cliffwatcher Longhorn" }) } },
+	{ title = "Jandia", goals = {
+		g("accept", "Accept", "Stop the Screeching", "quest", "active", { npc = 4877, npcName = "Jandia" }),
+		g("accept", "Accept", "Stolen Freewind Supplies", "quest", "pending", { npc = 4877, npcName = "Jandia" }) } },
+	{ title = "Level 32", goals = {
+		g("goto", "Go to", "Scorpid Reavers", "place", "done", { x = 75.0, y = 60.0 }),
+		g("level", "Reach", "level 32", "text", "active", { level = 32 }) } },
+}
+local G = uistub.guides[uistub.elwynn]
+G.title, G.faction, G.zoneName, G.minLevel, G.maxLevel, G.steps = "Thousand Needles & Desolace", "Horde", "Thousand Needles", 30, 33, steps
+uistub.player.faction, uistub.player.race, uistub.player.class, uistub.player.level = "Horde", "Tauren", "WARRIOR", 31
+local E = Polestar.Engine
+E.LeftOutHere = function(i)
+	if i ~= 2 then return {} end
+	return {
+		{ quest = 1150, title = "Test of Endurance", kind = "pre", text = "Requires “Test of Faith” first", fix = { kind = "chain", quest = 1150 }, step = 2 },
+		{ quest = 6462, title = "Troll Charm", kind = "catchup", text = "Pays 60% XP at your level and is out of the way (Skip grey quests)", fix = { kind = "skipGrey" }, step = 2 },
+	}
+end
+E.GrindHint = function(i) if i == 3 then return { lo = 32, hi = 35, nearby = { { quest = 5147, title = "WANTED: Arnak Grimtotem", share = 1, step = 2 } } } end end
+Polestar.RoutePlan = Polestar.RoutePlan or {}
+Polestar.RoutePlan.OffRoute = function() return { { quest = 220, title = "Call of Water" }, { quest = 4821, title = "Alien Egg" }, { quest = 4865, title = "Serpent Wild" } } end
+uistub.openTabs({ { uistub.elwynn, ${step} } }, 1)
+uistub.setStep(${step})
+${open ? `for _, l in ipairs(Polestar.UI.GuideFrame.lines) do
+	if l:IsShown() and (l.Text:GetText() or ""):find("left out here", 1, true) then stub.RunScript(l, "OnClick", "LeftButton") break end
+end` : ''}`;
+const LOOKS = ['polestar', 'hearth', 'halo', 'forever', 'blizzard', 'classic'];
 const SCENES = [
+	{
+		file: 'guide-left-out.svg',
+		title: 'Guide window: "2 left out here" under the step, opened (why each quest is left out, Guide me, Turn off Skip grey quests); a grind step: why, what is near, the cleanup nudge; the step browser marks the step',
+		panels: [
+			{ roots: GUIDE, script: leftOut(2, false) },
+			{ roots: GUIDE, script: leftOut(2, true) },
+			{ roots: GUIDE, script: leftOut(3, false) },
+			{ roots: GUIDE, script: `${leftOut(2, false)}; Polestar.UI.StepList.Toggle(true)` },
+		],
+	},
+	{
+		file: 'guide-left-out-looks.svg',
+		title: 'Guide window: what it leaves out, opened, in Hearth, Halo, WoW Forever, Blizzard and Classic; the grind step in each',
+		panels: LOOKS.slice(1).flatMap((skin) => [
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${leftOut(2, true)}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${leftOut(3, false)}` },
+		]),
+	},
+	{
+		file: 'guide-left-out-scales.svg',
+		title: 'Guide window: what it leaves out, opened, at UI scale 0.64 and 1.5',
+		panels: [0.64, 1.5].map((s) => ({ roots: GUIDE, script: `Polestar.Set("ui.scale", ${s}); ${leftOut(2, true)}` })),
+	},
 	{
 		file: 'guide-skipped-steps.svg',
 		title: 'Step browser: steps that keep their number but do not apply now (a catch-up for quests already handed in) share one card that says why',
@@ -1268,7 +1360,7 @@ const SCENES = [
 	},
 	{
 		file: 'route-choice.svg',
-		title: "Choose your path: a zone choice after Feralas (Tanaris, or the detour into Shen'dralas, an experimental guide in a zone Forever added; each card says where its route goes on); an Undead after Tirisfal Glades, both routes meeting again in Hillsbrad Foothills; the guide window while the choice waits",
+		title: "Choose your path: a zone choice after Feralas (Tanaris, or the detour into Shen'dralas, an experimental guide in a zone Forever added, which the header says comes back to Tanaris); an Undead after Tirisfal Glades, both routes meeting again in Hillsbrad Foothills; the guide window while the choice waits",
 		panels: [
 			{ roots: ROUTE, files: CHOICE_FILES, script: ZONE_CHOICE },
 			{ roots: ROUTE, files: CHOICE_FILES, script: UNDEAD_CHOICE },
@@ -1386,7 +1478,7 @@ Polestar.UI.Picker.Select(DREADSTEED)`),
 			{ roots: GUIDE, script: `${NOT_YET_GUIDES}; uistub.openTabs({ { WATER, 1 } }, 1)` },
 			{
 				roots: PICKER,
-				script: pickerScene(`${NOT_YET_GUIDES}; Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
+				script: pickerScene(`${NOT_YET_GUIDES}; uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
 Polestar.UI.Picker.Select("forever/class/shaman/call-of-earth-horde")`),
 			},
 		],
@@ -1436,7 +1528,7 @@ Polestar.UI.Picker.Select("forever/class/warlock/impsys-request")`),
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${CLASS_GUIDES}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
+				script: pickerScene(`${CLASS_GUIDES}; uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
 Polestar.UI.Picker.Select("forever/class/warlock/incubus-horde")`),
 			},
 		],
@@ -1488,10 +1580,10 @@ stub.RunScript(d, "OnTextChanged", true)`,
 		file: 'schemes-picker.svg',
 		title: 'The guide menu in Dusk (default), Night, Graphite, and EllesmereUI with its purple accent',
 		panels: [
-			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "night"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "graphite"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ eui: true, roots: PICKER, script: pickerScene(`stub.setAccent(0.6, 0.48, 1); Polestar.Set("ui.scheme", "ellesmere"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "night"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "graphite"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ eui: true, roots: PICKER, script: pickerScene(`stub.setAccent(0.6, 0.48, 1); Polestar.Set("ui.scheme", "ellesmere"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
 		],
 	},
 	{
@@ -1731,7 +1823,7 @@ end`,
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/alliance/02-westfall")`),
 			},
 		],
@@ -1747,7 +1839,7 @@ Polestar.UI.Picker.SetCollapsed("Leveling/Alliance/1", true); Polestar.UI.Picker
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; uistub.player.race, uistub.player.faction = "Skyborne", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/horde/skyborne/01-zephras-isle")`),
 			},
 		],
@@ -1799,12 +1891,12 @@ Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Favorites"); Polestar.
 		panels: [
 			{
 				roots: PICKER,
-				script: pickerScene(`Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/horde/orc-troll/01-durotar")`),
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`uistub.openTabs({ { "forever/horde/04-the-barrens", 13 } }, 1); Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker()
+				script: pickerScene(`uistub.openTabs({ { "forever/horde/04-the-barrens", 13 } }, 1); uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker()
 Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/horde/04-the-barrens")`),
 			},
 		],
@@ -1813,7 +1905,7 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		file: 'hub.svg',
 		title: 'The hub: sections on the rail (Guides, Lookup, Dungeons, Rares) with Options at its foot; the sidebar holds the wordmark, the search and the section\'s own index on one edge',
 		panels: [
-			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
 			{ codex: true, roots: PICKER, script: lookupScene('Polestar.Lookup.Show("saber")') },
 			{ dungeons: true, roots: PICKER, script: dungeonsScene('Polestar.Dungeons.Open()') },
 		],
@@ -2059,6 +2151,32 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { side: 'left' }) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "target" then return true end return exists and exists(u) end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "target" then return "Elder Stranglethorn Tiger" end return unitName(u) end; UnitClassification = function() return "elite" end; SetPortraitTexture = function(tex) tex:SetTexture(Polestar.Theme.Media("emblem")) end' }) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'Polestar.Set("qol.targetPlate", false)' }) },
+		],
+	},
+	{
+		file: 'target-list.svg',
+		title: "The target list (with the target button on, beside it): a row per name with what it drops for the step and the goal's count; a tiger close by turns its row green; a step with no mob lists its NPCs; folded to one row by a click on the Polestar mark; with the buttons in a row, the list under the target button",
+		backdrop: 'terrain',
+		panels: [
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: TIGER_CLOSE }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(GIVERS, { list: true }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: 'PolestarTargetAnchor:Click("LeftButton")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: `Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
+		],
+	},
+	{
+		file: 'target-list-compact.svg',
+		title: "The target list's compact styles: slim rows (a small face, name and count); portraits in a column, each with how many are left and the close tiger named beside it, a finished goal greyed; portraits in a row; the strip under the target button with the buttons in a row; names only; 2D portraits (icons until one is seen, the close tiger's flat face) in full rows and a column",
+		backdrop: 'terrain',
+		panels: [
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true, extra: 'Polestar.Set("qol.targetListStyle", "slim")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "column"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true, extra: 'Polestar.Set("qol.targetListStyle", "strip")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "strip"); Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "names"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetPortraits", "flat"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "column"); Polestar.Set("qol.targetPortraits", "flat"); ${TIGER_CLOSE}` }) },
 		],
 	},
 ];

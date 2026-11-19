@@ -6,21 +6,40 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Zeppelin to Undercity
+	-- Guide
+	-- {zone:1435} Swamp of Sorrows · {zone:1444} Feralas
+	["{zone:1435} and Dustwallow first, then {zone:1444}."] = "先去{zone:1435}和尘泥沼泽，然后是{zone:1444}。",
+	["Takes you to level 47"] = "带你升到47级",
+	-- {zone:1446} Tanaris
+	["Then on to {zone:1446}"] = "然后前往{zone:1446}",
+	["Stays on the main route"] = "位于主线路线上",
+	["Three zones, lots of travel"] = "三个地区，需要大量赶路",
+
+	-- Step 1: Orgrimmar
+	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
+	["From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "从飞行管理员处出发：先到{object:172960}，然后穿过暗巷，再到{object:172958}。",
+	-- {npc:7010} Zilzibin Drumlore
+	["{npc:7010}, the Drag"] = "{npc:7010}，在暗巷区",
+	-- {npc:6986} Dran Droffers
+	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
+	-- {zone:1425} Hinterlands
+	["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时",
+
+	-- Step 3: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 
-	-- Step 2: Apothecary Zinge
+	-- Step 4: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}，在返回金吉那里的路上",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "这些任务给的{item:8523}要保留，稍后在{area:976}完成“塔纳利斯的样本”时交还",
 
-	-- Step 3: Undercity
+	-- Step 5: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
 	["{npc:7825}, the {object:36126}"] = "{npc:7825}，在{object:36126}",
 
-	-- Step 4: Riding at 40
+	-- Step 6: Riding at 40
 	["Riding at 40"] = "40级骑术",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "骑术需要40级，花费100金币；学会后会获得一只坐骑。各个种族都要找本族训练师学习。你的训练师是{area:159}的{npc:4773}，从飞艇塔骑行向北不远就到；她旁边是{npc:4731}出售的骷髅马（每匹20金币）。之后骑回高塔，乘飞艇前往{object:3202}。",
@@ -29,17 +48,25 @@ return {
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "骸骨军马：{npc:4731}，在{area:159}的{npc:4773}旁边。",
 
-	-- Step 5: Zeppelin to Grom'gol
+	-- Step 7: Zeppelin to Grom'gol
 	-- {object:3202} Grom'gol
 	["Zeppelin to {object:3202}"] = "乘飞艇前往{object:3202}",
 
-	-- Step 6: Fly to Stonard
+	-- Step 8: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "飞往{area:75}",
+	-- {object:3202} Grom'gol · {area:75} Stonard
+	["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "飞艇在{object:3202}降落：荆棘谷的任务已经完成（40-50/02），所以直接飞往{area:75}。",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "{object:3202} 的飞行管理员。",
 
-	-- Step 7: Stonard
+	-- Step 9: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "前往{area:75}",
+	-- {area:75} Stonard · {zone:2548} Riverglades · {zone:1435} Swamp of Sorrows · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet (the {zone:2548} skip the {zone:1435}): ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "还没有{area:75}的飞行路线（{zone:2548}跳过了{zone:1435}）：从{object:3202}向东北骑行，穿过{zone:1431}和{zone:1430}进入沼泽，再沿路向东到{area:75}，学习那里的飞行路线。",
+
+	-- Step 10: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "从荆棘谷来的话，应该已经接了这些任务。若从这里开始：{npc:5591}在{area:75}的大厅内，{npc:1443}在顶层。",
 	-- {npc:5591} Dar
@@ -47,69 +74,72 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，位于最顶层",
 
-	-- Step 8: A Soggy Scroll
+	-- Step 11: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "沿道路向西骑行；卷轴在沼泽最西边的水边。",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, later in this guide"] = "交给{zone:1445}的{object:2555}，在本指南稍后",
 
-	-- Step 9: Sawtooth crocolisks
+	-- Step 12: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "向东返回的路上，{area:75}北面不远处、加林的旧营地周围水池里有鳄鱼；约四分之一会掉落腰肉。",
 
-	-- Step 10: Pool of Tears
+	-- Step 13: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "往回向东经过{area:75}：阿塔莱神器在{quest:1424}的水里和岸边。",
 
-	-- Step 11: Misty Reed Post
+	-- Step 14: Misty Reed Post
 	-- {npc:5592} Tok'Kar
 	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "沿路向东南前往岸边的小型部落岗哨。{npc:5592}需要上次来沼泽时收集的鳄鱼肉。",
 
-	-- Step 12: The Forbidding Sea: kill these as you meet them
+	-- Step 15: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
 	["{area:2403}: kill these as you meet them"] = "{area:2403}：沿途遇到就击杀",
+	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
-	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "钳嘴龟分布在岗哨南边的海滩。\n巨型淤泥蟹沿东海岸的沙滩游荡，数量少且分散；看到就杀，从水池骑行南下途中遇到的也别漏掉。",
+	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "钳嘴龟分布在岗哨南边的海滩。\n巨型淤泥蟹沿东海岸的沙滩游荡，数量少且分散；看到就杀，从水池骑行南下途中遇到的也别漏掉。\n小心：一只{npc:272377}（60级）在东南部的海滩上走动：远远绕开它。",
 	["Underwater"] = "在水下",
 
-	-- Step 14: Murlocs of the Misty Reed
+	-- Step 17: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "芦苇丛中的鱼人",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
 	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "沼泽鱼人住在哨站南边的海滩上；沼泽喷墨鱼人在哨站东边的岸边，沼泽食腐鱼人在更西边、西岸的小屋周围。",
 	["Below ground"] = "在地下",
 
-	-- Step 16: Continued Threat
+	-- Step 19: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "再去同一片鱼人海岸：沼泽喷墨鱼人在哨站东边，沼泽食腐鱼人在西侧小屋周围，沼泽鱼人智者在这两处都有分布。",
 
-	-- Step 18: Stonard
+	-- Step 21: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
 	["for the {npc:5598} in the {zone:1425}, around level 48"] = "交给{zone:1425}的{npc:5598}，大约48级时",
 
-	-- Step 19: To Camp Mojache
+	-- Step 22: To Camp Mojache
 	-- {area:1099} Camp Mojache
 	["To {area:1099}"] = "前往{area:1099}",
+	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
+	["Hearth to {area:1099}: your hearthstone is still bound there from the {zone:1444} & {zone:1446} guide."] = "使用炉石回{area:1099}：你的炉石仍绑定在那里，是在{zone:1444}和{zone:1446}指南中设置的。",
 
-	-- Step 20: Camp Mojache
+	-- Step 23: Camp Mojache
 	-- {zone:1425} Hinterlands
 	["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时",
 
-	-- Step 21: Fly to Brackenwall Village
+	-- Step 24: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "飞往{area:496}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
-	-- Step 22: Brackenwall Village
+	-- Step 25: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}、{npc:4502}和{npc:4501}（在地下）都在村里；他们的任务目标在本次要去的{area:511}。",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}：在地下",
 
-	-- Step 23: Dustwallow Marsh
+	-- Step 26: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "{object:2555}",
 
-	-- Step 24: The Musty Scroll
+	-- Step 27: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "向西南骑行到{object:2555}处。",
 	-- {object:2555} Musty Scroll
@@ -117,7 +147,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "进入{area:498}内部",
 
-	-- Step 25: The Dragonmurk: kill these as you meet them
+	-- Step 28: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
 	-- {area:511} Wyrmbog
@@ -125,71 +155,80 @@ return {
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 26: Brackenwall Village
+	-- Step 29: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",
 
-	-- Step 27: Onyxia's eggs
+	-- Step 30: Onyxia's eggs
 	["Onyxia's eggs"] = "奥妮克希亚的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 	["Dragon caves"] = "龙穴",
 
-	-- Step 28: Level 45.37
+	-- Step 31: Level 45.37
 	["Level 45.37"] = "等级 45.37",
-	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}或{area:1517}副本。",
+	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
+	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}地下城。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "击杀{npc:4329}刷经验",
 
-	-- Step 30: Challenge Overlord Mok'Morokk
+	-- Step 33: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
 
-	-- Step 31: Fly to Camp Mojache
+	-- Step 34: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "{area:496}的飞行管理员",
 
-	-- Step 32: Sprite darters and forest walkers
+	-- Step 35: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "小精龙和森林漫游者",
-	-- {item:9589} Encrusted Minerals
+	-- {item:9589} Encrusted Minerals · {npc:272401} Vale Screamer
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker · Splintered Logs = {item:9590} Splintered Log
-	["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs."] = "小精龙在营地正西的树林上空飞来飞去，携带{item:9589}；再往西一点的森林漫游者携带断裂的原木。",
+	["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "小精龙在营地正西的树林上空飞来飞去，携带{item:9589}；再往西一点的森林漫游者携带断裂的原木。\n小心：一只{npc:272401}（60级）在营地西边的森林上空飞行：远离它。",
 
-	-- Step 33: Frayfeather hippogryphs
+	-- Step 36: Frayfeather hippogryphs
 	["Frayfeather hippogryphs"] = "乱羽角鹰兽",
 	["South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments."] = "在山谷南边，乱羽角鹰兽栖息在山坡上；几乎每只都会掉落肌腱和金属碎片。",
 
-	-- Step 34: Zorbin Fandazzle
+	-- Step 37: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 
-	-- Step 35: Rogue Vale screechers
+	-- Step 38: Rogue Vale screechers
 	["Rogue Vale screechers"] = "游荡的山谷尖啸者",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Rogue Vale就在{npc:14637}码头北边不远处。击杀一只{npc:5308}，对尸体使用{item:10699}，再击杀出现的灵魂。",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Rogue Vale就在{npc:14637}码头北边不远处。击杀一只{npc:5308}，拾取之前对尸体使用{item:10699}，然后和出现的灵魂对话：它是友善的。总共三个灵魂。",
 
-	-- Step 36: Forgotten Coast: kill these as you meet them
+	-- Step 39: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
+	-- {item:18904} Zorbin's Ultra-Shrinker · {zone:1444} Feralas · {npc:14637} Zorbin Fandazzle
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
+	["The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next {zone:1444} visit.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "巨型海元素（47-48级）在码头南边不远的海岸游荡：它们和海元素（48-49级）一样会掉落水元素核心。海浪巨人和深海巨人（47-49级）在同一片海滩外的水中行走：先用{item:18904}压缩它们，缩小后就失去精英实力。北边山丘上的大地行者和峭壁巨人（48-50级）留到下次来{zone:1444}时再打。\n超级压缩器效果持续两小时：离开海岸前把两个任务都交还给{npc:14637}。",
+	-- {item:18958} Water Elemental Core
+	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}，从巨型海元素身上获取",
 	-- {item:18904} Zorbin's Ultra-Shrinker
-	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "海元素和巨型海元素沿着码头周围的海岸漂荡。先用{item:18904}电击巨人：被缩小后，它们就失去了精英的力量。海岸巨人在水中涉行；大地行者和峭壁巨人在更北边的山丘上游荡。",
+	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}，对水中的海浪巨人和深海巨人使用",
 
-	-- Step 37: Northspring harpies
-	["Northspring harpies"] = "北泉鹰身人",
-	["The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time."] = "北泉鹰身人在遥远西北的山脊上筑巢。它们是48-50级，比你高几级：北泉唤风者会治疗，所以先杀它们，一次引一只。",
+	-- Step 40: Zorbin Fandazzle
+	-- {npc:14637} Zorbin Fandazzle
+	["Back to {npc:14637} on the dock."] = "回到码头上的{npc:14637}处。",
 
-	-- Step 38: Rage Scar yetis
+	-- Step 41: Rage Scar yetis
 	["Rage Scar yetis"] = "怒痕雪人",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "从鹰身人那里向东南返回的路上，狂暴的怒痕雪人住在道路旁山丘里的洞穴周围。它们也都可能掉落{quest:7738}，它可以开始一个单独的任务。",
+	["On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "从海岸向东南返回的路上，怒痕雪人住在道路旁山丘里的洞穴周围。它们也都可能掉落{quest:7738}，它可以开始一个单独的任务。",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 
-	-- Step 39: Camp Mojache
+	-- Step 42: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
+	-- {npc:7776} Talo Thornhoof · {zone:1444} Feralas
+	["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "{npc:7776}的北泉鹰身人（48-50级）留到约51级再来{zone:1444}时处理：保留该任务。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "飞往{object:3202}",
@@ -200,8 +239,10 @@ return {
 	-- ["Murlocs of the Misty Reed"] = "芦苇丛中的鱼人",
 	-- ["North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "沿道路向西北，狂暴的怒痕雪人住在山丘里的洞穴周围。它们也都可能掉落{quest:7738}，它可以开始一个单独的任务。",
 	-- ["Northspring harpies"] = "北泉鹰身人",
+	-- ["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "从鹰身人那里向东南返回的路上，狂暴的怒痕雪人住在道路旁山丘里的洞穴周围。它们也都可能掉落{quest:7738}，它可以开始一个单独的任务。",
 	-- ["Ride back east to the camp. Stay here: the next guide starts with the flight to {area:976}."] = "向东骑回营地。留在这里：下一个指南从飞往{area:976}开始。",
 	-- ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向西南骑往{object:2555}，然后向东穿过{area:511}。火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守护着更东南的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱都在龙人营地里。",
+	-- ["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "海元素和巨型海元素沿着码头周围的海岸漂荡。先用{item:18904}电击巨人：被缩小后，它们就失去了精英的力量。海岸巨人在水中涉行；大地行者和峭壁巨人在更北边的山丘上游荡。",
 	-- ["South-west, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在西南，雪人在{area:1105}筑巢；那里的每个雪人都可能掉落厚重的雪人皮。",
 	-- ["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "沼泽鱼人住在哨站南边的海滩上；沼泽喷墨鱼人在哨站东边的岸边，沼泽食腐鱼人在更西边、西岸的小屋周围。",
 	-- ["The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south."] = "巨型淤泥蟹在东海岸的海滩上走动，数量稀少、相隔很远：向南的路上见一只杀一只。",

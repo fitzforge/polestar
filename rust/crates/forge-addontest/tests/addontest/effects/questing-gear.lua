@@ -18,9 +18,13 @@ local function arrows()
 	for slot = 1, 16 do if arrow(g.bagButton(0, slot)) then out[#out + 1] = slot end end
 	return table.concat(out, ",")
 end
+-- The tooltip's gear lines: the upgrade line or the pick, and the weights they were scored with.
 local function tip(link)
-	for _, l in ipairs(g.showTooltip(GameTooltip, link)) do if l:find("^Polestar") or l:find("pick") then return l end end
-	return false
+	local out = {}
+	for _, l in ipairs(g.showTooltip(GameTooltip, link)) do
+		if l:find("^Polestar") or l:find("pick") or l:find("^Scored ") then out[#out + 1] = l end
+	end
+	return out[1] and table.concat(out, " / ") or false
 end
 local function wear(slot, link) g.equip(slot, link); G.Invalidate("equipment"); stub.advance(0.3) end
 -- The guide window's reward pick under the hand-in.
@@ -96,6 +100,16 @@ return {
 		-- The better helm's tooltip: how much better than the worn one.
 		["gear.tooltip"] = function() return tip("item:9002") end,
 		["gear.spec.WARRIOR"] = { value = "protection", probe = function() return tip("item:9002") end },
+		-- Forever Leveling BiS installed (a stub of its API, version 2): its gain and "Scored by" on the better helm.
+		["gear.useFlbis"] = {
+			prepare = function()
+				stub.addonsLoaded.ForeverLevelingBiS = true
+				ForeverLevelingBiS_API = { version = 2, IsUpgrade = function() return true end, OnChanged = function() end,
+					GetGain = function(link) return link:find("item:9002") and 37.4 or nil end }
+				G.Invalidate("spec")
+			end,
+			probe = function() return tip("item:9002") end,
+			cleanup = function() ForeverLevelingBiS_API, stub.addonsLoaded.ForeverLevelingBiS = nil, nil; G.Invalidate("spec") end },
 		["Questing:Manage custom weights"] = { press = true,
 			prepare = function() local f = Polestar.UI.ScalesView.frame; if f then f:Hide() end end,
 			probe = function() local f = Polestar.UI.ScalesView.frame; return f ~= nil and f:IsShown() and true or false end,

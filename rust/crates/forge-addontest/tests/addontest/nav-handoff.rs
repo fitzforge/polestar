@@ -1013,8 +1013,10 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 			whyNoHelp = cs["nav.arrowScale"].psControl.help ~= nil })"#
 			.replace("${GREYED}", &lua_list(&GREYED));
 	// The whole UI: the settings' addon loads as the window opens, its rows with it; the QoL module too, whose rows
-	// hold the travel button's beside the Hearthstone in the button set.
-	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
+	// hold the travel button's beside the Hearthstone in the button set; and Core's names (in their chunk store), the
+	// settings' previews' sample names in the client's language.
+	let files: Vec<&str> =
+		FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "Core/LuaChunks.lua", "Core/Names.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
 	let on = run(&script, Opts { files: files.clone(), ..Default::default() });
 	let without = run(&script, Opts { spf: None, files, ..Default::default() });
 	let all = |v: bool| Value::Object(GREYED.iter().map(|k| (k.to_string(), json!(v))).collect());
@@ -1352,6 +1354,67 @@ fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_
 		assert_eq!(out["click"], json!([true, false, "ShortestPathForever", true]), "API version {version}: its journey guides; Polestar's target is still the guide's");
 		assert_eq!(out["after"], json!([true, false, true]), "API version {version}: that journey over, Polestar guides the guide's target");
 		assert_eq!(out["off"], json!([false, true, false]), "API version {version}: with its Journeys off Polestar plans the click");
+	}
+}
+
+// #2028 (0.4.0.1, Discord): a Shift- or Alt-click on the world map started a Shortest Path Forever journey (drawn on its
+// map) while Polestar's arrow kept to the guide's objective. Checked with the real Shortest Path Forever v1.40.0 beside
+// the real Polestar: Polestar steps aside as soon as it guides that journey; when its search finds no way there it keeps
+// the journey on its map, unguided (Active() false, Journey().guided false), and Polestar had already dropped its own
+// plan for the click (ClickTaken), so nothing led to the clicked spot. Polestar now watches a click it left there, and
+// plans it itself when the journey stays unguided; a journey it guides, or the player clears, plans nothing.
+#[test]
+fn a_map_click_shortest_path_forever_took_but_finds_no_way_to_is_planned_by_polestar_2028() {
+	for (version, api) in [(1, SPF.to_string()), (2, spf_version(2))] {
+		let spf = format!("{api}{SPF_CLICKS}");
+		let out = run(
+			r#"
+		-- (minor 3: Journey reads; version 2's fake drops the minor, its Journey stays)
+		nav.setWaypoint(copy(FARLAND))
+		local r = {}
+		nav.showWorldMap(9000)
+		WorldMapFrame.ScrollContainer.IsMouseOver = function() return true end
+		local function altClick()
+			stub.keys.alt = true
+			stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+			stub.keys.alt = false
+			stub.runTimers()
+			stub.advance(0.3)
+		end
+		local function state()
+			return { N.GetTarget().label == "Farland camp", N.IsOverride() and true or false, N.HandedOff(), arrowShown() }
+		end
+		-- Its search finds no way there: the journey stays, unguided.
+		altClick()
+		r.taken = state()
+		spf.noWay()
+		stub.runTimers()
+		for _ = 1, 4 do stub.advance(0.5); stub.runTimers() end
+		r.noWay = state()
+		-- A journey it guides: nothing planned by Polestar, however long it runs.
+		N.ReleaseTarget()
+		spf.clear()
+		stub.runTimers()
+		altClick()
+		for _ = 1, 50 do stub.advance(0.5); stub.runTimers() end
+		r.guided = state()
+		-- The player clears it before it finds a way: nothing planned.
+		spf.clear()
+		stub.runTimers()
+		stub.advance(0.3)
+		altClick()
+		spf.clear()
+		stub.runTimers()
+		for _ = 1, 50 do stub.advance(0.5); stub.runTimers() end
+		r.cleared = state()
+		emit(r)
+	"#,
+			Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+		);
+		assert_eq!(out["taken"], json!([true, false, true, false]), "API version {version}: its journey guides, Polestar steps aside");
+		assert_eq!(out["noWay"], json!([false, true, false, true]), "API version {version}: no way there: Polestar plans the click and guides it");
+		assert_eq!(out["guided"], json!([true, false, true, false]), "API version {version}: a journey it guides: Polestar plans nothing");
+		assert_eq!(out["cleared"], json!([true, false, false, true]), "API version {version}: one the player cleared: Polestar guides the guide's target");
 	}
 }
 

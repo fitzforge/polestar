@@ -330,9 +330,10 @@ Polestar.RegisterGuide({ id = "test/h", pack = "test", title = "H", faction = "H
 			for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 				if spec.page == "Discovery" and spec.tab == "Group quests" then
 					for _, c in ipairs(spec.controls) do
+						-- Not answered (Group quests asks): nil.
 						local before = c.get()
 						c.set(true)
-						out[#out + 1] = { label = c.label(), before = before, after = Polestar.Engine.GroupAnswer(7) }
+						out[#out + 1] = { label = c.label(), before = before == nil and "not answered" or before, after = Polestar.Engine.GroupAnswer(7) }
 						c.set(false)
 						out[#out].off = Polestar.Engine.GroupAnswer(7)
 					end
@@ -345,5 +346,5 @@ Polestar.RegisterGuide({ id = "test/h", pack = "test", title = "H", faction = "H
 		..Default::default()
 	});
 	assert_eq!(out[0], json!([{ "quest": 7, "title": "Kobold Camp Cleanup" }]));
-	assert_eq!(out[1], json!([{ "label": "Kobold Camp Cleanup", "before": false, "after": "do", "off": "skip" }]));
+	assert_eq!(out[1], json!([{ "label": "Kobold Camp Cleanup", "before": "not answered", "after": "do", "off": "skip" }]));
 }

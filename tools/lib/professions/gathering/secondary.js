@@ -10,8 +10,11 @@
 // Trainers, rank books and vendors are smart targets (`train <Profession>
 // <Rank>`, `buy … nearest`, `learn <spell>` without an npc): the engine picks
 // the nearest one of the player's faction at runtime. Each segment is split
-// into a shopping step, a gathering step and a crafting step, so bought or
-// gathered items used up by the crafting never reopen a finished goal.
+// into a shopping step, an Auction House step (what it gathers that the
+// Auction House sells: `auction`, with `gather` on the gathering collect, one
+// way at a time; docs/GUIDE_FORMAT.md, "Materials"), a gathering step and a
+// crafting step, so bought or gathered items used up by the crafting never
+// reopen a finished goal.
 
 const { dist } = require('../../route/geo');
 const R = require('./route');
@@ -19,6 +22,7 @@ const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, money, zoneName, rankInfo, vendorSpawns } = require('./common');
 const { ERA_NOTE } = require('./notes');
 const SECTIONS = require('../sections');
+const { CLOTH_LEVELS } = require('../describe');
 
 const SIDE_OF_RACE = {};
 for (const f of FACTIONS) for (const g of RACE_GROUPS[f]) for (const r of g.races) if (!TWO_SIDED.has(r)) SIDE_OF_RACE[r] = f;
@@ -60,17 +64,19 @@ function recipeOf(ctx, spell) {
 }
 
 // The normal creatures in `zone` that drop `item`, weighted by drop chance:
-// { pts, names, rated, weight }. The data rates an item's droppers from one
+// { pts, names, rated, weight, levels }. The data rates an item's droppers from one
 // table (items.json `dropScale`), so a dropper that table does not rate has a
 // null chance: when no rated dropper of 5% or more stands in the zone, the
 // unrated ones count, weighted alike and named without a chance. `minChance`:
-// the least rated chance that counts (percent).
+// the least rated chance that counts (percent). `levels`: [lowest, highest] of
+// the droppers counted (their `level` to `levelMax`), or null.
 function zoneDroppers(ctx, item, zone, minChance = 5) {
 	const it = ctx.data.item(item);
 	const droppers = Object.entries((it && it.drops && it.drops.npc) || {});
 	const gather = (rated) => {
 		const pts = [];
 		const names = new Map();
+		let levels = null;
 		for (const [id, chance] of droppers) {
 			if (rated ? chance === null || chance < minChance : chance !== null) continue;
 			const n = ctx.data.npc(id);
@@ -80,8 +86,9 @@ function zoneDroppers(ctx, item, zone, minChance = 5) {
 			if (!s || R.allPoints(s).length < 3) continue; // no lone named spawns
 			for (const [x, y] of R.allPoints(s)) pts.push({ name: n.name, w: rated ? chance / 100 : 0.05, pt: ctx.project.point(zone, x, y, s.f) });
 			names.set(n.name, rated ? Math.max(names.get(n.name) || 0, chance) : (names.get(n.name) || 0) + R.allPoints(s).length);
+			if (n.level > 0) levels = levels ? [Math.min(levels[0], n.level), Math.max(levels[1], n.levelMax || n.level)] : [n.level, n.levelMax || n.level];
 		}
-		return { pts, names, rated, weight: pts.reduce((a, p) => a + p.w, 0) };
+		return { pts, names, rated, weight: pts.reduce((a, p) => a + p.w, 0), levels };
 	};
 	const r = gather(true);
 	return r.pts.length ? r : gather(false);
@@ -109,7 +116,7 @@ function dropSpot(ctx, item, zone, minChance = 5) {
 		.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
 		.slice(0, 3)
 		.map(([nm, c]) => (rated ? `${nm} (${Math.round(c)}%)` : nm));
-	return { pt: spawn.pt, mobs: top, via: best.via };
+	return { pt: spawn.pt, mobs: top, via: best.via, levels: best.levels };
 }
 
 // The centre of the densest cluster of an NPC's spawns in a zone (map percent).
@@ -167,12 +174,17 @@ function priceOf(P, item, count) {
 	return money(Math.ceil(count / (m.buyCount || 1)) * m.buy);
 }
 
+// A segment's steps: shopping (vendor goods), the Auction House (what the
+// segment gathers that the Auction House sells: a meat, not a clam to open; the
+// gather collect then carries `gather` with its mobs' levels, docs/GUIDE_FORMAT.md
+// "Materials"), the ingredients and the crafting.
 function renderSegment(ctx, P, seg, L) {
 	const recipe = recipeOf(ctx, seg.spell);
 	const crafts = expectedCrafts(recipe, seg.from, seg.to);
 	const shop = [];
 	const bought = [];
 	const gather = [];
+	const market = [];
 	if (seg.learn === 'vendor') {
 		if (!factionsOf(seg.who).every((f) => vendorSpawns(ctx, recipe.recipeItem, f).length)) throw new Error(`${recipe.name}: recipe ${recipe.recipeItem} not sold to ${factionsOf(seg.who)}`);
 		shop.push(`buy ${recipe.recipeItem} x1 nearest`);
@@ -191,13 +203,20 @@ function renderSegment(ctx, P, seg, L) {
 			// Smart farm spot; the planned zone's best droppers go in the note.
 			const d = dropSpot(ctx, rg.item, seg.zone);
 			const open = d.via ? `; open each ${itemName(ctx, d.via)} for its ${name}` : '';
-			gather.push(`collect ${d.via || rg.item} x${need} nearest     -- ${d.mobs.join(', ')} in ${zoneName(ctx, seg.zone)}, or wherever the arrow points${open}`);
+			const sells = !d.via && !((P.materials[rg.item] || {}).bop);
+			if (sells) market.push({ item: rg.item, need, name });
+			const facts = sells ? ` gather${d.levels ? ` levels ${d.levels[0]}-${d.levels[1]}` : ''}` : '';
+			gather.push(`collect ${d.via || rg.item} x${need} nearest${facts}     -- ${d.mobs.join(', ')} in ${zoneName(ctx, seg.zone)}, or wherever the arrow points${open}`);
 		}
 	}
 	const only = onlyLines(seg.who);
 	if (shop.length) {
 		const list = bought.length ? ` You need ${bought.join(', ')}.` : '';
 		step(L, `${recipe.name}: shopping`, [...only, `tip The arrow picks the nearest vendor of your faction for each item.${list}`, ...shop]);
+	}
+	if (market.length) {
+		const what = market.map((m) => `${m.need} ${m.name}`).join(' and ');
+		step(L, `${recipe.name}: Auction House`, [...only, `tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...market.map((m) => `auction ${m.item} x${m.need}`)]);
 	}
 	if (gather.length) {
 		step(L, `${recipe.name}: ingredients`, [...only, `zone ${zoneName(ctx, seg.zone)}`, ...gather]);
@@ -268,12 +287,17 @@ const CLOTH = {
 };
 
 // Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
-// bags with no place: `anywhere`) and one crafting step for everyone.
+// bags with no place: `anywhere`, with `gather` and the levels of the humanoids
+// that drop it) after the Auction House step that buys it instead, and one
+// crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
-	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, take it from your bank, or buy it at the Auction House.`).join(' ');
-	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere`)]);
+	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, or take it from your bank.`).join(' ');
+	const what = recipe.reagents.map((rg) => `${crafts * rg.count} ${itemName(ctx, rg.item)}`).join(' and ');
+	step(L, `${recipe.name}: Auction House`, [`tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...recipe.reagents.map((rg) => `auction ${rg.item} x${crafts * rg.count}`)]);
+	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
+	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere gather${levels(rg)}`)]);
 	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
 	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];

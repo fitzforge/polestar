@@ -27,6 +27,9 @@ ns.RegisterDefaults("qol", {
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
+	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
+	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
+	questTooltipsNpc = false, -- ... and on an NPC, the quests it gives now and the ready ones it takes
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
@@ -149,7 +152,8 @@ Q.F = {
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
 	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
 }
-Q.KIND = { "kill", "item", "object", "event" }
+-- Objective kinds by their packed number; 5: a talk to an NPC (a story to hear, an item to show).
+Q.KIND = { "kill", "item", "object", "event", "talk" }
 
 function Q.QuestRecord(id) return data.quests[id] end
 function Q.NpcRecord(id) return data.npcs[id] end
@@ -288,7 +292,7 @@ local FACTIONS = { "Alliance", "Horde" }
 --   pre = { ids } (any one completed unlocks it), preAll = { ids } (every one
 --   needed; breadcrumbs are in neither), excl = { ids }, zone, skill, holiday,
 --   limit (seconds a timed quest allows once taken, or nil),
---   objectives = { { kind = "kill"|"item"|"object"|"event", id, count, map, x, y, f }, ... } }
+--   objectives = { { kind = "kill"|"item"|"object"|"event"|"talk", id, count, map, x, y, f }, ... } }
 function Q.GetQuest(id)
 	local r = data.quests[id]
 	if not r then return nil end
@@ -357,6 +361,27 @@ function Q.GetItemDroppers(itemID)
 	return out
 end
 
+-- How often npc npcID drops item itemID, in percent, or nil when it is not
+-- one of the item's droppers. Makes no table: quest tooltips ask on a hover.
+function Q.GetDropChance(itemID, npcID)
+	local rec = itemID and data.items[itemID]
+	for k = 1, rec and rec[2] or 0 do
+		if rec[1 + 2 * k] == npcID then return rec[2 + 2 * k] end
+	end
+	return nil
+end
+
+-- The same for an object the item comes out of (a chest, a plant).
+function Q.GetObjectDropChance(itemID, objectID)
+	local rec = itemID and data.items[itemID]
+	if not rec then return nil end
+	local i = 3 + 2 * (rec[2] or 0)
+	for k = 1, rec[i] or 0 do
+		if rec[i + 2 * k - 1] == objectID then return rec[i + 2 * k] end
+	end
+	return nil
+end
+
 -- { id, name, droppers = { { id, name, chance } }, objects = { { id, name, chance } }, vendors = { { id, name } } }
 function Q.GetItem(itemID)
 	local rec = itemID and data.items[itemID]
@@ -380,6 +405,8 @@ end
 -- Names of the mobs a quest objective is about: the kill target, or the
 -- droppers of the item (best chance first). oi is the objective's position
 -- in the database, which matches the quest log for nearly every quest.
+-- Second value: { id, chance } for each name, in the same order (chance only
+-- for droppers).
 function Q.GetObjectiveMobs(questID, oi)
 	local r = questID and data.quests[questID]
 	local obj = r and r[QUEST_OBJ]
@@ -388,15 +415,20 @@ function Q.GetObjectiveMobs(questID, oi)
 	local kind, id = obj[i], obj[i + 1]
 	if kind == 1 then
 		local nrec = data.npcs[id]
-		return nrec and { named("Npc", id, nrec[1]) } or nil
+		if not nrec then return nil end
+		return { named("Npc", id, nrec[1]) }, { { id = id } }
 	elseif kind == 2 then
 		local d = Q.GetItemDroppers(id)
 		if not d then return nil end
-		local out = {}
+		local out, meta = {}, {}
 		for k = 1, #d do
-			if d[k].name then out[#out + 1] = d[k].name end
+			if d[k].name then
+				out[#out + 1] = d[k].name
+				meta[#out] = { id = d[k].id, chance = d[k].chance }
+			end
 		end
-		return #out > 0 and out or nil
+		if #out == 0 then return nil end
+		return out, meta
 	end
 	return nil
 end
@@ -603,6 +635,31 @@ function Q.FollowUps(id)
 	return followUps[id]
 end
 
+-- Quests NPC npcID starts, ascending, or nil. Built on the first ask, and
+-- again once more quest chunks arrived (the NPC tooltip's "Starts a quest"
+-- lines, Quests/Tooltips.lua).
+local startedByNpc, startedByNpcOf
+function Q.StartedByNpc(npcID)
+	local ids = Q.QuestIds()
+	if startedByNpcOf ~= ids then
+		startedByNpc, startedByNpcOf = {}, ids
+		local starts = fieldOfAll(QUEST_START)
+		for _, q in ipairs(ids) do
+			for _, ref in Each(starts[q]) do
+				if ref > 0 then
+					local list = startedByNpc[ref]
+					if not list then
+						list = {}
+						startedByNpc[ref] = list
+					end
+					list[#list + 1] = q
+				end
+			end
+		end
+	end
+	return startedByNpc[npcID]
+end
+
 -- Quests item itemID starts (the quests' start item), ascending, or nil.
 -- Built on the first ask, and again once more quest chunks arrived (the item
 -- tooltip's "Starts a quest" line, Quests/PartyChat.lua's loot line).
@@ -624,6 +681,32 @@ function Q.StartedBy(itemID)
 		end
 	end
 	return startedBy[itemID]
+end
+
+-- All known quests that start from, request, or use an item. Built only when
+-- bag marks ask, and rebuilt if more quest chunks arrive.
+local itemQuests, itemQuestsOf
+function Q.ItemQuests(itemID)
+	local ids = Q.QuestIds()
+	if itemQuestsOf ~= ids then
+		itemQuests, itemQuestsOf = {}, ids
+		local function add(item, quest)
+			if not item then return end
+			local list = itemQuests[item]
+			if not list then list = {}; itemQuests[item] = list end
+			if list[#list] ~= quest then list[#list + 1] = quest end
+		end
+		for _, q in ipairs(ids) do
+			local rec = data.quests[q]
+			for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
+			for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
+			local obj = rec and rec[QUEST_OBJ]
+			if type(obj) == "table" then
+				for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
+			end
+		end
+	end
+	return itemQuests[itemID]
 end
 
 ---------------------------------------------------------------------------
@@ -667,7 +750,8 @@ end
 
 -- Features that need the database; with all of them off it never loads.
 local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "questSellWarning", "nameplateIcons",
-	"questLoot" } -- QoL/QuestLoot.lua: who may take the quest an item starts
+	"questLoot", -- QoL/QuestLoot.lua: who may take the quest an item starts
+	"auctionBuys" } -- Quests/AuctionBuys.lua: what drops a quest's items, and who sells them
 
 function Q.IsWanted()
 	if not ns.Get("qol.questDB") then return false end

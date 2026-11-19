@@ -15,6 +15,9 @@ local level
 return {
 	setup = function()
 		w, E = stub.world, Polestar.Engine
+		-- Dungeons in the route are held back while Core/Init.lua's switch is off (dungeon-route-held.rs): on here,
+		-- so "Dungeons in my route" shows and is checked.
+		Polestar.dungeonRoute = true
 		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 		w.addMap(1411, { name = "Durotar", c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667 })
 		w.moveTo(1429, 48, 42)

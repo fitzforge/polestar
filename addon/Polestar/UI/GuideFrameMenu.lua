@@ -9,14 +9,34 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Menu
 	---------------------------------------------------------------------------
 
-	local function openMenu(button)
+	local openMenu
+
+	-- The open tabs' page of the menu (GF.TabListItems): every guide open, the
+	-- one in view checked, New tab and Reopen closed tab. Back returns to the
+	-- menu.
+	local function openTabsPage(button)
+		local items = {
+			{ text = L["Back"], icon = "chevron-left", onClick = function() openMenu(button) end },
+			{ separator = true },
+		}
+		for _, it in ipairs(GF.TabListItems()) do items[#items + 1] = it end
+		W.ShowMenu(button, items, { current = true })
+	end
+
+	function openMenu(button)
 		if W.MenuShown(button) then return W.HideMenu() end
 		local E = Engine()
 		local hasGuide = E and E.GetGuide and E.GetGuide()
 		local clear = transparent()
+		-- With two guides or more open, their list takes New tab's place, and
+		-- New tab and Reopen closed tab go in it: the strip can be hidden
+		-- (compact mode, Options), and the menu still lists and switches them.
+		local open = tabsOf(E)
+		local several = open and #open >= 2
 		local items = {
 			{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
-			{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
+			several and { text = string.format(L["Open tabs (%d)"], #open) .. "  \226\128\186", icon = "guides", onClick = function() openTabsPage(button) end }
+				or { text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
 			-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
 			{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
 			{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
@@ -31,6 +51,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		if unneeded and #unneeded > 0 then
 			table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
 		end
+		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
+		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
+		if ah then table.insert(items, 5, ah) end
+		-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua).
+		local mats = UI.Materials and UI.Materials.MenuItems()
+		for _, it in ipairs(mats or {}) do items[#items + 1] = it end
 		for _, it in ipairs({
 			{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
@@ -47,11 +73,16 @@ ns.UI.GuideFrame.Part(function(GF)
 				ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
 			end },
 		}) do items[#items + 1] = it end
+		-- Freedoom Arcade (Maps/Arcade.lua), while a copy of it is there.
+		local arcade = ns.Arcade
+		if arcade and arcade.Available() then
+			table.insert(items, 5, { text = L["Play Freedoom Arcade"], icon = "gamepad", onClick = function() arcade.Open() end })
+		end
 		-- The Recorder's window, while the Recorder addon is loaded.
 		if type(PolestarRecorder_Command) == "function" then
 			table.insert(items, 5, { text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
 		end
-		local reopen = GF.ReopenItem()
+		local reopen = not several and GF.ReopenItem()
 		if reopen then table.insert(items, 3, reopen) end
 		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Options.
 		if UI.QuickSettings then

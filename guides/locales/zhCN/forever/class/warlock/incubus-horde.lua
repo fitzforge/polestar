@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "20级：魅魔和无限服的夜魔（魅魔的男性孪生版本），各附赠一个装灵魂碎片的灵魂袋。",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1472} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1507} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
 	["the succubus"] = "魅魔",
 	["the incubus"] = "男魅魔",
 
@@ -47,7 +47,7 @@ return {
 	-- Step 8: Fallen Sky Lake
 	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
 	-- plural, as words: Shadethicket Stone Movers = {npc:3782} Shadethicket Stone Mover
-	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和裂木沼泽兽（25-27 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此指南会先等到 24 级（无限将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
+	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 27 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和裂木沼泽兽（25-27 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此指南会先等到 27 级（Forever 将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
@@ -67,14 +67,15 @@ return {
 	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "{npc:185333}（22级）在银松森林东部的 {area:233} 为 {area:279} 的巫师担任裁缝：她周围的巫师是敌对的。{npc:5682}（20级，非精英）在最南端 {area:230} 附近巡逻。两者都是对联盟友善的人类：攻击可能使你进入PvP状态。他们各自掉落自己的心脏。",
 
 	-- Step 12: Corma Villard
-	-- {npc:5683} Corma Villard · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["{npc:5683} (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "{npc:5683}（22级，非精英；旧记录中称为Comar）在{zone:1437}北部、刚过{area:881}的地方游荡，下桥后往右找。从{zone:1458}出发，穿过{area:287}和{zone:1417}，沿途怪物都在30级及以上。攻击她会使你进入PvP状态。",
+	["Corma Villard"] = "科马·维拉德",
+	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "科马·韦拉德（22级，非精英；旧记录中称为Comar）在{zone:1437}北部、刚过{area:881}的地方游荡，下桥后往右找。从{zone:1458}出发，穿过{area:287}和{zone:1417}，沿途怪物都在30级及以上。攻击她会使你进入PvP状态。",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "{quest:1474}：魅魔（{zone:1458}）",
-	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "带着达林和{npc:5683}的心脏返回{npc:5675}。他会给你{item:6286}：下到他下方的召唤法阵，站在阵中使用。先召出虚空行者，并将战斗保持在法阵内，否则卫兵可能杀掉她，导致击杀不算数。如果你输了，再次使用心脏即可；记得保留，{npc:5675}会收回。",
+	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
+	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "带着达林和科马的心脏返回{npc:5675}。他会给你{item:6286}：下到他下方的召唤法阵，站在阵中使用。先召出虚空行者，并将战斗保持在法阵内，否则卫兵可能杀掉她，导致击杀不算数。如果你输了，再次使用心脏即可；记得保留，{npc:5675}会收回。",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "{item:6286}，在 {npc:5675} 下方的法阵上",
 
@@ -93,11 +94,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "第二个魅魔类恶魔，即男性萨亚德，外加一个装灵魂碎片的灵魂碎片包。",
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers offer the incubus, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one: this guide follows whichever {quest:1472} you took."] = "20级时，{object:172982}下方{object:172960}的{npc:5875}会让你去找几步之外的{npc:5909}。有两位训练师提供夜魔任务，这里的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一个：本指南会跟随你接的那个{quest:1472}。",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1472} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找{npc:5675}。把心脏放在他下方的召唤法阵上，击败它们召唤出的夜魔。",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把围巾带到附近{npc:3216}帐篷里的召唤法阵，击败它召唤出的夜魔。",
 	-- ["Incubus (Horde)"] = "夜魔（部落）",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422}位于{zone:1440}南部、{area:431}南边。湖边的沼泽兽会掉落{item:190232}，大约二十只掉一次。",
 	-- ["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和碎木沼泽兽（25-26 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此等到 25 级或更高再来（无限将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
+	-- ["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} 位于 {zone:1440} 南部、{area:431} 西南方。湖周围的移石沼泽兽和裂木沼泽兽（25-27 级）掉落 {item:190232} 的概率约为二十分之一，独自出现的 {npc:3931}（30 级）也可能掉落：预计需要击杀不少怪物，因此指南会先等到 24 级（无限将本任务等级改为了 27 级）；若你已经绑定了魅魔，可以留到 20 多级在 {zone:1440} 升级时再做。它们每五分钟刷新。",
 	-- ["{npc:185333} works as a tailor for the {area:279} wizards at {area:233}, in eastern {zone:1421}. Take her heart."] = "{npc:185333}在{zone:1421}东部的{area:233}为{area:279}的法师们做裁缝。取走她的心脏。",
 	-- ["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and ride or fly on to {area:392}."] = "{npc:185334}在{zone:1413}海岸的{area:392}工作。乘飞艇前往{zone:1411}，再骑行或飞往{area:392}。",
 	-- ["{npc:3363} keeps {object:173018}, east of the {object:172960} along the main street. He asks you to look for his mate, Krilge."] = "{npc:3363}经营着{object:172960}东边主街上的{object:173018}。他请你去寻找他的伴侣。",

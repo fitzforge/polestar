@@ -41,7 +41,8 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "{area:307}：沿途遇到就击杀",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龟在村庄北边的海滩上爬行，{npc:2491}的紫葡萄酒瓶也散落在同一片海滩，从村庄一直到{area:307}，沿途拾取。钳嘴龟有很小几率掉落OOX-09/HL定位器，留着它。",
+	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "大海龟在村庄北边的海滩上爬行，{npc:2491}的紫葡萄酒瓶也散落在同一片海滩，从村庄一直到{area:307}，沿途拾取。钳嘴龟有很小几率掉落OOX-09/HL的求救信标，留着它。\n小心：最大的海水钳嘴龟为50级，一次只引一只。",
 	-- {object:2068} Pupellyverbos Port
 	["{object:2068}, on the beaches"] = "{object:2068}，在海滩上",
 	-- {item:8704} OOX-09/HL Distress Beacon
@@ -116,8 +117,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "等级 49.02",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "如果跳过了{quest:7816}或{area:354}的组队任务，就在这里刷到49.02级，以跟上路线进度。也可以组队去{area:2100}副本。",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "如果跳过了{quest:7816}或{area:354}的组队任务，就在这里刷到49.02级，以跟上路线进度。",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "击杀{npc:2505}刷经验",
 
@@ -125,21 +126,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "再次向西南，流放者躲在{area:353}的废墟旁。",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "在旅舍南边，枯木巨魔占据着他们的村庄。他们每个都携带头皮：收集到二十个后，使用{item:15002}做成尼姆布亚的长矛，然后把它插在村子里。",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "一路向西骑到蛮锤矮人的城镇{area:348}，把警告放在镇中央的水井旁。镇上全是联盟守卫：进去，放好，然后离开。",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "{area:348}水井",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "飞往{area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "{area:3317}的飞行管理员",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "前往{area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "还没有{area:75}的飞行路线：箭头会带你走最快的路（乘{object:3202}的航班，再沿路穿过{zone:1431}和{zone:1430}）。到达后学习{area:75}的飞行路线。",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "在最顶层",
@@ -162,7 +169,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "{area:1440}：沿途遇到就击杀",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "这五个任务需要同一批怪物的身体部件：一次扫荡全部收齐。道路西侧的丘陵中，{npc:5982} 秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共同出没。\n道路东侧的斜坡上，灰鬃野猪和格朗特与石化蜥蜴一起活动。避开更南侧 52 级的地狱野猪。\n小心：厚甲毒刺蝎会使用 {spell:5416}；{npc:8301} 还会使用击倒。",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "这五个任务需要同一批怪物的身体部件：一次扫荡全部收齐。道路西侧的丘陵中，{npc:5982}秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共同出没。\n道路东侧的斜坡上，灰鬃野猪和格朗特与石化蜥蜴一起活动。避开更南侧52级的地狱野猪。\n小心：厚甲毒刺蝎（50-51级）会使用{spell:5416}；{npc:8301}还会使用击倒。一次只引一只毒刺蝎。",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "向北骑回血法师那里。",
@@ -194,10 +201,12 @@ return {
 	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "高原精灵在{area:350}周围扎营。烧掉他们营地里的高原精灵报告、高原精灵信件和高原精灵记录。{npc:7780}被关在旅舍里：带他出来，并在路上击退伏击。",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "银鬃捕猎者、野蛮的枭兽和翱翔的锋喙狮鹫共处于神殿与{area:351}之间的山丘上。对你杀死的枭兽使用{item:9618}。锋喙狮鹫还会掉落细长的狮鹫羽毛：留十根给{npc:14738}的第二个口信用。",
 	-- ["The Vilebranch temples"] = "邪枝神殿",
+	-- ["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龟在村庄北边的海滩上爬行，{npc:2491}的紫葡萄酒瓶也散落在同一片海滩，从村庄一直到{area:307}，沿途拾取。钳嘴龟有很小几率掉落OOX-09/HL定位器，留着它。",
 	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龟沿着村庄北边的海滩爬行。{npc:2491}的酒瓶也在这些海滩上，但他的任务不在本路线上。钳嘴龟可能掉落OOX-09/HL定位器，但很少见：留着它。",
 	-- ["The central hills"] = "中部山丘",
 	-- ["The eastern slopes"] = "东部山坡",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "这五个任务需要的是同样的部件：一趟全部收集齐。在道路西边，{npc:5982}秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共处于山丘上。",
+	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "这五个任务需要同一批怪物的身体部件：一次扫荡全部收齐。道路西侧的丘陵中，{npc:5982} 秃鹫、饥饿的弯牙土狼、厚甲毒刺蝎和死眼蜥蜴共同出没。\n道路东侧的斜坡上，灰鬃野猪和格朗特与石化蜥蜴一起活动。避开更南侧 52 级的地狱野猪。\n小心：厚甲毒刺蝎会使用 {spell:5416}；{npc:8301} 还会使用击倒。",
 	-- ["The next guide starts here, at {area:3317}."] = "下一个指南从这里开始，在{area:3317}。",
 	-- ["The northern beasts"] = "北部的野兽",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些都是精英怪：建议组队，找其他玩家一起完成。{npc:7977} 是48级精英：大多数职业50级时可以单杀，但你可能需要帮忙。如果只有自己，就跳过；路线会安排你刷怪补回经验。",

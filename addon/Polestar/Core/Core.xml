@@ -6,6 +6,7 @@
 	<Script file="Credits.lua"/>
 	<Script file="Names.lua"/>
 	<Script file="Hooks.lua"/>
+	<Script file="BagSlots.lua"/>
 	<Script file="GuideTexts.lua"/>
 	<Script file="Locale.lua"/>
 	<Script file="Profiles.lua"/>
@@ -17,6 +18,9 @@
 	<Script file="FieldRoute.lua"/>
 	<Script file="Engine.lua"/>
 	<Script file="API.lua"/>
+	<Script file="Materials.lua"/>
+	<Script file="Gather.lua"/>
+	<Script file="GatherData.lua"/>
 	<Script file="RoutePlan.lua"/>
 	<Script file="ClassTrainers.lua"/>
 	<Script file="Closes.lua"/>
@@ -25,4 +29,5 @@
 	<Script file="Commands.lua"/>
 	<Script file="Pause.lua"/>
 	<Script file="Update.lua"/>
+	<Script file="Perf.lua"/>
 </Ui>

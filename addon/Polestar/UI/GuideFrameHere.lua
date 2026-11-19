@@ -88,6 +88,12 @@ ns.UI.GuideFrame.Part(function(GF)
 				r.Sub:SetWidth(tw)
 				local h = 8 + max(16, floor(r.Text:GetStringHeight() + 0.5)) + 4
 				if r.Sub:IsShown() then h = h + 2 + floor(r.Sub:GetStringHeight() + 0.5) end
+				local chip = r.psChip
+				if chip and chip:IsShown() then
+					chip:ClearAllPoints()
+					chip:SetPoint("TOPLEFT", r.Sub:IsShown() and r.Sub or r.Text, "BOTTOMLEFT", 0, -4)
+					h = h + 4 + W.CHIP_H
+				end
 				r:ClearAllPoints()
 				r:SetPoint("TOPLEFT", hb, "TOPLEFT", 0, -y)
 				r:SetSize(width, h)
@@ -164,6 +170,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				r.Sub:SetText(sub)
 			end
 			r.Sub:SetShown(true)
+			if r.psChip then r.psChip:Hide() end
 			r.Dist:SetText("")
 			r:Show()
 		end
@@ -175,6 +182,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v, nil, true))
 			r.Sub:SetText(UI.HereStep(v))
 			r.Sub:SetShown(not tight)
+			-- A gathering spot's line while the minimap tracks its profession's nodes (Engine's `tracking`): a chip,
+			-- made on the first such line (psChip).
+			if v.tracking and not tight then
+				if not r.psChip then r.psChip = W.Chip(r) end
+				W.SetChip(r.psChip, L["Tracking is on"], "success")
+			elseif r.psChip then
+				r.psChip:Hide()
+			end
 			r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
 			r:Show()
 		end
@@ -203,11 +218,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- and after at the same height lays out only itself and repaints the
 	-- strings' shades (the Transparent look's); nothing else in the window reads
 	-- the list. A panel that came, went or changed height lays out the window.
+	-- No panel before or after (every fight's end asks, GuideFrameWindow.lua):
+	-- nothing moved, nothing to lay out.
 	function GF.HereChanged()
 		if not F or GF.State() ~= "steps" or not GF.View() then return end
 		local here = GF.here
-		local was = here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
+		local hidden = not here:IsShown()
+		local was = not hidden and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
 		GF.FillHere(Engine())
+		if hidden and not here:IsShown() then return end
 		if was and here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and GF.LayoutHere(F:GetWidth()) == was then
 			GF.PaintShades()
 			return
@@ -235,15 +254,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- "Not now", which dismisses it around here (Engine.DismissWhileHere:
 	-- twice, for the rest of the zone), as the close button does. A quest not in
 	-- the log (a "take" row), or a client where the quest log can't open:
-	-- right-click dismisses it straight away. psAt: its place in
-	-- Engine.GetWhileHereList; psOff instead: an off-route timer's quest (GF.HereOff).
+	-- right-click dismisses it straight away. A middle-click shows its quest in
+	-- the quest log, a shift-click links it in chat (ns.QuestRowClick, #2545).
+	-- psAt: its place in Engine.GetWhileHereList; psOff instead: an off-route
+	-- timer's quest (GF.HereOff).
 	function GF.HereRow(i)
 		local here = GF.here
 		local r = here.Rows[i]
 		if r then return r end
 		r = CreateFrame("Button", nil, here.Body)
 		r.psAt = i
-		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		W.Hover(r)
 		r.Icon = r:CreateTexture(nil, "ARTWORK")
 		r.Icon:SetSize(ICON, ICON)
@@ -260,6 +281,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		r.Text:SetJustifyV("TOP")
 		r.Sub = GF.SizeAs(T(r, "small", "textMuted"), "detail")
 		r:SetScript("OnClick", function(self, button)
+			local q = self.psOff or (self.psView and self.psView.quest)
+			if ns.QuestRowClick and ns.QuestRowClick(q, button) then return end
 			if self.psOff then return GF.HereOff(self.psOff, button) end
 			local E = Engine()
 			if not (E and self.psAt) then return end
@@ -271,22 +294,26 @@ ns.UI.GuideFrame.Part(function(GF)
 		end)
 		r:SetScript("OnEnter", function(self)
 			if self.psOff then
-				W.Tooltip(self, tooltipAnchor(), self.Text:GetText() or "", {
+				local lines = {
 					L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."],
 					{ L["Click to point the arrow here"], Theme.Accent() },
-					{ L["Right-click: hide this until the timer ends."], Theme.Color("textDim") },
-				})
+				}
+				if ns.QuestClickTips then ns.QuestClickTips(self.psOff, lines) end
+				lines[#lines + 1] = { L["Right-click: hide this until the timer ends."], Theme.Color("textDim") }
+				W.Tooltip(self, tooltipAnchor(), self.Text:GetText() or "", lines)
 				GF.HoverIn()
 				return
 			end
 			local v = self.psView
 			if not v then return end
 			local lines = { UI.HereStep(v, true) }
+			if v.tracking then lines[#lines + 1] = L["Tracking is on: your minimap shows the ones that are up."] end
 			local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
 			if new then lines[#lines + 1] = { new, Theme.Accent() } end
 			local dungeon = v.quest and ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(v.quest)
 			if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
 			lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
+			if ns.QuestClickTips then ns.QuestClickTips(v.quest, lines) end
 			local menu = ns.QuestLogMenuItem and ns.QuestLogMenuItem(v.quest)
 			lines[#lines + 1] = { menu and not menu.disabled and L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."]
 				or L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }

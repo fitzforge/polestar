@@ -25,19 +25,21 @@ return {
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
-	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "Tapoke Jahn (34) se faufile hors de la taverne dès que vous prenez {quest:1248} : restez juste derrière lui. Il se retourne contre vous dehors, un complice le rejoint, et il abandonne une fois gravement blessé. Si vous le perdez, la quête échoue : abandonnez-la et reprenez-la auprès de {npc:4963}.",
 
 	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "L'épave du Flying Osprey repose dans les hauts-fonds au sud du donjon.",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "Lingots de sancteforge",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Les murlocs Branchie-bleue sur la plage au sud-ouest du Port de Menethil portent les lingots.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702} ; sous l'eau",
 
 	-- Step 7: Glorin Steelbrow
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "",
+	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "Pour {npc:1416} à {zone:1453}, après Strangleronce",
 
 	-- Step 9: Theramore
 	["Theramore"] = "Theramore",
@@ -50,13 +52,13 @@ return {
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, dans l'auberge au nord de la ville",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
-	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "La mission suivante de {npc:4456} mène à {area:415}, hors de cet itinéraire : laissez-la.",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
-	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "",
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132} : les wyvernes sont à {zone:1441}, plus loin dans ce guide",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "Suivez la route vers l'ouest hors de Theramore jusqu'à l'auberge incendiée, sur la route des {zone:1413} : le bouclier noir gît dans les cendres et les traces de sabots sont dans la boue à côté de l'auberge.",
 
 	-- Step 11: Into Barrens
 	-- {zone:1413} Barrens
@@ -72,13 +74,13 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "Descendez par le {area:485} jusqu'à {zone:1441}, puis à l'ouest jusqu'aux falaises des wyvernes à {area:482}. Chaque wyverne peut y lâcher une poche de venin. Attention : attendez sur la plate-forme que l'ascenseur soit à son niveau avant de monter, et restez dessus jusqu'à ce qu'il s'arrête ; la chute à côté est mortelle.",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "Vers l'est à travers les canyons. {area:484}, un camp de la Horde gardé, se trouve sur le plateau ici : restez au fond du canyon et tenez-vous bien à l'écart du pied de ses ascenseurs.",
 	-- {area:482} Highperch
-	["The canyons east of {area:482}"] = "",
+	["The canyons east of {area:482}"] = "Les canyons à l'est de {area:482}",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -90,25 +92,28 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Les {object:19868} jonchent les Salines. Les Scorpides ravageurs et les Charognards des Salines errent dans la moitié nord, les Tortues nacrétoiles (30-31) au milieu des Salines : chassez-les pour les carapaces. Attention : les Mordeuses nacrétoiles (34-35) errent dans toutes les Salines, et les Contemplateurs du sel gemme (34-35) et les Scorpides terrifiants (33-34) tiennent l'extrême sud : laissez-les et restez dans la moitié nord.",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, sur les Tortues nacrétoiles",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Écailles cristallisées, sur les Basilics du sel gemme : huit pour {npc:4078} à {zone:1453}",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
-	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
+	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "{npc:4454} : pour Martek dans les {zone:1418}, à la fin de 30-40",
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "Vers {zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "Depuis le circuit, suivez la route vers le sud hors des {area:439} jusqu'à {zone:1446}.",
 
 	-- Step 20: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "{area:976} est à quelques pas en descendant la route ; restez-y. {npc:7823}, la maîtresse de vol de l'Alliance, se tient à l'intérieur des murs.",
 
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Volez jusqu'à Theramore",
@@ -117,14 +122,19 @@ return {
 
 	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456} est au nord de la ville, le capitaine Vimes à {area:514} ; {npc:4941} se tient en ville.",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "Bateau pour {area:150}",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Depuis Theramore, suivez la route vers le nord-ouest à travers le marais jusqu'à {zone:1413} et remontez la côte jusqu'à {area:392} : Strangleronce commence à {area:35}, de l'autre côté de la mer. Le maître des griffons de {area:392} se tient au-dessus du quai.",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "Bateau pour {area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Retournez vers l'ouest par la route jusqu'aux camps de satyres de {area:429}.",
+	-- ["Boat to {area:150}"] = "Bateau pour {area:150}",
 	-- ["Dartol's Rod"] = "Bâtonnet de transformation de Dartol",
 	-- ["Fly to {area:442}"] = "Prendre un vol pour {area:442}",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Suivez la route vers l'est jusqu'aux camps de satyres de {area:429} ; {npc:3920} se cache à leur lisière.",
@@ -133,7 +143,6 @@ return {
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Hearth to {area:415}"] = "Pierre de foyer vers {area:415}",
 	-- ["Insane druids"] = "Druides fous",
-	-- ["Lightforge Ingots"] = "Lingots de sancteforge",
 	-- ["Melyria and {npc:3901}"] = "Sentinelle Melyria Frostshadow et {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Des Coffres rouillés se trouvent autour des camps de furbolgs Sombretaillis à l'ouest des Réprouvés ; ouvrez-les jusqu'à trouver le Pommeau en fer.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Prenez le bateau pour {area:150} aux quais d'{area:442}.",
@@ -168,5 +177,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970} : pour {npc:1480} au Port de Menethil, à la fin de ce guide",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige les satyres de {area:429} ; il porte la branche.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} et {npc:4962} \"Slim\" Jahn sont tous à l'auberge du Port de Menethil ; Tapoke vous attaque quand vous parlez à {npc:4963}, mais abandonne une fois vaincu. {npc:1480} se tient à quelques pas au nord-est de l'auberge.",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Des {object:19868} jonchent toutes les salines. Des Ravageurs scorpides et des Charognards des salines parcourent la moitié nord, des Claqueurs Brillecoque (tortues) toutes les salines. Les Basilics du sel gemme et les Peaux-de-cristal tiennent le centre ; les Contemplateurs (34-35) seulement l'extrême sud.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176} : pour {npc:3961} à {area:415}",
 }

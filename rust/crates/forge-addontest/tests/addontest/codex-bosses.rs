@@ -8,7 +8,7 @@
 use forge_addontest::codex::{fixture, sample_codex, write_codex_pack, CodexOpts};
 use forge_addontest::dsl::plain;
 use forge_addontest::{emitted, fake_locale, is_match, Addon, RunAddon};
-use forge_data::codex::client::{instance_facts, Corpse, InstanceMap, Tables};
+use forge_data::codex::client::{client_facts, instance_facts, ClientItem, Corpse, InstanceMap, Tables};
 use forge_data::codex::instances::{build_instances, Ctx};
 use forge_data::codex::journal::{build_journal, emit_journal, Codex, JournalInputs};
 use forge_data::codex::parity::{compare_summary, Ours, Verify};
@@ -68,15 +68,6 @@ fn tables() -> Tables {
 	.collect()
 }
 
-fn quality(id: f64) -> Option<f64> {
-	match id as i64 {
-		11920 | 11945 | 11946 => Some(3.0),
-		1000 => Some(1.0),
-		1001 | 2776 | 1529 | 7146 => Some(2.0),
-		_ => None,
-	}
-}
-
 #[test]
 fn buildinstances_forever_s_location_ties_npcs_and_chests_to_the_instance_bosses_after_the_encounters_carry_their_role_an_npc_less_encounter_takes_its_chest() {
 	let era = [row(&[("ID", "230")])];
@@ -107,6 +98,10 @@ fn buildinstances_forever_s_location_ties_npcs_and_chests_to_the_instance_bosses
 		"11945": { "id": 11945, "drops": { "npc": {}, "object": { "160845": 20 } } },
 		// Two ids of one chest: still its own loot.
 		"11946": { "id": 11946, "drops": { "npc": {}, "object": { "160845": 10, "174565": 10 } } },
+		"2001": { "id": 2001, "name": "Schematic: Optional Part", "drops": { "npc": { "9027": 0.2 } } },
+		"2002": { "id": 2002, "questItem": true, "drops": { "npc": { "9027": 20 } } },
+		"2003": { "id": 2003, "drops": { "npc": { "9027": 10, "8901": 0.01 } } },
+		"2004": { "id": 2004, "drops": { "npc": { "9027": 5 } } },
 		"1000": { "id": 1000, "drops": { "npc": {}, "object": { "9000": 50 } } },
 		"1001": { "id": 1001, "drops": { "npc": { "9027": 12 }, "object": {} } },
 		"2776": { "id": 2776, "drops": { "npc": {}, "object": { "1734": 100 } } },
@@ -116,32 +111,51 @@ fn buildinstances_forever_s_location_ties_npcs_and_chests_to_the_instance_bosses
 	let web = v(&json!({
 		"npc": {
 			"9476": { "id": 9476, "name": "Watchman Doomgrip", "boss": true, "location": [1584], "spawns": {}, "drops": [] },
-			"9027": { "id": 9027, "name": "Gorosh the Dervish", "classification": "elite", "boss": true, "location": [1584], "spawns": {}, "drops": [] },
+			"9027": { "id": 9027, "name": "Gorosh the Dervish", "classification": "elite", "boss": true, "location": [1584], "spawns": {}, "drops": [
+				{ "item": 2004, "count": 5, "outof": 100, "common": true }, { "item": 2005, "count": 2, "outof": 100 }
+			] },
 			"8901": { "id": 8901, "name": "Anvilrage Reservist", "classification": "elite", "boss": false, "location": [1584], "spawns": {}, "drops": [] },
 			// Placed somewhere that is no instance of ours.
 			"9028": { "id": 9028, "name": "Grizzle", "boss": true, "location": [25], "spawns": {}, "drops": [] },
 			// Known to Forever's NPC data only.
 			"16059": { "id": 16059, "name": "Theldren", "level": [60, 60], "classification": "elite", "boss": true, "location": [1584], "spawns": {}, "drops": [] },
 		},
-		"object": { "169243": { "id": 169243, "name": "Chest of The Seven", "location": [1584], "spawns": {}, "drops": [] } },
+		"object": { "169243": { "id": 169243, "name": "Chest of The Seven", "location": [1584], "spawns": {}, "drops": [{ "item": 2005, "count": 2, "outof": 100 }] } },
 	}));
 	let empty = V::obj();
+	let mut client = client_facts(&[("Item", vec![row(&[("ID", "2005"), ("ClassID", "4"), ("InventoryType", "8")])])].into_iter().collect(), "fixture");
+	client.items = [
+		(11920, 3.0, 4.0),
+		(11945, 3.0, 4.0),
+		(11946, 3.0, 4.0),
+		(1000, 1.0, 4.0),
+		(1001, 2.0, 2.0),
+		(2776, 2.0, 7.0),
+		(1529, 2.0, 7.0),
+		(7146, 2.0, 12.0),
+		(2002, 2.0, 9.0),
+		(2003, 2.0, 4.0),
+		(2004, 2.0, 4.0),
+	]
+	.into_iter()
+	.map(|(id, quality, class_id)| (id, ClientItem { quality: Some(quality), class_id: Some(class_id), ..ClientItem::default() }))
+	.collect();
 	let built = build_instances(
 		&facts,
-		&Ctx { npcs: &npcs, items: &items, objects: &objects, zones: &empty, frames: &empty, recorded: &empty, entrance_table: &empty, curated: &[], quality: &quality, web: Some(&web) },
+		&Ctx { npcs: &npcs, items: &items, objects: &objects, zones: &empty, frames: &empty, recorded: &empty, entrance_table: &empty, curated: &[], client: &client, web: Some(&web) },
 	);
 	let brd = plain(&built.instances.iter().find(|(k, _)| k == "blackrock-depths").unwrap().1);
 	assert_eq!(
 		brd["bosses"],
 		json!([
 			{ "name": "Lord Roccor", "npc": 9025, "items": [], "encounter": 1 },
-			{ "name": "The Seven", "npc": null, "items": [11920], "object": 169243, "encounter": 2 },
+			{ "name": "The Seven", "npc": null, "items": [2005, 11920], "loot": [2005, 11920], "object": 169243, "encounter": 2 },
 			{ "name": "Magmus", "npc": 9938, "items": [], "encounter": 3 },
 			{ "name": "Watchman Doomgrip", "npc": 9476, "items": [], "role": "optional" },
-			{ "name": "Gorosh the Dervish", "npc": 9027, "items": [1001], "role": "event" },
+			{ "name": "Gorosh the Dervish", "npc": 9027, "items": [2002, 1001, 2003, 2005, 2004], "loot": [1001, 2005, 2001], "role": "event" },
 			{ "name": "Panzor the Invincible", "npc": 8923, "items": [], "role": "rare" },
 			{ "name": "Theldren", "npc": 16059, "items": [], "role": "event" },
-			{ "name": "Dark Coffer", "npc": null, "items": [11945, 11946], "object": 160845, "role": "optional" },
+			{ "name": "Dark Coffer", "npc": null, "items": [11945, 11946], "loot": [11945, 11946], "object": 160845, "role": "optional" },
 		])
 	);
 	assert_eq!(brd["levels"][2], 60, "the highest boss level, Forever's for an NPC only it knows");
@@ -197,7 +211,7 @@ fn release_fixture() -> Value {
 	}
 	f["codex"]["instances"]["wailing-caverns"]["bosses"] = json!([
 		{ "name": "Lady Anacondra", "npc": 3671, "items": [9739] },
-		{ "name": "Serpent Cache", "npc": null, "items": [9738], "object": 900300, "role": "optional" },
+		{ "name": "Serpent Cache", "npc": null, "items": [9738, 13245], "loot": [13245], "object": 900300, "role": "optional" },
 		{ "name": "Kresh", "npc": 3653, "items": [], "role": "rare" },
 	]);
 	f
@@ -218,6 +232,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 			c: c.get("c").and_then(Value::as_f64).unwrap_or(0.0),
 			x: c.get("x").and_then(Value::as_f64).unwrap_or(0.0),
 			y: c.get("y").and_then(Value::as_f64).unwrap_or(0.0),
+		}),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
 		}),
 	}
 }
@@ -254,6 +274,8 @@ fn journal_of(f: &Value) -> V {
 			journal_quests: &journal_quests,
 			attunement_table: &attunement_table,
 			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
 		},
 		&codex,
 	)
@@ -267,6 +289,16 @@ fn buildjournal_a_chest_boss_and_the_roles_reach_the_page_the_chest_ties_the_que
 	let bosses: Vec<Value> = page["bosses"].as_array().unwrap().iter().map(|b| json!([b["name"], b["npc"], b["object"], b["role"]])).collect();
 	assert_eq!(json!(bosses), json!([["Lady Anacondra", 3671, null, null], ["Serpent Cache", null, 900300, "optional"], ["Kresh", 3653, null, "rare"],]));
 	assert_eq!(page["bosses"][1]["quests"], json!([{ "id": 914, "how": "item", "item": 9738, "itemName": "Gem of Cobrahn" }]));
+	assert_eq!(page["bosses"][1]["loot"], json!([13245]));
+	assert!(page["bosses"][0].get("loot").is_none());
+}
+
+#[test]
+fn buildjournal_keeps_loot_for_a_curated_dungeon_boss() {
+	let mut f = fixture("dungeons.json");
+	f["codex"]["instances"]["wailing-caverns"]["bosses"][0]["loot"] = json!([6480, 918]);
+	let j = plain(&journal_of(&f));
+	assert_eq!(j["dungeons"]["wailing-caverns"]["bosses"][0]["loot"], json!([6480, 918]));
 }
 
 // The Wailing Caverns' Bosses tab, each shown row's name and facts.

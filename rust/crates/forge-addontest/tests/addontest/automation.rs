@@ -371,6 +371,45 @@ fn t_108_a_direct_turn_in_follows_autoturnin_not_autoaccept_there_is_no_accept_t
 	assert_eq!(turnin_only, json!(["C_GossipInfo.SelectAvailableQuest 308 nil"]));
 }
 
+// Stompsville's report (#2914): Grazle's step takes Speak to Nafien and hands in Feathers for Grazle (`direct`,
+// optional). Auto-accept picked the feathers first at every visit, whose progress window cannot finish without the
+// feathers, and never took Speak to Nafien. Accepts come before direct hand-ins, in gossip and greeting windows.
+#[test]
+fn the_step_s_accept_is_taken_before_its_direct_hand_in_2914() {
+	const BODY: &str = r#"Polestar.RegisterGuide({
+	id = "test/auto", pack = "test", title = "Grazle", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = {
+			{ t = "accept", quest = 8462, title = "Speak to Nafien", npc = 11554, npcName = "Grazle" },
+			{ t = "turnin", quest = 8466, title = "Feathers for Grazle", direct = true, optional = true, npc = 11554, npcName = "Grazle" },
+		} },
+		{ goals = { { t = "level", level = 3 } } },
+	},
+})
+"#;
+	let guide = ["", TEST_PACK, TEST_SOURCE, BODY].join("\n");
+	let gossip = run(
+		"",
+		&guide,
+		r#"
+			w.gossip(11554, { available = { { questID = 8466 }, { questID = 8462 } } }); flush()
+			${calls}
+			emit(c)
+		"#,
+	);
+	assert_eq!(gossip, json!(["C_GossipInfo.SelectAvailableQuest 8462 nil", "AcceptQuest 8462 nil"]));
+	let greeting = run(
+		"",
+		&guide,
+		r#"
+			w.greeting(11554, { available = { { questID = 8466 }, { questID = 8462 } } }); flush()
+			${calls}
+			emit(c)
+		"#,
+	);
+	assert_eq!(greeting, json!(["SelectAvailableQuest 8462 2", "AcceptQuest 8462 nil"]), "the second offer, Speak to Nafien");
+}
+
 // Jarven and the cloth quartermasters keep offering their repeatable quest: a `direct` goal already done must
 // not hand in another ale or more cloth.
 #[test]
@@ -401,4 +440,40 @@ fn t_108_a_direct_turn_in_already_done_is_never_handed_in_again() {
 		"#,
 	);
 	assert_eq!(out, json!({ "first": 3, "again": 0, "status": "done" }));
+}
+
+// #2708 (DexeeXI, Horde Stranglethorn): Zimmix's Great Escape is an escort; auto-accept took it the moment Zimmix's
+// window opened, and he set off before the rest of the group had handed in Where's the Key? and taken it. In a group,
+// an escort's accept is left to the player, with one word in chat; alone it is taken as before.
+#[test]
+fn an_escort_is_not_auto_accepted_in_a_group_alone_it_is_2708() {
+	let guide = [
+		"",
+		TEST_PACK,
+		TEST_SOURCE,
+		r#"Polestar.RegisterGuide({
+		id = "test/escort", pack = "test", title = "Escort", minLevel = 1, maxLevel = 60,
+		steps = { { goals = {
+			{ t = "accept", quest = 97331, title = "Zimmix's Great Escape" },
+			{ t = "complete", quest = 97331, title = "Zimmix's Great Escape", escort = true },
+		} } },
+	})"#,
+	]
+	.join("\n");
+	let script = r#"
+		Polestar.Engine.SetGuide("test/escort"); flush()
+		w.questDetail(268992, 97331, { title = "Zimmix's Great Escape" }); flush(); w.close()
+		w.questDetail(268992, 97331, { title = "Zimmix's Great Escape" }); flush(); w.close()
+		local said = {}
+		for _, m in ipairs(stub.messages) do if tostring(m):find("escort") then said[#said + 1] = m end end
+		${calls}
+		-- The accepts only: the second window, after the accept alone, is closed as one the guide no longer takes (#360).
+		local accepts = {}
+		for _, x in ipairs(c) do if x:find("^AcceptQuest") then accepts[#accepts + 1] = x end end
+		emit({ calls = table.concat(accepts, ", "), said = #said })
+	"#;
+	let grouped = run("function IsInGroup() return true end", &guide, script);
+	assert_eq!(grouped, json!({ "calls": "", "said": 1 }), "in a group: left to the player, said once");
+	let alone = run("function IsInGroup() return false end", &guide, script);
+	assert_eq!(alone, json!({ "calls": "AcceptQuest 97331 nil", "said": 0 }), "alone: taken");
 }

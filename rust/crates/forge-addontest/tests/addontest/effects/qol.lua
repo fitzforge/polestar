@@ -326,6 +326,17 @@ return {
 		-- Two free slots, then three: the bag button (free slots and the cheapest junk).
 		["qol.bagSpace"] = { prepare = function() fill(2) end, probe = function() return QoL.Buttons.bag:IsShown() and true or false end, cleanup = emptyBags },
 		["qol.bagsLow"] = { prepare = function() fill(3) end, probe = function() return QoL.Buttons.bag:IsShown() and true or false end, cleanup = emptyBags },
+		-- Nearly full, a bag in the bags and bag slot 1 empty: the bag button offers to equip it (#2369).
+		["qol.spareBag"] = {
+			prepare = function()
+				q.items[40] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 6 }
+				fill(2)
+				q.addItem(0, 14, 40, 1)
+				bagsChanged()
+			end,
+			probe = function() return QoL.Buttons.bag.Label:GetText() or "" end,
+			cleanup = emptyBags,
+		},
 		-- Ctrl-Alt-click an item link: marked as junk (the mark taken off again).
 		["qol.itemMarks"] = function()
 			local M = QoL.Marks

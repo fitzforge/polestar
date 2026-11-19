@@ -74,8 +74,25 @@ finding, not a cascade.
 A chain starts at each guide that no `next` leads into and follows each guide's
 first `next` option without a `when`. Each chain is played by a set of
 *personas* (one race, faction and class): every race the first guide is for,
-each class an `only` in the guide names, and one class no `only` names. With
-`--class` you pick the classes instead.
+each playable class named by a `class` header or an `only` anywhere in the
+chain, and one class the chain never names. Races named by guide headers
+throughout the chain are sampled too, on each eligible faction for races
+that can play both sides. The first guide's faction, race and class
+restrictions still apply. With `--class` you pick from its eligible
+classes instead. This includes class-specific work introduced by a later
+guide, even when `--filter` reports only that later guide. A named or explicitly
+requested class is sampled with a race and faction compatible with each guide
+that admits it, within the first guide's restrictions.
+
+Each guide's faction, race and class headers also apply when it is reached.
+A character skips an incompatible guide completely: its lines supply no
+quest state, travel or findings. This applies to fixed-persona playback too.
+
+A run that dispatches no eligible character to any selected guide fails with
+`nothing played`; playing only a compatible context guide does not count.
+An empty pack or an unmatched guide filter reports that
+no guides were selected. These errors apply in default and legacy mode;
+valid runs keep reporting the number of selected guides and their findings.
 
 ### The rules
 
@@ -89,7 +106,7 @@ each class an `only` in the guide names, and one class no `only` names. With
 | R6 gating | The data closes the quest to this race or class and no `only` gates the line (fail). An `only` on a quest the data opens to everyone (warn). | fail / warn |
 | R7 numbers | Counts and quest levels in a goal or its tip match the data (`x10` for an objective of 8; "Kill 6" for 8). | fail / warn |
 | R8 grinds | Two `level` gates in a row with no quest work between them. | fail |
-| R9 quest log | The log holds at most 20 quests at every point (`LOG_MAX`, a guide rule kept well under the game's 40-quest log that the model and the writer use); the peak is reported. | fail |
+| R9 quest log | The log holds at most 40 quests at every point (`LOG_MAX`: Forever's quest log, the addon's `Compat.GetLogCap` when the client does not say); the peak is reported. | fail |
 | R10 loose ends | Every accept is turned in or abandoned later on the chain. | fail |
 
 Default mode runs R1-R10. It merges equal findings across personas and chains,
@@ -100,9 +117,10 @@ hands in on the spot (`turnin <id> direct`) never enters the log: R3 takes its
 objective items as obtainable without it (from the guide's line when the data
 names no source), and the hand-in gives its reward items.
 
-`--legacy` gives R1-R5 exactly as the Node playtest (`polestar playtest --honest`) printed them:
-one row per persona, with the old quirks. The report uses legacy mode so its
-numbers stay comparable with earlier runs.
+`--legacy` uses the Node playtest's R1-R5 rules (`polestar playtest --honest`):
+one row per persona, with the old rule quirks. The report uses legacy mode.
+Both modes sample classes and header races from the whole chain and respect
+each guide's headers, so finding counts can differ from earlier runs.
 
 R5's extra steps come from a quest knowledge base when the checkout has one
 (`data/local/kb/forever-kb.sqlite`). Without it, R5 checks objectives only.
@@ -127,6 +145,12 @@ the race's first leveling guide, then each `next`. Each goal gets a level and a
 time from the simulator's evaluator (`levels::SimLevels`), using the sim
 folder's world and `params.json`. `--levels FILE` replays the levels from a
 saved judge dump instead. With neither, the walk is skipped.
+
+Both level sources honor `--to N`: stop before the first goal whose starting
+level is at least N. The goal that reaches or crosses N remains in the walk.
+A saved recording can cover more levels than requested; its end also limits
+the walk if it runs out first. This cutoff applies to walk statistics and
+findings, while the honest playtest still checks the whole selected chain.
 
 `forge judge report`, `forge judge check` and `forge build`'s report price the
 walk as the routes stage prices an order (`SimLevels::route`): the average route
@@ -237,6 +261,7 @@ forge judge check --help
 forge judge seed-tests --help
 forge judge route-status --help
 forge judge feedback --help
+forge judge doors --help
 ```
 
 ### One pack: `forge judge`
@@ -247,11 +272,17 @@ forge judge out/guides/Orc --faction Horde --race Orc --root out/.forge/root --s
 ```
 
 The first argument is a guides folder (holding `forever/`). `--faction` and
-`--race` are required. Other flags:
+`--race` are required. Names are case-insensitive: `--faction alliance --race
+human` selects the same character as `Alliance` and `Human`. Factions also
+accept `a` and `h`; races accept labels such as `Night Elf` and `Scourge`
+(an alias for `Undead`). JSON reports use the canonical names. Unknown
+factions and races are usage errors, even when the walk is skipped.
+
+Other flags:
 
 | Flag | Meaning |
 |---|---|
-| `--class C` | Play only this class (`Warrior`); default: each guide's own choice of classes |
+| `--class C` | Play only this class (`Warrior`); default: classes sampled across each chain |
 | `--to N` | Cut the walk at level N (default 61, i.e. all of 1-60) |
 | `--sim DIR` | Folder with `world-<faction>.json` and `params.json` (default `<root>/data/sim`) |
 | `--levels FILE` | Levels from a saved judge dump instead of the simulator |
@@ -396,6 +427,35 @@ no feedback row cites as untriaged; neither is guessed. `--out` is
 `data/route-fixes.json` with those overrides added; point the sim at it with
 `POLESTAR_ROUTE_FIXES`.
 
+### Dungeon runs against their floors: `forge judge doors`
+
+```sh
+forge judge doors --sim data/sim
+forge judge doors --sim data/sim --levels levels/Alliance.json,levels/Horde.json
+```
+
+Reads every leveling guide's dungeon runs (a `when dungeon "<Name>"` step,
+not negated, with an `enter` goal) and checks them against their floors in
+the Codex (`data/forever/codex/journal.json`: the client's Group Finder
+minimum, its fixed minimum or where players who killed a boss there
+entered, whichever is highest; `forge guide lint` already errors on a run
+gated under it). For each run it follows the guide from the stop before it
+(the last goal that does something where it stands) through its walks and
+flights to the door. A **blocker** (`door-danger`) is a zone the walk crosses
+or ends in, or a flight lands in, whose danger level (the world's: its
+lowest level, or its danger floor) is 4 or more over the run's `when
+level>=` gate: a player at the gate would walk among mobs 4 levels over
+them, the in-game planner's mark. The stop's own zone isn't counted, and a
+flight crosses nothing.
+
+With `--levels` (the calibrated level model's output per faction, the files
+the danger gate reads) it also warns of each run the model reaches under its
+floor (`under-floor`: the gate would hide the run for most players) and each
+pick-up whose gate isn't the floor less the levels the model plans between it
+and the run (`pickup-gate`, more than half a level off). These are warnings:
+a borderline run would flap with each model update. The command exits 1 when
+there is a blocker.
+
 ## Reading report.md and report.json
 
 `report.md` begins with a **Sources** line: the current guides' folder, the data folder and
@@ -422,7 +482,7 @@ whole 1-60 walk.
 | trains (trips) (`trains`, `trainTrips`) | Training goals; trips whose only purpose is training, going back on yourself | fewer trips |
 | grind min (`grindMin`) | Minutes spent on `level` goals (their time, travel to the camp included) | lower |
 | grind all, shown (`grindAllMin`, `grindShownMin`) | The level model's grinding on every goal (its evaluator's grind time), and the part on `level` goals; the rest is grind no step writes. A recorded JS walk has no model grind: both are `grindMin` | lower |
-| log peak (`logPeak`) | Most quests held at once | ≤ 20 |
+| log peak (`logPeak`) | Most quests held at once | ≤ 40 |
 
 Then, per start:
 
@@ -443,6 +503,22 @@ Then, per start:
   `turnin Q`, `work Q`); out of order is what falls outside the longest common
   order. `losses` is the written walk's extra minutes before each common event,
   biggest first: where the written guides lose time against the plan.
+- **Per guide** (`minutesByGuide`: `["v1", [...]]` and `["written", [...]]`, as
+  `rows`, each list in the order the walk to 60 enters the guides): each guide's model minutes (its goals'
+  time, the travel to each included, so the rows add up to the chain's hours),
+  the quests it hands in and the level at its first goal and after its last.
+  report.md puts every guide of the written chain beside the same guide of the
+  base chain (`change` is written less base), then the base chain's guides the
+  written chain does not have. A guide the two chains name differently (the
+  shipped `orc/` and `troll/` start guides against the seed's `orc-troll/`)
+  shows as two rows. It is where a route change's minutes land, guide by guide.
+- **Timed quests** (`timed`: `["v1", [...]]` and `["written", [...]]`): every
+  quest with a time limit the walk to 60 accepts, from its first accept to the
+  first hand-in after it, in model minutes (`gapMin`, empty when the walk does
+  not hand it in) against the limit (`limitMin`), with the guide of the accept.
+  report.md shows each gap's share of the limit for both chains: the model's
+  times are a fast player's, so a hand-in that uses most of the limit leaves
+  a slower player little room.
 
 A healthy written start: hours lower than v1 at 30 and 60, passed by and
 returns no worse, no new honest failures, no new seed-test failures, lint 0

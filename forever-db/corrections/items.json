@@ -1,4 +1,23 @@
 {
+	"2589": {
+		"removeDrops": {
+			"npc": [
+				1245,
+				1414
+			]
+		},
+		"source": [
+			{
+				"kind": "pfquest",
+				"ref": "units of item 2589: npcs 1245 and 1414, both at 100"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcDrops of item 2589: a data build without pfQuest's entries has neither npc 1245 nor 1414"
+			}
+		],
+		"note": "Lisan Pierce (1414) is a Stormwind NPC and Kogan Forgestone (1245) a Kharanos NPC, both friendly to the Alliance. Only pfQuest lists them for Linen Cloth, at 100%, so the Tome of Divinity (1644, 1648) and Gathering Materials (1921) goals sent players to Lisan instead of to the humanoids that drop it (#2151), and the Dwarf's tip named Kogan the same way."
+	},
 	"5359": {
 		"removeDrops": {
 			"object": [
@@ -10,6 +29,36 @@
 			"ref": "objectDrops of item 5359"
 		},
 		"note": "Lorgalis Manuscript comes only from the Pitted Iron Chest 13949 in Blackfathom Deeps, the one container QuestieDB lists. pfQuest also lists the Document Chest 176344 (Barrens/Thousand Needles), a different quest's chest."
+	},
+	"14047": {
+		"removeDrops": {
+			"npc": [
+				466
+			]
+		},
+		"source": [
+			{
+				"kind": "pfquest",
+				"ref": "units of item 14047: npc 466 at 85.71"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcDrops of item 14047: a data build without pfQuest's entry has no npc 466"
+			}
+		],
+		"note": "General Marcus Jonathan (466) guards Stormwind's gate and is friendly to the Alliance. Only pfQuest lists him for Runecloth, so Collection of Goods (7642) and the Silithus Runecloth goal named him as the dropper. Same pattern as Lisan Pierce and Linen Cloth (#2151)."
+	},
+	"16790": {
+		"dropRequires": {
+			"npc": {
+				"4802": [6563]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "issue #1923, maintainer recording check 6820003090"
+		},
+		"note": "Damp Note from Blackfathom Tide Priestess requires The Essence of Aku'Mai to be held or completed. The maintainer checked players' recordings: the note appeared in 17 of 29 loot windows with the quest held or done, versus 1 of 24 without; that exception may have completed the quest before recording began. Accepting the quest is enough; it need not be turned in before farming the note."
 	},
 	"20519": {
 		"removeDrops": {
@@ -169,6 +218,57 @@
 			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
 		},
 		"note": "Red Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"11315": {
+		"removeDrops": {
+			"npc": [
+				6498,
+				6499,
+				6500,
+				6501,
+				6502,
+				6503,
+				6505,
+				6506,
+				6507,
+				6508,
+				6509,
+				6510,
+				6511,
+				6512,
+				6513,
+				6514,
+				6516,
+				6517,
+				6518,
+				6519,
+				6527,
+				6551,
+				6552,
+				6553,
+				6556,
+				6557,
+				6559,
+				6560,
+				9162,
+				9163,
+				9164,
+				9165,
+				9166,
+				9167
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16): Bloodpetal Sprouts came from the Bloodpetal Sprout object (164958) 146 times for 21 people (18 established), and never from a creature"
+			},
+			{
+				"kind": "pfquest",
+				"ref": "units of item 11315: 34 Un'Goro creatures, each at 100"
+			}
+		],
+		"note": "Bloodpetal Sprouts are picked from the Bloodpetal Sprout plants in Un'Goro Crater. The merged data also had every Un'Goro creature dropping one every time, which would send an errand for them to the nearest dinosaur (#2686)."
 	},
 	"17194": {
 		"removeVendors": [

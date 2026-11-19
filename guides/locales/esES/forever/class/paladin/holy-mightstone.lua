@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "",
+	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "Una piedra de un solo uso que te hace mucho más fuerte contra los no-muertos durante 10 minutos; puede que la antigua elección de objeto ya no esté en Forever.",
 
 	-- Step 1: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge
@@ -64,7 +64,6 @@ return {
 	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "Una piedra de un solo uso que te hace mucho más fuerte contra los no-muertos durante 10 minutos; las antiguas recompensas a elegir ya no están.",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "La Plaga de todas las {zone:1422} suelta Piedras de la Plaga de esbirro.",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477} está en la {area:74}, en el este del {zone:1435}. Dentro, Gasher y {npc:5716} sueltan {item:20606}; Hukku y Mijan, la azul; Zolo y Loh'ro, la verde.",
 	-- ["{item:20606}, inside"] = "{item:20606}, dentro",

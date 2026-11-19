@@ -12,8 +12,9 @@
 --   Alts.IsCurrent(entry), Alts.MaxLevel(), Alts.Enabled()
 --
 -- When it writes: in the world, at login (after five seconds), on level-ups,
--- XP, zone, money, skill and tab changes (coalesced into one write every ten
--- seconds), on resting changes at once, and at once when the player asks to
+-- XP, zone, money, skill and tab changes and new bank and mail counts
+-- (coalesced into one write every ten seconds), on resting changes at once,
+-- and at once when the player asks to
 -- leave (PLAYER_CAMPING, PLAYER_QUITING). While the player is resting (an inn
 -- or city) those frequent events write at once too, so an instant logout there
 -- leaves the entry current. Logout() and Quit() are protected and not hooked.
@@ -27,8 +28,10 @@
 -- An entry: name, realm, class (file token), race, faction, level, xp, xpMax,
 -- rested (XP, absent when none), resting (in an inn or city), zone, bind,
 -- money (copper), profs { [skillLine] = rank }, tabs { { id, title, step,
--- count, complete } } with active (the tab index), seen (server time), key. Values
--- that equal nothing are left out.
+-- count, complete } } with active (the tab index), mats { [itemID] = count }
+-- (the profession guides' materials held in the bags, bank and mail:
+-- Core/Materials.lua), seen (server time), key. Values that equal nothing
+-- are left out.
 
 local ADDON, ns = ...
 local Compat = ns.Compat
@@ -64,17 +67,20 @@ end
 -- Forever, whose names carry a surname, so two characters with one first
 -- name keep their own entries). Formed exactly as Maps/Instances.lua's
 -- charName() forms it.
+local function playerKey()
+	local name = Compat.UnitFullName("player")
+	if not name then return nil end
+	local realm = GetRealmName and GetRealmName()
+	return realm and (name .. "-" .. realm) or name, name
+end
+
 function Alts.Key()
-	local info = Compat and Compat.GetPlayerInfo and Compat.GetPlayerInfo()
-	local name = Compat and Compat.UnitFullName and Compat.UnitFullName("player")
-	if not (info and name) then return nil end
-	return info.realm and (name .. "-" .. info.realm) or name
+	return (playerKey())
 end
 
 -- The key up to 0.3.3, the first name alone: what a Forever character's
 -- entry was filed under before; nil when it is the same as `key`.
-local function oldKey(key)
-	local info = Compat.GetPlayerInfo()
+local function oldKey(key, info)
 	local old = info and info.name and (info.realm and (info.name .. "-" .. info.realm) or info.name)
 	return old ~= key and old or nil
 end
@@ -167,7 +173,7 @@ end
 -- written with alts.enabled off.
 function Alts.Write(silent, touch)
 	if not Alts.Enabled() then return false end
-	local key = Alts.Key()
+	local key, name = playerKey()
 	if not key then return false end
 	local store = chars()
 	local e = store[key]
@@ -176,9 +182,10 @@ function Alts.Write(silent, touch)
 		e.seen = Compat.Now()
 		return true
 	end
+	local info = Compat.GetPlayerInfo()
 	if type(e) ~= "table" then
 		-- Filed under the first name alone before (0.3.3): moved to this key.
-		local old = oldKey(key)
+		local old = oldKey(key, info)
 		e = old and type(store[old]) == "table" and store[old] or {}
 		if old then store[old] = nil end
 		store[key] = e
@@ -189,8 +196,7 @@ function Alts.Write(silent, touch)
 		local resting = Compat.Readable(IsResting and IsResting())
 		if resting ~= nil then e.resting = resting and true or nil end
 		e.rested = liveRested()
-		local info = Compat.GetPlayerInfo()
-		e.name, e.realm = Compat.UnitFullName("player") or info.name or e.name, info.realm or e.realm
+		e.name, e.realm = name, info.realm or e.realm
 		e.class, e.race = info.class or e.class, info.race or e.race
 		e.faction = Compat.GetPlayerFaction() or e.faction
 		local level = number(UnitLevel and UnitLevel("player"))
@@ -206,6 +212,9 @@ function Alts.Write(silent, touch)
 			local profs = professions()
 			if profs then e.profs = profs end
 		end
+		-- What the other characters' material counts read (Materials.Have).
+		local M = ns.Materials
+		if M and M.OwnCounts then e.mats = M.OwnCounts() end
 		local tabs, active = tabList()
 		if tabs then e.tabs, e.active = tabs, active end
 	end
@@ -274,16 +283,18 @@ local function isCurrent(entry)
 end
 Alts.IsCurrent = isCurrent
 
-function Alts.Rested(entry, at)
-	if isCurrent(entry) then
+function Alts.Rested(entry, at, current)
+	if current == nil then current = isCurrent(entry) end
+	if current then
 		if (entry.level or 0) >= maxLevel() then return nil end
 		return liveRested() or 0
 	end
 	return Alts.ProjectRested(entry, at)
 end
 
+-- The playing character is pinned first; only offline fractions need ranking.
 local function fraction(entry, at)
-	local r = Alts.Rested(entry, at)
+	local r = Alts.ProjectRested(entry, at)
 	if not r or not entry.xpMax or entry.xpMax <= 0 then return 0 end
 	return r / entry.xpMax
 end
@@ -302,10 +313,13 @@ function Alts.List(sortBy)
 		if sa ~= sb then return sa > sb end
 		return a.key < b.key
 	end
+	local me = Alts.Key()
 	local rank
 	if sortBy == "rested" then
 		local cache = {}
-		for _, e in ipairs(list) do cache[e] = fraction(e, at) end
+		for _, e in ipairs(list) do
+			if e.key ~= me then cache[e] = fraction(e, at) end
+		end
 		rank = function(a, b)
 			if cache[a] ~= cache[b] then return cache[a] > cache[b] end
 			return byRecent(a, b)
@@ -318,7 +332,6 @@ function Alts.List(sortBy)
 	else
 		rank = byRecent
 	end
-	local me = Alts.Key()
 	table.sort(list, function(a, b)
 		local am, bm = a.key == me, b.key == me
 		if am ~= bm then return am end
@@ -341,7 +354,7 @@ end
 
 local EVENTS = { "PLAYER_LEVEL_UP", "PLAYER_XP_UPDATE", "ZONE_CHANGED_NEW_AREA", "PLAYER_MONEY", "SKILL_LINES_CHANGED" }
 local REQUESTS = { "PLAYER_CAMPING", "PLAYER_QUITING" } -- the player asked to leave: still in the world
-local started, tabsHandle = false, nil
+local started, tabsHandle, matsHandle = false, nil, nil
 
 -- Listening only while alts.enabled is on.
 local function start()
@@ -349,6 +362,7 @@ local function start()
 	started = true
 	for _, ev in ipairs(EVENTS) do ns.RegisterEvent(ev, later) end
 	tabsHandle = ns.On("TABS_CHANGED", later)
+	matsHandle = ns.On("MATERIALS_COUNTS", later)
 	ns.RegisterEvent("PLAYER_UPDATE_RESTING", now) -- an inn entered and left within seconds still counts
 	for _, ev in ipairs(REQUESTS) do ns.RegisterEvent(ev, now) end -- an event this client lacks is skipped
 	ns.RegisterEvent("PLAYER_LEAVING_WORLD", leaving)
@@ -361,6 +375,7 @@ local function stop()
 	gen, pending = gen + 1, false
 	for _, ev in ipairs(EVENTS) do ns.UnregisterEvent(ev, later) end
 	ns.Off(tabsHandle)
+	ns.Off(matsHandle)
 	ns.UnregisterEvent("PLAYER_UPDATE_RESTING", now)
 	for _, ev in ipairs(REQUESTS) do ns.UnregisterEvent(ev, now) end
 	ns.UnregisterEvent("PLAYER_LEAVING_WORLD", leaving)

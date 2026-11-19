@@ -31,6 +31,8 @@ return {
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "飞翔鱼鹰号的残骸在城堡南侧浅水区。",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "{item:2702}",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南方海滩上的蓝腮鱼人带着锭。",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}：在水下",
@@ -72,7 +74,7 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。小心：在平台上等升降梯与平台齐平后再踏上去，并一直站到它停下；旁边的落差会摔死人。",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post
@@ -90,8 +92,11 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30-31级）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34-35级）在整片盐滩游荡，盐石凝视者（34-35级）和恐蝎（33-34级）占据最南端：别惹它们，待在北半部。",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，盐壳龟掉落",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "水晶鳞片，盐石蜥蜴掉落：为{zone:1453}的{npc:4078}收集八片",
@@ -119,12 +124,17 @@ return {
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，盖兰·维米斯队长在{area:514}；{npc:4941}也站在镇内。",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "乘船前往{area:150}",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "乘船前往{area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿道路向西返回{area:429}的萨特营地。",
+	-- ["Boat to {area:150}"] = "乘船前往{area:150}",
 	-- ["Dartol's Rod"] = "达图尔的变形魔棒",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿道路向东到{area:429}的萨特营地；{npc:3920}躲在营地边缘。",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "沿道路向西离开{area:415}；{area:413}在道路北边。",
@@ -132,7 +142,6 @@ return {
 	-- ["From {area:608}"] = "从{area:608}出发",
 	-- ["Geltharis"] = "加萨里斯",
 	-- ["Insane druids"] = "发狂的德鲁伊",
-	-- ["Lightforge Ingots"] = "{item:2702}",
 	-- ["Melyria and {npc:3901}"] = "哨兵梅丽瑞亚·霜影和{npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "生锈的箱子散落在被遗忘者营地西边的沼泽兽营地周围；逐个打开，直到找到剑柄。",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "从{area:442}的码头乘船前往{area:150}。",
@@ -156,5 +165,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}：交给米奈希尔港的{npc:1480}，在本指南结尾",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962} Jahn都在米奈希尔港的旅店里；你和{npc:4963}交谈时Tapoke会和你打，但被打败后就会放弃。{npc:1480}在旅店东北方不远处。",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 }

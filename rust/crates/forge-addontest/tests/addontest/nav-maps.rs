@@ -124,6 +124,27 @@ fn the_walking_maps_pack_json_names_the_grid_the_cells_the_format_and_every_file
 	assert!(meta.lines().any(|l| l == "\tcells = 128,"));
 }
 
+// #2244: each language folder names the walking maps' areas as its client names the subzone there (Subzones.lua,
+// `forge data subzones`), only rows the maps carry: a re-pack that drops rows without that rebuild shows here.
+#[test]
+fn the_language_folders_name_only_areas_the_walking_maps_carry() {
+	let area = Regex::new(r#"^\t\t\[(\d+)\] = ""#).unwrap();
+	let mut ids = std::collections::BTreeSet::new();
+	for map in [0, 1, 2991] {
+		let text = read(&nav().join(format!("Nav/Nav{map}.lua")));
+		let block = &text[text.find("\tareaNames = {").unwrap()..];
+		let block = &block[..block.find("\n\t},").unwrap()];
+		ids.extend(block.lines().filter_map(|l| area.captures(l)).map(|c| c[1].parse::<i64>().unwrap()));
+	}
+	for l in forge_guide::locales::LOCALE_CODES {
+		let text = read(&addons_dir().join(forge_guide::toc::language_addon(l)).join("Subzones.lua"));
+		let named: Vec<i64> = text.lines().filter_map(|line| line.split_once('\t')).map(|(id, _)| id.parse().unwrap()).collect();
+		assert!(named.len() > 500, "{l}: {} rows named", named.len());
+		let stale: Vec<&i64> = named.iter().filter(|id| !ids.contains(id)).collect();
+		assert!(stale.is_empty(), "{l}: rows the walking maps no longer carry (run forge data subzones): {stale:?}");
+	}
+}
+
 #[test]
 fn security_l12_the_license_names_cillian_berragans_copyright_and_every_file_that_says_it_adapts_his_code() {
 	let license = read(&root().join("LICENSE"));
@@ -399,7 +420,7 @@ emit({ worst = worst / 100000, budget = Path.budget, pumps = pumps, decodes = (P
 	let (worst, budget) = (got["worst"].as_f64().unwrap(), got["budget"].as_f64().unwrap());
 	assert!(got["decodes"].as_i64().unwrap() >= 40, "the clusters decoded: {got}");
 	assert!(got["pumps"].as_i64().unwrap() > got["decodes"].as_i64().unwrap(), "decodes sliced over frames: {got}");
-	assert!(worst <= budget * 1.5, "a frame ran {worst:.2} ms of router work, budget {budget} ms: {got}");
+	forge_addontest::assert_timing!(worst <= budget * 1.5, "a frame ran {worst:.2} ms of router work, budget {budget} ms: {got}");
 }
 
 // A search leaves its decoded clusters for the next one (a walk or measure from nearby reads the same clusters): a
@@ -548,6 +569,90 @@ end"#,
 	assert!(again < MAX_AGAIN, "the walk asked again 30 yd along allocated {again:.0} KiB (at most {MAX_AGAIN}): {got}");
 }
 const MAX_AGAIN: f64 = 4000.0;
+
+// 0.4.1.1: at rest the newest start's endpoint tree (the player has moved on by the next search) goes to the pool as
+// one of Path.restTrees, and the next walk's first connection fills it instead of growing a tree of a cluster's size
+// key by key. 0.4.1 emptied the pool at every rest, so every walk after a step change grew all its trees new.
+const TREES_REUSED: &str = r#"local Path, S = Polestar_NavEngine, stub.navNs.PathSearch
+local function pool() local i = 1 while true do local k, v = debug.getupvalue(S.Release, i) if not k then return nil end if k == "pool" then return v end i = i + 1 end end
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local function walk(from, to)
+	local got, made = nil, Path.treesMade or 0
+	Path.Find(0, from, to, function(points) got = points end, { profile = "Horde" })
+	drain()
+	return { found = got ~= nil, made = (Path.treesMade or 0) - made }
+end
+local first = walk({ x = -24.96, y = -878.613 }, { x = 2246.1, y = 239.8, z = 34.3 })
+local pooled = #pool()
+stub.advance(5)
+if EMPTY then S.Rest() end
+local step = walk({ x = -651.7, y = 1270.2 }, { x = -635.2, y = 1186.6 })
+emit({ first = first, pooled = pooled, step = step })"#;
+
+#[test]
+fn the_walk_after_a_step_change_fills_the_tree_the_last_walk_s_start_left_instead_of_growing_one() {
+	let (_tmp, addon) = keep_ns();
+	let got = run(TREES_REUSED, "", vec![addon]);
+	let (_tmp2, addon2) = keep_ns();
+	let emptied = run(TREES_REUSED, "EMPTY = true", vec![addon2]);
+	eprintln!("trees grown: first walk {}, next walk {} ({} from an empty pool)", got["first"]["made"], got["step"]["made"], emptied["step"]["made"]);
+	for g in [&got, &emptied] {
+		assert_eq!(g["first"]["found"], true, "{g}");
+		assert_eq!(g["step"]["found"], true, "{g}");
+	}
+	assert_eq!(got["pooled"], 1, "at rest the pool holds the last start's tree: {got}");
+	let made = got["step"]["made"].as_i64().unwrap();
+	assert_eq!(emptied["step"]["made"].as_i64().unwrap(), made + 1, "the pooled tree spares the next walk one tree grown: {got} / {emptied}");
+}
+
+// 0.4.1.1: for Path.calmSeconds after a fight a walk searches Path.calmBudget a frame (not Path.budget), whether it was
+// queued in the fight (it waits for its end) or asked just after: the kill that ends a fight is when the game, the
+// guide and the quest log all update.
+#[test]
+fn a_walk_queued_in_a_fight_searches_path_calmbudget_a_frame_for_path_calmseconds_after_it_ends() {
+	let got = run(
+		r#"local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local now = 0
+Path.clock = function() now = now + 0.2 return now end
+local function frame() local fn = table.remove(frames, 1) if fn then fn() end end
+stub.inCombat = true
+local job = Path.Find(0, { x = -24.96, y = -878.613 }, { x = 2246.1, y = 239.8, z = 34.3 }, function() end, { profile = "Horde" })
+frame()
+local waited = job.frames
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+local function slices(j, n) local most = 0 for _ = 1, n do local cpu = j.cpu frame() most = math.max(most, j.cpu - cpu) end return most end
+local calm = slices(job, 30)
+stub.advance(1.1)
+local after = slices(job, 30)
+local done = job.done == true
+Path.Cancel(job)
+-- A fight with no search waiting, then a walk asked right after it.
+stub.inCombat = true
+stub.fire("PLAYER_REGEN_DISABLED")
+stub.advance(2)
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+local asked = Path.Find(0, { x = -651.7, y = 1270.2 }, { x = 2246.1, y = 239.8, z = 34.3 }, function() end, { profile = "Horde" })
+local askedCalm = slices(asked, 30)
+emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done = done, budget = Path.budget, calmBudget = Path.calmBudget, calmSeconds = Path.calmSeconds })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["waited"], 0, "no search in the fight: {got}");
+	let (calm, after) = (got["calm"].as_f64().unwrap(), got["after"].as_f64().unwrap());
+	assert!(calm <= 1.5, "after the fight a frame searched {calm} ms (Path.calmBudget 1): {got}");
+	assert!(after >= 2.5, "then Path.budget again ({after} ms a frame): {got}");
+	let asked = got["askedCalm"].as_f64().unwrap();
+	assert!(asked <= 1.5, "a walk asked just after a fight searched {asked} ms a frame (Path.calmBudget 1): {got}");
+	assert_eq!(got["done"], false, "{got}");
+	assert_eq!(got["calmBudget"], 1, "{got}");
+	assert_eq!(got["calmSeconds"], 1, "{got}");
+}
 
 #[test]
 fn polestar_nav_ships_in_the_release_credits_shortest_path_forever_and_carries_the_gpl() {

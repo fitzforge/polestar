@@ -15,8 +15,8 @@ return {
 	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:4217} está en {area:1658}. Si eres Cielonato y estás lejos de {zone:1457}: lanza {spell:18960} y toma el vuelo de {npc:11800} desde el centro de {area:2361} (lleva a los druidas a {area:702}, sin necesidad de ruta de vuelo) y luego el portal hacia arriba. ¿Aún no tienes {spell:1066}? Toma también “Una lección que aprender” de él: también lleva a {npc:11802}, y su continuación, “La prueba del lago” (la guía de {spell:1066}), está en el mismo {area:493}.",
 
 	-- Step 3: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por dentro, la flecha no distingue los pisos. Aprende la ruta de vuelo ahí si no la tienes.",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por dentro, la flecha no distingue los pisos. ¿Aún no tienes la ruta de vuelo de {area:493}? Apréndela con {npc:10897}, al sur del lago: el maestro de vuelo de {area:2361} solo lleva druidas, desde su diálogo, y no tiene ruta que aprender.",
 
 	-- Step 4: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Las reliquias de los Túmulos",
@@ -60,6 +60,7 @@ return {
 	-- ["Back to {npc:11802} in {area:2361}, then take {npc:11798}'s flight to {area:1638}."] = "Regresa con {npc:11802} en {area:2361} y luego toma el vuelo de {npc:11798} a {area:1638}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; consigue allí la ruta de vuelo si no la tienes.",
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por dentro, la flecha no distingue los pisos. Aprende la ruta de vuelo ahí si no la tienes.",
 	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "Toma el portal para subir con {npc:4217} en {area:1658}.",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} está en {area:1639}.",
 	-- ["{npc:4217} stands in the {area:1658}. Skyborne without the Rut'theran flight path: take the boat from {area:442}."] = "{npc:4217} está en {area:1658}. Si eres Cielonato y no tienes la ruta de vuelo de Rut'theran, toma el barco desde {area:442}.",

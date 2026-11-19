@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["Tyr's Watch and {spell:7328} (Forsaken)"] = "",
+	["Tyr's Watch and {spell:7328} (Forsaken)"] = "La Guardia de Tyr y {spell:7328} (Renegados)",
 	-- {spell:7328} Redemption
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "{spell:7328} para resucitar a aliados caídos, además de un arma y un escudo para un nuevo paladín renegado.",
 
@@ -38,11 +38,11 @@ return {
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
-	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
+	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "Los múrlocs Anca Vil (nivel 9-11) acechan en los riscos junto al camino al este de la fortaleza y en los campamentos alrededor del lago, al suroeste, de camino a {area:16881}.",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers x8"] = "",
+	["Vile Fin Attackers x8"] = "Atacantes Anca Vil x8",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers x8"] = "",
+	["Vile Fin Seers x8"] = "Videntes Anca Vil x8",
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
@@ -52,15 +52,15 @@ return {
 
 	-- Step 8: Danitha Morr
 	-- {npc:246378} Danitha Morr · {npc:246393} Jorin Croge · {quest:91317} The Tarnished
-	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "",
+	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "{npc:246378} dirige la orden desde el interior de la fortaleza; {npc:246393} está a su lado. {quest:91317} requiere nivel 9.",
 
 	-- Step 9: Shadowvale
 	-- {quest:91317} The Tarnished · {area:16881} Shadowvale · {area:16616} Whispering Forest · {npc:259431} Rudolph Gelhardt
 	["{quest:91317} (level 8-9) hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. Commander {npc:259431} (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first."] = "",
 	-- plural, as words: Tarnished Drudges = {npc:259434} Tarnished Drudge
-	["Tarnished Drudges x8"] = "",
+	["Tarnished Drudges x8"] = "Braceros mancillados x8",
 	-- plural, as words: Tarnished Zealots = {npc:259433} Tarnished Zealot
-	["Tarnished Zealots x6"] = "",
+	["Tarnished Zealots x6"] = "Zelotes mancillados x6",
 
 	-- Step 10: The crypt under Shadowvale
 	-- {area:16881} Shadowvale
@@ -100,7 +100,7 @@ return {
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
-	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "",
+	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "{npc:246378} ofrece la primera lección de divinidad a nivel 12. Trae 10 de {item:2589} si los tienes: {zone:1458} los pide a continuación.",
 
 	-- Step 17: The Undercity
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {npc:257648} Tanis Alderwood · {object:36078} Trade Quarter
@@ -109,7 +109,7 @@ return {
 	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "",
+	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648} necesita 10 de {item:2589}. Lo sueltan los humanoides: los Integristas y los Frailes Escarlata del claro, unas tres de cada diez muertes. También se vende en la casa de subastas de Entrañas.",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "",
 
@@ -117,7 +117,7 @@ return {
 	-- {item:6866} Symbol of Life
 	["The {item:6866}"] = "{item:6866}",
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {item:6866} Symbol of Life · {npc:257655} Deathguard Billmuth
-	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "",
+	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "Vuelve a {area:16602}. {npc:246378} te da {item:6866}; {npc:257655} espera en la planta baja de la fortaleza. Si pierdes el símbolo, {npc:246378} te da otro.",
 	-- {npc:257655} Deathguard Billmuth
 	["{npc:257655}, downstairs"] = "",
 
@@ -134,26 +134,15 @@ return {
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
+	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "Vuelve a {area:16602}, cruzando todo el claro: Billmuth, en la planta baja, recoge los planos y luego {npc:246378}, de nuevo arriba en la fortaleza, te enseña {spell:7328}.",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
 	["{npc:246378}, back upstairs: {spell:7328}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "Vuelve a {area:16602}. {npc:246378} te da {item:6866}; {npc:257655} espera en la planta baja de la fortaleza.",
-	-- ["Back to {area:16602}: Billmuth takes the plans, {npc:246378} teaches you {spell:7328}."] = "Vuelve a {area:16602}: Billmuth recoge los planes y {npc:246378} te enseña {spell:7328}.",
-	-- ["Tarnished Drudges"] = "Braceros mancillados",
-	-- ["Tarnished Zealots"] = "Zelotes mancillados",
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "Los Cruzados Escarlata acampados alrededor de {area:812} llevan los planes de ataque.",
-	-- ["The Vile Fin murlocs lurk on the bluffs along the road east of the keep and in the camps around the lake to the west."] = "Los múrlocs Anca Vil acechan en los riscos junto al camino al este de la fortaleza y en los campamentos alrededor del lago, al oeste.",
-	-- ["Tyr's Watch and {spell:7328}"] = "La Guardia de Tyr y {spell:7328}",
-	-- ["Vile Fin Attackers"] = "Atacantes Anca Vil",
-	-- ["Vile Fin Seers"] = "Videntes Anca Vil",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} se alza en los riscos al noroeste de la {area:156}. {npc:246349} espera en la puerta.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812} está en el extremo este de los claros. Usa {item:6866} en {npc:257663} y luego habla con él. Si pierdes el símbolo, {npc:246378} te da otro.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, que entrena a los paladines en {area:159}, te envía a la fortaleza de la orden en la costa oeste.",
-	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378} dirige la orden desde el interior de la fortaleza; {npc:246393} está a su lado.",
-	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378} ofrece la primera lección de divinidad a nivel 12.",
-	-- ["{npc:257648} needs 10 {item:2589}. Scarlet Zealots and Scarlet Friars drop it about three times in ten; bring it along if you already carry some."] = "{npc:257648} necesita 10 de {item:2589}. Los Integristas Escarlata y los Frailes Escarlata lo sueltan unas tres veces de cada diez; tráelo si ya llevas.",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}, en la bodega",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}, en la bodega",
 	-- ["{quest:91317} hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. The {item:246213} is piled in the root cellar of one of its houses; Commander {npc:259431} walks among his Tarnished."] = "{quest:91317} ocupan la aldea en ruinas de {area:16881}, en {area:16616}, al suroeste de la fortaleza. {item:246213} está apilada en la bodega de una de sus casas; el comandante {npc:259431} camina entre sus mancillados.",

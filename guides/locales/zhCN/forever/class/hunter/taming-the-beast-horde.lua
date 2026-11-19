@@ -15,8 +15,8 @@ return {
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
 	["{npc:3171} in {area:362}"] = "{area:362}的{npc:3171}",
-	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you The Hunter's Path, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "10级时，找 {area:362} 兵营里的猎人训练师 {npc:3171}。如果 {zone:1454} 的 {npc:3407}、{area:367} 的 {npc:11814} 或 {zone:1456} 的 {npc:3038} 给你“猎人之道”，就接下并交给 {npc:3171}，获得少量经验；这只是引导任务，不做也能拿到第一根驯兽棒。",
+	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "10级时，找 {area:362} 兵营里的猎人训练师 {npc:3171}。如果 {zone:1454} 的 {npc:3407}、{area:367} 的 {npc:11814} 或 {zone:1456} 的 {npc:3038} 给你{quest:6068}，就接下并交给 {npc:3171}，获得少量经验；这只是引导任务，不做也能拿到第一根驯兽棒。",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
 	["{npc:3171}: the first {item:15908}"] = "{npc:3171}：第一份{item:15908}",
 
@@ -50,8 +50,8 @@ return {
 	-- Step 6: Yaw Sharpmane at Bloodhoof
 	-- {npc:3065} Yaw Sharpmane
 	["{npc:3065} at Bloodhoof"] = "血蹄村的 {npc:3065}",
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. The Hunter's Path from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "10级时，找站在 {area:222} 北缘的 {npc:3065}。{zone:1456} 的 {npc:3038}、{zone:1454} 的 {npc:3407} 或 {area:362} 的 {npc:3171} 提供的“猎人之道”也会指引你来这里，并奖励少量经验；它只是引导任务。",
+	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "10级时，找站在 {area:222} 北缘的 {npc:3065}。{zone:1456} 的 {npc:3038}、{zone:1454} 的 {npc:3407} 或 {area:362} 的 {npc:3171} 提供的{quest:6065}也会指引你来这里，并奖励少量经验；它只是引导任务。",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
 	["{npc:3065}: the first {item:15908}"] = "{npc:3065}：第一份{item:15908}",
 

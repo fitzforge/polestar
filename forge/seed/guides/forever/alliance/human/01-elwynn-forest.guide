@@ -135,6 +135,7 @@ step Northshire Abbey
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  interact 563442 quest 91772.1
 
 step Level 5.48
   when !group 91752
@@ -168,8 +169,8 @@ step Level 5.77
   when !group 91752
   when level<5.77
   tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
-  goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77 grind 40                 -- grind on Kobold Miner
+  goto 40.9,69.5 map 1429 "Stonetusk Boar"
+  level 5.77 grind 113                -- grind on Stonetusk Boar
 
 step Sam Sarsaparilla
   tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
@@ -181,31 +182,38 @@ step Sam Sarsaparilla
 
 step Camping 101: Skinning
   when skill Skinning 1
+  tip Helene Peltskinner takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  tip Adele Fielder takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
 
 step Camping 101: Fishing
   when skill Fishing 1
+  tip Lee Brown takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  tip Michelle Belle takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  tip Smith Argus takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
 
 step Helene Peltskinner
   when onquest 97924
+  when complete 97924
   complete 97924 @46.24,62.24                 -- talk to the trainer
   turnin 97924                                -- Helene Peltskinner, on the lake shore east of town; inside
 
 step Adele Fielder
   when onquest 97922
+  when complete 97922
   complete 97922 @46.38,62.05                 -- talk to the trainer
   turnin 97922                                -- Adele Fielder, beside Helene
 
@@ -217,6 +225,7 @@ step The lake shore
 
 step Lee Brown
   when onquest 97920
+  when complete 97920
   complete 97920 @47.61,62.32                 -- talk to the trainer
   turnin 97920                                -- Lee Brown
 
@@ -257,11 +266,13 @@ step Goldshire
 
 step Michelle Belle
   when onquest 97919
+  when complete 97919
   complete 97919 @43.39,65.55                 -- talk to the trainer
   turnin 97919                                -- Michelle Belle, in the Lion's Pride Inn
 
 step Smith Argus
   when onquest 97916
+  when complete 97916
   complete 97916 @41.71,65.54                 -- talk to the trainer
   turnin 97916                                -- Smith Argus, at the smithy across the road
 
@@ -358,7 +369,7 @@ step Level 8.39
   when !group 91775
   when level<8.39
   tip If you skipped Book Return, grind here to level 8.39 to stay on the route's plan.
-  goto 41.7,78.0 map 1429 "Kobold Miner"
+  goto 39.3,83.2 map 1429 "Kobold Miner"
   level 8.39 grind 40                 -- grind on Kobold Miner
 
 step Class trainer
@@ -396,9 +407,8 @@ step The bridge
   accept 91733                                -- Ormin Pelford
 
 step Downstream and Princess
-  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
+  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to Guard Thomas, after the logging camp and the mine. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 1006 quest 88                       -- Brass Collar: Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
@@ -418,14 +428,15 @@ step Level 8.85
   when !group 91740
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
-  goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85 grind 118                -- grind on Prowler
+  goto 65.1,64.4 map 1429 "Gray Forest Wolf"
+  level 8.85 grind 1922               -- grind on Gray Forest Wolf
 
 step Ormin Pelford
   turnin 91733
 
 step The Eastvale Logging Camp
   tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  tip Careful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to Stone Cairn Lake and the gnoll camps: keep clear of him when you see him coming.
   accept 83                                   -- Sara Timberlain, inside
   accept 5545                                 -- Supervisor Raelen
   accept 91732                                -- Hagar Lowe
@@ -434,11 +445,12 @@ step The Eastvale Logging Camp
 
 step A half-eaten body
   tip It lies by the river north-west of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
 
 step Stone Cairn Lake
   tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
+  tip Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.
   collect 1019 quest 83                       -- Red Linen Bandanas
   turnin 45                                   -- Rolf's corpse
   accept 71
@@ -480,6 +492,7 @@ step The Eastvale Logging Camp
 
 step Stone Cairn Lake
   tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.
+  tip Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.
   kill 474 quest 91724                        -- Defias Rogue Wizard
 
 step The Tower of Azora
@@ -590,9 +603,10 @@ step The Stonefield Farm
   buy 4536 x4 npc 894                         -- Shiny Red Apples, from Homer Stonefield, for the Applejack Still
 
 step The Applejack Still
+  when has 4536 x4
+  when !turnedin 91738
   tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
-  accept 91736 optional                       -- Applejack Still
-  turnin 91736 optional
+  turnin 91736 direct optional                -- Applejack Still
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 # ---------------------------------------------------------------- To Westfall
@@ -603,8 +617,11 @@ step Westbrook Garrison
   turnin 239                                  -- Deputy Rainer
   accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
   accept 11
-  accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
-  turnin 91738
+
+step Sergeant De Vries
+  zone Elwynn Forest
+  when has 247824
+  turnin 91738 direct                         -- Sergeant De Vries: he wants your Thunder Applejack; inside
 
 step Forest's Edge
   zone Elwynn Forest

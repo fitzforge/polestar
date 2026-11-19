@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "矿洞、半人马与平原",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "返回矿洞对付工人、主官和深处的{quest:765}：他掉落的{item:281031}可触发{quest:98424}，其余书页散落在矿洞内。加拉克半人马和赫拉克在村庄东面扎营。猛鹫在{zone:1412}各处飞翔；风怒鹰身人栖息在村庄东南面，白鬃豺狼人则在村庄西面扎营。",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}，从{quest:765}获得",
@@ -106,7 +105,7 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "{area:17044}（可选任务点）",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{faction:81}西北方{area:17045}上的大地之环营地：20分钟可获得300点{faction:81}声望，另有{zone:1454}和暗矛巨魔各100点，以及大地之环450点。{npc:259118}、{npc:264074}和{npc:264072}站在营地里。",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "在Forever中，这些旧任务在任何等级都提供全额声望。{faction:81}西北方{area:17045}上的大地之环营地：20分钟可获得300点{faction:81}声望，另有{zone:1454}和暗矛巨魔各100点，以及大地之环450点。{npc:259118}、{npc:264074}和{npc:264072}站在营地里。",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "{npc:259118}：{quest:96259}，+100（交还后可接{quest:96261}）",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon

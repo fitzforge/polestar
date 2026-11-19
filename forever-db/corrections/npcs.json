@@ -183,6 +183,32 @@
 		],
 		"note": "Kegan Darkmar (npc 2414), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Oval), stands with the others in the Dalaran camp at Alterac Mountains 16.8,89.4 (map 1416; Hillsbrad Foothills 23.6,26.7). Our data had the Classic spot 17.8,83.2, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633). The reporter's right spot was 16.90,89.20."
 	},
+	"2449": {
+		"set": {
+			"spawns": {
+				"1424": {
+					"f": "e",
+					"pts": [
+						[
+							30.6,
+							40.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 72 people killed Citizen Wilkes, 395 kills, all in Hillsbrad Fields between 29-31,38-43, the west side of the town"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2650 (Sable, 0.4.0): Wilkes was not at the guide's spot; /polestar where 1424 @30.65,40.49 where he was found"
+			}
+		],
+		"note": "Citizen Wilkes (Dangerous!, 567) walks the west side of Hillsbrad Fields' town. The data had his Classic spawn at 32.62,39.79, the start of a path through the east of the town (the Forever TDB's waypoints run 32.5-36.4, 35.8-40.0), where players never met him: the arrow led to an empty spot (#2650)."
+	},
 	"2543": {
 		"set": {
 			"spawns": {
@@ -564,6 +590,16 @@
 		},
 		"note": "Shinyfinder Narf is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"250034": {
+		"set": {
+			"rank": 2
+		},
+		"source": {
+			"kind": "client",
+			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
+		},
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from Lookup's rares."
+	},
 	"250483": {
 		"set": {
 			"rank": 1
@@ -752,6 +788,32 @@
 		},
 		"note": "Daniel Stitchsong (npc 256734) stands at Three Corners in Redridge Mountains, 9.96,72.71 in the live map frame (map 1433), as marked in the player's report. The lookup led to 11.90,69.10 live instead. Replaces the map's existing points."
 	},
+	"256899": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							44.9,
+							51.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 65 kills of Chogg'Zac by 51 people (47 established), the median of each person's kill spots 44.91,51.19 live, four in five people within 0.75 of it, 49 of the 51 west of 46"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2882: the reporter stood on him at 44.74,50.95 live; he does not move"
+			}
+		],
+		"note": "Chogg'Zac (npc 256899), the elite Twilight No More! (95427) sends you after in the Sunnyglade cave, stands in one spot at 44.9,51.2 in the live map frame (Riverglades, map 2548). The data listed 14 points spread from 44.95 to 48.19, so Krol'dok Stronghold's pick-up guide aimed at x 46.70, about 80-90 yards east of him (#2882)."
+	},
 	"257196": {
 		"addSpawns": {
 			"2521": {
@@ -809,6 +871,16 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Durgen Dirgehammer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"263348": {
+		"set": {
+			"faction": null
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): 91 people saw it neutral, 71 people killed it 628 times"
+		},
+		"note": "Roving Tallstrider (Riverglades) is a neutral beast both sides kill, not Alliance-friendly as QuestieDB's Forever store has it. As a friendly NPC the route took its 25% Intact Tallstrider Beak (Song of the Strider, 95984) for no source and dropped the quest and its follow-up."
 	},
 	"263389": {
 		"set": {
@@ -1060,6 +1132,20 @@
 		],
 		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
 	},
+	"259256": {
+		"set": {
+			"instances": [
+				3039
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 27 people (23 established) killed Tunk inside Krol'dok Stronghold (instance map 3039), none anywhere else; 15 people looted the Horde's Krol'dok Moulding (item 267137) and 12 the Alliance's (267138) from him"
+			}
+		],
+		"note": "Tunk, the Blacksmith whose Krol'dok Moulding starts Krol'dok Moulding (94973 Horde, 94980 Alliance), stands inside Krol'dok Stronghold, so the Dungeons page lists both quests as picked up inside (#2560 sweep)."
+	},
 	"9500": {
 		"set": {
 			"instances": [
@@ -1095,6 +1181,132 @@
 			}
 		],
 		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"12676": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							74.98,
+							70.06
+						],
+						[
+							76.8,
+							67.3
+						],
+						[
+							72.5,
+							70.6
+						],
+						[
+							71.7,
+							69.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032787 (Sharptalon) walks waypoint path 800327870: Ashenvale 71.7,69.8 to 76.8,67.3 through his spawn at 74.98,70.06"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 70 people killed Sharptalon from 71,67 to 78,65 (the most at 74,70, 73,70 and 72,70)"
+			}
+		],
+		"note": "Sharptalon walks a path through the hills south of Splintertree Post from 71.7,69.8 up to 76.8,67.3; the data had his spawn alone (sweep for #2507)."
+	},
+	"12677": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							54.4,
+							54.9
+						],
+						[
+							57.5,
+							56.05
+						],
+						[
+							59.3,
+							54
+						],
+						[
+							60.4,
+							52.2
+						],
+						[
+							61.4,
+							49.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032807 (Shadumbra) walks waypoint path 800328070: Ashenvale 54.4,54.9 to 59.4,54.0 through her spawn at 57.5,56.05"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 55 people killed Shadumbra from 53,54 to 62,50 (the most at 58,55, 59,54, 60,52 and 61,49)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2507"
+			}
+		],
+		"note": "Shadumbra walks a long path through Raynewood Retreat, from the road at 54,55 past her spawn up to 61,50; the data had her spawn alone, so the kill step for Shadumbra's Head pointed only at the western end of her path (#2507)."
+	},
+	"12678": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							39.76,
+							65.21
+						],
+						[
+							43,
+							63.1
+						],
+						[
+							40.7,
+							66.4
+						],
+						[
+							42,
+							68.7
+						],
+						[
+							43.7,
+							68.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032808 (Ursangous) walks waypoint path 800328080: Ashenvale 39.7,63.1 to 43.7,68.8 through his spawn at 39.76,65.21"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 69 people killed Ursangous from 38,62 to 43,69 (the most at 40,66, 41,66 and 39,65)"
+			}
+		],
+		"note": "Ursangous walks a loop south-east of Astranaar from 39.7,63.1 down to 43.7,68.8; the data had his spawn alone (sweep for #2507)."
 	},
 	"12944": {
 		"set": {
@@ -2581,6 +2793,32 @@
 		],
 		"note": "Tallow Sparksocket is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
 	},
+	"260565": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							77.6,
+							50.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 35 people opened Kor'gar's goods, every window at 77.6-77.7,50.9-51.0; none at the other seven points"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2691"
+			}
+		],
+		"note": "Kor'gar (npc 260565), the engineering supplies vendor at Powderfuse Port in the Riverglades, stands at 77.6,50.95. The merged data gave him eight points around the port, 76.98-78.64,50.93-54.75, and the Engineering guide's Schematic: Thorium Tube led to one of them, 77.96,52.59, where he is not (#2691)."
+	},
 	"265756": {
 		"set": {
 			"roles": [
@@ -2601,5 +2839,751 @@
 			}
 		],
 		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
+	},
+	"270513": {
+		"set": {
+			"roles": [
+				"transmogrifier"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "Pinned QuestieDB Forever data, npc 270513: subName \"Transmogrifier\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.2 Forever, npc 270513: npcFlags includes 0x20000000"
+			}
+		],
+		"note": "Spellweaver Thaldris serves as a transmogrifier, as his NPC title and the newer quest data's flag show. The pinned data lacks that flag, so he would be missing from service markers and Nearby Services."
+	},
+	"278863": {
+		"set": {
+			"spawns": {}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: no sighting of npc 278863 and no death to it, while 337 people on foot logged other creatures within 40 yd of its points (danger gate census)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever world DB of 2026-10-14: no creature_template 278863"
+			}
+		],
+		"note": "Infernal (npc 278863, a level 30 elite) is nowhere players go: the quest data puts it at 133 points in Durotar, Elwynn Forest, Teldrassil, Thunder Bluff, Mulgore, Stormwind City and Zephras Isle, and no player has met it or died to it there. Those points made the danger gate flag the starting zones' quests, and would mark For Honor and An Enticing Offer \"Elite: group advised\" (#1575)."
+	},
+	"5858": {
+		"set": {
+			"name": "Searing Lava Spider"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Fiery Menace! (7724) reads \"Searing Lava Spider slain\" in the quest log, and each of its 40 recorded ticks came with a kill of npc 5858 credited to it (3 people)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2199: the reporter, at 10 of 20 on Fiery Menace!, found the spiders it counts named Searing Lava Spider"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 5858: name \"Searing Lava Spider\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 5858, the level 47-49 spiders of western Searing Gorge that Fiery Menace! counts, is the Searing Lava Spider in Forever; the merged data still had its Classic name, Greater Lava Spider, so the guides and the quest's step named a spider the game does not show (#2199)."
+	},
+	"8479": {
+		"set": {
+			"name": "Velarok Windblade"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Divine Retribution (3441), taken from and handed in to npc 8479, reads \"Velarok Story\" in the quest log (3 people)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 8479: name \"Velarok Windblade\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 8479 at the Cauldron's rim in Searing Gorge, who gives Divine Retribution, The Flawless Flame, Forging the Shaft and The Torch of Retribution, is Velarok Windblade in Forever; the merged data still had his Classic name, Kalaran Windblade, which the guides showed on his goals under steps and tips that already say Velarok (#2199 sweep: names of quest NPCs the game shows otherwise)."
+	},
+	"9026": {
+		"set": {
+			"spawns": {
+				"1427": {
+					"f": "e",
+					"pts": [
+						[
+							25.4,
+							80.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-15: 2 people killed Overmaster Pyron in Searing Gorge's Grinding Quarry, at 25,77 and 27,83 (build 70938); none elsewhere"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db creature 4593: Overmaster Pyron on map 0 at -7291.9,-890.6, Searing Gorge 25.4,80.1"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2464"
+			}
+		],
+		"note": "Overmaster Pyron (Incendius!'s first step, Blackrock Depths' pick-up guide) stands in the Grinding Quarry in Searing Gorge, by the way into Blackrock Mountain. The merged data had him only on the Eastern Kingdoms continent map, at a point outside Searing Gorge, so the kill step pointed nowhere near him (#2464). His one spawn replaces it."
+	},
+	"4217": {
+		"set": {
+			"spawns": {
+				"1457": {
+					"f": "l",
+					"pts": [
+						[
+							35.37,
+							8.4
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus, a few yards from his earlier point 35.37,8.4"
+		},
+		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point, the earlier data's, where the Darnassus guide grows the Morrowgrain."
+	},
+	"1742": {
+		"set": {
+			"spawns": {
+				"1420": {
+					"f": "e",
+					"pts": [
+						[
+							58.47,
+							51.39
+						],
+						[
+							58.4,
+							49.85
+						],
+						[
+							59.26,
+							49.31
+						],
+						[
+							60.14,
+							49.01
+						],
+						[
+							60.2,
+							47.39
+						],
+						[
+							59.38,
+							46.81
+						],
+						[
+							58.28,
+							47.84
+						],
+						[
+							57.48,
+							48.8
+						],
+						[
+							57.87,
+							49.64
+						],
+						[
+							58.29,
+							50.88
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20034111 (Deathguard Bartholomew) walks waypoint path 810017420, about 432 yd, through the spawn at 58.47,51.39"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 70 people opened Deathguard Bartholomew's window, 31 of them more than 25 yd from 58.47,51.39, and 70 within 20 yd of the path (most often at 58,50 (25), 60,49 (5), 59,48 (3), 58,49 (2), 60,47 (2))"
+			}
+		],
+		"note": "Deathguard Bartholomew walks round Brill's graveyard and the data had one spot on his walk, so the map marker and the arrow pointed at that spot while players met him anywhere along it (sweep for #2519)."
+	},
+	"1721": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "l",
+					"pts": [
+						[
+							76.47,
+							63.65
+						],
+						[
+							73.93,
+							62.52
+						],
+						[
+							71.23,
+							59.18
+						],
+						[
+							71.18,
+							56.68
+						],
+						[
+							72.88,
+							54.95
+						],
+						[
+							74.56,
+							56.2
+						],
+						[
+							76.08,
+							59.15
+						],
+						[
+							75.74,
+							62.28
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20079770 (Nikova Raskol) walks waypoint path 810017210, about 326 yd, through the spawn at 76.42,63.67"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 91 people opened Nikova Raskol's window, 75 of them more than 25 yd from 76.42,63.67, and 89 within 20 yd of the path (most often at 76,61 (6), 73,55 (6), 73,62 (5), 76,60 (5), 71,59 (4))"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2672"
+			}
+		],
+		"note": "Nikova Raskol walks a loop through Old Town and the data had one spot on it, at its south-east corner: the Stockade's pick-up guide pointed there while players met her anywhere on the loop (#1237, #2672, #2519)."
+	},
+	"3140": {
+		"set": {
+			"spawns": {
+				"1411": {
+					"f": "e",
+					"pts": [
+						[
+							54.18,
+							73.3
+						],
+						[
+							54.44,
+							74.29
+						],
+						[
+							54.58,
+							74.88
+						],
+						[
+							54.36,
+							76.15
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20004699 (Lar Prowltusk) walks waypoint path 800046990, about 285 yd, through the spawn at 54.44,74.35"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 52 people opened Lar Prowltusk's window, 37 of them more than 25 yd from 54.44,74.35, and 52 within 20 yd of the path (most often at 54,73 (15), 55,75 (12), 54,76 (11), 54,75 (2))"
+			}
+		],
+		"note": "Lar Prowltusk walks up and down a path of about 285 yd in southern Durotar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"2616": {
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							68.84,
+							53.22
+						],
+						[
+							68.46,
+							52.24
+						],
+						[
+							67.72,
+							51.72
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20007896 (Privateer Groy) walks waypoint path 810026160, about 146 yd, through the spawn at 68.84,53.22"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 13 people opened Privateer Groy's window, 5 of them more than 25 yd from 68.84,53.22, and 13 within 20 yd of the path (most often at 68,52 (5))"
+			}
+		],
+		"note": "Privateer Groy walks a short path and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"5639": {
+		"set": {
+			"spawns": {
+				"1454": {
+					"f": "e",
+					"pts": [
+						[
+							51.43,
+							46.47
+						],
+						[
+							48.54,
+							49.07
+						],
+						[
+							45.83,
+							51.1
+						],
+						[
+							44.09,
+							53.77
+						],
+						[
+							42.54,
+							49.76
+						],
+						[
+							44.68,
+							51.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20001903 (Craven Drok) walks waypoint path 800019030, about 375 yd, through the spawn at 51.3,45.9"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 22 people opened Craven Drok's window, 15 of them more than 25 yd from 51.3,45.9, and 18 within 20 yd of the path (most often at 49,48 (4), 51,51 (4), 44,52 (2), 48,50 (2), 47,50 (2))"
+			}
+		],
+		"note": "Craven Drok walks a path through Orgrimmar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"1481": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							9.41,
+							58.76
+						],
+						[
+							8.64,
+							58.24
+						],
+						[
+							8.02,
+							57.75
+						],
+						[
+							8.4,
+							58.75
+						],
+						[
+							8.85,
+							59.84
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20009475 (Bart Tidewater) walks waypoint path 800094750, about 233 yd, through the spawn at 8.66,58.12"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 10 people opened Bart Tidewater's window, 9 of them more than 25 yd from 8.66,58.12, and 10 within 20 yd of the path (most often at 9,60 (4), 9,59 (3), 8,57 (1), 8,58 (1))"
+			}
+		],
+		"note": "Bart Tidewater walks a path of about 233 yd around Menethil Harbor and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"248198": {
+		"set": {
+			"spawns": {
+				"1413": {
+					"f": "e",
+					"pts": [
+						[
+							49.74,
+							29.35
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 21200553 (Aza'bek): one spawn at -370.6,-2417.9 on map 1 (The Barrens 49.74,29.35), MovementType 0, no waypoint path"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 56 people opened Aza'bek's vendor window, all 56 within 20 yd of 49.74,29.35 (most often at 49.7,29.3 and 49.8,29.4), none within 20 yd of 49.26,28.66"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2774 (Kaxe, 0.4.0.1): stood at Aza'bek at 49.72,29.31; the arrow pointed 64 yd away at 49.26,28.66"
+			}
+		],
+		"note": "Aza'bek, the Crossroads cook who sells Soothing Spices, stands still at 49.74,29.35. The merged data had five points for Aza'bek, from 48.26,28.32 to 50.43,29.2, and `buy 3713 nearest` (Horde Dustwallow Marsh) sent players to 49.26,28.66, 64 yd away (#2774)."
+	},
+	"259023": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "l",
+					"pts": [
+						[
+							59.72,
+							27.59
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "npcs.json 259023: Arathi Highlands 59.84,27.57 and Ironforge 47.1,13.79; the Ironforge point is Eldrun Stormbreaker's (258098) spawn to the hundredth"
+			},
+			{
+				"kind": "recording",
+				"ref": "rec.py, players' recordings to 2026-11-17: 12 people opened Veyric Thunderhame's window at Arathi Highlands 59.8,27.6 (37 windows, 28 hand-ins); none met him in Ironforge, where 6 people trained with Eldrun Stormbreaker at 47.5,13.6"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2851 (Logan, 0.4.0.1, Dwarf Shaman 30): stood at Ironforge 47.07,13.02, 4 yd from 47.1,13.79, with Call of Air (94789) in the log; nobody there took it, while While you're here offered its hand-in to Veyric Thunderhame 5 yd away"
+			}
+		],
+		"note": "Veyric Thunderhame, who takes Call of Air (94789) and gives the rest of the Alliance Shaman chain, stands in the hills of Arathi Highlands. The merged data also put him at Eldrun Stormbreaker's spot in Ironforge, so the nearest ender for 94789 was in Ironforge and While you're here offered the hand-in there (#2851)."
+	},
+	"255906": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							16.2,
+							73.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 64 kills of Snargl by 57 people, the median of each person's kill spots 16.23,73.10, four in five people within 0.52 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 255906, as merged in our data: 17 points on map 2548, the nearest 0.2 from that spot, the farthest 7.4"
+			}
+		],
+		"note": "Snargl (npc 255906), an elite, is where players kill it: 16.2,73.1 (Riverglades, map 2548). The merged data listed 17 points around it, up to 7.4 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"256891": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							29.8,
+							41.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 27 kills of Executioner Morg by 18 people, the median of each person's kill spots 29.77,41.19, four in five people within 0.38 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 256891, as merged in our data: 38 points on map 2548, the nearest 0.2 from that spot, the farthest 12.5"
+			}
+		],
+		"note": "Executioner Morg (npc 256891), an elite, is where players kill it: 29.8,41.2 (Riverglades, map 2548). The merged data listed 38 points around it, up to 12.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"263615": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							59.5,
+							29.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 34 kills of Krek the Noxious by 30 people, the median of each person's kill spots 59.49,29.03, four in five people within 0.78 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 263615, as merged in our data: 26 points on map 2548, the nearest 0.1 from that spot, the farthest 5.9"
+			}
+		],
+		"note": "Krek the Noxious (npc 263615), an elite, is where players kill it: 59.5,29.0 (Riverglades, map 2548). The merged data listed 26 points around it, up to 5.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"272116": {
+		"set": {
+			"spawns": {
+				"1438": {
+					"f": "l",
+					"pts": [
+						[
+							51.4,
+							44.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 29 kills of Xethorr the Wicked by 22 people, the median of each person's kill spots 51.41,44.77, four in five people within 0.82 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 272116, as merged in our data: 8 points on map 1438, the nearest 0.3 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Xethorr the Wicked (npc 272116), an elite, is where players kill it: 51.4,44.8 (Teldrassil, map 1438). The merged data listed 8 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271458": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							60.9,
+							22.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 58 kills of Neru by 43 people, the median of each person's kill spots 60.85,22.00, four in five people within 0.81 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271458, as merged in our data: 31 points on map 1437, the nearest 0.1 from that spot, the farthest 7.5"
+			}
+		],
+		"note": "Neru (npc 271458), an elite, is where players kill it: 60.9,22.0 (Wetlands, map 1437). The merged data listed 31 points around it, up to 7.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271462": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							67.6,
+							71.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 46 kills of Golm by 35 people, the median of each person's kill spots 67.62,71.21, four in five people within 0.84 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271462, as merged in our data: 52 points on map 1437, the nearest 0.3 from that spot, the farthest 41.8"
+			}
+		],
+		"note": "Golm (npc 271462), an elite, is where players kill it: 67.6,71.2 (Wetlands, map 1437). The merged data listed 52 points around it, up to 41.8 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271338": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							77.4,
+							47.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 49 kills of Ados by 34 people, the median of each person's kill spots 77.41,47.06, four in five people within 0.43 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271338, as merged in our data: 37 points on map 1437, the nearest 0.2 from that spot, the farthest 4.9"
+			}
+		],
+		"note": "Ados (npc 271338), an elite, is where players kill it: 77.4,47.1 (Wetlands, map 1437). The merged data listed 37 points around it, up to 4.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"259897": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "l",
+					"pts": [
+						[
+							49.7,
+							87.9
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 12 kills of Old Fire-Eye by 11 people, the median of each person's kill spots 49.69,87.86, four in five people within 0.63 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 259897, as merged in our data: 38 points on map 1421, the nearest 0.2 from that spot, the farthest 15.5"
+			}
+		],
+		"note": "Old Fire-Eye (npc 259897), an elite, is where players kill it: 49.7,87.9 (Silverpine Forest, map 1421). The merged data listed 38 points around it, up to 15.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222233": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							74.9,
+							25.4
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 10 kills of Ohk'zi by 9 people, the median of each person's kill spots 74.90,25.45, four in five people within 0.46 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222233, as merged in our data: 4 points on map 1444, the nearest 0.1 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Ohk'zi (npc 222233), an elite, is where players kill it: 74.9,25.4 (Feralas, map 1444). The merged data listed 4 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222286": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							66.7,
+							38.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 14 kills of Namida Grimtotem by 9 people, the median of each person's kill spots 66.73,38.66, four in five people within 0.34 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222286, as merged in our data: 4 points on map 1444, the nearest 0.0 from that spot, the farthest 1.7"
+			}
+		],
+		"note": "Namida Grimtotem (npc 222286), an elite, is where players kill it: 66.7,38.7 (Feralas, map 1444). The merged data listed 4 points around it, up to 1.7 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"218032": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "l",
+					"pts": [
+						[
+							69.3,
+							81.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 19 kills of Witherbark Goliath by 8 people, the median of each person's kill spots 69.29,81.66, four in five people within 0.29 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 218032, as merged in our data: 17 points on map 1417, the nearest 0.1 from that spot, the farthest 10.2"
+			}
+		],
+		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
 	}
 }

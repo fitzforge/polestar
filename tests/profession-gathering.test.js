@@ -287,3 +287,33 @@ test('generated profession guides are up to date and compile', { skip: hasData ?
 	const { diag } = compileSources(sources, ctx.data);
 	assert.deepEqual(diag.errors.map(format), []);
 });
+
+test("the Fishing guide names each band's cooking recipes with their sellers, buys one only by the water, and says what Darkshore Grouper and Oily Blackmouth are for (#1883)", { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context, money } = require('../tools/lib/professions/gathering/common');
+	const fishing = require('../tools/lib/professions/gathering/fishing');
+	const ctx = context(DATA);
+	const text = fishing.render(ctx);
+	const cook = ctx.data.professionNamed('Cooking');
+	const recipes = [6325, 6326, 6328, 6368, 6330, 6369];
+	for (const item of recipes) {
+		const m = cook.materials[item];
+		assert.ok(text.includes(`${m.name} for the `), `${m.name} is named`);
+		assert.ok(text.includes(`, ${money(m.buy)}: `), `${m.name}'s price, ${money(m.buy)}`);
+	}
+	// A recipe is bought only where a seller of it stands by a band's water: an optional goal on that fishing step.
+	let buys = 0;
+	for (const s of text.split('\nstep ').slice(1)) {
+		for (const [, item, npc, optional] of s.matchAll(/\n {2}buy (\d+) x1 npc (\d+)( optional)?/g)) {
+			if (!recipes.includes(Number(item))) continue;
+			buys++;
+			const title = s.split('\n')[0];
+			assert.ok(optional, `${title}: the recipe is an optional buy`);
+			assert.ok(title.startsWith('Fishing: '), `${title}: a band's fishing step`);
+			const v = cook.materials[item].vendors;
+			assert.ok([...(v.Alliance || []), ...(v.Horde || [])].includes(Number(npc)), `${title}: ${npc} sells ${item}`);
+		}
+	}
+	assert.ok(buys > 0, 'some band fishes beside a recipe seller');
+	assert.match(text, /Darkshore Grouper bites only here: eat it as it is\. Gubber Blump \(Darkshore\) takes 6 for The Family and the Fishing Pole, which gives the Blump Family Fishing Pole\./);
+	assert.match(text, /Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it \(Alchemy 80\); keep it to sell or trade\./);
+});

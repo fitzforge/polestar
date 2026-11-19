@@ -631,6 +631,68 @@ fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_t
 	assert_eq!(out["skip"], false, "nothing skipped");
 }
 
+// #2545: a quest's line, middle-clicked, opens the game's quest log at its quest; shift-clicked, it puts the quest's
+// link into the chat box (a chat box opened for it when none is being typed in). Neither moves the arrow, and a plain
+// click still does; the tooltip names both clicks. With the gamepad interface the row menu offers "Link in chat".
+#[test]
+fn a_quest_line_middle_clicked_opens_the_quest_log_shift_clicked_links_it_in_chat_2545() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, inserted, typed = Polestar.Compat, {}, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local shift, chatOpen = false, true
+		IsModifiedClick = function(what) return what == "CHATLINK" and shift end
+		GetQuestLink = function(q) return "|cffffff00|Hquest:" .. q .. ":0|h[Investigate Echo Ridge]|h|r" end
+		ChatEdit_InsertLink = function(t) if not chatOpen then return false end inserted[#inserted + 1] = t; return true end
+		ChatFrame_OpenChat = function(t) typed[#typed + 1] = t end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		local row = rowFor("Investigate Echo Ridge")
+		local r = {}
+		uistub.calls = {}
+		stub.RunScript(row, "OnClick", "MiddleButton")
+		r.middle = { opened = opened, aim = lastCall("AimGoal") or false, menu = PolestarMenu and PolestarMenu:IsShown() or false }
+		shift = true
+		stub.RunScript(row, "OnClick", "LeftButton")
+		chatOpen = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.shift = { inserted = { unpack(inserted) }, typed = typed, aim = lastCall("AimGoal") or false }
+		shift = false
+		stub.RunScript(row, "OnClick", "LeftButton")
+		r.plain = lastCall("AimGoal") or false
+		stub.RunScript(row, "OnEnter")
+		r.tip = GameTooltip.lines
+		stub.RunScript(row, "OnLeave")
+		-- The gamepad interface: no quest log to open, no shift-click; the row menu links it.
+		Polestar.GamepadUI = function() return true end
+		C.CanOpenQuestLog = function() return false end
+		chatOpen = true
+		stub.RunScript(row, "OnClick", "RightButton")
+		local items = {}
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then items[#items + 1] = m.Text:GetText() end end
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Link in chat" then m:Click() end end
+		r.pad = { items = items, inserted = #inserted }
+		emit(r)"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	let link = "|cffffff00|Hquest:15:0|h[Investigate Echo Ridge]|h|r";
+	assert_eq!(out["middle"], json!({ "opened": [15], "aim": false, "menu": false }), "middle-click: the quest log at 15, nothing else");
+	assert_eq!(out["shift"], json!({ "inserted": [link], "typed": [link], "aim": false }), "shift-click: the link in chat");
+	assert_eq!(out["plain"][0], "AimGoal", "a plain click still points the arrow");
+	assert!(has(&out["tip"], "Middle-click: show in quest log. Shift-click: link in chat."), "{}", joined(&out["tip"]));
+	assert_eq!(out["pad"], json!({ "items": ["Tick it done", "Skip this quest", "Link in chat"], "inserted": 2 }), "the gamepad's row menu");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"
@@ -646,6 +708,32 @@ fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	assert!(has(&lines, "Location | Elwynn Forest  49.6, 40.4"));
 	assert!(has(&lines, "Click to point the arrow here"));
 	assert!(has(&lines, "Right-click to tick it done"));
+}
+
+// #2600: a note already shows its whole text in the guide window, so hovering it shows no tooltip that would only
+// repeat it (any row with nothing to add gets none); a note with something to add (its detail) keeps one.
+#[test]
+fn hovering_a_note_goal_shows_no_redundant_tooltip_2600() {
+	let out = run(r#"
+		local g = uistub.guides[uistub.elwynn]
+		table.insert(g.steps, {
+			title = "Feed Pet",
+			goals = {
+				{ t = "note", subject = "Feed Pet", subjectKind = "text", text = "Feed Pet: open your spellbook, cast Feed Pet and choose food.", status = "active" },
+				{ t = "note", subject = "Stable", subjectKind = "text", text = "Stable your pet.", detail = "at the stable master", status = "active" },
+			},
+		})
+		uistub.setGuide(uistub.elwynn, #g.steps)
+		local function hover(subject)
+			GameTooltip:Hide()
+			GameTooltip.lines = {}
+			stub.RunScript(rowFor(subject), "OnEnter")
+			return { shown = GameTooltip:IsShown() and true or false, lines = #GameTooltip.lines }
+		end
+		emit({ note = hover("Feed Pet"), detail = hover("Stable") })"#)
+	.remove(0);
+	assert_eq!(out["note"], json!({ "shown": false, "lines": 0 }), "no tooltip on a note row: {out}");
+	assert_eq!(out["detail"]["shown"], true, "a note with a detail keeps its tooltip: {out}");
 }
 
 // #1247: an accept's tooltip names the level its quest needs (red while the character is below it) and the
@@ -750,8 +838,11 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 		Polestar.Set("ui.scale", 1.3)
 		Polestar.Set("ui.opacity", 0.5)
 		Polestar.Set("ui.locked", true)
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		local movedWhileLocked = F.moving == true
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
+		local movedWhileLocked = Polestar.DragMoved(GF.parts.nav)
 		Polestar.Set("ui.compact", true)
 		local P = GF.parts
 		local compact = { strip = P.strip:IsShown(), after = P.after:IsShown(), tip = P.tip:IsShown(), rows = #visibleRows(),
@@ -773,7 +864,8 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the focus's open goals and the progress bar");
+	// Three tabs open: the slim strip stays (compact_mode_with_several_tabs_keeps_a_slim_strip...).
+	assert_eq!(compact, json!({ "strip": true, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the tabs, the focus's open goals and the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -786,10 +878,15 @@ fn dragging_saves_the_position_the_grip_resizes_width_within_bounds() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		F.x, F.y = 1500, 300
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		local moving = F.moving
+		-- ns.DragWindow: a press on the bar, the pointer's travel, the release saves the spot.
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.advance(0.1)
+		local _, _, _, mx = F:GetPoint(1)
+		local moving = mx ~= nil and mx > 1500
 		local top = F:GetTop()
-		stub.RunScript(GF.parts.nav, "OnDragStop")
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 		local pos = Polestar.Get("ui.pos")
 		stub.cursor = { 100, 500 }
 		stub.RunScript(GF.grip, "OnMouseDown", "LeftButton")
@@ -802,7 +899,7 @@ fn dragging_saves_the_position_the_grip_resizes_width_within_bounds() {
 		emit({ moving = moving, pos = pos, top = top, live = live, width = Polestar.Get("ui.width"),
 			polling = GF.grip:GetScript("OnUpdate") ~= nil, point = { F:GetPoint(1) } })"#)
 	.remove(0);
-	assert_eq!(out["moving"], true);
+	assert_eq!(out["moving"], true, "the window follows the pointer");
 	assert_eq!(out["pos"], json!([1500, out["top"].clone()]), "saved as the top-left corner");
 	assert_eq!(out["live"], 420, "width follows the cursor while dragging");
 	assert_eq!(out["width"], 560, "and is clamped to the maximum");
@@ -818,8 +915,10 @@ fn grow_upward_pins_the_window_by_its_bottom_left_turning_it_on_or_off_keeps_the
 		Polestar.Set("ui.growUp", true)
 		local on, onPoint = Polestar.Get("ui.pos"), { F:GetPoint(1) }
 		F.x, F.y = 900, 120
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		stub.RunScript(GF.parts.nav, "OnDragStop")
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 		local dragged = Polestar.Get("ui.pos")
 		stub.cursor = { 100, 500 }
 		stub.RunScript(GF.grip, "OnMouseDown", "LeftButton")
@@ -1046,6 +1145,139 @@ fn a_tab_s_right_click_menu_has_choose_guide_it_makes_that_tab_active_and_opens_
 	assert_eq!(out["newTab"], false, "the picked guide replaces the tab's guide instead of opening another tab");
 }
 
+// Compact mode hid the tab strip, and nothing else listed the open guides: players could neither see nor switch their
+// other tabs. With two guides or more open, compact mode keeps a slim strip (glyph and title, no levels, each tab's
+// close showing at rest, New tab at the strip's right end); with one guide it shows none, as before.
+#[test]
+fn compact_mode_with_several_tabs_keeps_a_slim_strip_that_lists_and_switches_them_one_tab_shows_none() {
+	let out = run(r#"
+		Polestar.Set("ui.compact", true)
+		uistub.openTabs(TABS, 1)
+		local strip = GF.parts.strip
+		local tabs = shownTabs()
+		local titles, ranges = {}, {}
+		for i, b in ipairs(tabs) do titles[i] = b.Label:IsShown() and b.Label:GetText() or false; ranges[i] = b.Range:IsShown() end
+		local b = tabs[2]
+		local close = { rest = b.Close:GetAlpha(), shown = b.Close:IsShown() }
+		stub.RunScript(b, "OnEnter")
+		close.hover = b.Close:GetAlpha()
+		stub.RunScript(b, "OnLeave")
+		close.left = b.Close:GetAlpha()
+		local point, rel, relPoint = strip.Add:GetPoint(1)
+		local three = { shown = strip:IsShown(), h = strip:GetHeight(), tabH = b:GetHeight(), n = #tabs, titles = titles, ranges = ranges,
+			close = close, full = GF.Metrics().tabH,
+			add = { shown = strip.Add:IsShown(), at = point .. " " .. relPoint, onStrip = rel == strip, h = strip.Add:GetHeight() } }
+		b:Click()
+		local switched = lastCall("SelectTab")
+		strip.Add:Click()
+		local picker = PolestarPicker:IsShown() and Polestar.UI.Picker.IsNewTabMode()
+		PolestarPicker:Hide()
+		shownTabs()[3].Close:Click()
+		local closed = lastCall("CloseTab")
+		shownTabs()[2].Close:Click()
+		local one = { shown = strip:IsShown(), title = GF.parts.nav.Title:IsShown() }
+		emit({ three = three, switched = switched, picker = picker, closed = closed, one = one })"#)
+	.remove(0);
+	let three = &out["three"];
+	assert_eq!(three["shown"], true, "the strip stays in compact mode with three tabs");
+	assert_eq!(three["n"], 3);
+	assert!(f(&three["h"]) >= 16.0 && f(&three["h"]) < f(&three["full"]) - 6.0, "slim: {} against {}", three["h"], three["full"]);
+	assert_eq!(three["tabH"], three["h"]);
+	assert_eq!(three["titles"], json!(["Elwynn Forest", "Tailoring 1-300", "Stormwind Reputation"]));
+	assert_eq!(three["ranges"], json!([false, false, false]), "no level range in the slim strip");
+	assert_eq!(three["add"], json!({ "shown": true, "at": "RIGHT BOTTOMRIGHT", "onStrip": true, "h": three["h"] }), "New tab at the strip's right end");
+	assert_eq!(three["close"]["shown"], true);
+	assert!(f(&three["close"]["rest"]) >= 0.5, "every tab's close shows clearly at rest: {}", three["close"]["rest"]);
+	assert_eq!(three["close"]["hover"], 1.0);
+	assert_eq!(three["close"]["left"], three["close"]["rest"]);
+	assert_eq!(out["switched"], json!(["SelectTab", 2]));
+	assert_eq!(out["picker"], true, "New tab opens the picker for a new tab");
+	assert_eq!(out["closed"], json!(["CloseTab", 3]));
+	assert_eq!(out["one"], json!({ "shown": false, "title": true }), "one tab: no strip, the navigator names the guide");
+}
+
+// Six tabs on the slim strip at the compact window's width: the titles truncate clear of each tab's close, and New
+// tab keeps its room at the right end.
+#[test]
+fn compact_mode_with_six_tabs_truncates_the_titles_before_the_close_and_new_tab() {
+	let out = run(r#"
+		Polestar.Set("ui.compact", true)
+		uistub.openTabs({ TABS[1], TABS[2], TABS[3], { "forever/alliance/03-darkshore", 1 }, { "forever/professions/cooking", 1 },
+			{ "forever/exploration/eastern-kingdoms-1-30", 1 } }, 1)
+		local strip = GF.parts.strip
+		local tabs, used, bad = shownTabs(), 1, {}
+		for i, b in ipairs(tabs) do
+			used = used + b:GetWidth()
+			-- The label ends clear of the close (27 from the tab's left to the label, the close's 20 at its right).
+			if b.Label:IsShown() and 27 + b.Label:GetWidth() > b:GetWidth() - 20 then bad[#bad + 1] = i end
+			if not b.Close:IsShown() then bad[#bad + 1] = "close " .. i end
+		end
+		emit({ n = #tabs, bad = table.concat(bad, ","), room = F:GetWidth() - used, add = strip.Add:GetWidth(), full = not strip.Add:IsEnabled() })"#)
+	.remove(0);
+	assert_eq!(out["n"], 6);
+	assert_eq!(out["bad"], "", "each title ends clear of its close, and every tab has one");
+	assert!(f(&out["room"]) >= f(&out["add"]), "New tab keeps its room: {} for {}", out["room"], out["add"]);
+	assert_eq!(out["full"], true, "six tabs is the limit: New tab is off");
+}
+
+#[test]
+fn outside_compact_mode_the_strip_is_unchanged_full_height_with_ranges_close_and_new_tab() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local strip, b = GF.parts.strip, shownTabs()[2]
+		emit({ h = strip:GetHeight(), full = GF.Metrics().tabH, range = b.Range:IsShown(), add = strip.Add:IsShown(), rest = b.Close:GetAlpha() })"#)
+	.remove(0);
+	assert_eq!(out["h"], out["full"]);
+	assert_eq!(out["range"], true);
+	assert_eq!(out["add"], true);
+	assert!(f(&out["rest"]) > 0.2, "the close rests faint: {}", out["rest"]);
+}
+
+// The window's menu lists the open tabs in any mode: with two or more, "Open tabs (N)" in New tab's place opens a
+// page of every guide open (the one in view checked), New tab and Reopen closed tab; a click switches.
+#[test]
+fn the_menu_lists_the_open_tabs_on_a_page_of_its_own_the_active_one_checked_a_click_switches() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do
+				if r:IsShown() then out[#out + 1] = { text = (r.Text:GetText() or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), checked = r.Check:IsShown() } end
+			end
+			return out
+		end
+		GF.menuButton:Click()
+		local main = rows()
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and (r.Text:GetText() or ""):find("^Open tabs") then r:Click() break end end
+		local page = rows()
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and (r.Text:GetText() or ""):find("^Stormwind") then r:Click() break end end
+		local switched = lastCall("SelectTab")
+		uistub.openTabs({ TABS[1] }, 1)
+		GF.menuButton:Click()
+		local single = rows()
+		GF.menuButton:Click()
+		emit({ main = main, page = page, switched = switched, single = single })"#)
+	.remove(0);
+	let texts = |v: &Value| v.as_array().unwrap().iter().map(|r| r["text"].as_str().unwrap().to_string()).collect::<Vec<_>>();
+	let main = texts(&out["main"]);
+	assert_eq!(main[1], "Open tabs (3)  \u{203a}", "in New tab's place");
+	assert!(!main.contains(&"Open in new tab".to_string()));
+	assert_eq!(
+		out["page"],
+		json!([
+			{ "text": "Back", "checked": false },
+			{ "text": "Elwynn Forest  (1–13)", "checked": true },
+			{ "text": "Tailoring 1-300  (5–60)", "checked": false },
+			{ "text": "Stormwind Reputation  (12–60)", "checked": false },
+			{ "text": "Open in new tab", "checked": false }
+		])
+	);
+	assert_eq!(out["switched"], json!(["SelectTab", 3]));
+	let single = texts(&out["single"]);
+	assert_eq!(single[1], "Open in new tab", "one tab: the menu as before");
+	assert!(!single.iter().any(|t| t.starts_with("Open tabs")));
+}
+
 // A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. It shows
 // faintly at rest, in full under the pointer, and still closes its tab.
 #[test]
@@ -1149,8 +1381,9 @@ fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s
 
 // A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
 // last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
-// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
-// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+// level range's and the close's places, the close's rest. Every look in turn, then the guide window's text grown
+// (ui.guideTextSize), each against a fresh window opened in it (the looks lay their tabs out differently, so the
+// comparison has something to catch).
 #[test]
 fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
 	const MEASURE: &str = r#"
@@ -1178,7 +1411,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 			Polestar.Set("ui.skin", look)
 			out[look] = measure()
 		end
-		Polestar.Set("ui.textSize", 1.25)
+		Polestar.Set("ui.guideTextSize", 1.25)
 		out.grown = measure()
 		emit(out)"#
 	))
@@ -1188,7 +1421,7 @@ fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it
 		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
 		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
 	}
-	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.guideTextSize\", 1.25)"), "the guide window's text grown with it open");
 	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
 	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
 }
@@ -1723,7 +1956,7 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 // Boosted Rest and the sleeping bag (QoL/Rest.Parts) on a short line of their own under the XP line, so the pace
 // note (which almost always shows) never pushes them out of sight: the row grows by that line, the line fits the
 // default window's slot (its width less the paddings and the icon), the hover repeats it, and alone it takes the
-// XP line's place. Nothing to say: no line, and no row for it alone.
+// XP line's place, one line high. Nothing to say: no line, and no row for it alone.
 #[test]
 fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the_default_width() {
 	let out = run(r#"
@@ -1752,7 +1985,7 @@ fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the
 		GF.PaceText = function() return nil end
 		Polestar.QoL.GetXPStats = function() return nil end
 		Polestar.Fire("QOL_REST_UPDATED", false)
-		local alone = { shown = xp:IsShown(), text = xp.Text:GetText(), rest = xp.Rest:IsShown(), h = xp:GetHeight() == h1 }
+		local alone = { shown = xp:IsShown(), text = xp.Text:GetText(), rest = xp.Rest:IsShown(), h = xp:GetHeight() == GF.XPROW.h }
 		rest = {}
 		Polestar.Fire("QOL_REST_UPDATED", true)
 		GF.PaceText = pace
@@ -1767,6 +2000,100 @@ fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the
 	assert!(out["two"]["tip"].as_array().unwrap().iter().any(|l| l == "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m"), "the hover repeats it: {}", out["two"]["tip"]);
 	assert_eq!(out["alone"], json!({ "shown": true, "text": "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m", "rest": false, "h": true }), "alone: in the XP line's place");
 	assert_eq!(out["none"], false);
+}
+
+// A line longer than the window's default width ("48.0k XP/h · 30s to level · On pace for level 25.2 by s…" read
+// cut in every look) takes a second line, the row growing by it and the window with it; whole, with nothing cut,
+// and one line again once it fits (a wider window).
+#[test]
+fn a_long_xp_line_takes_a_second_line_instead_of_being_cut() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local xp = GF.xp
+		local one = GF.XPROW.h
+		local narrow = { h = xp:GetHeight(), lines = xp.Text:GetMaxLines(), wraps = xp.Text:GetWordWrap(), text = xp.Text:GetText(), width = F:GetWidth() }
+		Polestar.Set("ui.width", 560)
+		GF.Layout()
+		local wide = { h = xp:GetHeight() }
+		GF.PaceText = pace
+		emit({ one = one, narrow = narrow, wide = wide, line = GF.XPHeight(340) > one })"#)
+	.remove(0);
+	let one = out["one"].as_f64().unwrap();
+	assert_eq!(out["narrow"]["width"], 340, "the default width");
+	assert_eq!(out["narrow"]["text"], "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96", "{out}");
+	assert_eq!((out["narrow"]["lines"].as_u64(), out["narrow"]["wraps"].as_bool()), (Some(2), Some(true)), "up to two lines");
+	assert!(out["narrow"]["h"].as_f64().unwrap() > one, "a line taller at the default width: {out}");
+	assert_eq!(out["wide"]["h"].as_f64(), Some(one), "one line where it fits: {out}");
+	assert_eq!(out["line"], true);
+}
+
+// The pace line has its own switch (guideWindow.pace, #2371, #2379): off, the XP row keeps the tracker's XP an hour and
+// time to level and drops "On pace…"; with nothing else to say the row goes; on again, the line is back.
+#[test]
+fn the_pace_line_turns_off_on_its_own_and_the_xp_row_keeps_the_rest() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local function row() return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false } end
+		local r = { on = row() }
+		Polestar.Set("guideWindow.pace", false)
+		r.off = row()
+		stats = {}
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		r.alone = row()
+		Polestar.Set("guideWindow.pace", true)
+		r.back = row()
+		GF.PaceText = pace
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["on"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96" }), "{out}");
+	assert_eq!(out["off"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level" }), "{out}");
+	assert_eq!(out["alone"], json!({ "shown": false, "text": false }), "the pace was all it had: {out}");
+	assert_eq!(out["back"], json!({ "shown": true, "text": "On pace for level 25.2 by step 96" }), "{out}");
+}
+
+// The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
+// row lays the window out no more (at the row's own width, 0 before a layout, the two disagreed on a line that takes
+// two, and every XP update laid the whole window out again).
+#[test]
+fn an_xp_update_that_changes_nothing_in_the_row_does_not_lay_the_window_out_again() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local layouts, layout = 0, GF.Layout
+		GF.Layout = function(...) layouts = layouts + 1; return layout(...) end
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		GF.Layout, GF.PaceText = layout, pace
+		emit({ layouts = layouts, h = GF.xp:GetHeight(), one = GF.XPROW.h })"#)
+	.remove(0);
+	assert_eq!(out["layouts"], 0, "{out}");
+	assert!(out["h"].as_f64().unwrap() > out["one"].as_f64().unwrap(), "still on two lines: {out}");
 }
 
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
@@ -2380,7 +2707,7 @@ fn a_quest_started_by_a_dropped_item_reads_as_one_line_the_quest_the_go_to_namin
 
 // `when group` (Engine.GroupQuestion): the banner asks at the group quest the live step waits on; Skip it is
 // the default (the accent link, the gamepad's first focus), Do it with a group the other answer; it cannot be
-// dismissed.
+// dismissed. Skip it is then offered back as an undo for a while, as a skipped quest's or step's is (#2404).
 const ASK: &str = r#"
 		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
 		uistub.openTabs(TABS, 1)
@@ -2395,14 +2722,14 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 		ASK,
 		r#"
 		B.Jump:Click()
-		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = B:IsShown(), flag = B.Jump.psDefault or false })"#,
+		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = { GF.BannerNotice() or false, B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() }, flag = B.Jump.psDefault or false })"#,
 	]
 	.concat())
 	.remove(0);
 	assert_eq!(skip["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "Do it with a group", false, true]));
 	assert_eq!(skip["kept"], true, "dismissing does not answer");
 	assert_eq!(skip["call"], json!(["AnswerGroup", 6284, "skip"]));
-	assert_eq!(skip["after"], false);
+	assert_eq!(skip["after"], json!(["groupSkip", "Skipped “Arachnophobia”", "Undo", false]), "the skip offers its undo");
 	assert_eq!(skip["flag"], false, "no default mark once answered");
 	let group = run(&[
 		ASK,
@@ -2415,10 +2742,36 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
 }
 
+// The group quest's skip, undone from the banner (#2404): the quest is unanswered again, so the step asks once more.
+// Not undone, the undo goes after 20 seconds and the skip stands.
+#[test]
+fn a_group_quest_skipped_at_the_banner_is_undone_from_it_and_the_question_comes_back() {
+	let out = run(&[
+		ASK,
+		r#"
+		B.Jump:Click()
+		B.Jump:Click()
+		local undone = { call = lastCall("AnswerGroup"), answer = Polestar.CharState().groupQuests[6284] or false, kind = GF.BannerNotice() or false, text = B.Text:GetText() }
+		B.Jump:Click()
+		stub.advance(21)
+		emit({ undone = undone, later = { kind = GF.BannerNotice() or false, shown = B:IsShown(), answer = Polestar.CharState().groupQuests[6284] or false } })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out["undone"],
+		json!({ "call": ["AnswerGroup", 6284], "answer": false, "kind": "group", "text": "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route." }),
+		"{out}"
+	);
+	assert_eq!(out["later"], json!({ "kind": false, "shown": false, "answer": "skip" }), "{out}");
+}
+
 // Dungeons in the route, Ask me (Engine.DungeonQuestion): the banner asks at the dungeon the live step waits on, Run
 // it (the main link, the gamepad's first focus) or Skip it; it cannot be dismissed. Each answer goes to
-// Engine.ChooseDungeon for that dungeon.
+// Engine.ChooseDungeon for that dungeon. Dungeons in the route turned on (held back as they ship: Core/Init.lua's
+// switch; held_back_the_guide_window_shows_no_dungeon_notice below).
 const DUNGEON_ASK: &str = r#"
+		Polestar.dungeonRoute = true
 		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
@@ -2468,6 +2821,7 @@ fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
 #[test]
 fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_look_for_a_group() {
 	let out = run(r#"
+		Polestar.dungeonRoute = true
 		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
 		uistub.dungeonKept = { "Oh Brother. . .", "Red Silk Bandanas" }
 		uistub.openTabs(TABS, 1)
@@ -2511,6 +2865,23 @@ fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_
 	assert_eq!(out["soon"], json!([true, "Wailing Caverns in 3 steps: start looking for a group.", false, true]));
 	assert_eq!(out["oneAhead"], "Wailing Caverns next: start looking for a group.");
 	assert_eq!(out["soonAfter"], false, "closed for this dungeon");
+}
+
+// Held back (Core/Init.lua's switch off, as it ships): whatever the engine says about a dungeon (a question, a run,
+// one soon) and a kept-quests notice left from before, the guide window shows none of the dungeon notices.
+#[test]
+fn held_back_the_guide_window_shows_no_dungeon_notice() {
+	let out = run(r#"
+		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
+		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 1 }
+		uistub.openTabs(TABS, 1)
+		GF.notices.dungeonKept = { map = 36, titles = { "Red Silk Bandanas" } }
+		GF.Layout()
+		local B = GF.parts.banner
+		emit({ on = Polestar.dungeonRoute, kind = B:IsShown() and B.psKind or false })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "on": false, "kind": false }));
 }
 
 #[test]
@@ -2919,17 +3290,20 @@ fn floating_button_off_by_default_on_it_hides_and_shows_polestar_opens_the_menu_
 		b:Click("LeftButton")
 		b:Click("RightButton")
 		b.x, b.y = 100, 200
-		b:GetScript("OnDragStart")(b)
-		local moving = b.moving
-		b:GetScript("OnDragStop")(b)
+		-- ns.DragWindow: a press, the pointer's travel, the release.
+		local function drag()
+			stub.cursor = { 900, 500 }
+			stub.RunScript(b, "OnMouseDown", "LeftButton")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(b, "OnMouseUp", "LeftButton")
+			return Polestar.DragMoved(b)
+		end
+		local moving = drag()
 		local saved, moved = Polestar.Get("ui.launcherPos"), at()
 		Polestar.Set("ui.lockHud", true)
-		b:GetScript("OnDragStart")(b)
-		local locked = b.moving
+		local locked = drag()
 		stub.keys.shift = true
-		b:GetScript("OnDragStart")(b)
-		local shiftDrag = b.moving
-		b:GetScript("OnDragStop")(b)
+		local shiftDrag = drag()
 		stub.keys.shift = false
 		Polestar.Set("ui.launcher", false)
 		emit({ before = before, start = start, shown = shown, fired = fired, menu = menu == b, moving = moving, saved = saved, moved = moved,

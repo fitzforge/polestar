@@ -39,9 +39,9 @@ return {
 	-- Step 5: Atiesh, Hand of Sargeras
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "{npc:16387}, Mano de Sargeras",
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
+	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane · {object:181206} Consecrated Earth · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
 	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Lleva el bastón corrompido a {area:2279}, la mazmorra en el extremo norte de {zone:1423}, por la puerta principal. En {object:175433}, busca el trozo de {object:181206} con una llamita blanca, párate en él y usa el bastón: sale {npc:16387}, Mano de Sargeras (jefe de nivel 63). Lleva un grupo fuerte: su {spell:17466} daña a todos y no se puede disipar (la resistencia a las sombras ayuda), su maldición {spell:28342} hay que quitarla enseguida, y Desarmar de un guerrero le hace soltar la espada, que un jugador cuerpo a cuerpo puede recoger y usar contra él. Se queda hasta dos horas y media, así que pueden reagruparse.",
-	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
+	-- {object:181206} Consecrated Earth · {area:2279} Stratholme
 	["the befouled staff, on the {object:181206} inside {area:2279}"] = "el bastón corrompido, sobre {object:181206} dentro de {area:2279}",
 
 	-- Step 6: The Greatstaff

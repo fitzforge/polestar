@@ -63,14 +63,11 @@ function localeCodepoints(files) {
 	return [...cps].filter((c) => c >= 0x180);
 }
 
-// Lua run first: the client's locale, the file that stands for its
-// interface strings (loaded when Core/Locale.lua asks for the language
-// folder, as the client loads it; the shipped Interface.lua by default), and
-// string.format's positional arguments (%1$s), which the client has and
-// Lua 5.1 does not.
-function localeLua(locale, file) {
-	const lines = [`function GetLocale() return ${JSON.stringify(locale)} end`,
-		`do
+// The client's locale and string.format's positional arguments (%1$s),
+// which the client has and Lua 5.1 does not.
+function clientLocaleLua(locale) {
+	return `function GetLocale() return ${JSON.stringify(locale)} end
+do
 	local fmt = string.format
 	string.format = function(f, ...)
 		if type(f) == "string" and f:find("%%%d+%$") then
@@ -81,7 +78,15 @@ function localeLua(locale, file) {
 		return fmt(f, ...)
 	end
 	format = string.format
-end`];
+end`;
+}
+
+// Lua run first: the client's locale (clientLocaleLua) and the file that
+// stands for its interface strings (loaded when Core/Locale.lua asks for the
+// language folder, as the client loads it; the shipped Interface.lua by
+// default).
+function localeLua(locale, file) {
+	const lines = [clientLocaleLua(locale)];
 	const strings = file || interfaceFile(locale);
 	if (fs.existsSync(strings)) {
 		lines.push(`do
@@ -143,7 +148,9 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 					if (w - r.w > 0.5) report('cut', 'its width', w - r.w, r.w / s);
 				}
 			} else {
-				const lines = wrap(fonts, o.font, o.plain, r.w / s);
+				// A string that breaks between characters (SetNonSpaceWrap, a
+				// multi-line edit box's text) has no word wider than its line.
+				const lines = wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace);
 				for (const l of lines) {
 					const w = measure(fonts, o.font, l) * s;
 					if (w - r.w > 0.5) report('word', 'its width', w - r.w, r.w / s);
@@ -183,7 +190,7 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		if (r.x + r.w - box.x1 > 0.5) report('window', 'the right edge (its box)', r.x + r.w - box.x1);
 		// Wrapping, its height free: the lines it takes.
 		if (!o.wrap || scrolls || (hasTop && hasBottom) || o.h != null || r.w <= 0) continue;
-		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s).length);
+		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace).length);
 		const vy = hasTop ? 0 : hasBottom ? 1 : 0.5;
 		const y0 = r.y + r.h * vy - h * vy, y1 = y0 + h;
 		if (fixed.y0 - y0 > 0.5) report('window', 'the top edge', fixed.y0 - y0);
@@ -310,7 +317,7 @@ function fitLocales(targets, { slack = 1 } = {}) {
 	});
 }
 
-module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua, textInk };
+module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, clientLocaleLua, localeLua, textInk };
 
 // One locale's findings as JSON, for fitLocales: node fit.js <locale>[=<file>] <slack>
 if (require.main === module) {

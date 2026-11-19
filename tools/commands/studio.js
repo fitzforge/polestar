@@ -24,6 +24,12 @@ const usage = [
 	'  --world <image>   a 1920x1080 still behind the UI (your own screenshot), not',
 	'                    plain dark',
 	'  --offline         no download: client art and tables from the cache only',
+	'  --locale <code>   render in that client language (deDE, ruRU, koKR, zhCN...):',
+	'                    its language folder loads as the client loads it; files',
+	'                    are <scenario>-<shot>-<code>.*. CJK and Hangul measure',
+	'                    1em (the preview faces have no such glyphs)',
+	'  --fit             list the text the shot\'s frames cut or let cross their',
+	'                    edges (the i18n fit audit; CJK and Hangul 1em)',
 	'  --serve           the studio page on http://127.0.0.1:<port>: pick a shot, it',
 	'                    re-renders when the addon or a scenario changes',
 	'  --port <n>        the page\'s port (default 4848)',
@@ -65,7 +71,7 @@ async function artCommand(args) {
 }
 
 async function run(argv) {
-	const { opts, positional, error } = parseArgs(argv, { flags: ['--offline', '--serve'], options: ['--checkout', '--out', '--world', '--port'] });
+	const { opts, positional, error } = parseArgs(argv, { flags: ['--offline', '--serve', '--fit'], options: ['--checkout', '--out', '--world', '--port', '--locale'] });
 	if (error) {
 		console.error(`${error}\n\n${usage}`);
 		return 2;
@@ -99,7 +105,16 @@ async function run(argv) {
 		}
 		return 0;
 	}
-	const run = { outDir: path.resolve(opts.out || studio.DEFAULT_OUT), world: opts.world ? path.resolve(opts.world) : null, offline: !!opts.offline, stubsDir };
+	if (opts.locale !== undefined) {
+		const { checkLocale } = require('../lib/i18n/locales');
+		try {
+			if (opts.locale !== 'enUS') checkLocale(opts.locale);
+		} catch (err) {
+			console.error(err.message);
+			return 2;
+		}
+	}
+	const run = { outDir: path.resolve(opts.out || studio.DEFAULT_OUT), world: opts.world ? path.resolve(opts.world) : null, offline: !!opts.offline, stubsDir, locale: opts.locale || null, fit: !!opts.fit };
 	if (opts.serve) {
 		const port = opts.port === undefined ? 4848 : Number(opts.port);
 		if (!Number.isInteger(port) || port < 0 || port > 65535) {
@@ -133,6 +148,7 @@ async function run(argv) {
 				for (const f of [r.closeup, r.png || r.svg]) if (f) console.log(path.relative(process.cwd(), f));
 				// What the shot's script returned (a check's answer), when anything.
 				if (r.result !== undefined && r.result !== null && r.result !== true) console.log(`  ${name}/${shot}: ${JSON.stringify(r.result)}`);
+				for (const f of r.fit || []) console.log(`  ${name}/${shot}: fit: ${f}`);
 				if (r.errors.length) failed++;
 			} catch (err) {
 				console.error(err.message);

@@ -258,11 +258,13 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 		}
 		let drops_left = ["npc", "object"].iter().any(|kind| ci.get("removeDrops").get(kind).items().iter().any(|x| !it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
 		let drops_new = ["npc", "object"].iter().any(|kind| ci.get("addDrops").get(kind).items().iter().any(|x| it.get("drops").get(kind).get(&x.to_js_string()).is_undef()));
+		let requires_new = ci.get("dropRequires").entries().iter().any(|(kind, requires)| !same_fields(&it.get("dropRequires").get(kind), requires));
 		let vendors_left = ci.get("removeVendors").items().iter().any(|r| it.get("vendors").items().iter().any(|v| r.strict_eq(v)));
-		if drops_left || drops_new || vendors_left {
+		if drops_left || drops_new || requires_new || vendors_left {
 			entry(&mut a, "items", &id, "applied", String::new());
 		} else {
-			entry(&mut a, "items", &id, "redundant", "no source it removes is in the merged data, and every one it adds is".into());
+			let detail = if ci.has("dropRequires") { "the sources and loot requirements already match" } else { "no source it removes is in the merged data, and every one it adds is" };
+			entry(&mut a, "items", &id, "redundant", detail.into());
 		}
 		for kind in ["npc", "object"] {
 			for x in ci.get("removeDrops").get(kind).items() {
@@ -287,6 +289,18 @@ pub fn apply(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim: b
 				if table.get(&key).is_undef() {
 					table.set(&key, V::Null);
 				}
+			}
+		}
+		for (kind, requires) in ci.get("dropRequires").entries() {
+			if it.get("dropRequires").as_obj().is_none() {
+				it.set("dropRequires", Obj::new());
+			}
+			let table = it.get("dropRequires");
+			if table.get(&kind).as_obj().is_none() {
+				table.set(&kind, Obj::new());
+			}
+			for (source, quests) in requires.entries() {
+				table.get(&kind).set(&source, owned(&quests));
 			}
 		}
 		// sim-v2: no rated dropper left, no scale either.
@@ -419,6 +433,13 @@ pub fn reassert(c: &V, quests: &Obj, npcs: &Obj, objects: &Obj, items: &Obj, sim
 				out.push(format!("items {id}: vendor {}", r.to_js_string()));
 			}
 		}
+		for (kind, requires) in ci.get("dropRequires").entries() {
+			for (source, quests) in requires.entries() {
+				if differs(&it.get("dropRequires").get(&kind).get(&source), &quests) {
+					out.push(format!("items {id}: drop requirements from {kind} {source}"));
+				}
+			}
+		}
 	}
 	apply(c, quests, npcs, objects, items, sim);
 	out
@@ -506,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 24] = [
+const QUEST_FIELDS: [&str; 25] = [
 	"title",
 	"level",
 	"minLevel",
@@ -524,6 +545,8 @@ const QUEST_FIELDS: [&str; 24] = [
 	"zone",
 	"xp",
 	"skill",
+	// The profession rank it needs (the Codex's `l<line>,<rank>`: Lookup's pick-up guides check it, #2752).
+	"skillLevel",
 	"event",
 	"escort",
 	// Handed in on the spot from the giver's window, never in the log (the server's QuestType 0).
@@ -823,7 +846,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "skillLevel" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -965,7 +988,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 	}
 	for (id, e) in ck.section_ids("items", &c.get("items")) {
 		let at = format!("items.{id}");
-		ck.keys(&at, &e, &["removeDrops", "addDrops", "removeVendors", "source", "note"]);
+		ck.keys(&at, &e, &["removeDrops", "addDrops", "dropRequires", "removeVendors", "source", "note"]);
 		ck.note(&at, &e);
 		ck.source(&at, &e);
 		if ck.exists("items", &id) == Some(false) {
@@ -985,6 +1008,31 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		}
 		if e.has("removeVendors") {
 			ck.ids(&format!("{at}.removeVendors"), "npcs", &e.get("removeVendors"));
+		}
+		if e.has("dropRequires") {
+			let requires = e.get("dropRequires");
+			ck.keys(&format!("{at}.dropRequires"), &requires, &["npc", "object"]);
+			for (kind, table) in [("npc", "npcs"), ("object", "objects")] {
+				let a = format!("{at}.dropRequires.{kind}");
+				for (source, quests) in ck.section_ids(&a, &requires.get(kind)) {
+					let a = format!("{a}.{source}");
+					let source_id = V::Num(source.parse().unwrap());
+					ck.refers(&a, table, &source_id);
+					let added = e.get("addDrops").get(kind).items().iter().any(|v| v.strict_eq(&source_id));
+					let removed = e.get("removeDrops").get(kind).items().iter().any(|v| v.strict_eq(&source_id));
+					let absent = ck.data.is_some_and(|d| d.items.get(&id).get("drops").get(kind).get(&source).is_undef());
+					if removed || (absent && !added) {
+						ck.err(&a, format!("{kind} {source} must be a drop source of item {id} (or be added by addDrops)"));
+					}
+					ck.ids(&a, "quests", &quests);
+					let ids = quests.items();
+					for (n, q) in ids.iter().enumerate() {
+						if ids[..n].iter().any(|v| v.strict_eq(q)) {
+							ck.err(format!("{a}[{n}]"), "quest is listed twice");
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -1165,7 +1213,7 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 }
 
 fn check_overrides(ck: &mut Ck, o: &V) {
-	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs"]);
+	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs", "leftout"]);
 	let step = |ck: &mut Ck, a: &str, s: &V, task: bool| {
 		let ok = s.is_arr() && (s.len() == 2 || (task && s.len() == 3)) && matches!(s.items()[0].as_str(), Some("accept" | "task" | "turnin"));
 		if !ok {
@@ -1249,6 +1297,28 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
 			ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
 		}
+	}
+	// Second-visit accepts left out on purpose (forge guide lint, forge-guide revisit.rs): {q, guide, reason, issue}.
+	let leftout = o.get("leftout");
+	if !leftout.is_undef() && !leftout.is_arr() {
+		ck.err("leftout", "must be a list");
+	}
+	let mut named: Vec<(String, String)> = Vec::new();
+	for (i, e) in leftout.items().iter().enumerate() {
+		let a = format!("leftout[{i}]");
+		ck.keys(&a, e, &["q", "guide", "reason", "issue"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		if !has_text(&e.get("guide")) {
+			ck.err(format!("{a}.guide"), "guide is required: the id of the guide whose accept stays out");
+		}
+		if !has_text(&e.get("reason")) {
+			ck.err(format!("{a}.reason"), "reason is required: why the guide does not bring the prerequisite back");
+		}
+		let k = (e.get("guide").to_js_string(), num_str(e.get("q").num()));
+		if named.contains(&k) {
+			ck.warn(&a, format!("quest {} in \"{}\" is already in leftout", k.1, k.0));
+		}
+		named.push(k);
 	}
 }
 
@@ -1444,7 +1514,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
 /// plays it at, #977); `when: "onquest Q[,Q...]"`: only while one of the quests is in the log; `when: "[!]knows S"`:
-/// only while the character knows (or, with `!`, does not know) spell S (#1867: a camp item already learned). `at: { guide,
+/// only while the character knows (or, with `!`, does not know) spell S (#1867: a camp item already learned);
+/// `when: "[!]complete Q"` / `"[!]turnedin Q"`: only while quest Q is (or is not) ready to hand in / handed in (#1952). `at: { guide,
 /// goal: fly, fly }` (a `when` only, #1676): the flight step `fly "<fly>"` of that guide (`guide` its id), e.g.
 /// a trip only those quests need. `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
 /// (an objective only, #1135): a zone-wide, slow collection: the writer lists the objective on the way
@@ -1720,14 +1791,19 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					// (`[!]knows <spell>`: a spell or recipe the character knows, #1867's camp items.)
 					let knows_ok = |w: &str| w.trim_start_matches('!').strip_prefix("knows ").is_some_and(|n| n.trim().parse::<u32>().is_ok_and(|n| n > 0));
 					let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
-					match quests {
-						Some(Some(qs)) if !qs.is_empty() => {
+					// (`[!]complete Q` / `[!]turnedin Q`: one quest ready to hand in, or handed in; #1952's Camping 101
+					// trainer steps wait until the profession reaches 20.)
+					let state =
+						when.as_str().map(|w| w.trim_start_matches('!')).and_then(|w| w.strip_prefix("complete ").or_else(|| w.strip_prefix("turnedin "))).map(|q| q.trim().parse::<u32>().ok());
+					match (quests, state) {
+						(Some(Some(qs)), _) if !qs.is_empty() => {
 							for q in qs {
 								ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
 							}
 						}
+						(_, Some(Some(q))) => ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64)),
 						_ if when.as_str().is_some_and(level_ok) || when.as_str().is_some_and(knows_ok) => {}
-						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]` or `[!]knows <spell>`", show(&when))),
+						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q` or `[!]knows <spell>`", show(&when))),
 					}
 					"when"
 				}
@@ -1893,6 +1969,84 @@ pub fn overlay(public: &V, private: &V) -> V {
 	out
 }
 
+/// Where one corrected field's value comes from (the knowledge base's `correction_origin` table).
+/// The KB labels every corrected field `correction`, whether the public corrections or the
+/// maintainer's private overlay set it; the public tier (the data pack's KB, `forge data publish`)
+/// keeps only the public ones.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Origin {
+	/// The KB kind: quest, npc, object, item, or mechanic (a quest's mechanics fixes, `field` `*`).
+	pub kind: &'static str,
+	pub id: i64,
+	/// The KB's field name (min_level, prereqs, npc_level, subname, spawns, ...).
+	pub field: String,
+	/// The private overlay sets it (its value, or part of it, comes from there).
+	pub private: bool,
+	/// The public entry's `source` kinds (empty for a private one).
+	pub kinds: Vec<String>,
+}
+
+/// The KB's field for a correction key of `section`.
+fn kb_field(section: &str, key: &str) -> String {
+	match (section, key) {
+		(_, "addSpawns") => "spawns",
+		("quests", "minLevel") => "min_level",
+		("quests", "pre" | "preAny" | "preAll") => "prereqs",
+		("npcs", "level") => "npc_level",
+		("npcs", "subName") => "subname",
+		_ => key,
+	}
+	.to_string()
+}
+
+/// A section's entries, a mechanics section's nested `quests` flattened in.
+fn section_entries(c: &V, section: &str) -> Vec<(String, V)> {
+	let ids = c.get(section);
+	let mut out: Vec<(String, V)> = ids.entries().into_iter().filter(|(k, _)| !k.starts_with('_') && !(section == "mechanics" && &**k == "quests")).map(|(k, v)| (k.to_string(), v)).collect();
+	if section == "mechanics" {
+		out.extend(ids.get("quests").entries().into_iter().map(|(k, v)| (k.to_string(), v)));
+	}
+	out
+}
+
+/// The fields an entry corrects, as KB field names.
+fn entry_fields(section: &str, e: &V) -> Vec<String> {
+	if section == "mechanics" {
+		return vec!["*".into()];
+	}
+	let mut f: Vec<String> = e.get("set").keys().iter().map(|k| kb_field(section, k)).collect();
+	if e.get("addSpawns").truthy() {
+		f.push("spawns".into());
+	}
+	f.dedup();
+	f
+}
+
+/// The origin of every corrected field: `public` is the repository's corrections, `private` the
+/// maintainer's overlay (`V::Null` when there is none). A field both set is private: the overlay
+/// goes over the public value.
+pub fn origins(public: &V, private: &V) -> Vec<Origin> {
+	let mut out: indexmap::IndexMap<(&'static str, i64, String), Origin> = indexmap::IndexMap::new();
+	for (section, kind) in [("quests", "quest"), ("npcs", "npc"), ("objects", "object"), ("items", "item"), ("mechanics", "mechanic")] {
+		for (c, private) in [(public, false), (private, true)] {
+			for (id, e) in section_entries(c, section) {
+				let Ok(n) = id.parse::<i64>() else { continue };
+				let src = e.get("source");
+				let kinds: Vec<String> = if private {
+					Vec::new()
+				} else {
+					let list = if src.is_arr() { src.items() } else { vec![src] };
+					list.iter().filter_map(|s| s.get("kind").as_str().map(str::to_string)).collect()
+				};
+				for field in entry_fields(section, &e) {
+					out.insert((kind, n, field.clone()), Origin { kind, id: n, field, private, kinds: kinds.clone() });
+				}
+			}
+		}
+	}
+	out.into_values().collect()
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -1974,6 +2128,29 @@ mod tests {
 	}
 
 	#[test]
+	fn drop_requirements_apply_reassert_and_validate_per_source() {
+		let c = parse_json(r#"{ "items": { "40": { "dropRequires": { "npc": { "20": [10, 11] } }, "source": { "kind": "in-game-check", "ref": "issue #1923" }, "note": "held or done" } } }"#).unwrap();
+		let mut t = tables();
+		t.items = parse_json(r#"{ "40": { "id": 40, "drops": { "npc": { "20": 33 }, "object": { "30": 50 } }, "dropRequires": { "object": { "30": [11] } } } }"#).unwrap();
+		let i = t.items.as_obj().unwrap();
+		let apply_to = || apply(&c, t.quests.as_obj().unwrap(), t.npcs.as_obj().unwrap(), t.objects.as_obj().unwrap(), i, false);
+		assert_eq!(apply_to().entries[0].state, "applied");
+		assert_eq!(i.get("40").get("dropRequires").get("npc").get("20").items().iter().map(V::num).collect::<Vec<_>>(), vec![10.0, 11.0]);
+		assert_eq!(i.get("40").get("dropRequires").get("object").get("30").at(0).num(), 11.0, "other sources keep their requirements");
+		assert_eq!(apply_to().entries[0].state, "redundant");
+		i.get("40").get("dropRequires").get("npc").as_obj().unwrap().delete("20");
+		assert_eq!(reassert(&c, t.quests.as_obj().unwrap(), t.npcs.as_obj().unwrap(), t.objects.as_obj().unwrap(), i, false), vec!["items 40: drop requirements from npc 20"]);
+		assert_eq!(i.get("40").get("dropRequires").get("npc").get("20").items().len(), 2);
+		let check_one = |raw: &str| check(&CheckInputs { corrections: Some(("c", raw)), mechanics: None, route_fixes: None, places: None, guide_fixes: None, data: Some(&t) });
+		let good = forge_guide::js::stringify(&c, None);
+		assert!(check_one(&good).is_empty(), "valid source requirement");
+		for bad in [r#"{"npc":{"20":[10,10]}}"#, r#"{"npc":{"20":[0]}}"#, r#"{"npc":{"20":[99]}}"#, r#"{"npc":{"20":10}}"#, r#"{"npc":{"30":[10]}}"#, r#"{"vendor":{"20":[10]}}"#] {
+			let raw = format!(r#"{{"items":{{"40":{{"dropRequires":{bad},"source":{{"kind":"in-game-check","ref":"issue #1923"}},"note":"held or done"}}}}}}"#);
+			assert!(check_one(&raw).iter().any(|f| f.severity == "error" && f.at.contains("dropRequires")), "{bad}");
+		}
+	}
+
+	#[test]
 	fn a_removed_quest_leaves_the_data_and_the_links_to_it_go() {
 		// #948: Horns of Nez'ra (2358) is not in the game on Forever; Alther's Mill (2282) named it as
 		// its follow-up.
@@ -2008,6 +2185,14 @@ mod tests {
 		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_profession_rank_is_a_whole_number_2752() {
+		let src = r#""source": { "kind": "tdb", "ref": "quest_template_addon" }, "note": "the lower rank""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": 200 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": "200" }}, {src} }}, "11": {{ "set": {{ "skillLevel": 2.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
 	}
 
@@ -2149,7 +2334,7 @@ mod tests {
 				{{ "id": "1-d", "quest": 10, "objective": 2, "faction": "Horde", "at": {{ "map": 2521, "x": 1, "y": 1, "frame": "live" }}, {src} }} ] }}"#
 		);
 		let g = format!(
-			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-k", "at": {{ "quest": 11, "goal": "accept" }}, "when": "!knows 1229517", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }}, {{ "id": "1-f", "at": {{ "guide": "forever/horde/04-the-barrens", "goal": "fly", "fly": "Ratchet" }}, "when": "onquest 10,11", {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-k", "at": {{ "quest": 11, "goal": "accept" }}, "when": "!knows 1229517", {src} }}, {{ "id": "1-c", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "when": "complete 11", {src} }}, {{ "id": "1-d", "at": {{ "quest": 10, "goal": "turnin" }}, "when": "!turnedin 11", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }}, {{ "id": "1-f", "at": {{ "guide": "forever/horde/04-the-barrens", "goal": "fly", "fly": "Ratchet" }}, "when": "onquest 10,11", {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(Some(&p), Some(&g)), Vec::<String>::new());
 		let bad_p = r#"{ "places": [
@@ -2157,7 +2342,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } }, { "id": "t", "at": { "goal": "fly", "fly": "Ratchet" }, "tip": "A tip." }, { "id": "s", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest" }, { "id": "r", "at": { "quest": 11, "goal": "turnin" }, "when": "!knows camp" } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } }, { "id": "t", "at": { "goal": "fly", "fly": "Ratchet" }, "tip": "A tip." }, { "id": "s", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest" }, { "id": "r", "at": { "quest": 11, "goal": "turnin" }, "when": "!knows camp" }, { "id": "q", "at": { "quest": 11, "goal": "turnin" }, "when": "complete 12" }, { "id": "p", "at": { "quest": 11, "goal": "turnin" }, "when": "turnedin x" } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -2180,6 +2365,8 @@ mod tests {
 			"fixes[4].at: a flight anchor carries a `when` only",
 			"fixes[5].when: \"onquest\": `level>=N`",
 			"fixes[6].when: \"!knows camp\": `level>=N`",
+			"fixes[7].when: no quest 12 in the data",
+			"fixes[8].when: \"turnedin x\": `level>=N`",
 			"fixes[3].background.title: one line of text",
 			"fixes[3].background.mobs[0]",
 			"fixes[3].background.finish.x: a map percent",
@@ -2316,6 +2503,20 @@ mod tests {
 	}
 
 	#[test]
+	fn a_leftout_record_names_the_quest_the_guide_and_why() {
+		let o = r##"{ "overrides": { "leftout": [{ "q": 10, "guide": "forever/horde/x", "reason": "slow", "issue": "#2635" }, { "q": 5, "reason": "" },
+			{ "q": 10, "guide": "forever/horde/x", "reason": "again" }, { "q": 10, "guide": "forever/horde/y", "reason": "r", "why": "x" }] } }"##;
+		let f = findings(None, None, Some(o));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		assert!(!has("leftout[0]"), "a full record is fine: {f:#?}");
+		assert!(has("overrides.leftout[1].q: no quest 5 in the data"), "{f:#?}");
+		assert!(has("overrides.leftout[1].guide: guide is required"), "{f:#?}");
+		assert!(has("overrides.leftout[1].reason: reason is required"), "{f:#?}");
+		assert!(has("warning o overrides.leftout[2]: quest 10 in \"forever/horde/x\" is already in leftout"), "{f:#?}");
+		assert!(has("overrides.leftout[3]"), "an unknown key: {f:#?}");
+	}
+
+	#[test]
 	fn a_skip_or_an_override_pair_may_hold_for_one_side() {
 		// (c18: Silver Heart is skipped on the Horde's routes only; Donova's New Springs waits for the
 		// Horde's last Felwood leg.)
@@ -2361,5 +2562,32 @@ mod tests {
 		assert_eq!(m.get("603").get("params").items()[0].get("sec").num(), 5.0);
 		assert_eq!(m.get("1064").get("note").as_str(), Some("flat"));
 		assert!(m.get("quests").is_undef(), "the nesting key is not an id");
+	}
+
+	#[test]
+	fn origins_tell_the_private_overlay_from_the_public_corrections() {
+		let public = parse_json(
+			r##"{ "quests": { "10": { "set": { "minLevel": 5, "end": { "npc": [] } }, "source": [{ "kind": "recording", "ref": "#1" }, { "kind": "page", "ref": "x" }] } },
+			"npcs": { "20": { "set": { "level": 30 }, "addSpawns": { "1": {} }, "source": { "kind": "tdb", "ref": "y" } } },
+			"mechanics": { "114": { "params": [], "source": { "kind": "in-game-check", "ref": "#613" } } } }"##,
+		)
+		.unwrap();
+		let private =
+			parse_json(r#"{ "quests": { "10": { "set": { "end": { "object": [5] } } }, "11": { "set": { "pre": [9] } } }, "mechanics": { "quests": { "603": { "params": [] } } } }"#).unwrap();
+		let got: Vec<(&str, i64, String, bool, Vec<String>)> = origins(&public, &private).into_iter().map(|o| (o.kind, o.id, o.field, o.private, o.kinds)).collect();
+		let k = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+		assert_eq!(
+			got,
+			vec![
+				("quest", 10, "min_level".into(), false, k(&["recording", "page"])),
+				("quest", 10, "end".into(), true, vec![]),
+				("quest", 11, "prereqs".into(), true, vec![]),
+				("npc", 20, "npc_level".into(), false, k(&["tdb"])),
+				("npc", 20, "spawns".into(), false, k(&["tdb"])),
+				("mechanic", 114, "*".into(), false, k(&["in-game-check"])),
+				("mechanic", 603, "*".into(), true, vec![]),
+			]
+		);
+		assert!(origins(&public, &V::Null).iter().all(|o| !o.private));
 	}
 }

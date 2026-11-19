@@ -10,11 +10,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The window's parts and sizes, handed over by the core (GF.Bind).
 	local F, strip, nav, card, person, after, along, upnext, grip, band
 	local banner, foot
-	local PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD, UP_TOGGLE
+	local PAD, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD, UP_TOGGLE
 	GF.Bind(function(p, m)
 		F, strip, nav, card, person, after, along, upnext = p.F, p.strip, p.nav, p.card, p.person, p.after, p.along, p.upnext
 		grip, band, banner, foot = p.grip, p.band, p.banner, p.foot
-		PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD = m.PAD, m.TAB_H, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X, m.CHECK, m.ROW_PAD
+		PAD, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD = m.PAD, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X, m.CHECK, m.ROW_PAD
 		UP_TOGGLE = m.UP_TOGGLE
 	end)
 
@@ -178,19 +178,26 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
+	-- This window's own ground (guideWindow.bgColor, bgOpacity) painted again;
+	-- unset, it follows every Polestar window's. GF.ApplyStyle's first part,
+	-- alone for a live change (a slider dragged): no layout.
+	function GF.ApplyGround()
+		if not F then return end
+		local r, g, b = GF.Rgb("bgColor")
+		F.psBgColor = r and { r, g, b } or nil
+		F.psBgAlpha = tonumber(ns.Get("guideWindow.bgOpacity"))
+		Theme.Repaint(F)
+	end
+
 	-- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the
 	-- window skin itself; ui.bgOpacity changes land here to repaint it.
 	function GF.ApplyStyle()
 		if not F then return end
 		local clear = transparent()
 		F.psBare = clear
-		-- This window's own ground and border (guideWindow.bgColor, bgOpacity,
-		-- border); unset, it follows every Polestar window's.
-		local r, g, b = GF.Rgb("bgColor")
-		F.psBgColor = r and { r, g, b } or nil
-		F.psBgAlpha = tonumber(ns.Get("guideWindow.bgOpacity"))
+		-- This window's own ground and border (guideWindow.border).
 		F.psNoBorder = not GF.On("border") or nil
-		Theme.Repaint(F)
+		GF.ApplyGround()
 		local skin = Theme.SkinKey()
 		band:SetShown(not clear and skin == "polestar")
 		local backing = GF.Backing() and true or false
@@ -256,6 +263,10 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.ApplyLook(key)
 		if not F or (key and GF.LOOK_LATER[key]) then return end
 		if key == "hideTaxi" then return GF.ApplyVisibility() end
+		-- The pace line (#2371, #2379): the XP row's text read anew, also when
+		-- every setting changes at once (a profile switch, Reset all).
+		if key == "pace" then return GF.UpdateXP() end
+		if not key then GF.UpdateXP() end
 		if key == "idleAlpha" or key == "combatAlpha" then
 			-- The cursor may sit on a window that never watched it (Standard style).
 			if key == "idleAlpha" and hovering and GF.Num("idleAlpha") < 1 then watcher:SetScript("OnUpdate", ns.Safe(watch)) end
@@ -399,7 +410,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local skin = Theme.SkinKey()
 		skinShown = Theme.SkinId() .. "/" .. skin
 		Theme.Repaint(F)
-		strip:SetHeight(TAB_H)
+		strip:SetHeight(GF.StripH())
 		nav:SetHeight(NAV_H)
 		foot:SetHeight(PROG_H)
 		-- The navigator: ‹ › and the icon buttons at the skin's sizes.
@@ -502,7 +513,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		-- The tabs, painted again in the skin.
 		for _, b in ipairs(tabButtons) do
-			b:SetHeight(TAB_H)
+			b:SetHeight(GF.StripH())
 			GF.PaintTab(b)
 		end
 		-- Sized with the bar's text (guideWindow.barTextSize); Along the way's

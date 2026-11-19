@@ -77,8 +77,10 @@ local function placement(G, link)
 	local main, info = mainLink and G.GetItemInfo(mainLink), G.GetItemInfo(link)
 	if not (main and main.inv == TWO_HANDER and info and HAND[info.inv]) then return r and r.slot, pct end
 	if HAND[info.inv] == OFF then return nil end
-	local gain = r.score - r.old
-	pct = r.old > 0 and gain / r.old * 100 or nil
+	-- Forever Leveling BiS's gain is already the reward's own against what is
+	-- worn (Gear.CompareToEquipped's flbis), with its share when it has one.
+	local gain = r.flbis and r.delta or (r.score - r.old)
+	if r.flbis then pct = r.pct else pct = r.old > 0 and gain / r.old * 100 or nil end
 	if gain <= 0 or (pct and pct < (tonumber(ns.Get("gear.minUpgrade")) or 0)) then return nil end
 	return HAND[info.inv], pct
 end
