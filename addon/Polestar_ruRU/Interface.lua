@@ -2148,7 +2148,6 @@ L["The guide leaves them out."] = "Гайд их пропускает."
 L["For a party levelling together: every one is in the route."] = "Для группы, которая качается вместе: все они в маршруте."
 L["Point at a look to see it here; click it to wear it."] = "Наведите курсор на оформление, чтобы увидеть его здесь; нажмите, чтобы применить."
 L["Built in"] = "Встроенные"
-L["Concept looks"] = "Концепт-оформления"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Пропускает серые задания, а также оставшиеся позади задания, дающие меньше полного опыта, если возвращаться к ним дольше, чем они того стоят. Задание, дающее полный опыт, остаётся, как и то, что нужно для более позднего задания. Окно гайда говорит, что пропущено."
 
 -- UI/Copy.lua
@@ -4998,3 +4997,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Нет хлама, чтобы освободить место. Ctrl+Alt-щелчок по предмету помечает его как хлам."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Во время паузы задания не принимаются и не сдаются за вас, а награда не выбирается, пока Polestar не продолжит работу."
+-- L["Concept looks"] = "Концепт-оформления"

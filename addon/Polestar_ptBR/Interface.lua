@@ -2148,7 +2148,6 @@ L["The guide leaves them out."] = "O guia as deixa de fora."
 L["For a party levelling together: every one is in the route."] = "Para um grupo que sobe de nível junto: todas estão na rota."
 L["Point at a look to see it here; click it to wear it."] = "Passe o cursor sobre um tema para vê-lo aqui; clique para usá-lo."
 L["Built in"] = "Incluídos"
-L["Concept looks"] = "Temas conceituais"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Deixa de fora as missões cinzas e as que ficaram para trás e dão menos que todo o XP quando voltar a elas custa mais tempo do que rendem. Uma missão que ainda dá todo o XP fica, assim como uma de que uma missão posterior precisa. A janela do guia diz o que deixou de fora."
 
 -- UI/Copy.lua
@@ -5005,3 +5004,4 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "O tamanho do texto do Polestar, à parte da escala da janela. Muda na hora. Clique com o botão direito para redefinir."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Nenhum lixo para liberar espaço. Ctrl+Alt+clique num item para marcá-lo como lixo."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante a pausa, missões não são aceitas nem entregues por você, e nenhuma recompensa é escolhida, até o Polestar voltar."
+-- L["Concept looks"] = "Temas conceituais"

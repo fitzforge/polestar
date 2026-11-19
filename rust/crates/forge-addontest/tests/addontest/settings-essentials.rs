@@ -242,9 +242,7 @@ fn a_page_opens_again_on_the_tab_last_opened_there() {
 // The Atlas layout and skin installed as the release ships them: load on demand, named in their TOCs, loaded from
 // their files the first time Polestar asks (stub_packs.lua).
 fn run_with_atlas(script: &str) -> Value {
-	let files = |name: &str| -> String {
-		forge_addontest::run::toc_files(name).unwrap().iter().map(|f| lua_string(&f.display().to_string())).collect::<Vec<_>>().join(", ")
-	};
+	let files = |name: &str| -> String { forge_addontest::run::toc_files(name).unwrap().iter().map(|f| lua_string(&f.display().to_string())).collect::<Vec<_>>().join(", ") };
 	let before = format!(
 		r#"
 stub.addons = {{

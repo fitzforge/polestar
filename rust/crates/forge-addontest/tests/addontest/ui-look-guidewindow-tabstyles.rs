@@ -90,12 +90,9 @@ fn each_style_draws_its_own_tabs_and_hides_the_others() {
 		emit(out)"#);
 	assert_eq!(out["default"], "underline", "the strip above the step bar is the default");
 	let common = |strip, switch, edge, side| json!([strip, switch, edge, side]);
-	for (s, want) in [
-		("underline", common(true, false, false, false)),
-		("switcher", common(false, true, false, false)),
-		("edge", common(false, false, true, false)),
-		("strip", common(false, false, false, true)),
-	] {
+	for (s, want) in
+		[("underline", common(true, false, false, false)), ("switcher", common(false, true, false, false)), ("edge", common(false, false, true, false)), ("strip", common(false, false, false, true))]
+	{
 		let d = &out[s];
 		assert_eq!(json!([d["strip"], d["switch"], d["edge"], d["side"]]), want, "{s}: only its own frames show");
 	}

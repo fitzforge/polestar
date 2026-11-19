@@ -2148,7 +2148,6 @@ L["The guide leaves them out."] = "指南会略过它们。"
 L["For a party levelling together: every one is in the route."] = "适合一起练级的小队：每个都在路线中。"
 L["Point at a look to see it here; click it to wear it."] = "将鼠标指向一个皮肤即可在此预览；点击即可使用。"
 L["Built in"] = "内置"
-L["Concept looks"] = "概念皮肤"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "略过灰色任务，以及身后经验不满额、且回头去做花的时间比所得更多的任务。仍给满额经验的任务会保留，后续任务需要的任务也会保留。指南窗口会说明略过了什么。"
 
 -- UI/Copy.lua
@@ -5000,3 +4999,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "没有可清理的垃圾物品。Ctrl+Alt+点击物品可将其标记为垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"
+-- L["Concept looks"] = "概念皮肤"

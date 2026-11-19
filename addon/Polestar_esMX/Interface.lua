@@ -2548,7 +2548,6 @@ L["The guide leaves them out."] = "La guía las deja fuera."
 L["For a party levelling together: every one is in the route."] = "Para un grupo que sube de nivel junto: todas están en la ruta."
 L["Point at a look to see it here; click it to wear it."] = "Pasa el cursor sobre un tema para verlo aquí; haz clic para usarlo."
 L["Built in"] = "Integrados"
-L["Concept looks"] = "Temas conceptuales"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Omite las misiones grises y las que quedan atrás y dan menos EXP de lo normal cuando volver por ellas cuesta más tiempo del que dan. Una misión que aún da toda la EXP se queda, igual que una que necesita una misión posterior. La ventana de la guía dice qué omitió."
 
 -- Nav/Transit.lua
@@ -5025,3 +5024,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "El tamaño del texto de Polestar, aparte de la escala de la ventana. Cambia de inmediato. Clic derecho para restablecer."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "No hay basura con la que liberar espacio. Ctrl+Alt+clic en un objeto para marcarlo como basura."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante la pausa, no se aceptan ni se entregan misiones por ti, ni se elige recompensa, hasta que Polestar se reanude."
+-- L["Concept looks"] = "Temas conceptuales"

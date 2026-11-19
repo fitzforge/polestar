@@ -2148,7 +2148,6 @@ L["The guide leaves them out."] = "가이드가 제외합니다."
 L["For a party levelling together: every one is in the route."] = "함께 레벨업하는 파티용: 모두 경로에 포함됩니다."
 L["Point at a look to see it here; click it to wear it."] = "스킨에 마우스를 올리면 여기에서 미리 보고, 클릭하면 적용합니다."
 L["Built in"] = "기본 제공"
-L["Concept looks"] = "콘셉트 스킨"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "회색 퀘스트와, 지나온 퀘스트 중 경험치를 다 주지 않으면서 되돌아가는 시간이 얻는 것보다 큰 퀘스트를 제외합니다. 경험치를 모두 주는 퀘스트와 이후 퀘스트에 필요한 퀘스트는 남습니다. 가이드 창에서 무엇을 제외했는지 알려 줍니다."
 
 -- UI/Copy.lua
@@ -4991,3 +4990,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "공간을 만들 잡동사니가 없습니다. 아이템을 Ctrl+Alt-클릭하여 잡동사니로 표시하십시오."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."
+-- L["Concept looks"] = "콘셉트 스킨"
