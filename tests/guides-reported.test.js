@@ -8744,7 +8744,11 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	assert.ok(goals(ARATHI).some(({ goal }) => is('accept', 707)(goal)), 'it is taken on the Ironforge stop before Loch Modan');
 	assert.ok(!goals('forever/alliance/30-40/04b-stranglethorn-vale.guide').some(({ goal }) => is('accept', 209)(goal)), 'Skullsplitter Tusks (42) is not taken at 37');
 	assert.ok(at(late, 'accept 209', is('accept', 209)) < at(late, 'turnin 209', is('turnin', 209)), 'it is taken in 40-50/01 before its trolls');
-	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) assert.deepEqual(compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along).map((st) => st.title), [], `${g}: no along steps`);
+	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) {
+		const along = compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along);
+		const goals = along.map((st) => [st.along, st.goals.map((go) => [go.t, go.quest, go.item, go.optional])]);
+		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? [['hunters', [['collect', 188, 3879, true]]]] : [], `${g}: only the optional paw on the raptor hill, no other along work`);
+	}
 });
 
 
@@ -15390,6 +15394,7 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 			const paw = stv2[at(stv2, 'collect the paw', is('collect', 188))];
 			assert.ok(paw.goal.optional && paw.step.along, 'the paw never holds the raptor hunt');
 			assert.ok(paw.step.when.some(p => p.k === 'level' && !p.neg && p.op === '>=' && p.n === 36), "no Sin'Dall hunt below 36");
+			assert.ok(paw.step.when.some(p => p.k === 'onquest' && !p.neg && p.q.length === 1 && p.q[0] === 188), 'the tiger only shows for a player holding Tiger Mastery');
 			assert.ok(stv2[at(stv2, 'turn in the paw', is('turnin', 188))].goal.optional, 'no paw needed to leave camp');
 		}
 	}
