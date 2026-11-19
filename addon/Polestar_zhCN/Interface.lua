@@ -5020,5 +5020,18 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- UI/Grouped.lua: the new settings page's switch
 L["New settings page"] = "新设置页面"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "设置的预览布局：分组显示，带标签页、筛选和行旁的预览。设置相同；关闭即回到当前页面。"
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "将指南窗口、箭头、卡片和提醒拖到你想要的位置。在你点击“保存并退出”之前，此窗口会暂时让开。也可使用 /polestar unlock。"
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s上的所有设置将恢复默认。其他页面保持不变。"
+L["Nothing to reset"] = "没有可重置的内容"
+L["Profiles, other addons, community guides and gamepad."] = "配置文件、其他插件、社区指南和手柄。"
+L["Reload to finish?"] = "重新加载以完成？"
+L["Reset all settings\226\128\166"] = "重置所有设置…"
+L["Reset this page\226\128\166"] = "重置此页…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "部分指南窗口和外观的更改需要重新加载界面后才能完全生效。建议重新加载。"
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "箭头、它的路线，以及 Polestar 在世界地图和小地图上绘制的内容。"
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "每个 Polestar 窗口使用的主题、动作按钮、提醒卡片和追踪器。"
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升级时 Polestar 为你做的事：建议、任务、奖励、按钮、稀有怪。"
 -- L["Target bar colour"] = "目标指示条颜色"
 -- L["Progress colour"] = "进度颜色"

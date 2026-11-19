@@ -1464,6 +1464,11 @@ end
 -- Why a setting is off, for its tooltip: its section's toggle, or the
 -- on/off it depends on (the parent a child follows, the row an extra is on).
 local function whyOff(c)
+	-- A row that says why its own test turns it off (c.offWhy).
+	if c.offWhy and c.disabled then
+		local ok, off = pcall(c.disabled)
+		if ok and off then return type(c.offWhy) == "function" and c.offWhy() or c.offWhy end
+	end
 	local s = c.psSection
 	if s and s.toggle ~= c and sectionOff(s) then return string.format(L["Turn on %s first."], labelOf(s.toggle) or "") end
 	local kidOf = rawget(c, "psChildOf")
@@ -1696,10 +1701,10 @@ end
 -- layoutRows' working state, one table per view kept from call to call, and
 -- its steps as functions of it: no closure or table per call (the search
 -- lays out every result's section on each keystroke). S: the view, the grid
--- (two, x, width), the pen (y), the open line's left half and its height
--- (bl, blH), the last line's rows (lineRows), the rows placed so far
--- (placed, only where children nest) and the children waiting for their
--- parent's line (waiting).
+-- (two, x, width, half), the pen (y), the open line's left half and its
+-- height (bl, blH), the top of the run of halves (run), the last line's rows
+-- (lineRows), the rows placed so far (placed, only where children nest) and
+-- the children waiting for their parent's line (waiting).
 local layoutRows
 do
 	local Lay = {}
@@ -1710,9 +1715,10 @@ do
 		for i = #rows, 1, -1 do rows[i] = nil end
 	end
 
-	function Lay.place(S, w, px, pw)
+	function Lay.place(S, w, px, pw, indent)
 		local view = S.view
 		w.psColumns = view.psColumns
+		w.psIndent = indent > 0 and indent or nil
 		w:ClearAllPoints()
 		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -S.y)
 		w:Show()
@@ -1723,38 +1729,61 @@ do
 		return W.LayoutRow(w, pw)
 	end
 
-	-- Rows in halves across [bx, bx + bw], from y. -> true when it closed a line
-	function Lay.pair(S, w, bx, bw)
-		local bhalf = floor(bw / 2)
+	-- The hairline down the run of halves that ends at y.
+	function Lay.endRun(S)
+		local run, view = S.run, S.view
+		if run and S.y > run then
+			view.psMid = (view.psMid or 0) + 1
+			local m = midRule(view, view.psMid)
+			m:ClearAllPoints()
+			m:SetPoint("TOPLEFT", view, "TOPLEFT", S.x + S.half, -run)
+			m:SetSize(1, S.y - run)
+			m:Show()
+		end
+		S.run = nil
+	end
+
+	-- A row in the next half of the grid, `indent` into its column (w.psCol:
+	-- "L" or "R"). -> true when it closed a line
+	function Lay.pair(S, w, indent)
+		local x, half = S.x, S.half
 		if not S.two then
 			Lay.newLine(S)
-			S.y = S.y + Lay.place(S, w, bx, bw)
+			w.psCol = "L"
+			S.y = S.y + Lay.place(S, w, x + indent, S.width - indent, indent)
 		elseif S.bl then
-			local bl, view = S.bl, S.view
-			local h = Lay.place(S, w, bx + bhalf, bw - bhalf)
+			local bl = S.bl
+			w.psCol = "R"
+			local h = Lay.place(S, w, x + half + indent, S.width - half - indent, indent)
 			-- The two halves stand as tall as the taller one (a label on two
 			-- lines), so their hairlines meet.
 			local lineH = max(S.blH, h)
 			bl:SetHeight(lineH)
 			w:SetHeight(lineH)
-			view.psMid = (view.psMid or 0) + 1
-			local m = midRule(view, view.psMid)
-			m:ClearAllPoints()
-			m:SetPoint("TOPLEFT", view, "TOPLEFT", bx + bhalf, -S.y)
-			m:SetSize(1, lineH)
-			m:Show()
 			bl.psPair, w.psPair = w, bl
 			S.y, S.bl = S.y + lineH, nil
 			return true
 		else
 			Lay.newLine(S)
-			S.bl = w
-			S.blH = Lay.place(S, w, bx, bhalf)
+			S.run = S.run or S.y
+			S.bl, w.psCol = w, "L"
+			S.blH = Lay.place(S, w, x + indent, half - indent, indent)
 		end
 	end
 
 	function Lay.close(S)
 		if S.bl then S.y, S.bl = S.y + S.blH, nil end
+	end
+
+	-- A column's accent rule beside a block of children, from..to.
+	function Lay.kidRule(S, colX, from, to)
+		local view = S.view
+		view.psKidRule = (view.psKidRule or 0) + 1
+		local t = Index.kidRule(view, view.psKidRule)
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", view, "TOPLEFT", colX + SIZE.KIDS_X - 10, -(from + 6))
+		t:SetSize(2, max(1, to - from - 12))
+		t:Show()
 	end
 
 	-- The children waiting for their parent's line to close: a block per
@@ -1764,27 +1793,29 @@ do
 		if not blocks then return end
 		S.waiting = nil
 		Lay.close(S)
-		local view, x, width = S.view, S.x, S.width
 		for _, kids in ipairs(blocks) do
-			local from = S.y
-			for _, k in ipairs(kids) do Lay.pair(S, rowOf(view, k), x + SIZE.KIDS_X, width - SIZE.KIDS_X) end
+			local from, rightTo = S.y, nil
+			for _, k in ipairs(kids) do
+				-- A right half closes its line: the right rule reaches its foot.
+				if Lay.pair(S, rowOf(S.view, k), SIZE.KIDS_X) then rightTo = S.y end
+			end
 			Lay.close(S)
-			view.psKidRule = (view.psKidRule or 0) + 1
-			local t = Index.kidRule(view, view.psKidRule)
-			t:ClearAllPoints()
-			t:SetPoint("TOPLEFT", view, "TOPLEFT", x + SIZE.KIDS_X - 10, -(from + 6))
-			t:SetSize(2, max(1, S.y - from - 12))
-			t:Show()
+			Lay.kidRule(S, S.x, from, S.y)
+			if rightTo then Lay.kidRule(S, S.x + S.half, from, rightTo) end
 		end
 	end
 
 	-- A list of controls as rows of halves from y, across `width` at x (all
-	-- across with `whole`). The view keeps its rows (view.cache). A parent's
+	-- across with `whole`). The view keeps its rows (view.cache). The halves
+	-- stand on one grid: a left column at x, a right one at x + half, split by
+	-- one hairline down each run of halves (a row across ends a run). A parent's
 	-- children (c.children) follow it: while it is on, they wait for the
-	-- parent's line to close (its half beside it stays), then stand across the
-	-- width under it, SIZE.KIDS_X in, in halves of their own; while it is off,
-	-- they are made but hidden. Search results and filtered lists (view.psSearch,
-	-- view.psFlat) show them as any row, dimmed while their parent is off. -> height
+	-- parent's line to close (its half beside it stays), then stand under it in
+	-- halves of their own on the same grid, each SIZE.KIDS_X into its column,
+	-- an accent rule at the same place in each column they use; while it is
+	-- off, they are made but hidden. Search results and filtered lists
+	-- (view.psSearch, view.psFlat) show them as any row, dimmed while their
+	-- parent is off. -> height
 	function layoutRows(view, controls, top, x, width, whole)
 		local S = rawget(view, "psLay")
 		-- Busy (a row's layout laying out this view again): a state of its own.
@@ -1794,7 +1825,8 @@ do
 		end
 		S.view, S.x, S.width = view, x, width
 		S.two = not whole and width >= HALVES_MIN
-		S.y, S.bl, S.blH, S.waiting = top, nil, 0, nil
+		S.half = floor(width / 2)
+		S.y, S.run, S.bl, S.blH, S.waiting = top, nil, nil, 0, nil
 		Lay.newLine(S)
 		local nest = not (rawget(view, "psSearch") or rawget(view, "psFlat"))
 		local placed = S.placed
@@ -1821,17 +1853,20 @@ do
 				if not S.two or c.wide or c.kind == "cards" then
 					Lay.close(S)
 					Lay.openKids(S)
+					Lay.endRun(S)
 					Lay.newLine(S)
-					S.y = S.y + Lay.place(S, w, x, width)
+					w.psCol = nil
+					S.y = S.y + Lay.place(S, w, x, width, 0)
 				else
 					-- A row starting a line: the children before it open first.
 					if not S.bl then Lay.openKids(S) end
-					if Lay.pair(S, w, x, width) then Lay.openKids(S) end
+					if Lay.pair(S, w, 0) then Lay.openKids(S) end
 				end
 			end
 		end
 		Lay.close(S)
 		Lay.openKids(S)
+		Lay.endRun(S)
 		-- The last line's hairline would double the card's edge.
 		for _, w in ipairs(S.lineRows) do if w.Rule then w.Rule:Hide() end end
 		S.view = nil
@@ -2320,7 +2355,9 @@ local function linkRoom(view, link, y)
 end
 
 -- A view = one page tab rendered into its own frame (built once).
-local function buildView(p, t)
+-- opts (the new page's views): { lead(s) -> a row to put first in section
+-- s, or nil }.
+local function buildView(p, t, opts)
 	local view = CreateFrame("Frame", nil, win.Body)
 	view:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 	view:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
@@ -2337,13 +2374,17 @@ local function buildView(p, t)
 			for _, s in ipairs(t.sections) do
 				local list = visible(s)
 				if sectionShown(s) and (#list > 0 or (s.toggle and available(s.toggle))) then
-					groups[#groups + 1] = { name = s.name, controls = list, section = s, settings = sectionSettings(s, list) }
+					local settings = sectionSettings(s, list)
+					local lead = opts and opts.lead and opts.lead(s)
+					if lead then table.insert(list, 1, lead) end
+					groups[#groups + 1] = { name = s.name, controls = list, section = s, settings = settings }
 				end
 			end
 			if #groups == 0 then
 				for _, w in pairs(view.cache) do w:Hide() end
 				for _, card in ipairs(view.cards) do card:Hide() end
 				for _, m in ipairs(view.mids) do m:Hide() end
+				for _, r in ipairs(rawget(view, "psKidRules") or {}) do r:Hide() end
 				if not rawget(view, "Empty") then
 					view.Empty = W.Text(view, "note", "textMuted")
 					view.Empty:SetWordWrap(true)
@@ -3209,6 +3250,20 @@ function O.MatchSpans(text, q)
 	return out
 end
 
+-- `text` with the words `q` matches (O.MatchSpans) in the colour `token`.
+function O.LitText(text, q, token)
+	local spans = O.MatchSpans(text, q)
+	if #spans == 0 then return text end
+	local open, out, at = "|c" .. Theme.Hex(token or "accent"), {}, 1
+	for _, sp in ipairs(spans) do
+		out[#out + 1] = text:sub(at, sp[1] - 1)
+		out[#out + 1] = open .. text:sub(sp[1], sp[2]) .. "|r"
+		at = sp[2] + 1
+	end
+	out[#out + 1] = text:sub(at)
+	return table.concat(out)
+end
+
 local function renderSearch()
 	if not searchView then
 		searchView = CreateFrame("Frame", nil, win.Body)
@@ -3236,7 +3291,17 @@ local function renderSearch()
 		end
 		sections[i] = { name = g.title, controls = g.controls, section = s, settings = sectionSettings(nil, g.controls) }
 	end
+	-- The new page: the typed words lit in each result's label, in the accent.
+	local newPage = O.Grouped and O.Grouped.On() or false
 	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER })
+	for c, w in pairs(searchView.cache) do
+		local label = rawget(w, "Label")
+		if label and type(c) == "table" and (newPage or rawget(w, "psLit")) then
+			local text = labelOf(c) or ""
+			w.psLit = newPage or nil
+			label:SetText(newPage and O.LitText(text, query, "accent") or text)
+		end
+	end
 	-- Each result's way to its page: a chevron in the card's gutter left of
 	-- the row opens the page and tab it lives on, the row scrolled into view
 	-- and lit (O.Jump).
@@ -3253,6 +3318,14 @@ local function renderSearch()
 		end
 	end
 	searchView.Empty:SetShown(count == 0)
+	-- The new page's no-hit view: Clear empties the box and goes back.
+	if newPage and count == 0 and not rawget(searchView, "Clear") then
+		searchView.Clear = W.Button(searchView, L["Clear"], function()
+			O.SetQuery("")
+			win.Search:SetText("")
+		end)
+	end
+	if rawget(searchView, "Clear") then searchView.Clear:SetShown(newPage and count == 0) end
 	local links = searchView.Links
 	local shown = count == 0 and suggestions and #suggestions or 0
 	searchView.Hint:SetShown(shown > 0)
@@ -3282,6 +3355,11 @@ local function renderSearch()
 				link:Show()
 			end
 			y = 56 + 24 * shown + 32
+		end
+		if newPage then
+			searchView.Clear:ClearAllPoints()
+			searchView.Clear:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -(y - 16))
+			y = y + 40
 		end
 	end
 	for i = shown + 1, #links do links[i]:Hide() end
@@ -3432,6 +3510,7 @@ local function pageChanged(p)
 end
 
 local function navItems()
+	if O.Grouped and O.Grouped.On() then return O.Grouped.NavItems() end
 	local folded = navState().folded
 	local byGroup = {}
 	for _, p in ipairs(pageList) do
@@ -3477,7 +3556,7 @@ local function navSelect(key)
 end
 
 function O.RefreshNav()
-	if win then W.ShellNav(win, navItems(), query == "" and current and current.key or nil, navSelect) end
+	if win then W.ShellNav(win, navItems(), O.Grouped and O.Grouped.NavKey() or (query == "" and current and current.key or nil), navSelect) end
 end
 
 -- -> page, the tab an old page key points at (nil: the page's first). A
@@ -3505,18 +3584,42 @@ end
 -- its row on screen or not. A row a mode hides keeps its setting all the
 -- same (the trail dots while route lines are on; Dungeons in my route while
 -- no guide has a dungeon), and the page is all at its defaults after, as its
--- dialog says. A reference counts once it has its home; a key with no
--- default (its module not loaded) holds nothing to put back.
-local function pageKeys(p)
-	local keys = {}
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
-				if c.key and not (rawget(c, "ref") and not homeOf(c)) and ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
+-- dialog says. A reference counts where its home is, on this page or not at
+-- all; a key with no default (its module not loaded) holds nothing to put
+-- back. -> keys, the controls of state that is no setting (toggles,
+-- sliders, dropdowns and cards with no key)
+local pageKeys
+do
+	-- Whether setting spec c, met on page p, is another page's: a reference
+	-- with no home yet or its home on another page, or a home's extra a
+	-- reference shows (Reset page leaves it to that page; a reference to a
+	-- row of its own page, Essentials, counts).
+	local function elsewhere(c, p)
+		if rawget(c, "ref") then
+			local home = homeOf(c)
+			return not home or rawget(home, "page") ~= p
+		end
+		local at = rawget(c, "page")
+		return at ~= nil and at ~= p
+	end
+
+	function pageKeys(p)
+		local keys, state = {}, {}
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(allSettings(s)) do
+					if not elsewhere(c, p) then
+						if c.key then
+							if ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
+						elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and c.set and available(c) then
+							state[#state + 1] = c
+						end
+					end
+				end
 			end
 		end
+		return keys, state
 	end
-	return keys
 end
 
 -- Does the page show a setting now (the footer offers Reset page)? A page
@@ -3597,21 +3700,73 @@ function Undo.same(a, b)
 	return a == b
 end
 
--- The chip, left of the footer's right-hand buttons while it shows.
-function Undo.place()
-	local chip = rawget(win, "UndoChip")
-	if not (chip and chip:IsShown()) then return end
-	local anchor
-	for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
-	chip:ClearAllPoints()
-	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0) end
-	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
+-- The rows a reset put back (Undo.paths: path -> true), each with an Undo
+-- link after its label while the chip shows on the new page.
+Undo.links = {}
+function Undo.rowLinks(on)
+	for w in pairs(Undo.links) do w.UndoB:Hide() end
+	Undo.links = {}
+	if not (on and Undo.paths) then return end
+	local view = O.view
+	for c, w in pairs(view and view.cache or {}) do
+		if type(c) == "table" and c.key and Undo.paths[c.key] and w:IsShown() and rawget(w, "Label") then
+			local b = rawget(w, "UndoB")
+			if not b then
+				b = W.Link(w, L["Undo"], function() O.Undo() end)
+				b.psTip, b.psTipLines = L["Undo"], { L["Puts back what that reset changed."] }
+				b.Icon = W.Tex(b, "ARTWORK", "reset", "accent")
+				b.Icon:SetSize(10, 10)
+				b.Icon:SetPoint("LEFT", b, "LEFT", 0, 0)
+				b.Label:ClearAllPoints()
+				b.Label:SetPoint("LEFT", b, "LEFT", 14, 0)
+				b:SetWidth(b:GetWidth() + 14)
+				b:SetFrameLevel(w:GetFrameLevel() + 4)
+				w.UndoB = b
+			end
+			b:ClearAllPoints()
+			b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			b:Show()
+			Undo.links[w] = true
+		end
+	end
 end
 
+-- Where the chip stands while it shows: in the footer, left of its
+-- right-hand buttons (the current page); in the header beside the page's
+-- crumb (the new page), and then on each row the reset put back too.
+function O.UndoAnchor(frame)
+	frame = frame or win
+	local chip = frame and rawget(frame, "UndoChip")
+	if not chip then return end
+	local new = O.Grouped and O.Grouped.On() or false
+	local parent = new and frame.Header or frame.Footer
+	if chip:GetParent() ~= parent then
+		chip:SetParent(parent)
+		chip:SetFrameLevel(parent:GetFrameLevel() + 5)
+	end
+	Undo.rowLinks(new and chip:IsShown())
+	if not chip:IsShown() then return end
+	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
+	chip:ClearAllPoints()
+	if new then
+		chip:SetPoint("LEFT", frame.Title, "RIGHT", 16, 0)
+		-- The description after it makes room.
+		if rawget(frame, "HeaderTools") then frame.HeaderTools.Place() end
+		return
+	end
+	local anchor
+	for _, fb in ipairs(frame.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", frame.Footer, "RIGHT", -SH.pad, 0) end
+end
+
+function Undo.place() O.UndoAnchor(win) end
+
 function Undo.hide()
+	Undo.rowLinks(false)
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
 	chip:Hide()
+	if chip:GetParent() == win.Header and rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 end
 
 function Undo.chip()
@@ -3646,6 +3801,8 @@ function Undo.offer(list)
 	end
 	if #kept == 0 then return end
 	Undo.list = kept
+	Undo.paths = {}
+	for _, u in ipairs(kept) do if u.path then Undo.paths[u.path] = true end end
 	Undo.seq = Undo.seq + 1
 	local seq = Undo.seq
 	local chip = Undo.chip()
@@ -3664,7 +3821,7 @@ function Undo.offer(list)
 		if Undo.seq ~= seq or not chip:IsShown() then return end
 		Anim.To(chip, "alpha", 1, 0, Anim.SLOW, "out", function()
 			if Undo.seq == seq then
-				Undo.list = nil
+				Undo.list, Undo.paths = nil, nil
 				Undo.hide()
 			end
 		end)
@@ -3675,7 +3832,7 @@ end
 function O.Undo()
 	local list = Undo.list
 	if not list then return false end
-	Undo.list = nil
+	Undo.list, Undo.paths = nil, nil
 	Undo.seq = Undo.seq + 1
 	Undo.hide()
 	-- State that is no setting first: a preset's cards write the settings they
@@ -3701,6 +3858,14 @@ end
 
 local footerProfile
 local function renderFooter(p)
+	-- The new settings page has no footer (W.ShellSetFooter): Reload UI and
+	-- the resets are in its header.
+	if rawget(win, "psNoFooter") then
+		local _, active = profileNames()
+		footerProfile = active
+		Undo.place()
+		return
+	end
 	local left = {}
 	if p and pageShowsSetting(p) then
 		left[#left + 1] = { label = L["Reset page"], opts = { ghost = true }, onClick = function()
@@ -3710,13 +3875,6 @@ local function renderFooter(p)
 		end }
 	end
 	left[#left + 1] = { label = L["Reload UI"], onClick = function() if ReloadUI then ReloadUI() end end, opts = { icon = "reload", ghost = true } }
-	-- Unlock mode (ns.Movers): every movable frame shows a mover to drag.
-	if ns.Movers and ns.Movers.Unlock then
-		-- Unlocking hides this window and brings it back on Lock (UI/Movers.lua).
-		left[#left + 1] = { label = L["Move frames"], opts = { icon = "lock", ghost = true }, onClick = function()
-			ns.Movers.Unlock()
-		end }
-	end
 	local right = { { label = L["Close"], onClick = function() win:Hide() end } }
 	local names, active = profileNames()
 	footerProfile = active
@@ -3732,22 +3890,16 @@ function O.ResetPage(p)
 	-- What the page holds, for Undo, before anything changes: a setting's reset
 	-- can move state that is no setting (the guide window shown again resumes
 	-- a pause).
-	local held, state = {}, {}
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
-					state[#state + 1] = c
-					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
-				end
-			end
-		end
+	local held = {}
+	local keys, state = pageKeys(p)
+	for _, c in ipairs(state) do
+		if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
 	end
 	-- One batch: the look, the rows and the preview worked out again once at
 	-- its end (ns.Batch), not once per setting; a setting at its default
 	-- already is left alone.
 	ns.Batch(function()
-		for _, key in ipairs(pageKeys(p)) do
+		for _, key in ipairs(keys) do
 			local was = ns.GetStored(key)
 			if was ~= nil then
 				held[#held + 1] = { path = key, value = was }
@@ -3763,6 +3915,84 @@ function O.ResetPage(p)
 		end
 	end
 	Undo.offer(held)
+end
+
+-- Asked first, naming the page: every setting on it back to its default.
+-- -> whether it asked (a page that shows no setting has nothing to reset)
+function O.AskResetPage(p)
+	if not (p and pageShowsSetting(p)) then return false end
+	W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
+		text = string.format(L["Every setting on %s goes back to its default. Other pages keep theirs."], p.name or ""),
+		onAccept = function() O.ResetPage(p) end })
+	return true
+end
+
+-- What the profile in use holds off its default, as Undo holds it:
+-- { { path, value } } by path. A list (a colour) is one setting; any other
+-- table (a section, a record) is its fields. A value stored equal to
+-- its default is left out.
+local function storedSettings()
+	local out = {}
+	local function walk(t, prefix, depth)
+		for k, v in pairs(t) do
+			if type(k) == "string" then
+				local path = prefix and (prefix .. "." .. k) or k
+				-- Off its default (W.Modified):
+				-- a value stored equal to its default is nothing to reset.
+				local off = ns.GetDefault(path) == nil or W.Modified(path)
+				if type(v) ~= "table" then
+					if off then out[#out + 1] = { path = path, value = v } end
+				elseif next(v) ~= nil then
+					-- A section (its defaults a table of fields too) or a record with no default: its fields.
+					local d = ns.GetDefault(path)
+					if depth < 8 and v[1] == nil and (d == nil or (type(d) == "table" and d[1] == nil)) then
+						walk(v, path, depth + 1)
+					elseif off then
+						out[#out + 1] = { path = path, value = v }
+					end
+				end
+			end
+		end
+	end
+	walk(ns.DB().settings, nil, 0)
+	table.sort(out, function(a, b) return a.path < b.path end)
+	return out
+end
+
+-- Every setting of the profile in use back to its default (other profiles
+-- and the account's window state are kept). -> what it held, for Undo.offer
+function O.ResetAll()
+	local held = storedSettings()
+	if ns.ResetSettings then ns.ResetSettings() end
+	return held
+end
+
+-- Asked first: the profile in use is what goes back, and the dialog says
+-- whose it is; one the whole account or a class uses asks for a word first.
+-- With nothing changed it says so and offers no reset.
+function O.AskResetAll()
+	local P = ns.Profiles
+	local name = P and P.Active and P.Active()
+	local label = name and P.Label and P.Label(name) or ""
+	if #storedSettings() == 0 then
+		W.Modal({ title = L["Reset all settings?"], icon = "reset", text = L["Nothing to reset"], noAction = true, cancel = L["Close"] })
+		return
+	end
+	local account = name ~= nil and P.AccountProfile and P.AccountProfile() == name
+	local classes = 0
+	local map = ns.DB().classProfiles
+	for _, n in pairs(type(map) == "table" and map or {}) do if n == name then classes = classes + 1 end end
+	local text
+	if account then
+		text = string.format(L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."], label)
+	elseif classes > 0 then
+		text = string.format(L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."], label)
+	else
+		text = string.format(L["Every setting of the profile %s, this character's, goes back to its default. Your guides and progress are kept."], label)
+	end
+	W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"], text = text,
+		typeToConfirm = (account or classes > 0) and L["RESET"] or nil,
+		onAccept = function() Undo.offer(O.ResetAll()) end })
 end
 
 -- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
@@ -3975,6 +4205,8 @@ function O.Select(key, tabName)
 	if Fold.state then O.Fold(false) end
 	local cue = rawget(win, "psCallout")
 	if cue and cue.psCog then cue:Hide() end
+	-- The grouped layout (UI/Grouped.lua), while the player has it on.
+	if O.Grouped and O.Grouped.Select(key, tabName) then return end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
 	tabName = tabName or aliasTab or tabMemory()[p.key]
@@ -4039,6 +4271,7 @@ function O.SetQuery(text)
 	end
 	O.Dropdown.Hide()
 	hideViews()
+	if O.Grouped then O.Grouped.Searching() end
 	W.ShellNav(win, navItems(), nil, navSelect)
 	renderSearch()
 	renderFooter(nil)
@@ -4072,6 +4305,7 @@ end
 function O.Jump(c)
 	local p = c and c.page
 	if not (win and p) then return nil end
+	if O.Grouped and O.Grouped.On() then return O.Grouped.Jump(c) end
 	O.Select(p.key, c.tab or "")
 	local view = O.view
 	if not (view and view.cache) then return nil end
@@ -4129,6 +4363,7 @@ end
 -- first tab or the previous page's last (LB / RB on a gamepad).
 function O.StepTab(delta)
 	if not win then return end
+	if O.Grouped and O.Grouped.StepTab(delta) then return end
 	local list, at = {}, nil
 	for _, p in ipairs(pageList) do
 		if pageShown(p) then
@@ -4373,6 +4608,7 @@ local function relayout()
 		renderSearch()
 		return
 	end
+	if O.Grouped and O.Grouped.Relayout() then return end
 	local view = O.view
 	if view and view:IsShown() and view.Refresh then
 		local scroll = win.Scroll:GetVerticalScroll()
@@ -4394,14 +4630,17 @@ local function refreshMarks()
 	local items = navItems()
 	local sig = {}
 	for i, it in ipairs(items) do
-		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new and "+" or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new == true and "+" or tonumber(it.new) or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+			.. (it.count ~= nil and ("#" .. tostring(it.count)) or "") .. (it.label or "")
 	end
 	sig = table.concat(sig, "|")
 	if sig ~= navSig then
 		navSig = sig
-		W.ShellNav(win, items, query == "" and current and current.key or nil, navSelect)
+		W.ShellNav(win, items, O.Grouped and O.Grouped.NavKey() or (query == "" and current and current.key or nil), navSelect)
 	end
-	if query == "" and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
+	-- The new page lays its own page out (UI/Grouped.lua): no classic preview over it.
+	local newPage = O.Grouped and O.Grouped.On()
+	if query == "" and not newPage and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
 		placePreview(O.view, O.view.psTab, true)
 	end
 	local _, active = profileNames()
@@ -4444,7 +4683,10 @@ local function build()
 	W.OnReset(Undo.offer)
 	-- Peek (held down) and Fold in the header, between the search and the
 	-- scale (W.HeaderScale lays the header's tools out right to left).
-	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, 15)
+	-- The header's icon tools: one 24 box, one 16 glyph (W.HEAD_GLYPH, UI/Kit.lua), so
+	-- their ink reads at one size (a 12 or 14 glyph shrinks the 32px art past
+	-- half, and its strokes break up).
+	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, W.HEAD_GLYPH)
 	peekB.psTipLines = { L["Hold it down to see what the window covers."] }
 	peekB:HookScript("OnMouseDown", function(_, button) if button == "LeftButton" then O.Peek(true) end end)
 	peekB:HookScript("OnMouseUp", function() O.Peek(false) end)
@@ -4453,12 +4695,22 @@ local function build()
 	-- Peek and Fold a pair, close together.
 	peekB.psHeadGap = 4
 	win.PeekButton = peekB
-	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, 12)
+	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, W.HEAD_GLYPH)
 	win.FoldButton = foldB
 	Fold.paint()
 	win.psHeadTools = win.psHeadTools or {}
 	table.insert(win.psHeadTools, 1, foldB)
 	table.insert(win.psHeadTools, 2, peekB)
+	-- Move frames, left of Peek: unlock mode (ns.Movers) with no frame
+	-- picked. The window steps aside and comes back where it was when the
+	-- mode ends (O.MoveFrame).
+	if ns.Movers and ns.Movers.Unlock then
+		local moveB = W.IconButton(win.Header, "move", 24, L["Move frames"], function() O.MoveFrame(nil) end, W.HEAD_GLYPH)
+		moveB.psTipLines = { L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] }
+		moveB.psHeadGap = 4
+		win.MoveButton = moveB
+		table.insert(win.psHeadTools, 3, moveB)
+	end
 	if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 	win:HookScript("OnHide", function()
 		O.Peek(false)
@@ -4630,11 +4882,26 @@ end
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
 
--- What another layout of this window (UI/Grouped.lua) draws and reads the
--- window with: the window and the page it shows.
+-- What the grouped layout (UI/Grouped.lua) draws the same rows with: the
+-- registry and this file's own pieces, so its pages are these rows in
+-- other places, never copies.
 O.Kit = {
-	window = function() return win end,
+	pages = pageList, pageList = pageList, groups = GROUPS, shownTabs = shownTabs, available = available, labelOf = labelOf, visible = visible, sectionSettings = sectionSettings,
+	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, rowIsNew = rowIsNew, newer = newer,
+	seenTable = seenTable, homeSettings = homeSettings, groupOf = groupOf, viewTables = viewTables,
+	layoutSections = layoutSections, rowOf = rowOf, buildView = buildView, hideViews = hideViews,
+	renderFooter = renderFooter, pageByKey = function(key) return pageByKey(key) end,
+	window = function() return win end, query = function() return query end,
+	searchView = function() return searchView end,
+	pageShowsSetting = pageShowsSetting,
+	clearQuery = function()
+		if query ~= "" or (win.Search:GetText() or "") ~= "" then
+			query = ""
+			setBoxText("")
+		end
+	end,
 	current = function() return current, currentTab end,
+	setCurrent = function(p, t) current, currentTab = p, t end,
 }
 
 -- Polestar resumes by itself on the way out (Core/Pause.lua), maybe

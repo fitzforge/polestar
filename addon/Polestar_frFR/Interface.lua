@@ -5059,5 +5059,18 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- UI/Grouped.lua: the new settings page's switch
 L["New settings page"] = "Nouvelle page des réglages"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Un aperçu des réglages en groupes, avec des onglets, un filtre et un aperçu à côté des lignes. Les mêmes réglages ; désactivez-la pour la page actuelle."
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Faites glisser la fenêtre du guide, la flèche, les cartes et les alertes où vous voulez. Cette fenêtre s'efface jusqu'à ce que vous appuyiez sur Enregistrer et quitter. Aussi /polestar unlock."
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Tous les réglages de %s reviennent à leur valeur par défaut. Les autres pages gardent les leurs."
+L["Nothing to reset"] = "Rien à réinitialiser"
+L["Profiles, other addons, community guides and gamepad."] = "Profils, autres addons, guides de la communauté et manette."
+L["Reload to finish?"] = "Recharger pour terminer ?"
+L["Reset all settings\226\128\166"] = "Réinitialiser tous les réglages…"
+L["Reset this page\226\128\166"] = "Réinitialiser cette page…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "Certains changements de la fenêtre de guide et de l'apparence ne s'affichent pleinement qu'après un rechargement. Recommandé."
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "La flèche, ses itinéraires et ce que Polestar dessine sur la carte du monde et la minicarte."
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "Le thème de toutes les fenêtres de Polestar, les boutons d'action, les cartes d'alerte et les suivis."
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Ce que Polestar fait pour vous pendant la montée en niveau : suggestions, quêtes, récompenses, boutons, rares."
 -- L["Target bar colour"] = "Couleur de la barre de cible"
 -- L["Progress colour"] = "Couleur de progression"

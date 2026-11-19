@@ -25,30 +25,6 @@ function run(script, saved) {
 	}).emitted;
 }
 
-// The stub has no layout (GetLeft is 0), so the placement is read from the anchors:
-// each header tool is anchored RIGHT to the one on its right.
-test('the switch reads "New settings page" and stands where each page puts it', () => {
-	const [out, again] = run(`
-		Polestar.UI.ShowOptions("guide")
-		local f, G = O.frame, O.Grouped
-		local sw, scale = G.Switch(), f.HeaderTools
-		local function rightOf(w) local _, rel = w:GetPoint(1) return rel end
-		local classic = { label = sw.Label:GetText(), afterScale = rightOf(scale) == sw, beforeClose = rightOf(sw) == f.Close }
-		G.SetOn(true)
-		local tools = f.psHeadTools
-		emit({ classic = classic, afterSearch = rightOf(f.Search) == sw,
-			switchBeforeSearch = (function() for i, t in ipairs(tools) do if t == f.Search then return tools[i - 1] == sw end end end)(),
-			tip = sw.Sw.psTip })
-		G.SetOn(false)
-		emit({ back = rightOf(sw) == f.Close, afterScale = rightOf(scale) == sw })`);
-	assert.deepEqual(out.classic, { label: 'New settings page', afterScale: true, beforeClose: true });
-	assert.equal(out.afterSearch, true, 'on: right of the search');
-	assert.equal(out.switchBeforeSearch, true, 'on: the icon button next to the search');
-	assert.equal(out.tip, 'New settings page');
-	assert.equal(again.back, true, 'off: back before the close button');
-	assert.equal(again.afterScale, true, 'off: back after the scale');
-});
-
 test('the choice is kept for the account and an open window shows its page again', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions("guide")

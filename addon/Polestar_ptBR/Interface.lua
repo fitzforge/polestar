@@ -5025,5 +5025,18 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- UI/Grouped.lua: the new settings page's switch
 L["New settings page"] = "Nova página de opções"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Uma prévia das opções em grupos, com abas, um filtro e uma prévia ao lado das linhas. As mesmas opções; desative para a página atual."
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Arraste a janela do guia, a seta, os cartões e os alertas para onde quiser. Esta janela sai da frente até você apertar Salvar e sair. Também /polestar unlock."
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Todas as opções de %s voltam ao padrão. As outras páginas mantêm as suas."
+L["Nothing to reset"] = "Nada para redefinir"
+L["Profiles, other addons, community guides and gamepad."] = "Perfis, outros addons, guias da comunidade e controle."
+L["Reload to finish?"] = "Recarregar para concluir?"
+L["Reset all settings\226\128\166"] = "Redefinir tudo…"
+L["Reset this page\226\128\166"] = "Redefinir esta página…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "Algumas mudanças da janela do guia e da aparência só aparecem por completo depois de recarregar. Recomendado."
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "A seta, suas rotas e o que o Polestar desenha no mapa-múndi e no minimapa."
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "O tema de todas as janelas do Polestar, os botões de ação, os cartões de alerta e os rastreadores."
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "O que o Polestar faz por você enquanto você evolui: sugestões, missões, recompensas, botões, raros."
 -- L["Target bar colour"] = "Cor da barra do alvo"
 -- L["Progress colour"] = "Cor do progresso"

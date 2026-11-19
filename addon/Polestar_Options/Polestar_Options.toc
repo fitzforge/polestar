@@ -28,6 +28,7 @@
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar
 
+UI\Kit.lua
 UI\Controls.lua
 UI\Preview.lua
 Core\ProfileStrings.lua

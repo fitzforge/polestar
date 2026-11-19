@@ -8645,6 +8645,16 @@ the switch alone. A tool of the header with `psHeadAfterScale` stands between th
 button (`W.HeaderScale`). The switch only keeps the choice; `UI.Options.Kit` hands another layout the
 window and the page it shows.
 
+Switched on, the new page (`UI/Grouped.lua`, the same rows from the same registry) lays the window out in
+fewer doors: the window's own sidebar as a tree of groups (`G.TREE`: Guiding, Look, Setup, About), the one
+shown open on its pages; each page's own tabs in the tab row; a search-first header (a "Group > Page" crumb,
+the wide search, the switch, Peek, Fold, Reload UI and the ··· menu for Menu scale, Move frames and the
+resets, Undo beside the crumb) with no footer; and a jump index for tabs of more than 30 rows. `UI/Kit.lua`
+holds the widgets only this window uses (`W.PinControl`, `W.SearchFirst` and `W.HeaderMenu`), so
+`Theme/Widgets.lua` stays small and nothing extra loads at login. `UI.Options.Kit` hands the layout the
+registry and the window's own builders; `O.Select`, the sidebar, the search, the relayout, LB / RB and a
+jump to a row ask `UI.Options.Grouped` first while it is on.
+
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
 registered before it, with a star before the label and a short upright

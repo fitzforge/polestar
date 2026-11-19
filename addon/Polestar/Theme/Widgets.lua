@@ -2942,12 +2942,14 @@ end
 
 -- The parts the settings window's own widgets build on: its colour rows,
 -- picture cards, inline extras, cogs, section cards, action rows and tiles
--- are Polestar_Options/UI/Controls.lua's, loaded with the window, never at
--- login.
+-- are Polestar_Options/UI/Controls.lua's, its compact controls, header and
+-- ··· menu UI/Kit.lua's, loaded with the window, never at login.
 W.RowParts = {
 	settingRow = settingRow, fitLabel = fitLabel, dimRow = dimRow, rowEnter = rowEnter,
 	simpleTip = simpleTip, hideTip = hideTip, hoverTexture = hoverTexture,
 	choicesOf = choicesOf, valueOf = valueOf, HALF_PAD = HALF_PAD, COMPACT_CHIP = COMPACT_CHIP,
+	choiceText = choiceText, openChoices = openChoices, sliderParts = sliderParts, sliderPaint = sliderPaint,
+	roundTo = roundTo, SLIDER_W = SLIDER_W,
 }
 
 -- A section card's header (W.SectionCard, Polestar_Options/UI/Controls.lua).
@@ -4092,7 +4094,9 @@ local function footerButton(f, side, i, ghost)
 end
 
 -- Without any button the footer bar goes and the body runs to the bottom.
+-- A window without its footer (W.ShellSetFooter) keeps it gone.
 function W.ShellFooter(f, left, right)
+	if rawget(f, "psNoFooter") then return W.ShellSetFooter(f, false) end
 	f.Footer:SetShown(#(left or {}) + #(right or {}) > 0)
 	layoutBody(f)
 	for _, side in ipairs({ "left", "right" }) do
@@ -4139,8 +4143,24 @@ function W.ShellFooter(f, left, right)
 	end
 end
 
--- Re-run a button's paint (after toggling psPrimary).
+-- The footer bar shown (on) or gone for good (the new settings page: its
+-- height goes to the body, f.psNoFooter) until shown again; W.ShellFooter
+-- fills it again after.
+function W.ShellSetFooter(f, on)
+	f.psNoFooter = not on or nil
+	f.Footer:SetShown(on and true or false)
+	if not on then
+		for _, side in ipairs({ "left", "right" }) do
+			for _, b in ipairs(f.footerButtons[side]) do b:Hide() end
+		end
+	end
+	layoutBody(f)
+end
+
+-- Re-run a button's paint (after toggling psPrimary): the skin's first (its
+-- primary ground: Hearth's game button, Lanterns' accent pill), then ours.
 function W.RepaintButton(b)
+	Theme.Repaint(b)
 	local fn = painters[b]
 	if fn then
 		if not b.psPrimary then W.Color(b.Label, b.psDanger and "danger" or (b.psGhost and "textDim" or "text")) end
@@ -4166,6 +4186,8 @@ local function fitLines(fs, text, lines)
 		if fs:GetNumLines() <= lines then return end
 	end
 end
+-- Shared with the settings window's header (Polestar_Options/UI/Kit.lua).
+W.RowParts.fitLines, W.RowParts.SUBTITLE_H, W.RowParts.SUBTITLE_LINES = fitLines, SUBTITLE_H, SUBTITLE_LINES
 
 -- The window's scale in its header, left of the close button (or on the
 -- main column's pad where the frame's own close button stands): its label,
@@ -4174,8 +4196,10 @@ end
 -- steps it. -> the control (control:Place() after the close button comes
 -- or goes).
 local SCALE_TRACK, SCALE_LO, SCALE_HI, SCALE_STEP = 64, 0.7, 1.4, 0.05
--- The header search's least width, when a long title takes room from it.
-local SEARCH_LEAST = 130
+-- The header search's least width, when a long title takes room from it;
+-- the title's least size against its role's (15 of 26: the title role's).
+local SEARCH_LEAST, TITLE_LEAST = 104, 15 / 26
+W.RowParts.SEARCH_LEAST = SEARCH_LEAST
 local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
 
 function W.HeaderScale(f, path)
@@ -4208,8 +4232,12 @@ function W.HeaderScale(f, path)
 	local afterN = 0
 	local function afterScale(w) return afterN > 0 and rawget(w, "psHeadAfterScale") and w:IsShown() end
 	function t.Place()
+		if rawget(f, "psSearchFirst") then return W.SearchFirst.place(f, t) end
+		if rawget(f, "psSFLaid") then W.SearchFirst.back(f) end
 		local vw = math.ceil(max(textWidth(t.Value, scaleText(SCALE_HI)), textWidth(t.Value, scaleText(1))))
 		paint()
+		t.Label:Show()
+		Theme.SetFontScale(f.Title, nil)
 		t.Value:SetWidth(vw)
 		t.Value:ClearAllPoints()
 		t.Value:SetPoint("RIGHT", t, "RIGHT", 0, 0)
@@ -4266,12 +4294,32 @@ function W.HeaderScale(f, path)
 			local edge = 16
 			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + (afterScale(w) and 14 or (rawget(w, "psHeadGap") or 16)) + w:GetWidth() end end
 			edge = edge + (t:IsShown() and t:GetWidth() or 0) + ((f.Close:IsShown() and inHeader) and (12 + 28 + 14) or (SHELL.pad + 16))
+			local mainW = tonumber(rawget(f, "psMainW")) or head:GetWidth()
+			local need = math.ceil(textWidth(f.Title))
 			if gives then
-				local room = (tonumber(rawget(f, "psMainW")) or head:GetWidth()) - SHELL.pad - edge
-				local give = min(math.ceil(textWidth(f.Title)) - room, own - SEARCH_LEAST)
+				local give = min(need - (mainW - SHELL.pad - edge), own - SEARCH_LEAST)
 				if give > 0 then
 					search:SetWidth(own - give)
 					edge = edge - give
+				end
+			end
+			-- Still too long (a narrow window, a long word in German or Russian):
+			-- the scale goes without its label (its tooltip names it), then the
+			-- title's font steps down, to the title role's size at least.
+			if t:IsShown() and need > mainW - SHELL.pad - edge then
+				local was = t:GetWidth()
+				t.Label:Hide()
+				t:SetWidth(SCALE_TRACK + 10 + vw)
+				edge = edge - (was - t:GetWidth())
+			end
+			local room = mainW - SHELL.pad - edge
+			if need > room and room > 0 then
+				-- Sizes round to half points: a step more where that rounds up.
+				local k = max(TITLE_LEAST, room / need)
+				Theme.SetFontScale(f.Title, k)
+				while k > TITLE_LEAST and textWidth(f.Title) > room do
+					k = max(TITLE_LEAST, k - 0.02)
+					Theme.SetFontScale(f.Title, k)
 				end
 			end
 			f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -edge, -32)
@@ -4554,7 +4602,7 @@ function W.Shell(name, opts)
 	f.BodyWidth = Wd - RAIL - SB - 2 - SHELL.pad * 2
 	W.ShellTitle(f, opts.title, opts.subtitle)
 	-- Refit the subtitle in a new font.
-	W.Painter(f.Subtitle, function(fs) fitLines(fs, f.psSubtitle or "", SUBTITLE_LINES) end)
+	W.Painter(f.Subtitle, function(fs) fitLines(fs, f.psSubtitle or "", rawget(f, "psSearchFirst") and 1 or SUBTITLE_LINES) end)
 	W.ShellTabs(f, nil)
 
 	-- A grip in the corner sizes the window; right-click: its default size.
@@ -4628,8 +4676,11 @@ function W.ShellLayout(f)
 	end
 	if rawget(f, "psHeadTools") and f.Search then f.Search:SetWidth(headerSearchW(f)) end
 	if rawget(f, "HeaderTools") then f.HeaderTools.Place() end
-	f.Subtitle:SetWidth(f.BodyWidth)
-	fitLines(f.Subtitle, f.psSubtitle or "", SUBTITLE_LINES)
+	-- "Search first" lays its one-line description out itself (HeaderTools.Place).
+	if not rawget(f, "psSearchFirst") then
+		f.Subtitle:SetWidth(f.BodyWidth)
+		fitLines(f.Subtitle, f.psSubtitle or "", SUBTITLE_LINES)
+	end
 	layoutBody(f)
 	W.SetScrollContent(f.Scroll, f.Scroll.psContent or 0, f.psViewH)
 end
@@ -4757,13 +4808,16 @@ end
 -- subtitle, so it never jumps between pages.
 function W.ShellTitle(f, title, subtitle)
 	f.Title:SetText(title or "")
+	f.psSubtitle = subtitle or ""
+	f.Subtitle:SetShown(subtitle ~= nil and subtitle ~= "")
+	-- The main column's width between its pads (a hub's narrower column too);
+	-- "Search first" fits its one line in HeaderTools.Place.
+	if not rawget(f, "psSearchFirst") then
+		f.Subtitle:SetWidth(f.BodyWidth)
+		fitLines(f.Subtitle, f.psSubtitle, SUBTITLE_LINES)
+	end
 	-- A longer title may take room from the header's search.
 	if rawget(f, "psSearchW") and rawget(f, "HeaderTools") then f.HeaderTools.Place() end
-	f.psSubtitle = subtitle or ""
-	-- The main column's width between its pads (a hub's narrower column too).
-	f.Subtitle:SetWidth(f.BodyWidth)
-	fitLines(f.Subtitle, f.psSubtitle, SUBTITLE_LINES)
-	f.Subtitle:SetShown(subtitle ~= nil and subtitle ~= "")
 end
 
 -- Lay the body out for `height` px of content (the scroll range).
