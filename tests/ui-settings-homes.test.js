@@ -75,7 +75,7 @@ test('Guide opens on While you play, and each page links to the other', () => {
 		back.Link:Click()
 		emit({ guide = guide, landed = landed, look = look, back = { page = O.page.key, tab = O.view.psTab.name } })`);
 	assert.equal(out.guide.tab, 'While you play', 'Guide\'s first tab is While you play');
-	assert.deepEqual(out.guide.cards, ['Dynamic Questing', 'Pause']);
+	assert.deepEqual(out.guide.cards, ['Dynamic Questing', 'Pause', 'Level pace']);
 	assert.deepEqual(out.guide.link, { shown: true, text: 'What the window shows, when it hides and where it sits:', to: 'Look › Guide window' });
 	assert.deepEqual(out.landed, { page: 'guidewindow', tab: 'Window' }, 'the link opens Look > Guide window');
 	assert.deepEqual(out.look, { shown: true, text: 'Dynamic Questing and pause:', to: 'Guiding › Guide' });
