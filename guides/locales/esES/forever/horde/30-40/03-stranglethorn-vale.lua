@@ -91,7 +91,7 @@ return {
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "",
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: mata a estos según te los encuentres",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
 	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Los tigres de Tuercespina (32) merodean por las colinas alrededor del campamento y al sur, y las panteras (32) por los claros al oeste y suroeste. Los geólogos de Ventura y Cía. (34-36), que llevan los cristales caídos, trabajan en los campamentos junto a {area:37}, al sureste del campamento. Cuidado: hay agentes de Ventura y Cía. (39) entre los geólogos de los campamentos occidentales, junto a la casa de Ventura y Cía.: ve a los campamentos del este, lejos de ellos."

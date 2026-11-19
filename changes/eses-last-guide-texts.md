@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 3,636 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 3,716 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -11,6 +11,7 @@ section: players
   Hold, Silithus, Hillsbrad Foothills, Centaur Clans, Zephra's Isle,
   Starshards and Elune's Grace, Darkspear Islands, Mining, Cooking, Elwynn
   Forest, Desperate Prayer and Chastise, Arathi Highlands, Ashenvale, Call of
-  Fire, Silverpine Forest, Enchanting, Nightclaw Druids and Durotar guides,
-  plus texts that repeat English the locale already translates, filled with
-  the locale's own wording.
+  Fire, Silverpine Forest, Enchanting, Nightclaw Druids, Durotar, Alliance
+  Stranglethorn Vale, Lumina Windsinger and Tyr's Watch guides, plus texts
+  that repeat English the locale already translates, filled with the locale's
+  own wording.
