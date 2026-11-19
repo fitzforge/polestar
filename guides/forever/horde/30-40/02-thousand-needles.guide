@@ -73,6 +73,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 # ---------------------------------------------------------------- Orgrimmar
 
 step Zeppelin to Orgrimmar
+  when !zone "Durotar"
+  when !zone "Orgrimmar"
   zone Tirisfal Glades
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
 

@@ -764,11 +764,18 @@ do
 				{
 					title = "{quest:95065}",
 					note = "{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat.",
+					when = { { k = "zone", neg = true, name = "Darkshore", area = 148 } },
 					goals = {
 						{ t = "buy", npc = 5494, npcName = "Catherine Leland", item = 6529, itemName = "Shiny Bauble", count = 1, map = 1453, x = 55.04, y = 69.7, z = 96.4, spotsPacked = "55,69.5,96.4,15,2", note = "{item:6529}, from {npc:5494}" },
 						{ t = "buy", npc = 5494, npcName = "Catherine Leland", item = 6530, itemName = "Nightcrawlers", count = 3, map = 1453, x = 55.04, y = 69.7, z = 96.4, spotsPacked = "55,69.5,96.4,15,2" },
 						{ t = "accept", quest = 95065, title = "Fishin' Time", npc = 267118, npcName = "Gilbert Gray", minLevel = 7, qlvl = 12, map = 1453, x = 26.36, y = 46.89, spotsPacked = "26.3,47,,15,2" },
 						{ t = "turnin", quest = 95065, title = "Fishin' Time", npc = 267118, npcName = "Gilbert Gray", map = 1453, x = 26.36, y = 46.89, spotsPacked = "26.3,47,,15,2" },
+					},
+				},
+				{
+					title = "{object:176370}",
+					when = { { k = "zone", neg = true, name = "Darkshore", area = 148 } },
+					goals = {
 						{ t = "goto", text = "{object:176370}", map = 1453, x = 22.71, y = 56.69 },
 					},
 				},
@@ -913,6 +920,7 @@ do
 			steps = {
 				{
 					title = "{object:176370}",
+					when = { { k = "zone", neg = true, name = "Darkshore", area = 148 } },
 					goals = {
 						{ t = "goto", text = "{object:176370}", map = 1453, x = 22.71, y = 56.69 },
 					},
@@ -1918,6 +1926,7 @@ do
 				{
 					title = "Boat to {area:150}",
 					note = "Sell and repair in {area:442} first: the next stretch is a long one.",
+					when = { { k = "zone", neg = true, name = "Wetlands", area = 11 } },
 					goals = {
 						{ t = "vendor", optional = true, candidates = { { npc = 6300, npcName = "Elisa Steelhand", map = 1439, x = 38.11, y = 41.2, z = 7.2, faction = "A" }, candidateRecords[1], candidateRecords[2], { npc = 12024, npcName = "Meliri", map = 1450, x = 51.15, y = 42.54, z = 489.4, faction = "AH" }, candidateRecords[3], candidateRecords[4], { npc = 3612, npcName = "Sinda", map = 1438, x = 56.23, y = 59.53, z = 1308.9, faction = "A" }, candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], { npc = 3590, npcName = "Janna Brightmoon", map = 1438, x = 59.46, y = 41, z = 1337.4, faction = "A" }, { npc = 4177, npcName = "Melea", map = 1457, x = 57.13, y = 76.99, z = 1332.1, f = "e", faction = "A" }, { npc = 4173, npcName = "Landria", map = 1457, x = 63.25, y = 66.78, z = 1332, faction = "A" }, candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], { npc = 3684, npcName = "Pizznukle", map = 1413, x = 41.77, y = 38.62, z = 91.8, f = "e", faction = "AH" }, candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], { npc = 4890, npcName = "Piter Verance", map = 1445, x = 67.4, y = 47.93, z = 12, faction = "A" }, candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], { npc = 8131, npcName = "Blizrik Buckshot", map = 1446, x = 50.75, y = 27.6, z = 8.6, faction = "AH" }, candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], { npc = 252019, npcName = "Abra Cadabra", map = 1416, x = 12.07, y = 70.55, faction = "A" }, candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], { npc = 3528, npcName = "Pyrewood Armorer", map = 1421, x = 46.4, y = 71.88, z = 19, f = "e", faction = "A" }, candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], { npc = 1238, npcName = "Gamili Frosthide", map = 1426, x = 45.19, y = 51.85, z = 397.4, faction = "A" }, candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], { npc = 54, npcName = "Corina Steele", map = 1429, x = 41.44, y = 65.86, z = 58.5, faction = "A" }, { npc = 78, npcName = "Janos Hammerknuckle", map = 1429, x = 47.27, y = 41.99, z = 82, faction = "A" }, { npc = 896, npcName = "Veldan Lightfoot", map = 1429, x = 25.18, y = 73.89, z = 38.7, f = "e", faction = "A" }, candidateRecords[52], candidateRecords[53], candidateRecords[54], { npc = 225, npcName = "Gavin Gnarltree", map = 1431, x = 73.64, y = 49.61, z = 27.1, faction = "A" }, candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], { npc = 789, npcName = "Kimberly Hiett", map = 1433, x = 21.81, y = 45.31, z = 64.4, faction = "A" }, candidateRecords[61], candidateRecords[62], { npc = 2482, npcName = "Zarena Cromwind", map = 1434, x = 28.34, y = 75.46, z = 6.8, faction = "AH" }, candidateRecords[63], { npc = 14921, npcName = "Rin'wosho the Trader", map = 1434, x = 15.07, y = 16, z = 6.9, f = "e", faction = "AH" }, candidateRecords[64], candidateRecords[65], { npc = 1441, npcName = "Brak Durnad", map = 1437, x = 11.36, y = 59.55, z = 11.6, faction = "A" }, candidateRecords[66], { npc = 1287, npcName = "Marda Weller", map = 1453, x = 63.86, y = 68.61, z = 96.9, faction = "A" }, { npc = 1297, npcName = "Lina Stover", map = 1453, x = 58.59, y = 68.94, z = 102.4, faction = "A" }, { npc = 1309, npcName = "Wynne Larson", map = 1453, x = 51.9, y = 83.28, z = 109.4, faction = "A" }, { npc = 1312, npcName = "Ardwyn Cailen", map = 1453, x = 52.78, y = 75.13, z = 97.5, faction = "A" }, candidateRecords[67], candidateRecords[68], { npc = 1323, npcName = "Osric Strang", map = 1453, x = 76.97, y = 61.23, z = 103.9, faction = "A" }, candidateRecords[69], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[74], { npc = 5102, npcName = "Dolman Steelfury", map = 1455, x = 36.23, y = 66.07, z = 502.1, faction = "A" }, { npc = 5119, npcName = "Hegnar Swiftaxe", map = 1455, x = 61.81, y = 88.93, z = 502.3, faction = "A" }, candidateRecords[75], { npc = 5125, npcName = "Dolkin Craghelm", map = 1455, x = 53.85, y = 87.89, z = 505.4, f = "e", faction = "A" }, candidateRecords[76], { npc = 5155, npcName = "Ingrys Stonebrow", map = 1455, x = 38.25, y = 5.15, z = 512, f = "e", faction = "A" }, candidateRecords[77], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84] } },
 						{ t = "goto", text = "Boat to {area:150}", map = 1439, x = 32.4, y = 43.8, f = "e" },
