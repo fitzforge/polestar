@@ -80,9 +80,25 @@ step Agmond's End
   tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709
 
+step Level 39 for Indurium
+  when level<39
+  when onquest 1108
+  when !complete 1108
+  zone Badlands
+  tip Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop Neeka's jawbones and Jarkal's fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close.
+  goto 53.0,56.65 map 1418 "Feral Crag Coyotes"
+  level 39
+
 step Stonevault troggs
-  tip The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End. Hunt Stonevault Bonesnappers (39-40) for the flakes. At 38, pick the 39s; leave the Shamans (40-41) alone.
-  collect 5797 npc 2893 quest 1108 @50.2,67.1 map 1418
+  when level>=39
+  when onquest 1108
+  when !complete 1108
+  zone Badlands
+  tip Hunt Stonevault Bonesnappers (39-40) at the south-western edge of the camp for the flakes. Leave Murdaloc (42) and the Stonevault Shamans (40-41) alone. Watch for Anathemus (45, rare elite) on patrol.
+  loop
+  goto 48.72,71.93 map 1418
+  goto 47.3,69.89 map 1418
+  collect 5797 npc 2893 quest 1108
 
 step Buzzards by the Stonevault hills
   zone Badlands
@@ -95,10 +111,10 @@ step Buzzards by the Stonevault hills
 step Feral Crag Coyotes
   when level<40
   zone Badlands
-  tip On the hills beside the Buzzards, the Feral Crag Coyotes (37-38) drop both jawbones and fangs. Leave the Giant Buzzards of the western basin for higher levels.
+  tip On the hills beside the Buzzards, Feral Crag Coyotes (37-38) drop both jawbones and fangs. Stay away from Zaricotl and Anathemus on patrol, and leave the Giant Buzzards to the west alone.
   loop
   goto 52.4,60.6 map 1418
-  goto 56.7,61.0 map 1418
+  goto 53.0,56.65 map 1418
   collect 6166 npc 2728 quest 1419
   collect 7846 npc 2728 quest 2258.2
 

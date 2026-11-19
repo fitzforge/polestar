@@ -2244,7 +2244,7 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	assert.ok(late.every(({ step, goal }) => levelFrom(step) === 34 && holdsQuest(step, goal.quest)), 'the way out from 34 only for whoever still has the quest');
 	for (const q of [1147, 1175]) {
 		const hand = list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === q);
-		assert.equal(hand.length, 2, `turnin ${q} on each pass`);
+		assert.equal(hand.length, 3, `turnin ${q} on the first pass, on a ready return below 34, or after the hunt`);
 		assert.ok(hand.every(({ step }) => (step.when || []).some((p) => p.k === 'complete' && !p.neg && [].concat(p.q).includes(q))), `turnin ${q} only once its work is done`);
 	}
 	const parts = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 1148);
@@ -2256,7 +2256,10 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	const top = list.findIndex(({ goal }, i) => i > toGadgetzan && goal.t === 'level' && goal.level === 34 && goal.grind === 4140);
 	assert.ok(top > toGadgetzan && top < list.indexOf(late[0]), 'an underlevel returner finishes 34 on northern Reavers before either camp');
 	assert.ok(list[top].step.when.some(p => p.k === 'level' && p.op === '<' && p.n === 34));
-	assert.ok([1147, 1175].every(q => holdsQuest(list[top].step, q)));
+	for (const q of [1147, 1175, 1148]) {
+		assert.ok(list.slice(top, list.indexOf(late[0])).some(({ goal, step }) => goal.t === 'level' && goal.level === 34 && holdsQuest(step, q) && step.when.some(p => p.k === 'complete' && p.neg && p.q === q)), `only missing work on ${q} can require 34`);
+		if (q !== 1148) assert.ok(list.slice(toGadgetzan + 1, top).some(({ goal }) => is('turnin', q)(goal)), `deliver ready ${q} before leveling`);
+	}
 	assert.ok(list.slice(top + 1, list.indexOf(late[0])).some(({ goal, step }) => goal.t === 'level' && goal.level === 34 && goal.grind === 4140 && holdsQuest(step, 1148) && step.when.some(p => p.k === 'complete' && p.neg && [].concat(p.q).includes(1148))), 'a character carrying only unfinished parts also stops at 34');
 	assert.ok(list.slice(toGadgetzan + 1, top).some(({ goal, step }) => goal.t === 'fly' && goal.location === 'Gadgetzan' && holdsQuest(step, 1148) && step.when.some(p => p.k === 'complete' && p.neg && [].concat(p.q).includes(1148))), 'return also works with only unfinished parts');
 	const toOrg = list.findIndex(({ goal }, i) => i > lastShadowprey && goal.t === 'fly' && goal.location === 'Orgrimmar');
@@ -2269,6 +2272,37 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	for (const [q, oi] of [[1175, 2], [1147, 1]]) {
 		assert.ok(fixes.some((r) => r.faction === 'Horde' && r.at.quest === q && r.at.objective === oi && r.when === 'level>=34'), `a record the build keeps for ${q}`);
 	}
+});
+
+test('Horde flats: a ready return at 33.99 can pay for unfinished fights without another grind', { skip }, () => {
+	const guide = 'forever/horde/30-40/02-thousand-needles.guide';
+	const list = goals(guide);
+	const tops = list.filter(({ goal }) => goal.t === 'level' && goal.level === 34);
+	const indexes = [1175, 1147, 1148].map(q => tops.find(({ step }) => holdsQuest(step, q)).s);
+	const delivery = list.find(({ goal, s }) => is('turnin', 1175)(goal) && s > list.find(({ goal }) => is('turnin', 6142)(goal)).s).s;
+	const out = engineRun(guide, { ...ORC_WARRIOR, level: 33 }, {
+		before: 'w.xp,w.xpMax=58014,58600; w.onQuest(1175,{10}); w.finish(1175); w.onQuest(1148,{3})',
+		script: `local w=stub.world; local function probe() return {${indexes.map(s => `E.Applies(${s})`).join(',')}} end
+			local before=probe(); local ready=E.Applies(${delivery}); w.turnIn(1175,2650); w.setLevel(34); w.setXP(2064,62800); stub.advance(.5)
+			emit({before, ready, probe()})`,
+	});
+	assert.deepEqual(out, [[false, false, true], true, [false, false, false]]);
+});
+
+test('Horde Hillsbrad: carried skulls are finished in the southern fields even after Battle of Hillsbrad', { skip }, () => {
+	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const list = goals(guide);
+	const work = list.find(({ goal }) => goal.t === 'collect' && goal.quest === 546);
+	assert.equal(work.goal.npc, 2267);
+	assert.deepEqual(work.goal.spots.map(({ x, y }) => [x, y]), [[35.2, 46.4], [36.44, 45.43], [35.59, 44.31]]);
+	assert.ok(!list.some(({ goal }) => is('accept', 546)(goal)));
+	const hand = list.find(({ goal }) => is('turnin', 546)(goal));
+	const out = engineRun(guide, { ...ORC_WARRIOR, level: 30 }, {
+		before: 'w.complete({528}); w.onQuest(546, {30})',
+		script: `local w = stub.world; local function pair() return {E.Applies(${work.s}), E.Applies(${hand.s})} end
+			local before = pair(); w.finish(546); stub.advance(.5); emit({before, pair()})`,
+	});
+	assert.deepEqual(out, [[true, false], [false, true]]);
 });
 
 // Dungeons in the route (0.4.0, the grind-tip rule): a grind step names a dungeon only when its run is in the route
@@ -11727,6 +11761,10 @@ test('Horde Badlands: finish the basin drops on lower prey below 40 and warn at 
 	const list = goals(guide);
 	const wings = at(list, 'wings', g => g.t === 'collect' && g.item === 3404);
 	const back = at(list, 'turnin 711', is('turnin', 711));
+	const flakes = list.find(({ goal }) => goal.item === 5797 && goal.t === 'collect');
+	assert.equal(flakes.goal.npc, 2893);
+	assert.equal(levelFrom(flakes.step), 39);
+	assert.deepEqual(flakes.goal.spots.map(({ x, y }) => [x, y]), [[48.72, 71.93], [47.3, 69.89]]);
 	assert.equal(list[wings].goal.npc, 2830, 'the wings do not send a character to the giants before the basin gate');
 	assert.deepEqual(list[wings].goal.spots.map(({ x, y }) => [x, y]), [[49.5, 63.8], [50.3, 60]], 'both wing spots stay on the Stonevault hills');
 	assert.deepEqual(list.filter(({ goal }) => goal.item === 7848 && goal.t === 'collect').map(({ goal }) => goal.npc), [2735, 92, 2735], 'the incidental shards stay with the local lesser or regular elementals');
@@ -11738,6 +11776,7 @@ test('Horde Badlands: finish the basin drops on lower prey below 40 and warn at 
 		assert.ok(low.step.when.some(p => p.k === 'level' && p.op === '<' && p.n === 40));
 		assert.ok(Math.hypot(low.goal.x - x, low.goal.y - y) < 0.2 && low.goal.map === 1418);
 		assert.equal(low.goal.npc, item === 7847 ? 2829 : 2728, 'lower camp target');
+		if (item !== 7847) assert.deepEqual(low.goal.spots.map(({ x, y }) => [x, y]), [[52.4, 60.6], [53, 56.65]]);
 		assert.equal(high.goal.npc, item === 7847 ? 2831 : 2729, 'basin camp target');
 		assert.equal(levelFrom(high.step), 40);
 	}

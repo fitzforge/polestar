@@ -5727,7 +5727,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End. Hunt Stonevault Bonesnappers (39-40) for the flakes. At 38, pick the 39s; leave the Shamans (40-41) alone.",
+			"tip": "Hunt Stonevault Bonesnappers (39-40) at the south-western edge of the camp for the flakes. Leave Murdaloc (42) and the Stonevault Shamans (40-41) alone. Watch for Anathemus (45, rare elite) on patrol.",
 			"note": "Horde 30-40 audit (2026-11-09): the Stonevault Bonesnappers (2893) and Shamans (2894) dig at 47-52,64-72, between Agmond's End and the Valley of Fangs, now walked north from Agmond's End. The level 41 record is real for Shamans; Bonesnappers drop the same flakes at 39-40.",
 			"source": {
 				"kind": "pfquest",
@@ -13098,7 +13098,7 @@
 				"objective": 2
 			},
 			"when": "level>=34",
-			"note": "Level 35 Gazers and Invaders are safe from 34. Anyone below 34 on the first pass carries the quests through Desolace. On the return from Gadgetzan, finish only the missing XP on northern Scorpid Reavers and Crystalhides before entering either camp.",
+			"note": "On the first visit, leave the southern fights until 34. On the return, deliver any ready quests first. Only an unfinished hunt for 1147, 1175 or 1148 needs a top-up on the northern flats.",
 			"source": [
 				{
 					"kind": "recording",
@@ -13181,6 +13181,62 @@
 				{
 					"kind": "client",
 					"ref": "quest 1175 ends at Trackmaster Zherin (npc 4629) in Forever's quest data"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "horde-indurium-from-39",
+			"faction": "Horde",
+			"at": {
+				"quest": 1108,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/06-badlands"
+			},
+			"when": "level>=39",
+			"note": "At 38 a Bonesnapper can be two levels over. Only hunt unfinished flakes from 39; an already-full bag goes to Martek without the hunt.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever: NPC 2893, level 39-40, normal; quest 1108 wants Indurium Flakes (5797)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "horde-hillsbrad-carried-skulls",
+			"faction": "Horde",
+			"at": {
+				"quest": 546,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"when": "onquest 546",
+			"note": "A character carrying Souvenirs of Death can finish it with the southern Peasants, even if the Battle of Hillsbrad is already done.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever: Hillsbrad Peasant (2267) drops Hillsbrad Human Skull (3692); Deathguard Samsa (2418) ends quest 546."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "horde-hillsbrad-deliver-carried-skulls",
+			"faction": "Horde",
+			"at": {
+				"quest": 546,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"when": "complete 546",
+			"note": "Return to Samsa as soon as the skulls are ready, independent of quest 528.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever: quest 546 ends at Deathguard Samsa (2418)."
 				}
 			],
 			"pr": 3145

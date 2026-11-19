@@ -39,7 +39,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # from level 34 (0.4.3: players following the guide reached them at 32.3-32.8, a 25th percentile, with the
 # Gazers and Invaders at 35). Below 34 they wait for the way out: after Desolace, from Shadowprey, a flight
 # to Gadgetzan, the south and the dig, Moktar Krin, the raceway and a flight from Gadgetzan to Orgrimmar,
-# where the next guide starts. The quests stay in the log meanwhile; the accepts don't move.
+# where the next guide starts. Ready deliveries can pay towards 34; only unfinished hunts need a top-up.
 #
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Orgrimmar (Hunter and
 # Shaman training) -> fly to Freewind Post (Jandia, Dorn, the harpy den) -> Moktar Krin -> the Mirage
@@ -508,7 +508,7 @@ step Drulzegar Skraghook
 step Fly to Gadgetzan
   when onquest 1147,1175
   zone Desolace
-  tip The Shimmering Flats' south and the silithid dig waited for level 34: do them now, on the way to the next guide. Fly to Gadgetzan; the flats are a short ride north from there.
+  tip Fly to Gadgetzan for the flats. Hand in any finished quests first if you're below 34; only the remaining hunts need the level.
   goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Gadgetzan"
   zone Tanaris
@@ -522,11 +522,33 @@ step Return for Parts of the Swarm
   fly "Gadgetzan"
   zone Tanaris
 
-step Level 34
+step Moktar Krin before the hunt
   when level<34
-  when onquest 1147,1175
+  when complete 1147
   zone Thousand Needles
-  tip Still short of 34? Follow the road north past the raceway to hunt Scorpid Reavers (31-32) and nearby Saltstone Crystalhides (32-33), away from the southern Gazers and the hive. Stop as soon as you reach 34. Or, with a group, run Razorfen Kraul.
+  turnin 1147
+
+step Trackmaster Zherin before the hunt
+  when level<34
+  when complete 1175
+  zone Thousand Needles
+  turnin 1175
+
+step Level 34 for the southern flats
+  when level<34
+  when onquest 1175
+  when !complete 1175
+  zone Thousand Needles
+  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
+  goto 75.5,67.8 map 1441 "Scorpid Reavers"
+  level 34 grind 4140
+
+step Level 34 for the Rustmaul dig
+  when level<34
+  when onquest 1147
+  when !complete 1147
+  zone Thousand Needles
+  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
@@ -534,9 +556,8 @@ step Level 34 for Parts of the Swarm
   when level<34
   when onquest 1148
   when !complete 1148
-  when !onquest 1147,1175
   zone Thousand Needles
-  tip For the parts alone, stay north of the raceway on the Scorpid Reavers (31-32) until 34, then ride south to the dig. Or, with a group, run Razorfen Kraul.
+  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
