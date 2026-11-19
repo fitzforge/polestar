@@ -2707,6 +2707,31 @@
 				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
 			},
 			"issue": 2825
+		},
+		{
+			"id": "shendralas-crystal-heart-west-face",
+			"quest": 99257,
+			"objective": 1,
+			"path": {
+				"map": 2652,
+				"frame": "live",
+				"points": [
+					[
+						43.97,
+						35.59
+					],
+					[
+						43.89,
+						35.64
+					]
+				]
+			},
+			"note": "Use the same two west-side pulls as the pylon repair. The Necrokhans and a Corpsefeeder patrol the opposite side.",
+			"source": {
+				"kind": "recording",
+				"ref": "Western pylon repairs from the west face and deaths on the east side."
+			},
+			"issue": 3145
 		}
 	]
 }
