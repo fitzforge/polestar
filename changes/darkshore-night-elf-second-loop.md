@@ -1,8 +1,8 @@
 ---
 section: players
 ---
-- Night Elf Darkshore: Cleansing of the Infected is done on the second loop,
-  where its bears are, and Night Elves already level 15 take For Love Eternal
-  there too, so the shared Darkshore guide no longer walks the first loop
-  again for them. Grove of the Ancients goes to Onu on the southern beaches
-  instead of riding in the log through Westfall and Loch Modan.
+- Night Elf Darkshore: hunt the infected bears on the second loop. From level
+  15, take For Love Eternal and get Anaya’s pendant on that same trip. Below
+  15, the guide leaves Anaya for the next visit even if you already have the
+  quest. Hand Grove of the Ancients to Onu on the southern beaches instead of
+  carrying it through Westfall and Loch Modan.

@@ -15939,9 +15939,11 @@ test(`${NE_DARKSHORE}: For Love Eternal only from level 15 in Night Elf Darkshor
 	assert.ok((take.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 15), 'Night Elf Darkshore offers it from level 15 only');
 	assert.ok(ne.filter(({ goal }) => goal.quest === 963 && goal.t === 'accept').length === 1, 'one accept');
 	const pendant = at(ne, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	const work = ne[pendant].step.when || [];
+	assert.ok(work.some((p) => p.k === 'level' && p.op === '>=' && p.n === 15) && work.some((p) => p.k === 'onquest' && p.q === 963 && !p.neg), 'a carried quest cannot send a level-14 player after Anaya');
 	const hand = ne[at(ne, 'turnin 963', is('turnin', 963))];
 	assert.ok(at(ne, 'accept 963', is('accept', 963)) < pendant && pendant < at(ne, 'turnin 963', is('turnin', 963)), 'taken, done on the second loop and handed in on the pier');
-	assert.ok((hand.step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the hand-in only while carried');
+	assert.ok((hand.step.when || []).some((p) => p.k === 'complete' && p.q === 963 && !p.neg), 'the hand-in only when the pendant is ready');
 	const shared = goals(DARKSHORE);
 	const stake = at(shared, 'accept 963', is('accept', 963));
 	const spendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);

@@ -150,6 +150,10 @@ step Ameth'Aran
   tip Back north to Ameth'Aran: the flame burns in the south of the ruins.
   interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
   kill 2164 quest 2138
+
+step Anaya's Pendant
+  when level>=15
+  when onquest 963
   collect 5382 quest 963                      -- Anaya's Pendant: Anaya Dawnrunner's ghost walks the ruins
 
 step The red crystal
@@ -172,7 +176,7 @@ step Auberdine
   turnin 4728                                 -- Gwennyth Bly'Leggonde
 
 step Cerellean Whiteclaw
-  when onquest 963
+  when complete 963
   tip Cerellean Whiteclaw waits where the pier meets the shore, on the way to the boat.
   turnin 963                                  -- Cerellean Whiteclaw, on the pier
 
