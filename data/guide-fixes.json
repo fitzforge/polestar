@@ -2309,8 +2309,8 @@
 				"quest": 4502,
 				"goal": "turnin"
 			},
-			"tip": "Fly from Marshal's Refuge to Ratchet.",
-			"note": "The Silithus guide starts where the previous guide ends, with Spraggle Frock at Marshal's Refuge in Un'Goro (its flight path learned when the guide flew there from Gadgetzan), and its first step flies to Ratchet from there; the seed tip \"Ride back to Cenarion Hold and fly to Ratchet.\" sent the player to Silithus first.",
+			"tip": "Liv Rizzlefix is in Ratchet. From Winterspring, leave by Maethrya in Everlook; from Un'Goro, leave by Gryfe at Marshal's Refuge.",
+			"note": "The Silithus guide can start after the crater or Mount Hyjal. Its seed points to the Alliance flight master in the player's current zone before the Ratchet flight; the Winterspring errands can end with Donova, who does not offer flights. If Ratchet is not marked learned the seed asks for arrival in town and learning Bragok's flight path, not an unavailable flight.",
 			"source": [
 				{
 					"kind": "client",
@@ -12544,6 +12544,7 @@
 		},
 		{
 			"id": "043-darkwhisper-gorge-mouth-only",
+			"when": "onquest 4842",
 			"faction": "Alliance",
 			"at": {
 				"quest": 4842,
