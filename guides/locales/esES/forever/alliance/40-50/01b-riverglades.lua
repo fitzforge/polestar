@@ -208,7 +208,7 @@ return {
 	["fill the {item:269990} at the ritual circles"] = "llena el {item:269990} en los círculos rituales",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Asaltadores del Crepúsculo, así que primero saqua cinco",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: solo si un cultista soltó el diario",
 

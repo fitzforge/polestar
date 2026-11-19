@@ -145,7 +145,7 @@ return {
 
 	-- Step 23: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
-	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.\n{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
+	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.\n{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "Sigue el camino por el túnel y al noreste hasta {area:131}. Empieza fuera: {npc:1252} y la hoguera de Eric están ante {area:2102}.\n{npc:1872} trabaja la forja al oeste de la destilería.\n Luego entra: {npc:6806}, el tabernero, {npc:1226} y {npc:1267}. La lección de {skill:185} de {npc:1699} espera al regreso con las costillas, cuando el cobre esté para ello.",
 	-- {npc:1241} Tognus Flintfire
 	["{npc:1241}, below ground"] = "{npc:1241}, bajo tierra",
 	-- {npc:6806} Tannok Frosthammer
@@ -500,7 +500,7 @@ return {
 	-- {item:6775} Tome of Divinity
 	["The {item:6775}"] = "La {item:6775}",
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "",
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "Al oeste del {object:32383} hacia el {object:32362}: {npc:5149}, {npc:6179} y {npc:6178} están en el {object:32386}, Tiza y Muiredon en su planta superior: las escaleras empiezan justo al noreste de {npc:5149}. {npc:6175}, un mendigo, deambula por la ciudad. Pide diez {item:2589}: los trols y troggs de {zone:1426} lo sueltan, y la casa de subastas lo vende.",
 
 	-- Step 96: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life

@@ -15,9 +15,9 @@ return {
 
 	-- Step 2: Undead Horsemanship for other races
 	-- {spell:10906} Undead Horsemanship
-	["{spell:10906} for other races"] = "",
+	["{spell:10906} for other races"] = "{spell:10906} para otras razas",
 	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "Cualquier raza de la Horda puede comprar estos caballos esqueléticos, pero montar uno también requiere {spell:10906}, que solo los no-muertos obtienen con {skill:762}. {npc:4773} lo enseña a las demás razas cuando son Exaltadas con {faction:68} (la guía de reputación de Entrañas marca el camino). Hasta entonces, no compres un caballo esquelético para este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

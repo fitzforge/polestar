@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "{spell:18995} para otras razas",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Cualquier raza de la Horda puede comprar estos kodos, pero montar uno también requiere {spell:18995}, que solo los tauren obtienen con {skill:762}. {npc:3690} lo enseña a las demás razas cuando son Exaltadas con {faction:81} (la guía de reputación de Cima del Trueno marca el camino). Hasta entonces, no compres un kodo para este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

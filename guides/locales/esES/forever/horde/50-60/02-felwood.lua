@@ -42,7 +42,7 @@ return {
 	-- Step 10: Paladin trainer
 	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152} en {zone:1420}; {zone:1454} no tiene instructor de paladines",
 
 	-- Step 11: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -83,7 +83,7 @@ return {
 
 	-- Step 19: Deadwood Village
 	-- {area:1769} Timbermaw Hold
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "La aldea de los furbolgs Deadwood está justo al sur del Santuario. Cada muerte de Deadwood también sube tu reputación de {area:1769}; guarda las plumas de tocado.",
 
 	-- Step 20: Southern Jaedenar
 	-- {area:1763} Jaedenar

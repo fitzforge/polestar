@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "{spell:824} para otras razas",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Cualquier raza de la Alianza puede comprar estos caballos, pero montar uno también requiere {spell:824}, que solo los humanos obtienen con {skill:762}. {npc:4732} lo enseña a las demás razas cuando son Exaltadas con {faction:72} (la guía de reputación de Ventormenta marca el camino). Hasta entonces, no compres un caballo para este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

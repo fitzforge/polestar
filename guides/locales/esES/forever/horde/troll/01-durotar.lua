@@ -214,7 +214,7 @@ return {
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373}: mátalos según te los encuentres",
 	-- {area:362} Razor Hill
-	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
+	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "Makrura y rastreros de las olas recorren las playas al noreste de Sen'jin; los huevos de Taillasher están en nidos a lo largo de la playa.\nLas cajas de herramientas gnomos yacen en los restos a lo largo de la costa al este y sureste de {area:362}. Sigue la costa al sur hasta Sen'jin.",
 	["Underwater"] = "Bajo el agua",
 
 	-- Step 44: Sen'jin Village

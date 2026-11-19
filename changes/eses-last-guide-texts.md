@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,836 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,909 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -28,6 +28,10 @@ section: players
   the Badlands, Wintersaber Trainers, Holy Mightstone, Incubus (Alliance),
   Quel'Serrar, Feralas, Darkshore Return, Voidwalker (Horde) and the Mechanical
   Chicken pet, Hillsbrad Foothills, Stranglethorn Vale, Stalk with the
-  Earthmother, the Searing Gorge, Ju-Ju Heaps and Imp (Horde) guides, plus texts
+  Earthmother, the Searing Gorge, Ju-Ju Heaps and Imp (Horde) guides, the
+  Mechanostrider, Ram, Swift Horse, Swift Mechanostrider, Swift Ram, Swift Saber,
+  Great Kodo, Raptor, Skeletal Warhorse, Swift Raptor, Swift Wolf and Wolf mounts,
+  Polymorph, the Eye of Bhossca, the Horn of Xelthos, the Spectral Bear Cub and
+  the Worg Carrier, plus texts
   that repeat English the locale already translates, filled with the locale's
   own wording.

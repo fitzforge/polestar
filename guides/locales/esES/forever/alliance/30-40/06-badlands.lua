@@ -58,7 +58,7 @@ return {
 	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
 	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, si aún te falta: las águilas ratoneras al este de {area:345} la sueltan muy raramente",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739} en persona (42) camina entre los Quebranhuesos: déjalo para la guía posterior de {zone:1418} al nivel 43, y mata a los Quebranhuesos ya por esta misión.",
 	-- {item:278402} Unstudied Artifact
 	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, de los excavadores Forjatiniebla y los Partehuesos",
 
@@ -87,7 +87,7 @@ return {
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Ve al norte hasta la entrada de {area:1517}, en el norte de {zone:1418}: el cofre está justo dentro de la boca de la cueva. {npc:2932} y los Gólems de obsidiana (38) están a su lado y los Excavadores Forjatiniebla (35-36) trabajan en el túnel, todos élite: mantén unido a tu grupo.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; bajo tierra",
 
 	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
@@ -119,7 +119,7 @@ return {
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}, en la posada"
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, en la posada; bajo tierra",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Un {npc:217590} se arrastra por {area:596}: atrapa uno con la herramienta del kit de entomología de {npc:217412}.",
