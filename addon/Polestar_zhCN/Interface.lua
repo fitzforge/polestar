@@ -4781,14 +4781,14 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["XP remaining after turn-ins"] = ""
 
 -- Core/Perf.lua
--- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
--- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
--- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
--- L["Polestar perf report"] = ""
--- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
--- L["Perf probe: measurements cleared."] = ""
--- L["/polestar perf: on, off, report or reset"] = ""
--- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = "性能诊断已开启。Polestar 现在会记录自身的运行耗时。请照常游玩，然后输入 /polestar report 并粘贴报告。"
+L["The perf probe needs debugprofilestop, which this client does not have."] = "当前客户端没有 debugprofilestop 函数，无法启动性能诊断。"
+L["Perf probe off. What it measured stays in /polestar report until you reload."] = "性能诊断已关闭。重载界面前，仍可通过 /polestar report 查看已记录的数据。"
+L["Polestar perf report"] = "Polestar 性能诊断报告"
+L["The perf probe has not run yet: type /polestar perf to start it."] = "尚未运行性能诊断。输入 /polestar perf 开始。"
+L["Perf probe: measurements cleared."] = "性能诊断数据已清空。"
+L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、off 关闭、report 查看报告、reset 清空数据"
+L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
