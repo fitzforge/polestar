@@ -118,18 +118,18 @@ return {
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
 	["{area:16919}: {npc:261319} (or {area:2437})"] = "{area:16919}：{npc:261319}（或 {area:2437}）",
 	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}（Forever，{zone:1420}）：{npc:256035}",
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}（无限版本，{zone:1420}）：{npc:256035}",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之后出现）",
 	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
-	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}（Forever）：{npc:260326}",
+	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}（无限版本）：{npc:260326}",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地下城：26-45级",
 	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
 	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "所有26-45级地下城的最终首领全部击败后，共计一点。{area:16550}和{area:17780}（位于{zone:2548}）是无限服新增内容，未收录在我们的数据中：请自行勾选完成。",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
-	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "达拉然城（Forever，{zone:1416}）：{npc:246020}",
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "达拉然城（无限版本，{zone:1416}）：{npc:246020}",
 	-- {area:16550} The Drowned City
 	["the final boss of the {area:16550}"] = "{area:16550}的最终首领",
 	-- {area:796} Scarlet Monastery

@@ -24,7 +24,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363}（可选任务点）",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "在Forever中，这些旧任务在任何等级都提供全额声望。{area:363}是其中效率最高的任务点：25分钟约获得1,400点{zone:1454}和1,400点暗矛声望。{npc:3143}在大兽穴的大屋里，{npc:10176}站在屋外。",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "在无限服，这些旧任务在任何等级都提供全额声望。{area:363}是其中效率最高的任务点：25分钟约获得1,400点{zone:1454}和1,400点暗矛声望。{npc:3143}在大兽穴的大屋里，{npc:10176}站在屋外。",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144}，位于{zone:1454}：{quest:787}，+50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -68,7 +68,7 @@ return {
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可选任务点）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "在Forever中，这些旧任务在任何等级都提供全额声望。{area:367}和{area:368}：25分钟约获得625点{zone:1454}和650点暗矛声望。{npc:3188}和{npc:3304}站在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南侧。",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "在无限服，这些旧任务在任何等级都提供全额声望。{area:367}和{area:368}：25分钟约获得625点{zone:1454}和650点暗矛声望。{npc:3188}和{npc:3304}站在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南侧。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
 	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要先完成在大兽穴接取的{quest:805}",
 

@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1444} Feralas
-	["About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to {zone:1444}."] = "前往Forever新地区的短途之旅，约有十几个任务（联盟约45-46级，部落47级），之后继续前往{zone:1444}。",
+	["About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to {zone:1444}."] = "前往无限服新增地区的短途之旅，约有十几个任务（联盟约45-46级，部落47级），之后继续前往{zone:1444}。",
 
 	-- Step 1: North into Desolace
 	-- {area:405} Desolace
 	["North into {area:405}"] = "向北进入{area:405}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {area:1099} Camp Mojache · {area:2577} Dire Maul
-	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. From {area:1099} ride north-west on the road past {area:2577} and on north into {area:405}: the road comes out on {area:405}'s southern edge."] = "Forever新内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。从{area:1099}沿道路向西北骑行，经过{area:2577}后继续向北进入{area:405}：道路通往{area:405}的南部边缘。",
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. From {area:1099} ride north-west on the road past {area:2577} and on north into {area:405}: the road comes out on {area:405}'s southern edge."] = "无限服新增内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。从{area:1099}沿道路向西北骑行，经过{area:2577}后继续向北进入{area:405}：道路通往{area:405}的南部边缘。",
 	-- {area:405} Desolace · {zone:1444} Feralas
 	["{area:405}, where the road from {zone:1444} comes in"] = "{area:405}，来自{zone:1444}的道路入口处",
 
@@ -22,7 +22,7 @@ return {
 	-- {area:2408} Shadowprey Village
 	["Fly to {area:2408}"] = "飞往{area:2408}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {zone:1454} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
-	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "Forever新内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。这里的任务为41-45级。如果从东部王国出发，先从{object:3202}或{zone:1458}乘飞艇前往{zone:1454}。",
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "无限服新增内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。这里的任务为41-45级。如果从东部王国出发，先从{object:3202}或{zone:1458}乘飞艇前往{zone:1454}。",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
@@ -30,7 +30,7 @@ return {
 	-- {area:608} Nijel's Point
 	["Fly to {area:608}"] = "飞往{area:608}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {area:150} Menethil Harbor
-	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first."] = "Forever新内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。这里的任务为41-45级。如果从东部王国出发，先从{area:150}乘船前往塞拉摩。",
+	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first."] = "无限服新增内容：本指南依据玩家在{zone:2652}的实际经历编写。如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n{zone:2652}位于{area:405}以南，需穿过{area:2657}，该地区没有自己的飞行路线。这里的任务为41-45级。如果从东部王国出发，先从{area:150}乘船前往塞拉摩。",
 
 	-- Step 4: Into the Valley of Bones
 	-- {area:2657} Valley of Bones
@@ -47,7 +47,7 @@ return {
 	["The {area:2657}: a {quest:93644}"] = "{area:2657}：{quest:93644}",
 	-- {quest:93644} Tattered Journal · {zone:2652} Shen'dralas · {area:2657} Valley of Bones
 	-- plural, as words: Outcast Necromancers = {npc:11559} Outcast Necromancer · Magram Necromancers = {npc:253272} Magram Necromancer · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新内容：如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n山谷中的流放通灵师和玛格拉姆通灵师会掉落{quest:93644}，其作者住在{zone:2652}：玩家通常杀几只就能拿到。玛格拉姆半人马在你攻击前不会主动攻击；其中的玛格拉姆亡灵可汗（45级）是精英，别去招惹。\n吉尔吉斯和玛格拉姆半人马各有自己的{area:2657}任务链，能额外获得约20000到30000经验，但每条任务链都要求该部族声望达到尊敬。两个部族互为敌对，所以只能为其中一个效力：声望分类下的“吉尔吉斯与玛格拉姆半人马声望”指南会说明做法。",
+	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "无限服新增内容：如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n山谷中的流放通灵师和玛格拉姆通灵师会掉落{quest:93644}，其作者住在{zone:2652}：玩家通常杀几只就能拿到。玛格拉姆半人马在你攻击前不会主动攻击；其中的玛格拉姆亡灵可汗（45级）是精英，别去招惹。\n吉尔吉斯和玛格拉姆半人马各有自己的{area:2657}任务链，能额外获得约20000到30000经验，但每条任务链都要求该部族声望达到尊敬。两个部族互为敌对，所以只能为其中一个效力：声望分类下的“吉尔吉斯与玛格拉姆半人马声望”指南会说明做法。",
 
 	-- Step 7: The western pylon
 	["The western pylon"] = "西侧水晶塔",

@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}西南方的矮人和侏儒起始山谷，60级时约30分钟可获得1,100点声望。{npc:658}和{npc:713}站在{area:77}。在Forever中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}西南方的矮人和侏儒起始山谷，60级时约30分钟可获得1,100点声望。{npc:658}和{npc:713}站在{area:77}。在无限服，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}及周围通往烈酒村和{area:133}的道路，60级时花约50分钟可获得约1,300点声望。大多数任务给予者在{area:2102}内外，以及其东侧的{area:189}。Forever中，这些旧任务在任何等级都奖励全额声望。跳过本步骤即可略过这处任务点。",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}及周围通往烈酒村和{area:133}的道路，60级时花约50分钟可获得约1,300点声望。大多数任务给予者在{area:2102}内外，以及其东侧的{area:189}。在无限服，这些旧任务在任何等级都奖励全额声望。跳过本步骤即可略过这处任务点。",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "采石场和 {area:803}。",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1426}东部，从{npc:264936}的营地前往{area:134}和{area:803}，60级时用30分钟可获得约500点声望。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1426}东部，从{npc:264936}的营地前往{area:134}和{area:803}，60级时用30分钟可获得约500点声望。在无限服，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
