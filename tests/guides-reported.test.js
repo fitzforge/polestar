@@ -13405,8 +13405,8 @@ test('Alliance Stranglethorn 35: the tablets after Kurzen\'s Compound, the cryst
 });
 
 // Route review 0.4.3 (Alliance 30-40): on 04b's loop, at about 35.7, Lake Nazferiti's Tumbled Crystals had players farm
-// the Venture Co. Geologists among thirteen Venture Co. Agents (39); 0.4.x followers of the guide died there 16 times
-// (6 people). Hostile Takeover (213) is no longer taken, worked or handed in on Stranglethorn's two 30-40 loops: Kebok
+// the Venture Co. Geologists among thirteen Venture Co. Agents (39). Six guide followers died 16 times on the quest;
+// one on 0.4.0.1 died four times at level 37. Hostile Takeover (213) is no longer taken, worked or handed in on the two 30-40 loops: Kebok
 // gives it on 40-50/01-stranglethorn-vale, which passes the lake at about 41.
 test('Alliance Stranglethorn 33-36: Hostile Takeover (213) is not in the 30-40 loops (Venture Co. Agents 39 at the lake)', { skip }, () => {
 	for (const file of ['forever/alliance/30-40/04-stranglethorn-vale.guide', 'forever/alliance/30-40/04b-stranglethorn-vale.guide']) {
