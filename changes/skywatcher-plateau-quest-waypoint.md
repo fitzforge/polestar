@@ -1,5 +1,6 @@
 ---
 section: players
 ---
-- In the Horde Ashenvale guide, the arrow points to the Earthen Ring quest
-  givers before it points to the spiders at Gloomrise.
+- The Horde Ashenvale guide keeps the Skywatcher Plateau waypoint by Yorn
+  Grimtotem and names the north lift for players coming from Thunder Bluff
+  (thanks Tropix, #1334).
