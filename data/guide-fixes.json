@@ -6169,8 +6169,8 @@
 			"id": "stv-alliance-lashtails-optional-sindall",
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 195, "goal": "objective", "objective": 1 },
-			"tip": "East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you're 36 or higher and see Sin'Dall (37) alone, you can take her paw here. Otherwise leave her for the next Stranglethorn visit.",
-			"note": "The raptor hunt passes Sin'Dall's hill on the way to Ajeck. Players with the paw can hand it in at the hunters' camp; the later visit still handles Tiger Mastery for players who skip it.",
+			"tip": "East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have Tiger Mastery, are at least 36 and see Sin'Dall (37) alone, you can take her paw here or leave the hunt for your next visit.",
+			"note": "Players carrying Tiger Mastery can hand the paw in at the hunters' camp or keep the quest for the later visit.",
 			"source": [{ "kind": "questie", "ref": "npcs.json: Sin'Dall (729) at 31.5,15.5 and 32.2,17.4, among the Lashtail Raptors (686)" }],
 			"pr": 3144
 		},
@@ -6199,6 +6199,15 @@
 			"optional": true,
 			"note": "Players who have the paw can hand it to Ajeck at the hunters' tents; the others keep Tiger Mastery for the next visit.",
 			"source": [{ "kind": "questie", "ref": "Quest 188 ends at Ajeck Rouack (717) beside Hemet Nesingwary." }],
+			"pr": 3144
+		},
+		{
+			"id": "stv-alliance-sindall-ready-return",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "turnin" },
+			"when": "complete 188",
+			"note": "Only offer Ajeck's hand-in when Tiger Mastery is ready. Hemet's raptor hand-in and next quest stay available whether or not the player hunted Sin'Dall.",
+			"source": [{ "kind": "questie", "ref": "Quest 188 requires item 3879; Hemet's quests 195 and 196 do not." }],
 			"pr": 3144
 		},
 		{
@@ -6316,7 +6325,7 @@
 				"goal": "accept"
 			},
 			"tip": "South along the road: the hunters' tents stand just west of it.",
-			"note": "Nesingwary's camp on the way in from the Rebel Camp still gives Tiger Mastery (188) and Raptor Mastery (195). Hunt Lashtails around the hill south-west of camp at the end of this loop; Sin'Dall is optional there from level 36. The next Stranglethorn visit covers Sin'Dall for everyone else and Panther Mastery (192).",
+			"note": "Nesingwary's camp on the way in from the Rebel Camp still gives Tiger Mastery (188) and Raptor Mastery (195). Hunt Lashtails around the hill south-west of camp at the end of this loop; Sin'Dall is optional there from level 36. Players who keep Tiger Mastery can hunt her on the next Stranglethorn visit.",
 			"source": [
 				{
 					"kind": "pfquest",

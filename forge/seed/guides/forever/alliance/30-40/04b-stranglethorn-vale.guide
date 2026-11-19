@@ -14,7 +14,7 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 # Level tidy (0.4.0): the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about 36 instead of on the first loop at
 # 33-34, where Hemet gives it (Nesingwary's camp on the way in takes it for whoever didn't). Sin'Dall (Tiger Mastery, 188,
-# level 37) is optional on the raptor hill from level 36; the 40-50 visit still takes her for everyone else.
+# level 37) is optional on the raptor hill from level 36; players carrying 188 can finish it on the 40-50 visit.
 # Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
 # are three and four levels over players here: 40-50/01-stranglethorn-vale works both at about 41. Brother Nimetz gives
 # Troll Witchery here, when Kurzen's Mystery is handed in, and it is carried to that guide. Wendel Mathers'
@@ -104,8 +104,13 @@ step Sin'Dall on the raptor hill
   collect 3879 quest 188 optional     -- Sin'Dall (37) prowls the hilltop.
 
 step The Lashtail raptors
-  tip East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you're 36 or higher and see Sin'Dall (37) alone, you can take her paw here. Otherwise leave her for the next Stranglethorn visit.
+  tip East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have Tiger Mastery, are at least 36 and see Sin'Dall (37) alone, you can take her paw here or leave the hunt for your next visit.
   kill 686 quest 195                  -- Lashtail Raptor
+
+step Ajeck Rouack
+  when complete 188
+  along until rebel
+  turnin 188 optional                 -- Hand the paw to Ajeck beside Hemet.
 
 step Nesingwary's Expedition
   label hunters
@@ -115,10 +120,10 @@ step Nesingwary's Expedition
   turnin 342 optional
   turnin 338 optional
   turnin 195                          -- Hemet Nesingwary
-  turnin 188 optional                 -- Ajeck Rouack, if you have the paw
   accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
 
 step Rebel Camp
+  label rebel
   tip North-east up the road to the Rebel Camp, then back south through the jungle.
   turnin 329                          -- Lieutenant Doren
   accept 330
