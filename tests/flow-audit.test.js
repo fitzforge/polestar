@@ -273,6 +273,66 @@ test('a level offset profile reads the offset at the modelled level, linear betw
 	assert.throws(() => compare(run([[1, 1]]), run([[1, 2]])), /different level offsets/);
 });
 
+// --dynamic 042: the While-here lines of 037 plus the addon's pick-ups (Own.hereFits "take", Own.aheadWants) and
+// stranded hand-ins (Own.hereStranded). A dynamic walk over a chain; its While-here moves as [verb, quest, the guide of
+// the step it came from, the guide the walk was in, the kind of pick-up or hand-in].
+function dynWalk(data, guides, dyn) {
+	const G = new Map(guides.map((g) => [g.id, g]));
+	const w = new Walk({ chain: guides.map((g) => g.id), race: 'Orc', cls: 'WARRIOR', guides: G, legs: {}, data, dyn });
+	return [w, w.dynMoves.map((m) => [m.t, m.quest, m.gid, m.at_gid, m.kind || null])];
+}
+
+// Giver 2 stands on the walk east for quest 1; the route takes quest 2 only after a trip north. Its boars are 2 levels
+// over the character: the addon still offers the pick-up (quest level rule only), and the work waits for the route.
+test('dynamic 042: a later step\'s accept whose giver the walk passes is a pick-up line', (t) => {
+	const data = loadData(dataDir(t));
+	const g = [guide('test/p', [
+		[accept(1, 1, 10, 10)],
+		[kill(1, 11, 10)],
+		[turnin(1, 1, 10, 10)],
+		[goto_(10, 12)],
+		[accept(2, 2, 10.3, 10.002)],
+		[{ ...kill(2, 10.6, 10.01), lvl: 3 }],
+		[turnin(2, 2, 10.3, 10.002)],
+	], { races: ['Orc'] })];
+	assert.deepEqual(dynWalk(data, g, '037')[1], [], '037: While-here never offers an accept');
+	const [w, moves] = dynWalk(data, g, '042');
+	assert.deepEqual(moves.map(([t, q, , , kind]) => [t, q, kind]), [['accept', 2, 'take']]);
+	assert.ok(!w.entries.some((e) => e.step === 5), 'the later accept reads done');
+	assert.ok(w.entries.some((e) => e.step === 6 && e.goal.t === 'kill'), 'the boars wait for the route');
+});
+
+test('dynamic 042: a later step\'s accept at an NPC whose window the route opens is taken there', (t) => {
+	const data = loadData(dataDir(t));
+	const g = [guide('test/n', [[accept(1, 1, 10, 10)], [goto_(13, 10)], [accept(4, 1, 10, 10)]], { races: ['Orc'] })];
+	assert.deepEqual(dynWalk(data, g, '037')[1], []);
+	const [w, moves] = dynWalk(data, g, '042');
+	assert.deepEqual(moves, [['accept', 4, 'test/n', 'test/n', 'window']]);
+	assert.ok(!w.entries.some((e) => e.step === 3), 'no walk back for it');
+});
+
+// Quest 1 is ready and only the next guide hands it in, after a trip north; its ender stands on this guide's walk east.
+test('dynamic 042: a ready quest only a later guide hands in is handed in where the walk passes its ender', (t) => {
+	const data = loadData(dataDir(t));
+	const guides = [
+		guide('test/a', [[accept(1, 1, 10, 10)], [kill(1, 10.2, 10)], [goto_(11, 10)]], { races: ['Orc'], next: 'test/b' }),
+		guide('test/b', [[goto_(10, 13)], [turnin(1, 5, 10.5, 10.002)]]),
+	];
+	assert.deepEqual(dynWalk(data, guides, '037')[1], []);
+	const [w, moves] = dynWalk(data, guides, '042');
+	assert.deepEqual(moves, [['turnin', 1, 'test/b', 'test/a', 'stranded']]);
+	assert.ok(!w.entries.some((e) => e.gid === 'test/b' && e.goal.t === 'turnin'), 'the later hand-in reads done');
+});
+
+test('the gate refuses two audits of different While-here versions', (t) => {
+	const dir = dataDir(t);
+	const run = (dynamic) => runAudit({ guides: chainGuides(), legs: {} }, dir, { dynamic, longFly: 0 });
+	assert.equal(run('042').dynamic, '042');
+	assert.throws(() => compare(run('037'), run('042')), /different While-here versions/);
+	assert.throws(() => compare(run(null), run('037')), /different While-here versions/);
+	assert.deepEqual(compare(run('042'), run('042')).fail, []);
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [

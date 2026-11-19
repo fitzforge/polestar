@@ -1,9 +1,10 @@
 'use strict';
 // The flow audit's walk (docs/ROUTE-FEEL.md): one start x class branch played through the compiled guides, start to
 // end, as a list of goal entries with positions, clock and level. The strict walk does exactly the guide's lines; the
-// dynamic walk (Dynamic Questing, `dyn` "036" or "037") is a player who also takes the "While you're here" lines the
-// addon shows (addon/Polestar/Core/Engine.lua, Own.hereBuild / hereFits / hereTick / hereBlocked, with its radius and
-// rules).
+// dynamic walk (Dynamic Questing, `dyn` "036", "037" or "042") is a player who also takes the "While you're here"
+// lines the addon shows (addon/Polestar/Core/Engine.lua, Own.hereBuild / hereFits / hereTick / hereBlocked, with its
+// radius and rules). "042" is "037" with the rest of what the addon does there: pick-up lines for a later step's
+// accept, accepts at an NPC's window, and hand-ins of finished quests the loaded guide no longer hands in.
 //
 // `along` lists get no special treatment: each along goal is pending work, done where the walk first passes it (its
 // nearest spawn spot, or its NPC within the spot's radius, on a later walked leg before its label step), as a step
@@ -31,6 +32,9 @@ const WH_SECONDS = 20.0, WH_WINDING = 1.25, WH_SPEED = 7.0;           // behavio
 const WH_INN_YD = 50.0;                  // an inn's rest area (estimate)
 const CAPITALS = new Set([1453, 1454, 1455, 1456, 1457, 1458]);   // resting anywhere in a capital
 const WH_CHEAP = 30.0;                   // work this close is taken on a town hop or before a flight
+const WH_ABOVE_Q = 2;                    // Own.HERE_ABOVE: a pick-up's quest level at most this over the player
+const WH_LOG_ROOM = 40 - 2 - 1;          // Own.logRoom >= 1: the log's 40 (Compat.GetLogCap) less LOG_SPARE 2, one free
+const WH_AHEAD_STEPS = 5;                // Own.AHEAD: a timed quest is taken at a window only for the route's next steps
 
 // Python-style truthiness for the compiled guides' lists and tables (an empty one is false).
 function truthy(v) {
@@ -210,7 +214,7 @@ function minBy(items, key) {
 
 class Walk {
 	// chain: a guide id list, or a Router (the strict walk hands over as it goes; the dynamic walk replays the strict
-	// walk's `chain`). data: loadData's. dyn: null (strict), "036" or "037". future: quest -> level at the guide's own
+	// walk's `chain`). data: loadData's. dyn: null (strict), "036", "037" or "042". future: quest -> level at the guide's own
 	// hand-in on the strict walk (the XP rule). timed: quest -> timer seconds. take: "near" (lines taken where nearly
 	// free, as players do) or "all". followups: accept the follow-ups an early hand-in's NPC gives (players do).
 	// levelOffset: a character always this many levels (a float, may be negative) ahead of the modelled level, or a
@@ -262,8 +266,12 @@ class Walk {
 		this.dynDone = new Map();
 		this.dynTurned = new Map();
 		this.dynMoves = [];
+		this.dynPicked = new Map();      // quest -> its pick-up move ("042": a pick-up line or an NPC's window)
+		this.openQ = new Set();          // quests in the log
+		this.inWindow = false;
 		this.liveEscort = false;
 		this.liveTurnins = new Set();
+		this.liveAccepts = new Set();
 		this.curGi = null;
 		this.dungeons = dungeons;
 		this.dungeonQuests = dungeonQuests;
@@ -299,6 +307,7 @@ class Walk {
 					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls, faction));
 					this.liveEscort = gl.some((go) => truthy(go.escort) || go.t === 'escort');
 					this.liveTurnins = new Set(gl.filter((go) => go.t === 'turnin').map((go) => go.quest));
+					this.liveAccepts = new Set(gl.filter((go) => go.t === 'accept').map((go) => go.quest));
 				}
 				const along = step.along;
 				if (truthy(along)) this.alongSteps.add(gid);
@@ -472,11 +481,12 @@ class Walk {
 
 	// Play one goal (walk to it, do it); returns legUsed. via: the walked path's start (points) up to where a
 	// While-here line was taken (the rest goes straight to `at`); dynFrom: that line's step.
-	play(go, g, gid, si, leg, legUsed, { at = null, fromAlong = null, via = null, dynFrom = null } = {}) {
+	play(go, g, gid, si, leg, legUsed, { at = null, fromAlong = null, via = null, dynFrom = null, dynGid = null } = {}) {
 		const proj = this.proj;
 		const tt = go.t;
 		const q = go.quest;
 		const ownSi = fromAlong != null ? fromAlong : dynFrom != null ? dynFrom : si;
+		const ownGid = dynGid != null ? dynGid : gid;
 		if (this.dyn && at == null && this.pos != null && (tt === 'fly' || tt === 'hearth' || tt === 'die')) {
 			// a line in reach before a flight, hearth or deathskip is taken first
 			const here = [[this.pos[1], this.pos[2]], [this.pos[1], this.pos[2]]];
@@ -494,7 +504,7 @@ class Walk {
 		let e;
 		if (tt === 'fly') {
 			const nd = this.nodes.get(go.node);
-			e = this.newEntry(go, gid, si, fromAlong, ownSi);
+			e = this.newEntry(go, gid, si, fromAlong, ownSi, ownGid);
 			if (nd) {
 				newpos = nd;
 				const d = dist(this.pos, nd);
@@ -506,7 +516,7 @@ class Walk {
 			e.mode = 'fly';
 			this.pos = newpos || this.pos;
 		} else if (tt === 'hearth') {
-			e = this.newEntry(go, gid, si, fromAlong, ownSi);
+			e = this.newEntry(go, gid, si, fromAlong, ownSi, ownGid);
 			if (this.bind) this.pos = this.bind;
 			this.t += 12;
 			e.pos = this.pos;
@@ -563,7 +573,7 @@ class Walk {
 						return this.play(go, g, gid, si, null, true);
 					}
 				}
-				e = this.newEntry(go, gid, si, fromAlong, ownSi);
+				e = this.newEntry(go, gid, si, fromAlong, ownSi, ownGid);
 				if (walking) {
 					const yd = pathLen(path);
 					this.t += yd / WALK_YPS;
@@ -580,7 +590,7 @@ class Walk {
 				this.pos = newpos;
 				e.pos = newpos;
 			} else {
-				e = this.newEntry(go, gid, si, fromAlong, ownSi);
+				e = this.newEntry(go, gid, si, fromAlong, ownSi, ownGid);
 			}
 		}
 		e.move_s = this.t - e.t0;   // the travel to this goal (walk, flight, boat, hearth), before its work
@@ -663,7 +673,10 @@ class Walk {
 		if (dynFrom != null) e.dyn_from = dynFrom;
 		this.entries.push(e);
 		if (tt === 'accept' && q != null) {
-			if (!this.acceptAt.has(q)) this.acceptAt.set(q, e.i);
+			if (!this.acceptAt.has(q)) {
+				this.acceptAt.set(q, e.i);
+				if (!this.turninAt.has(q)) this.openQ.add(q);
+			}
 			if (!this.acceptT.has(q)) this.acceptT.set(q, this.t);
 			const src = (this.quests[String(q)] || {}).sourceItem;
 			if (src) {
@@ -672,7 +685,10 @@ class Walk {
 			}
 		}
 		// An `abandon` takes the quest out of the log as a hand-in does (no experience): the chain's end with it.
-		if ((tt === 'turnin' || tt === 'abandon') && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
+		if ((tt === 'turnin' || tt === 'abandon') && q != null && !this.turninAt.has(q)) {
+			this.turninAt.set(q, e.i);
+			this.openQ.delete(q);
+		}
 		if (OBJ_TYPES.has(tt) && q != null) {
 			this.objLast.set(q, e);
 			this.played.add(okeyOf(go));
@@ -683,29 +699,38 @@ class Walk {
 			this.itemsGot.add(go.item);
 			this.itemN.add(go.item, go.count || 1);
 		}
+		// Own.aheadWants ("042"): the NPC's window is open (an accept or a hand-in there): later accepts there are taken too
+		if (this.dyn === '042' && (tt === 'accept' || tt === 'turnin') && go.npc != null && !this.inWindow) this.dynWindow(go.npc, g, gid, si, this.pos);
 		return legUsed;
 	}
 
-	// ownSi: the step the goal is written in (an along list's, a While-here line's), for its dungeon mark.
-	newEntry(go, gid, si, fromAlong, ownSi = null) {
+	// ownSi, ownGid: the step and guide the goal is written in (an along list's, a While-here line's), for its dungeon
+	// mark.
+	newEntry(go, gid, si, fromAlong, ownSi = null, ownGid = gid) {
 		return {
 			i: null, gid, step: si, goal: go, pos: null, path: null, zone: this.zone, along: false, from_along: fromAlong,
-			t0: this.t, level: this.L, dng: this.stepDng.get(`${gid}#${ownSi == null ? si : ownSi}`) || null,
+			t0: this.t, level: this.L, dng: this.stepDng.get(`${ownGid}#${ownSi == null ? si : ownSi}`) || null,
 		};
 	}
 
 	// --- Dynamic Questing (While you're here)
 
 	// Per guide, the goals that may become lines (Own.hereGoalsOn: a quest, a place, work or a hand-in), and per quest
-	// every objective goal the chain writes (for `ready`).
+	// every objective goal the chain writes (for `ready`). For "042" also per guide its accepts with a giver in place,
+	// per quest its placed hand-in goals in chain order and every step that hands it in (along ones too).
 	dynPrepare(chain, guides) {
 		this.whGoals = new Map();
 		this.need = new Map();
 		this.whSteps = new Map();
+		this.whAccepts = new Map();
+		this.qTurnins = new Map();
+		this.turninSteps = new Map();
+		this.chainIdx = new Map([...chain].map((gid, i) => [gid, i]));
 		for (const gid of chain) {
 			const g = guides.get(gid);
 			const lst = [];
 			const steps = [];
+			const accs = [];
 			g.steps.forEach((step, k) => {
 				const si = k + 1;
 				if (!applies(step.only, this.race, this.cls, this.faction)) return;
@@ -713,21 +738,33 @@ class Walk {
 				steps.push([si, step, gl]);
 				for (const [gi, go] of gl) {
 					const q = go.quest, tt = go.t;
+					if (tt === 'turnin' && q != null) {
+						if (!this.turninSteps.has(q)) this.turninSteps.set(q, []);
+						this.turninSteps.get(q).push({ gid, si, step });
+					}
 					if (q != null && OBJ_TYPES.has(tt)) {
 						if (!this.need.has(q)) this.need.set(q, new Set());
 						this.need.get(q).add(okeyOf(go));
 					}
 					if (truthy(step.along) || q == null || go.map == null || go.x == null || truthy(go.candidates)) continue;
 					if (WH_VERBS.has(tt)) {
-						lst.push({ si, gi, go, step, okey: okeyOf(go), spots: parseSpots(go, this.proj) });
+						lst.push({ gid, si, gi, go, step, okey: okeyOf(go), spots: parseSpots(go, this.proj) });
 					} else if (tt === 'turnin') {
 						const p = this.proj.at(go.map, go.x, go.y);
-						if (p) lst.push({ si, gi, go, step, okey: null, npc_pt: p, capital: CAPITALS.has(go.map) });
+						if (p) {
+							lst.push({ gid, si, gi, go, step, okey: null, npc_pt: p, capital: CAPITALS.has(go.map) });
+							if (!this.qTurnins.has(q)) this.qTurnins.set(q, []);
+							this.qTurnins.get(q).push(lst[lst.length - 1]);
+						}
+					} else if (tt === 'accept' && (go.npc != null || go.object != null)) {
+						const p = this.proj.at(go.map, go.x, go.y);
+						if (p) accs.push({ gid, si, gi, go, step, okey: null, npc_pt: p, capital: CAPITALS.has(go.map) });
 					}
 				}
 			});
 			this.whGoals.set(gid, lst);
 			this.whSteps.set(gid, steps);
+			this.whAccepts.set(gid, accs);
 		}
 	}
 
@@ -770,7 +807,8 @@ class Walk {
 		return false;
 	}
 
-	// The lines that may show while the live step is (gid, si) (Own.hereBuild + Own.hereFits).
+	// The lines that may show while the live step is (gid, si) (Own.hereBuild + Own.hereFits); with "042" also the
+	// pick-up lines and the stranded hand-ins.
 	dynCands(gid, si) {
 		if (this.dynBlocked()) return [];
 		const out = [];
@@ -785,7 +823,7 @@ class Walk {
 			if (go.t === 'turnin') {
 				if (this.dynTurned.has(q) || this.liveTurnins.has(q) || !this.ready(q)) continue;
 				let budget = WH_SECONDS;
-				if (this.dyn === '037') {
+				if (this.dyn !== '036') {
 					if (this.soon(gid, si, c)) continue;
 					const fut = this.future.get(q);
 					const qd = this.quests[String(q)] || {};
@@ -799,7 +837,86 @@ class Walk {
 				if (spots.length) out.push({ c, kind: 'work', pts: spots.map((s) => s[0]), r: spots.map((s) => s[1]) });
 			}
 		}
+		if (this.dyn === '042') {
+			this.dynStranded(gid, si, out);
+			this.dynTakes(gid, si, out);
+		}
 		return out;
+	}
+
+	// Whether the character could take quest q from accept goal go now: Own.aheadOk's rules (no optional, `either`,
+	// group/elite or escort accept; the quest's min level, its quest level at most HERE_ABOVE over the player; its
+	// prerequisites handed in) and the analysis's (nothing that closes or excludes it taken).
+	aheadOk(go, q) {
+		const qd = this.quests[String(q)] || {};
+		const eL = this.effLevel();
+		if (go.optional || go.either || truthy(go.group) || go.escort || qd.escort) return false;
+		if ((go.minLevel || qd.minLevel || 0) > eL) return false;
+		if (go.qlvl && go.qlvl > eL + WH_ABOVE_Q) return false;
+		for (const c of [...list(go.closedBy), ...list(qd.excl)]) if (this.acceptAt.has(c)) return false;
+		const preAny = new Set([...list(go.pre), ...list(qd.pre), ...list(qd.preAny)]);
+		if (preAny.size && ![...preAny].some((p) => this.turninAt.has(p))) return false;
+		for (const p of new Set([...list(go.preAll), ...list(qd.preAll)])) if (!this.turninAt.has(p)) return false;
+		return true;
+	}
+
+	// Own.hereFits "take" ("042"): a later step's accept of the loaded guide, its step for the character now
+	// (Own.stepApplies: its `when` read with the character's state), not the live step's, the quest one the character
+	// can take now (aheadOk), never a timed one, with room in the log (Own.logRoom), weighed as a hand-in; one the route
+	// takes about now is left to it (soon). Own.HERE_TAKES (2 shown at once) never binds: the walk takes one line at a
+	// time.
+	dynTakes(gid, si, out) {
+		if (this.openQ.size > WH_LOG_ROOM) return;
+		const seen = new Set();
+		for (const a of this.whAccepts.get(gid) || []) {
+			if (a.si <= si) continue;
+			const q = a.go.quest;
+			if (seen.has(q) || this.acceptAt.has(q) || this.turninAt.has(q) || this.timed.has(q) || this.liveAccepts.has(q)) continue;
+			if (!whenOk(a.step.when, this.effLv(), this, this.dungeons, this.dungeonQuests)) continue;
+			seen.add(q);
+			if (!this.aheadOk(a.go, q) || this.soon(gid, si, a)) continue;
+			out.push({ c: a, kind: 'take', pts: [a.npc_pt], budget: WH_SECONDS });
+		}
+	}
+
+	// Own.hereStranded ("042"; the addon needs the Codex, which is on by default): a quest in the log, ready, that no
+	// step of the loaded guide from the live step on hands in (Own.handedInAhead) is a hand-in line at its ender, by its
+	// detour and reach, never left to the route. The walk's ender: the quest's hand-in NPC elsewhere on the route.
+	dynStranded(gid, si, out) {
+		const have = new Set(out.filter((cd) => cd.kind === 'turnin').map((cd) => cd.c.go.quest));
+		for (const q of this.openQ) {
+			if (have.has(q) || this.dynTurned.has(q) || this.liveTurnins.has(q) || !this.ready(q)) continue;
+			if (this.pending.some((p) => p.go.quest === q && p.go.t === 'turnin')) continue;
+			if ((this.turninSteps.get(q) || []).some((x) => x.gid === gid && x.si >= si && whenOk(x.step.when, this.effLv(), null, this.dungeons, this.dungeonQuests))) continue;
+			const c = (this.qTurnins.get(q) || []).find((x) => this.chainIdx.has(x.gid) && x.gid !== gid);
+			if (c) out.push({ c, kind: 'turnin', pts: [c.npc_pt], budget: WH_SECONDS, stranded: true });
+		}
+	}
+
+	// Own.aheadWants ("042"): at the window of NPC npc (an accept or hand-in there), auto-accept takes the quests later
+	// steps of the loaded guide accept there that the character can take (the step for it now, aheadOk; a timed one only
+	// for the route's next AHEAD steps), with room in the log.
+	dynWindow(npc, g, gid, si, at) {
+		this.inWindow = true;
+		let k = 0;
+		for (const [s2, step, gl] of this.whSteps.get(gid) || []) {
+			if (s2 <= si || !whenOk(step.when, this.effLv(), this, this.dungeons, this.dungeonQuests)) continue;
+			k += 1;
+			for (const [gi2, o] of gl) {
+				const q2 = o.quest;
+				if (o.t !== 'accept' || o.npc !== npc || q2 == null || this.acceptAt.has(q2) || this.turninAt.has(q2)) continue;
+				if (this.openQ.size > WH_LOG_ROOM || (this.timed.has(q2) && k > WH_AHEAD_STEPS) || !this.aheadOk(o, q2)) continue;
+				const move = {
+					gid, step: s2, gi: gi2, t: 'accept', quest: q2, oi: null, kind: 'window', at_gid: gid, at_step: si, at_gi: this.curGi,
+					yd: 0, lv: pyRound(this.L + this.xp / XP_TO_LEVEL[Math.min(this.L, 59)], 2),
+				};
+				this.dynMoves.push(move);
+				this.dynPicked.set(q2, move);
+				move.i = this.entries.length;
+				this.play(o, g, gid, si, null, true, { at, dynFrom: s2 });
+			}
+		}
+		this.inWindow = false;
 	}
 
 	// IsResting at world point P (estimate): an inn's rest area, or a capital (the NPC's map).
@@ -876,7 +993,7 @@ class Walk {
 						let best = null;
 						for (const cd of near) {
 							const [ok, cost] = this.dynReach(cd, P, dest);
-							if (ok && (cd.kind === 'turnin' || cost <= WH_CHEAP) && (best === null || cost < best[0])) best = [cost, cd];
+							if (ok && (cd.kind !== 'work' || cost <= WH_CHEAP) && (best === null || cost < best[0])) best = [cost, cd];
 						}
 						if (best !== null) return [run + u * seg, k, P, best[1], this.dynTarget(best[1], P)];
 					}
@@ -968,19 +1085,23 @@ class Walk {
 		const go = c.go;
 		const q = go.quest;
 		const move = {
-			gid, step: c.si, gi: c.gi, t: go.t, quest: q, oi: go.oi ?? null, at_gid: gid, at_step: si, at_gi: this.curGi,
+			gid: c.gid, step: c.si, gi: c.gi, t: go.t, quest: q, oi: go.oi ?? null, at_gid: gid, at_step: si, at_gi: this.curGi,
 			yd: pyRound(dist(P, tgt)), lv: pyRound(this.L + this.xp / XP_TO_LEVEL[Math.min(this.L, 59)], 2),
 		};
+		if (cd.kind === 'take') move.kind = 'take';
+		if (cd.stranded) move.kind = 'stranded';
 		if (cd.kind === 'work') {
 			this.doneObj.add(c.okey);
 			this.dynDone.set(c.okey, move);
-		} else {
+		} else if (cd.kind === 'turnin') {
 			this.dynTurned.set(q, move);
+		} else {
+			this.dynPicked.set(q, move);
 		}
 		this.dynMoves.push(move);
 		const via = [...path.slice(0, k + 1), [P[1], P[2]]];
-		this.play(go, g, gid, si, null, true, { at: tgt, via, dynFrom: c.si });
-		move.i = this.entries.length - 1;
+		move.i = this.entries.length;   // play adds the line's entry first (an NPC window's accepts after it)
+		this.play(go, g, gid, si, null, true, { at: tgt, via, dynFrom: c.si, dynGid: c.gid });
 		if (cd.kind === 'turnin' && this.followups) this.dynFollowups(g, gid, si, go, q, tgt);
 	}
 
@@ -1006,8 +1127,8 @@ class Walk {
 					yd: 0, lv: pyRound(this.L + this.xp / XP_TO_LEVEL[Math.min(this.L, 59)], 2),
 				};
 				this.dynMoves.push(move);
+				move.i = this.entries.length;
 				this.play(o, g, gid, si, null, true, { at, dynFrom: s2 });
-				move.i = this.entries.length - 1;
 			}
 		}
 	}

@@ -108,11 +108,12 @@ function guideRow(w, r, gid, G) {
 	return [row, fs];
 }
 
-// How the dynamic walk took a strict finding on a While-here line: the move, or null. Passed givers and missed merges
-// never are (While-here never offers an accept).
+// How the dynamic walk took a strict finding on a While-here line: the move, or null. Missed merges never are; a passed
+// giver only with `dynamic` "042" (a pick-up line or an NPC's window).
 function whCovered(f, w0, w) {
 	if (f.type === 'deferred') return w.dynDone.get(okeyOf(w0.entries[f.k].goal)) || null;
 	if (f.type === 'passed-ender') return w.dynTurned.get(f.quest) || null;
+	if (f.type === 'passed-giver') return w.dynPicked.get(f.quest) || null;
 	return null;
 }
 
@@ -153,7 +154,7 @@ function sharedSort(list_, keyOf, extra) {
 
 // The audit: { branches: [...], guides: { id: { branches, mean, max, findings, ... } }, dynamic, route, dungeons, level_offset }.
 // opts: addon guides ({ guides, legs }), dataDir, starts/classes filters, guide (id substring), noLegs, longFly, dynamic
-// ("036" | "037" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, ""),
+// ("036" | "037" | "042" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, ""),
 // levelOffset (the walk's: a character that many levels ahead of the modelled one, or a profile [[level, offset], ...]
 // by modelled level; levels reported stay modelled).
 function runAudit(compiled, dataDir, opts = {}, log = () => {}) {

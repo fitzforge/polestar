@@ -17,7 +17,10 @@
 //   --dungeons D     "all" or dungeon map ids: the `when dungeon` steps of the dungeons the player runs (default none)
 //   --dungeon-quests S  with --dungeons: all (default: every dungeon quest, the `when dungeon "X" all` steps too) or
 //                    way (only the quests on the way)
-//   --dynamic V      the While-here rules the player follows: 037 (default), 036, or off (the strict walk only)
+//   --dynamic V      the While-here rules the player follows: 037 (default), 036, 042 (037 plus the addon's pick-up
+//                    lines for a later step's accept, accepts at an NPC's window and hand-ins of finished quests the
+//                    loaded guide no longer hands in), or off (the strict walk only); the gate refuses two audits of
+//                    different versions
 //   --wh-take T      near (default: lines taken where nearly free, as players do) or all
 //   --no-followups   an early hand-in's NPC's follow-ups are not taken there
 //   --no-legs        straight lines instead of the baked legs (both sides of a gate must use the same)
@@ -40,7 +43,7 @@ const { runAudit, routeChoices, renderMd } = require('./lib/flow/audit');
 const { compare, table, formatResult } = require('./lib/flow/gate');
 
 const USAGE = `usage: node tools/flow-audit.js run --addon <dir> [--data DIR] [--faction F] [--start LIST] [--class LIST] [--route LIST]
-                                [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
+                                [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|042|off] [--wh-take near|all] [--no-followups] [--no-legs]
                                 [--level-offset D | --level-offset-profile FILE] [--out FILE] [--md FILE]
        node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [--with-dungeons] [the run options]
        node tools/flow-audit.js gate <before.json|dir> <after.json|dir> [--reasons FILE] [--json]`;
@@ -57,7 +60,7 @@ function profileOf(file) {
 
 function auditOpts(opts) {
 	const dynamic = opts.dynamic === 'off' ? null : opts.dynamic || '037';
-	if (dynamic && !['036', '037'].includes(dynamic)) throw new Error(`--dynamic ${opts.dynamic}: 037, 036 or off`);
+	if (dynamic && !['036', '037', '042'].includes(dynamic)) throw new Error(`--dynamic ${opts.dynamic}: 037, 036, 042 or off`);
 	if (opts.whTake && !['near', 'all'].includes(opts.whTake)) throw new Error(`--wh-take ${opts.whTake}: near or all`);
 	if (opts.dungeonQuests && !['all', 'way'].includes(opts.dungeonQuests)) throw new Error(`--dungeon-quests ${opts.dungeonQuests}: all or way`);
 	if (opts.levelOffset != null && opts.levelOffsetProfile != null) throw new Error('--level-offset and --level-offset-profile: one of them');

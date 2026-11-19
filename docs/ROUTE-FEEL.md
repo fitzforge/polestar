@@ -36,8 +36,9 @@ node tools/flow-audit.js gate flow/shipped flow/candidate --table
 ```
 
 Both trees must be audited with the same options (the same `--dynamic`, legs or
-`--no-legs`; straight lines while a candidate's legs are stale). The audit is
-light: a few seconds per branch, a few minutes per faction and mode.
+`--no-legs`; straight lines while a candidate's legs are stale); the gate refuses
+two audits of different `--dynamic` versions. The audit is light: a few seconds
+per branch, a few minutes per faction and mode.
 
 `--level-offset D` (default 0; fractional or negative too) plays a character
 always D levels ahead of the walk's modelled one: `when level` steps, level
@@ -67,6 +68,14 @@ keeps the other side's lines). Two walks per branch:
   the character, the addon's `HERE_MOBS_ABOVE`; `--dynamic 036`: 2, as 0.3.6
   offered), hand-ins of finished quests within the addon's budget, and the
   follow-ups an early hand-in's NPC gives.
+  `--dynamic 042` is 037 plus the rest of what the addon does on the way: a
+  later step's accept of the loaded guide as a pick-up line ("Take X from Y",
+  weighed as a hand-in; quest level at most 2 over the character, its min level
+  and prerequisites met, no group, escort or timed quest, room in the log), the
+  later accepts auto-accept takes at an NPC window the player opens anyway, and
+  the hand-in of a finished quest the loaded guide no longer hands in, at its
+  ender in passing. It is not the default yet: audits compare only within one
+  version.
   The tables are the dynamic walk's; the report shows both.
 
 The walk keeps a clock (7 yards a second on foot, flights at 30, 4 minutes for a
