@@ -17,6 +17,7 @@
 	<Script file="TrackerDockSizing.lua"/>
 	<Script file="TrackerDockForever.lua"/>
 	<Script file="TrackerDockGuide.lua"/>
+	<Script file="TrackerDockDaylight.lua"/>
 	<Script file="StepList.lua"/>
 	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>

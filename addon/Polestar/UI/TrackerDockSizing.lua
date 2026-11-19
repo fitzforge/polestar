@@ -22,6 +22,11 @@ function Skin.DockAvailableHeight(holder, tracker, customTracker)
 	local holderScale = Scale(holder)
 	local top = Read(holder, "GetTop")
 	local bottom
+	if Skin.DaylightHost and Skin.DaylightHost.IsTracker(tracker) then
+		local limit = Skin.DaylightHost.MaxHeight()
+		local trackerTop = Read(tracker, "GetTop")
+		if trackerTop and limit then bottom = (trackerTop - limit) * Scale(tracker) / holderScale end
+	end
 	if tracker == _G.Questie_BaseFrame then
 		local profile = _G.Questie and Questie.db and Questie.db.profile
 		local limit = profile and Number(profile.TrackerHeight)

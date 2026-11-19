@@ -375,6 +375,7 @@ function Skin.Enabled()
 end
 
 local function Host()
+	if Skin.DaylightHost and Skin.DaylightHost.CanDock() then return Skin.DaylightHost end
 	local host = _G.FTAEllesmereTrackerDock
 	if not host or host.SupportsQuestie then return host end
 	local profile = _G.Questie and Questie.db and Questie.db.profile
@@ -393,6 +394,10 @@ function Skin.SharedHost()
 end
 
 local function Register()
+	if not Skin.daylightChecked then
+		Skin.daylightChecked = true
+		Skin.InstallDaylightDock()
+	end
 	local host = Host()
 	if host and not Skin.registered and Skin.Enabled() then
 		Skin.registered = true
