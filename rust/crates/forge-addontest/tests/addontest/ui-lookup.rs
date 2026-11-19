@@ -623,6 +623,40 @@ fn empty_search_offers_kinds_without_counts_before_the_codex_loads_and_populates
 }
 
 #[test]
+fn browsing_a_kind_shows_its_header_count_only_after_the_codex_loads() {
+	let out = run(r#"
+		lookupstub.loaded, lookupstub.reason = false, "loading"
+		UI.ShowLookup()
+		nav("item"):Click()
+		local loading = PolestarPicker.Subtitle:GetText()
+		lookupstub.loaded, lookupstub.reason = true, nil
+		Polestar.Fire("CODEX_LOADED")
+		emit({ loading = loading, loaded = PolestarPicker.Subtitle:GetText() })"#);
+	assert_eq!(out["loading"], "Every guide, item, mount, NPC, quest and place, and where to get it.");
+	assert_eq!(out["loaded"], "1, from A to Z");
+}
+
+#[test]
+fn browsing_a_kind_returns_to_everything_when_lookup_is_turned_off() {
+	let out = run(r#"
+		UI.ShowLookup()
+		nav("mount"):Click()
+		rowFor(LK.results.Child, "Deathcharger's Reins"):Click()
+		nav("item"):Click()
+		local before = LK.shown.kind
+		lookupstub.loaded, lookupstub.reason = false, "off"
+		Polestar.Fire("SETTING_CHANGED", "lookup.enabled")
+		emit({ before = before, kind = LK.shown.kind, active = PolestarPicker.NavScroll.psActive,
+			navs = navKeys(), rows = rowTexts(LK.results.Child), hint = LK.shown.empty })"#);
+	assert_eq!(out["before"], "item");
+	assert_eq!(out["kind"], "all");
+	assert_eq!(out["active"], "all");
+	assert_eq!(out["navs"], json!(["all", "guide"]));
+	assert_eq!(out["rows"], json!(["Deathcharger's Reins"]));
+	assert_eq!(out["hint"], "Type a name in the search box to search the guides.");
+}
+
+#[test]
 fn browsing_a_kind_pages_alphabetically_with_muted_entries_last_and_subtitles_only_for_drawn_rows() {
 	let out = run(r#"
 		lookupstub.many(46)

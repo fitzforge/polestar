@@ -1351,9 +1351,13 @@ local function current()
 	end
 	-- A search or browse can load the Codex or learn why it cannot load.
 	local loaded, reason = status()
+	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
+	if query == "" and kind ~= "all" and kind ~= "guide" and not (loaded or waiting) then
+		kind, list = "all", {}
+	end
 	local total = 0
 	if query ~= "" then for _, n in pairs(counts) do total = total + n end end
-	cache = { query = query, kind = kind, gen = LK.gen, list = list, counts = counts, total = total, loaded = loaded, reason = reason }
+	cache = { query = query, kind = kind, gen = LK.gen, list = list, counts = counts, total = total, loaded = loaded, reason = reason, waiting = waiting }
 	return cache
 end
 
@@ -1379,13 +1383,12 @@ end
 function LK.Nav()
 	local c = current()
 	local items = { { key = "all", label = L["Everything"], icon = "search", count = query ~= "" and c.total or nil } }
-	local waiting = c.reason == "loading" or c.reason == "notloaded" or c.reason == "combat"
 	for _, k in ipairs(kinds()) do
 		local n, show = c.counts[k.key], false
 		if query ~= "" then
 			n = n or 0
 			show = n > 0 or k.key == kind
-		elseif waiting then
+		elseif c.waiting then
 			n, show = nil, true
 		elseif c.loaded then
 			show = (n or 0) > 0
@@ -1496,8 +1499,8 @@ function LK.Render()
 	local title = kind == "all" and L["Lookup"] or kindLabel(kind)
 	local subtitle
 	if query == "" then
-		subtitle = kind == "all" and L["Every guide, item, mount, NPC, quest and place, and where to get it."]
-			or format(L["%d, from A to Z"], counts[kind] or #list)
+		subtitle = counts[kind] and format(L["%d, from A to Z"], counts[kind])
+			or L["Every guide, item, mount, NPC, quest and place, and where to get it."]
 	else
 		local n = kind == "all" and total or (counts[kind] or #list)
 		subtitle = n == 1 and format(L["1 result for %s"], LQ .. query .. RQ) or format(L["%d results for %s"], n, LQ .. query .. RQ)
