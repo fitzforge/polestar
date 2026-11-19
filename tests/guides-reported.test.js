@@ -6519,6 +6519,25 @@ test('Alliance Hyjal hand-back: a high-level Vizzie return starts in Everlook; e
 	assert.ok(!list[ratchet].step.when?.length, 'Ratchet stays available for outstanding work');
 });
 
+test('Alliance Hyjal return: the Everlook opener uses the character’s own level, location and hand-in', { skip }, () => {
+	const file = 'forever/alliance/50-60/06-silithus.guide';
+	const pack = buildSimPack([file]);
+	try {
+		assert.deepEqual(pack.diag.errors, []);
+		const guide = pack.guides[0];
+		for (const [level, map, zone, returned, expected] of [
+			[58, 1452, 'Winterspring', true, false], [59, 1452, 'Winterspring', true, true],
+			[59, 1452, 'Winterspring', false, false], [59, 1449, "Un'Goro Crater", true, false],
+		]) {
+			const [first] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+				before: `w.level=${level}; w.moveTo(${map}, 61, 38); w.zone=${JSON.stringify(zone)}; ${returned ? 'w.complete({93197})' : ''}`,
+				script: 'emit(Polestar.Engine.GetStepIndex())',
+			});
+			assert.equal(first === 1, expected, `level ${level}, ${zone}, Vizzie ${returned}`);
+		}
+	} finally { pack.dispose(); }
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
