@@ -471,7 +471,7 @@ fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() 
 		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
 	}
 	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
-	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448]);
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3162]);
 	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
 	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
 	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));
