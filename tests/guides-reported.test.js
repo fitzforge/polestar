@@ -16625,6 +16625,19 @@ test('Riverglades (Horde): Bolder\'ok return quests and both final fights are co
 	}
 });
 
+test('Horde Azshara: the first Orgrimmar stop and level-50 return use different conditions', { skip }, () => {
+	const steps = compiled('forever/horde/40-50/06-azshara.guide').steps;
+	const matches = (step, t, q) => step.goals.some((g) => g.t === t && g.quest === q);
+	const stops = steps.filter((s) => matches(s, 'accept', 4494));
+	assert.equal(stops.length, 2);
+	assert.ok(stops.every((s) => s.when.some((w) => w.k === 'level' && w.op === '>=' && w.n === 50)));
+	const loh = steps.findIndex((s) => matches(s, 'accept', 5535));
+	assert.ok(steps.indexOf(stops[0]) < loh && steps.findIndex((s) => matches(s, 'accept', 4300)) < loh);
+	const back = steps[steps.indexOf(stops[1]) - 1];
+	assert.ok(whenQuestOf(back, ['available'], 4494) && back.when.some((w) => w.k === 'level' && w.n === 50));
+	assert.ok(stops[1].when.some((w) => w.k === 'zone' && w.name === 'Orgrimmar'));
+});
+
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
 // Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
 // above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).

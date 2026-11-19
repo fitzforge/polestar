@@ -6287,6 +6287,18 @@
 				],
 				"faction": "Alliance",
 				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
+			},
+			{
+				"a": [
+					"accept",
+					4300
+				],
+				"b": [
+					"accept",
+					5535
+				],
+				"faction": "Horde",
+				"why": "#3145: take Bone-Bladed Weapons from Jes'rimon on the first Orgrimmar pass, before visiting Loh'atu in Azshara. A character eligible for March of the Silithid also takes it on that pass."
 			}
 		],
 		"notes": [
