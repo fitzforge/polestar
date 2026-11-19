@@ -221,6 +221,10 @@ play whose guide and engine didn't change comes from the cache. `--guides`
 reports the guides whose id contains one of its texts (and plays each start's
 route up to them); `--skip-quest` plays a player who skips quests (a drop that
 never came, a quest left out), as the guide window's "Skip this quest" does.
+`--level-offset n` (also `playtest --level-offset n`) plays a character n whole
+levels ahead of each guide's level (negative: behind, never below 1): it starts
+at the guide's minimum level + n, and a level goal or an accept waiting for a
+level raises it to that level + n; its plays are cached apart from plain ones.
 
 Per guide that plays differently (or whose steps changed), and per branch (a
 start's default route, guide after guide):
