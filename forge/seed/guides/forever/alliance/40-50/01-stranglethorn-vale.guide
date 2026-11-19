@@ -305,13 +305,19 @@ step The north-west coast
   collect 4034 quest 611              -- Stone of the Tides
 
 step Sin'Dall
+  when onquest 188
+  when !complete 188
   tip North-east from the bay toward Nesingwary's camp: Sin'Dall, the great tiger (37), lairs on the hilltop just south-west of the camp.
   collect 3879 quest 188              -- Paw of Sin'Dall
 
 step Hemet Nesingwary
   turnin 196
   turnin 192                          -- Sir S. J. Erlgadin, beside him
-  turnin 188                          -- Ajeck Rouack, beside them
+
+step Ajeck Rouack
+  when onquest 188
+  when complete 188
+  turnin 188                          -- Ajeck Rouack, beside the other hunters
 
 step Hemet Nesingwary
   when group 197

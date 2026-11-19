@@ -6631,6 +6631,27 @@ test('Alliance Ratchet boarding: a learned departure still points to the flight 
 	} finally { pack.dispose(); }
 });
 
+test("Alliance later Stranglethorn: Sin'Dall is a carried hunt, not a new camp trip", { skip }, () => {
+	const file = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
+	const list = goals(file), guide = compiled(file);
+	const hunt = list.find(({ goal }) => goal.quest === 188 && goal.item === 3879);
+	const camp = list.find(({ goal }) => goal.quest === 188 && goal.t === 'turnin');
+	assert.ok(hunt.s < camp.s && camp.goal.npc === 717);
+	assert.ok(!list.some(({ goal }) => goal.quest === 188 && goal.t === 'accept'));
+	assert.deepEqual(camp.step.goals.map((g) => g.quest), [188], 'other hunters’ hand-ins must not share the paw gate');
+	const pack = writeTestPack([guide], data);
+	try {
+		const loads = pack.scripts.map((p) => `assert(loadfile(${JSON.stringify(p)}))("Polestar_Guides", ns)`).join('\n');
+		const { emitted } = runAddon({ stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			before: `local w=stub.world; w.level=40; w.race='Human'; w.faction='Alliance'; w.class='WARRIOR'; w.complete({187})`,
+			script: `do local ns={} ${loads} end; stub.login(); stub.advance(.5); local E,w=Polestar.Engine,stub.world; E.SetGuide(${JSON.stringify(guide.id)})
+				local function snap() stub.advance(.5);emit({hunt=E.Applies(${hunt.s}),handIn=E.Applies(${camp.s})}) end
+				snap(); w.accept(188,{{type='item',text="Paw of Sin'Dall",required=1}}); snap(); w.finish(188); snap(); w.turnIn(188); snap()`,
+		});
+		assert.deepEqual(emitted, [{ hunt: false, handIn: false }, { hunt: true, handIn: false }, { hunt: false, handIn: true }, { hunt: false, handIn: false }]);
+	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
+});
+
 test('Culling the Competition: both kills and their daggers search only the north rim', { skip }, () => {
 	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
 	const targets = list.filter(({ goal }) => goal.quest === 7729 && goal.t === 'kill' || goal.quest === 3443 && goal.item === 10551);
