@@ -13142,7 +13142,7 @@
 				"objective": 1
 			},
 			"when": "onquest 1148",
-			"note": "0.4.3 route round (Horde 30-40): Parts of the Swarm (1148) starts from the Cracked Silithid Carapace of the dig's first kill, so its step on 30-40/02's first flats visit shows only with the quest in the log: below 34 the dig waits for the way out of Desolace (h-043-flats-south-from-34).",
+			"note": "Parts of the Swarm starts from the Cracked Silithid Carapace (5877). Gather the parts only with the quest in the log, from level 34. Before leaving Desolace, open a carapace saved from an earlier kill; it can start the quest even after handing in The Swarm Grows.",
 			"source": [
 				{
 					"kind": "client",

@@ -2289,6 +2289,21 @@ test('Horde flats: a ready return at 33.99 can pay for unfinished fights without
 	assert.deepEqual(out, [[false, false, true], true, [false, false, false]]);
 });
 
+test('Horde flats: an unopened carapace can start Parts before the return flight', { skip }, () => {
+	const guide = 'forever/horde/30-40/02-thousand-needles.guide';
+	const list = goals(guide);
+	const starter = list.find(({ step, goal }) => is('accept', 1148)(goal) && step.when?.some(p => p.k === 'has' && p.item === 5877));
+	const fly = list.find(({ goal, step }) => goal.t === 'fly' && holdsQuest(step, 1148));
+	assert.ok(starter.s < fly.s);
+	const out = engineRun(guide, { ...ORC_WARRIOR, level: 33 }, {
+		script: `local w=stub.world; local s=${starter.s}; local no=E.Applies(s)
+			w.addItem(5877,1); stub.advance(.5); local bag=E.Applies(s)
+			w.accept(1148,{3}); stub.advance(.5); local carried=E.Applies(s); local flight=E.Applies(${fly.s})
+			w.turnIn(1148); stub.advance(.5); emit({no,bag,carried,flight,E.Applies(s)})`,
+	});
+	assert.deepEqual(out, [false,true,false,true,false]);
+});
+
 test('Horde Hillsbrad: carried skulls are finished in the southern fields even after Battle of Hillsbrad', { skip }, () => {
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
 	const list = goals(guide);
