@@ -209,7 +209,10 @@ class Walk {
 	// walk's `chain`). data: loadData's. dyn: null (strict), "036" or "037". future: quest -> level at the guide's own
 	// hand-in on the strict walk (the XP rule). timed: quest -> timer seconds. take: "near" (lines taken where nearly
 	// free, as players do) or "all". followups: accept the follow-ups an early hand-in's NPC gives (players do).
-	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all', faction = '' }) {
+	// levelOffset: a character always this many levels (a float, may be negative) ahead of the modelled level: XP
+	// still accrues from the modelled level (so the offset stays constant) and entries report it, but every decision
+	// on the player's level (`when level`, level goals, nextWhen, min levels, the While-here mob gate) reads effLevel.
+	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all', faction = '', levelOffset = 0 }) {
 		this.race = race;
 		this.cls = cls;
 		this.faction = faction;
@@ -233,6 +236,7 @@ class Walk {
 		this.xp = 0.0;
 		this.t = 0.0;
 		this.L = 1;
+		this.levelOffset = levelOffset;
 		this.pos = null;
 		this.bind = null;
 		this.zone = null;
@@ -274,7 +278,7 @@ class Walk {
 			this.labelsPlayed = new Set();
 			for (let si = 1; si <= g.steps.length; si++) {
 				const step = g.steps[si - 1];
-				if (!applies(step.only, race, cls, faction) || !whenOk(step.when, this.L, this, dungeons, dungeonQuests)) continue;
+				if (!applies(step.only, race, cls, faction) || !whenOk(step.when, this.effLevel(), this, dungeons, dungeonQuests)) continue;
 				if (step.label) this.labelsPlayed.add(step.label);
 				if (dyn) {
 					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls, faction));
@@ -334,8 +338,15 @@ class Walk {
 		while (gid && guides.has(gid) && !seen.has(gid)) {
 			seen.add(gid);
 			yield gid;
-			gid = chain.nextOf(guides.get(gid), this.L);
+			gid = chain.nextOf(guides.get(gid), this.effLevel());
 		}
+	}
+
+	// The character's level for a decision: the modelled level, or with levelOffset the level of the character that
+	// many levels ahead of it (1 to 60).
+	effLevel(L = this.L, xp = this.xp) {
+		if (!this.levelOffset) return L;
+		return Math.min(60, Math.max(1, Math.floor(L + xp / XP_TO_LEVEL[Math.min(L, 59)] + this.levelOffset + 1e-9)));
 	}
 
 	// --- along work
@@ -568,12 +579,20 @@ class Walk {
 			xp += questXp(qd.xp, qd.level, L);
 		}
 		if (tt === 'level') {
+			// a target the character's level already meets costs nothing; a shortfall is ground from that level, and
+			// the modelled level moves the same way (the offset stays)
+			const D = this.levelOffset;
 			const tgt = (go.level || 0) + (go.frac || 0);
 			const cur = L + xp / XP_TO_LEVEL[Math.min(L, 59)];
-			if (tgt > cur) {
+			const eCur = D ? Math.min(60, Math.max(1, cur + D)) : cur;
+			if (tgt > eCur) {
 				// grind: time at ~2 mobs a minute
 				let need = 0.0;
 				let l2 = L, x2 = xp;
+				if (D) {
+					l2 = Math.floor(eCur);
+					x2 = (eCur - l2) * XP_TO_LEVEL[Math.min(l2, 59)];
+				}
 				while (l2 + x2 / XP_TO_LEVEL[Math.min(l2, 59)] < tgt && l2 < 60) {
 					const per = XP_TO_LEVEL[Math.min(l2, 59)];
 					const part = Math.min(per - x2, (tgt - l2 - x2 / per) * per);
@@ -585,8 +604,14 @@ class Walk {
 					}
 				}
 				this.t += need * 35;
-				L = l2;
-				xp = x2;
+				if (D) {
+					const m = Math.min(60, tgt - D);
+					L = Math.floor(m);
+					xp = (m - L) * XP_TO_LEVEL[Math.min(L, 59)];
+				} else {
+					L = l2;
+					xp = x2;
+				}
 			}
 		}
 		while (L < 60 && xp >= XP_TO_LEVEL[L]) {
@@ -598,6 +623,7 @@ class Walk {
 		e.t1 = this.t;
 		e.level = L;
 		e.lv = pyRound(L + xp / XP_TO_LEVEL[Math.min(L, 59)], 2);
+		e.eff = this.effLevel(L, xp);
 		e.i = this.entries.length;
 		if (dynFrom != null) e.dyn_from = dynFrom;
 		this.entries.push(e);
@@ -684,7 +710,7 @@ class Walk {
 		let k = 0;
 		const npc = c.go.npc, obj = c.go.object;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons, this.dungeonQuests)) continue;
+			if (s2 <= si || !whenOk(step.when, this.effLevel(), null, this.dungeons, this.dungeonQuests)) continue;
 			if (s2 === c.si) return true;
 			for (const [, o] of gl) {
 				if ((npc != null && o.npc === npc) || (obj != null && o.object === obj)) {
@@ -713,14 +739,14 @@ class Walk {
 	dynCands(gid, si) {
 		if (this.dynBlocked()) return [];
 		const out = [];
-		const L = this.L;
-		const top = L + (this.dyn === '036' ? WH_ABOVE_036 : WH_MOBS_ABOVE);
+		const L = this.L, eL = this.effLevel();
+		const top = eL + (this.dyn === '036' ? WH_ABOVE_036 : WH_MOBS_ABOVE);
 		for (const c of this.whGoals.get(gid) || []) {
 			if (c.si <= si) continue;
 			const go = c.go;
 			const q = go.quest;
 			if (!this.acceptAt.has(q) || this.turninAt.has(q)) continue;
-			if (!whenOk(c.step.when, L, null, this.dungeons, this.dungeonQuests)) continue;
+			if (!whenOk(c.step.when, eL, null, this.dungeons, this.dungeonQuests)) continue;
 			if (go.t === 'turnin') {
 				if (this.dynTurned.has(q) || this.liveTurnins.has(q) || !this.ready(q)) continue;
 				let budget = WH_SECONDS;
@@ -929,7 +955,7 @@ class Walk {
 		const npc = go.npc;
 		if (npc == null) return;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons, this.dungeonQuests)) continue;
+			if (s2 <= si || !whenOk(step.when, this.effLevel(), null, this.dungeons, this.dungeonQuests)) continue;
 			for (const [gi2, o] of gl) {
 				const q2 = o.quest;
 				if (o.t !== 'accept' || o.npc !== npc || q2 == null || this.acceptAt.has(q2)) continue;
@@ -939,7 +965,7 @@ class Walk {
 				if (!preAny.has(q) && !preAll.has(q)) continue;
 				if (preAny.size && ![...preAny].some((p) => this.turninAt.has(p))) continue;
 				if ([...preAll].some((p) => !this.turninAt.has(p))) continue;
-				if (o.minLevel && this.L < o.minLevel) continue;
+				if (o.minLevel && this.effLevel() < o.minLevel) continue;
 				const move = {
 					gid, step: s2, gi: gi2, t: 'accept', quest: q2, oi: null, followup: true, at_gid: gid, at_step: si, at_gi: this.curGi,
 					yd: 0, lv: pyRound(this.L + this.xp / XP_TO_LEVEL[Math.min(this.L, 59)], 2),

@@ -151,11 +151,12 @@ function sharedSort(list_, keyOf, extra) {
 	return { branches, sorted: [...list_].sort((a, b) => branches.get(keyOf(b)).size - branches.get(keyOf(a)).size || extra(a, b)) };
 }
 
-// The audit: { branches: [...], guides: { id: { branches, mean, max, findings, ... } }, dynamic, route, dungeons }.
+// The audit: { branches: [...], guides: { id: { branches, mean, max, findings, ... } }, dynamic, route, dungeons, level_offset }.
 // opts: addon guides ({ guides, legs }), dataDir, starts/classes filters, guide (id substring), noLegs, longFly, dynamic
-// ("036" | "037" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, "").
+// ("036" | "037" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, ""),
+// levelOffset (the walk's: a character that many levels ahead of the modelled one; levels reported stay modelled).
 function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
-	const { faction = '', starts = [], classes = [], guide = '', noLegs = false, longFly = 2500, dynamic = null, whTake = 'near', followups = true, route = [], dungeons = '', dungeonQuests = 'all' } = opts;
+	const { faction = '', starts = [], classes = [], guide = '', noLegs = false, longFly = 2500, dynamic = null, whTake = 'near', followups = true, route = [], dungeons = '', dungeonQuests = 'all', levelOffset = 0 } = opts;
 	const data = loadData(dataDir);
 	const G = new Map();
 	for (const g of compiled.guides) if (g.category === 'Leveling') G.set(g.id, g);
@@ -168,7 +169,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	};
 	const branchRows = [];
 	for (const b of branchesOf(G, data.races, { faction, starts, classes })) {
-		const common = { race: b.race, cls: b.cls, faction: b.faction, guides: G, legs, data, longFly, dungeons, dungeonQuests };
+		const common = { race: b.race, cls: b.cls, faction: b.faction, guides: G, legs, data, longFly, dungeons, dungeonQuests, levelOffset };
 		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests, { guides: G, faction: b.faction }) });
 		let r = analyse(w, data.quests, data.proj);
 		const bkey = `${b.start}/${b.cls}`;
@@ -355,7 +356,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 		}
 		guides[gid] = s;
 	}
-	return { branches: branchRows, guides, dynamic, route, dungeons, dungeon_quests: dungeons ? dungeonQuests : null };
+	return { branches: branchRows, guides, dynamic, route, dungeons, dungeon_quests: dungeons ? dungeonQuests : null, level_offset: levelOffset };
 }
 
 // The experimental route choices a faction's leveling guides offer (`next` options in Polestar Experimental) and the

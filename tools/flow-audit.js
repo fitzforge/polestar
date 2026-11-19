@@ -21,6 +21,9 @@
 //   --wh-take T      near (default: lines taken where nearly free, as players do) or all
 //   --no-followups   an early hand-in's NPC's follow-ups are not taken there
 //   --no-legs        straight lines instead of the baked legs (both sides of a gate must use the same)
+//   --level-offset D a character always D levels (may be fractional or negative) ahead of the modelled level: `when level`
+//                    steps, level goals, min levels and the While-here mob gate read that level; XP and the levels
+//                    reported stay modelled (the audit records it; the gate refuses two audits of different offsets)
 //   --with-dungeons  modes: also every way with dungeons in the route (both sides of a gate must use the same)
 //   --reasons FILE   the stated reasons for accepted regressions (default data/flow-gate.json)
 // gate exits 1 when a check got worse without a reason, 0 otherwise.
@@ -35,7 +38,7 @@ const { compare, table, formatResult } = require('./lib/flow/gate');
 
 const USAGE = `usage: node tools/flow-audit.js run --addon <dir> [--data DIR] [--faction F] [--start LIST] [--class LIST] [--route LIST]
                                 [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
-                                [--out FILE] [--md FILE]
+                                [--level-offset D] [--out FILE] [--md FILE]
        node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [--with-dungeons] [the run options]
        node tools/flow-audit.js gate <before.json|dir> <after.json|dir> [--reasons FILE] [--json]`;
 
@@ -46,10 +49,12 @@ function auditOpts(opts) {
 	if (dynamic && !['036', '037'].includes(dynamic)) throw new Error(`--dynamic ${opts.dynamic}: 037, 036 or off`);
 	if (opts.whTake && !['near', 'all'].includes(opts.whTake)) throw new Error(`--wh-take ${opts.whTake}: near or all`);
 	if (opts.dungeonQuests && !['all', 'way'].includes(opts.dungeonQuests)) throw new Error(`--dungeon-quests ${opts.dungeonQuests}: all or way`);
+	const levelOffset = opts.levelOffset == null ? 0 : Number(opts.levelOffset);
+	if (!Number.isFinite(levelOffset)) throw new Error(`--level-offset ${opts.levelOffset}: a number of levels`);
 	return {
 		faction: opts.faction || '', starts: listOf(opts.start).map((s) => s.toLowerCase()), classes: listOf(opts.class).map((s) => s.toUpperCase()),
 		guide: opts.guide || '', route: listOf(opts.route), dungeons: opts.dungeons || '', dungeonQuests: opts.dungeonQuests || 'all', dynamic, whTake: opts.whTake || 'near',
-		followups: !opts.noFollowups, noLegs: Boolean(opts.noLegs),
+		followups: !opts.noFollowups, noLegs: Boolean(opts.noLegs), levelOffset,
 	};
 }
 
@@ -152,7 +157,7 @@ function main(argv) {
 	const [cmd, ...rest] = argv;
 	const { opts, positional, error } = parseArgs(rest, {
 		flags: ['--no-followups', '--no-legs', '--json', '--table', '--with-dungeons'],
-		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons'],
+		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons', '--level-offset'],
 	});
 	if (opts.help || error || !['run', 'modes', 'gate'].includes(cmd) || (cmd !== 'gate' && !opts.addon)) {
 		console.error((error ? error + '\n' : '') + USAGE);

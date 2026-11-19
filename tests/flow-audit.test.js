@@ -178,6 +178,37 @@ test('a carried quest\'s camp passed on the way is a While-here line and deferre
 	assert.deepEqual(walk(3, 2), [1, 1], 'the spot\'s own level counts: 1 over');
 });
 
+// --level-offset: a character always D levels ahead of the modelled one (level 1 here, as no XP is earned before the
+// gated step). It plays a `when level>=2` step the modelled character skips, a level goal it already meets costs
+// nothing (one it falls short of is ground from its own level), the While-here mob gate reads its level, and the
+// levels reported stay modelled.
+test('with a level offset the walk decides at the character\'s level: `when level`, level goals and the While-here mob gate', (t) => {
+	const dir = dataDir(t);
+	const data = loadData(dir);
+	const g = guide('test/l', [
+		[goto_(10, 10)],
+		{ when: [{ k: 'level', op: '>=', n: 2 }], goals: [goto_(10.01, 10)] },
+		[{ t: 'level', level: 3, ...at(10, 10) }],
+	], { races: ['Orc'] });
+	const walk = (levelOffset) => new Walk({ chain: ['test/l'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data, levelOffset });
+	const [w0, w1, w2] = [walk(0), walk(1), walk(2)];
+	assert.deepEqual([...new Set(w0.entries.map((e) => e.step))], [1, 3], 'level 1: the gated step is skipped');
+	assert.deepEqual([...new Set(w1.entries.map((e) => e.step))], [1, 2, 3], 'one ahead (level 2): it is played');
+	assert.deepEqual([...new Set(walk(0.5).entries.map((e) => e.step))], [1, 3], 'half a level ahead is still level 1');
+	assert.equal(w0.entries[0].level, w1.entries[0].level, 'the levels reported are the modelled ones');
+	assert.ok(w0.endT > w1.endT && w1.endT > w2.endT, `the ding costs less the further ahead (${w0.endT}, ${w1.endT}, ${w2.endT})`);
+	assert.ok(w2.endT < 5, `level 3 already: the ding costs nothing, only the 20 yd walk (${w2.endT})`);
+	assert.equal(pyRound(w1.endLevel, 2), 2, 'one ahead dings 3 at modelled 2');
+	const res = runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0, levelOffset: 1 });
+	assert.equal(res.level_offset, 1);
+	assert.throws(() => compare(runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0 }), res), /different level offsets/);
+	// boars 2 over the modelled level: left for the route, but taken on the way by a character one ahead
+	const boars = { ...kill(1, 10.25, 10.01), lvl: 3 };
+	const m = guide('test/m', [[accept(1, 1, 10, 10)], [goto_(11, 10)], [goto_(10, 10)], [boars], [turnin(1, 1, 10, 10)]], { races: ['Orc'] });
+	const dyn = (levelOffset) => new Walk({ chain: ['test/m'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[m.id, m]]), legs: {}, data, dyn: '037', levelOffset }).dynMoves.length;
+	assert.deepEqual([dyn(0), dyn(1)], [0, 1]);
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [

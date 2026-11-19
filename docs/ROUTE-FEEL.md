@@ -39,6 +39,12 @@ Both trees must be audited with the same options (the same `--dynamic`, legs or
 `--no-legs`; straight lines while a candidate's legs are stale). The audit is
 light: a few seconds per branch, a few minutes per faction and mode.
 
+`--level-offset D` (default 0; fractional or negative too) plays a character
+always D levels ahead of the walk's modelled one: `when level` steps, level
+goals, min levels and the While-here mob gate read that level, while XP and the
+levels reported stay modelled. The audit records the offset; the gate refuses
+to compare two audits of different offsets.
+
 ## How a branch is played
 
 A branch is one start (race) and one class: the race's first leveling guide, then
