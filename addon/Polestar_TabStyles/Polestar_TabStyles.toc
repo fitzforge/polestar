@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 分頁樣式
 ## Notes-zhTW: Polestar 的一部分：指南視窗的分頁可顯示為標題選單、頂邊分頁或側邊欄。選擇其中一個時載入。
 ## Author: Polestar
-## Version: 0.4.0.1
+## Version: 0.4.1.1
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
