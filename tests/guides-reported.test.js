@@ -6487,7 +6487,7 @@ test('Riverglades (Alliance 0.4.3): early visitors are warned at the first step 
 	const tips = (i) => [].concat(list[i].step.note || []).join(' ');
 	assert.match(tips(at(list, 'accept 95147', is('accept', 95147))), /written for levels 41-45[^"]*Western Front[^"]*Enforcers \(45\)/, 'the first step says who the guide is for');
 	const riftan = at(list, 'turnin 94886', is('turnin', 94886));
-	const warn = list.findIndex(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44));
+	const warn = list.findIndex(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44 && !p.frac));
 	assert.ok(warn >= 0 && warn < riftan, 'a step below level 44 before Sergeant Riftan');
 	assert.match(tips(warn), /Careful:[^"]*Champions are 43-44[^"]*Enforcers \(elites, 45\)[^"]*Kilgar \(46, elite\)/, 'it names the camps and elites');
 	assert.ok(list[riftan].s - list[warn].s <= 1, 'right before the camp');
@@ -6521,7 +6521,12 @@ test('Alliance Hyjal hand-back: a high-level Vizzie return starts in Everlook; e
 
 test('Alliance Hyjal return: the Everlook opener uses the character’s own level, location and hand-in', { skip }, () => {
 	const file = 'forever/alliance/50-60/06-silithus.guide';
-	const pack = buildSimPack([file]);
+	const source = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	// Exercise the real opener and the real Ratchet departure in isolation: compiling the whole 06
+	// alone would reject the many quest hand-ins belonging to its earlier guides.
+	const start = source.slice(0, source.indexOf('\nstep Winterfall Village'));
+	const departure = source.match(/\nstep Ratchet\n[\s\S]*?  fly "Ratchet"\n/)[0];
+	const pack = buildSimPack([{ file, text: start + departure }]);
 	try {
 		assert.deepEqual(pack.diag.errors, []);
 		const guide = pack.guides[0];
