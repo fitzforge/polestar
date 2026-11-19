@@ -15968,110 +15968,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					973
-				],
-				"b": [
-					"accept",
-					1007
-				],
-				"faction": "Alliance",
-				"why": "CircusCyaneus (#2837): Delgren's hand-in of The Tower of Althalaxx comes right after Ilkrud Magthrull at the Fire Scar Shrine, at Maestra's Post on the way north-west to the Zoram Strand, instead of a walk back from Talen; after Talen the hearthstone bound at Astranaar takes the player to Shindrell Swiftfire and the flight master.",
-				"source": "triage 0418-j 2026-11-17"
-			},
-			{
-				"a": [
-					"turnin",
-					1033
-				],
-				"b": [
-					"turnin",
-					1070
-				],
-				"faction": "Alliance",
-				"why": "Twerkjob's report of back and forth in Ashenvale: 06-ashenvale's first visit fetches Elune's Tear from the isle east of Astranaar right after the first Astranaar stop and hands it to Pelturas on the way south to Stonetalon, instead of a trip west to Lake Falathim and back east to the isle before Stonetalon.",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"task",
-					1034
-				],
-				"b": [
-					"task",
-					973
-				],
-				"faction": "Alliance",
-				"why": "06-ashenvale: back north from Stonetalon, the Ruins of Stardust come first, then one sweep up the west: Ilkrud Magthrull at the Fire Scar Shrine, Therysil at the Shrine of Aessina, Teronis at Lake Falathim, Delgren at Maestra's Post and the Zoram Strand, instead of Stardust, a walk east to Shael'dryn, back to Astranaar and west again.",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"task",
-					973
-				],
-				"b": [
-					"turnin",
-					945
-				],
-				"faction": "Alliance",
-				"why": "06-ashenvale's west sweep: the Shrine of Aessina (Therysil) lies north of the Fire Scar Shrine (Ilkrud), on the way to Lake Falathim (see task 1034 before task 973).",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"turnin",
-					945
-				],
-				"b": [
-					"turnin",
-					991
-				],
-				"faction": "Alliance",
-				"why": "06-ashenvale's west sweep: Teronis at Lake Falathim after Therysil, north of the shrine (see task 1034 before task 973).",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"task",
-					1023
-				],
-				"b": [
-					"turnin",
-					973
-				],
-				"faction": "Alliance",
-				"why": "06-ashenvale's west sweep: from Lake Falathim north-east to Delgren at Maestra's Post, then west to the Zoram Strand (see task 1034 before task 973 and turnin 973 before accept 1007).",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"turnin",
-					1009
-				],
-				"b": [
-					"turnin",
-					1023
-				],
-				"faction": "Alliance",
-				"why": "06-ashenvale: Raene's Glowing Gem goes in on the one Astranaar stop after the Zoram Strand, with Shindrell's and Pelturas's hand-ins, the hearthstone bound at Astranaar taking the player there from Talen.",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
-					"accept",
-					4581
-				],
-				"b": [
-					"accept",
-					1024
-				],
-				"faction": "Alliance",
-				"why": "Raene's Cleansing (1024) only sends the player to Shael'dryn in the Howling Vale, far east of 06-ashenvale's first-visit stops: it is taken on 06-wetlands' first Astranaar stop and handed in on that visit's walk east, where Shael'dryn gives its next part (1026). On 06-ashenvale Raene offers it on the last Astranaar stop and the guide leaves it.",
-				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
-			},
-			{
-				"a": [
 					"task",
 					2138
 				],
@@ -16266,12 +16162,6 @@
 				"guide": "forever/alliance/06-wetlands",
 				"reason": "Decided in #2025: a character who loads this guide without 06-ashenvale's Wetlands chains is held at level 28 after Daily Delivery instead (guide-fixes a2130-wetlands-fresh-start-28); bringing the chains back would cost more than the gate.",
 				"issue": "#2635"
-			},
-			{
-				"q": 1024,
-				"guide": "forever/alliance/06-wetlands",
-				"reason": "Raene's Cleansing (1024) moved here from 06-ashenvale's first visit in the 0.4.3 redraw; it needs Teronis' Glowing Gem (1023) from that visit, and a character who loads this guide without it is held at level 28 after Daily Delivery as for 1026 (decided in #2025).",
-				"issue": "#3144"
 			},
 			{
 				"q": 1025,
