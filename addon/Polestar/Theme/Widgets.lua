@@ -2943,7 +2943,8 @@ end
 -- The parts the settings window's own widgets build on: its colour rows,
 -- picture cards, inline extras, cogs, section cards, action rows and tiles
 -- are Polestar_Options/UI/Controls.lua's, its compact controls, folder tabs,
--- header and ··· menu UI/Kit.lua's, loaded with the window, never at login.
+-- Legend headers and pill switches, header and ··· menu UI/Kit.lua's, loaded
+-- with the window, never at login.
 W.RowParts = {
 	settingRow = settingRow, fitLabel = fitLabel, dimRow = dimRow, rowEnter = rowEnter,
 	simpleTip = simpleTip, hideTip = hideTip, hoverTexture = hoverTexture,

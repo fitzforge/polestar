@@ -13,6 +13,9 @@
 --                    tab band (an icon before each label, a dot after it for
 --                    a row off its default), and each tab's rows as the
 --                    classic page lays them out
+--   a card           its title in its top border (Legend), at the border's
+--                    right the module's pill, "N changed" and Reset; a card
+--                    whose module is off folds to that header and one line
 --   the header       "Search first": a "Group › Page" crumb and the
 --                    description, then the wide search, the switch, Peek,
 --                    Fold, Reload UI and ··· (Menu scale, Move frames, the
@@ -670,7 +673,7 @@ local function depRow(sec)
 end
 
 -- A page's tab, as the classic page builds it (K.buildView) with the
--- dependency lines first in their sections; its own
+-- dependency lines first in their sections and Legend card headers; its own
 -- view, not the classic page's. v.psGroups / v.psRows: its sections on
 -- screen and their rows (the index reads them). A module's switch lays the
 -- tab out again (its card folds or opens); the rows a jump asked for
@@ -689,7 +692,7 @@ local function tabView(p, t)
 	local v = B.views[id]
 	if v and v.psTab == t then return v end
 	if v then v:Hide() end
-	v = K.buildView(p, t, { lead = depRow })
+	v = K.buildView(p, t, { lead = depRow, legend = true })
 	local refresh = v.Refresh
 	v.Refresh = function()
 		v.psReveal = B.reveal
@@ -996,7 +999,7 @@ function G.ShowSection(at)
 	for _, card in ipairs(view and view.cards or {}) do
 		if card:IsShown() and card.psSection == at.section then
 			W.ScrollTo(win().Scroll, max(0, (card.psTop or 0) - 16))
-			O.Flash(card.Header)
+			O.Flash(card.psLegend and card or card.Header)
 			return card
 		end
 	end
@@ -1014,17 +1017,22 @@ function G.Jump(c)
 	local view = O.view
 	if not (view and view.cache) then return nil end
 	local w, top = view.cache[root], nil
+	local pill = rawget(view, "psPills") and view.psPills[c]
 	-- A child while its parent is off: the parent's row.
 	local kidOf = rawget(root, "psChildOf")
 	if kidOf and not (w and w:IsShown()) and view.cache[kidOf] then w = view.cache[kidOf] end
 	if w then
+		top = w.psTop
+	elseif pill then
+		-- A module's switch: its card.
+		w = pill:GetParent():GetParent()
 		top = w.psTop
 	elseif view.extras[c] then
 		w = view.extras[c]:GetParent()
 		top = w:GetParent().psTop
 	else
 		for _, card in ipairs(view.cards or {}) do
-			if card:IsShown() and card.psSection == at.section then w, top = card.Header, card.psTop end
+			if card:IsShown() and card.psSection == at.section then w, top = card.psLegend and card or card.Header, card.psTop end
 		end
 	end
 	if not (w and w:IsShown()) then return nil end
@@ -1086,10 +1094,18 @@ local function offerReload()
 end
 G._offerReload = offerReload
 
--- A dependency's switch changed: the tab lays out again.
+-- A dependency's switch changed: the tab lays out again. A module's pill in
+-- the search results: the results again (its hits dim or brighten).
 ns.On("SETTING_CHANGED", function(path)
 	if not (G.On() and type(path) == "string" and win() and win():IsShown()) then return end
-	if K.query() == "" and shown and B.depKeys[path] then G.Relayout() end
+	if K.query() == "" then
+		if shown and B.depKeys[path] then G.Relayout() end
+		return
+	end
+	local sv = K.searchView()
+	for t, p in pairs(sv and rawget(sv, "psPills") or {}) do
+		if t.key == path and p:IsVisible() then return O.SetQuery(K.query()) end
+	end
 end)
 
 ---------------------------------------------------------------------------

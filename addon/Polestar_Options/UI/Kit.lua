@@ -1,6 +1,7 @@
 -- The settings window's own widgets beside core's kit, loaded with it
 -- (Polestar_Options), never at login: a setting's compact control
--- (W.PinControl), the folder tabs (W.FolderTabs), the header's "Search
+-- (W.PinControl), the folder tabs (W.FolderTabs), a card's Legend header and
+-- its pill switch (W.LegendHeader, W.PillSwitch), the header's "Search
 -- first" (W.SearchFirst) and its ··· menu (W.HeaderMenu). They join core's kit (Polestar/Theme/Widgets.lua) under the
 -- same names.
 
@@ -377,6 +378,185 @@ do
 			return self
 		end
 		return f:Set(tabs, (opts or {}).active, opts or {})
+	end
+end
+
+---------------------------------------------------------------------------
+-- The new settings page's card title, "Legend": the section's title in the
+-- card's top border, fieldset-style, and at the border's right its module
+-- switch (a pill), "N changed" and Reset. The layout owns the shape; the
+-- border's gaps are thin strips of the card's own fill (the panel token)
+-- over the border line only, the rest the theme's own tokens and switch
+-- colours.
+---------------------------------------------------------------------------
+
+do
+	-- H: the header's height, centred on the card's top edge; INSET: from the
+	-- card's sides to a gap's edge; PAD: a gap's room either side of what it
+	-- holds; GAP: between the right side's widgets; EDGE: a gap's height, the
+	-- border line's thickness (Theme.Border draws 1 or 2).
+	local LEGEND = { H = 30, INSET = 18, PAD = 10, GAP = 12, EDGE = 2 }
+	local PILL = { W = 64, H = 26, KNOB = 20, IN = 3 }
+	W.LEGEND = LEGEND
+
+	-- A capsule of three textures (two round ends and the middle) on `layer`,
+	-- `inset` inside f. -> { left, mid, right }
+	local function capsule(f, layer, sub, inset, h)
+		local d = h - 2 * inset
+		local l = W.Tex(f, layer, "circle", nil, sub)
+		l:SetSize(d / 2, d)
+		l:SetPoint("LEFT", f, "LEFT", inset, 0)
+		l:SetTexCoord(0, 0.5, 0, 1)
+		local r = W.Tex(f, layer, "circle", nil, sub)
+		r:SetSize(d / 2, d)
+		r:SetPoint("RIGHT", f, "RIGHT", -inset, 0)
+		r:SetTexCoord(0.5, 1, 0, 1)
+		local m = W.Tex(f, layer, nil, nil, sub)
+		m:SetPoint("TOPLEFT", l, "TOPRIGHT", 0, 0)
+		m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT", 0, 0)
+		return { l, m, r }
+	end
+	local function tint(parts, c)
+		for _, t in ipairs(parts) do t:SetVertexColor(c[1], c[2], c[3], c[4] or 1) end
+	end
+
+	local function pillValue(self) return self.psGet() and true or false end
+
+	-- Paints the pill as it stands: the theme's switch colours for its state
+	-- (Theme.SwitchColors), the knob at the end it points to, its word in the
+	-- other half.
+	local function pillRefresh(self)
+		local on, enabled = pillValue(self), W.Enabled(self)
+		local tone = Theme.SwitchColors(on, self.psHover and enabled or false, enabled)
+		tint(self.Edge, tone.edge)
+		tint(self.Fill, tone.track)
+		local k = tone.knob
+		self.Knob:SetVertexColor(k[1], k[2], k[3], k[4] or 1)
+		self.Text:SetTextColor(k[1], k[2], k[3], k[4] or 1)
+		self.Knob:ClearAllPoints()
+		self.Text:ClearAllPoints()
+		local room = PILL.W - PILL.KNOB - 2 * PILL.IN
+		if on then
+			self.Knob:SetPoint("RIGHT", self, "RIGHT", -PILL.IN, 0)
+			self.Text:SetPoint("CENTER", self, "LEFT", PILL.IN + room / 2, 0)
+		else
+			self.Knob:SetPoint("LEFT", self, "LEFT", PILL.IN, 0)
+			self.Text:SetPoint("CENTER", self, "RIGHT", -(PILL.IN + room / 2), 0)
+		end
+		self.Text:SetText(on and L["ON"] or L["OFF"])
+		self.psOn = on
+		self.checked = on
+	end
+
+	-- A module's on/off: a 64x26 pill switch with "ON" or "OFF" inside its
+	-- track. get() -> on, set(on); a click flips it. tip: its tooltip's
+	-- title. -> the button (.Text, :Refresh())
+	function W.PillSwitch(parent, get, set, tip)
+		local b = CreateFrame("Button", nil, parent)
+		b:SetSize(PILL.W, PILL.H)
+		b.Edge = capsule(b, "BACKGROUND", 1, 0, PILL.H)
+		b.Fill = capsule(b, "BACKGROUND", 2, 1, PILL.H)
+		b.Knob = W.Tex(b, "ARTWORK", "circle")
+		b.Knob:SetSize(PILL.KNOB, PILL.KNOB)
+		b.Text = W.Text(b, "label", "text")
+		W.Uncolor(b.Text)
+		b.Text:SetJustifyH("CENTER")
+		b.psGet, b.psTip, b.psPill = get, tip, true
+		b:SetScript("OnClick", function(self)
+			if not W.Enabled(self) then return end
+			set(not pillValue(self))
+			self:Refresh()
+		end)
+		b:SetScript("OnEnter", function(self)
+			self.psHover = true
+			pillRefresh(self)
+			simpleTip(self)
+		end)
+		b:SetScript("OnLeave", function(self)
+			self.psHover = nil
+			pillRefresh(self)
+			hideTip(self)
+		end)
+		b.Refresh = pillRefresh
+		return W.Painter(b, pillRefresh)
+	end
+
+	-- Lays out a Legend header from its state (lg:Set): the title left on its
+	-- ground, then from the right edge Reset, the count, the switch and the
+	-- extras, on one ground.
+	local function placeLegend(lg)
+		local o = lg.psOpts or {}
+		local width = lg:GetWidth()
+		lg.Title:SetText(o.title or "")
+		lg.TitleGround:SetShown((o.title or "") ~= "")
+		local n = o.count or 0
+		lg.Count:SetShown(n > 0)
+		lg.Reset:SetShown(n > 0 and o.onReset ~= nil)
+		if n > 0 then lg.Count:SetText(string.format(L["%d changed"], n)) end
+		local x = LEGEND.INSET + LEGEND.PAD
+		local placed = false
+		local function put(f, w)
+			f:ClearAllPoints()
+			f:SetPoint("RIGHT", lg, "RIGHT", -x, 0)
+			x = x + w + LEGEND.GAP
+			placed = true
+		end
+		if lg.Reset:IsShown() then put(lg.Reset, lg.Reset:GetWidth()) end
+		if lg.Count:IsShown() then put(lg.Count, math.ceil(lg.Count:GetStringWidth())) end
+		local pill = o.toggle
+		lg.Pill = pill
+		if pill then
+			if pill:GetParent() ~= lg then pill:SetParent(lg) end
+			pill:Show()
+			put(pill, pill:GetWidth())
+		end
+		for _, f in ipairs(o.extras or {}) do
+			if f:IsShown() then put(f, f:GetWidth()) end
+		end
+		local right = placed and (x - LEGEND.GAP + LEGEND.PAD - LEGEND.INSET) or 0
+		lg.RightGround:ClearAllPoints()
+		lg.RightGround:SetPoint("TOPRIGHT", lg, "RIGHT", -LEGEND.INSET, 0)
+		lg.RightGround:SetSize(max(1, right), LEGEND.EDGE)
+		lg.RightGround:SetShown(placed)
+		-- The title gives way to the right side, cut with an ellipsis.
+		local room = width - 2 * LEGEND.INSET - 2 * LEGEND.PAD - (placed and (right + LEGEND.GAP) or 0)
+		local tw = max(1, min(math.ceil(lg.Title:GetStringWidth()), room))
+		lg.Title:SetWidth(tw)
+		lg.TitleGround:SetSize(tw + 2 * LEGEND.PAD, LEGEND.EDGE)
+		return lg
+	end
+
+	-- card: a section card (W.SectionCard). opts: { title, count (its
+	-- settings off their defaults), onReset(), toggle (the module's switch,
+	-- W.PillSwitch, or nil), extras (more header widgets, left of it) }.
+	-- -> the frame (.Title, .Count, .Reset, .Pill; lg:Set(opts) again)
+	function W.LegendHeader(card, opts)
+		local lg = CreateFrame("Frame", nil, card)
+		lg:SetPoint("TOPLEFT", card, "TOPLEFT", 0, LEGEND.H / 2)
+		lg:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, LEGEND.H / 2)
+		lg:SetHeight(LEGEND.H)
+		lg:SetFrameLevel(card:GetFrameLevel() + 2)
+		-- The border's gaps under the title and the right side: the card's fill
+		-- over its top border line (the header's middle is the card's top edge).
+		lg.TitleGround = W.Tex(lg, "BACKGROUND", nil, "panel")
+		lg.TitleGround:SetPoint("TOPLEFT", lg, "LEFT", LEGEND.INSET, 0)
+		lg.RightGround = W.Tex(lg, "BACKGROUND", nil, "panel")
+		lg.Title = W.Text(lg, "heading", "text")
+		lg.Title:SetPoint("LEFT", lg, "LEFT", LEGEND.INSET + LEGEND.PAD, 0)
+		lg.Count = W.Text(lg, "label", "textMuted")
+		lg.Reset = W.Button(lg, L["Reset"], function()
+			local o = lg.psOpts
+			if o and o.onReset then o.onReset() end
+		end, { ghost = true, icon = "reset", height = 22 })
+		lg.Reset.psTight = true
+		W.SetButtonText(lg.Reset, L["Reset"])
+		-- A gamepad moves row to row: Y resets a row.
+		lg.Reset.psPadSkip = true
+		function lg:Set(o)
+			self.psOpts = o or {}
+			return placeLegend(self)
+		end
+		return lg:Set(opts)
 	end
 end
 
