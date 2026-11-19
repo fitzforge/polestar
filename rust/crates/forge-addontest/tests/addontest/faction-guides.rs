@@ -160,6 +160,7 @@ fn a_twin_s_own_faction_suffix_shows_only_beside_the_other_side_s_twin() {
 		for _, e in ipairs(P.Entries("", "Class")) do if e.kind == "guide" then rows[#rows + 1] = e.title end end
 		table.sort(rows)
 		Polestar.UI.ShowPicker()
+		P.SetCategory("Class") -- Browse: Home's details follow its own list
 		P.Select("forever/class/warrior/haggards-weapons")
 		local G = Polestar.Guides
 		local both = P.Titles({ G.Get("forever/class/warrior/haggards-weapons"), G.Get("forever/class/warrior/heirloom-weapon") })

@@ -19,7 +19,8 @@ end
 local function rows()
 	local out = {}
 	for _, f in ipairs(stub.frames) do
-		if f.psGuide and rawget(f, "Range") and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then out[#out + 1] = f end
+		-- A list row (its tick), not Home's tab card.
+		if f.psGuide and rawget(f, "Range") and rawget(f, "Check") and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then out[#out + 1] = f end
 	end
 	table.sort(out, function(a, b) return select(5, a:GetPoint(1)) > select(5, b:GetPoint(1)) end)
 	return out
@@ -31,6 +32,12 @@ local function lines()
 		local note = r.Note:GetText() ~= "" and (" | " .. r.Note:GetText()) or ""
 		out[#out + 1] = mark .. r.Title:GetText() .. " " .. r.Range:GetText() .. note
 	end
+	return out
+end
+-- Home's "Suggested for you" rows: the lines of the rows that are no other tab's (those carry its index).
+local function suggested()
+	local out, all = {}, lines()
+	for i, r in ipairs(rows()) do if not rawget(r, "psIndex") then out[#out + 1] = all[i] end end
 	return out
 end
 local function folders()
@@ -549,6 +556,7 @@ fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
 			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
 		}
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select(id)
 		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
 		P.Select("forever/alliance/02-westfall")
@@ -578,6 +586,7 @@ fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_col
 		GameTooltip.SetHyperlink = function(_, link) tips[#tips + 1] = link end
 		GameTooltip.SetSpellByID = function(_, spell) tips[#tips + 1] = "spell:" .. spell end
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select(id)
 		local d = D()
 		local tiles = {}
@@ -653,6 +662,7 @@ fn reward_tiles_an_uncached_item_s_tooltip_fills_in_when_the_item_arrives_the_pa
 		end
 		Polestar.Hooks.ItemClick("test", function(_, item) if IsAltKeyDown() then calls[#calls + 1] = "guide " .. item end end)
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select(id)
 		local d = D()
 		local r = { requested = requested, spellsRequested = spellsRequested }
@@ -757,126 +767,127 @@ fn from_the_guide_window_s_loading_opens_a_new_tab_no_faction_filter_no_tabs_api
 }
 
 #[test]
-fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects_a_double_click_continues() {
-	let out = run(r#"
+fn home_puts_the_active_tab_first_as_a_card_the_other_tabs_as_rows_then_the_suggestions_a_row_selects_a_double_click_switches() {
+	let out = run(&format!(
+		"{CARDS}{}",
+		r#"
 		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
-		local cards = {}
-		for _, f in ipairs(stub.frames) do
-			if f.psIndex and rawget(f, "Pct") and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then cards[#cards + 1] = f end
-		end
-		table.sort(cards, function(a, b) return a.psIndex < b.psIndex end)
 		local info = {}
-		for i, c in ipairs(cards) do info[i] = { c.Title:GetText(), c.Step:GetText(), c.Pct:GetText(), c.Note:GetText() } end
-		local r = { view = P.View(), homeOn = tab("home").psSelected, folders = folders(), suggested = lines(), info = info, shown = P.shown.cards }
-		cards[2]:Click()
+		for i, c in ipairs(cards()) do info[i] = { c.Title:GetText(), c.Pct:GetText(), c.psIndex } end
+		local hero = cards()[1]
+		local r = { view = P.View(), homeOn = tab("home").psSelected, folders = folders(), suggested = suggested(), info = info, shown = P.shown.cards,
+			hero = { hero.Step:GetText(), hero.Go.Label:GetText() } }
+		cards()[2]:Click()
 		r.selected = { P.Selected(), D().Title:GetText(), PolestarPicker:IsShown() }
-		stub.RunScript(cards[2], "OnDoubleClick", "LeftButton")
-		r.continued = { lastCall("SetGuide"), select(2, Polestar.Engine.GetTabs()), PolestarPicker:IsShown() }
-		emit(r)"#);
+		stub.RunScript(cards()[2], "OnDoubleClick", "LeftButton")
+		r.continued = { lastCall("SelectTab"), select(2, Polestar.Engine.GetTabs()), PolestarPicker:IsShown() }
+		emit(r)"#
+	));
 	assert_eq!(out["view"], "home");
 	assert_eq!(out["homeOn"], true);
-	assert_eq!(out["folders"], json!(["Continue 3", "Suggested for you 2"]));
+	assert_eq!(out["folders"], json!(["Other tabs 2", "Suggested for you 2"]));
 	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 11 is one
-	// level below its follow-up (12).
-	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
-	// One row of cards: three tabs leave the third behind "Show all (3)".
-	assert_eq!(out["shown"], 2);
-	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
+	// level below its follow-up (12), which says why it is there.
+	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17) | After Elwynn Forest"]));
+	// The active tab's card, then the other tabs' rows.
+	assert_eq!(out["shown"], 1);
+	assert_eq!(out["info"], json!([["Elwynn Forest", "29%", 1], ["Tailoring 1-300", "25%", 2], ["Stormwind Reputation", "50%", 3]]));
+	assert!(text(&out["hero"][0]).starts_with("Step 3 of 8"), "{}", out["hero"]);
+	assert_eq!(out["hero"][1], "Continue");
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
-	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
+	assert_eq!(out["continued"], json!([["SelectTab", 2], 2, false]));
 }
 
-// Suggestions come one level before they fit, not several (Fitz, 2026-11-10, Discord feedback: cards and tabs
-// stacked up levels early): an open guide's follow-up joins "Suggested for you" one level below its minimum.
 #[test]
 fn a_follow_up_guide_is_suggested_from_one_level_below_its_minimum() {
 	let out = run(r#"
 		uistub.player.level = 10
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
-		local r = { at10 = lines() }
+		local r = { at10 = suggested() }
 		uistub.player.level = 11
 		P.Render()
-		r.at11 = lines()
+		r.at11 = suggested()
 		emit(r)"#);
 	assert_eq!(out["at10"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
-	assert_eq!(out["at11"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
+	assert_eq!(out["at11"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17) | After Elwynn Forest"]));
 }
 
-// The Continue cards under a test's eye: the shown ones, in the order they are laid out (top to bottom, left to right).
+// Home's open tabs under a test's eye: the active tab's card, then the other tabs' rows, top to bottom.
 const CARDS: &str = r#"
 local function cards()
 	local out = {}
 	for _, f in ipairs(stub.frames) do
-		if f.psIndex and rawget(f, "Pct") and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then out[#out + 1] = f end
+		if rawget(f, "psIndex") and f.psGuide and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then out[#out + 1] = f end
 	end
-	table.sort(out, function(a, b)
-		local _, _, _, ax, ay = a:GetPoint(1)
-		local _, _, _, bx, by = b:GetPoint(1)
-		if ay ~= by then return ay > by end
-		return ax < bx
-	end)
+	table.sort(out, function(a, b) return select(5, a:GetPoint(1)) > select(5, b:GetPoint(1)) end)
 	return out
 end
 local function cardTitles()
 	local out = {}
-	for i, c in ipairs(cards()) do out[i] = c.Title:GetText() .. " | " .. c.Note:GetText() end
+	for i, c in ipairs(cards()) do out[i] = c.Title:GetText() .. " | Tab " .. c.psIndex end
 	return out
+end
+local function menuItems()
+	local out = {}
+	for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then out[#out + 1] = m.Text:GetText() end end
+	return out
+end
+local function menuPick(text)
+	for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == text then m:Click() return end end
 end
 local function more() return PolestarPicker.CardsMore:IsShown() and PolestarPicker.CardsMore.Label:GetText() or false end
 local SIX = {}
 for i = 1, 6 do SIX[i] = { uistub.order[i], 1 } end
 "#;
 
-// A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. Each
-// Continue card closes its tab with its own close button (on hover) or from its right-click menu; the list follows
-// at once.
+// A player on Discord asked how to close a guide tab. On Home a tab's row says so in its tooltip and closes its tab
+// from its right-click menu; the active tab's card has the same menu on its Tab options button and on a right-click.
+// The list follows at once.
 #[test]
-fn a_continue_card_closes_its_tab_from_its_close_button_or_its_right_click_menu_and_the_list_follows() {
+fn a_tab_s_card_or_row_closes_its_tab_from_its_menu_and_the_list_follows() {
 	let out = run(&format!(
 		"{CARDS}{}",
 		r#"
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
-		local c = cards()[2]
-		local r = { before = cardTitles(), rest = c.Close:GetAlpha() }
-		stub.RunScript(c, "OnEnter")
-		r.hover = c.Close:GetAlpha()
+		local row = cards()[2]
+		local r = { before = cardTitles() }
+		stub.RunScript(row, "OnEnter")
 		r.tip = GameTooltip.lines
-		stub.RunScript(c, "OnLeave")
-		r.left = c.Close:GetAlpha()
-		c.Close:Click()
-		r.closed = { lastCall("CloseTab"), cardTitles(), folders()[1], P.shown.cards }
-		-- Right-click: the tab's options, as on the guide window's tab strip.
-		stub.RunScript(cards()[1], "OnClick", "RightButton")
-		local items = {}
-		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then items[#items + 1] = m.Text:GetText() end end
-		r.items = items
-		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Move right" then m:Click() end end
+		stub.RunScript(row, "OnLeave")
+		stub.RunScript(row, "OnClick", "RightButton")
+		r.items = menuItems()
+		menuPick("Close tab")
+		r.closed = { lastCall("CloseTab"), cardTitles(), folders()[1] }
+		local hero = cards()[1]
+		r.optionsTip = hero.More.psTip
+		hero.More:Click()
+		r.heroItems = menuItems()
+		menuPick("Move right")
 		r.moved = lastCall("MoveTab")
 		stub.RunScript(cards()[1], "OnClick", "RightButton")
-		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Close tab" then m:Click() end end
+		menuPick("Close tab")
 		r.menuClosed = { lastCall("CloseTab"), cardTitles() }
 		emit(r)"#
 	));
-	assert_eq!(out["before"], json!(["Elwynn Forest | Tab 1", "Tailoring 1-300 | Tab 2"]));
-	assert_eq!(out["rest"], 0.0, "the card's close button waits for the pointer");
-	assert_eq!(out["hover"], 1.0);
+	assert_eq!(out["before"], json!(["Elwynn Forest | Tab 1", "Tailoring 1-300 | Tab 2", "Stormwind Reputation | Tab 3"]));
 	assert!(out["tip"].to_string().contains("Right-click for tab options"), "{}", out["tip"]);
-	assert_eq!(out["left"], 0.0);
-	assert_eq!(out["closed"], json!([["CloseTab", 2], ["Elwynn Forest | Tab 1", "Stormwind Reputation | Tab 2"], "Continue 2", 2]));
 	assert_eq!(out["items"], json!(["Close tab", "Move left", "Move right"]));
+	assert_eq!(out["closed"], json!([["CloseTab", 2], ["Elwynn Forest | Tab 1", "Stormwind Reputation | Tab 2"], "Other tabs 1"]));
+	assert_eq!(out["optionsTip"], "Tab options");
+	assert_eq!(out["heroItems"], json!(["Close tab", "Move left", "Move right"]));
 	assert_eq!(out["moved"], json!(["MoveTab", 1, 2]));
-	// Elwynn Forest moved to tab 2 and stays active, so it still leads; its menu closes tab 2.
+	// Elwynn Forest moved to tab 2 and stays active, so its card still leads; its menu closes tab 2.
 	assert_eq!(out["menuClosed"], json!([["CloseTab", 2], ["Stormwind Reputation | Tab 1"]]));
 }
 
-// With six tabs open Home shows one row of cards (two at the default width): the active tab, then the most recently
-// used; "Show all (6)" lays out every tab and stays so for the session.
+// With six tabs open Home shows the active tab's card, then the other tabs most recently used first, three of them;
+// "Show all 5" on their label lists every one and stays so for the session.
 #[test]
-fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_remembered_for_the_session() {
+fn other_tabs_follow_the_active_tab_most_recent_first_three_until_show_all_which_is_remembered_for_the_session() {
 	let out = run(&format!(
 		"{CARDS}{}",
 		r#"
@@ -896,23 +907,19 @@ fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_re
 		r.back = { #cards(), more() }
 		emit(r)"#
 	));
-	assert_eq!(out["folder"], "Continue 6");
-	let titles: Vec<String> = out["row"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
-	assert_eq!(titles.len(), 2, "{titles:?}");
-	assert!(titles[0].ends_with("| Tab 1"), "the active tab first: {titles:?}");
-	assert!(titles[1].ends_with("| Tab 3"), "then the one used last: {titles:?}");
-	assert_eq!(out["more"], "Show all (6)");
-	let all: Vec<String> = out["all"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
-	let tabs: Vec<&str> = all.iter().map(|t| t.rsplit("| ").next().unwrap()).collect();
-	assert_eq!(tabs, ["Tab 1", "Tab 3", "Tab 5", "Tab 2", "Tab 4", "Tab 6"]);
+	assert_eq!(out["folder"], "Other tabs 5");
+	let tabs = |v: &Value| -> Vec<String> { v.as_array().unwrap().iter().map(|t| text(t).rsplit("| ").next().unwrap().to_string()).collect() };
+	assert_eq!(tabs(&out["row"]), ["Tab 1", "Tab 3", "Tab 5", "Tab 2"], "the active tab's card, then the ones used last");
+	assert_eq!(out["more"], "Show all 5");
+	assert_eq!(tabs(&out["all"]), ["Tab 1", "Tab 3", "Tab 5", "Tab 2", "Tab 4", "Tab 6"]);
 	assert_eq!(out["less"], "Show fewer");
 	assert_eq!(out["again"], 6, "the choice holds for the session");
-	assert_eq!(out["back"], json!([2, "Show all (6)"]));
+	assert_eq!(out["back"], json!([4, "Show all 5"]));
 }
 
-// A wider guide menu (a skin's pickerW) fits more cards in its one row.
+// A wider guide menu (a skin's pickerW) still lists three other tabs before "Show all": the rows take the width.
 #[test]
-fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
+fn a_wider_guide_menu_still_lists_three_other_tabs_before_show_all() {
 	let out = run(&format!(
 		"{CARDS}{}",
 		r#"
@@ -925,7 +932,7 @@ fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
 		UI.ShowPicker()
 		emit({ n = #cards(), more = more() })"#
 	));
-	assert_eq!(out, json!({ "n": 3, "more": "Show all (6)" }));
+	assert_eq!(out, json!({ "n": 4, "more": "Show all 5" }));
 }
 
 // "Suggested for you" always names the guide for the player's level, even when it is open; a follow-up only joins
@@ -936,8 +943,8 @@ fn home_always_suggests_the_guide_for_the_player_s_level_and_its_follow_up_only_
 		uistub.player.level = 9
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
-		emit({ folders = folders(), suggested = lines() })"#);
-	assert_eq!(out["folders"], json!(["Continue 3", "Suggested for you 1"]));
+		emit({ folders = folders(), suggested = suggested() })"#);
+	assert_eq!(out["folders"], json!(["Other tabs 2", "Suggested for you 1"]));
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
 }
 
@@ -982,6 +989,7 @@ fn current_lists_the_open_tabs_tab_and_progress_check_when_finished_recent_keeps
 fn favorites_the_star_in_the_details_toggles_a_guide_in_charstate_ui_favoriteguides_and_the_favorites_category() {
 	let out = run(r#"
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select("forever/alliance/02-westfall")
 		local star = D().Star
 		local r = { before = star.psActive or false }
@@ -1016,6 +1024,7 @@ fn the_details_art_the_zone_s_painting_from_the_client_around_the_guide_s_focus_
 		uistub.guides["forever/alliance/02-westfall"].zone = 1436
 		Polestar.Engine.GuideFocus = function(id) if id == "forever/alliance/02-westfall" then return 56, 47 end end
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select("forever/alliance/02-westfall")
 		local a = D().Art
 		local tiles = 0
@@ -1057,10 +1066,10 @@ fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now(
 		local offered = {}
 		Polestar.Engine.RouteOffered = function(from, id) return offered[id] ~= false end
 		UI.ShowPicker()
-		local r = { suggested = lines() }
+		local r = { suggested = suggested() }
 		offered["forever/alliance/02-westfall"] = false
 		P.Render()
-		r.hidden = lines()
+		r.hidden = suggested()
 		P.SetCategory("Leveling")
 		rowFor("Westfall"):Click()
 		westfall.nextChoices, westfall.nextWhen = { desolace, feralas }, { [feralas] = { { k = "level", op = ">=", n = 43 } } }
@@ -1074,7 +1083,7 @@ fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now(
 		r.none = P.detail.facts[#P.detail.facts][1]
 		westfall.nextChoices, westfall.nextWhen = nil, nil
 		emit(r)"#);
-	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
+	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17) | After Elwynn Forest"]));
 	assert_eq!(out["hidden"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
 	assert_eq!(out["both"], json!(["Next", "Your choice: Desolace or Feralas"]));
 	assert_eq!(out["one"], json!(["Next", "Desolace (31\u{2013}34)"]));

@@ -3116,13 +3116,13 @@ fn labels_kept_in_tables_are_in_the_client_language_the_group_line_and_the_guide
 		local tabs = {}
 		for _, b in ipairs(PolestarPicker.tabButtons) do if b:IsShown() then tabs[#tabs + 1] = b.Label:GetText() end end
 		emit({ elite = UI.GroupLine({ party = { kind = "elite", rank = 2 } }), tabs = tabs, title = PolestarPicker.Title:GetText() })"#,
-		&fake_locale("itIT", &[("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt")]),
+		&fake_locale("itIT", &[("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt"), ("Guides", "Anleitungen")]),
 		"",
 	)
 	.remove(0);
 	assert!(is_match(text(&out["elite"]), r"\|c\w+Rarer Elite: Gruppe empfohlen\|r"));
 	assert_eq!(out["tabs"], json!(["Start", "Stöbern", "Aktuell", "Zuletzt"]));
-	assert_eq!(out["title"], "Start");
+	assert_eq!(out["title"], "Anleitungen", "Home's header names the section");
 }
 
 #[test]

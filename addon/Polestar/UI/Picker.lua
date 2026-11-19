@@ -194,7 +194,11 @@ end
 
 -- The character, for what the menu may list (Guides.GuideMatches,
 -- Guides.OtherFaction); nil while Compat has none.
+-- While P.Render runs, the character it read once (false: none): a render
+-- asks for it per guide, and each ask builds a table.
+local renderPlayer
 local function playerInfo()
+	if renderPlayer ~= nil then return renderPlayer or nil end
 	local C = ns.Compat
 	if not (C and C.GetPlayerInfo) then return nil end
 	local ok, info = pcall(C.GetPlayerInfo)
@@ -1065,8 +1069,10 @@ local function paintRow(r, g, note, width, title, home)
 	-- nothing left it is dropped, so nothing draws over the chip.
 	local full = floor(r.Title:GetStringWidth() + 1)
 	local left = width - TEXT_X * 2 - iconW - barW - (lv and (r.Range:GetStringWidth() + 5) or 0) - groupW - expW
-	local noteW = note and min(floor(r.Note:GetStringWidth() + 1), floor(width * 0.45), left - min(full, TITLE_MIN) - 12) or 0
-	if noteW < NOTE_MIN then
+	local natural = note and floor(r.Note:GetStringWidth() + 1) or 0
+	local noteW = note and min(natural, floor(width * 0.45), left - min(full, TITLE_MIN) - 12) or 0
+	-- Left out only when cut below NOTE_MIN; a short note ("Test") shows whole.
+	if noteW < min(NOTE_MIN, natural) then
 		noteW = 0
 		r.Note:SetText("")
 	end
@@ -1078,7 +1084,12 @@ local function paintRow(r, g, note, width, title, home)
 		r.psTip = (title or g.title or g.id) .. (lv and (" (" .. lv .. ")") or "")
 		r.psTipLines = { loadHint() }
 	else
-		r.psTipLines = nil
+		r.psTip, r.psTipLines = loadHint(), nil
+	end
+	-- An open tab's row has the tab's menu on a right-click (cardMenu).
+	if r.psIndex then
+		r.psTipLines = r.psTipLines or {}
+		r.psTipLines[#r.psTipLines + 1] = { L["Right-click for tab options"], Theme.Accent() }
 	end
 	r:SetWidth(width)
 end
@@ -2294,8 +2305,7 @@ local function renderHome(tabs, active, byId, openIndex, counts, width)
 	return y, nf, ng, nc
 end
 
-function P.Render()
-	if not (win and win:IsShown()) then return end
+local function render()
 	local active = activeSection()
 	if not active then section = nil end
 	onHome = not active and view == "home"
@@ -2540,6 +2550,14 @@ function P.Render()
 	W.ShellBody(win, y + (view == "home" and SECTION_GAP or 16))
 	renderDetails(byId, tabs, active)
 	P.shown = { view = view, guides = ng, folders = nf, cards = nc }
+end
+
+function P.Render()
+	if not (win and win:IsShown()) then return end
+	renderPlayer = nil
+	renderPlayer = playerInfo() or false
+	render()
+	renderPlayer = nil
 end
 
 -- Searching: keep the selection among the results, so Enter loads what
