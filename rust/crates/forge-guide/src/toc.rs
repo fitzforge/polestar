@@ -267,6 +267,21 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。",
 		],
 	),
+	(
+		"Polestar_SkyJewels",
+		["Polestar Sky Jewels"; 9],
+		[
+			"Teil von Polestar: ein Match-3-Spiel mit 60 Leveln. Wird beim Start des Spiels geladen.",
+			"Parte de Polestar: un juego de combinar tres fichas con 60 niveles. Se carga al iniciar el juego.",
+			"Parte de Polestar: un juego de combinar tres fichas con 60 niveles. Se carga al iniciar el juego.",
+			"Fait partie de Polestar : un jeu de combinaison par trois avec 60 niveaux. Chargé au lancement du jeu.",
+			"Polestar의 일부: 60개의 레벨이 있는 매치 3 게임. 게임을 시작할 때 불러옵니다.",
+			"Parte do Polestar: um jogo de combinar três peças com 60 níveis. É carregado ao iniciar o jogo.",
+			"Часть Polestar: игра «три в ряд» с 60 уровнями. Загружается при запуске игры.",
+			"Polestar 的组成部分：一款有 60 个关卡的三消游戏。开始游戏时加载。",
+			"Polestar 的一部分：一款有 60 個關卡的三消遊戲。開始遊戲時載入。",
+		],
+	),
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	(
 		"Polestar_Skin_Example",
