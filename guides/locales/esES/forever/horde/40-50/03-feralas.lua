@@ -58,7 +58,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:75} Stonard
 	["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "El zepelín aterriza en {object:3202}: los encargos de Tuercespina ya están hechos (40-50/02), así que vuela directamente a {area:75}.",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 
 	-- Step 9: To Stonard
 	-- {area:75} Stonard

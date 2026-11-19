@@ -98,7 +98,7 @@ return {
 	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
 
 	-- Step 20: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "Nivel 36",
 	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "Las últimas misiones de {zone:1443} son de nivel 36-39. ¿Sigues por debajo del 36 tras las entregas de Murohelecho? Los crocoliscos secorrones (35-36) del río al este del poblado son los más cercanos a tu nivel: mátalos hasta el nivel 36.",
@@ -199,7 +199,7 @@ return {
 
 	-- Step 39: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Vuela de {area:2408} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde allí, sigue volando a {zone:1454}.",
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

@@ -50,7 +50,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 
 	-- Step 10: Booty Bay
 	-- {area:35} Booty Bay
@@ -97,7 +97,7 @@ return {
 
 	-- Step 19: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["Lashtail Raptors"] = "",
+	["Lashtail Raptors"] = "Raptores colazote",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
