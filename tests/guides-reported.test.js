@@ -16858,27 +16858,37 @@ test('#2825: escort givers are looked for where they wait, not along their escor
 
 // A character opening Wetlands can start with none, some, or all of Raene's earlier work.
 // Exercise the engine's catch-up plan with the actual guides leading to Wetlands.
-test('Alliance Wetlands: a fresh character can recover the Glowing Gem; returning characters do not repeat it', { skip }, () => {
+test('Alliance Wetlands: Raene’s delivery continues after the Glowing Gem, including for carried and rewarded quests', { skip }, () => {
 	const pack = buildSimPack([ASHENVALE, REDRIDGE, 'forever/alliance/05-duskwood.guide', WETLANDS], data);
 	try {
 		const wet = pack.guides.find(g => g.id === 'forever/alliance/06-wetlands');
-		for (const [state, seed, expected] of [
-			['fresh', '', ['accept:991', 'turnin:991', 'accept:1023', 'collect:1023', 'turnin:1023']],
-			['gem delivered', 'w.complete({991,1023})', ['accept:1024', 'turnin:1024', 'accept:1026']],
-			['delivery rewarded', 'w.complete({991,1023,1024})', ['accept:1026']],
+		const seq = ['accept:991', 'turnin:991', 'accept:1023', 'collect:1023', 'turnin:1023', 'accept:1024', 'turnin:1024', 'accept:1026', 'turnin:1046'];
+		for (const [state, seed, start] of [
+			['fresh', '', 0],
+			['at Teronis', 'w.onQuest(991,{})', 1],
+			['Teronis already found', 'w.complete({991})', 2],
+			['gem already held', 'w.complete({991});w.onQuest(1023,{{type="item",required=1,fulfilled=1}});w.addItem(5463,1)', 4],
+			['gem delivered', 'w.complete({991,1023})', 5],
+			['delivery held', 'w.complete({991,1023});w.onQuest(1024,{})', 6],
+			['delivery rewarded', 'w.complete({991,1023,1024})', 7],
+			['chain finished', 'w.complete({991,1023,1024,1026,1027,1028,1055,1029,1030,1045,1046})', 9],
 		]) {
 			const observed = `local events={}
 				for i,s in ipairs(G.steps) do for _,h in ipairs(s.goals) do
 					if h.t=="accept" and h.quest==95737 then E.SkipUpTo(i) end
 				end end
 				local function act(i, g, r)
-					if r.quest==991 or r.quest==1023 or r.quest==1024 or (r.quest==1026 and r.t=="accept") then
+					if r.quest==991 or r.quest==1023 or r.quest==1024 or (r.quest==1026 and r.t=="accept") or (r.quest==1046 and r.t=="turnin") then
+						if r.t=="turnin" then assert(w.log[r.quest], "hand-in not held") end
+						if r.t=="accept" and r.quest==1024 then assert(w.completed[1023], "gem not delivered") end
+						if r.t=="accept" and r.quest==1026 then assert(w.completed[1024], "message not delivered") end
 						events[#events+1]=r.t..":"..r.quest
 					end`;
 			const script = SIMULATE.replace('local function act(i, g, r)', observed)
-				.replace('visited = count, steps = #G.steps', 'events=events, visited = count, steps = #G.steps');
+				.replace('visited = count, steps = #G.steps', 'events=table.concat(events,","), finished=w.completed[1046], visited = count, steps = #G.steps');
 			const [result] = playGuide(pack, wet, { race: 'Dwarf', faction: 'Alliance', cls: 'PALADIN', before: `w.level=28;${seed}`, script });
-			assert.deepEqual(result.events, expected, state);
+			assert.equal(result.events, seq.slice(start).join(','), state);
+			assert.equal(result.finished, true, state);
 		}
 	} finally { pack.dispose(); }
 });
