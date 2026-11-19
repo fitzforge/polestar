@@ -19,6 +19,11 @@ next forever/alliance/04-redridge-mountains
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
 # 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
 # Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# Raene's furbolg hunts, An Aggressive Defense and Culling the Threat (1025, 1054), are done on 06-wetlands'
+# Ashenvale stop at about 29: their mobs are 24-25. A character already at 23.5 on the second Astranaar stop
+# takes them there and does each from level 24, mobs at most one over: the Foulweald after the Ruins of Stardust,
+# Dal Bloodclaw after Shael'dryn, both handed in before Pelturas. Below that the steps don't show and the route
+# is unchanged; a hunt not done here is done on the later stop, where its accept is already in the log.
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
@@ -105,6 +110,12 @@ step Astranaar
   accept 1034
   vendor nearest
 
+step Raene Wolfrunner
+  when level>=23.5
+  tip Back to Raene in the inn before you leave: now that the Cleansing is handed in she has two furbolg hunts that fit this trip at your level, the Foulweald on the way back from Stonetalon and Dal Bloodclaw after Shael'dryn. Each comes when you're level 24.
+  accept 1025                             -- Raene Wolfrunner: An Aggressive Defense
+  accept 1054                             -- Raene Wolfrunner: Culling the Threat
+
 # ---------------------------------------------------------------- Stonetalon Mountains
 
 step Stonetalon Mountains
@@ -161,9 +172,33 @@ step The Ruins of Stardust
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
+step The Foulweald
+  when onquest 1025
+  when level>=24
+  tip East from the ruins, south of the road: the Foulweald furbolgs live in the woods south-east of Astranaar. The Den Watcher and the Ursas (24-25) guard the den. Then north to the road and on to Shael'dryn.
+  kill 3746 quest 1025                    -- Foulweald Den Watcher
+  kill 3749 quest 1025                    -- Foulweald Ursa
+  kill 3750 quest 1025                    -- Foulweald Totemic
+  kill 3743 quest 1025                    -- Foulweald Warrior
+
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
   turnin 1024
+
+step Dal Bloodclaw
+  when onquest 1054
+  when level>=24
+  tip From Shael'dryn, back west along the road and north into the Thistlefur camp above Astranaar: Dal Bloodclaw (25) leads the furbolgs there. Then south to Astranaar.
+  tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
+  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
+
+step Raene Wolfrunner
+  when complete 1025
+  turnin 1025                             -- Raene Wolfrunner, in the inn
+
+step Raene Wolfrunner
+  when complete 1054
+  turnin 1054                             -- Raene Wolfrunner, in the inn
 
 step Astranaar
   tip Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn.

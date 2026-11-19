@@ -236,26 +236,30 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}，在村子西南端",
 
-	-- Step 45: Ethel Rethor
+	-- Step 45: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+
+	-- Step 46: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "沿著海岸向北走，然後往內陸前往{area:2405}的廢棄塔樓：{npc:11863}在裡面等你。海岸的蚌和納迦留到{area:599}之後，一路往北走向{area:2406}時再處理。",
 
-	-- Step 46: Thunder Axe Fortress
+	-- Step 47: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向東前往{area:599}。把一名燃燒之刃信徒打到殘血，在牠死前對牠使用{item:6436}，就能充能一個{item:6435}。{npc:13019}帶著權杖站在要塞的頂樓。信徒偶爾也會掉落{item:20310}（1-5%）；如果掉落了，就閱讀它。紅色的{object:176581}先不要碰：它的{npc:11876}是37級，第二次造訪{zone:1443}時會再回來處理。",
 	["On the top floor"] = "頂層",
 
-	-- Step 47: Ethel Rethor
+	-- Step 48: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "向西返回{npc:11863}那裡。",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "{npc:11863}的下一個差事{item:15803}需要對付{area:2406}上的{npc:12369}（38級）：先別接，他的等級比你高。",
 
-	-- Step 48: Rackmore's Log
+	-- Step 49: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}躺在{npc:11863}塔樓西南方不遠處的地上，就在下往海岸的路上：閱讀它。它的兩把鑰匙只有在你接了任務時才會掉落。",
 
-	-- Step 49: Clam beds
+	-- Step 50: Clam beds
 	["Clam beds"] = "蚌床",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -268,29 +272,34 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，來自乾鉗螃蟹",
 
-	-- Step 50: Sar'theris Strand
+	-- Step 51: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "繼續往北前往{area:598}取得{item:15881}：任何滑刃納迦都可能掉落。\n小心：海灘北半部有滑刃侍衛（34-35級），還有海巫和神諭者（34-36級，施法者），在33級時最多比你高兩級：在南半部打納迦和女巫（32-33級）直到鑰匙掉落，北部留到38級第二次造訪{zone:1443}時再處理。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，來自滑刃納迦",
 
-	-- Step 51: Rackmore's Chest
+	-- Step 52: Sar'theris Strand: Other Fish to Fry
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	-- {npc:4714} Slitherblade Myrmidon
+	["{npc:4714}, in the strand's southern half"] = "",
+
+	-- Step 53: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "游到最北端外海的{area:2406}：{object:177786}就在岸邊的{object:177673}旁。用兩把鑰匙打開它；別碰雕像。",
 
-	-- Step 52: Sargeron
+	-- Step 54: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向東經過{area:599}，沿北邊的山丘前往{area:603}的薩特廢墟。為了{npc:268705}，遇到的每一種都殺掉；暗影潛伏者無形無蹤。\n注意：憎怒盜賊出現時會使用隱藏，所以在你發現它們之前一直處於潛行狀態。",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}，在南下的路上",
 
-	-- Step 53: Khan Dez'hepah
+	-- Step 55: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35級）和一兩名戰鬥領主（32-33級）在東邊的帳篷之間走動：先清掉他周圍的怪，然後滿狀態單獨拉他。\n注意：科卡爾戰鬥領主血量降到20%時會呼叫30碼內附近的同伴。",
 
-	-- Step 54: Ghost Walker Post
+	-- Step 56: Ghost Walker Post
 	["South-west down the road to the post."] = "沿道路向西南到哨站。",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}：交給{zone:1454}的{npc:5640}，在下一份指南中",
@@ -299,18 +308,24 @@ return {
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}現在會提供「半人馬賞金」：38級第二次造訪{zone:1443}時，會在前往{area:607}的路上接取。",
 
-	-- Step 55: Shadowprey Village
+	-- Step 57: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "向西前往暗影村：你的爐石綁在那裡。",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}，在村子北邊不遠處的小路上",
-	-- {item:14547} Hand of Iruxos · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。",
+	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
+	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。"
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+
+	-- Step 58: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
+	["{npc:12340}, near {npc:12031}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}的塔樓。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "繼續向北前往{area:598}。滑刃侍從、滑刃納迦和滑刃女巫佔據著海灘；一次拉一隻。任何滑刃納迦都可能掉落{item:15881}。",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "葬影村的{quest:5381}和海岸的納迦需要33級。還沒到？{npc:11596}營地東邊不遠處{area:609}的科卡爾半人馬（30-32級）是離你最近、等級合適的營地：擊殺牠們直到33級。營地北邊山坡上的荒土鞭尾蠍（34-35級）等級更高。或者，組隊去打{area:1717}地城。",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "從最北端游到{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；殺死他以取得{quest:6027}。他比你高出不少等級：先休息到滿血。{object:177786}就在雕像旁的岸邊：用兩把鑰匙打開它。",
+	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。",
 	-- ["grind on {npc:4635}"] = "擊殺{npc:4635}練等",
 	-- ["{item:15766}, on the {object:177673}"] = "{item:15766}，對{object:177673}使用",
 }

@@ -373,6 +373,10 @@ function at(list, what, pred) {
 	return i;
 }
 const is = (t, quest) => (g) => g.t === t && g.quest === quest;
+// The level a step's `when level>=N` shows it from (0 without one); a point inside a level is compiled as `frac`.
+const levelFrom = (step) => Math.max(0, ...(step.when || []).filter((p) => p.k === 'level' && !p.neg && (p.op ?? '>=') === '>=').map((p) => p.n + (p.frac || 0)));
+// Whether the step is only for a character who has the quest in the log (`when onquest` / `when complete`).
+const holdsQuest = (step, q) => (step.when || []).some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg && [].concat(p.q).includes(q));
 // The list with the goals of `along` steps blanked, indices kept: such a step only lists what to pick
 // up on the way until its label; the step that does the work is the labelled one.
 const working = (list) => list.map((e) => (e.step.along ? { ...e, goal: {} } : e));
@@ -3403,9 +3407,10 @@ test(`${DESOLACE_SOUTH}: the same pattern as #89: Book of the Ancients is taken 
 // --- Flow re-order (2026-11-07): Desolace killed Other Fish to Fry's naga at
 // Sar'theris Strand and walked past Drulzegar Skraghook in Shadowprey with the
 // quest done, carrying it into the Dustwallow guide, whose Desolace visit
-// killed the naga again and handed it in about nine hours later. Since the 0.4.0 audit the whole quest is on the
+// killed the naga again and handed it in about nine hours later. Since the 0.4.0 audit the quest is on the
 // second Desolace visit (Myrmidons 34-35 and Sea Witches 34-36 were two over at 33): taken and handed in at Shadowprey,
-// the naga killed once, between them.
+// the naga killed once, between them. The first visit offers it only to a character already at 33.5 on the
+// Shadowprey stop, and its naga from level 34, in the strand's southern half (mobs at most one over).
 test('forever/horde/30-40/04-dustwallow-marsh.guide: flow re-order: Other Fish to Fry is handed to Drulzegar on the Shadowprey stop after the naga, on one Desolace visit', { skip }, () => {
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	const kills = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 6143);
@@ -3413,7 +3418,38 @@ test('forever/horde/30-40/04-dustwallow-marsh.guide: flow re-order: Other Fish t
 	const turnin = at(list, 'turnin 6143 (Other Fish to Fry)', is('turnin', 6143));
 	assert.ok(kills.every(({ s }) => s < list[turnin].s && s > list[at(list, 'accept 6143', is('accept', 6143))].s), 'taken, the naga, then handed in');
 	assert.equal(list[turnin].s, list[at(list, 'turnin 5381 (Hand of Iruxos)', is('turnin', 5381))].s, 'on the Shadowprey stop that hands Taiga the box, beside Drulzegar');
-	assert.ok(!goals('forever/horde/30-40/02-thousand-needles.guide').some(({ goal }) => goal.quest === 6143), 'the first visit does not carry it');
+	for (const { step, goal } of goals('forever/horde/30-40/02-thousand-needles.guide').filter(({ goal }) => goal.quest === 6143)) {
+		if (goal.t === 'accept') assert.ok(levelFrom(step) >= 33.5, 'the first visit offers it only from 33.5');
+		else if (goal.t === 'turnin') assert.ok(holdsQuest(step, 6143), 'the first visit hands it in only for whoever has it');
+		else assert.ok(levelFrom(step) >= 34 && holdsQuest(step, 6143), `its ${goal.t} on the first visit only from 34, for whoever took it`);
+	}
+});
+
+// --- Quests moved later for their mobs' level come back on the first visit for a character already high enough
+// (players walked past the givers and came back for them hours later). The steps hold the real level, the route below
+// it is unchanged: Ashenvale's Foulweald and Dal Bloodclaw (24-25) from 24, Desolace's southern strand naga (32-35)
+// from 34, each on the walk the first visit already makes.
+test('level-ready steps: Raene\'s furbolg hunts and Other Fish to Fry are on the first visit\'s own walk for a character already at their level', { skip }, () => {
+	const ash = goals(ASHENVALE);
+	const pos = (list, what, pred) => list[at(list, what, pred)].s;
+	const take = pos(ash, 'accept 1025', is('accept', 1025));
+	assert.equal(take, pos(ash, 'accept 1054', is('accept', 1054)), 'both from Raene in one talk');
+	assert.ok(take > pos(ash, 'turnin 1023', is('turnin', 1023)) && take < pos(ash, 'collect 5494 (Handful of Stardust)', (g) => g.t === 'collect' && g.item === 5494), 'after Raene\'s Cleansing, before Stonetalon and the stardust');
+	const foulweald = pos(ash, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025);
+	assert.ok(foulweald > pos(ash, 'collect 5494', (g) => g.t === 'collect' && g.item === 5494) && foulweald < pos(ash, 'turnin 1024 (Shael\'dryn)', is('turnin', 1024)), 'the Foulweald between the Ruins of Stardust and Shael\'dryn');
+	const dal = pos(ash, 'Dal Bloodclaw\'s Skull', (g) => g.t === 'collect' && g.item === 5544);
+	const pelturas = pos(ash, 'turnin 1034 (Pelturas)', is('turnin', 1034));
+	assert.ok(dal > pos(ash, 'turnin 1024', is('turnin', 1024)) && dal < pelturas, 'Dal Bloodclaw after Shael\'dryn, before Astranaar');
+	for (const q of [1025, 1054]) assert.ok(pos(ash, `turnin ${q}`, is('turnin', q)) > dal && pos(ash, `turnin ${q}`, is('turnin', q)) < pelturas, `${q} handed to Raene before Pelturas`);
+	const des = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const naga = des.filter(({ goal }) => goal.t === 'kill' && goal.quest === 6143);
+	assert.equal(naga.length, 3, 'the three naga kinds');
+	assert.ok(pos(des, 'accept 6143', is('accept', 6143)) < pos(des, 'accept 6161 (Rackmore\'s Log)', is('accept', 6161)), 'taken at Shadowprey, before the walk north');
+	const key = pos(des, 'Rackmore\'s Golden Key', (g) => g.t === 'collect' && g.item === 15881);
+	assert.ok(naga.every(({ s }) => s > key && s < pos(des, 'turnin 6161 (Rackmore\'s Chest)', is('turnin', 6161))), 'the naga with Rackmore\'s Golden Key, before the chest');
+	const myrmidon = naga.find(({ goal }) => goal.npc === 4714 || goal.target === 4714) || naga[0];
+	assert.ok(myrmidon.goal.y > 17, 'the Myrmidons in the strand\'s southern half, away from the Sea Witches and Tidehunters');
+	assert.ok(pos(des, 'turnin 6143', is('turnin', 6143)) > pos(des, 'turnin 6142 (Mai\'Lahii)', is('turnin', 6142)), 'handed in on the last Shadowprey stop');
 });
 
 // --- Flow re-order (2026-11-07, #1106): Alliance Badlands walked from the
@@ -7976,8 +8012,13 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
 	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
 	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
-	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
-	assert.ok(!ash.some(({ goal }) => [1025, 1054].includes(goal.quest)), 'An Aggressive Defense and Culling the Threat are not in 06-ashenvale');
+	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046. 06-ashenvale
+	// offers them only to a character already at 23.5 on the second Astranaar stop, and their work from level 24.
+	for (const { step, goal } of ash.filter(({ goal }) => [1025, 1054].includes(goal.quest))) {
+		if (goal.t === 'accept') assert.ok(levelFrom(step) >= 23.5, `06-ashenvale offers ${goal.quest} only from 23.5`);
+		else if (goal.t === 'turnin') assert.ok(holdsQuest(step, goal.quest), `06-ashenvale hands in ${goal.quest} only for whoever has it`);
+		else assert.ok(levelFrom(step) >= 24 && holdsQuest(step, goal.quest), `${goal.t} for ${goal.quest} in 06-ashenvale only from 24, for whoever took it`);
+	}
 	for (const q of [1025, 1054]) {
 		assert.equal(wetStep('accept', q), wetStep('turnin', 1029), `${q} taken on Raene's 1029 stop`);
 		assert.equal(wetStep('turnin', q), wetStep('turnin', 1046), `${q} handed in with 1046 on the last Astranaar stop`);
