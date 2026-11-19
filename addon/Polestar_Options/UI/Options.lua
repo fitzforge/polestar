@@ -1411,6 +1411,10 @@ local function tipOf(c, withPath)
 			if why then lines[#lines + 1] = { why, Theme.Color("warning") } end
 		end
 		if on and c.key and W.Modified(c.key) then lines[#lines + 1] = { L["Right-click to reset."], Theme.Color("textMuted") } end
+		-- The ring shows while the setting is at its default: its tooltip says what the ring means.
+		if rowIsNew(c) and not (c.key and W.Modified(c.key)) then
+			lines[#lines + 1] = { string.format(L["New in %s"], c.new), Theme.Color("accent") }
+		end
 		local home = homeOf(c)
 		if withPath or home then lines[#lines + 1] = { pathOf(home or c), Theme.Color("textMuted") } end
 		return lines
@@ -3205,8 +3209,10 @@ local function navItems()
 					-- One quiet mark a page: a ring while it holds settings new to the player, else a dot while one is off
 					-- its default; no count.
 					local new = pageNew(p) > 0
+					local changed = not new and pageChanged(p)
 					items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, indent = true, dot = p.dot and p.dot() or nil,
-						new = new or nil, changed = not new and pageChanged(p) or nil }
+						new = new or nil, changed = changed or nil,
+						markTip = new and L["New settings on this page"] or changed and L["Settings on this page changed from their default"] or nil }
 				end
 			end
 		end

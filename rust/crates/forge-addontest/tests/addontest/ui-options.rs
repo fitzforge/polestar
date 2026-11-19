@@ -2369,7 +2369,6 @@ fn new_settings_put_a_ring_on_their_row_and_one_on_their_page_until_opened_gone_
 		end
 		local function mark()
 			local b = navRow("Fake pins")
-			if b.New:IsShown() then return "count" end
 			if not b.Changed:IsShown() then return false end
 			return tostring(b.Changed:GetTexture()):match("ring$") and "ring" or "dot"
 		end
