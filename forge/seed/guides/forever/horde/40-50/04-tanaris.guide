@@ -4,7 +4,7 @@ faction Horde
 levels 48-49
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
-pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
+pitch Gadgetzan and the Searing Gorge at 48-49: the Wastewander camps, Tooga's escort and Thorium Point.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
@@ -133,7 +133,7 @@ step Marvon Rivetseeker
   turnin 3161
 
 step Scrimshank's gear
-  tip Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.
+  tip Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50.
   collect 8593 quest 10.1 @56.0,71.2
 
 step OOX-17/TN

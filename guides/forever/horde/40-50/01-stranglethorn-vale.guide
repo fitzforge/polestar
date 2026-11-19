@@ -28,6 +28,7 @@ step Fly to the Undercity
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   zone Badlands
   tip Your level 40 training is in the Undercity: fly there from Kargath, train, and take the zeppelin from the towers outside the city to Grom'gol.
+  tip The Riverglades route starts after Stranglethorn and the Swamp, at about 41. Heading south through Twilight's Shroud now? Load the Riverglades guide and keep east to Rog'mar. Da'grosh's camps below the pass are 43-46, with elite Twilight Enforcers (45), Kilgar and Morg (46).
   goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
@@ -53,6 +54,7 @@ step Zeppelin to Grom'gol
 step Fly to Grom'gol
   only Hunter,Shaman,Druid
   zone Badlands
+  tip The Riverglades route starts after Stranglethorn and the Swamp, at about 41. Heading south through Twilight's Shroud now? Load the Riverglades guide and keep east to Rog'mar. Da'grosh's camps below the pass are 43-46, with elite Twilight Enforcers (45), Kilgar and Morg (46).
   goto 4.1,44.9 "Kargath flight master"
   fly "Grom'gol"
   zone Stranglethorn Vale

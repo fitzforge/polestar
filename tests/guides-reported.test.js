@@ -2841,6 +2841,43 @@ test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step 
 	const history = steps.findIndex((s) => s.goals.some(is('turnin', 93016)));
 	assert.ok(history >= 0 && history < steps.indexOf(st), 'the route hands it in first');
 });
+// Shen'dralas western pylon (route review 0.4.3, both factions): the band's worst spot for players following the
+// guide (players' recordings: 6 people, 15 deaths on Powering the Pylons there, all east of the pylon, where the
+// Decrepit Pylon Protectors stand in twos and threes with the Corpsefeeder and the Magram Necrokhans, elites of 45).
+// The repair step leads first to the quiet road just south of the pylon, on its west edge (no Protectors behind),
+// names the pull and the side to keep off,
+// and the earlier steps keep the Magram (Necrokhans included) neutral: the journal from the Outcast Necromancers,
+// the fragment at Magram Village without a fight.
+test('forever/40-50/shendralas.guide: the western pylon is repaired from its quiet south side, away from the elites', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'kill' && g.quest === 96018 && g.oi === 2));
+	assert.ok(st, 'the western pylon\'s repair step');
+	const kill = st.goals.find((g) => g.t === 'kill');
+	const approach = steps[steps.indexOf(st) - 1];
+	const pin = approach.goals.find((g) => g.t === 'goto');
+	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
+	assert.ok(pin && pin.x <= kill.x && pin.y > kill.y, 'approach the west edge from the south');
+	assert.deepEqual(kill.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
+	const tips = approach.note || '';
+	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
+	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
+	assert.match(tips, /Corpsefeeder \(level 45, elite\)/, 'names the Corpsefeeder');
+	assert.match(tips, /Necrokhan/, 'names the Necrokhans');
+	const journalStep = steps.find((s) => s.goals.some(is('accept', 93644)));
+	const collect = journalStep.goals.find((g) => g.t === 'collect' && g.item === 260347);
+	assert.deepEqual(collect.spots.map(({ x, y }) => [x, y]), [[27.30, 23.95], [26.59, 27.52]]);
+	assert.equal(collect.npc, 11559, 'target Outcasts, not Magram');
+	assert.match(journalStep.note, /Take it from the Outcast Necromancers and leave the Magram alone/, 'the journal keeps the Magram neutral');
+	const village = steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 255656)).note || '';
+	assert.match(village, /pick the fragment up without a fight/, 'so does the fragment');
+});
+test('Shen\'dralas: Mana Mania is only offered to groups after A Heart of Crystal', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const heart = steps.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 99257));
+	const follow = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
+	assert.ok(heart >= 0 && follow > heart);
+	for (const k of ['group', 'turnedin']) assert.ok(steps[follow].when.some((w) => w.k === k && !w.neg && [].concat(w.q).includes(k === 'group' ? 99258 : 99257)));
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.
@@ -14499,8 +14536,8 @@ test("Riverglades (Horde route): the zone's errands are taken and handed in at s
 // recorded characters who took them had handed it in. Land of Giants comes from Tran'gul after Spread the Word
 // (95418), Clubtoe's word once Twilight No More! (95427, Chogg'Zac) is done, after Tran'gul's and Clubtoe's
 // Sunnyglade quests. So the guide does Sunnyglade whole, Rog'mar, then Bolder'ok, as those players did; Clugfist's
-// Decree, the Ring and Da'grosh's camp follow from Might Makes Right. Chogg'Zac is no group choice: the chain
-// hangs on him.
+// Decree, the Ring and Da'grosh's camp follow from Might Makes Right. Since 0.4.3 Chogg'Zac (a level-41 elite) is a
+// group choice (Fitz's call): the chain still hangs on him, in the same order, for whoever takes it.
 test("Riverglades (Horde route): Sunnyglade and Land of Giants come before Clugfist's quests in Bolder'ok", () => {
 	const lines = fs.readFileSync(RIVERGLADES_HORDE, 'utf8').split('\n').map(codeOf);
 	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
@@ -14510,7 +14547,7 @@ test("Riverglades (Horde route): Sunnyglade and Land of Giants come before Clugf
 	for (let i = 1; i < at.length; i++) assert.ok(at[i - 1] < at[i], `${order[i - 1].join(' ')} before ${order[i].join(' ')}`);
 	const steps = rivergladesSteps(RIVERGLADES_HORDE);
 	const chogg = steps.find((l) => anyLine(l, /^\s+collect 265750\b/));
-	assert.ok(chogg && !anyLine(chogg, /^\s+when group\b/), "Chogg'Zac is on the route, with a Careful tip");
+	assert.ok(chogg && anyLine(chogg, /^\s+when group 95427\b/), "Chogg'Zac's heads are a group choice");
 	const last = steps.find((l) => anyLine(l, /^\s+accept 94965\b/));
 	assert.ok(last && anyLine(last, /^\s+when turnedin 94737\b/), "the Ring's last bouts wait for Gobam's errands");
 });
@@ -16745,6 +16782,42 @@ test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the riv
 	const { goal } = list[at(list, 'use 271639', (g) => g.t === 'use' && g.quest === 95955)];
 	assert.equal(goal.map, 2548);
 	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
+});
+
+// Route review 0.4.3 (Horde Riverglades, Fitz's call): Chogg'Zac, a level-41 elite, was a solo target on the main line
+// (optional collects). Twilight No More! is now a group choice (`when group 95427`, its accept, both heads); the
+// ogre story after it (Land of Giants, Bolder'ok, Da'grosh) runs only for whoever took it, and the solo player leaves
+// by the Rog'mar flight to Kargath instead of walking out through Da'grosh's valley.
+test('Riverglades (Horde): Chogg\'Zac is a group choice, and the solo route leaves by Rog\'mar', { skip }, () => {
+	const steps = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
+	const grouped = (st, q) => (st.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q));
+	const work = steps.filter((st) => st.goals.some((g) => (g.t === 'accept' && g.quest === 95427) || (g.t === 'collect' && g.quest === 95427)));
+	assert.ok(work.length >= 1, 'the accept and the heads');
+	for (const st of work) assert.ok(grouped(st, 95427), `"${st.title}" asks for the group answer`);
+	assert.match(work.map((st) => st.note || '').join(' '), /is an elite \(level 41\): grouping up is advised/, 'the house\'s elite tip');
+	for (const q of [95420, 95424, 94744, 94745]) {
+		for (const st of steps.filter((s) => s.goals.some((g) => g.quest === q && g.t !== 'accept'))) {
+			assert.ok((st.when || []).length, `"${st.title}" (${q}) waits on the chain`);
+		}
+	}
+	const flights = steps.filter((st) => st.goals.some((g) => g.t === 'fly' && /Kargath/.test(g.location || g.text || '')));
+	assert.ok(flights.some((st) => (st.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(94744))), 'a flight to Kargath for whoever has no Da\'grosh work');
+});
+
+test('Riverglades (Horde): the port checks the character before both pirate camps', { skip }, () => {
+	const st = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
+	const first = (match) => st.findIndex((s) => s.goals.some(match));
+	const gate = (n) => first((g) => g.t === 'level' && g.level === n);
+	const firstPirates = first((g) => g.t === 'kill' && g.quest === 95119);
+	const raiders = first((g) => g.t === 'kill' && g.quest === 95122);
+	const admiral = first((g) => g.t === 'kill' && g.quest === 95124);
+	assert.ok(gate(42) >= 0 && gate(42) < firstPirates);
+	assert.ok(firstPirates < gate(44) && gate(44) < raiders && raiders < admiral);
+	for (const [i, n] of [[firstPirates, 42], [raiders, 44], [admiral, 44]]) {
+		assert.ok(st[i].when.some((w) => w.k === 'level' && w.op === '>=' && w.n === n), 'While here respects the camp level');
+	}
+	const earlyArgo = first((g) => g.t === 'turnin' && g.quest === 95261);
+	assert.ok(firstPirates < earlyArgo && earlyArgo < gate(44), 'the lower-level route does Argo before the top-up');
 });
 
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
