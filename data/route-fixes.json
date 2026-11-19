@@ -8807,6 +8807,11 @@
 				"q": 95427,
 				"size": 2,
 				"why": "Horde Riverglades (route round 0.4.3, Fitz's call, #3145): Twilight No More! asks for both heads of Chogg'Zac, a level-41 elite ogre at the western edge of Sunnyglade, at the quest's own level, so the creature data reads it soloable (size 1); an elite is a group mob, so it is a group choice (a group of 2) and the solo player skips it with the ogre story that waits on it (Spread the Word, Land of Giants, Bolder'ok and the Bloodmaster's Ring, Da'grosh's camp: about 21,000 XP). Players' recordings: 73 of 76 people who met him killed him, many alone at 42-43; the choice is theirs. The solo player leaves the zone by the Rog'mar flight to Kargath."
+			},
+			{
+				"q": 99258,
+				"size": 2,
+				"why": "Shen'dralas (both factions, route round 0.4.3, #3145): Mana Mania, Historian Biraxas' task after A Heart of Crystal, is one kill of a Nascent Pylon Protector, a level-43 elite at the quest's own level, so the creature data reads it soloable; an elite is a group mob, so it is a group choice (a group of 2), after A Heart of Crystal. Players' recordings: 8 people took it."
 			}
 		]
 	},

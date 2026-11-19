@@ -26,12 +26,16 @@ next forever/alliance/40-50/03-feralas
 # Lesson after Powering the Pylons; Meeting the Magister after A Brief History Lesson; What They've Done to My
 # Peonies and Word of the Woods after Forlorn Gardens. Mithera was only recorded after Meeting the Magister was
 # handed in, so the temple's quests wait for it here.
+# The western pylon (Powering the Pylons) is the zone's deadliest spot for players following the guide: its step
+# leads to the quiet road just south of it, and the journal and the Magram Village fragment are taken without
+# killing Magram, whose clan (Necrokhans included, elites of 45, around the pylon) turns hostile once you do.
+# Behind a group choice: Mana Mania (99258, Historian Biraxas after A Heart of Crystal): its Nascent Pylon Protector
+# is an elite (level 43); 8 players recorded it.
 # Left out on purpose:
 # - The Gelkis and Magram quests of the Valley of Bones (Nerlokh, Orgrul, Hagiak, Rokren; Valley of Bones,
 #   Khan Jehn and the rest): each asks for Honored with its centaur clan (forever/reputation/centaur-clans).
-# - Vindael's Phantasmal Problems (93450), Spectral Iron Ore (93546) and Tempered Expectations (96060): nobody
-#   recorded them, and the data places none of the spectral ore deposits.
-# - Mana Mania (99258): its Nascent Pylon Protector is an elite (level 43), and nobody recorded it.
+# - Vindael's Phantasmal Problems (93450), Spectral Iron Ore (93546) and Tempered Expectations (96060): only one to
+#   three players recorded them, and the data places none of the spectral ore deposits.
 # - Rot and Regret (93404, Maraudon), Passing the Blame (93601) after it, Agamaggan's Blood (93604, Razorfen Downs)
 #   and Not on Squealing Terms (93606): dungeon quests and their follow-ups; Kog'thug the Brave, who gives the last
 #   two, was hostile to every player who met him.
@@ -83,7 +87,10 @@ step The Valley of Bones: a Tattered Journal
   tip New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.
   tip The Gelkis and Magram centaurs have Valley of Bones quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.
-  collect 260347
+  loop
+  goto 27.30,23.95 r 8
+  goto 26.59,27.52 r 8
+  collect 260347 npc 11559
   accept 93644
 
 step The western pylon
@@ -134,12 +141,20 @@ step The temple: the Mana Sieve
   tip Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.
   collect 255662 @45.9,78.2
 
-step The western pylon: repair it
+step The road south of the western pylon
+  label western-pylon-approach
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
   tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.
   tip If you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.
   goto 43.9,37.0 "the road just south of the western pylon" r 10
-  kill 252711 quest 96018.2 @43.97,35.59 -- Decrepit Pylon Protector, pulled to the arrow's spot, then Repair and Recharge Pylon on the pylon's west side
+
+step The western pylon: repair it
+  when done western-pylon-approach
+  loop
+  goto 43.97,35.59 r 4
+  goto 43.89,35.64 r 4
+  tip Pull a single Protector down to the road, then repair the pylon from its west side.
+  kill 252711 quest 96018.2 -- Decrepit Pylon Protector, pulled to the arrow's spot, then Repair and Recharge Pylon on the pylon's west side
 
 step Bristleback Retreat: repair the eastern pylon
   tip East along the valley road to the eastern pylon and repair it the same way, a Decrepit Pylon Protector first, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
@@ -194,8 +209,15 @@ step A Heart of Crystal
   collect 286647 quest 99257.1
 
 step Historian Biraxas
-  tip Shen'dralas is done: ride back north through the Valley of Bones; the next step says where your route goes on from there.
   turnin 99257
+
+step Mana Mania
+  when group 99258
+  when turnedin 99257
+  tip Take the Depleted Crystal Heart to an Unstable Mana Rift on the road north of the temple and throw it into the rift. The Nascent Pylon Protector is elite: grouping up is advised.
+  accept 99258                        -- Historian Biraxas
+  kill 276401 quest 99258.1           -- Nascent Pylon Protector
+  turnin 99258
 
 step Shadowprey Village
   only Horde

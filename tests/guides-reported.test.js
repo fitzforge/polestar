@@ -2793,18 +2793,30 @@ test('forever/40-50/shendralas.guide: the western pylon is repaired from its qui
 	const st = steps.find((s) => s.goals.some((g) => g.t === 'kill' && g.quest === 96018 && g.oi === 2));
 	assert.ok(st, 'the western pylon\'s repair step');
 	const kill = st.goals.find((g) => g.t === 'kill');
-	const pin = st.goals.findIndex((g) => g.t === 'goto');
-	assert.ok(pin >= 0 && pin < st.goals.indexOf(kill), 'the arrow leads to the approach before the Protector');
-	assert.ok(st.goals[pin].x <= kill.x && st.goals[pin].y > kill.y, 'the approach is south of the pylon, on its west edge');
-	const tips = st.note || '';
+	const approach = steps[steps.indexOf(st) - 1];
+	const pin = approach.goals.find((g) => g.t === 'goto');
+	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
+	assert.ok(pin && pin.x <= kill.x && pin.y > kill.y, 'approach the west edge from the south');
+	assert.deepEqual(kill.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
+	const tips = approach.note || '';
 	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
 	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
 	assert.match(tips, /Corpsefeeder \(level 45, elite\)/, 'names the Corpsefeeder');
 	assert.match(tips, /Necrokhan/, 'names the Necrokhans');
-	const journal = steps.find((s) => s.goals.some(is('accept', 93644))).note || '';
-	assert.match(journal, /Take it from the Outcast Necromancers and leave the Magram alone/, 'the journal keeps the Magram neutral');
+	const journalStep = steps.find((s) => s.goals.some(is('accept', 93644)));
+	const collect = journalStep.goals.find((g) => g.t === 'collect' && g.item === 260347);
+	assert.deepEqual(collect.spots.map(({ x, y }) => [x, y]), [[27.30, 23.95], [26.59, 27.52]]);
+	assert.equal(collect.npc, 11559, 'target Outcasts, not Magram');
+	assert.match(journalStep.note, /Take it from the Outcast Necromancers and leave the Magram alone/, 'the journal keeps the Magram neutral');
 	const village = steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 255656)).note || '';
 	assert.match(village, /pick the fragment up without a fight/, 'so does the fragment');
+});
+test('Shen\'dralas: Mana Mania is only offered to groups after A Heart of Crystal', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const heart = steps.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 99257));
+	const follow = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
+	assert.ok(heart >= 0 && follow > heart);
+	for (const k of ['group', 'turnedin']) assert.ok(steps[follow].when.some((w) => w.k === k && !w.neg && [].concat(w.q).includes(k === 'group' ? 99258 : 99257)));
 });
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
