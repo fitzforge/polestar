@@ -154,7 +154,8 @@ function sharedSort(list_, keyOf, extra) {
 // The audit: { branches: [...], guides: { id: { branches, mean, max, findings, ... } }, dynamic, route, dungeons, level_offset }.
 // opts: addon guides ({ guides, legs }), dataDir, starts/classes filters, guide (id substring), noLegs, longFly, dynamic
 // ("036" | "037" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, ""),
-// levelOffset (the walk's: a character that many levels ahead of the modelled one; levels reported stay modelled).
+// levelOffset (the walk's: a character that many levels ahead of the modelled one, or a profile [[level, offset], ...]
+// by modelled level; levels reported stay modelled).
 function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	const { faction = '', starts = [], classes = [], guide = '', noLegs = false, longFly = 2500, dynamic = null, whTake = 'near', followups = true, route = [], dungeons = '', dungeonQuests = 'all', levelOffset = 0 } = opts;
 	const data = loadData(dataDir);

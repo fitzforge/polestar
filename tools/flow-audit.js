@@ -24,6 +24,9 @@
 //   --level-offset D a character always D levels (may be fractional or negative) ahead of the modelled level: `when level`
 //                    steps, level goals, min levels and the While-here mob gate read that level; XP and the levels
 //                    reported stay modelled (the audit records it; the gate refuses two audits of different offsets)
+//   --level-offset-profile FILE  instead of --level-offset: the offset by modelled level, a JSON list [[level, offset],
+//                    ...] in rising level, linear between its points, the first's before and the last's after them
+//                    (recorded as level_offset; the gate refuses two audits of different profiles)
 //   --with-dungeons  modes: also every way with dungeons in the route (both sides of a gate must use the same)
 //   --reasons FILE   the stated reasons for accepted regressions (default data/flow-gate.json)
 // gate exits 1 when a check got worse without a reason, 0 otherwise.
@@ -38,19 +41,28 @@ const { compare, table, formatResult } = require('./lib/flow/gate');
 
 const USAGE = `usage: node tools/flow-audit.js run --addon <dir> [--data DIR] [--faction F] [--start LIST] [--class LIST] [--route LIST]
                                 [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
-                                [--level-offset D] [--out FILE] [--md FILE]
+                                [--level-offset D | --level-offset-profile FILE] [--out FILE] [--md FILE]
        node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [--with-dungeons] [the run options]
        node tools/flow-audit.js gate <before.json|dir> <after.json|dir> [--reasons FILE] [--json]`;
 
 const listOf = (s) => (s ? String(s).split(',').map((x) => x.trim()).filter(Boolean) : []);
+
+// An offset profile file: [[level, offset], ...], levels rising.
+function profileOf(file) {
+	const p = JSON.parse(fs.readFileSync(file, 'utf8'));
+	const ok = Array.isArray(p) && p.length > 0 && p.every((x, i) => Array.isArray(x) && x.length === 2 && x.every(Number.isFinite) && (i === 0 || x[0] > p[i - 1][0]));
+	if (!ok) throw new Error(`--level-offset-profile ${file}: a JSON list [[level, offset], ...] with rising levels`);
+	return p;
+}
 
 function auditOpts(opts) {
 	const dynamic = opts.dynamic === 'off' ? null : opts.dynamic || '037';
 	if (dynamic && !['036', '037'].includes(dynamic)) throw new Error(`--dynamic ${opts.dynamic}: 037, 036 or off`);
 	if (opts.whTake && !['near', 'all'].includes(opts.whTake)) throw new Error(`--wh-take ${opts.whTake}: near or all`);
 	if (opts.dungeonQuests && !['all', 'way'].includes(opts.dungeonQuests)) throw new Error(`--dungeon-quests ${opts.dungeonQuests}: all or way`);
-	const levelOffset = opts.levelOffset == null ? 0 : Number(opts.levelOffset);
-	if (!Number.isFinite(levelOffset)) throw new Error(`--level-offset ${opts.levelOffset}: a number of levels`);
+	if (opts.levelOffset != null && opts.levelOffsetProfile != null) throw new Error('--level-offset and --level-offset-profile: one of them');
+	const levelOffset = opts.levelOffsetProfile != null ? profileOf(opts.levelOffsetProfile) : opts.levelOffset == null ? 0 : Number(opts.levelOffset);
+	if (!Array.isArray(levelOffset) && !Number.isFinite(levelOffset)) throw new Error(`--level-offset ${opts.levelOffset}: a number of levels`);
 	return {
 		faction: opts.faction || '', starts: listOf(opts.start).map((s) => s.toLowerCase()), classes: listOf(opts.class).map((s) => s.toUpperCase()),
 		guide: opts.guide || '', route: listOf(opts.route), dungeons: opts.dungeons || '', dungeonQuests: opts.dungeonQuests || 'all', dynamic, whTake: opts.whTake || 'near',
@@ -157,7 +169,8 @@ function main(argv) {
 	const [cmd, ...rest] = argv;
 	const { opts, positional, error } = parseArgs(rest, {
 		flags: ['--no-followups', '--no-legs', '--json', '--table', '--with-dungeons'],
-		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons', '--level-offset'],
+		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons', '--level-offset',
+			'--level-offset-profile'],
 	});
 	if (opts.help || error || !['run', 'modes', 'gate'].includes(cmd) || (cmd !== 'gate' && !opts.addon)) {
 		console.error((error ? error + '\n' : '') + USAGE);

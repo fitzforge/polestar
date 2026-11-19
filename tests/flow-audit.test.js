@@ -257,6 +257,22 @@ test('a `when complete` step plays only once the quest\'s work is done', (t) => 
 	assert.deepEqual(play(5), [1], 'not worked: not handed in either');
 });
 
+// --level-offset-profile: the offset by modelled level, linear between the profile's points; the gate refuses two
+// audits of different profiles.
+test('a level offset profile reads the offset at the modelled level, linear between its points', (t) => {
+	const dir = dataDir(t);
+	const data = loadData(dir);
+	const g = guide('test/l', [[goto_(10, 10)], { when: [{ k: 'level', op: '>=', n: 2 }], goals: [goto_(10.01, 10)] }], { races: ['Orc'] });
+	const walk = (levelOffset) => new Walk({ chain: ['test/l'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data, levelOffset });
+	const w = walk([[1, 1], [11, 0]]);
+	assert.deepEqual([w.offsetAt(0.5), w.offsetAt(6), w.offsetAt(20)], [1, 0.5, 0]);
+	assert.deepEqual([...new Set(w.entries.map((e) => e.step))], [1, 2], 'one ahead at level 1');
+	assert.deepEqual([...new Set(walk([[1, 0.5], [11, 0]]).entries.map((e) => e.step))], [1], 'half a level ahead');
+	const run = (levelOffset) => runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0, levelOffset });
+	assert.deepEqual(run([[1, 1]]).level_offset, [[1, 1]]);
+	assert.throws(() => compare(run([[1, 1]]), run([[1, 2]])), /different level offsets/);
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [

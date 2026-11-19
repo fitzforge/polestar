@@ -42,8 +42,13 @@ light: a few seconds per branch, a few minutes per faction and mode.
 `--level-offset D` (default 0; fractional or negative too) plays a character
 always D levels ahead of the walk's modelled one: `when level` steps, level
 goals, min levels and the While-here mob gate read that level, while XP and the
-levels reported stay modelled. The audit records the offset; the gate refuses
-to compare two audits of different offsets.
+levels reported stay modelled. `--level-offset-profile FILE` instead plays a lead
+that changes with the level: a JSON list `[[level, offset], ...]` by modelled
+level, linear between its points (the first point's offset below it, the last
+one's above it), e.g. `[[5, -0.5], [25, 0.4], [35, 1.7], [45, 0.5]]` for a player
+behind the model in the start zones and ahead of it in the 30s. The audit records
+the offset or the profile; the gate refuses to compare two audits of different
+offsets.
 
 ## How a branch is played
 

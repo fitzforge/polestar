@@ -213,9 +213,10 @@ class Walk {
 	// walk's `chain`). data: loadData's. dyn: null (strict), "036" or "037". future: quest -> level at the guide's own
 	// hand-in on the strict walk (the XP rule). timed: quest -> timer seconds. take: "near" (lines taken where nearly
 	// free, as players do) or "all". followups: accept the follow-ups an early hand-in's NPC gives (players do).
-	// levelOffset: a character always this many levels (a float, may be negative) ahead of the modelled level: XP
-	// still accrues from the modelled level (so the offset stays constant) and entries report it, but every decision
-	// on the player's level (`when level`, level goals, nextWhen, min levels, the While-here mob gate) reads effLevel.
+	// levelOffset: a character always this many levels (a float, may be negative) ahead of the modelled level, or a
+	// profile of such offsets by modelled level ([[level, offset], ...], offsetAt): XP still accrues from the modelled
+	// level (so the offset stays as given) and entries report it, but every decision on the player's level (`when
+	// level`, level goals, nextWhen, min levels, the While-here mob gate) reads effLevel.
 	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all', faction = '', levelOffset = 0 }) {
 		this.race = race;
 		this.cls = cls;
@@ -360,7 +361,19 @@ class Walk {
 	// character that many levels ahead of it (1 to 60). `when level` conditions read it.
 	effLv(L = this.L, xp = this.xp) {
 		const lv = L + xp / XP_TO_LEVEL[Math.min(L, 59)];
-		return this.levelOffset ? Math.min(60, Math.max(1, lv + this.levelOffset)) : lv;
+		return this.levelOffset ? Math.min(60, Math.max(1, lv + this.offsetAt(lv))) : lv;
+	}
+
+	// The offset at modelled level lv: levelOffset, or with a profile ([[level, offset], ...] by modelled level) the
+	// offset between its points (linear; before the first point the first's, after the last the last's).
+	offsetAt(lv) {
+		const p = this.levelOffset;
+		if (!Array.isArray(p)) return p;
+		if (lv <= p[0][0]) return p[0][1];
+		for (let i = 1; i < p.length; i++) {
+			if (lv <= p[i][0]) return p[i - 1][1] + (p[i][1] - p[i - 1][1]) * (lv - p[i - 1][0]) / (p[i][0] - p[i - 1][0]);
+		}
+		return p[p.length - 1][1];
 	}
 
 	// The character's whole level, for every other decision on it (min levels, the While-here mob gate).
@@ -601,9 +614,9 @@ class Walk {
 		if (tt === 'level') {
 			// a target the character's level already meets costs nothing; a shortfall is ground from that level, and
 			// the modelled level moves the same way (the offset stays)
-			const D = this.levelOffset;
 			const tgt = (go.level || 0) + (go.frac || 0);
 			const cur = L + xp / XP_TO_LEVEL[Math.min(L, 59)];
+			const D = this.levelOffset ? this.offsetAt(cur) : 0;
 			const eCur = D ? Math.min(60, Math.max(1, cur + D)) : cur;
 			if (tgt > eCur) {
 				// grind: time at ~2 mobs a minute
@@ -625,7 +638,9 @@ class Walk {
 				}
 				this.t += need * 35;
 				if (D) {
-					const m = Math.min(60, tgt - D);
+					// the modelled level m whose character level is the target (m + offsetAt(m) = tgt)
+					let m = Math.min(60, tgt - D);
+					for (let k = 0; k < 20 && Array.isArray(this.levelOffset); k++) m = Math.min(60, tgt - this.offsetAt(m));
 					L = Math.floor(m);
 					xp = (m - L) * XP_TO_LEVEL[Math.min(L, 59)];
 				} else {

@@ -80,11 +80,11 @@ function reasonFor(f, reasons, ctx) {
 // before / after: runAudit's output. ctx: { mode, faction } for the reasons; `run` (dungeons on) picks the run
 // mode's checks (default: the audit's own `dungeons`). A guide new to the candidate, or one whose quests changed by more
 // than RESTRUCTURED (split, merged, content moved), is compared through the branches only: its own numbers measure a
-// different guide. Two audits of characters at different level offsets (--level-offset) play different routes: they
-// are refused with an error. -> { fail, accepted, notCompared, restructured, checked, kind }
+// different guide. Two audits of characters at different level offsets (--level-offset, --level-offset-profile) play
+// different routes: they are refused with an error. -> { fail, accepted, notCompared, restructured, checked, kind }
 function compare(before, after, reasons = [], ctx = {}) {
-	const off = (a) => a.level_offset || 0;
-	if (off(before) !== off(after)) throw new Error(`the audits are of different level offsets (${off(before)} and ${off(after)}): run both with the same --level-offset`);
+	const off = (a) => JSON.stringify(a.level_offset || 0);
+	if (off(before) !== off(after)) throw new Error(`the audits are of different level offsets (${off(before)} and ${off(after)}): run both with the same --level-offset or --level-offset-profile`);
 	const kind = (ctx.run ?? Boolean(after.dungeons)) ? 'run' : 'solo';
 	const fail = [], accepted = [];
 	const add = (f) => {
