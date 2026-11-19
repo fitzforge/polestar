@@ -10,7 +10,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
 	local max, floor = math.max, math.floor
 
-	local ART_W, CARD_H, INSET, START_W = 64, 116, 12, 72
+	local ART_W, CARD_H, INSET, START_W, START_H = 96, 104, 12, 72, 22 -- art near square, not a tall strip
 	local PN = {}
 	GF.PlayNext = PN
 
@@ -33,7 +33,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		card.Why:SetWordWrap(true)
 		if card.Why.SetMaxLines then card.Why:SetMaxLines(2) end
 		card.Steps = W.Text(card, "small", "textMuted")
-		card.Start = W.Button(card, L["Start"], function(b) if b.psAction then b.psAction() end end, { primary = true, width = START_W })
+		card.Start = W.Button(card, L["Start"], function(b) if b.psAction then b.psAction() end end, { primary = true, width = START_W, height = START_H })
 		card.Start:SetWidth(START_W)
 		card.Start.psDefault = true -- a gamepad starts here (UI/GamepadGuide.lua)
 		card:Hide()
@@ -79,18 +79,18 @@ ns.UI.GuideFrame.Part(function(GF)
 		local tw = max(40, width - ART_W - INSET * 2)
 		local x = ART_W + INSET
 		card.Eyebrow:ClearAllPoints()
-		card.Eyebrow:SetPoint("TOPLEFT", card, "TOPLEFT", x, -12)
+		card.Eyebrow:SetPoint("TOPLEFT", card, "TOPLEFT", x, -10)
 		card.Eyebrow:SetWidth(tw)
 		card.Title:ClearAllPoints()
-		card.Title:SetPoint("TOPLEFT", card, "TOPLEFT", x, -30)
+		card.Title:SetPoint("TOPLEFT", card, "TOPLEFT", x, -26)
 		card.Title:SetWidth(tw)
 		card.Why:ClearAllPoints()
-		card.Why:SetPoint("TOPLEFT", card, "TOPLEFT", x, -50)
+		card.Why:SetPoint("TOPLEFT", card, "TOPLEFT", x, -44)
 		card.Why:SetWidth(tw)
 		card.Start:ClearAllPoints()
-		card.Start:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -INSET, 10)
+		card.Start:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -INSET, 9)
 		card.Steps:ClearAllPoints()
-		card.Steps:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", x, 10 + floor((card.Start:GetHeight() - 12) / 2))
+		card.Steps:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", x, 9 + floor((START_H - 12) / 2))
 		card.Steps:SetWidth(max(20, tw - START_W - 8))
 		return CARD_H
 	end
