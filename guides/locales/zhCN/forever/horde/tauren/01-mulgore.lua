@@ -426,7 +426,7 @@ return {
 	["Thunder lizards on the way north"] = "北上途中的雷霆蜥蜴",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes them when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电皮蜥蜴在{area:369}吃草，就在向北通往{zone:1454}的路旁；它们都可能掉落{item:6486}。下一份指南经过{area:379}时交给{npc:5810}。\n小心：12级精英Halikor在{area:369}的蜥蜴之间游荡：拉怪前先留意他。",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes them when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电皮蜥蜴在{area:369}吃草，就在向北通往{zone:1454}的路旁；它们都可能掉落{item:6486}。下一份指南经过{area:379}时交给{npc:5810}。\n小心：12级精英哈利科尔在{area:369}的蜥蜴之间游荡：拉怪前先留意他。",
 
 	-- Step 96: Dustwind Gulch cultists
 	-- {area:1898} Dustwind Gulch
