@@ -6549,6 +6549,8 @@ test('Culling the Competition: both kills and their daggers search only the nort
 	assert.equal(targets.length, 3);
 	for (const { goal, step } of targets) {
 		assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[43.29, 28.24], [46.49, 25.27]]);
+		assert.deepEqual(goal.spots.map((s) => s.r), [45, 25], 'a Slaver and a Taskmaster spawn inside each circle');
+		if (goal.item === 10551) assert.equal(goal.npc, 5844, 'the dagger targets a Slaver on this hunt');
 		assert.ok(!step.goals.some((g) => g.quest === 7728), 'the Lookouts and Steamsmiths have their own hunt');
 	}
 });

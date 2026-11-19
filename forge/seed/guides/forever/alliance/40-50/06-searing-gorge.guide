@@ -70,11 +70,11 @@ step Dark Iron dwarves
   tip Pull Taskmasters and Slavers from the north rim for the Thorium Plated Daggers.
   tip Careful: Slavers call allies within 15 yards and can net you. Pull back onto open ground on the north rim below Thorium Point. Leave any pair with another pack close by.
   loop
-  goto 43.29,28.24 map 1427 r 25
+  goto 43.29,28.24 map 1427 r 45
   goto 46.49,25.27 map 1427 r 25
   kill 5846 quest 7729                -- Dark Iron Taskmaster
   kill 5844 quest 7729                -- Dark Iron Slaver
-  collect 10551 quest 3443            -- Thorium Plated Dagger
+  collect 10551 quest 3443 npc 5844   -- Thorium Plated Dagger; Taskmasters can drop it too
 
 step The furnaces and southern ridges
   tip The Steamsmiths at the furnaces carry the Smithing Tuyere; the Lookouts on the southern ridges carry the Spyglass. Keep the Grimesilt Outhouse Key if a dwarf drops it.
