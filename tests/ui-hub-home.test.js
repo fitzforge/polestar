@@ -174,13 +174,13 @@ test('suggestions say why they are listed: the level they fit, or the open tab t
 		open()
 		local l = labels()
 		emit({ rows = shownRows(), labels = l })`);
+	// The top suggestion is the Play next card (its reason is the card's); the rest stay rows.
 	const sugg = out.rows.filter((r) => !r.index);
 	assert.deepEqual(sugg.map((r) => [r.title, r.note]), [
-		['Exploration: Eastern Kingdoms 1-30', 'Fits level 15'],
 		['Westfall', 'Tab 1'],
 		['Darkshore', 'After Westfall'],
 	]);
-	assert.equal(out.labels.at(-1).text, 'Suggested for you');
+	assert.equal(out.labels.at(-1).text, 'Also for level 15');
 });
 
 // 900: no room for a note beside the chip, so it is left out; 1000: room for a cut one.
@@ -188,7 +188,7 @@ for (const [narrow, kept] of [[900, false], [1000, true]]) test(`a suggestion wi
 	const [out] = run(`
 		uistub.guides[${JSON.stringify(LONG)}].next = uistub.elwynn
 		uistub.guides[uistub.elwynn].group = true
-		uistub.suggestions = {}
+		uistub.suggestions = { ${JSON.stringify(EXPLORE)} }
 		uistub.openTabs({ { ${JSON.stringify(LONG)}, 1 } }, 1)
 		-- A narrow list pane, as the menu scaled up leaves it.
 		local metric = Polestar.Theme.Metric
