@@ -12186,18 +12186,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					189
-				],
-				"b": [
-					"accept",
-					213
-				],
-				"faction": "Alliance",
-				"why": "Alliance 30-40 re-order (2026-11-07, flow measurement): Hostile Takeover (213) is taken from Kebok with Bloodscalp Ears on the first Booty Bay stop, and Some Assembly Required (577, after Drizzlik's 575) and Water Elementals (601, after the Baron's 578) on the Booty Bay stop that ends Stranglethorn's first loop, where their givers stand; all three are worked on the northern loop (04b), which no longer starts with a Booty Bay stop for them. Bookie Herod (200) is likewise taken from Lieutenant Doren with 215's hand-in on the first Rebel Camp visit."
-			},
-			{
-				"a": [
 					"turnin",
 					331
 				],

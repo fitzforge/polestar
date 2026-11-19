@@ -14,7 +14,7 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 # Level tidy (0.4.0): the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about 36 instead of on the first loop at
 # 33-34, where Hemet gives it (Nesingwary's camp on the way in takes it for whoever didn't). Sin'Dall (Tiger Mastery, 188,
-# level 37) waits for 40-50/01-stranglethorn-vale at about 41 (fix round 2: players reach this hill at about 35.5).
+# level 37) is optional on the raptor hill from level 36; the 40-50 visit still takes her for everyone else.
 # Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
 # are three and four levels over players here: 40-50/01-stranglethorn-vale works both at about 41. Brother Nimetz gives
 # Troll Witchery here, when Kurzen's Mystery is handed in, and it is carried to that guide. Wendel Mathers'
@@ -22,6 +22,8 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # only from the Subchiefs (35-36, three of them beside Colonel Kurzen, a 39-40 elite) and Elites (36-37), two over
 # players here (fix round 1, 0.4.0). Zimmix Sputterspark (97329, 97331), Kebok's ears (189) and the Stolen Shipments
 # (97328) from the first loop are worked in the ruins of Zul'Kunda here, beside the third tablet.
+# Route review 0.4.3: Hostile Takeover (213) left this loop for 40-50/01-stranglethorn-vale (Kebok gives it there at about
+# 41): Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players here at about 35.7.
 
 step Collin Mauren
   when complete 1078
@@ -49,7 +51,7 @@ step Rebel Camp
 
 step Nesingwary's Expedition
   tip South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't.
-  accept 188                          -- Ajeck Rouack, if 30-40/04 didn't give it: Sin'Dall, in the 40-50 Stranglethorn guide
+  accept 188                          -- Ajeck Rouack. Keep it for the later visit if you skip Sin'Dall on the raptor hill.
   accept 195                          -- Hemet Nesingwary, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins
 
 step Bookie Herod
@@ -66,11 +68,6 @@ step Kurzen's Compound
   kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
-
-step Lake Nazferiti
-  zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
-  collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
 
 step The jungle ruins
   tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
@@ -100,17 +97,25 @@ step The Ruins of Zul'Kunda
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
+step Sin'Dall on the raptor hill
+  when level>=36
+  when onquest 188
+  along until hunters
+  collect 3879 quest 188 optional     -- Sin'Dall (37) prowls the hilltop.
+
 step The Lashtail raptors
-  tip East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave Sin'Dall, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents.
+  tip East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you're 36 or higher and see Sin'Dall (37) alone, you can take her paw here. Otherwise leave her for the next Stranglethorn visit.
   kill 686 quest 195                  -- Lashtail Raptor
 
 step Nesingwary's Expedition
+  label hunters
   turnin 339 optional                 -- Barnil Stonepot
   turnin 340 optional
   turnin 341 optional
   turnin 342 optional
   turnin 338 optional
   turnin 195                          -- Hemet Nesingwary
+  turnin 188 optional                 -- Ajeck Rouack, if you have the paw
   accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
 
 step Rebel Camp
@@ -137,7 +142,6 @@ step Booty Bay
   turnin 577                          -- Drizzlik, inside
   turnin 601                          -- Baron Revilgaz, upstairs in the tavern
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
-  turnin 213                          -- Kebok
   turnin 189                          -- Kebok, upstairs
   turnin 210                          -- Krazek, upstairs
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.

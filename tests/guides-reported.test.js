@@ -8786,7 +8786,11 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	assert.ok(goals(ARATHI).some(({ goal }) => is('accept', 707)(goal)), 'it is taken on the Ironforge stop before Loch Modan');
 	assert.ok(!goals('forever/alliance/30-40/04b-stranglethorn-vale.guide').some(({ goal }) => is('accept', 209)(goal)), 'Skullsplitter Tusks (42) is not taken at 37');
 	assert.ok(at(late, 'accept 209', is('accept', 209)) < at(late, 'turnin 209', is('turnin', 209)), 'it is taken in 40-50/01 before its trolls');
-	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) assert.deepEqual(compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along).map((st) => st.title), [], `${g}: no along steps`);
+	for (const g of ['30-40/02-desolace', '30-40/03-ashenvale', '30-40/04b-stranglethorn-vale']) {
+		const along = compiled(`forever/alliance/${g}.guide`).steps.filter((st) => st.along);
+		const goals = along.map((st) => [st.along, st.goals.map((go) => [go.t, go.quest, go.item, go.optional])]);
+		assert.deepEqual(goals, g === '30-40/04b-stranglethorn-vale' ? [['hunters', [['collect', 188, 3879, true]]]] : [], `${g}: only the optional paw on the raptor hill, no other along work`);
+	}
 });
 
 
@@ -13437,22 +13441,34 @@ test('Alliance Arathi: Northfold, the shards and the gorge, then Witherbark Vill
 // tablets, where the guide listed them (the arrow went from Zul'Kunda south to 36,34 and back north), and the Rebel Camp
 // was visited three times. Panther Mastery is now taken on the way in, the lake worked right after Kurzen's Compound,
 // and the Rebel Camp's hand-ins made on one stop after the tablets.
-test('Alliance Stranglethorn 35: Lake Nazferiti after Kurzen\'s Compound, the tablets west, the Rebel Camp once at the end', { skip }, () => {
+// Since the 0.4.3 route review the lake's Tumbled Crystals (Hostile Takeover, 213) are worked on 40-50/01 at about 41
+// (next case): the tablets follow the compound, and wherever the route gathers the crystals it is at Lake Nazferiti.
+test('Alliance Stranglethorn 35: the tablets after Kurzen\'s Compound, the crystals only at Lake Nazferiti, the Rebel Camp once at the end', { skip }, () => {
 	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const kurzen = stepOf('kill 938', (g) => g.t === 'kill' && g.quest === 574);
-	const crystals = stepOf('collect 4106', (g) => g.t === 'collect' && g.item === 4106);
 	const tablets = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 207).map(({ s }) => s);
-	assert.equal(crystals, kurzen + 1, 'Lake Nazferiti right after the compound');
-	assert.ok(tablets.every((s) => s > crystals), 'the tablets after the lake');
-	for (const { goal } of list.filter(({ goal }) => goal.t === 'collect' && goal.item === 4106)) {
-		assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
+	assert.equal(Math.min(...tablets), kurzen + 1, 'the tablets right after the compound');
+	for (const file of ['forever/alliance/30-40/04b-stranglethorn-vale.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']) {
+		for (const { goal } of goals(file).filter(({ goal }) => goal.t === 'collect' && goal.item === 4106)) {
+			assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${file}: ${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
+		}
 	}
 	// Level tidy (0.4.0, #2365): Panther Mastery (Shadowmaw 37-38) and Troll Witchery (Skullsplitters 39-42) are worked in 40-50/01.
 	assert.ok(!list.some(({ goal }) => [192, 193, 205].includes(goal.quest) && goal.t !== 'accept'), 'no Panther Mastery or Troll Witchery work at 35-36');
 	const rebel = list.filter(({ goal }) => goal.t === 'turnin' && [329, 330, 331, 574, 207].includes(goal.quest)).map(({ s }) => s);
 	assert.equal(new Set(rebel).size, 1, 'every Rebel Camp hand-in on one stop');
 	assert.ok(rebel[0] > Math.max(...tablets), 'after the last tablet');
+});
+
+// Route review 0.4.3 (Alliance 30-40): on 04b's loop, at about 35.7, Lake Nazferiti's Tumbled Crystals had players farm
+// the Venture Co. Geologists among thirteen Venture Co. Agents (39). Six guide followers died 16 times on the quest;
+// one on 0.4.0.1 died four times at level 37. Hostile Takeover (213) is no longer taken, worked or handed in on the two 30-40 loops: Kebok
+// gives it on 40-50/01-stranglethorn-vale, which passes the lake at about 41.
+test('Alliance Stranglethorn 33-36: Hostile Takeover (213) is not in the 30-40 loops (Venture Co. Agents 39 at the lake)', { skip }, () => {
+	for (const file of ['forever/alliance/30-40/04-stranglethorn-vale.guide', 'forever/alliance/30-40/04b-stranglethorn-vale.guide']) {
+		assert.ok(!goals(file).some(({ goal }) => goal.quest === 213 || (goal.t === 'collect' && goal.item === 4106)), `${file}: nothing of Hostile Takeover`);
+	}
 });
 
 // #1531 (Discord, Undead Warlock 27): Ursangous, Sharptalon and Shadumbra drop their trophies only once The Ashenvale
@@ -13522,9 +13538,11 @@ test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying a
 // the same five everywhere (Magram Scout and four Kolkar)." Centaur Ears drop from every tribe in Desolace and the
 // collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
 // the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
+// Alliance Desolace (30-40/02) works the ears in Kolkar Village only since the 0.4.3 route review (next case): its
+// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for.
 test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
 	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
-	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366], ['forever/alliance/30-40/02-desolace.guide', 1387]]) {
+	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366]]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
 		assert.equal(typeof goal.fromNpcsAt, 'string', `${quest}: the goal lists each spot's mobs`);
@@ -13541,6 +13559,28 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 		const magram = ids.some((l) => l.includes(4641) && l.includes(4640) && !l.some((id) => id >= 4632 && id <= 4637));
 		assert.ok(magram, `${quest}: a Magram Village spot names the Magram Windchaser and Wrangler, no Kolkar`);
 	}
+});
+
+// Route review 0.4.3 (Alliance 30-40): at about 35.5, from Smeed's camp, the Kolkar Village step's ears and totems
+// sent players into the Magram village (Magram Necromancers 42-43, Guardians 39-41); every death of a 0.4.x follower
+// on Centaur Bounty was there. Both collects now stay in Kolkar Village (Kolkar 30-35), on the way back north, and
+// each spot still names its own Kolkar (#1616).
+test('Alliance Desolace: Centaur Bounty\'s ears and the Carved Centaur Totems are collected in Kolkar Village, not the Magram village (#1616 kept)', { skip }, () => {
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const local = new Set([4632, 4633, 4634, 4635, 4636, 4637, 5600, 12976, 12977]);
+	for (const [quest, item] of [[1387, 6067], [93224, 254432]]) {
+		const { goal } = list[at(list, `collect ${item} quest ${quest}`, (g) => g.t === 'collect' && g.item === item && g.quest === quest)];
+		assert.ok(goal.spots.length >= 2, `${quest}: search more than one Kolkar camp`);
+		const groups = goal.fromNpcsAt?.split(';');
+		if (groups) assert.equal(groups.length, goal.spots.length, `${quest}: a target list for every spot`);
+		for (const [i, spot] of goal.spots.entries()) {
+			assert.ok(spot.x >= 67 && spot.x <= 76 && spot.y >= 38 && spot.y <= 53, `${quest}: spot ${spot.x},${spot.y} is in Kolkar Village`);
+			const targets = groups ? groups[i].split(',').filter(Boolean).map(k => goal.fromNpcs[Number(k) - 1]) : goal.fromNpcs;
+			assert.ok(targets.length && targets.every(n => local.has(n.npc)), `${quest}: every target at ${spot.x},${spot.y} belongs to the Kolkar camp`);
+		}
+	}
+	const record = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.find(p => p.id === 'desolace-alliance-kolkar-village-loop');
+	assert.ok(record?.path?.points.length >= 2, 'the record keeps the shared loop, not a single point with distant alternatives');
 });
 
 // WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and
@@ -15425,9 +15465,14 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	for (const q of [188, 195]) {
 		assert.ok(!stv.some(({ goal }) => goal.quest === q && !['accept', 'turnin'].includes(goal.t)), `04: ${q} not worked at 34`);
 		assert.ok(stv.some(({ goal }) => is('accept', q)(goal)), `04: ${q} taken where its giver hands in the elder tigers and raptors`);
-		// Fix round 2 (0.4.0): Sin'Dall (188, 37) is worked on 40-50/01 at about 41 (players reach 04b's hill at about 35.5).
 		if (q === 195) assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
-		else assert.ok(!stv2.some(({ goal }) => goal.quest === q && goal.t !== 'accept'), `04b: ${q} not worked at 35`);
+		else {
+			const paw = stv2[at(stv2, 'collect the paw', is('collect', 188))];
+			assert.ok(paw.goal.optional && paw.step.along, 'the paw never holds the raptor hunt');
+			assert.ok(paw.step.when.some(p => p.k === 'level' && !p.neg && p.op === '>=' && p.n === 36), "no Sin'Dall hunt below 36");
+			assert.ok(paw.step.when.some(p => p.k === 'onquest' && !p.neg && p.q.length === 1 && p.q[0] === 188), 'the tiger only shows for a player holding Tiger Mastery');
+			assert.ok(stv2[at(stv2, 'turn in the paw', is('turnin', 188))].goal.optional, 'no paw needed to leave camp');
+		}
 	}
 	const level = stv.filter(({ goal }) => goal.t === 'level').at(-1).goal;
 	assert.notEqual(level.npc, 1085, '04: the top-up to 34 is not on the elder tigers (34-35)');

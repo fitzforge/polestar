@@ -94,7 +94,7 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Graveyard
-  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
+  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides.
   use 13892 @51.0,58.5 "Kodo Kombobulator" -- on an Aged, Dying or Ancient Kodo in the graveyard; don't kill it
   talk 4700 quest 5561.1 @60.6,61.6   -- the tamed kodo, at Smeed's camp: talk to it, five times
   collect 6249 quest 1459.2
@@ -106,9 +106,12 @@ step Smeed Scrabblescrew
 # ---------------------------------------------------------------- The Kolkar
 
 step Kolkar Village
-  tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
-  collect 6067 quest 1387             -- Centaur Ear
-  collect 254432 quest 93224.1        -- Carved Centaur Totem
+  tip North-east from Smeed's camp to Kolkar Village, on the way back to Nijel's Point: every Kolkar drops Centaur Ears for Corporal Melkins and Carved Centaur Totems for Captain Pentigast. The Magram south-east of Smeed's camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35).
+  loop
+  goto 71.5,45.5 map 1443 era r 110
+  goto 71.7,41.6 map 1443 era r 120
+  collect 6067 quest 1387 -- Centaur Ear
+  collect 254432 quest 93224.1 -- Carved Centaur Totem
 
 # ---------------------------------------------------------------- Nijel's Point
 

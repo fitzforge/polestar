@@ -392,6 +392,32 @@
 			"issue": 1575
 		},
 		{
+			"id": "desolace-alliance-kolkar-village-loop",
+			"quest": 1387,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1443,
+				"frame": "era",
+				"points": [
+					[71.5, 45.5],
+					[71.7, 41.6]
+				]
+			},
+			"note": "Centaur Bounty and Carved Centaur Totems share this step. Work the two Kolkar camps on the way to Nijel's Point: both have Centaurs, Scouts, Maulers, Windchasers and Battle Lords (30-35). A point by itself also offers other clans' camps nearby or on the map, including the Magram village with its level 39-43 guards. The loop keeps both goals and their target buttons in Kolkar Village. Anchor it on the ears so it does not change the later visit's separate totem step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of 1387 (0.4.x followers of the guide): 2 people died 7 times at the Magram village (map 72-76,72-76) at levels 36.4-37.1, none at Kolkar Village; route review 0.4.3, Alliance 30-40"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns on map 1443: Kolkar (4632-4637, 12976, 12977) only at 68-75,39-52; Magram Necromancer (253272) 59-66,75-86, Magram Guardian (255560) 65-72,73-83"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "danger-desolace-centaur-totems-valley-of-spears",
 			"quest": 93225,
 			"objective": 1,

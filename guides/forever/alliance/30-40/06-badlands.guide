@@ -43,7 +43,7 @@ step Hammertoe's Digsite
 
 step Hammertoe's Digsite: kill these as you meet them
   zone Badlands
-  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map and Dorgaron's mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and Dorgaron's artifacts. Crag Coyotes roam the slopes around it.
+  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map and Dorgaron's mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and Dorgaron's artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them.
   accept 720                          -- Crumpled Map
   collect 7846 quest 2500             -- Crag Coyote Fang
   collect 4616 quest 719              -- Ryedol's Lucky Pick
