@@ -9,25 +9,25 @@ return {
 	-- Guide
 	["Ironforge Reputation"] = "Reputación: Forjaz",
 	-- {zone:1428} Burning Steppes · {zone:1426} Dun Morogh · {area:133} Gnomeregan · {zone:1459} Alterac Valley
-	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "",
+	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "Paño, las misiones de {zone:1428} y los centros de {zone:1426}, que también pagan con {area:133}; {zone:1459} suma más.",
 	-- {faction:47} Ironforge
-	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "",
+	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "Exaltado con {faction:47}: en Classic, otras razas pueden comprar los carneros",
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
-	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "",
+	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "Unos 600 de reputación con {faction:47} de misiones de nivel 52-59 en {zone:1428} y {zone:1452}; las misiones de {zone:1459} también pagan con {faction:47}",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "Unos 2.900 de reputación con {faction:47} de misiones de nivel bajo en {zone:1426}, la mayor parte pagada también a {area:133}",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield
-	["{npc:14723}, the cloth quartermaster"] = "",
+	["{npc:14723}, the cloth quartermaster"] = "{npc:14723}, la intendente de paño",
 	-- {npc:14723} Mistina Steelshield · {faction:47} Ironforge · {object:32372} Great Forge (no name in this language: may be words) · {item:14047} Runecloth · {quest:7806} Additional Runecloth · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {zone:1437} Wetlands · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {area:132} Coldridge Valley · {area:131} Kharanos · {zone:1453} Stormwind · {zone:1457} Darnassus
-	["{npc:14723} takes cloth for {faction:47}; she stands outside the clothier on the north side of the {object:32372}, among the tailors. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7806} pays 50 for every 20 {item:14047}, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do {zone:1426} (levels 1-12), {zone:1432} (10-20) and the {zone:1437} (20-30) while you level through them. After the donations come the level 52-59 quests of the {zone:1428} and {zone:1452} (about 600), then the optional {zone:1426} hubs, best rate first: {area:132} (about 37 a minute at full value), {area:131} (26), the quarry (17). Every {faction:47} gain also gives a quarter as much to {zone:1453}, {zone:1457} and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "",
+	["{npc:14723} takes cloth for {faction:47}; she stands outside the clothier on the north side of the {object:32372}, among the tailors. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7806} pays 50 for every 20 {item:14047}, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do {zone:1426} (levels 1-12), {zone:1432} (10-20) and the {zone:1437} (20-30) while you level through them. After the donations come the level 52-59 quests of the {zone:1428} and {zone:1452} (about 600), then the optional {zone:1426} hubs, best rate first: {area:132} (about 37 a minute at full value), {area:131} (26), the quarry (17). Every {faction:47} gain also gives a quarter as much to {zone:1453}, {zone:1457} and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "{npc:14723} acepta paño para {faction:47}; está afuera de la tienda de ropa del lado norte de {object:32372}, entre los sastres. Cada primera donación de 60 de lana, seda, tejido mágico y {item:14047} paga 150 de reputación una sola vez; después de la de {item:14047}, {quest:7806} paga 50 por cada 20 {item:14047}, cuantas veces quieras. La casa de subastas de la Explanada es la forma más rápida de conseguir paño. En Classic, las misiones pagan la reputación completa mientras estén como mucho 5 niveles por debajo de ti, así que haz {zone:1426} (niveles 1-12), {zone:1432} (10-20) y {zone:1437} (20-30) mientras subes por ellas. Después de las donaciones vienen las misiones de nivel 52-59 de {zone:1428} y {zone:1452} (unas 600), y luego los centros opcionales de {zone:1426}, del mejor ritmo al peor: {area:132} (unos 37 por minuto a valor completo), {area:131} (26), la cantera (17). Cada ganancia con {faction:47} también da un cuarto a {zone:1453}, {zone:1457} y los Exiliados de Gnomeregan, salvo las misiones de las zonas iniciales de nivel 1-10. El Diplomático del Legado suma hasta un 10% a cada ganancia.",
 	-- {item:2592} Wool Cloth · {zone:1432} Loch Modan · {zone:1437} Wetlands
 	["{item:2592}: troggs, gnolls and kobolds in {zone:1432} and the {zone:1437}"] = "{item:2592}: troggs, gnolls y kóbolds en {zone:1432} y {zone:1437}",
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: el valle inicial de enanos y gnomos al suroeste de {area:131}, unos 1.100 de reputación en 30 minutos a nivel 60. {npc:658} y {npc:713} están en {area:77}. Forever paga estas misiones viejas completas a cualquier nivel. Sáltate este paso para saltarte el centro.",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -109,58 +109,58 @@ return {
 
 	-- Step 18: A Donation of Runecloth
 	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7806} Additional Runecloth
-	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7806}."] = "",
+	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60 for {quest:7806}."] = "{item:14047} lo sueltan los humanoides de nivel 50 en adelante: los sectarios de la Plaga y la Cruzada Escarlata en las Tierras de la Peste, los fúrbolgs Muertobosque de {zone:1448}, los fúrbolgs Nevada de {zone:1452}. Guarda todo el {item:14047} que pase de los primeros 60 para {quest:7806}.",
 
 	-- Step 19: Ironforge: Royal Historian Archesonus
 	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
-	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
+	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "Estas misiones son de nivel 52 a 59, así que pagan completo a 60: unos 600 de reputación con {faction:47}. {npc:8879} está junto al rey Magni en {object:171709}; te manda a las ruinas de Thaurissan en {zone:1428}.",
 	-- {npc:8879} Royal Historian Archesonus
-	["Hear {npc:8879} out"] = "",
+	["Hear {npc:8879} out"] = "Escucha a {npc:8879}",
 
 	-- Step 20: Morgan's Vigil: Oralius
 	-- {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {npc:9177} Oralius · {area:249} Dreadmaul Rock
-	["{area:2418} sits in the south-east of the {zone:1428}, at the top of the pass up from Redridge. {npc:9177} wants the Firegut ogres of {area:249}, north of the Vigil, thinned out; the Brutes keep to the rock's east side."] = "",
+	["{area:2418} sits in the south-east of the {zone:1428}, at the top of the pass up from Redridge. {npc:9177} wants the Firegut ogres of {area:249}, north of the Vigil, thinned out; the Brutes keep to the rock's east side."] = "{area:2418} está en el sureste de {zone:1428}, en lo alto del paso que sube desde Crestagrana. {npc:9177} quiere que diezmes a los ogros Pirontraña de {area:249}, al norte del Vigía; los brutos se quedan en el lado este de la roca.",
 
 	-- Step 21: Thaurissan and Blackrock Stronghold
 	-- {area:252} Blackrock Stronghold
-	["Thaurissan and {area:252}"] = "",
+	["Thaurissan and {area:252}"] = "Thaurissan y {area:252}",
 	-- {area:251} Flame Crest · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {item:11467} Blackrock Medallion · {npc:9177} Oralius · {item:14047} Runecloth · {quest:7806} Additional Runecloth
-	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "",
+	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "Las reliquias de Thaurissan son las piedras talladas de las ruinas alrededor de {area:251}, al oeste por el camino: haz clic en doce. {npc:9176} y los orcos y huargos Roca Negra ocupan los campamentos al pie de {area:254}, más al oeste; cada uno puede soltar un {item:11467} (más o menos una de cada tres muertes), y {npc:9177} quiere cincuenta. Los orcos son de nivel 50 o más, así que también sueltan {item:14047}: guárdalo para {quest:7806}.",
 
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
 	["{area:2418}: hand in"] = "{area:2418}: entregas",
 	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
-	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "",
+	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "Clava la cabeza de {npc:9176} en el montículo de tierra blanda de lo alto de {area:249}.",
 
 	-- Step 23: Ironforge: Archesonus again
 	-- {faction:47} Ironforge
-	["{faction:47}: Archesonus again"] = "",
+	["{faction:47}: Archesonus again"] = "{faction:47}: Archesonus otra vez",
 	-- {area:1584} Blackrock Depths · {npc:9021} Kharan Mighthammer · {npc:9177} Oralius · {zone:1459} Alterac Valley · {faction:47} Ironforge · {item:17542} Coldtooth Supplies
 	-- plural, as words: Dark Iron Fanny Packs = {item:11468} Dark Iron Fanny Pack · Storm Crystals = {item:17423} Storm Crystal
-	["With a group, {area:1584} pays more: Archesonus's chain goes on with {npc:9021} (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and {npc:9177} takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). {zone:1459}, from level 51, pays {faction:47} too: its one-time quests about 1,900 as your Stormpike standing grows (the {zone:1459} guide walks them), and inside the battle 25 for every 10 Irondeep or {item:17542} and 50 for 5 Storm Crystals, as often as you like."] = "",
+	["With a group, {area:1584} pays more: Archesonus's chain goes on with {npc:9021} (100) and The Fate of the Kingdom (Emperor Thaurissan, 150), and {npc:9177} takes 20 Dark Iron Fanny Packs from the dwarves inside (The Good Stuff, 100). {zone:1459}, from level 51, pays {faction:47} too: its one-time quests about 1,900 as your Stormpike standing grows (the {zone:1459} guide walks them), and inside the battle 25 for every 10 Irondeep or {item:17542} and 50 for 5 Storm Crystals, as often as you like."] = "Con un grupo, {area:1584} paga más: la cadena de Archesonus sigue con {npc:9021} (100) y El destino del reino (el emperador Thaurissan, 150), y {npc:9177} acepta 20 riñoneras Hierro Negro de los enanos de adentro (Lo bueno, 100). {zone:1459}, desde el nivel 51, también paga con {faction:47}: sus misiones únicas unos 1.900 a medida que crece tu reputación con Pico Tormenta (la guía de {zone:1459} las recorre), y dentro de la batalla 25 por cada 10 de Hondonada de Hierro o {item:17542} y 50 por 5 cristales de tormenta, cuantas veces quieras.",
 
 	-- Step 24: Winterspring: Enraged Wildkin
 	-- {npc:11755} Harlo Wigglesworth · {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village · {area:2245} Mazthoril · {faction:47} Ironforge
-	["{npc:11755} in {area:2255} sends you west to {npc:10301} at {area:2253}. {npc:10301}'s damaged crate and wrecked wagon lie at {area:2245}, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 {faction:47} in full."] = "",
+	["{npc:11755} in {area:2255} sends you west to {npc:10301} at {area:2253}. {npc:10301}'s damaged crate and wrecked wagon lie at {area:2245}, down the valley to the south-east; his supplies lie around the wagon and the owlbeasts nearby carry his amulet. The last quest is level 59: 100 {faction:47} in full."] = "{npc:11755}, en {area:2255}, te manda al oeste con {npc:10301} en {area:2253}. La caja dañada y el carromato destrozado de {npc:10301} están en {area:2245}, valle abajo al sureste; sus suministros están alrededor del carromato y los lechúcicos de cerca llevan su amuleto. La última misión es de nivel 59: 100 con {faction:47}, completos.",
 
 	-- Step 25: Additional Runecloth to Honored
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Honored"] = "{quest:7806} hasta Honorable",
 	-- {quest:7806} Additional Runecloth · {item:14047} Runecloth · {zone:1426} Dun Morogh · {faction:47} Ironforge · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1459} Alterac Valley
-	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}: 50 de reputación por 20 {item:14047}, cuantas veces quieras. Después de las cuatro primeras donaciones, un humano, elfo de la noche o gnomo queda en Amistoso 700 de 6.000, así que Honorable está a 5.300: 106 entregas, 2.120 {item:14047} (los enanos empiezan 900 más arriba: 88 entregas; los cielonatos empiezan en Neutral 2.000, así que a 6.400: 128, dos menos después de Explorando la Alianza). Las misiones de nivel 52-59 de arriba restan 12 entregas; cada centro de {zone:1426} que hiciste resta de 10 a 26 más. Más centros pagan con {faction:47}, completo mientras no estén más de 5 niveles por debajo de ti: {area:144} en {zone:1432} (unos 3.500 en total) y {area:150} en {zone:1437} (unos 2.500). Desde el nivel 51, las misiones únicas de {zone:1459} suman unos 1.900. Cada ganancia con una ciudad también da un cuarto a las otras tres ciudades de la Alianza (no contado aquí). Entrega todo tu {item:14047} de una vez.",
 
 	-- Step 26: Additional Runecloth to Revered
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Revered"] = "{quest:7806} hasta Venerado",
 	-- {npc:1261} Veron Amberstill · {item:14047} Runecloth
-	["Honored: in Classic Ironforge's vendors take 10% off for you, {npc:1261}'s rams (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
+	["Honored: in Classic Ironforge's vendors take 10% off for you, {npc:1261}'s rams (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "Honorable: en Classic, los vendedores de Forjaz te hacen un 10% de descuento, incluidos los carneros de {npc:1261} (20g, los veloces 200g); Forever no lo definió, y los sitios de guías informan un 5% en Amistoso que sube a un 20% en Exaltado. De Honorable a Reverenciado son 12.000 de reputación: 240 entregas, 4.800 {item:14047}.",
 
 	-- Step 27: Additional Runecloth to Exalted
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Exalted"] = "{quest:7806} hasta Exaltado",
 	-- {item:14047} Runecloth · {npc:1261} Veron Amberstill · {area:803} Amberstill Ranch · {zone:1426} Dun Morogh
-	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:1261} at {area:803} in eastern {zone:1426} sells his rams to other races in Classic; the Ram and Swift Ram guides cover them."] = "",
+	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:1261} at {area:803} in eastern {zone:1426} sells his rams to other races in Classic; the Ram and Swift Ram guides cover them."] = "De Reverenciado a Exaltado son 21.000 de reputación: 420 entregas, 8.400 {item:14047}. En Exaltado, {npc:1261}, en {area:803}, en el este de {zone:1426}, vende sus carneros a otras razas en Classic; las guías de Carnero y Carnero veloz los cubren.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Lo sueltan los Adeptos oscuros y Magos oscuros de aquí (nivel 58-60); cada miembro de la Plaga que mates aquí también cuenta para la reputación con {object:92525} (consulta esa guía). También puedes comprarlo en la casa de subastas.",

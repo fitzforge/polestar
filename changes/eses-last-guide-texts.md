@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,248 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,316 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -19,6 +19,6 @@ section: players
   (Alliance), Divine Grace and Feedback, Tailoring, Tome of Divinity, Hex of
   Weakness and Shadowguard, Touch of Weakness and Dark Sacrifice, Haggard's
   Weapons, Horde Hillsbrad Foothills, Alliance Arathi Highlands, Alliance
-  Stranglethorn Vale 40-50, the Warlock Dreadsteed mount and Call of Water
-  guides, plus texts that repeat English the locale already translates, filled
-  with the locale's own wording.
+  Stranglethorn Vale 40-50, the Warlock Dreadsteed mount, Call of Water,
+  Incubus, Kirin Tor and Ironforge guides, plus texts that repeat English the
+  locale already translates, filled with the locale's own wording.

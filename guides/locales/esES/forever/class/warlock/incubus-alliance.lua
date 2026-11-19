@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Succubus and Incubus (Alliance)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "A nivel 20: la súcubo y el íncubo de Forever, su gemelo masculino, cada uno con una bolsa de almas para tus fragmentos.",
 
 	-- Step 1: Gakin's Summons (Gnomes)
 	-- {quest:1717} Gakin's Summons
@@ -23,8 +23,8 @@ return {
 	-- Step 3: Takar the Seer
 	-- {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {npc:6247} Doan Karhan · {item:6898} Orb of Soran'ruk
 	["{npc:6244} camps at a tent with a campfire just north-east of {area:378}, by a fork in the road: Horde ground, so come in from the east and keep clear of the Taurajo guards. {npc:6247} beside him starts the {item:6898}. Takar offers both branches: take both."] = "",
-	["the succubus"] = "",
-	["the incubus"] = "",
+	["the succubus"] = "la súcubo",
+	["the incubus"] = "el íncubo",
 
 	-- Step 4: Heartswood
 	-- {zone:1440} Ashenvale · {area:415} Astranaar · {zone:1439} Darkshore · {quest:1738} Heartswood · {npc:6122} Gakin the Darkbinder
