@@ -83,7 +83,7 @@ return {
 	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "",
 
 	-- Step 13: Friendly to Honored
-	["Friendly to Honored"] = "",
+	["Friendly to Honored"] = "«Дружелюбие» — «Уважение»",
 	-- {npc:254151} Vayn Moongaze
 	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "",
 	["five ears per turn-in"] = "",
@@ -93,7 +93,7 @@ return {
 	["{npc:254151}'s patterns"] = "",
 
 	-- Step 14: Honored to Revered
-	["Honored to Revered"] = "",
+	["Honored to Revered"] = "«Уважение» — «Почтение»",
 	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "",
 
 	-- Step 15: Revered to Exalted

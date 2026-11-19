@@ -229,7 +229,7 @@ return {
 	["{npc:15192}: the Honored ring quest of your path"] = "",
 
 	-- Step 38: Honored to Revered
-	["Honored to Revered"] = "",
+	["Honored to Revered"] = "«Уважение» — «Почтение»",
 	-- {npc:15727} C'Thun · {quest:8595} Mortal Champions · {quest:8789} Imperial Qiraji Armaments · {npc:15380} Arygos · {npc:15378} Merithra of the Dream · {item:18562} Elementium Ore
 	["Honored to Revered is 12,000: twelve artifacts, 24 insignias, or a mix with {npc:15727} (2,500). After the first, each insignia is the repeatable {quest:8595}. Every Temple boss sometimes drops an {quest:8789} or Regalia (about one time in twenty): {npc:15380} and {npc:15378}, inside the Temple once {npc:15727} is dead, take it with 3 {item:18562} for 200 and a weapon. Honored opens the chest exchange of the tier set (200)."] = "",
 	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair
