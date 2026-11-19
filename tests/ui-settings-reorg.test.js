@@ -388,8 +388,8 @@ test("a reference whose home is a child row waits on that row's parent: Route li
 });
 
 // The new page's dependency line walks a reference's home up its parents to
-// the first that is off. Rare alert's Sound (rares.soundKit) opens under Alert
-// for rares, which waits on the module's switch (rares.enabled).
+// the first that is off. Rare alert's Sound (rares.soundKit) waits on Play a
+// sound, which waits on Alert for rares.
 function soundKitLine(settings) {
 	return runAddon({
 		stubs: ['stub_world.lua', 'stub_ui.lua'],
@@ -416,9 +416,15 @@ function soundKitLine(settings) {
 	}).emitted[0].toggle;
 }
 
+test('a dependency line: a parent that is on shows none; a grandparent that is off with the parent on shows its line', () => {
+	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': true, 'rares.sound': true }), false);
+	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': false, 'rares.sound': true }), 'rares.alerts');
+	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': true, 'rares.sound': false }), 'rares.sound');
+	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': true }), 'rares.enabled');
+});
+
 test('a dependency line: the nearest switch that is off wins, the module switch last', () => {
-	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': false }), 'rares.enabled');
+	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': false }), 'rares.sound');
 	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': false, 'rares.sound': true }), 'rares.alerts');
-	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': false, 'rares.sound': false }), 'rares.alerts');
-	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': true, 'rares.sound': false }), false);
+	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': false, 'rares.sound': false }), 'rares.sound');
 });
