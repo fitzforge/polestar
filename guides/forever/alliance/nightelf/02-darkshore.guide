@@ -12,9 +12,12 @@ next forever/alliance/02-westfall
 # into this file.
 # Added here: A Fishy Peril (40); Humble Beginnings (399), from Baros Alexston on the walk through
 # Stormwind (02-westfall hands it in); Philmor's Favor (97220) and Gatehouse Goods (97222) from the
-# harbor to the cheese shop beside the flight master. For Love Eternal (963) waits for 03-darkshore:
-# Anaya Dawnrunner is level 16, and the shared Darkshore guide takes it at about 17.
-# Left out: Expanding Horizons (97914), The Absent Minded Prospector (729), Deep Ocean, Vast Sea (982), The Tower of Althalaxx (965), Cave Mushrooms (947), WANTED: Murkdeep! (4740), Fruit of the Sea (1138), Buzzbox 411 (1001), Cleansing of the Infected (2138), Thundris Windweaver (4761), Tharnariun's Hope (2139), The Cliffspring River (4762), Beached Sea Creature (4730), Beached Sea Turtle (4727), Beached Sea Turtle (4725), A Lost Master (986), The Blackwood Corrupted (4763), Buzzbox 323 (1002), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
+# harbor to the cheese shop beside the flight master. Cleansing of the Infected (2138) is taken from Tharnariun on the
+# second Auberdine stop: its Rabid Thistle Bears (13-14) roam the second loop's hills. For Love Eternal (963) is taken
+# there only from level 15 (Anaya Dawnrunner is 16) and done on the second loop's Ameth'Aran pass; below 15 the shared
+# Darkshore guide takes it at about 17. Grove of the Ancients (952, from Teldrassil) goes to Onu at the Grove, east of
+# the southern beaches step.
+# Left out: Expanding Horizons (97914), The Absent Minded Prospector (729), Deep Ocean, Vast Sea (982), The Tower of Althalaxx (965), Cave Mushrooms (947), WANTED: Murkdeep! (4740), Fruit of the Sea (1138), Buzzbox 411 (1001), Thundris Windweaver (4761), Tharnariun's Hope (2139), The Cliffspring River (4762), Beached Sea Creature (4730), Beached Sea Turtle (4727), Beached Sea Turtle (4725), A Lost Master (986), The Blackwood Corrupted (4763), Buzzbox 323 (1002), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -105,6 +108,7 @@ step Auberdine
 
 step Auberdine
   turnin 2118                                 -- Tharnariun Treetender
+  accept 2138                                 -- Tharnariun Treetender: the bears are on the loop ahead
   turnin 4811                                 -- Sentinel Glynda Nal'Shea
   accept 4812
   turnin 98025
@@ -114,11 +118,20 @@ step Auberdine
   collect 14339 quest 4812                    -- Fill the tube at the moonwell in the village
   vendor nearest
 
+step Cerellean Whiteclaw
+  when level>=15
+  tip From level 15: Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead.
+  accept 963                                  -- Cerellean Whiteclaw, on the pier
+
+step Rabid Thistle Bear on the way
+  along until q2138
+  kill 2164 quest 2138
+
 # ---------------------------------------------------------------- Second loop
 
 step Blackwood furbolgs
   zone Darkshore
-  tip Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine.
+  tip Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine; Rabid Thistle Bears roam the hills around it.
   tip Careful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time.
   kill 2167 quest 985
   kill 2324 quest 985
@@ -127,14 +140,29 @@ step The southern beaches
   tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
   accept 4728                                 -- Beached Sea Creature
 
+step Onu
+  when onquest 952
+  tip East from the beached creature, up into the Grove of the Ancients: Onu is the ancient there, with Arbal and Kerlonian Evershade asleep beside him. Careful: a Grizzled Thistle Bear (16-17) can roam the woods south of the grove.
+  turnin 952 only NightElf                    -- Onu
+
 step Ameth'Aran
+  label q2138
   tip Back north to Ameth'Aran: the flame burns in the south of the ruins.
   interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
+  kill 2164 quest 2138
+
+step Anaya's Pendant
+  when level>=15
+  when onquest 963
+  collect 5382 quest 963                      -- Anaya's Pendant: Anaya Dawnrunner's ghost walks the ruins
 
 step The red crystal
   tip Back north-east into the mountains to the crystal.
   turnin 4812                                 -- Mysterious Red Crystal
   accept 4813
+
+step Rabid Thistle Bear
+  kill 2164 quest 2138
 
 step Bashal'Aran
   tip North along the hills to Asterion, then west down to Auberdine.
@@ -143,8 +171,14 @@ step Bashal'Aran
 step Auberdine
   turnin 985                                  -- Terenthis
   turnin 4813                                 -- Sentinel Glynda Nal'Shea
+  turnin 2138                                 -- Tharnariun Treetender
   vendor nearest
   turnin 4728                                 -- Gwennyth Bly'Leggonde
+
+step Cerellean Whiteclaw
+  when complete 963
+  tip Cerellean Whiteclaw waits where the pier meets the shore, on the way to the boat.
+  turnin 963                                  -- Cerellean Whiteclaw, on the pier
 
 step Boat to Stormwind Harbor
   only NightElf

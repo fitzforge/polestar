@@ -498,6 +498,38 @@
 			"issue": 1695
 		},
 		{
+			"id": "a043-wetlands-fire-taboo-flint-west-of-the-rotclaws",
+			"quest": 277,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1437,
+				"frame": "era",
+				"points": [
+					[
+						45.34,
+						32.49
+					],
+					[
+						43.56,
+						34.58
+					]
+				]
+			},
+			"note": "Fire Taboo's Crude Flint (06-ashenvale's Ironbeard's Tomb step at about 24, and 06-wetlands' catch-up step for a character still short of it): the point stood at 51.2,30.9, among the Maddened Rotclaws (25-26) that roam the Green Belt east of x 50, where players following the guide kept dying at 24.0-24.8. It now sits on the Mosshide Fenrunners' and Trappers' camp along the river at 43-46,32-35 (22 of their spawns there, both drop the flint), on the walk from Rethiel to Ironbeard's Tomb, with no Rotclaw spawn between x 40 and 50. Both search markers are on the river. The Green Belt is not an alternative flint camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 9 people following the guide died 26 times around 50-54,28-32 on Fire Taboo at levels 24.0-24.8 (5 of those deaths on 0.4.x)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json: Mosshide Fenrunner 1010 (22-23) 14 and Mosshide Trapper 1011 (23-24) 8 spawns in 42-47,31-36; Maddened Rotclaw 271334 (25-26): 561 spawns, none west of x 50 (4 at 50-55, y 25-35, the rest further east)"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "gh036-wetlands-nordel",
 			"quest": 98208,
 			"objective": 1,
@@ -731,6 +763,26 @@
 			},
 			"issue": 303,
 			"pr": 692
+		},
+		{
+			"id": "a043-ironforge-linen-at-the-auction-house",
+			"quest": 1648,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1455,
+				"x": 24.2,
+				"y": 74.7,
+				"frame": "era"
+			},
+			"note": "Carry the cloth from the trogg camps or get the missing pieces in the Commons beside John Turner. No detour back into Dun Morogh for a bag check.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "Auctioneer Redmuse (8720) stands at 24.16,74.67 in Ironforge; John Turner takes the ten Linen Cloth there."
+				}
+			],
+			"pr": 3144
 		},
 		{
 			"id": "692-dunmorogh-narm-faulk",
@@ -2707,6 +2759,38 @@
 				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
 			},
 			"issue": 2825
+		},
+		{
+			"id": "a043-stonesplinter-north-camps",
+			"quest": 267,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1432,
+				"frame": "era",
+				"points": [
+					[
+						29.57,
+						72.89
+					],
+					[
+						32.37,
+						72.36
+					]
+				]
+			},
+			"note": "The north edge of Stonesplinter Valley holds both the Scouts and the Troggs. The southern valley and the eastern camps have much higher-level mobs; their markers do not belong on this starter loop.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "NPCs 1161 and 1162 both spawn in the two camps; Headsplitter patrols farther south."
+				},
+				{
+					"kind": "recording",
+					"ref": "Dun Morogh starters on 0.4.x: of 13 follower deaths on 224 or 267 at this step, 7 named Scouts and 1 a Stonesplinter Trogg. The other 5 did not record the killer."
+				}
+			],
+			"pr": 3144
 		}
 	]
 }

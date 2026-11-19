@@ -4393,6 +4393,20 @@ test('#2871: Wetlands (Alliance): Fire Taboo left short of its flint gets the gn
 	assert.ok((list[flint].step.when || []).some((p) => p.k === 'onquest' && (p.q || []).includes(277)), 'only while Fire Taboo is in the log');
 });
 
+// Route review 0.4.3: Fire Taboo's flint pointed at 51.2,30.9, on the Green Belt among the Maddened Rotclaws (25-26,
+// none west of x 50), where players following the guide died 26 times at 24.0-24.8. Both flint steps (06-ashenvale at
+// about 24, #2871's catch-up in 06-wetlands) point at the Fenrunners' and Trappers' camp by the river at 43-46,32-35
+// and name the Rotclaws in a Careful tip.
+test('Fire Taboo (Alliance): the flint is hunted west of the Maddened Rotclaws, with a Careful tip (route review 0.4.3)', { skip }, () => {
+	for (const guide of [ASHENVALE, WETLANDS]) {
+		const list = goals(guide);
+		const { step, goal } = list[at(list, 'collect 2611', (g) => g.t === 'collect' && g.item === 2611)];
+		assert.ok(goal.x >= 42 && goal.x <= 47 && goal.y >= 31 && goal.y <= 36, `${guide}: the flint at the river camp, not ${goal.x},${goal.y}`);
+		assert.ok(goal.spots?.length >= 2 && goal.spots.every(({ x, y }) => x >= 43 && x <= 46 && y >= 32 && y <= 35), 'no Rotclaw or high-level gnoll camps among the map markers');
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: Maddened Rotclaws/, `${guide}: the Rotclaws named`);
+	}
+});
+
 // #2881 (gidi, Horde Dustwallow Marsh): Questioning Reethe (1273) is an escort (Ogron walks to Reethe with whoever took
 // it), but its text never says escort, so the guide window showed no escort line under its accept. The correction marks
 // it; the compiled guides carry it from the next data build.
@@ -7997,9 +8011,11 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	// Alliance 12-30 bracket review 0.3.6: the walk back west to Ilkrud runs through Astranaar, so Pelturas's ready hand-in
-	// goes in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
-	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
+	// Alliance 12-30 bracket review 0.3.6 put Pelturas's ready hand-in on a pass through Astranaar between Shael'dryn and
+	// Ilkrud. The 0.4.3 first-visit redraw (Twerkjob) drops the Shael'dryn trip and that pass: 1034 goes in on the one
+	// Astranaar stop after the west sweep, with Shindrell's and Raene's hand-ins, so still no town stop for one quest.
+	assert.equal(ashStep('turnin', 1034), ashStep('turnin', 1008), '1034 handed in on the last Astranaar stop, with The Zoram Strand');
+	assert.equal(ashStep('turnin', 1023), ashStep('turnin', 1008), 'Raene\'s Glowing Gem on the same stop');
 	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
 	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
 	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
@@ -9484,7 +9500,10 @@ test('Alliance 12-20: Fire Taboo is taken from Rethiel at 22-24, its flint on th
 	const wet = goals(WETLANDS);
 	const hand = wet.find(({ goal }) => is('turnin', 277)(goal));
 	assert.ok(hand && wet.some(({ goal, s }) => is('accept', 275)(goal) && s === hand.s), 'handed in with Blisters on the Land taken');
-	assert.ok(!wet.some(({ goal }) => (goal.t === 'collect' && goal.item === 2611) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
+	// #2871 added a flint step for a character who reaches 06-wetlands still carrying Fire Taboo short of its flint
+	// (`when onquest 277`); the route player arrives with it done, so it is neither taken nor worked again there.
+	const carriedOnly = (step) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && (p.q || []).includes(277));
+	assert.ok(!wet.some(({ step, goal }) => ((goal.t === 'collect' && goal.item === 2611) && !carriedOnly(step)) || is('accept', 277)(goal)), 'not taken or worked again at 27-29');
 	assert.equal(wet.filter(({ step, goal }) => goal.npc === 1244 && !dungeonOnly(step)).map(({ s }) => s).filter((v, i, a) => a.indexOf(v) === i).length, 2, 'Rethiel on two stops of the solo route (Fire Taboo and Blisters in, Blisters out)');
 });
 
@@ -11412,6 +11431,13 @@ test(`${ZEPHRAS_ALLIANCE}: #1415: Aamelia's quests at her farmhouse; the cultist
 	assert.ok(Math.hypot(eggs.x - 42.1, eggs.y - 39.4) < 1.5, `the Small Eggs lead to the Galestriders by the village (${eggs.x},${eggs.y})`);
 });
 
+test('Valanaar (Alliance): listen to Alvarion before hunting the skyhoppers', { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	const take = at(list, 'Blood Tithe', is('accept', 92679));
+	const story = at(list, 'Alvarion’s story', (g) => g.t === 'talk' && g.quest === 92679);
+	assert.ok(take < story && story < at(list, 'skyhoppers', is('kill', 93949)));
+});
+
 // Final route review 0.3.6: the group branch's WANTED: Vulgara the Insatiable (93318) was handed to Danarii Bellowveil
 // after Valanaar's inn, a walk back north-west to Shen'dar and south-east again. It goes to her on the Shen'dar stop
 // after the hippogryph loop, where her own quest (92551) is handed in, before the road to Fendaal and Valanaar.
@@ -12011,7 +12037,7 @@ test("Fyurie's report (#1458): Kodo Roundup uses the Kombobulator and counts at 
 		['forever/horde/02-the-barrens.guide', /kill 12296 quest 6129\.1 "Cure Sickly Gazelle"/],
 		['forever/alliance/03-darkshore-return.guide', /kill 12298 quest 6124\.1 "Cure Sickly Deer"/],
 		['forever/reputation/orgrimmar.guide', /kill 10556 x5 quest 5441\.1 "Wake Lazy Peon"/],
-		['forever/alliance/dwarf/01-dun-morogh.guide', /quest 6661\.1 @78\.0,51\.4 "Catch Deeprun Rat"/],
+		['forever/alliance/dwarf/01-dun-morogh.guide', /kill 13016 x5 quest 6661\.1 "Catch Deeprun Rat"/],
 	]) assert.match(src(f), re, `${f} names the action`);
 });
 
@@ -14954,6 +14980,29 @@ test(`${NE_DARKSHORE}: Buzzbox 827 is handed in on the beach before the first lo
 	assert.ok(list.slice(take, give).some(({ goal }) => goal.t === 'collect' && goal.item === 5385), 'the Crawler Legs first');
 });
 
+test('Alliance starter travel: the tram stays inside until Nipsy, and druids leave from the hippogryphs', { skip }, () => {
+	for (const guide of DUN_MOROGHS) {
+		const list = goals(guide);
+		const monty = at(list, 'Monty', is('accept', 6661));
+		const nipsy = at(list, 'Nipsy', is('turnin', 6662));
+		const rat = list[at(list, 'catch Deeprun Rat', (g) => g.t === 'kill' && g.npc === 13016 && g.quest === 6661)].goal;
+		assert.ok(rat.x == null && rat.y == null, 'the rats are inside the tram, not outside Tinker Town');
+		const position = ({ map, x, y, f }) => [map, x, y, f];
+		assert.deepEqual(position(list[monty].goal), [1455, 78, 51.4, 'e'], 'Monty uses the Ironforge entrance');
+		assert.deepEqual(position(list[nipsy].goal), [1453, 64.5, 7.5, 'e'], 'Nipsy uses the Era-frame Stormwind entrance, not a point under the keep');
+		assert.ok(list.slice(0, monty).some(({ goal }) => goal.t === 'enter' && goal.location === 'Deeprun Tram'));
+		const exit = list.slice(nipsy + 1, at(list, 'Furen', is('turnin', 1338))).find(({ goal }) => goal.t === 'enter' && goal.location === 'Stormwind City');
+		assert.deepEqual(position(exit.goal), position(list[nipsy].goal), 'leave the tram only after speaking to Nipsy');
+	}
+	const list = goals(TELDRASSIL);
+	const stone = at(list, 'Moonkin Stone', (g) => g.t === 'use' && g.item === 15208);
+	const bear = at(list, 'Bear Form', is('turnin', 6001));
+	for (const [from, to, x, y] of [[at(list, 'Body and Heart', is('accept', 6001)), stone, 58.4, 93.9], [stone, bear, 36.4, 45.6], [bear, list.length, 58.4, 93.9]]) {
+		const leg = list.slice(from, to);
+		assert.ok(at(leg, 'flight master', (g) => g.t === 'goto' && g.x === x && g.y === y) < at(leg, 'flight', (g) => g.t === 'fly'));
+	}
+});
+
 // Alliance 1-12 audit (0.4.0, #2025): class training skipped at a capital visit right after a ding. Night Elves
 // trained last in Dolanaar (~11) and next in Goldshire (~14.5), though their last Darnassus visit (~12) walks past
 // every Night Elf class's trainers (13 people trained there at 12 on their own, players' recordings); Alliance
@@ -15931,15 +15980,40 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 
 // Level tidy (0.4.0): For Love Eternal's (963) Anaya Dawnrunner is level 16, and Night Elf Darkshore reaches
 // Ameth'Aran at about 13 (recorded 25th percentile 13.5): 3 levels above the player. The quest stays with
-// 03-darkshore, which hands it in at about 17; Night Elf Darkshore no longer takes it (this replaces the #2025
-// case that took it on the pier).
-test(`${NE_DARKSHORE}: For Love Eternal waits for 03-darkshore, where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
+// 03-darkshore, which hands it in at about 17 (this replaced the #2025 case that took it on the pier).
+// 0.4.3 route round: a Night Elf already at 15 takes it on Night Elf Darkshore's second Auberdine stop (Anaya +1) and
+// does it on the second loop's Ameth'Aran pass; the accept shows only from 15, so the level tidy's fix still holds.
+test(`${NE_DARKSHORE}: For Love Eternal only from level 15 in Night Elf Darkshore, else in 03-darkshore where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
-	assert.ok(!ne.some(({ goal }) => goal.quest === 963), 'no For Love Eternal goal in Night Elf Darkshore');
+	const take = ne[at(ne, 'accept 963', is('accept', 963))];
+	assert.ok((take.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 15), 'Night Elf Darkshore offers it from level 15 only');
+	assert.ok(ne.filter(({ goal }) => goal.quest === 963 && goal.t === 'accept').length === 1, 'one accept');
+	const pendant = at(ne, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	const work = ne[pendant].step.when || [];
+	assert.ok(work.some((p) => p.k === 'level' && p.op === '>=' && p.n === 15) && work.some((p) => p.k === 'onquest' && [p.q].flat().includes(963) && !p.neg), 'a carried quest cannot send a level-14 player after Anaya');
+	const hand = ne[at(ne, 'turnin 963', is('turnin', 963))];
+	assert.ok(at(ne, 'accept 963', is('accept', 963)) < pendant && pendant < at(ne, 'turnin 963', is('turnin', 963)), 'taken, done on the second loop and handed in on the pier');
+	assert.ok((hand.step.when || []).some((p) => p.k === 'complete' && p.q === 963 && !p.neg), 'the hand-in only when the pendant is ready');
 	const shared = goals(DARKSHORE);
-	const take = at(shared, 'accept 963', is('accept', 963));
-	const pendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
-	assert.ok(take < pendant && pendant < at(shared, 'turnin 963', is('turnin', 963)), '03-darkshore takes, does and hands it in');
+	const stake = at(shared, 'accept 963', is('accept', 963));
+	const spendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	assert.ok(stake < spendant && spendant < at(shared, 'turnin 963', is('turnin', 963)), '03-darkshore takes, does and hands it in for everyone else');
+});
+
+// Route review 0.4.3 (Night Elves walked 03-darkshore's first loop again for two quests): Cleansing of the Infected
+// (2138) is taken from Tharnariun on Night Elf Darkshore's second Auberdine stop, its bears hunted on the second loop and
+// handed in on the last stop; Grove of the Ancients (952) goes to Onu on the southern beaches step instead of being
+// carried about 8 hours to 03-darkshore-return (which keeps a step for a character still carrying it).
+test(`${NE_DARKSHORE}: Cleansing of the Infected on the second loop, Grove of the Ancients to Onu on the southern beaches`, { skip }, () => {
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	const idx = (t, q) => at(ne, `${t} ${q}`, is(t, q));
+	assert.equal(ne[idx('accept', 2138)].s, ne[idx('turnin', 2118)].s, '2138 taken when Plagued Lands is handed in');
+	const kills = ne.filter(({ goal }) => goal.t === 'kill' && goal.quest === 2138).map(({ s }) => s);
+	assert.ok(kills.length && kills.every((s) => s > ne[idx('accept', 2138)].s && s < ne[idx('turnin', 2138)].s), 'bears between the accept and the hand-in');
+	assert.equal(ne[idx('turnin', 2138)].s, ne[idx('turnin', 985)].s, 'handed in on the last Auberdine stop, with Terenthis');
+	assert.equal(ne[idx('turnin', 952)].s, ne[idx('accept', 4728)].s + 1, 'Onu right after the southern beaches');
+	const dret = goals(DARKSHORE_RETURN);
+	assert.ok((dret[at(dret, 'turnin 952', is('turnin', 952))].step.when || []).some((p) => p.k === 'onquest' && !p.neg), '03-darkshore-return keeps it only while carried');
 });
 
 // Level tidy (0.4.0), Dun Morogh: the Snow Leopard Prowler (6) came at a recorded 4.8, the Grizzled Den's Elder
@@ -16776,4 +16850,48 @@ test('#2825: escort givers are looked for where they wait, not along their escor
 		const { goal } = list[at(list, `accept ${quest}`, is('accept', quest))];
 		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
 	}
+});
+
+// CircusCyaneus (#2837): Ashenvale (Alliance) took Ilkrud's tome to the Zoram Strand and walked back from Talen to
+// Delgren at Maestra's Post. Delgren is on the way north from the Fire Scar Shrine to the coast; after Talen the
+// hearthstone bound at Astranaar takes the player to Shindrell. Ilkrud's tip named the Ruins of Ordil'Aran.
+test('Ashenvale (Alliance): Delgren takes Ilkrud\'s tome on the way to the Zoram Strand; Shindrell after Talen (#2837)', { skip }, () => {
+	const list = goals(ASHENVALE);
+	const tome = at(list, 'collect 5533', (g) => g.t === 'collect' && g.item === 5533);
+	const delgren = at(list, 'turnin 973', is('turnin', 973));
+	const talen = at(list, 'accept 1007', is('accept', 1007));
+	const ruuzel = at(list, 'turnin 1009', is('turnin', 1009));
+	const shindrell = at(list, 'turnin 1008', is('turnin', 1008));
+	assert.ok(tome < delgren && delgren < talen, 'the tome to Delgren before Talen');
+	assert.ok(ruuzel < shindrell, 'Shindrell after Talen');
+	const tip = [list[tome].step.note, list[tome].step.tip].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /Ordil'Aran/, 'Ilkrud is in the Fire Scar Shrine');
+	assert.match([list[shindrell].step.note, list[shindrell].step.tip].flat().filter(Boolean).join(' '), /Hearth to /, 'the hearthstone bound at Astranaar');
+});
+
+// Twerkjob ("running back and forth in ashenvale"): 06-ashenvale's first visit went Astranaar -> Lake Falathim (west) ->
+// Elune's Tear (east) -> Astranaar -> Stonetalon -> Stardust -> Shael'dryn (far east, one talk hand-in) -> Astranaar ->
+// Ilkrud and the Zoram Strand (west). Now Elune's Tear on the way south, then after Stonetalon one sweep up the west
+// (Stardust, Ilkrud, Therysil, Teronis, Delgren, the Zoram Strand) and one Astranaar stop; Raene's Cleansing 1024 (the
+// walk to Shael'dryn) is taken on 06-wetlands' first Astranaar stop and handed in where Shael'dryn gives 1026.
+test('Ashenvale (Alliance): the first visit is one sweep up the west, no Shael\'dryn trip (Twerkjob)', { skip }, () => {
+	const ash = goals(ASHENVALE);
+	const s = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
+	const item = (i) => ash[at(ash, `collect ${i}`, (g) => g.t === 'collect' && g.item === i)].s;
+	assert.ok(!ash.some(({ goal }) => goal.quest === 1024), 'Raene\'s Cleansing 1024 is not on 06-ashenvale');
+	assert.ok(s('turnin', 1033) < s('turnin', 1070), 'Elune\'s Tear handed in before Stonetalon');
+	const sweep = [s('turnin', 1070), item(5494), item(5533), s('turnin', 945), s('turnin', 991), s('turnin', 973), s('accept', 1007), s('turnin', 1009), s('turnin', 1008)];
+	assert.deepEqual(sweep, [...sweep].sort((a, b) => a - b), 'Stonetalon, Stardust, Ilkrud, Therysil, Teronis, Delgren, the Zoram Strand, Astranaar');
+	for (const [t, q] of [['turnin', 1023], ['turnin', 1034]]) assert.equal(s(t, q), s('turnin', 1008), `${t} ${q} on the last Astranaar stop`);
+	const wet = goals(WETLANDS);
+	const w = (t, q) => wet[at(wet, `${t} ${q}`, is(t, q))].s;
+	assert.equal(w('accept', 1024), w('accept', 1035), '06-wetlands takes 1024 on its first Astranaar stop, with Pelturas');
+	assert.equal(w('turnin', 1024), w('accept', 1026), 'and hands it to Shael\'dryn with 1026');
+});
+
+for (const guide of DUN_MOROGHS) test(`${guide}: the Trogg Threat only marks the north valley camps`, { skip }, () => {
+	const list = goals(guide);
+	const { goal } = list[at(list, 'the Trogg Stone Tooth', (g) => g.t === 'collect' && g.item === 2536)];
+	assert.ok(goal.spots?.length >= 2, 'more than one camp to search');
+	assert.ok(goal.spots.every(({ x, y }) => x >= 29 && x <= 34 && y >= 70 && y <= 75), 'no high-level camps among the alternatives');
 });

@@ -17,8 +17,11 @@ next forever/alliance/04-redridge-mountains
 # 98221, 1026: levels 27-28).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole): the 20-24 part of the old 25-29 guide,
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
-# 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
-# Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar and Elune's Tear, then
+# Stonetalon (19-22), then the Ruins of Stardust and one sweep up the west (Ilkrud, Therysil, Teronis,
+# Maestra's Post, the Zoram Strand: 21-25) and the hearth back to Astranaar. Raene's Cleansing (1024,
+# the walk to Shael'dryn in the Howling Vale) is left to 06-wetlands' first Astranaar stop: its next
+# part (1026) is Shael'dryn's, on that visit's way east.
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
@@ -81,17 +84,7 @@ step Astranaar
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
 
-# ---------------------------------------------------------------- West: Lake Falathim
-
-step Teronis' Corpse
-  tip Head west to the shore of Lake Falathim. Teronis lies among the Saltspittle murlocs; any murloc can drop the Glowing Gem.
-  turnin 991                              -- Teronis' Corpse
-  accept 1023
-  collect 5463 quest 1023                 -- Glowing Gem
-
-step Shrine of Aessina
-  tip South of the murlocs, Therysil waits at the Shrine of Aessina.
-  turnin 945                              -- Therysil
+# ---------------------------------------------------------------- Elune's Tear
 
 step Elune's Tear
   zone Ashenvale
@@ -99,11 +92,9 @@ step Elune's Tear
   collect 5493 quest 1033 @46.4,46.4
 
 step Astranaar
-  turnin 1023                             -- Raene Wolfrunner
-  accept 1024
+  tip Back to Astranaar on the way south: Pelturas Whitemoon is inside the building beyond the inn.
   turnin 1033                             -- Pelturas Whitemoon, inside
   accept 1034
-  vendor nearest
 
 # ---------------------------------------------------------------- Stonetalon Mountains
 
@@ -153,32 +144,39 @@ step Webwinder Path
   accept 1072
   accept 1075
 
-# ---------------------------------------------------------------- Back north and the east
+# ---------------------------------------------------------------- Back north: the Ruins of Stardust, then the west
 
 step The Ruins of Stardust
   zone Ashenvale
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
+  tip Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Shael'dryn
-  tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
-  turnin 1024
-
-step Astranaar
-  tip Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn.
-  turnin 1034                             -- Pelturas Whitemoon, inside
-  vendor nearest
-
-# ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
-
 step Ilkrud Magthrull
-  tip From Astranaar head south-west to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
+  tip From the Ruins of Stardust head north-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
+
+step Shrine of Aessina
+  tip North of the Fire Scar Shrine, Therysil waits at the Shrine of Aessina.
+  turnin 945                              -- Therysil
+
+step Teronis' Corpse
+  tip North again to the shore of Lake Falathim. Teronis lies among the Saltspittle murlocs; any murloc can drop the Glowing Gem.
+  turnin 991                              -- Teronis' Corpse
+  accept 1023
+  collect 5463 quest 1023                 -- Glowing Gem
+
+step Maestra's Post
+  tip North-east from the lake to Maestra's Post.
+  turnin 973                              -- Delgren the Purifier
+  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
+
+# ---------------------------------------------------------------- The Zoram Strand
 
 step The Zoram Strand
   zone Ashenvale
-  tip Follow the coast north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
+  tip West from Maestra's Post to the coast, then north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
   accept 1007                             -- Talen
   collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore
   collect 5490 quest 1008             -- Wrathtail Head: any Wrathtail naga on the strand
@@ -203,13 +201,12 @@ step Blackfathom Deeps
 step Talen
   turnin 1009
 
-step Maestra's Post
-  turnin 973                              -- Delgren the Purifier
-  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
-
 step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
+  tip Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
   turnin 1008                         -- Shindrell Swiftfire
+  turnin 1023                             -- Raene Wolfrunner, in the inn
+  turnin 1034                             -- Pelturas Whitemoon, inside
+  vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -301,8 +298,12 @@ step Rethiel the Greenwarden
 
 step Ironbeard's Tomb
   zone Wetlands
-  tip North-west from Rethiel: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
-  collect 2611 quest 277                  -- Crude Flint: Mosshide Fenrunners and Mistweavers
+  tip North-west from Rethiel: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of Ironbeard's Tomb drop flint, almost every one. Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Careful: Black and Crimson Oozes also drop Sida's Bag. Pull those instead of fighting the larger Monstrous Oozes (25–26).
+  tip Careful: Maddened Rotclaws (25-26) roam the Green Belt around Rethiel and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp.
+  loop
+  goto 45.34,32.49 map 1437 era
+  goto 43.56,34.58 map 1437 era
+  collect 2611 quest 277 -- Crude Flint: the Mosshide Fenrunners and Trappers by the river
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil

@@ -268,8 +268,12 @@ step Angerfang Encampment
 
 step Mosshide gnolls
   when onquest 277
-  tip Fire Taboo is still short of its nine Crude Flint: the Mosshide Fenrunners and Trappers (22-23) on the hill north of the road, between the Angerfang camp and the Green Belt, drop them. Almost every one carries some.
-  collect 2611 quest 277 @51.2,30.9 map 1437
+  tip Fire Taboo is still short of its nine Crude Flint: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of Ironbeard's Tomb, drop them. Almost every one carries some.
+  tip Careful: Maddened Rotclaws (25-26) roam the Green Belt around Rethiel; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp.
+  loop
+  goto 45.34,32.49 map 1437 era
+  goto 43.56,34.58 map 1437 era
+  collect 2611 quest 277
 
 step Rethiel the Greenwarden
   tip Follow the road east to the Green Belt; Rethiel the Greenwarden stands by the river. Fire Taboo's flint came with you from your last Wetlands visit.
@@ -393,6 +397,8 @@ step Shindrell Swiftfire
   accept 95737                        -- Llana: Seeking Caitlin, for Caitlin Grassman in Menethil Harbor
 
 step Astranaar
+  tip Raene Wolfrunner is in the inn, Pelturas Whitemoon inside the building beyond it.
+  accept 1024                         -- Raene Wolfrunner, in the inn: for Shael'dryn in the Howling Vale, on this visit's way east
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Raene Wolfrunner
@@ -414,6 +420,7 @@ step Therysil
 
 step Shael'dryn
   tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
+  turnin 1024
   accept 1026
 
 step Dartol's Rod
