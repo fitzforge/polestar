@@ -111,13 +111,15 @@ step Tarren Mill
 # ---------------------------------------------------------------- West: Stanley, peasants and skulls
 
 step Stanley
-  tip Stanley is Farmer Ray's dog, at the northern farmhouse in Hillsbrad Fields.
+  tip Stanley is Farmer Ray's dog, at the northern farmhouse in Hillsbrad Fields. If you are below level 24, leave the southern peasants for your next Hillsbrad visit. Turn in any finished errands at Tarren Mill.
   turnin 502
 
 step Hillsbrad Fields: kill these as you meet them
+  when level>=24
+  when onquest 528,546
   zone Hillsbrad Foothills
   tip The Peasants work the southern fields, south-east of Hillsbrad town. Every Hillsbrad human drops skulls; the Peasants drop them most often, so work the fields and stay out of the town square.
-  tip Careful: Wait until level 23 to hunt the Peasants; at 23, pick the level 24s. Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.
+  tip Careful: Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.
   loop
   goto 35.2,46.4 map 1424 era
   goto 36.44,45.43 map 1424 era
@@ -126,7 +128,11 @@ step Hillsbrad Fields: kill these as you meet them
   kill 2267 quest 528.1
 
 step Tarren Mill
+  when complete 528
   turnin 528                          -- High Executor Darthalia
+
+step Tarren Mill
+  when complete 546
   turnin 546                          -- Deathguard Samsa
   note Darthalia's next Battle of Hillsbrad and Lydon's Elixir of Agony are for the next visit, at about 30.
 

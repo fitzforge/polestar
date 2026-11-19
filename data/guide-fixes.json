@@ -346,11 +346,39 @@
 			"pr": 3145
 		},
 		{
+			"id": "043-hillsbrad-peasants-at-24",
+			"faction": "Horde",
+			"at": { "quest": 528, "goal": "objective", "objective": 1, "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "level>=24",
+			"note": "The southern Peasants range from 24 to 25. Earlier arrivals carry Darthalia's quest to the later Hillsbrad visit rather than fight them or grind.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
+			"id": "043-hillsbrad-ready-peasants",
+			"faction": "Horde",
+			"at": { "quest": 528, "goal": "turnin", "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "complete 528",
+			"note": "Let Darthalia take a finished quest at any level. An unfinished one stays in the log for the return to Hillsbrad.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
+			"id": "043-hillsbrad-ready-skulls",
+			"faction": "Horde",
+			"at": { "quest": 546, "goal": "turnin", "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "complete 546",
+			"note": "Samsa can take the skulls even if Darthalia's Peasants are unfinished, and does not hold a player whose skulls are unfinished.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
 			"id": "043-hillsbrad-skulls-stay-out-of-the-square",
 			"faction": "Horde",
-			"at": { "quest": 546, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Wait until level 23 to hunt the Peasants; at 23, pick the level 24s. Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.",
-			"note": "Souvenirs of Death and Battle of Hillsbrad: the skulls point moved from the town square to the southern fields (places.json 043-hillsbrad-skulls-southern-fields); the step's Careful line now also names the Councilmen and Magistrate Burnside, whom the old point stood among.",
+			"at": { "quest": 546, "goal": "objective", "objective": 1, "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "level>=24",
+			"tip": "Careful: Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.",
+			"note": "The southern fields keep both hunts away from the town hall. At 22 or 23 the Peasants (24-25) can be two or more levels above the player; leave the work for the next Hillsbrad visit, but turn in either ready quest on this visit.",
 			"source": [
 				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7)" },
 				{ "kind": "pfquest", "ref": "npcs.json 2387 Hillsbrad Councilman 24-26, 2335 Magistrate Burnside 30 (29.7,41.6)" }

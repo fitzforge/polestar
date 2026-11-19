@@ -7125,9 +7125,50 @@ test('Hillsbrad (Horde 22-25): the skulls point is in the southern fields, not t
 		}
 	}
 	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /Magistrate Burnside \(30\)/, 'the tip names Burnside');
-	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /at 23, pick the level 24s/, 'a level 23 solo player avoids the level 25 peasants');
+	assert.equal(levelFrom(skulls.step), 24, 'all southern Peasants are at most one level above the player');
+	for (const q of [528, 546]) assert.ok(list[at(list, `turnin ${q}`, is('turnin', q))].step.when?.some((p) => p.k === 'complete' && !p.neg && p.q === q));
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	assert.deepEqual(places.find((p) => p.quest === 546 && p.objective === 1)?.path?.points, skulls.goal.spots.map(({ x, y }) => [x, y]), 'the whole field loop is recorded');
+});
+
+// Compile the authored steps and use the live Engine to advance from Stanley. A low character
+// can carry either unfinished quest past this visit; a finished one still goes to its own giver.
+// Check the lookahead list *before* Stanley's hand-in, not just the current arrow afterwards.
+test('Hillsbrad: the Engine leaves low-level peasants out of the route and While here', { skip }, () => {
+	const guide = compiled('forever/horde/06-hillsbrad-foothills.guide');
+	const pos = (t, q) => guide.steps.findIndex((s) => s.goals.some((g) => g.t === t && g.quest === q));
+	const from = pos('turnin', 502), to = pos('kill', 549);
+	assert.ok(from >= 0 && to > from);
+	const pack = writeTestPack([{ ...guide, steps: guide.steps.slice(from, to + 1) }], data);
+	try {
+		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", {})`).join('\n');
+		for (const level of [22, 23, 24]) for (const ready of [0, 528, 546]) {
+			const [result] = runAddon({
+				stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+				before: `local w=stub.world; w.faction,w.race,w.raceName,w.level="Horde","Orc","Orc",${level};
+					w.addMap(1424,{name="Hillsbrad Foothills",c=0,left=1000,right=-1000,top=1000,bottom=-1000}); w.moveTo(1424,35.2,46.4)`,
+				script: `${loads}
+					local w,E=stub.world,Polestar.Engine; stub.login(); Polestar.Set("behavior.whileHere",true)
+					for _,q in ipairs({502,528,546,549}) do w.accept(q,{{type="monster",required=10}}) end
+					w.finish(502); if ${ready}~=0 then w.finish(${ready}) end
+					assert(E.SetGuide(${JSON.stringify(guide.id)})); stub.advance(5)
+					local hunts={}; for _,r in ipairs(E.GetWhileHereCandidates()) do
+						local s=E.GetGuide().steps[r.step]; local g=s and s.goals[r.index]
+						if g and (g.t=="kill" or g.t=="collect") then hunts[g.quest]=true end
+					end
+					w.turnIn(502); stub.advance(2); local idx=E.GetStepIndex()
+					emit({idx=idx,peasants=hunts[528] or false,skulls=hunts[546] or false})`,
+			}).emitted;
+			if (level < 24) {
+				assert.equal(result.idx, (ready ? pos('turnin', ready) : to) - from + 1);
+				assert.ok(!result.peasants && !result.skulls, `level ${level}: no early lookahead hunt`);
+			} else {
+				assert.equal(result.idx, pos('kill', 528) - from + 1);
+				assert.equal(result.peasants, ready !== 528);
+				assert.equal(result.skulls, ready !== 546);
+			}
+		}
+	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
 });
 
 // 0.4.3 route round (Horde 12-30 audit, FLOW; #2013's pattern): the Barrens & Stonetalon guide opens in Thunder Bluff for
