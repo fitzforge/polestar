@@ -7204,9 +7204,50 @@ test('Hillsbrad (Horde 22-25): the skulls point is in the southern fields, not t
 		}
 	}
 	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /Magistrate Burnside \(30\)/, 'the tip names Burnside');
-	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /at 23, pick the level 24s/, 'a level 23 solo player avoids the level 25 peasants');
+	assert.equal(levelFrom(skulls.step), 24, 'all southern Peasants are at most one level above the player');
+	for (const q of [528, 546]) assert.ok(list[at(list, `turnin ${q}`, is('turnin', q))].step.when?.some((p) => p.k === 'complete' && !p.neg && p.q === q));
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	assert.deepEqual(places.find((p) => p.quest === 546 && p.objective === 1)?.path?.points, skulls.goal.spots.map(({ x, y }) => [x, y]), 'the whole field loop is recorded');
+});
+
+// Compile the authored steps and use the live Engine to advance from Stanley. A low character
+// can carry either unfinished quest past this visit; a finished one still goes to its own giver.
+// Check the lookahead list *before* Stanley's hand-in, not just the current arrow afterwards.
+test('Hillsbrad: the Engine leaves low-level peasants out of the route and While here', { skip }, () => {
+	const guide = compiled('forever/horde/06-hillsbrad-foothills.guide');
+	const pos = (t, q) => guide.steps.findIndex((s) => s.goals.some((g) => g.t === t && g.quest === q));
+	const from = pos('turnin', 502), to = pos('kill', 549);
+	assert.ok(from >= 0 && to > from);
+	const pack = writeTestPack([{ ...guide, steps: guide.steps.slice(from, to + 1) }], data);
+	try {
+		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", {})`).join('\n');
+		for (const level of [22, 23, 24]) for (const ready of [0, 528, 546]) {
+			const [result] = runAddon({
+				stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+				before: `local w=stub.world; w.faction,w.race,w.raceName,w.level="Horde","Orc","Orc",${level};
+					w.addMap(1424,{name="Hillsbrad Foothills",c=0,left=1000,right=-1000,top=1000,bottom=-1000}); w.moveTo(1424,35.2,46.4)`,
+				script: `${loads}
+					local w,E=stub.world,Polestar.Engine; stub.login(); Polestar.Set("behavior.whileHere",true)
+					for _,q in ipairs({502,528,546,549}) do w.accept(q,{{type="monster",required=10}}) end
+					w.finish(502); if ${ready}~=0 then w.finish(${ready}) end
+					assert(E.SetGuide(${JSON.stringify(guide.id)})); stub.advance(5)
+					local hunts={}; for _,r in ipairs(E.GetWhileHereCandidates()) do
+						local s=E.GetGuide().steps[r.step]; local g=s and s.goals[r.index]
+						if g and (g.t=="kill" or g.t=="collect") then hunts[g.quest]=true end
+					end
+					w.turnIn(502); stub.advance(2); local idx=E.GetStepIndex()
+					emit({idx=idx,peasants=hunts[528] or false,skulls=hunts[546] or false})`,
+			}).emitted;
+			if (level < 24) {
+				assert.equal(result.idx, (ready ? pos('turnin', ready) : to) - from + 1);
+				assert.ok(!result.peasants && !result.skulls, `level ${level}: no early lookahead hunt`);
+			} else {
+				assert.equal(result.idx, pos('kill', 528) - from + 1);
+				assert.equal(result.peasants, ready !== 528);
+				assert.equal(result.skulls, ready !== 546);
+			}
+		}
+	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
 });
 
 // 0.4.3 route round (Horde 12-30 audit, FLOW; #2013's pattern): the Barrens & Stonetalon guide opens in Thunder Bluff for
@@ -7223,8 +7264,9 @@ test('Barrens & Stonetalon (Horde 24-27): the Thunder Bluff opening only for pla
 	assert.ok(!knows(zamah.step), "Zamah's hand-in for every carrier");
 	const tal = list.find(({ goal, s }) => goal.t === 'getfp' && s === zamah.s + 1);
 	assert.ok(tal && (tal.step.when || []).some((p) => p.k === 'taxi' && p.neg) && (tal.step.when || []).some((p) => p.k === 'turnedin' && !p.neg), "a carrier without the flight path takes it from Tal after Zamah");
+	assert.ok(tal.step.when.some((p) => p.k === 'zone' && !p.neg && p.name === 'Thunder Bluff'), 'a historical hand-in outside the city does not send anyone to Tal');
 	const taurajo = list.findIndex(({ goal }) => goal.t === 'fly' && /Camp Taurajo/.test(JSON.stringify(goal)));
-	assert.ok(taurajo > 0 && !knows(list[taurajo].step), 'everyone flies on to Camp Taurajo');
+	assert.ok(taurajo > 0 && list[taurajo].step.when?.some((p) => p.k === 'taxi' && !p.neg && p.name === 'Camp Taurajo'), 'only offer the flight if its destination is known');
 });
 
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
@@ -8437,7 +8479,7 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	// (Sharptalon's Claw moved to the later pass with the Horde 21-30 audit: she is level 31, #2025.)
 	assert.ok(at(list, 'turnin 6544', is('turnin', 6544)) < at(list, 'accept 2', is('accept', 2)), 'Sharptalon on the walk back from Mystral Lake');
 	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
-	// Since the 0.3.6 bracket review the Barrens & Stonetalon guide teaches every race the path, so the flight is everyone's.
+	assert.ok(tb.step.when?.some((p) => p.k === 'taxi' && !p.neg && p.name === 'Thunder Bluff'), 'no flight step for someone who reached Camp Taurajo without this flight path');
 	assert.ok(tb && (!tb.step.only || (tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'))), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
 	// #1424: no forced Camp Taurajo flight from Zoram'gar; the others reach the Earthen Ring as travel, and every Camp
 	// Taurajo flight comes after its quests (the one from Thunder Bluff).

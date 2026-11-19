@@ -28,8 +28,8 @@ next forever/horde/07-ashenvale
 # (Tauren, and everyone who took The Elder Crone to Magatha on forever/horde/05-stonetalon-mountains).
 # A player without it (The Elder Crone skipped, or starting here) is not sent to Camp Taurajo, up through
 # Mulgore and back by air for two optional elders' quests (#2013's bounce); they fly straight to Camp
-# Taurajo and learn the flight path on 07's Thunder Bluff stop. Everyone then flies to Camp Taurajo, where
-# the southern Barrens begin. Druids take both quests at the end of forever/horde/06-hillsbrad-foothills,
+# Taurajo when that flight is available. Learn Tal's flight path on an actual visit to the city.
+# The southern Barrens errands start at Camp Taurajo. Druids may take both quests at the end of forever/horde/06-hillsbrad-foothills,
 # where they already train in Thunder Bluff.
 #
 # Shredding Machines (1068, Seereth Stonebreak, 1850 XP, needs Goblin Invaders from
@@ -84,23 +84,32 @@ next forever/horde/07-ashenvale
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
+  when !zone "Thunder Bluff"
   when !onquest 97538
   when taxi "Thunder Bluff"
   tip Fly to Thunder Bluff: two of its elders give quests worked on this guide's and the next guide's walks, and Apothecary Zamah takes Lydon's toxin.
   fly "Thunder Bluff"
 
+step Fly to Thunder Bluff for Zamah
+  when onquest 97538
+  when onquest 1067
+  when !zone "Thunder Bluff"
+  when taxi "Thunder Bluff"
+  fly "Thunder Bluff"
+
 step Apothecary Zamah
   zone Thunder Bluff
   when onquest 1067
-  tip Apothecary Zamah stands in the Pools of Vision, the caves under Spirit Rise, west of Tal.
+  tip If you don't know Thunder Bluff's flight path, you can enter the city by lift from Mulgore. If Camp Taurajo is on your flight map, it is across the Barrens border from Mulgore. In Thunder Bluff, descend into the Pools of Vision under Spirit Rise to find Zamah.
   turnin 1067                         -- Apothecary Zamah
   accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
 
 step Tal
   zone Thunder Bluff
   when turnedin 1067
+  when zone "Thunder Bluff"
   when !taxi "Thunder Bluff"
-  tip You came for Zamah without Thunder Bluff's flight path: Tal, the wind rider master, stands on the central rise.
+  tip Before leaving Thunder Bluff, speak to Tal on the central rise to learn the flight path.
   getfp "Thunder Bluff" npc 2995      -- Tal
 
 step Thunder Bluff
@@ -113,7 +122,8 @@ step Thunder Bluff
   accept 1195 optional                -- Zangen Stonehoof: the phial comes from Ashenvale, next guide
 
 step Fly to Camp Taurajo
-  tip Fly to Camp Taurajo: Tal on Thunder Bluff's central rise, Orgrimmar's wind rider master, or the Crossroads' if you start this guide there. Without Thunder Bluff's flight path the guide leaves its two elders' quests out rather than send you up through Mulgore and back: you learn the flight path on the next guide's Thunder Bluff stop.
+  when taxi "Camp Taurajo"
+  tip Take an available flight to Camp Taurajo. If you are already there, continue to the camp.
   fly "Camp Taurajo"
   zone The Barrens
 
@@ -121,7 +131,7 @@ step Fly to Camp Taurajo
 
 step Camp Taurajo
   zone The Barrens
-  tip The flight lands at Camp Taurajo's wind rider master. Tatternack Steelforge stands at the north edge of the camp, Jorn Skyseer and Mangletooth (in the cage) in the middle.
+  tip The next errands start at Camp Taurajo in the southern Barrens. If its flight path is unknown, reach the camp by road. Tatternack Steelforge stands at the north edge of the camp, Jorn Skyseer and Mangletooth (in the cage) in the middle.
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
   accept 874                          -- Jorn Skyseer
   accept 879                          -- Mangletooth, in the cage

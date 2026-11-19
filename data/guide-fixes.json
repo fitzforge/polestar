@@ -477,11 +477,39 @@
 			"pr": 3145
 		},
 		{
+			"id": "043-hillsbrad-peasants-at-24",
+			"faction": "Horde",
+			"at": { "quest": 528, "goal": "objective", "objective": 1, "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "level>=24",
+			"note": "The southern Peasants range from 24 to 25. Earlier arrivals carry Darthalia's quest to the later Hillsbrad visit rather than fight them or grind.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
+			"id": "043-hillsbrad-ready-peasants",
+			"faction": "Horde",
+			"at": { "quest": 528, "goal": "turnin", "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "complete 528",
+			"note": "Let Darthalia take a finished quest at any level. An unfinished one stays in the log for the return to Hillsbrad.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
+			"id": "043-hillsbrad-ready-skulls",
+			"faction": "Horde",
+			"at": { "quest": 546, "goal": "turnin", "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "complete 546",
+			"note": "Samsa can take the skulls even if Darthalia's Peasants are unfinished, and does not hold a player whose skulls are unfinished.",
+			"source": [{ "kind": "client", "ref": "npcs.json 2267 Hillsbrad Peasant (24-25); quests.json 528 and 546, Tarren Mill" }],
+			"pr": 3145
+		},
+		{
 			"id": "043-hillsbrad-skulls-stay-out-of-the-square",
 			"faction": "Horde",
-			"at": { "quest": 546, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Wait until level 23 to hunt the Peasants; at 23, pick the level 24s. Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.",
-			"note": "Souvenirs of Death and Battle of Hillsbrad: the skulls point moved from the town square to the southern fields (places.json 043-hillsbrad-skulls-southern-fields); the step's Careful line now also names the Councilmen and Magistrate Burnside, whom the old point stood among.",
+			"at": { "quest": 546, "goal": "objective", "objective": 1, "guide": "forever/horde/06-hillsbrad-foothills" },
+			"when": "level>=24",
+			"tip": "Careful: Snare fleeing peasants before they reach the town hall and bring back footmen. Councilmen (24-26) hold the square, Magistrate Burnside (30) stands in the hall, and Kirin Tor Guards (55) guard the road north toward Alterac.",
+			"note": "The southern fields keep both hunts away from the town hall. At 22 or 23 the Peasants (24-25) can be two or more levels above the player; leave the work for the next Hillsbrad visit, but turn in either ready quest on this visit.",
 			"source": [
 				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 19 people following the guide died 33 times on Souvenirs of Death (median level 24.7)" },
 				{ "kind": "pfquest", "ref": "npcs.json 2387 Hillsbrad Councilman 24-26, 2335 Magistrate Burnside 30 (29.7,41.6)" }
@@ -493,10 +521,10 @@
 			"faction": "Horde",
 			"at": { "quest": 97538, "goal": "accept", "guide": "forever/horde/04-the-barrens" },
 			"tip": "Tal, the wind rider master, stands on the central rise. Tah Winterhoof and Zangen Stonehoof stand a short walk east of him.",
-			"note": "The Barrens & Stonetalon guide opens in Thunder Bluff for Pigments for Paints (97538) and The Sacred Flame (1195), optional quests worked on this guide's and the next one's walks. A player without Thunder Bluff's flight path (The Elder Crone skipped on 05-stonetalon-mountains, or a fresh start at this guide) was sent from Orgrimmar to Camp Taurajo, up through Mulgore and back to Camp Taurajo by air: the Camp Taurajo-Thunder Bluff bounce #2013 reported from the next guide. The flight to Thunder Bluff and the elders' step (`when taxi \"Thunder Bluff\"` in the guide; a record's `when` cannot name a flight path yet) are only for players who know the flight path; the others fly straight to Camp Taurajo and learn it on 07-ashenvale's Thunder Bluff stop, which every Horde route makes. Apothecary Zamah's step (1067, a carrier of the Elder Crone chain) keeps its hand-in, and a carrier without the flight path takes it from Tal right after.",
+			"note": "The optional elders do not send someone without the flight path from Camp Taurajo to Thunder Bluff and back (#2013). Carrying 1067 still gives a reason to visit Zamah. After its hand-in Tal teaches the path only in Thunder Bluff; a hand-in from an earlier visit is not a reason to return. The location and taxi predicates are in the guide and seed.",
 			"source": [
 				{ "kind": "in-game-check", "ref": "#2013 (thadude3, Orc Warlock 28): a Thunder Bluff trip from Camp Taurajo with nothing to do there, flown straight back" },
-				{ "kind": "client", "ref": "05-stonetalon-mountains' Thunder Bluff step (when onquest 1063,1064,1065) takes the flight path; 07-ashenvale's Thunder Bluff stop takes it for everyone" }
+				{ "kind": "client", "ref": "05-stonetalon-mountains offers Tal on the Elder Crone trip; 07-ashenvale offers Tal on a quest visit, not to every character" }
 			],
 			"issue": 2013
 		},
@@ -4508,8 +4536,8 @@
 				"objective": 3,
 				"guide": "forever/horde/07-ashenvale"
 			},
-			"when": "onquest 1195,97538",
-			"note": "thadude3's report (#2013, Orc Warlock 28): at Camp Taurajo with nothing to do in Thunder Bluff, the guide sent him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The walk to the central rise and its flight-path step (the walk has no quest goal to anchor on and carries the same line by hand) now show only to a player carrying The Sacred Flame (1195) or Pigments for Paints (97538), whose hand-ins are beside the rise; everyone else learned Thunder Bluff's flight path on the Barrens & Stonetalon guide's opener, and the next step's flight to Camp Taurajo is done for a player already there (Engine: a fly goal is done in its place) or leads to Tal from the Earthen Ring.",
+			"when": "onquest 1195,97538,1086",
+			"note": "With no Thunder Bluff errand, a character at Camp Taurajo does not need a trip up the central rise (#2013). The approach and Tal step are for carriers of 1195, 97538 or 1086; the later city training and departure are only for a character actually in the city. The earlier flight from Zoram'gar also requires a known Thunder Bluff flight path.",
 			"source": [
 				{
 					"kind": "in-game-check",
