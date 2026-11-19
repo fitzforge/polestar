@@ -210,3 +210,39 @@ test('the reorganization changes no saved key', () => {
 	const keysBefore = JSON.parse(fs.readFileSync(KEYS_FIXTURE, 'utf8'));
 	assert.deepEqual(survey().keys, keysBefore);
 });
+
+// The new page's dependency line walks a reference's home up its parents to
+// the first that is off. Rare alert's Sound (rares.soundKit) opens under Alert
+// for rares, which waits on the module's switch (rares.enabled).
+function soundKitLine(settings) {
+	return runAddon({
+		stubs: ['stub_world.lua', 'stub_ui.lua'],
+		saved: { Polestar: 'PolestarDB = { settings = {}, optionsLayout = "grouped" }' },
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local O = Polestar.UI.Options
+			local K, G = O.Kit, O.Grouped
+			for k, v in pairs(${luaTable(settings)}) do Polestar.Set(k, v) end
+			local ref
+			for _, s in ipairs(K.pageByKey("alerts").tabs) do
+				for _, sec in ipairs(s.sections) do
+					for _, c in ipairs(sec.controls) do
+						if rawget(c, "ref") and c.key == "rares.soundKit" and not rawget(c, "extras") then ref = c end
+					end
+				end
+			end
+			-- The plain reference (Essentials' Sound, without Play a sound as an
+			-- extra) on its own: a section without Alert for rares.
+			local d = G._dependency({ name = "Test", controls = { ref } })
+			emit({ toggle = d and d.toggle.key or false })`,
+	}).emitted[0].toggle;
+}
+
+test('a dependency line: the nearest switch that is off wins, the module switch last', () => {
+	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': true, 'rares.sound': false }), 'rares.enabled');
+	assert.equal(soundKitLine({ 'rares.enabled': false, 'rares.alerts': false, 'rares.sound': true }), 'rares.alerts');
+	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': false, 'rares.sound': false }), 'rares.alerts');
+	assert.equal(soundKitLine({ 'rares.enabled': true, 'rares.alerts': true, 'rares.sound': false }), false);
+});
