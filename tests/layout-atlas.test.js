@@ -1440,9 +1440,27 @@ local T = Polestar.Theme
 local GF = Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
 T.SetLayout("atlas")
-GF.Layout(); stub.advance(1)
-Polestar.RunCommand("atlas test")
-stub.advance(1); GF.Layout(); stub.advance(1)
+-- Every card at once on its own data (the /polestar atlas test preview is
+-- out of the layout addon): a While you're here row, a carried quest, an
+-- optional goal on the step and Training due.
+local E = Polestar.Engine
+E.GetWhileHereList = function()
+	return { { step = 3, index = 1, here = "turnin", t = "turnin", quest = 0,
+		hereText = 'Turn in "A Delivery On The Way" to the next giver', yards = 160 } }
+end
+Polestar.RoutePlan.Carried = function() return { { quest = 0, title = "The Absent Minded Prospector", status = "missed", xp = 410 } } end
+local view = E.GetStepView
+E.GetStepView = function(index, ...)
+	local v = view(index, ...)
+	if not v or v.index ~= E.GetStepIndex() then return v end
+	local copy = {}
+	for k, x in pairs(v) do copy[k] = x end
+	copy.goals = { unpack(v.goals or {}) }
+	copy.goals[#copy.goals + 1] = { index = #copy.goals + 1, optional = true, status = "active", t = "talk", text = "Talk to the nearby scout" }
+	return copy
+end
+GF.notices.train = { level = 20, trainer = { npcName = "Your class trainer" } }
+GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1); GF.Layout(); stub.advance(1)
 local parts = T.GuideParts()
 local stack = PolestarGuideFrameCards
 local function y(f) local _, _, _, _, v = f:GetPoint(1) return v end
