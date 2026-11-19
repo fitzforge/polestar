@@ -5,6 +5,9 @@ use forge_navbuild::build::{run, Client, Opts};
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
+#[path = "ground_policy.rs"]
+mod ground_policy;
+
 pub(super) const USAGE: &str = "usage: forge nav grid --out <dir> [--wow <dir>] [--continents 0,1] [--force] [--threads N] [--allow-incomplete]
                      [--product <name>] [--root <dir>] [--data <dir>] [--defs <dir>]
 
@@ -79,7 +82,16 @@ and creature templates (the cached dump under <root>/data/sources/cmangos) and F
 classic-db lacks (<root>/forever-db/data npc.jsonl and spawn.jsonl; their roles and quests from
 <root>/data/forever), judged by the client's FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
 --dir, default $POLESTAR_GRID, else <root>/data/local/nav4; the tables cached for the grid's build
-under <root>/data/sources/wago), into <layers>/hubs.json.";
+under <root>/data/sources/wago), into <layers>/hubs.json.
+
+usage: forge nav layers ground --from <reviewed export dir> --out <Nav dir>
+
+Imports the two-build ground policy: areas.json (tiles in source order, each [map, column, row,
+256 row-major policy bytes]), hubs.json (forge nav layers hubs), creatures.json (in source order,
+each [map, startX, startY, endX, endY, radius, Alliance threshold, Horde threshold, reaction bits]).
+Capsule coordinates and radii are quantized whole yards. The local export is required; Forge
+rebuilds the three spatial indexes, refuses any unreviewed change in their payloads, and writes
+only derived Lua. It does not extract terrain or infer spawn reactions from player recordings.";
 
 pub fn main() {
 	super::exit("nav", main2());
@@ -333,8 +345,15 @@ fn layers(args: &[String]) -> Result<(), Fail> {
 	match args.first().map(String::as_str) {
 		Some("roads") => roads_layer(&args[1..]),
 		Some("hubs") => hubs_layer(&args[1..]),
-		Some(x) => Err(usage(format!("unknown nav layer {x} (roads, hubs)"))),
-		None => Err(usage("nav layers needs a layer: roads or hubs")),
+		Some("ground") => {
+			let o = options(&args[1..], &["--from", "--out"])?;
+			let from = o.get("--from").ok_or_else(|| usage("--from <export dir> is required"))?;
+			let out = o.get("--out").ok_or_else(|| usage("--out <Nav dir> is required"))?;
+			ground_policy::import(Path::new(from), Path::new(out))?;
+			Ok(())
+		}
+		Some(x) => Err(usage(format!("unknown nav layer {x} (roads, hubs, ground)"))),
+		None => Err(usage("nav layers needs a layer: roads, hubs or ground")),
 	}
 }
 

@@ -65,6 +65,12 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
@@ -73,7 +79,7 @@ function Compat.GetPlayerInfo()
 		name = readable(UnitName("player")),
 		realm = GetRealmName and GetRealmName() or nil,
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),

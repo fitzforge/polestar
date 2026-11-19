@@ -10,6 +10,11 @@
 	<Script file="Bridges.lua"/>
 	<Script file="Transit.lua"/>
 	<Script file="Danger.lua"/>
+	<Script file="DangerAreas.lua"/>
+	<Script file="DangerHubs.lua"/>
+	<Script file="CreatureThreatData.lua"/>
+	<Script file="CreatureThreat.lua"/>
+	<Script file="GroundSafety.lua"/>
 	<Script file="Travel.lua"/>
 	<Script file="Follow.lua"/>
 	<Script file="NpcFloor.lua"/>
