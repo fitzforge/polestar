@@ -12,4 +12,4 @@ section: players
   longer tells you to take the elites on the way one at a time: it keeps you
   on the road past the Frostmaul giants, touches the mouth of Darkwhisper Gorge
   and turns back before the Hederine elites.
-- Level 59 Alliance players returning from Mount Hyjal get their Winterspring errands in Everlook first. The Ratchet departure sends you to the flight master in your current zone, and you skip the gorge if you don't need Strange Sources credit. Fire Plume Forged waits for the Gadgetzan stop before the crater. For Pristine Yeti Horns, the arrow stays on the Matriarchs at the western edge of the hills.
+- Level 59 Alliance players returning from Mount Hyjal get their Winterspring errands in Everlook first. The Ratchet departure sends you to the flight master in your current zone, and you skip the gorge if you don't need Strange Sources credit. Fire Plume Forged waits for the Gadgetzan stop before the crater. For Pristine Yeti Horns, the arrow stays on two outdoor Matriarchs instead of sending you into the cave.

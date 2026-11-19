@@ -2,7 +2,7 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
-			"id": "searing-north-rim-search",
+			"id": "searing-surface-taskmasters",
 			"faction": "Alliance",
 			"quest": 7729,
 			"objective": 1,
@@ -11,19 +11,91 @@
 				"frame": "era",
 				"points": [
 					[
-						43.29,
-						28.24
+						43.12,
+						40.38
 					],
 					[
-						46.49,
-						25.27
+						45.68,
+						39.66
+					],
+					[
+						49.15,
+						39.93
+					],
+					[
+						44.79,
+						51.93
 					]
 				]
 			},
-			"note": "The two searches and the dagger share this north-rim step; do not offer the linked camps in the Cauldron as an alternative.",
+			"note": "Only the group bounty uses these exterior Taskmaster ledges; omit the mine floors underneath Thorium Point.",
 			"source": {
-				"kind": "recording",
-				"ref": "Nine followers died eleven times on Culling the Competition. The rim spawns of the Dark Iron Taskmasters and Slavers are below Thorium Point."
+				"kind": "client",
+				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-surface-slavers",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 2,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						42.81,
+						40.54
+					],
+					[
+						43.2,
+						51.97
+					],
+					[
+						35.32,
+						58.47
+					]
+				]
+			},
+			"note": "The three outdoor camps are group targets. Nearby dwarves can assist; these marks do not identify solitary pulls.",
+			"source": {
+				"kind": "client",
+				"ref": "Dark Iron Slaver 5844: surface spawn heights 241.1, 243.0 and 238.0."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-furnace-daggers",
+			"faction": "Alliance",
+			"quest": 3443,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						38.15,
+						51.36
+					],
+					[
+						37.69,
+						49.65
+					],
+					[
+						40.58,
+						49.48
+					],
+					[
+						40.01,
+						48.33
+					]
+				]
+			},
+			"note": "Steamsmiths at the surface furnaces can supply all eight daggers even if the player passed on the group bounty.",
+			"source": {
+				"kind": "client",
+				"ref": "Thorium Plated Dagger 10551 drops from Dark Iron Steamsmith 5840; surface spawn heights 240.3, 241.2, 240.3 and 240.0."
 			},
 			"issue": 3144
 		},
@@ -41,15 +113,15 @@
 						43.57
 					],
 					[
-						68.32,
-						41.07
+						66.67,
+						41.84
 					]
 				]
 			},
-			"note": "Use the two Ice Thistle Matriarch spawns on the western edge; the higher-level Patriarchs share the item but not this hunt.",
+			"note": "Use the two outdoor Matriarchs away from the Patriarch spawn at the cave approach. Do not direct players to the cave floor under the hill.",
 			"source": {
-				"kind": "pfquest",
-				"ref": "Ice Thistle Matriarch, creature 7459: the two western spawns in Winterspring."
+				"kind": "client",
+				"ref": "Ice Thistle Matriarch 7459: exterior spawn heights 732.8 and 722.4 in Winterspring."
 			},
 			"issue": 3144
 		},

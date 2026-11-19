@@ -113,10 +113,10 @@ step Everlook
 # ---------------------------------------------------------------- The east
 
 step Pristine Yeti Horns
-  tip Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. At level 55, take only the level 56 ones. Leave the Patriarchs alone.
+  tip Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside.
   loop
-  goto 65.88,43.57 map 1452 r 20
-  goto 68.32,41.07 map 1452 r 20
+  goto 65.88,43.57 map 1452 r 12
+  goto 66.67,41.84 map 1452 r 12
   collect 12367 quest 977.1 npc 7459 -- Loot the horns from Ice Thistle Matriarchs
 
 step Everlook
