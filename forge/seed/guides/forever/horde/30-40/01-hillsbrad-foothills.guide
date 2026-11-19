@@ -243,10 +243,27 @@ step Hillsbrad Peasants
   tip Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.
   kill 2267 quest 528.1
 
+step Hillsbrad Human Skulls
+  when level>=24
+  when onquest 546
+  when !complete 546
+  zone Hillsbrad Foothills
+  tip Still carrying Souvenirs of Death? Gather the skulls from Hillsbrad Peasants in the southern fields. Stay away from the town hall and the guards on the road.
+  loop
+  goto 35.2,46.4 map 1424
+  goto 36.44,45.43 map 1424
+  goto 35.59,44.31 map 1424
+  collect 3692 npc 2267 quest 546
+
 step Tarren Mill
   when !turnedin 528
   zone Hillsbrad Foothills
   turnin 528                          -- High Executor Darthalia
+
+step Deathguard Samsa
+  when complete 546
+  zone Hillsbrad Foothills
+  turnin 546                          -- Deathguard Samsa
 
 step High Executor Darthalia
   when !turnedin 529

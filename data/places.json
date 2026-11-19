@@ -6,17 +6,25 @@
 			"faction": "Horde",
 			"quest": 1108,
 			"objective": 1,
-			"at": {
+			"path": {
 				"map": 1418,
-				"x": 50.2,
-				"y": 67.1,
-				"frame": "era"
+				"frame": "era",
+				"points": [
+					[
+						48.72,
+						71.93
+					],
+					[
+						47.3,
+						69.89
+					]
+				]
 			},
-			"note": "The Bonesnappers drop Indurium Flakes at 39-40. The Shamans at the same cave mouths reach 41.",
+			"note": "Use the south-western Bonesnapper spawns, away from the Shamans and Murdaloc. Anathemus can patrol the hills.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "Forever creature data: Stonevault Bonesnapper (2893) at 50.17,67.12; Stonevault Shaman (2894) reaches 41."
+					"ref": "Forever Badlands spawns for Stonevault Bonesnapper (2893), Stonevault Shaman (2894) and Murdaloc; item 5797 drops from Bonesnappers."
 				}
 			],
 			"pr": 3145
