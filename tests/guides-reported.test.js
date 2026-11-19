@@ -17159,6 +17159,17 @@ test('Horde Stranglethorn (#3004, #3071, #3124): the warriors give tusks and nec
 	assert.ok(idx('kill', 604) < idx('accept', 2864), 'the Wild Shore before Krazek in town');
 });
 
+test('Riverglades (Horde): Bolder\'ok return quests and both final fights are conditional', { skip }, () => {
+	const steps = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
+	const find = (t, q) => steps.find((s) => s.goals.some((g) => g.t === t && g.quest === q));
+	assert.ok(whenQuestOf(find('accept', 94733), ['turnedin'], 94964));
+	for (const q of [94734, 95183]) assert.ok(whenQuestOf(find('turnin', q), ['onquest'], q));
+	for (const [q, pre] of [[94965, 94737], [95063, 94965]]) {
+		const step = find('accept', q);
+		assert.ok(whenQuestOf(step, ['group'], q) && whenQuestOf(step, ['turnedin'], pre));
+	}
+});
+
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
 // Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
 // above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).
