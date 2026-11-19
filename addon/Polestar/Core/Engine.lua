@@ -6145,6 +6145,7 @@ local function waypointOf(g, goal, at, s, held)
 		label = walk and (Own.rides() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
+		placeGoal = (at ~= nil or (goal.t == "goto" and goal.area ~= nil)) or nil,
 		search = area and (goal.spread or exact) or nil,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil, exact = many and exact or nil,
 	}
@@ -6411,6 +6412,7 @@ local function sameWaypoint(a, b)
 	return a.stepIndex == b.stepIndex and a.goalIndex == b.goalIndex and a.map == b.map
 		and a.x == b.x and a.y == b.y and a.f == b.f
 		and a.label == b.label and a.kind == b.kind and a.r == b.r
+		and a.z == b.z and a.area == b.area and a.search == b.search and a.placeGoal == b.placeGoal
 end
 
 local worldOf = setmetatable({}, { __mode = "k" }) -- goal -> { c, wx, wy }
@@ -8377,6 +8379,10 @@ function Own.arriveStep(s, c, px, py)
 						break
 					end
 				end
+			end
+			if here and goal.t == "goto" and goal.z and not goal.area and not goal.spots and not goal.spread
+				and ns.Nav and ns.Nav.AllowGuideArrival then
+				here = gc == c and ns.Nav.AllowGuideArrival(gc, gx, gy, goal.z, r)
 			end
 			if here then
 				arrived[goal] = true
