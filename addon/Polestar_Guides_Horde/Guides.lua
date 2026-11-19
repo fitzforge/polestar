@@ -9048,6 +9048,7 @@ do
 			steps = {
 				{
 					title = "Zeppelin to {zone:1454}",
+					when = { { k = "zone", neg = true, name = "Durotar", area = 14 }, { k = "zone", neg = true, name = "Orgrimmar", area = 1637 } },
 					goals = {
 						{ t = "goto", text = "Zeppelin to {zone:1454}", map = 1420, x = 60.7, y = 58.8, f = "e" },
 					},
@@ -10029,6 +10030,7 @@ do
 			steps = {
 				{
 					title = "Zeppelin to {zone:1454}",
+					when = { { k = "zone", neg = true, name = "Durotar", area = 14 }, { k = "zone", neg = true, name = "Orgrimmar", area = 1637 } },
 					goals = {
 						{ t = "goto", text = "Zeppelin to {zone:1454}", map = 1434, x = 31.4, y = 29.9, f = "e" },
 					},
@@ -10414,6 +10416,7 @@ do
 			steps = {
 				{
 					title = "Zeppelin to {zone:1458}",
+					when = { { k = "zone", neg = true, name = "Tirisfal Glades", area = 85 }, { k = "zone", neg = true, name = "Undercity", area = 1497 } },
 					goals = {
 						{ t = "goto", text = "Zeppelin to {zone:1458}", map = 1411, x = 50.8, y = 13.5, f = "e" },
 					},

@@ -15064,6 +15064,41 @@ test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, w
 	for (const q of [92748, 97914, 1788]) assert.ok(back.some(({ goal }) => is('turnin', q)(goal)), `turnin ${q} on that stop`);
 });
 
+// A player on 0.4.1.1 went to the Westfall guide's boat to Auberdine, landed in Darkshore and was sent back to
+// Stormwind: the boat was the last goal of Gilbert Gray's fishing step, which only counted at the Stormwind dock, so the
+// guide held the player there until they sailed back (#2082's bug, at the end of another guide). The boat is a step of
+// its own and, with the fishing errand before it, drops once the player is in Darkshore; the Darkshore guide's own
+// opening boat does too, so the hand-over doesn't send them back either.
+test(`${WESTFALL}: the boat to Auberdine and the harbour's fishing errand drop once in Darkshore, and so does the Darkshore guide's opening boat`, { skip }, () => {
+	const darkshoreGate = (step) => (step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Darkshore');
+	const steps = compiled(WESTFALL).steps;
+	const boat = steps[steps.length - 1];
+	assert.ok(boat.goals.some((g) => g.t === 'goto' && /Boat to Auberdine/.test(g.text || g.label || '')), 'the guide ends on the boat');
+	assert.ok(boat.goals.every((g) => g.t === 'goto'), 'the boat is a step of its own');
+	assert.ok(darkshoreGate(boat), 'the boat: `when !zone "Darkshore"`');
+	const fishing = steps.find((st) => st.goals.some((g) => is('accept', 95065)(g)));
+	assert.ok(fishing && darkshoreGate(fishing), 'Fishin\' Time: `when !zone "Darkshore"`');
+	const opening = compiled('forever/alliance/03-darkshore.guide').steps[0];
+	assert.ok(opening.goals.some((g) => g.t === 'goto' && /Boat to Auberdine/.test(g.text || g.label || '')) && darkshoreGate(opening), 'the Darkshore guide\'s opening boat: `when !zone "Darkshore"`');
+});
+
+// The same check over every leveling guide: a boat or zeppelin step that opens or closes a guide keeps sending the
+// player to the dock or tower until it ticks there, so it carries `when !zone "<where it goes>"` and drops once the
+// player is there (#2082 and the Westfall boat above).
+test('every leveling guide: a boat or zeppelin step at the start or end of a guide drops once the player is at its destination', { skip }, () => {
+	const files = allGuides().filter((f) => /^forever\/(horde|alliance)\//.test(f));
+	assert.ok(files.length > 50, `the leveling guides (${files.length})`);
+	const bad = [];
+	for (const f of files) {
+		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8').split(/\n(?=step\b)/).filter((s) => s.startsWith('step'));
+		for (const s of new Set([steps[0], steps[steps.length - 1]])) {
+			if (!s || !/^\s+goto [^\n]*"(Boat|Zeppelin|Ship|Ferry) to [^"]*"/m.test(s)) continue;
+			if (!/^\s+when !zone "[^"]+"/m.test(s)) bad.push(`${f}: ${s.split('\n')[0]}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 // 0.4.0 route audit, Alliance 12-21 (F2, with 03-darkshore-return's Cat Form trip): Night Elf and Skyborne Druids
 // took Trial of the Sea Lion (272) at about 17 and fetched the Westfall half on a gryphon of its own to Sentinel Hill
 // in 04-redridge-mountains (about 25), then joined the halves on a Moonglade trip of its own in 06-wetlands (about
