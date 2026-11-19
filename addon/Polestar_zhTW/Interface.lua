@@ -1405,7 +1405,6 @@ L["%s in your bank"] = "銀行中 %s 個"
 L["%s in your mail"] = "郵件中 %s 個"
 L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
 
@@ -4991,3 +4990,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "沒有可騰出空間的垃圾。Ctrl+Alt 點擊物品可將其標記為垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
+-- L["≈ %s"] = "≈ %s"

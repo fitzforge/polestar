@@ -1405,7 +1405,6 @@ L["%s in your bank"] = "в банке: %s"
 L["%s in your mail"] = "на почте: %s"
 L["%s has %s"] = "%s: %s"
 L["%s to buy"] = "купить: %s"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "(выставлено только %s)"
 L["(old price)"] = "(старая цена)"
 
@@ -4998,3 +4997,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Нет хлама, чтобы освободить место. Ctrl+Alt-щелчок по предмету помечает его как хлам."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Во время паузы задания не принимаются и не сдаются за вас, а награда не выбирается, пока Polestar не продолжит работу."
+-- L["≈ %s"] = "≈ %s"
