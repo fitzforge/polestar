@@ -78,7 +78,7 @@ return {
 	-- Step 13: Gol'dir
 	-- {quest:535} Valik · {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north up the road past {quest:535}'s camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "{quest:535}의 야영지를 지나 길을 따라 북쪽으로 비밀결사가 점령한 마을 {area:280}(35-37)(으)로 가세요. {npc:2431}이(가) {item:3704}을(를) 가지고 있고, {quest:503}은(는) 북쪽 집의 우리에 갇혀 있습니다.\n주의: {area:280}에는 은신한 비밀결사 첩자가 돌아다니며, 건물 안에는 마법사를 포함한 비밀결사 몹이 많습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {quest:503} Gol'dir
 	["Find where {quest:503} is held, on the top floor"] = "",
 	-- {quest:503} Gol'dir

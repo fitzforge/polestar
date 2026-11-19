@@ -81,7 +81,7 @@ return {
 
 	-- Step 17: Mulgris Deepriver
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 20: Diseased Grizzlies
 	["Diseased Grizzlies"] = "오염된 불곰",

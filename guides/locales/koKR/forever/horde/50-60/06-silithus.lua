@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: The Spirits of Southwind
 	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 8: Level 57
 	["Level 57"] = "57레벨",
@@ -215,7 +215,7 @@ return {
 	["Class trainer"] = "직업 전문가",
 
 	-- Step 48: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 

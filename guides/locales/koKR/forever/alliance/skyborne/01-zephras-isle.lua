@@ -196,7 +196,7 @@ return {
 	["Class trainer"] = "직업 전문가",
 
 	-- Step 43: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16624} Shen'dar Village
 	["{npc:5148} in {zone:1455}; {area:16624} has no paladin trainer"] = "",
 
@@ -375,7 +375,7 @@ return {
 	-- {npc:273017} Fendaal Windstone
 	["North-west of Valanaar along the road, past {npc:273017}: the dead cultist lies just north of him."] = "발라나르 북서쪽 길가, {npc:273017}을(를) 지나서: 죽은 광신도는 그 바로 북쪽에 쓰러져 있습니다.",
 	["Search the dead cultist"] = "죽은 광신도를 조사하세요",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:258443} Ur'endra
 	["{npc:258443}, in the highlands south-west of the cultist"] = "광신도 남서쪽 고원의 {npc:258443}",
 

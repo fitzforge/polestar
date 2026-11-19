@@ -108,7 +108,7 @@ return {
 	-- Step 20: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}의 집은 비행 조련사로 가는 길, 마을 동쪽 끝에 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 21: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

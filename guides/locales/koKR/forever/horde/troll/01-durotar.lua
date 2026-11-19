@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143}은(는) {npc:10176} 바로 서쪽 건물인 동굴 막사 안에서 기다립니다.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, 시작 지점",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "훈련용 무기와 멧돼지",
@@ -49,19 +49,19 @@ return {
 	["Class trainer"] = "직업 전문가",
 
 	-- Step 8: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:363} Valley of Trials
-	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "{zone:1456}의 {npc:246344}; {area:363}에는 성기사 상급자가 없습니다",
 
 	-- Step 9: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
-	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "{zone:1412}의 {npc:3034}; {area:363}에는 드루이드 상급자가 없습니다",
 
 	-- Step 10: Back to the Den
 	["Back to the Den"] = "동굴 막사로 돌아가기",
 	-- {npc:11378} Foreman Thazz'ril
-	["{npc:11378}, at the lumber pile east of the Den"] = "",
+	["{npc:11378}, at the lumber pile east of the Den"] = "{npc:11378}, 소굴 동쪽 목재 더미에",
 
 	-- Step 11: Lazy Peons
 	-- {quest:5441} Lazy Peons · {item:16114} Foreman's Blackjack
@@ -116,7 +116,7 @@ return {
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: 마법부여사 전용, 잔여물은 {item:275724}을(를) 마력 추출해서 얻습니다",
 	-- {npc:5880} Un'Thuwa
-	["{npc:5880}, the mage trainer in Sen'jin"] = "",
+	["{npc:5880}, the mage trainer in Sen'jin"] = "{npc:5880}, 센'진의 마법사 상급자",
 
 	-- Step 23: Brakk's campfire
 	-- {npc:265809} Brakk
@@ -164,13 +164,13 @@ return {
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
-	["{npc:266940}, on the east side of town; inside"] = "",
+	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}, 마을 동쪽; 내부",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc
 	["{npc:3706}, in the barracks beside {npc:266940}"] = "{npc:3706}, {npc:266940} 옆 병영 안",
 
 	-- Step 33: Razor Hill
 	-- {npc:3191} Cook Torka
-	["{npc:3191}: Camping 101 asks you to learn it"] = "",
+	["{npc:3191}: Camping 101 asks you to learn it"] = "{npc:3191}: 야영 101에서 배우라고 합니다",
 	-- {npc:6928} Innkeeper Grosk
 	["{npc:6928}, inside"] = "{npc:6928}, 내부",
 	-- {npc:3147} Furl Scornbrow
@@ -204,7 +204,7 @@ return {
 
 	-- Step 42: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
-	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
+	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "{area:362}로 북서쪽으로 돌아가세요: 먼저 {npc:3139}, 다음은 감시탑의 {npc:3147}, 그 다음 동쪽 해안으로 나가는 길에 {npc:3142}와(과) {npc:266940}.",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}, 내부",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc · {item:16606} Juju Hex Robes
@@ -214,7 +214,7 @@ return {
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373}: 만나는 대로 처치하세요",
 	-- {area:362} Razor Hill
-	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
+	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "센'진 북동쪽 해변에는 마크루라와 파도기수가 있으며, 테일라셰르 알은 해변을 따라 둥지에 있습니다.\n{area:362} 동쪽과 남동쪽 해안의 난파선 잔해에 노움 공구상자가 있습니다. 해안을 따라 남쪽으로 가면 센'진입니다.",
 	["Underwater"] = "물속",
 
 	-- Step 44: Sen'jin Village
@@ -251,7 +251,7 @@ return {
 	["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nCareful: the trolls stand close together and the Voodoo Trolls cast from range: pull one at a time. {quest:826} himself is level 10.\nWade back west to the shore south of Sen'jin when the isles are done."] = "섬들을 지나 남쪽으로 가세요. 로아 우상은 남쪽 섬 곳곳에 있으며, 부두교 트롤과 주술에 걸린 트롤이 이를 지키고 사술 걸린 펜던트를 떨어뜨립니다. {quest:826}와(과) 민시나의 우리는 가장 남쪽 섬에 있습니다.\n주의: 트롤들은 서로 가까이 서 있고 부두교 트롤은 원거리에서 주문을 겁니다. 하나씩 끌어오세요. {quest:826} 자신은 10레벨입니다.\n섬을 마치면 얕은 물을 건너 서쪽 센진 남쪽 해안으로 돌아가세요.",
 
 	-- Step 52: Level 10
-	["Level 10"] = "",
+	["Level 10"] = "10레벨",
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "여기서 10레벨까지 올리세요. {area:362}의 {quest:840}에는 10레벨이 필요합니다.\n{quest:96825}의 가시배는 이 오두막들 옆에서 자랍니다. 사냥하면서 채집하세요.",
 	-- {npc:3111} Razormane Quilboar
@@ -267,32 +267,32 @@ return {
 
 	-- Step 54: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
-	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "",
+	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "{area:814} 다리를 서쪽으로 건너세요: {npc:3337}은(는) 그 위의 {area:379}에 서 있고, {npc:5907}에게 가는 길에 있습니다.",
 
 	-- Step 59: Kranal Fiss
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
-	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "",
+	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "{area:814} 다리를 서쪽으로 건너 {area:379}을(를) 지나 능선을 따라 계속 가세요: {npc:5907}은(는) 서슬갈기일족 야영지 위에 홀로 서 있습니다.",
 
 	-- Step 60: Telf Joolam
 	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
+	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "다리를 되돌아 건너 강 {zone:1411}쪽 둑을 따라 남쪽으로 가면 좁은 오르막길이 나옵니다: {npc:5900}이(가) 꼭대기의 제단을 지킵니다. 오르막길에서는 가장자리를 조심하고, 같은 길로 내려오세요.",
 
 	-- Step 61: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town, where the prickly pears grow; dustrunners and battleguards hold the camps farther west."] = "가시멧돼지와 정찰병이 가시배가 자라는 마을 서쪽 오두막을, 사막길잡이와 전투호위병이 더 서쪽의 야영지를 차지하고 있습니다.",
 
 	-- Step 62: Rezlak
 	-- {zone:1454} Orgrimmar · {npc:3293} Rezlak
-	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "",
+	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "{zone:1454}로 가는 도로를 따라 북동쪽으로 가세요. {npc:3293}이(가) 그 옆에 야영하고, 훔친 자루는 그 남쪽 도로변에 있습니다.",
 
 	-- Step 63: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "{area:370}에 야만인과 폭풍마녀가 둥지를 틀고 있으며, {npc:3293}의 동쪽입니다. 폭풍마녀가 {item:277661}을(를) 떨어뜨립니다. 주술사: 협곡 남쪽 끝, {area:371}에 있는 불타는칼날단 신도가 {item:6652}을(를) 떨어뜨립니다.",
 
 	-- Step 64: Deathskip to Northern Durotar
-	["Deathskip to Northern Durotar"] = "",
+	["Deathskip to Northern Durotar"] = "죽음이동으로 북부 듀로타",
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
-	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
+	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "52.0,21.4의 몬스터({npc:3118})에게 죽으세요: 그곳에서 죽으면 이 묘지로 보내집니다. 영혼을 풀고 {npc:6491}의 부활을 받으세요.",
 
 	-- Step 67: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
@@ -325,15 +325,15 @@ return {
 
 	-- Step 74: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
-	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "{zone:1456}의 {npc:246344}; {area:362}에는 성기사 상급자가 없습니다",
 
 	-- Step 75: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
-	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "{zone:1412}의 {npc:3034}; {area:362}에는 드루이드 상급자가 없습니다",
 
 	-- Step 76: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
-	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "{area:362}로 돌아가세요: {npc:3139}, 그 다음 {npc:3142}.",
 
 	-- Step 77: Spitelash naga
 	["Spitelash naga"] = "원한의꼬리일족 나가",
@@ -351,11 +351,11 @@ return {
 
 	-- Step 81: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "이곳에 온 김에 {npc:2704}에게 지팡이({object:172958}, 10실버)를 배우세요. 레벨을 올리는 동안 지팡이는 한손 무기보다 주문 능력치가 더 높습니다.",
 
 	-- Step 82: Back to Durotar
 	-- {zone:1411} Durotar
-	["Back to {zone:1411}"] = "",
+	["Back to {zone:1411}"] = "{zone:1411}(으)로 돌아가세요",
 
 	-- Step 83: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -379,7 +379,7 @@ return {
 
 	-- Step 89: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
-	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "",
+	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, 어린 바다 거인은 {zone:1411} 북쪽 해안, 나가 해변 북쪽을 돌아다닙니다. {npc:275666}은(는) 정예이니 파티를 맺는 편이 좋습니다.",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, {area:362}에 돌아가서",
 
@@ -388,11 +388,11 @@ return {
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "{npc:3126}은(는) {area:362} 서쪽 평원을 기어다닙니다. 하나를 길들인 뒤 {npc:3171}에게 돌아가세요.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
-	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
+	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171}: {zone:1454}의 {npc:3352}이(가) {spell:5149} 가르침",
 
 	-- Step 91: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "{area:362}에서 서쪽으로 {area:814} 다리를 건너세요: {npc:3337}과(와) {npc:5810}은(는) 그 위의 {area:379}에 함께 서 있습니다. 거기서 {zone:1411}을(를) 관통하는 북쪽 도로가 {zone:1454}로 이어집니다.",
 
 	-- Step 92: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "북쪽으로 가는 길의 천둥 도마뱀",
@@ -406,15 +406,15 @@ return {
 
 	-- Step 95: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "이곳에 온 김에 {npc:2704}에게 지팡이({object:172958}, 10실버)를 배우세요. 사냥꾼의 근접 무기는 대부분 능력치가 전부이고, 양손 무기가 가장 높습니다.",
 
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "{area:379}에서 도로를 따라 북쪽으로 가면 {zone:1454} 정문이 나옵니다. 다음 가이드는 {zone:1454}에서 시작합니다: {quest:829}가 신도의 퀘스트를 주고, 상급자들이 새 등급을 가르치며, 성문 밖의 탑에서 비행선이 {zone:1420}와(과) {zone:1421}로 떠납니다. {zone:1413}은(는) 은빛소나무 숲 다음에 옵니다.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}의 {object:172982}",
 
 	-- Step 97: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar

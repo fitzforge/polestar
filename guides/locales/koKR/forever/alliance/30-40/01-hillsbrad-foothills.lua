@@ -230,7 +230,7 @@ return {
 
 	-- Step 46: Farren
 	["Farren"] = "파렌",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 47: Murloc heads
 	["Murloc heads"] = "멀록 머리",

@@ -37,7 +37,7 @@ return {
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "{area:348}(으)로 돌아가는 길에: 잃어버린 그리핀 알은 그리핀 둥지 바로 동쪽 언덕에 있습니다.",
 
 	-- Step 6: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, 내부",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep

@@ -144,7 +144,7 @@ return {
 	-- Step 30: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "{object:4141}은(는) {area:382} 서쪽의 투자개발회사 연구 현장에 있습니다. 시추기 주변의 밸브 세 개를 잠그고 제어판을 다시 사용한 뒤, 그 옆의 {npc:3471}에게서 {item:5089}을(를) 얻으세요.\n주의: 여러 경비병이 밸브 근처 감지 범위 안에 서 있고, 약 3분 안에 다시 나타나며, 생명력이 낮아지면 도망쳐 도움을 불러옵니다. 근처 몹이 가까이 있을 때 밸브를 사용하면 그들도 합류합니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: on the next {area:392} stop"] = "{area:392}의 {npc:3442}: 다음 {area:392} 방문 때",
 

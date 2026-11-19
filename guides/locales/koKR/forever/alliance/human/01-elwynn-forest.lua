@@ -30,7 +30,7 @@ return {
 	["{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a {quest:91741}: right-click it."] = "{npc:6}이(가) 대성당 북동쪽 포도밭을 파헤치고 있습니다. 가끔 {quest:91741}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
 
 	-- Step 5: Northshire Abbey
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:247229} Daniel
 	["{npc:247229}, in the library; inside"] = "{npc:247229}, 도서관, 안",
 

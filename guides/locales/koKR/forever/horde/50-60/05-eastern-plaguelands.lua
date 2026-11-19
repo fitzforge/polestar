@@ -25,7 +25,7 @@ return {
 	-- Step 6: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변의 집들에 있습니다. 가방에서 합치세요.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 7: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
