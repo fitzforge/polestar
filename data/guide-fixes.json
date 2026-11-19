@@ -6543,6 +6543,103 @@
 			]
 		},
 		{
+			"id": "a043-deeprun-city-entrances",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6661,
+				"goal": "accept"
+			},
+			"tip": "On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.",
+			"note": "Monty and the rats are inside the Deeprun Tram, on the Ironforge platform. Nipsy is on the other platform before the exit to Stormwind. This instance has no player map; the quest markers use its city entrances. The rat-catching line itself has no city marker.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Dwarves and gnomes: 6661 from and to Monty (12997), then 6662 to Nipsy (13018); Deeprun Rat (13016) in Deeprun Tram."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-way-surena",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1688,
+				"goal": "objective",
+				"guide": "forever/alliance/human/01-elwynn-forest",
+				"objective": 1
+			},
+			"way": {
+				"at": {
+					"map": 1429,
+					"x": 71.0,
+					"y": 80.8,
+					"frame": "era"
+				},
+				"label": "Brackwell Pumpkin Patch"
+			},
+			"note": "Surena Caledon (881) stands at 71.01,80.77 in Elwynn Forest.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 1688: Surena Caledon (881) stands at 71.01,80.77 in Elwynn Forest."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-way-moonglade",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5921,
+				"goal": "turnin",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"at": {
+					"map": 1450,
+					"x": 56.3,
+					"y": 32.5,
+					"frame": "era"
+				},
+				"label": "Cast Teleport: Moonglade"
+			},
+			"note": "The teleport lands at Nighthaven, before the visit to Dendrite Starblaze.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 5921: The teleport lands at Nighthaven, before the visit to Dendrite Starblaze."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "a043-way-narm",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1783,
+				"goal": "objective",
+				"guide": "forever/alliance/dwarf/01-dun-morogh",
+				"objective": 1
+			},
+			"way": {
+				"at": {
+					"map": 1426,
+					"x": 78.32,
+					"y": 58.09,
+					"frame": "era"
+				},
+				"label": "Helm's Bed Lake"
+			},
+			"note": "Narm Faulk (6177) lies at the shore of Helm’s Bed Lake. Use the Symbol of Life on him there.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 1783: Narm Faulk (6177) lies at the shore of Helm’s Bed Lake. Use the Symbol of Life on him there."
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "tome-of-divinity-loch-modan-henze",
 			"faction": "Alliance",
 			"at": {

@@ -12011,7 +12011,7 @@ test("Fyurie's report (#1458): Kodo Roundup uses the Kombobulator and counts at 
 		['forever/horde/02-the-barrens.guide', /kill 12296 quest 6129\.1 "Cure Sickly Gazelle"/],
 		['forever/alliance/03-darkshore-return.guide', /kill 12298 quest 6124\.1 "Cure Sickly Deer"/],
 		['forever/reputation/orgrimmar.guide', /kill 10556 x5 quest 5441\.1 "Wake Lazy Peon"/],
-		['forever/alliance/dwarf/01-dun-morogh.guide', /quest 6661\.1 @78\.0,51\.4 "Catch Deeprun Rat"/],
+		['forever/alliance/dwarf/01-dun-morogh.guide', /kill 13016 x5 quest 6661\.1 "Catch Deeprun Rat"/],
 	]) assert.match(src(f), re, `${f} names the action`);
 });
 
@@ -14951,6 +14951,29 @@ test(`${NE_DARKSHORE}: Buzzbox 827 is handed in on the beach before the first lo
 	assert.ok(take < give && give < at(list, 'turnin 954', is('turnin', 954)), 'taken in Auberdine, handed in before Bashal\'Aran');
 	assert.ok(list[give].step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(983)), 'only while 983 is carried');
 	assert.ok(list.slice(take, give).some(({ goal }) => goal.t === 'collect' && goal.item === 5385), 'the Crawler Legs first');
+});
+
+test('Alliance starter travel: the tram stays inside until Nipsy, and druids leave from the hippogryphs', { skip }, () => {
+	for (const guide of DUN_MOROGHS) {
+		const list = goals(guide);
+		const monty = at(list, 'Monty', is('accept', 6661));
+		const nipsy = at(list, 'Nipsy', is('turnin', 6662));
+		const rat = list[at(list, 'catch Deeprun Rat', (g) => g.t === 'kill' && g.npc === 13016 && g.quest === 6661)].goal;
+		assert.ok(rat.x == null && rat.y == null, 'the rats are inside the tram, not outside Tinker Town');
+		const position = ({ map, x, y, f }) => [map, x, y, f];
+		assert.deepEqual(position(list[monty].goal), [1455, 78, 51.4, 'e'], 'Monty uses the Ironforge entrance');
+		assert.deepEqual(position(list[nipsy].goal), [1453, 64.5, 7.5, 'e'], 'Nipsy uses the Era-frame Stormwind entrance, not a point under the keep');
+		assert.ok(list.slice(0, monty).some(({ goal }) => goal.t === 'enter' && goal.location === 'Deeprun Tram'));
+		const exit = list.slice(nipsy + 1, at(list, 'Furen', is('turnin', 1338))).find(({ goal }) => goal.t === 'enter' && goal.location === 'Stormwind City');
+		assert.deepEqual(position(exit.goal), position(list[nipsy].goal), 'leave the tram only after speaking to Nipsy');
+	}
+	const list = goals(TELDRASSIL);
+	const stone = at(list, 'Moonkin Stone', (g) => g.t === 'use' && g.item === 15208);
+	const bear = at(list, 'Bear Form', is('turnin', 6001));
+	for (const [from, to, x, y] of [[at(list, 'Body and Heart', is('accept', 6001)), stone, 58.4, 93.9], [stone, bear, 36.4, 45.6], [bear, list.length, 58.4, 93.9]]) {
+		const leg = list.slice(from, to);
+		assert.ok(at(leg, 'flight master', (g) => g.t === 'goto' && g.x === x && g.y === y) < at(leg, 'flight', (g) => g.t === 'fly'));
+	}
 });
 
 // Alliance 1-12 audit (0.4.0, #2025): class training skipped at a capital visit right after a ding. Night Elves

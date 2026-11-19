@@ -538,6 +538,7 @@ step Braldir Ashmantle
 step North Gate Outpost
   zone Dun Morogh
   tip Pilot Hammerfoot waits at the North Gate Outpost, north of the South Gate; the dwarven corpse lies up the pass to the west of him.
+  goto 83.79,39.26 map 1426 live "North Gate Outpost" only Shaman
   accept 419                                  -- Pilot Hammerfoot
   turnin 419                                  -- A Dwarven Corpse
   accept 417
@@ -549,6 +550,7 @@ step North Gate Outpost
 step The tunnel post
   zone Loch Modan
   tip East through the South Gate tunnel into Loch Modan. Mountaineer Cobbleflint and Captain Rugelfuss stand at the dwarven post just past it.
+  enter "Loch Modan" @22.03,73 live
   accept 224                                  -- Mountaineer Cobbleflint
   accept 267                                  -- Captain Rugelfuss
 
@@ -635,6 +637,7 @@ step Back to Bruegs Kindleborn
 step Golnir Bouldertoe
   zone Ironforge
   tip Golnir Bouldertoe works at the Great Forge's north end, and Gryth Thurden keeps the gryphons in the Great Forge, where the flight from Thelsamar lands.
+  enter "Ironforge" @21.6,77.8
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
   turnin 6388                                 -- Gryth Thurden, the gryphon master in the Great Forge
@@ -666,27 +669,29 @@ step The Tome of Divinity
   accept 1647
   turnin 1647                                 -- John Turner
   accept 1648
-  collect 2589 quest 1648.1                   -- Linen Cloth
+  collect 2589 quest 1648.1 @24.2,74.7 map 1455 -- Bring ten Linen Cloth from the troggs or buy what you lack at the Auction House
   turnin 1648
   accept 1778
   turnin 1778                                 -- Tiza Battleforge
   accept 1779
   turnin 1779                                 -- Muiredon Battleforge
   accept 1783
-  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
-  turnin 1783 only Paladin -- Narm Faulk
 
 step Narm Faulk
   only Paladin
   zone Dun Morogh
   tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
   level 12 only Paladin
+  goto 78.32,58.09 "Helm's Bed Lake"
+  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
+  turnin 1783 only Paladin -- Narm Faulk
   accept 1784
   collect 6847 quest 1784.1                   -- Dark Iron Script: Dark Iron Spies
 
 step Muiredon Battleforge
   only Paladin
   zone Ironforge
+  enter "Ironforge" @21.6,77.8
   turnin 1784                                 -- Muiredon Battleforge
 
 step Muiredon Battleforge
@@ -751,9 +756,10 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end.
+  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.
+  enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
-  kill 13016 x5 quest 6661.1 @78.0,51.4 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
+  kill 13016 x5 quest 6661.1 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
   turnin 6661 @78.0,51.4                      -- Monty
   accept 6662 @78.0,51.4
 
@@ -761,6 +767,10 @@ step Nipsy
   zone Stormwind City
   tip Ride the tram to Stormwind: Nipsy waits on the Stormwind platform. Furen Longbeard stands in the Dwarven District, just outside the tram.
   turnin 6662 @64.5,7.5                       -- Nipsy, on the Stormwind platform
+
+step From the tram to Stormwind
+  zone Stormwind City
+  enter "Stormwind City" @64.5,7.5
   turnin 1338                                 -- Furen Longbeard
 
 step Baros Alexston
