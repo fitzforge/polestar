@@ -2,6 +2,42 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "searing-north-rim-taskmaster",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 1,
+			"at": {
+				"map": 1427,
+				"x": 43.5,
+				"y": 27.5,
+				"frame": "era"
+			},
+			"note": "Work the outer rim below Thorium Point, not the crowded furnaces.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Dark Iron taskmaster (5846), north rim spawns in Searing Gorge"
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-north-rim-slaver",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 2,
+			"at": {
+				"map": 1427,
+				"x": 43.5,
+				"y": 27.5,
+				"frame": "era"
+			},
+			"note": "Work the outer rim below Thorium Point, not the crowded furnaces.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Dark Iron slaver (5844), north rim spawns in Searing Gorge"
+			},
+			"issue": 3144
+		},
+		{
 			"id": "stranglethorn-young-panthers-across-the-river",
 			"quest": 190,
 			"objective": 1,

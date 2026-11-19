@@ -11,3 +11,4 @@ section: players
   Zanzil's Secret, Voodoo Dues and The Bloodsail Buccaneers are no longer
   handed to you at 40 to carry for twenty hours: the level-48 Booty Bay stop
   that does them gives them, and the Riverglades quest log stays lighter.
+- In Searing Gorge, hunt Slavers on the north rim below Thorium Point. The Riverglades guide warns early arrivals about the Western Front before they reach its elite patrols.
