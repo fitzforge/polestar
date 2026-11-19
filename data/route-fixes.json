@@ -2836,19 +2836,6 @@
 			{
 				"a": [
 					"turnin",
-					109
-				],
-				"b": [
-					"accept",
-					963
-				],
-				"faction": "Alliance",
-				"why": "Level tidy (0.4.0, Night Elf Darkshore): For Love Eternal's Anaya Dawnrunner is level 16 and Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5 (the model 12.9). The quest waits for 03-darkshore, after Westfall, where it is done at about 17; this undoes the #2025 move into nightelf/02-darkshore.",
-				"source": "level tidy 0.4.0"
-			},
-			{
-				"a": [
-					"turnin",
 					5541
 				],
 				"b": [
@@ -16082,6 +16069,32 @@
 				"faction": "Alliance",
 				"why": "Raene's Cleansing (1024) only sends the player to Shael'dryn in the Howling Vale, far east of 06-ashenvale's first-visit stops: it is taken on 06-wetlands' first Astranaar stop and handed in on that visit's walk east, where Shael'dryn gives its next part (1026). On 06-ashenvale Raene offers it on the last Astranaar stop and the guide leaves it.",
 				"source": "0.4.3 route round (#3144), flow audit with baked legs 2026-11-19"
+			},
+			{
+				"a": [
+					"task",
+					2138
+				],
+				"b": [
+					"turnin",
+					985
+				],
+				"faction": "Alliance",
+				"why": "Night Elf Darkshore: Cleansing of the Infected's Rabid Thistle Bears (13-14) roam the hills of nightelf/02-darkshore's second loop (Blackwood camp, Ameth'Aran, the crystal), so Tharnariun's quest is taken on its second Auberdine stop and handed in on the last; 03-darkshore's first loop then has nothing left for a Night Elf but For Love Eternal below 15. Players' recordings: 15 Night Elves following the guide already took it during nightelf/02-darkshore (25th percentile 13.5).",
+				"source": "0.4.3 route round (#3144): flow audit with baked legs, players' recordings to 2026-11-19"
+			},
+			{
+				"a": [
+					"accept",
+					4728
+				],
+				"b": [
+					"turnin",
+					952
+				],
+				"faction": "Alliance",
+				"why": "Grove of the Ancients (952), from Fandral in Darnassus at the end of Teldrassil, went to Onu only on 03-darkshore-return, carried about 8 hours through Westfall, Darkshore and Loch Modan. Onu stands at the Grove about 550 yd east of nightelf/02-darkshore's southern beaches step (Beached Sea Creature 4728), so it is handed in there; 03-darkshore-return keeps its `when onquest 952` step for a character still carrying it.",
+				"source": "0.4.3 route round (#3144): flow audit with baked legs 2026-11-19"
 			}
 		],
 		"leftout": [

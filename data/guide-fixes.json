@@ -13046,6 +13046,29 @@
 				}
 			],
 			"issue": 2801
+		},
+		{
+			"id": "ne-darkshore-for-love-eternal-from-15",
+			"faction": "Alliance",
+			"at": {
+				"quest": 963,
+				"goal": "accept",
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"when": "level>=15",
+			"tip": "From level 15: Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead.",
+			"note": "Night Elf Darkshore: For Love Eternal (963) is taken on the second Auberdine stop only from level 15 and done on the second loop's pass through Ameth'Aran, so a Night Elf at 15 no longer walks 03-darkshore's first loop for it alone (Anaya Dawnrunner 16 is one over at 15). Below 15 it stays with 03-darkshore at about 17, as the 0.4.0 level tidy set it (Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5). The pendant goal on the Ameth'Aran step and the hand-in step on the pier (`when onquest 963`) follow the quest in the log.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 9 Night Elves following the guide took and handed in 963 during nightelf/02-darkshore, 25th percentile level 14.8; Night Elf exit levels from that guide 25th/50th/75th percentile 14.1/14.7/15.1"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 963 starter and ender Cerellean Whiteclaw (3644); objective Anaya's Pendant from Anaya Dawnrunner (3667, level 16)"
+				}
+			],
+			"pr": 3144
 		}
 	]
 }

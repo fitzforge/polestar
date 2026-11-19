@@ -15906,15 +15906,38 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 
 // Level tidy (0.4.0): For Love Eternal's (963) Anaya Dawnrunner is level 16, and Night Elf Darkshore reaches
 // Ameth'Aran at about 13 (recorded 25th percentile 13.5): 3 levels above the player. The quest stays with
-// 03-darkshore, which hands it in at about 17; Night Elf Darkshore no longer takes it (this replaces the #2025
-// case that took it on the pier).
-test(`${NE_DARKSHORE}: For Love Eternal waits for 03-darkshore, where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
+// 03-darkshore, which hands it in at about 17 (this replaced the #2025 case that took it on the pier).
+// 0.4.3 route round: a Night Elf already at 15 takes it on Night Elf Darkshore's second Auberdine stop (Anaya +1) and
+// does it on the second loop's Ameth'Aran pass; the accept shows only from 15, so the level tidy's fix still holds.
+test(`${NE_DARKSHORE}: For Love Eternal only from level 15 in Night Elf Darkshore, else in 03-darkshore where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
-	assert.ok(!ne.some(({ goal }) => goal.quest === 963), 'no For Love Eternal goal in Night Elf Darkshore');
+	const take = ne[at(ne, 'accept 963', is('accept', 963))];
+	assert.ok((take.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 15), 'Night Elf Darkshore offers it from level 15 only');
+	assert.ok(ne.filter(({ goal }) => goal.quest === 963 && goal.t === 'accept').length === 1, 'one accept');
+	const pendant = at(ne, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	const hand = ne[at(ne, 'turnin 963', is('turnin', 963))];
+	assert.ok(at(ne, 'accept 963', is('accept', 963)) < pendant && pendant < at(ne, 'turnin 963', is('turnin', 963)), 'taken, done on the second loop and handed in on the pier');
+	assert.ok((hand.step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'the hand-in only while carried');
 	const shared = goals(DARKSHORE);
-	const take = at(shared, 'accept 963', is('accept', 963));
-	const pendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
-	assert.ok(take < pendant && pendant < at(shared, 'turnin 963', is('turnin', 963)), '03-darkshore takes, does and hands it in');
+	const stake = at(shared, 'accept 963', is('accept', 963));
+	const spendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	assert.ok(stake < spendant && spendant < at(shared, 'turnin 963', is('turnin', 963)), '03-darkshore takes, does and hands it in for everyone else');
+});
+
+// Route review 0.4.3 (Night Elves walked 03-darkshore's first loop again for two quests): Cleansing of the Infected
+// (2138) is taken from Tharnariun on Night Elf Darkshore's second Auberdine stop, its bears hunted on the second loop and
+// handed in on the last stop; Grove of the Ancients (952) goes to Onu on the southern beaches step instead of being
+// carried about 8 hours to 03-darkshore-return (which keeps a step for a character still carrying it).
+test(`${NE_DARKSHORE}: Cleansing of the Infected on the second loop, Grove of the Ancients to Onu on the southern beaches`, { skip }, () => {
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	const idx = (t, q) => at(ne, `${t} ${q}`, is(t, q));
+	assert.equal(ne[idx('accept', 2138)].s, ne[idx('turnin', 2118)].s, '2138 taken when Plagued Lands is handed in');
+	const kills = ne.filter(({ goal }) => goal.t === 'kill' && goal.quest === 2138).map(({ s }) => s);
+	assert.ok(kills.length && kills.every((s) => s > ne[idx('accept', 2138)].s && s < ne[idx('turnin', 2138)].s), 'bears between the accept and the hand-in');
+	assert.equal(ne[idx('turnin', 2138)].s, ne[idx('turnin', 985)].s, 'handed in on the last Auberdine stop, with Terenthis');
+	assert.equal(ne[idx('turnin', 952)].s, ne[idx('accept', 4728)].s + 1, 'Onu right after the southern beaches');
+	const dret = goals(DARKSHORE_RETURN);
+	assert.ok((dret[at(dret, 'turnin 952', is('turnin', 952))].step.when || []).some((p) => p.k === 'onquest' && !p.neg), '03-darkshore-return keeps it only while carried');
 });
 
 // Level tidy (0.4.0), Dun Morogh: the Snow Leopard Prowler (6) came at a recorded 4.8, the Grizzled Den's Elder
