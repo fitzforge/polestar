@@ -1214,7 +1214,7 @@ local function alongRows(along, height)
 		if type(facts) == "table" and (facts.quest or facts.text) then
 			own._orig = own._orig or text
 			-- The finished quests carried: the card's heading says they are still to do.
-			local carried = facts.count and (facts.count == 1 and Core.tr("1 quest to hand in off-guide") or string.format(Core.tr("%d quests to hand in off-guide"), facts.count))
+			local carried = facts.count and (facts.count == 1 and Core.tr("1 quest off-guide") or string.format(Core.tr("%d quests off-guide"), facts.count))
 			-- A click lists them (QuestRoom "carried"): one line, as Optional's
 			-- rows are, its View on the right while the pointer is on the card.
 			own.view = carried and not facts.quest and true or nil
