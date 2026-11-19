@@ -765,21 +765,21 @@
 			"pr": 692
 		},
 		{
-			"id": "a043-ironforge-linen-at-the-auction-house",
+			"id": "a043-dwarven-paladin-linen-at-golbolar",
 			"quest": 1648,
 			"objective": 1,
 			"faction": "Alliance",
 			"at": {
-				"map": 1455,
-				"x": 24.2,
-				"y": 74.7,
+				"map": 1426,
+				"x": 67.18,
+				"y": 58.58,
 				"frame": "era"
 			},
-			"note": "Carry the cloth from the trogg camps or get the missing pieces in the Commons beside John Turner. No detour back into Dun Morogh for a bag check.",
+			"note": "Save ten Linen Cloth at the north Stonesplinter camps before the flight to Ironforge. A paladin who reaches John Turner short can farm Rockjaw Skullthumpers on the western edge of the quarry.",
 			"source": [
 				{
 					"kind": "pfquest",
-					"ref": "Auctioneer Redmuse (8720) stands at 24.16,74.67 in Ironforge; John Turner takes the ten Linen Cloth there."
+					"ref": "Item 2589 drops from Stonesplinter Troggs and Scouts (1161, 1162) and Rockjaw Skullthumpers (1115). The Skullthumpers spawn at 67.18,58.58 and 67.09,59.71 in Dun Morogh."
 				}
 			],
 			"pr": 3144

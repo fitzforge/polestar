@@ -565,6 +565,19 @@ step Stonesplinter troggs
   kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
   collect 2536 quest 267.1                    -- Trogg Stone Tooth
 
+step Linen for John Turner
+  only Paladin
+  when level>=11
+  when !onquest 1648
+  when !turnedin 1648
+  when !has 2589 x10
+  zone Loch Modan
+  tip Keep ten Linen Cloth for John Turner in Ironforge. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps.
+  loop
+  goto 29.57,72.89 r 25
+  goto 32.37,72.36 r 25
+  collect 2589 x10
+
 step Back to the tunnel post
   zone Loch Modan
   turnin 224                                  -- Mountaineer Cobbleflint
@@ -660,7 +673,7 @@ step The Forlorn Cavern
 step The Tome of Divinity
   only Paladin
   zone Ironforge
-  tip West from the Forlorn Cavern into the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
+  tip West from the Forlorn Cavern into the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. Bring him the ten Linen Cloth you saved in Loch Modan.
   level 12 only Paladin
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
@@ -669,8 +682,30 @@ step The Tome of Divinity
   accept 1647
   turnin 1647                                 -- John Turner
   accept 1648
-  collect 2589 quest 1648.1 @24.2,74.7 map 1455 -- Bring ten Linen Cloth from the troggs or buy what you lack at the Auction House
+
+step Linen for The Tome of Divinity
+  only Paladin
+  when onquest 1648
+  when !has 2589 x10
+  zone Dun Morogh
+  tip If you're short on cloth, leave Ironforge through the Commons and follow the road down the mountain, then east to Gol'Bolar Quarry. Kill Rockjaw Skullthumpers on the quarry's western edge. If the missing cloth is affordable at the Auction House, you can buy it instead.
+  enter "Dun Morogh" @21.6,77.8 map 1455
+  loop
+  goto 67.18,58.58 r 25
+  goto 67.09,59.71 r 25
+  collect 2589 quest 1648.1
+
+step John Turner
+  only Paladin
+  when onquest 1648
+  zone Ironforge
+  tip Follow the road back to Ironforge if you left the city. John Turner walks through the Commons.
+  enter "Ironforge" @21.6,77.8
   turnin 1648
+
+step Tiza and Muiredon Battleforge
+  only Paladin
+  zone Ironforge
   accept 1778
   turnin 1778                                 -- Tiza Battleforge
   accept 1779

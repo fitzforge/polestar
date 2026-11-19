@@ -14868,6 +14868,39 @@ test('Thundering Hearts: taken after Varimathras, the heart on the way to Moktar
 	assert.ok(arathi[back].goal.map === 1458 && back < at(arathi, 'the flight to Tarren Mill', (g) => g.t === 'fly'), 'handed in on the Undercity stop, before the flight');
 });
 
+test('Dwarf Paladin: carry ten linen before the Ironforge flight; farm only the shortfall after taking 1648', { skip }, () => {
+	const file = path.join(OFFICIAL_DIR, DWARF_DUN_MOROGH);
+	const guide = compiled(DWARF_DUN_MOROGH);
+	const supply = guide.steps.findIndex(s => s.goals.some(g => g.t === 'collect' && g.item === 2589 && !g.quest));
+	const fallback = guide.steps.findIndex(s => s.goals.some(g => g.t === 'collect' && g.quest === 1648));
+	const flight = guide.steps.findIndex(s => s.goals.some(g => g.t === 'fly' && g.location === 'Ironforge'));
+	const take = guide.steps.findIndex(s => s.goals.some(is('accept', 1648)));
+	const hand = guide.steps.findIndex(s => s.goals.some(is('turnin', 1648)));
+	assert.ok(supply >= 0 && supply < flight && flight < take && take < fallback && fallback < hand);
+	const blocks = fs.readFileSync(file, 'utf8').split(/^step /m).slice(1);
+	const text = `guide forever/alliance/dwarf/01-dun-morogh\ntitle Dun Morogh\nfaction Alliance\nrace Dwarf\nlevels 1-14\nzone Ironforge\nstep ${blocks[supply]}step ${blocks[fallback]}step Continue\n  zone Ironforge\n  task "Continue"\n`;
+	const pack = buildSimPack([{ file, text }], data);
+	try {
+		assert.deepEqual(pack.diag.list, []);
+		const g = pack.guides[0];
+		for (const [bags, carried, done, step, map] of [
+			[0, false, false, 1, 1432], [10, false, false, 3, null], [3, true, false, 2, 1426],
+			[10, true, false, 3, null], [0, false, true, 3, null],
+		]) {
+			const [r] = playGuide(pack, g, { race: 'Dwarf', faction: 'Alliance', cls: 'PALADIN',
+				before: `w.level=12;w.addItem(2589,${bags});${carried ? 'w.moveTo(1455,24.2,74.7);w.setZone("Ironforge")' : ''}\n${carried ? 'w.onQuest(1648,{{required=10,type="item"}})' : ''}\n${done ? 'w.complete({1648})' : ''}`,
+				script: `local E=Polestar.Engine;local p=E.GetWaypoint();local gate=p and p.map
+					if gate==1455 then stub.world.moveTo(1426,51.6,34.0);stub.world.setZone("Dun Morogh");stub.advance(1) end
+					p=E.GetWaypoint();emit({step=E.GetStepIndex(),gate=gate,map=p and p.map,held=C_QuestLog.IsOnQuest(1648)})`,
+			});
+			assert.equal(r.step, step, `bags=${bags}, carried=${carried}, turned in=${done}`);
+			if (carried && bags < 10) assert.equal(r.gate, 1455, 'leave by the Ironforge gate first');
+			if (map) assert.equal(r.map, map);
+			assert.equal(r.held, carried, 'collecting for a future visit must not grant the quest');
+		}
+	} finally { pack.dispose(); }
+});
+
 // Almighty972 (#2151): "Ca n'indique pas le bon endroit pour ramasser les
 // étoffe de lin" on the Human Paladin's Tome of Divinity. Only pfQuest lists
 // Lisan Pierce (1414), a Stormwind NPC, as a Linen Cloth dropper (100%), so the
