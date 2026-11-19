@@ -457,7 +457,8 @@ fn transparent_takes_every_style_s_tab_ground_away() {
 			local s = P.tabSide
 			for _, b in ipairs(s.tabs) do if b:IsShown() then icon(out.strip, b) end end
 			icon(out.strip, s.Add)
-			out.side = { ground = s.Ground:GetAlpha(), edges = s.Edges[1]:IsShown() }
+			-- The strip is in the window's own paint: bare and its opacity are what it was handed.
+			out.side = { ground = s.psBare and 0 or (s.psBgAlpha or Polestar.Theme.GroundAlpha()), edges = not s.psBare }
 			return out
 		end
 		Polestar.Set("ui.bgOpacity", 0.8)
