@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,799 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,836 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -27,6 +27,7 @@ section: players
   Fire (Alliance), Atiesh, the Heirloom Weapon, The Barrens, Horde Ashenvale,
   the Badlands, Wintersaber Trainers, Holy Mightstone, Incubus (Alliance),
   Quel'Serrar, Feralas, Darkshore Return, Voidwalker (Horde) and the Mechanical
-  Chicken pet, Hillsbrad Foothills, Stranglethorn Vale and Stalk with the
-  Earthmother guides, plus texts that repeat English the locale already
-  translates, filled with the locale's own wording.
+  Chicken pet, Hillsbrad Foothills, Stranglethorn Vale, Stalk with the
+  Earthmother, the Searing Gorge, Ju-Ju Heaps and Imp (Horde) guides, plus texts
+  that repeat English the locale already translates, filled with the locale's
+  own wording.
