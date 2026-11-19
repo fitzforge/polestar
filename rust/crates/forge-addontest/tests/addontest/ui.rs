@@ -1066,11 +1066,14 @@ fn combat_by_default_the_window_stays_as_it_is_fade_dims_it_hide_hides_it_both_r
 fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 	let out = run(r#"
 		local function state()
-			local e = GF.parts.empty
+			local e, pn = GF.parts.empty, GF.PlayNext.card()
 			return { shown = e:IsShown(), title = e.Title:GetText(), text = e.Text:GetText(),
 				primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false,
-				secondary = e.Secondary:IsShown() and e.Secondary.Label:GetText() or false, card = GF.parts.card:IsShown() }
+				secondary = e.Secondary:IsShown() and e.Secondary.Label:GetText() or false, card = GF.parts.card:IsShown(),
+				playNext = pn:IsShown() and pn.Title:GetText() or false }
 		end
+		-- The Play next card's Start hands off through Engine.StartNext (not in the stub engine).
+		Polestar.Engine.StartNext = function(from) uistub.calls[#uistub.calls + 1] = { "StartNext", from } end
 		local order = uistub.order
 		uistub.order = {}
 		Polestar.Fire("GUIDES_REGISTERED")
@@ -1081,7 +1084,7 @@ fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 		GF.parts.empty.Primary:Click()
 		uistub.complete()
 		local s = state()
-		GF.parts.empty.Primary:Click()
+		GF.PlayNext.card().Start:Click()
 		s.calls = uistub.calls
 		emit(s)"#);
 	let (no_guides, no_guide, complete) = (&out[0], &out[1], &out[2]);
@@ -1093,10 +1096,11 @@ fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 	assert_eq!(no_guide["primary"], "Start guide");
 	assert_eq!(no_guide["secondary"], "Browse guides");
 	assert_eq!(complete["title"], "Guide complete");
-	assert!(is_match(text(&complete["text"]), r"Westfall"));
-	assert_eq!(complete["primary"], "Continue");
+	assert!(is_match(text(&complete["text"]), r"Elwynn Forest.* is done\."));
+	assert!(is_match(text(&complete["playNext"]), r"^Westfall"), "Play next names the next guide: {complete}");
+	assert_eq!(complete["primary"], false, "the card's Start is the one button");
 	let calls: Value = complete["calls"].as_array().unwrap().iter().map(|c| Value::Array(c.as_array().unwrap().iter().take(2).cloned().collect())).collect();
-	assert_eq!(calls, json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["SetGuide", "forever/alliance/02-westfall"]]), "start opens a tab; continue replaces the guide in the same tab");
+	assert_eq!(calls, json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["StartNext", "forever/alliance/human/01-elwynn-forest"]]), "start opens a tab; Play next's Start hands off from the finished guide");
 }
 
 #[test]
@@ -3210,8 +3214,9 @@ fn a_quest_to_complete_reads_as_its_objectives_each_with_its_count_and_keeps_its
 fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide_when_none_is_offered() {
 	let out = run(r#"
 		local function state()
-			local e = GF.parts.empty
-			return { text = e.Text:GetText(), primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false }
+			local e, pn = GF.parts.empty, GF.PlayNext
+			return { text = e.Text:GetText(), primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false,
+				playNext = pn.card():IsShown() and pn.card().Title:GetText() or false, other = pn.other():IsShown() }
 		end
 		GF.parts.empty.Primary:Click()
 		Polestar.Engine.NextGuide = function() return "forever/alliance/03-darkshore" end
@@ -3221,9 +3226,9 @@ fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide
 		Polestar.Fire("STEP_CHANGED", nil)
 		emit(state())"#);
 	let (next, none) = (&out[0], &out[1]);
-	assert!(is_match(text(&next["text"]), r"Darkshore"));
-	assert_eq!(next["primary"], "Continue");
-	assert_eq!(*none, json!({ "text": "Nice work. Pick your next guide to keep going.", "primary": "Choose a guide" }));
+	assert!(is_match(text(&next["playNext"]), r"^Darkshore"), "Play next names where the hand-off goes: {next}");
+	assert_eq!(next["primary"], false);
+	assert_eq!(*none, json!({ "text": "Nice work. Pick your next guide to keep going.", "primary": false, "playNext": false, "other": true }));
 }
 
 #[test]

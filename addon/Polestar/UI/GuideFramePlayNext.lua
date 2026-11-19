@@ -22,10 +22,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		card = CreateFrame("Frame", nil, empty)
 		card:SetHeight(CARD_H)
 		Theme.Skin(card, "panel")
-		card.Art = UI.ZoneArt.Create(card, ART_W - 1, CARD_H - 2)
-		card.Art:SetPoint("TOPLEFT", card, "TOPLEFT", 1, -1)
-		card.Art.Fade:Hide()
-		card.Art.Top:Hide()
+		-- Its zone art is made on the first Paint: a window that never ends a
+		-- guide (a settings preview's copy) carries no zone painting.
 		-- The transparent style's ground (PN.Style): a light scrim over the world.
 		card.Scrim = card:CreateTexture(nil, "BACKGROUND")
 		card.Scrim:SetTexture(Theme.Media("white"))
@@ -81,6 +79,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		other:Show()
 		PN.Style()
 		if not nextGuide then card:Hide() return end
+		if not rawget(card, "Art") then
+			card.Art = UI.ZoneArt.Create(card, ART_W - 1, CARD_H - 2)
+			card.Art:SetPoint("TOPLEFT", card, "TOPLEFT", 1, -1)
+			card.Art.Fade:Hide()
+			card.Art.Top:Hide()
+		end
 		local E = ns.Engine
 		local fx, fy
 		if E and E.GuideFocus then fx, fy = E.GuideFocus(nextGuide.id) end
