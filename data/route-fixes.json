@@ -8029,7 +8029,7 @@
 					213
 				],
 				"faction": "Alliance",
-				"why": "Alliance 40-50 route round (0.4.3): Hostile Takeover's crystals go back to Kebok with the trolls' tusks (209) on 40-50/01's last Booty Bay stop.",
+				"why": "Alliance 40-50 route round (0.4.3): Hostile Takeover's crystals go back to Kebok with the trolls' tusks (209) on 40-50/01's last Booty Bay stop. A player arriving with the quest already ready can turn it in when Kebok offers the tusk errand upstairs on the first stop. The seed keeps that hand-in at the existing visit; it skips it before the player leaves without the eight crystals.",
 				"source": "Alliance route round 2026-11-19"
 			},
 			{

@@ -15,7 +15,7 @@ next forever/alliance/40-50/01b-riverglades
 # Dustwallow Marsh and the far east of the Hinterlands, where the route doesn't go for them.
 # Hostile Takeover (213, 0.4.3): taken from Kebok on the first Booty Bay stop, its Tumbled Crystals from the Geologists
 # at Lake Nazferiti on the ride from Kurzen's Compound to Zul'Mamwe (Venture Co. Agents 39, at about 41), handed in
-# with Kebok's trolls on the last Booty Bay stop; on 30-40/04b the Agents were three over players at about 35.7.
+# with Kebok's trolls on the last Booty Bay stop unless already ready on the first visit; on 30-40/04b the Agents were three over players at about 35.7.
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05), and since 0.4.3 so are Akiris by
@@ -232,6 +232,14 @@ step Booty Bay
   accept 213                          -- Kebok: the Tumbled Crystals, at Lake Nazferiti on the northern loop
   note Crank Fizzlebub's Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now.
   note Seahorn's next errand goes back to Arathi: skip it.
+
+step Kebok
+  skipto booty-bay-inn when !complete 213
+  when onquest 213
+  turnin 213                          -- Already have all eight Tumbled Crystals? Hand them to Kebok now.
+
+step Booty Bay
+  label booty-bay-inn
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
   sethome "Booty Bay"                 -- Upstairs
@@ -398,7 +406,13 @@ step Booty Bay
   tip Follow the road south to Booty Bay.
   turnin 611                          -- Baron Revilgaz
   turnin 209                          -- Kebok, upstairs
-  turnin 213                          -- Kebok
+
+step Kebok
+  when onquest 213
+  when complete 213
+  turnin 213                          -- The crystals gathered at Lake Nazferiti
+
+step Booty Bay
   turnin 600                          -- Crank Fizzlebub
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   turnin 97048                        -- Captain Aransas

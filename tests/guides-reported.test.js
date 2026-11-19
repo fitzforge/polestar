@@ -6414,7 +6414,35 @@ test('Alliance 40-50 (0.4.3): Hostile Takeover rides with Kebok\'s tusks, the cr
 	assert.ok(crystals > at(list, 'turnin 97047', is('turnin', 97047)), "after Kurzen's Compound");
 	assert.ok(crystals < at(list, 'collect 1524', (g) => g.t === 'collect' && g.item === 1524), 'before the Zul\'Mamwe tusks');
 	assert.doesNotMatch([].concat(list[crystals].step.note || []).join(' '), /Careful/, 'no warning: the Agents (39) are under the player at about 41');
-	assert.equal(s('turnin', 213), s('turnin', 209), 'handed in with the tusks');
+	assert.ok(list.some(({ s: step, goal }) => step === s('turnin', 209) + 1 && is('turnin', 213)(goal)), 'the ordinary hand-in stays with the tusks');
+});
+
+test('Alliance Booty Bay: pay a carried Hostile Takeover at the first visit only when already ready', { skip }, () => {
+	const file = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
+	const pack = buildSimPack([file]);
+	try {
+		const g = pack.guides[0];
+		const step = (verb, quest) => 1 + g.steps.findIndex(s => s.goals.some(x => x.t === verb && x.quest === quest));
+		const first = step('accept', 209), early = step('turnin', 213), lake = step('collect', 213), last = step('turnin', 209) + 1;
+		assert.equal(early, first + 1);
+		assert.ok(early < lake && lake < last);
+		const tracked = SIMULATE.replace('local function act(i, g, r)', `local function act(i, g, r)
+			if g.quest == 213 or (g.t == 'accept' and g.quest == 209) then emit({s=i, t=g.t, q=g.quest, npc=r.npc}) end`);
+		for (const [state, setup, expected] of [
+			['ready', 'w.onQuest(213,{})', [[early, 'turnin']]],
+			['unfinished', 'w.onQuest(213,{{type="item",required=8,fulfilled=3}})', [[lake, 'collect'], [last, 'turnin']]],
+			['empty', '', [[first, 'accept'], [lake, 'collect'], [last, 'turnin']]],
+			['skipped', '', []], ['rewarded', 'w.complete({213})', []],
+		]) {
+			const play = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+				before: `w.level=40;w.complete({189});${setup}`, script: (state === 'skipped' ? 'Polestar.Engine.SkipQuest(213,true);stub.advance(.6);' : '') + tracked });
+			const result = play.pop();
+			assert.ok(result.done && !result.stuck, `${state}: ${JSON.stringify(result.stuck)}`);
+			assert.deepEqual(play.filter(x => x.q === 213).map(x => [x.s, x.t]), expected, state);
+			assert.ok(play.some(x => x.q === 209 && x.npc === 737 && x.s === first), state);
+			if (state === 'ready') assert.equal(play.find(x => x.q === 213).npc, 737);
+		}
+	} finally { pack.dispose(); }
 });
 
 // Alliance route round (0.4.3, AuditA50 MUST-1): Janice Felstone's farmhouse stands among Felstone Field's Jabbering
