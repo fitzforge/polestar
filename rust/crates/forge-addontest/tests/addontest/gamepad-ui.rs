@@ -35,6 +35,7 @@ emit({
 	slash = SlashCmdList.POLESTAR ~= nil and SLASH_POLESTAR1 ~= nil,
 	rl = SlashCmdList.POLESTAR_RL ~= nil and SLASH_POLESTAR_RL1 ~= nil,
 	way = SLASH_POLESTARWAY1 ~= nil,
+	jewels = SLASH_POLESTAR_SKYJEWELS1 == "/skyjewels" and SlashCmdList.POLESTAR_SKYJEWELS ~= nil,
 	recorderSlash = SlashCmdList.POLESTARREC ~= nil,
 	recorderCommand = type(PolestarRecorder_Command),
 	menus = #__menus,
@@ -77,6 +78,7 @@ fn with_the_keyboard_and_mouse_polestar_registers_its_slash_commands_menu_entrie
 	);
 	assert_eq!(r["menus"], 7, "nearby and service filters on the world map and minimap, two quest menus, and the quest log's pin entry");
 	assert!(r["special"].as_f64().unwrap() > 0.0, "its windows close with Escape");
+	assert_eq!(r["jewels"], true);
 }
 
 // A client playing with the keyboard and mouse whose style CVar still reads "1" (Gamepad): the interface's own
@@ -100,6 +102,7 @@ fn with_the_gamepad_interface_polestar_keeps_to_its_own_windows_and_its_minimap_
 		"no slash command, menu entry, UISpecialFrames entry or world map opened from addon code"
 	);
 	assert_eq!(r["recorderCommand"], "function", "the Recorder's page in Polestar's options still runs its commands");
+	assert_eq!(r["jewels"], false);
 	assert_eq!(r["minimapButton"], true, "the minimap button, on by default");
 }
 
@@ -152,7 +155,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/UI/Picker.lua", 3, "the guide menu's leave-the-route's-hand-ins question, never with the gamepad interface (its focus owns the dialogs; chat says so instead and the guide loads)"),
 	("Polestar/UI/Packs.lua", 3, "the turn-Polestar-Guides-on question at login, never with the gamepad interface (its focus owns the dialogs; the guide window's button stays)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
-	("Polestar/Maps/Arcade.lua", 2, "the standalone Freedoom Arcade's command, run to open it while its window is hidden and named after a landing; never with the gamepad interface (the game plays with the keyboard: no copy of it is offered then)"),
+	("Polestar/Maps/Arcade.lua", 4, "/skyjewels registration and the standalone Freedoom Arcade command lookup; the gamepad interface gets neither the shortcut nor the games' flight HUD"),
 	("Polestar/UI/GameMenu.lua", 1, "the game menu's Polestar button closes the menu (HideUIPanel); never with the gamepad interface, which gets no button"),
 	("Polestar/UI/OptionsLoader.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),

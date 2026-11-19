@@ -26,9 +26,9 @@ local function stopSound()
 end
 
 local function sound(name)
-	if not PlaySoundFile or ns.CharState().skyJewelsMuted then return end
+	if ns.CharState().skyJewelsMuted then return end
 	stopSound()
-	local ok, handle = PlaySoundFile(media .. name .. ".ogg", "SFX")
+	local ok, handle = ns.PlaySoundFile(media .. name .. ".ogg", "SFX")
 	if ok then soundHandle = handle end
 end
 
