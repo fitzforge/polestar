@@ -9,6 +9,7 @@ const { commandPack, packArgument } = require('../lib/pack/locate');
 const { playtest, personaPlaytest, resultLines, CLASSES } = require('../lib/playtest');
 const { PERSONAS } = require('../lib/playtest-personas');
 const { findingLines } = require('../lib/playtest-honest');
+const { parseLevelOffset } = require('../lib/playtest-level');
 const { findLua } = require('../lib/lua');
 
 const usage = `usage: node tools/polestar.js playtest [<dir>] [options]
@@ -106,6 +107,11 @@ options:
                         \`when skill\` it opens are played; on its own the
                         simulator takes no optional goal, so it learns none
                         (a profession taught by an item is not taken)
+  --level-offset <n>    play a character n levels ahead of each guide's level
+                        (negative: behind; never below 1): it starts the guide
+                        at its minimum level + n, and a level goal or an
+                        accept waiting for a level raises it to that level + n
+                        (behind: to the level itself, which the step needs)
   <dir>, --pack <dir>   the pack folder (holding pack.json)
   --guides <dir>        our pack's guide sources in another folder (default guides/)
   --data <dir>          reference data (default data/forever/)
@@ -121,7 +127,7 @@ function dungeonsArg(v) {
 async function run(argv) {
 	const { opts, positional, error } = parseArgs(argv, {
 		flags: ['--honest'],
-		options: ['--filter', '--class', '--group', '--dungeon', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn', '--persona', '--sample', '--points', '--from'],
+		options: ['--filter', '--class', '--group', '--dungeon', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn', '--persona', '--sample', '--points', '--from', '--level-offset'],
 	});
 	if (opts.help) {
 		console.log(usage);
@@ -129,6 +135,7 @@ async function run(argv) {
 	}
 	const cls = opts.class ? CLASSES.find((c) => c === opts.class.toUpperCase()) : null;
 	const learn = opts.learn ? parseLearn(opts.learn) : null;
+	const levelOffset = parseLevelOffset(opts.levelOffset);
 	const arg = error ? {} : packArgument(opts, positional);
 	const problem =
 		error ||
@@ -139,7 +146,9 @@ async function run(argv) {
 		(opts.format === 'json' && !opts.honest && '--format json needs --honest') ||
 		(opts.kb && !opts.honest && '--kb needs --honest') ||
 		(learn && learn.error) ||
-		(learn && opts.honest && '--learn plays in the addon: it does not go with --honest');
+		(learn && opts.honest && '--learn plays in the addon: it does not go with --honest') ||
+		levelOffset.error ||
+		(levelOffset && (opts.honest || opts.persona) && `--level-offset plays the simulated player: it does not go with ${opts.honest ? '--honest' : '--persona'}`);
 	const pack = problem ? null : commandPack({ ...opts, pack: arg.pack });
 	if (!pack || pack.error) {
 		console.error(`${problem || pack.error}\n\n${usage}`);
@@ -171,6 +180,7 @@ async function run(argv) {
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
 		learn,
+		levelOffset,
 		onResult: (r) => {
 			if (r.stuck) stuck++;
 			else if (!r.ok) failed++;

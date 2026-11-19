@@ -138,6 +138,27 @@ test('--learn plays a player who chose the profession: the optional train is tak
 	assert.match(unknown.out, /profession "Basketweaving" is not in the reference data/);
 });
 
+// --level-offset: the simulated player starts a level-1 guide at level 1 + n. The fixture's `when level>=2` step
+// leads nowhere: a character one level ahead plays it and is stuck there; one at the guide's level (or behind it,
+// never below 1) skips it.
+test('--level-offset plays a character n levels ahead: a step behind `when level>=2` in a level-1 guide is visited only one level ahead', { skip }, async () => {
+	const pack = path.join(PACKS, 'ahead');
+	const plain = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior']));
+	assert.equal(plain.result, 0, plain.out);
+	assert.deepEqual(lines(plain.out).filter((l) => /^(ok|stuck) /.test(l)), ['ok  ahead/northshire (Human Warrior)']);
+	const ahead = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--level-offset', '1']));
+	assert.equal(ahead.result, 1, ahead.out);
+	assert.deepEqual(lines(ahead.out).filter((l) => /^(ok|stuck) /.test(l)), ['stuck ahead/northshire (Human Warrior) at step 2 "Ahead": goal 1 (goto "Go to Nowhere") stays active']);
+	const behind = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--level-offset', '-3']));
+	assert.equal(behind.result, 0, behind.out);
+	const bad = await quiet(() => cmd.run(['--pack', pack, '--level-offset', '1.5']));
+	assert.equal(bad.result, 2);
+	assert.match(bad.out, /--level-offset takes a whole number/);
+	const honest = await quiet(() => cmd.run(['--honest', '--level-offset', '1']));
+	assert.equal(honest.result, 2);
+	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);

@@ -6967,7 +6967,6 @@ t.guides["forever/horde/30-40/02-thousand-needles"] = (function() return {
 		["South-west back to the raceway."] = "向西南回到賽道。",
 		["South-west down the road to the post."] = "沿道路向西南到哨站。",
 		["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "游到最北端外海的{area:2406}：{object:177786}就在岸邊的{object:177673}旁。用兩把鑰匙打開它；別碰雕像。",
-		["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。",
 		["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "乘升降機下去，沿峽谷向東。{npc:4483}在鹽灘西北緣紮營。",
 		["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "鹽沼南部和異種蠍挖掘場是32-35級，{zone:1443}的任務是32-38級。賽道繳交完還不到32級？回到鹽沼北邊，恐蠍搶奪者（31-32）在蜥蜴和龜之間遊蕩：殺到32級；別碰鹽殼鉗嘴龜（34-35）和恐蠍（33-34）。或者有小隊的話，改打{area:1717}地城。",
 		["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的哥布林和地精是中立的，向兩個陣營提供任務。",
