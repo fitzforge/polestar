@@ -13469,9 +13469,11 @@ test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying a
 // the same five everywhere (Magram Scout and four Kolkar)." Centaur Ears drop from every tribe in Desolace and the
 // collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
 // the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
+// Alliance Desolace (30-40/02) works the ears in Kolkar Village only since the 0.4.3 route review (next case): its
+// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for.
 test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
 	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
-	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366], ['forever/alliance/30-40/02-desolace.guide', 1387]]) {
+	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366]]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
 		assert.equal(typeof goal.fromNpcsAt, 'string', `${quest}: the goal lists each spot's mobs`);
@@ -13488,6 +13490,26 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 		const magram = ids.some((l) => l.includes(4641) && l.includes(4640) && !l.some((id) => id >= 4632 && id <= 4637));
 		assert.ok(magram, `${quest}: a Magram Village spot names the Magram Windchaser and Wrangler, no Kolkar`);
 	}
+});
+
+// Route review 0.4.3 (Alliance 30-40): at about 35.5, from Smeed's camp, the Kolkar Village step's ears and totems
+// sent players into the Magram village (Magram Necromancers 42-43, Guardians 39-41); every death of a 0.4.x follower
+// on Centaur Bounty was there. Both collects now stay in Kolkar Village (Kolkar 30-35), on the way back north, and
+// each spot still names its own Kolkar (#1616).
+test('Alliance Desolace: Centaur Bounty\'s ears and the Carved Centaur Totems are collected in Kolkar Village, not the Magram village (#1616 kept)', { skip }, () => {
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const others = ['Magram', 'Gelkis', 'Maraudine'];
+	for (const [quest, item] of [[1387, 6067], [93224, 254432]]) {
+		const { goal } = list[at(list, `collect ${item} quest ${quest}`, (g) => g.t === 'collect' && g.item === item && g.quest === quest)];
+		assert.ok(goal.spots.length > 1, `${quest}: the Kolkar camps`);
+		for (const s of goal.spots) assert.ok(s.x >= 67 && s.x <= 76 && s.y >= 38 && s.y <= 53, `${quest}: spot ${s.x},${s.y} is in Kolkar Village`);
+		assert.ok(!goal.fromNpcs.some((n) => others.some((o) => n.npcName.startsWith(o))), `${quest}: the button names no other clan`);
+		if (goal.fromNpcsAt) {
+			for (const l of goal.fromNpcsAt.split(';').filter(Boolean)) assert.match(goal.fromNpcs[Number(l.split(',')[0]) - 1].npcName, /^(Kolkar|Khan Dez'hepah)/, `${quest}: each spot names its own Kolkar first`);
+		}
+	}
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.map((p) => p.id);
+	for (const id of ['desolace-alliance-centaur-ears-kolkar-village', 'desolace-alliance-centaur-totems-kolkar-village']) assert.ok(places.includes(id), `a record the build keeps: ${id}`);
 });
 
 // WhoAmI on Discord (#1869): "Gray Bear also drops Gray Bear Tongue, not only Vicious Gray Bear." Gray Bears and

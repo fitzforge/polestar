@@ -1877,66 +1877,6 @@
 			"evidence": "route level 35.4; Scorpashi Venomlash 38-39; recordings (2026-11-11): done by 4 people at 35-37 (median 36), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "forever/alliance/30-40/02-desolace.guide|collect 1387.1|mixed",
-			"guide": "forever/alliance/30-40/02-desolace.guide",
-			"goal": "collect 1387.1",
-			"kind": "mixed",
-			"title": "Kolkar Village",
-			"level": 35.5,
-			"mobs": [
-				"Maraudine Windchaser 38-39",
-				"Maraudine Mauler 38-39",
-				"Outcast Necromancer 39-40",
-				"Maraudine Stormer 39-40",
-				"Maraudine Marauder 39-40"
-			],
-			"reason": "players do it at the route's level: 8 people at median 36, 0 died there",
-			"evidence": "route level 35.5; Maraudine Windchaser 38-39, Maraudine Mauler 38-39, Outcast Necromancer 39-40, Maraudine Stormer 39-40, Maraudine Marauder 39-40; recordings (2026-11-11): done by 8 people at 32-37 (median 36), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/alliance/30-40/02-desolace.guide|collect 93224.1|mixed",
-			"guide": "forever/alliance/30-40/02-desolace.guide",
-			"goal": "collect 93224.1",
-			"kind": "mixed",
-			"title": "Kolkar Village",
-			"level": 35.5,
-			"mobs": [
-				"Maraudine Windchaser 38-39",
-				"Maraudine Mauler 38-39",
-				"Maraudine Marauder 39-40"
-			],
-			"reason": "the Maraudine are 6 of the 46 toured spots; 3 people did it at 32-37 with no deaths",
-			"evidence": "route level 35.5; Maraudine Windchaser 38-39, Maraudine Mauler 38-39, Maraudine Marauder 39-40; recordings (2026-11-11): done by 3 people at 32-37 (median 37), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "forever/alliance/30-40/02-desolace.guide|collect 93224.1|over",
-			"guide": "forever/alliance/30-40/02-desolace.guide",
-			"goal": "collect 93224.1",
-			"kind": "over",
-			"title": "Kolkar Village",
-			"level": 35.5,
-			"mobs": [
-				"Magram Necromancer 42-43 x2",
-				"Nascent Undead Ravager 40-41 x2"
-			],
-			"reason": "the Carved Centaur Totems drop from the Kolkar and the Magram alike (#1602) and are collected with Centaur Bounty's ears: by #1616's design the goal tours every clan's camp (the spots name each camp's own centaurs), so one of its points lies by the Magram's village; the step is Kolkar Village and its tip sends players to the Kolkar (30-35), and they work it there: 8 of the 13 people who ticked the totems did so within 150 yd of Kolkar Village, 1 near the Magram point",
-			"evidence": "route level 35.5; Magram Necromancer 42-43 x2, Nascent Undead Ravager 40-41 x2; recordings (archive to 2026-11-12): done by 15 people (median 37.28), 1 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/alliance/30-40/02-desolace.guide|collect 1387.1|over",
-			"guide": "forever/alliance/30-40/02-desolace.guide",
-			"goal": "collect 1387.1",
-			"kind": "over",
-			"title": "Kolkar Village",
-			"level": 35.5,
-			"mobs": [
-				"Magram Necromancer 42-43 x2",
-				"Magram Guardian 39-41 x2"
-			],
-			"reason": "Centaur Ears drop from every Desolace clan: by #1616's design the goal tours every clan's camp (the spots name each camp's own centaurs), so one of its points lies by the Magram's village; the step is Kolkar Village and its tip sends players to the Kolkar (30-35), and they work it there: 10 of the 17 people who ticked the ears did so within 150 yd of Kolkar Village, 2 near the Magram point",
-			"evidence": "route level 35.5; Magram Necromancer 42-43 x2, Magram Guardian 39-41 x2; recordings (archive to 2026-11-12): done by 17 people (median 36.66), 1 people died within 60 yd, 5 abandoned"
-		},
-		{
 			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1110.1|rare",
 			"guide": "forever/alliance/30-40/03-ashenvale.guide",
 			"goal": "collect 1110.1",

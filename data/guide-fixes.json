@@ -6093,6 +6093,25 @@
 			]
 		},
 		{
+			"id": "desolace-alliance-kolkar-village-not-the-magram",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1387,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"tip": "North-east from Smeed's camp to Kolkar Village, on the way back to Nijel's Point: every Kolkar drops Centaur Ears for Corporal Melkins and Carved Centaur Totems for Captain Pentigast. The Magram south-east of Smeed's camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35).",
+			"note": "Route review 0.4.3 (Alliance 30-40): the Kolkar Village step's arrow now points into Kolkar Village (places desolace-alliance-centaur-ears-kolkar-village); the tip says where it is from Smeed's camp and why the Magram village, whose centaurs drop the same ears and totems, is left alone at about 35.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of 1387 (0.4.x followers of the guide): 7 deaths of 2 people at the Magram village at 36.4-37.1"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "ba3040-menethil-glorin-in-the-tavern",
 			"faction": "Alliance",
 			"at": {

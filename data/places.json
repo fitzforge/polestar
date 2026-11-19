@@ -392,6 +392,54 @@
 			"issue": 1575
 		},
 		{
+			"id": "desolace-alliance-centaur-ears-kolkar-village",
+			"quest": 1387,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 71.5,
+				"y": 45.5,
+				"frame": "era"
+			},
+			"note": "Centaur Bounty (1387) on the first Desolace visit (30-40/02, route level about 35.5): the Centaur Ears drop from every Desolace clan, and from Smeed's camp the goal's arrow went first to the Magram village, where Magram Necromancers (42-43) and Magram Guardians (39-41) walk, four to seven levels over the player. The Kolkar (30-35) drop the ears too and spawn only in Kolkar Village: the arrow points there, on a Kolkar Mauler's spawn (6 Kolkar spawns within 60 yd, 16 within 100, nothing else within 60 yd). With the point, the goal's spots are the Kolkar camps only, each naming its own Kolkar (#1616 still holds). Kolkar Village is also on the way home: about 1,060 yd from Corporal Melkins against about 1,780 from the Magram village.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of 1387 (0.4.x followers of the guide): 2 people died 7 times at the Magram village (map 72-76,72-76) at levels 36.4-37.1, none at Kolkar Village; route review 0.4.3, Alliance 30-40"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns on map 1443: Kolkar (4632-4637, 12976, 12977) only at 68-75,39-52; Magram Necromancer (253272) 59-66,75-86, Magram Guardian (255560) 65-72,73-83"
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "desolace-alliance-centaur-totems-kolkar-village",
+			"quest": 93224,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 71.5,
+				"y": 45.5,
+				"frame": "era"
+			},
+			"note": "Carved Centaur Totems (93224) are collected with Centaur Bounty's ears in Kolkar Village (#1602): the totems drop from the Kolkar and the Magram, and the goal's arrow went to the Magram village with the ears, among Magram Guardians (39-41) at a route level of about 35.5. It points at the same Kolkar spawn as the ears (places desolace-alliance-centaur-ears-kolkar-village).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "forever-db correction of item 254432 (players' recordings, build 70862): the totems drop from six Kolkar and seven Magram kinds"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns on map 1443: Kolkar only at 68-75,39-52; Magram Guardian (255560) 65-72,73-83"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "danger-desolace-centaur-totems-valley-of-spears",
 			"quest": 93225,
 			"objective": 1,
