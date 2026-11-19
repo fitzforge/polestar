@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,533 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 4,580 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -23,6 +23,6 @@ section: players
   Incubus, Kirin Tor, Ironforge, the Paladin Charger mount, Darkshore, the
   Alliance Burning Steppes, Cure Poison, Staff or Orb (Alliance), Stonetalon
   Mountains, Silithus, Priest Robes (Alliance), Legacy Challenges, the Cozy
-  Sleeping Bag, Bloodsail Buccaneers and Alliance Ashenvale guides, plus texts
-  that repeat English the locale already translates, filled with the locale's
-  own wording.
+  Sleeping Bag, Bloodsail Buccaneers, Alliance Ashenvale, Ravenholdt, Call of
+  Fire (Alliance) and Atiesh guides, plus texts that repeat English the locale
+  already translates, filled with the locale's own wording.
