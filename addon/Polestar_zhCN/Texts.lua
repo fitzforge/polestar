@@ -7083,7 +7083,6 @@ t.guides["forever/horde/30-40/02-thousand-needles"] = (function() return {
 		["South-west back to the raceway."] = "向西南返回赛道。",
 		["South-west down the road to the post."] = "沿路向西南下行，返回岗哨。",
 		["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "从最北端游到{area:2406}：{object:177786}在岸边的{object:177673}旁。用两把钥匙打开它；别碰雕像。",
-		["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德鲁泽加的另有要事，以及{zone:1443}其他37-40级任务，留到38级第二次来时再做。接下来的指南会先飞往{zone:1454}，再乘飞艇前往{zone:1434}。",
 		["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "乘升降梯下去，沿峡谷向东。{npc:4483}的营地在盐碱地的西北边缘。",
 		["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "盐碱地南部和异种虫挖掘场是32-35级，{zone:1443}的任务是32-38级。交完赛道的任务后还不到32级？回到北边的盐碱地，恐蝎劫掠者（31-32）在蜥蜴和龟之间游荡：刷它们到32级；别碰盐壳钳嘴龟（34-35）和恐蝎（33-34）。或者组队去刷{area:1717}地下城。",
 		["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的地精和侏儒是中立的，双方阵营都能接他们的任务。",
