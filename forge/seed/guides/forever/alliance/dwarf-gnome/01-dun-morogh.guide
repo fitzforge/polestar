@@ -654,7 +654,7 @@ step Amberstill Ranch
 step The Tome of Divinity
   only Paladin
   zone Ironforge
-  tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. Bring him the ten Linen Cloth you saved in Loch Modan.
+  tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. John needs ten Linen Cloth. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it.
   level 12                                    -- The Tome needs level 12: the Rockjaw troggs along the road up if you are short
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
