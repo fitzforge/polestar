@@ -1253,7 +1253,7 @@ GF.Part(function(GF)
 					tips[2] = { L["Click for a guide to it, through what it needs first"], Theme.Accent() }
 				end
 			elseif self.psOutFix then
-				tips[1] = L["Brings back the quests it leaves out. Options, Automation turns it on again."]
+				tips[1] = L["Brings back the quests it leaves out. Settings, Automation turns it on again."]
 			elseif self.psRoom then
 				for i = 1, min(#self.psRoom, 12) do tips[#tips + 1] = self.psRoom[i].title or ("#" .. self.psRoom[i].quest) end
 				tips[#tips + 1] = { L["Click to see them, each with an Abandon button"], Theme.Accent() }
@@ -1772,7 +1772,7 @@ GF.Part(function(GF)
 		elseif kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
 			-- Installed but switched off on the Community guides page.
 			empty.Title:SetText(L["No guides shown"])
-			empty.Text:SetText(L["The community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."])
+			empty.Text:SetText(L["The community addons are switched off. Turn one on under Settings, Community guides (/polestar packs)."])
 			W.SetButtonText(empty.Primary, L["Community guides"])
 			empty.Primary.psAction = function() UI.ShowOptions("guidepacks") end
 			empty.Primary:Show()

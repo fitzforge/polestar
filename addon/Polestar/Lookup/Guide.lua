@@ -101,7 +101,7 @@ end
 
 function Lookup.Show(query, kind, id)
 	if not enabled() then
-		ns.Print(L["Lookup is turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Lookup is turned off (Settings > Discovery > Lookup)."])
 		return
 	end
 	ns.Fire("SHOW_LOOKUP", query, kind, id)
