@@ -1100,7 +1100,11 @@ fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 	assert!(is_match(text(&complete["playNext"]), r"^Westfall"), "Play next names the next guide: {complete}");
 	assert_eq!(complete["primary"], false, "the card's Start is the one button");
 	let calls: Value = complete["calls"].as_array().unwrap().iter().map(|c| Value::Array(c.as_array().unwrap().iter().take(2).cloned().collect())).collect();
-	assert_eq!(calls, json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["StartNext", "forever/alliance/human/01-elwynn-forest"]]), "start opens a tab; Play next's Start hands off from the finished guide");
+	assert_eq!(
+		calls,
+		json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["StartNext", "forever/alliance/human/01-elwynn-forest"]]),
+		"start opens a tab; Play next's Start hands off from the finished guide"
+	);
 }
 
 #[test]
