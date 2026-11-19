@@ -857,6 +857,9 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 		Polestar.Names.Ready = function() return true end
 		Polestar.Names.Cached = function(_, id) if id == 1 then return "Silver Blade" end end
 		Polestar.Search.Query("prepare", { kinds = { guide = true }, subtitles = false })
+		-- Lua 5.1's string table doubles when full and a full collect halves it only while it is under a quarter
+		-- full: grown first, a resize the query's short-lived strings set off is not counted as kept.
+		do local t = {} for i = 1, 100000 do t[i] = "\3" .. i end end
 		collectgarbage(); collectgarbage()
 		local before = collectgarbage("count")
 		Polestar.Search.Query("unmatched", opts)
