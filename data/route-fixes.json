@@ -6,6 +6,19 @@
 			{
 				"a": [
 					"turnin",
+					4504
+				],
+				"b": [
+					"accept",
+					5801
+				],
+				"faction": "Alliance",
+				"why": "Take Fire Plume Forged from Krinkle on the Gadgetzan visit before Fire Plume Ridge; no need to carry it through Mount Hyjal.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"turnin",
 					96797
 				],
 				"b": [

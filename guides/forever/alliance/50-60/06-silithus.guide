@@ -21,9 +21,72 @@ con Lots of flying between zones
 
 # ---------------------------------------------------------------- Ratchet
 
+step Back from Mount Hyjal
+  when turnedin 93197
+  when zone "Winterspring"
+  when level>=59
+  label hyjal-everlook
+  tip Coming back from Hyjal? Finish the nearby Winterspring errands first. Once you reach 60 you can stop; Ratchet and the rest of the guide are still there if you want to finish your quest log.
+  accept 6604                         -- Harlo Wigglesworth, in Everlook
+
+step Winterfall Village
+  when done hyjal-everlook
+  when onquest 8464
+  zone Winterspring
+  tip Salfa's Winterfall Activity waited for this visit: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1              -- Winterfall Shaman
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
+  kill 7438 quest 8464.3              -- Winterfall Ursa
+
+step Starfall Village
+  when done hyjal-everlook
+  zone Winterspring
+  tip Ride north-west up the road to Starfall Village.
+  turnin 6604                         -- Jaron Stoneshaper
+  accept 4861
+
+step Jaron's camp
+  when done hyjal-everlook
+  tip Ride back east past Everlook and south-east down the valley to Jaron's damaged crate in the snow at Mazthoril, with his wrecked wagon just east of it.
+  turnin 4861                         -- Damaged Crate
+  accept 4863
+  turnin 4863                         -- Jaron's Wagon
+  accept 4864
+
+step Jaron's supplies
+  when done hyjal-everlook
+  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
+  collect 12524 quest 4864.2          -- Blue-feathered Amulet
+  collect 12525 quest 4864.1          -- Jaron's Supplies
+
+step Ranshalla
+  when done hyjal-everlook
+  zone Winterspring
+  tip Ranshalla waits at Owl Wing Thicket, south of Everlook.
+  turnin 979                          -- Ranshalla
+  tip Protect Ranshalla while she lights the torches on the way to the Altar of Elune.
+  accept 4901
+  complete 4901
+
+step Starfall Village
+  when done hyjal-everlook
+  when complete 4864
+  turnin 4864                         -- Jaron Stoneshaper
+
+step Salfa
+  when done hyjal-everlook
+  when complete 8464
+  turnin 8464
+
+step Donova Snowden
+  when done hyjal-everlook
+  when onquest 980
+  turnin 980
+  accept 4842                         -- Keep this for the next visit to the gorge mouth
+
 step Ratchet
   zone The Barrens
-  tip Fly from Marshal's Refuge to Ratchet.
+  tip Fly to Ratchet for Liv Rizzlefix. If you stayed in Winterspring after Hyjal, use Everlook's flight master.
   fly "Ratchet"
   turnin 4502                         -- Liv Rizzlefix, inside
   collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
@@ -181,6 +244,7 @@ step Gadgetzan
   turnin 4496                         -- Alchemist Pestlezugg, inside
   accept 4507
   turnin 4504                         -- Tran'rek
+  accept 5801                         -- Krinkle Goodsteel: take this before Fire Plume Ridge
 
 step Aquementas
   tip Ride east into the hills. Use the Book of Aquor to summon Aquementas, then defeat him for the totem.
@@ -446,12 +510,14 @@ step Donova Snowden
   turnin 5087
 
 step Moonglade
+  when onquest 6844
   zone Moonglade
   goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
 step Umber
+  when onquest 6844
   zone Moonglade
   tip Take the Timbermaw Hold tunnel from its Winterspring mouth, west of Donova, and follow the Moonglade branch to Nighthaven. Umber studies by the lake shore.
   turnin 6844                         -- Umber walks around Nighthaven: look inside the circle on the map
@@ -460,6 +526,9 @@ step Umber
 step Rabine Saturna
   tip Rabine Saturna's house stands in Nighthaven, east of Umber.
   turnin 5527
+
+step Rabine Saturna: Uncovering Past Secrets
+  when onquest 6845
   turnin 6845
 
 step Umber

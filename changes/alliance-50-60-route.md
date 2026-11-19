@@ -12,3 +12,4 @@ section: players
   longer tells you to take the elites on the way one at a time: it keeps you
   on the road past the Frostmaul giants, touches the mouth of Darkwhisper Gorge
   and turns back before the Hederine elites.
+- Level 59 Alliance players returning from Mount Hyjal get their Winterspring errands in Everlook first. Fire Plume Forged waits for the Gadgetzan stop before the crater.

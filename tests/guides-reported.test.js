@@ -6508,6 +6508,17 @@ test('Winterspring: Pristine Yeti Horns track the item but target only the lower
 	assert.ok(Math.abs(goal.x - 65.88) < 0.1 && Math.abs(goal.y - 43.57) < 0.1);
 });
 
+test('Alliance Hyjal hand-back: a high-level Vizzie return starts in Everlook; everyone else keeps the Ratchet route', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const opener = list.find(({ step }) => step.label === 'hyjal-everlook');
+	assert.ok(opener.step.when.some((p) => p.k === 'turnedin' && [p.q].flat().includes(93197)));
+	assert.ok(opener.step.when.some((p) => p.k === 'zone' && p.name === 'Winterspring'));
+	assert.ok(opener.step.when.some((p) => p.k === 'level' && p.n === 59 && p.op === '>='));
+	const ratchet = at(list, 'turnin 4502', is('turnin', 4502));
+	assert.ok(list.slice(0, ratchet).some(({ goal, step }) => is('turnin', 4864)(goal) && step.when.some((p) => p.k === 'done' && p.label === 'hyjal-everlook')));
+	assert.ok(!list[ratchet].step.when?.length, 'Ratchet stays available for outstanding work');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
