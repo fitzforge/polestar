@@ -210,9 +210,9 @@ L["Sell before heading out: %s"] = "出发前出售：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等级只给 %d%% 经验，且不顺路（跳过灰色任务）"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %d%% 经验（跳过灰色任务）"
--- L["Put in the bank"] = ""
--- L["Take off"] = ""
--- L["Equip"] = ""
+L["Put in the bank"] = "存入银行"
+L["Take off"] = "卸下"
+L["Equip"] = "装备"
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
@@ -788,7 +788,7 @@ L["Best pick"] = "最佳选择"
 L["Item"] = "物品"
 L["Reward pick"] = "奖励选择"
 L["weapon skill not trained"] = "未学习武器技能"
--- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
+L["Your ranged damage uses this weapon's stats, not its damage"] = "远程攻击会应用这把武器的属性加成，武器伤害不计入。"
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "自动（天赋）"
@@ -949,8 +949,8 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 -- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
--- L["Press to equip"] = ""
--- L["Press to equip it."] = ""
+L["Press to equip"] = "按键装备"
+L["Press to equip it."] = "点击装备"
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -1188,7 +1188,7 @@ L["2D portraits"] = "2D 头像"
 L["Name the one that's close"] = "显示附近目标的名称"
 -- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
 L["Equip a spare bag first"] = "先装备备用背包"
--- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
+L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -3460,8 +3460,8 @@ L["Deleted %s."] = "已摧毁%s。"
 L["Free slots: %d of %d"] = "空余栏位：%d/%d"
 L["Cheapest junk: %s (%s)"] = "最便宜的垃圾：%s（%s）"
 L["Free bag slots and the cheapest junk"] = "背包空余栏位和最便宜的垃圾"
--- L["Equipped %s."] = ""
--- L["Spare bag: %s"] = ""
+L["Equipped %s."] = "已装备 %s。"
+L["Spare bag: %s"] = "备用背包：%s"
 
 -- QoL/Restock.lua
 L["Restock"] = "补货"
@@ -3557,8 +3557,8 @@ L["%s not found nearby."] = "附近未找到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任务物品"
--- L["Polestar quest leftovers"] = ""
--- L["Related quests completed (likely safe to delete)"] = ""
+L["Polestar quest leftovers"] = "Polestar 任务遗留物品"
+L["Related quests completed (likely safe to delete)"] = "相关任务已完成（通常可以删除）"
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "所需任务："
@@ -4613,7 +4613,7 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "仍要跳转"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在这片大陆上打开任意一位飞行管理员的地图一次，Polestar 就能知道你的飞行路线。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南适用于%s角色。Polestar 不会引导你完成它。"
--- L["Equip it"] = ""
+L["Equip it"] = "装备"
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
 
 -- Core/Pause.lua
