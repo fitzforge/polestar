@@ -7,4 +7,7 @@ section: players
   from the route. Hostile Takeover moves here from the 30-40 loops: Kebok
   gives it with his tusk errand, its crystals come from Lake Nazferiti on the
   ride from Kurzen's Compound at about 41, where the Venture Co. Agents are
-  under you, and it goes back to him with the tusks.
+  under you, and it goes back to him with the tusks. Akiris by the Bundle,
+  Zanzil's Secret, Voodoo Dues and The Bloodsail Buccaneers are no longer
+  handed to you at 40 to carry for twenty hours: the level-48 Booty Bay stop
+  that does them gives them, and the Riverglades quest log stays lighter.

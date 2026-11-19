@@ -6461,6 +6461,21 @@ test('Alliance 50-60 (0.4.3): Darkwhisper Gorge is touched at its mouth, the Fro
 	assert.ok(road >= 0 && road < gorge, 'the road past the giants first');
 });
 
+// Alliance route round (0.4.3, AuditA40 FLOW-1): 40-50/01 took Akiris by the Bundle, Zanzil's Secret, Voodoo Dues and
+// The Bloodsail Buccaneers at about 40 for the level-48 Booty Bay stop that does them, a stop the route makes anyway:
+// carried for about 20 hours through the Riverglades they held its quest log at 36. The level-48 stop gives them.
+test('Alliance 40-50 (0.4.3): the level-48 Booty Bay errands are taken at 48, not carried from 40', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.deepEqual(stv.filter(({ goal }) => goal.t === 'accept' && [617, 621, 609, 604].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'none taken at 40');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const stop = hin[at(hin, 'turnin 2874', is('turnin', 2874))].s;
+	for (const q of [617, 621, 609, 604]) {
+		const e = hin[at(hin, `accept ${q}`, is('accept', q))];
+		assert.equal(e.s, stop, `accept ${q} on the level-48 Booty Bay stop`);
+		assert.ok(!e.goal.optional, `accept ${q} is the route's own accept`);
+	}
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

@@ -18,7 +18,9 @@ next forever/alliance/40-50/01b-riverglades
 # with Kebok's trolls on the last Booty Bay stop; on 30-40/04b the Agents were three over players at about 35.7.
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
-# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
+# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05), and since 0.4.3 so are Akiris by
+# the Bundle (617), Zanzil's Secret (621), Voodoo Dues (609) and The Bloodsail Buccaneers (604), which are done there:
+# taken here at 40 and carried through the Riverglades they held its quest log at 36.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
 # Level tidy (0.4.0): Panther Mastery (192, Shadowmaw Panthers 37-38) and Troll Witchery (205, the Skullsplitter Mystics'
@@ -224,11 +226,11 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 617                          -- Privateer Bloads: keep it, its naga (43-44) wait for the level-48 Booty Bay stop
+  note Privateer Bloads' Akiris by the Bundle waits for the level-48 Booty Bay stop (its naga are 43-44): leave it for now.
   turnin 669 optional                 -- Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
   accept 213                          -- Kebok: the Tumbled Crystals, at Lake Nazferiti on the northern loop
-  accept 621                          -- Crank Fizzlebub, inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
+  note Crank Fizzlebub's Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now.
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
@@ -249,7 +251,7 @@ step Booty Bay
   accept 599
   accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
-  accept 604                          -- keep it: the Wild Shore camp's charts and Swashbucklers (41-43) wait for the level-48 Booty Bay stop
+  note Seahorn's next task, The Bloodsail Buccaneers, waits for the level-48 Booty Bay stop with the Wild Shore camp (41-43): leave it for now.
   accept 587                          -- Deeg, on the top floor
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
@@ -263,7 +265,6 @@ step Bloodsail pirates: kill these as you meet them
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
   note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
-  note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
 step Booty Bay
@@ -283,7 +284,7 @@ step Booty Bay
   accept 607
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 609                          -- "Sea Wolf" MacKinley: keep it, for the level-48 Booty Bay stop, with Zanzil's village
+  note MacKinley's Voodoo Dues waits for the level-48 Booty Bay stop, with Zanzil's village: leave it for now.
 
 # ---------------------------------------------------------------- The jungle
 
