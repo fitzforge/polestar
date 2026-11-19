@@ -16615,6 +16615,22 @@ test('Riverglades (Horde): the port checks the character before both pirate camp
 	}
 	const earlyArgo = first((g) => g.t === 'turnin' && g.quest === 95261);
 	assert.ok(firstPirates < earlyArgo && earlyArgo < gate(44), 'the lower-level route does Argo before the top-up');
+	const early = st.slice(earlyArgo, gate(44));
+	for (const [verb, condition] of [['accept', 'turnedin'], ['collect', 'onquest'], ['turnin', 'complete']]) {
+		const step = early.find((s) => s.goals.some(is(verb, 95267)));
+		assert.ok(step && whenQuestOf(step, [condition], verb === 'accept' ? 95261 : 95267));
+		assert.ok(!step.when.some((w) => w.k === 'done'), 'a previous stop is not required');
+		assert.ok(step.when.some((w) => w.k === 'level' && w.op === '<' && w.n === 44));
+	}
+});
+
+test('Booty Bay: hand held Partial Mystical Notes to Dudd without a farming stop', { skip }, () => {
+	for (const file of ['01-stranglethorn-vale', '02-feralas']) {
+		const steps = compiled(`forever/horde/40-50/${file}.guide`).steps;
+		const hand = steps.find((s) => s.goals.some(is('turnin', 95384)));
+		assert.ok(hand && whenQuestOf(hand, ['complete'], 95384));
+		assert.ok(!steps.some((s) => s.goals.some((g) => g.quest === 95384 && g.t !== 'turnin')));
+	}
 });
 
 test('Riverglades (Horde): Bolder\'ok return quests and both final fights are conditional', { skip }, () => {

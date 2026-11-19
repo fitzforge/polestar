@@ -6302,6 +6302,7 @@
 			}
 		],
 		"notes": [
+			"Horde Riverglades (#3145): before the level-45 pirates, visit Argo below 44 for whichever of his two quests the player actually holds. Hand in a ready quest without repeating its field work, and offer The Monster Surfaces if the first quest has been handed in. Stranglethorn: hand ready Partial Mystical Notes to Dudd on a scheduled Booty Bay visit; never collect them for this stop.",
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",

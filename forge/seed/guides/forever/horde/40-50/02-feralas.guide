@@ -141,6 +141,11 @@ step Booty Bay
   turnin 209                          -- Kebok, upstairs
   accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
 
+step Dudd Fizzlescroll
+  when complete 95384
+  tip If you already have the Partial Mystical Notes, give them to Dudd here in Booty Bay.
+  turnin 95384
+
 step The Wild Shore
   zone Stranglethorn Vale
   tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.

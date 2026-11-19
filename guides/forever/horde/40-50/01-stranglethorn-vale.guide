@@ -395,6 +395,11 @@ step Booty Bay
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
 
+step Dudd Fizzlescroll
+  when complete 95384
+  tip If you already have the Partial Mystical Notes, give them to Dudd here in Booty Bay.
+  turnin 95384
+
 step The Bloodsail ships
   when group 624
   tip The scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
