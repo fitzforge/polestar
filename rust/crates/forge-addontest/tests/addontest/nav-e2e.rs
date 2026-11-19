@@ -1658,6 +1658,39 @@ fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_w
 	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
 }
 
+// Menethil Harbor's long pier (its deck at 6-8, the sea at 0 in every cell under it). With the floor unknown on the
+// deck (standing still while the ship came in, then a step), seed took the lowest surface: the sea under the pier.
+// The arrow's walk to the dock's board point then swam out to the shore and walked the pier back to the player, and
+// the minimap drew that loop. Out of the water (IsSwimming false) the sea is no floor where the deck lies over it.
+fn floor_pier(swimming: bool) -> Value {
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(30)
+		w.faction = "Alliance"
+		IsSwimming = function() return @SWIM end
+		N.SetTarget(1437, 20, 50, "Inland")
+		place(1437, -3755, -637, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1437, { { -3735, -608 } })
+		local f = walkFor(1437, -3717.7, -584.4, "Boat to Auberdine", 4.9)
+		emit({ z = f.from[3] or false, yards = floor(length(f.points or {})) })"#
+		.replace("@SWIM", if swimming { "true" } else { "false" });
+	run(&format!("{FLOOR_WALK}{script}"), true)
+}
+
+#[test]
+fn floor_on_menethils_pier_out_of_the_water_the_walk_to_the_board_point_starts_on_the_deck_not_the_sea_under_it() {
+	skip_unless_ready!();
+	let out = floor_pier(false);
+	eprintln!("on the deck: from z {}, {} yd", out["z"], out["yards"]);
+	assert!((f(&out["z"]) - 6.0).abs() <= 3.0, "searched from the deck ({})", out["z"]);
+	assert!(f(&out["yards"]) < 40.0, "straight along the deck, not out to the shore and back ({} yd)", out["yards"]);
+	let out = floor_pier(true);
+	eprintln!("swimming: from z {}, {} yd", out["z"], out["yards"]);
+	assert!(f(&out["z"]).abs() <= 1.0, "swimming under the pier, the sea is the floor ({})", out["z"]);
+}
+
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its
 // column -62/5/63): a player who rode the south lift down (the floor unknown at a lift) and walked to it along the
 // router's own way, indoors (IsIndoors), keeps the lower level.
