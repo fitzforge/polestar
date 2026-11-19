@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
-	["{zone:1447}: kill these as you meet them"] = "",
+	["{zone:1447}: kill these as you meet them"] = "{zone:1447}: mata a estos según te los encuentres",
 	-- {npc:222478} Sentinel Keldara Sunblade
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. {npc:222478} is held in the satyrs' camp: free her and walk her out."] = "Los fantasmas altonatos rondan las ruinas alrededor del santuario; los sátiros Haldarr ocupan el campamento justo al norte. {npc:222478} está cautiva en el campamento de los sátiros: libérala y sácala de allí.",
 	-- {npc:222478} Sentinel Keldara Sunblade
@@ -57,12 +57,12 @@ return {
 
 	-- Step 11: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
-	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "",
+	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "Bájate de la montura antes de hablar con {npc:8395}: te teletransporta arriba, a la torre de {npc:8379} en el acantilado sobre su campamento.",
 
 	-- Step 12: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
+	["The apprentice at the top of the tower sends you back down."] = "El aprendiz de lo alto de la torre te manda de vuelta abajo.",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
-	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "",
+	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "Los elfos de sangre están en {area:1220}, de camino a {npc:8420}",
 
 	-- Step 13: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
@@ -99,7 +99,7 @@ return {
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor · Legashi Soulstealers = {npc:236867} Legashi Soulstealer
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him.\nCareful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with {npc:6647} (53) among them: take the equipment from the camp's edge and pull the elves one at a time.\n{npc:235903}'s satyrs, rogues and hellcallers (51-53) are the Legashi around {npc:8420}'s camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them."] = "{npc:8420} acampa en {area:1219}, en el norte; su equipo está repartido por {area:1220}, justo al sureste de él.\nCuidado: los Peritos elfos de sangre son de nivel 51-52 y los reclamadores de 52-53, con {npc:6647} (53) entre ellos: coge el equipo desde el borde del campamento y atrae a los elfos de uno en uno.\nLos sátiros, pícaros e invocadores infernales (51-53) de {npc:235903} son los Legashi alrededor del campamento de {npc:8420}; los Robaalmas, Alzainfiernos y Guardias negros Legashi (53) más al este no cuentan: mantente al oeste de ellos.",
 	-- {item:20028} Glittering Dust
-	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
+	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}, de los agrimensores y reclamadores elfos de sangre",
 
 	-- Step 23: Ekkal
 	-- {npc:235903} Ekkal
@@ -111,20 +111,20 @@ return {
 
 	-- Step 25: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "",
+	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "Cabalga de vuelta al oeste hasta el campamento de {npc:8395} y bájate de la montura: te teletransporta otra vez hasta Xylem.",
 
 	-- Step 27: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
 	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
+	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "Las sirenas Látigo de Ira deambulan por las ruinas y la playa alrededor de {area:1223}, justo al sur de {npc:8395}. Solo las sirenas llevan el coral, no las chillonas.",
 
 	-- Step 28: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back up through {npc:8395}'s teleport."] = "",
+	["Back up through {npc:8395}'s teleport."] = "De vuelta arriba por el teletransporte de {npc:8395}.",
 	-- {area:1417} Sunken Temple
-	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
+	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "La última tarea de Xylem, Destruir a Morphaz, está en {area:1417}: sáltala.",
 
 	-- Step 30: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
@@ -177,18 +177,18 @@ return {
 
 	-- Step 41: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "",
+	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "Cabalga al norte desde {area:271} por el camino a través de Alterac hasta {area:3197}.",
 
 	-- Step 42: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
-	["{npc:10838} stands in the middle of the camp."] = "",
+	["{npc:10838} stands in the middle of the camp."] = "{npc:10838} está en el centro del campamento.",
 
 	-- Step 43: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
 	["{area:197}: kill these as you meet them"] = "{area:197}: mátalos según te los encuentres",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
+	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Los despellejadores esqueléticos y necrófagos esclavizantes rondan los campos al norte del campamento; toda la Plaga de aquí suelta piedras de la Plaga.\nCuidado: estos no-muertos te detectan desde lejos, y otros no-muertos cercanos se suman a la pelea cuando atraes a uno.\nCuidado: {npc:10411} (3 apariciones, reaparece en 15 min) se vuelve invisible fuera de combate y llama a gárgolas Alarroca en cuanto empieza una pelea.",
 
 	-- Step 44: Chillwind Camp
 	["Ride back south to the camp."] = "Vuelve al sur hasta el campamento.",
@@ -213,7 +213,7 @@ return {
 
 	-- Step 48: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "",
+	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "{area:2418} está en el sureste de las Estepas, en lo alto del paso que sube desde Crestagrana.",
 
 	-- Step 49: Level 52 at Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
@@ -264,12 +264,12 @@ return {
 
 	-- Step 58: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:9461} es un élite de nivel 54: la mayoría de las clases lo hacen solas a nivel 56, pero puede que necesites ayuda. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- Step 60: Level 52.08
-	["Level 52.08"] = "",
+	["Level 52.08"] = "Nivel 52.08",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "",
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "Si te saltaste {quest:4022}, mata enemigos aquí hasta el nivel 52.08 para seguir el plan de la ruta. O, con un grupo, haz en su lugar la mazmorra {area:1417}.",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "mata {npc:9690}",
 
@@ -300,7 +300,7 @@ return {
 
 	-- Step 67: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: mata a estos según te los encuentres",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Vuelve al sur hasta {zone:1419} a por las bestias de los magos de sangre: las Hienas risitas hambrientas deambulan por las colinas secas al sur del campamento de los magos de sangre, los Aguijoneros Scorpok corretean por el centro del norte y los buitres {npc:5982} sobrevuelan toda la zona. Los Jabalíes Cenicrín y los Basiliscos Rocarroja comparten las laderas al suroeste del bastión.\nCuidado: aquí deambulan dos élites: {npc:221740} (50) en el centro de la zona hacia 44,34, y {npc:247015} (55) en la cresta hacia 39,32. Si ves uno, caza en otra parte.",
@@ -310,7 +310,7 @@ return {
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him."] = "Kum'isha espera en {area:2517}, la colina al suroeste del bastión. Los bichos de {zone:1419} del camino sueltan los Fragmentos draenetistas imperfectos; llévale los que tengas. Ve a su colina directamente desde el bastión, por el camino, y vuelve por el mismo sitio.\nCuidado: Felcular, {npc:7664} e Ilifar son élites de nivel 60. Razelikh lanza {spell:2691}, {spell:8255} y Diezmar, y a medida que pierde salud añade {object:141891}, {spell:10854} y luego Enfurecer al 15%.\nCuidado: {npc:247015}, élite de nivel 55, está junto a la colina de Kum'isha (aprox. 50,35) y al oeste (aprox. 39,32), y los campamentos Machacamiedo y Juramento Oscuro de alrededor son de nivel 53-55: consigue los fragmentos de los bichos del camino desde el bastión, no a su lado.",
 	-- {npc:7363} Kum'isha the Collector
-	["{npc:7363} walks around here: look inside the circle on the map"] = "",
+	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363} recorre esta zona: busca dentro del círculo del mapa",
 
 	-- Step 70: The bloodmages
 	["The bloodmages"] = "Los magos de sangre",
