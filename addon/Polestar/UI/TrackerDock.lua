@@ -86,8 +86,8 @@ local function Paint()
 	local header = not themed and not questieTracker and (tracker.HeaderMenu or tracker.Header)
 	local art = useHeaderArt and header and header.Background
 	local artHeight = art and art:GetHeight()
-	local matchHeader = artHeight and artHeight > 0
-	local tabAnchor = matchHeader and art or (nativeTracker and tracker or background)
+	local matchHeader = not active and artHeight and artHeight > 0
+	local tabAnchor = active and background or (matchHeader and art or (nativeTracker and tracker or background))
 	local rowHeight = matchHeader and artHeight or 26
 	local rowScale = matchHeader and header:GetEffectiveScale() / UIParent:GetEffectiveScale() or 1
 	if questieTracker then rowScale = tracker:GetEffectiveScale() / UIParent:GetEffectiveScale() end
@@ -372,6 +372,28 @@ function Skin.Enabled()
 			and not ns.GamepadUI() and not Skin.StandaloneOwnsDock() or false
 	end
 	return enabled
+end
+
+-- The guide menu changes the same saved switch as Integrations. Its existing
+-- settings footer supplies Reload UI; there is no second reload dialog.
+function Skin.MenuItem()
+	local function restricted()
+		return InCombat() or Skin.StandaloneOwnsDock() or ns.Get("qol.hideQuestTracker") or ns.GamepadUI()
+	end
+	local enabled = ns.Get("ui.trackerDock") and true or false
+	local tip = L["Reload required. Opens the quest tracker integration setting, where Reload UI applies the change."]
+	if ns.Get("qol.hideQuestTracker") then tip = L["Docking is unavailable while the quest tracker is hidden."]
+	elseif ns.GamepadUI() then tip = L["Docking is unavailable with the gamepad interface."]
+	elseif Skin.StandaloneOwnsDock() then tip = L["Polestar Tracker Dock manages docking while its older standalone version is enabled."] end
+	return {
+		text = enabled and L["Undock from quest tracker"] or L["Dock to quest tracker"],
+		icon = enabled and "undock" or "dock", disabled = restricted() and true or false, tip = tip,
+		onClick = function()
+			if restricted() then return end
+			ns.Set("ui.trackerDock", not ns.Get("ui.trackerDock"))
+			ns.UI.ShowSetting("ui.trackerDock")
+		end,
+	}
 end
 
 local function Host()

@@ -558,3 +558,68 @@ test('shared reminder cards render above the tracker column without joining the 
 	 outside=card:GetParent()==Polestar.UIParent and card:GetParent()~=GF.dock.pane})`);
 	assert.deepEqual(out,{shown:true,strata:'MEDIUM',above:true,outside:true});
 });
+
+test('the guide menu offers Dock and Undock between Transparent and Lock window',()=>{
+	for(const enabled of [false,true]) {
+		const [out]=run(`
+local opened
+Polestar.UI.ShowSetting=function(key) opened=key end
+GF.menuButton:Click()
+local items={}
+for _,row in ipairs(PolestarMenu.rows) do if row:IsShown() and row.psItem then items[#items+1]=row.psItem end end
+local action,count,index
+count=0
+for i,item in ipairs(items) do if item.icon=='dock' or item.icon=='undock' then action=item;index=i;count=count+1 end end
+assert(count==1 and items[index-1].icon=='layers' and items[index+1].icon=='lock')
+local parent=GF.frame:GetParent()
+action.onClick()
+emit({label=action.text,setting=Polestar.Get('ui.trackerDock'),opened=opened,sameParent=GF.frame:GetParent()==parent})`,{enabled});
+		assert.deepEqual(out,{label:enabled?'Undock from quest tracker':'Dock to quest tracker',setting:!enabled,opened:'ui.trackerDock',sameParent:true});
+	}
+});
+
+test('the menu cannot bypass docking restrictions through a direct callback',()=>{
+	for(const before of [
+		`Polestar.Set('qol.hideQuestTracker',true)`,
+		`Polestar.GamepadUI=function() return true end`,
+		`stub.inCombat=true`,
+	]) {
+		const [out]=run(`
+${before}
+local item=dock.MenuItem()
+item.onClick()
+emit({disabled=item.disabled,setting=Polestar.Get('ui.trackerDock')})`,{enabled:false});
+		assert.deepEqual(out,{disabled:true,setting:false});
+	}
+});
+
+test('docked guide drag handles use the new upstream drag mechanism without moving the guide',()=>{
+	const [out]=run(`
+local started=0
+local start=Polestar.StartDrag
+Polestar.StartDrag=function(...) started=started+1;return start(...) end
+local function press(frame)
+ local down=frame:GetScript('OnMouseDown')
+ if down then down(frame,'LeftButton') end
+ for _,child in ipairs({frame:GetChildren()}) do press(child) end
+end
+press(GF.frame)
+emit({started=started,attached=GF.dock~=nil})`);
+	assert.deepEqual(out,{started:0,attached:true});
+});
+
+test('the themed Polestar row spans the guide dock; Quests restores the native header anchor',()=>{
+	const [out]=run(`
+local strip=PolestarTrackerDockTabs
+local tabs={strip:GetChildren()}
+local themed=tabs[1]
+for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Polestar' then button:Click() end end
+local _,relative=strip:GetPoint(1)
+-- The holder and strip both anchor to the same independent native surface.
+local _,holderAnchor=PolestarTrackerDockContent:GetPoint(1)
+assert(relative==holderAnchor)
+for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Quests' then button:Click() end end
+local _,questAnchor=strip:GetPoint(1)
+emit({restored=questAnchor==ObjectiveTrackerFrame.Header.Background})`);
+	assert.deepEqual(out,{restored:true});
+});
