@@ -7185,8 +7185,9 @@ test('Barrens & Stonetalon (Horde 24-27): the Thunder Bluff opening only for pla
 	assert.ok(!knows(zamah.step), "Zamah's hand-in for every carrier");
 	const tal = list.find(({ goal, s }) => goal.t === 'getfp' && s === zamah.s + 1);
 	assert.ok(tal && (tal.step.when || []).some((p) => p.k === 'taxi' && p.neg) && (tal.step.when || []).some((p) => p.k === 'turnedin' && !p.neg), "a carrier without the flight path takes it from Tal after Zamah");
+	assert.ok(tal.step.when.some((p) => p.k === 'zone' && !p.neg && p.name === 'Thunder Bluff'), 'a historical hand-in outside the city does not send anyone to Tal');
 	const taurajo = list.findIndex(({ goal }) => goal.t === 'fly' && /Camp Taurajo/.test(JSON.stringify(goal)));
-	assert.ok(taurajo > 0 && !knows(list[taurajo].step), 'everyone flies on to Camp Taurajo');
+	assert.ok(taurajo > 0 && list[taurajo].step.when?.some((p) => p.k === 'taxi' && !p.neg && p.name === 'Camp Taurajo'), 'only offer the flight if its destination is known');
 });
 
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
@@ -8399,7 +8400,7 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	// (Sharptalon's Claw moved to the later pass with the Horde 21-30 audit: she is level 31, #2025.)
 	assert.ok(at(list, 'turnin 6544', is('turnin', 6544)) < at(list, 'accept 2', is('accept', 2)), 'Sharptalon on the walk back from Mystral Lake');
 	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
-	// Since the 0.3.6 bracket review the Barrens & Stonetalon guide teaches every race the path, so the flight is everyone's.
+	assert.ok(tb.step.when?.some((p) => p.k === 'taxi' && !p.neg && p.name === 'Thunder Bluff'), 'no flight step for someone who reached Camp Taurajo without this flight path');
 	assert.ok(tb && (!tb.step.only || (tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'))), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
 	// #1424: no forced Camp Taurajo flight from Zoram'gar; the others reach the Earthen Ring as travel, and every Camp
 	// Taurajo flight comes after its quests (the one from Thunder Bluff).
