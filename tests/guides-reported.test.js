@@ -6476,6 +6476,22 @@ test('Alliance 40-50 (0.4.3): the level-48 Booty Bay errands are taken at 48, no
 	}
 });
 
+// Alliance route round (0.4.3, AuditA40 5(b)): players who walk into the Riverglades on their own at about 38 die most
+// at the Western Front (Carving a Path: 25 people, 42 deaths at 43.3) and the port's second wave; followers of the
+// guide (entering at 41.4) are sound. The first quest step says the guide is written for 41-45 and what waits, and a
+// step shown only below 44 warns before Sergeant Riftan's camp: Champions 43-44, Thralls 44, elite Enforcers 45 on
+// patrol, Overlord Kilgar 46 for a group.
+test('Riverglades (Alliance 0.4.3): early visitors are warned at the first step and before the Western Front', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const tips = (i) => [].concat(list[i].step.note || []).join(' ');
+	assert.match(tips(at(list, 'accept 95147', is('accept', 95147))), /written for levels 41-45[^"]*Western Front[^"]*Enforcers \(45\)/, 'the first step says who the guide is for');
+	const riftan = at(list, 'turnin 94886', is('turnin', 94886));
+	const warn = list.findIndex(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44));
+	assert.ok(warn >= 0 && warn < riftan, 'a step below level 44 before Sergeant Riftan');
+	assert.match(tips(warn), /Careful:[^"]*Champions are 43-44[^"]*Enforcers \(elites, 45\)[^"]*Kilgar \(46, elite\)/, 'it names the camps and elites');
+	assert.ok(list[riftan].s - list[warn].s <= 1, 'right before the camp');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

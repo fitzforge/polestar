@@ -12945,6 +12945,23 @@
 			]
 		},
 		{
+			"id": "043-riverglades-written-for-41-45",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95147,
+				"goal": "accept"
+			},
+			"tip": "This guide is written for levels 41-45: the route comes here at about 41, after Stranglethorn Vale. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and Overlord Kilgar (46, elite) for groups only: below 41, do Stranglethorn first.",
+			"note": "0.4.3 route round (Alliance 40-50): the Riverglades' first quest step tells early visitors what the zone holds. Followers of the guide enter at 41.4 (25th percentile) and are sound; players who walked in on their own from Arathi at about 38 died most at the Western Front and the Bolder'ok escort (players' recordings: 35 of 41 people who never loaded the guide died, 198 deaths). The Western Front's own warning is a `when level<44` step before Sergeant Riftan (route-fixes notes).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19 in the Riverglades: guide followers enter at 41.40 (25th percentile), 2.3 deaths per 100 quest events; others arrive at 38.0 median, 4.1 deaths per 100 quest events; Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, Dunston Checks Out 7/14 at 42.0"
+				}
+			],
+			"issue": 3144
+		},
+		{
 			"id": "2575-riverglades-loose-soil-mementos",
 			"faction": "Alliance",
 			"at": {
