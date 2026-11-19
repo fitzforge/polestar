@@ -6452,48 +6452,6 @@
 			]
 		},
 		{
-			"id": "astranaar-pass-hand-ins-split",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"split": {
-				"title": "Astranaar",
-				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
-			},
-			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quests 1025, 1054 ender Raene Wolfrunner (3691); 1034 Pelturas Whitemoon (3894); 1008 Shindrell Swiftfire (3845)"
-				}
-			]
-		},
-		{
-			"id": "astranaar-pass-hand-ins-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"step": {
-				"after": {
-					"quest": 1024,
-					"goal": "turnin"
-				}
-			},
-			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
-				}
-			]
-		},
-		{
 			"id": "astranaar-last-stop-shindrell-tip",
 			"faction": "Alliance",
 			"at": {
@@ -6501,8 +6459,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master.",
-			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit. #2837: Delgren's hand-in comes right after Ilkrud now, on the way to the coast, so this stop follows Talen's and the hearthstone bound at Astranaar takes the player there.",
+			"tip": "Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.",
+			"note": "06-ashenvale: the last Astranaar stop follows Talen's hand-in, and the hearthstone bound at Astranaar takes the player there (#2837: Delgren's hand-in comes right after Ilkrud, on the way to the coast). Since the 0.4.3 first-visit redraw (Twerkjob's back and forth in Ashenvale) it is the one Astranaar stop after the west sweep: Shindrell's Zoram Strand, Raene's Glowing Gem (1023) and Pelturas's Ruins of Stardust (1034) go in together; the pass through Astranaar after Shael'dryn is gone with the Shael'dryn trip.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6519,8 +6477,8 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
-			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
+			"tip": "From the Ruins of Stardust head north-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
+			"note": "06-ashenvale: since the 0.4.3 first-visit redraw Ilkrud Magthrull opens the west sweep straight from the Ruins of Stardust (then Therysil, Teronis, Delgren, the Zoram Strand), so the tip leads on from the ruins. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
 			"source": [
 				{
 					"kind": "questie",
