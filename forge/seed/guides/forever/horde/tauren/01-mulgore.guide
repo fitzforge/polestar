@@ -433,6 +433,7 @@ step Traditions of the Bluff
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
+  collect 278078 quest 97485.1 @51.1,52.4 map 1456 -- Use the Bundle of Herbs to combine the four parts into Prepared Incense.
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal

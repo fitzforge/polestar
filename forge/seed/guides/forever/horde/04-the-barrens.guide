@@ -135,7 +135,7 @@ step Grunt Logmar
 step Field of Giants
   zone The Barrens
   tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  tip Careful: Silithid Swarmers release tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit. Avoid Brontus (27 rare elite) and the Silithid Harvester (24 rare) near the mounds.
   collect 5058 quest 868.1
 
 step The Barrens

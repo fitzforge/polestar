@@ -93,6 +93,7 @@ step Thendal Grove: kill these as you meet them
   zone Zephras Isle
   tip Scrawny Ursera prowl the slopes south-west of the village, on the way to Hanaa.
   tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
+  tip Careful: pull the Ursera Scavengers to the den entrance one at a time before approaching Urs'anah.
   collect 251918 quest 92473.1 @41.4,26.4
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2        -- Below ground
@@ -340,6 +341,7 @@ step Shen'dar Village hand-ins
 
 step Fendaal Windstone
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  tip Careful: the Al'Aketh Assassins (9-10) stand close together. Pull one at a time from the edge.
   accept 98512                        -- Fendaal Windstone
   kill 254626 quest 98512.1
   turnin 98512                        -- Fendaal Windstone
@@ -727,6 +729,7 @@ step Traditions of the Bluff
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
+  collect 278078 quest 97485.1 @51.1,52.4 map 1456 -- Use the Bundle of Herbs to combine the four parts into Prepared Incense.
 
 step Turak Runetotem
   only Druid

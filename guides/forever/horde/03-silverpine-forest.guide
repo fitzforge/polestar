@@ -33,6 +33,10 @@ next forever/horde/02-the-barrens
 # the Undercity (flight path; Raleigh, Zinge) -> zeppelin to Orgrimmar: the city's own
 # quests, training. The guide ends in the Valley of Wisdom.
 #
+# Sons of Arugal (24-25, elite worgen) roam Silverpine's roads and fields, one beside the Dead Field: the north
+# loop's first step warns about them (players recorded them hostile all over the zone, and 11 people following the
+# guide died around the Dead Field, 3 of them on 0.4.x at 13-14).
+#
 # Silverpine's level-20 quests wait for the ride through the forest to Hillsbrad at about 22
 # (forever/horde/05-stonetalon-mountains): Beren's Peril (516) and Watching the Roads (95981) with
 # the Offering Stone; Journey to Hillsbrad Foothills (493, from level 19) is taken on that ride's
@@ -341,7 +345,7 @@ step Border Crossings
 # ---------------------------------------------------------------- North loop
 
 step The Dead Field
-  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.
+  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the Dead Field: give them a wide berth.
   collect 3622 quest 437.1
   complete 437 @45.1,21.7
 

@@ -1,8 +1,7 @@
 ---
 section: players
 ---
-- The Barrens & Stonetalon Mountains (Horde): the guide's opening trip to
-  Thunder Bluff is only for characters who know its flight path. Without it
-  you are no longer sent from Camp Taurajo up through Mulgore and flown
-  straight back for two optional quests; you fly on to Camp Taurajo and learn
-  the flight path on the next guide's Thunder Bluff stop (#2013's pattern).
+- The Barrens & Stonetalon Mountains (Horde): if you don't know the Thunder
+  Bluff flight path, fly straight to Camp Taurajo instead of walking to the
+  elders and flying right back. If you come to the city to deliver Lydon's
+  toxin, learn the flight path from Tal before leaving (thanks thadude3).

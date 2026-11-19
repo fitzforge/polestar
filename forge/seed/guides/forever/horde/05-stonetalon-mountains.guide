@@ -97,6 +97,7 @@ step Splintertree Post
 step Ashenvale Outrunners
   when onquest 6503
   tip The night elf Ashenvale Outrunners (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.
+  tip Careful: Sharptalon (31) patrols the Outrunners' woods. Give her room.
   kill 12856 quest 6503 @72.5,69.5 map 1440
 
 step Warsong lumber camp

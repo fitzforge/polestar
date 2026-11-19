@@ -5354,10 +5354,6 @@ test(`Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come befo
 // Lake: one objective was lost when the route's `complete` was split into a
 // goal per objective. Every objective of a quest handed in on Zephras Isle has
 // its goal (or a `complete` for the whole quest) before the turn-in.
-// Traditions of the Bluff's Prepared Incense is made from the four parts
-// bought just before and used up on Hunter Rise, so it is never in the bags
-// at the turn-in.
-const COVERED_ELSEWHERE = new Set(['97485.1']);
 
 test(`𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns`, { skip }, () => {
 	data = data || loadData(DATA);
@@ -5369,7 +5365,7 @@ test(`𝔄𝔫𝔫𝔦𝔢's report (#285): on Zephras Isle, every objective of 
 			if (!q || !q.objectives || !q.objectives.length) return;
 			const before = list.slice(0, i).filter(({ goal: g }) => g.quest === goal.quest && g.t !== 'accept' && g.t !== 'turnin');
 			if (before.some(({ goal: g }) => g.t === 'complete' && !g.oi)) return;
-			const missing = q.objectives.map((_, k) => k + 1).filter((oi) => !COVERED_ELSEWHERE.has(`${goal.quest}.${oi}`) && !before.some(({ goal: g }) => g.oi === oi));
+			const missing = q.objectives.map((_, k) => k + 1).filter((oi) => !before.some(({ goal: g }) => g.oi === oi));
 			assert.deepEqual(missing, [], `${guide}: ${goal.quest} (${q.title}) is handed in with objectives never sent for`);
 		});
 	}
@@ -7063,6 +7059,18 @@ test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razorm
 	assert.ok(take < kreenig && kreenig < boar && boar < give, 'Crossroads, the camp, Crossroads');
 	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
 	assert.ok(group.some((g) => g.q === 97003 && g.size >= 2), 'a group record the build keeps');
+});
+
+test('Horde starters: the level 11 top-up avoids Thunder Ridge and the Paladin objectives count the right actions (0.4.3)', { skip }, () => {
+	for (const race of ['orc', 'troll']) {
+		const grind = goals(`forever/horde/${race}/01-durotar.guide`).find(({ goal }) => goal.t === 'level' && goal.level === 11);
+		assert.equal(grind?.goal.grind, 3114);
+		assert.ok(grind.step.goals.some((g) => g.t === 'goto' && close(g, { map: 1411, x: 43.2, y: 38.8 }, 0.2)));
+	}
+	const list = goals(TIRISFAL);
+	for (const [q, t, targets] of [[91208, 'kill', [246143]], [91209, 'talk', [246152]], [91294, 'talk', [246389, 246393, 246394, 246378]]]) {
+		assert.deepEqual(list.filter(({ goal }) => goal.quest === q && goal.t === t).map(({ goal }) => [goal.oi, goal.npc]), targets.map((npc, i) => [i + 1, npc]));
+	}
 });
 
 // 0.4.3 route round (Horde 12-30 audit, MUST): Forever put elite Razormane Flesheaters and Berserkers (18-19) into the
