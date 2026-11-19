@@ -169,7 +169,7 @@ return {
 	-- Step 35: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "북서쪽 {area:383}으로: 칼날바람일족 도살자가 서쪽 끝을 지키고 있으며 반지를 끼고 있습니다.\n주의: 일부 은신한 하피 매복자가 지역에 숨어 있다가 가까이 가야 드러납니다. 19레벨 정예 하피도 순찰합니다.",
+	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "북서쪽 {area:383}으로: 칼날바람일족 학살자가 서쪽 끝을 지키고 있으며 반지를 끼고 있습니다.\n주의: 일부 은신한 하피 매복자가 지역에 숨어 있다가 가까이 가야 드러납니다. 19레벨 정예 하피도 순찰합니다.",
 
 	-- Step 37: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
@@ -316,7 +316,7 @@ return {
 
 	-- Step 66: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton
-	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "{npc:262119}과(와) 그의 군인들이 {npc:261366} 남쪽의 부서진 상단을 지키고 있습니다. 군인들은 서로 연결되어 있어 하나를 끌면 나머지가 달려옵니다. 가장자리에서 끌고 도망치세요. 그들은 짧은 리쉬를 가져 한 번에 하나씩 줄인 뒤 병장을 상대할 수 있습니다.",
+	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "{npc:262119}과(와) 그의 군인들이 {npc:261366} 남쪽의 부서진 상단을 지키고 있습니다. 군인들은 서로 연결되어 있어 하나를 끌면 나머지가 달려옵니다. 가장자리에서 끌고 도망치세요. 리쉬가 짧아 한 번에 하나씩 줄인 뒤 병장을 상대할 수 있습니다.",
 
 	-- Step 67: Walton
 	-- {npc:261366} Walton · {npc:261367} Terry Longdrink · {area:21} Kul Tiras
@@ -667,7 +667,7 @@ return {
 
 	-- Step 147: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "{npc:4276}의 방어는 이 레벨에서 혼자 하기 어렵습니다: 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. 혼자라면 건너뛰세요.\n{npc:4276}은(는) 바위골 동굴 안쪽, 협골 동쪽 {area:2160} 맨 아래에서 광산을 캡니다. 그와 대화한 뒤 5분 동안 살려 두세요: 코볼트 열두 마리 이상이 웨이브로 덤벼들고, 근접 전사부터 시작해 시전자가 이어집니다. 광산 코볼트는 싸움 속에 재생됩니다. 그가 죽으면 퀘스트에 실패합니다.",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "{npc:4276}의 방어는 이 레벨에서 혼자 하기 어렵습니다: 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. 혼자라면 건너뛰세요.\n{npc:4276}은(는) 협골 동쪽 {area:2160} 맨 아래에서 광산을 캡니다. 그와 대화한 뒤 5분 동안 살려 두세요: 코볼트 열두 마리 이상이 웨이브로 덤벼들고, 근접 전사부터 시작해 시전자가 이어집니다. 광산 코볼트는 싸움 속에 재생됩니다. 그가 죽으면 퀘스트가 실패합니다.",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "{npc:4276}, 지하",
 
