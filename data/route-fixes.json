@@ -11899,6 +11899,24 @@
 				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit, round 2: Goblin Sponsorship part 4 (1182, 2,850 XP) needs Foreman Cozzle's key from inside the Venture Co. house on Lake Nazferiti: Cozzle is 38 and the Venture Co. Agents (39, new in Forever) stand in and around the house, four and five over the players on 30-40/03 (level model 33.6; recorded players killed Cozzle at a 25th percentile of 35.7). No later Horde stop passes the house (40-50/01's Venture Co. mine is the southern one), so the errand and its follow-ups (1183, 1186) are left out of the solo route.",
 				"issue": "-"
+			},
+			{
+				"q": 624,
+				"faction": "Alliance",
+				"reason": "Alliance 40-50 route round (0.4.3): Cortello's Riddle starts from a scroll on a middle or lower deck of the Bloodsail ships south of Booty Bay, among Swabbies 42-44, Deckhands 43-44, Sea Dogs 43-45 and Elder Magi 44-45 (data/forever npcs at Stranglethorn 29.3,88.3 and 30.6,90.6). 40-50/01 sent players there at about 40 (level model 39.95; recorded followers' 25th percentile about 40.0 on the steps before it): three to five levels under the crews. The level-48 ship visit (40-50/05) is no home for it: its hand-in, A Soggy Scroll, lies in the west of the Swamp of Sorrows and part two ends in Bloodfen Burrow in Dustwallow Marsh, neither on the route after 48 in that order. Left out for the Alliance with its follow-ups (625, 626).",
+				"issue": "#3144"
+			},
+			{
+				"q": 625,
+				"faction": "Alliance",
+				"reason": "Alliance 40-50 route round (0.4.3): Cortello's Riddle part two, only after the first part (624), which the Alliance route leaves out.",
+				"issue": "#3144"
+			},
+			{
+				"q": 626,
+				"faction": "Alliance",
+				"reason": "Alliance 40-50 route round (0.4.3): Cortello's Riddle part three (level 51, the treasure in the far east of the Hinterlands), only after the first two parts, which the Alliance route leaves out.",
+				"issue": "#3144"
 			}
 		],
 		"revert": [

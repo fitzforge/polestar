@@ -9,7 +9,10 @@ next forever/alliance/40-50/01b-riverglades
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
+# Added here: The Brassbolts Brothers (2769), ... and Bugs (1258).
+# Left out (0.4.3): Cortello's Riddle (624, 625, 626): its scroll lies on the Bloodsail ships south of Booty Bay among
+# crews of 42-45, three to five levels over players here at about 40, and its later parts lead to Bloodfen Burrow in
+# Dustwallow Marsh and the far east of the Hinterlands, where the route doesn't go for them.
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
@@ -278,11 +281,6 @@ step Booty Bay
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   accept 609                          -- "Sea Wolf" MacKinley: keep it, for the level-48 Booty Bay stop, with Zanzil's village
 
-step Cortello's scroll
-  tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
-  collect 4056 optional               -- Cortello's Riddle
-  accept 624 optional                 -- for the Swamp of Sorrows later
-
 # ---------------------------------------------------------------- The jungle
 
 step Jungle Stalkers
@@ -502,12 +500,7 @@ step Misty Valley
   tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
   collect 6065 quest 1364 @5.5,31.4 map 1435 -- Khadgar's Essays on Dimensional Convergence
 
-step Misty Valley
-  when onquest 624
-  turnin 624
-
-step Cortello's Riddle
-  accept 625
+step Amaryllis Webb
   turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Swamp of Sorrows

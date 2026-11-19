@@ -6370,9 +6370,10 @@ test('Alliance 40-60: listening and questioning are talk goals, the yeti scares 
 // stands in Marshal's Refuge (npc 8737 at 44.66,8.1), not by the tar pits west of it; the Hive'Ashi tower is in
 // Southwind Village, south-west of Layo Starstrike, not east; A-Me 01 (67.7,16.8) is east of the northern pylon (since
 // the 0.4.0 fix round, A-Me 01 is found on the Western Plaguelands guide's Un'Goro visit, right after that pylon).
-// Cortello's scroll (object 2554) lies inside one of the three Bloodsail ships among 42-45 crews at about level 42:
-// optional, as on the Horde side, under its own title instead of "The Bloodsail captains", who come at 48.
-test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01, Cortello\'s scroll)', { skip }, () => {
+// Cortello's scroll (object 2554) lay inside one of the three Bloodsail ships among 42-45 crews: since the 0.4.3 route
+// round the Alliance route leaves the chain out (see the Cortello's Riddle case below), which keeps this review's
+// point (no scroll step under "The Bloodsail captains" at 40) in the strongest form.
+test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01)', { skip }, () => {
 	const tipOf = (guide, pred) => {
 		const list = goals(guide);
 		return [].concat(list[at(list, guide, pred)].step.note || []).join(' ');
@@ -6386,11 +6387,19 @@ test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-
 	const ame = wplList[at(wplList, 'turnin 4243', is('turnin', 4243))];
 	assert.match([].concat(ame.step.note || []).join(' '), /^Ride east/);
 	assert.equal(ame.s, wplList[at(wplList, 'the Northern Pylon', (g) => g.quest === 4285 && g.t === 'interact')].s + 1, 'A-Me 01 right after the northern pylon');
+});
+
+// Alliance 40-50 route round (0.4.3, AuditA40 MUST-1): 40-50/01's optional "Cortello's scroll" step sent players at
+// about 40 onto the Bloodsail ships' decks, among crews of 42-45 (three to five over them). The level-48 ship visit
+// can't carry the chain (its hand-ins are in the Swamp of Sorrows' west and Dustwallow's Bloodfen Burrow), so the
+// Alliance route leaves Cortello's Riddle out: no guide of the band takes, works or hands in any of its parts.
+test('Alliance 40-50 (0.4.3): no Cortello\'s Riddle on the Bloodsail ships at 40', { skip }, () => {
+	for (const name of ['01-stranglethorn-vale', '02-badlands', '05-the-hinterlands']) {
+		const list = goals(`forever/alliance/40-50/${name}.guide`);
+		assert.deepEqual(list.filter(({ goal }) => [624, 625, 626].includes(goal.quest) || goal.item === 4056).map(({ goal }) => `${goal.t} ${goal.quest || goal.item}`), [], `${name}: no Cortello's Riddle`);
+	}
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	const scroll = stv[at(stv, 'accept 624', is('accept', 624))];
-	assert.ok(scroll.goal.optional, '624 optional');
-	assert.doesNotMatch(scroll.step.title, /captains/);
-	assert.doesNotMatch([].concat(scroll.step.note || []).join(' '), /wreck by the shore/);
+	assert.ok(stv.some(({ goal }) => is('turnin', 93176)(goal) && goal.optional), "Amaryllis Webb's My Little Friends still handed in on the swamp stop");
 });
 
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
