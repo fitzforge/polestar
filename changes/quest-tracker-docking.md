@@ -26,3 +26,12 @@ section: players
   uses that look on Polestar and returns to the tracker's style on Quests.
   Move frames can set the guide's future floating position without moving
   the docked guide, with a note explaining how to move the tracker instead.
+  DaylightUI's replacement tracker has persistent Quests/Polestar headings
+  using its current font, header colours and underline. Its mouseover filters,
+  quest-item column and scrollbar stay on Quests; Polestar uses the guide's
+  height up to Daylight's configured maximum. Hiding that tracker or its AFK
+  screen releases the guide safely. Standalone 1.0.6's Daylight host retains
+  ownership when present, using the native docking setting and adapter.
+  The guide menu offers Dock to quest tracker / Undock from quest tracker
+  between Transparent and Lock window, opening the existing integration
+  setting and Reload UI control. Combat and tracker/gamepad restrictions apply.
