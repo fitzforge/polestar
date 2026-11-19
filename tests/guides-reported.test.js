@@ -16598,6 +16598,22 @@ test('Riverglades (Horde): Chogg\'Zac is a group choice, and the solo route leav
 	assert.ok(flights.some((st) => (st.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(94744))), 'a flight to Kargath for whoever has no Da\'grosh work');
 });
 
+test('Riverglades (Horde): the port checks the character before both pirate camps', { skip }, () => {
+	const st = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
+	const first = (match) => st.findIndex((s) => s.goals.some(match));
+	const gate = (n) => first((g) => g.t === 'level' && g.level === n);
+	const firstPirates = first((g) => g.t === 'kill' && g.quest === 95119);
+	const raiders = first((g) => g.t === 'kill' && g.quest === 95122);
+	const admiral = first((g) => g.t === 'kill' && g.quest === 95124);
+	assert.ok(gate(42) >= 0 && gate(42) < firstPirates);
+	assert.ok(firstPirates < gate(44) && gate(44) < raiders && raiders < admiral);
+	for (const [i, n] of [[firstPirates, 42], [raiders, 44], [admiral, 44]]) {
+		assert.ok(st[i].when.some((w) => w.k === 'level' && w.op === '>=' && w.n === n), 'While here respects the camp level');
+	}
+	const earlyArgo = first((g) => g.t === 'turnin' && g.quest === 95261);
+	assert.ok(firstPirates < earlyArgo && earlyArgo < gate(44), 'the lower-level route does Argo before the top-up');
+});
+
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
 // Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
 // above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).
