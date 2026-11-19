@@ -1,7 +1,11 @@
 //! tools/lib/codex/pack.js `emitPack`: the Codex -> the load-on-demand addon Polestar_Codex
 //! (record strings in long Lua string literals, decoded by addon/Polestar/Lookup/Codex.lua).
 
+use std::collections::BTreeSet;
+use std::fmt::Write as _;
+
 use forge_guide::js::{num_str, str_to_num, V};
+use forge_guide::races::CLASSES;
 
 use super::util::{kstr, math_round};
 
@@ -10,6 +14,11 @@ pub const ADDON: &str = "Polestar_Codex";
 const CHUNK: usize = 4000;
 const ITEM_KINDS: [&str; 5] = ["item", "mount", "pet", "recipe", "tabard"];
 const SEARCH_KINDS: [&str; 11] = ["mount", "pet", "item", "recipe", "tabard", "quest", "npc", "rare", "instance", "zone", "treasure"];
+const FILTER_VERSION: u8 = 1;
+const FILTER_BYTES: usize = 5;
+const SLOT_CODES: u16 = 36; // unknown + InventoryType 0..34
+const MAX_CATEGORIES: usize = (4096 / SLOT_CODES as usize) - 1; // id 0 is unknown
+const UNKNOWN_SUBCLASS: u8 = 255;
 
 fn from_letter(f: &str) -> Result<char, String> {
 	Ok(match f {
@@ -94,6 +103,69 @@ fn lua_blob(s: &str) -> String {
 	}
 	out.push('"');
 	out
+}
+
+/// Lua short-string literal for arbitrary bytes, independent of source encoding.
+fn lua_bytes(bytes: &[u8]) -> String {
+	let mut out = String::with_capacity(bytes.len() * 4 + 2);
+	out.push('"');
+	for &b in bytes {
+		match b {
+			b'\\' => out.push_str("\\\\"),
+			b'"' => out.push_str("\\\""),
+			b' '..=b'~' => out.push(char::from(b)),
+			_ => write!(out, "\\{b:03}").unwrap(),
+		}
+	}
+	out.push('"');
+	out
+}
+
+fn filter_number(item: &V, field: &str, max: u16) -> Result<Option<u16>, String> {
+	let value = item.get(field);
+	if value.is_nullish() {
+		return Ok(None);
+	}
+	value
+		.as_num()
+		.filter(|&n| (0.0..=f64::from(max)).contains(&n) && n.fract() == 0.0)
+		.map(|n| Some(n as u16))
+		.ok_or_else(|| format!("codex item filter: item {} has {field} = {value:?}, expected an integer in 0..={max}", item.get("id").to_js_string()))
+}
+
+fn item_category(item: &V) -> Result<Option<(u8, u8)>, String> {
+	let Some(class) = filter_number(item, "itemClass", u8::MAX.into())? else { return Ok(None) };
+	let subclass = filter_number(item, "itemSubclass", (UNKNOWN_SUBCLASS - 1).into())?;
+	Ok(Some((class as u8, subclass.map_or(UNKNOWN_SUBCLASS, |n| n as u8))))
+}
+
+fn filter_source(item: &V, field: &str) -> u16 {
+	match item.get(field).as_str() {
+		Some("client") => 1,
+		Some("forever") => 2,
+		Some("era") => 3,
+		_ => 0,
+	}
+}
+
+/// Five bytes per Index row, little-endian within each group:
+/// - 24 bits: 7 required level, 7 item level (127 = unknown), 10 class mask (512 = unknown).
+///   Class bits 0..8 follow CLASSES: Warrior, Paladin, Hunter, Rogue, Priest, Shaman, Mage,
+///   Warlock, Druid. The decoder expands them back to the client's sparse mask.
+/// - 16 bits: 12 for categoryId * 36 + slotCode (0 = unknown, 1..35 = InventoryType + 1),
+///   then 2 levelsSource and 2 typeSource. The mixed radix fits slot and category in one
+///   fewer bit, so one Lua string.byte call reads the row and no sixth byte is needed.
+fn encode_filter(item: &V, categories: &[(u8, u8)]) -> Result<[u8; FILTER_BYTES], String> {
+	let req = filter_number(item, "reqLevel", 126)?.unwrap_or(127);
+	let ilvl = filter_number(item, "itemLevel", 126)?.unwrap_or(127);
+	let mask = filter_number(item, "allowClass", u16::MAX)?.map_or(512, |mask| CLASSES.iter().enumerate().filter(|(_, class)| mask & class.bit as u16 != 0).map(|(i, _)| 1 << i).sum::<u16>());
+	let slot = filter_number(item, "slot", 34)?.map_or(0, |n| n + 1);
+	let category = item_category(item)?.map_or(0, |pair| (categories.binary_search(&pair).expect("category collected from Index rows") + 1) as u16);
+	let levels = u32::from(req) | (u32::from(ilvl) << 7) | (u32::from(mask) << 14);
+	let type_and_sources = (category * SLOT_CODES + slot) | (filter_source(item, "levelsSource") << 12) | (filter_source(item, "typeSource") << 14);
+	let [a, b, c, _] = levels.to_le_bytes();
+	let [d, e] = type_and_sources.to_le_bytes();
+	Ok([a, b, c, d, e])
 }
 
 fn one_line(v: &V) -> String {
@@ -800,17 +872,43 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let mut lines = header();
 	lines.push("if not C.RegisterIndex then return end".into());
 	lines.push(String::new());
+	let categories = index
+		.iter()
+		.filter(|(kind, _)| ITEM_KINDS.contains(kind))
+		.flat_map(|(_, entries)| entries.iter())
+		.filter_map(|(id, ..)| item_category(&items.get(id)).transpose())
+		.collect::<Result<BTreeSet<_>, _>>()?;
+	if categories.len() > MAX_CATEGORIES {
+		return Err(format!("codex item filter: {} categories exceed the version {FILTER_VERSION} limit of {MAX_CATEGORIES}", categories.len()));
+	}
+	let categories: Vec<_> = categories.into_iter().collect();
+	let mut filter_lines = Vec::new();
 	for kind in SEARCH_KINDS {
 		let entries = index.iter().rev().find(|(k, _)| *k == kind).map(|(_, e)| e.as_slice()).unwrap_or(&[]);
+		let item_backed = ITEM_KINDS.contains(&kind);
 		let mut blob = String::new();
+		let mut filters = Vec::with_capacity(if item_backed { entries.len() * FILTER_BYTES } else { 0 });
 		for (id, name, quality, status) in entries {
 			blob.push('\x02');
 			blob.push_str(&fold_name(name));
 			blob.push('\x01');
 			blob.push_str(&format!("{id},{},{status},{}\n", num(quality)?, one_line(name).len()));
+			if item_backed {
+				filters.extend(encode_filter(&items.get(id), &categories)?);
+			}
 		}
 		lines.push(format!("C.RegisterIndex({}, {})", lua_str(kind), lua_blob(&blob)));
+		if item_backed {
+			filter_lines.push(format!("\t\t{kind} = {{ {}, {} }},", entries.len(), lua_bytes(&filters)));
+		}
 	}
+	let directory: Vec<_> = categories.into_iter().flat_map(|(class, subclass)| [class, subclass]).collect();
+	lines.push(String::new());
+	lines.push("if C.RegisterFilters then".into());
+	lines.push(format!("\tC.RegisterFilters({FILTER_VERSION}, {}, {{", lua_bytes(&directory)));
+	lines.extend(filter_lines);
+	lines.push("\t})".into());
+	lines.push("end".into());
 	lines.push(String::new());
 	out.push(("Index.lua".into(), lines.join("\n")));
 	order.push("Index.lua".into());
@@ -892,6 +990,96 @@ pub fn pack_order(files: &[(String, String)]) -> Vec<String> {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use forge_guide::js::parse_json;
+	use mlua::{Function, Lua, Table};
+
+	fn filter_lua() -> (Lua, Table) {
+		let lua = Lua::new();
+		let ns = lua.create_table().unwrap();
+		lua.load(include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../addon/Polestar/Lookup/Codex.lua"))).call::<()>(("Polestar", ns.clone())).unwrap();
+		lua.globals().set("Polestar", ns.clone()).unwrap();
+		let codex = ns.get("Codex").unwrap();
+		(lua, codex)
+	}
+
+	type FilterFields = (Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>);
+
+	#[test]
+	fn filter_row_round_trips_zero_unknown_and_each_source() {
+		let (lua, codex) = filter_lua();
+		let decode: Function = codex.get("DecodeFilter").unwrap();
+		let row = |item| {
+			let bytes = encode_filter(&item, &[(2, 7)]).unwrap();
+			// Exercise the byte-safe Lua source emitter, including NUL and high bytes.
+			let blob: mlua::String = lua.load(format!("return {}", lua_bytes(&bytes))).eval().unwrap();
+			assert_eq!(blob.as_bytes().as_ref(), bytes);
+			decode.call::<FilterFields>((blob, 1)).unwrap()
+		};
+		assert_eq!(row(V::obj()), (None, None, None, None, None, None, None));
+		let zeroes = parse_json(r#"{"reqLevel":0,"itemLevel":0,"allowClass":0,"slot":0}"#).unwrap();
+		assert_eq!(row(zeroes), (Some(0), Some(0), Some(0), Some(0), None, None, None));
+		for (code, source) in [(1, "client"), (2, "forever"), (3, "era")] {
+			let item = parse_json(r#"{"reqLevel":126,"itemLevel":100,"allowClass":1503,"slot":34,"itemClass":2,"itemSubclass":7}"#).unwrap();
+			item.set("levelsSource", source);
+			item.set("typeSource", source);
+			assert_eq!(row(item), (Some(126), Some(100), Some(1503), Some(34), Some(1), Some(code), Some(code)));
+		}
+		for class in &CLASSES {
+			let item = V::obj();
+			item.set("allowClass", class.bit);
+			assert_eq!(row(item).2, Some(class.bit as u16), "{}", class.file);
+		}
+		let bytes: Vec<u8> = (0..=255).collect();
+		let blob: mlua::String = lua.load(format!("return {}", lua_bytes(&bytes))).eval().unwrap();
+		assert_eq!(blob.as_bytes().as_ref(), bytes);
+	}
+
+	#[test]
+	fn filter_directory_and_columns_follow_searchable_index_rows() {
+		let items = parse_json(
+			r#"{
+				"10":{"name":"Axe","itemClass":2,"itemSubclass":0,"reqLevel":10},
+				"2":{"name":"Robe","itemClass":4,"itemSubclass":1,"reqLevel":2},
+				"4":{"name":"Ahn'Qiraj Wand [PH]","itemClass":1,"itemSubclass":0,"reqLevel":4},
+				"6":{"name":"Sword","itemClass":2,"itemSubclass":7,"reqLevel":6},
+				"12":{"name":"Retired Sword","status":"retired","itemClass":2,"itemSubclass":7,"reqLevel":12},
+				"13":{"name":"Recipe","kind":"recipe","itemClass":9,"itemSubclass":0,"reqLevel":13},
+				"14":{"name":"Mount","kind":"mount","itemClass":15,"itemSubclass":0,"reqLevel":14},
+				"15":{"name":"Pet","kind":"pet","itemClass":15,"itemSubclass":2,"reqLevel":15},
+				"16":{"name":"Tabard","kind":"tabard","itemClass":4,"itemSubclass":0,"reqLevel":16}
+			}"#,
+		)
+		.unwrap();
+		let empty = V::obj();
+		let pack = PackCodex { items: &items, npcs: &empty, objects: &empty, quests: &empty, instances: &empty, zones: &empty, factions: &empty, spells: &empty, meta: &empty, frames: &empty };
+		let files = emit_pack(&pack, "1", &V::Null, &[]).unwrap();
+		let (lua, codex) = filter_lua();
+		let index_lua = &files.iter().find(|(name, _)| name == "Index.lua").unwrap().1;
+		lua.load(index_lua).exec().unwrap();
+
+		let category: Function = codex.get("FilterCategory").unwrap();
+		for (i, pair) in [(2, 0), (2, 7), (4, 0), (4, 1), (9, 0), (15, 0), (15, 2)].into_iter().enumerate() {
+			assert_eq!(category.call::<(u8, u8)>(i + 1).unwrap(), pair);
+		}
+		assert_eq!(category.call::<Option<u8>>(8).unwrap(), None);
+		let index: Function = codex.get("Index").unwrap();
+		let column: Function = codex.get("FilterColumn").unwrap();
+		let decode: Function = codex.get("DecodeFilter").unwrap();
+		for (kind, expected) in [("item", &[(2, 4), (6, 2), (10, 1), (12, 2)][..]), ("mount", &[(14, 6)]), ("pet", &[(15, 7)]), ("recipe", &[(13, 5)]), ("tabard", &[(16, 3)])] {
+			let text: String = index.call(kind).unwrap();
+			let (bytes, count): (mlua::String, usize) = column.call(kind).unwrap();
+			assert_eq!(count, expected.len(), "{kind}");
+			assert_eq!(bytes.as_bytes().len(), FILTER_BYTES * count, "{kind}");
+			let rows: Vec<_> = text.lines().collect();
+			assert_eq!(rows.len(), count);
+			for (i, (line, &(id, cat))) in rows.iter().zip(expected).enumerate() {
+				let id_text = line.split_once('\x01').unwrap().1.split(',').next().unwrap();
+				assert_eq!(id_text.parse::<u16>().unwrap(), id, "{kind} row {}", i + 1);
+				let facts = decode.call::<FilterFields>((bytes.clone(), i + 1)).unwrap();
+				assert_eq!((facts.0, facts.4), (Some(id), Some(cat)), "{kind} row {}", i + 1);
+			}
+		}
+	}
 
 	#[test]
 	fn folds_names() {

@@ -75,6 +75,89 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 }
 
 #[test]
+fn codex_filter_facts_round_trip_without_decoding_records() {
+	let codex = json!({ "items": {
+		"647": { "name": "Destiny", "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 8,
+			"levelsSource": "era", "typeSource": "forever" },
+		"6948": { "name": "Hearthstone", "reqLevel": 0, "slot": 0, "allowClass": 0, "itemClass": 15, "itemSubclass": 0 },
+		"19019": { "name": "Thunderfury", "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "slot": 13, "itemClass": 2, "itemSubclass": 7,
+			"levelsSource": "client", "typeSource": "client" },
+		"20000": { "name": "An unknown item" },
+		"20001": { "name": "Other Mount", "kind": "mount", "allowClass": 1216, "slot": 34, "itemClass": 15 },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(not C.HasFilters() and C.FilterColumn('item') == nil and C.FilterFacts('item', 19019) == nil and not C.IsLoaded())
+assert(C.Load() and C.HasFilters())
+local blob, count = C.FilterColumn('item')
+assert(count == 4 and #blob == 20)
+assert(C.DecodeFilter(blob, 0) == nil and C.DecodeFilter(blob, 5) == nil)
+emit({ C.DecodeFilter(blob, 3) })
+local req, ilvl, mask, slot, cat, levels, types = C.DecodeFilter(blob, 4)
+assert(req == nil and ilvl == nil and mask == nil and slot == nil and cat == nil and levels == nil and types == nil)
+local class, subclass = C.FilterCategory(1)
+assert(class == 2 and subclass == 7 and C.FilterCategoryId(2, 7) == 1)
+assert(C.FilterCategory(0) == nil and C.FilterCategory(5) == nil and C.FilterCategoryId(2, 0) == nil)
+assert(C.FilterCategoryId(15, nil) == 4)
+assert(C.FilterSource(0) == nil and C.FilterSource(4) == nil)
+assert(C.FilterFacts('item', 1) == nil and C.FilterFacts('mount', 19019) == nil)
+emit(C.FilterFacts('item', '19019'))
+emit(C.FilterFacts('item', 6948))
+emit(C.FilterFacts('item', 647))
+assert(next(C.FilterFacts('item', 20000)) == nil)
+emit(C.FilterFacts('mount', 20001))
+assert(C.Item(6948).reqLevel == nil)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!([60, 80, 1503, 13, 1, 1, 1]));
+	assert_eq!(
+		out[1],
+		json!({ "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "slot": 13, "category": 1, "itemClass": 2, "itemSubclass": 7,
+		"levelsSource": "client", "typeSource": "client" })
+	);
+	assert_eq!(out[2], json!({ "reqLevel": 0, "allowClass": 0, "slot": 0, "category": 3, "itemClass": 15, "itemSubclass": 0 }));
+	assert_eq!(
+		out[3],
+		json!({ "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "slot": 17, "category": 2, "itemClass": 2, "itemSubclass": 8,
+		"levelsSource": "era", "typeSource": "forever" })
+	);
+	assert_eq!(out[4], json!({ "allowClass": 1216, "slot": 34, "category": 4, "itemClass": 15 }));
+}
+
+#[test]
+fn codex_filter_facts_are_dormant_with_an_old_or_misaligned_index() {
+	run(
+		r#"
+local C = Polestar.Codex
+C.Register('meta', { schema = 1 })
+C.Register('item', '\n19019\t4\tThunderfury', '\n19019\t4;60;;;;;')
+local index = '\2thunderfury\00119019,4,,11\n'
+C.RegisterIndex('item', index)
+assert(C.Load() and C.Index('item') == index and C.Item(19019).reqLevel == 60)
+assert(not C.HasFilters() and C.FilterColumn('item') == nil and C.FilterFacts('item', 19019) == nil)
+assert(C.DecodeFilter(nil, 1) == nil and C.FilterCategory(1) == nil and C.FilterCategoryId(2, 7) == nil)
+for _, kind in ipairs({ 'mount', 'pet', 'recipe', 'tabard' }) do C.RegisterIndex(kind, '') end
+local columns = { item = {2, string.rep('\0', 10)}, mount = {0, ''}, pet = {0, ''}, recipe = {0, ''}, tabard = {0, ''} }
+C.RegisterFilters(1, '', columns)
+assert(not C.HasFilters() and C.Index('item') == index and C.FilterColumn('item') == nil)
+columns.item = {1, string.rep('\0', 5)}
+C.RegisterFilters(2, '', columns)
+assert(not C.HasFilters())
+C.RegisterFilters(1, '', columns)
+assert(C.HasFilters() and C.FilterFacts('item', 19019) ~= nil)
+C.RegisterIndex('item', '\2other\0011,0,,5\n')
+assert(not C.HasFilters() and C.FilterFacts('item', 19019) == nil)
+"#,
+		"",
+		None,
+	);
+}
+
+#[test]
 fn emitpack_round_trips_every_record_through_codex_lua() {
 	let mut codex = sample_codex();
 	// A child quest's parent, needed in the log (the Valik rule): the `u` field.
