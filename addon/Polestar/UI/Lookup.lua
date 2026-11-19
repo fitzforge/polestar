@@ -1322,6 +1322,18 @@ local function selectFirst(reset)
 	end
 end
 
+-- Whenever the list may have changed: the selection stays on a row the list
+-- shows, since Enter acts on it. A search or a kind takes its first row; the
+-- empty Everything list (recent lookups) picks nothing for the player.
+local function reconcile(reset)
+	if query ~= "" or kind ~= "all" then return selectFirst(reset) end
+	if not sel then return end
+	for _, res in ipairs(visible) do
+		if res.kind == sel.kind and res.id == sel.id then return end
+	end
+	LK.Select()
+end
+
 -- Bumped when what a search finds may have changed (the Codex or the
 -- guides loaded).
 LK.gen = 0
@@ -1445,9 +1457,18 @@ local function paintVisible()
 	local width = MID_W - ROW_X * 2
 	local body = results.Child
 	local nf, nr = 0, 0
-	for _, e in ipairs(entries) do
+	-- The entries run top down: find the first in reach (no entry is taller
+	-- than a folder), then stop past the view, however many pages are open.
+	local first, last = 1, #entries
+	while first < last do
+		local mid = floor((first + last) / 2)
+		if entries[mid].y + FOLDER_H < lo then first = mid + 1 else last = mid end
+	end
+	for i = first, #entries do
+		local e = entries[i]
+		if e.y > hi then break end
 		local h = e.t == "folder" and FOLDER_H or ROW_H
-		if e.y + h >= lo and e.y <= hi then
+		if e.y + h >= lo then
 			local f
 			if e.t == "folder" then
 				nf = nf + 1
@@ -1673,7 +1694,7 @@ local function setQuery(text)
 	if not (root and root:IsVisible()) then return end
 	W.ScrollTo(results, 0)
 	refresh()
-	if query ~= "" or kind ~= "all" then selectFirst(query == "") end
+	reconcile(query == "")
 end
 
 -- The hub's search box, while this section is shown: each keystroke
@@ -1729,7 +1750,7 @@ function LK.SetKind(k)
 	if root and root:IsVisible() then
 		W.ScrollTo(results, 0)
 		refresh()
-		if query ~= "" or kind ~= "all" then selectFirst(changed and query == "") end
+		reconcile(changed and query == "")
 	end
 end
 
@@ -1822,10 +1843,13 @@ local function sectionRender()
 		query = hub
 		LK.message = nil
 		LK.Render()
-		if query ~= "" or kind ~= "all" then selectFirst(query == "") end
+		reconcile(query == "")
 		return
 	end
 	LK.Render()
+	-- While the hub was closed a typed search could land or Filters change:
+	-- the list it shows again may no longer hold the selection.
+	if not opening then reconcile() end
 end
 
 if UI.RegisterSection then
@@ -1878,7 +1902,8 @@ function UI.ShowLookup(opts)
 	cancelPending()
 	opening = false
 	refresh()
-	if not sel and (query ~= "" or kind ~= "all") then selectFirst() end
+	-- An entity asked for stays selected; otherwise the list decides.
+	if id == nil or not k then reconcile() end
 	if P.search then P.search:SetFocus() end
 end
 
@@ -1899,10 +1924,18 @@ local function namesChanged()
 	stale()
 	refresh()
 	-- A list that was empty while the Codex loaded selects its first row now.
-	if (query ~= "" or kind ~= "all") and root and root:IsVisible() then selectFirst() end
+	if root and root:IsVisible() then reconcile() end
 end
 ns.On("CODEX_LOADED", namesChanged)
 ns.On("NAMES_LOADED", namesChanged)
+-- The Codex refused to load in combat: a list waiting on it loads it now.
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if not (root and root:IsVisible()) or cache.reason ~= "combat" or lookupOff() then return end
+	local C = ns.Codex
+	if C and C.Load and not (C.IsLoaded and C.IsLoaded()) then C.Load() end
+	-- Loaded, CODEX_LOADED drew the list; else it says why now.
+	if not (C and C.IsLoaded and C.IsLoaded()) then namesChanged() end
+end)
 local function guidesChanged()
 	stale()
 	if query == "" then refresh() else LK.Render() end

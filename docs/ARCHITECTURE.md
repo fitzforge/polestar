@@ -1406,7 +1406,10 @@ Generated `lookup/` guides are not listed.
 and no-source entries after obtainable entries. It uses translated folded
 names where the index has them. The first browse or alphabetical search
 sorts the kind and caches its line offsets. Browse pages name only their
-own entries. Guides use the
+own entries, except that a non-English client's first dungeon browse reads
+every dungeon record for its map name to sort by. A name learned from a unit
+(`NAME_LEARNED`) drops that kind's translated index, so the next search or
+browse translates and sorts it again. Guides use the
 filtered guide list for this character. Both browse APIs accept the same
 retired and no-source filters as `Search.Query`. `Search.BrowseCount`
 caches index totals by blob and can subtract either status without sorting

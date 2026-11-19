@@ -737,6 +737,81 @@ fn a_search_with_no_matches_clears_the_selection_so_enter_acts_on_nothing() {
 }
 
 #[test]
+fn leaving_a_browse_list_for_an_empty_everything_drops_the_selection_enter_could_act_on() {
+	let out = run(r#"
+		UI.ShowLookup()
+		LK.SetKind("item")
+		local before = LK.Selected() ~= nil
+		LK.SetKind("all")
+		local after, rows = LK.Selected() ~= nil, LK.shown.rows
+		stub.RunScript(Polestar.UI.Picker.search, "OnEnterPressed")
+		emit({ before = before, after = after, rows = rows, calls = #lookupstub.calls })"#);
+	assert_eq!(out["before"], true);
+	assert_eq!(out["rows"], 0, "no recent lookups");
+	assert_eq!(out["after"], false, "nothing listed, nothing selected");
+	assert_eq!(out["calls"], 0, "Enter guides to nothing");
+}
+
+#[test]
+fn a_search_or_filter_that_lands_while_the_hub_is_closed_reconciles_the_selection_when_it_opens() {
+	let out = run(r#"
+		UI.ShowLookup()
+		LK.SetKind("item")
+		local before = LK.Selected() ~= nil
+		type_("zzzzzzz")
+		PolestarPicker:Hide()
+		stub.advance(0.3)
+		UI.ToggleLookup()
+		local searched = { rows = LK.shown.rows, selected = LK.Selected() ~= nil }
+		stub.RunScript(Polestar.UI.Picker.search, "OnEnterPressed")
+		local calls = #lookupstub.calls
+		-- A filter changed while closed: the selected mount is retired.
+		type_("")
+		LK.SetKind("mount")
+		local mount = LK.Selected()
+		PolestarPicker:Hide()
+		for _, e in ipairs(lookupstub.entities) do
+			if e.kind == "mount" and e.id == mount.id then e.status = "retired" end
+		end
+		Polestar.Set("lookup.hideRetired", true)
+		UI.ToggleLookup()
+		local now = LK.Selected()
+		emit({ before = before, searched = searched, calls = calls, mount = mount.id,
+			now = now and now.id or false, nowKind = now and now.kind or false })"#);
+	assert_eq!(out["before"], true);
+	assert_eq!(out["searched"], json!({ "rows": 0, "selected": false }));
+	assert_eq!(out["calls"], 0, "Enter guides to nothing");
+	assert_ne!(out["now"], out["mount"], "the hidden mount is no longer selected");
+}
+
+#[test]
+fn a_browse_list_waiting_for_combat_to_end_loads_the_codex_when_it_does() {
+	let out = run(r#"
+		UI.ShowLookup()
+		local inCombat, loads = true, 0
+		lookupstub.loaded, lookupstub.reason = false, "combat"
+		Polestar.Codex.Load = function()
+			loads = loads + 1
+			if inCombat then return false, "combat" end
+			lookupstub.loaded, lookupstub.reason = true, nil
+			Polestar.Fire("CODEX_LOADED")
+			return true
+		end
+		LK.SetKind("mount")
+		local waiting = { kind = LK.shown.kind, rows = LK.shown.rows, empty = LK.shown.empty }
+		local tried = loads
+		inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		emit({ waiting = waiting, tried = tried, loads = loads, kind = LK.shown.kind, rows = LK.shown.rows,
+			selected = LK.Selected() and LK.Selected().kind or false })"#);
+	assert_eq!(out["waiting"], json!({ "kind": "mount", "rows": 0, "empty": "The Codex loads when combat ends." }));
+	assert_eq!(out["loads"], out["tried"].as_i64().unwrap() + 1, "one more load, when combat ends");
+	assert_eq!(out["kind"], "mount");
+	assert!(out["rows"].as_i64().unwrap() > 0, "the mounts are listed");
+	assert_eq!(out["selected"], "mount");
+}
+
+#[test]
 fn browsing_a_kind_pages_alphabetically_with_muted_entries_last_and_subtitles_only_for_drawn_rows() {
 	let out = run(r#"
 		lookupstub.many(46)

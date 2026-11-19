@@ -1203,6 +1203,31 @@ fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change(
 }
 
 #[test]
+fn a_learned_npc_name_re_sorts_browse_and_is_found_by_search() {
+	let [before, after, found, other] = first::<4>(browse(r#"
+		index({ { 1, "Alpha" }, { 2, "Bravo" } }, "npc")
+		local learned = {}
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) return learned[id] end
+		local opts = { limit = 2, subtitles = false }
+		local function titles(rows) local out = {} for i, r in ipairs(rows) do out[i] = r.title end return out end
+		emit(titles(S.Browse("npc", opts)))
+		learned[1] = "Zulu"
+		Polestar.Fire("NAME_LEARNED", "object", 1)
+		local stale = titles(S.Browse("npc", opts))
+		Polestar.Fire("NAME_LEARNED", "npc", 1)
+		emit(titles(S.Browse("npc", opts)))
+		emit(ids(S.Query("zulu", { kinds = { npc = true }, subtitles = false })))
+		emit(stale)
+	"#));
+	assert_eq!(before, json!(["Alpha", "Bravo"]));
+	assert_eq!(after, json!(["Bravo", "Zulu"]), "the learned name sorts where it reads");
+	assert_eq!(found, json!([1]));
+	assert_eq!(other, json!(["Zulu", "Bravo"]), "an object's name leaves the NPC order as it was");
+}
+
+#[test]
 fn browse_orders_dungeons_by_the_client_names_their_rows_show() {
 	let [early, translated, english] = first::<3>(browse(
 		r#"

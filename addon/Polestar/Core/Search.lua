@@ -301,6 +301,13 @@ if ns.On then
 	-- carries into Browse's cache key: sort them again when the names change.
 	ns.On("NAMES_LOADED", function() localIndex, pagedSearch, browseIndexes.instance = {}, nil, nil end)
 	ns.On("CODEX_LOADED", function() pagedSearch = nil end)
+	-- A name learned from a unit renames its entity: translate that kind's
+	-- index again, which re-sorts its Browse order (keyed by the translations).
+	ns.On("NAME_LEARNED", function(nameKind)
+		for kind, nk in pairs(NAMES_KIND) do
+			if nk == nameKind then localIndex[kind] = nil end
+		end
+	end)
 end
 
 local META = "^([^,]*),(%d*),(%a?),(%d+)"
