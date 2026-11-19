@@ -103,3 +103,60 @@ test('Move is a glyph in the extras column, and the label sits beside its contro
 	assert.ok(move[1] + 20 <= width - 16, 'and inside the half');
 	assert.deepEqual(out.narrow, ['RIGHT', -16], 'a narrow half keeps its control on the right edge');
 });
+
+test('sidebar icons are unique: no two pages of the settings window share a glyph', () => {
+	const out = runAddon({
+		stubs: ['stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			Polestar.UI.ShowOptions()
+			local icons = {}
+			for _, b in ipairs(PolestarOptions.navButtons) do
+				local item = b.psItem
+				if b:IsShown() and item and not item.group and not item.heading then
+					icons[#icons + 1] = { key = item.key, icon = item.icon or "compact" }
+				end
+			end
+			emit({ icons = icons })`,
+	}).emitted[0].icons;
+	assert.ok(out.length >= 8, `the sidebar lists its pages (${out.length})`);
+	const seen = {};
+	for (const { key, icon } of out) (seen[icon] = seen[icon] || []).push(key);
+	const doubled = Object.entries(seen).filter(([, keys]) => keys.length > 1).map(([icon, keys]) => `${icon}: ${keys.join(', ')}`);
+	assert.deepEqual(doubled, [], 'each page has a glyph of its own');
+});
+
+test('a card title is the heading 1px larger, and the window has no first-open hint line', () => {
+	const out = onPage(`{ { kind = "toggle", key = "ui.compact", label = "One" }, { kind = "toggle", key = "ui.locked", label = "Two" } }`,
+		`local _, heading = Polestar.Theme.FontSpec("heading")
+		local _, card = Polestar.Theme.FontSpec("cardTitle")
+		emit({ heading = heading, card = card, intro = rawget(O.view, "Intro") ~= nil })`);
+	assert.equal(out.card, out.heading + 1, 'the card title is one pixel above the heading');
+	assert.equal(out.intro, false, 'no hint bar over the first card');
+});
+
+test('a card title takes the skin\'s cardTitle colour: brightened text by default, Hearth\'s gold title', () => {
+	const out = runAddon({
+		stubs: ['stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			assert(Polestar.RegisterOptions({ page = "Rows", key = "rows", tab = "Tab", section = "Section", controls = { { kind = "toggle", key = "ui.compact", label = "One" } } }))
+			Polestar.UI.ShowOptions("rows")
+			local r, g, b = Polestar.UI.Options.view.cards[1].Title:GetTextColor()
+			local pal, skins = Polestar.Theme.Palette(), Polestar.Theme.SKIN_PALETTES
+			local own = {}
+			for _, id in ipairs({ "halo", "hearth", "forever", "blizzard", "classic" }) do own[id] = { skins[id].cardTitle, skins[id].title } end
+			emit({ drawn = { r, g, b }, house = pal.cardTitle, own = own })`,
+	}).emitted[0];
+	const near = (a, b) => a.slice(0, 3).every((v, i) => Math.abs(v - b[i]) < 0.01);
+	assert.ok(near(out.drawn, [1, 1, 1]), `the house look draws the title at the text's light end (${out.drawn})`);
+	assert.ok(near(out.house, [1, 1, 1]), 'and its palette has cardTitle there');
+	for (const id of ['hearth', 'forever', 'blizzard', 'classic']) {
+		assert.ok(near(out.own[id][0], out.own[id][1]), `${id}: cardTitle is its gold title, not forced white`);
+	}
+	assert.ok(near(out.own.halo[0], [1, 1, 1]), 'Halo: its title is its text, so the bright end');
+});

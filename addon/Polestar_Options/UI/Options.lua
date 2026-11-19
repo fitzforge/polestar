@@ -289,7 +289,7 @@ local BUILTIN = {
 	-- Its switch in the section's header. While you play opens the page (following the guide: what Polestar does
 	-- while you play, the arrow and routes, automation); everything about the guide window itself is on Look >
 	-- Guide window, which its first row links to.
-	{ page = GUIDE, key = "guide", icon = "window", order = 10, tab = WHILE_YOU_PLAY, section = L["Dynamic Questing"],
+	{ page = GUIDE, key = "guide", icon = "icon-note", order = 10, tab = WHILE_YOU_PLAY, section = L["Dynamic Questing"],
 		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."],
 		link = { text = L["What the window shows, when it hides and where it sits:"], page = "guidewindow", tab = L["Window"],
 			to = L["Look"] .. " \226\128\186 " .. L["Guide window"] },
@@ -403,7 +403,7 @@ local BUILTIN = {
 		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
 			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
 		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding" }),
-		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
+		H({ kind = "button", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
 			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
 			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
 	} },
@@ -496,7 +496,7 @@ local BUILTIN = {
 		trainReminder(),
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
+		{ kind = "button", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
 			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
 			confirmText = function()
 				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
@@ -956,7 +956,7 @@ local function buildAbout(view)
 	end
 end
 
-add({ page = L["Community guides"], key = "guidepacks", icon = "layers", order = 70, subtitle = L["Guides made by other players: switch them on or off, and choose where suggestions come from."],
+add({ page = L["Community guides"], key = "guidepacks", icon = "guides", order = 70, subtitle = L["Guides made by other players: switch them on or off, and choose where suggestions come from."],
 	custom = UI.Packs.Build, dot = UI.Packs.HasProblems }, true)
 add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subtitle = L["Celebrating the supporters, contributors and bug reporters behind Polestar."],
 	custom = UI.Thanks.Build }, true)
@@ -1920,7 +1920,7 @@ local function cardOf(view, n)
 	local card = view.cards[n]
 	if card then return card end
 	card = W.SectionCard(view)
-	card.Reset = W.Button(card.Header, L["Reset"], function() sectionReset(card) end, { ghost = true, icon = "reset", height = 22 })
+	card.Reset = W.Button(card.Header, L["Reset"], function() sectionReset(card) end, { ghost = true, height = 22 })
 	card.Reset.psTight = true
 	W.SetButtonText(card.Reset, L["Reset"])
 	-- A gamepad moves row to row: Y resets a row, the footer's Reset page the page.
@@ -2287,41 +2287,6 @@ local function placePreview(view, t, fresh)
 	UI.Preview.Place(win, view, t, width, room, fresh)
 end
 
--- The first open's one line under the header: how the rows work (hover,
--- right-click), until its close button dismisses it for good
--- (PolestarDB.optionsIntro). -> the room it takes at the view's top
-local function introRoom(view)
-	local INTRO_H = 28
-	if ns.DB().optionsIntro then
-		if rawget(view, "Intro") then view.Intro:Hide() end
-		return 0
-	end
-	local bar = rawget(view, "Intro")
-	if not bar then
-		bar = CreateFrame("Frame", nil, view)
-		bar:SetHeight(INTRO_H)
-		bar.Icon = W.Tex(bar, "ARTWORK", "info", "textMuted")
-		bar.Icon:SetSize(12, 12)
-		bar.Icon:SetPoint("LEFT", bar, "LEFT", 16, 0)
-		bar.Text = W.Text(bar, "note", "textMuted")
-		bar.Text:SetText(L["Hover a setting for what it does. Right-click resets it."])
-		bar.Text:SetPoint("LEFT", bar.Icon, "RIGHT", 8, 0)
-		bar.Close = W.IconButton(bar, "close", 20, L["Got it"], function()
-			ns.DB().optionsIntro = true
-			O.Relayout()
-		end, 10)
-		bar.Close:SetPoint("RIGHT", bar, "RIGHT", -12, 0)
-		-- Not a stop for the gamepad: its first stop stays the first setting.
-		bar.Close.psPadSkip = true
-		view.Intro = bar
-	end
-	bar:ClearAllPoints()
-	bar:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -12)
-	bar:SetWidth(win.BodyWidth)
-	bar:Show()
-	return INTRO_H + 4
-end
-
 -- The tab's cross-link row (its spec's `link`): a link glyph, the lead in
 -- Note textMuted, then where the rest is ("Look › Guide window") as a link
 -- that opens that page's tab. -> the room it takes at y
@@ -2365,7 +2330,7 @@ local function buildView(p, t)
 		p.custom(view)
 	else
 		view.Refresh = function()
-			local y = 16 + introRoom(view)
+			local y = 16
 			y = y + linkRoom(view, t.link, y)
 			local groups = {}
 			view.psShownSig = shownSig(t)
@@ -3738,7 +3703,7 @@ local footerProfile
 local function renderFooter(p)
 	local left = {}
 	if p and pageShowsSetting(p) then
-		left[#left + 1] = { label = L["Reset page"], opts = { icon = "reset", ghost = true }, onClick = function()
+		left[#left + 1] = { label = L["Reset page"], opts = { ghost = true }, onClick = function()
 			W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
 				text = string.format(L["Every setting on %s goes back to its default."], p.name),
 				onAccept = function() O.ResetPage(p) end })

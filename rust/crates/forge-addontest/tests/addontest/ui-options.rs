@@ -2824,27 +2824,6 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 	assert_eq!(next["hint"], false, "for good");
 }
 
-// The first open says once, over the first card, how the rows work; its close button dismisses it for good and the
-// cards move up.
-#[test]
-fn the_first_open_says_hover_and_right_click_once_until_dismissed_for_good() {
-	let script = r#"
-		UI.ShowOptions("fakepins")
-		O.Select("fakepins", "Medallions")
-		local bar = rawget(O.view, "Intro")
-		local first = { shown = bar ~= nil and bar:IsShown(), text = bar and bar.Text:GetText() or false, top = cardOf("Medallions").psTop }
-		if bar and bar:IsShown() then bar.Close:Click() end
-		emit({ first = first, after = { shown = bar ~= nil and bar:IsShown(), top = cardOf("Medallions").psTop }, stored = PolestarDB.optionsIntro == true })"#;
-	let out = run_opts(script, "", "", LOOK_PAGE);
-	assert_eq!(out["first"]["shown"], true);
-	assert_eq!(out["first"]["text"], "Hover a setting for what it does. Right-click resets it.");
-	assert_eq!(out["after"]["shown"], false);
-	assert!(n(&out["after"]["top"]) < n(&out["first"]["top"]), "the cards move up: {out}");
-	assert_eq!(out["stored"], true);
-	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsIntro = true"));
-	assert_eq!(next["first"]["shown"], false, "for good");
-}
-
 // Every page and tab, Guiding and Setup as the Look pages, at defaults, keeps the window's layout rules: no shown
 // section with fewer than two rows, no half with two switches or two swatches inline, no tab whose every row is off,
 // no slider value (at its default, least and most) wider than its box. Integrations is a section
