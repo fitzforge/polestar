@@ -968,6 +968,112 @@ fn browse(script: &str) -> Vec<Value> {
 }
 
 #[test]
+fn search_item_ids_rank_first_in_best_match_and_page_in_the_selected_order() {
+	let [legacy, best, first_page, second_page, az, exact, padded] = first::<7>(browse(
+		r##"
+		index({ { 19019, "Thunderfury" }, { 1, "19019" }, { 2, "Ring 19019" }, { 3, "Wand 19019" } })
+		local opts = { resultKind = "item", subtitles = false }
+		local function query(text)
+			local rows, counts = S.Query(text, opts)
+			emit({ ids(rows), counts.item })
+		end
+		query("19019")
+		opts.ids = true
+		query("19019")
+		opts.perKind, opts.limit = 2, 2
+		query("19019")
+		opts.offset = 2
+		query("19019")
+		opts.order, opts.offset, opts.perKind, opts.limit = "az", nil, nil, nil
+		query("19019")
+		query("#19019")
+		query("  #019019  ")
+	"##,
+	));
+	assert_eq!(legacy, json!([[1, 2, 3], 3]));
+	assert_eq!(best, json!([[19019, 1, 2, 3], 4]));
+	assert_eq!(first_page, json!([[19019, 1], 4]));
+	assert_eq!(second_page, json!([[2, 3], 4]));
+	assert_eq!(az, json!([[1, 2, 19019, 3], 4]));
+	assert_eq!(exact, json!([[19019], 1]));
+	assert_eq!(padded, exact);
+}
+
+#[test]
+fn search_item_ids_deduplicate_translations_and_match_only_the_five_item_backed_kinds() {
+	let [best, alpha, exact, limited] = first::<4>(browse(
+		r##"
+		local blob = line(19019, "19019") .. line(190190, "Other")
+		local indexed = { item = true, mount = true, pet = true, recipe = true, tabard = true, quest = true }
+		C.IsLoaded = function() return true end
+		C.Index = function(kind) if indexed[kind] then return blob end end
+		C.Name = function() return "19019" end
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 19019 then return "19019 traduit" end end
+		local opts = { ids = true, subtitles = false }
+		local function query(text)
+			local rows, counts = S.Query(text, opts)
+			local kinds = {}
+			for i, row in ipairs(rows) do
+				assert(row.id == 19019)
+				kinds[i] = row.kind
+			end
+			emit({ kinds, counts })
+		end
+		query("19019")
+		opts.order = "az"
+		query("19019")
+		query("#19019")
+		opts.resultKind = "item"
+		query("#19019")
+	"##,
+	));
+	let counts = json!({ "mount": 1, "pet": 1, "item": 1, "recipe": 1, "tabard": 1 });
+	assert_eq!(exact, json!([["mount", "pet", "item", "recipe", "tabard"], counts]));
+	assert_eq!(limited, json!([["item"], counts]));
+	assert_eq!(
+		best,
+		json!([["mount", "pet", "item", "recipe", "tabard", "quest"], {
+			"mount": 1, "pet": 1, "item": 1, "recipe": 1, "tabard": 1, "quest": 1
+		}])
+	);
+	assert_eq!(best, alpha);
+}
+
+#[test]
+fn search_item_ids_report_invalid_hash_syntax_and_respect_index_visibility() {
+	let [invalid, visible, filtered, absent] = first::<4>(browse(
+		r##"
+		index({ { 19019, "Thunderfury", "r" }, { 1, "19019" }, { 2, "Sourceless", "n" } })
+		local opts = { ids = true, subtitles = false }
+		local errors = {}
+		for i, text in ipairs({ "#abc", "#", "#0", "#12 34", "#-5" }) do
+			local rows, counts, err = S.Query(text, opts)
+			assert(#rows == 0 and next(counts) == nil)
+			errors[i] = err
+		end
+		emit(errors)
+		local rows, counts = S.Query("19019", opts)
+		emit({ ids(rows), counts.item })
+		opts.hideRetired, opts.hideNoSource = true, true
+		rows, counts = S.Query("19019", opts)
+		emit({ ids(rows), counts.item })
+		local missed = {}
+		for i, text in ipairs({ "#19019", "#2", "#3" }) do
+			local rows, counts, err = S.Query(text, opts)
+			missed[i] = #rows == 0 and next(counts) == nil and err == nil
+		end
+		emit(missed)
+	"##,
+	));
+	assert_eq!(invalid, json!(["id-syntax", "id-syntax", "id-syntax", "id-syntax", "id-syntax"]));
+	assert_eq!(visible, json!([[19019, 1], 2]));
+	assert_eq!(filtered, json!([[1], 1]));
+	assert_eq!(absent, json!([true, true, true]));
+}
+
+#[test]
 fn search_finds_the_best_match_beyond_200_and_pages_the_same_matches_in_browse_order() {
 	let [best, all, az, total, ranked] = first::<5>(browse(
 		r#"

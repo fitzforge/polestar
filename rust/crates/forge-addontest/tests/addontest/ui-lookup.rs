@@ -482,19 +482,27 @@ fn clearing_the_hub_s_search_takes_its_codex_matches_away_none_stay_drawn_over_t
 
 #[test]
 fn with_the_real_search_codex_and_lookup_runtime_over_the_sample_pack() {
-	let pack = write_codex_pack(&sample_codex(), &CodexOpts { ..Default::default() });
+	let mut codex = sample_codex();
+	codex["items"]["19019"] = json!({ "name": "Thunderfury", "quality": 5 });
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: pack.stub_lua.clone(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
-		script: r#"uistub.install()
+		script: [
+			HELPERS,
+			r#"uistub.install()
 stub.login()
 local LK = Polestar.UI.Lookup
 Polestar.Lookup.Show("saber")
 local search = { groups = LK.shown.groups, sel = LK.Selected().kind, codex = LK.root.CodexLine:GetText() }
 Polestar.Lookup.Show(nil, "mount", 13335)
-emit({ search = search, title = LK.detail.title, query = LK.Query(), sources = LK.detail.sources, primary = LK.detail.primary, note = LK.detail.note })"#
-			.into(),
+local out = { search = search, title = LK.detail.title, query = LK.Query(), sources = LK.detail.sources, primary = LK.detail.primary, note = LK.detail.note }
+type_("19019"); stub.advance(0.3)
+out.thunderfury = rowFor(LK.results.Child, "Thunderfury") ~= nil
+emit(out)"#,
+		]
+		.concat(),
 		..Default::default()
 	});
 	let out = &out[0];
@@ -509,6 +517,7 @@ emit({ search = search, title = LK.detail.title, query = LK.Query(), sources = L
 	assert!(truthy(&out["sources"][0]["why"]), "says why it is out of reach");
 	assert_eq!(out["primary"], Value::Null, "the real runtime builds no guide to a mount");
 	assert!(is_match(text(&out["note"]), r"^No guide to this mount yet"));
+	assert_eq!(out["thunderfury"], true);
 	drop(pack);
 }
 

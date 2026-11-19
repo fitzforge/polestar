@@ -2,10 +2,16 @@
 -- the guide menu's search box and the Lookup window. Contract:
 -- docs/ARCHITECTURE.md, "Core services: Data, Hooks, Search".
 --
---   Search.Query(text, opts) -> results, counts
+--   Search.Query(text, opts) -> results, counts, error|nil
 --     opts = { kinds = { item = true, ... } | nil (all), resultKind = nil,
 --              order = "best" | "az", hideRetired = false, hideNoSource = false,
---              limit = 60, perKind = n, offset = n, subtitles = false }
+--              limit = 60, perKind = n, offset = n, subtitles = false, ids = false }
+--     With ids = true, a positive decimal item ID adds exact index matches in
+--     item, mount, pet, recipe and tabard. Prefix it with # for ID matches only.
+--     Outer whitespace and leading zeroes are allowed. Malformed # queries
+--     return empty results and counts with "id-syntax" as the third value.
+--     ID queries keep Search.KINDS order. Within a kind, the ID hit counts
+--     once and comes first in Best match or in its usual place in A to Z.
 --     resultKind restricts the returned rows, with counts still filled for
 --     all requested kinds. offset pages within each kind. A to Z uses
 --     Browse's order; with several kinds, the rows stay in Search.KINDS
@@ -139,6 +145,7 @@ Search.Fold = fold
 ---------------------------------------------------------------------------
 
 local EXACT, PREFIX, WORD, SUBSTRING, WORDS = 4, 3, 2, 1, 0
+local ID_MATCH = EXACT + 1
 
 -- q: a folded query (" black stallion"); words: its words with a leading
 -- space each, when it has several. -> tier | nil
@@ -168,9 +175,10 @@ end
 -- source. It outranks the match tier, so among items the ones a guide covers
 -- come first and a retired mount never sits above the ones on sale. (The
 -- UIs group results by kind, so this mostly reorders within a kind.)
--- The one formula every result is ranked by; the Codex scan calls it with
--- a kind weight worked out once per kind (KIND_W * its KINDS position).
+-- The Codex scan scores name matches with a kind weight worked out once
+-- per kind (KIND_W * its KINDS position). The ID score outranks every name.
 local STANDING_W, TIER_W, KIND_W = 10000000, 1000000, 10000
+local ID_SCORE = 3 * STANDING_W
 local function rankScore(standing, t, kindWeight, len)
 	return standing * STANDING_W + t * TIER_W - kindWeight - min(len, 9999)
 end
@@ -475,8 +483,15 @@ end
 
 -- Fold once per query. For several words, scan for the longest word and
 -- check each candidate's name for the complete phrase or all its words.
-local function queryTerms(text)
+local function queryTerms(text, ids)
 	if type(text) ~= "string" then return end
+	local id
+	if ids then
+		local prefix
+		prefix, id = match(text, "^%s*(#?)0*([1-9][0-9]*)%s*$")
+		if prefix == "#" then return { id = id } end
+		if not id and find(text, "^%s*#") then return nil, "id-syntax" end
+	end
 	local q = fold(text)
 	if q == "" then return end
 	local body = sub(q, 2)
@@ -489,7 +504,7 @@ local function queryTerms(text)
 			if #word > #needle then needle = word end
 		end
 	end
-	return { q = q, body = body, short = short, words = words, needle = needle }
+	return { q = q, body = body, short = short, words = words, needle = needle, id = id }
 end
 
 -- Visit each matching line once. For count-only searches a simple query
@@ -597,19 +612,23 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	-- participates in its key because its curated set affects item scores.
 	local cached = full and pagedSearch
 	if cached and cached.kind == kind and cached.blob == blob and cached.extra == extra
-		and cached.guides == list and cached.q == terms.q and cached.az == az
+		and cached.guides == list and cached.q == terms.q and cached.id == terms.id and cached.az == az
 		and cached.localNames == useLocalName
 		and cached.hideRetired == hideRetired and cached.hideNoSource == hideNoSource then
 		return cached.hits, cached.n
 	end
-	if not (show or extra or hideRetired or hideNoSource) then
+	-- The separators anchor the decimal ID to the index line's metadata.
+	local idAt = terms.id and NAMES_KIND[kind] == "item" and find(blob, "\1" .. terms.id .. ",", 1, true)
+	if idAt then idAt = idAt + 1 end
+	if not (terms.q or idAt) then return {}, 0 end
+	if not (show or extra or hideRetired or hideNoSource or idAt) then
 		return nil, scanNames(blob, kind, terms, false)
 	end
 
 	local ranked = show and not az
 	local hits, n = {}, 0
 	local buckets = ranked and full and {}
-	local seen = extra and {}
+	local seen = (extra or idAt) and {}
 	local sorted = az and orderedCodex(kind, blob, extra)
 	local marked = az and {}
 	local usesCurated = ranked and next(curated) ~= nil
@@ -682,7 +701,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		if #hits == cap then floorScore = hits[cap].score end
 	end
 	local function scan(source, translation)
-		scanNames(source, kind, terms, ranked, function(at, t)
+		local function hit(at, t)
 			if floorScore and not (seen or filter or usesCurated)
 				and floorScore > tierCeiling[t] then
 				n = n + 1
@@ -714,7 +733,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 			if not prior then n = n + 1 end
 			if ranked then
 				local standing = st ~= "" and 0 or usesCurated and curated[tonumber(rawId)] and 2 or 1
-				local s = ceiling[standing][t] - min(tonumber(len), 9999)
+				local s = t == ID_MATCH and ID_SCORE or ceiling[standing][t] - min(tonumber(len), 9999)
 				if not seen then
 					if not floorScore or s >= floorScore then
 						keep(at, rawId or (not buckets and match(source, RAW_ID, at)), s)
@@ -726,14 +745,14 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 				if seen then seen[rawId] = true end
 				if az then marked[translation and sorted.translations[rawId] or at] = true end
 			end
-		end)
+		end
+		if not translation and idAt then hit(idAt, ID_MATCH) end
+		if terms.q then scanNames(source, kind, terms, ranked, hit) end
 	end
 	scan(blob, false)
-	if extra then
-		scan(extra, true)
-		if ranked then
-			for _, entry in pairs(seen) do keep(entry.at, entry.id, entry.score, entry.translation) end
-		end
+	if extra then scan(extra, true) end
+	if ranked and seen then
+		for _, entry in pairs(seen) do keep(entry.at, entry.id, entry.score, entry.translation) end
 	end
 	if az then
 		-- Filter Browse's cached offsets in their existing order. A kind's
@@ -748,7 +767,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		table.sort(hits, function(a, b) return a.score > b.score end)
 	end
 	if full then
-		pagedSearch = { kind = kind, blob = blob, extra = extra, guides = list, q = terms.q, az = az,
+		pagedSearch = { kind = kind, blob = blob, extra = extra, guides = list, q = terms.q, id = terms.id, az = az,
 			localNames = useLocalName, hideRetired = hideRetired, hideNoSource = hideNoSource, hits = hits, n = n }
 	end
 	return hits, n
@@ -791,8 +810,11 @@ end
 function Search.Query(text, opts)
 	opts = opts or {}
 	local results, counts = {}, {}
-	local terms = queryTerms(text)
-	if not terms then return results, counts end
+	local terms, syntaxError = queryTerms(text, opts.ids)
+	if not terms then
+		if syntaxError then return results, counts, syntaxError end
+		return results, counts
+	end
 	local kinds = opts.kinds
 	local limit, offset = opts.limit or DEFAULT_LIMIT, opts.offset or 0
 	local only = opts.resultKind
@@ -811,7 +833,7 @@ function Search.Query(text, opts)
 
 	-- Built even when guides are not asked for: it holds the curated set.
 	local list = guideList()
-	if wants(kinds, "guide") then
+	if terms.q and wants(kinds, "guide") then
 		local show = not only or only == "guide"
 		local hits, n = searchGuides(list, terms, az and show, show)
 		if n > 0 then counts.guide = n end
@@ -819,11 +841,11 @@ function Search.Query(text, opts)
 	end
 
 	for _, k in ipairs(Search.KINDS) do
-		if k.key ~= "guide" and wants(kinds, k.key) then loadCodex(); break end
+		if k.key ~= "guide" and (terms.q or NAMES_KIND[k.key] == "item") and wants(kinds, k.key) then loadCodex(); break end
 	end
 	for _, k in ipairs(Search.KINDS) do
 		local kind = k.key
-		local blob = kind ~= "guide" and wants(kinds, kind) and codexBlob(kind)
+		local blob = kind ~= "guide" and (terms.q or NAMES_KIND[kind] == "item") and wants(kinds, kind) and codexBlob(kind)
 		if blob then
 			local extra = translatedBlob(kind, blob)
 			local show = (not only or only == kind) and cap > 0
@@ -845,7 +867,7 @@ function Search.Query(text, opts)
 		end
 	end
 
-	if not (only or az) then table.sort(results, bestFirst) end
+	if not (only or az or terms.id) then table.sort(results, bestFirst) end
 	for i = #results, limit + 1, -1 do results[i] = nil end
 	if opts.subtitles ~= false then
 		for _, r in ipairs(results) do Search.Subtitle(r) end

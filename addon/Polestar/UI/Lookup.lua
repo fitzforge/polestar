@@ -1353,6 +1353,7 @@ local cache = {}
 local function listOptions()
 	return {
 		subtitles = false,
+		ids = true,
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
 		order = order,
