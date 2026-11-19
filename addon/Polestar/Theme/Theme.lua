@@ -704,9 +704,12 @@ local HOUSE_EXTRA = {
 	-- Polestar's experimental guides' chip: a scheme or skin without its own
 	-- shows it in its dungeon violet.
 	experimental = "dungeon",
+	-- A training goal's trainer or skill: a scheme or skin written before this
+	-- token shows it in its skill green.
+	train = "skill",
 }
 -- Those a non-house skin falls back on too.
-local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph", "experimental" }
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph", "experimental", "train" }
 
 -- Menus and popups open over other frames (a panel marked psMenu: the
 -- dropdown menus, a setting's cog, Quick settings; the tooltip too): their

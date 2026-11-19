@@ -284,6 +284,9 @@ local function registerScheme(id, spec)
 	for _, k in ipairs(SCHEME_MAY) do
 		if not tokens[k] then tokens[k] = copy(SCHEMES.dusk[k]) end
 	end
+	-- A scheme written before the train token takes its skill green (Dusk's
+	-- lime is drawn for night grounds, so a light scheme would not read it).
+	if not tokens.train and tokens.skill then tokens.train = copy(tokens.skill) end
 	-- A scheme gives the grounds, the text ladder and the tokens Dusk has, and
 	-- may give the status and subject colours (quest gold, NPC blue...): they
 	-- are the same in every dark scheme, and a light one must give its own

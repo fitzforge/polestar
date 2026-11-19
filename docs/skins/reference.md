@@ -693,6 +693,8 @@ skin may recolour them, and a light scheme gives its own.
 | `dungeon` | dungeon and raid entrances | `#a385ff` | same | same |
 | `rare` | rare NPCs | `#ff8052` | same | same |
 
+A scheme or skin that gives no `train` shows it in its `skill` colour.
+
 ### Washes (skins only)
 
 Translucent ink laid over a ground. On the Polestar base they are `ink` at
