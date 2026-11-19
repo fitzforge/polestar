@@ -152,7 +152,7 @@ return {
 
 	-- Step 23: Zarrin
 	-- {npc:6286} Zarrin
-	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}, al sur de la posada: Campamento básico te pide que la aprendas",
+	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}, al sur de la posada: Campamento 101 te pide que la aprendas",
 
 	-- Step 24: Cyndra Kindwhisper
 	["talk to the trainer"] = "habla con el instructor",

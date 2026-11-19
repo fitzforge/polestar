@@ -241,7 +241,7 @@ return {
 	-- {npc:5688} Innkeeper Renee · {npc:265944} William Pickman · {npc:1931} Captured Scarlet Zealot · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "Todo aquí está dentro de la posada, por su puerta del lado sur: {npc:5688} en la barra, {npc:265944} en el extremo norte de la planta baja, {npc:1931} en el sótano debajo de ese extremo, y {npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujos) y {npc:2130} (pícaros) en el piso de arriba: sube por la escalera de dentro, la flecha no distingue los pisos.",
 	-- {npc:265944} William Pickman
-	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, en el extremo norte de la posada: Campamento básico te pide que la aprendas",
+	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, en el extremo norte de la posada: Campamento 101 te pide que la aprendas",
 
 	-- Step 44: The cellar stairs
 	["The cellar stairs"] = "La escalera del sótano",

@@ -228,7 +228,7 @@ return {
 	-- {item:2894} Rhapsody Malt · {npc:1247} Innkeeper Belm
 	["{item:2894}, from {npc:1247}; upstairs"] = "{item:2894}, de {npc:1247}; arriba",
 	-- {npc:1699} Gremlock Pilsnor
-	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "{npc:1699}: Campamento básico te pide que la aprendas; bajo tierra",
+	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "{npc:1699}: Campamento 101 te pide que la aprendas; bajo tierra",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, en el piso de arriba: {item:16605}",
 	["Upstairs"] = "Piso de arriba",
