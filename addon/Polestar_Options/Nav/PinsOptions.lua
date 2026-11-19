@@ -261,7 +261,7 @@ local function buildPinsPreview(view)
 	for key, parts in pairs({
 		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
 		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget },
-		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
+		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.spawnSpots"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
 		["nav.trailDots"] = { h.Me, target }, ["nav.trailDotAlpha"] = { h.Me, target },
 		["nav.upcomingPins"] = steps, ["nav.stepPinSize"] = steps, ["nav.stepRingColor"] = steps,
 		["nav.stepColorMode"] = steps, ["nav.stepColor"] = steps, ["nav.stepNumberSize"] = steps,
