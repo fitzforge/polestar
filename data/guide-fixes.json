@@ -2,6 +2,22 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "searing-rim-slavers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7729,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Slavers call allies within 15 yards and can net you. Pull back onto open ground on the north rim below Thorium Point. Leave any pair with another pack close by.",
+			"note": "Pull away from the other packs on the north rim; a net can leave the player in a linked camp. The seed keeps the two kills and their dagger on the loop through the north-rim spawns at 43.29,28.24 and 46.49,25.27 (Searing Gorge, Era); a single point would still offer alternatives on the floor. The furnace and ridge items have their own step.",
+			"source": {
+				"kind": "recording",
+				"ref": "Culling the Competition: nine guide followers died eleven times, median level 49.1."
+			},
+			"issue": 3144
+		},
+		{
 			"id": "2282-darkcloud-arnak-navigation-warning",
 			"faction": "Horde",
 			"at": { "quest": 5147, "goal": "objective", "objective": 1 },
@@ -6316,8 +6332,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.",
-			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
+			"tip": "South from the compound to Lake Nazferiti, on the ride to Zul'Mamwe: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, with Venture Co. Agents (39) walking among them. Stealthed Shadowmaw Panthers prowl the jungle south and east of the lake: keep to the shore camps.",
+			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109). Since the 0.4.3 route round the crystals are taken on 40-50/01's ride from Kurzen's Compound to Zul'Mamwe at about 41, where the Agents (39) are under the player: the tip names them without the old Careful line.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -11390,14 +11406,19 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.",
-			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Ice Thistle Matriarchs are 56-57 and Patriarchs 57-58 around a 55-56 player; the Matriarchs are enough.",
+			"tip": "Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. At level 55, take only the level 56 ones. Leave the Patriarchs alone.",
+			"note": "Patriarchs reach 58. Keep their drops in the item data, but target only Matriarchs at the two western spawns (65.88,43.57 and 68.32,41.07, Era); the seed loop prevents the arrow offering the eastern cave as an alternative.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "Ice Thistle Matriarch 56-57, Ice Thistle Patriarch 57-58 in Forever's data"
+				},
+				{
+					"kind": "recording",
+					"ref": "At the horn step followers were level 55.14 at the lower quartile; twelve people killed Patriarchs for horns."
 				}
-			]
+			],
+			"issue": 3144
 		},
 		{
 			"id": "a4060-xavaric-careful",
@@ -12661,6 +12682,67 @@
 			]
 		},
 		{
+			"id": "043-wpl-janice-with-the-felstone-cauldron",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5021,
+				"goal": "accept"
+			},
+			"tip": "Janice Felstone's ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for Stormwind.",
+			"note": "0.4.3 route round (Alliance 50-60): Better Late Than Never is taken on 50-60/03's Felstone Field cauldron stop at about 55.6 instead of 50-60/01's Chillwind stop at about 51.7, where the farmhouse's Jabbering Ghouls (54) were two over the player (route-fixes pair task 5216 before accept 5021). The tip says where Janice and the parcel are on the cauldron step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: recorded followers reach 50-60/01's Janice step at a 25th percentile of 51.74 (11 people); 2 follower people died there on the current route (3 deaths at 38.3-39.0,52.7-55.4), Jabbering Ghouls (10801, level 54) seen hostile by 26 people at the farmhouse"
+				}
+			],
+			"issue": 3144
+		},
+		{
+			"id": "043-hearthglen-libram-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5168,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Scarlet Paladins (55-56) and priests guard Davil's Libram inside Hearthglen's town hall. They are elite, and a Scarlet High Clerist (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach.",
+			"note": "0.4.3 route round (Alliance 50-60): Davil's Libram (object 176206 at Western Plaguelands 42.52,18.99) is taken on 50-60/06's Hearthglen visit right after the overlook (route-fixes pair task 6025 before task 5168), not on 50-60/04's detour from Tirion's hut at about 56. The town hall's guards are elite in our data (rank 1; the High Clerists rank 2), so the step names them. Their rank wants an in-game check on the current build: if the Paladins are not elite, the tip can drop that part.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever npcs.json around Western Plaguelands 40-48,11-22: Scarlet Paladin 1834 (55-56, rank 1, 24 spawns), Scarlet Sentinel 1827 (55-56, rank 1), Scarlet Priest 10608 (55-57, rank 1), Scarlet High Clerist 1839 (63, rank 2) at 42.34,18.9 and 44.5,19.3"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: Scarlet Paladins seen hostile by 5 people and killed 7 times by 2, all in Hearthglen (41-48,15-21); 1 recorded libram loot"
+				}
+			],
+			"issue": 3144
+		},
+		{
+			"id": "043-darkwhisper-gorge-mouth-only",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4842,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Follow Donova's directions south to the mouth of Darkwhisper Gorge. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in.",
+			"note": "0.4.3 route round (Alliance 50-60): Strange Sources' step said \"pass them one at a time\" of the elites on the way, which read as an order to fight them. The explore point (Winterspring 59.8,74.2) is about 50 yards short of the first Hederine Slayers (59.4,75.1); the Hederine elites line the gorge from y 75 to 90 (players' recordings: deaths at 59.5,75.7, 60.6,78.9, 61.2,79.3 and 58.8,82.9-86.2, nobody killed one). The tip says to avoid both elite camps: the Frostmaul giants are passed on the road at their east side, the line all 13 recorded crossers rode (places 043-darkwhisper-gorge-by-the-road), and the gorge is not entered. Mount Hyjal's ride in (hyjal-1) names the same camps on the same road.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "data/forever npcs.json on Winterspring (1452): Frostmaul Giant 7428 and Frostmaul Preserver 7429 (59-60, rank 1) at 58.1-65.7,65.1-73.0; Hederine Initiate 7461, Manastalker 7462 and Slayer 7463 (57-60, rank 1) at 50.9-64.9,75.1-90.3; Rabid Shardtooth 7446 (59-60) at 56.4-67.1,68.7-74.4"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 13 recorded crossings of Darkwhisper Gorge into Mount Hyjal; Hederine seen hostile by 13 people, killed by none; deaths of hyjal-1 users at the gorge's mouth and along it"
+				}
+			],
+			"issue": 3144
+		},
+		{
 			"id": "epl-plaguehounds-careful",
 			"faction": "Alliance",
 			"at": {
@@ -13060,6 +13142,23 @@
 					"ref": "quest 94768 pre 94745, 94748 in Forever's quest data"
 				}
 			]
+		},
+		{
+			"id": "043-riverglades-written-for-41-45",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95147,
+				"goal": "accept"
+			},
+			"tip": "This guide is written for levels 41-45: the route comes here at about 41, after Stranglethorn Vale. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and Overlord Kilgar (46, elite) for groups only: below 41, do Stranglethorn first.",
+			"note": "0.4.3 route round (Alliance 40-50): the Riverglades' first quest step tells early visitors what the zone holds. Followers of the guide enter at 41.4 (25th percentile) and are sound; players who walked in on their own from Arathi at about 38 died most at the Western Front and the Bolder'ok escort (players' recordings: 35 of 41 people who never loaded the guide died, 198 deaths). The Western Front's own warning is a `when level<44` step before Sergeant Riftan (route-fixes notes).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19 in the Riverglades: guide followers enter at 41.40 (25th percentile), 2.3 deaths per 100 quest events; others arrive at 38.0 median, 4.1 deaths per 100 quest events; Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, Dunston Checks Out 7/14 at 42.0"
+				}
+			],
+			"issue": 3144
 		},
 		{
 			"id": "2575-riverglades-loose-soil-mementos",

@@ -6410,9 +6410,10 @@ test('Alliance 40-60: listening and questioning are talk goals, the yeti scares 
 // stands in Marshal's Refuge (npc 8737 at 44.66,8.1), not by the tar pits west of it; the Hive'Ashi tower is in
 // Southwind Village, south-west of Layo Starstrike, not east; A-Me 01 (67.7,16.8) is east of the northern pylon (since
 // the 0.4.0 fix round, A-Me 01 is found on the Western Plaguelands guide's Un'Goro visit, right after that pylon).
-// Cortello's scroll (object 2554) lies inside one of the three Bloodsail ships among 42-45 crews at about level 42:
-// optional, as on the Horde side, under its own title instead of "The Bloodsail captains", who come at 48.
-test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01, Cortello\'s scroll)', { skip }, () => {
+// Cortello's scroll (object 2554) lay inside one of the three Bloodsail ships among 42-45 crews: since the 0.4.3 route
+// round the Alliance route leaves the chain out (see the Cortello's Riddle case below), which keeps this review's
+// point (no scroll step under "The Bloodsail captains" at 40) in the strongest form.
+test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01)', { skip }, () => {
 	const tipOf = (guide, pred) => {
 		const list = goals(guide);
 		return [].concat(list[at(list, guide, pred)].step.note || []).join(' ');
@@ -6426,11 +6427,183 @@ test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-
 	const ame = wplList[at(wplList, 'turnin 4243', is('turnin', 4243))];
 	assert.match([].concat(ame.step.note || []).join(' '), /^Ride east/);
 	assert.equal(ame.s, wplList[at(wplList, 'the Northern Pylon', (g) => g.quest === 4285 && g.t === 'interact')].s + 1, 'A-Me 01 right after the northern pylon');
+});
+
+// Alliance 40-50 route round (0.4.3, AuditA40 MUST-1): 40-50/01's optional "Cortello's scroll" step sent players at
+// about 40 onto the Bloodsail ships' decks, among crews of 42-45 (three to five over them). The level-48 ship visit
+// can't carry the chain (its hand-ins are in the Swamp of Sorrows' west and Dustwallow's Bloodfen Burrow), so the
+// Alliance route leaves Cortello's Riddle out: no guide of the band takes, works or hands in any of its parts.
+test('Alliance 40-50 (0.4.3): no Cortello\'s Riddle on the Bloodsail ships at 40', { skip }, () => {
+	for (const name of ['01-stranglethorn-vale', '02-badlands', '05-the-hinterlands']) {
+		const list = goals(`forever/alliance/40-50/${name}.guide`);
+		assert.deepEqual(list.filter(({ goal }) => [624, 625, 626].includes(goal.quest) || goal.item === 4056).map(({ goal }) => `${goal.t} ${goal.quest || goal.item}`), [], `${name}: no Cortello's Riddle`);
+	}
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	const scroll = stv[at(stv, 'accept 624', is('accept', 624))];
-	assert.ok(scroll.goal.optional, '624 optional');
-	assert.doesNotMatch(scroll.step.title, /captains/);
-	assert.doesNotMatch([].concat(scroll.step.note || []).join(' '), /wreck by the shore/);
+	assert.ok(stv.some(({ goal }) => is('turnin', 93176)(goal) && goal.optional), "Amaryllis Webb's My Little Friends still handed in on the swamp stop");
+});
+
+// Alliance route round (0.4.3, AuditA30 MUST-2): Hostile Takeover's Tumbled Crystals were taken on 30-40/04b at about
+// 35.7, among Venture Co. Agents of 39 (recorded followers: 6 people died 16 times). 40-50/01 takes it from Kebok with
+// Skullsplitter Tusks on its first Booty Bay stop, gathers the crystals at Lake Nazferiti on the ride from Kurzen's
+// Compound to the Zul'Mamwe ruins (about 41) and hands it in with the tusks on the last Booty Bay stop.
+test('Alliance 40-50 (0.4.3): Hostile Takeover rides with Kebok\'s tusks, the crystals on the way from Kurzen\'s Compound', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const s = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(s('accept', 213), s('accept', 209), 'taken from Kebok with Skullsplitter Tusks');
+	const crystals = at(list, 'collect 4106', (g) => g.t === 'collect' && g.item === 4106 && g.quest === 213);
+	assert.ok(crystals > at(list, 'turnin 97047', is('turnin', 97047)), "after Kurzen's Compound");
+	assert.ok(crystals < at(list, 'collect 1524', (g) => g.t === 'collect' && g.item === 1524), 'before the Zul\'Mamwe tusks');
+	assert.doesNotMatch([].concat(list[crystals].step.note || []).join(' '), /Careful/, 'no warning: the Agents (39) are under the player at about 41');
+	assert.equal(s('turnin', 213), s('turnin', 209), 'handed in with the tusks');
+});
+
+// Alliance route round (0.4.3, AuditA50 MUST-1): Janice Felstone's farmhouse stands among Felstone Field's Jabbering
+// Ghouls (54); 50-60/01 sent players there at about 51.7 (recorded followers' 25th percentile, 11 people; 2 of them
+// died there). Better Late Than Never goes with the field's cauldron to 50-60/03 (about 55.6), on the same step, and its
+// parcel still reaches Stormwind on 50-60/06.
+test('Alliance 50-60 (0.4.3): Janice Felstone on the Felstone Field cauldron stop at 55, not at 51', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!bs.some(({ goal }) => [5021, 5022].includes(goal.quest)), 'no Janice on the Burning Steppes guide');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const s = (t, q) => ws[at(ws, `${t} ${q}`, is(t, q))].s;
+	assert.equal(s('accept', 5021), s('turnin', 5216), 'on the cauldron step');
+	assert.equal(s('accept', 5022), s('turnin', 5216), 'the parcel taken there too');
+	assert.ok(goals('forever/alliance/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 5022)(goal)), 'handed in at Stormwind on the Silithus guide');
+});
+
+// Alliance route round (0.4.3, AuditA50 MUST-3): Davil's Libram lies in Hearthglen's town hall among Scarlet Paladins
+// (55-56) and priests that are elite in our data, a level 63 High Clerist a few steps away; 50-60/04 sent players in
+// from Tirion's hut at about 56. It is taken on 50-60/06's Hearthglen visit at about 60, right after the overlook, with a
+// Careful tip naming the elites, and still handed to Carlin Redpath with Redpath's Shield.
+test('Alliance 50-60 (0.4.3): Davil\'s Libram on the Silithus guide\'s Hearthglen visit, with the elites named', { skip }, () => {
+	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.quest === 5168 && goal.t === 'collect'), 'no Hearthglen trip on the Western Plaguelands guide');
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const libram = at(six, 'collect 12954', (g) => g.t === 'collect' && g.item === 12954);
+	assert.ok(six[libram].step.when.some((p) => p.k === 'group' && [p.q].flat().includes(5168)), 'no solo visit inside the elite hall');
+	assert.ok(libram > at(six, 'complete 6025', (g) => g.quest === 6025 && g.t !== 'accept' && g.t !== 'turnin'), 'after the overlook');
+	assert.ok(libram < at(six, 'collect 12955', (g) => g.t === 'collect' && g.item === 12955), "before Redpath's Shield");
+	assert.ok(libram < at(six, 'turnin 5168', is('turnin', 5168)), 'before Carlin Redpath');
+	assert.match([].concat(six[libram].step.note || []).join(' '), /Careful:[^"]*Paladins \(55-56\)[^"]*elite[^"]*High Clerist \(63/, 'the elites named');
+	assert.ok(!(six[libram].step.when || []).some((p) => p.k === 'onquest' && p.q === 6025), 'not tied to the overlook quest');
+});
+
+// Alliance route round (0.4.3, AuditA50 MUST-2, 06 side): Strange Sources' Darkwhisper Gorge step said "pass them one at
+// a time" of the elites on the way. The Frostmaul giants (59-60, elite) camp across the valley north of the gorge and
+// the Hederine elites (57-60) line the gorge from just past its mouth (3 hyjal-1 users died there riding in). The step
+// now keeps to the road on the giants' east side (all 13 recorded crossers rode it), touches the mouth and turns back.
+test('Alliance 50-60 (0.4.3): Darkwhisper Gorge is touched at its mouth, the Frostmaul and Hederine elites avoided', { skip }, () => {
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const gorge = at(six, 'complete 4842', (g) => g.quest === 4842 && g.t !== 'accept' && g.t !== 'turnin');
+	const tip = [].concat(six[gorge].step.note || []).join(' ');
+	assert.doesNotMatch(tip, /one at a time/, 'no order to fight them');
+	assert.match(tip, /Hederine[^"]*elite/, 'the gorge elites named');
+	assert.match(tip, /turn back/, 'touch the mouth and turn back');
+	const road = six.findIndex(({ goal, s }) => s === six[gorge].s && goal.t === 'goto' && goal.x > 61.5 && goal.y > 66 && goal.y < 70);
+	assert.ok(road >= 0 && road < gorge, 'the road past the giants first');
+});
+
+// Alliance route round (0.4.3, AuditA40 FLOW-1): 40-50/01 took Akiris by the Bundle, Zanzil's Secret, Voodoo Dues and
+// The Bloodsail Buccaneers at about 40 for the level-48 Booty Bay stop that does them, a stop the route makes anyway:
+// carried for about 20 hours through the Riverglades they held its quest log at 36. The level-48 stop gives them.
+test('Alliance 40-50 (0.4.3): the level-48 Booty Bay errands are taken at 48, not carried from 40', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.deepEqual(stv.filter(({ goal }) => goal.t === 'accept' && [617, 621, 609, 604].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'none taken at 40');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const stop = hin[at(hin, 'turnin 2874', is('turnin', 2874))].s;
+	for (const q of [617, 621, 609, 604]) {
+		const e = hin[at(hin, `accept ${q}`, is('accept', q))];
+		assert.equal(e.s, stop, `accept ${q} on the level-48 Booty Bay stop`);
+		assert.ok(!e.goal.optional, `accept ${q} is the route's own accept`);
+	}
+});
+
+// Alliance route round (0.4.3, AuditA40 5(b)): players who walk into the Riverglades on their own at about 38 die most
+// at the Western Front (Carving a Path: 25 people, 42 deaths at 43.3) and the port's second wave; followers of the
+// guide (entering at 41.4) are sound. The first quest step says the guide is written for 41-45 and what waits, and a
+// step shown only below 44 warns before Sergeant Riftan's camp: Champions 43-44, Thralls 44, elite Enforcers 45 on
+// patrol, Overlord Kilgar 46 for a group.
+test('Riverglades (Alliance 0.4.3): early visitors are warned at the first step and before the Western Front', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const tips = (i) => [].concat(list[i].step.note || []).join(' ');
+	assert.match(tips(at(list, 'accept 95147', is('accept', 95147))), /written for levels 41-45[^"]*Western Front[^"]*Enforcers \(45\)/, 'the first step says who the guide is for');
+	const riftan = at(list, 'turnin 94886', is('turnin', 94886));
+	const warn = list.findIndex(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44 && !p.frac));
+	assert.ok(warn >= 0 && warn < riftan, 'a step below level 44 before Sergeant Riftan');
+	assert.match(tips(warn), /Careful:[^"]*Champions are 43-44[^"]*Enforcers \(elites, 45\)[^"]*Kilgar \(46, elite\)/, 'it names the camps and elites');
+	assert.ok(list[riftan].s - list[warn].s <= 1, 'right before the camp');
+});
+
+test('Voodoo Dues: Jon-Jon’s spyglass and Maury’s foot are on the same hill', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(step(3925), step(3924));
+	assert.notEqual(step(3925), step(3926));
+});
+
+test('Winterspring: Pristine Yeti Horns track the item but target only the lower-level Matriarch', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const { goal } = list[at(list, 'Pristine Yeti Horn', (g) => g.item === 12367 && g.quest === 977 && g.t === 'collect')];
+	assert.equal(goal.npc, 7459);
+	assert.equal(goal.fromAlsoId, undefined);
+	assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[65.88, 43.57], [68.32, 41.07]]);
+});
+
+test('Alliance Hyjal hand-back: a high-level Vizzie return starts in Everlook; everyone else keeps the Ratchet route', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const opener = list.find(({ step }) => step.label === 'hyjal-everlook');
+	assert.ok(opener.step.when.some((p) => p.k === 'turnedin' && [p.q].flat().includes(93197)));
+	assert.ok(opener.step.when.some((p) => p.k === 'zone' && p.name === 'Winterspring'));
+	assert.ok(opener.step.when.some((p) => p.k === 'level' && p.n === 59 && p.op === '>='));
+	const ratchet = at(list, 'turnin 4502', is('turnin', 4502));
+	assert.ok(list.slice(0, ratchet).some(({ goal, step }) => is('turnin', 4864)(goal) && step.when.some((p) => p.k === 'done' && p.label === 'hyjal-everlook')));
+	assert.ok(!list[ratchet].step.when?.length, 'Ratchet stays available for outstanding work');
+});
+
+test('Alliance Hyjal return: the Everlook opener uses the character’s own level, location and hand-in', { skip }, () => {
+	const file = 'forever/alliance/50-60/06-silithus.guide';
+	const source = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	// Exercise the real opener and the real Ratchet departure in isolation: compiling the whole 06
+	// alone would reject the many quest hand-ins belonging to its earlier guides.
+	const start = source.slice(0, source.indexOf('\nstep Winterfall Village'));
+	const departure = source.match(/\nstep Ratchet\n[\s\S]*?  fly "Ratchet"\n/)[0];
+	const pack = buildSimPack([{ file, text: start + departure }]);
+	try {
+		assert.deepEqual(pack.diag.errors, []);
+		const guide = pack.guides[0];
+		for (const [level, map, zone, returned, expected] of [
+			[58, 1452, 'Winterspring', true, false], [59, 1452, 'Winterspring', true, true],
+			[59, 1452, 'Winterspring', false, false], [59, 1449, "Un'Goro Crater", true, false],
+		]) {
+			const [first] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+				before: `w.level=${level}; w.moveTo(${map}, 61, 38); w.zone=${JSON.stringify(zone)}; ${returned ? 'w.complete({93197})' : ''}`,
+				script: 'emit(Polestar.Engine.GetStepIndex())',
+			});
+			assert.equal(first === 1, expected, `level ${level}, ${zone}, Vizzie ${returned}`);
+		}
+	} finally { pack.dispose(); }
+});
+
+test('Culling the Competition: both kills and their daggers search only the north rim', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const targets = list.filter(({ goal }) => goal.quest === 7729 && goal.t === 'kill' || goal.quest === 3443 && goal.item === 10551);
+	assert.equal(targets.length, 3);
+	for (const { goal, step } of targets) {
+		assert.deepEqual(goal.spots.map(({ x, y }) => [x, y]), [[43.29, 28.24], [46.49, 25.27]]);
+		assert.deepEqual(goal.spots.map((s) => s.r), [45, 25], 'a Slaver and a Taskmaster spawn inside each circle');
+		if (goal.item === 10551) assert.equal(goal.npc, 5844, 'the dagger targets a Slaver on this hunt');
+		assert.ok(!step.goals.some((g) => g.quest === 7728), 'the Lookouts and Steamsmiths have their own hunt');
+	}
+});
+
+test('Southwind Village: the reliquary can go back with Umber, with a later fallback', { skip }, () => {
+	const four = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const early = at(four, 'reliquary', (g) => g.item === 22201);
+	assert.equal(four[early].s, four[at(four, 'Tortured Sentinel', (g) => g.npc === 12179 && g.quest === 1125)].s + 1);
+	assert.ok(four[early].step.when.some((p) => p.k === 'level' && p.n === 56 && p.op === '>='));
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const fallback = six[at(six, 'reliquary fallback', (g) => g.item === 22201)];
+	assert.ok(fallback.step.when.some((p) => p.k === 'complete' && p.neg && p.q === 5527));
+	assert.ok(six.some(({ goal, step }) => is('turnin', 5527)(goal) && step.when.some((p) => p.k === 'complete' && p.q === 5527)));
 });
 
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
@@ -10626,7 +10799,7 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Carlin Redpath\'s 
 	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
 	const [villains, heroes, marauders, alen] = [idx('turnin', 5181), idx('turnin', 5168), idx('accept', 5206), idx('accept', 5281)];
 	assert.ok(villains < heroes && heroes < marauders && marauders < alen, 'Carlin, Carlin, Carlin, then Alen');
-	assert.equal(list[villains].s, list[alen].s, 'one Light\'s Hope stop');
+	assert.ok(!list.slice(villains, alen + 1).some(({ goal }) => !['accept', 'turnin'].includes(goal.t)), 'one chapel visit; the group hand-in adds no travel or other work');
 	assert.ok(!list.slice(villains, alen + 1).some(({ step }) => /Chillwind/.test(step.note || '')), 'no tip about riding to Chillwind Camp');
 });
 
@@ -13934,7 +14107,6 @@ test("#1556's follow-up: an item only one or two creatures drop names them at an
 	for (const [guide, item, ids] of [
 		['forever/horde/orc/01-durotar.guide', 4891, [3110, 3231]],
 		['forever/horde/30-40/02-thousand-needles.guide', 15878, [11562, 11563]],
-		['forever/alliance/50-60/03-winterspring.guide', 12367, [7459, 7460]],
 	]) {
 		const list = goals(guide);
 		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];

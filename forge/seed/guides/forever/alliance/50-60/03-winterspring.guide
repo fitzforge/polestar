@@ -9,6 +9,9 @@ next forever/alliance/50-60/04-western-plaguelands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Better Late Than Never (5021, 5022) is taken on the Felstone Field cauldron stop at about 55.6, beside the cauldron
+# (0.4.3): on the Burning Steppes guide's Chillwind stop at about 51.7 the farmhouse's Jabbering Ghouls (54) were two
+# over the player. Its parcel goes to Stormwind on the Silithus guide's Stormwind stop.
 
 step Into Winterspring
   zone Winterspring
@@ -110,9 +113,11 @@ step Everlook
 # ---------------------------------------------------------------- The east
 
 step Pristine Yeti Horns
-  tip Back to the hills: only the Ice Thistle Matriarchs (56-57) and Patriarchs (57-58) carry the horns.
-  tip Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.
-  collect 12367 quest 977.1
+  tip Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. At level 55, take only the level 56 ones. Leave the Patriarchs alone.
+  loop
+  goto 65.88,43.57 map 1452 r 20
+  goto 68.32,41.07 map 1452 r 20
+  collect 12367 quest 977.1 npc 7459 -- Loot the horns from Ice Thistle Matriarchs
 
 step Everlook
   turnin 977
@@ -176,9 +181,13 @@ step Chillwind Camp
 
 step Felstone Field cauldron
   tip North-west out of the camp to Felstone Field, west of Andorhal: Cauldron Lord Bilemaw (53) guards the cauldron among the Jabbering Ghouls (54).
+  tip Janice Felstone's ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for Stormwind.
   collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
   turnin 5216                         -- Scourge Cauldron
   accept 5217
+  accept 5021                         -- Janice Felstone, upstairs in the farmhouse
+  turnin 5021                         -- Janice's Parcel, inside
+  accept 5022                         -- For Stormwind: keep it, the Silithus guide goes there
 
 step Chillwind Camp
   tip Back to High Priestess MacDonnell at Chillwind Camp.

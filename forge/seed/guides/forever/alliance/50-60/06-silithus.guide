@@ -16,12 +16,77 @@ con Lots of flying between zones
 # Added here: Toxic Horrors (5086), Of Lost Honor (5845: only after Of Forgotten Memories, 5781, whose Mercutio is a
 # group choice, so a solo player never gets it and its steps hide themselves).
 # Left out: Taking Back Silithus (8275).
+# Davil's Libram (5168.1) is taken in Hearthglen's town hall right after the overlook, at about 60 (0.4.3): the
+# Western Plaguelands guide went in at about 56, among elite Scarlet Paladins (55-56) and priests.
 
 # ---------------------------------------------------------------- Ratchet
 
+step Back from Mount Hyjal
+  when turnedin 93197
+  when zone "Winterspring"
+  when level>=59
+  label hyjal-everlook
+  tip Coming back from Hyjal? Finish the nearby Winterspring errands first. Once you reach 60 you can stop; Ratchet and the rest of the guide are still there if you want to finish your quest log.
+  accept 6604                         -- Harlo Wigglesworth, in Everlook
+
+step Winterfall Village
+  when done hyjal-everlook
+  when onquest 8464
+  zone Winterspring
+  tip Salfa's Winterfall Activity waited for this visit: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1              -- Winterfall Shaman
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
+  kill 7438 quest 8464.3              -- Winterfall Ursa
+
+step Starfall Village
+  when done hyjal-everlook
+  zone Winterspring
+  tip Ride north-west up the road to Starfall Village.
+  turnin 6604                         -- Jaron Stoneshaper
+  accept 4861
+
+step Jaron's camp
+  when done hyjal-everlook
+  tip Ride back east past Everlook and south-east down the valley to Jaron's damaged crate in the snow at Mazthoril, with his wrecked wagon just east of it.
+  turnin 4861                         -- Damaged Crate
+  accept 4863
+  turnin 4863                         -- Jaron's Wagon
+  accept 4864
+
+step Jaron's supplies
+  when done hyjal-everlook
+  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
+  collect 12524 quest 4864.2          -- Blue-feathered Amulet
+  collect 12525 quest 4864.1          -- Jaron's Supplies
+
+step Ranshalla
+  when done hyjal-everlook
+  zone Winterspring
+  tip Ranshalla waits at Owl Wing Thicket, south of Everlook.
+  turnin 979                          -- Ranshalla
+  tip Protect Ranshalla while she lights the torches on the way to the Altar of Elune.
+  accept 4901
+  complete 4901
+
+step Starfall Village
+  when done hyjal-everlook
+  when complete 4864
+  turnin 4864                         -- Jaron Stoneshaper
+
+step Salfa
+  when done hyjal-everlook
+  when complete 8464
+  turnin 8464
+
+step Donova Snowden
+  when done hyjal-everlook
+  when onquest 980
+  turnin 980
+  accept 4842                         -- Keep this for the next visit to the gorge mouth
+
 step Ratchet
   zone The Barrens
-  tip Fly from Marshal's Refuge to Ratchet.
+  tip Fly to Ratchet for Liv Rizzlefix. If you stayed in Winterspring after Hyjal, use Everlook's flight master.
   fly "Ratchet"
   turnin 4502                         -- Liv Rizzlefix, inside
   collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
@@ -179,6 +244,7 @@ step Gadgetzan
   turnin 4496                         -- Alchemist Pestlezugg, inside
   accept 4507
   turnin 4504                         -- Tran'rek
+  accept 5801                         -- Krinkle Goodsteel: take this before Fire Plume Ridge
 
 step Aquementas
   tip Ride east into the hills. Use the Book of Aquor to summon Aquementas, then defeat him for the totem.
@@ -220,12 +286,12 @@ step Fly to Cenarion Hold
 step Cenarion Hold
   zone Silithus
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
-  accept 8278                         -- Beetix Ficklespragg, upstairs
-  accept 8281                         -- Windcaller Proudhorn
-  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
-  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
   accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
+  accept 8304                         -- Commander Mar'alith: Bronzebeard's Encampment comes later, on the way south
   accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
+  accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig after the next stop here
+  accept 8281                         -- Windcaller Proudhorn
+  accept 8278                         -- Beetix Ficklespragg, upstairs
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -265,6 +331,8 @@ step Cenarion Hold
 # ---------------------------------------------------------------- Silithus
 
 step Southwind Village
+  when onquest 5527
+  when !complete 5527
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
   collect 22201 quest 5527.1          -- Dusty Reliquary; inside
 
@@ -378,7 +446,10 @@ step Ranshalla
   complete 4901
 
 step Darkwhisper Gorge
-  tip Follow Donova's directions to the mouth of Darkwhisper Gorge, past the Frostmaul giants: pass them one at a time.
+  tip Follow Donova's directions south to the mouth of Darkwhisper Gorge. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in.
+  goto 62.3,67.0 "The road past the Frostmaul giants"
+  goto 62.1,69.5 "The road past the Frostmaul giants"
+  goto 61.2,71.4 "The road to Darkwhisper Gorge"
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
 
@@ -441,23 +512,31 @@ step Donova Snowden
   turnin 5087
 
 step Moonglade
+  when onquest 6844
   zone Moonglade
   goto 44.9,35.6 "Umber"
 
 # ---------------------------------------------------------------- Moonglade
 
 step Umber
+  when onquest 6844
   zone Moonglade
   tip Take the Timbermaw Hold tunnel from its Winterspring mouth, west of Donova, and follow the Moonglade branch to Nighthaven. Umber studies by the lake shore.
   turnin 6844                         -- Umber walks around Nighthaven: look inside the circle on the map
   accept 6845
 
 step Rabine Saturna
+  when complete 5527
   tip Rabine Saturna's house stands in Nighthaven, east of Umber.
   turnin 5527
+
+step Rabine Saturna: Uncovering Past Secrets
+  when onquest 6845
   turnin 6845
 
 step Umber
+  when turnedin 6845
+  when !turnedin 1185
   turnin 1185 direct
 
 step Sindrayl
@@ -647,17 +726,28 @@ step Hearthglen overlook
   goto 45.8,18.3
   complete 6025 @45.8,18.3
 
+step Davil's Libram
+  when group 5168
+  when onquest 5168
+  zone Western Plaguelands
+  tip Careful: Scarlet Paladins (55-56) and priests guard Davil's Libram inside Hearthglen's town hall. They are elite, and a Scarlet High Clerist (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach.
+  collect 12954 quest 5168.1          -- Davil's Libram; inside
+
 step Kirsta Deepshadow
   when onquest 6025
   turnin 6025
 
 step Gahrron's Withering
-  when onquest 5225,5168
+  when onquest 5225
   zone Western Plaguelands
   tip Ride south-east to Gahrron's Withering: Cauldron Lord Soulwrath guards the cauldron, and Redpath's Shield lies east of the barn.
   collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
   turnin 5225                         -- Scourge Cauldron
   accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
+
+step Redpath's Shield
+  when group 5168
+  when onquest 5168
   collect 12955 quest 5168.2          -- Redpath's Shield
 
 step Tirion Fordring (optional)
@@ -678,16 +768,27 @@ step Light's Hope Chapel
   zone Eastern Plaguelands
   tip Ride south-east from the lake to the chapel.
   turnin 5181                         -- Carlin Redpath
+
+step Carlin Redpath
+  when complete 5168
   turnin 5168
+
+step Carlin Redpath: the Scourge Champions
+  when turnedin 5168
+  when turnedin 5181
   accept 5206
+
+step Caretaker Alen
   accept 5281                         -- Caretaker Alen, by the graves south of the chapel: Egan is in Terrordale, keep it
 
 step Scourge Champions
+  when onquest 5206
   tip Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.
   kill 8529 optional                  -- Scourge Champion
   collect 13155 quest 5206.1 @81.5,44.0 -- Resonating Skull, from the Scourge Champions
 
 step Light's Hope Chapel
+  when onquest 5206
   turnin 5206                         -- Carlin Redpath
   accept 5941                         -- Chromie in Andorhal: keep it
 
@@ -733,6 +834,7 @@ step Artist Renfray
   turnin 5846                         -- Inside
 
 step Chromie
+  when onquest 5941
   zone Western Plaguelands
   tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
   turnin 5941                         -- Chromie, upstairs

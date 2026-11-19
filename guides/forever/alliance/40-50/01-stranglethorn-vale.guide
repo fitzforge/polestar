@@ -9,10 +9,18 @@ next forever/alliance/40-50/01b-riverglades
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Cortello's Riddle (625), The Brassbolts Brothers (2769), ... and Bugs (1258).
+# Added here: The Brassbolts Brothers (2769), ... and Bugs (1258).
+# Left out (0.4.3): Cortello's Riddle (624, 625, 626): its scroll lies on the Bloodsail ships south of Booty Bay among
+# crews of 42-45, three to five levels over players here at about 40, and its later parts lead to Bloodfen Burrow in
+# Dustwallow Marsh and the far east of the Hinterlands, where the route doesn't go for them.
+# Hostile Takeover (213, 0.4.3): taken from Kebok on the first Booty Bay stop, its Tumbled Crystals from the Geologists
+# at Lake Nazferiti on the ride from Kurzen's Compound to Zul'Mamwe (Venture Co. Agents 39, at about 41), handed in
+# with Kebok's trolls on the last Booty Bay stop; on 30-40/04b the Agents were three over players at about 35.7.
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
-# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
+# The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05), and since 0.4.3 so are Akiris by
+# the Bundle (617), Zanzil's Secret (621), Voodoo Dues (609) and The Bloodsail Buccaneers (604), which are done there:
+# taken here at 40 and carried through the Riverglades they held its quest log at 36.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
 # Level tidy (0.4.0): Panther Mastery (192, Shadowmaw Panthers 37-38) and Troll Witchery (205, the Skullsplitter Mystics'
@@ -218,10 +226,11 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 617                          -- Privateer Bloads: keep it, its naga (43-44) wait for the level-48 Booty Bay stop
+  note Privateer Bloads' Akiris by the Bundle waits for the level-48 Booty Bay stop (its naga are 43-44): leave it for now.
   turnin 669 optional                 -- Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
-  accept 621                          -- Crank Fizzlebub, inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
+  accept 213                          -- Kebok: the Tumbled Crystals, at Lake Nazferiti on the northern loop
+  note Crank Fizzlebub's Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now.
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
@@ -242,7 +251,7 @@ step Booty Bay
   accept 599
   accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
-  accept 604                          -- keep it: the Wild Shore camp's charts and Swashbucklers (41-43) wait for the level-48 Booty Bay stop
+  note Seahorn's next task, The Bloodsail Buccaneers, waits for the level-48 Booty Bay stop with the Wild Shore camp (41-43): leave it for now.
   accept 587                          -- Deeg, on the top floor
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
@@ -256,7 +265,6 @@ step Bloodsail pirates: kill these as you meet them
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
   note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
-  note Seahorn's Bloodsail Buccaneers: keep it for the level-48 Booty Bay stop, with the Wild Shore camp.
   turnin 576                          -- Dizzy One-Eye
 
 step Booty Bay
@@ -276,12 +284,7 @@ step Booty Bay
   accept 607
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 609                          -- "Sea Wolf" MacKinley: keep it, for the level-48 Booty Bay stop, with Zanzil's village
-
-step Cortello's scroll
-  tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
-  collect 4056 optional               -- Cortello's Riddle
-  accept 624 optional                 -- for the Swamp of Sorrows later
+  note MacKinley's Voodoo Dues waits for the level-48 Booty Bay stop, with Zanzil's village: leave it for now.
 
 # ---------------------------------------------------------------- The jungle
 
@@ -340,6 +343,11 @@ step Kurzen's Compound
   turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
   accept 97048                        -- For Captain Aransas in Booty Bay, at the end of the jungle loop
 
+step Lake Nazferiti
+  zone Stranglethorn Vale
+  tip South from the compound to Lake Nazferiti, on the ride to Zul'Mamwe: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, with Venture Co. Agents (39) walking among them. Stealthed Shadowmaw Panthers prowl the jungle south and east of the lake: keep to the shore camps.
+  collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
+
 step Panther Mastery
   when group 193
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
@@ -384,6 +392,7 @@ step Booty Bay
   tip Follow the road south to Booty Bay.
   turnin 611                          -- Baron Revilgaz
   turnin 209                          -- Kebok, upstairs
+  turnin 213                          -- Kebok
   turnin 600                          -- Crank Fizzlebub
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   turnin 97048                        -- Captain Aransas
@@ -502,12 +511,7 @@ step Misty Valley
   tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
   collect 6065 quest 1364 @5.5,31.4 map 1435 -- Khadgar's Essays on Dimensional Convergence
 
-step Misty Valley
-  when onquest 624
-  turnin 624
-
-step Cortello's Riddle
-  accept 625
+step Amaryllis Webb
   turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Swamp of Sorrows
