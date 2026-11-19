@@ -2,6 +2,137 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "3145-feralas-feral-scar-vale-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 2822,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "North-west of the ruins, pull one yeti at a time at the eastern mouth of Feral Scar Vale for thick hides. Careful: larger yetis crowd the cave further west, and Bloodroar the Stalker, a level 48 rare, lurks at the far end.",
+			"note": "Route review 0.4.3 (Horde 40-50): the yetis' levels are at the player's (about 46 here), but Feral Scar Vale is where players following the Feralas & Tanaris guide die: a Careful line naming how the yetis grow deeper into the vale and where to work.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19, followers only (the active step in the guide holding the quest): The Mark of Quality (2822) 4 people, 15 deaths at level 46.1, three of them on 0.4.x at 02's Feral Scar steps"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns in Feralas: Feral Scar Yeti 5292 (43-44) at 52-56,55-59; Enraged Feral Scar 5295 (44-45) and Hulking Feral Scar 5293 (45-46) at 50-53,57-61; Bloodroar the Stalker 5346 (48, rare) at 52.0,60.9"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "3145-tanaris-scrimshank-hive-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 10,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50.",
+			"note": "Route review 0.4.3 (Horde 40-50): the gear's guard is at the player's level (about 48), the tunnels behind it are not: a Careful line saying where to fight and how far to go.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19, followers only: The Scrimshank Redemption (10) 4 people, 7 deaths, three on 0.4.x at 04's Scrimshank steps"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json: Centipaar Swarmer 5457 (47-50) and Sandreaver 5460 (49-50) in Tanaris"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "3145-riverglades-42-before-95119",
+			"faction": "Horde",
+			"at": {
+				"quest": 95119,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"level": 42,
+			"note": "Eastsea Musketeers reach 43. A player who skips the elite ogre chain or comes from Kargath early can wait on the crawler beach until 42.",
+			"source": {
+				"kind": "recording",
+				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "3145-riverglades-44-before-95122",
+			"faction": "Horde",
+			"at": {
+				"quest": 95122,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"level": 44,
+			"note": "Three of six guide followers taking Unchecked Expansion were below 44, the lowest at 42.38. Raiders and the admiral reach 45. Check the actual level before sending the player back into the second camp.",
+			"source": {
+				"kind": "recording",
+				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "3145-riverglades-95119-camp-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 95119,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"when": "level>=42",
+			"note": "Keep nearby suggestions for the first pirate camp behind the same level as the route.",
+			"source": {
+				"kind": "recording",
+				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "3145-riverglades-95122-camp-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 95122,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"when": "level>=44",
+			"note": "Keep nearby suggestions for the raiders behind the same level as the route.",
+			"source": {
+				"kind": "recording",
+				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "3145-riverglades-95124-camp-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"when": "level>=44",
+			"note": "Keep nearby suggestions for the admiral behind the same level as the route.",
+			"source": {
+				"kind": "recording",
+				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
+			},
+			"pr": 3145
+		},
+		{
 			"id": "043-outrunners-sharptalon",
 			"faction": "Horde",
 			"at": { "quest": 6503, "goal": "objective", "objective": 1 },
