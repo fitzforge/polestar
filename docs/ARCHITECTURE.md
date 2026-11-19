@@ -7790,7 +7790,7 @@ Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the b
 
 ```lua
 Polestar.QoL.Kept(itemID) -> stepIndex | nil                 -- Engine.KeptItems()[itemID]
-Polestar.QoL.KeptLine(itemID) -> text, r, g, b | nil          -- its tooltip line
+Polestar.QoL.KeptLines(itemID) -> { header, lines } | nil     -- its tooltip block: the guides that use it
 Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in the bags a merchant buys, once each
 ```
 
@@ -7801,10 +7801,15 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   in the log, kept for the first later step that hands it in. Steps and
   goals for another character, and those the player skipped, keep nothing.
 - **Never sold:** QoL/Vendor.lua's grey selling passes over a kept item.
-- **Marked:** its tooltip (Hooks.ItemLines, owner "keep") reads "Used in
-  step N (<step title>) in <guide>" in the accent colour (no title: "Used in
-  step N in <guide>"), and the same after "Don't sell: " in the warning colour
-  while a merchant is open;
+- **Marked:** any item's tooltip (Hooks.ItemLines, owner "keep") lists the
+  guides whose steps use it (`Engine.ItemGuides`): "Used in guides:" in the
+  accent colour (while a merchant is open: "Don't sell, used in guides:" in
+  the warning colour), then one line per guide, "12-13 Elwynn Forest: step 4
+  (<step title>)" for the active guide (no title: "...: step 4") and "13-15
+  Westfall" for each of up to three guides ahead (`Engine.NextGuide` chain;
+  scanned once per guide change, items of steps for this character by
+  `Engine.StepHiddenFor`). An item only a guide ahead uses is listed but not
+  Kept: it can still be sold;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.

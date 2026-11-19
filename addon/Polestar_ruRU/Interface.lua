@@ -3437,10 +3437,10 @@ L["Forget %s"] = "Забыть: %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Раздел «Персонажи» отключен. Включите его в меню «Настройки > Открытия > Поиск»."
 
 -- QoL/Keep.lua
-L["Don't sell: used in step %d (%s) in %s"] = "Не продавать: нужно на шаге %d (%s) в %s"
-L["Don't sell: used in step %d in %s"] = "Не продавать: нужно на шаге %d в %s"
-L["Used in step %d (%s) in %s"] = "Нужно на шаге %d (%s) в %s"
-L["Used in step %d in %s"] = "Нужно на шаге %d в %s"
+L["Used in guides:"] = "Нужно в гайдах:"
+L["Don't sell, used in guides:"] = "Не продавать, нужно в гайдах:"
+L["%s: step %d (%s)"] = "%s: шаг %d (%s)"
+L["%s: step %d"] = "%s: шаг %d"
 L["Keep %s: a later step of the guide needs it."] = "Сохраните %s: предмет понадобится на одном из следующих шагов Гайда."
 L["Keep %s: later steps of the guide need them."] = "Сохраните %s: предметы понадобятся на следующих шагах Гайда."
 

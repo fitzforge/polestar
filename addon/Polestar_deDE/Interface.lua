@@ -3398,10 +3398,10 @@ L["Forget %s"] = "%s vergessen"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Optionen > Entdecken > Nachschlagen ein."
 
 -- QoL/Keep.lua
-L["Don't sell: used in step %d (%s) in %s"] = "Nicht verkaufen: gebraucht in Schritt %d (%s) in %s"
-L["Don't sell: used in step %d in %s"] = "Nicht verkaufen: gebraucht in Schritt %d in %s"
-L["Used in step %d (%s) in %s"] = "Gebraucht in Schritt %d (%s) in %s"
-L["Used in step %d in %s"] = "Gebraucht in Schritt %d in %s"
+L["Used in guides:"] = "Gebraucht in Guides:"
+L["Don't sell, used in guides:"] = "Nicht verkaufen, gebraucht in Guides:"
+L["%s: step %d (%s)"] = "%s: Schritt %d (%s)"
+L["%s: step %d"] = "%s: Schritt %d"
 L["Keep %s: a later step of the guide needs it."] = "%s behalten: Ein späterer Schritt des Guides braucht es."
 L["Keep %s: later steps of the guide need them."] = "%s behalten: Spätere Schritte des Guides brauchen sie."
 
