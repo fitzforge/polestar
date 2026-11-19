@@ -113,8 +113,13 @@ test('the switch lays the open window out in groups and back, with the same rows
 		local on = { layout = PolestarDB.optionsLayout, title = O.frame.Title:GetText(), rows = rows() }
 		O.Select("b:look")
 		local look = { title = O.frame.Title:GetText(), rows = rows() }
-		-- The window's search keeps the groups.
+		-- A setting off its default shows under Changed; the window's search keeps the groups.
+		Polestar.Set("nav.arrowScale", 1.3)
 		O.Select("arrow")
+		G.Filter("changed")
+		local changed = {}
+		for c, w in pairs(O.view.cache) do if w:IsShown() and c.key then changed[#changed + 1] = c.key end end
+		G.Filter("all")
 		O.SetQuery("sclae")
 		local titles = {}
 		for _, g in ipairs(O.results.groups) do titles[#titles + 1] = g.title end
@@ -130,7 +135,7 @@ test('the switch lays the open window out in groups and back, with the same rows
 		local _, jumpTab = G.Current()
 		local jumped = { title = O.frame.Title:GetText(), tab = jumpTab.name, shown = w ~= nil and w:IsShown() }
 		G.SetOn(false)
-		emit({ nav = nav, on = on, look = look, titles = titles, back = back,
+		emit({ nav = nav, on = on, look = look, changed = changed, titles = titles, back = back,
 			stepped = stepped, steppedTab = steppedTab.name, jumped = jumped,
 			off = { layout = PolestarDB.optionsLayout or false, title = O.frame.Title:GetText() } })`);
 	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'qualityoflife', 'discovery', 'b:look', 'b:setup', 'b:about'],
@@ -139,6 +144,7 @@ test('the switch lays the open window out in groups and back, with the same rows
 	assert.equal(out.on.title, 'Guiding › Guide', 'the Guide page stays on screen');
 	assert.ok(out.on.rows > 0 && out.look.rows > 0, 'the pages show their rows');
 	assert.equal(out.look.title, 'Look › Guide window', "a group opens on its first page");
+	assert.ok(out.changed.includes('nav.arrowScale'), 'Changed lists the row off its default');
 	assert.ok(out.titles.length > 0 && out.titles.every((t) => t.split(' › ').length >= 2), 'search results say where each lives here');
 	assert.ok(out.titles.some((t) => t.startsWith('Alerts & toasts › ')), `by page and tab: ${out.titles.join(' | ')}`);
 	assert.equal(out.back, 'Look › Arrow', 'closing the search comes back to the page it left');

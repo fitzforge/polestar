@@ -5015,6 +5015,7 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 -- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
 L["%d changed"] = "%d개 변경됨"
 L["%s is off. Turn it on to change its settings."] = "%s 기능이 꺼져 있습니다. 설정을 바꾸려면 켜십시오."
+L["Changed"] = "변경됨"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "가이드 창, 화살표, 카드, 알림을 원하는 곳으로 끌어 옮기세요. 저장 후 나가기를 누를 때까지 이 창은 비켜 있습니다. /polestar unlock으로도 열 수 있습니다."
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s의 모든 설정이 기본값으로 돌아갑니다. 다른 페이지의 설정은 그대로입니다."
 L["Nothing to reset"] = "초기화할 항목 없음"

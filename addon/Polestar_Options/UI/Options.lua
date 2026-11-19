@@ -1879,9 +1879,10 @@ end
 -- module's pill, "N changed" and Reset in the card's top border.
 local function placeHeader(card)
 	if card.psLegend then
-		local count = card.psSettings and modifiedCount(card.psSettings) or 0
-		card.Legend:Set({ title = card.psName, count = count, onReset = card.psOnReset,
-			toggle = card.psToggle, extras = { card.Move, card.More } })
+		-- A group's own count, Reset and lead link (the Changed view's page cards).
+		local count = rawget(card, "psCount") or (card.psSettings and modifiedCount(card.psSettings) or 0)
+		card.Legend:Set({ title = card.psName, count = count, onReset = rawget(card, "psReset") or card.psOnReset,
+			toggle = card.psToggle, extras = { card.Move, card.More, rawget(card, "psLead") } })
 		return
 	end
 	local x = 16
@@ -2107,7 +2108,9 @@ local function extrasColumns(groups)
 end
 
 -- Sections from y, one card each across the body. groups: { { name,
--- controls, section, settings }, ... } (`settings`: what its Reset resets);
+-- controls, section, settings }, ... } (`settings`: what its Reset resets;
+-- a Legend card's group may bring its own `count`, `onReset()` and
+-- `lead(card)`, a widget made once per card for the header's right side);
 -- opts.whole: every row across (search results); opts.gutter: room left of
 -- the rows inside the card (the search results' chevrons). Rows not placed
 -- are hidden. opts.legend (the new page): each titled card has the Legend
@@ -2183,6 +2186,15 @@ local function layoutSections(view, groups, y, opts)
 		if card.More:GetParent() ~= hp then card.More:SetParent(hp) end
 		if card.Move:GetParent() ~= hp then card.Move:SetParent(hp) end
 		card.psToggle = t and toggleOf(view, t, card, legend) or nil
+		card.psCount, card.psReset = legend and g.count or nil, legend and g.onReset or nil
+		local lead = legend and g.lead and g.lead(card) or nil
+		local was = rawget(card, "psLead")
+		if was and was ~= lead then was:Hide() end
+		if lead and lg then
+			if lead:GetParent() ~= lg then lead:SetParent(lg) end
+			lead:Show()
+		end
+		card.psLead = lead
 		-- A module that is off: the card folds to its header and one line.
 		local folded = legend and t ~= nil and sectionOff(s)
 		local controls = g.controls
@@ -4068,7 +4080,7 @@ local function storedSettings()
 		for k, v in pairs(t) do
 			if type(k) == "string" then
 				local path = prefix and (prefix .. "." .. k) or k
-				-- Off its default (W.Modified):
+				-- Off its default as the Changed filter counts it (offDefault):
 				-- a value stored equal to its default is nothing to reset.
 				local off = ns.GetDefault(path) == nil or W.Modified(path)
 				if type(v) ~= "table" then

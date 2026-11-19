@@ -20,6 +20,11 @@
 --                    description, then the wide search, the switch, Peek,
 --                    Fold, Reload UI and ··· (Menu scale, Move frames, the
 --                    resets); Undo beside the crumb; no footer
+--   the tab band     at its right end the filter
+--   All / Changed    a filter over the whole window: Changed shows one card
+--                    per page with changes ("Group › Page", its count, its
+--                    Reset, a link there) and a jump tab for each; Esc, the
+--                    close button and the switch go back to the page
 --   the index        under the tabs, for a tab of more than 30 rows: its
 --                    sections as jump links, the one in view lit as the selected tab
 --   dependency line  a section whose on/off lives in another tab says so
@@ -59,10 +64,11 @@ G.TREE = {
 		pages = { "about", "thanks", "recorder" } },
 }
 
--- SEP: a crumb's separator (" › "). LONG: rows past which a tab shows its
+-- SEP: a crumb's separator (" › "). WIDE: the window width from which the
+-- filter shows both its buttons. LONG: rows past which a tab shows its
 -- index. STRIP: the index's height.
 local SEP = " \226\128\186 "
-local LONG, STRIP = 30, 34
+local WIDE, LONG, STRIP = 1240, 30, 34
 
 local SUBTITLES = {
 	guidewindow = L["The guide window's frame, bars, step card, tips and progress bar."],
@@ -74,11 +80,12 @@ local SUBTITLES = {
 
 local homes, dirty = nil, true
 -- st.group (the group shown), st.page[group key] (its page last shown),
--- st.tab[page key] (its tab last shown).
-local st = { page = {}, tab = {} }
+-- st.tab[page key] (its tab last shown), st.filter ("all", "changed": the
+-- whole window's).
+local st = { page = {}, tab = {}, filter = "all" }
 local B = { views = {}, links = {}, depKeys = {} }
 local shown = false
-local render
+local render, changedKeys, changedTabs, changedJump
 
 function G.On()
 	return ns.DB().optionsLayout == "grouped"
@@ -392,8 +399,174 @@ function G.NavKey()
 end
 
 ---------------------------------------------------------------------------
--- The chrome: the folder tabs, the index
+-- The chrome: the folder tabs, the filter, the index
 ---------------------------------------------------------------------------
+
+-- A button of the band's right end (the filter's).
+local function bandButton()
+	local w = win()
+	local b = CreateFrame("Button", nil, w.TabRow)
+	b:SetHeight(24)
+	b.Ground = W.Tex(b, "BACKGROUND")
+	b.Ground:SetAllPoints(b)
+	W.Color(b.Ground, "shade", 0.22)
+	b.Edge = W.Divider(b)
+	b.Edge:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
+	b.Edge:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
+	b.Dot = W.Tex(b, "ARTWORK", "circle", "accent")
+	b.Dot:SetSize(5, 5)
+	b.Label = W.Text(b, "label", "textDim")
+	b.Count = W.Text(b, "number", "textMuted")
+	b.Chevron = W.Tex(b, "ARTWORK", "chevron-down", "textDim")
+	b.Chevron:SetSize(9, 9)
+	b:SetScript("OnClick", function(self) if self.psClick then self.psClick(self) end end)
+	b:SetScript("OnEnter", function(self)
+		if not self.psOn then W.Color(self.Label, "text") end
+		if self.psTip then W.Tooltip(self, "ANCHOR_BOTTOM", self.psTip, self.psTipLines) end
+	end)
+	b:SetScript("OnLeave", function(self)
+		if not self.psOn then W.Color(self.Label, "textDim") end
+		W.HideTooltip(self)
+	end)
+	return b
+end
+
+-- The filter at the band's right end: All / Changed n, or (narrow) one
+-- button that opens them as a menu.
+local function filterButton(i)
+	B.filters = B.filters or {}
+	local b = B.filters[i]
+	if b then return b end
+	b = bandButton()
+	B.filters[i] = b
+	return b
+end
+
+-- -> the button's width
+local function dressFilter(b, label, count, on, dot, chevron, icon)
+	b.psOn = on and true or false
+	b.Ground:SetShown(on and true or false)
+	b.Edge:SetShown(on and true or false)
+	W.Color(b.Label, on and "text" or "textDim")
+	b.Label:SetText(label)
+	b.Count:SetText(count or "")
+	b.Count:SetShown(count ~= nil)
+	b.Dot:SetShown(dot and true or false)
+	if icon then
+		b.Dot:SetTexture(Theme.Media(icon))
+		b.Dot:SetSize(12, 12)
+		W.Color(b.Dot, "textDim")
+	else
+		b.Dot:SetTexture(Theme.Media("circle"))
+		b.Dot:SetSize(5, 5)
+		W.Color(b.Dot, "accent")
+	end
+	b.Chevron:SetShown(chevron and true or false)
+	local x = 8
+	b.Dot:ClearAllPoints()
+	if b.Dot:IsShown() then
+		b.Dot:SetPoint("LEFT", b, "LEFT", x, 0)
+		x = x + b.Dot:GetWidth() + 6
+	end
+	b.Label:ClearAllPoints()
+	b.Label:SetPoint("LEFT", b, "LEFT", x, 0)
+	x = x + b.Label:GetStringWidth()
+	if count ~= nil then
+		b.Count:ClearAllPoints()
+		b.Count:SetPoint("LEFT", b, "LEFT", x + 5, 0)
+		x = x + 5 + b.Count:GetStringWidth()
+	end
+	if chevron then
+		b.Chevron:ClearAllPoints()
+		b.Chevron:SetPoint("LEFT", b, "LEFT", x + 5, 0)
+		x = x + 5 + 9
+	end
+	local wd = floor(x + 8 + 0.5)
+	b:SetWidth(wd)
+	b:Show()
+	return wd
+end
+
+local FILTERS = { "all", "changed" }
+local function filterLabel(f)
+	return f == "changed" and L["Changed"] or L["All"]
+end
+
+-- The pages with settings off their default, in sidebar order:
+-- { { page, count, group } }.
+function G.ChangedPages()
+	local out = {}
+	for _, g in ipairs(G.Tree()) do
+		for _, p in ipairs(g.pages) do
+			local n = pageCounts(p)
+			if n > 0 then out[#out + 1] = { page = p, count = n, group = g } end
+		end
+	end
+	return out
+end
+
+local function changedTotal()
+	local n = 0
+	for _, e in ipairs(G.ChangedPages()) do n = n + e.count end
+	return n
+end
+
+-- A filter picked: Changed (from the page on screen), or All (back to it).
+local function pickFilter(f)
+	if f == "changed" then G.Filter("changed") else G.Back() end
+end
+
+-- Lay out the filter `from` in from the band's right end. -> the width taken
+local function drawFilter(g, wide, from)
+	local w = win()
+	local counts = { all = nil, changed = changedTotal() }
+	local right = w.psMainW - SH.pad + 8
+	local start = from or 0
+	local used, n = start, 0
+	local function put(b, wd)
+		b:ClearAllPoints()
+		b:SetPoint("BOTTOMRIGHT", w.TabRow, "BOTTOMLEFT", right - used, 6)
+		used = used + wd + 4
+	end
+	if wide then
+		for i = #FILTERS, 1, -1 do
+			local f = FILTERS[i]
+			n = n + 1
+			local b = filterButton(n)
+			local wd = dressFilter(b, filterLabel(f), counts[f], st.filter == f, f ~= "all" and (counts[f] or 0) > 0)
+			b.psClick = function() pickFilter(f) end
+			put(b, wd)
+		end
+	else
+		n = n + 1
+		local b = filterButton(n)
+		local f = st.filter
+		local wd = dressFilter(b, filterLabel(f), counts[f], f ~= "all", f ~= "all", true)
+		b.psClick = function(self)
+			local items = {}
+			for _, ff in ipairs(FILTERS) do
+				local text = filterLabel(ff) .. (counts[ff] and ("  " .. counts[ff]) or "")
+				items[#items + 1] = { text = text, checked = st.filter == ff, onClick = function() pickFilter(ff) end }
+			end
+			W.ShowMenu(self, items)
+		end
+		put(b, wd)
+	end
+	for i = n + 1, #(B.filters or {}) do B.filters[i]:Hide() end
+	return used - start
+end
+-- The filter's buttons, from the band's right end leftward (the tests read them).
+function G._filters() return B.filters or {} end
+
+-- What stands at the band's right end, from the end leftward: each
+-- fn(g, wide, from) lays its widgets out `from` in from the end. -> the
+-- width taken
+local RIGHT_END = { drawFilter }
+local function drawRightEnd(g, wide)
+	local used = 0
+	for _, fn in ipairs(RIGHT_END) do used = used + fn(g, wide, used) end
+	return used
+end
 
 -- A folder tab's icon: the tab's own, else its page's, else the page of
 -- its first section's first row (a reference's home); one taken by a tab
@@ -449,8 +622,9 @@ function G.TabDot(t)
 	return hidden and "hollow" or nil
 end
 
--- The header's line one: the breadcrumb, "Group › Page", then the
--- description (the header lays them out, W.HeaderScale's "Search first").
+-- The header's line one: the breadcrumb, "Group › Page" (or a filter's name
+-- in the page's place), then the description (the header lays them out,
+-- W.HeaderScale's "Search first").
 local function drawCrumb(group, page, desc)
 	B.crumb = { group, page }
 	local text = group and page and (group:lower() == page:lower() and page or group .. SEP .. page) or group or page or ""
@@ -601,6 +775,49 @@ end
 -- Views
 ---------------------------------------------------------------------------
 
+local function newView()
+	local v = CreateFrame("Frame", nil, win().Body)
+	v:SetPoint("TOPLEFT", win().Body, "TOPLEFT", 0, 0)
+	v:SetPoint("RIGHT", win().Body, "RIGHT", 0, 0)
+	K.viewTables(v)
+	return v
+end
+
+local function emptyNote(v, text, button)
+	local w = win()
+	for _, x in pairs(v.cache) do x:Hide() end
+	for _, card in ipairs(v.cards) do card:Hide() end
+	for _, m in ipairs(v.mids) do m:Hide() end
+	if not rawget(v, "Empty") then
+		v.Empty = W.Text(v, "body", "textDim")
+		v.Empty:SetWordWrap(true)
+		v.Empty:SetJustifyH("CENTER")
+		v.EmptyIcon = W.Tex(v, "ARTWORK", "check", "textMuted")
+		v.EmptyIcon:SetSize(18, 18)
+		v.EmptyAll = W.Button(v, L["All"], function() G.Back() end)
+	end
+	v.Empty:SetText(text)
+	v.Empty:SetWidth(w.BodyWidth)
+	v.Empty:ClearAllPoints()
+	v.Empty:SetPoint("TOP", v, "TOPLEFT", SH.pad + w.BodyWidth / 2, -96)
+	v.Empty:Show()
+	v.EmptyIcon:ClearAllPoints()
+	v.EmptyIcon:SetPoint("BOTTOM", v.Empty, "TOP", 0, 12)
+	v.EmptyIcon:SetShown(button and true or false)
+	v.EmptyAll:ClearAllPoints()
+	v.EmptyAll:SetPoint("TOP", v.Empty, "BOTTOM", 0, -16)
+	v.EmptyAll:SetShown(button and true or false)
+	return 220
+end
+
+local function hideEmpty(v)
+	if rawget(v, "Empty") then
+		v.Empty:Hide()
+		v.EmptyIcon:Hide()
+		v.EmptyAll:Hide()
+	end
+end
+
 -- The on/off a reference in the section waits on, while it is off: the
 -- nearest switch that is off wins. Its home follows rows up a chain (Sound
 -- under Play a sound under Alert for rares; Route lines over its Line
@@ -717,17 +934,151 @@ local function tabView(p, t)
 	return v
 end
 
+-- A page's settings off their default, for its card in the Changed view:
+-- each changed row in the page's order (a section's switch counted where
+-- it has its home, as the counts do). -> list, settings, tab (control -> its tab)
+local function changedRows(p)
+	local list, settings, tabOf = {}, {}, {}
+	eachPageShown(p, function(sec, rows, _, t)
+		local function add(c)
+			list[#list + 1] = c
+			tabOf[c] = t
+			eachSetting(c, function(x) settings[#settings + 1] = x end)
+		end
+		if toggleChanged(sec) then add(sec.toggle) end
+		for _, c in ipairs(rows) do if rowChanged(c) then add(c) end end
+	end)
+	return list, settings, tabOf
+end
+
+-- A row of a page of more than one tab names its tab first ("Tab › Label");
+-- the Changed view's rows are its own, so the page's rows keep theirs.
+local function tabPrefix(v, c, t, many)
+	local w = K.rowOf(v, c)
+	local label = rawget(w, "Label")
+	if not label then return end
+	local base = rawget(w, "psBaseLabel") or w.psLabel or label:GetText() or ""
+	w.psBaseLabel = base
+	local text = base
+	if many and t and t.name ~= "" then text = t.name .. SEP .. base end
+	w.psLabel = text
+	label:SetText(text)
+end
+
+-- A card's link to its page ("Open ›"), made once per card.
+local function openLink(card)
+	local b = rawget(card, "Open")
+	if not b then
+		b = W.Link(card, L["Open"] .. " \226\128\186", function(self)
+			local p = self.psPage
+			if p then O.Select(p.key) end
+		end)
+		card.Open = b
+	end
+	return b
+end
+
+-- The Changed view: one Legend card per page with changes, in sidebar
+-- order, "Group › Page" with its count, its Reset (the page's, with Undo)
+-- and its link there. Its cards' .psPage: their pages.
+local function changedView()
+	local v = B.views.changed
+	if not v then
+		v = newView()
+		-- Its rows as a list: a child stands alone, not under its parent.
+		v.psFlat = true
+		B.views.changed = v
+	end
+	v.Refresh = function()
+		local groups, rows = {}, {}
+		for _, e in ipairs(G.ChangedPages()) do
+			local p = e.page
+			local list, settings, tabOf = changedRows(p)
+			if #list > 0 then
+				local many = #K.shownTabs(p) > 1
+				for _, c in ipairs(list) do
+					rows[#rows + 1] = c
+					tabPrefix(v, c, tabOf[c], many)
+				end
+				local title = e.group.label:lower() == p.name:lower() and p.name or e.group.label .. SEP .. p.name
+				groups[#groups + 1] = { name = title, controls = list, settings = settings, count = #list, page = p,
+					onReset = function()
+						-- The card goes, its jump tab too (SETTING_CHANGED lays the view
+						-- out again; state with no setting behind it fires none, so then
+						-- here); Undo stays beside the title.
+						local seq = B.renders
+						O.ResetPage(p)
+						if shown and B.renders == seq then render({ keep = true }) end
+					end,
+					lead = function(card)
+						local b = openLink(card)
+						b.psPage, b.psTip = p, title
+						return b
+					end }
+			end
+		end
+		v.psTab = { name = filterLabel("changed"), sections = {} }
+		v.psShownSig = nil
+		v.psGroups, v.psRows, v.psFiltered = groups, #rows, rows
+		if #groups == 0 then
+			for _, card in ipairs(v.cards) do card.psPage = nil end
+			return emptyNote(v, L["Every setting at its default"], true)
+		end
+		hideEmpty(v)
+		local h = K.layoutSections(v, groups, 16, { legend = true }) + 24
+		for i, gr in ipairs(groups) do v.cards[i].psPage = gr.page end
+		for i = #groups + 1, #v.cards do v.cards[i].psPage = nil end
+		return h
+	end
+	return v
+end
+G.ChangedView = function() return changedView() end
+
 ---------------------------------------------------------------------------
 -- Showing a page's tab
 ---------------------------------------------------------------------------
+
+-- While the Changed view is open, Esc and the close button go back to the
+-- page it was opened from (G.Back) instead of closing the window. Esc: the
+-- window reads the keyboard then, and keeps Escape from the game's own
+-- close (out of combat; in it, Escape closes the window as ever).
+local function onKey(self, key)
+	local back = key == "ESCAPE" and st.filter == "changed" and shown and not (InCombatLockdown and InCombatLockdown())
+	if self.SetPropagateKeyboardInput and not (InCombatLockdown and InCombatLockdown()) then self:SetPropagateKeyboardInput(not back) end
+	if back then G.Back() end
+end
+
+function changedKeys(on)
+	local w = win()
+	if not w then return end
+	if on and not rawget(w, "psChangedKeys") then
+		w.psChangedKeys = true
+		w:SetScript("OnKeyDown", onKey)
+		local close = rawget(w, "Close")
+		local click = close and close:GetScript("OnClick")
+		if click then
+			close:SetScript("OnClick", function(self, ...)
+				if st.filter == "changed" and shown and G.On() then return G.Back() end
+				return click(self, ...)
+			end)
+		end
+	end
+	if rawget(w, "psChangedKeys") and not (InCombatLockdown and InCombatLockdown()) then
+		-- Every other key goes on to the game, also once a fight locks the choice.
+		if on and w.SetPropagateKeyboardInput then w:SetPropagateKeyboardInput(true) end
+		w:EnableKeyboard(on and true or false)
+	end
+end
 
 -- Hide what this layout puts on the window (its views too).
 local function hideChrome()
 	local w = win()
 	if not w then return end
+	for _, b in ipairs(B.filters or {}) do b:Hide() end
 	if rawget(w, "FolderTabs") then w.FolderTabs:Hide() end
 	for _, v in pairs(B.views) do v:Hide() end
 	if B.Strip then B.Strip:Hide() end
+	changedKeys(false)
 	w.psKeepTabRow, w.psTabRoom = nil, nil
 	W.ShellTabs(w, nil)
 	B.entries = nil
@@ -804,13 +1155,60 @@ local MENU_SCALE = { kind = "slider", key = "ui.menuScale", label = L["Menu scal
 function G.MenuItems()
 	local M = ns.Movers
 	local p = G.Current() or O.page
+	-- The Changed view keeps the page it was opened from behind it: nothing
+	-- on screen for Reset this page to name.
+	local hidden = st.filter == "changed"
 	return {
 		{ text = L["Menu scale"], slider = MENU_SCALE },
 		{ text = L["Move frames"], icon = "resize", disabled = not (M and M.Unlock) or nil, onClick = function() O.MoveFrame(nil) end },
 		{ text = L["Reset this page\226\128\166"], icon = "reset", danger = true,
-			disabled = not (p and K.pageShowsSetting(p)) or nil, onClick = function() O.AskResetPage(p) end },
+			disabled = (hidden or not (p and K.pageShowsSetting(p))) or nil, onClick = function() O.AskResetPage(p) end },
 		{ text = L["Reset all settings\226\128\166"], icon = "reset", danger = true, onClick = function() O.AskResetAll() end },
 	}
+end
+
+-- The Changed view's tab bar: All, then one jump tab per card, "Page n",
+-- with its page's glyph (one taken before it in the bar gives way to the
+-- first free one of TAB_ICONS). -> list, the active key
+function changedTabs(view)
+	local used = { sliders = true }
+	local list = { { key = "all", label = L["All"], icon = "sliders" } }
+	local keys = {}
+	for i, card in ipairs(view.cards) do
+		local p = card:IsShown() and card.psPage
+		local gr = view.psGroups and view.psGroups[i]
+		if p and gr then
+			local icon = p.icon
+			if not icon or used[icon] then
+				icon = nil
+				for _, cand in ipairs(G.TAB_ICONS) do
+					if not used[cand] then icon = cand break end
+				end
+			end
+			icon = icon or "gear"
+			used[icon] = true
+			local key = "j:" .. p.key
+			keys[key] = true
+			list[#list + 1] = { key = key, label = p.name .. " " .. gr.count, icon = icon }
+		end
+	end
+	if not (B.jump and keys[B.jump]) then B.jump = list[2] and list[2].key or nil end
+	return list, B.jump
+end
+
+-- A tab of the Changed view's bar: All goes back to the page; a jump tab
+-- scrolls its card under the body's top.
+function changedJump(view, key)
+	if key == "all" then return G.Back() end
+	for _, card in ipairs(view.cards) do
+		if card:IsShown() and card.psPage and "j:" .. card.psPage.key == key then
+			B.jump = key
+			local w = win()
+			if rawget(w, "FolderTabs") then w.FolderTabs:Set(w.FolderTabs.psList, key) end
+			W.ScrollTo(w.Scroll, max(0, (card.psTop or 0) - W.LEGEND.H / 2 - 12))
+			return card
+		end
+	end
 end
 
 -- opts: { page, tab (a tab of the page, or its name), keep (the scroll and
@@ -818,6 +1216,7 @@ end
 -- first group's first page).
 function render(opts)
 	opts = opts or {}
+	B.renders = (B.renders or 0) + 1
 	local w = win()
 	if not w then return end
 	local scroll = opts.keep and w.Scroll:GetVerticalScroll() or 0
@@ -851,23 +1250,39 @@ function render(opts)
 	B.depKeys = {}
 	headerMode(true)
 	W.ShellLayout(w)
-	-- The title, the band: the page's folder tabs.
+	local filtering = st.filter == "changed"
+	if not filtering then B.from = nil end
+	local wide = w:GetWidth() >= WIDE
+	-- The title, the band: the page's folder tabs, the filter at its right
+	-- end (the band's row kept for it, the classic tabs off).
 	w.psKeepTabRow = true
 	W.ShellTabs(w, nil)
+	local rightW = drawRightEnd(g, wide)
 	local list, active
-	local view = tabView(p, tab)
-	drawCrumb(g.label, p.name, p.subtitle or SUBTITLES[p.key])
+	local view = filtering and changedView() or tabView(p, tab)
+	if filtering then
+		drawCrumb(nil, filterLabel("changed"), nil)
+	else
+		drawCrumb(g.label, p.name, p.subtitle or SUBTITLES[p.key])
+	end
 	local h = view.Refresh()
 	view:SetHeight(h)
 	view:Show()
-	if #tabs > 1 or tabs[1].name ~= "" then
+	if filtering then
+		-- All (back to the page), then a jump tab per card ("Guide 3").
+		list, active = changedTabs(view)
+	elseif #tabs > 1 or tabs[1].name ~= "" then
 		list, active = {}, tab.name
 		for i, t in ipairs(tabs) do
 			list[i] = { key = t.name, label = t.name, icon = G.TabIcon(p, t), dot = G.TabDot(t) }
 		end
 	end
-	local folder = { active = active, width = w.psMainW,
-		onSelect = function(key) render({ page = p, tab = key }) end }
+	local folder = { active = active, width = w.psMainW, rightWidth = rightW > 0 and (rightW + SH.pad - 8) or 0,
+		onSelect = function(key)
+			if filtering then return changedJump(view, key) end
+			st.filter = "all"
+			render({ page = p, tab = key })
+		end }
 	if rawget(w, "FolderTabs") then
 		w.FolderTabs:Set(list, active, folder)
 	else
@@ -876,7 +1291,7 @@ function render(opts)
 	w.FolderTabs:Show()
 	-- The index under the tabs, for a long tab.
 	local entries
-	if not p.custom and (view.psRows or 0) > LONG then
+	if not filtering and not p.custom and (view.psRows or 0) > LONG then
 		entries = {}
 		local last
 		for n, gr in ipairs(view.psGroups or {}) do
@@ -911,13 +1326,15 @@ function render(opts)
 	W.ShellBody(w, h)
 	W.ScrollTo(w.Scroll, scroll)
 	-- The seen record, the sidebar.
-	if not p.custom then
+	if not filtering and not p.custom then
 		local all = {}
 		for _, sec in ipairs(tab.sections) do for _, c in ipairs(sec.controls) do all[#all + 1] = c end end
 		markSeen(all)
 	end
-	B.navKey = p.key
+	-- The Changed view is the whole window's: no sidebar row is its place.
+	B.navKey = not filtering and p.key or nil
 	W.ShellNav(w, G.NavItems(), B.navKey, navSelect)
+	changedKeys(filtering)
 	O.UndoAnchor(w)
 	-- What Options.lua holds as on screen: the page and its tab, so leaving a
 	-- search (or the switch) comes back here.
@@ -935,6 +1352,26 @@ function G.Current()
 	return B.page, B.tab
 end
 
+-- The filter over the whole window: "changed" (the Changed view, opened
+-- from the page on screen) or "all" (back to that page).
+function G.Filter(f)
+	if f ~= "changed" then return G.Back() end
+	if st.filter ~= "changed" then
+		B.from, B.jump = { page = B.page, tab = B.tab }, nil
+	end
+	st.filter = "changed"
+	if shown then render({}) end
+end
+
+-- Out of the Changed view, back to the page it was opened from (its tab).
+function G.Back()
+	local from = B.from
+	B.from = nil
+	st.filter = "all"
+	if not shown then return end
+	render({ page = from and from.page or B.page, tab = from and from.tab or B.tab })
+end
+
 -- The window's O.Select while the layout is on: a group ("b:look", on its
 -- page last shown), or a page key (and tab). -> handled
 function G.Select(key, tabName)
@@ -944,6 +1381,7 @@ function G.Select(key, tabName)
 		return false
 	end
 	if type(key) == "string" and key:sub(1, 2) == "b:" then
+		st.filter = "all"
 		local tree = G.Tree()
 		local g = groupBy(key:sub(3), tree)
 		local p
@@ -958,6 +1396,7 @@ function G.Select(key, tabName)
 	end
 	local p, aliasTab = nil, nil
 	if key then p, aliasTab = K.pageByKey(key) end
+	if p then st.filter = "all" end
 	render({ page = p, tab = tabName or aliasTab })
 	return true
 end
@@ -971,10 +1410,11 @@ function G.Relayout()
 end
 
 -- LB / RB: the next or previous tab, on into the next page's first (from
+-- the Changed view, from the page it was opened from).
 function G.StepTab(delta)
 	if not G.On() then return false end
 	local list, at = {}, nil
-	local from = { page = B.page, tab = B.tab }
+	local from = st.filter == "changed" and B.from or { page = B.page, tab = B.tab }
 	for _, g in ipairs(G.Tree()) do
 		for _, p in ipairs(g.pages) do
 			if pageShown(p) then
@@ -987,13 +1427,17 @@ function G.StepTab(delta)
 		end
 	end
 	local to = list[(at or 0) + delta]
-	if to then render({ page = to[1], tab = to[2] }) end
+	if to then
+		st.filter = "all"
+		render({ page = to[1], tab = to[2] })
+	end
 	return true
 end
 
 -- A section's tab ({ page, tab, section }), the section scrolled under the
 -- body's top and lit.
 function G.ShowSection(at)
+	st.filter = "all"
 	render({ page = at.page, tab = at.tab })
 	local view = O.view
 	for _, card in ipairs(view and view.cards or {}) do
@@ -1010,6 +1454,7 @@ end
 function G.Jump(c)
 	local at, root = homeOf(c)
 	if not at then return nil end
+	st.filter = "all"
 	-- In a card folded by its module's switch, the row shows dimmed.
 	local line = root
 	while rawget(line, "psChildOf") do line = line.psChildOf end
@@ -1067,6 +1512,14 @@ local function spy(_, cur, range)
 	for i = 1, n do if marks[i] <= cur then lit = i end end
 	lightLink(lit)
 end
+
+-- A setting changed while the Changed view is open: it lays out again (a
+-- card comes or goes). A live change (a slider dragged) waits to settle.
+ns.On("SETTING_CHANGED", function()
+	if shown and G.On() and st.filter == "changed" and K.query() == "" and not ns.SettingLive() and win() and win():IsShown() then
+		render({ keep = true })
+	end
+end)
 
 -- The pages whose settings offer a reload when the window closes (some of
 -- a look's parts are drawn once, at login): the guide window and the look
@@ -1160,8 +1613,10 @@ function G.SetOn(on)
 		local current, currentTab = K.current()
 		O.Select(current and current.key, currentTab and currentTab.name)
 	else
-		-- The classic page opens where this one was.
+		-- The Changed view keeps the page it was opened from on B.page and
+		-- B.tab: the classic page opens there, and the filter is left.
 		local key, tabName = B.page and B.page.key, B.tab and B.tab.name
+		st.filter, B.from = "all", nil
 		leave()
 		-- The footer back (then filled by the current page's own select).
 		headerMode(false)

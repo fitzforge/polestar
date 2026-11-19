@@ -323,3 +323,24 @@ test('switched off, the footer, the scale and Move frames come back; the new too
 	assert.deepEqual(rest, { footer: true, scale: true, move: true, menu: false });
 	assert.ok(!title.includes(' › '), 'the classic title again');
 });
+
+// The Changed view hides the page it was opened from: ··· offers no reset
+// of it there, and LB / RB step on from that page's tab.
+test('in the Changed view, Reset this page… is off and LB / RB step on from the page it was opened from', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		-- The tab by name: another tab may stand first on the page.
+		O.Select("questing", "Quests")
+		local onPage = G.MenuItems()[3].disabled or false
+		Polestar.Set("nav.arrowScale", 1.3)
+		G.Filter("changed")
+		local item = G.MenuItems()[3]
+		local inView = { text = item.text, disabled = item.disabled or false }
+		G.StepTab(1)
+		local p, t = G.Current()
+		emit({ onPage = onPage, inView = inView, page = p.key, tab = t.name })`);
+	assert.equal(out.onPage, false, 'on a page it resets that page');
+	assert.deepEqual(out.inView, { text: 'Reset this page…', disabled: true });
+	assert.equal(out.page, 'questing');
+	assert.equal(out.tab, 'Rewards & gear', 'the tab after the one the view was opened from');
+});

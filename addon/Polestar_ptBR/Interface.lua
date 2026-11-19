@@ -5029,6 +5029,7 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 -- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
 L["%d changed"] = "%d alteradas"
 L["%s is off. Turn it on to change its settings."] = "%s está desativado. Ative para mudar suas opções."
+L["Changed"] = "Alteradas"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Arraste a janela do guia, a seta, os cartões e os alertas para onde quiser. Esta janela sai da frente até você apertar Salvar e sair. Também /polestar unlock."
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Todas as opções de %s voltam ao padrão. As outras páginas mantêm as suas."
 L["Nothing to reset"] = "Nada para redefinir"
