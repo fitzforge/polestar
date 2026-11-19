@@ -2781,6 +2781,31 @@ test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step 
 	const history = steps.findIndex((s) => s.goals.some(is('turnin', 93016)));
 	assert.ok(history >= 0 && history < steps.indexOf(st), 'the route hands it in first');
 });
+// Shen'dralas western pylon (route review 0.4.3, both factions): the band's worst spot for players following the
+// guide (players' recordings: 6 people, 15 deaths on Powering the Pylons there, all east of the pylon, where the
+// Decrepit Pylon Protectors stand in twos and threes with the Corpsefeeder and the Magram Necrokhans, elites of 45).
+// The repair step leads first to the quiet road just south of the pylon, on its west edge (no Protectors behind),
+// names the pull and the side to keep off,
+// and the earlier steps keep the Magram (Necrokhans included) neutral: the journal from the Outcast Necromancers,
+// the fragment at Magram Village without a fight.
+test('forever/40-50/shendralas.guide: the western pylon is repaired from its quiet south side, away from the elites', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'kill' && g.quest === 96018 && g.oi === 2));
+	assert.ok(st, 'the western pylon\'s repair step');
+	const kill = st.goals.find((g) => g.t === 'kill');
+	const pin = st.goals.findIndex((g) => g.t === 'goto');
+	assert.ok(pin >= 0 && pin < st.goals.indexOf(kill), 'the arrow leads to the approach before the Protector');
+	assert.ok(st.goals[pin].x <= kill.x && st.goals[pin].y > kill.y, 'the approach is south of the pylon, on its west edge');
+	const tips = st.note || '';
+	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
+	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
+	assert.match(tips, /Corpsefeeder \(level 45, elite\)/, 'names the Corpsefeeder');
+	assert.match(tips, /Necrokhan/, 'names the Necrokhans');
+	const journal = steps.find((s) => s.goals.some(is('accept', 93644))).note || '';
+	assert.match(journal, /Take it from the Outcast Necromancers and leave the Magram alone/, 'the journal keeps the Magram neutral');
+	const village = steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 255656)).note || '';
+	assert.match(village, /pick the fragment up without a fight/, 'so does the fragment');
+});
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
 // that goal hands over (a collect of its reward): the rest of the step would be passed half done.

@@ -81,13 +81,14 @@ step Into the Valley of Bones
 step The Valley of Bones: a Tattered Journal
   zone Shen'dralas
   tip New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.
+  tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.
   tip The Gelkis and Magram centaurs have Valley of Bones quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.
   collect 260347
   accept 93644
 
 step The western pylon
   tip East through the valley to the strange crystal on its pedestal: clicking it starts Strange Pylons. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.
+  tip Careful: click the crystal from the road on its west side and move on: the Protectors stand two and three together east and north-east of it, where Corpsefeeders and the Magram Necrokhans (elites, 45) walk too.
   accept 92914 object 577959
 
 step Bristleback Retreat: the eastern pylon
@@ -112,7 +113,7 @@ step North into Desolace
 
 step Magram Village
   zone Desolace
-  tip The Pylon Fragment lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it.
+  tip The Pylon Fragment lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it. They leave you be unless you have fought the Magram: pick the fragment up without a fight. Every Magram you kill turns the clan against you, and back in the valley that means the Necrokhans (level 45, elites) at the western pylon as well.
   collect 255656 x1 quest 96010.1 @68.1,79.2
 
 step Gelkis Village
@@ -134,9 +135,11 @@ step The temple: the Mana Sieve
   collect 255662 @45.9,78.2
 
 step The western pylon: repair it
-  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use Repair and Recharge Pylon on it, as players did to repair it.
-  tip Careful: the pylon stands at the edge of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.
-  kill 252711 quest 96018.2 @43.97,35.59 -- Decrepit Pylon Protector, then Repair and Recharge Pylon on it
+  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
+  tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.
+  tip If you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.
+  goto 43.9,37.0 "the road just south of the western pylon" r 10
+  kill 252711 quest 96018.2 @43.97,35.59 -- Decrepit Pylon Protector, pulled to the arrow's spot, then Repair and Recharge Pylon on the pylon's west side
 
 step Bristleback Retreat: repair the eastern pylon
   tip East along the valley road to the eastern pylon and repair it the same way, a Decrepit Pylon Protector first, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
