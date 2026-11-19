@@ -7279,6 +7279,12 @@
 				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
 			},
 			{
+				"a": ["task", 703],
+				"b": ["task", 2258, 0],
+				"faction": "Horde",
+				"why": "#3145: Gather Rigglefuzz's wings before finishing the gizzards. Below 40 take jawbones and fangs from the Feral Crag Coyotes near the wings; finish on Starving Buzzards north of Hammertoe's Digsite (35-37, 15% gizzard drop, versus 5% on the Buzzards at the hills). At 40 or higher the return to Kargath crosses the Giant Buzzards' basin. Six current guide followers handed the gizzards in at a 25th percentile of 39; the Giant Buzzards reach 41."
+			},
+			{
 				"a": [
 					"task",
 					1108

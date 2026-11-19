@@ -11722,6 +11722,29 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 	assert.match(kargath, /west back to Kargath/);
 });
 
+test('Horde Badlands: finish the basin drops on lower prey below 40 and warn at Kargath', { skip }, () => {
+	const guide = 'forever/horde/30-40/06-badlands.guide';
+	const list = goals(guide);
+	const wings = at(list, 'wings', g => g.t === 'collect' && g.item === 3404);
+	const back = at(list, 'turnin 711', is('turnin', 711));
+	assert.equal(list[wings].goal.npc, 2830, 'the wings do not send a character to the giants before the basin gate');
+	assert.deepEqual(list.filter(({ goal }) => goal.item === 7848 && goal.t === 'collect').map(({ goal }) => goal.npc), [2735, 92, 2735], 'the incidental shards stay with the local lesser or regular elementals');
+	for (const [item, x, y] of [[7847, 57.5, 28.6], [6166, 52.4, 60.6], [7846, 52.4, 60.6]]) {
+		const rows = list.filter(({ goal }) => goal.t === 'collect' && goal.item === item);
+		assert.equal(rows.length, 2);
+		const [low, high] = rows;
+		assert.ok(wings < list.indexOf(low) && list.indexOf(high) < back);
+		assert.ok(low.step.when.some(p => p.k === 'level' && p.op === '<' && p.n === 40));
+		assert.ok(Math.hypot(low.goal.x - x, low.goal.y - y) < 0.2 && low.goal.map === 1418);
+		assert.equal(low.goal.npc, item === 7847 ? 2829 : 2728, 'lower camp target');
+		assert.equal(high.goal.npc, item === 7847 ? 2831 : 2729, 'basin camp target');
+		assert.equal(levelFrom(high.step), 40);
+	}
+	const [tip] = stepTips(guide, /^\s+turnin 1419\b/);
+	assert.match(tip, /43-46/);
+	assert.match(tip, /Rog'mar/);
+});
+
 // Mokii's report (#1431): Dustwallow's level 37.5 grind on the far Mirefin coast came before the Brackenwall hand-ins
 // the player already had ready. A written grind comes after the ready hand-ins it would otherwise hold back (the same
 // in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
