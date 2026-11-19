@@ -29,6 +29,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { ROOT } = require('../../paths');
 const { metrics } = require('./metrics');
+const { navParts } = require('../parts');
 const { evaluateExpectations, summarize } = require('./compare');
 
 const HARNESS = path.join(__dirname, 'harness.lua');
@@ -68,10 +69,9 @@ function navFiles(navDir) {
 			files.push(fs.existsSync(mine) ? mine : path.join(REPO_NAV, entry));
 		}
 	}
-	for (const part of ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor']) {
+	for (const part of navParts(navDir)) {
 		const dir = path.join(path.dirname(path.resolve(navDir)), part);
 		const partToc = path.join(dir, `${part}.toc`);
-		if (!fs.existsSync(partToc)) continue;
 		for (const raw of fs.readFileSync(partToc, 'utf8').split(/\r?\n/)) {
 			const entry = raw.trim();
 			if (entry && !entry.startsWith('#')) files.push(path.join(dir, entry.replace(/\\/g, '/')));

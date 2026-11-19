@@ -181,6 +181,56 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 	assert_eq!(again.files, pack.files, "deterministic");
 }
 
+#[test]
+fn regional_check_requires_the_declared_data_and_loaders() {
+	use serde_json::json;
+	use sha2::{Digest, Sha256};
+	use std::fs;
+
+	let root = tmp("region-integrity");
+	let nav = root.join("Polestar_Nav");
+	let region = "Polestar_Nav_R2991_6_7";
+	let dir = root.join(region);
+	fs::create_dir_all(nav.join("Nav")).unwrap();
+	fs::create_dir(&dir).unwrap();
+	let digest = |b: &[u8]| format!("{:x}", Sha256::digest(b));
+	let data = b"-- \xff\n";
+	let core = "Nav\\Nav.xml\n";
+	let semantic = "## LoadOnDemand: 1\n## Dependencies: Polestar_Nav\nPages.lua\n";
+	let toc = dir.join(format!("{region}.toc"));
+	let xml = forge_nav::pack::nav_xml(&nav);
+	let key = format!("{region}/Pages.lua");
+	let loader = format!("{region}/{region}.toc");
+	let manifest = json!({
+		"regions": [region],
+		"files": { (key.clone()): digest(data) },
+		"loaders": { (loader.clone()): digest(semantic.as_bytes()), "Nav/Nav.xml": digest(xml.as_bytes()), "Polestar_Nav/Polestar_Nav.toc": digest(core.as_bytes()) }
+	});
+	let save = |m: &serde_json::Value| fs::write(nav.join("PACK.json"), m.to_string()).unwrap();
+	save(&manifest);
+	fs::write(nav.join("Nav/Nav.xml"), xml).unwrap();
+	fs::write(nav.join("Polestar_Nav.toc"), core).unwrap();
+	fs::write(&toc, format!("## Version: 0.4.2\n## Notes-koKR: 번역\n{semantic}")).unwrap();
+	fs::write(dir.join("Pages.lua"), data).unwrap();
+	assert_eq!(check_pack(&nav), Vec::<String>::new());
+	fs::write(&toc, semantic.replace("Dependencies: Polestar_Nav", "Dependencies: Polestar")).unwrap();
+	assert!(check_pack(&nav).contains(&format!("{loader} loader differs from PACK.json")));
+	fs::remove_file(&toc).unwrap();
+	assert!(check_pack(&nav).contains(&format!("{loader} loader differs from PACK.json")));
+	fs::write(&toc, semantic).unwrap();
+	fs::remove_file(dir.join("Pages.lua")).unwrap();
+	assert!(check_pack(&nav).contains(&format!("{key} is missing")));
+	fs::write(dir.join("Pages.lua"), b"-- changed\n").unwrap();
+	assert!(check_pack(&nav).contains(&format!("{key} differs from PACK.json")));
+	let mut unpinned = manifest;
+	unpinned["files"].as_object_mut().unwrap().remove(&key);
+	unpinned["loaders"].as_object_mut().unwrap().remove(&loader);
+	save(&unpinned);
+	let errors = check_pack(&nav);
+	assert!(errors.contains(&format!("{key} lacks a data hash")));
+	assert!(errors.contains(&format!("{loader} loader differs from PACK.json")));
+}
+
 fn unbase64(s: &str) -> Vec<u8> {
 	const A: &[u8] = forge_nav::pack::B64;
 	let mut out = Vec::new();

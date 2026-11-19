@@ -50,6 +50,9 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 0.4.1.1 (2026-11-18): at rest the newest start's endpoint tree goes to the pool (still two trees held) and the next
 /// search's first connection fills it. Eastern Kingdoms allocated 61,867 -> 61,465 (budget lowered 62,000 -> 61,600);
 /// live 43,746 -> 43,747, rest 37,346 -> 37,347; Kalimdor unchanged.
+/// Regional packs keep coarse floor pages separate from local geometry. The `load` figures are the continent's
+/// directory and always-loaded fields. Loading a new sector on a walk counts toward `allocated`, `live`, `rest`
+/// and `idle`: WoW cannot unload a visited sector. These sessions measure ordinary travel, not every region.
 const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25400.0), ("live", 44500.0), ("allocated", 61600.0), ("rest", 38000.0), ("idle", 22500.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each

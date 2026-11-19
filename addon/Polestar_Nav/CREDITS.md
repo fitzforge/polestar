@@ -113,8 +113,38 @@ permission), outside this folder, each file saying so at its top:
 The surfaces, floors, ground classes, zones, entrance graph and the jumps and
 drops in these walking maps (maps format 5) are **Leffe's navigation maps**,
 condensed for the game by `forge nav pack --leffe`, with his permission. His
-maps were built from the same Forever client; Polestar adds only the area names
-of the floors (from its own grid) and `Nav/Chokepoints.lua`. Thank you, Leffe.
+maps were built from the same Forever client. Polestar adds area names, chokepoints
+and finer evidence for local walks. Thank you, Leffe.
+
+### Reproducing the regional 70532 import
+
+Use the reviewed **derived** format-5 pack, not an installed copy of the
+regional addons. Its `Polestar_Nav/PACK.json` is the input manifest. The two
+continent folders and `Polestar_Nav/Nav` each also contain a derived
+`TerminalGround.lua`. Keep that input outside the checkout. No client archives,
+unprocessed navigation maps, recordings or router scripts are import inputs.
+
+From a checkout with the destination addon's TOC headers present, run:
+
+```sh
+node tools/lib/nav/import-regions.js "$DERIVED_ADDONS" addon
+forge nav check
+```
+
+The importer pins the source manifest and all three sidecars by SHA-256 and
+checks every source part against the manifest. It groups existing compressed
+pages by region without rebaking geometry. `Polestar_Nav/PACK.json` records
+the pins, resulting data hashes, loader hashes and region folder names.
+To check a shipped pack without the source snapshot, only `forge nav check`
+is needed. Version and translated titles/notes can change without invalidating
+a loader; its file order, dependencies, interface and load mode cannot.
+
+The continent holds the routing graph and a directory. Each eight-by-four-tile
+sector has separate on-demand addons for coarse floors and fine local geometry.
+In `Polestar_Nav_R<map>_<row>_<col>`, even rows hold floors; the next odd row
+holds that sector's local geometry. A cost search need not load both. WoW
+retains each loaded addon until reload: revisiting incurs no further page load,
+but travelling to more regions increases resident compressed data.
 
 ## With Shortest Path Forever installed too
 

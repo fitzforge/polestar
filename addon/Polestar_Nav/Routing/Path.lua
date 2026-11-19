@@ -288,21 +288,37 @@ end
 -- Dijkstra that stops once every node in targets (a set of nodes) is settled. On a map with arcs (format 5's one-way
 -- jumps and drops) a search steps along them; back (a search out of a goal, its tree walked to the goal) along them
 -- backwards.
--- tree.pm[node + 1] holds the node's parent and its mark in one number: stamp * SPAN + parent + 1, the stamp 2 * gen
--- while the node is open in the tree's search gen, 2 * gen + 1 once it is settled (older searches' stamps are
--- smaller); the source's parent is -1. Until 0.4.1 they were two tables (par, mark): a tree's tables are filled from
--- the search's source outward, so nearly every key sits in the hash part, 40 bytes a key, and a city cluster's
--- tree held four tables of up to 32,768 keys (5 MB); three now. Endpoint trees dropped from st.endTrees go to the
+-- Each page holds 16 adjacent nodes' marks, costs and yards in one dense Lua array. Expanding outward from a
+-- source otherwise inserts the same sparse numeric keys in three hash tables. Pages are allocated only after
+-- the first accepted step into them. Label arithmetic and tie order are unchanged. A mark is stamp * SPAN +
+-- parent + 1: stamp is 2 * gen while open, 2 * gen + 1 once settled; the source has parent -1.
+-- Endpoint trees dropped from st.endTrees go to the
 -- pool while it holds fewer than POOL (one is enough for the next connection: a tree grows to its cluster's size
 -- once, then is reused), and so does the newest start's at rest (PathGrid.lua's Rest); Path.spareSeconds' rest empties
 -- it. Path.treesMade counts the trees grown new (tests: a tree grown is a cluster's worth of keys inserted and rehashed).
 local SPAN = 1048576 -- 2^20: above any node id + 1 (a cluster holds at most 65,536 nodes)
+local PAGE = 16
+local blank = {}
+for i = 1, 3 * PAGE do blank[i] = 0 end
+local function addPage(tree, k)
+	local page = { unpack(blank) }
+	tree[k] = page
+	return page
+end
+local function label(tree, node, column)
+	local j = node % PAGE
+	local page = tree[(node - j) / PAGE + 1]
+	return page and page[j + column]
+end
+function Grid.costAt(tree, node)
+	return label(tree, node, PAGE + 1)
+end
 local pool, POOL = {}, 1
 Path.treesMade = 0
 local function Tree()
 	local tree = table.remove(pool)
 	if not tree then
-		tree = { g = {}, pm = {}, gen = 0, y = {} }
+		tree = { gen = 0 }
 		Path.treesMade = Path.treesMade + 1
 	end
 	return tree
@@ -371,7 +387,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	-- Per chunk the zone multiplier of a step into it; nil when the cluster has no dangerous chunk (every search
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
-	local g, pm, ys = tree.g, tree.pm, mult and tree.y
+	local weighted = mult ~= nil
 	tree.gen = tree.gen + 1
 	local open = 2 * tree.gen * SPAN -- pm at or above it: open in this search; at or above settled: settled
 	local settled = open + SPAN
@@ -382,10 +398,10 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		gx, gy = floor(cell / C), cell % C
 	end
 	hn = 0
-	g[source + 1], pm[source + 1] = 0, open
-	if ys then
-		ys[source + 1] = 0
-	end
+	local j = source % PAGE
+	local k0 = (source - j) / PAGE + 1
+	local sourcePage = tree[k0] or addPage(tree, k0)
+	sourcePage[j + 1], sourcePage[j + PAGE + 1], sourcePage[j + 2 * PAGE + 1] = open, 0, 0
 	push(0, source)
 
 	---@type number, number, number, number, number
@@ -397,7 +413,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 			local a, b = byte(zs, 2 * lc + 1, 2 * lc + 2)
 			best, gap = lc, abs((a * 256 + b - 32768) / 2 - h)
 		end
-		local f1, f2, f3 = byte(first, 3 * lc + 1, 3 * lc + 3)
+		local f1, f2, f3 = Grid.indexBytes(first, lc, 3)
 		local v = (f1 * 256 + f2) * 256 + f3
 		if v > 0 then
 			local node = floor(v / 64) - 1
@@ -425,17 +441,21 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 		else
 			gv = gu + length * cs * WM[kb] * WS[kb]
 		end
-		local mk = pm[i]
-		if not mk or mk < open or gv < g[i] then
+		local j = v % PAGE
+		local key = (v - j) / PAGE + 1
+		local page = tree[key]
+		local mk = page and page[j + 1] or 0
+		if mk < open or gv < page[j + PAGE + 1] then
 			if gate and gate(ux * C + uy, cell) then return end
-			g[i] = gv
-			if not mk or mk < open then
-				pm[i] = open + u + 1
+			if not page then page = addPage(tree, key) end
+			page[j + PAGE + 1] = gv
+			if mk < open then
+				page[j + 1] = open + u + 1
 			else
-				pm[i] = mk - mk % SPAN + u + 1
+				page[j + 1] = mk - mk % SPAN + u + 1
 			end
-			if ys then
-				ys[i] = yu + length * cs
+			if weighted then
+				page[j + 2 * PAGE + 1] = yu + length * cs
 			end
 			local h = 0
 			if goal then
@@ -455,16 +475,18 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	while hn > 0 do
 		u = pop()
 		local i = u + 1
-		local mk = pm[i]
+		local j = u % PAGE
+		local page = tree[(u - j) / PAGE + 1]
+		local mk = page[j + 1]
 		if mk < settled then
-			pm[i] = mk + SPAN
+			page[j + 1] = mk + SPAN
 			tick()
 			if u == goal then
 				return true
 			end
 			if limit and not goal then
 				-- A Dijkstra settles in cost order: past limit, every node left costs more.
-				if g[i] > limit then
+				if page[j + PAGE + 1] > limit then
 					return false
 				end
 			elseif limit then
@@ -477,7 +499,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 				if ay < 0 then
 					ay = -ay
 				end
-				if g[i] + (ax > ay and ax + (SQRT2 - 1) * ay or ay + (SQRT2 - 1) * ax) * hs > limit then
+				if page[j + PAGE + 1] + (ax > ay and ax + (SQRT2 - 1) * ay or ay + (SQRT2 - 1) * ax) * hs > limit then
 					return false
 				end
 			end
@@ -488,9 +510,9 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 				end
 			end
 			local cell = u < N and u or floorCell(c, u)
-			gu, ux, uy = g[i], floor(cell / C), cell % C
-			if ys then
-				yu = ys[i]
+			gu, ux, uy = page[j + PAGE + 1], floor(cell / C), cell % C
+			if weighted then
+				yu = page[j + 2 * PAGE + 1]
 			end
 			if u < N then
 				-- This cell's moves, and the -x row's three around it (read only where that row exists).
@@ -549,7 +571,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 					end
 				end
 			end
-			local o1, o2, o3, p1, p2, p3 = byte(xo, 3 * u + 1, 3 * u + 6)
+			local o1, o2, o3, p1, p2, p3 = Grid.indexBytes(xo, u, 6)
 			local a, b = (o1 * 256 + o2) * 256 + o3, (p1 * 256 + p2) * 256 + p3
 			while a < b do
 				local e = byte(xs, a + 1)
@@ -586,21 +608,20 @@ end
 
 -- Settled in the tree's last search (no later search has a larger stamp).
 local function reached(tree, node)
-	local v = tree.pm[node + 1]
+	local v = label(tree, node, 1)
 	return v ~= nil and v >= (2 * tree.gen + 1) * SPAN
 end
 
 -- The yards along a tree's path to node: its yards label on a map with classes, its cost on one without (format 1).
 local function yardsAt(st, tree, node)
-	return st.classed and tree.y[node + 1] or tree.g[node + 1]
+	return label(tree, node, st.classed and 2 * PAGE + 1 or PAGE + 1)
 end
 
 -- Node path in a tree from node back to its source (node first).
 local function trace(tree, node, out)
-	local pm = tree.pm
 	while node >= 0 do
 		out[#out + 1] = node
-		node = pm[node + 1] % SPAN - 1
+		node = label(tree, node, 1) % SPAN - 1
 	end
 	return out
 end
@@ -800,7 +821,7 @@ local function connections(st, tree, k)
 	for _, id in ipairs(nodesOf(st, k)) do
 		local e = entrance(st, id)
 		if e and reached(tree, e) then
-			edges[id], yards[id] = tree.g[e + 1], yardsAt(st, tree, e)
+			edges[id], yards[id] = Grid.costAt(tree, e), yardsAt(st, tree, e)
 		end
 	end
 	return edges, yards
@@ -1192,7 +1213,7 @@ end
 local function within(st, swim, mult, k, from, to)
 	local tree = from.tree
 	if tree and tree.k == k and reached(tree, to) then
-		return tree.g[to + 1], yardsAt(st, tree, to)
+		return Grid.costAt(tree, to), yardsAt(st, tree, to)
 	end
 	if from.node == to then
 		return 0, 0
@@ -1201,7 +1222,7 @@ local function within(st, swim, mult, k, from, to)
 	hk, hv, hn = {}, {}, 0
 	local cost, yards
 	if search(st, k, swim, mult, from.node, trees.R, to) then
-		cost, yards = trees.R.g[to + 1], yardsAt(st, trees.R, to)
+		cost, yards = Grid.costAt(trees.R, to), yardsAt(st, trees.R, to)
 	end
 	hk, hv, hn = keys, values, size
 	return cost, yards
@@ -1352,7 +1373,7 @@ local function pocketWalk(st, k, swim, mult, from, to, a, b, reverse)
 	if reverse then first, last = last, first end
 	local tree = trees.R
 	if search(st, k, swim, mult, first, tree, last) then
-		return tree.g[last + 1], yardsAt(st, tree, last)
+		return Grid.costAt(tree, last), yardsAt(st, tree, last)
 	end
 end
 
@@ -1530,10 +1551,10 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				local dry = keptDry(st, swim, mult, sk, a)
 				for _, b in ipairs(goals) do
 					if not (dry and not reached(dry, b.node))
-						and search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and S.g[b.node + 1] <= bound then
+						and search(st, sk, swim, mult, a, S, b.node, nil, nil, nil, bound) and Grid.costAt(S, b.node) <= bound then
 						reaches = true
-						if not cost or S.g[b.node + 1] < cost then
-							cost, yards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a, b.node
+						if not cost or Grid.costAt(S, b.node) < cost then
+							cost, yards, directFrom, directTo = Grid.costAt(S, b.node), yardsAt(st, S, b.node), a, b.node
 						end
 					end
 				end
@@ -1619,8 +1640,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					local dry = tree and tree.k == sk and tree.whole == tree.gen
 					for _, b in ipairs(goals) do
 						if not (dry and not reached(tree, b.node)) and search(st, sk, swim, mult, a.node, S, b.node)
-							and (not direct or S.g[b.node + 1] < direct) then
-							direct, directYards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a.node, b.node
+							and (not direct or Grid.costAt(S, b.node) < direct) then
+							direct, directYards, directFrom, directTo = Grid.costAt(S, b.node), yardsAt(st, S, b.node), a.node, b.node
 						end
 					end
 				end
@@ -1894,6 +1915,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			-- To, from or on a lift: a ride joins its two landings; a walk to or from one stays in its cluster.
 			local ka, na = hopEnd(a, b)
 			local kb, nb = hopEnd(b, a)
+			if not na or not nb then return nil, "unreachable" end
 			if a > LIFT_ID and b > LIFT_ID then
 				if job.check then
 					-- Both walks to/from the actual moving platform, not just the
@@ -1921,25 +1943,30 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			addAll(sk, nodes, #nodes, 1, -1)
 		elseif a == START then
 			local start = sourceVia[b]
+			local endNode = entrance(st, b)
+			if not endNode then return nil, "unreachable" end
 			local tree = start.tree
-			if not tree or not reached(tree, entrance(st, b)) then
-				if not search(st, sk, swim, mult, start.node, S, entrance(st, b)) then return nil, "unreachable" end
+			if not tree or not reached(tree, endNode) then
+				if not search(st, sk, swim, mult, start.node, S, endNode) then return nil, "unreachable" end
 				tree = S
 			end
-			local nodes = trace(tree, entrance(st, b), {})
+			local nodes = trace(tree, endNode, {})
 			addAll(sk, nodes, #nodes, 1, -1)
 		elseif b == GOAL then
 			local goal = targetVia[a]
+			local endNode = entrance(st, a)
+			if not endNode then return nil, "unreachable" end
 			local tree = goal.tree
-			if not tree or not reached(tree, entrance(st, a)) then
-				if not search(st, gk, swim, mult, goal.node, G, entrance(st, a), nil, nil, true) then return nil, "unreachable" end
+			if not tree or not reached(tree, endNode) then
+				if not search(st, gk, swim, mult, goal.node, G, endNode, nil, nil, true) then return nil, "unreachable" end
 				tree = G
 			end
-			local nodes = trace(tree, entrance(st, a), {})
+			local nodes = trace(tree, endNode, {})
 			addAll(gk, nodes, 1, #nodes, 1)
 		else
 			local ka, kb = floor(a / 4096), floor(b / 4096)
 			local ea, eb = entrance(st, a), entrance(st, b)
+			if not ea or not eb then return nil, "unreachable" end
 			if ka == kb and search(st, ka, swim, mult, ea, R, eb) then
 				local nodes = trace(R, eb, {})
 				addAll(ka, nodes, #nodes, 1, -1)
@@ -1950,7 +1977,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					for _ = 1, n do
 						if edgeTarget(st, s, pos, ka) == b then
 							local old = edgeValue(st, s, pos, ci)
-							cost = cost + R.g[eb + 1] - (edged and old * edged(a, b) or old)
+							cost = cost + Grid.costAt(R, eb) - (edged and old * edged(a, b) or old)
 							break
 						end
 						pos = pos + width
@@ -2302,9 +2329,9 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 						if first == last then
 							cost, yd = 0, 0
 						elseif tree and reached(tree, last) then
-							cost, yd = tree.g[last + 1], yardsAt(st, tree, last)
+							cost, yd = Grid.costAt(tree, last), yardsAt(st, tree, last)
 						elseif search(st, k, swim, mult, first, trees.R, last) then
-							cost, yd = trees.R.g[last + 1], yardsAt(st, trees.R, last)
+							cost, yd = Grid.costAt(trees.R, last), yardsAt(st, trees.R, last)
 						end
 						if cost and (not direct[i] or cost < direct[i]) then
 							direct[i], directYards[i] = cost, yd

@@ -159,6 +159,31 @@ local function EnsurePart(map, D)
 	return true
 end
 
+-- The directory is resident; only the compressed pages a walk actually needs enter the Lua heap.
+-- A promised page unavailable in combat is not absent terrain. A later request retries it.
+local function loadRegion(map, id)
+	if map == nil or (InCombatLockdown and InCombatLockdown()) or not (C_AddOns and C_AddOns.LoadAddOn) then return end
+	pcall(C_AddOns.LoadAddOn, "Polestar_Nav_R" .. map .. "_" .. floor(id / 16) .. "_" .. (id % 16))
+end
+local unavailablePages = 0
+local function regionPage(t, key)
+	if not t then return nil end
+	local value, directory = t[key], t.directory
+	if value or not directory then return value end
+	local lo, hi = 0, #directory / 4 - 1
+	while lo <= hi do
+		local mid = floor((lo + hi) / 2)
+		local a, b, c, id = byte(directory, 4 * mid + 1, 4 * mid + 4)
+		local k = (a * 256 + b) * 256 + c
+		if key == k then
+			loadRegion(t.detailMap, id)
+			if not t[key] then unavailablePages = unavailablePages + 1; return nil, true end
+			return t[key]
+		elseif key < k then hi = mid - 1 else lo = mid + 1 end
+	end
+	return nil
+end
+
 local states = {}
 
 -- A field's string for cluster key (k + 1), decoded on first use; nil when the map lacks it (format 1 has no class
@@ -176,21 +201,27 @@ local function unpackField(data, field, key)
 		return loose[key]
 	end
 	local blocks = data.packed[field][key]
+	if type(blocks) == "number" then
+		loadRegion(data.detailMap, blocks)
+		blocks = data.packed[field][key]
+		if type(blocks) ~= "table" then return nil end
+	end
 	if not blocks then
 		return nil
 	end
-	local chunks = {}
+	local chunks = #blocks > 1 and {} or nil
+	local raw
 	for i, block in ipairs(blocks) do
 		slice()
 		-- Maps format 5 may carry the zlib bytes themselves (D.blocks == "zlib") instead of base64.
 		local compressed = data.blocks == "zlib" and block or C_EncodingUtil.DecodeBase64(block)
-		local raw = compressed and C_EncodingUtil.DecompressString(compressed, Enum.CompressionMethod.Zlib)
+		raw = compressed and C_EncodingUtil.DecompressString(compressed, Enum.CompressionMethod.Zlib)
 		if not raw then
 			return nil
 		end
-		chunks[i] = raw
+		if chunks then chunks[i] = raw end
 	end
-	local raw = table.concat(chunks)
+	raw = chunks and table.concat(chunks) or raw or ""
 	loose[key] = raw
 	return raw
 end
@@ -271,6 +302,13 @@ end
 --                           248, direction, layer + 1), a one-way arc (254, its end (3), yards * 4 (2)), the same arc
 --                           backwards at its end, for a search out of a goal (255, its start (3), yards * 4 (2))
 local char, concat, unpack, min = string.char, table.concat, unpack, math.min
+-- Keep three-byte indexes in the chunks the decoder produces. Joining them into a second, contiguous
+-- string would copy every entry. An XO chunk repeats the next offset so reading a pair never straddles pages.
+local INDEX_N = 1024
+local function indexBytes(pages, node, count)
+	local j = node % INDEX_N
+	return byte(pages[(node - j) / INDEX_N + 1], 3 * j + 1, 3 * j + count)
+end
 local KINDS = 48 -- every byte a class field's run-length literal can hold
 local VAL, CLS = {}, {} -- [kind byte] = val, class byte
 for b = 0, 255 do
@@ -306,7 +344,7 @@ local function floorCell(c, node)
 end
 -- Local cell lc's first floor node in decoded cluster c and its floors' count; nil, 0 for none.
 local function floorsOf(c, lc)
-	local a, b, d = byte(c.first, 3 * lc + 1, 3 * lc + 3)
+	local a, b, d = indexBytes(c.first, lc, 3)
 	local v = (a * 256 + b) * 256 + d
 	if v == 0 then
 		return nil, 0
@@ -318,6 +356,7 @@ end
 -- height h), with its height gap for -1. The cluster must be decoded (c: its strings, st.cl[k] when not given).
 local function surface(st, k, lc, layer, h, c)
 	c = c or st.cl[k]
+	if not c then return nil end
 	local kind = c.kind
 	if layer == 0 then
 		return byte(kind, lc + 1) >= KINDS and lc or nil
@@ -380,9 +419,10 @@ end
 -- t[first .. last] plus bias, each as width (2 or 3) bytes, high first.
 local function wide(S, t, first, last, width, bias)
 	local buf, n = S.buf, 0
+	local pages = width == 3 and {}
 	S.np = 0
-	for i = first, last, CHUNK / 4 do
-		local j = min(last, i + CHUNK / 4 - 1)
+	for i = first, last, INDEX_N do
+		local j = min(last, i + INDEX_N - 1)
 		if width == 3 then
 			for e = i, j do
 				local v = t[e] + bias
@@ -398,10 +438,15 @@ local function wide(S, t, first, last, width, bias)
 				buf[n + 1], buf[n + 2], n = (v - lo) / 256, lo, n + 2
 			end
 		end
-		chunk(S, n)
+		if pages then
+			pages[#pages + 1] = char(unpack(buf, 1, n))
+			slice()
+		else
+			chunk(S, n)
+		end
 		n = 0
 	end
-	return finish(S)
+	return pages or finish(S)
 end
 
 -- Heights t[1 .. last] as height * 2 + 32768 in 2 bytes, high first.
@@ -841,6 +886,7 @@ local function decodeGrid(st, k)
 	S.xmax = nx
 	table.sort(X)
 	local buf, w, off = S.buf, 0, 0
+	local xo = {}
 	local o1, o2, o3 = 0, 0, 0 -- off's bytes
 	local xb, xw = S.xbuf, 0
 	local xparts, xnp = S.xparts or {}, 0
@@ -848,9 +894,10 @@ local function decodeGrid(st, k)
 	local j, nextNode = 1, nx > 0 and floor(X[1] / NODE) or T
 	for node = 0, T do
 		buf[w + 1], buf[w + 2], buf[w + 3], w = o1, o2, o3, w + 3
-		if w >= CHUNK then
-			chunk(S, w)
-			w = 0
+		if w == 3 * (INDEX_N + 1) then
+			xo[#xo + 1] = char(unpack(buf, 1, w))
+			buf[1], buf[2], buf[3], w = o1, o2, o3, 3
+			slice()
 		end
 		if node == nextNode and node < T then
 			local before = xw
@@ -887,14 +934,14 @@ local function decodeGrid(st, k)
 			end
 		end
 	end
-	if w > 0 then
-		chunk(S, w)
+	if w > 3 then
+		xo[#xo + 1] = char(unpack(buf, 1, w))
+		slice()
 	end
 	if xw > 0 then
 		xnp = xnp + 1
 		xparts[xnp] = char(unpack(xb, 1, xw))
 	end
-	local xo = finish(S)
 	local xstr = concat(xparts, "", 1, xnp)
 	for i = 1, xnp do
 		xparts[i] = nil
@@ -911,7 +958,7 @@ local function decodeGrid(st, k)
 		first = wide(S, FIRST, 1, N, 3, 0),
 		lm = bytes(S, LM, 1, T),
 	}
-	c.bytes = #c.kind + #c.mv + #c.z + #c.fl + #c.first + #c.lm + #c.xo + #c.xs + 10 * 25 + 200
+	c.bytes = #c.kind + #c.mv + #c.z + #c.fl + #c.lm + #c.xs + 3 * (N + T + #xo) + 64 * (#c.first + #xo) + 10 * 25 + 200
 	spare = S
 	return c
 end
@@ -954,7 +1001,8 @@ local function grid(st, k)
 			return grid(st, k)
 		end
 		if not c then
-			st.cl[k] = false
+			-- A regional floor not loaded yet (for example in combat) is retryable.
+			if not (st.D.packed and type(st.D.packed.floor[k + 1]) == "number") then st.cl[k] = false end
 			return false
 		end
 		local area = unpackField(st.D, "area", k + 1)
@@ -1354,7 +1402,7 @@ local function neighbour(st, k, node, gx, gy, dx, dy, water)
 			return tk, v
 		end
 	end
-	local o1, o2, o3, p1, p2, p3 = byte(c.xo, 3 * node + 1, 3 * node + 6)
+	local o1, o2, o3, p1, p2, p3 = indexBytes(c.xo, node, 6)
 	local a, b, xs = (o1 * 256 + o2) * 256 + o3, (p1 * 256 + p2) * 256 + p3, c.xs
 	while a < b do
 		local e = byte(xs, a + 1)
@@ -1972,6 +2020,7 @@ ns.PathGrid = {
 	smooth = smooth,
 	groundLine = groundLine,
 	unpackField = unpackField,
+	indexBytes = indexBytes,
 	Rest = Rest,
 	Idle = Idle,
 	Reset = Reset,
@@ -1982,16 +2031,16 @@ ns.PathGrid = {
 	DY = DY,
 }
 
--- Private build 70532 local walks. XY is world north/west, never UI map coordinates.
--- Data is part of its map's existing lazy pack. Never join traces merely because they cross in XY.
+-- Build-matched local walks. XY is world north/west, never UI map coordinates.
+-- Never join separate corridors merely because they cross in XY.
 do
 local floor,abs,min,max,sqrt=math.floor,math.abs,math.min,math.max,math.sqrt
 local unit=25/3
 local cache,key,slot={}, {},0
 local function blob(t,k,parse)
- local encoded=t and t[k]; if not encoded then return end
+ local encoded=regionPage(t,k); if not encoded then return end
  local found=cache[encoded]; if found then return found end
- local bytes=C_EncodingUtil.DecodeBase64(encoded); if not bytes then return end
+ local bytes=t.directory and encoded or C_EncodingUtil.DecodeBase64(encoded); if not bytes then return end
  local s=C_EncodingUtil.DecompressString(bytes,Enum.CompressionMethod.Zlib); if not s then return end
  if parse then s=parse(s) end
  slot=slot%6+1; if key[slot] then cache[key[slot]]=nil end; key[slot]=encoded; cache[encoded]=s; return s
@@ -2239,7 +2288,9 @@ function ns.noNewTailVolume(map,from,asked,landing)
  for r=floor(min(from.x,landing.x)/128),floor(max(from.x,landing.x)/128) do
   for c=floor(min(from.y,landing.y)/128),floor(max(from.y,landing.y)/128) do
    local k=(r+256)*512+c+256
-   if bins[k] then
+   local value,missing=regionPage(bins,k)
+   if missing then return false end
+   if value then
     local s=blob(bins,k);if not s or #s%24~=0 or (not asked and #s>192*24) then return false end
     for j=1,#s,24 do
      local x,y,z,X,Y,Z=mm(s,j),mm(s,j+4),mm(s,j+8),mm(s,j+12),mm(s,j+16),mm(s,j+20)
@@ -2330,11 +2381,11 @@ local U, floor, abs, min, max = 25/24, math.floor, math.abs, math.min, math.max
 local last, cache, slots = 0, {}, {}
 local function block(data,r,c)
  if r<0 or c<0 or r>=32768 or c>=32768 then return end
- local text=data[floor(r/32)*1024+floor(c/32)];if not text then return end
+ local text=regionPage(data,floor(r/32)*1024+floor(c/32));if not text then return end
  local v=cache[text];if v then return v end
- if not(C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then return end
- local raw=C_EncodingUtil.DecodeBase64(text);if not raw then return end
- v=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not v or #v==0 or #v%11~=0 then return end
+ if not(C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then unavailablePages=unavailablePages+1;return end
+ local raw=data.directory and text or C_EncodingUtil.DecodeBase64(text);if not raw then unavailablePages=unavailablePages+1;return end
+ v=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not v or #v==0 or #v%11~=0 then unavailablePages=unavailablePages+1;return end
  last=last%12+1;if slots[last] then cache[slots[last]]=nil end;slots[last],cache[text]=text,v;return v
 end
 local function key(r,c,layer) return (r*32768+c)*32+layer end
@@ -2419,7 +2470,7 @@ end
 -- arrival sphere. Require connected patches on both decks across the same
 -- XY interval. Missing cells, an ambiguous height or a ramp are not a veto.
 local sheetMap,sheetX,sheetY,sheetZ,sheetGX,sheetGY,sheetGZ,sheetResult
-function ns.Path.OnSeparateLocalFloors(map,x,y,z,gx,gy,gz)
+local function separateFloors(map,x,y,z,gx,gy,gz)
  if (x-gx)^2+(y-gy)^2<=.10^2 and abs(z-gz)<=.35 then return false end
  local md=PolestarPathData and PolestarPathData[map];local data=md and md.astraSurfaces
  if not data then return false end
@@ -2437,6 +2488,12 @@ function ns.Path.OnSeparateLocalFloors(map,x,y,z,gx,gy,gz)
  local otherStart,back=traceSheets(data,b,a,goal,endOnStart,known)
  sheetResult=otherStart~=nil and otherStart.id~=start.id and back.id==start.id
  return sheetResult
+end
+function ns.Path.OnSeparateLocalFloors(...)
+ local before=unavailablePages
+ local result=separateFloors(...)
+ if before~=unavailablePages then sheetMap=nil;return true end
+ return result
 end
 local function node(q) return {x=center(q.r),y=center(q.c),z=q.h,cell=q} end
 local function output(map,p) return {map=map,x=p.x,y=p.y,z=p.z,detail=true} end
@@ -2485,9 +2542,10 @@ function ns.Path.FinalDrySight(map,x,y,z,gx,gy,gz)
  if map==oldMap and x==oldX and y==oldY and z==oldZ and gx==oldGX and gy==oldGY and gz==oldGZ then return lastClear end
  oldMap,oldX,oldY,oldZ,oldGX,oldGY,oldGZ,lastClear=map,x,y,z,gx,gy,gz,false
  local a,b={x=x,y=y,z=z},{x=gx,y=gy,z=gz}
+ local before=unavailablePages
  local line=ns.nativeTerrainWalk(map,a,b,true) or ns.astraSurfaceWalk(map,a,b,true)
- if not line then return false end
- for i=2,#line do if not ns.noNewTailVolume(map,line[i-1],nil,line[i]) then return false end end
+ if not line then if before~=unavailablePages then oldMap=nil end;return false end
+ for i=2,#line do if not ns.noNewTailVolume(map,line[i-1],nil,line[i]) then if before~=unavailablePages then oldMap=nil end;return false end end
  lastClear=true;return true
 end
 end
@@ -2503,11 +2561,14 @@ function ns.Path.FinalBodyBlocked(map,x,y,z,ax,ay,limit)
  if M==map and X==x and Y==y and Z==z and AX==ax and AY==ay and L==limit then return blocked end
  M,X,Y,Z,AX,AY,L,blocked=map,x,y,z,ax,ay,limit,false
  local md=PolestarPathData and PolestarPathData[map];local data=md and md.solidColumns;if not data then return false end
- local side=100/3;local r,c=floor(512-x/side),floor(512-y/side);local src=data[r*1024+c];if not src then return false end
+ local side=100/3;local r,c=floor(512-x/side),floor(512-y/side)
+ local src,missing=regionPage(data,r*1024+c)
+ if missing then M=nil;return true end
+ if not src then return false end
  if src~=hot then
-  if not (C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then return false end
-  local raw=C_EncodingUtil.DecodeBase64(src);if not raw then return false end
-  local s=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not s or #s<18 or (#s-4)%14~=0 or #s>7172 then return false end
+  if not (C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then M=nil;return true end
+  local raw=data.directory and src or C_EncodingUtil.DecodeBase64(src);if not raw then M=nil;return true end
+  local s=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not s or #s<18 or (#s-4)%14~=0 or #s>7172 then M=nil;return true end
   page,hot=s,src
  end
  local a,b,c0,d=page:byte(1,4);local zref=(a+256*(b+256*(c0+256*(d>=128 and d-256 or d))))/64
@@ -2540,11 +2601,13 @@ local ns=select(2,...)
 function ns.Path.ContradictsPointFloor(map,x,y,z,gx,gy,gz)
  -- An actual observation at the target outweighs the base-world estimate.
  if (x-gx)^2+(y-gy)^2<=.10^2 and math.abs(z-gz)<=.35 then return false end
+ local before=unavailablePages
  local target=ns.nativeGround(map,gx,gy)
+ if before~=unavailablePages then return true end
  -- Stored vertices round to 1/64 yd, chunk origins to 1/8192. On the
  -- admitted slope the worst combined error is < .009 yd. Do not reject
  -- a goal whose true height could still be inside the .35-yd stance band.
  if not target or math.abs(target-gz)<=.359 then return false end
  local player=ns.nativeGround(map,x,y)
- return player~=nil and math.abs(player-z)<=.10
+ return before~=unavailablePages or (player~=nil and math.abs(player-z)<=.10)
 end

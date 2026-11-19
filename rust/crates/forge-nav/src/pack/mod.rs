@@ -649,6 +649,10 @@ fn toc_files(text: &str) -> Vec<String> {
 /// load order), Nav/Nav.xml, and each part addon's files and TOC beside it. Our files the pack has no more
 /// are removed (a part addon the pack no longer has loses its files and TOC). -> (written, removed)
 pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<String>), String> {
+	// A plain grid pack does not contain regional evidence. Never silently replace that layer in a shipped pack.
+	if std::fs::read(addon_dir.join(PACK_JSON)).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()).is_some_and(|m| m.get("regions").is_some()) {
+		return Err("regional walking pack: bake the base grid to a separate --out folder; import derived maps with tools/lib/nav/import-regions.js".into());
+	}
 	let nav_dir = addon_dir.join("Nav");
 	let err = |p: &Path, e: std::io::Error| format!("{}: {e}", p.display());
 	std::fs::create_dir_all(&nav_dir).map_err(|e| err(&nav_dir, e))?;
@@ -710,6 +714,8 @@ pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<Stri
 	Ok((written, removed))
 }
 
+mod regions;
+
 /// What differs between an addon folder (and its part addons beside it) and its PACK.json: changed, missing and
 /// unlisted files of ours, a Nav.xml that is not nav_xml's, a part TOC not loading its listed parts in order.
 /// Empty when it matches.
@@ -725,9 +731,10 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let Some(listed) = manifest["files"].as_object() else { return vec![format!("{} lacks files", file.display())] };
 	let mut problems = Vec::new();
 	let parent = addon_dir.parent().unwrap_or(Path::new("."));
+	let regions = regions::check(addon_dir, &manifest, listed, &mut problems);
 	for (rel, want) in listed {
 		let (dir, name) = rel.split_once('/').unwrap_or(("", ""));
-		let ours = if dir == "Nav" { own_file(name) } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
+		let ours = if dir == "Nav" { own_file(name) } else if regions.contains(dir) { name == "Pages.lua" } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
 		if !ours {
 			problems.push(format!("{rel} in PACK.json is not a packed file"));
 			continue;
@@ -746,7 +753,7 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let mut names: Vec<String> = std::fs::read_dir(&nav_dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
 	names.sort();
 	for name in names {
-		if own_file(&name) && !listed.contains_key(&format!("Nav/{name}")) {
+		if (own_file(&name) || name == "TerminalGround.lua") && !listed.contains_key(&format!("Nav/{name}")) {
 			problems.push(format!("Nav/{name} is not listed in PACK.json"));
 		}
 	}
@@ -756,7 +763,7 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 		let mut names: Vec<String> = std::fs::read_dir(&dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
 		names.sort();
 		for name in names {
-			if own_part_file(&name) && !want.contains(&name) {
+			if (own_part_file(&name) || name == "TerminalGround.lua") && !want.contains(&name) {
 				problems.push(format!("{part}/{name} is not listed in PACK.json"));
 			}
 		}

@@ -24,6 +24,7 @@ const path = require('node:path');
 const { AreaGraph, CITIES, FLAG, CELL, toMap, toWorld } = require('./graph');
 const { spawnHeight } = require('./match');
 const run = require('../eval/run');
+const { navParts } = require('../parts');
 
 const STEP = 2; // yd: line samples
 const DZ = 6; // yd: a line point lies on a surface within this height (the two maps' heights differ up to ~5 yd)
@@ -59,10 +60,7 @@ function gateNav(nav, priv) {
 	fs.mkdirSync(path.join(dir, 'Trails'), { recursive: true });
 	for (const e of fs.readdirSync(nav)) if (e !== 'Trails') fs.symlinkSync(path.join(nav, e), path.join(dir, e));
 	fs.symlinkSync(train, path.join(dir, 'Trails', 'Trails.lua'));
-	for (const part of ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor']) {
-		const p = path.join(path.dirname(nav), part);
-		if (fs.existsSync(p)) fs.symlinkSync(p, path.join(root, part));
-	}
+	for (const part of navParts(nav)) fs.symlinkSync(path.join(path.dirname(nav), part), path.join(root, part));
 	return { dir, done: () => fs.rmSync(root, { recursive: true, force: true }) };
 }
 function loadArea(priv, map, grid, frames) {
