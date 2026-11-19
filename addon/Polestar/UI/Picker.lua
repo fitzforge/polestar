@@ -713,7 +713,7 @@ end
 
 function P.Select(id)
 	setSelected(id)
-	P.Render()
+	P.Redraw()
 end
 
 -- The primary action on the selection: continue it where it is open, else
@@ -776,6 +776,11 @@ end
 -- reason) and is not open in a tab; nothing otherwise (no card, no mark).
 -- -> { guide, why } | nil
 local playNext
+-- The suggestions on show ({ sugg, why }): P.Render works them out again (on
+-- show and on each change from outside: tabs, guides, settings); moving
+-- about the menu (P.Select, a view, a category, a search) draws again with
+-- them (P.Redraw), as ranking every guide each time made garbage.
+local shownSugg
 
 local function playNextOf(sugg, why, openIndex)
 	local g = sugg[1]
@@ -2541,7 +2546,11 @@ local function render()
 	W.ShellTitle(win, title, subtitle)
 
 	local width = MID_W - ROW_X * 2
-	local sugg, why = suggestions(byId, tabs, openIndex)
+	if not shownSugg then
+		local sugg, why = suggestions(byId, tabs, openIndex)
+		shownSugg = { sugg = sugg, why = why }
+	end
+	local sugg, why = shownSugg.sugg, shownSugg.why
 	playNext = playNextOf(sugg, why, openIndex)
 	playDrawn = false
 	local y, nf, ng, nc = 8, 0, 0, 0
@@ -2714,12 +2723,18 @@ local function render()
 	P.shown = { view = view, guides = ng, folders = nf, cards = nc }
 end
 
-function P.Render()
+-- Draws the menu again with the suggestions on show (shownSugg).
+function P.Redraw()
 	if not (win and win:IsShown()) then return end
 	renderPlayer = nil
 	renderPlayer = playerInfo() or false
 	render()
 	renderPlayer = nil
+end
+
+function P.Render()
+	shownSugg = nil
+	P.Redraw()
 end
 
 -- Searching: keep the selection among the results, so Enter loads what
@@ -2741,7 +2756,7 @@ function P.SetView(v)
 	end
 	if win and win:IsShown() then
 		W.ScrollTo(win.Scroll, 0)
-		P.Render()
+		P.Redraw()
 	end
 end
 
@@ -2789,7 +2804,7 @@ local function onSearch(text)
 	if not (win and win:IsShown()) then return end
 	if query ~= "" then view = "browse" end
 	W.ScrollTo(win.Scroll, 0)
-	P.Render()
+	P.Redraw()
 	if query ~= "" then selectFirstResult() end
 end
 
