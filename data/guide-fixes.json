@@ -11244,8 +11244,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: hunt Ice Thistle Matriarchs (56-57) on the western edge of the hills. At level 55, take only the level 56 ones. Leave the Patriarchs alone.",
-			"note": "Patriarchs reach 58. Keep their drops in the item data, but target only Matriarchs at the two western spawns (65.88,43.57 and 68.32,41.07, Era); the seed loop prevents the arrow offering the eastern cave as an alternative.",
+			"tip": "Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside.",
+			"note": "Patriarchs reach 58. Two of the Matriarchs stand outside away from them; the eastern Matriarchs lie below the terrain in the cave and a third outside spawn stands beside a Patriarch. Use only the two exterior spawns marked in the seed.",
 			"source": [
 				{
 					"kind": "client",

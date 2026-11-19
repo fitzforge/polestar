@@ -41,15 +41,15 @@
 						43.57
 					],
 					[
-						68.32,
-						41.07
+						66.67,
+						41.84
 					]
 				]
 			},
-			"note": "Use the two Ice Thistle Matriarch spawns on the western edge; the higher-level Patriarchs share the item but not this hunt.",
+			"note": "Use the two outdoor Matriarchs away from the Patriarch spawn at the cave approach. Do not direct players to the cave floor under the hill.",
 			"source": {
-				"kind": "pfquest",
-				"ref": "Ice Thistle Matriarch, creature 7459: the two western spawns in Winterspring."
+				"kind": "client",
+				"ref": "Ice Thistle Matriarch 7459: exterior spawn heights 732.8 and 722.4 in Winterspring."
 			},
 			"issue": 3144
 		},
