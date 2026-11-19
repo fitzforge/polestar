@@ -10,9 +10,12 @@
 -- offers each available kind with its total. Pick a kind to browse A to Z,
 -- with unavailable entries last. The list groups results by kind: under
 -- Everything a search shows the first few and a "Show all" line; one kind
--- shows pages of 50 with a "Show more" line. Its header dropdown selects
--- Best match or A to Z, and Filters can hide either unavailable status
--- across browse and search lists. These choices are saved. Each row has an
+-- shows pages of 50 with a "Show more" line. While searching, the header
+-- dropdown selects Best match or A to Z (under Everything, for each kind's
+-- first few), and Filters can hide either unavailable status across browse
+-- and search lists. Filters are saved; the order holds while the hub is
+-- open, and closing it with an empty search box goes back to Best match.
+-- Each row has an
 -- icon, the name in its quality or subject colour, and a short subtitle.
 -- Only the rows in view are drawn. Up/Down walk the results, and Enter acts
 -- on the selection.
@@ -107,6 +110,9 @@ local FACTION = { A = ns.FactionName("A"), H = ns.FactionName("H"), AH = L["Both
 
 local shell, root, results, details -- the hub window, this section, the results scroll, the details pane
 local query, kind = "", "all"
+-- The searches' order, "best" or "az": not saved. It holds while the hub is
+-- open, and the hub closing with its search box empty resets it.
+local order = "best"
 local sel -- { kind, id, title, subtitle, quality }
 local sourceSel -- index into the selection's sources
 local visible = {} -- results in the middle pane, top to bottom
@@ -1349,7 +1355,7 @@ local function listOptions()
 		subtitles = false,
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
-		order = ns.Get("lookup.searchOrder"),
+		order = order,
 	}
 end
 
@@ -1523,12 +1529,12 @@ local VISIBILITY_CHOICES = {
 }
 
 local function orderChoice()
-	return ns.Get("lookup.searchOrder") == "az" and ORDER_CHOICES[2] or ORDER_CHOICES[1]
+	return order == "az" and ORDER_CHOICES[2] or ORDER_CHOICES[1]
 end
 
 local function showControls()
 	local order, visibility = root.SearchOrder, root.Visibility
-	local showOrder = query ~= "" and kind ~= "all"
+	local showOrder = query ~= ""
 	local showVisibility = query ~= "" or kind ~= "all"
 	if (not showOrder and W.MenuShown(order)) or (not showVisibility and W.MenuShown(visibility)) then W.HideMenu() end
 	order:SetShown(showOrder)
@@ -1686,6 +1692,21 @@ local function cancelPending()
 	end
 end
 
+function LK.Order() return order end
+
+-- The header dropdown: the current search's order.
+function LK.SetOrder(value)
+	value = value == "az" and "az" or "best"
+	if value == order then return end
+	order = value
+	stale()
+	if root and root:IsVisible() then
+		W.ScrollTo(results, 0)
+		refresh()
+		if query ~= "" or kind ~= "all" then selectFirst(true) end
+	end
+end
+
 local function setQuery(text)
 	text = text or ""
 	if text == query then return end
@@ -1725,20 +1746,19 @@ end
 local function headerMenu(button)
 	if not (button and button:IsVisible()) then return end
 	if W.MenuShown(button) then return W.HideMenu() end
-	local order = button == root.SearchOrder
+	local isOrder = button == root.SearchOrder
 	local items = {}
-	for i, choice in ipairs(order and ORDER_CHOICES or VISIBILITY_CHOICES) do
-		local path = choice.path or "lookup.searchOrder"
-		local checked = order and choice == orderChoice() or not order and ns.Get(path)
+	for i, choice in ipairs(isOrder and ORDER_CHOICES or VISIBILITY_CHOICES) do
+		local checked = isOrder and choice == orderChoice() or not isOrder and ns.Get(choice.path)
 		items[i] = { text = choice.text, checked = checked, onClick = function()
-			if order then
-				if not checked then ns.Set(path, choice.value) end
+			if isOrder then
+				LK.SetOrder(choice.value)
 			else
-				ns.Set(path, not checked)
+				ns.Set(choice.path, not checked)
 			end
 		end }
 	end
-	W.ShowMenu(button, items, { current = order, minWidth = button:GetWidth() })
+	W.ShowMenu(button, items, { current = isOrder, minWidth = button:GetWidth() })
 end
 
 function LK.Query() return query end
@@ -1816,6 +1836,16 @@ function LK.Build(parent, hub)
 	root.Visibility:Hide()
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
+	-- The hub closing with nothing in its search box: the next visit starts
+	-- in Best match. A search left in the box keeps its order with it.
+	hub:HookScript("OnHide", function()
+		local P = UI.Picker
+		local text = P and P.Query and P.Query() or query
+		if text == "" and order ~= "best" then
+			order = "best"
+			stale()
+		end
+	end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
 	-- the section still open: a search running goes on). The hub leaves a
 	-- section by hiding the section's frame, `parent`, not this one: with
@@ -1947,7 +1977,7 @@ ns.On("PACKS_CHANGED", guidesChanged)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.suggestFrom" or path == "behavior" or path == "" then guidesChanged() end
 	if path == "lookup.enabled" then namesChanged() end
-	if path == "lookup" or path == "lookup.searchOrder" or path == "lookup.hideRetired" or path == "lookup.hideNoSource" or path == "" then
+	if path == "lookup" or path == "lookup.hideRetired" or path == "lookup.hideNoSource" or path == "" then
 		stale()
 		if root and root:IsVisible() then
 			W.ScrollTo(results, 0)

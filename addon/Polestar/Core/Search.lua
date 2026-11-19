@@ -7,8 +7,9 @@
 --              order = "best" | "az", hideRetired = false, hideNoSource = false,
 --              limit = 60, perKind = n, offset = n, subtitles = false }
 --     resultKind restricts the returned rows, with counts still filled for
---     all requested kinds. offset pages within each kind. A to Z applies
---     to a single result kind and uses Browse's order.
+--     all requested kinds. offset pages within each kind. A to Z uses
+--     Browse's order; with several kinds, the rows stay in Search.KINDS
+--     order, each kind's first perKind A to Z.
 --     result = { kind, id, title, subtitle|nil, quality|nil, score, status|nil, curated|nil }
 --       status: Codex item status ("retired" = no longer obtainable, "nosource");
 --       curated: a guide of the suggestion source or Polestar's own `collects`
@@ -735,9 +736,13 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		end
 	end
 	if az then
-		-- Filter Browse's cached offsets in their existing order.
+		-- Filter Browse's cached offsets in their existing order. A kind's
+		-- first few (Everything) stop there: the count is already known.
 		for _, at in ipairs(sorted.order) do
-			if marked[at] then hits[#hits + 1] = at end
+			if marked[at] then
+				hits[#hits + 1] = at
+				if not full and #hits >= cap then break end
+			end
 		end
 	elseif full then
 		table.sort(hits, function(a, b) return a.score > b.score end)
@@ -800,7 +805,9 @@ function Search.Query(text, opts)
 		end
 	end
 	local cap = opts.perKind or (only and limit or min(DEFAULT_PER_KIND, limit))
-	local az = only and opts.order == "az" or false
+	-- A to Z holds for every kind searched: with several (Everything), each
+	-- kind's first few in its A to Z order, kept apart by kind.
+	local az = opts.order == "az"
 
 	-- Built even when guides are not asked for: it holds the curated set.
 	local list = guideList()
@@ -838,7 +845,7 @@ function Search.Query(text, opts)
 		end
 	end
 
-	if not only then table.sort(results, bestFirst) end
+	if not (only or az) then table.sort(results, bestFirst) end
 	for i = #results, limit + 1, -1 do results[i] = nil end
 	if opts.subtitles ~= false then
 		for _, r in ipairs(results) do Search.Subtitle(r) end

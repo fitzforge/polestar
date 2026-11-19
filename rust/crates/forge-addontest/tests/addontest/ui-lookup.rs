@@ -939,7 +939,69 @@ fn one_kind_shows_a_page_of_50_and_show_more_adds_the_next_only_the_rows_in_view
 }
 
 #[test]
-fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_searching_a_kind() {
+fn a_to_z_holds_while_the_hub_is_open_and_closing_it_with_an_empty_search_resets_it() {
+	let out = run(r#"
+		local function at(q) type_(q); stub.advance(0.3); return LK.Order() end
+		Polestar.Lookup.Show("ring")
+		local picked = choose(rawget(LK.root, "SearchOrder"), "A to Z")
+		local out = { picked = picked, chosen = LK.Order() }
+		out.other = at("sword")
+		out.kind = (function() LK.SetKind("item"); LK.SetKind("all"); return LK.Order() end)()
+		out.emptied = at("")
+		out.again = at("ring")
+		PolestarPicker:Hide()
+		UI.ToggleLookup()
+		out.reopened = { order = LK.Order(), query = LK.Query(), shown = rawget(LK.root, "SearchOrder").Label:GetText() }
+		at("")
+		PolestarPicker:Hide()
+		UI.ToggleLookup()
+		out.closedEmpty = LK.Order()
+		out.next = at("ring")
+		out.stored = Polestar.GetStored("lookup.searchOrder") or false
+		emit(out)"#);
+	assert_eq!(out["picked"], true);
+	assert_eq!(out["chosen"], "az");
+	assert_eq!(out["other"], "az", "another search while open keeps it");
+	assert_eq!(out["kind"], "az", "so does switching kinds");
+	assert_eq!(out["emptied"], "az", "and emptying the box while open");
+	assert_eq!(out["again"], "az");
+	assert_eq!(out["reopened"], json!({ "order": "az", "query": "ring", "shown": "A to Z" }), "closed on a search: it comes back as it was");
+	assert_eq!(out["closedEmpty"], "best", "closed with the box empty: Best match");
+	assert_eq!(out["next"], "best");
+	assert_eq!(out["stored"], false, "the order is not saved");
+}
+
+#[test]
+fn everything_in_a_to_z_previews_each_kind_s_first_five_the_top_of_its_show_all_list() {
+	let out = run(r#"
+		for i = 1, 8 do
+			table.insert(lookupstub.entities, { kind = "item", id = 92000 + i, title = ("Zeta Ring %d"):format(i) })
+		end
+		for i = 1, 3 do
+			table.insert(lookupstub.entities, { kind = "item", id = 93000 + i, title = ("Alpha Ring %d"):format(i) })
+		end
+		Polestar.Lookup.Show("ring")
+		local function items()
+			local out = {}
+			local rows = rowTexts(LK.results.Child)
+			for _, t in ipairs(rows) do if t:find("Ring %d") then out[#out + 1] = t end end
+			return out
+		end
+		local best = items()
+		local picked = choose(rawget(LK.root, "SearchOrder"), "A to Z")
+		local az = { rows = items(), kind = LK.shown.kind }
+		LK.SetKind("item")
+		local all = rowTexts(LK.results.Child)
+		emit({ best = best, picked = picked, az = az, top = { all[1], all[2], all[3], all[4], all[5] } })"#);
+	assert_eq!(out["picked"], true);
+	assert_eq!(out["az"]["kind"], "all");
+	assert_eq!(out["az"]["rows"], json!(["Alpha Ring 1", "Alpha Ring 2", "Alpha Ring 3", "Zeta Ring 1", "Zeta Ring 2"]));
+	assert_eq!(out["top"], out["az"]["rows"], "Show all opens on the same five");
+	assert_ne!(out["best"], out["az"]["rows"], "Best match previewed others");
+}
+
+#[test]
+fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_searching() {
 	let out = run(r#"
 		for i = 239, 1, -1 do
 			table.insert(lookupstub.entities, { kind = "item", id = 90000 + i, title = ("Ring %03d"):format(i) })
@@ -970,13 +1032,15 @@ fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_
 		end
 		local tail = bottom()
 		local last = { tail[#tail - 2], tail[#tail - 1], tail[#tail] }
+		local kept = LK.Order()
 		type_("")
 		emit({ before = before, picked = picked, after = after, pages = pages, tails = tails, last = last, onAll = onAll,
-			onEmpty = order and order:IsShown() or false, saved = Polestar.GetStored("lookup.searchOrder") or false, controls = controls })"#);
+			onEmpty = order and order:IsShown() or false, kept = kept, emptied = LK.Order(), controls = controls })"#);
 	assert_eq!(out["picked"], true);
-	assert_eq!(out["onAll"], false);
+	assert_eq!(out["onAll"], true, "Everything's search offers the order too");
 	assert_eq!(out["onEmpty"], false);
-	assert_eq!(out["saved"], "az");
+	assert_eq!(out["kept"], "az", "paging keeps the search's order");
+	assert_eq!(out["emptied"], "az", "the hub is still open");
 	assert_eq!(out["controls"], json!({ "Best match": true, "Filters": true }));
 	assert_eq!(out["before"], json!(["Ring 239", "241", 90239]));
 	assert_eq!(out["after"], json!(["Ring 001", "241", 50, "241 results for “ring”", 0]));
@@ -1070,7 +1134,7 @@ fn kind_tab_keystrokes_and_show_more_with_a_25_000_entry_codex_in_both_orders() 
 				return times[math.ceil(#times / 2)]
 			end
 			for _, order in ipairs({{ "best", "az" }}) do
-				Polestar.Set("lookup.searchOrder", order)
+				LK.SetOrder(order)
 				local keys, pages = {{}}, {{}}
 				for i = 1, 7 do
 					local at = os.clock()

@@ -1203,6 +1203,18 @@ fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change(
 }
 
 #[test]
+fn an_everything_search_in_a_to_z_gives_each_kind_its_first_few_in_browse_order() {
+	let [az, best] = first::<2>(browse(r#"
+		index({ { 1, "Ring" }, { 2, "A Ring", "r" }, { 3, "B Ring", "n" }, { 4, "Z Ring" }, { 5, "Blade" }, { 6, "M Ring" } })
+		local rows, counts = S.Query("ring", { order = "az", perKind = 2, subtitles = false })
+		emit({ ids(rows), counts.item })
+		emit(ids(S.Query("ring", { perKind = 2, subtitles = false })))
+	"#));
+	assert_eq!(az, json!([[6, 1], 5]), "the top of the item kind's A to Z list, the count unchanged");
+	assert_eq!(best, json!([1, 6]));
+}
+
+#[test]
 fn a_learned_npc_name_re_sorts_browse_and_is_found_by_search() {
 	let [before, after, found, other] = first::<4>(browse(r#"
 		index({ { 1, "Alpha" }, { 2, "Bravo" } }, "npc")

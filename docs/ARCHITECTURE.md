@@ -9507,14 +9507,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   kind in `Search.KINDS` order with its `Search.BrowseCount` total. While
   the Codex is loading or waiting to load, all kinds show without counts.
   If it is unavailable, the sidebar offers Everything and Guides.
-  Everything groups the best search results by kind with up to five rows
-  and a "Show all" line per kind. A single kind shows 50 rows at a time
-  for search or browse. "Show more" gives the remaining count and advances
-  `opts.offset` until the list is complete. The kind's search header offers
-  Best match (default) and A to Z. On every kind and on Everything during
+  Everything groups search results by kind with up to five rows and a
+  "Show all" line per kind. A single kind shows 50 rows at a time for
+  search or browse. "Show more" gives the remaining count and advances
+  `opts.offset` until the list is complete. During a search, on a kind or
+  on Everything, the header offers Best match (default) and A to Z; under
+  Everything each kind's five rows are the top of the list its "Show all"
+  opens. The order is not saved: it holds while the hub is open, and the
+  hub closing with its search box empty goes back to Best match. Closed on
+  a search, the hub reopens on it in the same order. On every kind and on Everything during
   search, Filters can hide no longer obtainable and no known source entries
-  independently. The list and counts reflect both filters. These controls
-  save to `lookup.searchOrder`, `lookup.hideRetired` and `lookup.hideNoSource`.
+  independently. The list and counts reflect both filters. Filters save to
+  `lookup.hideRetired` and `lookup.hideNoSource`.
   On a gamepad, the D-pad reaches the buttons and A opens a menu or picks a
   choice.
   Each row has an item icon or kind

@@ -82,7 +82,8 @@ function Search.Query(text, opts)
 			if not only or only == e.kind then hits[#hits + 1] = e end
 		end
 	end
-	if only and opts.order == "az" then table.sort(hits, alphabetical) end
+	-- A to Z for every kind searched: Lookup keeps the kinds apart.
+	if opts.order == "az" then table.sort(hits, alphabetical) end
 	for _, e in ipairs(hits) do
 		local at = (taken[e.kind] or 0) + 1
 		taken[e.kind] = at
