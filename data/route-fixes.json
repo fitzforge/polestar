@@ -4542,7 +4542,7 @@
 					1147
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15): on the Shimmering Flats the north (basilisks, tortoises, Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins come first, then the south: The Swarm Grows and Parts of the Swarm at the Rustmaul dig (Invaders 34-35) and A Bump in the Road's Crystalhides and Gazers (32-35). Worked first, at about 31 (calibrated level model with rested experience), those camps were three over; after the hand-ins and a top-up to 32 on the Crystalhides (32-33) on the way, they are at most two over at their top (players' recorded 25th percentile 33.1-33.2 there), with tips on what to pull. Same visit, no new trip."
+				"why": "#3145: Keep the northern flats and the raceway hand-ins before the southern work. The Gazers and the dig's Invaders reach 35, so the first visit only hunts them from 34. Characters below 34 come back after Desolace and finish any missing XP on the northern flats before the dig."
 			},
 			{
 				"a": [
@@ -7289,6 +7289,12 @@
 				],
 				"faction": "Horde",
 				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
+			},
+			{
+				"a": ["task", 703],
+				"b": ["task", 2258, 0],
+				"faction": "Horde",
+				"why": "#3145: Gather Rigglefuzz's wings before finishing the gizzards. Below 40 take jawbones and fangs from the Feral Crag Coyotes near the wings; finish on Starving Buzzards north of Hammertoe's Digsite (35-37, 15% gizzard drop, versus 5% on the Buzzards at the hills). At 40 or higher the return to Kargath crosses the Giant Buzzards' basin. Six current guide followers handed the gizzards in at a 25th percentile of 39; the Giant Buzzards reach 41."
 			},
 			{
 				"a": [

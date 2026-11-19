@@ -3585,5 +3585,26 @@
 			}
 		],
 		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"736": {
+		"set": {
+			"level": 32,
+			"levelMax": 33
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever NPC record 736 (Panther): levels 32-33, Stranglethorn Vale spawns"
+			},
+			{
+				"kind": "pfquest",
+				"ref": "units 736 (Panther): lvl 32-33"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-19 (rec.py npc 736): met hostile by 179 people, killed 1,833 times by 133 people, all in northern Stranglethorn (26-28,8-17 and around Nesingwary's camp); characters on 30-40/03's Panther step were 33-35, with no cluster of deaths there"
+			}
+		],
+		"note": "Panther (npc 736), the Stranglethorn panther of Panther Mastery (191), is level 32-33. Our merged data read 32-43, so the compiled step listed level 43 panthers and the level checks that read a goal's top mob level flagged a step that is one level under the players who do it."
 	}
 }

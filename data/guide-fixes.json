@@ -2012,8 +2012,8 @@
 				"quest": 1419,
 				"goal": "turnin"
 			},
-			"tip": "Head west back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.",
-			"note": "Neeka Bloodscar (npc 5394) stands on Kargath's upper level beside Warlord Goretooth (both at spawn height 278.6), 34 yards above the flight master and the inn (244.2). Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Head west back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart. The Riverglades, Forever's new zone, lie south of the Badlands through the pass of Twilight's Shroud; the route goes there at about 41, after Stranglethorn Vale and the Swamp of Sorrows. Careful if you go now: the Twilight camps of Da'grosh's valley, right below the pass, are 43-46, with Twilight Enforcers (45, elite) on patrol and Overlord Kilgar and Executioner Morg (46, elite) in the fortress. Going anyway? Load the Riverglades guide: it starts at Rog'mar, east along the valley, away from those camps.",
+			"note": "Neeka Bloodscar (npc 5394) stands on Kargath's upper level beside Warlord Goretooth (both at spawn height 278.6), 34 yards above the flight master and the inn (244.2). Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the ramp directions. The pass leads straight to level 43-46 Twilight camps; the guide starts at Rog'mar instead.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -2026,6 +2026,10 @@
 				{
 					"kind": "pfquest",
 					"ref": "Horde 30-40 audit (2026-11-09): npcs.json 2921 Lotwil (25.95,44.87) and 5394 Neeka (6.49,47.2): Kargath is west of the step before, not north"
+				},
+				{
+					"kind": "recording",
+					"ref": "Riverglades recordings: deaths around the Twilight camps at 24-30,39-45; quest 94745 has level 43-44 Twilight mobs and level 45-46 elites nearby."
 				}
 			],
 			"pr": 960
@@ -5790,8 +5794,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too.",
-			"note": "Horde 30-40 audit (2026-11-09): the Rock Elementals (92, level 39) that drop the Large Stone Slabs (100%) stand at 12-17,32-36 and 35-46,74-88; the route takes the group beside Agmond's End. The tip put them on the slopes north-west of the Dustbowl.",
+			"tip": "South-east from Lotwil's camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of Agmond's End; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop Jarkal's Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop Neeka's jawbones and Jarkal's fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too.",
+			"note": "Horde 30-40 audit (2026-11-09): the Rock Elementals (92, levels 39-40) that drop the Large Stone Slabs (100%) stand at 12-17,32-36 and 35-46,74-88; the route takes the group beside Agmond's End. The tip put them on the slopes north-west of the Dustbowl.",
 			"source": {
 				"kind": "pfquest",
 				"ref": "npcs.json 92 spawns on map 1418; items.json 4627"
@@ -5826,8 +5830,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End.",
-			"note": "Horde 30-40 audit (2026-11-09): the Stonevault Bonesnappers (2893) and Shamans (2894) dig at 47-52,64-72, between Agmond's End and the Valley of Fangs, now walked north from Agmond's End.",
+			"tip": "The Stonevault troggs dig around the cave mouths south of the Valley of Fangs, on the way north from Agmond's End; the Bonesnappers and Shamans drop the flakes. The Buzzards for Rigglefuzz's wings circle the hills between the Valley of Fangs and Agmond's End. Hunt Stonevault Bonesnappers (39-40) for the flakes. At 38, pick the 39s; leave the Shamans (40-41) alone.",
+			"note": "Horde 30-40 audit (2026-11-09): the Stonevault Bonesnappers (2893) and Shamans (2894) dig at 47-52,64-72, between Agmond's End and the Valley of Fangs, now walked north from Agmond's End. The level 41 record is real for Shamans; Bonesnappers drop the same flakes at 39-40.",
 			"source": {
 				"kind": "pfquest",
 				"ref": "npcs.json 2893, 2894 on map 1418"
@@ -5840,7 +5844,7 @@
 				"quest": 711,
 				"goal": "turnin"
 			},
-			"tip": "North-west across the basin to Lotwil's camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five.",
+			"tip": "North-west across the basin to Lotwil's camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five.",
 			"note": "Horde 30-40 audit (2026-11-09): Lotwil takes the slabs on the walk back to Kargath; the Lesser Rock Elementals (2735, 37-39) west of his camp (13-24,37-48) drop Jarkal's shards (20%).",
 			"source": {
 				"kind": "pfquest",
@@ -13187,6 +13191,102 @@
 				}
 			],
 			"issue": 2801
+		},
+		{
+			"id": "h-043-flats-south-from-34",
+			"faction": "Horde",
+			"at": {
+				"quest": 1175,
+				"goal": "objective",
+				"objective": 2
+			},
+			"when": "level>=34",
+			"note": "Level 35 Gazers and Invaders are safe from 34. Anyone below 34 on the first pass carries the quests through Desolace. On the return from Gadgetzan, finish only the missing XP on northern Scorpid Reavers and Crystalhides before entering either camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19, characters on 30-40/02 within two steps of the goal (0.4.x): A Bump in the Road (1175) handed in by 12 people, 25th percentile 32.27, median 32.76; The Swarm Grows (1147) by 9, 32.64 / 33.87; Parts of the Swarm (1148) taken by 8, 32.82; 2 people died on the dig step, both 0.4.x (33.7, 34.2)"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 4150 Saltstone Gazer 34-35, 4131 Silithid Invader 34-35, 4151 Saltstone Crystalhide 32-33 (Forever's npc data)"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "h-043-rustmaul-dig-from-34",
+			"faction": "Horde",
+			"at": {
+				"quest": 1147,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=34",
+			"note": "0.4.3 route round (Horde 30-40): the Rustmaul dig (Searchers 32-33, Hive Drones 33-34, Invaders 34-35 in the hive cave, the Silithid Ravager 37 rare) on 30-40/02's first flats visit shows only from level 34, with the southern flats: see h-043-flats-south-from-34.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19, characters on 30-40/02 within two steps of the goal (0.4.x): The Swarm Grows (1147) handed in by 9 people, 25th percentile 32.64; 2 people died on the dig step (33.7, 34.2)"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 4130 Silithid Searcher 32-33, 4133 Silithid Hive Drone 33-34, 4131 Silithid Invader 34-35 (Forever's npc data)"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "h-043-parts-of-the-swarm-while-taken",
+			"faction": "Horde",
+			"at": {
+				"quest": 1148,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "onquest 1148",
+			"note": "0.4.3 route round (Horde 30-40): Parts of the Swarm (1148) starts from the Cracked Silithid Carapace of the dig's first kill, so its step on 30-40/02's first flats visit shows only with the quest in the log: below 34 the dig waits for the way out of Desolace (h-043-flats-south-from-34).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1148 starts from item 5877 (Forever's quest data)"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "h-043-moktar-krin-when-done",
+			"faction": "Horde",
+			"at": {
+				"quest": 1147,
+				"goal": "turnin"
+			},
+			"when": "complete 1147",
+			"note": "0.4.3 route round (Horde 30-40): Moktar Krin's hand-in of The Swarm Grows on 30-40/02's first flats visit shows only once the dig is done: below 34 the dig and the hand-in come on the way out of Desolace (h-043-flats-south-from-34).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1147 ends at Moktar Krin (npc 4483) in Forever's quest data"
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "h-043-zherin-when-done",
+			"faction": "Horde",
+			"at": {
+				"quest": 1175,
+				"goal": "turnin"
+			},
+			"when": "complete 1175",
+			"note": "0.4.3 route round (Horde 30-40): Trackmaster Zherin's hand-in of A Bump in the Road on 30-40/02's first flats visit shows only once the southern flats are done: below 34 they come on the way out of Desolace (h-043-flats-south-from-34).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1175 ends at Trackmaster Zherin (npc 4629) in Forever's quest data"
+				}
+			],
+			"pr": 3145
 		}
 	]
 }
