@@ -6555,7 +6555,7 @@ test('Southwind Village: the reliquary can go back with Umber, with a later fall
 	assert.ok(four[early].step.when.some((p) => p.k === 'level' && p.n === 56 && p.op === '>='));
 	const six = goals('forever/alliance/50-60/06-silithus.guide');
 	const fallback = six[at(six, 'reliquary fallback', (g) => g.item === 22201)];
-	assert.ok(fallback.step.when.some((p) => p.k === 'complete' && p.not && p.q === 5527));
+	assert.ok(fallback.step.when.some((p) => p.k === 'complete' && p.neg && p.q === 5527));
 	assert.ok(six.some(({ goal, step }) => is('turnin', 5527)(goal) && step.when.some((p) => p.k === 'complete' && p.q === 5527)));
 });
 
