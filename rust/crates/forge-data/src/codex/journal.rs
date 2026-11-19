@@ -345,8 +345,10 @@ pub fn levels_of(min: V, max: V, finder: Option<&super::client::Finder>, rec: &V
 /// The build's check of a Group Finder range against players' recorded entries ([`FLOOR_PEOPLE`]
 /// people with a boss kill or more): their 25th percentile is not under the finder's minimum, and
 /// their 90th is not more than [`CHECK_SLACK`] over the top. A broken join or a client row gone
-/// wrong (a 60 top, a placeholder boss level) shows up here.
-pub fn recorded_check(name: &str, finder: Option<&super::client::Finder>, top: &V, rec: &V) -> Vec<String> {
+/// wrong (a 60 top, a placeholder boss level) shows up here. A levels.json row with
+/// `overleveledRuns` (players run the dungeon well above its range: the recordings show full clears
+/// in a party far over its top) skips the 90th percentile part only; the range and floor stay.
+pub fn recorded_check(name: &str, finder: Option<&super::client::Finder>, top: &V, rec: &V, curated: &V) -> Vec<String> {
 	let mut out = Vec::new();
 	let Some(f) = finder else { return out };
 	if !rec.get("people").as_num().is_some_and(|n| n >= FLOOR_PEOPLE) {
@@ -356,22 +358,26 @@ pub fn recorded_check(name: &str, finder: Option<&super::client::Finder>, top: &
 	if p25.is_num() && p25.num() < f.min {
 		out.push(format!("{name}: players' 25th percentile entry level ({}) is under the Group Finder's minimum ({})", p25.num(), f.min));
 	}
-	if p90.is_num() && top.is_num() && p90.num() > top.num() + CHECK_SLACK {
+	let overleveled = curated.get("overleveledRuns") == V::Bool(true);
+	if !overleveled && p90.is_num() && top.is_num() && p90.num() > top.num() + CHECK_SLACK {
 		out.push(format!("{name}: players' 90th percentile entry level ({}) is more than {CHECK_SLACK} over the top ({})", p90.num(), top.num()));
 	}
 	out
 }
 
 /// `data/codex/levels.json`: the named exceptions to a dungeon's range and floor, by dungeon key.
-/// Each row has a `key`, a `max` or a `floor`, a `source` cited the corrections' way
-/// (`super::is_source_citation`) and a `note`; a malformed row throws.
+/// Each row has a `key`, a `max`, a `floor` or `overleveledRuns: true` (the recorded check's 90th
+/// percentile only), a `source` cited the corrections' way (`super::is_source_citation`) and a
+/// `note`; a malformed row throws.
 pub fn load_levels_table(text: &str) -> Result<V, String> {
 	let out = Obj::new();
 	for r in forge_guide::js::parse_json(text)?.get("levels").items() {
 		let key = r.get("key");
 		let level = |f: &str| r.get(f).is_undef() || (r.get(f).is_num() && r.get(f).num() >= 1.0 && r.get(f).num() <= 60.0);
+		let overleveled = r.get("overleveledRuns");
 		let ok = key.as_str().is_some_and(|k| !k.is_empty())
-			&& (r.get("max").is_num() || r.get("floor").is_num())
+			&& (r.get("max").is_num() || r.get("floor").is_num() || overleveled == V::Bool(true))
+			&& (overleveled.is_undef() || overleveled == V::Bool(true))
 			&& level("max")
 			&& level("floor")
 			&& super::is_source_citation(&r.get("source"))
@@ -1119,6 +1125,15 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("level", nn(b.get("level")));
 					let n = jnorm(&b.get("name"));
 					o.set("encounter", encounter_of.iter().find(|x| x.0 == n).map(|x| x.1.clone()).unwrap_or(V::Null));
+					let source = inst
+						.get("bosses")
+						.items()
+						.into_iter()
+						.find(|x| b.get("npc").truthy() && x.get("npc").strict_eq(&b.get("npc")))
+						.or_else(|| inst.get("bosses").items().into_iter().find(|x| jnorm(&x.get("name")) == n));
+					if let Some(source) = source {
+						o.set("loot", source.get("loot"));
+					}
 					V::Obj(o)
 				})
 				.collect(),
@@ -1138,6 +1153,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					o.set("encounter", nn(b.get("encounter")));
 					let items = b.get("items");
 					o.set("items", if items.truthy() { items } else { V::arr() });
+					o.set("loot", b.get("loot"));
 					o.set("level", if n.truthy() { or_null(n.get("level")) } else { V::Null });
 					V::Obj(o)
 				})
@@ -1199,6 +1215,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				page.set("npc", npc.clone());
 				page.set("level", level);
 				page.set("quests", V::from(tied));
+				let loot = b.get("loot");
+				if !loot.is_empty() {
+					page.set("loot", loot);
+				}
 				if object.truthy() {
 					page.set("object", object.clone());
 				}
@@ -1251,8 +1271,9 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		// recorded entries for the floor (`levels_of`).
 		let finder = m.and_then(|m| m.finder.as_ref()).filter(|_| !raid);
 		let rec = inp.recorded_dungeons.get(&kstr(&page.get("map")));
-		let levels = levels_of(min_level, max_level, finder, &rec, &inp.levels_table.get(&k));
-		warnings.extend(recorded_check(&page.get("name").to_js_string(), finder, &levels.max, &rec));
+		let curated = inp.levels_table.get(&k);
+		let levels = levels_of(min_level, max_level, finder, &rec, &curated);
+		warnings.extend(recorded_check(&page.get("name").to_js_string(), finder, &levels.max, &rec, &curated));
 		page.set("minLevel", levels.min);
 		page.set("maxLevel", levels.max);
 		page.set("floor", levels.floor);
@@ -1690,12 +1711,17 @@ mod tests {
 
 	#[test]
 	fn the_recorded_check_warns_on_a_finder_range_players_entries_contradict() {
-		let f = finder(15.0, 22.0);
-		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9)).is_empty(), "p90 2.9 over the top: inside the slack");
-		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9)).len(), 1, "a p25 under the finder's minimum");
-		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(16.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 8 over the top");
-		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0)).is_empty(), "under 5 people: no check");
-		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0)).is_empty(), "no finder row: no check");
+		let (f, none) = (finder(15.0, 22.0), V::obj());
+		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9), &none).is_empty(), "p90 2.9 over the top: inside the slack");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9), &none).len(), 1, "a p25 under the finder's minimum");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(16.0), &rec(75.0, 17.9, 24.9), &none).len(), 1, "a p90 more than 8 over the top");
+		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0), &none).is_empty(), "under 5 people: no check");
+		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0), &none).is_empty(), "no finder row: no check");
+		// A row with overleveledRuns skips the 90th percentile only; the 25th is still checked.
+		let over = parse_json(r#"{ "overleveledRuns": true }"#).unwrap();
+		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 18.2, 30.4), &over).is_empty(), "overleveledRuns: no p90 warning");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 18.2, 30.4), &none).len(), 1, "without it the same entries warn");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(83.0, 14.0, 30.4), &over).len(), 1, "overleveledRuns keeps the p25 check");
 	}
 
 	#[test]
@@ -1703,11 +1729,15 @@ mod tests {
 		let row = |body: &str| format!(r#"{{ "levels": [ {body} ] }}"#);
 		let ok = r#"{ "key": "the-hall-of-thanes", "max": 18, "source": { "kind": "in-game-check", "ref": "Fitz, 2026-11-13" }, "note": "n" }"#;
 		assert!(load_levels_table(&row(ok)).unwrap().get("the-hall-of-thanes").get("max").num() == 18.0);
+		let over = r#"{ "key": "ruins-of-lordaeron", "overleveledRuns": true, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#;
+		assert!(load_levels_table(&row(over)).unwrap().get("ruins-of-lordaeron").get("overleveledRuns") == V::Bool(true));
 		for bad in [
 			r#"{ "key": "x", "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
 			r#"{ "key": "x", "max": 70, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
 			r#"{ "key": "x", "max": 18, "source": "https://example.org", "note": "n" }"#,
 			r#"{ "key": "x", "max": 18, "source": { "kind": "in-game-check", "ref": "r" } }"#,
+			r#"{ "key": "x", "overleveledRuns": false, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "overleveledRuns": 1, "source": { "kind": "recording", "ref": "r" }, "note": "n" }"#,
 		] {
 			assert!(load_levels_table(&row(bad)).is_err(), "{bad}");
 		}
@@ -1716,17 +1746,23 @@ mod tests {
 
 	/// The named exceptions Fitz approved, and nothing else: The Hall of Thanes' top of 18 (his in-game check)
 	/// is the only top override, Krol'dok Stronghold's floor of 43 (its only slot in the guides sits at players'
-	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason.
+	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The one
+	/// check-only row, Ruins of Lordaeron's overleveledRuns (0.4.1: players' recorded runs above level 25 are
+	/// full clears in a party of five), changes no range or floor.
 	#[test]
 	fn levels_json_holds_exactly_the_two_named_exceptions() {
 		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/levels.json")).unwrap();
 		let t = load_levels_table(&text).unwrap();
-		let mut keys: Vec<String> = t.keys().iter().map(|k| k.to_string()).collect();
+		let mut keys: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") != V::Bool(true)).collect();
 		keys.sort();
 		assert_eq!(keys, ["kroldok-stronghold", "the-hall-of-thanes"]);
 		let hot = t.get("the-hall-of-thanes");
 		assert_eq!((hot.get("max").num(), hot.get("floor").is_undef()), (18.0, true), "the only top override");
 		let krol = t.get("kroldok-stronghold");
 		assert_eq!((krol.get("floor").num(), krol.get("max").is_undef()), (43.0, true), "the only floor exception");
+		let checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
+		assert_eq!(checks, ["ruins-of-lordaeron"], "the one check-only row");
+		let ruins = t.get("ruins-of-lordaeron");
+		assert!(ruins.get("max").is_undef() && ruins.get("floor").is_undef(), "check-only: no range or floor");
 	}
 }

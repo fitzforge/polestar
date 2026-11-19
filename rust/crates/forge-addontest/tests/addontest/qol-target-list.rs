@@ -963,6 +963,83 @@ fn target_list_dragging_the_mark_or_a_row_moves_the_set_and_never_the_bag_button
 }
 
 #[test]
+fn target_list_dragging_the_polestar_mark_in_combat_places_the_set_after_the_fight() {
+	let out = run(r#"
+		kobolds()
+		local a, bag = B.anchor, PolestarBagButton
+		local holder = select(2, t:GetPoint(1))
+		-- The real client protects the holder because secure buttons are anchored to it.
+		holder.secure = true
+		local function at(f) local p, _, rp, x, y = f:GetPoint(1); return { p, rp, x, y } end
+		local original, bagBefore = at(holder), at(bag)
+		local before = rows()
+		local preview
+		local function drag(dx, dy)
+			stub.cursor = { 500, 500 }
+			stub.RunScript(a, "OnMouseDown", "LeftButton")
+			stub.cursor = { 500 + dx, 500 + dy }
+			stub.RunScript(a, "OnDragStart", "LeftButton")
+			stub.advance(0.05)
+			if not preview then
+				for _, f in ipairs(stub.frames) do
+					if f:GetParent() == Polestar.UIParent and f:IsMovable() then preview = f; break end
+				end
+			end
+			local shown = preview and preview:IsShown() or false
+			stub.RunScript(a, "OnDragStop")
+			q.click(a)
+			stub.runTimers()
+			return { shown, preview and preview:IsShown() or false }
+		end
+
+		q.combat(true)
+		local previewShown = drag(40, 20)
+		local first = Polestar.QoL.State().buttonPos or false
+		Polestar.Set("ui.lockHud", true)
+		drag(60, 20)
+		local locked = Polestar.QoL.State().buttonPos or false
+		stub.keys.shift = true
+		drag(80, 30)
+		local last = Polestar.QoL.State().buttonPos or false
+		emit({ first, last, at(holder), original, rows(), before, Polestar.QoL.State().targetFolded or false, locked, previewShown })
+		q.combat(false)
+		emit({ at(holder), at(bag), bagBefore, rows() })
+	"#);
+	assert!(out[0][0].is_array(), "the icon's drag saved a position: {out:?}");
+	assert_ne!(out[0][0], out[0][1], "the last drag sets the destination");
+	assert_eq!(out[0][2], out[0][3], "the protected holder stays in place during the fight");
+	assert_eq!(out[0][4], out[0][5], "the targets and their macros remain available");
+	assert_eq!(out[0][6], false, "a drag release does not fold the list");
+	assert_eq!(out[0][7], out[0][0], "the HUD lock still requires Shift");
+	assert_eq!(out[0][8], json!([true, false]), "the outline shows during the drag and hides at release");
+	assert_eq!(out[1][0], out[0][1], "the set moves to the saved destination after the fight");
+	assert_eq!(out[1][1], out[1][2], "the bag button keeps its own spot");
+	assert_eq!(out[1][3], out[0][5]);
+}
+
+#[test]
+fn target_list_a_drag_stops_at_its_last_position_if_combat_starts() {
+	let out = run(r#"
+		kobolds()
+		local a = B.anchor
+		local holder = select(2, t:GetPoint(1))
+		holder.secure = true
+		stub.cursor = { 500, 500 }
+		stub.RunScript(a, "OnMouseDown", "LeftButton")
+		stub.cursor = { 530, 510 }
+		stub.RunScript(a, "OnDragStart", "LeftButton")
+		stub.advance(0.05)
+		local p, _, rp, x, y = holder:GetPoint(1)
+		stub.cursor = { 550, 520 }
+		q.combat(true)
+		stub.advance(0.05)
+		stub.RunScript(a, "OnDragStop")
+		emit({ Polestar.QoL.State().buttonPos or false, { p, rp, x, y } })
+	"#);
+	assert_eq!(out[0][0], out[0][1], "the last position was saved without moving the holder during lockdown");
+}
+
+#[test]
 fn target_list_a_use_goal_lists_the_creatures_its_item_works_on_with_its_count_and_no_drop_line() {
 	let out = run(r#"
 		q.step({
@@ -1543,4 +1620,515 @@ fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_pi
 	assert_eq!(out[0], json!([true, false, [format!("{VERMIN}\n{skull}")]]), "mark on and ping off by default: the mob's row with the skull");
 	assert_eq!(out[1], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
 	assert_eq!(out[2], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
+}
+
+// Compact styles (qol.targetListStyle): slim rows, and portrait tiles in a
+// column or a strip. A step with counts: the Vermin's kill 4/10, the Candle
+// (Worker, Laborer) done at 8/8, a one-off Thug at 0/1.
+const COMPACT: &str = r#"
+local function counted()
+	q.step({
+		{ t = "kill", target = "Kobold Vermin", npc = 6, quest = 7, oi = 1, progress = { cur = 4, max = 10, kind = "count" } },
+		{ t = "collect", item = 950, itemName = "Candle", quest = 7, oi = 2, progress = { cur = 8, max = 8, kind = "count" },
+			fromNpcs = { { npc = 257, npcName = "Kobold Worker" } } },
+		{ t = "kill", target = "Defias Thug", npc = 38, progress = { cur = 0, max = 1, kind = "count" } },
+	})
+end
+local function rareY() return select(5, PolestarRareButton:GetPoint(1)) end
+local function shown(x) return x:IsShown() and true or false end
+-- A row as drawn: size, name shown, item line shown, count text, its badge.
+local function look(i)
+	local r = B.rows[i]
+	return { r:GetWidth(), r:GetHeight(), shown(r.Name), shown(r.Note), r.Count:GetText(), shown(r.Badge) }
+end
+-- A tile's done state: the face greyed, the crosshair dimmed.
+local function done(i)
+	local r = B.rows[i]
+	return { r.Face.desaturated or false, r.Mark:GetAlpha() < 1 }
+end
+"#;
+
+#[test]
+fn target_list_style_full_is_the_default_and_unchanged() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		counted()
+		emit(Polestar.Get("qol.targetListStyle"))
+		emit({{ look(1), look(2), done(2), rareY() }})
+	"#
+	));
+	assert_eq!(out[0], "full");
+	// Four rows (Vermin, Worker, Thug, Laborer) of 30 with 2 between end 126
+	// under the target button's top (-26): the rare button at -26 - 126 - 8 - 18.
+	assert_eq!(out[1], json!([[208, 30, true, true, "4/10", false], [208, 30, true, true, "8/8", false], [false, false], -178]));
+}
+
+#[test]
+fn target_list_style_slim_rows_are_shorter_with_a_small_face_the_name_and_count() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "slim")
+		counted()
+		local f = B.rows[1].Face
+		emit({{ look(1), look(3), rareY(), {{ f:GetWidth(), f:GetHeight(), shown(f), shown(B.rows[1].Mark) }} }})
+		local r = B.rows[1]
+		r:GetScript("OnEnter")(r)
+		emit(GameTooltip.lines[2])
+		r:GetScript("OnLeave")(r)
+	"#
+	));
+	// Four rows of 20 with 2 between end 86 under the target's top: -26 - 86 - 8 - 18.
+	assert_eq!(out[0], json!([[150, 20, true, false, "4/10", false], [150, 20, true, false, "0/1", false], -138, [18, 18, true, true]]));
+	assert_eq!(out[1], "Candle · 4.3% · 4/10", "the item line moves to the tooltip, as it is there");
+}
+
+#[test]
+fn target_list_style_column_tiles_show_the_face_and_how_many_are_left() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "column")
+		counted()
+		emit({{ look(1), look(2), look(3), done(1), done(2), done(3), rareY() }})
+		local r = B.rows[2]
+		r:GetScript("OnEnter")(r)
+		emit({{ GameTooltip.lines[1], GameTooltip.lines[2] }})
+		r:GetScript("OnLeave")(r)
+		-- Back to full rows: everything a tile hid comes back.
+		set("targetListStyle", "full")
+		emit({{ look(1), look(2), done(2) }})
+	"#
+	));
+	assert_eq!(out[0][0], json!([32, 32, false, false, "6", true]), "10 to kill, 4 done: 6 left");
+	assert_eq!(out[0][1], json!([32, 32, false, false, "", false]), "a finished goal has no number");
+	assert_eq!(out[0][2], json!([32, 32, false, false, "", false]), "a one-off kill needs no number");
+	assert_eq!(out[0][3], json!([false, false]));
+	assert_eq!(out[0][4], json!([true, true]), "a finished goal's face and crosshair grey out");
+	assert_eq!(out[0][5], json!([false, false]));
+	// Four tiles of 32 with 2 between end 134 under the target's top: -26 - 134 - 8 - 18.
+	assert_eq!(out[0][6], -186);
+	assert_eq!(out[1], json!(["Kobold Worker", "Candle · 8/8"]), "the name and full count in the tooltip");
+	assert_eq!(out[2], json!([[208, 30, true, true, "4/10", false], [208, 30, true, true, "8/8", false], [false, false]]));
+}
+
+#[test]
+fn target_list_style_strip_lays_the_tiles_side_by_side_and_leaves_the_rare_button_in_its_slot() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "strip")
+		counted()
+		local p, rel, rp, x, y = B.rows[1]:GetPoint(1)
+		emit({{ p, rel == t, rp, x, y }})
+		p, rel, rp, x, y = B.rows[2]:GetPoint(1)
+		emit({{ p, rel == B.rows[1], rp, x, y, look(2) }})
+		emit(rareY())
+		set("buttonTextSide", "left")
+		p, rel, rp, x, y = B.rows[2]:GetPoint(1)
+		emit({{ p, rel == B.rows[1], rp, x, y }})
+		-- With the buttons in a row the strip goes under the target button and
+		-- the rare button moves along the row past it.
+		set("buttonTextSide", "right")
+		Polestar.Set("buttons.layout", "row"); stub.runTimers()
+		p, rel, rp, x, y = B.rows[1]:GetPoint(1)
+		emit({{ p, rel == t, rp, x, y, (select(4, PolestarRareButton:GetPoint(1))) }})
+	"#
+	));
+	assert_eq!(out[0], json!(["TOPLEFT", true, "TOPRIGHT", 8, 0]));
+	assert_eq!(out[1], json!(["LEFT", true, "RIGHT", 2, 0, [32, 32, false, false, "", false]]));
+	assert_eq!(out[2], -88, "one tile high: the rare button keeps its slot");
+	assert_eq!(out[3], json!(["RIGHT", true, "LEFT", -2, 0]));
+	// The target at 44 along the row; four tiles (134 wide) from its left edge
+	// (-18) end at 116: the rare button's centre at 44 + 116 + 8 + 18.
+	assert_eq!(out[4], json!(["TOPLEFT", true, "BOTTOMLEFT", 0, -8, 186]));
+}
+
+#[test]
+fn target_list_portraits_name_the_close_one_beside_its_tile_unless_switched_off() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		local function names()
+			local o = {{}}
+			for i = 1, 4 do o[i] = shown(B.rows[i].Name) and B.rows[i].Name:GetText() or false end
+			return o
+		end
+		set("targetListStyle", "column")
+		counted()
+		emit(names())
+		q.units.nameplate2 = {{ name = "Kobold Vermin" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		local r = B.rows[1]
+		local p, rel, rp, x = r.Name:GetPoint(1)
+		emit({{ names(), p, rel == r, rp, x, shown(r.NameBg) }})
+		set("buttonTextSide", "left")
+		p, rel, rp, x = r.Name:GetPoint(1)
+		emit({{ p, rp, x }})
+		set("targetListStyle", "strip")
+		set("buttonTextSide", "right")
+		local y
+		p, rel, rp, x, y = r.Name:GetPoint(1)
+		emit({{ names(), p, rp, x, y }})
+		set("targetCloseName", false)
+		emit({{ names(), shown(r.NameBg) }})
+		-- It goes: the name with it.
+		set("targetCloseName", true)
+		q.units.nameplate2 = nil
+		stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate2")
+		stub.runTimers()
+		emit({{ names(), shown(r.NameBg) }})
+	"#
+	));
+	assert_eq!(out[0], json!([false, false, false, false]), "none close: faces only");
+	assert_eq!(out[1], json!([["Kobold Vermin", false, false, false], "LEFT", true, "RIGHT", 8, true]), "beside its tile, away from the button");
+	assert_eq!(out[2], json!(["RIGHT", "LEFT", -8]));
+	assert_eq!(out[3], json!([["Kobold Vermin", false, false, false], "TOPLEFT", "BOTTOMLEFT", 0, -6]), "in a strip, under its tile");
+	assert_eq!(out[4], json!([[false, false, false, false], false]));
+	assert_eq!(out[5], json!([[false, false, false, false], false]));
+}
+
+#[test]
+fn target_list_a_style_change_in_a_fight_waits_for_its_end() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		counted()
+		q.combat(true)
+		set("targetListStyle", "column")
+		emit(look(1))
+		q.combat(false)
+		stub.runTimers()
+		emit(look(1))
+	"#
+	));
+	assert_eq!(out[0], json!([208, 30, true, true, "4/10", false]), "the secure rows keep their size, and their look with it");
+	assert_eq!(out[1], json!([32, 32, false, false, "6", true]));
+}
+
+#[test]
+fn target_list_full_rows_keep_their_anchors() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		counted()
+		local r = B.rows[1]
+		local function pt(f, i) local p, rel, rp, x, y = f:GetPoint(i); return {{ p, rel == r.Face and "face" or rel == r.Count and "count" or rel == r and "row" or "?", rp, x, y }} end
+		emit({{ pt(r.Name, 1), pt(r.Name, 2), pt(r.Note, 1), pt(r.Note, 2), pt(r.Count, 1), pt(r.Face, 1) }})
+		-- A row with no item line: the name centred on the face.
+		r = B.rows[3]
+		emit(pt(r.Name, 1))
+	"#
+	));
+	assert_eq!(
+		out[0],
+		json!([
+			["BOTTOMLEFT", "face", "RIGHT", 6, 1],
+			["RIGHT", "count", "LEFT", -6, 0],
+			["TOPLEFT", "face", "RIGHT", 6, -1],
+			["RIGHT", "count", "LEFT", -6, 0],
+			["RIGHT", "row", "RIGHT", -6, 0],
+			["LEFT", "row", "LEFT", 2, 0]
+		])
+	);
+	assert_eq!(out[1], json!(["LEFT", "face", "RIGHT", 6, 0]));
+}
+
+#[test]
+fn target_list_a_tile_s_count_bar_badge_dimming_and_wash_sit_above_its_model() {
+	let out = run_with(
+		&format!(
+			r#"{COMPACT}
+		set("targetListStyle", "column")
+		counted()
+		local r = B.rows[2]
+		local function over(x) return x:GetParent() == r.Over end
+		emit({{ r.Model:IsShown() and true or false, r.Over:GetFrameLevel() > r.Model:GetFrameLevel(), over(r.Count), over(r.Bar), over(r.Badge), over(r.Dim), over(r.Near), over(r.Flash) }})
+		emit({{ r.Model:GetAlpha(), shown(r.Dim), shown(B.rows[1].Dim) }})
+		set("targetListStyle", "full")
+		emit({{ over(r.Near), over(r.Flash), r.Model:GetAlpha(), shown(r.Dim), (r.Near:GetDrawLayer()) }})
+	"#
+		),
+		MODELS,
+	);
+	assert_eq!(out[0], json!([true, true, true, true, true, true, true, true]));
+	assert_eq!(out[1], json!([0.45, true, false]), "the finished Worker's model dimmed, the Vermin's not");
+	assert_eq!(out[2], json!([false, false, 1, false, "BACKGROUND"]), "full rows: the wash is the row's ground again");
+}
+
+#[test]
+fn target_list_portraits_fold_to_one_tile_that_names_the_close_one() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "column")
+		counted()
+		B.anchor:GetScript("OnClick")(B.anchor, "LeftButton")
+		local r = B.rows[1]
+		emit({{ #rows(), look(1), rareY() }})
+		q.units.nameplate2 = {{ name = "Defias Thug" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit({{ r.applied, shown(r.Name), r.Name:GetText(), r.Count:GetText() }})
+	"#
+	));
+	assert_eq!(out[0], json!([1, [32, 32, false, false, "6", true], -88]));
+	assert_eq!(out[1], json!(["Defias Thug", true, "Defias Thug", ""]), "the close one, named; a one-off kill has no number");
+}
+
+#[test]
+fn target_list_a_strip_reaches_left_with_the_buttons_in_a_reversed_row() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "strip")
+		Polestar.Set("buttons.layout", "rowReverse"); stub.runTimers()
+		counted()
+		local p, rel, rp, x, y = B.rows[1]:GetPoint(1)
+		emit({{ p, rel == t, rp, x, y }})
+		p, rel, rp, x, y = B.rows[2]:GetPoint(1)
+		emit({{ p, rel == B.rows[1], rp, x, y }})
+		emit((select(4, PolestarRareButton:GetPoint(1))))
+	"#
+	));
+	assert_eq!(out[0], json!(["TOPRIGHT", true, "BOTTOMRIGHT", 0, -8]));
+	assert_eq!(out[1], json!(["RIGHT", true, "LEFT", -2, 0]));
+	// The target at -44; four tiles (134 wide) from its right edge (18) end at
+	// -116: the rare button's centre at -44 - 116 - 8 - 18.
+	assert_eq!(out[2], -186);
+}
+
+#[test]
+fn target_list_a_finished_tile_stays_grey_with_its_mob_close() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "column")
+		counted()
+		local r = B.rows[2]
+		q.units.nameplate2 = {{ name = "Kobold Worker" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		local g = {{ Polestar.Theme.Color("success") }}
+		local function green(t) local c = {{ t:GetVertexColor() }}; return c[1] == g[1] and c[2] == g[2] and c[3] == g[3] end
+		emit({{ shown(r.Near), shown(r.Flash), green(r.Mark), green(r.Bar), shown(r.Dim), r.psBorderSize or 1 }})
+		-- Back to full rows: being close turns the row green again.
+		set("targetListStyle", "full")
+		emit({{ shown(r.Near), green(r.Mark), r.psBorderSize or 1 }})
+	"#
+	));
+	assert_eq!(out[0], json!([false, false, false, false, true, 1]), "done wins: no wash, flash, green crosshair, bar or edge");
+	assert_eq!(out[1], json!([true, true, 2]));
+}
+
+#[test]
+fn target_list_names_only_rows_have_no_face_and_still_turn_green_while_close() {
+	let out = run_with(
+		&format!(
+			r#"{COMPACT}
+		set("targetListStyle", "names")
+		counted()
+		local r = B.rows[1]
+		emit({{ look(1), shown(r.Face), shown(r.Mark), shown(r.Model), (select(4, r.Name:GetPoint(1))) }})
+		q.units.nameplate2 = {{ name = "Kobold Vermin" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit({{ shown(r.Near), r.psBorderSize or 1, shown(r.Face), shown(r.Model) }})
+		-- Back to full rows: the model again.
+		set("targetListStyle", "full")
+		stub.runTimers()
+		emit({{ shown(r.Face), shown(r.Mark), shown(r.Model), r.Model.creature }})
+	"#
+		),
+		MODELS,
+	);
+	assert_eq!(out[0], json!([[150, 20, true, false, "4/10", false], false, false, false, 5]), "the name from the row's edge");
+	assert_eq!(out[1], json!([true, 2, false, false]), "close: the green wash and edge, still no face");
+	assert_eq!(out[2], json!([true, true, true, 6]));
+}
+
+#[test]
+fn target_list_flat_portraits_show_an_icon_until_one_is_seen_then_keep_its_face() {
+	let out = run_with(
+		&format!(
+			r#"{COMPACT}
+		local function faceOf(i)
+			local r = B.rows[i]
+			local tex = r.Flat:IsShown() and tostring(r.Flat:GetTexture()) or tostring(r.Face:GetTexture())
+			return {{ tex:match("portrait:.*") or tex:match("icon%-%a+") or false, shown(r.Model), shown(r.Mark) }}
+		end
+		set("targetPortraits", "flat")
+		counted()
+		emit({{ faceOf(1), faceOf(2), faceOf(3) }})
+		-- The Vermin comes close: its own face, kept after its plate goes.
+		q.units.nameplate2 = {{ name = "Kobold Vermin" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit(faceOf(1))
+		-- Its health changes in a fight: the face is not drawn again.
+		local draws = #q.portraits
+		for _ = 1, 3 do stub.fire("UNIT_HEALTH", "nameplate2"); stub.runTimers() end
+		emit(#q.portraits - draws)
+		q.units.nameplate2 = nil
+		stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate2")
+		stub.runTimers()
+		emit(faceOf(1))
+		-- Through 3D and names only and back: the face learned is kept.
+		set("targetPortraits", "model")
+		stub.runTimers()
+		set("targetListStyle", "names")
+		stub.runTimers()
+		set("targetListStyle", "full")
+		set("targetPortraits", "flat")
+		stub.runTimers()
+		emit(faceOf(1))
+		-- Another step: the row names another mob, an icon again.
+		q.step({{ {{ t = "kill", target = "Defias Thug", npc = 38 }} }})
+		emit(faceOf(1))
+		-- 3D again: the creature's model.
+		set("targetPortraits", "model")
+		stub.runTimers()
+		stub.advance(2)
+		emit({{ faceOf(1), B.rows[1].Model.creature }})
+	"#
+		),
+		MODELS,
+	);
+	assert_eq!(out[0], json!([["icon-kill", false, false], ["icon-collect", false, false], ["icon-kill", false, false]]), "no model: an icon for what you do");
+	assert_eq!(out[1], json!(["portrait:Kobold Vermin", false, true]));
+	assert_eq!(out[2], 0, "drawn once");
+	assert_eq!(out[3], json!(["portrait:Kobold Vermin", false, true]), "the face stays once seen");
+	assert_eq!(out[4], json!(["portrait:Kobold Vermin", false, true]), "and through 3D and names only");
+	assert_eq!(out[5], json!(["icon-kill", false, false]));
+	assert_eq!(out[6], json!([[false, true, true], 38]));
+}
+
+#[test]
+fn target_list_a_finished_tile_with_an_icon_greys_and_stays_grey_when_close() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetPortraits", "flat")
+		set("targetListStyle", "column")
+		counted()
+		local r = B.rows[2]
+		local g = {{ Polestar.Theme.Color("success") }}
+		local function green(t) local c = {{ t:GetVertexColor() }}; return c[1] == g[1] and c[2] == g[2] and c[3] == g[3] end
+		local function state()
+			return {{ tostring(r.Face:GetTexture()):match("icon%-%a+") or false, r.Face.desaturated or false, r.Face:GetAlpha() < 1,
+				shown(r.Dim), green(r.Bar), green(r.Face), shown(r.Near), shown(r.Mark), r.psBorderSize or 1 }}
+		end
+		emit(state())
+		-- Its mob comes close: the face it learns stays grey, with no green.
+		q.units.nameplate2 = {{ name = "Kobold Worker" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit({{ r.Flat:IsShown() and true or false, r.Flat.desaturated or false, r.Flat:GetAlpha() < 1, shown(r.Dim), green(r.Bar), shown(r.Near), r.psBorderSize or 1 }})
+	"#
+	));
+	assert_eq!(out[0], json!(["icon-collect", true, true, true, false, false, false, false, 1]), "the finished one's icon greyed and dimmed, no crosshair, no green");
+	assert_eq!(out[1], json!([true, true, true, true, false, false, 1]));
+}
+
+#[test]
+fn target_list_the_rows_box_for_every_style_and_side() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		local o = {{}}
+		for _, style in ipairs({{ "full", "slim", "names", "column", "strip" }}) do
+			set("targetListStyle", style)
+			local s = {{}}
+			for _, side in ipairs({{ "right", "left", "below", "belowLeft" }}) do
+				s[#s + 1] = {{ B.ListRect(3, side) }}
+			end
+			o[#o + 1] = s
+		end
+		emit(o)
+		-- With the buttons in a reversed row, four full rows under the button
+		-- push the rare button along the row past them.
+		set("targetListStyle", "full")
+		Polestar.Set("buttons.layout", "rowReverse"); stub.runTimers()
+		counted()
+		emit((select(4, PolestarRareButton:GetPoint(1))))
+	"#
+	));
+	// The target button 36 wide (h 18), the spacing 8; three rows: full 208 by
+	// 94, slim and names only 150 by 64, a column of tiles 32 by 100, a strip
+	// 100 by 32.
+	assert_eq!(
+		out[0],
+		json!([
+			[[26, 234, -76, 18], [-234, -26, -76, 18], [-18, 190, -120, -26], [-190, 18, -120, -26]],
+			[[26, 176, -46, 18], [-176, -26, -46, 18], [-18, 132, -90, -26], [-132, 18, -90, -26]],
+			[[26, 176, -46, 18], [-176, -26, -46, 18], [-18, 132, -90, -26], [-132, 18, -90, -26]],
+			[[26, 58, -82, 18], [-58, -26, -82, 18], [-18, 14, -126, -26], [-14, 18, -126, -26]],
+			[[26, 126, -14, 18], [-126, -26, -14, 18], [-18, 82, -58, -26], [-82, 18, -58, -26]],
+		])
+	);
+	// The target at -44 along the row; the rows' left edge 190 past its centre:
+	// the rare button's centre at -44 - 190 - 8 - 18.
+	assert_eq!(out[1], -260);
+}
+
+#[test]
+fn target_list_compact_styles_grow_up_over_a_row_of_buttons_and_name_a_close_strip_tile_above_it() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		local function pt(f) local p, rel, rp, x, y = f:GetPoint(1); return {{ p, rel == t and "button" or rel == B.rows[1] and "row1" or "?", rp, x, y }} end
+		Polestar.Set("buttons.listUp", true)
+		Polestar.Set("buttons.layout", "row"); stub.runTimers()
+		counted()
+		emit({{ pt(B.rows[1]), pt(B.rows[2]), (select(4, PolestarRareButton:GetPoint(1))) }})
+		Polestar.Set("buttons.layout", "rowReverse"); stub.runTimers()
+		emit(pt(B.rows[1]))
+		Polestar.Set("buttons.layout", "row"); stub.runTimers()
+		set("targetListStyle", "strip")
+		q.units.nameplate2 = {{ name = "Kobold Vermin" }}
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		local r = B.rows[1]
+		local p, rel, rp, x, y = r.Name:GetPoint(1)
+		emit({{ pt(B.rows[1]), pt(B.rows[2]), shown(r.Name), p, rel == r, rp, x, y }})
+	"#
+	));
+	assert_eq!(out[0], json!([["BOTTOMLEFT", "button", "TOPLEFT", 0, 8], ["BOTTOM", "row1", "TOP", 0, 2], 88]), "over the row, the rare button in its slot");
+	assert_eq!(out[1], json!(["BOTTOMRIGHT", "button", "TOPRIGHT", 0, 8]));
+	assert_eq!(
+		out[2],
+		json!([["BOTTOMLEFT", "button", "TOPLEFT", 0, 8], ["LEFT", "row1", "RIGHT", 2, 0], true, "BOTTOMLEFT", true, "TOPLEFT", 0, 6]),
+		"a strip's close name goes on its far side, above it"
+	);
+}
+
+// Kill stutter (0.4.1): the rows repaint only what changed. A close mob's health changing (every frame of a
+// fight) leaves the rows alone until it dies, and a refresh with the same counts (a kill for no row, a loot,
+// the bags) lays no row out again. Widget calls (frame, texture and font string methods) are counted.
+#[test]
+fn target_list_a_fight_s_health_ticks_and_refreshes_with_the_same_counts_repaint_no_row() {
+	let out = run_with(
+		r#"
+		local calls = 0
+		local real = {}
+		for k, v in pairs(stub.Methods) do real[k] = v; stub.Methods[k] = nil end
+		setmetatable(stub.Methods, { __index = function(_, k) calls = calls + 1; return real[k] end, __newindex = real })
+		kobolds()
+		q.combat(true)
+		q.units.nameplate2 = { name = "Kobold Worker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		local c0 = calls
+		for _ = 1, 60 do stub.fire("UNIT_HEALTH", "nameplate2"); stub.runTimers() end
+		local health = calls - c0
+		c0 = calls
+		for _ = 1, 10 do stub.fire("QUEST_LOG_UPDATE"); stub.fire("BAG_UPDATE_DELAYED"); stub.runTimers() end
+		local refresh = calls - c0
+		-- It dies: its health says so, and its row's crosshair goes red.
+		q.units.nameplate2.dead = true
+		stub.fire("UNIT_HEALTH", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		emit({ health = health, refresh = refresh })
+		q.combat(false)
+	"#,
+		MODELS,
+	);
+	assert_eq!(out[0], json!([257, "green"]));
+	assert_eq!(out[1], json!([257, "red"]), "a death still repaints the row");
+	let health = out[2]["health"].as_u64().unwrap();
+	let refresh = out[2]["refresh"].as_u64().unwrap();
+	// Measured: 0.4.1 made 17,700 calls for the 60 ticks (295 a frame through a fight) and 2,740 for the 10
+	// refreshes; with the rows left alone, 60 and 250 (the rest of the buttons' own work).
+	assert!(health <= 120 && refresh <= 400, "widget calls: 60 health ticks {health} (at most 120), 10 refreshes with the same counts {refresh} (at most 400)");
 }

@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: убивайте их по пути",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Езжайте на восток к руинам на побережье. Четыре скрижали лежат среди руин под охраной наг из племени Хлещущих Злобой (52-55): выманивайте по одному.",
 
 	-- Step 12: Ruins of Eldarath
@@ -149,12 +149,12 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Распорядитель полетов: {area:1237}",
 
 	-- Step 29: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} – здесь: {zone:1456}; в городе {zone:1454} нет учителя паладинов",
 
 	-- Step 30: Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -168,7 +168,7 @@ return {
 
 	-- Step 32: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "В зону {zone:1411}",
 
 	-- Step 33: Zeppelin to Undercity
 	-- {zone:1458} Undercity

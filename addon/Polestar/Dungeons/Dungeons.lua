@@ -1,7 +1,7 @@
 -- Polestar.Dungeons: a journal page per dungeon and raid:
 -- every quest with where it starts and ends,
 -- its objective, chain and rewards, the bosses in kill order with the quests
--- tied to them, and the entrance. No loot tables. Scope: docs/SUITE.md,
+-- tied to them, their known drops, and the entrance. Scope: docs/SUITE.md,
 -- "Modules"; data and runtime: docs/ARCHITECTURE.md, "Reference data"
 -- (`dungeons.json` and the journal pages).
 --
@@ -47,7 +47,7 @@
 --       anyone of its side may take it; why = "class" | "race" when this character may not
 --       (Lookup.QuestBlock, the rule the pick-up guide leaves such a quest out by)
 --   Dungeons.ObjectiveText(quest) -> text | nil   -- its objectives in the client's language, one a line
---   Dungeons.Bosses(key) -> { { order, name, npc, level, object, role, encounter, quests = { { id, how, item, itemName } } } }
+--   Dungeons.Bosses(key) -> { { order, name, npc, level, object, role, encounter, loot = { itemID, ... }, quests = { { id, how, item, itemName } } } }
 --       object: a chest boss's object id (npc nil); role: "rare" | "event" | "optional" for the
 --       bosses after the encounters, nil for an encounter (and on pages built before roles);
 --       encounter: its DungeonEncounter id (its name in every language: Names.Encounter)
@@ -545,11 +545,16 @@ function Dungeons.GuideTo(key)
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
--- (the global OpenWorldMap taints the map: NAV_QA C3).
+-- (the global OpenWorldMap taints the map: NAV_QA C3). The entrance gets its
+-- own pin there, in focus, until the map closes (Maps.ShowDungeonEntrance,
+-- #2780: the map opened on the zone with nothing to say where the way in is).
 function Dungeons.ShowOnMap(key)
-	local map = Dungeons.Entrance(key)
+	local map, x, y, f = Dungeons.Entrance(key)
 	if not map then return false end
-	return ns.Compat.OpenWorldMap(map)
+	local opened = ns.Compat.OpenWorldMap(map)
+	local M = ns.Maps
+	if opened and M and M.ShowDungeonEntrance then M.ShowDungeonEntrance(key, map, x, y, f) end
+	return opened
 end
 
 ns.RegisterCommand("dungeons", function(rest)

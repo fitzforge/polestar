@@ -307,6 +307,66 @@ fn t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_
 	assert_eq!(out["override"], json!(["active:nil:nil", chat]));
 }
 
+// #2475: the Zul'Farrak pick-up guide sends a level 45 Tauren Druid to Anastasia Hartwell (4568) for Tabetha's Task
+// (2861), a lead-in to Tabetha's (6546) Tiara of the Deep (2846); her window listed nothing. Players' recordings:
+// Tabetha offered Tiara of the Deep to 14 people who never had Tabetha's Task. ${tiara} is Tabetha's step's accept.
+const ANASTASIA: &str = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Zul'Farrak: pick up the quests", faction = "Horde", minLevel = 40, maxLevel = 50, steps = {
+		{ title = "Anastasia Hartwell", goals = { { t = "accept", quest = 2861, title = "Tabetha's Task", npc = 4568, npcName = "Anastasia Hartwell", closedBy = { 2846 }, map = 1413, x = 51, y = 30 } } },
+		{ title = "Tabetha", goals = {
+			{ t = "turnin", quest = 2861, title = "Tabetha's Task", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 },
+			${tiara}
+		} },
+		{ goals = { { t = "level", level = 50 } } },
+	} })"#;
+
+#[test]
+fn t_2475_a_lead_in_its_giver_does_not_offer_is_passed_with_its_hand_in_for_the_quest_it_leads_to_which_keeps_741() {
+	let tiara = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 }"#;
+	let refused = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			local r = { refused = { E.GetStepIndex(), brief(1), brief(2), E.GetStepView(1).goals[1].noticeText or false } }
+			w.setLevel(46); flush()
+			r.levelUp = E.GetStepIndex()
+			w.gossip(6546, { available = {} }); w.close(); flush()
+			r.tabetha = { E.GetStepIndex(), brief(2)[2], E.GetStepView(2).goals[2].noticeText or false }
+			w.gossip(6546, { available = { { questID = 2846 } } }); w.accept(2846, {}); w.close(); flush()
+			r.taken = { E.GetStepIndex(), brief(1) }
+			emit(r)"#;
+	let out = run("", &ANASTASIA.replace("${tiara}", tiara), refused);
+	let leadin = "skipped:leadin:Not offered by Anastasia Hartwell: you can take “Tiara of the Deep” without it";
+	assert_eq!(out["refused"], json!([2, [leadin], [leadin, "active:nil:nil"], false]), "the guide goes on to Tabetha");
+	assert_eq!(out["levelUp"], 2, "a level-up does not bring the lead-in back");
+	// The quest it leads to keeps #741: Tabetha's refusal holds the guide at her.
+	assert_eq!(out["tabetha"], json!([2, "active:nil:nil", "Not offered by Tabetha? Report it with /polestar"]));
+	assert_eq!(out["taken"], json!([3, ["skipped:closed:No longer offered: you took “Tiara of the Deep”"]]));
+	// Anastasia listing it after all clears the mark: the guide goes back for it.
+	let listed = run(
+		"",
+		&ANASTASIA.replace("${tiara}", tiara),
+		r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			w.gossip(4568, { available = { { questID = 2861 } } }); w.close(); flush()
+			emit({ at = E.GetStepIndex(), step1 = brief(1) })"#,
+	);
+	assert_eq!(listed, json!({ "at": 1, "step1": ["active:nil:nil"] }));
+	// Not a lead-in of this guide: the quest it leads to is not taken here, or its accept needs it. #741 holds.
+	let report = json!([1, ["active:nil:nil"], "Not offered by Anastasia Hartwell? Report it with /polestar"]);
+	let stays = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			emit({ E.GetStepIndex(), brief(1), E.GetStepView(1).goals[1].noticeText or false })"#;
+	let elsewhere = r#"{ t = "accept", quest = 2847, title = "Another Quest", npc = 6546, npcName = "Tabetha" }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", elsewhere), stays), report);
+	let needs = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", pre = { 2861 } }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", needs), stays), report);
+}
+
 #[test]
 fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_missing_one() {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.
@@ -967,6 +1027,54 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["ok"], true, "no Lua error: {out}");
 	assert_eq!(out["live"], 2, "{out}");
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
+}
+
+// #2670 (Night Elf Druid 15, 0.4.0.1): Darkshore's Moonglade step lists "accept Trial of the Lake" (29, level 16),
+// then "collect Shrine Bauble" and "use Shrine Bauble" with no quest of their own. The accept waited for level 16,
+// but the arrow sent the druid into the lake for a bauble only that quest can loot. A plain collect or use of an
+// item that an accept before it in its step works with (the quest database's handed-over items) waits with that
+// quest, as a quest's starting item does (#1531), and comes back with the level-up.
+#[test]
+fn an_item_a_quest_works_with_waits_with_a_quest_the_character_cannot_take_yet_2670() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Darkshore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Trial of the Lake", goals = {
+		{ t = "accept", quest = 29, title = "Trial of the Lake", npc = 11802, npcName = "Dendrite Starblaze", minLevel = 16, map = 1413, x = 56, y = 30 },
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1413, x = 54, y = 55 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1413, x = 36, y = 41 },
+		{ t = "turnin", quest = 29, title = "Trial of the Lake", npc = 11799, npcName = "Tajarri", map = 1413, x = 36, y = 40 },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, ... field 19: the items it hands over or works with.
+			AddRecords("quests", {
+				[29] = { "Trial of the Lake", 16, 16, nil, nil, nil, { 11802 }, { 11799 }, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 15877 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { live = E.GetLiveStep(), lake = brief(1) }
+			w.setLevel(16); flush()
+			r.liveAt16, r.lakeAt16 = E.GetLiveStep(), brief(1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "nothing in the lake for a level 12 character: {out}");
+	let lake = out["lake"].as_array().unwrap();
+	assert_eq!(lake[0], "na:nil:nil", "{out}");
+	assert_eq!(lake[1], "na:nil:nil", "the bauble waits with Trial of the Lake: {out}");
+	assert_eq!(lake[2], "na:nil:nil", "{out}");
+	assert_eq!(out["liveAt16"], 1, "level 16: back to Dendrite: {out}");
+	assert_eq!(out["lakeAt16"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]), "{out}");
 }
 
 // Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten

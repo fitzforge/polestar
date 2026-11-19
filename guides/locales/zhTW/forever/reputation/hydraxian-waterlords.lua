@@ -9,22 +9,22 @@ return {
 	-- Guide
 	["Hydraxian Waterlords Reputation"] = "海達希亞水元素聲望",
 	-- {item:17333} Aqual Quintessence · {area:2717} Molten Core · {item:22754} Eternal Quintessence
-	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "",
+	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "{item:17333}用來熄滅{area:2717}的符文，崇敬時可換的永久物品{item:22754}，以及一枚火焰抗性戒指。",
 
 	-- Step 1: Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {area:2717} Molten Core
-	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. Everyone starts Neutral with the Waterlords, and nearly all of their reputation comes from killing the servants of fire, air and earth: the quests themselves pay nothing until the last one. Take both quests: the chain goes on only when both are done. Everything past Honored happens in the {area:2717}, a raid of 40 that is not among the first raids Blizzard has announced for Forever; until it opens, Honored is as far as the Waterlords go. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
+	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. Everyone starts Neutral with the Waterlords, and nearly all of their reputation comes from killing the servants of fire, air and earth: the quests themselves pay nothing until the last one. Take both quests: the chain goes on only when both are done. Everything past Honored happens in the {area:2717}, a raid of 40 that is not among the first raids Blizzard has announced for Forever; until it opens, Honored is as far as the Waterlords go. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{npc:13278}站在{zone:1447}東海岸外的一座小島上；游過去找他。所有人一開始與水元素領主都是中立，而他們的聲望幾乎全部來自擊殺火焰、空氣和土元素的僕從：任務本身直到最後一個都不給聲望。兩個任務都接：只有兩個都完成，任務鏈才會繼續。尊敬之後的一切都在{area:2717}中進行——那是一個40人團隊副本，並不在暴雪為 Forever 公佈的首批團隊副本之列；在它開放之前，水元素領主的聲望最多到尊敬。本篇攻略的數字不含傳承特長“外交家”，它最多可加10%。",
 
 	-- Step 2: Stormers and Rumblers
 	-- {area:2740} Crystal Vale · {zone:1451} Silithus
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler
-	["Dust Stormers and Desert Rumblers drift around the {area:2740} in the north-west of {zone:1451}. Each kill also pays 5 reputation while you are Neutral or Friendly, so stay if you mean to farm (next steps)."] = "",
+	["Dust Stormers and Desert Rumblers drift around the {area:2740} in the north-west of {zone:1451}. Each kill also pays 5 reputation while you are Neutral or Friendly, so stay if you mean to farm (next steps)."] = "塵暴元素和沙漠奔行者在{zone:1451}西北的{area:2740}一帶遊蕩。在中立或友善階段，每殺一個還給5點聲望，所以打算刷的話就留在這裡（見後續步驟）。",
 
 	-- Step 3: Poisoned Water
 	-- {item:17310} Aspect of Neptulon · {npc:8521} Blighted Horror · {npc:8522} Plague Monstrosity · {npc:13279} Discordant Surge · {item:17309} Discordant Bracers
-	["Use the {item:17310} on a {npc:8521} or a {npc:8522}: it turns into a {npc:13279}. Kill the surge and loot its {item:17309}. Twelve are needed, and the vial must still be in your bags at the turn-in."] = "",
+	["Use the {item:17310} on a {npc:8521} or a {npc:8522}: it turns into a {npc:13279}. Kill the surge and loot its {item:17309}. Twelve are needed, and the vial must still be in your bags at the turn-in."] = "對{npc:8521}或{npc:8522}使用{item:17310}：它會變成一個{npc:13279}。殺掉它並拾取它的{item:17309}。需要十二個，而且交任務時瓶子必須還在你的揹包裡。",
 	-- {item:17310} Aspect of Neptulon
-	["{item:17310}, on the poisoned elementals"] = "",
+	["{item:17310}, on the poisoned elementals"] = "{item:17310}，用在被汙染的元素生物上",
 
 	-- Step 4: Back to Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis
@@ -32,69 +32,69 @@ return {
 
 	-- Step 5: Eye of the Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths
-	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "",
+	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816}是{area:254}內黑石塔上層的首領：最多十人，需要有人帶著{item:12344}才能開門。他掉落“眼睛”，並且每次擊殺給50聲望，直到尊敬11,999/12,000。{area:1584}的{npc:9017}以同樣方式給15點。",
 	-- {quest:6821} Eye of the Emberseer
-	["{quest:6821}: raid of ten"] = "",
+	["{quest:6821}: raid of ten"] = "{quest:6821}：十人團隊副本",
 
 	-- Step 6: Attunement to the Core
 	-- {npc:14387} Lothos Riftwaker · {area:254} Blackrock Mountain · {area:2717} Molten Core · {item:18412} Core Fragment · {area:1584} Blackrock Depths
-	["{npc:14387} in {area:254} attunes you to the {area:2717}: bring him a {item:18412} from beside the {area:2717}'s portal at the bottom of {area:1584}. Once attuned, he can send you straight into the {area:2717}."] = "",
+	["{npc:14387} in {area:254} attunes you to the {area:2717}: bring him a {item:18412} from beside the {area:2717}'s portal at the bottom of {area:1584}. Once attuned, he can send you straight into the {area:2717}."] = "{area:254}的{npc:14387}能讓你與{area:2717}同調：給他帶一個{item:18412}，它就在{area:1584}底部{area:2717}傳送門旁。同調之後，他可以直接把你送進{area:2717}。",
 	-- {item:18412} Core Fragment · {area:1584} Blackrock Depths
-	["{item:18412}, at the portal in {area:1584}"] = "",
+	["{item:18412}, at the portal in {area:1584}"] = "{item:18412}，在{area:1584}的傳送門處",
 
 	-- Step 7: The Molten Core
 	-- {quest:6822} The Molten Core · {npc:11658} Molten Giant · {npc:11668} Firelord · {npc:11673} Ancient Core Hound · {npc:12101} Lava Surger · {npc:13278} Duke Hydraxis · {npc:11988} Golemagg the Incinerator · {npc:11502} Ragnaros
 	-- plural, as words: Firewalkers = {npc:11666} Firewalker · Flameguards = {npc:11667} Flameguard · Lava Elementals = {npc:12076} Lava Elemental · Lava Reavers = {npc:12100} Lava Reaver · Molten Destroyers = {npc:11659} Molten Destroyer · Firelords = {npc:11668} Firelord · Lava Surgers = {npc:12101} Lava Surger · Molten Giants = {npc:11658} Molten Giant · Ancient Core Hounds = {npc:11673} Ancient Core Hound
-	["{quest:6822} is a raid of 40. Kill one {npc:11658}, {npc:11668}, {npc:11673} and {npc:12101} for {npc:13278}. Every elemental there pays: Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash. The bosses pay 100 each ({npc:11988} 150, {npc:11502} 200)."] = "",
+	["{quest:6822} is a raid of 40. Kill one {npc:11658}, {npc:11668}, {npc:11673} and {npc:12101} for {npc:13278}. Every elemental there pays: Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash. The bosses pay 100 each ({npc:11988} 150, {npc:11502} 200)."] = "{quest:6822}是40人團隊副本。為{npc:13278}各殺一隻{npc:11658}、{npc:11668}、{npc:11673}和{npc:12101}。那裡每個元素生物都給聲望：火焰行者、烈焰守衛、熔岩元素、熔岩掠奪者和熔火摧毀者40點，火焰領主、熔岩奔騰者、熔火巨人和上古熔火犬20點，直到尊敬11,999/12,000；全清小怪約3,360點。首領各給100（{npc:11988}150，{npc:11502}200）。",
 	-- {npc:11658} Molten Giant
-	["{npc:11658}: raid of 40"] = "",
+	["{npc:11658}: raid of 40"] = "{npc:11658}：40人團隊副本",
 
 	-- Step 8: Elementals to Honored
-	["Elementals to Honored"] = "",
+	["Elementals to Honored"] = "元素生物到尊敬",
 	-- {quest:6823} Agent of Hydraxis · {area:2717} Molten Core · {npc:11744} Dust Stormer · {npc:11746} Desert Rumbler · {npc:7032} Greater Obsidian Elemental · {zone:1428} Burning Steppes · {npc:14478} Huricanian · {area:2740} Crystal Vale · {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9816} Pyroguard Emberseer
-	["Neutral to Honored is 9,000 reputation, and {quest:6823} asks for Honored. One {area:2717} clear pays about 4,000 of it. Without a raid it comes from the elementals: 5 per {npc:11744}, {npc:11746} or {npc:7032} (the {zone:1428}), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: {npc:14478}, a rare air elemental in the {area:2740} (25), or {npc:9017} at the {object:174825} in {area:1584} (15, a five-player dungeon). Those two and {npc:9816} keep paying through Honored as well."] = "",
+	["Neutral to Honored is 9,000 reputation, and {quest:6823} asks for Honored. One {area:2717} clear pays about 4,000 of it. Without a raid it comes from the elementals: 5 per {npc:11744}, {npc:11746} or {npc:7032} (the {zone:1428}), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: {npc:14478}, a rare air elemental in the {area:2740} (25), or {npc:9017} at the {object:174825} in {area:1584} (15, a five-player dungeon). Those two and {npc:9816} keep paying through Honored as well."] = "中立到尊敬需要9,000聲望，而{quest:6823}要求尊敬。一次{area:2717}全清約給其中4,000。不組團的話就靠元素生物：{npc:11744}、{npc:11746}或{npc:7032}（{zone:1428}）每隻5點，從中立起約需1,800次擊殺。它們在友善5,999/6,000處停止，差一點，所以最後一點需要一次在那裡仍計數的擊殺：{area:2740}的稀有空氣元素{npc:14478}（25點），或{npc:9017}在{area:1584}的{object:174825}處（15點，五人地城）。後兩者和{npc:9816}在尊敬階段也繼續給聲望。",
 	-- {npc:14478} Huricanian
-	["{npc:14478}, rare, 25"] = "",
+	["{npc:14478}, rare, 25"] = "{npc:14478}，稀有，25",
 	-- {npc:9017} Lord Incendius · {area:1584} Blackrock Depths
-	["{npc:9017}, {area:1584}: 15, group up"] = "",
+	["{npc:9017}, {area:1584}: 15, group up"] = "{npc:9017}，{area:1584}：15點，組隊前往",
 
 	-- Step 9: Agent of Hydraxis
 	-- {npc:13278} Duke Hydraxis · {quest:6823} Agent of Hydraxis
-	["Back to {npc:13278}. {quest:6823} is done the moment you are Honored."] = "",
+	["Back to {npc:13278}. {quest:6823} is done the moment you are Honored."] = "回到{npc:13278}。一到尊敬，{quest:6823}就完成了。",
 
 	-- Step 10: Hands of the Enemy
 	-- {npc:12118} Lucifron · {npc:12259} Gehennas · {npc:12264} Shazzrah · {npc:12098} Sulfuron Harbinger · {area:2717} Molten Core
 	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}、{npc:12259}、{npc:12264}和{npc:12098}是{area:2717}的首領：每一個都會掉落任務要的手。",
 	-- {item:17332} Hand of Shazzrah
-	["{item:17332}: raid of 40"] = "",
+	["{item:17332}: raid of 40"] = "{item:17332}：40人團隊副本",
 
 	-- Step 11: A Hero's Reward
 	-- {object:179551} Hydraxis' Coffer · {item:17333} Aqual Quintessence · {area:2717} Molten Core · {npc:12018} Majordomo Executus · {npc:11502} Ragnaros
-	["Hand in the hands, then dive under the surf at the southern foot of the island: {object:179551} holds your ring and pays the only quest reputation the Waterlords give, 200. From now on, while you are Honored or better, the Duke hands you {item:17333}: pour it on a rune in the {area:2717} to douse it. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "",
+	["Hand in the hands, then dive under the surf at the southern foot of the island: {object:179551} holds your ring and pays the only quest reputation the Waterlords give, 200. From now on, while you are Honored or better, the Duke hands you {item:17333}: pour it on a rune in the {area:2717} to douse it. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "交掉那些首領之手，然後潛入島南端腳下的海浪下：{object:179551}裡放著你的戒指，並給出水元素領主唯一的任務聲望，200點。從此以後，只要你達到尊敬或更高，公爵就會給你{item:17333}：把它澆在{area:2717}的符文上將其熄滅。所有符文都熄滅後，{npc:12018}會出現，之後是{npc:11502}。",
 	-- {item:17333} Aqual Quintessence
-	["{item:17333}, ask the Duke"] = "",
+	["{item:17333}, ask the Duke"] = "{item:17333}，向公爵索要",
 
 	-- Step 12: Molten Core to Revered
 	-- {area:2717} Molten Core
-	["{area:2717} to Revered"] = "",
+	["{area:2717} to Revered"] = "{area:2717}到崇敬",
 	-- {npc:11988} Golemagg the Incinerator · {npc:11502} Ragnaros · {npc:9017} Lord Incendius · {npc:9816} Pyroguard Emberseer
-	["Honored to Revered is 12,000 reputation. The trash still counts, so a full clear pays about 3,360 plus 700 from the seven bosses, 150 from {npc:11988} and 200 from {npc:11502}: about three clears. {npc:9017} (15) and {npc:9816} (50) count too while you are Honored. The trash stops at 11,999 of 12,000 Honored; the bosses carry you over."] = "",
+	["Honored to Revered is 12,000 reputation. The trash still counts, so a full clear pays about 3,360 plus 700 from the seven bosses, 150 from {npc:11988} and 200 from {npc:11502}: about three clears. {npc:9017} (15) and {npc:9816} (50) count too while you are Honored. The trash stops at 11,999 of 12,000 Honored; the bosses carry you over."] = "尊敬到崇敬需要12,000聲望。小怪仍然計數，所以一次全清約給3,360，加上七個首領的700、{npc:11988}的150和{npc:11502}的200：大約三次全清。處於尊敬階段時，{npc:9017}（15）和{npc:9816}（50）也計數。小怪在尊敬11,999/12,000處停止；靠首領把你帶過去。",
 	-- {npc:12118} Lucifron
-	["{npc:12118} and the other bosses, 100: they carry you past 11,999"] = "",
+	["{npc:12118} and the other bosses, 100: they carry you past 11,999"] = "{npc:12118}和其他首領，100：他們把你帶過11,999",
 
 	-- Step 13: The Eternal Quintessence
 	-- {item:22754} Eternal Quintessence
-	["The {item:22754}"] = "",
+	["The {item:22754}"] = "{item:22754}",
 	-- {item:22754} Eternal Quintessence · {item:17333} Aqual Quintessence
-	["At Revered the Duke gives you the {item:22754}: it does the {item:17333}'s work and is not used up, so you never come back for another vial."] = "",
+	["At Revered the Duke gives you the {item:22754}: it does the {item:17333}'s work and is not used up, so you never come back for another vial."] = "崇敬時公爵會給你{item:22754}：它能起到{item:17333}的作用，而且不會消耗，所以你不用再回來領新的瓶子。",
 	-- {item:22754} Eternal Quintessence
-	["{item:22754}, ask the Duke"] = "",
+	["{item:22754}, ask the Duke"] = "{item:22754}，向公爵索要",
 
 	-- Step 14: Molten Core to Exalted
 	-- {area:2717} Molten Core
-	["{area:2717} to Exalted"] = "",
+	["{area:2717} to Exalted"] = "{area:2717}到崇拜",
 	-- {npc:11988} Golemagg the Incinerator · {npc:11502} Ragnaros
-	["Revered to Exalted is 21,000 reputation. The trash has stopped, but all nine bosses still pay while you are Revered: 100 each from the seven, 150 from {npc:11988} and 200 from {npc:11502}, 1,050 a clear: about 20 clears. The seven stop at 20,999 of 21,000 Revered, so the last point comes from {npc:11988} or {npc:11502}, and from Exalted on only those two pay."] = "",
+	["Revered to Exalted is 21,000 reputation. The trash has stopped, but all nine bosses still pay while you are Revered: 100 each from the seven, 150 from {npc:11988} and 200 from {npc:11502}, 1,050 a clear: about 20 clears. The seven stop at 20,999 of 21,000 Revered, so the last point comes from {npc:11988} or {npc:11502}, and from Exalted on only those two pay."] = "崇敬到崇拜需要21,000聲望。小怪已不再計數，但在崇敬階段九個首領仍然給：七個各100，{npc:11988}給150，{npc:11502}給200，一次全清1,050：大約20次全清。那七個在崇敬20,999/21,000處停止，所以最後一點來自{npc:11988}或{npc:11502}；到崇拜之後只有這兩個還給。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both elementals roam north-western {zone:1451}; the Rumblers cluster a little further north."] = "這兩種元素都在{zone:1451}西北部遊蕩；沙漠奔行者聚集在稍微更北的地方。",

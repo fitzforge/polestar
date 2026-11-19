@@ -32402,13 +32402,6 @@
 				],
 				"english": "Grimlok"
 			},
-			"encounter:594": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
-			},
 			"encounter:595": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -34269,13 +34262,6 @@
 					"guides"
 				],
 				"english": "Polly"
-			},
-			"npc:7273": {
-				"reason": "same-as-english",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Gahz'rilla"
 			},
 			"npc:7311": {
 				"reason": "same-as-english",
@@ -36795,6 +36781,27 @@
 			}
 		},
 		"ruRU": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:255247": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Swarming Imp"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -37283,13 +37290,6 @@
 				],
 				"english": "Ravasaur Matriarch"
 			},
-			"npc:253370": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Place Explosives"
-			},
 			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
@@ -37304,6 +37304,13 @@
 				],
 				"english": "Woodwyrd"
 			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [
@@ -37317,6 +37324,13 @@
 					"dungeons"
 				],
 				"english": "Blazeroar"
+			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
 			},
 			"npc:255997": {
 				"reason": "no-source",
@@ -37449,6 +37463,13 @@
 				],
 				"english": "Twilight Commander Zarmok"
 			},
+			"npc:259256": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tunk"
+			},
 			"npc:259620": {
 				"reason": "no-source",
 				"scenes": [
@@ -37485,6 +37506,13 @@
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -37628,19 +37656,26 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:265701": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Captain Truman"
-			},
-			"npc:266593": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Sergeant Danneth"
 			},
 			"npc:268423": {
 				"reason": "no-source",
@@ -37655,13 +37690,6 @@
 					"guides"
 				],
 				"english": "Eye of Kilrogg"
-			},
-			"npc:271293": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Twilight Thrall"
 			},
 			"npc:271336": {
 				"reason": "no-source",
@@ -37683,13 +37711,6 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
-			},
-			"npc:272737": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit"
 			},
 			"npc:277182": {
 				"reason": "same-as-english",
@@ -37790,6 +37811,13 @@
 				],
 				"english": "Molsen Farm Water Well"
 			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
+			},
 			"object:614679": {
 				"reason": "no-source",
 				"scenes": [
@@ -37826,12 +37854,26 @@
 				],
 				"english": "Fishing Trap"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -37955,6 +37997,20 @@
 			}
 		},
 		"zhCN": {
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -38255,13 +38311,6 @@
 					"dungeons"
 				],
 				"english": "Archmage Lan'dalock"
-			},
-			"npc:29049": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Arille Azuregaze"
 			},
 			"npc:31439": {
 				"reason": "no-source",
@@ -38789,13 +38838,6 @@
 				],
 				"english": "Fillion Flamebreeze"
 			},
-			"npc:253370": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Place Explosives"
-			},
 			"npc:253527": {
 				"reason": "no-source",
 				"scenes": [
@@ -38834,9 +38876,17 @@
 			"npc:255183": {
 				"reason": "no-source",
 				"scenes": [
-					"picker"
+					"picker",
+					"rares"
 				],
 				"english": "Jezerelle the Swaying"
+			},
+			"npc:255373": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Enchantress"
 			},
 			"npc:255391": {
 				"reason": "no-source",
@@ -38874,6 +38924,13 @@
 					"slash"
 				],
 				"english": "Slydris"
+			},
+			"npc:255995": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Strashaz Soldier"
 			},
 			"npc:255997": {
 				"reason": "no-source",
@@ -39153,6 +39210,13 @@
 				],
 				"english": "Denaaris Stargale"
 			},
+			"npc:259250": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Alphonse Dumas"
+			},
 			"npc:259385": {
 				"reason": "no-source",
 				"scenes": [
@@ -39234,12 +39298,26 @@
 				],
 				"english": "Captain Dreadrise"
 			},
+			"npc:260146": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
+			},
 			"npc:260243": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Min'loth the Serpent"
+			},
+			"npc:260271": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sully McCleary"
 			},
 			"npc:260353": {
 				"reason": "no-source",
@@ -39405,6 +39483,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264770": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
+			"npc:264845": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Mason Connery"
+			},
 			"npc:264936": {
 				"reason": "no-source",
 				"scenes": [
@@ -39440,13 +39532,6 @@
 					"guides"
 				],
 				"english": "Lord Tomas"
-			},
-			"npc:266593": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Sergeant Danneth"
 			},
 			"npc:266901": {
 				"reason": "no-source",
@@ -39573,13 +39658,6 @@
 				],
 				"english": "Eye of Kilrogg"
 			},
-			"npc:271293": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit: Twilight Thrall"
-			},
 			"npc:271322": {
 				"reason": "no-source",
 				"scenes": [
@@ -39663,13 +39741,6 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
-			},
-			"npc:272737": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "[DNT] Kill Credit"
 			},
 			"npc:273017": {
 				"reason": "no-source",
@@ -40007,6 +40078,13 @@
 				],
 				"english": "Flutterfly Dust"
 			},
+			"object:611086": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Connery's Trunk"
+			},
 			"object:613238": {
 				"reason": "no-source",
 				"scenes": [
@@ -40136,12 +40214,26 @@
 				],
 				"english": "Windstone Formation"
 			},
+			"objective:92753": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Explosives placed"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:94888": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Farholde Scouts rescued"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",

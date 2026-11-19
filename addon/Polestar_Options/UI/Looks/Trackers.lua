@@ -280,6 +280,7 @@ local function trackerBand(view, kinds, opts)
 		picker = { choices = choices, get = function() return pick end, set = function(v) pick = v end }
 	end
 	local panels = {}
+	local reserved = 0 -- the tallest pick shown so far (s:Content, with opts.pick)
 	local s
 	local fight = not opts.pick and TR.Get(first, "combat") and function()
 		local f = panels[first]
@@ -359,6 +360,14 @@ local function trackerBand(view, kinds, opts)
 			if it.label then out[#out + 1] = { it.label, total + it.w / 2 } end
 			total = total + it.w + (i < #items and UI.Preview.STATE_GAP or 0)
 			tall = max(tall, it.h)
+		end
+		-- Essentials picks one at a time, and the pointer on a row picks the
+		-- one its setting draws (s:Focus): the band keeps the height of the
+		-- tallest shown so far, so a shorter pick never pulls the rows up under
+		-- the pointer onto another row, which picks again (#2589).
+		if opts.pick then
+			reserved = max(reserved, tall)
+			tall = reserved
 		end
 		return total, tall, function(left, top, k)
 			local x = left

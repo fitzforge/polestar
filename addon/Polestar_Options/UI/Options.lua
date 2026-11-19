@@ -384,8 +384,8 @@ local BUILTIN = {
 			help = L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."],
 			search = "pause the guide, paused, map pins, minimap, world map", child = true },
 		{ kind = "toggle", key = "pause.automation", label = L["No quest automation while paused"],
-			help = L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."],
-			search = "pause the guide, paused, automation", child = true },
+			help = L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."],
+			search = "pause the guide, paused, automation, flight, taxi, flight master", child = true },
 		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
 			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
 	} },
@@ -809,6 +809,7 @@ local function buildAbout(view)
 		.. hex .. "/polestar next, prev, skip|r   " .. L["move through steps"] .. "\n"
 		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
+		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
@@ -824,6 +825,7 @@ local function buildAbout(view)
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
+		.. L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
 		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
@@ -3309,7 +3311,7 @@ local function profileMenu(button)
 	end
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
-	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4, current = true })
 end
 
 ---------------------------------------------------------------------------

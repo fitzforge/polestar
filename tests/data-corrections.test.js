@@ -311,6 +311,23 @@ test('Shadumbra has her whole path through Raynewood Retreat, not one spot at it
 	}
 });
 
+// Logan (#2672) and a Korean report (#1237): Nikova Raskol walks a loop through Old Town, and the Stockade's pick-up
+// guide pointed at one corner of it (76.4,63.7) while players met her anywhere on it. #2519: quest givers and enders
+// who walk a path of 140 yd or more in Forever's world database, have one spot in the data and no walk circle, and
+// whom 3 or more people met more than 25 yd from that spot in players' recordings, get points along their path.
+test('quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)', () => {
+	const nikova = corrections.npcs[1721]?.set?.spawns?.[1453];
+	assert.equal(nikova?.f, 'l', "Nikova's points are in the live frame, as her spot");
+	const pts = nikova?.pts || [];
+	assert.ok(pts.some(([x, y]) => x > 76 && y > 63), 'the corner the guide pointed at stays one of them');
+	for (const [x, y, where] of [[73, 55, 'north end'], [76, 60, 'east side'], [71, 59, 'west side']]) {
+		assert.ok(pts.some(([px, py]) => Math.hypot(px - x, py - y) < 1.5), `her loop's ${where} (${x},${y}), where players met her`);
+	}
+	for (const [id, map, name] of [[1481, 1437, 'Bart Tidewater'], [1742, 1420, 'Deathguard Bartholomew'], [2616, 1445, 'Privateer Groy'], [3140, 1411, 'Lar Prowltusk'], [5639, 1454, 'Craven Drok']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[map]?.pts || []).length >= 3, `${name}: points along the path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
@@ -324,6 +341,24 @@ test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in 
 	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
 	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
 	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
+});
+
+// Kaxe (#2774): Aza'bek, who sells the Soothing Spices for "Swamp Eye" Jarl, stands still at the Crossroads (one TDB
+// spawn, no path), and 56 people opened the vendor window there. The merged data had five points over about 220 yd, and the
+// Horde Dustwallow Marsh guide's `buy 3713 nearest` pointed at one of them, 64 yd from the vendor.
+test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)', () => {
+	assert.deepEqual(corrections.npcs[248198]?.set?.spawns, {
+		1413: { f: 'e', pts: [[49.74, 29.35]] },
+	});
+});
+
+// Logan (#2851): Veyric Thunderhame, who takes Call of Air (94789), stands only in Arathi Highlands (12 people opened his
+// window at 59.8,27.6, none met him in Ironforge). The merged data also gave him Eldrun Stormbreaker's Ironforge spot, so
+// While you're here offered the hand-in beside Eldrun.
+test('Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker\'s spot (#2851)', () => {
+	assert.deepEqual(corrections.npcs[259023]?.set?.spawns, {
+		1417: { f: 'l', pts: [[59.72, 27.59]] },
+	});
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -364,6 +399,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
 	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
+});
+
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by

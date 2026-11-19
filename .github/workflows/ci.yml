@@ -1,9 +1,12 @@
 name: CI
 
+# merge_group: the merge queue's run on a group of pull requests on top of next
+# (docs/CI.md, "Merge queue"); Tests is a check next requires.
 on:
   push:
     branches: [main, next]
   pull_request:
+  merge_group:
 
 permissions:
   contents: read
@@ -31,7 +34,8 @@ jobs:
       POLESTAR_TIMING_BUDGETS: warn
     steps:
       # Two commits: a pull request's merge commit and the base it merges into,
-      # whose difference is what the pull request changes.
+      # whose difference is what the pull request changes. A merge group's base
+      # (next's tip) is fetched on its own.
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
@@ -48,10 +52,15 @@ jobs:
         shell: bash
         env:
           EVENT: ${{ github.event_name }}
+          GROUP_BASE: ${{ github.event.merge_group.base_sha }}
         run: |
-          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base"
-          if [ "$EVENT" = pull_request ] && git diff --no-renames --name-only HEAD^1 HEAD > "$changed" \
-            && git worktree add --detach --quiet "$base" HEAD^1 && [ -f "$base/tools/ci-lane.js" ]; then
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          case "$EVENT" in
+            pull_request) from=$(git rev-parse HEAD^1) || from= ;;
+            merge_group) git fetch --no-tags --quiet --depth=1 origin "$GROUP_BASE" && from=$GROUP_BASE ;;
+          esac
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
             node "$base/tools/ci-lane.js" --github --files "$changed"
           else
             echo "lane=full" >> "$GITHUB_OUTPUT"

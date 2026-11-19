@@ -178,6 +178,161 @@ test('a carried quest\'s camp passed on the way is a While-here line and deferre
 	assert.deepEqual(walk(3, 2), [1, 1], 'the spot\'s own level counts: 1 over');
 });
 
+// --level-offset: a character always D levels ahead of the modelled one (level 1 here, as no XP is earned before the
+// gated step). It plays a `when level>=2` step the modelled character skips, a level goal it already meets costs
+// nothing (one it falls short of is ground from its own level), the While-here mob gate reads its level, and the
+// levels reported stay modelled.
+test('with a level offset the walk decides at the character\'s level: `when level`, level goals and the While-here mob gate', (t) => {
+	const dir = dataDir(t);
+	const data = loadData(dir);
+	const g = guide('test/l', [
+		[goto_(10, 10)],
+		{ when: [{ k: 'level', op: '>=', n: 2 }], goals: [goto_(10.01, 10)] },
+		[{ t: 'level', level: 3, ...at(10, 10) }],
+	], { races: ['Orc'] });
+	const walk = (levelOffset) => new Walk({ chain: ['test/l'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data, levelOffset });
+	const [w0, w1, w2] = [walk(0), walk(1), walk(2)];
+	assert.deepEqual([...new Set(w0.entries.map((e) => e.step))], [1, 3], 'level 1: the gated step is skipped');
+	assert.deepEqual([...new Set(w1.entries.map((e) => e.step))], [1, 2, 3], 'one ahead (level 2): it is played');
+	assert.deepEqual([...new Set(walk(0.5).entries.map((e) => e.step))], [1, 3], 'half a level ahead is still level 1');
+	assert.equal(w0.entries[0].level, w1.entries[0].level, 'the levels reported are the modelled ones');
+	assert.ok(w0.endT > w1.endT && w1.endT > w2.endT, `the ding costs less the further ahead (${w0.endT}, ${w1.endT}, ${w2.endT})`);
+	assert.ok(w2.endT < 5, `level 3 already: the ding costs nothing, only the 20 yd walk (${w2.endT})`);
+	assert.equal(pyRound(w1.endLevel, 2), 2, 'one ahead dings 3 at modelled 2');
+	const res = runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0, levelOffset: 1 });
+	assert.equal(res.level_offset, 1);
+	assert.throws(() => compare(runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0 }), res), /different level offsets/);
+	// boars 2 over the modelled level: left for the route, but taken on the way by a character one ahead
+	const boars = { ...kill(1, 10.25, 10.01), lvl: 3 };
+	const m = guide('test/m', [[accept(1, 1, 10, 10)], [goto_(11, 10)], [goto_(10, 10)], [boars], [turnin(1, 1, 10, 10)]], { races: ['Orc'] });
+	const dyn = (levelOffset) => new Walk({ chain: ['test/m'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[m.id, m]]), legs: {}, data, dyn: '037', levelOffset }).dynMoves.length;
+	assert.deepEqual([dyn(0), dyn(1)], [0, 1]);
+});
+
+// Own.predicateHolds: `when level>=2.5` (compiled n 2, frac 0.5) reads the level with the share of it done; a
+// whole-level condition reads the whole level (`when level<=2` holds at 2.4).
+test('a `when level` with a point inside a level reads the share of the level done; a whole-level one the whole level', (t) => {
+	const data = loadData(dataDir(t));
+	const steps = (frac) => {
+		const g = guide('test/p', [
+			[{ t: 'level', level: 2, frac, ...at(10, 10) }],
+			{ when: [{ k: 'level', op: '>=', n: 2, frac: 0.5 }], goals: [goto_(10.01, 10)] },
+			{ when: [{ k: 'level', op: '<=', n: 2 }], goals: [goto_(10.02, 10)] },
+		], { races: ['Orc'] });
+		return [...new Set(new Walk({ chain: ['test/p'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data }).entries.map((e) => e.step))];
+	};
+	assert.deepEqual(steps(0.4), [1, 3], 'at 2.4: not 2.5 yet, and still level 2');
+	assert.deepEqual(steps(0.6), [1, 2, 3], 'at 2.6: past 2.5');
+});
+
+// A quest the route gives twice (an early step for a character already at its level, the later visit for everyone):
+// done on the early one, the later visit's accept, work and hand-in read done, as the Engine reads them; the walk
+// neither walks to its NPC again nor counts its XP twice.
+test('a quest handed in on an earlier step is not handed in again on a later one', (t) => {
+	const data = loadData(dataDir(t));
+	const g = guide('test/twice', [
+		[accept(1, 10, 10.0, 10.0), kill(1, 10.1, 10.0), turnin(1, 10, 10.0, 10.0)],
+		[goto_(30.0, 30.0)],
+		[accept(1, 10, 10.0, 10.0), kill(1, 10.1, 10.0), turnin(1, 10, 10.0, 10.0)],
+	], { races: ['Orc'] });
+	const w = new Walk({ chain: ['test/twice'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data });
+	assert.deepEqual(w.entries.filter((e) => e.goal.t === 'turnin').map((e) => e.step), [1], 'one hand-in, on the first step');
+	assert.ok(!w.entries.some((e) => e.step === 3), 'nothing left to do on the later step');
+});
+
+// `when complete <quest>` (the Engine: IsQuestReadyForTurnIn) holds only once the quest's work is done: taken but
+// not worked (its work step held back by a level), the hand-in step is not played and the quest stays in the log.
+test('a `when complete` step plays only once the quest\'s work is done', (t) => {
+	const data = loadData(dataDir(t));
+	const play = (workLevel) => {
+		const g = guide('test/ready', [
+			[accept(1, 10, 10.0, 10.0)],
+			{ when: [{ k: 'onquest', q: [1] }, { k: 'level', op: '>=', n: workLevel }], goals: [kill(1, 10.1, 10.0)] },
+			{ when: [{ k: 'complete', q: 1 }], goals: [turnin(1, 10, 10.0, 10.0)] },
+		], { races: ['Orc'] });
+		const w = new Walk({ chain: ['test/ready'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data });
+		return [...new Set(w.entries.map((e) => e.step))];
+	};
+	assert.deepEqual(play(1), [1, 2, 3], 'worked, then handed in');
+	assert.deepEqual(play(5), [1], 'not worked: not handed in either');
+});
+
+// --level-offset-profile: the offset by modelled level, linear between the profile's points; the gate refuses two
+// audits of different profiles.
+test('a level offset profile reads the offset at the modelled level, linear between its points', (t) => {
+	const dir = dataDir(t);
+	const data = loadData(dir);
+	const g = guide('test/l', [[goto_(10, 10)], { when: [{ k: 'level', op: '>=', n: 2 }], goals: [goto_(10.01, 10)] }], { races: ['Orc'] });
+	const walk = (levelOffset) => new Walk({ chain: ['test/l'], race: 'Orc', cls: 'WARRIOR', guides: new Map([[g.id, g]]), legs: {}, data, levelOffset });
+	const w = walk([[1, 1], [11, 0]]);
+	assert.deepEqual([w.offsetAt(0.5), w.offsetAt(6), w.offsetAt(20)], [1, 0.5, 0]);
+	assert.deepEqual([...new Set(w.entries.map((e) => e.step))], [1, 2], 'one ahead at level 1');
+	assert.deepEqual([...new Set(walk([[1, 0.5], [11, 0]]).entries.map((e) => e.step))], [1], 'half a level ahead');
+	const run = (levelOffset) => runAudit({ guides: [g], legs: {} }, dir, { dynamic: null, longFly: 0, levelOffset });
+	assert.deepEqual(run([[1, 1]]).level_offset, [[1, 1]]);
+	assert.throws(() => compare(run([[1, 1]]), run([[1, 2]])), /different level offsets/);
+});
+
+// --dynamic 042: the While-here lines of 037 plus the addon's pick-ups (Own.hereFits "take", Own.aheadWants) and
+// stranded hand-ins (Own.hereStranded). A dynamic walk over a chain; its While-here moves as [verb, quest, the guide of
+// the step it came from, the guide the walk was in, the kind of pick-up or hand-in].
+function dynWalk(data, guides, dyn) {
+	const G = new Map(guides.map((g) => [g.id, g]));
+	const w = new Walk({ chain: guides.map((g) => g.id), race: 'Orc', cls: 'WARRIOR', guides: G, legs: {}, data, dyn });
+	return [w, w.dynMoves.map((m) => [m.t, m.quest, m.gid, m.at_gid, m.kind || null])];
+}
+
+// Giver 2 stands on the walk east for quest 1; the route takes quest 2 only after a trip north. Its boars are 2 levels
+// over the character: the addon still offers the pick-up (quest level rule only), and the work waits for the route.
+test('dynamic 042: a later step\'s accept whose giver the walk passes is a pick-up line', (t) => {
+	const data = loadData(dataDir(t));
+	const g = [guide('test/p', [
+		[accept(1, 1, 10, 10)],
+		[kill(1, 11, 10)],
+		[turnin(1, 1, 10, 10)],
+		[goto_(10, 12)],
+		[accept(2, 2, 10.3, 10.002)],
+		[{ ...kill(2, 10.6, 10.01), lvl: 3 }],
+		[turnin(2, 2, 10.3, 10.002)],
+	], { races: ['Orc'] })];
+	assert.deepEqual(dynWalk(data, g, '037')[1], [], '037: While-here never offers an accept');
+	const [w, moves] = dynWalk(data, g, '042');
+	assert.deepEqual(moves.map(([t, q, , , kind]) => [t, q, kind]), [['accept', 2, 'take']]);
+	assert.ok(!w.entries.some((e) => e.step === 5), 'the later accept reads done');
+	assert.ok(w.entries.some((e) => e.step === 6 && e.goal.t === 'kill'), 'the boars wait for the route');
+});
+
+test('dynamic 042: a later step\'s accept at an NPC whose window the route opens is taken there', (t) => {
+	const data = loadData(dataDir(t));
+	const g = [guide('test/n', [[accept(1, 1, 10, 10)], [goto_(13, 10)], [accept(4, 1, 10, 10)]], { races: ['Orc'] })];
+	assert.deepEqual(dynWalk(data, g, '037')[1], []);
+	const [w, moves] = dynWalk(data, g, '042');
+	assert.deepEqual(moves, [['accept', 4, 'test/n', 'test/n', 'window']]);
+	assert.ok(!w.entries.some((e) => e.step === 3), 'no walk back for it');
+});
+
+// Quest 1 is ready and only the next guide hands it in, after a trip north; its ender stands on this guide's walk east.
+test('dynamic 042: a ready quest only a later guide hands in is handed in where the walk passes its ender', (t) => {
+	const data = loadData(dataDir(t));
+	const guides = [
+		guide('test/a', [[accept(1, 1, 10, 10)], [kill(1, 10.2, 10)], [goto_(11, 10)]], { races: ['Orc'], next: 'test/b' }),
+		guide('test/b', [[goto_(10, 13)], [turnin(1, 5, 10.5, 10.002)]]),
+	];
+	assert.deepEqual(dynWalk(data, guides, '037')[1], []);
+	const [w, moves] = dynWalk(data, guides, '042');
+	assert.deepEqual(moves, [['turnin', 1, 'test/b', 'test/a', 'stranded']]);
+	assert.ok(!w.entries.some((e) => e.gid === 'test/b' && e.goal.t === 'turnin'), 'the later hand-in reads done');
+});
+
+test('the gate refuses two audits of different While-here versions', (t) => {
+	const dir = dataDir(t);
+	const run = (dynamic) => runAudit({ guides: chainGuides(), legs: {} }, dir, { dynamic, longFly: 0 });
+	assert.equal(run('042').dynamic, '042');
+	assert.throws(() => compare(run('037'), run('042')), /different While-here versions/);
+	assert.throws(() => compare(run(null), run('037')), /different While-here versions/);
+	assert.deepEqual(compare(run('042'), run('042')).fail, []);
+});
+
 test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [

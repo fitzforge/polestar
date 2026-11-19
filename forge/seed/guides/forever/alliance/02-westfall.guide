@@ -71,7 +71,7 @@ step A half-eaten body
   only Dwarf,Gnome
   zone Elwynn Forest
   tip It lies by the river north-west of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
 
 step Stone Cairn Lake
@@ -491,9 +491,14 @@ step Woo Ping
   train 11867                         -- Woo Ping
 
 step Fishin' Time
+  when !zone "Darkshore"
   tip Catherine Leland sells fishing supplies along the canal just west of the Trade District; Gilbert Gray fishes at the harbor, on the way to the boat.
   buy 6529 x1 npc 5494                        -- Shiny Bauble, from Catherine Leland
   buy 6530 x3 npc 5494                        -- Nightcrawlers
   accept 95065                                -- Gilbert Gray
   turnin 95065
+
+step Boat to Auberdine
+  when !zone "Darkshore"
+  zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live

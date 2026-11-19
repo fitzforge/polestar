@@ -149,6 +149,10 @@ pub struct Inputs {
 	/// `useItem` on the Codex objective (merge.rs `use_item_on`). Null when the file is absent,
 	/// which leaves every objective as it was.
 	pub mechanics: V,
+	/// data/mechanics-public.json (optional): our own public words on how a quest is done. Its steps'
+	/// facts become the quest's `how`, which Lookup's quest steps show (merge.rs `public_how`, #2714).
+	/// Only this file: the merged mechanics.json also holds private layers' text, which never ships.
+	pub mechanics_public: V,
 	pub warnings: Vec<String>,
 }
 
@@ -520,6 +524,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		journal_quests,
 		store_xp: journal::load_store_xp(&opts.root.join("forever-db"))?,
 		mechanics: j("mechanics.json", true)?,
+		mechanics_public: read_json(&opts.root.join("data").join("mechanics-public.json"), true, &opts.cwd)?,
 		warnings,
 	})
 }

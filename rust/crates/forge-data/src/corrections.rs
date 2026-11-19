@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 24] = [
+const QUEST_FIELDS: [&str; 25] = [
 	"title",
 	"level",
 	"minLevel",
@@ -545,6 +545,8 @@ const QUEST_FIELDS: [&str; 24] = [
 	"zone",
 	"xp",
 	"skill",
+	// The profession rank it needs (the Codex's `l<line>,<rank>`: Lookup's pick-up guides check it, #2752).
+	"skillLevel",
 	"event",
 	"escort",
 	// Handed in on the spot from the giver's window, never in the log (the server's QuestType 0).
@@ -844,7 +846,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 		for (k, v) in set.entries() {
 			let a = format!("{at}.set.{k}");
 			match &*k {
-				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "event" | "limit" => {
+				"races" | "classes" | "xp" | "level" | "minLevel" | "zone" | "skill" | "skillLevel" | "event" | "limit" => {
 					if !(v.is_nullish() || v.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
 						ck.err(&a, format!("{} must be a whole number or null", show(&v)));
 					}
@@ -1211,7 +1213,7 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 }
 
 fn check_overrides(ck: &mut Ck, o: &V) {
-	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs"]);
+	ck.keys("", o, &["about", "_about", "include", "skip", "revert", "pairs", "leftout"]);
 	let step = |ck: &mut Ck, a: &str, s: &V, task: bool| {
 		let ok = s.is_arr() && (s.len() == 2 || (task && s.len() == 3)) && matches!(s.items()[0].as_str(), Some("accept" | "task" | "turnin"));
 		if !ok {
@@ -1295,6 +1297,28 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 		if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
 			ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
 		}
+	}
+	// Second-visit accepts left out on purpose (forge guide lint, forge-guide revisit.rs): {q, guide, reason, issue}.
+	let leftout = o.get("leftout");
+	if !leftout.is_undef() && !leftout.is_arr() {
+		ck.err("leftout", "must be a list");
+	}
+	let mut named: Vec<(String, String)> = Vec::new();
+	for (i, e) in leftout.items().iter().enumerate() {
+		let a = format!("leftout[{i}]");
+		ck.keys(&a, e, &["q", "guide", "reason", "issue"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		if !has_text(&e.get("guide")) {
+			ck.err(format!("{a}.guide"), "guide is required: the id of the guide whose accept stays out");
+		}
+		if !has_text(&e.get("reason")) {
+			ck.err(format!("{a}.reason"), "reason is required: why the guide does not bring the prerequisite back");
+		}
+		let k = (e.get("guide").to_js_string(), num_str(e.get("q").num()));
+		if named.contains(&k) {
+			ck.warn(&a, format!("quest {} in \"{}\" is already in leftout", k.1, k.0));
+		}
+		named.push(k);
 	}
 }
 
@@ -1945,6 +1969,84 @@ pub fn overlay(public: &V, private: &V) -> V {
 	out
 }
 
+/// Where one corrected field's value comes from (the knowledge base's `correction_origin` table).
+/// The KB labels every corrected field `correction`, whether the public corrections or the
+/// maintainer's private overlay set it; the public tier (the data pack's KB, `forge data publish`)
+/// keeps only the public ones.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Origin {
+	/// The KB kind: quest, npc, object, item, or mechanic (a quest's mechanics fixes, `field` `*`).
+	pub kind: &'static str,
+	pub id: i64,
+	/// The KB's field name (min_level, prereqs, npc_level, subname, spawns, ...).
+	pub field: String,
+	/// The private overlay sets it (its value, or part of it, comes from there).
+	pub private: bool,
+	/// The public entry's `source` kinds (empty for a private one).
+	pub kinds: Vec<String>,
+}
+
+/// The KB's field for a correction key of `section`.
+fn kb_field(section: &str, key: &str) -> String {
+	match (section, key) {
+		(_, "addSpawns") => "spawns",
+		("quests", "minLevel") => "min_level",
+		("quests", "pre" | "preAny" | "preAll") => "prereqs",
+		("npcs", "level") => "npc_level",
+		("npcs", "subName") => "subname",
+		_ => key,
+	}
+	.to_string()
+}
+
+/// A section's entries, a mechanics section's nested `quests` flattened in.
+fn section_entries(c: &V, section: &str) -> Vec<(String, V)> {
+	let ids = c.get(section);
+	let mut out: Vec<(String, V)> = ids.entries().into_iter().filter(|(k, _)| !k.starts_with('_') && !(section == "mechanics" && &**k == "quests")).map(|(k, v)| (k.to_string(), v)).collect();
+	if section == "mechanics" {
+		out.extend(ids.get("quests").entries().into_iter().map(|(k, v)| (k.to_string(), v)));
+	}
+	out
+}
+
+/// The fields an entry corrects, as KB field names.
+fn entry_fields(section: &str, e: &V) -> Vec<String> {
+	if section == "mechanics" {
+		return vec!["*".into()];
+	}
+	let mut f: Vec<String> = e.get("set").keys().iter().map(|k| kb_field(section, k)).collect();
+	if e.get("addSpawns").truthy() {
+		f.push("spawns".into());
+	}
+	f.dedup();
+	f
+}
+
+/// The origin of every corrected field: `public` is the repository's corrections, `private` the
+/// maintainer's overlay (`V::Null` when there is none). A field both set is private: the overlay
+/// goes over the public value.
+pub fn origins(public: &V, private: &V) -> Vec<Origin> {
+	let mut out: indexmap::IndexMap<(&'static str, i64, String), Origin> = indexmap::IndexMap::new();
+	for (section, kind) in [("quests", "quest"), ("npcs", "npc"), ("objects", "object"), ("items", "item"), ("mechanics", "mechanic")] {
+		for (c, private) in [(public, false), (private, true)] {
+			for (id, e) in section_entries(c, section) {
+				let Ok(n) = id.parse::<i64>() else { continue };
+				let src = e.get("source");
+				let kinds: Vec<String> = if private {
+					Vec::new()
+				} else {
+					let list = if src.is_arr() { src.items() } else { vec![src] };
+					list.iter().filter_map(|s| s.get("kind").as_str().map(str::to_string)).collect()
+				};
+				for field in entry_fields(section, &e) {
+					out.insert((kind, n, field.clone()), Origin { kind, id: n, field, private, kinds: kinds.clone() });
+				}
+			}
+		}
+	}
+	out.into_values().collect()
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -2083,6 +2185,14 @@ mod tests {
 		let src = r#""source": { "kind": "questie", "ref": "objective text" }, "note": "ten minutes""#;
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	#[test]
+	fn a_profession_rank_is_a_whole_number_2752() {
+		let src = r#""source": { "kind": "tdb", "ref": "quest_template_addon" }, "note": "the lower rank""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": 200 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "skillLevel": "200" }}, {src} }}, "11": {{ "set": {{ "skillLevel": 2.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
 	}
 
@@ -2393,6 +2503,20 @@ mod tests {
 	}
 
 	#[test]
+	fn a_leftout_record_names_the_quest_the_guide_and_why() {
+		let o = r##"{ "overrides": { "leftout": [{ "q": 10, "guide": "forever/horde/x", "reason": "slow", "issue": "#2635" }, { "q": 5, "reason": "" },
+			{ "q": 10, "guide": "forever/horde/x", "reason": "again" }, { "q": 10, "guide": "forever/horde/y", "reason": "r", "why": "x" }] } }"##;
+		let f = findings(None, None, Some(o));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		assert!(!has("leftout[0]"), "a full record is fine: {f:#?}");
+		assert!(has("overrides.leftout[1].q: no quest 5 in the data"), "{f:#?}");
+		assert!(has("overrides.leftout[1].guide: guide is required"), "{f:#?}");
+		assert!(has("overrides.leftout[1].reason: reason is required"), "{f:#?}");
+		assert!(has("warning o overrides.leftout[2]: quest 10 in \"forever/horde/x\" is already in leftout"), "{f:#?}");
+		assert!(has("overrides.leftout[3]"), "an unknown key: {f:#?}");
+	}
+
+	#[test]
 	fn a_skip_or_an_override_pair_may_hold_for_one_side() {
 		// (c18: Silver Heart is skipped on the Horde's routes only; Donova's New Springs waits for the
 		// Horde's last Felwood leg.)
@@ -2438,5 +2562,32 @@ mod tests {
 		assert_eq!(m.get("603").get("params").items()[0].get("sec").num(), 5.0);
 		assert_eq!(m.get("1064").get("note").as_str(), Some("flat"));
 		assert!(m.get("quests").is_undef(), "the nesting key is not an id");
+	}
+
+	#[test]
+	fn origins_tell_the_private_overlay_from_the_public_corrections() {
+		let public = parse_json(
+			r##"{ "quests": { "10": { "set": { "minLevel": 5, "end": { "npc": [] } }, "source": [{ "kind": "recording", "ref": "#1" }, { "kind": "page", "ref": "x" }] } },
+			"npcs": { "20": { "set": { "level": 30 }, "addSpawns": { "1": {} }, "source": { "kind": "tdb", "ref": "y" } } },
+			"mechanics": { "114": { "params": [], "source": { "kind": "in-game-check", "ref": "#613" } } } }"##,
+		)
+		.unwrap();
+		let private =
+			parse_json(r#"{ "quests": { "10": { "set": { "end": { "object": [5] } } }, "11": { "set": { "pre": [9] } } }, "mechanics": { "quests": { "603": { "params": [] } } } }"#).unwrap();
+		let got: Vec<(&str, i64, String, bool, Vec<String>)> = origins(&public, &private).into_iter().map(|o| (o.kind, o.id, o.field, o.private, o.kinds)).collect();
+		let k = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+		assert_eq!(
+			got,
+			vec![
+				("quest", 10, "min_level".into(), false, k(&["recording", "page"])),
+				("quest", 10, "end".into(), true, vec![]),
+				("quest", 11, "prereqs".into(), true, vec![]),
+				("npc", 20, "npc_level".into(), false, k(&["tdb"])),
+				("npc", 20, "spawns".into(), false, k(&["tdb"])),
+				("mechanic", 114, "*".into(), false, k(&["in-game-check"])),
+				("mechanic", 603, "*".into(), true, vec![]),
+			]
+		);
+		assert!(origins(&public, &V::Null).iter().all(|o| !o.private));
 	}
 }

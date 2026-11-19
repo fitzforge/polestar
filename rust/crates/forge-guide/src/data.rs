@@ -120,6 +120,9 @@ pub struct Data {
 	/// id -> { name, floor }, the level a dungeon's run in the route starts at (forge-data journal.rs
 	/// `levels_of`), or Null without a built Codex (`dungeon_floors_of`).
 	pub dungeon_floors: V,
+	/// data/lint-allow.json's `allow` (beside the data folder: its parent's lint-allow.json), or Null: the steps a
+	/// play check flags that are right, each with its rule, guide, subject and reason (validate.rs `Allow`).
+	pub lint_allow: V,
 	pub professions: FxHashMap<i64, V>,
 	pub profession_by_name: FxHashMap<String, V>,
 	pub recipe_by_spell: FxHashMap<i64, V>,
@@ -175,6 +178,7 @@ impl Data {
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
 			dungeon_floors: V::Null,
+			lint_allow: V::Null,
 			professions: FxHashMap::default(),
 			profession_by_name: FxHashMap::default(),
 			recipe_by_spell: FxHashMap::default(),
@@ -591,6 +595,9 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	}
 	if let Some(doc) = read(dir.join("codex").join("journal.json"))? {
 		data.dungeon_floors = dungeon_floors_of(&doc);
+	}
+	if let Some(doc) = read(beside.join("lint-allow.json"))? {
+		data.lint_allow = doc.get("allow");
 	}
 	Ok(data)
 }

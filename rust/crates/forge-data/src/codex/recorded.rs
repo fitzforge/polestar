@@ -21,7 +21,8 @@
 //!   windows), and `trusted` when `minVoters` people saw it, a vouched one did, or a trusted chance
 //!   backs it. The Recorder's kills are no samples: they include deaths the player only saw. NPC
 //!   loot from a gathering skill (skinning, herbs, ore) is
-//!   left out.
+//!   left out. An object whose loot windows `minVoters` people opened inside one instance, and
+//!   nobody out in the world, carries that instance's map (`instance`, #2883).
 //! - `vendors`: per NPC, each item its merchant window listed, with `voters` and `trusted`.
 //! - `rewards`: per quest, the reward items and choices its quest frames showed
 //!   ([`crate::recordings::observe_reward`] and [`crate::recordings::Ballot::decide`]: a turn-in
@@ -75,6 +76,10 @@ struct Loot {
 	windows: IndexMap<usize, f64>,
 	/// item -> person -> windows holding it.
 	items: BTreeMap<i64, IndexMap<usize, f64>>,
+	/// instance map -> people whose loot windows of this source opened inside it.
+	inside: BTreeMap<i64, BTreeSet<usize>>,
+	/// People with a loot window of this source out in the world (one with a position).
+	outside: BTreeSet<usize>,
 }
 
 /// What the snapshot gathers from the sessions that count, per person (an index into `people`).
@@ -164,6 +169,15 @@ impl Gather {
 						_ => continue,
 					};
 					let l = self.loot[k].entry(id).or_default();
+					match pos_int(&ev.get("inst")) {
+						Some(inst) => {
+							l.inside.entry(inst).or_default().insert(p);
+						}
+						None if ev.get("x").as_num().is_some() => {
+							l.outside.insert(p);
+						}
+						None => {}
+					}
 					*l.windows.entry(p).or_insert(0.0) += 1.0;
 					let seen: IndexSet<i64> = ev.get("items").items().iter().filter_map(|i| pos_int(&i.get("item"))).collect();
 					self.quest_loot.window(k, id, p, &ev, &seen);
@@ -226,6 +240,14 @@ impl Gather {
 				let src = Obj::new();
 				src.set("windows", l.windows.values().sum::<f64>() as usize);
 				src.set("items", V::Obj(its));
+				// An object players loot only inside one instance, on trusted evidence (#2883: the Vial of
+				// Earth Song Water's container in Maraudon, an object no other source has): that instance's map.
+				if k == 1 && l.outside.is_empty() && l.inside.len() == 1 {
+					let (inst, by) = l.inside.iter().next().unwrap();
+					if backed(&self.people, by.iter(), min_voters) {
+						src.set("instance", *inst);
+					}
+				}
 				o.set(&id.to_string(), V::Obj(src));
 			}
 			out.set(kind, V::Obj(o));
@@ -610,7 +632,7 @@ mod tests {
 		}"#);
 		let (zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		let s = |v: &V| stringify(v, None);
 		for (npc, expected) in [("1501", 25.0), ("1502", 20.0)] {
@@ -692,7 +714,7 @@ mod tests {
 		}"#);
 		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		// Coyote Meat: 9 of 20 own windows. Large Candle: 6 of the 10 windows Kobold Candles was open for. Gold
 		// Dust: 4 of the 10 windows its objective was open for (the fast-looted candle's window held it too).
@@ -733,5 +755,24 @@ mod tests {
 		assert_eq!(s(&with.get("vendors")), r#"{"945":{"2130":{"voters":2,"trusted":false}}}"#);
 		assert_eq!(s(&with.get("meta")), r#"{"sessions":4,"counted":3,"voters":2,"excluded":1,"verdicts":"2026-11-11-2300","minVoters":3,"minWindows":10,"through":1794000000}"#);
 		std::fs::remove_dir_all(&tmp).unwrap();
+	}
+
+	#[test]
+	fn an_object_looted_only_inside_one_instance_by_enough_people_carries_that_instance() {
+		// #2883: the Vial of Earth Song Water (258296) comes from an object inside Maraudon (map 349) that
+		// no other source has. Three people loot it there: the snapshot says so. Object 3001 is looted in
+		// Maraudon too, but also once out in the world: no instance. Object 3002, inside, by two people: not
+		// enough to say.
+		let vial = |o: i64| format!(r#"{{"e":"drop","object":{o},"inst":349,"items":[{{"item":258296,"count":1}}]}}"#);
+		let outdoors = r#"{"e":"drop","object":3001,"map":1443,"x":29.1,"y":62.3,"items":[]}"#;
+		let list = vec![
+			session("p1", true, &[vial(612179), vial(3001), vial(3002)].join(",")),
+			session("p2", true, &[vial(612179), vial(3001), vial(3002)].join(",")),
+			session("p3", true, &[vial(612179), vial(3001), outdoors.to_string()].join(",")),
+		];
+		let snap = snapshot(&Recordings { list, min_voters: 3 });
+		assert_eq!(snap.get("objects").get("612179").get("instance").as_num(), Some(349.0));
+		assert!(snap.get("objects").get("3001").get("instance").is_undef(), "looted out in the world too");
+		assert!(snap.get("objects").get("3002").get("instance").is_undef(), "two people are not enough");
 	}
 }

@@ -27,7 +27,7 @@ return {
 	-- {area:3137} Talrendis Point
 	["Fly to {area:3137}"] = "Летите сюда: {area:3137}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 3: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -83,20 +83,20 @@ return {
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
 	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}, под землей",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, под землей",
 	-- {npc:9861} Moora
-	["{npc:9861}, below ground"] = "",
+	["{npc:9861}, below ground"] = "{npc:9861}, под землей",
 	-- {npc:9860} Salia
-	["{npc:9860}, below ground"] = "",
+	["{npc:9860}, below ground"] = "{npc:9860}, под землей",
 	-- {npc:9517} Shadow Lord Fel'dan
 	["{npc:9517}; below ground"] = "",
 
 	-- Step 12: The Emerald Sanctuary
 	["Ride back south along the road to the Sanctuary."] = "Езжайте по дороге назад на юг к Святилищу.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, внутри",
 	-- {item:11169} Book of Aquor
 	["Keep the {item:11169}, the claws and the heart he hands back"] = "Сохраните {item:11169}, когти и сердце, которые он вернет",
 
@@ -110,7 +110,7 @@ return {
 	-- {npc:9616} Laris Geardawdle · {zone:1455} Ironforge · {zone:1452} Winterspring · {area:976} Gadgetzan
 	["{npc:9616}'s jars went to {zone:1455} on the {zone:1452} guide's {zone:1455} stop: fly straight to {area:976}."] = "Банки NPC {npc:9616} вы отвезли в {zone:1455} на остановке «{zone:1455}» в гайде по зоне {zone:1452}: летите прямо сюда: {area:976}.",
 	-- {area:3137} Talrendis Point
-	["{area:3137} flight master"] = "",
+	["{area:3137} flight master"] = "Распорядитель полетов: {area:3137}",
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -124,7 +124,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь сюда: {area:1537}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
 	-- Step 19: Laris Geardawdle
 	["Its jars are filled on the Un'Goro visit"] = "Его флаконы наполняются при посещении Кратера Ун'Горо",
@@ -143,7 +143,7 @@ return {
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Летите сюда: {area:976}. Купите здесь на аукционе два ториевых слитка для задания «{quest:5801}».",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 
 	-- Step 24: Aquementas
 	-- {item:11169} Book of Aquor · {quest:4005} Aquementas
@@ -167,7 +167,7 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Ride north to {area:541}. Use {npc:10980} beside {npc:10977}."] = "Езжайте на север: {area:541}. Используйте {npc:10980} рядом с персонажем {npc:10977}.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 	-- {npc:8737} Linken
 	["{npc:8737}, at the back of the refuge"] = "{npc:8737} – в глубине лагеря",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
@@ -195,7 +195,7 @@ return {
 
 	-- Step 32: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: убивайте их по пути",
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "От крепости на запад в пески: там копают земляные сокрушители; в тех же песках охотятся камнехвостые клешневики, живодеры и скальные пауки-скакуны.",
 	-- {npc:11741} Dredge Crusher
@@ -207,7 +207,7 @@ return {
 
 	-- Step 34: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
-	["{area:2742}: kill these as you meet them"] = "",
+	["{area:2742}: kill these as you meet them"] = "{area:2742}: убивайте их по пути",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Twilight Avengers = {npc:11880} Twilight Avenger · Twilight Flamereavers = {npc:15201} Twilight Flamereaver
 	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait."] = "Раскопки культа Сумеречного Молота занимают северо-западный угол: фрагменты табличек лежат на земле, их также носят пылевихри и пустынные грохотуны. С любого культиста может упасть {item:20404}: сохраните двадцать – десять для персонажа {npc:15306} и десять позже для персонажа {npc:15194}.\nОсторожно: добывайте тексты с мстителей и геолордов из культа Сумеречного Молота; не трогайте пламехватов из культа Сумеречного Молота (60) и не подходите к входу в улей, где ждут элитные мобы ({area:2742}, 59-60).",
@@ -226,7 +226,7 @@ return {
 	-- plural, as words: Tortured Sentinels = {npc:12179} Tortured Sentinel
 	["Ride east to the ruins of {area:2738}. The {object:179565} lies among the ruined buildings, watched by Tortured Sentinels."] = "Езжайте на восток к руинам ({area:2738}). {object:179565} лежит среди разрушенных зданий под охраной истерзанных часовых.",
 	-- {object:179565} Dusty Reliquary
-	["{object:179565}; inside"] = "",
+	["{object:179565}; inside"] = "{object:179565}; внутри",
 
 	-- Step 38: Hermit Ortell
 	-- {area:2738} Southwind Village
@@ -267,7 +267,7 @@ return {
 
 	-- Step 46: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Летите сюда: {area:2255}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 
@@ -305,7 +305,7 @@ return {
 
 	-- Step 58: Felwood
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 59: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
@@ -332,7 +332,7 @@ return {
 
 	-- Step 66: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
-	["{zone:1452}: kill these as you meet them"] = "",
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: убивайте их по пути",
 	-- {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
@@ -340,7 +340,7 @@ return {
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring · {npc:9298} Donova Snowden · {area:493} Moonglade · {area:2361} Nighthaven · {npc:11939} Umber
 	["Take the {area:1769} tunnel from its {zone:1452} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Войдите в туннель ({area:1769}) со стороны зоны {zone:1452}, к западу от {npc:9298}, и идите по ответвлению ({area:493}) до места {area:2361}. {npc:11939} занимается исследованиями на берегу озера.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
+	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} ходит по месту {area:2361}: ищите внутри круга на карте",
 
 	-- Step 71: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {npc:11939} Umber
@@ -352,7 +352,7 @@ return {
 
 	-- Step 74: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 
 	-- Step 75: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -534,7 +534,7 @@ return {
 	-- {npc:10667} Chromie · {area:3197} Chillwind Camp
 	["{npc:10667} waits upstairs in the ruined inn on the west side of Andorhal, on the way back to {area:3197}."] = "{npc:10667} ждет на верхнем этаже разрушенной таверны в западной части Андорала, по пути обратно сюда: {area:3197}.",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}, наверху",
 
 	-- Step 118: Chillwind Camp
 	-- {area:3197} Chillwind Camp

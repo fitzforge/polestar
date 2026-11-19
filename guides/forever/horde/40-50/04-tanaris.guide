@@ -31,6 +31,13 @@ step Gadgetzan
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
   accept 2605                           -- Marin Noggenfogger
 
+step Senior Surveyor Fizzledowser
+  when !onquest 992
+  when !turnedin 992
+  zone Tanaris
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 992                            -- Senior Surveyor Fizzledowser
+
 step Gadgetzan
   when dungeon "Zul'Farrak"
   zone Tanaris
@@ -169,7 +176,7 @@ step Thistleshrub Valley: kill these as you meet them
 
 step Tooga's escort
   tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
-  accept 1560                           -- Tooga
+  accept 1560 @30.2,70.7 map 1446                -- Tooga
   complete 1560 @66.58,25.67 map 1446 era
 
 step Steamwheedle Port

@@ -25,7 +25,7 @@ return {
 
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Летите сюда: {area:431}",
 
 	-- Step 7: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -35,7 +35,7 @@ return {
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Летите в {area:431} и езжайте на северо-запад по дороге из зоны {zone:1440} в {zone:1448}. {area:2479} — лагерь друидов сразу за границей.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, внутри",
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Заданию {npc:9116} «Серебряное сердце» нужен {item:11173} с севера зоны {zone:1448} и поездка обратно сюда. Пропустите.",
 
@@ -67,7 +67,7 @@ return {
 
 	-- Step 14: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}, под землей",
 
 	-- Step 15: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
@@ -85,7 +85,7 @@ return {
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Через туннель Древобрюхов в {zone:1450}. {npc:11939} читает в доме здесь: {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
+	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} ходит по месту {area:2361}: ищите внутри круга на карте",
 
 	-- Step 21: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
@@ -127,7 +127,7 @@ return {
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
 	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "убивайте: {npc:7446}",
 
 	-- Step 33: Are We There, Yeti?
 	-- {area:2255} Everlook

@@ -18,28 +18,53 @@ next forever/alliance/30-40/02-desolace
 # Level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (195, 35-36) are hunted on the second loop (04b) at about 36 and
 # Tiger Mastery's Sin'Dall (188, level 37) on 40-50/01-stranglethorn-vale's ride to Nesingwary at about 41, not here at
 # 33-34; Ajeck and Hemet give them here, where the elder tigers and raptors are handed in. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
-# 40-50/01-stranglethorn-vale at about 41; Sir S. J. Erlgadin gives it on this loop's hand-in. The hearthstone, bound in Booty Bay on the first stop,
-# is the way back there from Nesingwary's camp at the end of the jungle loop (#2419). Players who know the Stonetalon
+# 40-50/01-stranglethorn-vale at about 41; Sir S. J. Erlgadin gives it on this loop's hand-in. Since 0.4.1 the loop
+# starts at Booty Bay (#2419): 30-40/03 ends in Theramore, so the walk to Ratchet and its boat beat the boat to Menethil,
+# the flight to Darkshire and the walk down the jungle and back (level model: 15 minutes less in this guide, no level
+# moves). Booty Bay's quests are taken and the hearthstone bound first; Investigate the Camp, the river crocolisks'
+# skins (30-31, beside the camp) and Private Thorsen's supplies go in on the first Nesingwary and Rebel Camp stops, and
+# the hearthstone brings you back from the coast. Players who know the Stonetalon
 # Peak flight fly there from Auberdine instead of Astranaar, closer to Desolace (#2403); warlocks keep Astranaar.
 # Zimmix Sputterspark's rescue (97329, 97331), Kebok's Bloodscalp ears (189) and the Stolen Shipments (97328) are worked
 # in the ruins of Zul'Kunda on 04b's second loop, at about 36: the ruins' core holds Berserkers, Headhunters and Witch
 # Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
 
-step Fly to Darkshire
-  zone Wetlands
-  goto 9.5,59.7 "Menethil Harbor flight master"
-  fly "Darkshire"
-  zone Duskwood
+step Boat to Booty Bay
+  when !zone "Stranglethorn Vale"
+  zone The Barrens
+  tip The boat from Ratchet's dock crosses to Booty Bay, on Stranglethorn's southern cape.
+  goto 63.4,38.5 "Boat to Booty Bay"
 
-step Stranglethorn Vale
+# ---------------------------------------------------------------- Booty Bay
+
+step Booty Bay
   zone Stranglethorn Vale
+  tip Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  getfp "Booty Bay"
+  accept 575                          -- Drizzlik, by the bank; inside
+  accept 605                          -- Crank Fizzlebub, inside
+  sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
+  turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
+  accept 198                          -- Krazek, in the tavern; upstairs: Private Thorsen is at the Rebel Camp, on the way
+  accept 201                          -- Krazek: Nesingwary's camp, on the way
+  accept 616                          -- Krazek
+  accept 189                          -- Kebok, in the tavern
+  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
+  vendor nearest
+  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
+  accept 578
+
+step North to Nesingwary's Expedition
+  zone Stranglethorn Vale
+  tip Follow the main road north the length of the jungle, past the Grom'gol turn-off, to the hunters' camp just west of the road.
   goto 35.7,10.5 "Nesingwary's Expedition"
 
 # ---------------------------------------------------------------- Nesingwary's Expedition
 
 step Nesingwary's Expedition
   zone Stranglethorn Vale
-  tip From Duskwood take the road south into Stranglethorn; the hunters' tents stand just west of the road past the Rebel Camp turn-off.
+  tip The hunters' tents stand just west of the road. Krazek's Investigate the Camp only asks you to look around it.
+  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
   accept 583                          -- Barnil Stonepot
   turnin 583                          -- Hemet Nesingwary
   turnin 5762                         -- Hemet Nesingwary, from Thousand Needles
@@ -52,12 +77,16 @@ step Young tigers and panthers
   tip Both roam the grass around the camp and along the road north.
   kill 681 quest 185                  -- Young Stranglethorn Tiger
 
+step River crocolisks
+  tip River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the Rebel Camp.
+  collect 4053 quest 575              -- Large River Crocolisk Skin
+
 step Nesingwary's Expedition
   turnin 185                          -- Ajeck Rouack
   accept 186
 
 step Young Panther
-  kill 683 quest 190                  -- Young Panther
+  kill 683 quest 190 @39.81,11 map 1434 era -- Young Panther
 
 step Nesingwary's Expedition
   turnin 190                          -- Sir S. J. Erlgadin
@@ -89,7 +118,9 @@ step Sir S. J. Erlgadin
 step Rebel Camp
   tip Take the road north; the camp sits in the hills to the west.
   tip Private Thorsen offers Jungle Secrets only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes Bookie Herod, which follows from it, as well.
+  tip Private Thorsen spends most of his time at the top of the Rebel Camp's path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path.
   accept 215 @40.3,8.4 optional       -- Private Thorsen, at the foot of the path
+  turnin 198 @38.0,3.4                -- Private Thorsen: at the top of the path by the huts, or on his walk down it
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200                          -- Lieutenant Doren: Bookie Herod's records lie at the edge of Kurzen's Compound, next
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay, later in this guide
@@ -133,60 +164,20 @@ step Nesingwary's Expedition
   turnin 194                          -- Hemet Nesingwary
   accept 195                          -- keep it: the Lashtail Raptors come on the second loop (04b), around Sin'Dall's hill
 
-# ---------------------------------------------------------------- Booty Bay
-
-step Down to Booty Bay
-  tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.
-  getfp "Booty Bay"
-  accept 575                          -- Drizzlik, by the bank; inside
-  accept 605                          -- Crank Fizzlebub, inside
-  sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern; upstairs
-  turnin 98463 optional               -- Nixxrax Fillamug, in the Salty Sailor Tavern; upstairs
-  accept 198                          -- Krazek, in the tavern; upstairs
-  turnin 210                          -- Krazek, from Corporal Kaleb
-  accept 201
-  accept 616                          -- Krazek
-  accept 189                          -- Kebok, in the tavern
-  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
-  vendor nearest
-  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
-  accept 578
-
-step Fly to Sentinel Hill
-  zone Stranglethorn Vale
-  goto 27.5,77.7 "Booty Bay flight master"
-  fly "Sentinel Hill"
-  zone Westfall
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 29.0,14.0 "East of Zul'Kunda"
-
-# ---------------------------------------------------------------- The jungle loop
-
 step The Savage Coast
   zone Stranglethorn Vale
-  tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
+  tip From Nesingwary's camp head west to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
   tip The haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @21.9,22.4             -- The haunted island
 
-step River crocolisks
-  tip River Crocolisks swim the river by the Rebel Camp.
-  collect 4053 quest 575              -- Large River Crocolisk Skin
-
-step Private Thorsen
-  tip Private Thorsen spends most of his time at the top of the Rebel Camp's path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path.
-  turnin 198 @38.0,3.4
-
-step Nesingwary's Expedition
-  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
-
 step Booty Bay
+  tip Hearth back to Booty Bay.
   turnin 575                          -- Drizzlik, inside
   accept 577                          -- Drizzlik: the Snapjaw Crocolisks, on the northern loop
   turnin 605                          -- Crank Fizzlebub, inside
   turnin 201                          -- Krazek, upstairs
+  turnin 210                          -- Krazek, from Corporal Kaleb
   note Kebok's Bloodscalp ears wait for the second Stranglethorn loop: keep the quest.
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
   accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop

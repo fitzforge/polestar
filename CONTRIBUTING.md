@@ -112,6 +112,14 @@ steps keep two of you from fixing the same thing without knowing:
    pull request that fixes the pattern and lists every issue it closes.
 6. **A claim that went quiet** (no commit or reply for a week) is free:
    say on the issue that you are taking it over, and go ahead.
+7. **A new guide is a community guide.** Polestar's own guide list holds the
+   guides the maintainer plans and keeps. A guide you wrote yourself (a new
+   route, a dungeon walkthrough, a collection) is published as your own
+   community guide on [polestar.guide](https://polestar.guide/community),
+   where it stays yours to update and is credited to you
+   (README, "Writing a community addon"). A pull request that adds a new
+   guide to `guides/` is merged only when the maintainer asked for that guide
+   in an issue first. Fixes to existing guides are always welcome here.
 
 An issue filed from the Discord #bugs forum tells its reporter in their
 thread when the first pull request for it opens, so link only what you are
@@ -173,11 +181,23 @@ below.
   see it. Give the entry a `source` (an in-game check or issue, a recording,
   the client, CMaNGOS, the Forever TrinityCore DB, QuestieDB or pfQuest;
   `forever-db/README.md` lists the kinds) and a `note` in your own words.
-- **Do not commit `addon/Polestar_Guides/Guides.lua`.** It is compiled from
-  `guides/` and `data/forever`; the maintainer runs `forge guide compile`
-  (via `polestar regen`) after merge. Never hand-edit it or splice
-  in a hunk from a partial compile: a spliced hunk can still be valid Lua
-  while the game never sees the goals it contains.
+- **Commit the recompiled guides and their translation files in the same
+  pull request.** CI has no reference data, so it cannot compile guides:
+  a guide change without them leaves `next` stale for every pull request
+  after it. After your last guide edit (and after merging `next` into your
+  branch), run
+
+  ```sh
+  forge i18n guides sync    # guides/locales/<locale>/: the texts your change added, changed or removed
+  forge guide compile       # addon/Polestar_Guides*/ and each language's Texts.lua
+  ```
+
+  (`forge guide compile experimental` too for a guide in `experimental/`)
+  and commit everything they write. Never hand-edit the compiled files or
+  splice in a hunk from a partial compile: a spliced hunk can still be
+  valid Lua while the game never sees the goals it contains. Both need the
+  reference data; without it, say so in the pull request and a maintainer
+  pushes the compile to your branch before merging it.
 - Check your change:
 
   ```sh
@@ -189,6 +209,17 @@ below.
   `--filter` plays only the guides whose file or id contains its text;
   `--class Warrior` narrows it to one class. You don't need the full test
   suite; CI runs it on your pull request.
+- A pull request that moves a quest (to a later step, into another guide,
+  into a new step) shows its flow diff:
+  `node tools/polestar.js flow-diff --base origin/next --guides <guide> --md flow.md`
+  plays the route before and after your change and lists, per guide that
+  plays differently, the zones in order, any new trip back into a zone the
+  route had left, steps that send the player far for one quest (or to a
+  place with nothing to do), quests carried for more guides, the walking
+  and flying time, and where each moved quest went. Paste the table into the
+  pull request. It fails on a new revisit or trip unless
+  `data/flow-diff-allow.json` names it with a reason
+  ([docs/ROUTE-FEEL.md](docs/ROUTE-FEEL.md#flow-diff-what-one-change-does-to-the-route)).
 
 Both need the reference data (below). If you cannot build it, send the fix
 anyway: describe what you changed and why, say that you could not run the
@@ -240,8 +271,8 @@ else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
-| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth) |
-| A new or renamed guide file | The same lint and playtest; note in the PR that `Guides.lua` needs recompiling — the maintainer does it after merge |
+| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth); then `forge i18n guides sync` and `forge guide compile`, committed with the change ([Fixing a guide](#fixing-a-guide)) |
+| A new or renamed guide file | The same lint, playtest, sync and compile, committed with the change |
 | The addon's Lua (`addon/Polestar/`) | The test file(s) for the area you changed: `node --test tests/<area>.test.js`. Find it with `grep -rl <module-name> tests/*.test.js`; for example, a change to `Theme/` → `node --test tests/theme.test.js`. For a UI change, optionally run `node tools/polestar.js preview` to review the renders |
 | A tool or its library (`tools/`) | That tool's tests: `node --test "tests/<tool>*.test.js"` (e.g. `node --test tests/compile.test.js`) |
 | `tools/media/` (texture generators) | `node tools/polestar.js media` to see the textures locally; CI verifies the generators work |
@@ -254,12 +285,15 @@ A few tests skip automatically when the reference data (`data/forever`) or
 Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
-**You do not commit** `addon/Polestar_Guides/Guides.lua`, `addon/Polestar_Experimental/`
-(compiled from `experimental/`), `docs/preview/*.svg`, the locale files in
-`addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless your change is to
-the generator itself (a texture generator in `tools/media/`, the preview
-renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`). The
-maintainer regenerates those after merging your PR.
+**A guide change commits its compiled guides and translation files**
+(`addon/Polestar_Guides*/`, `addon/Polestar_Experimental/`, the languages'
+`Texts.lua`, `guides/locales/`; see [Fixing a guide](#fixing-a-guide)).
+**You do not commit** `docs/preview/*.svg`, the interface translation files
+(`Interface.lua` in `addon/Polestar_<locale>/`) or
+`addon/Polestar/Media/*.tga` unless your change is to the generator itself
+(a texture generator in `tools/media/`, the preview renderer in
+`tools/preview/`, or the English string set). The maintainer regenerates
+those after merging your PR.
 
 ## Code changes
 
@@ -313,6 +347,24 @@ docs/RELEASING.md has the release side.
 **Once your pull request is merged, don't push to it again,** not even a
 rebase: GitHub shows it as merged because your exact commits are in the base
 branch. A fix or a follow-up is a new pull request.
+
+## Merge conflicts
+
+Many pull requests land on `next` at once, so a few shared files often
+conflict when you bring your branch up to date (`git merge origin/next`).
+None of them needs a hand merge:
+
+| Files | How |
+|---|---|
+| The interface translations, `addon/Polestar_<locale>/Interface.lua` | Merged for you: `.gitattributes` gives them `merge=union`, which keeps both sides' lines. Each translation is one `L["..."] = "..."` line in no meaningful order, so that is safe: a key both sides changed (set twice) or one side retired fails `forge i18n check` (CI); keep the right line and run `forge i18n sync`. GitHub's merge button ignores the attribute, so a conflict shown there goes away when you merge `next` into your branch locally and push. |
+| `guides/GENERATED.json`, `forge/seed/SEED.json` (the maintainers' hand edits to generated guides) | Resolve the guides themselves first, then take either side of the manifests and recompute them from the files: `git checkout --theirs guides/GENERATED.json forge/seed/SEED.json && forge guide rehash && git add guides/GENERATED.json forge/seed/SEED.json` |
+| Compiled guides (`addon/Polestar_Guides*/`, the locales' `Texts.lua`) | Compile again from the merged guides, which rewrites them whole: `forge guide compile`, then `git add` what it wrote. It needs the reference data; without it, take either side (`git checkout --theirs <file>`) and say so in the pull request. |
+| Changelog fragments (`changes/`) | They never conflict: each change has its own file. Give yours a name no one else will pick (`forge changelog add ... --name <issue>-<slug>`). |
+
+`merge=union` is only for files where every entry is one self-contained
+line and the order does not matter; never for JSON, the compiled
+`Texts.lua` (nested tables) or the fragments (an entry spans lines).
+`tests/merge-union.test.js` holds every file that has it to that.
 
 ## Using an AI agent
 

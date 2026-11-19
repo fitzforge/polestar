@@ -16,7 +16,7 @@ use crate::merge::{apply_questie, Ctx, World};
 use crate::normalize::normalize;
 use crate::pfquest;
 use crate::questie::{read_questie, QUESTIE_REPO, REPO as QUESTIEDB_REPO};
-use crate::recordings::{apply_recordings, read_recordings};
+use crate::recordings::{apply_recordings, scan_recordings};
 use crate::spawns::{SpawnOptions, DEFAULTS};
 use crate::tables::{self, Source};
 
@@ -52,6 +52,10 @@ pub struct Options {
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
 	pub offline: bool,
 	pub web_zones: bool,
+	/// Stop on a placeholder name a player would read (#2614). Off for `forge data publish`'s public
+	/// builds: they take no corrections (the tier decides which count), and the public tables carry no
+	/// objective text, so the corrections that give those objectives their words are not needed there.
+	pub placeholder_guard: bool,
 	pub cap: usize,
 	/// meta.json builtAt (ISO 8601, as `new Date(x).toISOString()` prints it).
 	pub built_at: String,
@@ -204,6 +208,7 @@ impl Options {
 			web_xp: true,
 			offline: true,
 			web_zones: true,
+			placeholder_guard: true,
 			cap: DEFAULTS.cap,
 			built_at: now_iso(),
 			kb: None,
@@ -530,12 +535,13 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		Some(f) => Some((f.to_path_buf(), read(f)?)),
 		None => None,
 	};
-	let corrections = {
-		let public = crate::corrections::load(&o.corrections)?;
-		match &private {
-			Some((_, p)) => crate::corrections::overlay(&public, p),
-			None => public,
-		}
+	let public_corrections = crate::corrections::load(&o.corrections)?;
+	// Which corrected fields the private overlay sets: the knowledge base keeps them apart, so the
+	// public tier never takes one (`correction_origin`).
+	let correction_origins = crate::corrections::origins(&public_corrections, private.as_ref().map_or(&V::Null, |(_, p)| p));
+	let corrections = match &private {
+		Some((_, p)) => crate::corrections::overlay(&public_corrections, p),
+		None => public_corrections,
 	};
 	// Applied with or without Forever's quest data: a correction for an absent record becomes the
 	// record when it can stand alone, else it is named in the warnings.
@@ -607,23 +613,51 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		(Some(a), Some(b), Some(c)) => Some(build_races(a, b, c)),
 		_ => None,
 	});
-	let recordings = read_recordings(&o.recordings)?;
+	// One session at a time: the maintainer's recordings archive is gigabytes.
+	let recordings = scan_recordings(&o.recordings)?;
+	log(&format!("recordings: {} session(s) in {}, {} counted", recordings.len(), o.recordings.display(), recordings.counted()));
 	let instances = Obj::new();
+	// Creatures Forever's spells summon (its SpellEffect): camp bots lose their vendor roles below, and
+	// recordings give no spawns to those no source places.
+	let summoned = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::summoned_creatures(effects));
+	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
+	let mut revision = crate::recordings::Revision::default();
+	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
 		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
-		&recordings,
+		recordings.sessions().map_while(|r| match r {
+			Ok(r) => {
+				revision.add(&r);
+				Some(r)
+			}
+			Err(e) => {
+				unread = Some(e);
+				None
+			}
+		}),
 		// Corrections stay the last word: the overlay puts every corrected value back.
 		&corrections,
 		recordings.min_voters,
 		so_,
 		&live,
 		sim,
+		// Recorded drop chances count loot windows, which read 1.2-3x high (players open a window on
+		// only some kills): off until they count kills while the item is wanted (#2747).
+		false,
 	);
+	if let Some(e) = unread {
+		return Err(e);
+	}
+	let revision = revision.finish();
+	let unspawned = extras::drop_recorded_summoned_spawns(&unplaced_summoned, &norm.npcs);
+	if !unspawned.is_empty() {
+		log(&format!("summoned creatures: recorded spawns of {} taken back ({})", unspawned.len(), unspawned.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+	}
 	let durations = extras::item_durations(fwago.as_ref().and_then(|f| f.get("ItemSparse")).map(Vec::as_slice).unwrap_or(&[]), &norm.items);
 	// Camp bots a player summons (Reagent Bot, Repair Bot) are vendors with sniffed spawns of camps long
 	// gone: they sell nothing a guide can send a player to (Forever's SpellEffect names them).
-	if let Some(effects) = fwago.as_ref().and_then(|f| f.get("SpellEffect")) {
-		let gone = extras::drop_summoned_vendors(&extras::summoned_creatures(effects), &norm.npcs, &norm.items);
+	if let Some(summoned) = &summoned {
+		let gone = extras::drop_summoned_vendors(summoned, &norm.npcs, &norm.items);
 		if !gone.is_empty() {
 			log(&format!("summoned vendors: {} dropped as sellers ({})", gone.len(), gone.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
 		}
@@ -772,6 +806,8 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			zones: &zones,
 			live: changed_set.iter().copied().collect(),
 			corrections: corrections.clone(),
+			correction_origins: correction_origins.clone(),
+			npc_hand_ins: rec.npc_hand_ins.clone(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),
@@ -848,6 +884,22 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let placeholders = extras::drop_place_name_npcs(&norm.npcs, &norm.quests, &norm.items, &zones, &factions);
 	if !placeholders.is_empty() {
 		log(&format!("place-name NPCs: {} dropped ({})", placeholders.len(), placeholders.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+	}
+
+	// Objectives on the game's placeholder targets (credit.rs, #2614): events in the quest log's words. Then the
+	// check: no placeholder name a player could read ships; each one left needs a correction.
+	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
+	log(&format!("placeholder targets: {} quest(s) whose objective names a credit NPC are events", credits.len()));
+	let shown = crate::credit::scan(&norm.quests, &norm.npcs, &norm.objects, &norm.items);
+	if !shown.is_empty() && o.placeholder_guard {
+		return Err(format!(
+			"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
+			shown.len(),
+			shown.join("\n")
+		));
+	}
+	if !shown.is_empty() {
+		log(&format!("placeholder names left (public build, no corrections): {}", shown.len()));
 	}
 
 	// ---- meta.json sources
@@ -942,10 +994,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		sources.push(obj_of(vec![
 			("name", s("Polestar recordings")),
 			("url", V::Null),
-			("revision", s(&crate::recordings::revision(&recordings))),
+			("revision", s(&revision)),
 			("license", s("Polestar original work")),
 			("copyright", V::Null),
-			("sessions", arr(recordings.iter().map(|r| s(&r.file)).collect())),
+			("sessions", arr(recordings.names().map(s).collect())),
 		]));
 	}
 	if heights.is_some() {
@@ -1045,6 +1097,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	c("unmappedSpawnPoints", n(norm.stats.unmapped_points));
 	c("untitledQuestsSkipped", n(norm.stats.skipped_quests));
 	c("recordings", n(rec.recordings));
+	c("recordingsCounted", n(recordings.counted()));
 	c("recordingEvents", n(rec.events));
 	c("recordedQuests", n(rec.touched_quests));
 	c("recorderOnlyQuests", n(rec.recorder_only_quests));

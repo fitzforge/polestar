@@ -174,7 +174,7 @@ A step must contain at least one goal.
 | `wait` | `<seconds>` | A countdown in the step: `wait 30 "the boat docks"`. It starts once every goal before it in the step is done and is done when the time is up (1 to 3600 seconds); the guide window shows the time left as a draining line. For a boat, an event or a speech to sit through. |
 | `task` | `"<text>"` | Something to do that Polestar cannot see (a logout skip, a tame, an emote): it holds the step until the player ticks it in the guide window; with `optional` it never holds it. Quotes optional when nothing follows the text. A task has a place with `@x,y` for the arrow. In an `along` step it never checks off (see "Along the way"). Pack format 5. |
 | `note` | `<text...>` | Informational line; never blocks. Quotes optional. |
-| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
+| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). With `nearest`, the step's `goto` points are the places to do it and the arrow leads to the one nearest the player (see Smart targets): `skill Fishing 50 nearest` beside a `goto` on each starting area's shore. |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`, else, for a spell a skill line teaches (a class spell, a talent; a profession's recipe still needs `professions.json`), from the client's spell tables of the data's build. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
 | `cast` | `<spellId> ["Name"]` | Cast a spell (a campfire, a class teleport, a racial): done when the player's own cast of that spell succeeds while the goal is open, in the step the guide is at or an along step listed under it; a cast before that does not count, and the tick is kept. Name from `professions.json` (a recipe), else give it: a spell in neither is an error. |
 | `buff` | `<spellId> ["Name"]` | Have an aura (a buff or a debuff) on the character: a blessing, an elixir's effect, a disguise a quest hands out. Done while the aura of that spell id is on the player, and kept once its step had it, so an aura that runs out before the step's other goals are done does not reopen it. With `off` the goal is the other way round: done while the aura is gone (wait out Resurrection Sickness, click a disguise off). The name is the client's for a spell its tables know, else give it: a spell in neither is an error. Coordinates only point the arrow. On a client that cannot read auras the player ticks it. Pack format 11. |
@@ -206,7 +206,9 @@ goals in `guides/`, recorded trainer visits, and a curated list verified against
 and `vendor nearest` from the `repair` role in `npcs.json`; `buy … nearest` from the
 item's `vendors`; `collect … nearest` from the item's droppers (see `collect`);
 `learn … nearest` from the recipe item's `vendors`; a trainer-taught `learn`
-from the profession rank's trainers in `professions.json`. Only
+from the profession rank's trainers in `professions.json`; `skill … nearest` from
+the step's own `goto` points (at least two; each for the characters its `only` and
+the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
@@ -307,8 +309,10 @@ whether the step's `when` held at that moment (once the quest log can be
 read after login), and reads that from then on: a "buy water" step passed
 because the bags were full is stored as skipped and does not come back when
 the water runs out, and a step that applied stays done. The player can
-unskip such a step like any other; it then applies whatever its `when`.
-One failure is never stored: a `complete <quest>` that fails while the
+unskip such a step like any other; it then applies whatever its `when`,
+except a `complete <quest>`: a hand-in can't be done before its quest is, so
+an unskipped step whose `when` fails only on `complete` comes back once the
+quest is ready. One failure is never stored: a `complete <quest>` that fails while the
 player carries the quest (a Wanted hand-in passed before the elite is dead)
 is checked again, and the step comes back once the quest is done.
 Resetting the guide's progress forgets the stored outcomes.
@@ -318,7 +322,11 @@ for another class, it never holds the guide, and a turn-in whose only accept
 is in such a step goes with it.
 
 A step with `when onquest Q` (or `when complete Q`) can hand in Q with no
-`accept Q` before it: "hand it in if you picked it up elsewhere". A `turnin`
+`accept Q` before it: "hand it in if you picked it up elsewhere". When the
+guide sees Q handed in (at that step, or on the way before the route gets
+there), the step's `when` is kept as holding, so what the step does after the
+hand-in (the follow-up's accept from the same NPC) stays on the route; a Q
+handed in before the guide ran leaves the step out (Polestar 0.4.2). A `turnin`
 whose quest is accepted earlier only in steps with `when` warns: characters
 who passed those steps never see it, so give it the same `when` or a
 `when onquest`.
@@ -901,7 +909,7 @@ take a jump.
 | `collect` coordinates | every drop source with spawns, ranked as above (zone, used maps, nearness), then by drop chance. On the chosen map only the likely sources count (at least half the best chance there). Where elites (rank 1-3, hostile) drop the item beside normal mobs or objects, each at 1% or more, only the normal ones count, whatever the elites' chance, and a place of theirs with more elite spawns than its own within its radius (at least 70 yd) is an alternative spot: the point and the arrow lead to the normal mobs, not into the elite camp. An item only elites drop there keeps them. For a quest objective, mobs 3 or more levels above the quest (their lowest level) are left out where their higher chance would push the likely sources nearer the quest's level under that bar: those set it instead (a level 7 quest's seeds come from the level 5 Timberlings beside the giver, not the level 10 Elder Timberlings across the zone) |
 | `collect` source `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction` | a `collect` (quest objectives too) whose item has one source with spawns, or one that drops it at 50% or more, and at most 8 sources at 2% or more (not cloth that drops everywhere); where normal mobs or objects and elites both drop it at 1% or more, only the normal ones are named, as the arrow leads to them (so are they where a rare tops the droppers and normal mobs drop it at 50% or more, and the sources near a quest's level where mobs 3 or more levels above it would crowd them out, as for the coordinates): when the named source spawns nowhere on the step's map but another source does (the goal is placed there), the names come from the sources there (#2275: Call of Fire's Fire Tar in Loch Modan names the Tunnel Rat Geomancers, not the Barrens' Razormane): the source's name, a second source of the same kind at 50% or more, their ids, `npc` or `object`, the NPC's rank (1 elite, 2 rare elite, 3 boss, 4 rare) and faction (`A`, `H`, `AH`; none for a hostile mob). The goal line names it, in the client's language by its id: "Kill Grell or Grellkin for Fel Moss" for an enemy, "Collect Oats from Sack of Oats" otherwise (nothing added for an object named as the item); with author `text` the line under it says "Kill Aean Swiftriver (rare elite)" or "From <name>"; a quest started by that item reads as one line ("Runed Scroll: kill Aean Swiftriver (rare elite)") |
 | `collect` source NPCs `fromNpcs` | every `collect` placed among its sources, whether the data placed the point or the author did and the data has the target there (as `spots`): the creatures its point and spawn areas belong to, the one the point itself belongs to first, then the other likely sources there (as above), at most 5. Objects are left out, as a macro can only target a creature. An item nothing drops gets the NPCs the data lists as its vendors instead, where they have spawns: those hand it over in their gossip window (the Warsong Scout's update), and nothing else would name them; a `collect` whose author named an `npc` carries that instead. The target button names them, in the client's language by their ids, before the item's own droppers, whose drop chances rank them over the whole world: for an item many creatures drop, those are mostly in other zones |
-| `collect` per-spot sources `fromNpcsAt` | a `collect` whose spots hold likely sources its `fromNpcs` leaves out (Centaur Bounty's ears drop from every centaur tribe in Desolace and its spots run through all their camps): those follow in `fromNpcs`, most spawns at the spots first, up to 32, and `fromNpcsAt` lists per spot, in `spots` order, the places in `fromNpcs` of the sources spawning there (within its radius and a yard), most spawns first. The target button names the mobs of the spot the arrow takes alone. Not on a `loop` step's goals, whose spots are the loop's points |
+| `collect` per-spot sources `fromNpcsAt` | a `collect` whose spots' connected spawn areas hold likely sources its `fromNpcs` leaves out: those follow in `fromNpcs`, up to 32, with sources inside the marker circles reserved before connected additions. `fromNpcsAt` lists per spot, in `spots` order, the places in `fromNpcs` of its targets: sources within its radius and a yard first (most spawns first), then other kinds in the same connected areas (most area spawns first). Areas link eligible, named NPC spawn points within 300 yd, as for Strays below; each area must have a spawn inside the circle. At a hand-placed point (`@x,y`) an area adds only the sources spawning at the point (within 250 yd): the author chose that camp over the others, so a chain of spawns does not bring them back (the Foothill Caverns' yetis, not the 32-34 cave's); every source's spawns still form the areas. This keeps overlapping Gray Bear populations targetable for Elixir of Suffering without mixing Centaur Bounty's separate tribe camps. It changes target names, not the arrow's points or radii. If the expanded mapping exceeds the 4096-character limit, the compiler keeps the circle-local mapping when it fits. Not on a `loop` step's goals, whose spots are the loop's points |
 | `kill` and `use` credited NPCs `fromNpcs` | a `kill` bound to a quest objective the data credits on several creatures (`objectives[].credit`), and a `use` bound to one or of the item such a quest hands over when taken: those creatures, the kill's own first, at most 5 (Kodo Roundup: the Kodo Kombobulator works on Aged, Dying and Ancient Kodos). A `use` also gets the creatures `mechanics.json` says its item works on (`use-item-on-mob`: its quest's own, or every quest's for a `use` with no quest), so Zapped Giants' shrinker names the giants to shrink (#2238). The target button names them |
 | profession, recipe, trainer | `professions.json` (skill line, recipe name, created item, reagents, recipe item; a trainer-taught `learn` gets every trainer of the rank that teaches it, both factions (a smart target), unless `npc <id>` names one). Classic profession names resolve without it. |
 | faction | `factions.json` by name (lowest id on ties) or id |
@@ -912,6 +920,7 @@ take a jump.
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
+| placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
@@ -1441,6 +1450,78 @@ Errors:
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
   as `elite`, unless the goal was already reported as elite
+- one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
+  Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
+  compiled goal shows (its target, NPC, object, item, source, objective lines, note):
+  give the objective its text in `forever-db/corrections/quests.json`, or the entity its name
+  (#2614). A `kill` or `talk` on such a target is worded for you (see "What the compiler
+  fills in")
+- in Polestar's own leveling guides (`lint` only): a non-`optional` `accept` whose
+  prerequisite only an earlier guide's visit to the same map brings (the guide
+  does not accept and hand it in before the accept): a character who starts the
+  route after that visit never sees the quest. The guide brings the prerequisite
+  back before it in steps `when !turnedin <the chain's last quest>`, or
+  `data/route-fixes.json` `overrides.leftout` records why it stays out
+  (docs/forge/routes.md, "Overrides"); a `leftout` record that names no such
+  accept is a warning
+- `lint` only: the play checks below on Polestar's own guides (in `compile`, and
+  in every other pack, they are warnings, so the tools that compile a pack go on)
+
+Play checks: patterns players reported again and again, each checked over
+every guide so the next one never ships. A step a check flags that is right
+as written is listed in `data/lint-allow.json` (beside the data folder) with
+the rule, the guide id, the quest or item, and the reason; an entry with no
+reason is an error, and one that covers no step any more is a warning:
+
+```json
+{ "allow": [{ "rule": "direct-gate", "guide": "forever/x/01-zone", "quest": 2741, "reason": "…" }] }
+```
+
+- `direct-gate`: a required `turnin <id> direct` whose quest takes items, in
+  a step with no `when has <item>` for each and no goal before it in the step
+  that gets the item. The quest never enters the log, so nothing tells the
+  route whether the player still carries the item; without it the giver
+  offers nothing and the step holds for good (An Apple Treat)
+- `gate-consumed`: a step with `when has <item>` in which a goal takes the
+  item out of the bags (a direct hand-in of it, the accept of a quest it
+  starts, unless that quest counts the item as an objective) before other
+  goals of the step: once the item is gone the step's `when` no longer
+  holds and Polestar drops the rest of the step on the spot. Put that goal
+  last, or the goals after it in a step of their own
+  (a `use` is left out: the data does not say which items are spent)
+- `talk-kill`: a `kill` on a quest-log line the data types as a talk
+  objective: write `talk <npc> quest Q.O`
+- `handin-unworked`: a required, plain `turnin Q` while one of Q's kill,
+  talk, object or event objectives has no goal working it since Q's accept
+  (for a quest the guide never accepts: anywhere before the hand-in, here or
+  in a guide chaining in): no `complete Q`, no goal bound to Q (`quest Q` or
+  `quest Q.O`), no unbound `kill`/`talk` of the objective's npc or `interact`
+  of its object. The guide window would go from the accept straight to the
+  hand-in (an escort the player never started). Right as written: a step
+  that waits for the work (`when complete Q`, `when has` an item of Q's), an
+  objective that is the ender itself (talk to, or click, whoever takes the
+  quest in), and an event objective whose spot in the data is within 30
+  yards of the hand-in
+- `offer`: a required `accept` (or `turnin … direct`) the giver cannot offer
+  there: a prerequisite the chain never turns in (a step with `when turnedin
+  <prerequisite>` waits for it), a parent quest not in the log, a breadcrumb
+  still in the log. An `optional` accept, or one in a step with `when
+  available <quest>`, warns instead (the warnings below). An exclusive quest
+  taken earlier only warns: a guide writes both ways of a choice one after
+  the other, and Polestar passes the way not taken
+- `offer-level`: a required `accept` two levels or more above the level the
+  route plausibly reaches there (when XP data exists), in a step with no
+  `when level` predicate; one level short warns (Polestar holds the accept
+  until the player gets there, and the estimate leaves out the route's kills)
+- `item-skippable`: a required `use <item>`, or an `accept` of a quest only
+  an item starts, whose item every earlier goal that gets it (a `collect`,
+  `buy` or `craft` of it, an accept that hands it over, a turn-in that
+  rewards it) is `optional` or in a step with a `when` the goal's step does
+  not share; a source step with `when !has <item>` counts as sure, and so
+  does the accept of the `use` goal's own quest, and a source step's `when has
+  <x>` on an item a required goal before it gets (the `direct-gate` pattern)
+  holds for everyone. Write `when has <item>` on the step, or make a goal
+  that gets the item required
 
 Warnings:
 - a `when rep` naming by its id a faction the data lacks (by name it is an
@@ -1454,12 +1535,16 @@ Warnings:
   character sees it
 - a goal in an `along` step that Polestar checks off only on the step the
   route is on (see "Along the way"): it never checks off there
-- an `accept` whose prerequisites (`pre`, any one suffices) are none of them turned in earlier in the chain
-- an `accept` above the level the route plausibly reaches (when XP data exists)
+- an `optional` `accept` (or one in a step that waits for it with `when
+  available`) whose prerequisites (`pre`, any one suffices) are none of them
+  turned in earlier in the chain; a required one is an `offer` error above
+- an `accept` the `offer-level` check leaves as a warning: above the level the
+  route plausibly reaches (when XP data exists) by less than two levels,
+  `optional`, or in a step with a `when level` predicate
 - an `accept` of a quest whose `excl` (exclusive) quest is accepted or turned in
   earlier in the chain: the game does not offer it while that quest is in the
   log or done
-- an `accept` of a quest while one of its breadcrumbs is in the log (accepted
+- an `optional` `accept` of a quest while one of its breadcrumbs is in the log (accepted
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides

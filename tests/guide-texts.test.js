@@ -286,3 +286,25 @@ test('a translation may name a plural the English keeps as words by its singular
 	assert.deepEqual(textProblems('Kill the Kobold Vermins.', 'Bandidos ({npc:6}) ×8', ['npc:6']), []);
 	assert.match(textProblems('Kill the Kobold Vermins.', 'Bandidos ({npc:6})')[0], /has \{npc:6\}/);
 });
+
+test('replacing a guide on a translated client releases the old guide and keeps the new prose refreshable', () => {
+	const { emitted } = runAddon({
+		before: 'GetLocale = function() return "frFR" end',
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		script: `
+assert(Polestar.RegisterPack({ addon="Story", id="story", format=8, title="Story", author="A", version="1", license="MIT" }))
+local old = setmetatable({}, { __mode="v" })
+local function register(note)
+	local g = { id="story/path", pack="story", title="Journey", steps={{ note=note, goals={{ t="note", text=note }} }} }
+	assert(Polestar.RegisterGuide(g))
+	return g
+end
+old[1] = register("First")
+local g = register("Second")
+collectgarbage("collect"); collectgarbage("collect")
+assert(Polestar.RegisterGuideTexts("frFR", "story", { guides={ ["story/path"]={ Journey="Voyage", Second="Suite" } } }))
+Polestar.GuideTexts.Refresh(g)
+emit({ old[1] == nil, g.title, g.steps[1].note, g.steps[1].goals[1].text })`,
+	});
+	assert.deepEqual(emitted, [[true, 'Voyage', 'Suite', 'Suite']]);
+});

@@ -1254,6 +1254,40 @@ fn k1_k5_a_walk_is_split_at_the_chokepoints_on_its_path_each_step_named_snapped_
 	assert_eq!(out["lift"], json!(["lift", "bottom", -520]), "the ride goes to the paired landing");
 }
 
+// A character with the riding skill (line 762), set before the split names its steps.
+const RIDER: &str = "\nPolestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end\n";
+
+#[test]
+fn a_character_who_can_ride_rides_to_a_cave_mouth_the_walk_to_a_lift_s_landing_still_says_walk() {
+	let out = run(&format!(
+		"{RIDER}{}{}",
+		split(),
+		r#"
+		emit(labels())"#
+	));
+	assert_eq!(
+		out,
+		json!(["walk|Cross the bridge to Lakeshire", "walk|Ride to the cave mouth in Testshire", "walk|Walk to The Great Lift, Bottom", "lift|Ride the elevator up", "walk|Target",]),
+		"the cave mouth reads ride; the bridge keeps its caption and the walk to the lift still says walk"
+	);
+}
+
+// A ghost walks: with the riding skill too, the split walk's cave mouth reads walk.
+#[test]
+fn a_ghost_who_can_ride_still_walks_to_a_cave_mouth() {
+	let out = run(&format!(
+		"{RIDER}UnitIsGhost = function() return true end\n{}{}",
+		split(),
+		r#"
+		emit(labels())"#
+	));
+	assert_eq!(
+		out,
+		json!(["walk|Cross the bridge to Lakeshire", "walk|Walk to the cave mouth in Testshire", "walk|Walk to The Great Lift, Bottom", "lift|Ride the elevator up", "walk|Target",]),
+		"a ghost reads walk at the cave mouth"
+	);
+}
+
 // The Undercity's canals lie under the Ruins: a chokepoint there is no stop for a walk over the Ruins above it.
 #[test]
 fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_paths_floor_is() {
@@ -1299,6 +1333,34 @@ fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
 		out,
 		json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
 		"the inn's door says Inn; a building with no innkeeper by it keeps its area's name"
+	);
+}
+
+// #2863 (Edet in the Ruins of Andorhal): a house's door there is named after the ruins, so the walk to it read
+// "Walk to the Ruins of Andorhal entrance" while the player stood in the ruins, as if it were the way into them.
+// A mouth named after the subzone the player is in is just the entrance; one named after another place keeps it.
+#[test]
+fn a_building_or_cave_mouth_named_after_the_subzone_the_player_is_in_is_just_the_entrance_2863() {
+	let out = run(r#"
+		nav.useTravelWorld()
+		nav.Compat.GetZoneText = function() return "Testshire", "Ruins of Testshire" end
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -200, r = 10, kind = "building", name = "Ruins of Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -300, r = 10, kind = "cave", name = "Ruins of Testshire", zone = "Testshire" },
+			{ wx = 0, wy = -450, r = 10, kind = "building", name = "Westbrook Keep", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -200, 0, -300, 0, -450, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#);
+	assert_eq!(
+		out,
+		json!(["walk|Walk to the entrance", "walk|Walk to the cave mouth", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
+		"the mouths in the player's own subzone say no name; another place's door keeps its name"
 	);
 }
 

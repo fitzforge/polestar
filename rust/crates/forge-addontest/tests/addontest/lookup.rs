@@ -434,6 +434,52 @@ fn curated_guides_the_one_for_this_character_and_class_mounts_by_keyword() {
 	assert_eq!(horde, "test/horde-strider");
 }
 
+// #2606 (Sayvil972, 0.4.0, frFR): looking up The Test of Righteousness built a guide from the quest's data, which sent
+// the paladin to Bailor Stonehand for an ore shipment he only gives after his own quest; Verigan's Fist, the class
+// guide that walks the whole chain, lists the quest among its keywords. A quest whose English title is a whole
+// keyword of a guide this character can follow opens that guide, in any client language; a keyword merely holding
+// the title, or a guide for another class, does not.
+#[test]
+fn a_quest_lookup_opens_the_class_guide_that_lists_it_2606() {
+	let setup = r#"
+		local function g(id, extra)
+			local def = { id = id, pack = "test", title = id, category = "Class", steps = { { goals = { { t = "note", text = "x" } } } } }
+			for k, v in pairs(extra) do def[k] = v end
+			assert(Polestar.RegisterGuide(def))
+		end
+		g("test/vale-warrior", { classes = { "WARRIOR" }, keywords = { "Saddles", "Trouble in the Vale", "Alliance Errand runs" } })
+		g("test/vale-mage", { classes = { "MAGE" }, keywords = { "Saddles", "The Saddler's Request" } })
+		g("test/route", { category = "Leveling", minLevel = 1, maxLevel = 60 })
+	"#;
+	let [warrior, other_class, part, english, opened] = first::<5>(run(&[
+		"\n",
+		TEST_PACK,
+		"\n",
+		TEST_SOURCE,
+		setup,
+		r#"
+		local L = Polestar.Lookup
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.CuratedGuide("quest", 7002) or false)
+		emit(L.CuratedGuide("quest", 7004) or false)
+		-- A French client: the quest's title is translated, the guide's keywords are not.
+		local N = Polestar.Names
+		N.Localised = function() return true end
+		local cached = N.Cached
+		N.Cached = function(kind, id) if kind == "quest" and id == 7001 then return "Des ennuis dans le val" end return cached(kind, id) end
+		Polestar.Fire("NAMES_LOADED")
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.Guide("quest", 7001) or false)
+	"#,
+	]
+	.concat()));
+	assert_eq!(warrior, "test/vale-warrior");
+	assert_eq!(other_class, false, "the mage's guide is not this warrior's");
+	assert_eq!(part, false, "a keyword holding Alliance Errand is not the quest");
+	assert_eq!(english, "test/vale-warrior");
+	assert_eq!(opened, "test/vale-warrior");
+}
+
 #[test]
 fn generated_guides_registered_unsaved_in_pack_lookup_opened_in_a_tab_rebuilt_for_another_source() {
 	let [first_id, def, second, tabs, step] = first::<5>(run(r#"
@@ -795,6 +841,34 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	assert_eq!(page2["n"], 50);
 	assert_ne!(page2["first"], page1["first"]);
 	assert_eq!(lazy, json!({ "before": 0, "after": 1, "s1": "Sub 100030" }));
+}
+
+#[test]
+fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
+	let [kept, matches] = first::<2>(run_with(
+		r#"
+		local opts = { kinds = { item = true }, subtitles = false }
+		local chunks = {}
+		for i = 1, 5000 do chunks[i] = "\2old silver blade number "..i.."\1"..i..",2,,20\n" end
+		local base = table.concat(chunks); chunks = nil
+		Polestar.Codex.Index = function(k) if k == "item" then return base end end
+		Polestar.Codex.IsLoaded = function() return true end
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 1 then return "Silver Blade" end end
+		Polestar.Search.Query("prepare", { kinds = { guide = true }, subtitles = false })
+		collectgarbage(); collectgarbage()
+		local before = collectgarbage("count")
+		Polestar.Search.Query("unmatched", opts)
+		collectgarbage(); collectgarbage()
+		emit((collectgarbage("count") - before) * 1024 / #base)
+		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
+	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
 }
 
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every
@@ -1403,4 +1477,22 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);
 	assert!(arr(&controls).iter().all(|c| c["kind"] == "toggle" && truthy(&c["label"]) && truthy(&c["help"])));
 	assert_eq!(defaults, json!([true, true, true, true]));
+}
+
+// Mokii's report (#2943): Tirion Fordring has a spawn on Western Plaguelands' map from the Classic data (Era frame)
+// and the same place on Eastern Plaguelands' map from Forever's data; Stratholme's pick-up guide, built in Western
+// Plaguelands, took the western point and the arrow went through Western Plaguelands to him. An Era spawn that is the
+// same place as a live spawn on another map is that live spawn; one far from it stays.
+#[test]
+fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one_2943() {
+	let out = run(r#"
+		-- The fixture's maps, side by side: Amber Vale's east edge is Ember Hollow's west edge.
+		Polestar.RegisterMapFrames({ era = { [9001] = { c = 0, left = 1000, right = -1000, top = 1000, bottom = -1000 }, [9002] = { c = 0, left = -1000, right = -3000, top = 1000, bottom = -1000 } } })
+		local N = Polestar.Lookup.Nearest
+		local twin = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 90, y = 50 })
+		local apart = N({ { map = 9001, x = 60, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 55, y = 50 })
+		local unplaced = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } })
+		emit({ twin = twin.map, apart = apart.map, unplaced = unplaced.map })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
 }

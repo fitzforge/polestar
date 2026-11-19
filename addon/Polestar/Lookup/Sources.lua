@@ -214,11 +214,32 @@ local function travel(from, to, direct)
 end
 Lookup.Travel = travel
 
+-- An Era-frame spawn on one map that is the same place as a live spawn on
+-- another map is that live spawn: the Classic data put Tirion Fordring's hut
+-- on Western Plaguelands' map, Forever's data on Eastern Plaguelands', the
+-- zone he stands in, and a pick-up guide built from the west sent the arrow
+-- through Western Plaguelands to him (#2943).
+local SAME_PLACE = 30 -- yards
+local function liveTwin(spawns, s)
+	if not (s and s.f == "e") then return s end
+	local toWorld = ns.Compat.MapToWorld
+	local c0, x0, y0 = toWorld(s.map, s.x, s.y, "e")
+	if not c0 then return s end
+	for i = 1, #spawns do
+		local o = spawns[i]
+		if o.f ~= "e" and o.map ~= s.map and o.x and o.y then
+			local c, x, y = toWorld(o.map, o.x, o.y)
+			if c == c0 and (x - x0) ^ 2 + (y - y0) ^ 2 <= SAME_PLACE * SAME_PLACE then return o end
+		end
+	end
+	return s
+end
+
 -- The spawn the player reaches soonest -> spawn, travel | nil. Without a
 -- player position (instances, loading) the first spawn, travel nil.
 local function nearest(spawns, from, direct)
 	if type(spawns) ~= "table" or #spawns == 0 then return nil end
-	if not from then return spawns[1], nil end
+	if not from then return liveTwin(spawns, spawns[1]), nil end
 	local best, bestT
 	for i = 1, #spawns do
 		local s = spawns[i]
@@ -227,8 +248,10 @@ local function nearest(spawns, from, direct)
 			if t and (not bestT or t < bestT) then best, bestT = s, t end
 		end
 	end
-	if best then return best, bestT end
-	return spawns[1], nil
+	if not best then return liveTwin(spawns, spawns[1]), nil end
+	local twin = liveTwin(spawns, best)
+	if twin ~= best then return twin, travel(from, twin, direct) or bestT end
+	return best, bestT
 end
 Lookup.Nearest = nearest
 
@@ -355,31 +378,44 @@ local function questSide(q)
 end
 Lookup.QuestSide = questSide
 
--- The profession quest q asks for (the quest database's skill line: Badlands
--- Reagent Run II is for alchemists, #2118) when the character has none of it:
--- that skill line, else nil. Nil too while the database is not loaded or the
--- client does not tell skills.
+-- The profession quest q asks for when the character cannot take it yet:
+-- skill line, rank needed (nil when the data names none) | nil. The line is
+-- the Codex's (`l<line>,<rank>`), else the quest database's (Badlands
+-- Reagent Run II is for alchemists, #2118); the rank is the Codex's (Kilram
+-- gives Snakestone of the Shadow Huntress only at Blacksmithing 250,
+-- #2752). Blocked when the character has not learned the profession, or has
+-- it below that rank. Nil too while no source tells the line, or the client
+-- does not tell skills.
 local function missingProfession(q)
-	local Q, C = ns.QuestDB, ns.Compat
-	if not (Q and q.id and Q.IsLoaded() and C.Supports and C.Supports("skill")) then return nil end
-	local r = Q.QuestRecord(q.id)
-	local line = r and r[Q.F.SKILL]
+	local C = ns.Compat
+	if not (q.id and C.Supports and C.Supports("skill")) then return nil end
+	local line, need = q.skill, q.skillRank
+	if not line then
+		local Q = ns.QuestDB
+		local r = Q and Q.IsLoaded() and Q.QuestRecord(q.id)
+		line = r and r[Q.F.SKILL]
+	end
 	if type(line) ~= "number" or line <= 0 then return nil end
-	return not C.GetSkillRank(line) and line or nil
+	local rank = C.GetSkillRank(line)
+	if rank and not (need and rank < need) then return nil end
+	return line, need
 end
 
 -- Quest availability for this character: why, text | nil. A race or class
 -- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730); a
--- profession it has not learned, which one ("Requires Alchemy").
+-- profession it has not learned or not to the rank, which one and the rank
+-- when the data names it ("Requires Alchemy", "Requires Blacksmithing 250").
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
 	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
-	local line = missingProfession(q)
+	local line, need = missingProfession(q)
 	if line then
 		local name = Lookup.ProfessionName(line)
-		return "profession", L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		local text = L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		if need and need > 1 then text = text .. " " .. need end
+		return "profession", text
 	end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
 	if ns.Compat.IsQuestCompleted(q.id) then return "done", L["Already done"] end
@@ -732,15 +768,38 @@ local function purchaseGates(item, r)
 	end
 end
 
+-- An item many vendors sell (the Codex keeps every seller, #2719): the
+-- route's travel only to the ROUTED_VENDORS of the character's side nearest
+-- as the crow flies, the rest at that straight-line time, so a lookup of
+-- water sold in every town asks the route planner ten times, not two
+-- hundred. -> { [src] = true } | nil (all routed).
+local ROUTED_VENDORS = 10
+local function routedVendors(sources, p, from, direct)
+	if direct or not from then return nil end
+	local near = {}
+	for _, src in ipairs(sources) do
+		if src.type == "vendor" then
+			local npc, _, t = npcSpawn(src.npc, from, true)
+			if npc and t and sideOK(npc.faction, p) then near[#near + 1] = { src = src, t = t } end
+		end
+	end
+	if #near <= ROUTED_VENDORS then return nil end
+	table.sort(near, function(a, b) return a.t < b.t end)
+	local keep = {}
+	for i = 1, ROUTED_VENDORS do keep[near[i].src] = true end
+	return keep
+end
+
 local function itemSources(id, p, from, direct)
 	local C = Codex()
 	local item = C.Item(id)
 	if not item then return {}, nil end
 	local list = {}
+	local routed = routedVendors(item.sources or {}, p, from, direct)
 	for _, src in ipairs(item.sources or {}) do
 		local build = builders[src.type]
 		if build then
-			local r = build(src, p, from, direct)
+			local r = build(src, p, from, direct or (routed ~= nil and src.type == "vendor" and not routed[src]))
 			if r then list[#list + 1] = r end
 		end
 	end
@@ -889,7 +948,13 @@ local function zoneRows(zone, p, from, direct)
 	return list
 end
 
-local cache = {} -- "kind:id:direct|route" -> { at, level, list, entity }
+-- Rankings are useful for five seconds. Drop whole generations rather than scanning
+-- every result on hover; after the last query the timer runs at most twice more.
+local cache, previous, scheduled
+local function expire()
+	previous, cache = cache, nil
+	if previous then ns.After(CACHE_SECONDS, expire) else scheduled = false end
+end
 
 local function now() return GetTime and GetTime() or 0 end
 
@@ -899,7 +964,7 @@ function Lookup.Sources(kind, id, direct)
 	if not C.IsLoaded() and not C.Load() then return {}, nil end
 	local p = playerInfo()
 	local key = kind .. ":" .. tostring(id) .. (direct and ":direct" or ":route")
-	local hit = cache[key]
+	local hit = (cache and cache[key]) or (previous and previous[key])
 	if hit and now() - hit.at < CACHE_SECONDS and hit.level == p.level then return hit.list, hit.entity end
 	local from = ns.PlayerPoint()
 	local list, entity = {}, nil
@@ -931,7 +996,12 @@ function Lookup.Sources(kind, id, direct)
 		if entity then list = zoneRows(entity, p, from, direct) end
 	end
 	rank(list)
+	if not cache then cache = {} end
 	cache[key] = { at = now(), level = p.level, list = list, entity = entity }
+	if not scheduled then
+		scheduled = true
+		ns.After(CACHE_SECONDS, expire)
+	end
 	return list, entity
 end
 
@@ -1011,7 +1081,7 @@ end
 
 -- Forget cached rankings (a quest turned in, a profession learned...).
 function Lookup.ResetSources()
-	cache = {}
+	cache, previous = nil, nil
 end
 
 if ns.RegisterEvent then

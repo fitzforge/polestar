@@ -213,11 +213,18 @@ end
 -- the search's source outward, so nearly every key sits in the hash part, 40 bytes a key, and a city cluster's
 -- tree held four tables of up to 32,768 keys (5 MB); three now. Endpoint trees dropped from st.endTrees go to the
 -- pool while it holds fewer than POOL (one is enough for the next connection: a tree grows to its cluster's size
--- once, then is reused); Idle empties it.
+-- once, then is reused), and so does the newest start's at rest (PathGrid.lua's Rest); Path.spareSeconds' rest empties
+-- it. Path.treesMade counts the trees grown new (tests: a tree grown is a cluster's worth of keys inserted and rehashed).
 local SPAN = 1048576 -- 2^20: above any node id + 1 (a cluster holds at most 65,536 nodes)
 local pool, POOL = {}, 1
+Path.treesMade = 0
 local function Tree()
-	return table.remove(pool) or { g = {}, pm = {}, gen = 0, y = {} }
+	local tree = table.remove(pool)
+	if not tree then
+		tree = { g = {}, pm = {}, gen = 0, y = {} }
+		Path.treesMade = Path.treesMade + 1
+	end
+	return tree
 end
 -- A tree given up (an endpoint tree st.endTrees no longer keeps) goes to the pool while it has room.
 local function Release(tree)
@@ -682,7 +689,7 @@ local function connect(st, swim, mult, k, node, back, want)
 		local tree = Tree()
 		node = settle(st, swim, mult, tree, k, node, back, want)
 		local edges, yards = connections(st, tree, k)
-		entry = { node = node, edges = edges, yards = yards, tree = tree }
+		entry = { node = node, edges = edges, yards = yards, tree = tree, back = back }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
 		st.endTrees = st.endTrees or {}
 		st.endTrees[#st.endTrees + 1] = entry
@@ -1288,11 +1295,18 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				return x0 + (floor(k / st.ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % st.ny) * C + lc % C + 0.5) * cs
 			end
 			-- Rounded graph edges, snapping and, with classes, a yard cheaper than running (hmin) must not let the
-			-- heuristic overstate the remaining cost.
+			-- heuristic overstate the remaining cost. The goal's nodes are not all at its cell (gc): a point without a
+			-- height starts from the surfaces within a cell of it (surfaces), and each settles up to SNAP cells on
+			-- (settle), so the goal tree's cost from an entrance can be up to (SNAP + 1) diagonal cells short of the
+			-- straight yards to gc's centre. Measured from gc, the heuristic overstated by up to that and the search could
+			-- settle on a longer walk (#2723, reported by undersailor). The reach comes off the straight yards before the
+			-- scale, as Shortest Path Forever's abstract A* does since its 1.37.1 (Routing/Path.lua, by Cillian Berragan,
+			-- GPL-3.0-or-later) and as Path.LowerBound does.
 			local goalCell = cellOf(st, gk, gc)
 			local goalX = x0 + (floor(gk / st.ny) * C + floor(goalCell / C) + 0.5) * cs
 			local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
 			local lower = max(0, 1 - 0.5 / cs) * hmin
+			local reach = (SNAP + 1) * SQRT2 * cs
 			local function h(id)
 				local x, y
 				if id > LIFT_ID then
@@ -1302,7 +1316,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					x, y = world(id)
 				end
 				local dx, dy = abs(x - goalX), abs(y - goalY)
-				return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
+				local gap = dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx
+				return gap > reach and (gap - reach) * lower or 0
 			end
 			agen = agen + 1
 			local gen = agen
@@ -2355,9 +2370,11 @@ ns.PathSearch = {
 			pool = {}
 		end
 	end,
-	-- The queue emptied (PathJobs.lua's rest): the endpoint trees' pool goes. It fills only while a run gives up more
-	-- endpoint trees than st.endTrees keeps (a batch, a start on several floors), and a tree is 2-4 MB.
+	-- The queue emptied (PathJobs.lua's rest): what the pool holds goes (it fills while a run gives up more endpoint
+	-- trees than st.endTrees keeps: a batch, a start on several floors; a tree is 2-4 MB), and Grid.Rest then hands it
+	-- the newest start's tree (Release), one of the Path.restTrees kept between searches.
 	Rest = function()
 		pool = {}
 	end,
+	Release = Release,
 }

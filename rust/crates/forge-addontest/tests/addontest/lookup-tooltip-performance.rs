@@ -61,7 +61,7 @@ fn maps(codex: &Value) -> String {
 		.join("\n")
 }
 
-fn run() -> Value {
+fn run(script: &str) -> Value {
 	let codex = fixture("lookup.json");
 	let pack = write_codex_pack(&codex, &CodexOpts::default());
 	let before = format!(
@@ -74,7 +74,7 @@ fn run() -> Value {
 		before,
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml"])],
 		login: true,
-		script: SCRIPT.into(),
+		script: script.into(),
 		..Default::default()
 	})
 	.remove(0);
@@ -84,7 +84,7 @@ fn run() -> Value {
 
 #[test]
 fn source_tooltips_never_invoke_route_planning_and_do_not_fill_the_routed_cache() {
-	let out = run();
+	let out = run(SCRIPT);
 	assert_eq!(out["itemTooltipCalls"], 0, "item tooltip must not invoke Nav.EstimateTravel");
 	assert_eq!(out["unitTooltipCalls"], 0, "unit mount tooltip must not invoke Nav.EstimateTravel");
 	assert!(out["itemLookupCalls"].as_f64().unwrap() > 0.0, "normal item lookup must still route after the tooltip");
@@ -92,4 +92,24 @@ fn source_tooltips_never_invoke_route_planning_and_do_not_fill_the_routed_cache(
 	// Item 8000 is a mount without a curated guide: no Alt-click promise.
 	assert_eq!(out["itemLines"], json!(["From Mira Saddler | Vendor · Amber Vale"]));
 	assert_eq!(out["unitLines"], json!(["Mount: Ember Wolf | Horde only", "/pole mount: how to get it"]));
+}
+
+#[test]
+fn a_recent_lookup_stays_hot_across_cleanup_and_idle_results_can_be_collected() {
+	let out = run(r#"
+		local lookup = Polestar.Lookup.Sources
+		local function tick(s) stub.now = stub.now + s; stub.runTimers() end
+		local weak = setmetatable({}, { __mode = "v" })
+		weak[1] = lookup("mount", 8000, true)
+		tick(4)
+		local recent = lookup("mount", 8012, true)
+		tick(2)
+		local hit = lookup("mount", 8012, true) == recent
+		local fresh = lookup("mount", 8000, true) ~= weak[1]
+		weak[1], weak[2] = lookup("mount", 8000, true), recent
+		recent = nil
+		tick(5); tick(5)
+		collectgarbage(); collectgarbage()
+		emit({ hit = hit, fresh = fresh, released = next(weak) == nil })"#);
+	assert_eq!(out, json!({ "hit": true, "fresh": true, "released": true }));
 }

@@ -631,6 +631,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif n.classKind == "PALADIN" then
 				title = L["Level 40: class mount (Paladin)"]
 				body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
+			elseif n.classKind == "PALADIN_FORSAKEN" then
+				title = L["Level 40: class mount (Paladin)"]
+				body  = L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."]
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
@@ -674,13 +677,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			local title = n.free == 0 and L["Your bags are full."]
 				or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
 			local j, Q = n.junk, ns.QoL
-			if j then
+			-- One line: the bags, then the spare bag or the cheapest junk with its
+			-- link under it; without either, the bags alone.
+			if n.spare then
+				-- A spare bag to equip comes before any delete (#2369).
+				local s = n.spare
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
+				placeLink(banner.Jump, L["Equip it"], 0, -4)
+			elseif j then
 				local worth = j.value < math.huge and Q.Money(j.value) or "?"
-				banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
 			else
-				banner.Text:SetText(title .. "\n" .. L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."])
+				banner.Text:SetText(title)
 				banner.Jump:Hide()
+				oneLine = true
 			end
 			banner.Close:Show()
 		elseif kind == "wear" then
@@ -795,7 +806,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
 		elseif kind == "bags" then
-			-- The first click arms the item, the second deletes it.
+			-- Equips a spare bag; else the first click arms the item, the second deletes it.
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
