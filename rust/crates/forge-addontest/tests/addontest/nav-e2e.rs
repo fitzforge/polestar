@@ -881,8 +881,10 @@ fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without
 	let end_z = f(&out["withZ"]["endZ"]);
 	assert!((end_z - f(&out["withZ"]["z"])).abs() <= 4.0, "and ends on his floor ({end_z})");
 	assert_eq!(out["withZ"]["aim"], "travel");
-	assert!(out["withoutZ"]["z"].is_null(), "the same point set by hand has no height");
-	assert_eq!(out["withoutZ"]["asked"], 2);
+	// Set by hand the point has no height of its own; in the Undercity (a capital) the walk goes to the floor players
+	// walk at it (the trail floor, Walk.lua city.GoalZ), on his level.
+	let hand_z = f(&out["withoutZ"]["z"]);
+	assert!((hand_z - f(&out["withZ"]["z"])).abs() <= 4.0, "the same point set by hand goes to the trail floor on his level ({hand_z})");
 	assert!((f(&out["withoutZ"]["endZ"]) - end_z).abs() <= 4.0, "and ends on his floor as well, by the lift ({})", out["withoutZ"]["endZ"]);
 }
 
@@ -2322,7 +2324,9 @@ fn t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gate
 // same-cluster walk searched an A* from every start surface to every goal surface, and one to a surface the start's
 // floor never joins (the mountain's ground over the gate) expanded all the start reaches. A goal the start's endpoint
 // tree (a Dijkstra over the cluster, already run) never reached when it ran dry is out of reach: no A* for it. Same
-// answer; a fraction of the work.
+// answer; a fraction of the work. The capitals' step joins (#2916) join more of the city's floors (4 floors and 41
+// arcs more in the Eastern Kingdoms), so the start's tree has more to expand: 49,231 -> 50,218 for the same path; the
+// limit went from 50,000 to 51,000 with them.
 #[test]
 fn inside_ironforge_the_walk_from_the_commons_to_the_gate_searches_no_goal_floor_out_of_the_starts_reach_with_the_same_path() {
 	skip_unless_ready!();
@@ -2339,7 +2343,7 @@ fn inside_ironforge_the_walk_from_the_commons_to_the_gate_searches_no_goal_floor
 	);
 	let (flat, fl) = (&out["flat"], &out["floor"]);
 	assert!(f(&flat["points"]) > 2.0 && f(&flat["yards"]) < 200.0, "the walk out through the city ({} yd)", flat["yards"]);
-	assert!(f(&flat["n"]) < 50000.0, "without a height, {} expansions (83,679 with a search to every goal surface)", flat["n"]);
+	assert!(f(&flat["n"]) < 51000.0, "without a height, {} expansions (83,679 with a search to every goal surface)", flat["n"]);
 	assert_eq!((&fl["points"], &fl["yards"]), (&flat["points"], &flat["yards"]), "from the floor: the same path");
 	assert!(f(&fl["n"]) < 5000.0, "from the floor, its endpoint search kept: {} expansions (22,145 before)", fl["n"]);
 }
@@ -2547,7 +2551,9 @@ fn issue_1970_the_arrow_stays_on_the_sanctums_portal_until_the_player_is_through
 // 68.73,31.27 on the live map) the walk out to the gate took over 6,000 yd over the walls and round the mountains,
 // because every step on the city's guarded ground costs a Horde walk twenty times over, and the shortest way off it is
 // not the gate. A walk that starts or ends in the other faction's town is priced as for no faction (opts.homeHub): out
-// through the streets and the gate, as an Alliance player walks it, the town still named on the leg.
+// through the streets and the gate, as an Alliance player walks it, the town still named on the leg. With the trail
+// floor (2026-11-18) the player's floor at the entrance is known, so the plan first follows the recorded path out of
+// the tram's hall (a hand-made leg, no search) and the first walk searched starts at its end, still in the city.
 #[test]
 fn hostile_towns_a_tauren_at_the_deeprun_tram_walks_out_of_stormwind_through_its_streets_and_gate_as_an_alliance_player_does_the_town_still_named() {
 	skip_unless_ready!();
@@ -2563,7 +2569,7 @@ fn hostile_towns_a_tauren_at_the_deeprun_tram_walks_out_of_stormwind_through_its
 		for _ = 1, 300 do aim(); stub.advance(0.05) end
 		local f
 		for _, rec in ipairs(finds) do
-			if dist(rec.from[1], rec.from[2], tx, ty) < 3 and rec.done then f = rec end
+			if dist(rec.from[1], rec.from[2], tx, ty) < 60 and rec.done and not f then f = rec end
 		end
 		local legs, ci = N.GetRoute()
 		local named = {}

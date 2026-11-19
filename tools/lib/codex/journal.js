@@ -515,7 +515,7 @@ function buildPages(inputs, codex, warnings = []) {
 		const inst = instances[key];
 		const m = mapOf[key];
 		const d = djOf[key];
-		let entrance = inst.entrance ? { map: inst.entrance.map, x: inst.entrance.x, y: inst.entrance.y, f: inst.entrance.f || null, ...(inst.entrance.A ? { A: inst.entrance.A } : {}) } : null;
+		let entrance = inst.entrance ? { map: inst.entrance.map, x: inst.entrance.x, y: inst.entrance.y, f: inst.entrance.f || null, ...(inst.entrance.A ? { A: inst.entrance.A } : {}), ...(typeof inst.entrance.z === 'number' ? { z: inst.entrance.z } : {}) } : null;
 		if (!entrance && m && m.corpse) {
 			const prefer = Object.values(fv.zones || {}).filter((z) => z.areaId && m.zones.includes(z.areaId)).map((z) => z.id);
 			entrance = zonePoint(frames, m.corpse.c, m.corpse.x, m.corpse.y, prefer);

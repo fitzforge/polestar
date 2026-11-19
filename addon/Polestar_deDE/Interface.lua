@@ -316,6 +316,7 @@ L["Levels"] = "Stufen"
 L["From %s"] = "Von %s"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 L["Search here"] = "Hier suchen"
 L["Arrived"] = "Angekommen"
 L["Click the arrow for the next spot"] = "Klick auf den Pfeil für den nächsten Punkt"

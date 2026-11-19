@@ -355,6 +355,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar está en pausa: la flecha vuelve a seguir la guía en cuanto salgas vivo de la mazmorra, o tras /polestar resume."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 L["Search here"] = "Busca aquí"
 L["Arrived"] = "Has llegado"
 L["Click the arrow for the next spot"] = "Haz clic en la flecha para ir al siguiente punto"

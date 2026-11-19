@@ -670,6 +670,19 @@ forge nav check
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.
+
+  Two kinds of pair are drawn straight instead of routed on our grid (`"kind"`): a **step** (`"step"`) walks
+  between two places at most 12 yd apart, both ways, rising no steeper than the walk slope, where neither map has
+  the way and players walk through (a threshold, a stair or a counter's gap: the players' recordings step through
+  a hole in our grid there); a **drop** (`"drop"`) falls from a ledge's edge (a) to where players land (b, below it
+  and at most 10 yd across), one way, and goes in even where it hurts and his maps make another way. Add a drop
+  only where the recordings show it is a fall players take (the falling flag and the time it takes, not a stair
+  our grid lacks), taken by 70% or more of the 20 or more players who pass the ledge, and under half a full
+  health's fall damage (about 41 yd): the Orgrimmar wind rider tower's drop into the Valley of Strength (#1986).
+  Both kinds need both heights; `"people"` counts the distinct recorded players who walked it. A step, and any pair
+  marked `"strict": true`, is **strict**: each step of its way his maps make no move of their own for gets one (an
+  arc, or an edge across a cluster border) even where his maps walk round to it within 40 yd, because that way round
+  can be the start of a long detour (a threshold his maps close, a bridge his maps cut at its crest).
 - **Cuts** (`pack/cuts.rs`; the lines in `pack/joins.json`'s `cuts`, compiled in): faces players cannot walk up
   that his maps (and our grid) walk up. A cut is a line on a map and a band of heights; with `--leffe`, every move of
   his maps that crosses the line going up (its end more than 0.5 yd above its start, both ends in the band) is taken
@@ -685,7 +698,13 @@ forge nav check
   his maps cut off), the way the router walks (steps, links, arcs, ledge drops, the graph's
   kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
   it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
-  `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges).
+  `unreachedEntrances`). By default (`--ground cities`) only in the capitals (a surface whose cell lies in a
+  capital's zone) but the Undercity (its floors are joined by lifts the reach walk doesn't ride; the rule lost walks
+  through it), the ground outside them staying whole: a city walk's ends then settle on ground a player reaches
+  (a roof, a sealed room or the ground under Stormwind's and Orgrimmar's streets is no floor to start or end on),
+  and nothing changes outside the cities. Measured on the city gate's held-out recorded walks (2026-11-18): the
+  addon's walks failing 95 -> 63 of 1,000 with the joins of that day, no walk newly failing. `--ground reached` drops
+  it everywhere (off: 8 of 2,000 walks of the broad sample lost where a goal's ledge goes), `--ground all` nowhere.
 - Ledge drops (`pack/drops.rs`, Shortest Path Forever v1.31's rule on our grid's falls): a fall of our grid of 2 to
   14.57 yd (the height a fall starts to hurt) into the ledge's cell or one beside it, inside one tile, becomes a
   one-way arc between his surfaces nearest the two heights (within 3.5 yd), priced as the walk across plus the time

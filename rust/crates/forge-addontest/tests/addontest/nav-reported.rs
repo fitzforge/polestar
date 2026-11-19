@@ -592,3 +592,163 @@ fn the_abstract_search_never_settles_on_a_dearer_walk_than_the_cheapest_2723() {
 	let (find, many) = (got["find"].as_f64().expect("Find finds a walk"), got["many"].as_f64().expect("FindMany finds one"));
 	assert!(find <= many + 0.01, "Find's walk costs {find:.3}, the cheapest {many:.3}");
 }
+
+// #1986 (xstevan), Orgrimmar: from the wind rider tower the arrow walked down the ramp round the tower, where players
+// drop off the platform's south edge into the Valley of Strength (29 yd: it hurts, it doesn't kill; 121 recorded
+// players do). A drop join puts that fall in, one way: the walk from the flight master Doras (61.7) to Kaja's shop on
+// the Drag (21.7) goes off the edge (47.50, 65.47) and is about the players' 126 yd, not the ramp's 195.
+#[test]
+fn orgrimmar_the_walk_down_from_the_wind_rider_tower_drops_off_its_edge_as_players_do_1986() {
+	let doras = Pt { c: 1, x: 1676.3, y: -4313.4, z: Some(61.7) };
+	let kaja = Pt { c: 1, x: 1692.7, y: -4412.0, z: Some(21.7) };
+	let got = walk(doras, kaja, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Doras to Kaja");
+	let pts = points(&got);
+	let edge = Pt { c: 1, x: 1661.5, y: -4346.9, z: None };
+	let off = off_path(&pts, edge);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the tower's edge");
+	let yards = yards_of(&pts);
+	assert!(yards < 160.0, "the walk down is {yards:.0} yd");
+}
+
+const REACH: &str = r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = { walk = false }
+Path.Find(0, @FROM, @TO, function(points, cost, job)
+	if points then
+		got.walk = { points = {}, cost = cost, reached = job.reached and { job.reached.x, job.reached.y, job.reached.z } or false }
+		for i, p in ipairs(points) do got.walk.points[i] = { p.x, p.y, p.z or false } end
+	end
+end, { profile = "Alliance" })
+while #frames > 0 do table.remove(frames, 1)() end
+local costs = Path.FindManySync(0, @TO, { @FROM }, { profile = "Alliance" }, true)
+got.measure = costs and costs[1] or false
+emit(got)"#;
+
+// #2860 (Ironforge, 0.4.1): from the Great Forge's ring (31.78,66.47, the floor at 501) to Daryl Riknussun, the
+// cooking trainer (60.25,36.79, his spawn's 509.5), the arrow's walk went out of the gate and over the mountain: his
+// platform was reached by no walk on the maps before the step joins (#2916), and the search asked again without his
+// height ended on the mountain top (3,515 yd for a 356 yd walk; the planner's measure from his platform, the travel
+// line's 8:20, likewise). With the router's reach (Nav/Walk.lua passes 10 yd in the capitals) the walk and the measure
+// end on his level at his platform (at its foot, were it joined to nothing), never over the mountain.
+#[test]
+fn ironforge_the_walk_to_the_cooking_trainer_at_his_height_with_the_reach_ends_at_his_platform_not_over_the_mountain_2860() {
+	let from = "{ x = -4919.94, y = -964.85, z = 501 }";
+	let to = "{ x = -4763.35, y = -1189.94, z = 509.5, reach = 10 }";
+	let script = REACH.replace("@FROM", from).replace("@TO", to);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
+	assert!(truthy(&got["walk"]), "the engine finds a walk with the reach");
+	let pts = points(&got["walk"]);
+	let yards = yards_of(&pts);
+	assert!(yards < 450.0, "the walk is {yards:.0} yd (the trails' 356), not round the mountain");
+	assert!(pts.iter().all(|p| p.2.is_none_or(|z| z < 530.0)), "the walk never climbs onto the mountain over the city");
+	let end = pts[pts.len() - 2];
+	assert!((end.0 + 4763.35).hypot(end.1 + 1189.94) < 20.0 && end.2.is_some_and(|z| (z - 509.5).abs() <= 10.0), "the walk ends at his platform on his level, not at {end:?}");
+	let measure = got["measure"].as_f64().expect("the measure from his platform finds the walk too");
+	assert!(measure < 450.0, "the measure is {measure:.0}");
+}
+
+// #2860, Ironforge: from the reporter's spot (31.78, 66.47, on the floor at 501) to Daryl Riknussun, the cooking
+// trainer, at the goal's point (60.25, 36.79) and his height (509.5), the walk found no way: that part of his platform
+// was joined to nothing in the walking maps, and the walk asked again without his height went out of the gate and over
+// the mountain (3,515 yd). Players walk onto the platform from the Great Forge's floor (27 recorded players by its
+// steps, 32 beside them): step joins put that in. The walk is found at his height, ends on his platform, and is about
+// the players' 356 yd.
+#[test]
+fn ironforge_the_walk_onto_daryl_riknussuns_platform_is_found_at_his_height_2860() {
+	let reporter = Pt { c: 0, x: -4919.9, y: -964.9, z: Some(501.0) };
+	let daryl = Pt { c: 0, x: -4763.3, y: -1189.9, z: Some(509.5) };
+	let got = walk(reporter, daryl, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk to Daryl Riknussun at his height");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 509.5).abs() < 5.0) && (last.0 - daryl.x).hypot(last.1 - daryl.y) < 10.0, "the walk ends on his platform: {last:?}");
+	let yards = yards_of(&pts);
+	assert!(yards < 450.0, "the walk is {yards:.0} yd");
+	joined_both_ways(Pt { c: 0, x: -4790.6, y: -1167.7, z: Some(502.2) }, daryl, Some("Alliance"), "Daryl Riknussun's platform");
+}
+
+// Ironforge (33.92, 49.31): the spot where players talk to Afadra Dunwall was joined to
+// nothing in the walking maps (no walk to or from it at its floor, 501.9); 32 recorded players step across the gap
+// beside it, and a step join puts that in. The walk to Thurgrum Deepforge on the Great Forge's floor (498.9) and back
+// is found.
+#[test]
+fn ironforge_afadra_dunwalls_spot_is_joined_to_the_city_by_the_step_players_take() {
+	let afadra = Pt { c: 0, x: -4822.4, y: -980.7, z: Some(501.9) };
+	let thurgrum = Pt { c: 0, x: -4795.0, y: -1122.6, z: Some(498.9) };
+	joined_both_ways(afadra, thurgrum, Some("Alliance"), "Afadra Dunwall's spot");
+}
+
+// Ironforge, the Great Forge (55.08, 58.26): Nissa Firestone, the first aid trainer, stands at 512.5 on a floor the
+// walking maps joined to nothing, so the reach rule would drop it and a walk from her height found no way (to Fimble
+// Finespindle, 40.15, 33.21). 16 recorded players step onto it from the Forge's floor beside her (55.46, 59.93); the
+// step join for that keeps her floor and the walk goes down off it round the Forge (about 235 yd).
+#[test]
+fn ironforge_a_walk_from_nissa_firestone_at_her_height_steps_off_her_floor_onto_the_forges() {
+	let nissa = Pt { c: 0, x: -4876.6, y: -1149.1, z: Some(512.5) };
+	let fimble = Pt { c: 0, x: -4744.5, y: -1031.0, z: Some(504.5) };
+	let got = walk(nissa, fimble, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Nissa Firestone at her height");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 300.0, "the walk is {yards:.0} yd");
+}
+
+// Undercity, the Rogues' Quarter: the arched bridge over the canal (72.5, 63.4 to 76.4, 67.3) was cut at its crest in
+// the walking maps into two decks that meet only down at the canal, so the walk from the ring below the bat handler to
+// Mennet Carkad went round the district (487 yd; the recorded players' walk is 292). A strict join puts the crest in:
+// the walk crosses the bridge and is about the grid's 317 yd.
+#[test]
+fn undercity_the_walk_to_the_rogues_quarter_crosses_the_canal_bridge() {
+	let ring = Pt { c: 0, x: 1568.6, y: 267.9, z: Some(-59.65) };
+	let mennet = Pt { c: 0, x: 1436.1, y: 74.0, z: Some(-62.3) };
+	let got = walk(ring, mennet, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk to Mennet Carkad");
+	let pts = points(&got);
+	let crest = Pt { c: 0, x: 1457.4, y: 161.3, z: None };
+	let off = off_path(&pts, crest);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the bridge's crest");
+	let yards = yards_of(&pts);
+	assert!(yards < 360.0, "the walk is {yards:.0} yd");
+}
+
+// Darnassus: where a recorded player stood at Yldan (65.5, 52.8, height 1339.6) the walking maps had no walk out at
+// all ("unreachable"), so a walk from him to the trainer Eladriel failed; our grid walks down from his floor in 43 yd.
+// A join puts that in: the walk from his floor to the innkeeper Saelienne and back is found.
+#[test]
+fn darnassus_yldans_floor_is_joined_to_the_city() {
+	let yldan = Pt { c: 1, x: 9865.4, y: 2245.05, z: Some(1339.6) };
+	let saelienne = Pt { c: 1, x: 10127.9, y: 2224.79, z: Some(1328.8) };
+	joined_both_ways(yldan, saelienne, Some("Alliance"), "Yldan's floor");
+}
+
+// Thunder Bluff, the wind rider tower: players leave Tal's platform (177 yd up) by hopping down its south ledges and
+// dropping 26 yd to the mesa (52 of the 53 recorded players who pass the lower ledge); the walking maps took the ramp
+// round the tower, 197 yd to Innkeeper Pala for the players' 113. Drop joins put the falls in: the walk goes off the
+// south ledge and is under 150 yd.
+#[test]
+fn thunder_bluff_from_tal_the_walk_drops_off_the_wind_rider_towers_south_ledges_as_players_do() {
+	let tal = Pt { c: 1, x: -1196.75, y: 26.08, z: Some(177.03) };
+	let pala = Pt { c: 1, x: -1300.28, y: 38.49, z: Some(129.29) };
+	let got = walk(tal, pala, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Tal to Innkeeper Pala");
+	let pts = points(&got);
+	let ledge = Pt { c: 1, x: -1217.7, y: 32.3, z: None };
+	let off = off_path(&pts, ledge);
+	assert!(off < 6.0, "the walk passes {off:.0} yd from the lower south ledge");
+	let yards = yards_of(&pts);
+	assert!(yards < 150.0, "the walk down is {yards:.0} yd");
+}
+
+// Stormwind, the Park (34.69, 63.26): from the path at 93 down to the lawn at 90, 2 yd away, the walking maps went
+// round (75 yd); 20 recorded players walk straight down there. A join puts that in.
+#[test]
+fn stormwind_the_park_the_walk_down_from_the_path_to_the_lawn_goes_straight_down_as_players_do() {
+	let path = Pt { c: 0, x: -8728.9, y: 1119.2, z: Some(93.0) };
+	let lawn = Pt { c: 0, x: -8728.4, y: 1121.1, z: Some(90.0) };
+	let got = walk(path, lawn, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds the walk down");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 20.0, "the walk down is {yards:.0} yd");
+}
