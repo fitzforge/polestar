@@ -326,25 +326,21 @@ step Ketharas
   accept 92612                          -- Aid from Moonglade
 
 step Hearth to Everlook
-  only !Druid
+  when zone "Mount Hyjal"
   when bound "Everlook"
+  when has 6948
   when !cooldown item 6948
-  tip Your Hearthstone is bound in Everlook: use it, and go on to Moonglade from there.
+  tip Use your Hearthstone to return to Everlook. If you know Teleport: Moonglade, you can go straight there instead.
   hearth "Everlook"
+  enter "Winterspring"
 
 step Fly to Moonglade
   only Alliance
   when zone "Mount Hyjal"
   when taxi "Moonglade"
-  tip Return to Bluebell at the Tainted Foothills flight point and fly to Moonglade. Druids can use Teleport: Moonglade.
+  when taxi "Everlook"
+  tip Open Bluebell's flight map at the Tainted Foothills. Take Moonglade if she offers it. If she lists only Everlook, fly there and change for Moonglade.
   goto 55.1,82.6 "Bluebell, the flight mistress"
-  fly "Moonglade"
-
-step Fly to Moonglade
-  only Alliance
-  when zone "Winterspring"
-  when taxi "Moonglade"
-  tip Fly from Everlook to Moonglade. Druids can use Teleport: Moonglade.
   fly "Moonglade"
 
 step Reach Winterspring
@@ -352,7 +348,7 @@ step Reach Winterspring
   when zone "Mount Hyjal"
   when !taxi "Moonglade"
   when taxi "Everlook"
-  tip Moonglade is not on your flight map. Fly from Bluebell to Everlook; use the Timbermaw tunnel from there, not the gorge.
+  tip Fly from Bluebell to Everlook if it is on her flight map. Stay out of the gorge.
   goto 55.1,82.6 "Bluebell, the flight mistress"
   fly "Everlook"
 
@@ -360,15 +356,9 @@ step Fly to Moonglade
   only Horde
   when zone "Mount Hyjal"
   when taxi "Moonglade"
-  tip Return to Bluebell at the Tainted Foothills flight point and fly to Moonglade. Druids can use Teleport: Moonglade.
+  when taxi "Everlook"
+  tip Open Bluebell's flight map at the Tainted Foothills. Take Moonglade if she offers it. If she lists only Everlook, fly there and change for Moonglade.
   goto 55.1,82.6 "Bluebell, the flight mistress"
-  fly "Moonglade"
-
-step Fly to Moonglade
-  only Horde
-  when zone "Winterspring"
-  when taxi "Moonglade"
-  tip Fly from Everlook to Moonglade. Druids can use Teleport: Moonglade.
   fly "Moonglade"
 
 step Reach Winterspring
@@ -376,18 +366,36 @@ step Reach Winterspring
   when zone "Mount Hyjal"
   when !taxi "Moonglade"
   when taxi "Everlook"
-  tip Moonglade is not on your flight map. Fly from Bluebell to Everlook; use the Timbermaw tunnel from there, not the gorge.
+  tip Fly from Bluebell to Everlook if it is on her flight map. Stay out of the gorge.
   goto 55.1,82.6 "Bluebell, the flight mistress"
   fly "Everlook"
 
-step Reach Moonglade through Timbermaw Hold
+step Safe passage from Hyjal
+  when zone "Mount Hyjal"
+  tip Check Bluebell's flight map. Take Moonglade only if she offers it. A druid who knows Teleport: Moonglade can go directly. If your Hearthstone is bound in Everlook, wait for it to be ready; otherwise arrange a summon to Moonglade or pause the guide here. Do not leave through the gorge on your own.
+  enter "Moonglade"
+
+step Fly to Moonglade
+  only Alliance
+  when zone "Winterspring"
+  when taxi "Moonglade"
+  tip Check your flight map at Everlook and take Moonglade if it is offered. If you cannot fly, arrange safe passage to Nighthaven.
+  fly "Moonglade"
+
+step Fly to Moonglade
+  only Horde
+  when zone "Winterspring"
+  when taxi "Moonglade"
+  tip Check your flight map at Everlook and take Moonglade if it is offered. If you cannot fly, arrange safe passage to Nighthaven.
+  fly "Moonglade"
+
+step Reach Moonglade
   when !zone "Moonglade"
-  when !taxi "Moonglade"
-  tip Use the road west from Everlook to Timbermaw Hold. At the fork inside, take the tunnel to Moonglade, not Felwood. If you joined inside Hyjal without either flight path, use your Hearthstone and come through the tunnel from Felwood or Winterspring; do not try to leave through the gorge alone. Druids can teleport straight to Moonglade.
-  zone Moonglade
-  goto 56.1,30.4 map 1450 live "Dendrite Starblaze in Nighthaven"
+  tip If you can safely use Timbermaw Hold from Winterspring or Felwood, take the Moonglade passage. Otherwise arrange a summon to Nighthaven, use Teleport: Moonglade if you know it, or pause here. Don't go through Darkwhisper Gorge.
+  enter "Moonglade"
 
 step Dendrite Starblaze
+  zone Moonglade
   tip North into Nighthaven: Dendrite Starblaze stands in the north-east of the village.
   turnin 92612
   accept 96209                          -- The Ancient, Orokai
@@ -435,29 +443,27 @@ step Moonglade flight path
 
 step Fly to Everlook
   only Alliance
+  when zone "Moonglade"
   when taxi "Everlook"
   fly "Everlook"
-  zone Winterspring
-
-step Return through Timbermaw Hold
-  only Alliance
-  when !taxi "Everlook"
-  tip If you started inside Hyjal without Everlook's flight path, go south through Timbermaw Hold to Winterspring. Ride east to Everlook and learn your flight path in town.
-  zone Winterspring
-  getfp "Everlook" npc 11138
 
 step Fly to Everlook
   only Horde
+  when zone "Moonglade"
   when taxi "Everlook"
   fly "Everlook"
-  zone Winterspring
 
-step Return through Timbermaw Hold
-  only Horde
-  when !taxi "Everlook"
-  tip If you started inside Hyjal without Everlook's flight path, go south through Timbermaw Hold to Winterspring. Ride east to Everlook and learn your flight path in town.
+step Return to Winterspring
+  when !zone "Winterspring"
+  tip If your Hearthstone is ready and bound in Everlook, use it. Otherwise take the Winterspring passage only if you can safely use Timbermaw Hold, or arrange transport to Everlook. If neither is possible, pause here.
+  enter "Winterspring"
+
+step Everlook flight path
   zone Winterspring
-  getfp "Everlook" npc 11139
+  when zone "Winterspring"
+  tip Learn your side's flight path in town before leaving for Hyjal again.
+  getfp "Everlook" npc 11138 only Alliance
+  getfp "Everlook" npc 11139 only Horde
 
 step Nami
   tip Nami stands between Everlook's two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the Tainted Foothills and take it to Kaylaena without detours or fights (about four minutes in the recording). If it fizzles out anyway, Nami fills it again.
