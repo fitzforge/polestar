@@ -263,7 +263,7 @@ step Maur Raincaller
   when complete 766
   turnin 766                          -- Maur Raincaller
 
-step Kyle the Frenzied
+step Feed Kyle and return to Ahab
   tip Kyle runs around the village: give him the Tender Strider Meat, then hand it in to Ahab at the north edge of the village, on your way out north.
   use 287505 quest 99411.1 @47.8,63.1 -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
   turnin 99411                        -- Ahab Wheathoof, at the north edge of the village

@@ -7125,6 +7125,7 @@ test('Hillsbrad (Horde 22-25): the skulls point is in the southern fields, not t
 		}
 	}
 	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /Magistrate Burnside \(30\)/, 'the tip names Burnside');
+	assert.match([skulls.step.note, skulls.step.tip].flat().filter(Boolean).join(' '), /at 23, pick the level 24s/, 'a level 23 solo player avoids the level 25 peasants');
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	assert.deepEqual(places.find((p) => p.quest === 546 && p.objective === 1)?.path?.points, skulls.goal.spots.map(({ x, y }) => [x, y]), 'the whole field loop is recorded');
 });
