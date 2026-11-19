@@ -265,11 +265,11 @@ return {
 
 	-- Step 53: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）",
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠。向西走到{object:2098}，{npc:1646}在广场东侧。这封信原本安排在18–22级洛克莫丹路线末尾交还，仍带着的话可在这里交给他。",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "回{area:442}交给{npc:3649}（06-wetlands）",
+	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "走27–30级湿地路线回到{area:442}时，交给{npc:3649}。",
 
 	-- Step 54: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena

@@ -137,7 +137,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "从辛迪加营地出发，沿道路向东越过{area:1057}前往{area:320}。",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}：交01-hillsbrad-foothills中{npc:1075}的求援任务",
+	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "把30–32级湿地与希尔斯布莱德丘陵路线中接到的{npc:1075}的求援任务交给{npc:2700}。",
 
 	-- Step 29: Northfold Manor
 	-- {area:320} Refuge Pointe

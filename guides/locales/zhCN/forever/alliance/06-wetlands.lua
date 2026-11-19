@@ -64,7 +64,7 @@ return {
 
 	-- Step 14: Harlo Barnaby
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
-	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}，在北门旁：在30-40/01-hillsbrad-foothills路线停靠{area:205}时，交给{npc:1071}",
+	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}在北门旁。走30–32级湿地与希尔斯布莱德丘陵路线到{area:205}时，交给{npc:1071}。",
 
 	-- Step 15: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -162,7 +162,7 @@ return {
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637}的营地在{npc:1244}西边不远，周围是藓皮沼泽行者。",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
-	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "刺喉龙门牙：由{area:1038}附近的迅猛龙掉落，在30-40/01-hillsbrad-foothills的{zone:1437}路线中收集",
+	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "刺喉龙门牙由{area:1038}附近的迅猛龙掉落。走30–32级路线经过{zone:1437}时收集。",
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋",
 
@@ -181,7 +181,7 @@ return {
 
 	-- Step 33: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一只精英迅猛龙，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}的目标是一只精英迅猛龙，留到30–32级路线经过{zone:1437}时再做。",
 
 	-- Step 34: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:260808} Highland Horror
@@ -208,7 +208,7 @@ return {
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:2094}在前往乘船处途中的码头旁。",
 	["On the top floor"] = "在最顶层",
 	-- {zone:1437} Wetlands
-	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "用于龙喉投石车，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",
+	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "龙喉投石车留到30–32级路线经过{zone:1437}时处理。",
 	-- {npc:2094} James Halloran
 	["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}，在码头旁，去坐船时顺路经过",
 
@@ -238,7 +238,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}在{area:442}北端。",
 	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "巴隆斯·阿历克斯顿的回信，如果还带在身上（路线已安排在03-darkshore-return首次到{area:442}时交还）",
+	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "如果还带着巴隆斯·阿历克斯顿的回信，留到21–23级回访黑海岸、首次到{area:442}时交还。",
 
 	-- Step 43: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin

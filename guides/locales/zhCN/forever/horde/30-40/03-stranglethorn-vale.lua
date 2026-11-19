@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "向北回到营地。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37级）留到下次来奈辛瓦里营地时再做，约40级，见forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37级）留到约40级，走荆棘谷路线再次到奈辛瓦里营地时再做。",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -209,9 +209,9 @@ return {
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
 	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}：留到forever/horde/40-50/01-stranglethorn-vale指南再做",
+	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}这里的任务留到39–41级荆棘谷路线再做。",
 	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}：留到forever/horde/40-50/01-stranglethorn-vale指南再做",
+	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}这里的任务留到39–41级荆棘谷路线再做。",
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南会从营地西侧的塔楼乘飞艇前往{zone:1454}。",
 

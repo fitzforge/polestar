@@ -267,7 +267,7 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "接下来：乘狮鹫前往{area:42}，开始{zone:1431}的第二轮路线（05-duskwood）。",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "接下来乘狮鹫前往{area:42}，开始{zone:1431}的第二轮路线。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1429}"] = "返回{zone:1429}",

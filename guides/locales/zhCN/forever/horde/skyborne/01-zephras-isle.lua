@@ -466,7 +466,7 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}在{area:1639}训练德鲁伊。他会教你{spell:18960}；{npc:11802}的迎接任务留到约21级、为{spell:499}出行时再做（forever/horde/02-the-barrens）。",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}在{area:1639}训练德鲁伊，会教你{spell:18960}。{npc:11802}的迎接任务等到约21级，走贫瘠之地路线去学{spell:499}时顺路完成。",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise

@@ -85,7 +85,7 @@ return {
 
 	-- Step 15: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：挎包在西北海岸外，位于30-40结尾南线（06-badlands）上：先留着它",
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "在{npc:5638}处接下任务，留到37–38级荒芜之地路线走南线时，再去西北近海找挎包。",
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine

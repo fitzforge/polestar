@@ -118,7 +118,7 @@ return {
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "返回大桥另一侧，再沿路向南，经过{area:205}。",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
-	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "在05-arathi-highlands中交给{area:320}的{npc:2700}",
+	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "走35–37级阿拉希高地路线时，交给{area:320}的{npc:2700}。",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
@@ -207,7 +207,7 @@ return {
 	-- {npc:2228} Lieutenant Farren Orinelle
 	["{npc:2228}, inside"] = "{npc:2228}：在屋内",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
-	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}，在旅店里：交给{area:35}（04-stranglethorn-vale）",
+	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}在旅店里。走32–34级荆棘谷路线到{area:35}时再交还。",
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "{npc:2430}：在楼上",
 	-- {npc:2382} Darren Malvew
@@ -215,7 +215,7 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}，来自{npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}：在屋内。先保留，辛迪加营地留到向北去阿拉希的路上再做（05-arathi-highlands）",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}在屋内。先留着，走35–37级路线向北去阿拉希高地时，再处理辛迪加营地。",
 
 	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring

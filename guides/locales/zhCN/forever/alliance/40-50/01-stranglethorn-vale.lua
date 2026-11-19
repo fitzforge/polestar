@@ -359,7 +359,7 @@ return {
 
 	-- Step 76: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}：{quest:93176}，来自 30-40/05-arathi-highlands",
+	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "向{npc:217412}交还在35–37级阿拉希高地路线接到的{quest:93176}。",
 
 	-- Step 77: Watcher Biggs
 	-- {npc:5476} Watcher Biggs

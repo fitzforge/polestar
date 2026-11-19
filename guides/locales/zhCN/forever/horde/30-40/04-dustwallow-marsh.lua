@@ -95,7 +95,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "带着头颅向西返回蕨墙村：{npc:4503}站在道路进入村庄处的南缘，{npc:4791}和{npc:4926}在村子里。",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol
-	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "交给{object:3202}的{npc:2519}，在forever/horde/40-50/01-stranglethorn-vale指南中处理",
+	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "走39–41级荆棘谷路线到{object:3202}时，交给{npc:2519}。",
 
 	-- Step 20: Level 36
 	["Level 36"] = "等级 36",
