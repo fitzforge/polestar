@@ -84,10 +84,33 @@ step Donova Snowden
   turnin 980
   accept 4842                         -- Keep this for the next visit to the gorge mouth
 
+step Everlook flight master
+  when zone "Winterspring"
+  when taxi "Ratchet"
+  zone Winterspring
+  goto 62.33,36.61 "Maethrya, the Alliance flight master"
+  fly "Ratchet"
+
+step Marshal's Refuge flight master
+  when zone "Un'Goro Crater"
+  when taxi "Ratchet"
+  zone Un'Goro Crater
+  goto 45.13,5.89 "Gryfe, the flight master" live
+  fly "Ratchet"
+
+step Reach Ratchet
+  zone The Barrens
+  tip Reach Ratchet by an available route. If your flight master offers Theramore instead, fly there, ride west into the Barrens and follow the road north to Ratchet. Speak to Bragok in town if you still need the flight path.
+  enter "Ratchet" @63.04,37.14 live
+
+step Ratchet flight master
+  when !taxi "Ratchet"
+  zone The Barrens
+  getfp "Ratchet"
+
 step Ratchet
   zone The Barrens
-  tip Fly to Ratchet for Liv Rizzlefix. If you stayed in Winterspring after Hyjal, use Everlook's flight master.
-  fly "Ratchet"
+  tip Liv Rizzlefix is in Ratchet. From Winterspring, leave by Maethrya in Everlook; from Un'Goro, leave by Gryfe at Marshal's Refuge.
   turnin 4502                         -- Liv Rizzlefix, inside
   collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
 
@@ -446,6 +469,8 @@ step Ranshalla
   complete 4901
 
 step Darkwhisper Gorge
+  when onquest 4842
+  when !complete 4842
   tip Follow Donova's directions south to the mouth of Darkwhisper Gorge. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in.
   goto 62.3,67.0 "The road past the Frostmaul giants"
   goto 62.1,69.5 "The road past the Frostmaul giants"

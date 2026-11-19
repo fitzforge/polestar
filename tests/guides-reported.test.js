@@ -6565,7 +6565,7 @@ test('Alliance Hyjal return: the Everlook opener uses the character’s own leve
 	// Exercise the real opener and the real Ratchet departure in isolation: compiling the whole 06
 	// alone would reject the many quest hand-ins belonging to its earlier guides.
 	const start = source.slice(0, source.indexOf('\nstep Winterfall Village'));
-	const departure = source.match(/\nstep Ratchet\n[\s\S]*?  fly "Ratchet"\n/)[0];
+	const departure = source.slice(source.indexOf('\nstep Everlook flight master'), source.indexOf('\nstep Ratchet\n'));
 	const pack = buildSimPack([{ file, text: start + departure }]);
 	try {
 		assert.deepEqual(pack.diag.errors, []);
@@ -6579,6 +6579,54 @@ test('Alliance Hyjal return: the Everlook opener uses the character’s own leve
 				script: 'emit(Polestar.Engine.GetStepIndex())',
 			});
 			assert.equal(first === 1, expected, `level ${level}, ${zone}, Vizzie ${returned}`);
+		}
+	} finally { pack.dispose(); }
+});
+
+test('Alliance Ratchet departure: approach the flight master in the current zone; skip the gorge without work', { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const fly = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Ratchet');
+	const arrival = list.find(({ goal }) => goal.t === 'enter' && goal.location === 'Ratchet');
+	for (const [zone, map, node, x, y] of [['Winterspring', 1452, 'Everlook', 62.33, 36.61], ["Un'Goro Crater", 1449, "Marshal's Refuge", 45.13, 5.89]]) {
+		const approach = list.find(({ s, goal, step }) => s <= arrival.s && goal.t === 'goto' && goal.map === map && goal.x === x && goal.y === y && step.when?.some((p) => p.k === 'zone' && p.name === zone));
+		assert.ok(approach, `approach the ${node} flight master from ${zone}`);
+		assert.ok(approach.step.when.some((p) => p.k === 'taxi' && !p.neg));
+		assert.deepEqual(approach.step.goals.map((g) => g.t), ['goto', 'fly']);
+		assert.equal(approach.step.goals[1].location, 'Ratchet');
+	}
+	assert.ok(fly.step.when.some((p) => p.k === 'taxi' && !p.neg));
+	assert.ok(arrival.s > fly.s && !arrival.step.goals.some((g) => g.t === 'fly'));
+	assert.ok(list.some(({ s, goal, step }) => s > arrival.s && goal.t === 'getfp' && goal.location === 'Ratchet' && step.when?.some((p) => p.k === 'taxi' && p.neg)));
+	const mouth = list.find(({ goal }) => goal.t === 'complete' && goal.quest === 4842);
+	assert.ok(mouth.step.when.some((p) => p.k === 'onquest' && [p.q].flat().includes(4842)));
+	assert.ok(mouth.step.when.some((p) => p.k === 'complete' && p.neg && [p.q].flat().includes(4842)));
+});
+
+test('Alliance Ratchet boarding: a learned departure still points to the flight master before boarding', { skip }, () => {
+	const file = 'forever/alliance/50-60/06-silithus.guide';
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+	const text = src.slice(0, src.indexOf('\nstep Back from Mount Hyjal')) + src.slice(src.indexOf('\nstep Everlook flight master'), src.indexOf('\nstep Ratchet\n'));
+	const pack = buildSimPack([{ file, text }]);
+	try {
+		assert.deepEqual(pack.diag.errors, []);
+		for (const [zone, map, x, y, known, title, verb] of [
+			['Winterspring', 1452, 31.21, 45.15, true, 'Everlook flight master', 'goto'],
+			["Un'Goro Crater", 1449, 43.7, 8.3, true, "Marshal's Refuge flight master", 'goto'],
+			['Felwood', 1448, 51.2, 82.1, true, 'Reach Ratchet', 'enter'],
+			['Winterspring', 1452, 31.21, 45.15, false, 'Reach Ratchet', 'enter'],
+			['Felwood', 1448, 51.2, 82.1, false, 'Reach Ratchet', 'enter'],
+		]) {
+			const [v] = playGuide(pack, pack.guides[0], { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+				saved: `PolestarCharDB={flags={taxi={[52]=true,[79]=true,[80]=${known}}}}`,
+				before: `w.level=59; w.moveTo(${map},${x},${y}); w.zone=${JSON.stringify(zone)}; w.onQuest(4842,{{type='event',need=1}})`,
+				script: `local E,w=Polestar.Engine,stub.world; local i=E.GetStepIndex(); local t=E.GetGuide().steps[i].title
+					for _,g in ipairs(E.GetStepView(i).goals) do if g.status=='active' then emit({title=t,verb=g.t});break end end
+					if ${verb === 'goto'} then
+						local stop=E.GetGuide().steps[i].goals[1]; w.moveTo(stop.map,stop.x,stop.y); w.taxi(${map === 1452 ? 11138 : 10583},${JSON.stringify(map === 1452 ? 'Everlook' : "Marshal's Refuge")},{}); stub.advance(1)
+						assert(E.GetStepView(i).goals[2].status~='done', 'opening a flight map without a Ratchet service is not a flight or landing')
+					end`,
+			});
+			assert.deepEqual(v, { title, verb }, `${zone}; Ratchet learned: ${known}`);
 		}
 	} finally { pack.dispose(); }
 });
