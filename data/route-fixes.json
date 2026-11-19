@@ -15978,6 +15978,32 @@
 				"faction": "Alliance",
 				"why": "Alliance 50-60 fix round 2 (0.4.0): The Twilight Mystery is taken with Report to Marshal Bluewall on the Silithus guide's first Cenarion Hold stop (pair above).",
 				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					91758
+				],
+				"b": [
+					"accept",
+					2158
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): in Northshire, Rest and Relaxation (2158) was taken from Falkhaan Isenstrider at the stables south-west of the Abbey before the group-quest hand-ins, which went back north-east to Marshal McBride and Tordrin Sternblade (51.2,40.8) and then south again on the kobold tracks. Falkhaan is taken after Tordrin, on the way south to the tracks and Goldshire.",
+				"source": "#2742"
+			},
+			{
+				"a": [
+					"accept",
+					2158
+				],
+				"b": [
+					"task",
+					91772
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): Falkhaan Isenstrider (45.6,47.7) before the kobold tracks of Shhh! We're Hunting Kobolds (91772), which run from 47.7,45.9 down the road to Goldshire, so the stables are not a walk back north.",
+				"source": "#2742"
 			}
 		],
 		"leftout": [

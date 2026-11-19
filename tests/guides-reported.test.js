@@ -2825,6 +2825,38 @@ test(`${ELWYNN}: Shhh! We're Hunting Kobolds counts the Kobold Tracks before the
 	assert.ok(accept < tracks && tracks < at(list, 'turnin 91772', is('turnin', 91772)), 'accept, the tracks, then the hand-in');
 });
 
+// Eykko (#2742): Rest and Relaxation (2158) was taken from Falkhaan Isenstrider, at the stables south-west of the
+// Abbey, before the group-quest hand-ins sent the player back north-east to Marshal McBride and Tordrin Sternblade,
+// then south again on the kobold tracks. Who did The Big Picture takes Falkhaan after Tordrin, before the tracks;
+// the step after it takes him for everyone else, after the Abbey as before (already done for the group), so no
+// hand-in waits on a `when`-only accept (data/route-fixes.json pairs, #2742).
+test(`${ELWYNN}: Falkhaan Isenstrider after Tordrin Sternblade and before the kobold tracks (#2742)`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const group = (e) => (e.step.when || []).some((w) => w.k === 'group' && w.q === 91752 && !w.neg);
+	const falkhaan = list.filter(({ goal }) => goal.t === 'accept' && goal.quest === 2158);
+	const abbey = list[at(list, 'turnin 21', is('turnin', 21))].s;
+	assert.ok(!falkhaan.some((e) => e.s === abbey), 'not in the Abbey step, before the group hand-ins');
+	const grouped = list.indexOf(falkhaan.find(group));
+	assert.ok(grouped >= 0, 'the group branch takes Falkhaan');
+	assert.ok(at(list, 'turnin 91758', is('turnin', 91758)) < grouped, 'after Tordrin Sternblade');
+	const tracks = at(list, 'interact 563442 (91772.1)', (g) => g.t === 'interact' && g.quest === 91772);
+	assert.ok(grouped < tracks, 'before the kobold tracks on the road south');
+	const everyone = falkhaan.find((e) => !(e.step.when || []).length);
+	assert.ok(everyone && list.indexOf(everyone) > tracks, 'a step everyone plays takes Falkhaan after the group branch');
+});
+
+// Gindry (#2778): a Dwarf Paladin in Stormwind was sent to Ironforge for the Tome of Nobility breadcrumb and back to
+// Duthorian Rall. Rall offers The Tome of Nobility (1661) without it (players' recordings: a Dwarf at 40 offered it with
+// neither breadcrumb taken), so the breadcrumb is taken only by a Dwarf who is in Ironforge; the hand-in stays Rall's.
+test('Paladin Warhorse: the Ironforge breadcrumb only while in Ironforge, the Tome of Nobility from Duthorian Rall (#2778)', { skip }, () => {
+	const guide = 'forever/collectibles/mounts/alliance/paladin-warhorse.guide';
+	const list = goals(guide);
+	const crumb = list[at(list, 'accept 4485', is('accept', 4485))].step;
+	assert.ok((crumb.when || []).some((w) => w.k === 'zone' && w.name === 'Ironforge'), 'only in Ironforge');
+	assert.equal(list[at(list, 'accept 1661', is('accept', 1661))].goal.npc, 6171, 'The Tome of Nobility from Duthorian Rall');
+	assert.equal(list[at(list, 'turnin 1661', is('turnin', 1661))].goal.npc, 6171, 'handed in to Duthorian Rall');
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
