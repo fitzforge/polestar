@@ -656,7 +656,7 @@ emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done 
 
 #[test]
 fn polestar_nav_ships_in_the_release_credits_shortest_path_forever_and_carries_the_gpl() {
-	assert!(forge_release::addons::release_addons(&addons_dir()).names.iter().any(|n| n == "Polestar_Nav"));
+	assert!(forge_release::addons::release_addons(&addons_dir()).unwrap().names.iter().any(|n| n == "Polestar_Nav"));
 	let toc = read(&nav().join("Polestar_Nav.toc"));
 	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## X-License: GPL-3.0-or-later"] {
 		assert!(toc.lines().any(|l| l == line), "{line}");

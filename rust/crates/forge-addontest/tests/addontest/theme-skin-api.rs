@@ -547,7 +547,7 @@ fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_se
 // leaves another addon's skin alone: its version is its own.
 #[test]
 fn the_example_is_never_in_a_release_and_the_install_check_leaves_skin_addons_alone() {
-	let release = forge_release::addons::release_addons(&addons_dir());
+	let release = forge_release::addons::release_addons(&addons_dir()).unwrap();
 	assert!(!release.names.iter().any(|n| n == "Polestar_Skin_Example"), "{:?}", release.names);
 	assert!(addons_dir().join("Polestar_Skin_Example/Polestar_Skin_Example.toc").exists());
 	let out = emitted(&RunAddon {

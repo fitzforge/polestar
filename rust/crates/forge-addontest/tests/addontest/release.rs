@@ -15,7 +15,7 @@ fn addons() -> PathBuf {
 #[test]
 fn the_release_addons_load_together_log_in_and_find_their_guides_and_data() {
 	let dir = addons();
-	let product = forge_release::addons::release_addons(&dir);
+	let product = forge_release::addons::release_addons(&dir).unwrap();
 	let recorder = dir.join("Polestar_Recorder/Polestar_Recorder.toc").exists();
 	let mut names = product.names.clone();
 	if recorder {

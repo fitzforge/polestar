@@ -59,7 +59,7 @@ pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 /// addons when written, our guides' faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
 /// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
 /// the language folders), then the skin addons.
-pub fn release_addons(addons: &Path) -> Release {
+pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
 	let parts = forge_guide::races::RACE_FILES.iter().map(|r| forge_guide::project::part_addon(guides, r));
@@ -67,11 +67,17 @@ pub fn release_addons(addons: &Path) -> Release {
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
 	names.extend(std::iter::once(ARCADE.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
+	for region in forge_guide::project::nav_region_addons(addons)? {
+		if !has_toc(addons, &region) {
+			return Err(format!("walking pack lists {region}, but its TOC is missing"));
+		}
+		names.push(region);
+	}
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(data);
 	names.extend(SKIN_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
-	Release { names, skipped }
+	Ok(Release { names, skipped })
 }
 
 /// The folders under `addons` the language folders replaced (Polestar_Guides_<locale> and
@@ -203,7 +209,7 @@ mod tests {
 		] {
 			addon(&root, n);
 		}
-		let r = release_addons(&root);
+		let r = release_addons(&root).unwrap();
 		assert_eq!(
 			r.names,
 			[
@@ -228,6 +234,22 @@ mod tests {
 		assert_eq!(retired_addons(&root), ["Polestar_Guides_deDE", "Polestar_Names_frFR"]);
 	}
 
+	#[test]
+	fn only_regions_named_by_the_walking_pack_ship() {
+		let root = tmp("regions");
+		addon(&root, "Polestar_Nav");
+		addon(&root, "Polestar_Nav_R0_7_14");
+		addon(&root, "Polestar_Nav_R0_7_15"); // left over from an older map
+		std::fs::write(root.join("Polestar_Nav/PACK.json"), r#"{"regions":["Polestar_Nav_R0_7_14"]}"#).unwrap();
+		let names = release_addons(&root).unwrap().names;
+		assert!(names.iter().any(|n| n == "Polestar_Nav_R0_7_14"));
+		assert!(!names.iter().any(|n| n == "Polestar_Nav_R0_7_15"));
+		std::fs::remove_dir_all(root.join("Polestar_Nav_R0_7_14")).unwrap();
+		assert!(matches!(release_addons(&root), Err(e) if e.contains("Polestar_Nav_R0_7_14")));
+		std::fs::write(root.join("Polestar_Nav/PACK.json"), r#"{"regions":["../unrelated"]}"#).unwrap();
+		assert!(release_addons(&root).is_err());
+	}
+
 	// Freedoom Arcade's folder ships when it is there (it is committed), after the game looks and before the
 	// walking maps' parts.
 	#[test]
@@ -236,9 +258,9 @@ mod tests {
 		for n in ["Polestar", "Polestar_Nav_EK"] {
 			addon(&root, n);
 		}
-		assert!(!release_addons(&root).names.contains(&ARCADE.to_string()));
+		assert!(!release_addons(&root).unwrap().names.contains(&ARCADE.to_string()));
 		addon(&root, ARCADE);
-		let names = release_addons(&root).names;
+		let names = release_addons(&root).unwrap().names;
 		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
 		assert_eq!(at(ARCADE), at("Polestar_Looks") + 1);
 		assert!(at(ARCADE) < at("Polestar_Nav_EK"));

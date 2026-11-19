@@ -555,6 +555,20 @@ function releaseAddons(addonsDir) {
 	// The walking maps' part addons (forge nav pack --leffe), then our pack's faction parts and race parts (forge
 	// guide compile, format 8), each once built (as forge-release's release_addons).
 	const navParts = ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor'];
+	const manifest = path.join(addonsDir, 'Polestar_Nav', 'PACK.json');
+	if (fs.existsSync(manifest)) {
+		const pack = JSON.parse(fs.readFileSync(manifest, 'utf8'));
+		if (!pack || Array.isArray(pack) || typeof pack !== 'object') throw new Error(`${manifest}: expected a walking pack`);
+		if ('regions' in pack) {
+			const regions = pack.regions;
+			if (!Array.isArray(regions) || new Set(regions).size !== regions.length) throw new Error(`${manifest}: invalid regions array`);
+			for (const n of regions) {
+				if (typeof n !== 'string' || !/^Polestar_Nav_R(?:0|1|2991)_(?:[0-9]|1[0-5])_(?:[0-9]|1[0-5])$/.test(n)
+					|| !fs.existsSync(path.join(addonsDir, n, `${n}.toc`))) throw new Error(`${manifest}: invalid or missing walking-region addon`);
+			}
+			navParts.push(...regions.sort());
+		}
+	}
 	const parts = [ARCADE, ...navParts, ...['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r))].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }

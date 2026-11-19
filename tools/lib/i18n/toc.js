@@ -427,6 +427,12 @@ const RACE_NAMES = {
 function tocText(addon) {
 	const fixed = TEXT[addon];
 	if (fixed) return Object.fromEntries(LOCALE_CODES.map((l) => [l, { title: fixed.title[l], notes: fixed.notes[l] }]));
+	const region = /^Polestar_Nav_R(0|1|2991)_([0-9]|1[0-5])_([0-9]|1[0-5])$/.exec(addon);
+	if (region) {
+		const text = tocText('Polestar_Nav');
+		for (const l of LOCALE_CODES) text[l].title += ` [${region[1]}:${region[2]},${region[3]}]`;
+		return text;
+	}
 	const race = addon.startsWith(RACE_PART_PREFIX) ? addon.slice(RACE_PART_PREFIX.length) : null;
 	if (race && RACE_NAMES.deDE[race]) {
 		const fill = (s, l) => s.replace('%2', RACE_NAMES[l][race]);

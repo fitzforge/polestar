@@ -198,16 +198,18 @@ end"
 	// (Polestar_SkinAPI: Theme/SkinApi.lua asks for them with the first skin or scheme another addon registers),
 	// the game looks with Hearth (Polestar_Looks: Theme.LoadLooks, the first time one is painted) and Freedoom
 	// Arcade (Polestar_Arcade: Maps/Arcade.lua, the first Play).
-	let mut parts = Vec::new();
-	for part in forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()) {
-		if opts.addons.iter().any(|a| a.addon_name() == part) {
-			continue;
-		}
-		if let Ok(files) = toc_files(part) {
-			let list: Vec<String> = files.iter().map(|f| path_str(f)).collect();
-			parts.push(format!("[{}] = {{ {} }}", lua_string(part), list.join(", ")));
-		}
-	}
+	static PART_FILES: LazyLock<Result<Vec<(String, String)>, String>> = LazyLock::new(|| {
+		let regions = forge_guide::project::nav_region_addons(&addons_dir())?;
+		let names = forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()).chain(regions.iter().map(String::as_str));
+		Ok(names
+			.filter_map(|name| {
+				let files = toc_files(name).ok()?;
+				let paths: Vec<_> = files.iter().map(|p| path_str(p)).collect();
+				Some((name.to_owned(), format!("[{}] = {{ {} }}", lua_string(name), paths.join(", "))))
+			})
+			.collect())
+	});
+	let parts: Vec<_> = PART_FILES.as_ref().map_err(Clone::clone)?.iter().filter(|(name, _)| !opts.addons.iter().any(|a| a.addon_name() == name)).map(|(_, entry)| entry.as_str()).collect();
 	if !parts.is_empty() {
 		lines.push(format!(
 			"do
