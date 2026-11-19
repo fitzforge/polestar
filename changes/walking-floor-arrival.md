@@ -12,3 +12,6 @@ section: players
 - Walking routes avoid the other faction's towns and guarded hubs. Flights
   may pass over them. The planner prefers a way around a zone far above
   your level, but ordinary enemies, elites and bosses do not block walks.
+- If a waypoint arrow would point straight through an enemy town, Polestar
+  keeps its own guidance instead. Boarding a flight no longer hands the
+  destination to another arrow as if you were meant to walk there.

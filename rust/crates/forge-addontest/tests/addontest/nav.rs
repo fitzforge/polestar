@@ -1921,7 +1921,7 @@ fn a_tomtom_compatible_global_without_tomtom_installed_gets_no_mirror_and_never_
 
 // #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
 // with "Use TomTom's arrow" a goal across the sea showed no arrow at all. Polestar's own arrow guides until the
-// player reaches the goal's continent, then gives way to TomTom's; the mirror keeps TomTom's arrow on it.
+// player reaches the goal's continent and can hand over a checked bearing.
 #[test]
 fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_arriving_1325() {
 	let out = run(r#"
@@ -1930,7 +1930,7 @@ fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_a
 		local out = {}
 		N.SetTarget(9001, 50, 50, "Farland goal") -- the player stands on continent 0
 		out.away, out.guides = A.frame:IsShown(), N.TomTomArrowGuides()
-		out.crazy = TomTom.calls[#TomTom.calls].crazy
+		out.calls = #TomTom.calls
 		nav.place(0, 0, 1) -- landed on the goal's continent
 		stub.fire("ZONE_CHANGED_NEW_AREA")
 		out.arrived, out.guidesThere = A.frame:IsShown(), N.TomTomArrowGuides()
@@ -1944,7 +1944,7 @@ fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_a
 		emit(out)"#);
 	assert_eq!(out["away"], true, "Polestar's arrow guides to another continent");
 	assert_eq!(out["guides"], false);
-	assert_eq!(out["crazy"], true, "TomTom's arrow still holds the mirrored goal");
+	assert_eq!(out["calls"], 0, "no active handoff without a walking bearing");
 	assert_eq!(out["arrived"], false, "on the goal's continent TomTom's arrow takes over");
 	assert_eq!(out["guidesThere"], true);
 	assert_eq!(out["back"], true, "leaving the continent brings Polestar's arrow back");
@@ -1967,6 +1967,10 @@ const WAYPOINT_UI: &str = r#"
 	} }
 	C_QuestLog = C_QuestLog or {}
 	C_QuestLog.IsOnQuest = function(q) return log[q] == true end
+	C_QuestLog.GetNextWaypoint = function(q)
+		local t = N.GetTarget()
+		if t and t.quest == q then return t.map, t.x / 100, t.y / 100 end
+	end
 	C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = { "quest", q } end
 	C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
 "#;
@@ -2049,9 +2053,21 @@ fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_
 		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", {{ kind = "collect", quest = 756, area = 60 }}))
 		-- The turn-in is one NPC: the quest is tracked.
 		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
+		-- The game now points elsewhere. Keep the checked turn-in pin, not its other bearing.
+		C_QuestLog.GetNextWaypoint = function() return 9000, 0.1, 0.9 end
+		N.Refresh()
 		emit({{ calls = calls }})"#
 	));
-	assert_eq!(out["calls"], json!([["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true], ["clear pin"], ["quest", 756]]));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
+			["clear pin"],
+			["quest", 756],
+			["quest", 0],
+			["pin", "Turn in Thunderhorn Totem", 9000, 45, 50, "Polestar", true]
+		])
+	);
 }
 
 #[test]
@@ -2130,6 +2146,95 @@ fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
 		emit({ native = nav.userWaypoints })"#);
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
+}
+
+#[test]
+fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		nav.useGameGround()
+		local town = N.GetTaxiNode(56)
+		nav.maps[town.map] = {{ c = 0, top = -9620.833, bottom = -11150, left = -2222.917, right = -4516.667 }}
+		local start, finish = town.wy - 400, town.wy + 400
+		local function risk(y, Y, side) return N.danger.Blocked(0, town.wx, y, town.wx, Y, side) end
+		assert(not risk(start, start, "Alliance") and not risk(finish, finish, "Alliance"))
+		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
+		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
+		Polestar.Set("nav.travel", false)
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.place(town.wx, start)
+		N.SetTarget(town.map, x, y, "Across Stonard")
+		local function snapshot()
+			local t = TomTom.calls[#TomTom.calls]
+			return {{ N.TomTomArrowGuides(), t and t.crazy or false, current ~= nil, A.frame:IsShown() }}
+		end
+		local out = {{ enemy = snapshot() }}
+		nav.faction, nav.level = "Horde", 1
+		N.Refresh()
+		out.friendly = snapshot()
+		nav.faction, nav.taxi = "Alliance", true
+		N.Refresh()
+		out.air = snapshot()
+		-- Land near the goal, then move across town without a route or target event.
+		nav.taxi = false
+		nav.place(town.wx, finish - 20)
+		N.Refresh()
+		out.near = snapshot()
+		current = {{ flags = "Player" }}
+		nav.place(town.wx, start)
+		N.Refresh()
+		out.mine = current and current.flags
+		out.blocked = not N.TomTomArrowGuides() and A.frame:IsShown()
+		WaypointUIAPI = nil
+		N.Reapply()
+		out.native = nav.userWaypoints[#nav.userWaypoints]
+		Polestar.Set("nav.useTomTomArrow", false)
+		local last = TomTom.calls[#TomTom.calls]
+		out.mirror = {{ last.title, last.crazy }}
+		emit(out)"#
+	));
+	assert_eq!(out["enemy"], json!([false, false, false, true]));
+	assert_eq!(out["friendly"], json!([true, true, true, false]));
+	assert_eq!(out["air"][0], true);
+	assert_eq!(out["air"][2], true);
+	assert_eq!(out["near"], json!([true, true, true, false]));
+	assert_eq!(out["mine"], "Player");
+	assert_eq!(out["blocked"], true);
+	assert_eq!(out["native"], json!(["track", false]));
+	assert_eq!(out["mirror"], json!(["Across Stonard", false]));
+}
+
+#[test]
+fn live_flight_boarding_never_hands_a_walking_beacon_the_destination() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		nav.useGameGround()
+		local a, b = N.GetTaxiNode(45), N.GetTaxiNode(71)
+		nav.maps[a.map] = {{ c = 0, top = -10566.666, bottom = -12800, left = -1241.667, right = -4591.667 }}
+		nav.maps[b.map] = {{ c = 0, top = -7031.25, bottom = -8983.333, left = -266.667, right = -3195.833 }}
+		nav.place(a.wx, a.wy)
+		nav.Compat.GetPlayerUnitPosition = function() return a.wx, a.wy, a.z, a.c end
+		nav.taxiMap = {{ mapID = 1415, nodes = {{ {{ a.id, 0 }}, {{ b.id, 1 }} }} }}
+		stub.fire("TAXIMAP_OPENED", 1)
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		Polestar.Set("nav.blizzardWaypoint", true)
+		local x, y = nav.Compat.WorldToMap(b.c, b.wx, b.wy, b.map)
+		N.SetTarget(b.map, x, y, b.name)
+		local l = N.travel.CurrentLeg()
+		assert(l and l.kind == "fly" and l.taxiOffer and not N.travel.Stop())
+		assert(N.Sample() == "instruction")
+		local board = {{ #TomTom.calls, N.TomTomArrowGuides(), current ~= nil, A.frame:IsShown() }}
+		nav.taxiMap, nav.Compat.GetPlayerUnitPosition = nil, nil
+		local town = N.GetTaxiNode(56)
+		nav.place(town.wx, town.wy)
+		stub.fire("TAXIMAP_CLOSED")
+		N.Refresh()
+		emit({{ board, {{ #TomTom.calls, N.TomTomArrowGuides(), current ~= nil }} }})"#
+	));
+	assert_eq!(out, json!([[0, false, false, true], [0, false, false]]));
 }
 
 #[test]

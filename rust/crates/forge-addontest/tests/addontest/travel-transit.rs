@@ -382,6 +382,7 @@ fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
 		{api}
 		C_QuestLog = C_QuestLog or {{}}
 		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_QuestLog.GetNextWaypoint = function() return 9001, 0.8, 0.6 end
 		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
 		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
 		Polestar.Set("nav.blizzardWaypoint", true)
@@ -414,12 +415,12 @@ fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal()
 	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
 }
 
-// Without Waypoint UI nothing changes: the game's plain pin stays on the target the whole way.
+// The map destination stays put. It becomes a tracked bearing only after the portal.
 #[test]
 fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 	let out = portal_turn_in_mirrored(false);
 	assert_eq!(out["calls"], json!({}));
-	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", false], ["track", true]]));
 }
 
 // #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
