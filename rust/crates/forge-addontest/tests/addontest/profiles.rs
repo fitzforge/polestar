@@ -507,7 +507,7 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 				end
 			end
 		end
-		walk(nil, upvalue(Polestar.GetDefault, "defaults"), 0)
+		walk(nil, upvalue(Polestar.GetBaseDefault, "defaults"), 0)
 		local missing, fromNoPage, counts, ids = {}, {}, {}, {}
 		for _, c in ipairs(P.CATEGORIES) do ids[#ids + 1] = c.id end
 		for _, path in ipairs(paths) do
