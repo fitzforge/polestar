@@ -94,7 +94,7 @@ return {
 	["{area:1438} flight master"] = "Maestro de vuelo de {area:1438}",
 
 	-- Step 18: Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}, último piso",
 	-- {npc:2498} Crank Fizzlebub

@@ -13,7 +13,7 @@ return {
 	-- {quest:1260} Morgan Stern
 	["{quest:1260}, inside"] = "{quest:1260}, dentro",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
-	["{npc:4964}, on the top floor of {area:514}"] = "",
+	["{npc:4964}, on the top floor of {area:514}"] = "{npc:4964}, en el piso de arriba de {area:514}",
 	-- {npc:271167} Guard Jameson · {quest:98233} Sword in the Slime
 	["{npc:271167}: {quest:98233}, from the oozes on the way back east"] = "{npc:271167}: {quest:98233}, de los mocos de camino de vuelta al este",
 	-- {item:3713} Soothing Spices
@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "",
+	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los acechadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 
 	-- Step 7: Mudcrush Durtfeet
 	["Head south to the giant's hut in the middle of the marsh."] = "Ve al sur hasta la cabaña del gigante, en mitad del pantano.",
@@ -64,11 +64,11 @@ return {
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Sigue el camino al este de vuelta a Theramore. Los oficiales están en la {area:514}.",
 	["On the top floor"] = "En el piso superior",
 	-- {npc:4948} Adjutant Tesoran
-	["{npc:4948}, on the top floor"] = "",
+	["{npc:4948}, on the top floor"] = "{npc:4948}, en el piso de arriba",
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, dentro",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
-	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
+	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "{npc:4794}: los reptadores están en la orilla de {zone:1435}, guárdala",
 
 	-- Step 11: Mirefin murlocs
 	["Mirefin murlocs"] = "Múrlocs Ancalodo",
@@ -93,9 +93,9 @@ return {
 
 	-- Step 17: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
+	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "El barco sale de Theramore: preséntate ante {npc:4944}, en el piso de arriba de {area:514}, de camino a los muelles.",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}, en el piso de arriba",
 
 	-- Step 18: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -116,11 +116,11 @@ return {
 
 	-- Step 22: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "A nivel 40 y con 100 de oro puedes aprender a montar, y aprenderlo te da una montura. Los cielonatos lo aprenden con {npc:265756}, el maestro de establos e instructor de equitación de {area:17684} en {area:16638}, en la isla Zephras, que también vende los Galestrids: el barco celeste a la isla sale del lado norte de {area:279} más o menos cada cinco minutos. Coleccionables, Monturas · Nivel 40 muestra los Galestrids.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Equitación y Zancavendavales: {npc:265756}, en {area:17684}, en {area:16638}, en la Isla de Zephras.",
 	-- {area:279} Dalaran
-	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "",
+	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "Barco celeste a la isla Zephras: el lado norte de {area:279}, más o menos cada cinco minutos.",
 
 	-- Step 23: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -148,7 +148,7 @@ return {
 	-- {npc:2487} Fleet Master Seahorn · {quest:669} Sunken Treasure · {area:327} Faldir's Cove
 	["{npc:2487}, top floor: {quest:669}, if you did {area:327} with a group"] = "{npc:2487}, último piso: {quest:669}, si hiciste {area:327} en grupo",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
+	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "{npc:737}, arriba: los trols Machacacráneos, en el circuito del norte",
 	-- {npc:737} Kebok · {area:37} Lake Nazferiti
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["{npc:737}: the Tumbled Crystals, at {area:37} on the northern loop"] = "",
@@ -175,7 +175,7 @@ return {
 	-- {quest:597} The Bloodsail Buccaneers · {area:35} Booty Bay · {area:43} Wild Shore
 	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "",
 	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
+	["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
 	-- {npc:2624} Gazban
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} nada frente a la costa noroeste, en la vuelta por el norte",
 
@@ -190,7 +190,7 @@ return {
 
 	-- Step 34: Booty Bay
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Te perdiste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 
 	-- Step 35: Gorilla hills
 	["Gorilla hills"] = "Colinas de los gorilas",
@@ -226,7 +226,7 @@ return {
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
 	["Go on north-west to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; {npc:2624} swims among them and drops the {item:4034}."] = "Sigue al noroeste hasta la bahía de la costa noroeste. Las Almejas gigantes están en el fondo y guardan las perlas; {npc:2624} nada entre ellas y suelta la {item:4034}.",
 	-- {item:4611} Blue Pearl
-	["{item:4611}; underwater"] = "",
+	["{item:4611}; underwater"] = "{item:4611}; bajo el agua",
 
 	-- Step 40: Sin'Dall
 	-- {npc:729} Sin'Dall
@@ -242,7 +242,7 @@ return {
 
 	-- Step 45: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Una {npc:217588} anda por la jungla al sureste del campamento de Nesingwary, de camino a {area:99}: atrapa una con la herramienta de {item:213565} de {npc:217412}.",
 
 	-- Step 46: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Ve al noreste pasando el campamento de Nesingwary y sigue el camino al norte hasta el campamento en lo alto del valle.",
@@ -261,7 +261,7 @@ return {
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, de los Subjefes (o de los Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
 	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, en la caja de suministros en lo profundo de la cueva",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de vuelta en su jaula al salir",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -274,24 +274,24 @@ return {
 
 	-- Step 50: Panther Mastery
 	-- {npc:728} Bhag'thera
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:728} es élite de nivel 40: la mayoría de las clases lo hacen solas a nivel 42, pero puede que necesites ayuda. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 
 	-- Step 51: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
 	["{area:103}: kill these as you meet them"] = "{area:103}: mátalos según te los encuentres",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
+	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Los trols Machacacráneos ocupan las ruinas justo al este de la mina; cualquiera puede soltar colmillos, y sus panteras siempre los sueltan.\nSigue el camino al noreste hasta el campamento de Ventura y Cía. en {area:310}; los mineros, agrimensores y capataces sueltan los cristales.\nCuidado: Las panteras Faucesombría y las tigresas de Tuercespina recorren en sigilo la zona alrededor del campamento.",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}, de los trols de las ruinas",
 
 	-- Step 52: Raptor Mastery
 	-- {npc:730} Tethis
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:730} es élite de nivel 43: la mayoría de las clases lo hacen solas a nivel 45, pero puede que necesites ayuda. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 
 	-- Step 56: Big Game Hunter
 	-- {npc:731} King Bangalash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:731} es élite de nivel 43: la mayoría de las clases lo hacen solas a nivel 45, pero puede que necesites ayuda. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.\nCuidado: Tigres y panteras Faucesombría en sigilo rondan cerca de él. Despéjalos antes de atraerlo. Cuando lo atraes, {npc:731} pide ayuda a las criaturas en 20 m.",
 
 	-- Step 58: Booty Bay
 	-- {area:35} Booty Bay
@@ -315,7 +315,7 @@ return {
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cocina en {object:2169}; {npc:5384} está en el {object:28027}.",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
-	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
+	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "{npc:5694}: para {npc:5464} en {area:42}, de camino al pantano",
 
 	-- Step 63: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
@@ -328,7 +328,7 @@ return {
 	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}, en la Catedral de la Luz",
 
 	-- Step 66: Stormwind City
-	["Stormwind City"] = "",
+	["Stormwind City"] = "Ciudad de Ventormenta",
 
 	-- Step 67: Warlock: Summon Felsteed
 	-- {quest:4488} Summon Felsteed
@@ -366,7 +366,7 @@ return {
 
 	-- Step 77: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
-	["{npc:5464}, by the flight master"] = "",
+	["{npc:5464}, by the flight master"] = "{npc:5464}, junto al maestro de vuelo",
 
 	-- Step 79: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "El pergamino está en el pantano al norte de Biggs. Los Caminalodos al norte de él pueden soltar los ensayos de Khadgar.",
@@ -377,7 +377,7 @@ return {
 
 	-- Step 81: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
-	["{npc:5476} stands by the road junction in the west of the swamp."] = "",
+	["{npc:5476} stands by the road junction in the west of the swamp."] = "{npc:5476} está junto al cruce de caminos en el oeste del pantano.",
 
 	-- Step 82: The sunken temple
 	["The sunken temple"] = "El Templo Sumergido",

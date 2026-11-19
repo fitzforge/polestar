@@ -70,7 +70,7 @@ return {
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "En {area:35}: {npc:2494} en los muelles, {npc:2486} junto a la posada, {npc:2498} dentro, MacKinley, {npc:737} y {npc:773} en el piso de arriba.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, dentro",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
@@ -85,7 +85,7 @@ return {
 	-- Step 12: Booty Bay
 	["Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50."] = "Vuelve al pueblo. Los capitanes de barco, el siguiente encargo de Cuernomar, son para tu parada en Tuercespina hacia el nivel 50.",
 	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
+	["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay

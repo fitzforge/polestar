@@ -137,7 +137,7 @@ return {
 	-- Step 30: Theramore
 	["Theramore"] = "Theramore",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}, en el piso de arriba",
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, dentro",
 
