@@ -68,7 +68,7 @@ return {
 		["ui.colors.npc"] = subject("npc"), ["ui.colors.quest"] = subject("quest"), ["ui.colors.item"] = subject("item"),
 		["ui.colors.place"] = subject("place"), ["ui.colors.object"] = subject("object"), ["ui.colors.area"] = subject("area"),
 		["ui.colors.dungeon"] = subject("dungeon"), ["ui.colors.rare"] = subject("rare"), ["ui.colors.skill"] = subject("skill"),
-		["ui.colors.spell"] = subject("spell"), ["ui.colors.faction"] = subject("faction"), ["ui.colors.achievement"] = subject("achievement"),
+		["ui.colors.spell"] = subject("spell"), ["ui.colors.train"] = subject("train"), ["ui.colors.faction"] = subject("faction"), ["ui.colors.achievement"] = subject("achievement"),
 		["ui.colors.level"] = subject("level"), ["ui.colors.success"] = subject("success"), ["ui.colors.warning"] = subject("warning"),
 		["ui.colors.danger"] = subject("danger"),
 		["ui.borderSize"] = function() return frame() end,
