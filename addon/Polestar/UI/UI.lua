@@ -620,8 +620,8 @@ end
 -- A material goal's line (the Engine's `materials`; Core/Materials.lua): what
 -- the bank, the mail and the other characters hold, and on an Auction House
 -- goal what is still to buy, priced for that many: "40 in your bank  ·  47 to
--- buy  ·  ≈ 87s". A price older than 3 days says so; one for fewer than that
--- count says how many are listed.
+-- buy  ·  ≈ 87s" ("~ 87s" in a face without "≈": Theme.Approx). A price older
+-- than 3 days says so; one for fewer than that count says how many are listed.
 function UI.MaterialsLine(goal)
 	local m = goal.materials
 	if type(m) ~= "table" then return nil end

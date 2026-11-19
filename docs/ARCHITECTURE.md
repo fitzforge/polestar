@@ -4083,7 +4083,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
   way, alts, toGet, and on an `auction` goal the price for the count still to
   buy); `UI.MaterialsLine` shows it under the goal ("40 in your bank · 47 to
-  buy · ≈ 87s"). With the bags short and nothing left to get, the goal is
+  buy · ≈ 87s"; the sign is `Theme.Approx`'s, "~" in a face without "≈").
+  With the bags short and nothing left to get, the goal is
   fetched instead (`Own.materialPlace`): "Take <item>", from the mail (the
   purchases on their way included) at the nearest mailbox, else from the bank
   at the nearest banker (`Materials.Nearest`, Nav/Nearby.lua), picked again on
@@ -6525,7 +6526,8 @@ to be dismissed:
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
-  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  ≈ 87s · 140 held" (the price's sign is `Theme.Approx`'s, "~" in a face
+  without "≈"). Opened by the cards, the guide window's menu ("Auction
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
