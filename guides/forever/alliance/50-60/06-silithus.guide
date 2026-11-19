@@ -16,6 +16,8 @@ con Lots of flying between zones
 # Added here: Toxic Horrors (5086), Of Lost Honor (5845: only after Of Forgotten Memories, 5781, whose Mercutio is a
 # group choice, so a solo player never gets it and its steps hide themselves).
 # Left out: Taking Back Silithus (8275).
+# Davil's Libram (5168.1) is taken in Hearthglen's town hall right after the overlook, at about 60 (0.4.3): the
+# Western Plaguelands guide went in at about 56, among elite Scarlet Paladins (55-56) and priests.
 
 # ---------------------------------------------------------------- Ratchet
 
@@ -646,6 +648,12 @@ step Hearthglen overlook
   tip Careful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby.
   goto 45.8,18.3
   complete 6025 @45.8,18.3
+
+step Davil's Libram
+  when onquest 5168
+  zone Western Plaguelands
+  tip Davil's Libram lies in Hearthglen's town hall, at the back of the town below the overlook (about 42.5,19.0). Careful: the Scarlet Paladins (55-56) and Sentinels around the hall are elite, so are the Scarlet Priests (55-57) inside, and a Scarlet High Clerist (63, elite) stands a few steps from the libram. Pull the Paladins one at a time from the door, take the libram and walk out: don't fight beside the Clerist. With a friend it's easy.
+  collect 12954 quest 5168.1          -- Davil's Libram; inside
 
 step Kirsta Deepshadow
   when onquest 6025

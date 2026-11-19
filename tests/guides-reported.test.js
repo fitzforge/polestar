@@ -6431,6 +6431,21 @@ test('Alliance 50-60 (0.4.3): Janice Felstone on the Felstone Field cauldron sto
 	assert.ok(goals('forever/alliance/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 5022)(goal)), 'handed in at Stormwind on the Silithus guide');
 });
 
+// Alliance route round (0.4.3, AuditA50 MUST-3): Davil's Libram lies in Hearthglen's town hall among Scarlet Paladins
+// (55-56) and priests that are elite in our data, a level 63 High Clerist a few steps away; 50-60/04 sent players in
+// from Tirion's hut at about 56. It is taken on 50-60/06's Hearthglen visit at about 60, right after the overlook, with a
+// Careful tip naming the elites, and still handed to Carlin Redpath with Redpath's Shield.
+test('Alliance 50-60 (0.4.3): Davil\'s Libram on the Silithus guide\'s Hearthglen visit, with the elites named', { skip }, () => {
+	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.quest === 5168 && goal.t === 'collect'), 'no Hearthglen trip on the Western Plaguelands guide');
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	const libram = at(six, 'collect 12954', (g) => g.t === 'collect' && g.item === 12954);
+	assert.ok(libram > at(six, 'complete 6025', (g) => g.quest === 6025 && g.t !== 'accept' && g.t !== 'turnin'), 'after the overlook');
+	assert.ok(libram < at(six, 'collect 12955', (g) => g.t === 'collect' && g.item === 12955), "before Redpath's Shield");
+	assert.ok(libram < at(six, 'turnin 5168', is('turnin', 5168)), 'before Carlin Redpath');
+	assert.match([].concat(six[libram].step.note || []).join(' '), /Careful:[^"]*Paladins \(55-56\)[^"]*elite[^"]*High Clerist \(63/, 'the elites named');
+	assert.ok(!(six[libram].step.when || []).some((p) => p.k === 'onquest' && p.q === 6025), 'not tied to the overlook quest');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {

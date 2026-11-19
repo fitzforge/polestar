@@ -12,6 +12,9 @@ next polestar-experimental/hyjal-1
 # into this file.
 # Added here: The Giant Guardian (2844), Wandering Shay (2845), at the Feralas stop where the Northspring harpies are below you.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
+# Davil's Libram (Heroes of Darrowshire, 5168) is taken on the Silithus guide's Hearthglen overlook stop at about 60
+# (0.4.3): the town hall's Scarlet Paladins are 55-56 elites, with elite priests and two level 63 High Clerists, at
+# about 56 here.
 
 step Chillwind Camp
   zone Western Plaguelands
@@ -254,11 +257,6 @@ step Tirion Fordring
   zone Eastern Plaguelands
   turnin 5742                         -- Listen to his story
   accept 5781 optional                -- Mercutio Filthgorger is elite: grouping up is advised
-
-step Davil's Libram
-  zone Western Plaguelands
-  tip Davil's Libram lies in the town hall of Hearthglen, west of Tirion: the Scarlet guards stand close together.
-  collect 12954 quest 5168.1          -- Davil's Libram; inside
 
 step Eastern Plaguelands
   zone Eastern Plaguelands

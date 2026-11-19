@@ -14714,6 +14714,19 @@
 			},
 			{
 				"a": [
+					"task",
+					6025
+				],
+				"b": [
+					"task",
+					5168
+				],
+				"faction": "Alliance",
+				"why": "Alliance 50-60 route round (0.4.3): Davil's Libram (Heroes of Darrowshire, 5168.1, object at 42.5,19.0) lies in Hearthglen's town hall among Scarlet Paladins (55-56, 24 spawns around the hall) and Sentinels (55-56), elite in our data, with elite Scarlet Priests (55-57) and two Scarlet High Clerists (63, elite) a few yards from it. 50-60/04 sent players in from Tirion's hut at about 56 (level model 56.3; 4 recorded followers, 25th percentile 56.28). It is taken on 50-60/06's Hearthglen visit at about 60, right after the overlook (Unfinished Business, 6025), and before Gahrron's Withering for Redpath's Shield; 50-60/04 loses its Hearthglen detour. Heroes of Darrowshire was already carried from 04 to 06 for the shield.",
+				"source": "Alliance route round 2026-11-19"
+			},
+			{
+				"a": [
 					"accept",
 					5097
 				],
