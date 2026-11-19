@@ -12730,7 +12730,8 @@ test(`${WETLANDS}: Bloom of the Heavens rides on the Menethil stops and the boat
 	const next = at(list, 'accept 98209', is('accept', 98209));
 	assert.ok(back < next && list[back].s === list[at(list, 'turnin 471', is('turnin', 471))].s, 'handed in on the next Menethil stop, then the follow-up taken');
 	const thundris = at(list, 'turnin 98209', is('turnin', 98209));
-	assert.ok(thundris > at(list, 'goto Boat to Auberdine', (g) => g.t === 'goto' && g.x === 4.5 && g.y === 56.7), 'in Auberdine, after the boat');
+	const boat = at(list, 'Menethil boat to Auberdine', (g) => g.t === 'goto' && g.map === 1437 && /Auberdine/.test(g.text || ''));
+	assert.ok(next < boat && boat < thundris, 'take the follow-up in Menethil and hand it in after the crossing');
 	assert.ok(thundris < at(list, 'turnin 994', is('turnin', 994)), 'on the Auberdine stop, before Terenthis and the flight to Astranaar');
 	assert.ok((list[thundris].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only for a character carrying it');
 });
