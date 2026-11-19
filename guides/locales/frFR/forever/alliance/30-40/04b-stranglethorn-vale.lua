@@ -81,6 +81,10 @@ return {
 	-- Step 11: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
 	["{npc:729} on the raptor hill"] = "",
+	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
+	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "",
+	-- {npc:729} Sin'Dall
+	["{npc:729}'s hill"] = "",
 	-- {npc:729} Sin'Dall
 	["{npc:729} (37) prowls the hilltop."] = "",
 

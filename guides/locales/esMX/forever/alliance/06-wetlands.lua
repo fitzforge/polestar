@@ -270,43 +270,43 @@ return {
 
 	-- Step 48: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}, at the inn, if you missed her first visit"] = "",
-
-	-- Step 49: Teronis' Corpse
-	-- {area:415} Astranaar · {area:441} Lake Falathim
-	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "",
-
-	-- Step 50: Glowing Gem
-	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "",
-
-	-- Step 51: Raene Wolfrunner
-	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3691}, at the {area:415} inn"] = "",
-
-	-- Step 52: Raene Wolfrunner's delivery
-	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}'s delivery"] = "",
-	-- {npc:3916} Shael'dryn
-	["Take her message to {npc:3916} on the way east"] = "",
-
-	-- Step 53: Raene Wolfrunner
-	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691} stands in the inn, beside the innkeeper."] = "{npc:3691} está en la posada, junto al tabernero.",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {zone:1439} Darkshore
 	["{npc:3691}: {quest:990}, if you still carry it from {zone:1439}"] = "{npc:3691}: {quest:990}, si todavía la llevas desde {zone:1439}",
 
-	-- Step 54: Melyria and Illiyana
+	-- Step 49: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}, at the inn, if you missed her first visit"] = "",
+
+	-- Step 50: Teronis' Corpse
+	-- {area:415} Astranaar · {area:441} Lake Falathim
+	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "",
+
+	-- Step 51: Glowing Gem
+	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
+	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "",
+
+	-- Step 52: Melyria and Illiyana
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "Melyria Sombrigélida y {npc:3901}",
 	-- {area:415} Astranaar
 	["The two stand together at the western end of the road, south-west of {area:415}."] = "Las dos están juntas en el extremo oeste del camino, al suroeste de {area:415}.",
 
-	-- Step 55: Therysil
+	-- Step 53: Therysil
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["{npc:3585} stands at the {area:416}, a short walk from Melyria and {npc:3901}."] = "{npc:3585} está en {area:416}, a poca distancia de Melyria y {npc:3901}.",
 	-- {npc:3585} Therysil · {quest:945} Therylune's Escape · {zone:1439} Darkshore
 	["{npc:3585}: {quest:945}, if you still carry it from {zone:1439}"] = "{npc:3585}: {quest:945}, si todavía la llevas desde {zone:1439}",
+
+	-- Step 54: Raene Wolfrunner
+	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3691}, at the {area:415} inn"] = "",
+
+	-- Step 55: Raene Wolfrunner's delivery
+	-- {npc:3691} Raene Wolfrunner
+	["{npc:3691}'s delivery"] = "",
+	-- {npc:3916} Shael'dryn
+	["Take her message to {npc:3916} on the way east"] = "",
 
 	-- Step 56: Raene Wolfrunner's message
 	-- {npc:3691} Raene Wolfrunner

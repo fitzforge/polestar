@@ -82,11 +82,11 @@ return {
 	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, on the pier"] = "{npc:3644}, no píer"
-	["{npc:3644}, on the pier"] = "",
+	["{npc:3644}, on the pier"] = "{npc:3644}, no píer",
 
 	-- Step 15: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
-	["{npc:2164} on the way"] = "",
+	["{npc:2164} on the way"] = "{npc:2164} no caminho",
 
 	-- Step 16: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Furbolgs Bosqueneros",
@@ -102,8 +102,9 @@ return {
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}. Mais três restos estão mais a sudoeste, entre Oráculos e Caçamarés Brumagris (18-20): o guia os deixa para a última volta, quando você estiver mais perto do nível deles.",
 
 	-- Step 18: Onu
-	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade · {npc:2165} Grizzled Thistle Bear
-	["East from the beached creature, up into the {quest:952}: {npc:3616} is the ancient there, with Arbal and {npc:11218} asleep beside him. Careful: a {npc:2165} (16-17) can roam the woods south of the grove."] = "",
+	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
+	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
+	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
 
 	-- Step 19: Ameth'Aran
 	-- {area:447} Ameth'Aran

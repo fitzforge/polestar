@@ -82,11 +82,11 @@ return {
 	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée"
-	["{npc:3644}, on the pier"] = "",
+	["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée",
 
 	-- Step 15: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
-	["{npc:2164} on the way"] = "",
+	["{npc:2164} on the way"] = "{npc:2164} en chemin",
 
 	-- Step 16: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Les furbolgs Noirbois",
@@ -102,8 +102,9 @@ return {
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Suivez la côte vers le sud au-delà d'{area:447} : une {quest:4728} gît sur la côte à l'ouest du Bosquet des Anciens, une autre plus au sud près de l'{area:450}. Trois autres restes gisent plus au sud-ouest parmi les Oracles Grisebrume et les Chasse-marée Grisebrume (18-20) : le guide les garde pour la dernière boucle, quand vous serez plus proche de leur niveau.",
 
 	-- Step 18: Onu
-	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade · {npc:2165} Grizzled Thistle Bear
-	["East from the beached creature, up into the {quest:952}: {npc:3616} is the ancient there, with Arbal and {npc:11218} asleep beside him. Careful: a {npc:2165} (16-17) can roam the woods south of the grove."] = "",
+	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
+	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
+	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
 
 	-- Step 19: Ameth'Aran
 	-- {area:447} Ameth'Aran

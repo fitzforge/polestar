@@ -33,12 +33,12 @@ return {
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
 	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}岸边。泰洛尼斯躺在盐沫鱼人之间，任意鱼人均有几率掉落{item:5463}。"
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}岸边。泰洛尼斯躺在盐沫鱼人之间，任意鱼人均有几率掉落{item:5463}。",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
 	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "在鱼人南边，{npc:3585}在{area:416}等候。"
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "在鱼人南边，{npc:3585}在{area:416}等候。",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -86,12 +86,12 @@ return {
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向东到{area:419}；{npc:3916}站在月亮井旁。"
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "沿道路向东到{area:419}；{npc:3916}站在月亮井旁。",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
 	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "从{npc:3916}处沿路向西返回，前往{npc:3664}的路上会经过{area:415}：{npc:3894}在旅店后方的建筑内。"
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "从{npc:3916}处沿路向西返回，前往{npc:3664}的路上会经过{area:415}：{npc:3894}在旅店后方的建筑内。",
 
 	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
@@ -100,7 +100,7 @@ return {
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北到{area:414}。{npc:3846}在海滩上扎营；岸边满是怒尾纳迦。"
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "沿海岸向北到{area:414}。{npc:3846}在海滩上扎营；岸边满是怒尾纳迦。",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}，在岸边的废墟里",
 	-- {item:5490} Wrathtail Head
@@ -125,7 +125,7 @@ return {
 	-- Step 28: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
 	-- was: ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "从{area:413}沿路向东南返回{area:415}：{npc:3845}站在飞行管理员旁。"
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "从{area:413}沿路向东南返回{area:415}：{npc:3845}站在飞行管理员旁。",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine

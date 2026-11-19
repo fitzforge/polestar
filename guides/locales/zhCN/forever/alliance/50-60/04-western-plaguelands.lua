@@ -385,7 +385,7 @@ return {
 	-- {area:2738} Southwind Village · {npc:11801} Rabine Saturna
 	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "",
 	-- {object:179565} Dusty Reliquary
-	["{object:179565}; inside"] = "",
+	["{object:179565}; inside"] = "{object:179565}：在屋内",
 
 	-- Step 97: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi

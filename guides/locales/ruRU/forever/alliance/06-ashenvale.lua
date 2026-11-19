@@ -33,12 +33,12 @@ return {
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
 	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Идите на запад к берегу озера ({area:441}). Труп Терониса лежит среди мурлоков из племени Соленой Слюны; с любого мурлока может выпасть {item:5463}."
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Идите на запад к берегу озера ({area:441}). Труп Терониса лежит среди мурлоков из племени Соленой Слюны; с любого мурлока может выпасть {item:5463}.",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
 	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "К югу от мурлоков {npc:3585} ждет здесь: {area:416}."
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "К югу от мурлоков {npc:3585} ждет здесь: {area:416}.",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -86,12 +86,12 @@ return {
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Идите по дороге на восток сюда: {area:419}; {npc:3916} стоит у лунного колодца."
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Идите по дороге на восток сюда: {area:419}; {npc:3916} стоит у лунного колодца.",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
 	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Назад на запад по дороге от NPC {npc:3916}: {area:415} по пути к NPC {npc:3664}. {npc:3894} в здании за таверной."
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Назад на запад по дороге от NPC {npc:3916}: {area:415} по пути к NPC {npc:3664}. {npc:3894} в здании за таверной.",
 
 	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
@@ -100,7 +100,7 @@ return {
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Идите вдоль побережья на север к {area:414}. {npc:3846} стоит лагерем на пляже; берег кишит нагами из клана Зловещего Хвоста."
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Идите вдоль побережья на север к {area:414}. {npc:3846} стоит лагерем на пляже; берег кишит нагами из клана Зловещего Хвоста.",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}, в руинах на берегу",
 	-- {item:5490} Wrathtail Head

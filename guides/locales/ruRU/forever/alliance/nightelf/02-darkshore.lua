@@ -102,8 +102,9 @@ return {
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Идите вдоль побережья на юг мимо руин ({area:447}): одно существо ({quest:4728}) лежит на берегу к западу от Рощи, другое – южнее, рядом с местом {area:450}. Еще три останка лежат дальше на юго-западе среди оракулов и волноловов из племени Серой Мглы (18–20): гайд оставляет их на последний круг, когда вы будете ближе к их уровню.",
 
 	-- Step 18: Onu
-	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade · {npc:2165} Grizzled Thistle Bear
-	["East from the beached creature, up into the {quest:952}: {npc:3616} is the ancient there, with Arbal and {npc:11218} asleep beside him. Careful: a {npc:2165} (16-17) can roam the woods south of the grove."] = "",
+	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
+	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
+	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
 
 	-- Step 19: Ameth'Aran
 	-- {area:447} Ameth'Aran

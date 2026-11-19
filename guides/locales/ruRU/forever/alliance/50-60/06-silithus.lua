@@ -54,7 +54,7 @@ return {
 
 	-- Step 10: Everlook flight master
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Распорядитель полетов: {area:2255}",
 	["Maethrya, the Alliance flight master"] = "",
 
 	-- Step 11: Marshal's Refuge flight master
@@ -505,10 +505,13 @@ return {
 	["{item:12954}; inside"] = "",
 
 	-- Step 117: Gahrron's Withering
-	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath · {item:12955} Redpath's Shield
-	["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Езжайте на юго-восток: {area:201}. {npc:11078} охраняет котел, а {item:12955} лежит к востоку от амбара.",
+	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	["Ride south-east to {area:201}. {npc:11078} guards the cauldron."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Для персонажа {npc:11053} ({area:3197}), в конце этого гайда",
+
+	-- Step 118: Redpath's Shield
+	["The shield lies east of the barn. Take your group around the barn to reach it."] = "",
 
 	-- Step 119: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
@@ -610,6 +613,7 @@ return {
 	-- ["Level 60"] = "60-й уровень",
 	-- ["Ride back to {area:3137} and fly to {area:2255}."] = "Езжайте назад: {area:3137}, затем летите сюда: {area:2255}.",
 	-- ["Ride north along the west side to Mayna's small camp."] = "Езжайте на север вдоль западной стороны к маленькому лагерю Майны.",
+	-- ["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Езжайте на юго-восток: {area:201}. {npc:11078} охраняет котел, а {item:12955} лежит к востоку от амбара.",
 	-- ["Ride west along the crater's northern wall to the pass in the north-west corner that climbs into {zone:1451}."] = "Езжайте на запад вдоль северной стены кратера к перевалу в северо-западном углу, который ведет в зону {zone:1451}.",
 	-- ["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "В группе быстрее пройти подземелье {area:2057} ({area:2298}, юго-восток зоны {area:28}) или {area:2279}, чем убивать мобов. Пропустите этот шаг, чтобы качаться в одиночку.",
 	-- ["Running {area:2057} ({area:2298}, south-east {zone:1422}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "В группе быстрее пройти подземелье {area:2057} ({area:2298}, юго-восток зоны {zone:1422}) или {area:2279}, чем убивать мобов. Пропустите этот шаг, чтобы качаться в одиночку.",

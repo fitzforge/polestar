@@ -561,7 +561,7 @@ return {
 
 	-- Step 97: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 	-- {zone:1457} Darnassus
 	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
 
@@ -573,7 +573,7 @@ return {
 
 	-- Step 99: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
 	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine

@@ -4532,6 +4532,14 @@ do
 				},
 				{
 					title = "{npc:3691}",
+					note = "{npc:3691} stands in the inn, beside the innkeeper.",
+					when = { { k = "onquest", q = { 990 } } },
+					goals = {
+						{ t = "turnin", quest = 990, title = "Trek to Ashenvale", npc = 3691, npcName = "Raene Wolfrunner", map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "{npc:3691}: {quest:990}, if you still carry it from {zone:1439}" },
+					},
+				},
+				{
+					title = "{npc:3691}",
 					when = { { k = "turnedin", neg = true, q = 991 } },
 					goals = {
 						{ t = "accept", quest = 991, title = "Raene's Cleansing", npc = 3691, npcName = "Raene Wolfrunner", minLevel = 18, qlvl = 19, map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "{npc:3691}, at the inn, if you missed her first visit" },
@@ -4555,28 +4563,6 @@ do
 					},
 				},
 				{
-					title = "{npc:3691}",
-					when = { { k = "turnedin", neg = true, q = 1023 } },
-					goals = {
-						{ t = "turnin", quest = 1023, title = "Raene's Cleansing", npc = 3691, npcName = "Raene Wolfrunner", map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "{npc:3691}, at the {area:415} inn" },
-					},
-				},
-				{
-					title = "{npc:3691}'s delivery",
-					when = { { k = "turnedin", neg = true, q = 1024 } },
-					goals = {
-						{ t = "accept", quest = 1024, title = "Raene's Cleansing", npc = 3691, npcName = "Raene Wolfrunner", minLevel = 18, qlvl = 21, pre = { 1023 }, preTitles = { [1023] = "Raene's Cleansing" }, map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "Take her message to {npc:3916} on the way east" },
-					},
-				},
-				{
-					title = "{npc:3691}",
-					note = "{npc:3691} stands in the inn, beside the innkeeper.",
-					when = { { k = "onquest", q = { 990 } } },
-					goals = {
-						{ t = "turnin", quest = 990, title = "Trek to Ashenvale", npc = 3691, npcName = "Raene Wolfrunner", map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "{npc:3691}: {quest:990}, if you still carry it from {zone:1439}" },
-					},
-				},
-				{
 					title = "Melyria and {npc:3901}",
 					note = "The two stand together at the western end of the road, south-west of {area:415}.",
 					goals = {
@@ -4590,6 +4576,20 @@ do
 					when = { { k = "onquest", q = { 945 } } },
 					goals = {
 						{ t = "turnin", quest = 945, title = "Therylune's Escape", npc = 3585, npcName = "Therysil", map = 1440, x = 22.6, y = 51.96, z = 69.8, note = "{npc:3585}: {quest:945}, if you still carry it from {zone:1439}" },
+					},
+				},
+				{
+					title = "{npc:3691}",
+					when = { { k = "turnedin", neg = true, q = 1023 } },
+					goals = {
+						{ t = "turnin", quest = 1023, title = "Raene's Cleansing", npc = 3691, npcName = "Raene Wolfrunner", map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "{npc:3691}, at the {area:415} inn" },
+					},
+				},
+				{
+					title = "{npc:3691}'s delivery",
+					when = { { k = "turnedin", neg = true, q = 1024 } },
+					goals = {
+						{ t = "accept", quest = 1024, title = "Raene's Cleansing", npc = 3691, npcName = "Raene Wolfrunner", minLevel = 18, qlvl = 21, pre = { 1023 }, preTitles = { [1023] = "Raene's Cleansing" }, map = 1440, x = 36.54, y = 49.61, z = 111.5, note = "Take her message to {npc:3916} on the way east" },
 					},
 				},
 				{
@@ -6539,7 +6539,7 @@ do
 			author = "Polestar",
 			version = 1,
 			names = { ["area:100"] = "Nesingwary's Expedition", ["area:101"] = "Kurzen's Compound", ["area:102"] = "Ruins of Zul'Kunda", ["area:35"] = "Booty Bay", ["area:42"] = "Darkshire", ["area:99"] = "Rebel Camp", ["item:2005"] = "The First Troll Legend", ["item:2006"] = "The Second Troll Legend", ["item:2007"] = "The Third Troll Legend", ["item:2008"] = "The Fourth Troll Legend", ["item:277953"] = "Stolen Shipment", ["item:277957"] = "Primitive Key", ["item:4278"] = "Lesser Bloodstone Ore", ["npc:1152"] = "Snapjaw Crocolisk", ["npc:218230"] = "Wendel Mathers", ["npc:2495"] = "Drizzlik", ["npc:2496"] = "Baron Revilgaz", ["npc:2498"] = "Crank Fizzlebub", ["npc:268992"] = "Zimmix Sputterspark", ["npc:4078"] = "Collin Mauren", ["npc:4631"] = "Wharfmaster Lozgil", ["npc:597"] = "Bloodscalp Berserker", ["npc:670"] = "Skullsplitter Witch Doctor", ["npc:686"] = "Lashtail Raptor", ["npc:687"] = "Jungle Stalker", ["npc:691"] = "Lesser Water Elemental", ["npc:715"] = "Hemet Nesingwary", ["npc:717"] = "Ajeck Rouack", ["npc:729"] = "Sin'Dall", ["npc:733"] = "Sergeant Yohwa", ["npc:737"] = "Kebok", ["npc:770"] = "Corporal Kaleb", ["npc:773"] = "Krazek", ["npc:813"] = "Colonel Kurzen", ["npc:938"] = "Kurzen Commando", ["npc:941"] = "Kurzen Headshrinker", ["object:2164"] = "Slaughtered Lamb", ["object:2653"] = "Lesser Bloodstone Deposit", ["object:287"] = "Bookie Herod's Records", ["object:288"] = "Bookie Herod's Strongbox", ["object:52"] = "Fall of Gurubashi", ["object:54"] = "The Emperor's Tomb", ["object:57"] = "Moon Over the Vale", ["object:58"] = "Gri'lek the Wanderer", ["quest:187"] = "Tiger Mastery", ["quest:200"] = "Bookie Herod", ["quest:339"] = "Chapter I", ["quest:340"] = "Chapter II", ["quest:341"] = "Chapter III", ["quest:342"] = "Chapter IV", ["quest:601"] = "Water Elementals", ["skill:186"] = "Mining", ["spell:7964"] = "Smoke Bomb", ["zone:1416"] = "Alterac Mountains", ["zone:1417"] = "Arathi Highlands", ["zone:1431"] = "Duskwood", ["zone:1434"] = "Stranglethorn Vale", ["zone:1453"] = "Stormwind" },
-			written = { ["Hand the paw to {npc:717} beside Hemet."] = "Hand the paw to Ajeck beside Hemet.", ["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't." },
+			written = { ["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "Check the hilltop on your way to the raptors. If Sin'Dall isn't here or you can't pull her alone, keep moving; Ajeck can take the paw on the later visit.", ["Hand the paw to {npc:717} beside Hemet."] = "Hand the paw to Ajeck beside Hemet.", ["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't." },
 			fresh = { from = "forever/alliance/30-40/04-stranglethorn-vale", share = 84, xp = 43790, needs = { 200, 338, 204, 187, 203, 601, 97328, 1078 } },
 			steps = {
 				{
@@ -6635,9 +6635,10 @@ do
 				},
 				{
 					title = "{npc:729} on the raptor hill",
-					when = { { k = "level", op = ">=", n = 36 }, { k = "onquest", q = { 188 } } },
-					along = "hunters",
+					note = "Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit.",
+					when = { { k = "level", op = ">=", n = 36 }, { k = "onquest", q = { 188 } }, { k = "complete", neg = true, q = 188 } },
 					goals = {
+						{ t = "goto", text = "{npc:729}'s hill", map = 1434, x = 31.47, y = 15.5, f = "e" },
 						{ t = "collect", quest = 188, title = "Tiger Mastery", item = 3879, itemName = "Paw of Sin'Dall", count = 1, oi = 1, map = 1434, x = 31.47, y = 15.5, f = "e", spotsPacked = "31.47,15.5,,0;32.21,17.39,41.4,0", lvl = 37, optional = true, note = "{npc:729} (37) prowls the hilltop.", from = "Sin'Dall", fromKind = "npc", fromId = 729, fromNpcs = { { npc = 729, npcName = "Sin'Dall" } } },
 					},
 				},
@@ -12840,7 +12841,7 @@ do
 				},
 				{
 					title = "Pristine Yeti Horns",
-					note = "Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside.",
+					note = "Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in. Don't wait for respawns; the rest of the route doesn't need the horns.",
 					goals = {
 						{ t = "collect", quest = 977, title = "Are We There, Yeti?", npc = 7459, npcName = "Ice Thistle Matriarch", item = 12367, itemName = "Pristine Yeti Horn", count = 2, oi = 1, map = 1452, x = 65.88, y = 43.57, f = "e", spotsPacked = "65.88,43.57,,12;66.67,41.84,,12", spread = true, note = "Loot the horns from Ice Thistle Matriarchs" },
 					},
@@ -15038,7 +15039,7 @@ do
 				},
 				{
 					title = "{area:201}",
-					note = "Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn.",
+					note = "Ride south-east to {area:201}. {npc:11078} guards the cauldron.",
 					when = { { k = "onquest", q = { 5225 } } },
 					goals = {
 						{ t = "collect", quest = 5225, title = "Target: Gahrron's Withering", item = 13196, itemName = "Gahrron's Withering Cauldron Key", count = 1, oi = 1, map = 1422, x = 62.18, y = 59.06, f = "e", from = "Cauldron Lord Soulwrath", fromKind = "npc", fromId = 11078, fromNpcs = { { npc = 11078, npcName = "Cauldron Lord Soulwrath" } } },
@@ -15048,6 +15049,7 @@ do
 				},
 				{
 					title = "{item:12955}",
+					note = "The shield lies east of the barn. Take your group around the barn to reach it.",
 					when = { { k = "group", q = 5168 }, { k = "onquest", q = { 5168 } } },
 					goals = {
 						{ t = "collect", quest = 5168, title = "Heroes of Darrowshire", item = 12955, itemName = "Redpath's Shield", count = 1, oi = 2, map = 1422, x = 63.79, y = 57.19, z = 59.5, f = "e", from = "Redpath's Shield", fromKind = "object", fromId = 176207, group = { kind = "elite", lvl = 60, near = true, rank = 1 } },
@@ -19774,7 +19776,7 @@ do
 			next = "forever/alliance/02-westfall",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:17203"] = "Stormwind Harbor", ["area:442"] = "Auberdine", ["area:447"] = "Ameth'Aran", ["area:450"] = "Remtravel's Excavation", ["area:87"] = "Goldshire", ["item:12289"] = "Sea Turtle Remains", ["item:5336"] = "Grell Earring", ["item:5338"] = "Ancient Moonstone Seal", ["item:5360"] = "Highborne Relic", ["item:5382"] = "Anaya's Pendant", ["item:5385"] = "Crawler Leg", ["item:7586"] = "Tharnariun's Hope", ["npc:10219"] = "Gwennyth Bly'Leggonde", ["npc:11218"] = "Kerlonian Evershade", ["npc:11867"] = "Woo Ping", ["npc:1646"] = "Baros Alexston", ["npc:2164"] = "Rabid Thistle Bear", ["npc:2165"] = "Grizzled Thistle Bear", ["npc:2167"] = "Blackwood Pathfinder", ["npc:2178"] = "Wailing Highborne", ["npc:2185"] = "Darkshore Thresher", ["npc:2189"] = "Vile Sprite", ["npc:2190"] = "Wild Grell", ["npc:2207"] = "Greymist Oracle", ["npc:2212"] = "Deth'ryll Satyr", ["npc:2232"] = "Tide Crawler", ["npc:241"] = "Remy \"Two Times\"", ["npc:257446"] = "Teo Hammerstorm", ["npc:268511"] = "Manifest Clerk Philmor", ["npc:270196"] = "Jai'vhanel", ["npc:3616"] = "Onu", ["npc:3639"] = "Sentinel Tysha Moonblade", ["npc:3644"] = "Cerellean Whiteclaw", ["npc:3649"] = "Thundris Windweaver", ["npc:3650"] = "Asterion", ["npc:3666"] = "Wizbang Cranktoggle", ["npc:3667"] = "Anaya Dawnrunner", ["npc:3701"] = "Tharnariun Treetender", ["npc:483"] = "Elaine Trias", ["npc:5504"] = "Sheldras Moontree", ["object:17183"] = "Buzzbox 411", ["object:17188"] = "Lay of Ameth'Aran", ["object:17189"] = "Fall of Ameth'Aran", ["object:175207"] = "Beached Sea Creature", ["object:175524"] = "Mysterious Red Crystal", ["object:2096"] = "Trade District", ["object:2098"] = "Cathedral Square", ["object:460004"] = "Gatehouse Door", ["quest:4722"] = "Beached Sea Turtle", ["quest:4723"] = "Beached Sea Creature", ["quest:4728"] = "Beached Sea Creature", ["quest:952"] = "Grove of the Ancients", ["quest:954"] = "Bashal'Aran", ["quest:957"] = "Bashal'Aran", ["quest:983"] = "Buzzbox 827", ["spell:202"] = "Two-Handed Swords", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1436"] = "Westfall", ["zone:1439"] = "Darkshore", ["zone:1453"] = "Stormwind" },
+			names = { ["area:17203"] = "Stormwind Harbor", ["area:442"] = "Auberdine", ["area:447"] = "Ameth'Aran", ["area:450"] = "Remtravel's Excavation", ["area:87"] = "Goldshire", ["item:12289"] = "Sea Turtle Remains", ["item:5336"] = "Grell Earring", ["item:5338"] = "Ancient Moonstone Seal", ["item:5360"] = "Highborne Relic", ["item:5382"] = "Anaya's Pendant", ["item:5385"] = "Crawler Leg", ["item:7586"] = "Tharnariun's Hope", ["npc:10219"] = "Gwennyth Bly'Leggonde", ["npc:11218"] = "Kerlonian Evershade", ["npc:11867"] = "Woo Ping", ["npc:1646"] = "Baros Alexston", ["npc:2164"] = "Rabid Thistle Bear", ["npc:2167"] = "Blackwood Pathfinder", ["npc:2178"] = "Wailing Highborne", ["npc:2185"] = "Darkshore Thresher", ["npc:2189"] = "Vile Sprite", ["npc:2190"] = "Wild Grell", ["npc:2207"] = "Greymist Oracle", ["npc:2212"] = "Deth'ryll Satyr", ["npc:2232"] = "Tide Crawler", ["npc:2237"] = "Moonstalker Sire", ["npc:241"] = "Remy \"Two Times\"", ["npc:257446"] = "Teo Hammerstorm", ["npc:268511"] = "Manifest Clerk Philmor", ["npc:270196"] = "Jai'vhanel", ["npc:3616"] = "Onu", ["npc:3639"] = "Sentinel Tysha Moonblade", ["npc:3644"] = "Cerellean Whiteclaw", ["npc:3649"] = "Thundris Windweaver", ["npc:3650"] = "Asterion", ["npc:3666"] = "Wizbang Cranktoggle", ["npc:3667"] = "Anaya Dawnrunner", ["npc:3701"] = "Tharnariun Treetender", ["npc:483"] = "Elaine Trias", ["npc:5504"] = "Sheldras Moontree", ["object:17183"] = "Buzzbox 411", ["object:17188"] = "Lay of Ameth'Aran", ["object:17189"] = "Fall of Ameth'Aran", ["object:175207"] = "Beached Sea Creature", ["object:175524"] = "Mysterious Red Crystal", ["object:2096"] = "Trade District", ["object:2098"] = "Cathedral Square", ["object:460004"] = "Gatehouse Door", ["quest:4722"] = "Beached Sea Turtle", ["quest:4723"] = "Beached Sea Creature", ["quest:4728"] = "Beached Sea Creature", ["quest:952"] = "Grove of the Ancients", ["quest:954"] = "Bashal'Aran", ["quest:957"] = "Bashal'Aran", ["quest:983"] = "Buzzbox 827", ["spell:202"] = "Two-Handed Swords", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1436"] = "Westfall", ["zone:1439"] = "Darkshore", ["zone:1453"] = "Stormwind" },
 			written = { ["the Rabid Thistle Bears nearest {npc:3701}"] = "the Rabid Thistle Bears nearest Tharnariun", ["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "Sheldras Moontree in Stormwind City; Goldshire has no druid trainer" },
 			fresh = { from = "forever/alliance/nightelf/01-teldrassil", share = 11, xp = 19820, needs = { 952, 1141 } },
 			steps = {
@@ -19937,7 +19939,7 @@ do
 				},
 				{
 					title = "{npc:3616}",
-					note = "East from the beached creature, up into the {quest:952}: {npc:3616} is the ancient there, with Arbal and {npc:11218} asleep beside him. Careful: a {npc:2165} (16-17) can roam the woods south of the grove.",
+					note = "From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}.",
 					when = { { k = "onquest", q = { 952 } } },
 					goals = {
 						{ t = "turnin", quest = 952, title = "Grove of the Ancients", npc = 3616, npcName = "Onu", map = 1439, x = 43.47, y = 76.25, z = 52.8, only = { races = { "NightElf" } } },

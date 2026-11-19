@@ -14,7 +14,7 @@
     "forever/alliance/30-40/02-desolace.guide": "05d231a33be3081d5b1bfe0c96b8ad71052f95f9943afe0cccb7c543afb9259c",
     "forever/alliance/30-40/03-ashenvale.guide": "3ec06593a2df2a1b1bc69843f270ec46e8687fc3b4c134a147b37912f87efa6b",
     "forever/alliance/30-40/04-stranglethorn-vale.guide": "095127657c13649261f651a74fd9711daf0359d389632e7dffa334b66220a318",
-    "forever/alliance/30-40/04b-stranglethorn-vale.guide": "cc65aca57ce3ee49ef76867ca5619171981e137a32273a1a92730699ef0e2890",
+    "forever/alliance/30-40/04b-stranglethorn-vale.guide": "4fa1908168ddc183369bfaa01ab4184b9573911df7ddf805938694dfe7b07749",
     "forever/alliance/30-40/05-arathi-highlands.guide": "a805b63a2b218aab3f0c1f21fde65c19fd2f0ec15cf5ad98abaec34e7df1d38c",
     "forever/alliance/30-40/06-badlands.guide": "bc7eadead14f11528032b82ca144ee6c0849da3397b043170ac6227a8bb47f4f",
     "forever/alliance/30-40/06b-desolace.guide": "6378e9d44c9eca67b02fcd32347ce9a2688a6d0bf969ae86012722b6583d1655",
@@ -28,7 +28,7 @@
     "forever/alliance/40-50/07-un-goro-crater.guide": "7405bacc402a900699229d44ca8b2575528e0a693b2c12a0a6cd60391a291fbf",
     "forever/alliance/50-60/01-burning-steppes.guide": "da25c3e16615a132cca102f8cd9b12623d1af0d13446df7b5c69a4cd5c7e2eff",
     "forever/alliance/50-60/02-felwood.guide": "5c8d9d5fb6f076f4c1d6b78dbebe7f01bc2d0aedc444ac63cd4960c8565ffa6a",
-    "forever/alliance/50-60/03-winterspring.guide": "e123c6bd224cccc7cdadd75ed290f91777f670c197e24c0afa6b775fb31e956e",
+    "forever/alliance/50-60/03-winterspring.guide": "dd0d3ed508087d29302bb10aa21f2ef22e2c9a909557b9c79ecd7e1c78f8835c",
     "forever/alliance/50-60/04-western-plaguelands.guide": "92ee3caadf97cad31703ea0c5e864b47e72bb99888b8aab73fea86e493324673",
     "forever/alliance/50-60/06-silithus.guide": "1aa52268c05a2766fe38bce4f14a6ed327979e55c3c065b25e50716fb2df6b2f",
     "forever/alliance/dwarf/01-dun-morogh.guide": "dc42e8e865d688e9ae496412adf818235770a44e059705c32da0a87b4c4cf5ea",
@@ -68,6 +68,6 @@
     "forever/horde/tauren/01-mulgore.guide": "c35d104496d79e6243ce1fe50207b531e3850e5e4661016a5a3a5f804b33fd76",
     "forever/horde/troll/01-durotar.guide": "c476d61af4c6b603b57d362113ba2dfa4c2f29d8f8254a7600e011b81643374a",
     "forever/horde/undead/01-tirisfal-glades.guide": "9e24e07f1f32c2f1da6619059c9e2642fe4e1bb2acbab138739a4d1f1de8b75c",
-    "legs.json": "317d31eacb756ebc4587b2c8a4dc58fb5a3a0dd40ff8861331c0a586489bb28e"
+    "legs.json": "c3fa0aa771ce40756615a0e91a6019208fb33871a0b08a86ac6f3a4408793a00"
   }
 }

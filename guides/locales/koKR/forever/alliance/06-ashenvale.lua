@@ -33,12 +33,12 @@ return {
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
 	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "서쪽으로 {area:441} 기슭까지 가세요. 테로니스는 소금거품멀록들 사이에 쓰러져 있습니다. 어느 멀록이든 {item:5463}을(를) 떨어뜨릴 수 있습니다."
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "서쪽으로 {area:441} 기슭까지 가세요. 테로니스는 소금거품멀록들 사이에 쓰러져 있습니다. 어느 멀록이든 {item:5463}을(를) 떨어뜨릴 수 있습니다.",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
 	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "멀록들 남쪽, {area:416}에서 {npc:3585}이(가) 기다립니다."
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "멀록들 남쪽, {area:416}에서 {npc:3585}이(가) 기다립니다.",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -86,12 +86,12 @@ return {
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "길을 따라 동쪽으로 {area:419}까지 가세요. {npc:3916}은(는) 달샘 옆에 서 있습니다."
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "길을 따라 동쪽으로 {area:419}까지 가세요. {npc:3916}은(는) 달샘 옆에 서 있습니다.",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
 	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "{npc:3916}에게서 길을 따라 다시 서쪽으로 가면 {npc:3664}(으)로 가는 길에 {area:415}이(가) 있습니다. {npc:3894}은(는) 여관 너머 건물 안에 있습니다."
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "{npc:3916}에게서 길을 따라 다시 서쪽으로 가면 {npc:3664}(으)로 가는 길에 {area:415}이(가) 있습니다. {npc:3894}은(는) 여관 너머 건물 안에 있습니다.",
 
 	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
@@ -100,7 +100,7 @@ return {
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "해안을 따라 북쪽으로 {area:414}까지 가세요. {npc:3846}은(는) 해변에 진을 치고 있고, 해안에는 성난지느러미일족 나가가 가득합니다."
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "해안을 따라 북쪽으로 {area:414}까지 가세요. {npc:3846}은(는) 해변에 진을 치고 있고, 해안에는 성난지느러미일족 나가가 가득합니다.",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}, 해안의 폐허 안",
 	-- {item:5490} Wrathtail Head

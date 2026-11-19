@@ -505,10 +505,13 @@ return {
 	["{item:12954}; inside"] = "",
 
 	-- Step 117: Gahrron's Withering
-	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath · {item:12955} Redpath's Shield
-	["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "남동쪽으로 {area:201}까지 가세요. {npc:11078}이(가) 가마솥을 지키고 있고, {item:12955}은(는) 헛간 동쪽에 있습니다.",
+	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	["Ride south-east to {area:201}. {npc:11078} guards the cauldron."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "이 가이드 마지막에 {area:3197}의 {npc:11053}에게 가져갑니다",
+
+	-- Step 118: Redpath's Shield
+	["The shield lies east of the barn. Take your group around the barn to reach it."] = "",
 
 	-- Step 119: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
@@ -608,6 +611,7 @@ return {
 	-- ["Level 60"] = "60레벨",
 	-- ["Ride back to {area:3137} and fly to {area:2255}."] = "{area:3137}(으)로 돌아가 {area:2255}(으)로 날아가세요.",
 	-- ["Ride north along the west side to Mayna's small camp."] = "서쪽을 따라 북쪽으로 메이나의 작은 야영지에 가세요.",
+	-- ["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "남동쪽으로 {area:201}까지 가세요. {npc:11078}이(가) 가마솥을 지키고 있고, {item:12955}은(는) 헛간 동쪽에 있습니다.",
 	-- ["Ride west along the crater's northern wall to the pass in the north-west corner that climbs into {zone:1451}."] = "분화구 북쪽 벽을 따라 서쪽으로 가서, 북서쪽 구석의 {zone:1451}(으)로 올라가는 고개로 가세요.",
 	-- ["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "파티라면 사냥 대신 {area:2057}({area:28} 남동쪽 {area:2298})이나 {area:2279}을(를) 도는 편이 더 빠릅니다. 혼자 사냥하려면 이 단계를 건너뛰세요.",
 	-- ["Running {area:2057} ({area:2298}, south-east {zone:1422}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "파티라면 사냥 대신 {area:2057}({zone:1422} 남동쪽 {area:2298})이나 {area:2279}을(를) 도는 편이 더 빠릅니다. 혼자 사냥하려면 이 단계를 건너뛰세요.",

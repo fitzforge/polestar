@@ -54,7 +54,7 @@ return {
 
 	-- Step 10: Everlook flight master
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 	["Maethrya, the Alliance flight master"] = "",
 
 	-- Step 11: Marshal's Refuge flight master
@@ -502,13 +502,16 @@ return {
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}; adentro",
 
 	-- Step 117: Gahrron's Withering
-	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath · {item:12955} Redpath's Shield
-	["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Cabalga al sureste hasta {area:201}: {npc:11078} vigila el caldero, y {item:12955} está al este del granero.",
+	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	["Ride south-east to {area:201}. {npc:11078} guards the cauldron."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Para {npc:11053} en {area:3197}, al final de esta guía",
+
+	-- Step 118: Redpath's Shield
+	["The shield lies east of the barn. Take your group around the barn to reach it."] = "",
 
 	-- Step 119: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
@@ -614,6 +617,7 @@ return {
 	-- ["Ride north along the west side to Mayna's small camp."] = "Cabalga al norte por el lado oeste hasta el pequeño campamento de Mayna.",
 	-- ["Ride north out of {area:415} into {zone:1448} to the druids' camp on the road just past the border."] = "Cabalga al norte desde {area:415} hacia {zone:1448} hasta el campamento de los druidas en el camino, justo pasada la frontera.",
 	-- ["Ride south to {area:2250}. Protect {npc:10300} while she lights the torches on the way to the {object:177404}."] = "Cabalga al sur hasta {area:2250}. Protege a {npc:10300} mientras enciende las antorchas camino de {object:177404}.",
+	-- ["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Cabalga al sureste hasta {area:201}: {npc:11078} vigila el caldero, y {item:12955} está al este del granero.",
 	-- ["Ride west along the crater's northern wall to the pass in the north-west corner that climbs into {zone:1451}."] = "Cabalga al oeste junto a la pared norte del cráter hasta el paso de la esquina noroeste que sube a {zone:1451}.",
 	-- ["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, sureste de {area:28}) o {area:2279} en vez de farmear te lleva allí más rápido en grupo. Omite este paso para farmear solo.",
 	-- ["Running {area:2057} ({area:2298}, south-east {zone:1422}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, sureste de {zone:1422}) o {area:2279} en vez de farmear te lleva allí más rápido en grupo. Omite este paso para farmear solo.",

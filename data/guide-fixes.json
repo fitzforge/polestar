@@ -6208,7 +6208,7 @@
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "objective", "objective": 1 },
 			"optional": true,
-			"note": "Offer the paw at the raptor hill as an ordinary optional goal. Players who leave it for the next visit should not still see the hunt under Along the way in Booty Bay.",
+			"note": "On the seed's hilltop approach, show the paw only while Tiger Mastery is unfinished. Reaching the hill is enough to continue to the raptors; there is no wait for a respawn and no hunt on the way to Booty Bay.",
 			"source": [{ "kind": "questie", "ref": "Quest 188 needs one Paw of Sin'Dall (3879)." }],
 			"pr": 3144
 		},
@@ -11493,7 +11493,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If the spots are empty or the horns don't drop, keep the quest and skip this step and Umi's hand-in. The next guide flies through Everlook again; don't wait here for respawns.",
+			"tip": "Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in. Don't wait for respawns; the rest of the route doesn't need the horns.",
 			"note": "Patriarchs reach 58. Two of the Matriarchs stand outside away from them; the eastern Matriarchs lie below the terrain in the cave and a third outside spawn stands beside a Patriarch. Use only the two exterior spawns marked in the seed.",
 			"source": [
 				{

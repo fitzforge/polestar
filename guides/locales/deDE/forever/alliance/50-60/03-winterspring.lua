@@ -75,8 +75,7 @@ return {
 	-- Step 16: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
-	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Careful: stay outside the cave and hunt Ice Thistle Matriarchs on the western slope. At 55 take only level 56 Matriarchs; at 56 the level 57s are fine too. Leave the Patriarchs alone. The horns are uncommon; wait for another Matriarch instead of going inside."] = "",
+	["Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in. Don't wait for respawns; the rest of the route doesn't need the horns."] = "",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
 	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
@@ -137,7 +136,7 @@ return {
 	-- {npc:10778} Janice Felstone
 	["{npc:10778}, upstairs in the farmhouse"] = "",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "",
+	["{object:175894}, inside"] = "{object:175894}, drinnen",
 	-- {zone:1453} Stormwind · {zone:1451} Silithus
 	["For {zone:1453}: keep it, the {zone:1451} guide goes there"] = "",
 

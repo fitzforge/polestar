@@ -113,7 +113,7 @@ step Everlook
 # ---------------------------------------------------------------- The east
 
 step Pristine Yeti Horns
-  tip Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If the spots are empty or the horns don't drop, keep the quest and skip this step and Umi's hand-in. The next guide flies through Everlook again; don't wait here for respawns.
+  tip Check the two outdoor Matriarchs on the western slope. At 55 take only level 56; at 56 the level 57s are fine too. Leave the Patriarchs and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in. Don't wait for respawns; the rest of the route doesn't need the horns.
   loop
   goto 65.88,43.57 map 1452 r 12
   goto 66.67,41.84 map 1452 r 12

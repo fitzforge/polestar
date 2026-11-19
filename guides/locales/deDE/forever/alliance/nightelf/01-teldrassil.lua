@@ -551,7 +551,7 @@ return {
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} sitzt im Wald im Nordwesten. Lerne die Flugroute von {area:493} bei {npc:10897} südlich des Sees, für spätere Reisen. Dann fliegt {npc:11800} in {area:2361} Druiden über ihr Gesprächsmenü direkt nach {area:702}: Bei ihr gibt es keine Flugroute zu lernen. {npc:11802} steht oben in seinem Gebäude: Geh drinnen hoch, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Wirke {spell:18960}",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Sprich mit dem {quest:5929}",
 
@@ -561,7 +561,7 @@ return {
 
 	-- Step 97: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Flugmeister von {area:702}",
 	-- {zone:1457} Darnassus
 	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
 
@@ -573,7 +573,7 @@ return {
 
 	-- Step 99: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Flugmeister von {area:442}",
 
 	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine

@@ -57,6 +57,8 @@ forever/alliance/06-wetlands	step 21	0:-3490,-1722>-3560,-1959	detour 2.12x stra
 forever/alliance/06-wetlands	step 22	0:-3588,-1991>-3526,-1882	detour 4.25x straight on grid, no named passage
 forever/alliance/06-wetlands	step 23	0:-3568,-1765>-3560,-1959	detour 3.45x straight on grid, no named passage
 forever/alliance/06-wetlands	step 35	0:-3256,-2716>-3705,-2375	detour 2.12x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 52	1:3051,513>2622,447	detour 2.62x straight on leffe, no named passage
+forever/alliance/06-wetlands	step 56	1:2766,-407>2896,-1380	detour 1.63x straight on leffe, no named passage
 forever/alliance/06-wetlands	step 58	1:2896,-1380>3068,-1627	detour 5.22x straight on leffe, no named passage
 forever/alliance/06-wetlands	step 59	1:3316,-1434>2896,-1380	detour 4.67x straight on leffe, no named passage
 forever/alliance/06-wetlands	step 60	1:2896,-1380>2951,-2812	detour 1.76x straight on leffe, no named passage

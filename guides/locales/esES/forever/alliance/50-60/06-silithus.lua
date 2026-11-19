@@ -505,10 +505,13 @@ return {
 	["{item:12954}; inside"] = "",
 
 	-- Step 117: Gahrron's Withering
-	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath · {item:12955} Redpath's Shield
-	["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Cabalga al sureste hasta {area:201}: el {npc:11078} guarda la caldera y el {item:12955} está al este del granero.",
+	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
+	["Ride south-east to {area:201}. {npc:11078} guards the cauldron."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Para la {npc:11053} en {area:3197}, al final de esta guía",
+
+	-- Step 118: Redpath's Shield
+	["The shield lies east of the barn. Take your group around the barn to reach it."] = "",
 
 	-- Step 119: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
@@ -608,6 +611,7 @@ return {
 	-- ["Level 60"] = "Nivel 60",
 	-- ["Ride back to {area:3137} and fly to {area:2255}."] = "Vuelve a {area:3137} y vuela a {area:2255}.",
 	-- ["Ride north along the west side to Mayna's small camp."] = "Cabalga al norte por el lado oeste hasta el pequeño campamento de Mayna.",
+	-- ["Ride south-east to {area:201}: {npc:11078} guards the cauldron, and {item:12955} lies east of the barn."] = "Cabalga al sureste hasta {area:201}: el {npc:11078} guarda la caldera y el {item:12955} está al este del granero.",
 	-- ["Ride west along the crater's northern wall to the pass in the north-west corner that climbs into {zone:1451}."] = "Cabalga al oeste junto a la pared norte del cráter hasta el paso de la esquina noroeste que sube a {zone:1451}.",
 	-- ["Running {area:2057} ({area:2298}, south-east {area:28}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, al sureste de {area:28}) o {area:2279} en vez de subir de nivel matando te lleva más rápido en grupo. Sáltate este paso para subir solo.",
 	-- ["Running {area:2057} ({area:2298}, south-east {zone:1422}) or {area:2279} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer {area:2057} ({area:2298}, al sureste de {zone:1422}) o {area:2279} en vez de subir de nivel matando te lleva más rápido en grupo. Sáltate este paso para subir solo.",

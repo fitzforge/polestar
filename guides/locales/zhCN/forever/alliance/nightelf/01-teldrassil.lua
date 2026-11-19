@@ -551,7 +551,7 @@ return {
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的树林里。从湖南边的{npc:10897}处学会{area:493}的飞行路线，方便以后往返。然后{area:2361}的{npc:11800}可以通过对话把德鲁伊直接送到{area:702}：她那里没有可学的飞行路线。{npc:11802}在他所在建筑的楼上：从里面上楼，箭头无法区分楼层。",
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "施放{spell:18960}",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "与{quest:5929}交谈",
 
@@ -561,7 +561,7 @@ return {
 
 	-- Step 97: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "{area:702}的飞行管理员",
 	-- {zone:1457} Darnassus
 	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
 
@@ -573,7 +573,7 @@ return {
 
 	-- Step 99: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine

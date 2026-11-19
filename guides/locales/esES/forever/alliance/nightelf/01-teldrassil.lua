@@ -560,7 +560,7 @@ return {
 
 	-- Step 97: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 	-- {zone:1457} Darnassus
 	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
 

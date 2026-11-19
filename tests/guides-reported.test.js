@@ -9075,6 +9075,7 @@ test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once 
 		const guide = pack.guides[0];
 		const stepOf = (q, t) => guide.steps.findIndex(s => s.goals.some(g => g.quest === q && g.t === t)) + 1;
 		const hunt = stepOf(195, 'kill'), camp = stepOf(195, 'turnin'), handIn = stepOf(188, 'turnin');
+		const hill = stepOf(188, 'collect'), port = stepOf(577, 'turnin');
 		assert.ok(hunt && camp && handIn);
 		const [seen] = playGuide(pack, guide, { race: 'Human', cls: 'WARRIOR', faction: 'Alliance',
 			before: `w.setLevel(36); w.complete({187,194}); w.accept(195,{10},"Raptor Mastery")
@@ -9087,7 +9088,14 @@ test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once 
 					end
 					return false
 				end
-				E.SkipUpTo(${hunt}); settle(); w.finish(195); settle()
+				w.moveTo(1434,24.8,13.0); E.SkipUpTo(${hill}); settle()
+				assert(E.GetLiveStep()==${hill}, "a holder at 36 is actually led to the hill")
+				local aim=E.GetWaypoint(); assert(aim and aim.map==1434 and aim.x and aim.y)
+				local goal=E.GetGuide().steps[aim.stepIndex or E.GetLiveStep()].goals[aim.goalIndex]
+				assert(goal.t=="goto" and math.abs(goal.x-31.47)<.02 and math.abs(goal.y-15.5)<.02)
+				w.moveTo(aim.map,aim.x,aim.y); settle()
+				assert(E.GetLiveStep()==${hunt}, "reaching the hill without a paw continues to the raptors")
+				w.finish(195); settle()
 				w.moveTo(1434,35.56,10.57); settle()
 				assert(E.GetLiveStep()==${camp})
 				local out = { premature=listed(), huntStillListed=listed("collect"), earlyAim=E.AimAlong(${handIn},1),
@@ -9103,6 +9111,17 @@ test("Alliance: Ajeck's optional hand-in only appears at the hunters' camp once 
 				emit(out)` });
 		assert.deepEqual(seen, { premature: false, huntStillListed: false, earlyAim: false, earlyRow: 'na', nextQuest: 196,
 			ready: true, canAim: true, giver: 717, after: false });
+		const [left] = playGuide(pack, guide, { race: 'Human', cls: 'WARRIOR', faction: 'Alliance',
+			before: `w.setLevel(36); w.complete({187,194}); w.accept(195,{10}); w.accept(188,{1}); w.moveTo(1434,24.8,13)`,
+			script: `local E,w=Polestar.Engine,stub.world
+				E.SkipUpTo(${hill}); stub.advance(1); local a=E.GetWaypoint(); assert(a and E.GetLiveStep()==${hill})
+				w.moveTo(a.map,a.x,a.y); stub.advance(1); assert(E.GetLiveStep()==${hunt})
+				w.moveTo(1434,28.3,77.6); E.SkipUpTo(${port}); stub.advance(1)
+				for _,s in ipairs(E.GetAlong()) do for _,g in ipairs(s.goals) do
+					assert(g.quest~=188, "no tiger hunt or unpaid paw follows the player to Booty Bay")
+				end end
+				emit(Polestar.Compat.IsOnQuest(188))` });
+		assert.equal(left, true, 'leaving without a paw keeps Tiger Mastery for the later visit');
 	} finally { pack.dispose(); }
 });
 

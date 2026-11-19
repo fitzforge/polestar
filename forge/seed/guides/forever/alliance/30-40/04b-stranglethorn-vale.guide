@@ -100,6 +100,9 @@ step The Ruins of Zul'Kunda
 step Sin'Dall on the raptor hill
   when level>=36
   when onquest 188
+  when !complete 188
+  tip Check the hilltop on your way to the raptors. If Sin'Dall isn't here or you can't pull her alone, keep moving; Ajeck can take the paw on the later visit.
+  goto 31.47,15.50 map 1434 era "Sin'Dall's hill"
   collect 3879 quest 188 optional     -- Sin'Dall (37) prowls the hilltop.
 
 step The Lashtail raptors

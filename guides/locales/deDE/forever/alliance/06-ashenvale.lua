@@ -33,12 +33,12 @@ return {
 	-- Step 7: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
 	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Geh nach Westen zum Ufer des {area:441}. Teronis liegt zwischen den Salzspuckmurlocs; jeder Murloc kann {item:5463} fallen lassen."
-	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
+	["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Geh nach Westen zum Ufer des {area:441}. Teronis liegt zwischen den Salzspuckmurlocs; jeder Murloc kann {item:5463} fallen lassen.",
 
 	-- Step 8: Shrine of Aessina
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina
 	-- was: ["South of the murlocs, {npc:3585} waits at the {area:416}."] = "Südlich der Murlocs wartet {npc:3585} bei {area:416}."
-	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "",
+	["South of the murlocs, {npc:3585} waits at the {area:416}."] = "Südlich der Murlocs wartet {npc:3585} bei {area:416}.",
 
 	-- Step 9: Elune's Tear
 	-- {area:415} Astranaar
@@ -86,12 +86,12 @@ return {
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	-- was: ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Folge der Straße nach Osten zu {area:419}; {npc:3916} steht am Mondbrunnen."
-	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "",
+	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Folge der Straße nach Osten zu {area:419}; {npc:3916} steht am Mondbrunnen.",
 
 	-- Step 20: Astranaar
 	-- {npc:3916} Shael'dryn · {area:415} Astranaar · {npc:3664} Ilkrud Magthrull · {npc:3894} Pelturas Whitemoon
 	-- was: ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Auf der Straße von {npc:3916} zurück nach Westen liegt {area:415} auf dem Weg zu {npc:3664}: {npc:3894} ist im Gebäude hinter dem Gasthaus."
-	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "",
+	["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Auf der Straße von {npc:3916} zurück nach Westen liegt {area:415} auf dem Weg zu {npc:3664}: {npc:3894} ist im Gebäude hinter dem Gasthaus.",
 
 	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
@@ -100,7 +100,7 @@ return {
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	-- was: ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Folge der Küste nach Norden zum {area:414}. {npc:3846} lagert am Strand; Naga der Rächerflossen bevölkern das Ufer."
-	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
+	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Folge der Küste nach Norden zum {area:414}. {npc:3846} lagert am Strand; Naga der Rächerflossen bevölkern das Ufer.",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}, in den Ruinen am Ufer",
 	-- {item:5490} Wrathtail Head
@@ -125,7 +125,7 @@ return {
 	-- Step 28: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
 	-- was: ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Folge der Straße südöstlich von {area:413} zurück nach {area:415}: {npc:3845} steht beim Flugmeister."
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Folge der Straße südöstlich von {area:413} zurück nach {area:415}: {npc:3845} steht beim Flugmeister.",
 
 	-- Step 29: Fly to Auberdine
 	-- {area:442} Auberdine
