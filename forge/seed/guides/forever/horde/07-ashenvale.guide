@@ -251,8 +251,14 @@ step Fly to Thunder Bluff
 step Skywatcher Plateau
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Mulgore
-  tip The Earthen Ring camp is on Skywatcher Plateau north of Thunder Bluff. From the city take a lift down; from Camp Taurajo follow the road north past the bluffs.
+  tip The Earthen Ring camp is on Skywatcher Plateau. From Thunder Bluff, take the north lift down; from Camp Taurajo, follow the road north past the bluffs. The next arrow marks the camp on the plateau.
   goto 40.6,22.2 "North of Thunder Bluff"
+
+step Skywatcher Plateau
+  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
+  zone Mulgore
+  # #1334: this Era waypoint is at Yorn on the plateau, not in the spider fields.
+  goto 30.5,8.2 map 1412 era "Skywatcher Plateau"
 
 step The Earthen Ring
   zone Mulgore

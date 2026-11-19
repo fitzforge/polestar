@@ -8332,6 +8332,24 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 	assert.equal(uc[at(uc, 'turnin 97891', is('turnin', 97891))].s, uc[at(uc, 'turnin 441', is('turnin', 441))].s, 'on the one Undercity stop, with Raleigh');
 });
 
+test(`${ASHENVALE_HORDE}: Tropix's plateau waypoint reaches the Earthen Ring camp before its quests (#1334)`, { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const camp = list[at(list, 'Yorn at the Earthen Ring', is('accept', 96260))];
+	assert.equal(camp.goal.npc, 264072);
+	const approach = list.filter(({ goal, s }) => goal.t === 'goto' && s >= camp.s - 2 && s < camp.s);
+	assert.deepEqual(approach.map(({ goal: g }) => [g.map, g.f, g.x, g.y]), [[1412, 'e', 40.6, 22.2], [1412, 'e', 30.5, 8.2]]);
+	const { Geo } = require('../tools/lib/planner/geo');
+	const geo = new Geo(data.mapFrames, data.zones);
+	const world = (g) => geo.toWorld(g.map, g.x, g.y, g.f || 'l');
+	const landing = world(approach[1].goal), yorn = world(camp.goal);
+	assert.ok(landing.c === yorn.c && Math.hypot(landing.wx - yorn.wx, landing.wy - yorn.wy) < 5, 'the Era waypoint is horizontally at Yorn, not in Gloomrise');
+	for (const [race, cls, count] of [['Orc', 'HUNTER', 2], ['Scourge', 'MAGE', 2], ['Scourge', 'PALADIN', 0], ['Tauren', 'DRUID', 0], ['Skyborne', 'ROGUE', 0]]) {
+		const visits = ({ step, goal }) => [step.only, goal.only].every((o) => forChar(o, race, cls));
+		assert.equal(approach.filter(visits).length, count, `${race} ${cls}: approach waypoints`);
+		assert.ok(visits(camp), `${race} ${cls}: all branches reach Yorn`);
+	}
+});
+
 // Final route review, Horde 1-30: Sharptalon prowls between Torek's fight and Splintertree but was hunted on a walk
 // back south from the town; Tauren and Skyborne, who know the Thunder Bluff flight path, flew to Camp Taurajo and rode
 // across Mulgore; and the guide asked for Test of Strength, which Dorn offers only once Test of Endurance is in.
