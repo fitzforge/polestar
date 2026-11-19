@@ -2,6 +2,58 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "searing-north-rim-search",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						43.29,
+						28.24
+					],
+					[
+						46.49,
+						25.27
+					]
+				]
+			},
+			"note": "The two searches and the dagger share this north-rim step; do not offer the linked camps in the Cauldron as an alternative.",
+			"source": {
+				"kind": "recording",
+				"ref": "Nine followers died eleven times on Culling the Competition. The rim spawns of the Dark Iron Taskmasters and Slavers are below Thorium Point."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "pristine-horns-western-matriarchs",
+			"faction": "Alliance",
+			"quest": 977,
+			"objective": 1,
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[
+						65.88,
+						43.57
+					],
+					[
+						68.32,
+						41.07
+					]
+				]
+			},
+			"note": "Use the two Ice Thistle Matriarch spawns on the western edge; the higher-level Patriarchs share the item but not this hunt.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Ice Thistle Matriarch, creature 7459: the two western spawns in Winterspring."
+			},
+			"issue": 3144
+		},
+		{
 			"id": "jon-jon-spyglass-on-the-hill",
 			"faction": "Alliance",
 			"quest": 609,
