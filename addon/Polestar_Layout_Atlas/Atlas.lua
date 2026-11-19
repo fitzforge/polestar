@@ -2996,12 +2996,14 @@ local function xpLook(xp)
 			for i = 1, xp.Text:GetNumPoints() do text[i] = { xp.Text:GetPoint(i) } end
 			own.points = { icon = { xp.Icon:GetPoint(1) }, text = text }
 		end
-		local _, _, _, _, iy = xp.Icon:GetPoint(1)
+		-- From the row's own point (kept above), 1px lower: with the row's
+		-- 2px more height (xpRowHeight) the line clears the rule over it.
+		local iy = (own.points.icon[5] or -1) - 1
 		xp.Icon:ClearAllPoints()
-		xp.Icon:SetPoint("CENTER", xp, "LEFT", RAIL, iy or -1)
+		xp.Icon:SetPoint("CENTER", xp, "LEFT", RAIL, iy)
 		xp.Text:ClearAllPoints()
-		xp.Text:SetPoint("LEFT", xp, "LEFT", CARD_X + 11, iy or -1)
-		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -OPT_PAD, iy or -1)
+		xp.Text:SetPoint("LEFT", xp, "LEFT", CARD_X + 11, iy)
+		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -OPT_PAD, iy)
 	end
 end
 
@@ -3144,7 +3146,7 @@ local function spec(hooks)
 			["guideWindow.titleSpace"] = AIR_UNDER,
 			["guideWindow.tipSpace"] = 9,
 			["guideWindow.tipPadding"] = 8,
-			["guideWindow.xpRowHeight"] = 24,
+			["guideWindow.xpRowHeight"] = 26,
 		},
 		-- Its card in the guide window's Presets, beside Polestar's own:
 		-- picking it chooses this layout only; the skin stays the player's.

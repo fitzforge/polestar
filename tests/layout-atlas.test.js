@@ -153,8 +153,8 @@ out.own = space()
 emit(out)`,
 	}).emitted;
 	assert.equal(out.cap, true);
-	assert.deepEqual(out.keys, [9, 4, 9, 8, false, false, 24], "Atlas's defaults for the player's gaps; the rows keep Polestar's");
-	assert.deepEqual(out.full, [10, 10, 8, 9, 24, 10], "full mode: rows and under Up next as Polestar, the tip's room and gap and the XP row Atlas's defaults (whole sizes, whatever Polestar's own)");
+	assert.deepEqual(out.keys, [9, 4, 9, 8, false, false, 26], "Atlas's defaults for the player's gaps; the rows keep Polestar's");
+	assert.deepEqual(out.full, [10, 10, 8, 9, 26, 10], "full mode: rows and under Up next as Polestar, the tip's room and gap and the XP row Atlas's defaults (whole sizes, whatever Polestar's own)");
 	assert.deepEqual(out.compact, [10, 10, 10, 10, 10, 10], "compact mode: Polestar's own");
 	assert.deepEqual(out.own, [10, 10, 10, 10, 10, 10], "Polestar's own layout: its own");
 	assert.equal(out.fullH - out.compactH, 2, 'the title: 9 over it (10 in compact mode); its line 4 under it, 7 over the goals (8 under it in compact mode)');
