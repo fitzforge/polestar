@@ -86,11 +86,15 @@ local function Paint()
 	local header = not themed and not questieTracker and (tracker.HeaderMenu or tracker.Header)
 	local art = useHeaderArt and header and header.Background
 	local artHeight = art and art:GetHeight()
-	local matchHeader = not active and artHeight and artHeight > 0
-	local tabAnchor = active and background or (matchHeader and art or (nativeTracker and tracker or background))
+	local guideFrame = active and polestarDock and polestarDock.frame
+	local matchHeader = not guideFrame and artHeight and artHeight > 0
+	-- Blizzard's decorative header includes transparent margins and may use
+	-- a different scale. The Polestar surface follows the actual fitted guide.
+	local tabAnchor = guideFrame or (matchHeader and art or (nativeTracker and tracker or background))
 	local rowHeight = matchHeader and artHeight or 26
 	local rowScale = matchHeader and header:GetEffectiveScale() / UIParent:GetEffectiveScale() or 1
-	if questieTracker then rowScale = tracker:GetEffectiveScale() / UIParent:GetEffectiveScale() end
+	if guideFrame then rowScale = guideFrame:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	elseif questieTracker then rowScale = tracker:GetEffectiveScale() / UIParent:GetEffectiveScale() end
 	if strip:GetScale() ~= rowScale then strip:SetScale(rowScale) end
 	if strip:GetHeight() ~= rowHeight then strip:SetHeight(rowHeight) end
 	local leftExtension = 0

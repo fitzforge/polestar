@@ -615,11 +615,32 @@ local tabs={strip:GetChildren()}
 local themed=tabs[1]
 for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Polestar' then button:Click() end end
 local _,relative=strip:GetPoint(1)
--- The holder and strip both anchor to the same independent native surface.
-local _,holderAnchor=PolestarTrackerDockContent:GetPoint(1)
-assert(relative==holderAnchor)
+assert(relative==GF.frame)
+assert(strip:GetScale()==GF.frame:GetEffectiveScale()/UIParent:GetEffectiveScale())
 for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Quests' then button:Click() end end
 local _,questAnchor=strip:GetPoint(1)
 emit({restored=questAnchor==ObjectiveTrackerFrame.Header.Background})`);
 	assert.deepEqual(out,{restored:true});
+});
+
+for(const headerScale of [0.8,1.35,1.8]) test(`the Polestar row follows guide bounds instead of decorative header padding at scale ${headerScale}`,()=>{
+ const [out]=run(`
+ObjectiveTrackerFrame.Header:SetScale(${headerScale})
+ObjectiveTrackerFrame.Header.Background:SetSize(400,42)
+local strip=PolestarTrackerDockTabs
+local themed=({strip:GetChildren()})[1]
+for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Polestar' then button:Click() end end
+GF.frame:SetScale(0.95);stub.advance(0.3)
+local left,anchor,relative,x=strip:GetPoint(1)
+local right,other,relativeRight,rightX=strip:GetPoint(2)
+assert(anchor==GF.frame and other==GF.frame)
+assert(left=='BOTTOMLEFT' and relative=='TOPLEFT' and right=='BOTTOMRIGHT' and relativeRight=='TOPRIGHT')
+assert(x==0 and rightX==0,'header margins leaked into Polestar')
+assert(strip:GetScale()==GF.frame:GetEffectiveScale()/UIParent:GetEffectiveScale())
+assert(strip:GetHeight()==26,'decorative header height leaked into Polestar')
+for _,button in ipairs({themed:GetChildren()}) do if button.Label and button.Label:GetText()=='Quests' then button:Click() end end
+assert(strip:GetHeight()==42 and strip:GetScale()==${headerScale})
+local _,original=strip:GetPoint(1);assert(original==ObjectiveTrackerFrame.Header.Background)
+emit({ok=true})`);
+ assert.deepEqual(out,{ok:true});
 });
