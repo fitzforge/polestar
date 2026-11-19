@@ -4,4 +4,7 @@ section: players
 - Stranglethorn Vale (Alliance, 40-50): the optional Cortello's scroll step is
   gone. The scroll lay on the Bloodsail ships south of Booty Bay among pirates
   three to five levels above you at 40, and the rest of the chain led away
-  from the route.
+  from the route. Hostile Takeover moves here from the 30-40 loops: Kebok
+  gives it with his tusk errand, its crystals come from Lake Nazferiti on the
+  ride from Kurzen's Compound at about 41, where the Venture Co. Agents are
+  under you, and it goes back to him with the tusks.

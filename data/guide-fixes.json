@@ -6197,8 +6197,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.",
-			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
+			"tip": "South from the compound to Lake Nazferiti, on the ride to Zul'Mamwe: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, with Venture Co. Agents (39) walking among them. Stealthed Shadowmaw Panthers prowl the jungle south and east of the lake: keep to the shore camps.",
+			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109). Since the 0.4.3 route round the crystals are taken on 40-50/01's ride from Kurzen's Compound to Zul'Mamwe at about 41, where the Agents (39) are under the player: the tip names them without the old Careful line.",
 			"source": [
 				{
 					"kind": "pfquest",

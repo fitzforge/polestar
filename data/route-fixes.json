@@ -7890,15 +7890,29 @@
 			},
 			{
 				"a": [
-					"task",
-					213
+					"accept",
+					209
 				],
 				"b": [
-					"task",
-					192
+					"accept",
+					213
 				],
 				"faction": "Alliance",
-				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end."
+				"why": "Alliance 40-50 route round (0.4.3): Hostile Takeover (213) moves from Stranglethorn's 30-40 loops to 40-50/01 and is taken from Kebok with Skullsplitter Tusks (209) on the first Booty Bay stop. On 30-40/04b its Venture Co. Agents (39, among the Geologists on Lake Nazferiti's shore) were three over players at about 35.7 (recorded followers: 6 people died 16 times there); 40-50/01 rides past the lake at about 41.",
+				"source": "Alliance route round 2026-11-19"
+			},
+			{
+				"a": [
+					"turnin",
+					209
+				],
+				"b": [
+					"turnin",
+					213
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 route round (0.4.3): Hostile Takeover's crystals go back to Kebok with the trolls' tusks (209) on 40-50/01's last Booty Bay stop.",
+				"source": "Alliance route round 2026-11-19"
 			},
 			{
 				"a": [
@@ -15056,6 +15070,32 @@
 				],
 				"faction": "Alliance",
 				"why": "Level tidy 0.4.0 (Alliance 40-50): Mokk the Savage (44) answers Witch Doctor Unbagwa's ritual, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.5, 6 players, 5 of them died there). Stranglethorn Fever is taken on the level-48 Booty Bay stop and the ritual done there, at the Mistvale hills above town."
+			},
+			{
+				"a": [
+					"task",
+					97047
+				],
+				"b": [
+					"task",
+					213
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 route round (0.4.3): Hostile Takeover's Tumbled Crystals are taken from the Venture Co. Geologists on Lake Nazferiti's shore (42-48,16-24) on 40-50/01's ride south from Kurzen's Compound (Wendel Mathers, 97047) to the Zul'Mamwe ruins: the lake lies between them.",
+				"source": "Alliance route round 2026-11-19"
+			},
+			{
+				"a": [
+					"task",
+					213
+				],
+				"b": [
+					"task",
+					209
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 route round (0.4.3): the lake before the Zul'Mamwe trolls' tusks (209) on the same ride south (pair above).",
+				"source": "Alliance route round 2026-11-19"
 			},
 			{
 				"a": [

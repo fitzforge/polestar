@@ -13,6 +13,9 @@ next forever/alliance/40-50/01b-riverglades
 # Left out (0.4.3): Cortello's Riddle (624, 625, 626): its scroll lies on the Bloodsail ships south of Booty Bay among
 # crews of 42-45, three to five levels over players here at about 40, and its later parts lead to Bloodfen Burrow in
 # Dustwallow Marsh and the far east of the Hinterlands, where the route doesn't go for them.
+# Hostile Takeover (213, 0.4.3): taken from Kebok on the first Booty Bay stop, its Tumbled Crystals from the Geologists
+# at Lake Nazferiti on the ride from Kurzen's Compound to Zul'Mamwe (Venture Co. Agents 39, at about 41), handed in
+# with Kebok's trolls on the last Booty Bay stop; on 30-40/04b the Agents were three over players at about 35.7.
 # Since 2026-11-07 The Black Shield (1253, 1319, 1320) and Suspicious Hoofprints (1284) are done on the Theramore
 # crossing at 33-34 (30-40/03).
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
@@ -224,6 +227,7 @@ step Booty Bay
   accept 617                          -- Privateer Bloads: keep it, its naga (43-44) wait for the level-48 Booty Bay stop
   turnin 669 optional                 -- Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
+  accept 213                          -- Kebok: the Tumbled Crystals, at Lake Nazferiti on the northern loop
   accept 621                          -- Crank Fizzlebub, inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
@@ -338,6 +342,11 @@ step Kurzen's Compound
   turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
   accept 97048                        -- For Captain Aransas in Booty Bay, at the end of the jungle loop
 
+step Lake Nazferiti
+  zone Stranglethorn Vale
+  tip South from the compound to Lake Nazferiti, on the ride to Zul'Mamwe: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, with Venture Co. Agents (39) walking among them. Stealthed Shadowmaw Panthers prowl the jungle south and east of the lake: keep to the shore camps.
+  collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
+
 step Panther Mastery
   when group 193
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
@@ -382,6 +391,7 @@ step Booty Bay
   tip Follow the road south to Booty Bay.
   turnin 611                          -- Baron Revilgaz
   turnin 209                          -- Kebok, upstairs
+  turnin 213                          -- Kebok
   turnin 600                          -- Crank Fizzlebub
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   turnin 97048                        -- Captain Aransas

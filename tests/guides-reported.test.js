@@ -6402,6 +6402,21 @@ test('Alliance 40-50 (0.4.3): no Cortello\'s Riddle on the Bloodsail ships at 40
 	assert.ok(stv.some(({ goal }) => is('turnin', 93176)(goal) && goal.optional), "Amaryllis Webb's My Little Friends still handed in on the swamp stop");
 });
 
+// Alliance route round (0.4.3, AuditA30 MUST-2): Hostile Takeover's Tumbled Crystals were taken on 30-40/04b at about
+// 35.7, among Venture Co. Agents of 39 (recorded followers: 6 people died 16 times). 40-50/01 takes it from Kebok with
+// Skullsplitter Tusks on its first Booty Bay stop, gathers the crystals at Lake Nazferiti on the ride from Kurzen's
+// Compound to the Zul'Mamwe ruins (about 41) and hands it in with the tusks on the last Booty Bay stop.
+test('Alliance 40-50 (0.4.3): Hostile Takeover rides with Kebok\'s tusks, the crystals on the way from Kurzen\'s Compound', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const s = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(s('accept', 213), s('accept', 209), 'taken from Kebok with Skullsplitter Tusks');
+	const crystals = at(list, 'collect 4106', (g) => g.t === 'collect' && g.item === 4106 && g.quest === 213);
+	assert.ok(crystals > at(list, 'turnin 97047', is('turnin', 97047)), "after Kurzen's Compound");
+	assert.ok(crystals < at(list, 'collect 1524', (g) => g.t === 'collect' && g.item === 1524), 'before the Zul\'Mamwe tusks');
+	assert.doesNotMatch([].concat(list[crystals].step.note || []).join(' '), /Careful/, 'no warning: the Agents (39) are under the player at about 41');
+	assert.equal(s('turnin', 213), s('turnin', 209), 'handed in with the tusks');
+});
+
 // Final route review 0.3.6 (Alliance 40-60): two travel labels still read a bare zone name (#1450 gave the rest the
 // place they lead to), and a bind's note said "the last guide binds here" where the last guide binds in Stormwind.
 test('Alliance 40-60: travel labels name the place, bind notes do not claim an earlier bind', () => {
