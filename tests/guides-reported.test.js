@@ -16389,6 +16389,62 @@ for (const [faction, race, death] of [['Horde', 'Orc', 92592], ['Alliance', 'Hum
 	});
 }
 
+// Play the actual travel steps from the Ketharas handoff. Hold the opening card until the
+// character's node history is loaded, then inspect the live instruction, not a future goal.
+for (const [faction, race, ever, moon] of [['Alliance', 'Human', 52, 49], ['Horde', 'Orc', 53, 69]]) {
+	test(`${faction} Mount Hyjal: Bluebell's flight menu, the hearth and the first visit`, { skip }, () => {
+		const pack = resolvePack({ pack: path.join(__dirname, '..', 'experimental') });
+		const manifest = { ...pack.manifest, folder: ownExtra(pack.dir).folder };
+		const src = fs.readFileSync(path.join(pack.dir, 'guides/hyjal-1.guide'), 'utf8');
+		const segment = src.slice(src.indexOf('step Hearth to Everlook'), src.indexOf('step Orokai'));
+		const returning = src.slice(src.indexOf('step Fly to Everlook', src.indexOf('step Moonglade flight path')), src.indexOf('step Nami'));
+		const body = steps => src.slice(0, src.indexOf('\nstep ')) + '\nstep Open the flight map\n  task "Check the map"\n\n' + steps + '\nstep Continue\n  task "Continue"\n';
+		const who = { race, raceName: race, faction, cls: 'WARRIOR', className: 'Warrior', level: 58 };
+		function plan(zone, e, m, stone, steps = segment) {
+			return engineRun('polestar-experimental/hyjal-1', who, {
+				manifest, text: body(steps),
+				before: `w.setZone("${zone}"); w.onQuest(92612, {}); w.bindLocation = "${stone === 'away' ? 'Orgrimmar' : 'Everlook'}"
+					${stone === 'absent' ? '' : 'w.addItem(6948, 1)'}
+					C_Container = C_Container or {}; C_Container.GetItemCooldown = function() return 0, ${stone === 'cooldown' ? 3600 : 0}, 1 end`,
+				after: `Polestar.CharState().flags.taxi = { [${ever}] = ${e}, [${moon}] = ${m} }; E.ToggleGoal(1,1)`,
+				script: `local i = E.GetLiveStep(); local v = E.GetStepView(i); local next = {}
+					for _, g in ipairs(v.goals) do if g.status ~= "done" and g.status ~= "na" then
+						next[#next+1] = { t=g.t, node=E.GetGuide().steps[i].goals[g.index].node, x=g.x, y=g.y, subject=g.subject }
+					end end
+					local wp = E.GetWaypoint(); emit({title=v.title, note=v.note, goals=next, arrowMap=wp and wp.map})`,
+			});
+		}
+		for (const e of [false, true]) for (const m of [false, true]) {
+			for (const [zone, stone] of [['Mount Hyjal', 'ready'], ['Mount Hyjal', 'absent'], ['Mount Hyjal', 'cooldown'], ['Mount Hyjal', 'away'], ['Winterspring', 'ready'], ['Moonglade', 'ready']]) {
+				const out = plan(zone, e, m, stone);
+				const goals = Object.values(out.goals), fly = goals.find(g => g.t === 'fly');
+				const msg = `${zone}, Everlook=${e}, Moonglade=${m}, hearth=${stone}: ${JSON.stringify(out)}`;
+				if (zone === 'Moonglade') assert.equal(out.title, 'Dendrite Starblaze', msg);
+				else if (zone === 'Mount Hyjal' && stone === 'ready') assert.ok(goals.some(g => g.t === 'hearth'), msg);
+				else if ((zone === 'Mount Hyjal' && e) || (zone === 'Winterspring' && m)) {
+					assert.equal(fly?.node, m ? moon : ever, msg);
+					assert.match([].concat(out.note || []).join(' '), /flight map/i, msg);
+				}
+				else {
+					assert.equal(fly, undefined, msg);
+					assert.equal(out.arrowMap, undefined, msg);
+					assert.ok(goals.some(g => g.t === 'enter' && g.subject === 'Moonglade' && g.x == null && g.y == null), msg);
+					if (zone === 'Mount Hyjal') assert.match([].concat(out.note || []).join(' '), /flight map/i, msg);
+				}
+			}
+			const back = plan('Moonglade', e, m, 'absent', returning);
+			const goals = Object.values(back.goals);
+			if (e) assert.equal(goals.find(g => g.t === 'fly')?.node, ever, JSON.stringify(back));
+			else {
+				assert.equal(back.title, 'Return to Winterspring');
+				assert.equal(back.arrowMap, undefined, JSON.stringify(back));
+				assert.ok(goals.some(g => g.t === 'enter' && g.subject === 'Winterspring'));
+				assert.match([].concat(back.note || []).join(' '), /pause here/i);
+			}
+		}
+	});
+}
+
 test('Horde Silithus: a carried Twilight Lexicon does not expose level 60 keepers below 59', { skip }, () => {
 	const guide = 'forever/horde/50-60/06-silithus';
 	for (const [level, answer, allowed] of [[58, 'skip', false], [59, 'skip', true], [58, 'do', true]]) {
