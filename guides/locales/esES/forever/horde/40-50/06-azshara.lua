@@ -106,7 +106,7 @@ return {
 	-- Step 30: Paladin trainer
 	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 
 	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
