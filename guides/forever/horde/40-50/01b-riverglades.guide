@@ -277,8 +277,9 @@ step Tan'jani
 # Bloodmaster's Ring after the one before, the last two after Gobam's errands.
 # The Bloodmaster's Ring bouts are one-on-one fights against elite ogres and beasts (41-45): an optional side chain
 # for players who want it. Recorded players of levels 41-43 won them (one lost a bout and took it again).
-# Elites: Scoutmaster Vargas (42), behind a group choice. Chogg'Zac (41) is Land of Giants' way to Bolder'ok: by
-# then a few levels under you, and recorded players of 42-43 killed him alone.
+# Elites, each behind a group choice: Scoutmaster Vargas (42); Chogg'Zac (41), the two heads Twilight No More! asks
+# for. The rest of the ogre story waits on him (Land of Giants, Bolder'ok and its Ring, Da'grosh's camp in part 4):
+# a player who skips him skips those too, and leaves the zone from the port by Rog'mar.
 # Left out on purpose:
 # - Step One: Rock (95183): Hamur offers it only once Might Makes Right is handed in, when the rock piles are back
 #   in the hills behind you; Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
@@ -335,12 +336,17 @@ step The ritual grounds
 step Clubtoe
   turnin 95601
   turnin 95602
-  accept 95427                          -- Twilight No More!
+
+step Twilight No More!
+  when group 95427
+  tip Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised. Clubtoe wants both his heads, and the rest of the zone's ogre story waits on them: Land of Giants, Clugfist's quests and the Bloodmaster's Ring in Bolder'ok, then Da'grosh's camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out.
+  accept 95427                          -- Clubtoe
 
 step Chogg'Zac
-  tip Careful: Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. Clugfist's quests in Bolder'ok wait on this one: skip him and Land of Giants, the Bolder'ok quests and Da'grosh's camp in the west go with him (about 21,000 XP); the guide then leaves them out.
-  collect 265750 quest 95427.2 optional @44.9,51.0  -- Chogg's Head
-  collect 265751 quest 95427.1 optional @44.9,51.0  -- Zac's Head
+  when group 95427
+  tip Clear the cultists around him first and come in with full health and mana.
+  collect 265750 quest 95427.2 @44.9,51.0  -- Chogg's Head
+  collect 265751 quest 95427.1 @44.9,51.0  -- Zac's Head
 
 step Clubtoe
   when complete 95427
@@ -608,6 +614,13 @@ step Neza Bloodsnout
   when onquest 95882
   turnin 95882
 
+step Fly to Kargath
+  when !onquest 94744
+  when !turnedin 94744
+  when taxi "Kargath"
+  tip The rest of this guide is Da'grosh's camp in the west, which waits on Chogg'Zac: without him the Riverglades end here. Back to Rog'mar from the port, where your Hearthstone is set: Grakna, the wind rider master in the middle of the fort, flies to Kargath in the Badlands, where the next guide starts.
+  fly "Kargath"
+
 step Da'grosh
   when onquest 94744
   tip West from Rog'mar through Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
@@ -654,7 +667,8 @@ step Bring Me His Head
   turnin 94768
 
 step Twilight's Shroud
-  tip The next guide flies from Kargath in the Badlands: north out of Da'grosh's valley and up through Twilight's Shroud, the way through to the Badlands.
+  when !zone "Badlands"
+  tip The next guide flies from Kargath in the Badlands: up through Twilight's Shroud, the pass at the valley's north-west end, just north of Da'grosh's camp. Coming from Rog'mar, ride west through Sunnyglade and keep north of the Twilight camps below the pass.
   goto 32.0,29.9 "Twilight's Shroud"
 
 step Kargath

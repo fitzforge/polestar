@@ -8802,6 +8802,11 @@
 				"q": 93584,
 				"size": 3,
 				"why": "Mount Hyjal (Alliance, fix round 1, 0.4.0): the Blackthorne camps north-east of the Summit of Eternity hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with Ve'han Talongrasp (60 elite) in the middle and Ghansurok (61 elite) on the ridge; one recorded player stopped at 1/10. Cult Closure, Twisted Tools, A Thorn in the Paw, Cleansing Winds and Paying Back the Pact (93584, 92533, 93407, 92017, 92169) are one group choice."
+			},
+			{
+				"q": 95427,
+				"size": 2,
+				"why": "Horde Riverglades (route round 0.4.3, Fitz's call, #3145): Twilight No More! asks for both heads of Chogg'Zac, a level-41 elite ogre at the western edge of Sunnyglade, at the quest's own level, so the creature data reads it soloable (size 1); an elite is a group mob, so it is a group choice (a group of 2) and the solo player skips it with the ogre story that waits on it (Spread the Word, Land of Giants, Bolder'ok and the Bloodmaster's Ring, Da'grosh's camp: about 21,000 XP). Players' recordings: 73 of 76 people who met him killed him, many alone at 42-43; the choice is theirs. The solo player leaves the zone by the Rog'mar flight to Kargath."
 			}
 		]
 	},

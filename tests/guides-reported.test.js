@@ -14353,8 +14353,8 @@ test("Riverglades (Horde route): the zone's errands are taken and handed in at s
 // recorded characters who took them had handed it in. Land of Giants comes from Tran'gul after Spread the Word
 // (95418), Clubtoe's word once Twilight No More! (95427, Chogg'Zac) is done, after Tran'gul's and Clubtoe's
 // Sunnyglade quests. So the guide does Sunnyglade whole, Rog'mar, then Bolder'ok, as those players did; Clugfist's
-// Decree, the Ring and Da'grosh's camp follow from Might Makes Right. Chogg'Zac is no group choice: the chain
-// hangs on him.
+// Decree, the Ring and Da'grosh's camp follow from Might Makes Right. Since 0.4.3 Chogg'Zac (a level-41 elite) is a
+// group choice (Fitz's call): the chain still hangs on him, in the same order, for whoever takes it.
 test("Riverglades (Horde route): Sunnyglade and Land of Giants come before Clugfist's quests in Bolder'ok", () => {
 	const lines = fs.readFileSync(RIVERGLADES_HORDE, 'utf8').split('\n').map(codeOf);
 	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
@@ -14364,7 +14364,7 @@ test("Riverglades (Horde route): Sunnyglade and Land of Giants come before Clugf
 	for (let i = 1; i < at.length; i++) assert.ok(at[i - 1] < at[i], `${order[i - 1].join(' ')} before ${order[i].join(' ')}`);
 	const steps = rivergladesSteps(RIVERGLADES_HORDE);
 	const chogg = steps.find((l) => anyLine(l, /^\s+collect 265750\b/));
-	assert.ok(chogg && !anyLine(chogg, /^\s+when group\b/), "Chogg'Zac is on the route, with a Careful tip");
+	assert.ok(chogg && anyLine(chogg, /^\s+when group 95427\b/), "Chogg'Zac's heads are a group choice");
 	const last = steps.find((l) => anyLine(l, /^\s+accept 94965\b/));
 	assert.ok(last && anyLine(last, /^\s+when turnedin 94737\b/), "the Ring's last bouts wait for Gobam's errands");
 });
@@ -16564,6 +16564,26 @@ test('#2712: Riverglades (Horde): Stick \'Em points at the crocolisks in the riv
 	const { goal } = list[at(list, 'use 271639', (g) => g.t === 'use' && g.quest === 95955)];
 	assert.equal(goal.map, 2548);
 	assert.ok(Math.hypot(goal.x - 51.75, goal.y - 51.97) < 0.5, `on the river: ${goal.x},${goal.y}`);
+});
+
+// Route review 0.4.3 (Horde Riverglades, Fitz's call): Chogg'Zac, a level-41 elite, was a solo target on the main line
+// (optional collects). Twilight No More! is now a group choice (`when group 95427`, its accept, both heads); the
+// ogre story after it (Land of Giants, Bolder'ok, Da'grosh) runs only for whoever took it, and the solo player leaves
+// by the Rog'mar flight to Kargath instead of walking out through Da'grosh's valley.
+test('Riverglades (Horde): Chogg\'Zac is a group choice, and the solo route leaves by Rog\'mar', { skip }, () => {
+	const steps = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
+	const grouped = (st, q) => (st.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q));
+	const work = steps.filter((st) => st.goals.some((g) => (g.t === 'accept' && g.quest === 95427) || (g.t === 'collect' && g.quest === 95427)));
+	assert.ok(work.length >= 1, 'the accept and the heads');
+	for (const st of work) assert.ok(grouped(st, 95427), `"${st.title}" asks for the group answer`);
+	assert.match(work.map((st) => st.note || '').join(' '), /is an elite \(level 41\): grouping up is advised/, 'the house\'s elite tip');
+	for (const q of [95420, 95424, 94744, 94745]) {
+		for (const st of steps.filter((s) => s.goals.some((g) => g.quest === q && g.t !== 'accept'))) {
+			assert.ok((st.when || []).length, `"${st.title}" (${q}) waits on the chain`);
+		}
+	}
+	const flights = steps.filter((st) => st.goals.some((g) => g.t === 'fly' && /Kargath/.test(g.location || g.text || '')));
+	assert.ok(flights.some((st) => (st.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(94744))), 'a flight to Kargath for whoever has no Da\'grosh work');
 });
 
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
