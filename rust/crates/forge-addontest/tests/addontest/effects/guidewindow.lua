@@ -117,6 +117,7 @@ return {
 		["guideWindow.guideTitle"] = { with = { ["guideWindow.stepCount"] = false }, probe = one("title") },
 		["guideWindow.skipButton"] = one("skip"),
 		["guideWindow.reportButton"] = one("report"),
+		["guideWindow.allStepsButton"] = function() return P.nav.AllSteps:IsShown() end,
 		["guideWindow.titleSize"] = one("name"),
 		["guideWindow.lastSteps"] = function() return { P.last.psCount, snapshot().height } end,
 		["guideWindow.goalSize"] = one("rowText"),

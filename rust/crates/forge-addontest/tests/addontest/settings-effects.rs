@@ -51,6 +51,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "routes", src: include_str!("effects/routes.lua") },
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
+	Group { name: "guidewindow_atlas", src: include_str!("effects/guidewindow-atlas.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
 	Group { name: "integrations_arcade", src: include_str!("effects/integrations-arcade.lua") },
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
@@ -367,6 +368,12 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n".into(),
 		},
+		// The "ui" environment with the Atlas layout's addon loaded, for a setting only that layout draws.
+		"atlas" => {
+			let mut e = env("ui");
+			e.addons.push(Addon::name("Polestar_Layout_Atlas"));
+			e
+		}
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
@@ -570,6 +577,11 @@ fn theme() {
 #[test]
 fn guidewindow() {
 	check("guidewindow");
+}
+
+#[test]
+fn guidewindow_atlas() {
+	check("guidewindow_atlas");
 }
 
 #[test]
