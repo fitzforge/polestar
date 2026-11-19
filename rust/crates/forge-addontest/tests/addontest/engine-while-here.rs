@@ -126,6 +126,29 @@ fn open_work_of_every_later_step_for_quests_in_the_log_qualifies_whatever_is_lef
 	);
 }
 
+// A quest can already be in the log when the guide's group question is still unanswered.
+// Leave the live question intact; remote work needs an answer even when no quest log event fires.
+#[test]
+fn carried_group_work_waits_for_consent_and_rebuilds_when_the_answer_changes() {
+	let out = run_edit(r#"
+		local function sample()
+			local combat, ordinary = false, false
+			for _, c in ipairs(E.GetWhileHereCandidates()) do
+				if c.step == 2 and c.kind == "work" then combat = true end
+				if c.step == 3 and c.kind == "work" then ordinary = true end
+			end
+			emit({ combat, ordinary })
+		end
+		Polestar.Set("behavior.groupQuests", "ask"); flush(); sample()
+		E.AnswerGroup(7, "do"); flush(); sample()
+		E.AnswerGroup(7, "skip"); flush(); sample()
+		E.AnswerGroup(7, nil); Polestar.Set("behavior.groupQuests", "do"); flush(); sample()
+		Polestar.Set("behavior.groupQuests", "ask"); flush(); sample()
+		w.finish(33); flush(); emit(E.GroupQuestion())
+	"#, "title = \"Vermin\", goals", "title = \"Vermin\", when = { { k = \"group\", q = 7 } }, goals");
+	assert_eq!(out, vec![json!([false, true]), json!([true, true]), json!([false, true]), json!([true, true]), json!([false, true]), json!(7)]);
+}
+
 // Fitz's level rule: never send a solo player at mobs 2 or more levels above them; 1 above is fine. A line's mobs (a
 // spot's `lvl`, else the goal's) may be at most HERE_MOBS_ABOVE (1) over the player, so a quest carried for later is
 // not offered back at a camp 2 over as the route passes it. The quest's own level may be 2 over (HERE_ABOVE): a

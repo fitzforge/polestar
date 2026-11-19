@@ -10625,6 +10625,7 @@ function Engine.AnswerGroup(q, answer)
 	-- passing its steps needs no notice (Own.queueGroupSkips).
 	if Engine.GroupQuestion() == q then Own.groupAsked[q] = true end
 	ns.CharState().groupQuests[q] = answer
+	Own.hereDirty = true
 	requestUpdate()
 end
 
@@ -12837,6 +12838,11 @@ function Own.hereFits(s, g, goal, live, shown)
 		end
 		return "turnin", 0, Own.hereSoonOf(s, goal, live)
 	end
+	-- The live group step stays open to ask. Its remote work is not an offer
+	-- until the player agrees, even if they already carry the quest.
+	for _, p in ipairs(guide.steps[s].when or NONE) do
+		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) ~= "do" then return nil end
+	end
 	-- A placed `complete` (#2484: /sit by Eleanor's campfire for The Great
 	-- Outdoors) is a row only for a quest the guide gives no kill, collect,
 	-- interact or use goal (Own.hereGoalsOn's `worked`): those are its rows.
@@ -14077,7 +14083,7 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if type(path) ~= "string" then return end
 	local all = path == "" or path == "behavior"
-	if all or path:sub(1, 18) == "behavior.whileHere" then
+	if all or path == "behavior.groupQuests" or path:sub(1, 18) == "behavior.whileHere" then
 		Own.hereDirty = true
 		-- A hand-in turned away for its detour is weighed again at the new seconds.
 		if all or path == "behavior.whileHereTurninSeconds" then
