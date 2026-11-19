@@ -357,28 +357,33 @@ end
 -- An empty left half is drawn as a space: the game gives a double line with
 -- no left text no height, so the next one is drawn over it ("Leads to" with
 -- several follow-ups, #2698).
+-- W.TooltipLines(tip, lines): W.Tooltip's lines added to `tip` (no title, no
+-- Show), for lines under a game tooltip (W.ItemTip's `extra`).
+function W.TooltipLines(tip, lines)
+	if not (tip and lines) then return end
+	for i = 1, #lines do
+		local l = lines[i]
+		if type(l) == "table" then
+			if l.right ~= nil then
+				local r, g, b = Theme.TipColor("textDim")
+				local left = l.left
+				if left == nil or left == "" then left = " " end
+				tip:AddDoubleLine(left, l.right, r, g, b, 1, 1, 1)
+			else
+				tip:AddLine(l[1], l[2], l[3], l[4], true)
+			end
+		else
+			local r, g, b = Theme.TipColor("textDim")
+			tip:AddLine(l, r, g, b, true)
+		end
+	end
+end
+
 function W.Tooltip(owner, anchor, title, lines)
 	if not GameTooltip then return end
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
 	GameTooltip:SetText(title or "", 1, 1, 1, 1, true)
-	if lines then
-		for i = 1, #lines do
-			local l = lines[i]
-			if type(l) == "table" then
-				if l.right ~= nil then
-					local r, g, b = Theme.TipColor("textDim")
-					local left = l.left
-					if left == nil or left == "" then left = " " end
-					GameTooltip:AddDoubleLine(left, l.right, r, g, b, 1, 1, 1)
-				else
-					GameTooltip:AddLine(l[1], l[2], l[3], l[4], true)
-				end
-			else
-				local r, g, b = Theme.TipColor("textDim")
-				GameTooltip:AddLine(l, r, g, b, true)
-			end
-		end
-	end
+	W.TooltipLines(GameTooltip, lines)
 	GameTooltip:Show()
 end
 
@@ -545,7 +550,10 @@ local function setGameTip(owner, kind, id, extra, place)
 	elseif C.RequestSpell then
 		C.RequestSpell(id)
 	end
-	tip:SetOwner(owner, place and "ANCHOR_NONE" or "ANCHOR_RIGHT")
+	-- `place`: an anchor name ("ANCHOR_LEFT"), or fn(tip) that places it.
+	local anchor = type(place) == "string" and place or nil
+	if anchor then place = nil end
+	tip:SetOwner(owner, anchor or (place and "ANCHOR_NONE") or "ANCHOR_RIGHT")
 	if place then
 		tip:ClearAllPoints()
 		place(tip)
@@ -553,7 +561,7 @@ local function setGameTip(owner, kind, id, extra, place)
 	if kind == "item" then tip:SetHyperlink("item:" .. id) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
 	tip:Show()
-	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = place }
+	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = anchor or place }
 end
 
 function W.ItemTip(owner, itemID, extra, place) setGameTip(owner, "item", itemID, extra, place) end
