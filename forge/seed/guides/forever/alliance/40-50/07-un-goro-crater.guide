@@ -5,7 +5,7 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56.
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -16,7 +16,8 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # guide's Darnassus stop).
 # Fix round 1 (0.4.0): this first Un'Goro visit takes Torwa, the raft, Muigin's petals and the power crystals at
 # 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), the bones and the expedition (3881, 3882, 3883) and
-# A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57: their Frenzied
+# A-Me 01 (4243) are taken and done on the later Un'Goro visit (the Winterspring guide's, at about 54 since the
+# 2026-11-20 round; the Western Plaguelands guide's at about 57 before): their Frenzied
 # Pterrordax (51-54), Elder Diemetradons (53-55), Glutinous Oozes (52-54) and Gorishi (51-54) were two to four over
 # players here. Fix round 2 (0.4.0): Shizzle's Flyer (4503) is done here after all, on the Fledgling Pterrordax
 # (48-50) and Young Diemetradons (49-50) of the eastern jungle the petals already take you to; The Scent of
@@ -130,7 +131,7 @@ step Torwa Pathfinder
   turnin 4290
   turnin 87494 optional               -- Microcrystal Contamination, if a ravasaur dropped the scale
   accept 4291
-  accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 56
+  accept 4289                         -- The gorillas on Ironstone Plateau carry the pelts: keep it for the second Un'Goro visit, around 54
 
 step Lar'korwi Mates and the raft
   tip The Lar'korwi Mates prowl the jungle west of Torwa. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for Linken. Any beast in the crater may drop A Mangled Journal: right-click it.
@@ -158,7 +159,7 @@ step Marshal's Refuge
   turnin 3845                         -- Linken, at the back of the refuge
   accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
-  note Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
+  note Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54.
 
 # ---------------------------------------------------------------- The eastern jungle and the crystals
 
