@@ -46,7 +46,7 @@ return {
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
-	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} 在 {object:172957} 的 Grommash Hold 等候。",
+	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} 在 {object:172957} 的格罗玛什要塞等候。",
 	-- {npc:4949} Thrall
 	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}，在格罗玛什要塞，如果你带着它",
 

@@ -113,7 +113,7 @@ return {
 
 	-- Step 21: Sen'jin Village
 	-- {area:362} Razor Hill
-	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "小心：Ukorsbane（8级）是精英，在{area:362}南边营地的Ridgeshade蜘蛛之间走动：把蜘蛛从他身边引开。",
+	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "小心：乌科斯之灾（8级）是精英，在{area:362}南边营地的脊影蜘蛛之间走动：把蜘蛛从他身边引开。",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}：仅限附魔师，残渣通过分解{item:275724}获得",
