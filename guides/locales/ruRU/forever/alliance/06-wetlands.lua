@@ -73,7 +73,6 @@ return {
 	-- Step 16: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
-	-- was: ["Inside"] = "Внутри"
 	["Inside"] = "Внутри",
 
 	-- Step 17: James Halloran

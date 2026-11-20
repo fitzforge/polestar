@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "Котел: {area:199}"
 	["{area:199} cauldron"] = "Котел: {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -147,7 +146,6 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "{object:175894}, внутри",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание"
 	["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 
 	-- Step 23: Chillwind Camp
@@ -322,7 +320,6 @@ return {
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "Медики, охотники, рыцари и маги из Алого ордена патрулируют лесопилку и дорогу к месту {area:190}.",
 
 	-- Step 57: Radley and Durgen
-	-- was: ["Radley and Durgen"] = "Рэдли и Дурген"
 	["Radley and Durgen"] = "Рэдли и Дурген",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} ходит по лагерю Северного Кряжа к востоку от {npc:11610}; {npc:11611} охраняет башню на южных подступах (ориентир: {area:190}).\nОсторожно: у подножия башни стоят стражи, и еще один патрулирует вокруг нее. Перебейте их, прежде чем нападать на Дургена, чтобы они не вмешались в бой."
@@ -334,7 +331,6 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "Обзорная точка: {area:190}"
 	["{area:190} overlook"] = "Обзорная точка: {area:190}",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",

@@ -436,7 +436,6 @@ return {
 
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s camp"] = "{npc:10301}의 야영지"
 	["{npc:10301}'s camp"] = "{npc:10301}의 야영지",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "계곡을 따라 남동쪽으로 내려가 {area:2245}의 눈 속에 있는 {npc:10301}의 부서진 상자로 가세요. 부서진 마차가 그 바로 동쪽에 있습니다."
@@ -444,7 +443,6 @@ return {
 
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품"
 	["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher

@@ -33,7 +33,6 @@ return {
 	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
 	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
 	-- {npc:276} Viktori Prism'Antras
-	-- was: ["{npc:276}, inside"] = "{npc:276}, à l'intérieur"
 	["{npc:276}, inside"] = "{npc:276}, à l'intérieur",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
 	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
@@ -69,7 +68,6 @@ return {
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, à l'hôtel de ville",
 	-- {npc:264} Commander Althea Ebonlocke
-	-- was: ["{npc:264}, in the town hall"] = "{npc:264}, à l'hôtel de ville"
 	["{npc:264}, in the town hall"] = "{npc:264}, à l'hôtel de ville",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader

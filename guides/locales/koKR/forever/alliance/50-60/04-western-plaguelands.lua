@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "{area:199} 가마솥"
 	["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -147,7 +146,6 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요"
 	["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 
 	-- Step 23: Chillwind Camp
@@ -336,7 +334,6 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "{area:190} 전망 지점"
 	["{area:190} overlook"] = "{area:190} 전망 지점",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",

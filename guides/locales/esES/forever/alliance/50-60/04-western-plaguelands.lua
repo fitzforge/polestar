@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "Caldera de {area:199}"
 	["{area:199} cauldron"] = "Caldera de {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -147,7 +146,6 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala"
 	["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
 
 	-- Step 23: Chillwind Camp
@@ -324,7 +322,6 @@ return {
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "Los médicos, cazadores, caballeros y magos escarlata patrullan el aserradero y el camino hacia {area:190}.",
 
 	-- Step 57: Radley and Durgen
-	-- was: ["Radley and Durgen"] = "Radley y Durgen"
 	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} recorre el aserradero Crestanorte al este de {npc:11610}; {npc:11611} protege la torre del acceso sur de {area:190}.\nCuidado: hay guardias en la base de la torre y otro más patrulla a su alrededor. Acaba con ellos antes de enfrentarte a Durgen para que no se unan al combate."
@@ -336,7 +333,6 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "Mirador de {area:190}"
 	["{area:190} overlook"] = "Mirador de {area:190}",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",

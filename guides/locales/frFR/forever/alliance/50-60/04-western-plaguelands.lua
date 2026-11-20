@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "Chaudron de {area:199}"
 	["{area:199} cauldron"] = "Chaudron de {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -145,10 +144,8 @@ return {
 	-- {npc:10778} Janice Felstone
 	["{npc:10778}, upstairs in the farmhouse"] = "",
 	-- {object:175894} Janice's Parcel
-	-- was: ["{object:175894}, inside"] = "{object:175894}, à l'intérieur"
 	["{object:175894}, inside"] = "{object:175894}, à l'intérieur",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "Pour {zone:1453} : gardez-la"
 	["For {zone:1453}: keep it"] = "Pour {zone:1453} : gardez-la",
 
 	-- Step 23: Chillwind Camp
@@ -324,7 +321,6 @@ return {
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "Les Médecins, Chasseurs, Chevaliers et Mages écarlates patrouillent dans le camp de bûcherons et sur la route de {area:190}.",
 
 	-- Step 57: Radley and Durgen
-	-- was: ["Radley and Durgen"] = "Radley et Durgen"
 	["Radley and Durgen"] = "Radley et Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} parcourt le camp de Crête-du-Nord à l'est de {npc:11610} ; {npc:11611} garde la tour à l'approche sud de {area:190}.\nAttention : des gardes se tiennent au pied de la tour et un autre en fait le tour en patrouille. Éliminez-les avant d'engager Durgen pour qu'ils ne se joignent pas au combat."
@@ -336,10 +332,8 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "Surplomb de {area:190}"
 	["{area:190} overlook"] = "Surplomb de {area:190}",
 	-- {area:190} Hearthglen
-	-- was: ["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Montez sur la colline à l'ouest de {area:190} pour dominer la ville.\nAttention : les sentinelles postées à la porte peuvent détecter les joueurs camouflés. D'autres sentinelles se trouvent dans la ville, et un élite patrouille à proximité."
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Montez sur la colline à l'ouest de {area:190} pour dominer la ville.\nAttention : les sentinelles postées à la porte peuvent détecter les joueurs camouflés. D'autres sentinelles se trouvent dans la ville, et un élite patrouille à proximité.",
 
 	-- Step 61: Tirion Fordring
@@ -430,7 +424,6 @@ return {
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
 	-- {item:12954} Davil's Libram
-	-- was: ["{item:12954}; inside"] = "{item:12954} ; à l'intérieur"
 	["{item:12954}; inside"] = "{item:12954} ; à l'intérieur",
 
 	-- Step 80: Redpath's Shield

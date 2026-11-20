@@ -150,12 +150,10 @@ return {
 	-- Step 25: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Osten zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
-	-- was: ["{item:15785}; below ground"] = "{item:15785}; unterirdisch"
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest"
 	["{area:1943}: kill these as you meet them"] = "{area:1943}: Töte diese, wenn du ihnen begegnest",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
@@ -218,7 +216,6 @@ return {
 
 	-- Step 40: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest"
 	["{area:1942}: kill these as you meet them"] = "{area:1942}: Töte sie, wenn du ihnen begegnest",
 
 	-- Step 41: The Gorishi hive
@@ -394,7 +391,6 @@ return {
 
 	-- Step 76: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest"
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
@@ -441,7 +437,6 @@ return {
 
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s camp"] = "{npc:10301}s Lager"
 	["{npc:10301}'s camp"] = "{npc:10301}s Lager",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Reite nach Südosten das Tal hinunter zu {npc:10301}s beschädigter Kiste im Schnee bei {area:2245}; sein zerstörter Wagen steht gleich östlich davon."
@@ -449,7 +444,6 @@ return {
 
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s supplies"] = "{npc:10301}s Vorräte"
 	["{npc:10301}'s supplies"] = "{npc:10301}s Vorräte",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher

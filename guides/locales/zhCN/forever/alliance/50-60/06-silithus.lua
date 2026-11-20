@@ -27,7 +27,6 @@ return {
 
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
-	-- was: ["Into {zone:1451}"] = "进入{zone:1451}"
 	["Into {zone:1451}"] = "进入{zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
 	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
@@ -145,7 +144,6 @@ return {
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 
 	-- Step 29: Level 60
-	-- was: ["Level 60"] = "60级"
 	["Level 60"] = "60级",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker

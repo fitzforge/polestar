@@ -68,7 +68,6 @@ return {
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, en el ayuntamiento",
 	-- {npc:264} Commander Althea Ebonlocke
-	-- was: ["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento"
 	["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader

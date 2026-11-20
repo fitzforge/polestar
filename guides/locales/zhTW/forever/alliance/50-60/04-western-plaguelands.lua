@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "{area:199}的瘟疫之鍋"
 	["{area:199} cauldron"] = "{area:199}的瘟疫之鍋",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -147,7 +146,6 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "{object:175894}，室內",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務"
 	["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 
 	-- Step 23: Chillwind Camp
@@ -323,7 +321,6 @@ return {
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "血色醫護員、血色獵人、血色騎士和血色法師在伐木場和通往{area:190}的道路上巡邏。",
 
 	-- Step 57: Radley and Durgen
-	-- was: ["Radley and Durgen"] = "萊德雷與杜爾根"
 	["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}在{npc:11610}東邊的北山營地走動；{npc:11611}守衛著{area:190}南側通道的塔樓。\n小心：塔樓底部站著守衛，另有一名在周圍巡邏。和杜爾根開打前先清掉他們，以免他們加入戰鬥。"
@@ -335,7 +332,6 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "{area:190}瞭望點"
 	["{area:190} overlook"] = "{area:190}瞭望點",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
@@ -427,7 +423,6 @@ return {
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
 	-- {item:12954} Davil's Libram
-	-- was: ["{item:12954}; inside"] = "{item:12954}；室內"
 	["{item:12954}; inside"] = "{item:12954}；室內",
 
 	-- Step 80: Redpath's Shield

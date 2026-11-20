@@ -155,7 +155,6 @@ return {
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: vá matando estes pelo caminho"
 	["{area:1943}: kill these as you meet them"] = "{area:1943}: vá matando estes pelo caminho",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
@@ -218,7 +217,6 @@ return {
 
 	-- Step 40: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: vá matando estes pelo caminho"
 	["{area:1942}: kill these as you meet them"] = "{area:1942}: vá matando estes pelo caminho",
 
 	-- Step 41: The Gorishi hive
@@ -394,7 +392,6 @@ return {
 
 	-- Step 76: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
-	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: vá matando estes pelo caminho"
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: vá matando estes pelo caminho",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
@@ -441,7 +438,6 @@ return {
 
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s camp"] = "Acampamento de {npc:10301}"
 	["{npc:10301}'s camp"] = "Acampamento de {npc:10301}",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Cavalgue para sudeste descendo o vale até o caixote danificado de {npc:10301} na neve em {area:2245}, com a carroça destruída dele logo a leste."
@@ -449,7 +445,6 @@ return {
 
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s supplies"] = "Suprimentos de {npc:10301}"
 	["{npc:10301}'s supplies"] = "Suprimentos de {npc:10301}",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher

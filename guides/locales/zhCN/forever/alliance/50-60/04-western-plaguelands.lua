@@ -137,7 +137,6 @@ return {
 
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
-	-- was: ["{area:199} cauldron"] = "{area:199}的大锅"
 	["{area:199} cauldron"] = "{area:199}的大锅",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
@@ -147,7 +146,6 @@ return {
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "{object:175894}：在屋内",
 	-- {zone:1453} Stormwind
-	-- was: ["For {zone:1453}: keep it"] = "交给{zone:1453}：先留着"
 	["For {zone:1453}: keep it"] = "交给{zone:1453}：先留着",
 
 	-- Step 23: Chillwind Camp
@@ -335,10 +333,8 @@ return {
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
-	-- was: ["{area:190} overlook"] = "{area:190}瞭望点"
 	["{area:190} overlook"] = "{area:190}瞭望点",
 	-- {area:190} Hearthglen
-	-- was: ["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西侧山丘，俯瞰城镇。\n注意：大门处的哨兵能够侦测潜行玩家，镇内也有更多哨兵，附近还有一名精英巡逻。"
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西侧山丘，俯瞰城镇。\n注意：大门处的哨兵能够侦测潜行玩家，镇内也有更多哨兵，附近还有一名精英巡逻。",
 
 	-- Step 61: Tirion Fordring
@@ -428,7 +424,6 @@ return {
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
 	-- {item:12954} Davil's Libram
-	-- was: ["{item:12954}; inside"] = "{item:12954}：在屋内"
 	["{item:12954}; inside"] = "{item:12954}：在屋内",
 
 	-- Step 80: Redpath's Shield

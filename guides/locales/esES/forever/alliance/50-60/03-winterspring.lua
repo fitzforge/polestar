@@ -436,7 +436,6 @@ return {
 
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s camp"] = "El campamento de {npc:10301}"
 	["{npc:10301}'s camp"] = "El campamento de {npc:10301}",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Cabalga al sureste valle abajo hasta la caja dañada de {npc:10301}, en la nieve de {area:2245}, con su carro destrozado justo al este."
@@ -444,7 +443,6 @@ return {
 
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
-	-- was: ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}"
 	["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher
