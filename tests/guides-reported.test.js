@@ -735,18 +735,42 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 // Below to Orgnil, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the
 // player had stood next to. Razor Hill comes on the walk from Margoz to Far Watch Post, as in Orc's guide;
 // both races hand Crossroads Conscription to Sergra on the Barrens guide's first stop, with the five quests.
+// Since the 0.4.2 route round only Hunters and Warriors go back to Razor Hill from Margoz (Thotar, Uzzek's road);
+// everyone else walks Margoz -> Orgrimmar and hands Threat from Below in when the Barrens guide steps into Razor Hill.
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
 	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Warriors hand Conscript of the Horde to Kargal at Far Watch Post
-	// before Orgrimmar, after Orgnil; everyone else on the Barrens guide's first stop (0.4.0 start audit).
+	// before Orgrimmar, after Orgnil; everyone else carries it to the Barrens guide's Far Watch stop (0.4.0 start audit).
+	// Since the 0.4.2 route round it is taken on the Razor Hill stop after Fizzle, not at 10 (Shamans: on their way to Kranal).
+	const warrior = list.filter(forClass('WARRIOR'));
+	assert.ok(at(warrior, 'turnin 840', is('turnin', 840)) > at(warrior, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil');
 	const mage = list.filter(forClass('MAGE'));
-	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
+	assert.ok(at(mage, 'accept 840', is('accept', 840)) > at(mage, "Fizzle's Eye (806)", (g) => g.t === 'collect' && g.quest === 806), 'a Mage takes Conscript of the Horde after Fizzle, not at 10');
 	const orgnil = list[threat].goal.npc;
 	// Aggor the Young (99052) is a group choice (`when group 99052`): its accept and hand-in at Orgnil are for players who chose it.
 	const grouped = ({ step }) => (step.when || []).some((p) => p.k === 'group' && !p.neg);
 	assert.deepEqual(list.slice(threat + 1).filter((e) => e.goal.npc === orgnil && !e.goal.optional && !grouped(e) && !is('turnin', 99051)(e.goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
+});
+
+// 0.4.2 route round, Horde starts: Hidden Enemies (5726, 900 XP; 102 recorded people took it unrouted) for Orcs and
+// Trolls. Thrall gives it on a walk into Orgrimmar from Margoz before Skull Rock (Orgrimmar's gate is next door), the
+// insignia drops from Skull Rock's cultists with the collars, Thrall takes it on Silverpine's first Orgrimmar walk
+// through Grommash Hold, and 5727 (a word with Neeru) is done on that guide's last Orgrimmar walk.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Hidden Enemies is taken from Thrall between Margoz and Skull Rock`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const take = at(list, 'accept 5726', is('accept', 5726));
+	assert.ok(at(list, 'turnin 828 (Margoz)', is('turnin', 828)) < take, 'after Margoz sends you to Skull Rock');
+	const insignia = at(list, 'collect 14544 (5726.1)', (g) => g.t === 'collect' && g.item === 14544);
+	assert.equal(list[insignia].step, list[at(list, 'the collars (827)', (g) => g.t === 'collect' && g.quest === 827)].step, 'the insignia with the collars');
+	assert.ok(take < insignia, 'Thrall first');
+	const silverpine = goals('forever/horde/03-silverpine-forest.guide');
+	const hand = at(silverpine, 'turnin 5726', is('turnin', 5726));
+	const zeppelin = silverpine.findIndex(({ step }) => step.title === 'Zeppelin to Undercity');
+	assert.ok(hand < zeppelin, 'Thrall takes it on the first Orgrimmar walk');
+	const neeru = at(silverpine, 'talk 3216 (5727.1)', (g) => g.t === 'talk' && g.quest === 5727);
+	assert.ok(zeppelin < neeru && neeru < at(silverpine, 'turnin 5727', is('turnin', 5727)), 'Neeru, then Thrall, on the last Orgrimmar walk');
 });
 
 // Horde 1-30 audit (#1414): Threat from Below's goal led first to a lone Spitelash Attendant spawn by the road north
@@ -897,6 +921,27 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
 		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
+	}
+});
+
+// 0.4.2 route round, Horde starts: every start leaves Orgrimmar for the Barrens by the road through Durotar, and
+// Razor Hill is a short step east of it before the bridge. Tauren, Undead and Skyborne take Conscript of the Horde
+// there from Takrin, Orcs and Trolls hand Threat from Below to Orgnil there (Hidden Enemies took them to Orgrimmar
+// from Margoz), then Kargal at Far Watch Post and Crossroads Conscription for Sergra on the race's first Crossroads
+// stop: Tauren, Undead and Skyborne get the pair too.
+test('forever/horde/02-the-barrens.guide: Razor Hill on the road out, then both conscriptions on the way, for every start', { skip }, () => {
+	for (const race of ['Orc', 'Troll', 'Tauren', 'Scourge', 'Skyborne']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
+		const durotar = race === 'Orc' || race === 'Troll';
+		const first = at(list, `${race}: Razor Hill`, durotar ? is('turnin', 99051) : is('accept', 840));
+		assert.equal(list.slice(0, first).filter(located).length, 0, `${race}: Razor Hill is the first stop`);
+		assert.ok(!durotar || !list.some(({ goal }) => is('accept', 840)(goal)), `${race}: brings Conscript of the Horde from Durotar`);
+		const kargal = at(list, `${race}: turnin 840`, is('turnin', 840));
+		const conscription = at(list, `${race}: accept 842`, is('accept', 842));
+		const sergra = at(list, `${race}: turnin 842`, is('turnin', 842));
+		assert.ok(first < kargal && kargal <= conscription && conscription < sergra, `${race}: Razor Hill, Far Watch Post, the Crossroads`);
+		assert.equal(list[sergra].step.title, 'The Crossroads', `${race}: Sergra takes it on a Crossroads stop`);
 	}
 });
 
@@ -8385,17 +8430,18 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
 	// Conscript of the Horde is handed in once, at the end of the Durotar guides (final route review, 0.3.5): Shamans
-	// at Far Watch on the way to Kranal, everyone else before Orgrimmar; the Barrens guide carries none.
+	// at Far Watch on the way to Kranal and Warriors before Orgrimmar with Uzzek's quest; everyone else on the Barrens
+	// guide's Far Watch stop (0.4.0 start audit), so Durotar hands none in for them.
 	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
-		for (const cls of ['WARRIOR', 'SHAMAN', 'MAGE']) {
-			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
+		for (const [cls, n] of [['WARRIOR', 1], ['SHAMAN', 1], ['MAGE', 0]]) {
+			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, n, `${file} ${cls}: 840 handed in ${n} time(s)`);
 		}
 	}
-	// 0.4.0 audit: whoever still carries 840 (everyone but Warriors once Durotar's Far Watch stop is theirs alone) hands
-	// it to Kargal on the Barrens' Far Watch stop, right before Crossroads Conscription from him.
+	// 0.4.0 audit: whoever still carries 840 hands it to Kargal on the Barrens' Far Watch stop, right before Crossroads
+	// Conscription from him; since the 0.4.2 route round that stop is every start's.
 	const conscript = barrens.filter(({ goal }) => is('turnin', 840)(goal));
 	assert.equal(conscript.length, 1, 'the Barrens hand 840 in once');
-	assert.ok(conscript[0].step.only && conscript[0].step.only.races.join() === 'Orc,Troll', 'on the Orc and Troll Far Watch stop');
+	assert.ok(!conscript[0].step.only, 'on the Far Watch stop every start makes');
 	assert.equal(barrens.indexOf(conscript[0]) + 1, at(barrens, 'accept 842', is('accept', 842)), 'right before Crossroads Conscription');
 });
 

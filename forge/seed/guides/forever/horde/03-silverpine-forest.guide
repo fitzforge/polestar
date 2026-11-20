@@ -262,6 +262,14 @@ step Nazgrel
   when onquest 831
   turnin 831 only Orc,Troll           -- Nazgrel, in Grommash Hold
 
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 5726
+  tip Thrall, on his throne in Grommash Hold, takes the Lieutenant's Insignia from Skull Rock. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  turnin 5726                         -- Thrall
+  accept 5727                         -- Thrall
+
 step Zeppelin to Undercity
   only Orc,Troll,Tauren,Skyborne
   zone Durotar
@@ -522,6 +530,12 @@ step Valley of Strength
   turnin 97246                        -- Borstan
   accept 97249
 
+step Neeru Fireblade
+  zone Orgrimmar
+  when onquest 5727
+  tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end. Tell him what Thrall found.
+  talk 3216 quest 5727.1              -- Neeru Fireblade
+
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -554,6 +568,12 @@ step Valley of Wisdom
   accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
+
+step Thrall
+  zone Orgrimmar
+  when onquest 5727
+  tip Thrall waits in Grommash Hold, beside Thra and Migi.
+  turnin 5727                         -- Thrall
 
 step Zor Lonetree
   accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide

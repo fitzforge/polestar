@@ -37,8 +37,8 @@
     "forever/alliance/nightelf/01-teldrassil.guide": "894f0c19aa4b464061e1bdf1bf27fa311d96711f15a54dd5f934179effc92adf",
     "forever/alliance/nightelf/02-darkshore.guide": "768666542338dd16b5fec4dbe1a71d515eaca1897bec67a342d2d6e5842a2ca4",
     "forever/alliance/skyborne/01-zephras-isle.guide": "02a4fbbce41cdbc5fc09e106b542f50d0fe10ad9cb6ce11f8d66b753f971c6ae",
-    "forever/horde/02-the-barrens.guide": "3cfdf262a157164a0980bd0e6fdbcd78b62647b9cb9c3b49558a0cec901e18a1",
-    "forever/horde/03-silverpine-forest.guide": "a890a9a77907d71bb9b677caf7dbdd348e74070a1c385c002347f1f86c59aa0c",
+    "forever/horde/02-the-barrens.guide": "427226a3699c4bd7ffea61d659d8c945b36bfddc03e3d8dde0c6b7447c84c93e",
+    "forever/horde/03-silverpine-forest.guide": "9b26e8d49db75aadd4e341ccb2e3ca8b13ce5705e71545fa3cf3ab094037db86",
     "forever/horde/04-the-barrens.guide": "ccf2452dbca9c8acc71695806bd67616ec0d0ffcd90af21028b5e73c44b96ce3",
     "forever/horde/05-stonetalon-mountains.guide": "a11068c52488a752397ece497a1d877102e1738e73ff5a2f7febfb3f1d485ec0",
     "forever/horde/06-hillsbrad-foothills.guide": "f02862436dc7188c60670d5181d9acc50cb4d2b442e0256eba5e407c6ccce36f",
@@ -63,10 +63,10 @@
     "forever/horde/50-60/05-eastern-plaguelands.guide": "6e296e4fe86eaf5f49b3d09a38df3b6a80e12e402addaf75f50f3a9c0ac6a881",
     "forever/horde/50-60/06-silithus.guide": "0cb7a2cc84f41ef10e0815fd220045e0c3c7994f8fd436deb51be595e069b355",
     "forever/horde/50-60/07-felwood.guide": "9bb781d6beb0ac099a066ce71ecd2602e6ab4d43199f0f79827ffaccb9fee0c4",
-    "forever/horde/orc/01-durotar.guide": "7de437e09ff320de518d7caf38593fdcd9964599116d66a3d5cc4131ddcc40f8",
+    "forever/horde/orc/01-durotar.guide": "ae37f63ade429b0e970024f904adad038fccbfaa12e97c88112bfd547ba34f07",
     "forever/horde/skyborne/01-zephras-isle.guide": "7ecd47aa078608f42ec61e21704ad3efae57b5ff9b145eeb32f6bd3b20904480",
     "forever/horde/tauren/01-mulgore.guide": "f55a5668f0ce6ad303bfc384428b20634ae6f0d2ba7a491bc1aee1bcbd02038c",
-    "forever/horde/troll/01-durotar.guide": "c476d61af4c6b603b57d362113ba2dfa4c2f29d8f8254a7600e011b81643374a",
+    "forever/horde/troll/01-durotar.guide": "b1c150cba4e69fa473dbd03cba2fccdd5e53e22b2310328a3e3915873aa010dd",
     "forever/horde/undead/01-tirisfal-glades.guide": "a526a573732f54cdb3dceb3e954c99687f2906ec24f1efadb2da5271b189bd82",
     "legs.json": "c3fa0aa771ce40756615a0e91a6019208fb33871a0b08a86ac6f3a4408793a00"
   }

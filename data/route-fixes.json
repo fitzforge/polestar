@@ -5322,14 +5322,14 @@
 			{
 				"a": [
 					"turnin",
-					99051
+					827
 				],
 				"b": [
 					"turnin",
 					1501
 				],
 				"faction": "Horde",
-				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end."
+				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after Margoz takes the collars; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end. (0.4.2 route round: a Warlock goes from Margoz straight to Orgrimmar; Threat from Below waits for the Barrens guide's Razor Hill step, so the pair is held on Margoz.)"
 			},
 			{
 				"a": [
@@ -8933,6 +8933,24 @@
 		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip). pairs: {a, b: [accept|task|turnin, quest], why, source}: a before b. leftout: {q, guide, reason, issue}: an accept of that guide whose prerequisite only an earlier visit to the zone brings, left out for characters without it instead of brought back (read by forge guide lint, not the route build). Lines whose reason or source starts F<n> come from player reports (forge judge feedback, data/local/research/RouteFeedback.json).",
 		"include": [
 			{
+				"q": 5726,
+				"after": [
+					"turnin",
+					828
+				],
+				"reason": "Horde starts (0.4.2 route round): Hidden Enemies, for Orcs and Trolls. Thrall gives it in Grommash Hold on a walk into Orgrimmar from Margoz before Skull Rock (the city's gate is next door; Nazgrel takes The Admiral's Orders on the same stop), its Lieutenant's Insignia drops from the Burning Blade Fanatics and Apprentices (9-10) with the collars, and Thrall takes it on the Silverpine guide's first Orgrimmar walk through Grommash Hold (900 XP). Threat from Below is handed to Orgnil when the Barrens guide steps into Razor Hill on its way out, so the walk back south from Margoz to Razor Hill and north again is gone for everyone but Hunters and Warriors. Players' recordings: 102 people took it, 109 hand-ins, though the route never had it.",
+				"issue": "#3255"
+			},
+			{
+				"q": 5727,
+				"after": [
+					"turnin",
+					5726
+				],
+				"reason": "Horde starts (0.4.2 route round): Hidden Enemies (2) is a word with Neeru Fireblade in the Cleft of Shadow and back to Thrall (460 XP): taken with 5726's hand-in on the Silverpine guide's first Orgrimmar walk and done on its last one, which passes the Cleft and ends in the Valley of Wisdom. The Ragefire Chasm parts (5728-5730) stay out.",
+				"issue": "#3255"
+			},
+			{
 				"q": 423,
 				"after": [
 					"turnin",
@@ -8944,6 +8962,16 @@
 			{
 				"q": 447,
 				"reason": "Silverpine Forest (0.4.2 route round): A Recipe For Death is taken from Renferrel on the first Sepulcher stop; the Grizzled Bears roam the whole forest and the Moss Stalkers and Mist Creepers (12-13) bleed the Skittering Blood on the north-west loop that Arugal's Folly now makes; Faranell takes it on the Undercity stop the guide already ends with. 900 XP. Players' recordings: 87 people took it, 73 handed it in.",
+				"issue": "#3255"
+			},
+			{
+				"q": 840,
+				"reason": "Horde starts (0.4.2 route round): Tauren, Undead and Skyborne take Conscript of the Horde from Takrin Pathseeker in Razor Hill on the Barrens guide's first stop, a short step east of the road every start walks from Orgrimmar to Far Watch Post, and hand it to Kargal minutes later (they never had it). Orcs and Trolls take it on Durotar's Razor Hill stop after Fizzle Darkstorm, where they hand in Encroachment, instead of on a return to Razor Hill at 10 that only the classes with a level-10 class quest there still make; Shamans take it at 10 on their way to Kranal Fiss, Warriors hand it in with Uzzek's quest at the end of Durotar.",
+				"issue": "#3255"
+			},
+			{
+				"q": 842,
+				"reason": "Horde starts (0.4.2 route round): Crossroads Conscription, from Kargal at Far Watch Post with Conscript of the Horde, goes to Sergra on every start's first Crossroads stop (900 XP; Tauren, Undead and Skyborne now get it too).",
 				"issue": "#3255"
 			},
 			{
@@ -12182,6 +12210,19 @@
 			}
 		],
 		"pairs": [
+			{
+				"a": [
+					"turnin",
+					828
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Durotar (Orcs and Trolls, 0.4.2 route round): the walk into Orgrimmar from Margoz for Thrall's Hidden Enemies passes Thatog and Borstan in the Valley of Strength, Kor'geld in the Drag and Thra and Migi behind Grommash Hold. Meal Appeal, Favorite Food, Rocks to Rests, Yelmak's Medley (its reeds in the Valley of Honor beside the Drag) and Whuut's the Rush are done on that walk, instead of walking past their givers and taking them on the Silverpine guide's first Orgrimmar walk.",
+				"source": "0.4.2 route round: flow audit (givers passed within 40 yd on the Thrall walk)"
+			},
 			{
 				"a": [
 					"accept",
@@ -16271,6 +16312,12 @@
 			}
 		],
 		"leftout": [
+			{
+				"q": 5727,
+				"guide": "forever/horde/03-silverpine-forest",
+				"reason": "Hidden Enemies (2) follows Thrall's 5726, which Durotar's guide takes and works in Skull Rock; a character who starts at the Silverpine guide without it is not offered the word with Neeru (460 XP), and the guide does not send them into Skull Rock for it.",
+				"issue": "#3255"
+			},
 			{
 				"q": 1689,
 				"guide": "forever/alliance/02-westfall",

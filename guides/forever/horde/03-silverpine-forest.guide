@@ -81,7 +81,7 @@ next forever/horde/02-the-barrens
 # Ragefire Chasm (`when dungeon "Ragefire Chasm"`, dungeons in the route): for a character who chose it,
 # Neeru Fireblade's Slaying the Beast (5761) is taken in the Cleft of Shadow on the last Orgrimmar stop,
 # at about 15; the portal is beside him, so the run follows at once and he takes the heart when you
-# come out. Left out: Hidden Enemies (5726-5730: the insignia from Skull Rock's cultists and three walks
+# come out. Left out: Hidden Enemies' Ragefire parts (5728-5730: Jergosh and Bazzalan inside, then walks
 # between Thrall and Neeru), The Power to Destroy... (5725: Varimathras stands in the Royal Quarter, off
 # this guide's Apothecarium stop, and the route is next in the Undercity at about 25) and Rahauro's
 # quests (5722-5724: Thunder Bluff, first on the route at 27).
@@ -269,6 +269,14 @@ step Nazgrel
   zone Orgrimmar
   when onquest 831
   turnin 831 only Orc,Troll           -- Nazgrel, in Grommash Hold
+
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 5726
+  tip Thrall, on his throne in Grommash Hold, takes the Lieutenant's Insignia from Skull Rock. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  turnin 5726                         -- Thrall
+  accept 5727                         -- Thrall
 
 step Zeppelin to Undercity
   only Orc,Troll,Tauren,Skyborne
@@ -531,6 +539,12 @@ step Valley of Strength
   accept 97249
 
 step Neeru Fireblade
+  zone Orgrimmar
+  when onquest 5727
+  tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end. Tell him what Thrall found.
+  talk 3216 quest 5727.1              -- Neeru Fireblade
+
+step Neeru Fireblade
   when dungeon "Ragefire Chasm"
   zone Orgrimmar
   tip For your Ragefire Chasm run: the Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end, next to the Ragefire Chasm portal.
@@ -541,7 +555,7 @@ step Ragefire Chasm
   when onquest 5761
   zone Orgrimmar
   tip Ragefire Chasm is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the Cleft of Shadow, beside Neeru.
-  tip Inside: past Oggleflint and his troggs, Taragaman the Hungerer waits in the lava cave and drops his heart. Jergosh the Invoker and Bazzalan, further in, are for Thrall's Hidden Enemies, which this route leaves out.
+  tip Inside: past Oggleflint and his troggs, Taragaman the Hungerer waits in the lava cave and drops his heart. Jergosh the Invoker and Bazzalan, further in, are for Hidden Enemies' Ragefire part, which this route leaves out.
   enter "Ragefire Chasm" @52.6,49.0
   complete 5761                       -- Slaying the Beast: Taragaman the Hungerer's Heart
 
@@ -584,6 +598,12 @@ step Valley of Wisdom
   accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
+
+step Thrall
+  zone Orgrimmar
+  when onquest 5727
+  tip Thrall waits in Grommash Hold, beside Thra and Migi.
+  turnin 5727                         -- Thrall
 
 step Zor Lonetree
   accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide
