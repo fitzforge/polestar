@@ -336,6 +336,14 @@ step Dendrite Starblaze
   turnin 95006
   accept 93773                          -- The Pact: for Ketharas
 
+step Rabine Saturna
+  only Alliance
+  when onquest 6762
+  zone Moonglade
+  tip Rabine Saturna's house stands in Nighthaven, a short walk from Dendrite: hand her the letter from Darnassus on the way to the flight master.
+  turnin 6762                           -- Rabine Saturna
+  accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
+
 step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
   getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl
