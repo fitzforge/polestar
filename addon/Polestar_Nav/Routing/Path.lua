@@ -187,14 +187,36 @@ function Safe.joinEnd(st, P, keep, points, first)
 end
 -- A distant snapped start can invent the first segment just as a substituted
 -- goal can invent the last. Check the bearing the route actually draws.
+-- Terrain evidence needs the start's height, which Forever's client does not
+-- report, and it never covers the platforms and decks the maps leave out. So a
+-- start without it still departs from TravelData's own places (a flight master,
+-- a dock or deck, the tram's ends, a portal's ends: the table is the evidence),
+-- and on open ground from a cell beside the player's on their storey: the node
+-- is not indoor ground (floors and walls stack there: a lift shaft's top, the
+-- Undercity's ring), no farther than the centre of a diagonal neighbour, no
+-- higher or lower than a step plus a walkable slope (Safe.STEP, Safe.SLOPE),
+-- and no known solid face on the way to it or along the drawn first segment.
+-- A storey change, indoor ground or a wall still refuses the walk.
+Safe.STEP, Safe.SLOPE = 2, 1.2 -- yd; the rise per yard of the steepest walkable ground (about 50 degrees)
 function Safe.departure(st, P, from, b)
-	local dx = st.x0 + (P.x[1] + .5) * st.cs - from.x
-	local dy = st.y0 + (P.y[1] + .5) * st.cs - from.y
-	local dz = from.z and zOf(grid(st, P.k[1]), P.n[1]) - from.z or 0
+	local c, n = grid(st, P.k[1]), P.n[1]
+	local nx, ny, nz = st.x0 + (P.x[1] + .5) * st.cs, st.y0 + (P.y[1] + .5) * st.cs, zOf(c, n)
+	local dx, dy = nx - from.x, ny - from.y
+	local dz = from.z and nz - from.z or 0
 	if dx*dx + dy*dy + dz*dz <= ARRIVE*ARRIVE then return true end
-	return b and from.z and b.z
+	if b and from.z and b.z
 		and (Path.FinalDrySight(st.map, from.x, from.y, from.z, b.x, b.y, b.z)
-			or Path.FootprintDrySight(st.map, from.x, from.y, from.z, b.x, b.y, b.z))
+			or Path.FootprintDrySight(st.map, from.x, from.y, from.z, b.x, b.y, b.z)) then return true end
+	local T = Polestar and Polestar.Nav and Polestar.Nav.travel
+	if T and T.CuratedEnd and T.CuratedEnd(st.map, from.x, from.y) then return true end
+	local kb = c.kind and byte(c.kind, n + 1)
+	local cls = kb and CLS[kb] % 8
+	if not cls or cls == INDOOR or cls == CITY then return false end
+	local flat = math.sqrt(dx*dx + dy*dy)
+	if flat > 1.5 * SQRT2 * st.cs or math.abs(dz) > Safe.STEP + Safe.SLOPE * flat then return false end
+	local z = from.z or nz
+	return not (Grid.solidChord(st, from.x, from.y, z, nx, ny, nz)
+		or (b and Grid.solidChord(st, from.x, from.y, z, b.x, b.y, b.z or nz)))
 end
 -- A decoded cluster owns one bounded cache for its current policy. Local cells (not
 -- floors) identify this symmetric XY predicate, including long directed jump arcs.

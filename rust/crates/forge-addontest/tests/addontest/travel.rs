@@ -254,6 +254,30 @@ fn a_level_gap_alone_does_not_forbid_moonglade_ground_on_build_70532() {
 	assert_eq!(out, vec![json!(true)]);
 }
 
+// Routing/Path.lua departs from TravelData's own places without terrain evidence (the walking maps lack Booty Bay's
+// flight master platform, the Gnomeregan depot Scooty's Transpolyporter lands in, the tram's Stormwind platform):
+// each of those is one, and a point a yard away is not.
+#[test]
+fn traveldatas_own_places_are_known_departures_a_yard_off_is_not() {
+	let out = run_real(
+		r#"
+		local N, T = Polestar.Nav, Polestar.Nav.travel
+		local data = N.GetTravelData()
+		local function find(list, id) for _, t in ipairs(list) do if t.id == id then return t end end end
+		local fm = N.GetTaxiNode(19) -- Booty Bay
+		local portal = find(data.portals, "portal-gnomeregan").b
+		local tram = find(data.transports, "tram-stormwind-ironforge").a
+		local deck = find(data.transports, "boat-menethil-theramore").a.board
+		local r = {}
+		for name, p in pairs({ fm = fm, portal = portal, tram = tram, deck = deck }) do
+			r[name] = { T.CuratedEnd(p.c, p.wx, p.wy), T.CuratedEnd(p.c, p.wx + 1, p.wy), T.CuratedEnd(1 - p.c, p.wx, p.wy) }
+		end
+		emit(r)"#,
+	);
+	let want = json!([true, false, false]);
+	assert_eq!(out, json!({ "fm": want, "portal": want, "tram": want, "deck": want }));
+}
+
 #[test]
 fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 	let out = run_with(

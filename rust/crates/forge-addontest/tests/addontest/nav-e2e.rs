@@ -4140,7 +4140,9 @@ fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_ca
 // planned again before the walking engine had searched the last plan's walk, and an unsearched live walk was never
 // kept, so the route went from the crossing's way (86 s) to the walk straight there (63 s) and back every second, 224
 // times in 4 minutes, and the player never got there. The live walk is priced by its estimate until its path is in:
-// the walk straight there stays, and the player arrives.
+// the walk straight there stays, and the player arrives. The sweep's own start (-8865.1, -2682) is off the walking
+// maps (the surface at 230 there is a pocket no walk leaves; from the ground at 201 the nearest node is 18 yd away and
+// 11 yd down), and a start the maps cannot prove gives no bearing, so the player starts on that nearest node.
 #[test]
 fn following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048() {
 	skip_unless_ready!();
@@ -4152,8 +4154,8 @@ fn following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_go
 		w.race, w.raceName = "Human", "Human"
 		w.setLevel(24)
 		Polestar.CharState().flags.taxiSeen = { [0] = true, [1] = true }
-		local x, y = -8865.1, -2682
-		local z = ground(0, x, y, nil) or 0
+		local x, y = -8877.1, -2668.8
+		local z = ground(0, x, y, 190) or 0
 		place(N.danger.ZoneAt(0, x, y), x, y, z)
 		stub.advance(1)
 		N.Sample()
