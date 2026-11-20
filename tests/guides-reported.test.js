@@ -18358,3 +18358,14 @@ for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/ho
 		assert.doesNotMatch(step.note || '', /chest beside her/);
 	});
 }
+
+// #3024 (TAKODACHI, 0.4.1): Banner of the Fallen calls Headsplitter out only once the Banner of Ironforge is raised beside
+// Ylva (players' recordings: the banner's cast by 36 of 48 people between the accept and the kill), but the step went
+// from the accept straight to the kill. The banner's use, on the objective, comes before the kill in the same step.
+test('forever/alliance/03-loch-modan.guide: the Banner of Ironforge is raised before Headsplitter (#3024)', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const banner = at(list, 'use 253247', (g) => g.t === 'use' && g.item === 253247);
+	const kill = at(list, 'kill 269185', (g) => g.t === 'kill' && g.npc === 269185);
+	assert.ok(banner < kill && list[banner].s === list[kill].s, 'the banner before the kill, same step');
+	assert.equal(list[banner].goal.quest, 86585, 'bound to the quest, so it ticks with the kill');
+});

@@ -14579,6 +14579,29 @@
 				}
 			],
 			"issue": 3172
+		},
+		{
+			"id": "3024-ylva-banner-before-headsplitter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"goalNote": "Banner of Ironforge: raise it beside Ylva, then hold the spot until Headsplitter comes",
+			"note": "#3024: Banner of the Fallen asks you to raise the standard of Ironforge to call Headsplitter out (the quest's text), but the step went from the accept straight to the kill, so players waited at the cave for a trogg that never came. The Banner of Ironforge's use (253247) comes before the kill, on the objective, at Ylva (31.7,86.3); the seed carries the line.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: the banner's cast (spell 1303317) by 36 of 48 people between the accept and the Headsplitter kill, median 99.5 s before it"
+				},
+				{
+					"kind": "client",
+					"ref": "quests.json 86585 objectiveText: Raise the standard of Ironforge, call out the trogg Headsplitter and kill it"
+				}
+			],
+			"issue": 3024
 		}
 	]
 }
