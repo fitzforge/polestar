@@ -428,8 +428,6 @@ step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
   accept 607
-  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
-  accept 348                            -- Fin Fizracket: Stranglethorn Fever (offered from 40), Unbagwa's part on the Feralas guide's Grom'gol stop
   turnin 600                          -- Inside
   turnin 1182                         -- Baron Revilgaz, on the balcony
   accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the Feralas & Tanaris guide's way
@@ -442,6 +440,12 @@ step Booty Bay
   accept 604                            -- Fleet Master Seahorn: keep it for the Wild Shore at about 45
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
+
+step Whiskey Slim and Fin Fizracket
+  when level>=40
+  tip Whiskey Slim, in the inn, and Fin Fizracket, beside it, offer their quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
+  accept 348                            -- Fin Fizracket: Stranglethorn Fever, Unbagwa's part on the Feralas guide's Grom'gol stop
 
 step The Bloodsail ships
   when group 624
