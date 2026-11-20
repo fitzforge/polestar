@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "비행에서 내리면 곧장 {area:271} 여관으로 가세요. 그다음 마을회관의 {npc:2276}와(과) {npc:2277}이(가) 비밀결사대 야영지 퀘스트를 받고 당신을 북쪽 {area:280}(으)로 보냅니다.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "",
 
@@ -382,6 +382,7 @@ return {
 	-- ["Gyll, {area:35}"] = "가일, {area:35}",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "동쪽 환상열석에서 남쪽으로 돌아가세요. {npc:2712}와(과) {npc:2713}은(는) {area:314} 바로 북쪽 언덕에 진을 치고 있습니다.",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "{area:314}을(를) 지나 북쪽으로 가세요. 파편은 {area:333} 옆 언덕에서 반짝입니다.",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "비행에서 내리면 곧장 {area:271} 여관으로 가세요. 그다음 마을회관의 {npc:2276}와(과) {npc:2277}이(가) 비밀결사대 야영지 퀘스트를 받고 당신을 북쪽 {area:280}(으)로 보냅니다.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "{area:320}을(를) 지나 북동쪽으로 돌아가세요. {npc:2712}와(과) {npc:2713}은(는) {area:314} 북쪽 언덕에 진을 치고 있습니다.",
 	-- ["Shaman training"] = "주술사 훈련",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "서쪽 해안을 따라 남쪽으로 고블린의 만까지 가세요. 롤로는 그 위 바위에서 망을 봅니다.",

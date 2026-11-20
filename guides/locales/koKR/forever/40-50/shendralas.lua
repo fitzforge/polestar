@@ -110,15 +110,15 @@ return {
 
 	-- Step 18: The road south of the western pylon
 	["The road south of the western pylon"] = "",
-	-- {area:16677} Bristleback Retreat · {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
+	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["Check the western repair in your quest log. If it is already checked, do not visit this waypoint: take four crystals east to {area:16677} (73.4,23.9). Enter from the west and stay off the south side, away from Kog'thug and his bodyguards. Repair the eastern pylon there; the route resumes when the log shows both.\nNorth up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
 	["the road just south of the western pylon"] = "",
 
 	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "서쪽 수정탑: 수리하기",
-	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["Pull one {npc:252711} back to the road if it guards the crystal. Stand on the west face and use {spell:1289727}. The quest log must show the western pylon repaired; a dead Protector alone does not count."] = "",
+	-- {spell:1289727} Repair and Recharge Pylon
+	["Use {spell:1289727} from the west face. If it is out of reach, try the other marked spot on the same side. Killing a Protector does not repair it."] = "",
 	["Repair the western pylon from this side"] = "",
 
 	-- Step 20: Four crystals for the eastern pylon

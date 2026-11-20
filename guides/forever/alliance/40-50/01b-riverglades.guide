@@ -549,7 +549,7 @@ step Before the Eastsea camp
   when level>=39
   when level<42
   when onquest 95119,95288
-  tip Pay any ready shore rewards at Powderfuse first. If you still need 42, stay on the beach with the level 39–40 Shore Crawlers. The musketeers on the cliffs can be 43. Let Gul'gash, the rare elite, pass before pulling. A group can run the Scarlet Monastery instead.
+  tip Pay any ready shore rewards at Powderfuse first. If you still need 42, hunt the level 39–40 Shore Crawlers south and west of the marked crab. Leave the crabs east of it alone: level 42–43 musketeers come down to that stretch of beach. Let Gul'gash, the rare elite, pass before pulling. A group can run the Scarlet Monastery instead.
   goto 81.21,46.52 map 2548 "Shore Crawlers beside Powderfuse Port"
   level 42 grind 256807
 

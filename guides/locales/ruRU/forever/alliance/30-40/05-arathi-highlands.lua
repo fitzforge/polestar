@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "Распорядитель полетов: {area:320}",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "После полета сразу в таверну ({area:271}). Затем {npc:2276} и {npc:2277} в ратуше дадут задания по лагерю Синдиката и отправят вас на север сюда: {area:280}.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, под землей",
 
@@ -384,6 +384,7 @@ return {
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "Идите обратно на юг от восточного круга; {npc:2712} и {npc:2713} стоят лагерем на холмах сразу к северу от места {area:314}.",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Идите на север мимо места {area:314}; осколки сверкают на холме у места {area:333}.",
 	-- ["Inside"] = "Внутри",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "После полета сразу в таверну ({area:271}). Затем {npc:2276} и {npc:2277} в ратуше дадут задания по лагерю Синдиката и отправят вас на север сюда: {area:280}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Скачите обратно на северо-восток мимо места {area:320}; {npc:2712} и {npc:2713} стоят лагерем на холмах к северу от места {area:314}.",
 	-- ["Shaman training"] = "Обучение шамана",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "На юг вдоль западного побережья к бухте гоблинов; Дозорный Лоло следит за ней со скал.",

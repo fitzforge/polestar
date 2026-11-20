@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "Mestre de voo de {area:320}",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Ao descer do voo, vá direto para a Estalagem de {area:271}. Depois, {npc:2276} e {npc:2277}, na prefeitura, dão as Missões do acampamento da Camarilha e mandam você para o norte, até {area:280}.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, no subterrâneo",
 
@@ -388,6 +388,7 @@ return {
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Siga para o norte, passando a {area:314}; os estilhaços brilham na colina junto ao {area:333}.",
 	-- ["Inside"] = "Lá dentro",
 	-- ["Off the flight, straight to the {area:271} inn."] = "Ao descer do voo, direto para a estalagem de {area:271}.",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Ao descer do voo, vá direto para a Estalagem de {area:271}. Depois, {npc:2276} e {npc:2277}, na prefeitura, dão as Missões do acampamento da Camarilha e mandam você para o norte, até {area:280}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Cavalgue de volta para nordeste, passando o {area:320}; {npc:2712} e {npc:2713} acampam nas colinas ao norte da {area:314}.",
 	-- ["Shaman training"] = "Treino de xamã",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Siga para o sul pela costa oeste até a enseada dos goblins; Lolo vigia das pedras acima dela.",

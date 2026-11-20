@@ -2,6 +2,30 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "ungoro-fresh-carcass-avoid-level-51",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/07-un-goro-crater", "quest": 4290, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Venomhide Ravasaurs (50–51) patrol the bank. At 49 let the 51s pass. Wait for one of the carcasses to clear before looting it.",
+			"note": "The quest needs a piece of the carcass, not a ravasaur kill.",
+			"source": { "kind": "questie", "ref": "The Fare of Lar'korwi (4290), Piece of Threshadon Carcass (11504), Venomhide Ravasaur (6508, 50–51)." }
+		},
+		{
+			"id": "gadgetzan-landing-ready-insect-parts",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/07-un-goro-crater", "quest": 82, "goal": "turnin" },
+			"when": "complete 82",
+			"note": "At Gadgetzan, pay carried insect parts before sending anyone back to the hive. A partial collection still needs the field step.",
+			"source": { "kind": "questie", "ref": "Noxious Lair Investigation (82): five Centipaar Insect Parts for Alchemist Pestlezugg (5594)." }
+		},
+		{
+			"id": "gadgetzan-landing-ready-surveying-gear",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/07-un-goro-crater", "quest": 10, "goal": "turnin" },
+			"when": "complete 10",
+			"note": "Take carried gear to Fizzledowser on landing. He and Pestlezugg can finish both analyses in town; keep Rise of the Silithid for Darnassus.",
+			"source": { "kind": "questie", "ref": "Scrimshank Redemption (10), Insect Part Analysis (110, 113), Rise of the Silithid (162); NPCs 7724 and 5594." }
+		},
+		{
 			"id": "auberdine-elissa-by-terenthis",
 			"faction": "Alliance",
 			"at": {
@@ -261,7 +285,7 @@
 				"goal": "accept"
 			},
 			"goalNote": "Keep the Glowing Gem for Shael'dryn.",
-			"note": "The message has no visible item counter; the reward requires the returned gem in the bags.",
+			"note": "The message has no visible item counter. The hand-in needs the gem in the bags: retrieve it from the bank, or retake 1024 from Raene if the gem is lost. Raene, not the murlocs, supplies this copy.",
 			"source": {
 				"kind": "recording",
 				"ref": "The quest asks for item 5463 on delivery, even with zero visible log lines. See #3043."
@@ -277,7 +301,7 @@
 				"goal": "accept"
 			},
 			"goalNote": "Keep the Glowing Gem for Shael'dryn.",
-			"note": "The message has no visible item counter; the reward requires the returned gem in the bags.",
+			"note": "The message has no visible item counter. The hand-in needs the gem in the bags: retrieve it from the bank, or retake 1024 from Raene if the gem is lost. Raene, not the murlocs, supplies this copy.",
 			"source": {
 				"kind": "recording",
 				"ref": "The quest asks for item 5463 on delivery, even with zero visible log lines. See #3043."
@@ -289,8 +313,24 @@
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95119, "goal": "objective", "objective": 2 },
 			"when": "level>=42",
-			"note": "Eastsea Musketeers reach 43. Cash ready shore work on the docks below 42. If still short, use the Shore Crawlers (39–40) at 81.21,46.52, outside the cliff camp. The second wave and the ships are actual-44 work; skipped fights do not hold a dockside hand-in open.",
+			"note": "Eastsea Musketeers reach 43. Cash ready shore work on the docks below 42. If still short, use the Shore Crawlers (39–40) south and west of 81.21,46.52. The crabs east of the pin overlap the musketeers. The second wave and the ships are actual-44 work; skipped fights do not hold a dockside hand-in open.",
 			"source": { "kind": "questie", "ref": "Eastsea Musketeer 257910, levels 42–43; quest 95119 and Smuggled Goods 268796 in the same camp." }
+		},
+		{
+			"id": "riverglades-gronok-key-at-43",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 96126, "goal": "objective", "objective": 1 },
+			"when": "level>=43",
+			"note": "Gronok the Butcher is level 44. Dunston can take an already collected key below 43; only the hunt waits.",
+			"source": { "kind": "questie", "ref": "Gronok the Butcher 263749 in Bolder'ok; Gronok's Key 272190, quest 96126." }
+		},
+		{
+			"id": "riverglades-dunston-breakout-at-43",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 94927, "goal": "accept" },
+			"when": "level>=43",
+			"note": "Take Dunston out through the ogre lanes only after he has the key and the character is at least 43. Paying for a key obtained earlier is not consent to an underlevel escort.",
+			"source": { "kind": "questie", "ref": "Dunston Willis 259057, An Ogre's Captive 96126 and Dunston Checks Out 94927; Gronok 263749 patrols the lanes below the hut." }
 		},
 		{
 			"id": "riverglades-cinderscale-warriors-at-41",
@@ -354,7 +394,7 @@
 			"id": "dolanaar-return-after-ursal",
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/nightelf/01-teldrassil", "quest": 486, "goal": "turnin" },
-			"tip": "Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. Byancie needs a Refreshing Spring Water with the fronds and vial; Innkeeper Keldamyr sells it here.",
+			"tip": "Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise follow the road north-east from Ursal's den. Byancie needs one Refreshing Spring Water with the fronds and vial. If you have none, buy one from Innkeeper Keldamyr.",
 			"note": "Use the binding made in Dolanaar on the way back, not to advance the level-12 Ursal fight.",
 			"source": { "kind": "client", "ref": "Ursal the Mauler (486) ends at Athridas Bearmantle in Dolanaar." },
 			"issue": 3144
@@ -464,6 +504,41 @@
 				"ref": "#2915"
 			},
 			"issue": 2915
+		},
+		{
+			"id": "2915-zamael-document-offer",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/06-searing-gorge", "quest": 3378, "goal": "accept" },
+			"tip": "Twilight cultists can drop the prayer. Keep it for Astarii in Darnassus if you find it; don't make a separate trip for it.",
+			"note": "Zamael offers the request to the group. He does not supply the document.",
+			"source": { "kind": "tdb", "ref": "Quest 3378: giver 8436; item 10458 has four Twilight droppers." },
+			"issue": 2915
+		},
+		{
+			"id": "2915-document-beside-the-casing",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/06-searing-gorge", "quest": 3378, "goal": "objective", "objective": 1 },
+			"follows": { "quest": 3452, "goal": "objective", "objective": 1 },
+			"note": "List the optional document beside the Symbol of Ragnaros in the group's shaman camp, not as work at the giver.",
+			"source": { "kind": "tdb", "ref": "Twilight Dark Shaman 5860 drops 10458 and 10552." },
+			"issue": 2915
+		},
+		{
+			"id": "2915-casing-shaman-camp",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/06-searing-gorge", "quest": 3452, "goal": "objective", "objective": 1 },
+			"tip": "Hunt the elite Twilight Dark Shamans with a group of three for the Symbol of Ragnaros. If you took Zamael's request, the shamans can also drop the Prayer to Elune. Leave once you have the symbol; the prayer is optional.",
+			"note": "Keep the group warning and the extra drop on the casing's own step.",
+			"source": { "kind": "tdb", "ref": "Quest 3452: Symbol of Ragnaros; Twilight Dark Shaman (5860), elite." },
+			"issue": 2915
+		},
+		{
+			"id": "043-a-lolo-thorium-counters",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/06-searing-gorge", "quest": 7701, "goal": "turnin" },
+			"tip": "Before leaving Thorium Point, report to Hansel if you've killed all 20 Incendosaurs. If you have the Secret Plans, give them to Master Smith Burninate. Leave any unfinished errand for the later visit.",
+			"note": "Both counters are in Lolo's upper camp. This advice applies only to the group's actual head hand-in, not to the route below the ridge.",
+			"source": { "kind": "tdb", "ref": "Thorium Point: spawns 14634 (Lolo), 14627 (Hansel) and 14624 (Burninate), all on the upper floor." }
 		},
 		{
 			"id": "3082-alliance-young-diemetradon-bones",
@@ -581,6 +656,34 @@
 				"kind": "client",
 				"ref": "Quest 606, its targets and reward NPCs."
 			},
+			"issue": 3144
+		},
+		{
+			"id": "043-a-mistvale-unfinished-giblets",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01-stranglethorn-vale", "quest": 606, "goal": "objective", "objective": 1 },
+			"when": "!complete 606",
+			"tip": "From the beach take the road inland to the southern edge of the gorilla hills. The Elder Mistvale Gorillas here are 40–41; at 39 pull only level 40s.",
+			"note": "A player already carrying five giblets goes back to Shaky without entering the hills.",
+			"source": { "kind": "tdb", "ref": "Quest 606 requires five of item 3919. Elder Mistvale Gorilla (1557), levels 40–41." },
+			"issue": 3144
+		},
+		{
+			"id": "043-a-mistvale-pickup",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01-stranglethorn-vale", "quest": 606, "goal": "accept" },
+			"tip": "Take the giblet errand from MacKinley before leaving for the northern beach.",
+			"note": "Pick up the errand before heading out to the Bloodsail camp.",
+			"source": { "kind": "tdb", "ref": "Quest 606: giver 2501 in Booty Bay." },
+			"issue": 3144
+		},
+		{
+			"id": "043-a-mistvale-pay-shaky",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01-stranglethorn-vale", "quest": 606, "goal": "turnin" },
+			"tip": "Head back down to town; Shaky stands at the tunnel mouth.",
+			"note": "Return the giblets before continuing into Booty Bay.",
+			"source": { "kind": "tdb", "ref": "Quest 606: ender 2502 at the Booty Bay entrance." },
 			"issue": 3144
 		},
 		{
@@ -5679,6 +5782,23 @@
 			]
 		},
 		{
+			"id": "arathi-southshore-bilger-before-phin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 647,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have Quae's report, give it to Phin outside on your way to the town hall.",
+			"note": "The timed delivery goes first. Phin is beside the inn, but only a player carrying Quae's report needs to stop there.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "Quest 647: 900 second timer; quest 661: Quae's report to Phin Odelic."
+				}
+			]
+		},
+		{
 			"id": "1319-mackreels-moonshine-time-limit",
 			"at": {
 				"quest": 647,
@@ -6766,8 +6886,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/30-40/06b-desolace"
 			},
-			"tip": "Hearth to Nijel's Point if you are still bound there and the stone is ready. Otherwise follow the road east from Ethel Rethor and up the pass. Hand in at Captain Pentigast, Kreldig Ungor and Brother Anton before the flight.",
-			"note": "The coast is the last field stop. Return to the inn or walk up the pass for the Nijel's Point hand-ins and flight.",
+			"tip": "Hearth to Nijel's Point if you're bound there and the stone is ready. From the inn, turn in what's ready as you head south: Brother Anton, Kreldig, then Captain Pentigast. On foot, take the road east from Ethel Rethor and up the pass. If you have all five carved totems, the captain takes them at the entrance.",
+			"note": "The inn is north of Anton, Kreldig and the captain. The road enters from the south beside the captain. Players who already delivered the totems on the first visit can go straight to Anton and finish at Kreldig, near the flight master.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -12863,8 +12983,8 @@
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/07-thousand-needles", "quest": 222, "goal": "objective", "objective": 1 },
 			"when": "level>=30",
-			"note": "Hunt by Tranquil Gardens when already 30, or after the western circuit if it brings the player to 30. Both stops in the seed require the unfinished hunt. The Vile Fangs reach 30 and the Tainted Ones reach 31.",
-			"source": [{ "kind": "questie", "ref": "NPCs 206 and 920: level ranges 29-30 and 30-31." }],
+			"note": "Both cemetery hunts in the seed require an unfinished hunt and actual level 30. At the last Darkshire stop a player still at 28–29 can top up on Dark Runners or keep the hunt for later; below 28 only the quest-log option is offered.",
+			"source": [{ "kind": "questie", "ref": "Nightbane Dark Runner 205 is 28–29; Vile Fang 206 is 29–30 and Tainted One 920 is 30–31. The Dark Runner west of Darkshire at 67.13,49.61 in the Era frame is separate from the cemetery packs." }],
 			"pr": 3144
 		},
 		{
@@ -12872,7 +12992,7 @@
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/07-thousand-needles", "quest": 222, "goal": "turnin" },
 			"when": "complete 222",
-			"note": "On each Darkshire visit Calor pays a finished hunt at any level. The seed remembers a hunt still open as the player leaves town: finishing it later must not reopen that earlier stop. Calor's note for Jonathan Carevin is a separate step because paying for the hunt removes it from the log.",
+			"note": "The two town offers of 222 in the seed remember an unfinished hunt on that visit. Finishing it later must not reopen the earlier hand-in. A completed hunt pays at any level, and paying 222 opens the separate note for Jonathan Carevin.",
 			"source": [{ "kind": "client", "ref": "222 ends at Calor (663); 223 requires 222 and ends at Jonathan Carevin (661)." }],
 			"pr": 3144
 		},

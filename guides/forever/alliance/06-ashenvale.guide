@@ -101,8 +101,9 @@ step Raene Wolfrunner
 step Raene's Glowing Gem
   when onquest 1024
   when !has 5463
-  tip Keep the Glowing Gem Raene gives you with her message. Shael'dryn needs the gem in your bags even though the quest log lists no items. If you banked it, retrieve it before going to the moonwell.
-  collect 5463 "Glowing Gem" @36.54,49.61 map 1440 -- At Raene's handoff, not another murloc hunt
+  tip Shael'dryn needs the Glowing Gem in your bags even though the quest log lists no items. If you banked it, retrieve it. If it's gone, return to Raene in Astranaar before abandoning her message. Take it from her again to get the gem back.
+  goto 36.54,49.61 map 1440 "Raene Wolfrunner at the Astranaar inn"
+  collect 5463 x1 anywhere             -- Raene supplies the gem with 1024; do not point to the murlocs
 
 step Elune's Tear
   zone Ashenvale

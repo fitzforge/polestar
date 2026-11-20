@@ -386,7 +386,7 @@ return {
 	["Before the Eastsea camp"] = "",
 	-- {npc:259758} Gul'gash · {area:796} Scarlet Monastery
 	-- plural, as words: Shore Crawlers = {npc:256807} Shore Crawler
-	["Pay any ready shore rewards at Powderfuse first. If you still need 42, stay on the beach with the level 39–40 Shore Crawlers. The musketeers on the cliffs can be 43. Let {npc:259758}, the rare elite, pass before pulling. A group can run the {area:796} instead."] = "",
+	["Pay any ready shore rewards at Powderfuse first. If you still need 42, hunt the level 39–40 Shore Crawlers south and west of the marked crab. Leave the crabs east of it alone: level 42–43 musketeers come down to that stretch of beach. Let {npc:259758}, the rare elite, pass before pulling. A group can run the {area:796} instead."] = "",
 	-- {area:16727} Powderfuse Port
 	-- plural, as words: Shore Crawlers = {npc:256807} Shore Crawler
 	["Shore Crawlers beside {area:16727}"] = "",

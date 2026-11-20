@@ -6452,18 +6452,6 @@
 			},
 			{
 				"a": [
-					"task",
-					190
-				],
-				"b": [
-					"turnin",
-					185
-				],
-				"faction": "Alliance",
-				"why": "The young panthers live across the river from the hunters. Finish that bank before returning to Ajeck and Erlgadin together."
-			},
-			{
-				"a": [
 					"turnin",
 					5501
 				],
@@ -6473,6 +6461,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Pay Bibbly for the bones before heading to Azore and the wreck on the south Desolace circuit. There is no errand at the hut after the coast."
+			},
+			{
+				"a": [
+					"accept",
+					1052
+				],
+				"b": [
+					"turnin",
+					1466
+				],
+				"faction": "Alliance",
+				"why": "At the end of the second Desolace circuit, Brother Anton is beside the inn. Finish his delivery before Kreldig's business on the way down to the hippogryph. Keep the captain available at the southern road entrance for players still carrying totems."
 			},
 			{
 				"a": [
@@ -7925,7 +7925,7 @@
 					1140
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): The Tower of Althalaxx (1140, min level 13) is offered by Delgren when The Tower of Althalaxx before it (973) is handed in (a recorded player took it then): taken on 06-ashenvale's Maestra's Post stop, so 06-wetlands' Ashenvale trip goes from Melyria straight east to Shael'dryn instead of north to Maestra's Post for the accept and back (about 640 yd), and visits Delgren once, to hand it in."
+				"why": "Delgren offers 1140 after 973. Give him a ready tome at Maestra's Post and take the next quest there on the same visit. A character who was too low to fight Ilkrud can do so on the Wetlands return; a fresh arrival without 973 does not get sent north just for 1140."
 			},
 			{
 				"a": [
@@ -15581,16 +15581,22 @@
 			},
 			{
 				"a": [
-					"turnin",
+					"accept",
 					921
 				],
 				"b": [
-					"accept",
-					3522
+					"turnin",
+					3521
 				],
 				"faction": "Alliance",
-				"why": "Timed-quest sweep (2026-11-08): Iverron's Antidote lasts five minutes (quests.json limit 300 s). Taken from Dirania at the foot of Aldrassil before Tenaron's turn-in at the top, the moonwell and the climb back to Tenaron, it reached Iverron in about 8 minutes on the sweep's estimate; players' recordings: 24 characters took it, 2 failed its timer and 4 abandoned it. Taken on the way down after Crown of the Earth's turn-in, Dirania to Iverron is one short walk.",
+				"why": "Take Tenaron’s empty phial before collecting the five-minute antidote from Dirania at the foot of the tree. Hand in the ingredients and take the antidote from her in one conversation. The next stop is Iverron, with no climb or work before he receives it.",
 				"source": "recordings: rec.py quest 3522 (2 timer fails, 4 abandons of 24 characters); timed_sweep.py FAIL nightelf/01-teldrassil:96"
+			},
+			{
+				"a": ["turnin", 3522],
+				"b": ["turnin", 921],
+				"faction": "Alliance",
+				"why": "Finish the timed antidote at Iverron by the cave before filling Tenaron’s phial at the northern moonwell. The last descent from the tree leads out to Porthannius, not back north to Iverron."
 			},
 			{
 				"a": [
@@ -16811,12 +16817,6 @@
 				"q": 604,
 				"guide": "forever/alliance/40-50/05-the-hinterlands",
 				"reason": "It needs 3 quests from 01-stranglethorn-vale first (The Bloodsail Buccaneers (599), The Bloodsail Buccaneers (597), The Bloodsail Buccaneers (595); about 4,580 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 10,
-				"guide": "forever/alliance/40-50/07-un-goro-crater",
-				"reason": "The work for Gadgetzan Water Survey (992: Tapped Dowsing Widget) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{

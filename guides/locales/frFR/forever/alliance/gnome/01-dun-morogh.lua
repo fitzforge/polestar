@@ -283,9 +283,10 @@ return {
 	["{item:3084}: Leper Gnomes"] = "{item:3084} : Gnomes lépreux",
 
 	-- Step 46: Frostmane Hold
-	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
+	-- {quest:287} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée."
+	["{quest:287} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, sous terre",
 	["Walk to the far end of the cave until the quest gives explore credit."] = "",
@@ -660,6 +661,7 @@ return {
 	-- ["grind on {npc:260157}"] = "tuez en boucle : {npc:260157}",
 	-- ["{area:133}: kill these as you meet them"] = "{area:133} : tuez-les au passage",
 	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Les Ours Griffeglace, les Anciens sangliers des rochers et les Léopards des neiges que vous tuez en chemin comptent pour {npc:1374}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} et {item:6652}",
 	-- ["{npc:10090} is in the {object:32390}, {npc:258785} in the {object:32386}, {npc:6120} in the {object:32383}."] = "{npc:10090} est dans la Salle des Armes, {npc:258785} dans la Salle des Mystères, {npc:6120} dans la {object:32383}.",
 	-- ["{npc:1117} along the way to {area:134}"] = "{npc:1117} sur le chemin de {area:134}",

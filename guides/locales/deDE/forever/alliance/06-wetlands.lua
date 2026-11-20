@@ -329,10 +329,12 @@ return {
 	-- Step 61: Raene Wolfrunner's Glowing Gem
 	-- {npc:3691} Raene Wolfrunner · {item:5463} Glowing Gem
 	["{npc:3691}'s {item:5463}"] = "",
-	-- {npc:3916} Shael'dryn
-	["Keep the Glowing Gem Raene gives you with her message. {npc:3916} needs the gem in your bags even though the quest log lists no items. If you banked it, retrieve it before going to the moonwell."] = "",
+	-- {npc:3916} Shael'dryn · {item:5463} Glowing Gem · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3916} needs the {item:5463} in your bags even though the quest log lists no items. If you banked it, retrieve it. If it's gone, return to {npc:3691} in {area:415} before abandoning her message. Take it from her again to get the gem back."] = "",
+	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3691} at the {area:415} inn"] = "",
 	-- {npc:3691} Raene Wolfrunner
-	["At {npc:3691}'s handoff, not another murloc hunt"] = "",
+	["{npc:3691} supplies the gem with 1024; do not point to the murlocs"] = "",
 
 	-- Step 62: Raene Wolfrunner's message
 	-- {npc:3691} Raene Wolfrunner
@@ -430,17 +432,15 @@ return {
 	["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {npc:3987} auf dem Rückweg von {area:413}",
 	-- {npc:3961} Maliynn
 	["{npc:3961}, in the inn"] = "{npc:3961}, im Gasthaus",
+	-- {npc:3894} Pelturas Whitemoon
+	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}, im Gebäude südlich des Gasthauses",
 
-	-- Step 82: Pelturas Whitemoon
-	-- was: ["{npc:3894}, inside the building south of the inn"] = "{npc:3894}, im Gebäude südlich des Gasthauses"
-	["Inside the building south of the inn"] = "",
-
-	-- Step 83: The Foulweald
+	-- Step 82: The Foulweald
 	["The Foulweald"] = "Die Fäulnisklauen",
 	-- {npc:3897} Krolg · {area:415} Astranaar
 	["On the way south-east to {npc:3897}: the Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "Auf dem Weg nach Südosten zu {npc:3897}: Die Faulgehölz-Furbolgs leben im Wald südlich der Straße, südöstlich von {area:415}. Der Höhlenwächter und die Ursas bewachen die Höhle.",
 
-	-- Step 84: Mystral Lake
+	-- Step 83: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} steht bei {area:420} am Ostufer von {area:421}, gleich nördlich der Straße zu {npc:3897}. Beschmutzte Wasserelementare waten im See; {npc:12759}, ein Wasserelementar der Stufe 27, läuft zwischen ihnen umher und lässt die Armschienen ebenfalls fallen.",
@@ -449,65 +449,65 @@ return {
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Töte die Elementare für 5 intakte Elementararmschienen und benutze dann {item:5456}",
 
-	-- Step 85: Krolg
+	-- Step 84: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, ein Furbolg, den die Verderbnis nicht berührt hat, sitzt südlich der Straße unterhalb vom {area:421}. Benutze zuerst {item:5462} in seiner Nähe: Er spricht nur in Furbolggestalt mit dir.",
 
-	-- Step 86: Ran Bloodtooth
+	-- Step 85: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} und seine Wachen lagern direkt östlich von {npc:3897}.\nVorsicht: Wölfe und Spinnen streifen in der Nähe des Lagers umher und können in einen Kampf eingreifen. Einige der Wölfe kommen paarweise.",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
 	["{item:5388}, from {npc:3696}"] = "{item:5388}, von {npc:3696}",
 
-	-- Step 88: Melyria and Illiyana
+	-- Step 87: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "Von {npc:3897} nach Westen entlang der südlichen Hügel zum {area:416}: Melyria und {npc:3901} stehen zusammen dort.",
 
-	-- Step 89: Illiyana
+	-- Step 88: Illiyana
 	-- {npc:3901} Illiyana
 	["{npc:3901} stands beside Melyria."] = "{npc:3901} steht neben Melyria.",
 	-- {npc:3901} Illiyana · {item:5461} Branch of Cenarius
 	["{npc:3901}: the {item:5461}"] = "{npc:3901}: {item:5461}",
 
-	-- Step 90: The Branch of Cenarius, taken alone
+	-- Step 89: The Branch of Cenarius, taken alone
 	-- {quest:1031} The Branch of Cenarius
 	["{quest:1031}, taken alone"] = "{quest:1031}, allein angenommen",
 	-- {quest:1031} The Branch of Cenarius · {npc:4619} Geltharis
 	["Not grouped? {quest:1031} ({npc:4619}, 32) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "Nicht in einer Gruppe? {quest:1031} ({npc:4619}, 32) ist ein Kampf für eine Gruppe auf dieser Stufe: Brich sie ab, die Route kommt nicht dafür zurück.",
 
-	-- Step 91: Insane Druids, taken alone
+	-- Step 90: Insane Druids, taken alone
 	-- {quest:1012} Insane Druids
 	["{quest:1012}, taken alone"] = "{quest:1012}, allein angenommen",
 	-- {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Not grouped? {quest:1012} (the {area:432}) is a fight for a group at this level: abandon it, the route doesn't come back for it."] = "Nicht in einer Gruppe? {quest:1012} ({area:432}) ist ein Kampf für eine Gruppe auf dieser Stufe: Brich sie ab, die Route kommt nicht dafür zurück.",
 
-	-- Step 92: Delgren the Purifier
+	-- Step 91: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {quest:967} The Tower of Althalaxx · {zone:1439} Darkshore
 	["{npc:3663}: {quest:967}, if you still carry it from {zone:1439}"] = "{npc:3663}: {quest:967}, falls du sie noch aus {zone:1439} dabeihast",
 
-	-- Step 93: Delgren the Purifier
+	-- Step 92: Delgren the Purifier
 	-- {area:413} Maestra's Post
 	["North to {area:413}."] = "Nach Norden nach {area:413}.",
 
-	-- Step 94: Dal Bloodclaw
+	-- Step 93: Dal Bloodclaw
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
 	["From {area:413}, east to the Thistlefur camp north of {area:415}: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "Von {area:413} nach Osten zum Lager der Distelfelle nördlich von {area:415}: {npc:3987} führt dort die Furbolgs an. Dann nach Süden nach {area:415}.\nVorsicht: Die Furbolgs in seiner Nähe greifen meist mit ein, wenn du ihn ziehst. Töte zuerst die auf seinem Weg, dann kannst du ihn allein bekämpfen.",
 
-	-- Step 95: Astranaar
+	-- Step 94: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Von {npc:3987}s Lager nach Süden nach {area:415}: {npc:3691} im Gasthaus, der Flugmeister am Westende.",
 
-	-- Step 96: Fly to Auberdine
+	-- Step 95: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Flieg nach {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "Flugmeister von {area:415}",
 
-	-- Step 98: Caitlin Grassman
+	-- Step 97: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
 	["Off the boat, {npc:1480} stands beside Menethil's inn, on the way to the flight master."] = "Wenn du vom Boot kommst, steht {npc:1480} neben dem Gasthaus von Menethil, auf dem Weg zum Flugmeister.",
 
-	-- Step 99: Fly to Ironforge
+	-- Step 98: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {npc:1571} Shellei Brondir
@@ -515,66 +515,66 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Flugmeister von {area:150}",
 
-	-- Step 101: High Explorer Magellas
+	-- Step 100: High Explorer Magellas
 	-- {quest:98824} Prehistoric Prism · {npc:5387} High Explorer Magellas · {object:32356} Hall of Explorers (no name in this language: may be words) · {object:32372} Great Forge (no name in this language: may be words)
 	["{quest:98824}: {npc:5387} stands in the {object:32356}, north-east of the {object:32372}."] = "{quest:98824}: {npc:5387} steht in {object:32356}, nordöstlich von {object:32372}.",
 
-	-- Step 102: Ironforge priests
+	-- Step 101: Ironforge priests
 	-- {zone:1455} Ironforge
 	["{zone:1455} priests"] = "Priester in {zone:1455}",
 	-- {npc:11406} High Priest Rohan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
 	["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} und {npc:258785} sind in {object:32386}, in {object:32362}.",
 
-	-- Step 103: Tram to Stormwind City
+	-- Step 102: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Tram to {zone:1453}"] = "Tiefenbahn nach {zone:1453}",
 
-	-- Step 104: Baros Alexston
+	-- Step 103: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
 	["{npc:1646} stands in the {object:2098}."] = "{npc:1646} steht auf dem {object:2098}.",
 	-- {npc:1646} Baros Alexston · {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {quest:97914}, {npc:3649}'s letter, if you still carry it"] = "{npc:1646}: {quest:97914}, der Brief von {npc:3649}, falls du ihn noch dabeihast",
 
-	-- Step 105: Cathedral of Light
+	-- Step 104: Cathedral of Light
 	["Cathedral of Light"] = "Kathedrale des Lichts",
 	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Nimm {area:2257} von {object:171524} zu {object:28027} in {zone:1453} und geh dann zu {object:2098}.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, in der Kathedrale des Lichts",
 
-	-- Step 106: Stormwind Keep
+	-- Step 105: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["Only if you looted {quest:337} in {zone:1431}"] = "Nur wenn du {quest:337} in {zone:1431} erbeutet hast",
 
-	-- Step 107: Lord Grayson Shadowbreaker
+	-- Step 106: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker
 	["Back to the Cathedral of Light: {npc:928} stands inside."] = "Zurück zur Kathedrale des Lichts: {npc:928} steht drinnen.",
 	-- {npc:2228} Lieutenant Farren Orinelle · {area:271} Southshore
 	["For {npc:2228} in {area:271}: keep it"] = "Für {npc:2228} in {area:271}: behalte es",
 
-	-- Step 108: Warden Thelwater
+	-- Step 107: Warden Thelwater
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square
 	["For your {area:717} run: {npc:1719} keeps the {area:717}'s gate, south of the {object:2098}."] = "Für deinen Run durch {area:717}: {npc:1719} bewacht das Tor von {area:717}, südlich von {object:2098}.",
 
-	-- Step 109: Warden Thelwater
+	-- Step 108: Warden Thelwater
 	-- {npc:1719} Warden Thelwater · {quest:389} Bazil Thredd · {npc:1646} Baros Alexston
 	["{npc:1719}: {quest:389}, from {npc:1646}"] = "{npc:1719}: {quest:389}, von {npc:1646}",
 
-	-- Step 111: Stockade
+	-- Step 110: Stockade
 	-- {area:717} Stockade · {npc:1719} Warden Thelwater · {object:2098} Cathedral Square · {npc:1663} Dextren Ward · {quest:389} Bazil Thredd
 	["{area:717} is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is {npc:1719}'s, south of the {object:2098}.\nInside: the Defias prisoners, convicts and insurgents for Thelwater, {npc:1663}'s hand for Millstipe, and {quest:389} at the far end."] = "{area:717} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 23 bis 29; ein Run dauert unter einer Stunde. Das Tor bewacht {npc:1719}, südlich von {object:2098}.\nDrinnen: die Gefangenen, Sträflinge und Aufständischen der Defias für Thelwater, die Hand von {npc:1663} für Millstipe und {quest:389} am hinteren Ende.",
 
-	-- Step 112: Warden Thelwater
+	-- Step 111: Warden Thelwater
 	-- {npc:1719} Warden Thelwater
 	["{npc:1719}, at the gate"] = "{npc:1719}, am Tor",
 
-	-- Step 114: Jorgen and Elling Trias
+	-- Step 113: Jorgen and Elling Trias
 	-- {npc:4959} Jorgen · {npc:482} Elling Trias
 	["{npc:4959} and {npc:482}"] = "{npc:4959} und {npc:482}",
 	-- {npc:482} Elling Trias · {object:2096} Trade District
 	["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}, der Käseladen in {object:2096}",
 
-	-- Step 115: Trade District
+	-- Step 114: Trade District
 	-- {area:42} Darkshire
 	["Next: fly to {area:42}."] = "Als Nächstes: Flieg nach {area:42}.",
 

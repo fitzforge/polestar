@@ -33,64 +33,77 @@ return {
 	-- Step 6: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。",
 
-	-- Step 15: The south dunes
-	["The south dunes"] = "",
-	-- {area:978} Zul'Farrak
-	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["The silithid and thistleshrub camps include level 50s. If you're short of 49, use the ordinary Dunemaul Ogres (45–46) on the southern edge of the compound, not the cave. A {area:978} group is another way to make up the difference."] = "",
+	-- Step 15: The northern lip of the Noxious Lair
+	-- {area:982} Noxious Lair
+	["The northern lip of the {area:982}"] = "",
+	["One insect part left? Pull the Wasps (45–48) onto the sand above the north edge of the hive. If neither drops it, skip this step and finish at 49; don't wait for them to respawn or enter the tunnels."] = "",
 
-	-- Step 16: The Noxious Lair
+	-- Step 19: Dunemaul Compound
+	-- {npc:11758} Andi Lynn · {area:976} Gadgetzan
+	["On the way to the south dunes, pull the Brutes and Enforcers singly. Clear Gor'marok's guards before taking on the Ravager (49). Keep his head for {npc:11758} on your way back to {area:976}."] = "",
+
+	-- Step 20: The south dunes
+	["The south dunes"] = "",
+	-- {area:982} Noxious Lair · {area:976} Gadgetzan · {quest:10} The Scrimshank Redemption · {area:981} Gaping Chasm · {area:1938} Broken Pillar · {zone:1446} Tanaris · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Thistleshrub Rootshapers = {npc:5485} Thistleshrub Rootshaper · Dunemaul Ogres = {npc:5471} Dunemaul Ogre
+	["The Hazzali tunnels and Thistleshrub Rootshapers can be level 50. Read “XP to go” on the level goal for your remaining experience. The ordinary Dunemaul Ogres (45–46) are on the southern edge of the compound. A full level here is a long grind; you can leave this guide open and earn the balance elsewhere.\nAt 49, if you still need insect parts, resume at the {area:982} and take them to Pestlezugg in {area:976} (50.9,27.0). Already on {quest:10}? Resume at the {area:981} south of the {area:1938}. If your {zone:1446} work is all paid, take the ramp to {npc:9619} (71.6,76.0 in Un'Goro)."] = "",
+
+	-- Step 21: Andi Lynn
+	-- {npc:11758} Andi Lynn · {area:976} Gadgetzan
+	["Take the head to {npc:11758} in {area:976} before entering the tunnels. Check your actual level after she pays you."] = "",
+
+	-- Step 22: Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "向西騎到沙丘中的森提帕爾蟲巢。任何森提帕爾都可能掉落昆蟲部位。\n小心：森提帕爾群居蠍在戰鬥中和戰鬥外都會施放{npc:4196}，召來打斷你的小怪。",
 
-	-- Step 19: The Gaping Chasm
-	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
+	-- Step 25: Gaping Chasm
+	-- {area:1938} Broken Pillar · {area:981} Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "",
 
-	-- Step 20: Dunemaul Compound
+	-- Step 26: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	-- was: ["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "向南騎到食人魔營地。裡面滿是蠻兵和執行者（46-48級）；{npc:12046}（49級）站在中間，周圍有守衛：先清掉他們。"
 	["Take the southern dunes to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "",
 
-	-- Step 21: Thistleshrub Valley: kill these as you meet them
+	-- Step 27: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：遇到就殺",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "向西騎進{quest:3362}。露水收集者會掉落腺體；只有部分是滿的，所以留下飽滿的那個。長瘤的灌木獸和塑根者也在這座山谷。\n小心：灌木獸到處遊走，很容易多拉到怪。",
 
-	-- Step 22: Andi Lynn
+	-- Step 28: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	-- was: ["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "向東北騎回{area:976}：{npc:11758}站在鎮上東側。"
 	["Ride back north-east to {area:976}. {npc:11758} stands on the east side of town."] = "",
 
-	-- Step 26: Gadgetzan
+	-- Step 32: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
 	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "在{zone:1428}指南的最後，交給{zone:1457}的{npc:7740}：留著它",
 
-	-- Step 28: Torwa Pathfinder
+	-- Step 34: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{zone:1449}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
 
-	-- Step 29: Fresh Threshadon Carcass
+	-- Step 35: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
-	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "死掉的長頸龍躺在{npc:9619}北邊的水邊。\n小心：毒皮暴掠龍（50-51級）在那一帶水邊獵食：拾取屍體前先一次拉一隻清掉。\n任何暴掠龍都可能掉落{item:280459}：右鍵點擊它，{npc:9619}會收下。",
+	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50–51) patrol the bank. At 49 let the 51s pass. Wait for one of the carcasses to clear before looting it.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "",
 
-	-- Step 30: Torwa Pathfinder
+	-- Step 36: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}，如果暴掠龍掉落了鱗片",
 	-- {area:1943} Ironstone Plateau
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上帶有毛皮：保留此任務，留待第二次來安戈洛時（約56級）完成",
 
-	-- Step 31: Lar'korwi Mates and the raft
+	-- Step 37: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "拉克維的配偶與木筏",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -99,11 +112,11 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "{object:161504}，水下",
 
-	-- Step 32: Torwa Pathfinder
+	-- Step 38: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "帶著腺體向東回到{npc:9619}。",
 
-	-- Step 33: Marshal's Refuge
+	-- Step 39: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile · {npc:9272} Spark Nilminer
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on.\n{npc:9272}'s Dinosaur Bones can also drop from the Young Diemetradons you will hunt for scales. Take his quest if you have room; eight bones are not needed to leave the crater."] = "",
@@ -121,7 +134,7 @@ return {
 	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任務在51-55級怪物之間：留待之後約56級再來安戈洛時完成。"
 	["{npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "",
 
-	-- Step 34: Fire Plume Ridge and the eastern jungle
+	-- Step 40: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537}與東部叢林",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -134,24 +147,24 @@ return {
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
 	["Dinosaur Bones, from Young Diemetradons already being hunted"] = "",
 
-	-- Step 35: Lakkari Tar Pits
+	-- Step 41: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "水晶簇遍布整個環形山。焦油坑的焦油獸王（53-54）和周圍的軟泥怪（50-54）等級比你高：去叢林東北緣，在鞭笞者和幼獸（48-50）之間採水晶簇。",
 
-	-- Step 36: Marshal's Refuge
+	-- Step 42: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}，地下",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "交給{zone:1444}的{npc:7775}：保留此任務",
 
-	-- Step 38: Level 49.79
+	-- Step 44: Level 49.79
 	["Level 49.79"] = "",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "交完避難營的任務後仍不到49.79級？離開環形山前，先在東部叢林（你打花瓣的地方）的血瓣花鞭笞者和打穀者（48-50）身上練一下。",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "刷{npc:6511}",
 
-	-- Step 39: Fly to Astranaar
+	-- Step 45: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "飛往{area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
@@ -159,17 +172,17 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "{area:541}飛行管理員",
 
-	-- Step 40: To Ironforge
+	-- Step 46: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "前往{zone:1455}",
 
-	-- Step 41: Mystic Ward
+	-- Step 47: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交給{zone:1447}的奧汀克，保留此任務",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}，法師訓練師：給{zone:1447}的{npc:8395}，留著",
 
-	-- Step 44: Fly to Astranaar
+	-- Step 50: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}飛行管理員",
 
@@ -217,6 +230,7 @@ return {
 	-- ["The Centipaar silithid crawl around the {area:982} in western {zone:1446}, just east of the crater ramp. The Workers are the easiest pulls."] = "森提帕爾異種蟲在{zone:1446}西部的{area:982}周圍爬行，就在環形山坡道東邊。工蠍最容易拉。",
 	-- ["The Gorishi hive"] = "格里什蟲巢",
 	-- ["The dead Threshadon lies by the water north of {npc:9619}."] = "死去的蛇頸龍躺在{npc:9619}北邊的水邊。",
+	-- ["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "死掉的長頸龍躺在{npc:9619}北邊的水邊。\n小心：毒皮暴掠龍（50-51級）在那一帶水邊獵食：拾取屍體前先一次拉一隻清掉。\n任何暴掠龍都可能掉落{item:280459}：右鍵點擊它，{npc:9619}會收下。",
 	-- ["The east side"] = "東側",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "猩猩住在{area:541}東邊的{area:1943}。把牠們的毛皮留給{npc:9619}。不要進入最深的洞穴：{npc:9622}是55級。",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}的猩猩成小群出現，目前還不會為你掉落任何東西；{npc:9619}的毛皮任務稍後才有。不要進入最深的洞穴：{npc:9622}是55級。",

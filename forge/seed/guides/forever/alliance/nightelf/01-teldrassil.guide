@@ -19,6 +19,15 @@ next forever/alliance/nightelf/02-darkshore
 
 # ---------------------------------------------------------------- Shadowglen
 
+step Conservator Ilthalaine
+  when !onquest 3522
+  accept 456                                  -- Beside the starting spot; a player carrying Iverron’s timed antidote goes straight to him instead.
+
+step Iverron’s antidote is already ticking
+  when onquest 3522
+  tip If Dirania already gave you the antidote, go straight to Iverron beside Shadowthread Cave before doing anything else. The timer is five minutes from pickup.
+  turnin 3522                                 -- Iverron
+
 step Aldrassil
   tip You start at the foot of Aldrassil, the great tree of Shadowglen.
   accept 456                                  -- Conservator Ilthalaine
@@ -100,9 +109,14 @@ step Aldrassil
   turnin 97236 optional
   turnin 917                                  -- Gilshalan Windwalker
   accept 920
-  turnin 3521                                 -- Dirania Silvershine
   turnin 920                                  -- Tenaron Stormgrip, at the top of the tree
   accept 921
+
+step Iverron's Antidote
+  tip After taking Tenaron’s empty phial, bring the ingredients to Dirania at the foot of the tree. Once you take the antidote you have five minutes: go straight to Iverron beside the cave before you visit the moonwell.
+  turnin 3521                                 -- Dirania Silvershine
+  accept 3522                                 -- Dirania Silvershine
+  turnin 3522                                 -- Iverron
 
 step The moonwell
   tip The moonwell sits north of Aldrassil.
@@ -115,11 +129,6 @@ step Tenaron Stormgrip
   accept 928
   accept 96630                                -- Lost Journal, upstairs
   accept 5622 only Priest                     -- Shanda, the priest trainer, on the second level of Aldrassil on the way down: Laurna Morninglight in Dolanaar takes it
-
-step Iverron's Antidote
-  tip Take the antidote from Dirania Silvershine at the foot of Aldrassil only now, on the way down: it lasts five minutes. Iverron waits north-west, by the cave: go straight on to him.
-  accept 3522                                 -- Dirania Silvershine
-  turnin 3522                                 -- Iverron
 
 step Porthannius
   tip Leave Shadowglen by the path south-east of Aldrassil: Porthannius stands beside it, where it goes down towards the road to Dolanaar.
@@ -479,7 +488,7 @@ step Ursal the Mauler
   kill 2039 quest 486.1
 
 step Dolanaar again
-  tip Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. Byancie needs a Refreshing Spring Water with the fronds and vial; Innkeeper Keldamyr sells it here.
+  tip Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise follow the road north-east from Ursal's den. Byancie needs one Refreshing Spring Water with the fronds and vial. If you have none, buy one from Innkeeper Keldamyr.
   turnin 486                                  -- Athridas Bearmantle
   turnin 99050                                -- Byancie, inside
   accept 99073

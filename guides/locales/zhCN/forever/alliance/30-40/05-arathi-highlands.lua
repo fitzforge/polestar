@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "{area:320}的飞行管理员",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "下了飞行坐骑，直奔{area:271}旅店。然后到镇厅找{npc:2276}和{npc:2277}，交还辛迪加营地的任务，他们会派你北上前往{area:280}。",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}，在地下",
 
@@ -388,6 +388,7 @@ return {
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "向北经过{area:314}；碎片在{area:333}旁的山丘上闪闪发光。",
 	-- ["Inside"] = "在里面",
 	-- ["Off the flight, straight to the {area:271} inn."] = "落地后直接前往{area:271}的旅店。",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "下了飞行坐骑，直奔{area:271}旅店。然后到镇厅找{npc:2276}和{npc:2277}，交还辛迪加营地的任务，他们会派你北上前往{area:280}。",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向东北骑回，经过{area:320}；{npc:2712}和{npc:2713}在{area:314}以北的山丘扎营。",
 	-- ["Shaman training"] = "萨满祭司训练",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "沿西海岸向南，前往地精的海湾；哨兵鲁鲁在海湾上方的岩石上放哨。",

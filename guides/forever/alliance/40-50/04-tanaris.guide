@@ -260,7 +260,7 @@ step Oasis
   turnin 97540
 
 step Steamwheedle Port
-  tip From Torta, Steamwheedle Port is just west along the shore.
+  tip Meet Security Chief Bilgewhizzle inside Steamwheedle Port. If you escorted Tooga, follow the shore west from Torta.
   turnin 97530                        -- Security Chief Bilgewhizzle, inside
 
 # ---------------------------------------------------------------- The south

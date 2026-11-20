@@ -68,6 +68,7 @@ step Andi Lynn
   accept 5863
 
 step Andi Lynn
+  when subzone "Gadgetzan"
   when complete 5863
   turnin 5863
 
@@ -77,10 +78,12 @@ step Tran'rek
   accept 3362
 
 step Tran'rek
+  when subzone "Gadgetzan"
   when complete 3362
   turnin 3362
 
 step Marin Noggenfogger
+  when subzone "Gadgetzan"
   when complete 2605
   turnin 2605
   accept 2606
@@ -95,10 +98,61 @@ step Senior Surveyor Fizzledowser
   when !turnedin 82
   accept 82
 
+step The northern lip of the Noxious Lair
+  when level>=47
+  when level<49
+  when onquest 82
+  when !complete 82
+  when has 8587 x4
+  zone Tanaris
+  tip One insect part left? Pull the Wasps (45–48) onto the sand above the north edge of the hive. If neither drops it, skip this step and finish at 49; don't wait for them to respawn or enter the tunnels.
+  loop
+  goto 33.22,38.40 r 8
+  goto 33.82,39.54 r 8
+  collect 8587 quest 82.1 npc 5455
+
+step Alchemist Pestlezugg
+  when complete 82
+  turnin 82
+
+step Senior Surveyor Fizzledowser
+  when turnedin 82
+  when !onquest 10
+  when !turnedin 10
+  accept 10
+
+step Senior Surveyor Fizzledowser
+  when subzone "Gadgetzan"
+  when complete 10
+  turnin 10
+  accept 110
+  turnin 110
+  accept 113
+  turnin 113
+  accept 162
+
+step Dunemaul Compound
+  when level>=48
+  when level<49
+  when onquest 5863
+  when !complete 5863
+  zone Tanaris
+  tip On the way to the south dunes, pull the Brutes and Enforcers singly. Clear Gor'marok's guards before taking on the Ravager (49). Keep his head for Andi Lynn on your way back to Gadgetzan.
+  kill 5474 quest 5863
+  kill 5472 quest 5863
+  kill 12046 x1 quest 5863
+
 step The south dunes
   when level<49
-  tip The silithid and thistleshrub camps include level 50s. If you're short of 49, use the ordinary Dunemaul Ogres (45–46) on the southern edge of the compound, not the cave. A Zul'Farrak group is another way to make up the difference.
+  tip The Hazzali tunnels and Thistleshrub Rootshapers can be level 50. Read “XP to go” on the level goal for your remaining experience. The ordinary Dunemaul Ogres (45–46) are on the southern edge of the compound. A full level here is a long grind; you can leave this guide open and earn the balance elsewhere.
+  tip At 49, if you still need insect parts, resume at the Noxious Lair and take them to Pestlezugg in Gadgetzan (50.9,27.0). Already on The Scrimshank Redemption? Resume at the Gaping Chasm south of the Broken Pillar. If your Tanaris work is all paid, take the ramp to Torwa (71.6,76.0 in Un'Goro).
   level 49 grind 5471
+
+step Andi Lynn
+  when level<49
+  when complete 5863
+  tip Take the head to Andi Lynn in Gadgetzan before entering the tunnels. Check your actual level after she pays you.
+  turnin 5863
 
 step The Noxious Lair
   when level>=49
@@ -185,7 +239,7 @@ step Torwa Pathfinder
 
 step Fresh Threshadon Carcass
   tip The dead Threshadon lies by the water north of Torwa.
-  tip Careful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.
+  tip Careful: Venomhide Ravasaurs (50–51) patrol the bank. At 49 let the 51s pass. Wait for one of the carcasses to clear before looting it.
   tip Any ravasaur may drop a Crystal Infused Scale: right-click it, Torwa takes it.
   collect 11504 quest 4290            -- Piece of Threshadon Carcass
   collect 280459 x1 optional          -- Crystal Infused Scale

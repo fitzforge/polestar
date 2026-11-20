@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "Depuis {npc:6015}, {area:977} est juste à l'ouest le long du rivage.",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -251,6 +251,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Volez jusqu'à {area:348}. Le guide des {zone:1425} commence ici.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Suivez la côte vers le sud jusqu'à la Crique des Gréements. Des Pirates des Mers du sud envahissent la plage et les bateaux : progressez par les bords et attirez-les un par un. {npc:7883} se tient de l'autre côté ; la cargaison volée de {npc:7881} se trouve dans le camp.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Depuis le quai de la {area:1108}, prenez le bateau pour le Bastion de Pennelune et volez jusqu'à {area:489}, puis chevauchez vers l'est à travers {zone:1441} jusqu'au {area:2240} sur les {area:439}. {npc:4454} et {npc:4630} sont dans les camps près de la piste ; {npc:4709} se tient près du camp gobelin.",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "Depuis {npc:6015}, {area:977} est juste à l'ouest le long du rivage.",
 	-- ["He runs off to keep Rizzle busy"] = "Il s'éloigne pour occuper Rizzle Brassbolts",
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 	-- ["Hearth to {area:976}."] = "Pierre de foyer vers {area:976}.",

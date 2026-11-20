@@ -77,7 +77,7 @@ return {
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131}：涌冰湖和 {quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374} 站在 {area:131} 西北方湖边的 {area:137} 旁；{quest:287} 位于其西边的巨魔洞穴。",
-	["walk to the back of the cave"] = "走到洞穴深处。",
+	["Walk to the far end of the cave until the quest gives explore credit."] = "",
 
 	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos
@@ -174,6 +174,7 @@ return {
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
 	-- ["These quests are level 52 to 59, so they pay in full at 60, or nearly: about 600 {faction:47} reputation (in Classic about 450 at 60, as the {zone:1428} ones are level 52 to 54). {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "这些任务为52到59级，因此60级时仍可获得全额或接近全额的奖励：约600点{faction:47}声望（经典版中60级时约450，因为{zone:1428}的任务为52到54级）。{npc:8879}站在{object:171709}的麦格尼国王旁；他会派你去{zone:1428}的索瑞森废墟。",
+	-- ["walk to the back of the cave"] = "走到洞穴深处。",
 	-- ["{npc:14723} takes cloth for {faction:47} in {faction:47}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7806} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14723}在{faction:47}收取布料以提升{faction:47}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7806}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14723}: {item:14047} delivered"] = "{npc:14723}：已交付{item:14047}",
 	-- ["{quest:7806} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7806}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",

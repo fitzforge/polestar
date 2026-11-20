@@ -2,12 +2,32 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "2915-searing-twilight-document",
+			"faction": "Alliance",
+			"quest": 3378,
+			"objective": 1,
+			"at": { "map": 1427, "x": 23.8, "y": 38.14, "frame": "live" },
+			"note": "Optional drops in the southern Twilight camp. Zamael is the giver on the northern ridge, not the loot target.",
+			"source": { "kind": "recording", "ref": "Three counted Prayer to Elune objective recordings at 23.80,38.14 in Searing Gorge (13-yard cluster)." },
+			"issue": 2915
+		},
+		{
+			"id": "043-a-southern-mistvale-giblets",
+			"faction": "Alliance",
+			"quest": 606,
+			"objective": 1,
+			"at": { "map": 1434, "x": 31.15, "y": 67.93, "frame": "era" },
+			"note": "The southern Elder Mistvale Gorilla spawn is the first on the return from the northern Bloodsail beach. Keep the Alliance approach on this side of the hills.",
+			"source": { "kind": "pfquest", "ref": "Elder Mistvale Gorilla (1557), Stranglethorn Vale spawn at 31.15,67.93." },
+			"issue": 3144
+		},
+		{
 			"id": "3044-frostmane-hold-explore",
 			"quest": 287,
 			"objective": 2,
 			"faction": "Alliance",
 			"at": { "map": 1426, "x": 21.3, "y": 54.2, "frame": "era" },
-			"note": "The explore credit is at the far end of Frostmane Hold. Keep the completion goal there even after the headhunter kills and approach waypoint are checked.",
+			"note": "After the five Headhunters, keep the unfinished explore objective pointed at the far end of Frostmane Hold. The same trigger gives credit on the Dwarf and Gnome starts and the Ironforge and Gnomeregan Exiles reputation routes; reaching the map point alone does not finish the quest.",
 			"source": [
 				{ "kind": "in-game-check", "ref": "#3044: Gnome Warlock, five headhunters killed and cave waypoint checked, but the arrow led back to the camp before explore credit" },
 				{ "kind": "recording", "ref": "quest 287 objective 2: 17 recorded explore credits average 21.28,54.15; the later 38 counted observations cluster at 21.23,53.99" }

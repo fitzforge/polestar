@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "Maître de vol du {area:320}",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "À la descente du vol, allez directement à l'Auberge d'{area:271}. Puis {npc:2276} et {npc:2277}, à l'hôtel de ville, prennent les quêtes du camp du Syndicat et vous envoient au nord à {area:280}.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, sous terre",
 
@@ -388,6 +388,7 @@ return {
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Allez au nord au-delà de {area:314} ; les éclats scintillent sur la colline près de {area:333}.",
 	-- ["Inside"] = "À l'intérieur",
 	-- ["Off the flight, straight to the {area:271} inn."] = "En descendant du griffon, allez directement à l'auberge d'{area:271}.",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "À la descente du vol, allez directement à l'Auberge d'{area:271}. Puis {npc:2276} et {npc:2277}, à l'hôtel de ville, prennent les quêtes du camp du Syndicat et vous envoient au nord à {area:280}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Retournez au nord-est au-delà de {area:320} ; {npc:2712} et {npc:2713} campent dans les collines au nord de {area:314}.",
 	-- ["Shaman training"] = "Entraînement de chaman",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Longez la côte ouest vers le sud jusqu'à la crique des gobelins ; Lolo monte la garde sur les rochers au-dessus.",

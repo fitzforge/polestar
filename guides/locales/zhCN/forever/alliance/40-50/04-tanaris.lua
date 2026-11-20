@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "从{npc:6015}处沿海岸向西不远就是{area:977}。",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -251,6 +251,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "飞往{area:348}。{zone:1425}指南从这里开始。",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "沿海岸向南到落帆海湾。南海海盗挤满了海滩和船：沿着边缘清理，一次拉一个。{npc:7883}站在远端；{npc:7881}被偷的货物在营地里。",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "从{area:1108}码头乘船前往羽月要塞，飞往{area:489}，然后向东骑过{zone:1441}，到{area:439}的{area:2240}。{npc:4454}和{npc:4630}在赛道旁的营地里；{npc:4709}站在地精营地旁。",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "从{npc:6015}处沿海岸向西不远就是{area:977}。",
 	-- ["He runs off to keep Rizzle busy"] = "他会跑去拖住瑞兹尔·铜栓",
 	-- ["Hearth to {area:976}."] = "用炉石返回{area:976}。",
 	-- ["Ride back west to {area:976}."] = "向西骑回{area:976}。",

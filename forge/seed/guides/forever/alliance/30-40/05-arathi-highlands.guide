@@ -361,7 +361,7 @@ step Fly to Southshore
 
 step Brewmeister Bilger
   zone Hillsbrad Foothills
-  tip Off the flight, straight to the Southshore inn. Then Magistrate Henry Maleb and Loremaster Dibbs, in the town hall, take the Syndicate camp's quests and send you north to Strahnbrad.
+  tip Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have Quae's report, give it to Phin outside on your way to the town hall.
   turnin 647                          -- Brewmeister Bilger, below ground
 
 step Phin Odelic

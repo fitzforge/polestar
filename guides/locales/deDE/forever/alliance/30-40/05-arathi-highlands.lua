@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "Flugmeister von {area:320}",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Nach dem Flug direkt ins Gasthaus von {area:271}. Dann nehmen {npc:2276} und {npc:2277} im Rathaus die Quests zum Lager des Syndikats an und schicken dich nach Norden nach {area:280}.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, unter der Erde",
 
@@ -387,6 +387,7 @@ return {
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Geh nach Norden an {area:314} vorbei; die Splitter glitzern auf dem Hügel bei {area:333}.",
 	-- ["Inside"] = "Drinnen",
 	-- ["Off the flight, straight to the {area:271} inn."] = "Direkt nach dem Flug zum Gasthaus von {area:271}.",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Nach dem Flug direkt ins Gasthaus von {area:271}. Dann nehmen {npc:2276} und {npc:2277} im Rathaus die Quests zum Lager des Syndikats an und schicken dich nach Norden nach {area:280}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Reite zurück nach Nordosten an {area:320} vorbei; {npc:2712} und {npc:2713} lagern in den Hügeln nördlich von {area:314}.",
 	-- ["Shaman training"] = "Schamanentraining",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Südlich entlang der Westküste zur Bucht der Goblins; Lolo hält auf den Felsen darüber Wache.",

@@ -120,12 +120,12 @@ return {
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "Rackmores Truhe liegt gleich südöstlich von {object:177673}.",
 
 	-- Step 24: Nijel's Point
-	-- {area:608} Nijel's Point · {area:2405} Ethel Rethor · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
-	["Hearth to {area:608} if you are still bound there and the stone is ready. Otherwise follow the road east from {area:2405} and up the pass. Hand in at {npc:5396}, {npc:5638} and {npc:1182} before the flight."] = "",
-	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
-	["for {npc:5637} in {zone:1455}: keep it"] = "für {npc:5637} in {zone:1455}: behalte sie",
+	-- {area:608} Nijel's Point · {npc:1182} Brother Anton · {npc:5638} Kreldig Ungor · {npc:5396} Captain Pentigast · {area:2405} Ethel Rethor
+	["Hearth to {area:608} if you're bound there and the stone is ready. From the inn, turn in what's ready as you head south: {npc:1182}, {npc:5638}, then {npc:5396}. On foot, take the road east from {area:2405} and up the pass. If you have all five carved totems, the captain takes them at the entrance."] = "",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "für {npc:3980} in {area:271}: behalte sie",
+	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
+	["for {npc:5637} in {zone:1455}: keep it"] = "für {npc:5637} in {zone:1455}: behalte sie",
 
 	-- Step 25: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",

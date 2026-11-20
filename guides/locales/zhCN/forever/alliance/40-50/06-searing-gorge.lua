@@ -61,8 +61,8 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:8436}站在{area:1446}西边{area:1442}的暮光营地里，周围是暮光火焰卫士、暮光崇拜者和暮光地占师（48-49 级精英），旁边还有{npc:8282}（51 级稀有精英）：{quest:3377}需要 4 人小队。独自一人时可跳过。",
 
 	-- Step 14: Zamael Lunthistle
-	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
-	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
+	-- {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["Twilight cultists can drop the prayer. Keep it for {npc:4090} in {zone:1457} if you find it; don't make a separate trip for it."] = "",
 
 	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
@@ -116,6 +116,11 @@ return {
 	-- {npc:14621} Overseer Maltorius
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:14621}是 50 级精英，多数职业到 52 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
+	-- Step 30: Lookout Captain Lolo Longstriker
+	-- {area:1446} Thorium Point · {npc:14627} Hansel Heavyhands · {npc:14624} Master Smith Burninate
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Before leaving {area:1446}, report to {npc:14627} if you've killed all 20 Incendosaurs. If you have the Secret Plans, give them to {npc:14624}. Leave any unfinished errand for the later visit."] = "",
+
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "等级 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius
@@ -124,9 +129,9 @@ return {
 	["grind on {npc:9318}"] = "反复击杀{npc:9318}补足经验",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- {item:10552} Symbol of Ragnaros · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
 	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
+	["Hunt the elite Twilight Dark Shamans with a group of three for the {item:10552}. If you took {npc:8436}'s request, the shamans can also drop the {quest:3378}. Leave once you have the symbol; the prayer is optional."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade

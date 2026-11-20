@@ -281,7 +281,7 @@ step Gorilla hills
   when onquest 606
   when !complete 606
   tip From the beach take the road inland to the southern edge of the gorilla hills. The Elder Mistvale Gorillas here are 40–41; at 39 pull only level 40s.
-  collect 3919 quest 606 @31.15,67.93 map 1434 era              -- Mistvale Giblets
+  collect 3919 quest 606.1 @31.15,67.93 map 1434 era            -- Mistvale Giblets
 
 step Booty Bay
   tip Head back down to town; Shaky stands at the tunnel mouth.

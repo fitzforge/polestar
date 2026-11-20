@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "Von {npc:6015} aus liegt {area:977} gleich westlich am Ufer entlang.",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -251,6 +251,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Flieg nach {area:348}. Der Guide für {zone:1425} beginnt hier.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Folge der Küste nach Süden zur Piratenbucht. Piraten der Südmeerfreibeuter drängen sich am Strand und auf den Booten: Arbeite dich am Rand entlang und zieh einen nach dem anderen. {npc:7883} steht auf der anderen Seite; die gestohlene Fracht von {npc:7881} liegt im Lager.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Nimm vom Steg im Gebiet {area:1108} das Boot nach Feathermoon und flieg nach {area:489}, dann reite nach Osten durch {zone:1441} zur {area:2240} im Gebiet {area:439}. {npc:4454} und {npc:4630} sind in den Lagern neben der Rennstrecke; {npc:4709} steht beim Goblinlager.",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "Von {npc:6015} aus liegt {area:977} gleich westlich am Ufer entlang.",
 	-- ["He runs off to keep Rizzle busy"] = "Er läuft los, um Rizzle abzulenken",
 	-- ["Hearth to {area:976}."] = "Ruhestein nach {area:976}.",
 	-- ["Ride back west to {area:976}."] = "Reite zurück nach Westen nach {area:976}.",

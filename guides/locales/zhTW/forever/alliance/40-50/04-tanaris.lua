@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "從{npc:6015}那裡沿著海岸往西不遠就是{area:977}。",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -250,6 +250,7 @@ return {
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "從{area:976}飛往塞拉摩，搭船前往{area:150}，再飛往{area:1537}。訓練。",
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "飛往{area:348}。{zone:1425}指南從這裡開始。",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "從{area:1108}的碼頭搭船前往羽月要塞並飛往{area:489}，然後向東騎過{zone:1441}，前往{area:439}上的{area:2240}。{npc:4454}和{npc:4630}在賽道旁的營地裡；{npc:4709}站在哥布林營地旁。",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "從{npc:6015}那裡沿著海岸往西不遠就是{area:977}。",
 	-- ["He runs off to keep Rizzle busy"] = "他跑去拖住瑞茲爾",
 	-- ["Hearth to {area:976}."] = "用爐石回{area:976}。",
 	-- ["Ride back west to {area:976}."] = "向西騎回{area:976}。",

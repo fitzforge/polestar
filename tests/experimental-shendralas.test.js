@@ -100,3 +100,26 @@ test("Shen'dralas: skipping an unfinished repair never offers Mordent’s paymen
 		}
 	} finally { pack.dispose(); }
 });
+
+test("Shen'dralas: a repaired western pylon does not send a returning player down the western road (#2923, #3014)", { skip }, () => {
+	const pack = buildSimPack(['forever/40-50/shendralas.guide']);
+	try {
+		for (const [race, faction] of [['Orc', 'Horde'], ['Human', 'Alliance']]) {
+			for (const west of [0, 1]) {
+				const [first, target] = playGuide(pack, pack.guides[0], { race, faction, cls: 'WARRIOR',
+					before: `w.level=46; w.moveTo(2652,40.18,49.62); w.setZone("Shen'dralas"); w.complete({96010});
+						w.onQuest(96018,{{type="item",required=1,fulfilled=1},{type="event",required=1,fulfilled=${west}},{type="event",required=1,fulfilled=0}});
+						w.addItem(255662,1); w.addItem(255667,4)`,
+					script: `local E,w=Polestar.Engine,stub.world;local G=E.GetGuide();local start
+						for i,s in ipairs(G.steps) do for _,g in ipairs(s.goals) do if g.t=='collect' and g.item==255667 then start=start or i end end end
+						assert(start);E.SkipUpTo(start);stub.advance(.6);local function point() local p=E.GetWaypoint();return p and {p.map,p.x,p.y} end
+						emit(point());w.moveTo(2652,43.9,37.0);stub.advance(.6);emit(point())`,
+				});
+				assert.deepEqual(first, west ? [2652,73.4,23.91] : [2652,43.9,37], `${faction}: spend the crystals only where repair credit is missing`);
+				if (west) assert.deepEqual(target, [2652,73.4,23.91], 'a credited repair still points east after passing the road');
+				else assert.ok([[43.97,35.59], [43.89,35.64]].some(([x,y]) => target?.[0] === 2652 && target[1] === x && target[2] === y),
+					'an unfinished repair points only at one of the two witnessed west-face positions');
+			}
+		}
+	} finally { pack.dispose(); }
+});

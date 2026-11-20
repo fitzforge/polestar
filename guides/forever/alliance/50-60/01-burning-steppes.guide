@@ -41,7 +41,7 @@ step Talrendis Point
 
 step Shadowsong Shrine spirits
   zone Azshara
-  tip Ride south-west from Talrendis Point. Kill the Highborne Apparitions and Lichlings in the ruins around Shadowsong Shrine.
+  tip Ride north-east from Talrendis Point into the ruins. Highborne Apparitions and Lichlings haunt the broken walls.
   kill 6116 quest 5535.1              -- Highborne Apparition
   kill 6117 quest 5535.2              -- Highborne Lichling
 

@@ -33,10 +33,11 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在{area:42}西边、道路南侧的树林中潜行。",
 
-	-- Step 9: Calor's unfinished hunt
+	-- Step 9: Calor's hunt
 	-- {npc:663} Calor
-	["{npc:663}'s unfinished hunt"] = "",
-	["The Nightbane packs near Tranquil Gardens are level 29–31. Below 30, leave the hunt for later."] = "",
+	["{npc:663}'s hunt"] = "",
+	-- {area:121} Tranquil Gardens Cemetery
+	["The hunt is west of {area:121}. Leave the packs alone until level 30."] = "",
 
 	-- Step 11: Calor and Jonathan Carevin
 	-- {npc:663} Calor · {npc:661} Jonathan Carevin
@@ -62,9 +63,9 @@ return {
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}：在屋内",
 
-	-- Step 15: Calor's unfinished hunt
-	-- {area:42} Darkshire
-	["Keep the unfinished hunt while you head west. Check your level when you return to {area:42}."] = "",
+	-- Step 15: Calor's hunt
+	-- {npc:663} Calor · {area:42} Darkshire
+	["If you missed {npc:663}'s last hunt, take it before heading west. Keep it through the western circuit; check your level back in {area:42}."] = "",
 
 	-- Step 18: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
@@ -113,12 +114,27 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:482}，在下一份指南中",
 
-	-- Step 28: Viktori Prism'Antras
+	-- Step 25: Calor's hunt: reach 30 or keep it for later
+	-- {npc:663} Calor
+	["{npc:663}'s hunt: reach 30 or keep it for later"] = "",
+	-- {area:42} Darkshire · {quest:173} Worgen in the Woods · {area:121} Tranquil Gardens Cemetery · {npc:663} Calor · {npc:661} Jonathan Carevin
+	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
+	["To finish the hunt here, pull lone Nightbane Dark Runners (28–29) west of {area:42} until 30. Stay near the road and leave Fenros (32) alone; don't chase runners into the cemetery packs.\nPrefer to keep questing? Tick the keep-in-log line and leave {quest:173} in your log. At 30, track it west of {area:121}. Bring the kills to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
+	-- {quest:173} Worgen in the Woods
+	["Keep {quest:173} in my log for level 30"] = "",
+
+	-- Step 26: Keep Calor's hunt for level 30
+	-- {npc:663} Calor
+	["Keep {npc:663}'s hunt for level 30"] = "",
+	-- {quest:173} Worgen in the Woods · {area:121} Tranquil Gardens Cemetery · {npc:663} Calor · {area:42} Darkshire · {npc:661} Jonathan Carevin
+	["Leave the Nightbane alone. Keep {quest:173} in your quest log and earn levels elsewhere. At 30, track the hunt west of {area:121}. Return to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
+
+	-- Step 30: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在镇子东端，前往飞行管理员时会经过。",
 	["Inside"] = "在里面",
 
-	-- Step 29: Fly to Menethil Harbor
+	-- Step 31: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {area:42} Darkshire

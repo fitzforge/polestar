@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "{npc:6015}에서 해안을 따라 바로 서쪽에 {area:977}이(가) 있습니다.",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -249,6 +249,7 @@ return {
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "{area:976}에서 테라모어 섬으로 날아가, 배를 타고 {area:150}(으)로 간 다음 {area:1537}(으)로 날아가십시오. 기술을 배우십시오.",
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "{area:348}(으)로 날아가십시오. {zone:1425} 가이드는 여기서 시작합니다.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "{area:1108} 부두에서 배를 타고 페더문 요새로 가서 {area:489}(으)로 날아간 다음, {zone:1441}을(를) 지나 동쪽 {area:439}의 {area:2240}까지 가십시오. {npc:4454}와(과) {npc:4630}은(는) 경주로 옆 야영지에 있고, {npc:4709}은(는) 고블린 야영지 옆에 서 있습니다.",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "{npc:6015}에서 해안을 따라 바로 서쪽에 {area:977}이(가) 있습니다.",
 	-- ["He runs off to keep Rizzle busy"] = "그는 리즐 브라스볼츠의 주의를 끌러 달려갑니다",
 	-- ["Hearth to {area:976}."] = "귀환석으로 {area:976}에 가십시오.",
 	-- ["Ride back west to {area:976}."] = "서쪽 {area:976}(으)로 돌아가십시오.",

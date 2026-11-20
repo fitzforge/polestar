@@ -77,7 +77,7 @@ return {
 	["{area:131}: Brewnall and {quest:287}"] = "",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "",
-	["walk to the back of the cave"] = "",
+	["Walk to the far end of the cave until the quest gives explore credit."] = "",
 
 	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos

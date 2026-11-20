@@ -292,9 +292,10 @@ return {
 	["{item:3084}: Leper Gnomes"] = "{item:3084}：麻瘋地精",
 
 	-- Step 47: Frostmane Hold
-	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
+	-- {quest:287} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南方山丘中的食人妖洞穴。在洞口擊殺獵頭者，然後一路走到最深處。\n小心：要塞裡的霜鬃剝皮者是9-10級，成對站立：一次引一隻回洞口。",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南方山丘中的食人妖洞穴。在洞口擊殺獵頭者，然後一路走到最深處。\n小心：要塞裡的霜鬃剝皮者是9-10級，成對站立：一次引一隻回洞口。"
+	["{quest:287} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}，地下",
 	["Walk to the far end of the cave until the quest gives explore credit."] = "",
@@ -687,6 +688,7 @@ return {
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "地鐵抵達{object:28027}。{npc:5480}在{object:2100}訓練戰士；{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你打一架。",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。",
 	-- ["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從 {object:32383} 向西進入 {object:32362}：{npc:5149}、{npc:6179} 和 {npc:6178} 都在 {object:32386} 內，其中 {npc:6179} 和 {npc:6178} 在樓上；上樓的樓梯入口就在 {npc:5149} 東北側。乞丐 {npc:6175} 在城裡遊蕩。他需要十塊 {item:2589}：{zone:1426} 的穴居人和食人妖會掉落，也可從拍賣行購買。",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南方山丘中的食人妖洞穴。在洞口擊殺獵頭者，然後一路走到最深處。\n小心：要塞裡的霜鬃剝皮者是9-10級，成對站立：一次引一隻回洞口。",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026}和{item:6652}",
 	-- ["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}：由{zone:1455}的{npc:11406}接收",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}，在地下：露營入門，鐵匠",

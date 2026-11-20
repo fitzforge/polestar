@@ -161,18 +161,17 @@ do
 				},
 				{
 					title = "The road south of the western pylon",
-					note = "Check the western repair in your quest log. If it is already checked, do not visit this waypoint: take four crystals east to {area:16677} (73.4,23.9). Enter from the west and stay off the south side, away from Kog'thug and his bodyguards. Repair the eastern pylon there; the route resumes when the log shows both.\nNorth up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.",
-					label = "western-pylon-approach",
-					when = { { k = "done", label = "first-pylon-crystals" }, { k = "complete", neg = true, q = 96018 } },
+					note = "North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.",
+					when = { { k = "done", label = "first-pylon-crystals" }, { k = "complete", neg = true, q = 96018 }, { k = "done", neg = true, label = "western-pylon-repaired" } },
 					goals = {
 						{ t = "goto", text = "the road just south of the western pylon", map = 2652, x = 43.9, y = 37, r = 10 },
 					},
 				},
 				{
 					title = "The western pylon: repair it",
-					note = "Pull one {npc:252711} back to the road if it guards the crystal. Stand on the west face and use {spell:1289727}. The quest log must show the western pylon repaired; a dead Protector alone does not count.",
+					note = "Use {spell:1289727} from the west face. If it is out of reach, try the other marked spot on the same side. Killing a Protector does not repair it.",
 					label = "western-pylon-repaired",
-					when = { { k = "done", label = "western-pylon-approach" } },
+					when = { { k = "done", label = "first-pylon-crystals" }, { k = "complete", neg = true, q = 96018 } },
 					goals = {
 						{ t = "cast", spell = 1289727, spellName = "Repair and Recharge Pylon", map = 2652, x = 43.97, y = 35.59, optional = true },
 						{ t = "interact", quest = 96018, title = "Powering the Pylons", object = 577959, objName = "Shen'dralar Pylon", oi = 2, map = 2652, x = 43.97, y = 35.59, spotsPacked = "43.97,35.59,,4;43.89,35.64,,4", spread = true, note = "Repair the western pylon from this side", group = { kind = "elite", lvl = 45, near = true, rank = 1 } },

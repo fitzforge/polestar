@@ -77,7 +77,7 @@ return {
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131}: Brewnall e {quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374} fica perto de {area:137}, no lago a noroeste de {area:131}; {quest:287} é a caverna dos trolls a oeste dele.",
-	["walk to the back of the cave"] = "siga até o fundo da caverna",
+	["Walk to the far end of the cave until the quest gives explore credit."] = "",
 
 	-- Step 12: Kharanos: last hand-in
 	-- {area:131} Kharanos
@@ -173,6 +173,7 @@ return {
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Bandidos e Capatazes Pata Molhada (nível 16-18) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Mercenários da Camarilha na Bastilha de Stromgarde (nível 31-32) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["These quests are level 52 to 59, so they pay in full at 60, or nearly: about 600 {faction:47} reputation (in Classic about 450 at 60, as the {zone:1428} ones are level 52 to 54). {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "Essas missões são de nível 52 a 59, então pagam inteiro no 60, ou quase: cerca de 600 de reputação de {faction:47} (no Classic, cerca de 450 no 60, já que as de {zone:1428} são de nível 52 a 54). {npc:8879} fica ao lado do Rei Magni em {object:171709}; ele manda você às ruínas de Thaurissan em {zone:1428}.",
+	-- ["walk to the back of the cave"] = "siga até o fundo da caverna",
 	-- ["{npc:14723} takes cloth for {faction:47} in {faction:47}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7806} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14723} recebe tecido para {faction:47} em {faction:47}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma vez só e dão mais reputação por tecido; depois delas, {quest:7806} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14723}: {item:14047} delivered"] = "{npc:14723}: {item:14047} entregue",
 	-- ["{quest:7806} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7806} pede 20 {item:14047} por entrega e se repete quantas vezes quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",

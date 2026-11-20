@@ -25,9 +25,9 @@ return {
 	-- Step 4: Shadowsong Shrine spirits
 	-- {area:1235} Shadowsong Shrine
 	["{area:1235} spirits"] = "",
-	-- {area:3137} Talrendis Point · {area:1235} Shadowsong Shrine
+	-- {area:3137} Talrendis Point
 	-- plural, as words: Highborne Apparitions = {npc:6116} Highborne Apparition
-	["Ride south-west from {area:3137}. Kill the Highborne Apparitions and Lichlings in the ruins around {area:1235}."] = "",
+	["Ride north-east from {area:3137} into the ruins. Highborne Apparitions and Lichlings haunt the broken walls."] = "",
 
 	-- Step 5: Mosshoof Runners
 	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner

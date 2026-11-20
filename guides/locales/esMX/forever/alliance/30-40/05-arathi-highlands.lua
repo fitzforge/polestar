@@ -258,8 +258,8 @@ return {
 	["{area:320} flight master"] = "Maestro de vuelo de {area:320}",
 
 	-- Step 54: Brewmeister Bilger
-	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
-	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Al bajar del vuelo, ve directo a la Posada de {area:271}. Luego {npc:2276} y {npc:2277}, en el ayuntamiento, te dan las Misiones del campamento de la Hermandad y te envían al norte a {area:280}.",
+	-- {npc:2712} Quae · {npc:2711} Phin Odelic
+	["Give Bilger the moonshine downstairs at the inn before its timer runs out. If you have {npc:2712}'s report, give it to {npc:2711} outside on your way to the town hall."] = "",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, bajo tierra",
 
@@ -386,6 +386,7 @@ return {
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Ve al norte pasando {area:314}; los fragmentos brillan en la colina junto a {area:333}.",
 	-- ["Inside"] = "Adentro",
 	-- ["Off the flight, straight to the {area:271} inn."] = "Al bajar del vuelo, directo a la posada de {area:271}.",
+	-- ["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "Al bajar del vuelo, ve directo a la Posada de {area:271}. Luego {npc:2276} y {npc:2277}, en el ayuntamiento, te dan las Misiones del campamento de la Hermandad y te envían al norte a {area:280}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Cabalga de vuelta al noreste pasando {area:320}; {npc:2712} y {npc:2713} acampan en las colinas al norte de {area:314}.",
 	-- ["Shaman training"] = "Entrenamiento de chamán",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Al sur por la costa oeste hasta la cala de los goblins; Lolo vigila desde las rocas de arriba.",

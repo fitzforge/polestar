@@ -33,64 +33,77 @@ return {
 	-- Step 6: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Вы пропустили это при прошлом посещении этих мест по маршруту: теперь это идёт первым. Это быстро и открывает следующие задания.",
 
-	-- Step 15: The south dunes
-	["The south dunes"] = "",
-	-- {area:978} Zul'Farrak
-	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["The silithid and thistleshrub camps include level 50s. If you're short of 49, use the ordinary Dunemaul Ogres (45–46) on the southern edge of the compound, not the cave. A {area:978} group is another way to make up the difference."] = "",
+	-- Step 15: The northern lip of the Noxious Lair
+	-- {area:982} Noxious Lair
+	["The northern lip of the {area:982}"] = "",
+	["One insect part left? Pull the Wasps (45–48) onto the sand above the north edge of the hive. If neither drops it, skip this step and finish at 49; don't wait for them to respawn or enter the tunnels."] = "",
 
-	-- Step 16: The Noxious Lair
+	-- Step 19: Dunemaul Compound
+	-- {npc:11758} Andi Lynn · {area:976} Gadgetzan
+	["On the way to the south dunes, pull the Brutes and Enforcers singly. Clear Gor'marok's guards before taking on the Ravager (49). Keep his head for {npc:11758} on your way back to {area:976}."] = "",
+
+	-- Step 20: The south dunes
+	["The south dunes"] = "",
+	-- {area:982} Noxious Lair · {area:976} Gadgetzan · {quest:10} The Scrimshank Redemption · {area:981} Gaping Chasm · {area:1938} Broken Pillar · {zone:1446} Tanaris · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Thistleshrub Rootshapers = {npc:5485} Thistleshrub Rootshaper · Dunemaul Ogres = {npc:5471} Dunemaul Ogre
+	["The Hazzali tunnels and Thistleshrub Rootshapers can be level 50. Read “XP to go” on the level goal for your remaining experience. The ordinary Dunemaul Ogres (45–46) are on the southern edge of the compound. A full level here is a long grind; you can leave this guide open and earn the balance elsewhere.\nAt 49, if you still need insect parts, resume at the {area:982} and take them to Pestlezugg in {area:976} (50.9,27.0). Already on {quest:10}? Resume at the {area:981} south of the {area:1938}. If your {zone:1446} work is all paid, take the ramp to {npc:9619} (71.6,76.0 in Un'Goro)."] = "",
+
+	-- Step 21: Andi Lynn
+	-- {npc:11758} Andi Lynn · {area:976} Gadgetzan
+	["Take the head to {npc:11758} in {area:976} before entering the tunnels. Check your actual level after she pays you."] = "",
+
+	-- Step 22: Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "Езжайте на запад к улью сентипааров в дюнах. С любого сентипаара могут выпасть части насекомых.\nОсторожно: членистоноги-сентипаары призывают {npc:4196} и в бою, и вне боя – появляются мелкие помощники, которые прерывают вас.",
 
-	-- Step 19: The Gaping Chasm
-	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
+	-- Step 25: Gaping Chasm
+	-- {area:1938} Broken Pillar · {area:981} Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.\nОсторожно: снаряжение охраняет один жук. По туннелям патрулирует много жуков, некоторые из них 50-го уровня, так что в бою часто привлекаются лишние противники.",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "{item:8593}; под землей",
 
-	-- Step 20: Dunemaul Compound
+	-- Step 26: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	-- was: ["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юг к лагерю огров. Он полон громил и силовиков (46-48); {npc:12046} (49) стоит в центре с охраной: сначала разберитесь с ней."
 	["Take the southern dunes to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "{npc:12046}, под землей",
 
-	-- Step 21: Thistleshrub Valley: kill these as you meet them
+	-- Step 27: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "Езжайте на запад к месту {quest:3362}. Железы падают с собирателей росы; полные бывают не всегда, так что берите наполненную. В долине также бродят бугристые шипошкуры и корнеформовщики.\nОсторожно: шипошкуры много бродят, так что легко нацеплять лишних мобов.",
 
-	-- Step 22: Andi Lynn
+	-- Step 28: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	-- was: ["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Езжайте обратно на северо-восток в {area:976}: {npc:11758} стоит в восточной части города."
 	["Ride back north-east to {area:976}. {npc:11758} stands on the east side of town."] = "",
 
-	-- Step 26: Gadgetzan
+	-- Step 32: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
 	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "Для NPC {npc:7740} ({zone:1457}), в конце гайда по зоне {zone:1428}: сохраните",
 
-	-- Step 28: Torwa Pathfinder
+	-- Step 34: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {zone:1449}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 
-	-- Step 29: Fresh Threshadon Carcass
+	-- Step 35: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
-	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "Мертвый молотильщик лежит у воды к северу от NPC {npc:9619}.\nОсторожно: там у воды охотятся ядовитые равазавры (50-51): выманивайте их по одному, прежде чем обыскать тушу.\nС любого равазавра может выпасть {item:280459}: нажмите на нее правой кнопкой, {npc:9619} ее примет.",
+	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50–51) patrol the bank. At 49 let the 51s pass. Wait for one of the carcasses to clear before looting it.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "",
 
-	-- Step 30: Torwa Pathfinder
+	-- Step 36: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, если с равазавра выпала чешуя",
 	-- {area:1943} Ironstone Plateau
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня",
 
-	-- Step 31: Lar'korwi Mates and the raft
+	-- Step 37: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Самки Лар'корви и плот",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -99,11 +112,11 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "",
 
-	-- Step 32: Torwa Pathfinder
+	-- Step 38: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "Обратно на восток к NPC {npc:9619} с железами.",
 
-	-- Step 33: Marshal's Refuge
+	-- Step 39: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile · {npc:9272} Spark Nilminer
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on.\n{npc:9272}'s Dinosaur Bones can also drop from the Young Diemetradons you will hunt for scales. Take his quest if you have room; eight bones are not needed to leave the crater."] = "",
@@ -121,7 +134,7 @@ return {
 	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня."
 	["{npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "",
 
-	-- Step 34: Fire Plume Ridge and the eastern jungle
+	-- Step 40: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537} и восточные джунгли",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -134,24 +147,24 @@ return {
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
 	["Dinosaur Bones, from Young Diemetradons already being hunted"] = "",
 
-	-- Step 35: Lakkari Tar Pits
+	-- Step 41: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "Скопления кристаллов есть по всему кратеру. Смоляные господины в ямах (53-54) и слизни вокруг них (50-54) сильнее вас: собирайте кристаллы на северо-восточной окраине джунглей, среди хлыстунов и молодых зверей (48-50).",
 
-	-- Step 36: Marshal's Refuge
+	-- Step 42: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Для NPC {npc:7775} (зона {zone:1444}): сохраните",
 
-	-- Step 38: Level 49.79
+	-- Step 44: Level 49.79
 	["Level 49.79"] = "",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на кровоцветах-хлыстунах и молотильщиках (48-50) в восточных джунглях, где собирали лепестки, прежде чем покинуть кратер.",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "убивайте: {npc:6511}",
 
-	-- Step 39: Fly to Astranaar
+	-- Step 45: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "Летите сюда: {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
@@ -159,17 +172,17 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Распорядитель полетов ({area:541})",
 
-	-- Step 40: To Ironforge
+	-- Step 46: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "В таверну: {zone:1455}",
 
-	-- Step 41: Mystic Ward
+	-- Step 47: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 44: Fly to Astranaar
+	-- Step 50: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
@@ -218,6 +231,7 @@ return {
 	-- ["The Centipaar silithid crawl around the {area:982} in western {zone:1446}, just east of the crater ramp. The Workers are the easiest pulls."] = "Силитиды-сентипаары ползают вокруг улья ({area:982}) на западе зоны {zone:1446}, сразу к востоку от спуска в кратер. Легче всего выманивать рабочих.",
 	-- ["The Gorishi hive"] = "Улей Гориши",
 	-- ["The dead Threshadon lies by the water north of {npc:9619}."] = "Мертвый жесткозуб лежит у воды к северу от {npc:9619}.",
+	-- ["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "Мертвый молотильщик лежит у воды к северу от NPC {npc:9619}.\nОсторожно: там у воды охотятся ядовитые равазавры (50-51): выманивайте их по одному, прежде чем обыскать тушу.\nС любого равазавра может выпасть {item:280459}: нажмите на нее правой кнопкой, {npc:9619} ее примет.",
 	-- ["The east side"] = "Восточная сторона",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "Гориллы живут здесь: {area:1943}, к востоку от места {area:541}. Их шкуры сохраните для NPC {npc:9619}. Не заходите в самую глубокую пещеру: {npc:9622} – 55-го уровня.",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "Гориллы на плато ({area:1943}) ходят небольшими группами, и пока с них ничего не падает для вас; задание {npc:9619} на шкуры будет позже. Не заходите в самую глубокую пещеру: {npc:9622} – 55-го уровня.",

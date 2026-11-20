@@ -283,9 +283,10 @@ return {
 	["{item:3084}: Leper Gnomes"] = "{item:3084}: Gnomos Leprosos",
 
 	-- Step 46: Frostmane Hold
-	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
+	-- {quest:287} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} é a caverna dos trolls nas colinas a sudoeste de {area:137}. Mate os Caçadores de Cabeças da entrada e atravesse até o fundo.\nCuidado: os Esfoladores Jubafria lá dentro são de nível 9-10 e ficam em pares: puxe um de cada vez de volta até a entrada.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} é a caverna dos trolls nas colinas a sudoeste de {area:137}. Mate os Caçadores de Cabeças da entrada e atravesse até o fundo.\nCuidado: os Esfoladores Jubafria lá dentro são de nível 9-10 e ficam em pares: puxe um de cada vez de volta até a entrada."
+	["{quest:287} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, no subterrâneo",
 	["Walk to the far end of the cave until the quest gives explore credit."] = "",
@@ -652,6 +653,7 @@ return {
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Estes são monstros elite: formar grupo é recomendado, procure gente para fazer junto. {npc:1388} é elite de nível 12: enfrente-o em grupo. Sozinho, pule: as missões de {zone:1432} mais adiante compensam a experiência.",
 	-- ["{area:133}: kill these as you meet them"] = "{area:133}: vá matando estes pelo caminho",
 	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} é a caverna dos trolls nas colinas a sudoeste de {area:137}. Os Ursos Garra de Gelo, Rochetuscos Anciãos e Leopardos da Neve que você matar no caminho contam para {npc:1374}. Mate os Caçadores de Cabeças da entrada e atravesse até o fundo.\nCuidado: os Esfoladores Jubafria lá dentro são de nível 9-10 e ficam em pares: puxe um de cada vez de volta até a entrada.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} é a caverna dos trolls nas colinas a sudoeste de {area:137}. Mate os Caçadores de Cabeças da entrada e atravesse até o fundo.\nCuidado: os Esfoladores Jubafria lá dentro são de nível 9-10 e ficam em pares: puxe um de cada vez de volta até a entrada.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} e a {item:6652}",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, no caminho",
 	-- ["{npc:1196}, on the way to the Hold"] = "{npc:1196}, no caminho para o Covil",

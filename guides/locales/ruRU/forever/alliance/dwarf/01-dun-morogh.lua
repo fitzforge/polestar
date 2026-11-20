@@ -292,9 +292,10 @@ return {
 	["{item:3084}: Leper Gnomes"] = "{item:3084}: лепрогномы",
 
 	-- Step 47: Frostmane Hold
-	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
+	-- {quest:287} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу."
+	["{quest:287} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, под землей",
 	["Walk to the far end of the cave until the quest gives explore credit."] = "",
@@ -692,6 +693,7 @@ return {
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "Поезд прибывает сюда: {object:28027}. {npc:5480} обучает воинов здесь: {object:2100}; {npc:6089} и {npc:6090} стоят вместе у таверны ({object:2152}). {npc:6090} сражается с вами за свою кружку.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Это элитные мобы: лучше собраться в группу, поищите напарников. {npc:1388} — элита 12-го уровня: идите на него группой. В одиночку пропустите: задания в зоне {zone:1432} восполнят опыт.",
 	-- ["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "На запад от места {object:32383} к месту {object:32362}: {npc:5149}, {npc:6179} и {npc:6178} находятся в месте {object:32386}, {npc:6179} и {npc:6178} — на его верхнем этаже: лестница наверх начинается прямо к северо-востоку от {npc:5149}. {npc:6175}, попрошайка, бродит по городу. Он просит десять {item:2589}: трогги и тролли зоны {zone:1426} роняют их, и Аукцион их продает.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} и {item:6652}",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, по пути",
 	-- ["{npc:1201}, on the way"] = "{npc:1201}, по пути",

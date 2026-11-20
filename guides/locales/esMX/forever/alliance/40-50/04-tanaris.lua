@@ -166,8 +166,8 @@ return {
 	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
 
 	-- Step 36: Steamwheedle Port
-	-- {npc:6015} Torta · {area:977} Steamwheedle Port
-	["From {npc:6015}, {area:977} is just west along the shore."] = "Desde {npc:6015}, {area:977} está justo al oeste por la costa.",
+	-- {npc:7882} Security Chief Bilgewhizzle · {area:977} Steamwheedle Port · {npc:5955} Tooga · {npc:6015} Torta
+	["Meet {npc:7882} inside {area:977}. If you escorted {npc:5955}, follow the shore west from {npc:6015}."] = "",
 
 	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
@@ -251,6 +251,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Vuela a {area:348}. La guía de {zone:1425} empieza aquí.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Sigue la costa al sur hasta la cala pirata. Los piratas de los Mares del Sur llenan la playa y los barcos: avanza por el borde y atráelos de uno en uno. {npc:7883} está en el otro extremo; la carga robada de {npc:7881} está en el campamento.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "Desde el muelle de {area:1108}, toma el barco a Plumaluna y vuela a {area:489}; luego cabalga al este por {zone:1441} hasta {area:2240}, en {area:439}. {npc:4454} y {npc:4630} están en los campamentos junto a la pista; {npc:4709} está junto al campamento goblin.",
+	-- ["From {npc:6015}, {area:977} is just west along the shore."] = "Desde {npc:6015}, {area:977} está justo al oeste por la costa.",
 	-- ["He runs off to keep Rizzle busy"] = "Se va corriendo para entretener a Rizzle Pernolatón",
 	-- ["Hearth to {area:976}."] = "Usa la Piedra de hogar para volver a {area:976}.",
 	-- ["Ride back west to {area:976}."] = "Cabalga de vuelta al oeste hasta {area:976}.",

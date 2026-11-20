@@ -45,10 +45,12 @@ return {
 	-- Step 10: Raene Wolfrunner's Glowing Gem
 	-- {npc:3691} Raene Wolfrunner · {item:5463} Glowing Gem
 	["{npc:3691}'s {item:5463}"] = "",
-	-- {npc:3916} Shael'dryn
-	["Keep the Glowing Gem Raene gives you with her message. {npc:3916} needs the gem in your bags even though the quest log lists no items. If you banked it, retrieve it before going to the moonwell."] = "",
+	-- {npc:3916} Shael'dryn · {item:5463} Glowing Gem · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3916} needs the {item:5463} in your bags even though the quest log lists no items. If you banked it, retrieve it. If it's gone, return to {npc:3691} in {area:415} before abandoning her message. Take it from her again to get the gem back."] = "",
+	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
+	["{npc:3691} at the {area:415} inn"] = "",
 	-- {npc:3691} Raene Wolfrunner
-	["At {npc:3691}'s handoff, not another murloc hunt"] = "",
+	["{npc:3691} supplies the gem with 1024; do not point to the murlocs"] = "",
 
 	-- Step 11: Elune's Tear
 	-- {area:415} Astranaar

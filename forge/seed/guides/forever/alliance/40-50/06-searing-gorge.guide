@@ -46,14 +46,17 @@ step Culling the Competition
   tip Take the bounty from the board only if you want to hunt the linked dwarf packs with a group.
   accept 7729 object 179827
 
+step WANTED: Overseer Maltorius
+  when group 7701
+  accept 7701
+
 step Zamael Lunthistle
   when group 3377
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
   turnin 3377
   accept 3378                         -- Zamael Lunthistle
-  collect 10458 quest 3378 optional @29.6,26.3 map 1427
-  tip With your group, keep the Prayer to Elune document from the Twilight camp. Astarii Starseeker takes it in the Temple of the Moon on a later Darnassus visit. Do not go back alone for it.
+  tip Twilight cultists can drop the prayer. Keep it for Astarii in Darnassus if you find it; don't make a separate trip for it.
 
 step Velarok Windblade
   tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
@@ -119,6 +122,30 @@ step The Slag Pit
   tip The Slag Pit opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of Overseer Maltorius and his elite guards deep inside.
   collect 18922 quest 7722            -- Secret Plans: Fiery Flux
   kill 9318 quest 7727                -- Incendosaur
+
+step Overseer Maltorius
+  when group 7701
+  tip Only with your group, take on the level 50 elite overseer inside the Slag Pit.
+  collect 18946 quest 7701.1 @40.8,35.9 map 1427
+
+step Lookout Captain Lolo Longstriker
+  when group 7701
+  tip Before leaving Thorium Point, report to Hansel if you've killed all 20 Incendosaurs. If you have the Secret Plans, give them to Master Smith Burninate. Leave any unfinished errand for the later visit.
+  turnin 7701
+
+step Velarok Windblade
+  when group 3452
+  accept 3452
+
+step The Flame's Casing
+  when group 3452
+  tip Hunt the elite Twilight Dark Shamans with a group of three for the Symbol of Ragnaros. If you took Zamael's request, the shamans can also drop the Prayer to Elune. Leave once you have the symbol; the prayer is optional.
+  collect 10552 quest 3452.1 @23.5,36.5 map 1427 group 3
+  collect 10458 quest 3378.1 optional @23.8,38.14 map 1427 live
+
+step Velarok Windblade
+  when group 3452
+  turnin 3452
 
 step Taskmaster Scrange
   when complete 7729
