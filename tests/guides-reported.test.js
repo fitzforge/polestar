@@ -390,9 +390,9 @@ const dungeonOnly = (step) => (step.when || []).some((p) => p.k === 'dungeon' &&
 const forClass = (cls) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.classes || o.classes.includes(cls));
 
 test(`${MULGORE}: Sharing the Land leads to each gnoll objective and resumes partial progress`, { skip }, () => {
-	// The Horde chain runs through the shared Shen'dralas guide since the 0.4.0 level tidy; its Alliance `next` is not in
-	// this Horde pack.
-	const pack = buildSimPack(allGuides().filter(f => f.startsWith('forever/horde/') || f === 'forever/40-50/shendralas.guide'));
+	// The Horde chain runs through the shared Shen'dralas guide since the 0.4.0 level tidy, and the shared Mount Hyjal
+	// guide since 0.4.3; their Alliance `next` is not in this Horde pack.
+	const pack = buildSimPack(allGuides().filter(f => f.startsWith('forever/horde/') || f === 'forever/40-50/shendralas.guide' || f === 'forever/50-60/mount-hyjal.guide'));
 	try {
 		assert.deepEqual(pack.diag.errors.filter((e) => !/`next` points to unknown guide "forever\/alliance\//.test(e.message)), []);
 		const g = pack.guides.find(g => g.id === MULGORE.slice(0, -6));
@@ -3206,7 +3206,7 @@ test('side guides: no step sends a character to an NPC of the other faction (#24
 	const SIDE = { Human: 'Alliance', Dwarf: 'Alliance', NightElf: 'Alliance', Gnome: 'Alliance', Orc: 'Horde', Scourge: 'Horde', Tauren: 'Horde', Troll: 'Horde' };
 	const exp = path.join(__dirname, '..', 'experimental', 'guides');
 	const side = allGuides().filter((g) => !/^forever\/(alliance|horde)\//.test(g)).map((g) => compiled(g));
-	for (const f of fs.readdirSync(exp).filter((f) => f.endsWith('.guide'))) side.push(compileSources([{ file: path.join(exp, f), text: fs.readFileSync(path.join(exp, f), 'utf8') }], data).guides[0]);
+	for (const f of fs.existsSync(exp) ? fs.readdirSync(exp).filter((f) => f.endsWith('.guide')) : []) side.push(compileSources([{ file: path.join(exp, f), text: fs.readFileSync(path.join(exp, f), 'utf8') }], data).guides[0]);
 	const wrong = [];
 	for (const g of side) {
 		const head = { factions: g.faction ? [g.faction] : null, races: g.races || null, classes: g.classes || null };
@@ -14592,7 +14592,7 @@ test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin S
 const RIVERGLADES = path.join(__dirname, '..', 'experimental', 'guides');
 const RIVERGLADES_HORDE = path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', '01b-riverglades.guide');
 const RG_ALLIANCE = path.join(__dirname, '..', 'guides', 'forever', 'alliance', '40-50', '01b-riverglades.guide');
-const riverglades = () => [...fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort().map((f) => path.join(RIVERGLADES, f)), RIVERGLADES_HORDE, RG_ALLIANCE];
+const riverglades = () => [...(fs.existsSync(RIVERGLADES) ? fs.readdirSync(RIVERGLADES) : []).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort().map((f) => path.join(RIVERGLADES, f)), RIVERGLADES_HORDE, RG_ALLIANCE];
 const codeOf = (line) => line.split('--')[0];
 
 // Hurley (Helping Hands), the lost horse (Rescue Roundup), Fuzzle (Biting the Hand), Dunston Willis (Dunston
@@ -16524,40 +16524,63 @@ test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return 
 	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5403 && r.b[0] === 'turnin' && r.b[1] === 5220), 'and the hand-in\'s');
 });
 
-// 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character who takes Mount Hyjal
+// 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character coming into Mount Hyjal
 // after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and the zone's second and
 // third stretches took up to 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and
-// the Summit picked up in the Cradle. Walk the default Human Warrior chain into the Mount Hyjal guide and count the
-// log (accepts in, hand-ins out, optional and group goals left aside, as the route-feel audit counts them): it never
-// goes over 40.
-test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in', { skip }, () => {
-	const exp = (g) => {
-		const file = path.join(__dirname, '..', 'experimental', 'guides', `${g}.guide`);
-		data = data || loadData(DATA);
-		const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
-		return guides[0];
-	};
-	const chain = chainFrom('forever/alliance/human/01-elwynn-forest.guide');
-	const end = chain.indexOf('forever/alliance/50-60/04-western-plaguelands.guide');
-	assert.ok(end > 0, 'the chain reaches the Western Plaguelands guide');
-	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ['hyjal-1', exp('hyjal-1')]];
-	const fits = (o) => !o || ((!o.races || o.races.includes('Human')) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes('Alliance')));
-	const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
-	const log = new Set();
-	let peak = 0;
-	let where = '';
-	for (const [id, g] of route) {
-		for (const st of g.steps) {
-			if (!fits(st.only) || !solo(st)) continue;
-			for (const goal of st.goals) {
-				if (!fits(goal.only) || goal.optional) continue;
-				if (goal.t === 'accept') log.add(goal.quest);
-				else if (goal.t === 'turnin') log.delete(goal.quest);
-				if (log.size > peak) [peak, where] = [log.size, `${id} "${st.title}"`];
+// the Summit picked up in the Cradle. Since 0.4.3 the zone is both factions' route (the Horde in after the Eastern
+// Plaguelands guide, with its own Elderwild quests). Walk each faction's default chain (Human Warrior, Orc Warrior)
+// through the Mount Hyjal guide and count the log (accepts in, hand-ins out, optional and group goals left aside, as
+// the route-feel audit counts them): it never goes over 40.
+for (const [faction, race, start] of [['Alliance', 'Human', 'forever/alliance/human/01-elwynn-forest.guide'], ['Horde', 'Orc', 'forever/horde/orc/01-durotar.guide']]) {
+	test(`${faction} Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in`, { skip }, () => {
+		const chain = chainFrom(start);
+		const end = chain.indexOf('forever/50-60/mount-hyjal.guide');
+		assert.ok(end > 0, 'the chain reaches the Mount Hyjal guide');
+		const fits = (o) => !o || ((!o.races || o.races.includes(race)) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes(faction)));
+		const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
+		const log = new Set();
+		let peak = 0;
+		let where = '';
+		for (const id of chain.slice(0, end + 1)) {
+			for (const st of compiled(id).steps) {
+				if (!fits(st.only) || !solo(st)) continue;
+				for (const goal of st.goals) {
+					if (!fits(goal.only) || goal.optional) continue;
+					if (goal.t === 'accept') log.add(goal.quest);
+					else if (goal.t === 'turnin') log.delete(goal.quest);
+					if (log.size > peak) [peak, where] = [log.size, `${id} "${st.title}"`];
+				}
 			}
 		}
-	}
-	assert.ok(peak <= 40, `the log peaks at ${peak} (${where})`);
+		assert.ok(peak <= 40, `the log peaks at ${peak} (${where})`);
+	});
+}
+
+// 0.4.3 (Fitz, 2026-11-20: Mount Hyjal joins both factions' main route): the zone's guide is
+// guides/forever/50-60/mount-hyjal.guide, for both factions, between the Western Plaguelands guide (Alliance) or the
+// Eastern Plaguelands guide (Horde) and each faction's Silithus guide, at about 57 by the level model; no route choice
+// offers it any more, and a saved tab of the experimental guide opens it. The Horde's Silithus guide flies back from
+// Everlook to Marshal's Refuge first.
+test('Mount Hyjal: in both routes before the Silithus guides, no route choice for it', () => {
+	const G = path.join(__dirname, '..', 'guides', 'forever');
+	const head = (rel) => fs.readFileSync(path.join(G, rel), 'utf8').split('\n# ')[0];
+	const nexts = (rel) => head(rel).split('\n').filter((l) => l.startsWith('next ')).map((l) => l.slice(5).trim());
+	assert.deepEqual(nexts('alliance/50-60/04-western-plaguelands.guide'), ['forever/50-60/mount-hyjal']);
+	assert.deepEqual(nexts('horde/50-60/05-eastern-plaguelands.guide'), ['forever/50-60/mount-hyjal']);
+	assert.deepEqual(nexts('50-60/mount-hyjal.guide').sort(), ['forever/alliance/50-60/06-silithus', 'forever/horde/50-60/06-silithus']);
+	const hy = head('50-60/mount-hyjal.guide');
+	assert.ok(!/^faction /m.test(hy), 'one guide for both factions');
+	assert.match(hy, /^levels \d+-\d+ Alliance$/m);
+	assert.match(hy, /^levels \d+-\d+ Horde$/m);
+	assert.ok(!/^(pitch|pro|con) /m.test(hy), 'no route-choice card copy: it is the route');
+	assert.ok(!/experimental|alpha/i.test(hy.split('\n').find((l) => l.startsWith('keywords '))), 'not tagged experimental');
+	assert.ok(!fs.existsSync(path.join(__dirname, '..', 'experimental', 'guides', 'hyjal-1.guide')), 'gone from Polestar Experimental');
+	const retired = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'guides', 'retired.json'), 'utf8'));
+	assert.ok(retired.includes('polestar-experimental/hyjal-1'), 'a saved tab opens its successor');
+	const six = fs.readFileSync(path.join(G, 'horde/50-60/06-silithus.guide'), 'utf8').split(/\n(?=step\b)/);
+	const back = six.findIndex((s) => s.startsWith('step Back from Mount Hyjal\n'));
+	assert.ok(back > 0 && six[back].includes('\n  when zone "Winterspring"\n') && six[back].includes('fly "Marshal\'s Refuge"'), 'the Horde flies back from Everlook');
+	assert.ok(six[back + 1].startsWith('step Cenarion Hold\n'), 'right before the Cenarion Hold opening');
 });
 
 // chiboman (#2253, 0.3.7.2, Human Paladin 38): "Galen's Escape" pulls the Fallow Sanctuary's Lost One Riftseekers (37-38)

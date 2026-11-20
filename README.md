@@ -221,14 +221,13 @@ Good to know:
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 263 guides:
-68 leveling guides that take both factions from 1 to 60 from every race's
+Polestar is one addon for the whole of WoW: Forever. It carries 264 guides:
+69 leveling guides that take both factions from 1 to 60 from every race's
 starting zone (Zephras Isle for the Skyborne included), 81 class guides for
 every class's quest chains and class mounts, the twelve professions from 1 to
 300, 27 reputations, 7 exploration guides, the Legacy challenges, 64
-collectible guides (mounts and pets) and 3 miscellaneous guides, with Mount
-Hyjal as an optional Experimental guide beside them. Every one of them can be
-read step by step on [polestar.guide](https://polestar.guide/guides).
+collectible guides (mounts and pets) and 3 miscellaneous guides. Every one of
+them can be read step by step on [polestar.guide](https://polestar.guide/guides).
 
 Around the guides it adds a 3D waypoint arrow that walks real paths (on
 Polestar's walking maps, with a router that started from Shortest Path
@@ -303,8 +302,8 @@ one guide for both factions.
 | 28 | Felwood | 52 to 54 |
 | 29 | Winterspring & Eastern Plaguelands | 53 to 56 |
 | 30 | Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus | 55 to 58 |
-| | *Optional: Mount Hyjal (Experimental)* | *57 to 60* |
-| 31 | Silithus, Felwood, Winterspring & the Plaguelands | 58 to 60 |
+| 31 | **Mount Hyjal** | 57 to 59 |
+| 32 | Silithus, Felwood, Winterspring & the Plaguelands | 59 to 60 |
 
 **Horde, from Silverpine Forest**
 
@@ -335,12 +334,12 @@ one guide for both factions.
 | 23 | Winterspring | 55 to 56 |
 | 24 | Azshara & The Barrens | 55 to 56 |
 | 25 | Eastern Plaguelands, Winterspring & Tanaris | 56 to 57 |
-| 26 | Silithus, Western Plaguelands & Eastern Plaguelands | 57 to 60 |
-| 27 | Felwood, Moonglade & Winterspring | 59 to 60 |
+| 26 | **Mount Hyjal** | 57 to 59 |
+| 27 | Silithus, Western Plaguelands & Eastern Plaguelands | 58 to 60 |
+| 28 | Felwood, Moonglade & Winterspring | 59 to 60 |
 
-Mount Hyjal is offered under "Choose your path" at the end of the Western
-Plaguelands guide, with a purple Experimental chip; it is never suggested or
-picked for you, and it hands you back to the Silithus guide.
+Mount Hyjal, Forever's new endgame zone, comes in both routes before the
+Silithus guide, at about 57.
 
 </details>
 
@@ -369,12 +368,9 @@ it again; the settings search finds it too.
 > for every race and class it serves, and the route checker plays every
 > leveling guide to 60 the way a player follows them. Tell us what you find
 > on Forever: every report becomes a fix the next build keeps. The
-> Riverglades and Shen'dralas guides are written from Forever's quest data
-> and players' first recordings of the zones, and Mount Hyjal is still an
-> Experimental guide (Polestar Experimental, listed with Polestar's own
-> guides; Options > Guide > Show experimental guides takes it out of the
-> menu): the Recorder's explorer mode keeps mapping the new zones as players
-> go there.
+> Riverglades, Shen'dralas and Mount Hyjal guides are written from Forever's
+> quest data and players' first recordings of the zones: the Recorder's
+> explorer mode keeps mapping the new zones as players go there.
 
 ## A look inside
 
@@ -1738,8 +1734,8 @@ these recordings.
 | [`addon/Polestar_ItemDB`](addon/Polestar_ItemDB) | Item stats for gear advice: `Items.lua` from `forge data itemdb`, `Forever.lua` from `forge data gear` |
 | [`addon/Polestar_Nav`](addon/Polestar_Nav) | The arrow's walking routes: Polestar's walking router, started from Shortest Path Forever's by Cillian Berragan (GPL-3.0-or-later), on Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle, grown from his format (`nav pack`; [CREDITS.md](addon/Polestar_Nav/CREDITS.md)) |
 | [`addon/Polestar_Recorder`](addon/Polestar_Recorder) | The optional session recorder |
-| [`guides/forever`](guides/forever) | The guide sources: leveling (with the Riverglades and Shen'dralas), class, professions, reputation, exploration, Legacy, collectibles |
-| [`experimental`](experimental) | Polestar Experimental's guide sources (Mount Hyjal), compiled into `addon/Polestar_Experimental` |
+| [`guides/forever`](guides/forever) | The guide sources: leveling (with the Riverglades, Shen'dralas and Mount Hyjal), class, professions, reputation, exploration, Legacy, collectibles |
+| [`experimental`](experimental) | Polestar Experimental's guide sources (none at the moment: Mount Hyjal joined both routes in 0.4.3), compiled into `addon/Polestar_Experimental` |
 | [`tools`](tools) | The command line (`polestar.js`), the guide compiler, the simulator, data importers, texture and preview renderers, the playground ([tools/README.md](tools/README.md)) |
 | [`rust`](rust) | Polestar Forge, the Rust pipeline behind the data, the walks and walking legs, the level model, the route checks, the guide compiler and the releases: one `forge` program ([docs/FORGE.md](docs/FORGE.md)) |
 | [`apps/client`](apps/client) | The Polestar Client, the desktop app that installs and updates the addons and community guides and sends recordings ([apps/client/README.md](apps/client/README.md)) |
