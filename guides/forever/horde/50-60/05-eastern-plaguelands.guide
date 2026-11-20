@@ -402,11 +402,15 @@ step Apothecary Dithers
   zone Tirisfal Glades
   turnin 964                          -- Apothecary Dithers
 
-step Apothecary Dithers
+step High Executor Derrington
   when available 838
   zone Tirisfal Glades
   tip Under 55 on the first Bulwark stop? Derrington's Scholomance is offered now: Dithers' Skeletal Fragments come from the skeletons on the ride back west from Gahrron's Withering.
   accept 838
+
+step Apothecary Dithers
+  when onquest 838
+  zone Tirisfal Glades
   turnin 838                          -- Apothecary Dithers
   accept 964
 
