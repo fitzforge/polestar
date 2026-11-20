@@ -347,6 +347,7 @@ fn from_the_valanaar_skydocks_the_skyborne_ride_the_airships_to_dalaran_and_to_n
 			script: format!(
 				r#"
 				local nav = stub.nav
+				nav.useGameGround()
 				nav.maps[2521] = {{ c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }}
 				nav.maps[1412] = {{ c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675, name = "Mulgore" }}
 				nav.era[1416] = {{ c = 0, top = 1500, bottom = -366.667, left = 783.333, right = -2016.667, name = "Alterac Mountains" }}
@@ -384,6 +385,7 @@ fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_dow
 		login: true,
 		script: r#"
 			local nav = stub.nav
+			nav.useGameGround()
 			nav.maps[2521] = { c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }
 			nav.faction = "Alliance"
 			nav.items[6948] = 1

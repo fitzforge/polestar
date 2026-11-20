@@ -453,6 +453,7 @@ fn a_crossing_set_that_is_not_complete_recorded_crossings_leaves_walking_as_befo
 #[test]
 fn the_arrow_shows_the_leg_caption_aims_at_the_waypoint_advances_inside_its_radius_and_re_plans_there() {
 	let out = run(r#"
+		Polestar.Set("nav.navRouting", false) -- test the compass to each authored crossing waypoint
 		local r, changes, advanced = {}, 0, 0
 		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
 		Polestar.On("ROUTE_ADVANCED", function() advanced = advanced + 1 end)

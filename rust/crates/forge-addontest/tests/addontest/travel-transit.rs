@@ -378,6 +378,7 @@ fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
 	};
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false) -- mirror the compass on the two fictional streets
 		local calls, current, tracked = {{}}, nil, 0
 		{api}
 		C_QuestLog = C_QuestLog or {{}}
@@ -429,6 +430,7 @@ fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false)
 		nav.withTomTom()
 		Polestar.Set("nav.useTomTomArrow", {arrow})
 		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,

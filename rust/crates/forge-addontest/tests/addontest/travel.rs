@@ -585,6 +585,7 @@ fn learned_walking_paths_change_the_route() {
 #[test]
 fn the_arrow_follows_the_legs_walk_act_at_the_flight_master_re_plan_on_landing() {
 	let out = run(r#"
+		Polestar.Set("nav.navRouting", false) -- direct compass between the test world's flight stops
 		local r, changes = {}, 0
 		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
 		known(1, 2)
@@ -855,7 +856,7 @@ fn binding_at_an_innkeeper_teaches_nav_what_the_bind_location_means() {
 }
 
 #[test]
-fn a_target_change_re_plans_nav_travel_off_falls_back_to_the_direct_arrow() {
+fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walking_mode() {
 	let out = run(r#"
 		local r = {}
 		known(1, 2)
@@ -868,12 +869,19 @@ fn a_target_change_re_plans_nav_travel_off_falls_back_to_the_direct_arrow() {
 		Polestar.Set("nav.travel", false)
 		stub.advance(0.2)
 		r.off = { N.GetRoute() == nil, A.GetMode(), A.labelText:GetText() }
+		r.unmapped = { N.Sample() }
+		Polestar.Set("nav.navRouting", false)
+		stub.advance(0.2)
+		local mode, _, _, north, west = N.Sample()
+		r.compass = { N.GetRoute() == nil, mode, north, west }
 		Polestar.Set("nav.travel", true)
 		r.on = #route()
 		emit(r)"#);
 	assert_eq!(out["first"], 3);
 	assert_eq!(out["second"], json!(["walk|Target"]));
-	assert_eq!(out["off"], json!([true, "travel", "Target"]));
+	assert_eq!(out["off"], json!([true, "unmapped", "Target"]));
+	assert_eq!(out["unmapped"], json!(["unmapped"]), "turning off travel alone must not invent a walking bearing");
+	assert_eq!(out["compass"], json!([true, "travel", 0, -1380]), "the direct bearing is available when the player turns walking maps off too");
 	assert_eq!(out["on"], 3);
 }
 
@@ -1047,6 +1055,7 @@ fn a_boat_end_with_a_board_point_the_walk_ends_on_the_deck_and_arriving_there_bo
 #[test]
 fn on_the_tram_with_no_player_position_the_arrow_keeps_the_ride_caption_and_resumes_on_arrival() {
 	let out = run(r#"
+		Polestar.Set("nav.navRouting", false) -- no walking pack on the tram fixture's two streets
 		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
 			transports = { { id = "tram-test", kind = "tram", faction = 1, ab = 100, ba = 100, waitA = 30, waitB = 30,
 				a = { "Northgate", 0, 900, 0, 9000, 50, 5 }, b = { "Southgate", 0, -900, 0, 9000, 50, 95 } } } }, true)
