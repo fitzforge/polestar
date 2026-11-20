@@ -806,6 +806,14 @@ local function itemSources(id, p, from, direct)
 	-- Item-wide gates: class mounts, required level, what a vendor asks.
 	local spell = item.spell and C.Spell(item.spell)
 	local class = spell and spell.class
+	local tooLow = item.reqLevel and item.reqLevel > p.level and not item.reqLevelFallback
+	if tooLow and C.FilterFacts then
+		-- Older filter packs only marked the group source. Earlier packs with no
+		-- source data keep their original level requirements.
+		local facts = C.FilterFacts(item.kind or "item", id)
+		local source = facts and C.FactSource(facts, "req")
+		if source == "era" or source == "forever" or (facts and facts.reqSource == false) then tooLow = false end
+	end
 	for _, r in ipairs(list) do
 		if (r.type == "drop" or r.type == "object") and r.src.requiresQuests and (ns.Compat.GetItemCount(id, true) or 0) == 0 then
 			local steps, why, q = Lookup.DropQuestSteps(r.src, p, from, direct)
@@ -829,7 +837,7 @@ local function itemSources(id, p, from, direct)
 		end
 		if class and p.class and class ~= p.class then
 			r.available, r.why, r.whyText = false, "class", L["Class mount"]
-		elseif item.reqLevel and item.reqLevel > p.level then
+		elseif tooLow then
 			block(r, "level", levelText(item.reqLevel))
 		end
 		if PURCHASE[r.type] or r.type == "gift" then purchaseGates(item, r) end
