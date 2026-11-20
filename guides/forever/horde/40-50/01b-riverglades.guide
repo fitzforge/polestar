@@ -434,7 +434,9 @@ step The Bloodmaster's Ring: Kronk and Bonegnaw
 
 step The Bloodmaster's Ring: Mog'thar
   when turnedin 94962
-  accept 94964 optional                 -- Mog'thar (43)
+  when group 94964
+  tip Mog'thar is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; Gobam's and Hamur's errands and the last two bouts come after him.
+  accept 94964                          -- Mog'thar (43)
   complete 94964 @65.7,20.2
   turnin 94964
 
@@ -633,7 +635,7 @@ step Gobam
 step The Bloodmaster's Ring: Snufflesnout
   when turnedin 94737
   when group 94965
-  tip Snufflesnout is elite: grouping up is advised.
+  tip Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana.
   accept 94965                          -- Snufflesnout (44)
   complete 94965 @65.7,20.2
   turnin 94965
@@ -641,7 +643,7 @@ step The Bloodmaster's Ring: Snufflesnout
 step The Bloodmaster's Ring: Chub'chob
   when turnedin 94965
   when group 95063
-  tip Chub'chob is elite: grouping up is advised.
+  tip Chub'chob (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana.
   accept 95063                          -- Chub'chob (45)
   complete 95063 @65.7,20.2
   turnin 95063                          -- Clugfist, on the hill
