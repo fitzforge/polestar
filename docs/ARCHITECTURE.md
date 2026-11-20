@@ -6344,6 +6344,24 @@ what is shown and timed.
   `Compat.GetAreaName(areaId)` (`C_Map.GetAreaInfo`; the hub record's
   AreaTable id), else the packed English name, as goto labels and
   `Compat.MapName` do; the "each name once" rule works on the shown name.
+- Enemy ground (`Nav/GroundSafety.lua`, `Nav.danger.Blocked(c, x, y, X, Y,
+  profile)`): a veto on an on-foot segment, never a permission. It answers
+  `"opposing-settlement"` when the straight segment (with the player's
+  shoulders, 0.55 yd) touches a cell the other faction owns
+  (`Nav/DangerAreas.lua`) or a guard post's disk (`Nav/DangerHubs.lua`), nil
+  when it doesn't, `"unknown-profile"` without a faction and `"unknown-ground"`
+  for a map without that data or an end that isn't a world position. The planner
+  (`Travel.lua`'s walks), the walking engine's answers (`Walk.lua`), the
+  arrow's displayed bearing (`Nav.lua`, "unsafe") and the map line's gaps
+  (`Layers.lua`) all refuse a segment it answers for. Both data files were
+  imported by `forge nav layers ground` (`ground_policy.rs`): ownership cells
+  kept only where builds 70532 and 70959 have the same terrain and area
+  hierarchy, guard disks from 70532. Towns and guard posts are positions on
+  the map, so the check runs on every client build (an older one, the next
+  Forever patch); a build newer than 70959 adds one line to the debug log at
+  load ("ground: client build … is newer than the enemy-town data"). Until
+  0.4.2 any other build answered `"unknown-ground"` for every segment, so a
+  client patch refused every walk.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
