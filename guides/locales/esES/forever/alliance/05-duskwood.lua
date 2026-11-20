@@ -12,12 +12,12 @@ return {
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
 	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "Maestro de vuelo de {area:69}",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "Su casa está en la colina al sureste de {area:42}, por encima del {area:121}.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
 	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "",
 
@@ -41,7 +41,7 @@ return {
 	-- {area:42} Darkshire
 	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, dentro",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, en el ayuntamiento",
 	-- {npc:273} Tavernkeep Smitts
@@ -72,7 +72,7 @@ return {
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: mátalos según te los encuentres",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Ve al sur por el cementerio hacia {area:94}. Mefistos esqueléticos y Horrores esqueléticos recorren su mitad sur. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.",
@@ -123,11 +123,11 @@ return {
 
 	-- Step 25: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "{object:28027} de {zone:1453}",
 
 	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 27: Shaman training
 	["Shaman training"] = "Entrenamiento de chamán",

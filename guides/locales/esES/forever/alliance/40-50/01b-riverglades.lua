@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026} espera junto al camino al este del paso.\nEsta guía está escrita para los niveles 41-45: la ruta llega aquí sobre el 41, después de {zone:1434}. La segunda oleada del puerto y los campamentos del Frente Occidental al norte son 43-45, con ejecutores del Crepúsculo de élite (45) de patrulla y {npc:256881} (46, élite) solo para grupos: por debajo de 41, haz primero Tuercespina.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -208,7 +208,7 @@ return {
 	["fill the {item:269990} at the ritual circles"] = "llena el {item:269990} en los círculos rituales",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Asaltadores del Crepúsculo, así que primero saqua cinco",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: solo si un cultista soltó el diario",
 
@@ -458,7 +458,7 @@ return {
 	-- Step 94: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "Cuidado: el Frente Occidental está escrito para el nivel 44 en adelante. Sus campeones del Crepúsculo son 43-44 y sus siervos 44, los ejecutores del Crepúsculo (élite, 45) patrullan los campamentos, y {npc:256881} (46, élite) es solo para grupos. Por debajo de 44, primero sube con los piratas de la Mar del Este junto al puerto, o vuelve con un amigo.",
 
 	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
@@ -532,10 +532,10 @@ return {
 
 	-- Step 111: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 112: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Instructor de chamanes",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "No hay instructor de chamanes en {zone:2548} ni en {zone:1453}, y la guía de {zone:1418} y {zone:1425} no pasa por ninguno: vuela a {area:1537} y entrena allí; {area:144} está a un vuelo corto.",
 

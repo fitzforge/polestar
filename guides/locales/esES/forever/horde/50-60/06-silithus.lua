@@ -19,11 +19,11 @@ return {
 
 	-- Step 2: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
-	["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Ve al oeste hasta el bastión amurallado en el centro del desierto. {npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 3: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: mata a estos según te los encuentres",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Los Artilleros de arrastre, los Escórpidos Latigosólido y los Arácnidos de arena comparten la arena justo al norte del fuerte.",
 
@@ -33,7 +33,7 @@ return {
 
 	-- Step 5: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 6: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
@@ -41,8 +41,8 @@ return {
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Vuelve a Viento del Sur y sube a la torre. Al remover la colmena de la cima salen Emboscadores Colmen'Ashi; uno lleva el {item:17346}.",
 
 	-- Step 7: The Spirits of Southwind
-	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["The Spirits of Southwind"] = "Los espíritus de Viento del Sur",
+	["Inside"] = "Dentro",
 
 	-- Step 8: Level 57
 	["Level 57"] = "Nivel 57",
@@ -52,10 +52,10 @@ return {
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker
 	["Dredge Strikers"] = "Artilleros de arrastre",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "mata {npc:11740}",
 
 	-- Step 9: Level 58
-	["Level 58"] = "",
+	["Level 58"] = "Nivel 58",
 	-- {npc:15181} Commander Mar'alith · {quest:8304} Dearest Natalia · {area:3425} Cenarion Hold · {npc:15191} Windcaller Proudhorn · {area:1583} Blackrock Spire · {quest:838} Scholomance
 	-- plural, as words: Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
 	["Top up here to level 58 before Ortell's Rock Stalkers (57-59) and the south; {npc:15181}'s {quest:8304}, back at {area:3425}, needs level 58 too. The Dredge Crushers (57-58) on the way south-east are the ones {npc:15191} wants: leave the Twilight cultists around them be. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "Sube aquí a nivel 58 antes de los Acechadores de piedra (57-59) de Ortell y del sur; {quest:8304} de {npc:15181}, de vuelta en {area:3425}, también requiere nivel 58. Los Trituradores de arrastre (57-58) de camino al sureste son los que quiere {npc:15191}: deja en paz a los fieles Crepusculares que los rodean. O, con un grupo, haz la mazmorra {area:1583} (Inferior) o la mazmorra {quest:838}.",
@@ -67,7 +67,7 @@ return {
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Cabalga al sureste hasta {area:3447}, bajo los acantilados de Un'Goro.",
 	["Below ground"] = "Bajo tierra",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
-	["{item:20377} from {npc:11739}, 130 yd south-west"] = "",
+	["{item:20377} from {npc:11739}, 130 yd south-west"] = "{item:20377} de {npc:11739}, a 130 m al suroeste",
 
 	-- Step 11: Dredge Crushers and Pincers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -75,7 +75,7 @@ return {
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer
 	["Head north along the western dunes; Dredge Crushers and Stonelash Pincers range from here back toward the hold."] = "Ve al norte por las dunas del oeste; los Trituradores de arrastre y los Tnazarios Latigosólido se extienden desde aquí hasta el fuerte.",
 	-- {npc:11741} Dredge Crusher · {area:2738} Southwind Village
-	["{npc:11741} walks around {area:2738}: look inside the circle on the map"] = "",
+	["{npc:11741} walks around {area:2738}: look inside the circle on the map"] = "{npc:11741} da vueltas por {area:2738}: búscalo dentro del círculo del mapa",
 
 	-- Step 12: General Kirika
 	-- {area:2744} Hive'Regal
@@ -106,7 +106,7 @@ return {
 
 	-- Step 19: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} y {npc:15190} están en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}, en el lado oeste del Fuerte",
 
@@ -119,14 +119,14 @@ return {
 
 	-- Step 22: Dearest Natalia
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
-	["{npc:15171} and {npc:15170} camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them."] = "",
+	["{npc:15171} and {npc:15170} camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them."] = "{npc:15171} y {npc:15170} acampan en el Campamento de Barbabronce, justo al norte de las montañas de la cartera. Interrógalos: recorre toda la conversación de cada uno; no hace falta pelear con ellos.",
 
 	-- Step 23: Twilight Base Camp
 	-- {npc:15306} Bor Wildmane
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
 	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Consigue veinte Textos crepusculares codificados de los fieles de aquí, diez para {npc:15306} y diez para Ortell. Cógelos de los Vengadores Crepusculares y los Geoseñores; deja a los Atracallamas y los Clamapiedras (59-60).",
 	-- {npc:15306} Bor Wildmane
-	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "",
+	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "diez para cada misión: {npc:15306} recibe los suyos antes que Ortell",
 
 	-- Step 24: Twilight Base Camp
 	["The spare texts from the cultists"] = "Los textos sobrantes de los fieles",
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "Vuelve a {area:3425}",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {area:2744} Hive'Regal
 	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "El siguiente encargo de Mar'alith, Into the Maw of Madness, te lleva a {area:2744} entre élites. Sáltatelo.",
 
@@ -165,7 +165,7 @@ return {
 
 	-- Step 34: Pawn Captures Queen
 	-- {item:11833} Gorishi Queen Lure · {area:540} Slithering Scar · {npc:10041} Gorishi Hive Queen
-	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "",
+	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "Usa el {item:11833} donde marca la flecha, dentro de la colmena Gorishi de {area:540}, para llamar a {npc:10041} (nivel 56).",
 
 	-- Step 35: Torwa Pathfinder
 	-- {npc:9684} Lar'korwi
@@ -177,15 +177,15 @@ return {
 
 	-- Step 37: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117} is inside the cave."] = "",
+	["{npc:9117} is inside the cave."] = "{npc:9117} está dentro de la cueva.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la siguiente guía.",
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Usa {npc:10980} con {npc:10977}",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "Asusta a {npc:10977} con {npc:10980}",
 
 	-- Step 38: Ringo
 	-- {npc:9999} Ringo
@@ -195,7 +195,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
 
 	-- Step 41: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -215,9 +215,9 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 48: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 
 	-- Step 51: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -239,7 +239,7 @@ return {
 	-- Step 57: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11611} Cavalier Durgen · {npc:11610} Kirsta Deepshadow · {area:190} Hearthglen
-	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
+	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} está al este del campamento maderero; {npc:11611} custodia el camino al noreste de {npc:11610}, hacia {area:190}.\nCuidado: hay guardias en la base de la torre y otro más la rodea patrullando. Despéjalos antes de enfrentarte a Durgen para que no se unan a la pelea.",
 
 	-- Step 59: Davil's Libram
 	-- {area:190} Hearthglen
@@ -247,7 +247,7 @@ return {
 
 	-- Step 60: Hearthglen
 	-- {area:190} Hearthglen
-	["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Los Escarlata de {area:190} son de nivel 58-60. Entra hasta el punto alto marcado en tu mapa, observa el pueblo y sal.\nCuidado: los centinelas apostados en la puerta pueden detectar a jugadores en sigilo. Hay más centinelas dentro del pueblo, y un élite patrulla una ruta cerca.",
 
 	-- Step 62: Andorhal watchtowers and silos
 	["Andorhal watchtowers and silos"] = "Atalayas y silos de Andorhal",
@@ -255,7 +255,7 @@ return {
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite
 	["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Cabalga al sur hasta Andorhal. {npc:10667} espera en la posada en ruinas del oeste del pueblo. Ponte en la entrada de cada una de las cuatro torres con la {item:12815} para marcarla; ve por los bordes del pueblo. Usa el {item:12627} junto a los silos del centro del pueblo para hacer salir a los Parásitos temporales.",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}, en el piso de arriba",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "Marca {npc:10903} con la {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
@@ -266,11 +266,11 @@ return {
 	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",
 
 	-- Step 63: Chromie
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 64: Counting Out Time
 	-- {npc:10667} Chromie
-	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
+	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Las cajas fuertes están en las casas en ruinas de Andorhal alrededor de la posada de {npc:10667}. Cuidado: suele haber necrófagos y esqueletos junto a las cajas que atacan cuando te acercas. Los necrófagos abrasadores también dañan a todo el que esté cerca y rompen el sigilo.",
 
 	-- Step 68: High Executor Derrington
 	-- {quest:105} Alas, Andorhal · {npc:1852} Araj the Summoner
@@ -324,29 +324,29 @@ return {
 
 	-- Step 84: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152}."] = "",
+	["West to the {area:152}."] = "Al oeste, hasta {area:152}.",
 
 	-- Step 86: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
 	-- Step 87: Pathstrider
 	-- {area:2276} Quel'Lithien Lodge · {area:2275} Northpass Tower
 	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider
 	["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Cabalga al noreste hasta {area:2276}, junto a {area:2275}: los Especialistas, Zancaminos y Leñadores altos elfos la vigilan y el Registro está dentro. Cuidado: los Zancaminos son de 57-58, pero los Especialistas llegan a 60: atráelos de uno en uno y deja a los Especialistas para el final.",
 	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
-	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "",
+	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} da vueltas por {area:2276}: búscalo dentro del círculo del mapa",
 
 	-- Step 88: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "El lago para {quest:5845}",
 
 	-- Step 89: Of Lost Honor
 	["Underwater"] = "Bajo el agua",
 
 	-- Step 90: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
-	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
+	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "Hameya se esconde entre los trols Pellejomusgo de {area:2273}, en la esquina noreste.\nCuidado: los trols del camino a {area:2273} son de nivel 57-59. Huyen con poca salud y piden ayuda, así que suelen traer refuerzos.",
 
 	-- Step 92: Nathanos Blightcaller
 	-- {npc:1855} Tirion Fordring · {area:2260} Marris Stead
@@ -363,11 +363,11 @@ return {
 
 	-- Step 97: Into Western Plaguelands
 	-- {zone:1422} Western Plaguelands
-	["Into {zone:1422}"] = "",
+	["Into {zone:1422}"] = "Hacia {zone:1422}",
 
 	-- Step 100: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark
-	["from the cauldron, for {npc:11055} at the {area:152}"] = "",
+	["from the cauldron, for {npc:11055} at the {area:152}"] = "del caldero, para {npc:11055} en {area:152}",
 
 	-- Step 101: Mulgris Deepriver
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Te perdiste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
@@ -381,11 +381,11 @@ return {
 
 	-- Step 108: Target: Gahrron's Withering
 	-- {area:202} The Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
-	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "",
+	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "De vuelta al este pasando {area:202} hasta {area:201}, la granja bajo las colinas del este: {npc:11078} custodia su caldero. Mátalo para conseguir la llave y luego usa el caldero.",
 
 	-- Step 109: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152} one last time."] = "",
+	["West to the {area:152} one last time."] = "Al oeste, hasta {area:152}, por última vez.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "El Boticario Dithers ofrece {item:14619} ({quest:838}). Sáltatela.",

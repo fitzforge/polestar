@@ -192,7 +192,7 @@ return {
 
 	-- Step 40: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545}: cloth"] = "",
+	["{item:8545}: cloth"] = "{item:8545}: paño",
 
 	-- Step 41: Heavy Mageweave Bandage (240-260)
 	-- {item:8545} Heavy Mageweave Bandage

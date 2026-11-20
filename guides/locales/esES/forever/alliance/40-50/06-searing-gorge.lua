@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Hacia {zone:1427}",
 
 	-- Step 4: Searing Gorge
 	["The Grimesilt outhouse"] = "La letrina de Limugre",
@@ -33,11 +33,11 @@ return {
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "La siguiente tarea del prisionero, El libro de contabilidad de {zone:1446}, te envía a {zone:1435} y {zone:1445}: omítela.",
 
 	-- Step 7: Level 48.27
-	["Level 48.27"] = "",
+	["Level 48.27"] = "Nivel 48.27",
 	-- {item:3985} Monogrammed Sash
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "Si te saltaste {item:3985} o Enfrentar a Negolash, mata enemigos aquí hasta el nivel 48.27 para seguir el plan de la ruta.",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "mata {npc:5839}",
 
 	-- Step 8: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -101,27 +101,27 @@ return {
 
 	-- Step 28: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: mata a estos según te los encuentres",
 	-- {area:1443} Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} se abre en el norte de La Caldera. Los planos secretos están en su cornisa superior; los Incendosaurios nadan en las charcas de lava más adentro, así que atráelos hasta el borde. Mantente lejos de {npc:14621} y sus guardias élite del fondo.",
 	-- {item:18922} Secret Plans: Fiery Flux
-	["{item:18922}; below ground"] = "",
+	["{item:18922}; below ground"] = "{item:18922}; bajo tierra",
 
 	-- Step 29: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:14621} es un élite de nivel 50: la mayoría de las clases lo hacen solas a nivel 52, pero puede que necesites ayuda. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- Step 31: Level 48.66
-	["Level 48.66"] = "",
+	["Level 48.66"] = "Nivel 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius
 	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "mata {npc:9318}",
 
 	-- Step 33: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:5860} (élite de nivel 50) requiere un grupo de 3. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -141,15 +141,15 @@ return {
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} hacia el sur por el borde de La Caldera y enciende los cuatro Braseros de centinela, del suroeste al sureste.",
 
 	-- Step 38: Level 48.98
-	["Level 48.98"] = "",
+	["Level 48.98"] = "Nivel 48.98",
 	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Si te saltaste {quest:3452}, mata enemigos aquí hasta el nivel 48.98 para seguir el plan de la ruta.",
 	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "",
+	["grind on {npc:5844}"] = "mata {npc:5844}",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {quest:3181} requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 41: Squire Maltrake
