@@ -7593,6 +7593,7 @@ t.guides["forever/horde/50-60/04-azshara"] = (function() return {
 		["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "從{zone:1458}沿路向東騎；{area:152}守著進入{zone:1422}的路。",
 		["Upstairs"] = "樓上",
 		["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
+		["{area:392} flight master"] = "{area:392}飛行管理員",
 		["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的農場是{area:152}以東第一座農場。農場裡的喋喋不休的食屍鬼攜帶她護符的另一半；{npc:11075}守著田裡的大鍋。\n小心：通常有一兩隻亡靈與他並肩戰鬥，使用大鍋後還可能有更多護鍋者來襲。",
 		["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}：白蟻在{area:2627}，屬於下一份指南",
 		["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}，{object:172957}：保留給{zone:1451}",

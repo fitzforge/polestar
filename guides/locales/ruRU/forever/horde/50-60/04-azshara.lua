@@ -27,7 +27,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow

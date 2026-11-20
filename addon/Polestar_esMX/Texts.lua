@@ -7744,6 +7744,7 @@ t.guides["forever/horde/50-60/04-azshara"] = (function() return {
 		["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Sal de {zone:1458} hacia el este por el camino; {area:152} custodia la entrada a {zone:1422}.",
 		["Upstairs"] = "Arriba",
 		["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
+		["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 		["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este de {area:152}. Los necrófagos parlanchines de la granja llevan la otra mitad de su amuleto; {npc:11075} custodia el caldero del campo.\nCuidado: Uno o dos no-muertos suelen pelear a su lado, y más señores del caldero pueden atacar después de que usas el caldero.",
 		["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: las termitas están en {area:2627}, en la siguiente guía",
 		["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: guárdala para {zone:1451}",

@@ -5792,6 +5792,7 @@ t.guides["forever/horde/50-60/04-azshara"] = (function() return {
 		["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "Мастерская Лив – в северном конце пристани ({area:392}); {object:149036} стоит внутри.",
 		["Upstairs"] = "Наверху",
 		["Zeppelin to {zone:1458}"] = "Дирижабль: {zone:1458}",
+		["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 		["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: термиты – здесь: {area:2627}, в следующем гайде",
 		["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: сохраните для края {zone:1451}",
 		["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} – здесь: {zone:1456}; в городе {zone:1454} нет учителя паладинов",
