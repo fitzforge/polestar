@@ -20,7 +20,7 @@ return {
 	-- {npc:270038} Calder Gray
 	["{npc:270038} stands in the Apothecarium."] = "{npc:270038}站在炼金房里。",
 	-- {npc:270038} Calder Gray · {zone:1441} Thousand Needles
-	["{npc:270038}: Stormheart's heart from {zone:1441}"] = "{npc:270038}：来自{zone:1441}的Stormheart之心",
+	["{npc:270038}: Stormheart's heart from {zone:1441}"] = "{npc:270038}：前往{zone:1441}击败风暴之心，拾取心脏",
 
 	-- Step 4: Fly to Tarren Mill
 	-- {area:272} Tarren Mill

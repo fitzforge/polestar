@@ -169,7 +169,7 @@ return {
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "团队副本：{npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "击杀{npc:10184}可获得一点。{area:2159}是{zone:1445}的40人团队副本，12月9日起开放。每名团队成员背包中都必须有{item:16309}：联盟任务链从{zone:1428}的“黑龙的威胁”开始，部落任务链从{area:340}（{zone:1418}）的“Blood and Thunder”开始；两条任务链最终都要在黑石塔上层对付{npc:10363}。",
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "击杀{npc:10184}可获得一点。{area:2159}是{zone:1445}的40人团队副本，12月9日起开放。每名团队成员背包中都必须有{item:16309}：联盟任务链从{zone:1428}的“黑龙的威胁”开始，部落任务链从{area:340}（{zone:1418}）的“鲜血与雷鸣”开始；两条任务链最终都要在黑石塔上层对付{npc:10363}。",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "团队副本：海加尔峰",
