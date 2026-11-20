@@ -5,8 +5,9 @@
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
 -- (never one the player only looks at), a hand-in the While-you're-here
 -- panel shows (Engine.WantsQuest, #1408) and an accept of the route's next
--- steps at the NPC the player talks to (Engine.WantsQuest: Own.aheadWants,
--- with its guards: gates, level, timers, the log's room); a reward with
+-- steps, or of the guides after the loaded one, at the NPC the player talks
+-- to (Engine.WantsQuest: Own.aheadWants, with its guards: gates, level,
+-- timers, the log's room); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.

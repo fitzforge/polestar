@@ -72,6 +72,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
