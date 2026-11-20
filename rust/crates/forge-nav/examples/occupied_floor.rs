@@ -47,7 +47,8 @@ const RAMP_PAIRS: [(usize, usize); 14] = [
 const SOLID_SAMPLES: &str = concat!(
 	"PolestarPathData[0].solidSamples = { [471] = {-4866.847,-1107.031,502.515,-4864.583,-1106.652,502.515,-4866.632,-1108.366,502.515,",
 	"-4861.745934,-1139.989935,502.750054,-4868.890104,-1143.820089,506.549525,-4863.879720,-1135.746168,503.250200,",
-	"-4861.273418,-1141.422549,503.223817,-4868.359568,-1147.723829,506.619640} }\n",
+	"-4861.273418,-1141.422549,503.223817,-4868.359568,-1147.723829,506.619640},",
+	" [472] = {-4825.530720,-1013.096860,503.236699} }\n",
 );
 
 fn hash(bytes: &[u8]) -> String {
@@ -309,7 +310,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 		"sourceManifestSha256": SOURCE, "cluster": CLUSTER, "cell": CELL, "layer": 1, "z": 502,
 		"sign": {"cellPairs": SIGN_PAIRS, "layer": 1, "z": 502, "solidSamples": 3},
 		"trainerRamp": {"sourceNodePairs": RAMP_PAIRS, "solidSamples": 5}, "dearerEdges": dearer[0],
-		"forgeRoom": {"cluster": STREET, "sourceNodePairs": STREET_PAIRS, "dearerEdges": dearer[1]}
+		"forgeRoom": {"cluster": STREET, "sourceNodePairs": STREET_PAIRS, "solidSamples": 1, "dearerEdges": dearer[1]}
 	});
 	fs::write(dest.join(MANIFEST), serde_json::to_string_pretty(&manifest)? + "\n")?;
 	println!("Removed the occupied Ironforge center and obstructed signpost, ramp and street steps; dearer entrance edges: {dearer:?}, none lost");

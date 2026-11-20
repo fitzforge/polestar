@@ -17,7 +17,7 @@ section: players
   around the signpost instead of pointing through it. Being within five yards
   of a waypoint on the other side of the sign no longer announces arrival.
   Toward Stonefire Tavern it keeps to the pavement beside the ForgeRoom
-  wall instead of sending you through the masonry.
+  wall and follows the next bend instead of cutting through the wall.
   On the way to Nissa, the route goes around the masonry at the foot of
   the ramp. At a sharp turn beside a mapped wall the arrow points down
   the new path immediately rather than carrying you into the wall.

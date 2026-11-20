@@ -125,7 +125,7 @@ test('Ironforge street walks round the signpost in both directions without closi
 for (const [place, goal, maxGap, faces] of [
 	['the trainer ramp', [-4876.6,-1149.2,512.5], 10, [[-4861.273418,-1141.422549,503.223817],[-4868.359568,-1147.723829,506.619640]]],
 	// The vendor route is still partial; keep the approach without sending the player through the ForgeRoom wall.
-	['Stonefire Tavern', [-4842.3,-861,502], 21, [[-4814.472715,-1050.653239,503.215]]],
+	['Stonefire Tavern', [-4842.3,-861,502], 21, [[-4814.472715,-1050.653239,503.215],[-4825.530720,-1013.096860,503.236699]]],
 ]) test(`the walk from the Ironforge flight master to ${place} goes around the masonry`, () => {
 	const [gx, gy, gz] = goal;
 	const parts = navParts(path.join(ADDONS, 'Polestar_Nav'));
