@@ -9081,6 +9081,16 @@
 				"q": 94964,
 				"size": 2,
 				"why": "Horde 40-50 fix pass (2026-11-20): Mog'thar (43) is an elite in Bolder'ok's Ring, met at about 42.9 by the level model: at or above the player, so a choice like the last two bouts (Snufflesnout, Chub'chob). The bouts are fought one-on-one; the tips say so. Players' recordings: 25 people did it, 14 of them at 43."
+			},
+			{
+				"q": 8283,
+				"size": 3,
+				"why": "Wanted - Deathclasp, Terror of the Sands: Deathclasp is a level 59 elite scorpid by Noggle's satchel in Silithus, at the player's level on 06 (about 58.5-59): a group choice, taken from the poster in Cenarion Hold and handed to Vish Kozus on the same guide (Horde fix pass, 2026-11-20)."
+			},
+			{
+				"q": 5121,
+				"size": 3,
+				"why": "High Chief Winterfall: a level 59 elite with his guards in the cave at the back of Winterfall Village, at the player's level on 07 (about 59.5): a group choice after Donova's Winterfall Runners, with his log (5123, The Final Piece) and Words of the High Chief (5128) to Kelek Skykeeper at 07's last stop: 16,000 XP for a group (Horde fix pass, 2026-11-20)."
 			}
 		]
 	},
@@ -11785,6 +11795,41 @@
 				],
 				"reason": "#2785 (MrHatts): Hate the Hatefury (97265, level 33) is offered by Aka'rai (268705) by the path into Shadowprey Village: players' recordings to 2026-11-20 show 40 runs by 30 people, accepted and handed in at her (the earlier never-seen reason was wrong). The first Desolace visit (30-40/02) works Sargeron before it reaches Shadowprey, so the quest is on the second visit (30-40/04, about 36-37): taken on the way out of Shadowprey, the Hatefury satyrs (32-33) killed at Sargeron after Thunder Axe Fortress, handed in on the way back down the coast; nothing is carried.",
 				"issue": "#2785"
+			},
+			{
+				"q": 93406,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Unfrozen Deliveries (4,350 XP) is taken from Innkeeper Vizzie at 06's Everlook opener, right after Mount Hyjal's hand-in to her (93197); her Missing Mail drops from the Ice Thistle Yetis (players' recordings: every pickup on a yeti kill, 6 people) in the hills 07 crosses on its ride back north from Frostwhisper Gorge, and Vizzie takes it on 07's Everlook stop.",
+				"issue": "-"
+			},
+			{
+				"q": 6606,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: A Little Luck (650 XP) from Harlo Wigglesworth is handed straight to Witch Doctor Mau'ari on 07's Everlook stop, before Luck Be With You (969), whose prerequisite our data still lists as 6606: the accept is offered whichever data build lands.",
+				"issue": "-"
+			},
+			{
+				"q": 8308,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Brann Bronzebeard's Lost Letter (8,300 XP) starts from a 2-3.5% drop of the hive silithids (items.json 20461), the Hive'Ashi Ambushers on 06's tower step among them; an optional accept there, handed to Rutgar Glyphshaper on 06's Bronzebeard's Encampment stop.",
+				"issue": "-"
+			},
+			{
+				"q": 5203,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Rescue From Jaedenar: after the Blood Red Key (5202, a chance drop in Shadow Hold on 05), Arko'narin is led out of the cave and Jessir Moonbow at the Emerald Sanctuary, 05's next stop, takes it.",
+				"issue": "-"
+			},
+			{
+				"q": 5204,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Retribution of the Light: Rakaiah (56, normal) stands by Trey Lightforge's remains in Jaedenar, on 07's ride north from the Emerald Sanctuary; only for a character on the Blood Red Key's chain.",
+				"issue": "-"
+			},
+			{
+				"q": 8307,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Desert Recipe needs Cooking 285 (quest data): shown only to such cooks (`when skill Cooking 285`), from Calandrath on 06's first Cenarion Hold stop to the Sandy Cookbook in the Twilight Outpost 06 visits.",
+				"issue": "-"
+			},
+			{
+				"q": 8313,
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Sharing the Knowledge (Cooking 285): the cookbook's page back to Calandrath on 06's second Cenarion Hold stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -12010,11 +12055,6 @@
 			{
 				"q": 5721,
 				"reason": "c13 review, Alliance 50-60: The Battle of Darrowshire is a waved event that ends with Redpath the Corrupted, an elite level 60 (the seed guide leaves it out for that); c13 inserted it at 59.7 with no warning (50-60/06-silithus:627) and Hidden Treasures after it",
-				"issue": ""
-			},
-			{
-				"q": 6606,
-				"reason": "c13 review, 35-60: A Little Luck is a 660 XP talk quest that needs level 55; c13 arrives at Everlook at 54.65 and writes a grind to 55 for it (Orc 50-60/03-winterspring:16, 139 model minutes, nothing else at Everlook needs 55)",
 				"issue": ""
 			},
 			{
@@ -17479,6 +17519,18 @@
 				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
 				"reason": "Death to the Dragonmaw, a group choice at Howin, needs his Razormaw Needling (98245) and Trying Times (98246) from 06-wetlands first (10 Razormaw Incisors and 12 Perfect Razormaw Eggs): too long to bring back for a group-only quest. A character who starts here without them is not offered it.",
 				"issue": "#2822"
+			},
+			{
+				"q": 4301,
+				"guide": "forever/horde/50-60/06-silithus",
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: The Mighty U'cha (5,650 XP) is taken from Torwa with the bait on 06's Un'Goro stop and U'cha (55, normal) killed in the crater's north-east cave on the ride from Marshal's Refuge back to Torwa, about 500 yd more than the straight ride. Torwa offers it only after The Apes of Un'Goro (4289, 50-60/01), so a character who starts at 06 without it doesn't see it, and no catch-up is worth a gorilla hunt here.",
+				"issue": "-"
+			},
+			{
+				"q": 5385,
+				"guide": "forever/horde/50-60/07-felwood",
+				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: the Blood Red Key's chain (5202 -> 5203 -> 5204 -> 5385, 23,350 XP) follows the key's chance drop in Shadow Hold on 05: Arko'narin's escort and Jessir's hand-in there, Rakaiah and Trey's remains on 07's ride north past Jaedenar, Jessir again at 07's last stop. A character who starts at 07 without 5204 has nothing to bring back, so it stays out for them.",
+				"issue": "-"
 			}
 		]
 	}

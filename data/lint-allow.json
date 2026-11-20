@@ -3,12 +3,6 @@
 	"allow": [
 		{
 			"rule": "offer",
-			"guide": "forever/horde/50-60/07-felwood",
-			"quest": 969,
-			"reason": "Luck Be With You: our data still lists A Little Luck (6606) as its prerequisite; the live game offers it without one (players' recordings and QuestieDB 1.1.3; the correction is in forever-db/corrections, #3260). Drop this entry once data/forever is rebuilt with it."
-		},
-		{
-			"rule": "offer",
 			"guide": "forever/class/paladin/tyrs-watch",
 			"quest": 98601,
 			"reason": "A class guide for a Forsaken paladin in Deathknell, opened beside the Tirisfal guide that hands in The Mindless Ones (364). A character who has not done it is not offered A Difficult Path, and Polestar leaves the accept out for them."

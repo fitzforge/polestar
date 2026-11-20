@@ -16,6 +16,12 @@ pitch Silithus, then Un'Goro and Tanaris.
 
 # ---------------------------------------------------------------- Cenarion Hold
 
+step Innkeeper Vizzie
+  when zone "Winterspring"
+  when turnedin 93197
+  tip Innkeeper Vizzie, in Everlook's inn, has more mail for you: the Ice Thistle Yetis in the hills south-east of town carry it. Keep it for the last guide, whose ride back north from Frostwhisper Gorge crosses those hills.
+  accept 93406                        -- Innkeeper Vizzie: Unfrozen Deliveries
+
 step Back from Mount Hyjal
   when zone "Winterspring"
   when taxi "Marshal's Refuge"
@@ -33,6 +39,11 @@ step Cenarion Hold
   accept 8284                         -- Geologist Larksbane
   accept 9416                         -- Scout Bloodfist
   getfp "Cenarion Hold"
+
+step Calandrath
+  when skill Cooking 285
+  tip Cooks with 285 Cooking or more: Calandrath, the innkeeper you just bound with, wants word of the Twilight's Hammer's sandworm recipe; the cookbook lies in the outpost west of the Hold, where this guide goes later.
+  accept 8307                         -- Calandrath: Desert Recipe
 
 step Silithus: kill these as you meet them
   zone Silithus
@@ -57,6 +68,8 @@ step Cenarion Hold
 step Hive in the Tower
   tip Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the Encrusted Silithid Object.
   collect 17346 quest 1126.1
+  collect 20461 optional              -- Brann Bronzebeard's Lost Letter: now and then a Hive'Ashi silithid carries one; right-click it if it drops
+  accept 8308 item 20461 optional     -- for Rutgar Glyphshaper at Bronzebeard's Encampment, later in this guide
 
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
@@ -111,6 +124,12 @@ step Level 58
   goto 33.5,48.3 map 1451 "Dredge Crusher"
   level 58 grind 11741                -- grind on Dredge Crusher
 
+step Sandy Cookbook
+  when onquest 8307
+  tip The Sandy Cookbook lies in the outpost: read it and take its torn page back to Calandrath.
+  turnin 8307 object 180503 @37.9,45.3 map 1451
+  accept 8313 object 180503
+
 step Cenarion Hold
   tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
   accept 8318                         -- Bor Wildmane, on the west side of the Hold
@@ -118,6 +137,16 @@ step Cenarion Hold
   turnin 8281                         -- Windcaller Proudhorn
   turnin 8278                         -- Beetix Ficklespragg
   accept 8282                         -- Noggle Ficklespragg
+
+step Calandrath
+  when onquest 8313
+  tip Calandrath, the innkeeper, takes the Sandy Cookbook's torn page.
+  turnin 8313                         -- Calandrath
+
+step Wanted: Deathclasp
+  when group 8283
+  tip Deathclasp, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by Noggle's satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; Vish Kozus pays out.
+  accept 8283 object 180448            -- Wanted Poster: Deathclasp
 
 step Hermit Ortell
   tip Ride north-east to Ortell's Hideout.
@@ -131,10 +160,17 @@ step Noggle's Lost Satchel
   tip The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away.
   collect 20379 quest 8282.1
 
+step Deathclasp
+  when onquest 8283
+  when group 8283
+  tip With your group: Deathclasp walks the mountains around the satchel. Pull him away from the other scorpids.
+  collect 20385 quest 8283 @45.1,92.3 -- Deathclasp's Pincer
+
 step Dearest Natalia
   tip Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.
   talk 15171 quest 8304.1 @40.8,88.9 map 1451
   talk 15170 quest 8304.2 @41.3,88.5 map 1451
+  turnin 8308                         -- Rutgar Glyphshaper, if Brann's letter dropped for you
 
 step Twilight Base Camp
   when onquest 8318
@@ -152,6 +188,11 @@ step Back to Cenarion Hold
   turnin 8304
   turnin 8282                         -- Noggle Ficklespragg
   note Mar'alith's next errand, Into the Maw of Madness, leads into Hive'Regal among elites. Skip it.
+
+step Vish Kozus
+  when onquest 8283
+  tip Vish Kozus, Captain of the Guard, pays out for Deathclasp's pincer.
+  turnin 8283                         -- Vish Kozus
 
 step Hermit Ortell
   turnin 8323                         -- Below ground
@@ -197,7 +238,8 @@ step Pawn Captures Queen
 
 step Torwa Pathfinder
   accept 4292
-  note Keep the bait: Lar'korwi is level 56, and the second loop passes his lair.
+  accept 4301                         -- The Mighty U'cha: his north-east cave is on your way back here from Marshal's Refuge
+  note Keep the bait for Lar'korwi's lair, next (he is level 56).
   accept 4289
 
 step Lar'korwi
@@ -235,9 +277,14 @@ step Marshal's Refuge
   when onquest 4491
   turnin 4491                         -- Spraggle Frock
 
+step The Mighty U'cha
+  when onquest 4301
+  tip From Marshal's Refuge ride east to the cave in the crater's north-east corner: U'cha (55) sits at its back among his gorillas, well under you now. Then south down the crater's east side to Torwa.
+  collect 11476 quest 4301 @68.1,12.6 -- U'cha's Pelt
+
 step Torwa Pathfinder
   turnin 4292
-  note Torwa now asks for U'cha's pelt, back in the north-east cave: skip it.
+  turnin 4301
   turnin 4289
 
 step Tanaris

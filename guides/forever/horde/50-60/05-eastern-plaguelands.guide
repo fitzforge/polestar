@@ -566,6 +566,12 @@ step A Strange Red Key
 step Captured Arko'narin
   when onquest 5202
   turnin 5202                         -- Captured Arko'narin, below ground
+  accept 5203                         -- Captured Arko'narin: lead her out of Shadow Hold
+
+step Rescue From Jaedenar
+  when onquest 5203
+  tip Lead Arko'narin out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. Jessir Moonbow takes her report at the Emerald Sanctuary, next.
+  complete 5203
 
 step Maybess Riverbreeze
   when available 5887
@@ -575,6 +581,12 @@ step Maybess Riverbreeze
 
 step Greta Mosshoof
   turnin 5242
+
+step Jessir Moonbow
+  when onquest 5203
+  tip Jessir Moonbow, at the Sanctuary's east side, takes Arko'narin's report.
+  turnin 5203                         -- Jessir Moonbow
+  accept 5204                         -- Jessir Moonbow: Rakaiah, in Jaedenar, on the last guide's ride north through Felwood
 
 # ---------------------------------------------------------------- Northern Felwood and Moonglade
 
