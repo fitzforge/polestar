@@ -3933,7 +3933,7 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 		['forever/horde/04-the-barrens.guide', 'Stonetalon Sap', (g) => g.t === 'collect' && g.item === 5582, [32, 41, 9, 21]],
 		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Lasher (east side)', (g) => g.t === 'kill' && g.npc === 6509, [55, 77, 20, 50]],
 		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Thresher (east side)', (g) => g.t === 'kill' && g.npc === 6511, [55, 77, 20, 50]],
-		['forever/horde/40-50/03-feralas.guide', 'Marsh Flesheater (huts on the western shore)', (g) => g.t === 'kill' && g.npc === 751, [60, 75, 75, 100]],
+		['forever/horde/40-50/02-feralas.guide', 'Marsh Flesheater (huts on the western shore)', (g) => g.t === 'kill' && g.npc === 751, [60, 75, 75, 100]], // the swamp's second stay on 02 since the fix round
 	];
 	const inCamp = ([x0, x1, y0, y1]) => (p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1;
 	for (const [guide, what, pred, camp, otherDropper] of cases) {
@@ -4047,7 +4047,7 @@ test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and eve
 	assert.equal(opener.length, 2, 'two ways to the Grom\'gol flight at the start');
 	const zones = opener.map(({ step }) => whenOf(step, 'zone').map((p) => `${p.neg ? '!' : ''}${p.zone || p.name || p.v}`).join());
 	assert.ok(zones.some((z) => /Swamp of Sorrows/.test(z)) && zones.some((z) => /Badlands/.test(z)), `one from Stonard, one from Kargath: ${zones}`);
-	for (const n of ['03-feralas', '05-the-hinterlands']) {
+	for (const n of ['02-feralas', '05-the-hinterlands']) { // the Stonard flight is on 02 since the fix round (2026-11-20)
 		const list = goals(H40(n));
 		const fly = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Stonard');
 		assert.ok(fly && whenOf(fly.step, 'taxi').some((p) => !p.neg), `${n}: the Stonard flight is for characters who know it`);
@@ -4176,7 +4176,7 @@ test('Horde 40-50/02: flown in to Gadgetzan, its quests come before the Mirage R
 
 test('Horde 40-50: the steps beside the elites and level 60 roamers the danger gate reviewed warn about them (#1575)', { skip }, () => {
 	// Fix round 2026-11-20: Natural Materials' logs (objective 1, west of Camp Mojache) are gathered on 06's forest walker step.
-	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['06-azshara', '3128.1', 'Vale Screamer']]) {
+	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['02-feralas', 699, 'Methuselah Crab'], ['06-azshara', '3128.1', 'Vale Screamer']]) {
 		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split(/\n(?=step )/);
 		const step = steps.find((t) => new RegExp(`^\\s+(kill|collect) \\d+ quest ${quest}\\b`, 'm').test(t));
 		assert.ok(step, `${n}: the objective of ${quest} is in the guide`);
@@ -8148,7 +8148,7 @@ test('forever/horde/40-50/02-feralas.guide: flow re-order: one sweep from the Wr
 // material comes on the Muisek hunt that already walks its creatures (the sinew and fragments together on the
 // hippogryphs), and the yetis still come on the ride back from the harpies, before the last Mojache stop.
 test('Horde Swamp and Feralas flow re-order (#1166): the Pool of Tears before Misty Reed, the Rage Scar yetis on the way back', { skip }, () => {
-	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const list = goals('forever/horde/40-50/02-feralas.guide'); // the swamp's second stay on 02 since the fix round (2026-11-20)
 	assert.ok(at(list, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175) < at(list, 'turnin 699', is('turnin', 699)), 'the pool before Misty Reed Post');
 	const az = goals('forever/horde/40-50/06-azshara.guide');
 	const stepOf = (item) => az[at(az, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
@@ -8160,7 +8160,7 @@ test('Horde Swamp and Feralas flow re-order (#1166): the Pool of Tears before Mi
 	const yetis = at(az, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947);
 	const turnin = at(az, 'turnin 7734', is('turnin', 7734));
 	assert.ok(harpies < yetis && yetis < turnin && turnin < at(az, 'turnin 3063', is('turnin', 3063)) + 1, 'harpies, Rage Scar yetis, then Mojache');
-	assert.ok(!list.some(({ goal }) => goal.quest === 7734), 'no yetis on 03');
+	assert.ok(!goals('forever/horde/40-50/03-feralas.guide').some(({ goal }) => goal.quest === 7734), 'no yetis on 03');
 	assert.ok(goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('accept', 7734)(goal)), 'Improved Quality comes from the first Feralas visit');
 });
 
@@ -9212,9 +9212,9 @@ test('forever/horde/40-50/03-feralas.guide: final review: Zukk\'ash Report on th
 // snappers share the east coast's strand with the Monstrous Crawlers, so both are the coast step's work. A tip at
 // Misty Reed Post said the next guide starts there, and a note about The Sunken Temple came before its accept.
 test('forever/horde/40-50/03-feralas.guide: final review: the snapper claws on the coast step, no stray next-guide tip or Sunken Temple note', { skip }, () => {
-	const file = 'forever/horde/40-50/03-feralas.guide';
+	const file = 'forever/horde/40-50/02-feralas.guide'; // the coast step is on 02's swamp stay since the fix round (2026-11-20)
 	const list = goals(file);
-	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along && step.goals.some((g) => [699, 1430, 1426, 1428].includes(g.quest))).map((step) => step.title), [], 'no "along the way" lists on the swamp stay');
 	const claws = list[at(list, 'collect 6168', (g) => g.t === 'collect' && g.item === 6168)];
 	assert.equal(claws.s, list[at(list, 'collect 6184', (g) => g.t === 'collect' && g.item === 6184)].s, 'with the crawler legs');
 	assert.ok(!compiled(file).steps.some((step) => /next guide starts here/.test(step.note || '')), 'no next-guide tip mid-guide');
@@ -9498,9 +9498,10 @@ test('forever/horde/40-50: final review: riding at 40 and class trips where the 
 		assert.ok(at(fer, what, pred) < gadgetzan, `${what} before Gadgetzan`);
 	}
 	assert.deepEqual(fer.slice(gadgetzan).filter(({ goal }) => goal.t === 'fly' && /Thunder Bluff|Ratchet/.test(goal.location || goal.text || '')).map(({ step }) => step.title), [], 'no flight back from Gadgetzan to Thunder Bluff or Ratchet');
-	assert.ok(!fer.some(({ goal }) => goal.t === 'train' && goal.npc === 4773), 'no Undead riding loop in this guide');
-	const uc = goals('forever/horde/40-50/03-feralas.guide');
-	assert.ok(at(uc, 'Undead riding', (g) => g.t === 'train' && g.npc === 4773) < at(uc, 'Zeppelin to Grom\'gol', (g) => g.t === 'goto' && /Grom'gol/.test(g.text || '')), 'Undead ride from the Undercity stop');
+	// Fix round 2026-11-20: 02 passes the Undercity on its way from the Swamp of Sorrows to Orgrimmar; Undead riding is
+	// taken on that stop, before the Orgrimmar zeppelin, not on a loop of its own.
+	const ride = at(fer, 'Undead riding', (g) => g.t === 'train' && g.npc === 4773);
+	assert.ok(at(fer, 'accept 232', is('accept', 232)) < ride && ride < at(fer, 'Zeppelin to Orgrimmar', (g) => g.t === 'goto' && /Orgrimmar/.test(g.text || '')) && ride < gadgetzan, 'Undead ride from the Undercity stop');
 });
 
 // Final route review, Horde 40-60: Cortello's Riddle's scroll lies on the Bloodsail ships (crews 42-45) at level 41:
@@ -9510,8 +9511,9 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite w
 	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	// Since the 0.4.0 audit the scroll is a group step (`when group 624`: decks of 42-45 pirates, captains 45-48).
 	assert.ok((stv[at(stv, 'accept 624', is('accept', 624))].step.when || []).some((p) => p.k === 'group' && !p.neg), '624 a group step');
-	const fer = goals('forever/horde/40-50/03-feralas.guide');
-	for (const [q, pre] of [[625, 624], [626, 625]]) {
+	// Fix round 2026-11-20: the Soggy Scroll (625) is on 02's swamp stay, the Musty Scroll (626) still on 03's Dustwallow loop.
+	for (const [q, pre, n] of [[625, 624, '02'], [626, 625, '03']]) {
+		const fer = goals(`forever/horde/40-50/${n}-feralas.guide`);
 		const a = fer[at(fer, `accept ${q}`, is('accept', q))];
 		assert.ok(a.goal.optional && a.step.when.some((p) => p.k === 'onquest' && p.q.includes(pre)), `${q} only with ${pre}`);
 	}
@@ -9531,8 +9533,7 @@ const HORDE_VOLUME = {
 	// Horde 40-60 (2026-11-08, 0.3.6)
 	'forever/horde/30-40/06-badlands.guide': [1137], // News for Fizzle, to the Mirage Raceway on 40-50/02's ride to Tanaris
 	'forever/horde/40-50/01-stranglethorn-vale.guide': [95748, 1392, 580], // The Gurubashi Legends of Old; Noboru the Cudgel (0.3.7: its hand-in was optional); Whiskey Slim's Lost Grog (0.3.7: bottles on 40-50/05's beaches, hand-in on 40-50/06's Booty Bay stop)
-	'forever/horde/40-50/02-feralas.guide': [1190, 1191, 1194, 2978, 2979], // Keeping Pace; Zamek's Distraction; Rizzle's Schematics; The Gordunni Scroll and Dark Ceremony (0.3.7: their hand-ins were optional)
-	'forever/horde/40-50/03-feralas.guide': [1428], // Continued Threat
+	'forever/horde/40-50/02-feralas.guide': [1190, 1191, 1194, 2978, 2979, 1428], // Keeping Pace; Zamek's Distraction; Rizzle's Schematics; The Gordunni Scroll and Dark Ceremony (0.3.7: their hand-ins were optional); Continued Threat (on 02's swamp stay since the fix round, 2026-11-20)
 	'forever/horde/40-50/04-tanaris.guide': [654, 864], // Tanaris Field Sampling; Return to Apothecary Zinge
 	'forever/horde/40-50/05-the-hinterlands.guide': [2784, 2621, 2622], // the Fallen Hero of the Horde, Ruag and Bengor
 	'forever/horde/40-50/06-azshara.guide': [608], // The Bloodsail Buccaneers, at 50
@@ -9703,7 +9704,7 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 	const tusks = stv.filter(({ goal }) => is('accept', 209)(goal));
 	assert.equal(tusks.at(-1).s, stv[at(stv, 'turnin 600', is('turnin', 600))].s, 'Skullsplitter Tusks on the second Booty Bay stop');
 	assert.ok(tusks.slice(0, -1).every(({ step }) => (step.when || []).some((p) => p.k === 'turnedin' && [p.q].flat().includes(189))), 'an earlier take only after Bloodscalp Ears');
-	const fer = g('40-50/03-feralas');
+	const fer = g('40-50/02-feralas'); // Dar's quests on 02's Stonard landing since the fix round (2026-11-20)
 	assert.ok(at(fer, 'accept 698', is('accept', 698)) < at(fer, 'turnin 698', is('turnin', 698)), "Dar's quests on the Stonard landing");
 	const az = g('50-60/04-azshara');
 	assert.ok(!az.some(({ goal }) => goal.quest === 3504), '#2390: Betrayed starts at Ag\'tor (3505); Belgrom no longer offers 3504');
@@ -11298,7 +11299,7 @@ test('Horde Swamp of Sorrows follow-up: the first stay is one pass west, then on
 	const tok1 = at(stv, 'turnin 698', is('turnin', 698));
 	assert.ok(harborage < pool1 && pool1 < tok1 && tok1 < at(stv, 'collect 6168 quest 699', (g) => g.t === 'collect' && g.item === 6168), 'the Harborage, the pool, Tok\'Kar, then the snappers');
 	assert.equal(stv[stv.length - 1].goal.quest, 1424, 'the guide ends with Fel\'zerul in Stonard, by the flight master');
-	const sw = goals('forever/horde/40-50/03-feralas.guide');
+	const sw = goals('forever/horde/40-50/02-feralas.guide'); // the second swamp stay is on 02 since the fix round
 	const pool = at(sw, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175);
 	const tok = at(sw, 'turnin 698', is('turnin', 698));
 	assert.ok(pool < tok && tok < at(sw, 'collect 6168 quest 699', (g) => g.t === 'collect' && g.item === 6168), 'the pool, Tok\'Kar, then the snappers');
@@ -13610,7 +13611,7 @@ test('Horde starts: the profession Camping 101 quests, each on its profession\'s
 // errand runs Zinge -> Alessandro Luca -> Zinge, and Keeper Bel'dugur (728) stands between Luca and Zinge, so he is
 // visited on the way back instead of after a second walk.
 test('Horde Undercity 45: Yagyin\'s Digest to Bel\'dugur between Luca and Zinge', { skip }, () => {
-	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const list = goals('forever/horde/40-50/02-feralas.guide'); // the Undercity stop is on 02 since the fix round (2026-11-20)
 	const luca = at(list, 'turnin 232', is('turnin', 232));
 	const bel = at(list, 'turnin 728', is('turnin', 728));
 	const zinge = at(list, 'turnin 238', is('turnin', 238));

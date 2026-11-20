@@ -213,7 +213,7 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   when complete 589
   when complete 573
-  tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
+  tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then back to the flight master.
   turnin 589                          -- Kin'weelay
   turnin 573                          -- Far Seer Mok'thardin
 
@@ -225,9 +225,123 @@ step Far Seer Mok'thardin
   when complete 573
   turnin 573                          -- Far Seer Mok'thardin
 
-step Zeppelin to Orgrimmar
+# ---------------------------------------------------------------- Swamp of Sorrows
+
+step Fly to Stonard
+  when taxi "Stonard"
   zone Stranglethorn Vale
-  goto 31.4,29.9 "Zeppelin to Orgrimmar"
+  tip Stranglethorn's errands are done: from Grom'gol's flight master, fly on to Stonard for the swamp's coast and Misty Reed Post, which fit you now.
+  goto 32.5,29.3 "Grom'gol flight master"
+  fly "Stonard"
+  zone Swamp of Sorrows
+
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet: ride north-east from Grom'gol through Duskwood and Deadwind Pass into the swamp, then east along the road to Stonard, and learn its flight path.
+  getfp "Stonard"
+
+step Stonard
+  tip The Stranglethorn & Swamp guide already finished Lack of Surplus' first part and the Pool of Tears with you; its Fresh Meat and Katar's murlocs are in your log. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
+  accept 698                            -- Dar, inside
+  accept 1430                           -- Dar, inside
+  accept 1424                           -- Fel'zerul, on the top floor
+
+step A Soggy Scroll
+  when onquest 624
+  tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
+  turnin 624
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
+
+step Sawtooth crocolisks
+  tip The crocolisks wallow in the pools around Galen's old camp, just north of Stonard, on the way back east; about one in four drops a flank.
+  collect 6169 quest 698.1
+
+step Pool of Tears
+  tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
+  collect 6175 quest 1424.1
+
+step Misty Reed Post
+  tip Follow the road south-east to the small Horde post on the shore: Tok'Kar and Katar.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
+step The Forbidding Sea: kill these as you meet them
+  zone Swamp of Sorrows
+  tip The snappers line the strand south of the post.
+  tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.
+  tip Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.
+  collect 6168 quest 699.1
+  collect 6184 quest 1430.1           -- Underwater
+
+step Misty Reed Post
+  turnin 699                            -- Tok'Kar
+  accept 1422                           -- Tok'Kar
+  turnin 1422                           -- Katar
+  accept 1426
+
+step Murlocs of the Misty Reed
+  tip The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore.
+  kill 747 quest 1426.1
+  kill 751 quest 1426.3               -- Below ground
+  kill 750 quest 1426.2
+
+step Misty Reed Post
+  turnin 1426                           -- Katar
+  accept 1427
+  turnin 1427                           -- Tok'Kar
+  accept 1428                           -- Katar
+
+step Continued Threat
+  tip The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both.
+  kill 750 quest 1428.1
+  kill 751 quest 1428.2
+  kill 752 quest 1428.3
+
+step Misty Reed Post
+  turnin 1428                           -- Katar
+
+step Stonard
+  turnin 1424                           -- Fel'zerul, on the top floor
+  accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 49
+  turnin 1430                           -- Dar, inside
+
+# ---------------------------------------------------------------- The Undercity
+
+step Fly to the Undercity
+  zone Swamp of Sorrows
+  tip From Stonard's flight master, fly to the Undercity (by way of Kargath): Apothecary Zinge's errands and your Undercity training, then the zeppelin from the towers outside the city to Orgrimmar.
+  goto 46.1,54.7 "Stonard flight master"
+  fly "Undercity"
+  zone Undercity
+
+step Apothecary Zinge
+  zone Undercity
+  accept 232
+  turnin 232                            -- Alessandro Luca
+  accept 238
+  turnin 728                            -- Keeper Bel'dugur, on the way back to Zinge
+  turnin 238
+  accept 243
+  collect 8523                          -- the Field Testing Kit from these errands: keep it, Tanaris Field Sampling hands it back in Gadgetzan
+
+step Undercity
+  zone Undercity
+  accept 2995                           -- Oran Snakewrithe, the Royal Quarter
+  train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+
+step Riding at 40
+  only Undead,!Warlock
+  zone Tirisfal Glades
+  when level>=40
+  when !skill Riding 1
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Orgrimmar zeppelin.
+  train 4773 optional                   -- Velma Warnam, riding trainer
+  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
+
+step Zeppelin to Orgrimmar
+  zone Tirisfal Glades
+  goto 60.7,58.9 "Zeppelin to Orgrimmar"
 
 step Orgrimmar
   zone Orgrimmar
@@ -240,8 +354,10 @@ step Orgrimmar
 # Flow: Kargath (where the Riverglades end) -> fly to Grom'gol -> Stranglethorn's
 # 43-46 errands carried from 40-50/01 in one sweep south (Zul'Mamwe, Grom'gol, the
 # basilisks, the ghost pirates and Zanzil's camps, Unbagwa and Mokk, the naga coast,
-# the Wild Shore, Booty Bay) -> fly Grom'gol -> zeppelin to Orgrimmar
-# (training, riding; Druids and Paladins:
+# the Wild Shore, Booty Bay) -> fly Grom'gol -> fly Stonard -> the Swamp of Sorrows'
+# second stay (Misty Reed Post's murlocs, Fresh Meat, Stonard; fix round 2026-11-20)
+# -> fly the Undercity (Zinge's errands, Lines of Communication, training) ->
+# zeppelin to Orgrimmar (training for Hunters and Shamans, riding; Druids and Paladins:
 # Thunder Bluff for training; Warlocks: Ratchet for the Felsteed) -> fly
 # Freewind Post -> Gadgetzan (flight path) -> eastern
 # Wastewander camps -> Gadgetzan -> Steamwheedle Port -> Lost Rigger Cove ->
@@ -251,8 +367,8 @@ step Orgrimmar
 # Mojache -> Grimtotem camp and the Woodpaw battle map -> Mojache -> one
 # sweep west: the Writhing Deep, the southern Gordunni ruins and, with the
 # distress beacon, OOX-22/FE's escort from Feral Scar Vale -> Mojache (every
-# hand-in) -> fly Orgrimmar (Ripple Recovery, training) -> Shen'dralas, then the
-# Undercity and the Swamp of Sorrows in the next guides.
+# hand-in) -> Shen'dralas, then Orgrimmar, Camp Mojache and Dustwallow Marsh in
+# the next guide.
 #
 # Deviations from the simulator's order:
 # - Tanaris: Gadgetzan's two bounty quests are done in the camps east and
@@ -266,20 +382,16 @@ step Orgrimmar
 #   are dropped: each is replaced before any hearth uses it. Camp Mojache is
 #   kept for the hearth after the escort.
 # - Dropped stops (each a flight, zeppelin or boat for a few small quests):
-#   Thunder Bluff for The Black Shield (1276, 1400 XP); the Undercity for
-#   Apothecary Zinge's errands and Patrick Garrett (232, 238, 243 Into the
-#   Field and 2342 Reclaimed Treasures: 780 XP here, the rest much later);
-#   the Booty Bay stop of visit 38 (Sunken Treasure 669 is handed in on the
-#   first Booty Bay stop of forever/horde/40-50/01-stranglethorn-vale
-#   instead; 670 was never handed in). About 1,900 XP at level 44, so no
-#   grind stop is added; the route from Feralas to the Swamp of Sorrows
-#   passes Orgrimmar and Grom'gol anyway, so those stops stay.
+#   Thunder Bluff for The Black Shield (1276, 1400 XP); Patrick Garrett's
+#   Reclaimed Treasures (2342) in the Undercity; the Booty Bay stop of visit 38
+#   (Sunken Treasure 669 is handed in on the first Booty Bay stop of
+#   forever/horde/40-50/01-stranglethorn-vale instead; 670 was never handed in).
 #
 # Class quests: Warlocks pick up the Felsteed (3631, 4490) in Orgrimmar and
 # Ratchet on the way in, as in the earlier Feralas guide.
 #
-# Class training: Orgrimmar at about 44.5 for everyone but Druids and
-# Paladins, who fly to Thunder Bluff then. Riding at 40: each race's own
+# Class training: the Undercity at about 45 for its classes (Warriors, Paladins, Rogues, Priests, Mages, Warlocks),
+# Orgrimmar for Hunters and Shamans, Thunder Bluff for Druids (and Paladins on the way). Riding at 40: each race's own
 # riding trainer (Kildar in Orgrimmar for Orcs, Genn Fairweather on Zephras Isle for Skyborne, Xar'Ti in
 # Sen'jin Village, Kar Stormsinger in Bloodhoof Village, Velma Warnam in
 # Brill), all optional.
@@ -312,9 +424,9 @@ step Orgrimmar
 # ---------------------------------------------------------------- To Orgrimmar
 
 step Orgrimmar
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  only Hunter,Shaman,Warlock
   zone Orgrimmar
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  train class only Hunter,Shaman       -- the Undercity's classes trained there on the way
   accept 3631 only Warlock              -- Zevrost, Cleft of Shadow
 
 step Riding at 40
@@ -479,6 +591,8 @@ step Gadgetzan
   accept 992                            -- Senior Surveyor Fizzledowser
   turnin 2864                           -- Tran'rek
   accept 1690                           -- Chief Engineer Bilgewhizzle
+  turnin 243                            -- Chief Engineer Bilgewhizzle: Apothecary Zinge's Field Testing Kit, from the Undercity
+  accept 379                            -- Chief Engineer Bilgewhizzle: the water pouches come from the same Wastewander camps
   accept 1707                           -- Spigot Operator Luglunket
 
 step Gadgetzan
@@ -515,6 +629,8 @@ step Gadgetzan
   tip Gadgetzan is the walled goblin town just past the Tanaris border.
   turnin 2864                           -- Tran'rek
   accept 1690                           -- Chief Engineer Bilgewhizzle
+  turnin 243                            -- Chief Engineer Bilgewhizzle: Apothecary Zinge's Field Testing Kit, from the Undercity
+  accept 379                            -- Chief Engineer Bilgewhizzle: the water pouches come from the same Wastewander camps
   accept 1707                           -- Spigot Operator Luglunket
 
 step Gadgetzan
@@ -528,9 +644,10 @@ step Gadgetzan
 
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
-  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: Luglunket wants five.
+  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.
   tip Careful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen.
   collect 8483 quest 1707.1
+  collect 8483 quest 379.1
   kill 5616 quest 1690.2
   kill 5618 quest 1690.1
 
@@ -538,6 +655,8 @@ step Gadgetzan
   turnin 1690                           -- Chief Engineer Bilgewhizzle
   accept 1691
   turnin 1707                           -- Spigot Operator Luglunket
+  turnin 379                            -- Chief Engineer Bilgewhizzle
+  note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, for the Tanaris guide at about 48, on the way back north from Scrimshank's hive.
 
 # ---------------------------------------------------------------- Steamwheedle Port
 
