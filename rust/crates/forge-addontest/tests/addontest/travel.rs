@@ -103,11 +103,14 @@ fn a_diagonal_walk_beside_an_enemy_capital_does_not_cut_its_corner() {
 			return legs and #legs == 1 and legs[1].kind == "walk" or false
 		end
 		-- Outside the northern ownership corner. The last pair crosses it with both endpoints outside.
+		-- Walk parallel to the southern edge of another owned cell, exactly one shoulder outside it.
+		local edge = 1600 - .55
+		local function touches(x) return N.danger.Blocked(1, x, -3989, x, -3978, "Alliance") ~= nil end
 		emit({ walk(2281.6667, -4506, 2260.6667, -4485, 1), walk(2260.6667, -4485, 2281.6667, -4506, 1),
 			walk(2272.6667, -4506, 2260.6667, -4494, 1), walk(2260.6667, -4494, 2272.6667, -4506, 1),
-			walk(2272.6667, -4506, 2260.6667, -4494, 2) })"#,
+			walk(2272.6667, -4506, 2260.6667, -4494, 2), touches(edge), touches(edge - .001) })"#,
 	);
-	assert_eq!(out, json!([true, true, false, false, true]));
+	assert_eq!(out, json!([true, true, false, false, true, true, false]));
 }
 
 #[test]
