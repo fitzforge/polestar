@@ -25,6 +25,10 @@ return {
 	-- Step 4: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飛往{area:272}",
+	-- {npc:4486} Genavie Callow · {area:340} Kargath
+	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "",
+	-- {npc:4486} Genavie Callow
+	["{npc:4486}, beside the flight master"] = "",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "{zone:1458}飛行管理員",
 
@@ -115,13 +119,23 @@ return {
 	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",
 	["Below ground"] = "地下",
 
-	-- Step 19: The Shards of Myzrael
+	-- Step 19: Dabyrie's Farmstead
+	-- {npc:4481} Marcel Dabyrie · {npc:4479} Fardel Dabyrie · {npc:4480} Kenata Dabyrie
+	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "",
+	-- {item:5832} Marcel's Head · {npc:4481} Marcel Dabyrie
+	["{item:5832}, from {npc:4481}"] = "",
+	-- {item:5831} Fardel's Head · {npc:4479} Fardel Dabyrie
+	["{item:5831}, from {npc:4479}"] = "",
+	-- {item:5830} Kenata's Head · {npc:4480} Kenata Dabyrie
+	["{item:5830}, from {npc:4480}"] = "",
+
+	-- Step 20: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
 	["The {object:138492}"] = "{object:138492}",
 	-- {area:321} Hammerfall
 	["Follow the road east. The violet shards glow just off the road a short way west of {area:321}."] = "沿路向東。紫色碎片在{area:321}以西不遠處的路旁發光。",
 
-	-- Step 20: Hammerfall
+	-- Step 21: Hammerfall
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
 	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
 	-- {npc:2792} Gor'mul
@@ -129,29 +143,29 @@ return {
 	-- {npc:12920} Doctor Gregory Victor · {skill:129} First Aid
 	["{npc:12920}, at the south gate. If {npc:12920} offers nothing, another player may be running his {skill:129} quest Triage: he can be busy for a few minutes. Wait, then talk to him again."] = "{npc:12920}在南門。如果{npc:12920}沒有任務可接，可能是其他玩家正在進行他的{skill:129}任務「急救」：他可能會忙上幾分鐘。稍等一下再跟他對話。",
 
-	-- Step 21: Stromgarde quests for a group
+	-- Step 22: Stromgarde quests for a group
 	["Stromgarde quests for a group"] = "斯托姆加德的組隊任務",
 	-- {npc:2703} Zengu · {quest:639} Sigil of Strom
 	["{npc:2703}'s {quest:639} drops from the elite Syndicate (35-38) in Stromgarde's ruins, the west of the highlands. Great XP if you have a group for it: the route passes Stromgarde on its way to the inner circle."] = "{npc:2703}的{quest:639}從斯托姆加德廢墟（高地西部）的精英辛迪加（35-38級）身上掉落。組隊去打經驗很豐厚：路線去內部法陣時會經過斯托姆加德。",
 
-	-- Step 22: Drywhisker Gorge
+	-- Step 23: Drywhisker Gorge
 	["North-east of Hammerfall the Drywhisker kobolds mine the gorge; the Kobolds at the mouth and the Diggers and Surveyors deeper in all drop the Motes of Myzrael.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "落錘鎮東北，枯須狗頭人在峽谷中採礦；洞口的狗頭人和深處的挖掘者、勘測員都掉落密斯萊爾之塵。\n小心：每種狗頭人殘血時都會跑去呼救（狗頭人30%，勘測員和挖掘者15%），可能引來更多。",
 
-	-- Step 23: Iridescent Shards
+	-- Step 24: Iridescent Shards
 	-- {object:2701} Iridescent Shards
 	["The {object:2701} lie at the far end of the gorge."] = "{object:2701}在峽谷的最深處。",
 
-	-- Step 24: The Stone of East Binding
+	-- Step 25: The Stone of East Binding
 	-- {object:2691} Stone of East Binding
 	["The {object:2691}"] = "{object:2691}",
 	-- {object:180105} Circle of Binding · {area:321} Hammerfall
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
 	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "每處{object:180105}都是一圈立石，鑰匙就放在正中的石頭上。東部的法陣在{area:321}西北的丘陵上。\n小心：每塊中心石都有約三個接近39級的元素生物看守，不清掉它們就點石頭會引來圍攻：西部是燃燒流放者，外部是雷霆流放者，東部是巨浪流放者。",
 
-	-- Step 25: Witherbark Village
+	-- Step 26: Witherbark Village
 	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
 
-	-- Step 26: Highland raptors and Plains Creepers
+	-- Step 27: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
 	["Highland raptors and Plains Creepers"] = "",
 	-- {area:321} Hammerfall
@@ -161,7 +175,7 @@ return {
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
 	["{item:278225}, from Plains Creepers"] = "",
 
-	-- Step 27: Hammerfall
+	-- Step 28: Hammerfall
 	-- {area:321} Hammerfall
 	["Back north to {area:321}: the doctor stands at the south gate."] = "往北回到{area:321}：醫生站在南門。",
 	-- {npc:12920} Doctor Gregory Victor
@@ -169,77 +183,77 @@ return {
 	-- {npc:12920} Doctor Gregory Victor
 	["{npc:12920}, at the south gate"] = "{npc:12920}，在南門",
 
-	-- Step 28: Boulderfist Hall
+	-- Step 29: Boulderfist Hall
 	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
 	["The Boulderfist Brutes camp outside the ogres' hall, far south-west of {area:321}; the Magus stand among them. Pull them one at a time."] = "石拳蠻兵在{area:321}西南方遠處的巨魔大廳外紮營；石拳法師站在他們之間。一次拉一隻。",
 
-	-- Step 29: Fleshstalker raptors
+	-- Step 30: Fleshstalker raptors
 	["Fleshstalker raptors"] = "獵獸龍",
 	-- {area:316} Boulderfist Hall
 	-- plural, as words: Highland Fleshstalkers = {npc:2561} Highland Fleshstalker
 	["Highland Fleshstalkers (36-37) hunt the southern highlands, a pack north of {area:316} and another on the plain to its west. Pull them one at a time."] = "高地獵獸龍（36-37級）在南部高地獵食，一群在{area:316}北邊，另一群在它西邊的平原上。一次拉一隻。",
 
-	-- Step 30: Go'shek Farm
+	-- Step 31: Go'shek Farm
 	["Go'shek Farm"] = "戈謝克農場",
 	-- {npc:2733} Apothecary Jorell · {area:321} Hammerfall · {item:278462} Packaged Tonics
 	["{npc:2733}'s lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to {area:321}; the case of {item:278462} is inside."] = "{npc:2733}的實驗室棚屋在戈舍克農場，就在回{area:321}路上迅猛龍平原的東北；裝{item:278462}的箱子在裡面。",
 
-	-- Step 31: Back to Hammerfall
+	-- Step 32: Back to Hammerfall
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "返回{area:321}",
 	-- {area:321} Hammerfall
 	["Back north-east to {area:321}."] = "向東北回到{area:321}。",
 
-	-- Step 32: Boulderfist quests for a group
+	-- Step 33: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "石拳的組隊任務",
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms · {npc:2772} Korin Fel · {quest:680} The Real Threat
 	["{npc:2771}'s next {quest:678} and {npc:2772}'s {quest:680} are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil."] = "{npc:2771}的下一個{quest:678}和{npc:2772}的{quest:680}都是斯托姆加德食人魔區的精英食人魔（38-40級），和印記是同一次組隊行程。",
 	-- {npc:2772} Korin Fel
 	["{npc:2772}, beside him"] = "{npc:2772}，在他旁邊",
 
-	-- Step 33: The Stone of Outer Binding
+	-- Step 34: The Stone of Outer Binding
 	-- {object:2690} Stone of Outer Binding
 	["The {object:2690}"] = "{object:2690}",
 	["Head west; the outer circle stands in the middle of the highlands."] = "向西走；外部法陣在高地中部。",
 
-	-- Step 34: Circle of West Binding
+	-- Step 35: Circle of West Binding
 	-- {area:1057} Thoradin's Wall
 	["The western circle is near {area:1057}, north-west of the outer one."] = "西部法陣在{area:1057}附近，位於外部法陣的西北。",
 
-	-- Step 35: The Stone of Inner Binding
+	-- Step 36: The Stone of Inner Binding
 	-- {object:2702} Stone of Inner Binding
 	["The {object:2702}"] = "{object:2702}",
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "內圈法陣在西邊法陣的南邊、激流堡的東邊。",
 	-- {area:321} Hammerfall
 	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "石頭的下一個任務需要擊敗在{area:321}以西遊蕩的42級精英弗茲魯克：放著別管。",
 
-	-- Step 36: Stromgarde
+	-- Step 37: Stromgarde
 	["Stromgarde"] = "斯托姆加德",
 	-- {area:325} Tower of Arathor · {npc:2773} Or'Kalar
 	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "內圈法陣西邊是激流堡廢墟：辛迪加佔據東半部（徽記由他們的咒術師、潛行者和魔法師掉落），石拳佔據西半部的{area:325}一帶（{npc:2773}在旁邊一間沒屋頂的房子裡）。",
 
-	-- Step 37: Faldir's Cove
+	-- Step 38: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout
 	["Head south to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "向南前往南部海岸的哥布林海灣。{npc:2766}在海灣上方的懸崖上瞭望。",
 
-	-- Step 38: Professor Phizzlethorpe
+	-- Step 39: Professor Phizzlethorpe
 	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "護送教授上山，到海灣上方的洞穴，在他工作時守護他。兩隻40級水元素會在那裡伏擊他，且免疫冰霜。把它們擋在洞口、遠離他：如果戰鬥發生在洞內，他會參戰而不工作，還會不斷有更多水元素出現。",
 
-	-- Step 40: The Drowned Reef: kill these as you meet them
+	-- Step 41: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：遇到就殺",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "在海灣西邊，刺脊襲擊者和刺脊巫師（38-40級）佔據海岸：一次拉一隻。兩艘沉船在外海的淺水中，海圖和航海日誌在船裡；寶石散落在沉船周圍的海底。",
 	["Underwater"] = "在水下",
 
-	-- Step 41: Faldir's Cove
+	-- Step 42: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
 	["for {npc:2487} in {area:35}, around level 41"] = "為{area:35}中的{npc:2487}，41級左右",
 	-- {area:880} Thandol Span · {zone:1437} Wetlands · {zone:1418} Badlands
 	["The next guide crosses the {area:880} into the {zone:1437} and heads for the {zone:1418}."] = "下一份攻略會穿過{area:880}進入{zone:1437}，再前往{zone:1418}。",
 
-	-- Step 42: Back to Hammerfall
+	-- Step 43: Back to Hammerfall
 	-- {area:321} Hammerfall · {area:880} Thandol Span
 	["Only if you ran Stromgarde with a group: back to {area:321} for its hand-ins, then on to the {area:880}."] = "僅當你組隊打了斯托姆加德時：回{area:321}交任務，然後前往{area:880}。",
 

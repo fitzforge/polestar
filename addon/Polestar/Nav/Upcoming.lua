@@ -31,6 +31,11 @@ Nav.upcoming = Upcoming
 
 local LAYER = "nav.upcoming"
 local UPCOMING_DEFAULT = 5
+-- Drawn over the guide's own pins (Nav/Layers.lua: the step's goals 10, spawn
+-- spots 15-20, While you're here 40), so a later step's number is never
+-- covered by the pin of the same place (#3197); under the travel route's
+-- stops (50) and the arrow's target (100).
+local PRIORITY = 45
 local SIZE = 15
 local NEAR = 0.6         -- map percent: places this close share a pin
 local FADE_TO = 0.35     -- the last step's alpha
@@ -149,7 +154,7 @@ function Upcoming.Build()
 						local p, numbered = Upcoming.Look(n, want)
 						p.map, p.x, p.y, p.f = gv.map, gv.x, gv.y, gv.f
 						p.text = numbered and tostring(no) or nil
-						p.priority, p.steps, p.lines = 1, { s }, { line }
+						p.priority, p.steps, p.lines = PRIORITY, { s }, { line }
 						pins[#pins + 1] = p
 					end
 					break

@@ -101,22 +101,24 @@ step Milly Osworth
   accept 3905
 
 step Kelsey Fargo
-  tip She stands outside the mine entrance. Shinyfinder Narf, inside, is elite: grouping up is advised.
+  tip She stands outside the mine entrance. Her next errand, The Big Picture, sends you after Shinyfinder Narf inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you.
   turnin 91745 optional
 
-step Kelsey Fargo
-  when group 91752
-  accept 91752
+step The Big Picture
+  when level>=5
+  tip From level 5: Kelsey's The Big Picture. Shinyfinder Narf (3, elite) is two levels under you then.
+  accept 91752                                -- Kelsey Fargo, outside the mine
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
-  tip Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.
+  tip Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.
   kill 80 quest 21                            -- Kobold Laborer walks around Echo Ridge Mine: look inside the circle on the map
 
-step Inside Echo Ridge Mine
-  when group 91752
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Shinyfinder Narf (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 247886 quest 91752 group 2          -- Shinyfinder Narf
+step Shinyfinder Narf
+  when level>=5
+  tip From level 5 Shinyfinder Narf, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.
+  tip Careful: clear the Laborers around him first and fight him at full health.
+  collect 247886 quest 91752                  -- Shinyfinder Narf
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
@@ -127,22 +129,18 @@ step Northshire Abbey
   train class
   accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
-  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 step Northshire Abbey
-  when group 91752
+  when complete 91752
   turnin 91752
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
   interact 563442 quest 91772.1
 
-step Level 5.48
-  when !group 91752
-  when level<5.48
-  tip If you skipped The Big Picture, grind here to level 5.48 to stay on the route's plan.
-  goto 48.9,28.1 map 1429 "Kobold Laborer"
-  level 5.48 grind 80                 -- grind on Kobold Laborer
+step Northshire Abbey
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
@@ -157,20 +155,14 @@ step Goldshire
   turnin 5623 only Priest                     -- Priestess Josetta, upstairs
   accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
-step Goldshire
-  when group 91752
+step Marshal Dughan
+  when onquest 91772
   turnin 91772                                -- Marshal Dughan
 
 step Goldshire
   when group 91775
+  when turnedin 91772
   accept 91775
-
-step Level 5.77
-  when !group 91752
-  when level<5.77
-  tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
-  goto 40.9,69.5 map 1429 "Stonetusk Boar"
-  level 5.77 grind 113                -- grind on Stonetusk Boar
 
 step Sam Sarsaparilla
   tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
@@ -361,7 +353,7 @@ step Goldshire
   turnin 62                                   -- Marshal Dughan
   accept 76
   turnin 60                                   -- William Pestle, inside
-  accept 61                                   -- Morgan Pestle in Stormwind takes it (02-westfall)
+  accept 61                                   -- Morgan Pestle in Stormwind takes it (the Westfall guide)
   turnin 107
   accept 112
   train class
@@ -515,7 +507,7 @@ step Goldshire
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (the Westfall guide)
   accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it

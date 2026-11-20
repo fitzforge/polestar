@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071}是精英（42级），位于{area:16743}以北的部落训练场，本指南稍后会去那里：建议组队。",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "通缉令",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -349,10 +348,11 @@ return {
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "{zone:2548}的大多数野兽都会掉落{item:268632}，交给{npc:260231}：这片海岸的海滨爬行者和海盗西边山脊上的野猪都行。\n注意：{npc:257001}（精英，42级）、科穆克（部落精英，45级）和{npc:263380}（精英，42级）在该地区野外游荡：把野兽拉离它们再打。",
 
-	-- Step 68: Level 44.4 on the Eastsea pirates
-	["Level 44.4 on the Eastsea pirates"] = "在东海海盗身上升到44.4级",
-	-- {npc:259758} Gul'gash · {area:1517} Uldaman
-	["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。",
+	-- Step 68: Level 44 on the Eastsea pirates
+	["Level 44 on the Eastsea pirates"] = "",
+	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
+	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。"
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "刷{npc:257901}",
 
@@ -556,6 +556,9 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "下一个指南从{zone:1432}南边的{zone:1418}开始：飞往{area:144}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。",
+	-- ["Level 44.4 on the Eastsea pirates"] = "在东海海盗身上升到44.4级",
+	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",

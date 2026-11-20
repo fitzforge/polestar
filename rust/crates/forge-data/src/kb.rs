@@ -3116,7 +3116,7 @@ fn build_mechanics(files: &MechFiles, quests: &Obj, corrections: &V) -> Result<M
 		}
 		let corr = corrections.get(&id);
 		if corr.truthy() {
-			apply_mech_correction(&corr, &mut kinds, &mut params, &steps)?;
+			apply_mech_correction(&corr, &mut kinds, &mut params, &steps, files.quest_steps.exists())?;
 			bump("corrected", 1.0);
 		}
 		let gotchas: Vec<Obj> = sq
@@ -3335,7 +3335,11 @@ fn apply_public_mechanics(p: &V, verdicts: &V, kinds: &mut Vec<Obj>, params: &mu
 	refuted
 }
 
-fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, steps: &[Obj]) -> Result<(), String> {
+/// A mechanics correction over the merged kinds, params and steps. A step it corrects that no layer has is an error
+/// while the private steps layer (data/local/mechanics/quest-steps.json, `private_steps`) is there: a stale
+/// correction. Without that layer (a contributor's checkout, #3029) the step is one only that layer has, and the
+/// correction of it is left out: the public layers have nothing it could correct.
+fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, steps: &[Obj], private_steps: bool) -> Result<(), String> {
 	for p in c.get("params").items() {
 		let pk = p.get("kind").to_js_string();
 		if let Some(k) = kinds.iter().find(|x| x.get("kind").as_str() == Some(&pk)) {
@@ -3374,7 +3378,12 @@ fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, ste
 		}
 	}
 	for (n, st) in c.get("steps").entries() {
-		let Some(s0) = steps.iter().find(|x| x.get("n").to_js_string() == *n) else { return Err(format!("mechanics correction: no step {n} to correct")) };
+		let Some(s0) = steps.iter().find(|x| x.get("n").to_js_string() == *n) else {
+			if private_steps {
+				return Err(format!("mechanics correction: no step {n} to correct"));
+			}
+			continue;
+		};
 		s0.set("confidence", "high");
 		s0.set("drives", true);
 		s0.set("_source", "correction");
@@ -4129,5 +4138,20 @@ mod tests {
 		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": 625, "source": ["questie-forever"] }"#), &corr), None, "already a paid value");
 		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": null }"#), &corr), None);
 		assert_eq!(paid_xp(&q(r#"{ "id": 96103, "xp": 705 }"#), &corr), None, "a correction's value stands as written");
+	}
+
+	// #3029 (AbaddonAbatu): Poor Old Blanchy's correction (151) sets a place on step 1, which only the private steps
+	// layer has. A contributor's checkout has no such layer: `forge data build --kb` stopped there. Without the layer
+	// the correction of that step is left out; with it, a step no layer has is still a stale correction.
+	#[test]
+	fn a_correction_of_a_step_only_the_private_layer_has_is_left_out_without_that_layer_3029() {
+		let c = parse_json(r#"{ "steps": { "1": { "set": { "place": { "name": "The Jansen Stead's fields", "x": 56.8, "y": 19.1 } } } } }"#).unwrap();
+		let (mut kinds, mut params) = (Vec::new(), Vec::new());
+		assert_eq!(apply_mech_correction(&c, &mut kinds, &mut params, &[], false), Ok(()));
+		assert_eq!(apply_mech_correction(&c, &mut kinds, &mut params, &[], true), Err("mechanics correction: no step 1 to correct".to_string()));
+		let step = Obj::new();
+		step.set("n", 1.0);
+		apply_mech_correction(&c, &mut kinds, &mut params, std::slice::from_ref(&step), false).unwrap();
+		assert_eq!(step.get("place").get("x").num(), 56.8, "a step that is there is corrected either way");
 	}
 }

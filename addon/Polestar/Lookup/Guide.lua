@@ -653,9 +653,12 @@ local function questStep(q, from, isTarget, opts)
 	Lookup.AcceptPre(accept, q)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
-	local event = nil
+	local event, eventAt = nil, nil
 	-- Objectives with no target the data names (events) share one `complete`
-	-- at the first one's place. When two or more have a place of their own
+	-- at the first one's place, in the first one's order among the quest's
+	-- objectives (#3054: Brewer's Trade delivers the bottles to Dun Garok
+	-- before the hops sack is had, and the page listed the sack first). When
+	-- two or more have a place of their own
 	-- (#2833: Powering the Pylons' western and eastern pylons), each is a
 	-- goal at its place, read by its quest-log line as a placeholder's kill is
 	-- (`logLine`): the arrow moves on as each line ticks, where the shared
@@ -765,11 +768,11 @@ local function questStep(q, from, isTarget, opts)
 		elseif placedEvents >= 2 and o.map and o.x and o.y then
 			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
-			event = event or o
+			if not event then event, eventAt = o, #goals + 1 end
 		end
 	end
 	if event then
-		goals[#goals + 1] = at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event)
+		table.insert(goals, eventAt, at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event))
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }

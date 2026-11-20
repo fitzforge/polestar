@@ -117,8 +117,12 @@ return {
 	["{npc:1075} again"] = "{npc:1075} de novo",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "De volta pelo vão e descendo a estrada por {area:205}, a caminho do sul.",
-	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
-	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} em {area:320}, em 05-arathi-highlands",
+	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
+	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
+
+	-- Step 26: The Green Belt
+	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
+	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
@@ -206,16 +210,17 @@ return {
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}: a pista dele leva ao Planalto Arathi",
 	-- {npc:2228} Lieutenant Farren Orinelle
 	["{npc:2228}, inside"] = "{npc:2228}, lá dentro",
-	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
-	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, na estalagem: para {area:35} (04-stranglethorn-vale)",
+	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale
+	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "",
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "{npc:2430}, no andar de cima",
 	-- {npc:2382} Darren Malvew
 	["{npc:2382}: the lions come later"] = "{npc:2382}: os leões ficam para depois",
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, de {npc:2381}",
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, lá dentro: guarde-a, o acampamento da Camarilha fica para a estrada ao norte rumo a Arathi (05-arathi-highlands)",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1417} Arathi Highlands
+	-- was: ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, lá dentro: guarde-a, o acampamento da Camarilha fica para a estrada ao norte rumo a Arathi (05-arathi-highlands)"
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "",
 
 	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
@@ -302,8 +307,9 @@ return {
 	["Beat {npc:4961} and his thugs: they give up"] = "Derrote {npc:4961} e os capangas dele: eles desistem",
 
 	-- Step 67: The Islander
-	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
-	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} treina guerreiros em {object:2100}, ao lado da Taberna do Javatusco Saltitante. {npc:6236} espera em {area:720}, em {zone:1413}, no caminho para {area:392}, bem mais tarde (40-50/01).",
+	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet · {zone:1434} Stranglethorn Vale
+	-- was: ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} treina guerreiros em {object:2100}, ao lado da Taberna do Javatusco Saltitante. {npc:6236} espera em {area:720}, em {zone:1413}, no caminho para {area:392}, bem mais tarde (40-50/01)."
+	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "",
 
 	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "Catedral da Luz",
@@ -354,6 +360,7 @@ return {
 	-- ["To {area:2104}"] = "Para {area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Para o oeste, até as fazendas de {area:287}: coloque {item:279386} na mesa de contabilidade da prefeitura, onde ficam {npc:2335} e os conselheiros.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Dragonetes, raptores e {npc:271458}",
+	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} em {area:320}, em 05-arathi-highlands",
 	-- ["{area:287} town hall"] = "Prefeitura de {area:287}",
 	-- ["{area:287}'s town hall"] = "Prefeitura de {area:287}",
 	-- ["{npc:1244}: {quest:98283}, an elite raptor"] = "{npc:1244}: {quest:98283}, um raptor elite",
@@ -362,6 +369,8 @@ return {
 	-- ["{npc:2104}: for {npc:270637}"] = "{npc:2104}: para {npc:270637}",
 	-- ["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}: para {npc:270637}, de volta a leste pela estrada",
 	-- ["{npc:2276}, inside"] = "{npc:2276}, lá dentro",
+	-- ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, lá dentro: guarde-a, o acampamento da Camarilha fica para a estrada ao norte rumo a Arathi (05-arathi-highlands)",
+	-- ["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, na estalagem: para {area:35} (04-stranglethorn-vale)",
 	-- ["{npc:2438} also wants a {item:3719} ({skill:165}), a {item:2997} ({skill:197}) and {item:2321} (any trade supplier): the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} também quer {item:3719} ({skill:165}), {item:2997} ({skill:197}) e {item:2321} (qualquer fornecedor de ofício): a capa é entregue quando você voltar a {area:271} mais tarde.",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} também quer um {item:3719}, um {item:2997} e {item:2321}: fabricados ou comprados; o manto é entregue quando você voltar a {area:271} mais tarde.",
 	-- ["{npc:2438}: only if you have or can buy a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells them"] = "{npc:2438}: só se você tiver ou puder comprar um {item:3719} ({skill:165}) e uma {item:2997} ({skill:197}); nenhum vendedor vende esses itens",
@@ -372,6 +381,7 @@ return {
 	-- ["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708} está em {object:2164}; {npc:211033}, perto do canal; {npc:5081}, ao sul de {object:2101}.",
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462} fica nas colinas do sudeste: use a {item:279996} ao lado dele.",
 	-- ["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
+	-- ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} treina guerreiros em {object:2100}, ao lado da Taberna do Javatusco Saltitante. {npc:6236} espera em {area:720}, em {zone:1413}, no caminho para {area:392}, bem mais tarde (40-50/01).",
 	-- ["{npc:5683} waits north of {area:205} by the {area:881}; {npc:271322} a short walk further north-east."] = "{npc:5683} espera ao norte de {area:205}, perto de {area:881}; {npc:271322}, um pouco mais a nordeste.",
 	-- ["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to {npc:1075}.\n{npc:5683} may not offer {quest:87318} yet: if she doesn't, skip it.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "{npc:5683} espera na estrada ao norte de {area:205}, em direção a {area:880}; {npc:271322}, um pouco mais ao nordeste, e o cadáver de Ebenezer Ferratranca fica sob o vão, ao lado dela. O pergaminho de Ferratranca volta para {npc:1075}.\n{npc:5683} pode ainda não oferecer {quest:87318}: se ela não oferecer, pule.\nDois Sabotadores Ferro Negro elite ficam junto ao cadáver, dentro do vão: puxe um de cada vez, ou saqueie o cadáver e saia correndo.",
 	-- ["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "{zone:1455} não tem instrutor de druidas: treine com {npc:5504} em {zone:1453} antes do metrô.",

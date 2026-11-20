@@ -1,7 +1,7 @@
 guide forever/50-60/mount-hyjal
 title Mount Hyjal
-levels 57-59 Alliance
-levels 57-58 Horde
+levels 56-58 Alliance
+levels 56-58 Horde
 zone Mount Hyjal
 coords live
 why About 100 quests in Forever's new endgame zone, 57 to 59, then on to Silithus.
@@ -15,11 +15,12 @@ next forever/alliance/50-60/06-silithus
 # first Alliance player (levels 57 to 60), then Alliance players who followed this guide and Horde players who quested
 # through the zone (levels 55 to 60, 2026-11). The Horde steps (Thark Gorax, the Western Post, Elderwild's Zet'gan,
 # Ortak Lomgok and Kal'tinzan, Faustron's Moonglade flight path, Thisalee's hand-in) follow the Horde recordings.
-# On both routes it comes before the faction's Silithus guide (50-60/06), at about 57 by the level model. Alliance:
-# after the Western Plaguelands guide (50-60/04, which ends at Marshal's Refuge in Un'Goro); Horde: after the Eastern
-# Plaguelands guide (50-60/05, which ends at Valor's Rest in Silithus). Both fly to Everlook, ride in through
-# Darkwhisper Gorge and leave from the Summit of Eternity by the flight to Everlook; the Silithus guides pick up from
-# there (the Alliance's with Everlook's errands, the Horde's with the flight back to Marshal's Refuge).
+# On both routes it comes before the faction's Silithus guide (50-60/06), at about 56 (Alliance) and 56.3 (Horde) by
+# the level model. Alliance: after the Western & Eastern Plaguelands guide (50-60/04, which ends in Menethil Harbor on
+# the boat to Theramore); Horde: after the Eastern Plaguelands guide (50-60/05, which ends at Everlook in Winterspring).
+# Both fly to Everlook, ride in through Darkwhisper Gorge and leave from the Summit of Eternity by the flight to
+# Everlook; the Silithus guides pick up from there (the Alliance's with Everlook's errands, the Horde's with the flight
+# from Everlook to Gadgetzan).
 # Order: the way in from Everlook through Darkwhisper Gorge (binding the Hearthstone there), Ketharas the hermit
 # and his first errands by the road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost
 # and its flight path, the fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the
@@ -49,7 +50,7 @@ next forever/alliance/50-60/06-silithus
 step Into Mount Hyjal
   when !zone "Mount Hyjal"
   tip New in Forever: this guide follows what players did on Mount Hyjal. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip Mount Hyjal lies south of Winterspring. Fly to Everlook (coming from Silithus, ride back north through the pass to Marshal's Refuge's flight master first), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
+  tip Mount Hyjal lies south of Winterspring. Fly to Everlook (from Theramore on the Alliance route; the Horde route already ends there), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
   tip Careful: elites stand along the whole way in. Frostmaul Giants and Preservers (59-60) flank the road through Frostwhisper Gorge, and Hederine Slayers, Initiates and Manastalkers (57-58) line Darkwhisper Gorge from its mouth to the zone line, with Lady Hederine (61) on its east side. Follow the arrows' line at full speed, never stop or fight on the way, and don't turn off it.
   fly "Everlook"
   zone Winterspring
@@ -119,6 +120,7 @@ step Celastrus the Bitter
 
 step Soil and venison
   tip The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for Ketharas's stew.
+  tip Careful: Sunderbark (56), an elite treant, walks the fields to the south-east around 60,78: give him room.
   loop
   goto 56.5,83.5
   goto 57.2,89.5
@@ -129,8 +131,8 @@ step Soil and venison
 
 step The ruined catapult and flying machine
   tip Two of the wrecks Ketharas named lie at the east end of the fields: plant one of his seeds beside each.
-  goto 62.6,82.9 "Ruined Catapult"
-  goto 66.1,83.2 "Ruined Flying Machine"
+  goto 62.9,82.9 "Ruined Catapult"
+  goto 66.1,83.5 "Ruined Flying Machine"
 
 step The shrub field
   tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
@@ -263,7 +265,7 @@ step Felflick
   when onquest 96255
   turnin 96255 @49.3,77.1
   accept 96322 @49.3,77.1               -- A Revenge Now Bitter
-  talk 263757 @49.3,77.1                -- Felflick: decide his fate
+  complete 96322 @49.3,77.2             -- Felflick: decide his fate
 
 step Finish the slime ooze
   when !has 273008 x8
@@ -282,8 +284,8 @@ step The Curious Crow
 
 step The Ashen workstations
   tip Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.
-  goto 43.4,76.2 "Slime Workstation"
-  goto 44.3,72.5 "Alchemy Workstation"
+  goto 42.5,73.1 "Slime Workstation"
+  goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
   goto 49.6,69.6 "Vessel Workstation"
   complete 95316
@@ -327,12 +329,20 @@ step Orokai
   tip South-west to Orokai, the ancient. Talk to him again when you are ready and watch what he shows you.
   turnin 96209
   accept 95006                          -- Stolen Power
-  talk 216289                           -- Orokai: ready to watch
+  complete 95006                        -- Orokai: ready to watch
 
 step Dendrite Starblaze
   tip Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 95006
   accept 93773                          -- The Pact: for Ketharas
+
+step Rabine Saturna
+  only Alliance
+  when onquest 6762
+  zone Moonglade
+  tip Rabine Saturna's house stands in Nighthaven, a short walk from Dendrite: hand her the letter from Darnassus on the way to the flight master.
+  turnin 6762                           -- Rabine Saturna
+  accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
 
 step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
@@ -373,7 +383,8 @@ step Ketharas
 # berries, then the elders) with the Deadwood camps around it, Elderwild (the Alliance and Horde outposts stand
 # side by side) with Mourning's Rest and the overlook west of it, then east into the Cradle of Tranquility: the
 # wild gods' errands, Johun's camp (Alliance) and back west to Marrosis and Shalla'kal.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
 # The veteran's Anywhere But Here is taken after Mourning's Rest, on the way west to the overlook, and the
 # breadcrumbs for part 3 (A Clever Creature, Trail Assist) wait for part 3's way through the Cradle.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
@@ -407,8 +418,11 @@ step Ketharas
 # about 0.7 level lower (level model: 57.9 against 58.6), and any Alliance player under 58 then, on the guide's second
 # pass (Marrosis' bones), with the hand-in on the ride back to Elderwild at the end. To the Summit of Eternity (91688,
 # 95248) is offered only once Final Death is handed in, so it is taken wherever that happens. Final Death is taken
-# alone only from 57.6 at Elderwild (the second pass comes about 0.4 level later, at 58 by then); a character still
-# under 58 after the second pass gets an abandon step, as no later visit comes back for it.
+# alone at Elderwild only from 57.6 (Alliance) and 57.85 (Horde): the Horde's second pass comes only about 0.1 level
+# after Elderwild (level model 2026-11-20: about 57.25 at Elderwild, 57.34 at the second pass), so a Horde character accepts
+# it alone only when it reaches the bone pile at 58; under that it is a group choice. A character still under 58
+# after the second pass gets an abandon step, as no later visit comes back for it.
+# To the Summit of Eternity's accept steps read `when turnedin` Final Death: accept after Final Death.
 
 step The Curious Crow
   when onquest 96930
@@ -506,10 +520,16 @@ step Elderwild
   accept 96616 only Horde               -- Ortak Lomgok: Herbs for the Bruised and Weary, on the way back from Mourning's Rest
 
 step Final Death
+  only Alliance
   when level>=57.6
   tip Final Death's Scourge Reanimator is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through Mourning's Rest.
-  accept 92591 only Alliance            -- Sefira Everbright
-  accept 92592 only Horde               -- Zet'gan
+  accept 92591                          -- Sefira Everbright
+
+step Final Death
+  only Horde
+  when level>=57.85
+  tip Final Death's Scourge Reanimator is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through Mourning's Rest.
+  accept 92592                          -- Zet'gan
 
 step Final Death
   only Alliance
@@ -520,7 +540,7 @@ step Final Death
 
 step Final Death
   only Horde
-  when level<57.6
+  when level<57.85
   when group 92592
   tip A group choice at your level: the Scourge Reanimator that answers Final Death's bone pile is level 59-60.
   accept 92592                          -- Zet'gan
@@ -608,7 +628,7 @@ step Final Death
 
 step To the Summit of Eternity
   only Alliance
-  when available 91688
+  when turnedin 92591
   accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, later in this guide; keep it
 
 step Daythor Brellan and Sefira
@@ -780,8 +800,9 @@ step Shalla'kal and Galvinquam
 # (Alliance) and Dae'gun (Renalard first, then the demon camps west to east and back), the Summit of Eternity
 # (flight path, inn), a flight down for Kaylaena and Ketharas, then the Summit's Blackthorne camps in one sweep, and
 # out by Everlook.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
-# So the breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
+# The breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
 # through the Cradle rather than at the end of part 2, and Fetid Corruption is handed in before the Shrine's three
 # quests are taken.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): A Bit of the
@@ -891,7 +912,7 @@ step Renalard
 step Dae'gun
   tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of Renalard and the rest in the western half: Renalard's tuft of fur, used on a demon, distracts it while you take them.
   tip Horde: the demons here also drop the Scraps of Horde Heraldry for Kal'tinzan, the old Horde Flag stands in the camp north of the south bonfire, and the Troll Remains at the camp's eastern edge start Tribal Colors.
-  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room. Jezerelle the Swaying (61, rare) walks the camp north of the south bonfire: keep away from her.
   tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
@@ -1045,12 +1066,12 @@ step Zet'gan
 
 step To the Summit of Eternity
   only Alliance
-  when available 91688
+  when turnedin 92591
   accept 91688                          -- Sefira Everbright: for Thisalee Crow at the Summit, next
 
 step To the Summit of Eternity
   only Horde
-  when available 95248
+  when turnedin 92592
   accept 95248                          -- Zet'gan: for Thisalee Crow at the Summit, next
 
 step Zet'gan

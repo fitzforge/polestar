@@ -114,8 +114,9 @@ return {
 
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "убивайте: {npc:9318}",
 
@@ -142,10 +143,11 @@ return {
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "убивайте: {npc:5844}",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -189,6 +191,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к Велароку.",
 	-- ["Velarok Windblade"] = "Веларок Клинок Ветра",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Веларок стоит на краю Котлована, к югу от места {area:1446}. Выслушайте его историю.",
+	-- ["grind on {npc:5844}"] = "убивайте: {npc:5844}",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} и сокровищница драконов стоят рядом с Велароком, на краю к югу от места {area:1446}.",
 	-- ["{object:147516} dwarves"] = "Дворфы: {object:147516}",

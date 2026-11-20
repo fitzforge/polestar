@@ -2,7 +2,7 @@
 guide forever/horde/30-40/02-thousand-needles
 title Thousand Needles & Desolace
 faction Horde
-levels 30-33
+levels 30-34
 zone Thousand Needles
 next forever/horde/30-40/03-stranglethorn-vale
 
@@ -11,20 +11,21 @@ next forever/horde/30-40/03-stranglethorn-vale
 # into this file.
 # Added here: The Swarm Grows (1147), Parts of the Swarm (1148), Hardened Shells (1105), Load
 # Lightening (1176), A Bump in the Road (1175), Family Tree (5361), Alliance Relations (1436),
-# Martek the Exiled (1106), Hate the Hatefury (97265), Rocket Car Parts (1110), Salt Flat Venom
-# (1104), Hemet Nesingwary (5762).
-# Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501).
+# Martek the Exiled (1106), Rocket Car Parts (1110), Salt Flat Venom (1104), Hemet Nesingwary
+# (5762), Centaur Bounty (1366), Carved Centaur Totems (93225).
+# Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501). Hate the Hatefury (97265,
+# #2785) is on the second Desolace visit (30-40/04): Aka'rai stands by the path into Shadowprey Village, which this
+# visit reaches only after Sargeron.
 # Claim Rackmore's Treasure (6161) is taken at Rackmore's Log by Azore's tower on the one walk north along the coast.
-# Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
 # Catch-up (#2635): a character who skipped forever/horde/07-ashenvale arrives without Dorn's Test of Faith
 # (1149), so his Test of Endurance (1150) would be hidden. For that character the guide does it first on the
 # Freewind stop (`when !turnedin 1149`): a jump off the planks beside Dorn, full XP at 30.
 
-# The Shimmering Flats at 30-33, then Desolace's 33-36 quests at 33-34. Desolace's 37-40 quests
-# (Melizza and the ghost-o-plasm, Taiga's portals and Hand of Iruxos, the centaur totems, Drulzegar's
-# Other Fish to Fry: Slitherblade Myrmidons 34-35 and Sea Witches 34-36 at about 33 here) come on a
-# short second visit at 37-38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, at the quests' own
-# level instead of 2-6 levels above the player; Taiga gives Hand of Iruxos on that visit's Shadowprey stop.
+# The Shimmering Flats at 30-33, then Desolace's 32-36 quests at 32-34. Desolace's 37-40 quests
+# (Melizza and the ghost-o-plasm, Taiga's portals and Hand of Iruxos, Drulzegar's Other Fish to Fry:
+# Slitherblade Myrmidons 34-35 and Sea Witches 34-36 at about 33 here) come on a short second visit
+# at 37-38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, at the quests' own level
+# instead of 2-6 levels above the player; Taiga gives Hand of Iruxos on that visit's Shadowprey stop.
 # Other Fish to Fry (6143) is on that second visit because the strand's northern half (Sea Witches 35-36,
 # Tidehunters 36-37) is over the player here. Its southern half, below the middle of the beach, holds only
 # Naga, Sorceresses and Warriors (32-34) and eight of the Myrmidons (34-35): a character already at 33.5 on the
@@ -38,19 +39,25 @@ next forever/horde/30-40/03-stranglethorn-vale
 # raceway's hand-ins (level tidy 2026-11-15: at 31-32 the Gazers and Invaders, 34-35, were three over).
 #
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Orgrimmar (Hunter and
-# Shaman training) -> fly to Freewind Post (Jandia, Dorn, the harpy den) -> Moktar Krin -> the Mirage
+# Shaman training) -> fly to Freewind Post (Dorn; the harpy den for Grenka, and Jandia's quests only for a character who skipped 07-ashenvale) -> Moktar Krin -> the Mirage
 # Raceway -> basilisks, tortoises and vultures -> the raceway -> the southern flats and the silithid
 # dig -> Moktar Krin -> the raceway -> Gadgetzan (flight path, fly back) -> Freewind Post (Family
 # Tree) -> fly to Sun Rock Retreat -> ride into
-# Desolace: Scrabblescrew's Camp, Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
-# (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
-# the clam beds, Sar'theris Strand and Rackmore's chest (one walk north) -> Sargeron
-# -> Kolkar Village -> Ghost Walker Post -> Shadowprey, where the next guide flies to Orgrimmar.
+# Desolace, with Ghost Walker Post as the hub of its east side (2026-11-20): Scrabblescrew's Camp,
+# Ghost Walker Post -> Ethel Rethor (Azore) -> Thunder Axe Fortress -> Sargeron -> Kolkar Village
+# -> Ghost Walker Post (Khan's head; Felgur's Centaur Bounty and Gurda's totems) -> the Magram
+# camp's north-western edge -> Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
+# (flight path, bind) -> Ethel Rethor (Azore) -> Rackmore's Log, the clam beds, Sar'theris Strand
+# and Rackmore's chest (one walk north) -> hearth to Shadowprey, where the next guide flies to
+# Orgrimmar. The east comes first so that Felgur's Centaur Bounty, offered for Khan Dez'hepah's
+# head, and Gurda's totems, which drop from the same Magram centaurs, are worked on this visit
+# instead of being carried through Stranglethorn to the second one.
 #
 # Optional extras:
 # - The Corrupter (1480): the Flayed Demon Skin that starts it drops at 1-5% from the Burning
 #   Blade; it is handed in at Ghost Walker Post if it drops. Its follow-ups (the Shadowstalker
-#   scalp at Sargeron, the Oracle Crystal on the coast) would take the loop back: leave them.
+#   scalp at Sargeron, behind you by then, and the Oracle Crystal on the strand's northern tip,
+#   34-35) would take the loop back: leave them.
 # - Bodyguard for Hire (5821): the Gizelton caravan runs on a timer; escort it if it waits by
 #   the road on the way in, otherwise ride on.
 #
@@ -59,7 +66,9 @@ next forever/horde/30-40/03-stranglethorn-vale
 #   where its bones lie. Taken on the ride in, it is five levels over at about 33; later, it
 #   would be a walk back north from the graveyard and back for 2,250 XP.
 # - Gelkis Alliance and Magram Alliance (1368, 1367) need Friendly standing with the clan,
-#   earned only by killing the rival clan, and their follow-ups go with them.
+#   earned only by killing the rival clan: a long reputation grind (players' recordings: 26
+#   people took Gelkis Alliance, 11 handed it in, several after levels of Magram kills), and
+#   their follow-ups go with them.
 #
 # Class training: Hunters and Shamans in Orgrimmar at the start, Druids in Thunder Bluff on the
 # flight to Freewind Post. Shamans hand the Shard of Water to Islen Waterseer by Ratchet on the
@@ -196,14 +205,15 @@ step Dorn Plainstalker
   accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
 
 step Jandia
+  when !turnedin 98070
   zone Thousand Needles
-  tip Jandia, the trade supplies vendor, stands inside Freewind Post's inn.
+  tip Jandia, the trade supplies vendor, stands inside Freewind Post's inn. The previous guide works her harpies; this is for a character who arrives without them.
   accept 98070                        -- Jandia: the Screeching harpies of Roguefeather Den
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles
-  tip West of Freewind Post, below Darkcloud Pinnacle, the harpies of Roguefeather Den (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her, for Dorn's claw.
+  tip West of Freewind Post, below Darkcloud Pinnacle, the harpies of Roguefeather Den (28-30). Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her, for Dorn's claw. Jandia's harpies and Stolen Freewind Supplies (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the Ashenvale & Thousand Needles guide.
   kill 4101 quest 98070.2
   kill 4104 quest 98070.3
   kill 4100 quest 98070.1
@@ -211,6 +221,7 @@ step The Screeching Canyon: kill these as you meet them
   collect 5843 quest 1150             -- Grenka's Claw, from Grenka Bloodscreech
 
 step Jandia
+  when !turnedin 98070
   zone Thousand Needles
   tip Back east to Freewind Post.
   turnin 98070                        -- Jandia, inside the inn
@@ -361,6 +372,48 @@ step Takata and Maurin
   turnin 1433                         -- Maurin Bonesplitter
   accept 1435
 
+# ---------------------------------------------------------------- The north and the north-east
+
+step Ethel Rethor
+  zone Desolace
+  tip From the rise, north-west across the plain to the ruined tower of Ethel Rethor: Azore Aldamort waits inside. His errand is in Thunder Axe Fortress, the next stop; he takes it back on the walk up the coast later in this guide.
+  accept 5741                         -- Azore Aldamort
+
+step Thunder Axe Fortress
+  zone Desolace
+  tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Leave the red Hand of Iruxos Crystal for now: its Demon Spirit is 37, and the second Desolace visit comes back for it.
+  collect 6435 quest 1435 @55.0,26.5
+  collect 15750 quest 5741 @55.2,30.1 -- On the top floor
+  collect 20310 x1 optional
+  accept 1480 optional
+
+step Sargeron
+  zone Desolace
+  tip East from the fortress along the northern hills to the satyrs' ruins of Sargeron. The Shadowstalkers walk unseen.
+  tip Careful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them.
+  kill 4670 quest 1434.1
+  kill 4672 quest 1434.2
+  kill 4673 quest 1434.3
+  kill 4675 quest 1434.4
+
+step Khan Dez'hepah
+  zone Desolace
+  tip South to Kolkar Village. Khan Dez'hepah (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.
+  tip Careful: Khan Dez'hepah is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.
+  collect 6066 quest 1365
+
+step Ghost Walker Post
+  zone Desolace
+  tip South-west down the road to the post: Takata and Maurin on the rise west of it, Felgur and Gurda Wildmane side by side in the post.
+  turnin 1434                         -- Takata Steelblade
+  turnin 1435                         -- Maurin Bonesplitter
+  turnin 1480 optional
+  accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
+  note Takata's next errand sends you after a demon lord with an elite guard, and Maurin's next Corrupter errand back to Sargeron: leave them.
+  turnin 1365                         -- Felgur Twocuts
+  accept 1366                         -- Felgur Twocuts: the Magram centaurs south-east of the post, after Smeed's kodos
+  accept 93225                        -- Gurda Wildmane: her totems drop from the same Magram centaurs
+
 step Kodo Graveyard
   zone Desolace
   tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed, five times. Careful: leave the kodo skulls on the ground alone: opening one raises a Kodo Apparition (37-38) that hits hard.
@@ -371,13 +424,24 @@ step Scrabblescrew's Camp
   zone Desolace
   turnin 5561                         -- Smeed Scrabblescrew
 
+step Magram Village
+  zone Desolace
+  tip South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.
+  tip Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.
+  collect 6067 quest 1366 @66.0,71.0  -- Centaur Ear, from the Magram Scouts, Outrunners and Wranglers
+  collect 254432 x5 quest 93225.1 @66.0,71.0 -- Carved Centaur Totem, from the same centaurs
+
+step Ghost Walker Post
+  zone Desolace
+  tip Back north-west to the post, on your way west.
+  turnin 1366                         -- Felgur Twocuts
+  turnin 93225                        -- Gurda Wildmane
+
 # ---------------------------------------------------------------- The west coast
 
 step Shadowprey Village
   zone Desolace
-  tip Head west to the troll village on the coast, keeping clear of the Gelkis Village on the way. Aka'rai stands on the path just north of the village.
-  tip Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.
-  accept 97265 optional               -- Aka'rai: the Hatefury satyrs of Sargeron, later in this guide
+  tip Head west to the troll village on the coast, keeping clear of the Gelkis Village on the way.
   sethome "Shadowprey Village"        -- Innkeeper Sikewa
   accept 5763                         -- Roon Wildmane: for Hemet Nesingwary in Stranglethorn, next guide
   accept 6142                         -- Mai'Lahii
@@ -391,20 +455,7 @@ step Drulzegar Skraghook
 
 step Ethel Rethor
   zone Desolace
-  tip Head north along the coast, then inland to the ruined tower of Ethel Rethor: Azore Aldamort waits inside. The coast's clams and naga come after Thunder Axe Fortress, on one walk north to Ranazjar Isle.
-  accept 5741                         -- Azore Aldamort
-
-step Thunder Axe Fortress
-  zone Desolace
-  tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Leave the red Hand of Iruxos Crystal for now: its Demon Spirit is 37, and the second Desolace visit comes back for it.
-  collect 6435 quest 1435 @55.0,26.5
-  collect 15750 quest 5741 @55.2,30.1 -- On the top floor
-  collect 20310 x1 optional
-  accept 1480 optional
-
-step Ethel Rethor
-  zone Desolace
-  tip Back west to Azore.
+  tip North along the coast, then inland to Azore's tower. The coast's clams and naga come next, on one walk north to Ranazjar Isle.
   turnin 5741                         -- Azore Aldamort
   note Azore's next errand, the Book of the Ancients, needs Lord Kragaru (38) out on Ranazjar Isle: leave it, he is over your level.
 
@@ -425,7 +476,7 @@ step Clam beds
 step Sar'theris Strand
   zone Desolace
   tip Keep north to Sar'theris Strand for Rackmore's Golden Key: any Slitherblade can drop it.
-  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second Desolace visit, at 38.
+  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second Desolace visit, at about 37.
   collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
 
 step Sar'theris Strand: Other Fish to Fry
@@ -443,47 +494,13 @@ step Rackmore's Chest
   tip Swim out to Ranazjar Isle off the far northern tip: Rackmore's Chest stands on the shore beside the Serpent Statue. Open it with both keys; leave the statue alone.
   turnin 6161 @30.0,8.7 map 1443     -- Rackmore's Chest
 
-# ---------------------------------------------------------------- North-east
-
-step Sargeron
-  zone Desolace
-  tip Head east past Thunder Axe Fortress and along the northern hills to the satyrs' ruins of Sargeron. Kill every kind you meet for Aka'rai; the Shadowstalkers walk unseen.
-  tip Careful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them.
-  kill 4670 quest 1434.1
-  kill 4672 quest 1434.2
-  kill 4673 quest 1434.3
-  kill 4675 quest 1434.4
-  kill 4674 quest 97265.3 optional @75.28,20.33 map 1443 -- Hatefury Shadowstalker
-  kill 4675 quest 97265.2 optional
-  kill 4671 quest 97265.1 optional @77.94,24.1 map 1443 -- Hatefury Trickster, on the way south
-  kill 4672 quest 97265.4 optional
-  kill 4670 quest 97265.5 optional
-
-step Khan Dez'hepah
-  zone Desolace
-  tip South to Kolkar Village. Khan Dez'hepah (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.
-  tip Careful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.
-  collect 6066 quest 1365
-
-step Ghost Walker Post
-  zone Desolace
-  tip South-west down the road to the post.
-  turnin 1434                         -- Takata Steelblade
-  turnin 1435                         -- Maurin Bonesplitter
-  turnin 1480 optional
-  accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
-  note Takata's next errand sends you after a demon lord with an elite guard: skip it.
-  turnin 1365                         -- Felgur Twocuts
-  note Felgur now offers Centaur Bounty: the second Desolace visit, at 38, takes it on its way to the Valley of Spears.
-
 # ---------------------------------------------------------------- Shadowprey
 
 step Shadowprey Village
   zone Desolace
-  tip West to Shadowprey: your hearthstone is bound there.
-  turnin 97265 npc 268705 optional    -- Aka'rai, on the path just north of the village
+  tip Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast.
   turnin 6142                         -- Mai'Lahii
-  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry (unless you did it on the strand) and Desolace's other 37-40 quests wait for the second visit, at 38: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
+  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry (unless you did it on the strand) and Desolace's other 37-40 quests wait for the second visit, at about 37: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
 
 step Drulzegar Skraghook
   when complete 6143
