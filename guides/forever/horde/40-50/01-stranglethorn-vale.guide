@@ -432,7 +432,6 @@ step Booty Bay
   accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the Feralas & Tanaris guide's way
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
-  accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609                            -- MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45
   turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   accept 576                            -- Dizzy One-Eye: keep it for the Wild Shore at about 45
@@ -442,9 +441,10 @@ step Booty Bay
 
 step Whiskey Slim and Fin Fizracket
   when level>=40
-  tip Whiskey Slim, in the inn, and Fin Fizracket, beside it, offer their quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
+  tip Whiskey Slim, in the inn, Fin Fizracket, beside it, and "Sea Wolf" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   accept 348                            -- Fin Fizracket: Stranglethorn Fever, Unbagwa's part on the Feralas guide's Grom'gol stop
+  accept 2872                           -- MacKinley, on the top floor: Stoley's Debt, for Stoley in Tanaris
 
 step The Bloodsail ships
   when group 624

@@ -147,9 +147,10 @@ step Booty Bay
 step Whiskey Slim and Fin Fizracket
   when !onquest 348
   when !turnedin 348
-  tip Under 40 on your first Booty Bay visit? Whiskey Slim, in the inn, and Fin Fizracket, beside it, have their quests for you now.
+  tip Under 40 on your first Booty Bay visit? Whiskey Slim, in the inn, Fin Fizracket, beside it, and "Sea Wolf" MacKinley, on the top floor, have their quests for you now.
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   accept 348                            -- Fin Fizracket: Stranglethorn Fever
+  accept 2872                           -- MacKinley, on the top floor: Stoley's Debt, for Stoley in Tanaris on this guide
 
 step Witch Doctor Unbagwa
   when onquest 348

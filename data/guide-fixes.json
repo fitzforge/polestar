@@ -13827,6 +13827,24 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-booty-bay-stoleys-debt-level-40",
+			"faction": "Horde",
+			"at": {
+				"quest": 2872,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "level>=40",
+			"note": "Stoley's Debt (2872, minimum level 40) from MacKinley joins the level 40 pick-ups on the second Booty Bay stop of 40-50/01 (Whiskey Slim's 580 and Fin Fizracket's 348), and 40-50/02's Booty Bay catch-up offers it to anyone still under 40 there. On the hand-in step it was refused under 40 and its chain (2873, 2874; 8,190 XP with 2872) went with it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 2872 minLevel 40, pre 607"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }
