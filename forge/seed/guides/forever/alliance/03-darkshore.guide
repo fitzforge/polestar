@@ -118,6 +118,7 @@ step Auberdine
   accept 963                                  -- Cerellean Whiteclaw, on the pier
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
+  turnin 97926 optional                       -- Thundris Windweaver: Baros Alexston's reply, if you brought it (Night Elves, from Night Elf Darkshore's Stormwind walk)
   vendor nearest optional
   accept 958 only Dwarf,Gnome,Human,Skyborne
   turnin 97894                                -- Gorbold Steelhand

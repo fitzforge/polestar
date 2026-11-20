@@ -13,8 +13,9 @@ next forever/alliance/04-redridge-mountains
 # Givers passed at Menethil and left for the 27-29 Wetlands visit (06-wetlands), by design: Reclaiming
 # Goods and Apprentice's Duties (281, 471): their work is the hovels and north-coast loop that visit
 # makes anyway for The Cursed Crew, so taking them at 24 would add a trip; Uncovering the Past (299,
-# level 27, 2.6-3.3 over at the dig), The Third Fleet, From the Ashes and Raene's Cleansing (288,
-# 98221, 1026: levels 27-28).
+# level 27, 2.6-3.3 over at the dig), From the Ashes and Raene's Cleansing (98221, 1026: levels 27-28).
+# The Third Fleet (288, a mead from the same inn) is done on the first Menethil stop, and The Cursed Crew (289)
+# taken there for the next visit (fix round 2026-11-20).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole): the 20-24 part of the old 25-29 guide,
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
 # 06-wetlands, after Duskwood. Ashenvale's first visit (fix round 2026-11-20): Astranaar and Elune's Tear,
@@ -216,15 +217,16 @@ step Webwinder Path
 
 # ---------------------------------------------------------------- North to Stonetalon Peak
 
-step The Pridewings
-  zone Stonetalon Mountains
-  tip West from the Webwinder Path along the road: Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of it, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs.
-  collect 5808 quest 1134 @50.8,44.4      -- Pridewing Venom Sac
-
 step Night Elf Courier
   zone Stonetalon Mountains
-  tip The courier waits by the road just north of the Pridewings: his bundle goes to the inn at Stonetalon Peak, at the end of the road north.
+  tip West from the Webwinder Path along the road, past the Pridewing slopes: the courier waits by the road on their west side. His supplies drop from the Pridewings, and Innkeeper Faralia at Stonetalon Peak, at the end of the road north, takes them.
   accept 86574                            -- Night Elf Courier
+
+step The Pridewings
+  zone Stonetalon Mountains
+  tip Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies.
+  collect 5808 quest 1134 @50.8,44.4      -- Pridewing Venom Sac
+  collect 277917 quest 86574              -- Stonetalon Supply Bundle
 
 step Stonetalon Peak
   zone Stonetalon Mountains
@@ -309,6 +311,10 @@ step Menethil Harbor
   sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
   vendor nearest
   accept 463                              -- First Mate Fitzsimmons, in the inn
+  accept 288                              -- First Mate Fitzsimmons: a flagon of the inn's mead
+  buy 2594 x1 npc 1464                    -- Flagon of Dwarven Honeymead, from Innkeeper Helbrek
+  turnin 288                              -- First Mate Fitzsimmons
+  accept 289                              -- First Mate Fitzsimmons: the Cursed Crew is for your next Wetlands visit, at about 28
   accept 98282                            -- Caitlin Grassman
   accept 470                              -- Sida
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it

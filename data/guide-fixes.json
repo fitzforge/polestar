@@ -170,6 +170,51 @@
 			"issue": 1575
 		},
 		{
+			"id": "a-fix-elwynn-narf-from-5",
+			"faction": "Alliance",
+			"at": { "quest": 91752, "goal": "objective", "objective": 1, "guide": "forever/alliance/human/01-elwynn-forest" },
+			"when": "level>=5",
+			"tip": [
+				"From level 5 Shinyfinder Narf, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.",
+				"Careful: clear the Laborers around him first and fight him at full health."
+			],
+			"note": "Alliance starts fix round (2026-11-20), low elites (Fitz: an elite two or more levels under the player is solo content): The Big Picture's Shinyfinder Narf (3, elite) is on the solo route on a step of his own from level 5, two levels over him; the level model reaches it at about 5.3, so the route player always takes him, and a fresh starter below 5 passes him (his hand-in step is `when complete 91752`). The 5.48 and 5.77 top-ups that stood in for the chain are gone. Players' recordings: 56 people took 91752 (accept 25th percentile 5), 46 handed it in.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
+				{ "kind": "recording", "ref": "rec quest 91752 (2026-11-20 archive): 56 people accepted, P25 level 5; 46 handed in" }
+			]
+		},
+		{
+			"id": "a-fix-duskwood-proving-your-worth-from-28",
+			"faction": "Alliance",
+			"at": { "quest": 323, "goal": "objective", "objective": 1, "guide": "forever/alliance/05-duskwood" },
+			"when": "level>=28",
+			"tip": [
+				"From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the Raven Hill Cemetery, just east of Sven's camp.",
+				"Careful: The Warders are 28-29 and the skeletons stand close together: pull one at a time."
+			],
+			"note": "Fix round 2026-11-20 (Duskwood): Proving Your Worth (323) is accepted at Sven's camp, 05-duskwood's last stop, and worked on the spot from level 28 (Raiders 27-28, Healers 26-27, Warders 28-29, about 200 yd east of Sven), then handed back with Seeking Wisdom (269) taken for Bishop Farthing on the Stormwind walk. Below 28 it waits for 07-thousand-needles' cemetery loop, which keeps its steps. Players' recordings: 76 people took it (accept 25th percentile 26.8), 14 died at it, 5 of them two or more levels under the Warders: hence the gate, not a plain first-visit step.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 1110 Skeletal Raider 27-28 (16.3,36.2), 787 Skeletal Healer 26-27, 785 Skeletal Warder 28-29 (16.1,34.1); 311 Sven Yorgen 7.6,34.2" },
+				{ "kind": "recording", "ref": "rec quest 323 (2026-11-20 archive): 76 people, P25 26.8; 14 died, 5 while 2+ under" }
+			]
+		},
+		{
+			"id": "a-fix-wetlands-halyndor-from-29",
+			"faction": "Alliance",
+			"at": { "quest": 290, "goal": "objective", "objective": 1, "guide": "forever/alliance/06-wetlands" },
+			"when": "level>=29",
+			"tip": [
+				"From level 29: north along the coast from Menethil to the wreck of the Intrepid. Captain Halyndor (30) is aboard, and the locked strongbox sits in the wreck.",
+				"Careful: Cursed Marines (27-28) crowd the deck around him: clear them first. Nightveiled Rotheap, a level 31-32 elite, roams the Wetlands: give it a wide berth."
+			],
+			"note": "Fix round 2026-11-20 (Wetlands finished on the second visit): Lifting the Curse is worked at the end of 06-wetlands' Wetlands loop, from level 29 (Halyndor 30, at most one over; the 0.4.0 level tidy found him two over players at 28 then). Below 29 the quest is carried to 30-40/01's Menethil stop, which keeps the steps.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 1160 Captain Halyndor 30 at Wetlands 15.4,23.6; 1158 Cursed Marine 27-28 (19 spawns around 14.4,25.8)" },
+				{ "kind": "recording", "ref": "rec quest 290 (2026-11-20 archive): 66 people, accept 25th percentile 28.2" }
+			]
+		},
+		{
 			"id": "1575-durotar-halikor-fizzle",
 			"faction": "Horde",
 			"at": { "quest": 806, "goal": "objective", "objective": 1 },
@@ -3417,7 +3462,7 @@
 				"objective": 2
 			},
 			"along": false,
-			"note": "The Night Watch (57): the Skeletal Horrors are killed in the Rot Blossoms step, from the same Horrors south-east of Darkshire (route-fixes together 156 -> 57.1); an along list from Commander Althea's accept would list them before Blind Mary's visit and split them from the blossoms.",
+			"note": "The Night Watch (57): the Skeletal Horrors are killed with the Fiends in the Raven Hill Cemetery step of 05-duskwood's first west trip (route-fixes together 57.0 -> 57.1; fix round 2026-11-20, before it the Rot Blossoms step); an along list from Commander Althea's accept would list them across the whole zone.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -3435,7 +3480,7 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on the walk from Abercrombie to Jitters (route-fixes pair turnin 133 -> task 57.0), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
+			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on 05-duskwood's first west trip from Abercrombie to Sven (route-fixes pair turnin 157 -> task 57.0; fix round 2026-11-20), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
 			"source": [
 				{
 					"kind": "cmangos",

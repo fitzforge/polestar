@@ -2374,8 +2374,10 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 98024, [95350]],
 		[SILVERPINE, 93739, [95350], true],
 		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of
-		// the Sky; the route now leaves it out (data/route-fixes.json skip).
+		// the Sky; 06-wetlands takes it with that hand-in on its last Menethil stop
+		// since the Alliance 12-31 fix round (2026-11-20), for Howin on Hillsbrad's Wetlands loop.
 		[ASHENVALE, 98240, [98072], true],
+		[WETLANDS, 98240, [98072]],
 		[HILLSBRAD_ALLIANCE, 98240, [98072], true],
 	]) {
 		const list = [].concat(guide).flatMap((g) => goals(g));
@@ -2456,8 +2458,11 @@ test('Offer audit (#1116, #1114): Lightforge Ingots only after The Lost Ingots, 
 		assert.ok(at(list, `${guide}: turnin 324`, is('turnin', 324)) < take, `${guide}: Lightforge Ingots comes after The Lost Ingots is handed in`);
 	}
 	for (const guide of [ASHENVALE, WETLANDS, THOUSAND_NEEDLES, HILLSBRAD_ALLIANCE]) {
-		const list = goals(guide);
-		if (list.some(({ goal }) => is('turnin', 98240)(goal))) assert.ok(list.some(({ goal }) => is('accept', 98240)(goal)), `${guide}: Crimson Crate Delivery is handed in only where it is taken`);
+		// Taken on 06-wetlands' last Menethil stop, handed to Howin there or on a guide after it.
+		const chain = guide === HILLSBRAD_ALLIANCE ? [WETLANDS, THOUSAND_NEEDLES, HILLSBRAD_ALLIANCE] : [guide];
+		const list = chain.flatMap((g) => goals(g));
+		const give = list.findIndex(({ goal }) => is('turnin', 98240)(goal));
+		if (give >= 0) assert.ok(list.slice(0, give).some(({ goal }) => is('accept', 98240)(goal)), `${guide}: Crimson Crate Delivery is handed in only after it is taken`);
 	}
 	// Darkshire's visits open 04-redridge-mountains since the Alliance 20-30 re-order (Duskwood's first loop, then
 	// Redridge's first pass): the gate and the accept are read where the accept is.
@@ -3693,25 +3698,27 @@ test(`${REDRIDGE}: uNBEx's report (#1348): the Bronze Tube comes from the Stormw
 });
 
 // Alliance 12-30 bracket review 0.3.6: Dusky Crab Cakes (93, 780 XP) is Chef Grual's follow-up to Jitters' Growling Gut
-// (5), handed to him on 04's last Darkshire stop; its Gooey Spider Legs drop from Duskwood's spiders without the quest, so
-// many players hand it in at once. Return to Jitters (240, 975 XP) ends at Jitters, on 05's Raven Hill stop.
-test(`${REDRIDGE} / 05-duskwood: Dusky Crab Cakes taken with Jitters' Growling Gut's hand-in, Return to Jitters handed in at Raven Hill`, { skip }, () => {
+// (5), handed to him on 04's last Darkshire stop; its Gooey Spider Legs drop from Duskwood's spiders without the quest.
+// Fix round 2026-11-20: the six legs are collected on the Hushed Bank on the way to Raven Hill, so 93 is handed in on
+// the same stop for everyone and Return to Jitters (240, 975 XP) is taken there, for Jitters on 05's Raven Hill stop;
+// 05 keeps the legs and Chef Grual for a character still carrying 93.
+test(`${REDRIDGE} / 05-duskwood: Dusky Crab Cakes taken and handed in with Jitters' Growling Gut's hand-in, Return to Jitters handed in at Raven Hill`, { skip }, () => {
 	const red = goals(REDRIDGE);
 	const grual = at(red, 'turnin 5', is('turnin', 5));
 	const take = at(red, 'accept 93', is('accept', 93));
 	assert.ok(take > grual && red[take].s === red[grual].s, 'taken from Chef Grual right after Jitters\' Growling Gut');
+	const legs04 = at(red, 'collect 2251 on the Hushed Bank', (g) => g.t === 'collect' && g.item === 2251);
+	assert.ok(legs04 < grual && !red[legs04].goal.optional, 'the six legs collected on the way, before Chef Grual');
 	const now = at(red, 'turnin 93', is('turnin', 93));
-	assert.ok(red[now].s === red[take].s && red[now].goal.optional, 'handed in at once only when already complete: never holds the stop');
+	assert.ok(red[now].s === red[take].s && !red[now].goal.optional, 'handed in on the same stop');
+	assert.equal(red[at(red, 'accept 240', is('accept', 240))].s, red[take].s, 'Return to Jitters taken there');
 	const onquest = (e, q) => (e.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(q));
 	const dusk = goals('forever/alliance/05-duskwood.guide');
 	const legs = at(dusk, 'collect 2251 quest 93', (g) => g.t === 'collect' && g.item === 2251 && g.quest === 93);
 	const hand = at(dusk, 'turnin 93', is('turnin', 93));
-	const back = at(dusk, 'accept 240', is('accept', 240));
 	const jitters = at(dusk, 'turnin 240', is('turnin', 240));
 	assert.ok(onquest(dusk[legs], 93) && onquest(dusk[hand], 93), 'the legs and Chef Grual only for a character carrying it');
-	assert.ok(legs < at(dusk, 'turnin 230 (Sven)', is('turnin', 230)), 'the legs on the first west trip, before Sven\'s camp');
-	assert.ok(hand > at(dusk, 'turnin 266 (Smitts)', is('turnin', 266)) && hand < at(dusk, 'collect 1598 (Rot Blossoms)', (g) => g.t === 'collect' && g.item === 1598), 'handed to Chef Grual on the next Darkshire stop, in the tavern');
-	assert.ok(back > hand && onquest(dusk[jitters], 240), 'Return to Jitters only for a character carrying it');
+	assert.ok(onquest(dusk[jitters], 240), 'Return to Jitters only for a character carrying it');
 	assert.ok(jitters > at(dusk, 'turnin 453 (Jitters)', is('turnin', 453)) && jitters < at(dusk, 'turnin 268 (Sven)', is('turnin', 268)), 'handed in on the Raven Hill stop');
 });
 
@@ -3735,7 +3742,9 @@ test(`${THOUSAND_NEEDLES}: the Darkshire stop finishes at Sirra Von'Indi before 
 	const list = goals(THOUSAND_NEEDLES);
 	const lastSirra = Math.max(...[251, 225, 96138, 401].map((q) => at(list, `turnin ${q}`, is('turnin', q))), at(list, 'accept 252', is('accept', 252)));
 	const grave = at(list, 'turnin 227', is('turnin', 227));
-	assert.ok(grave > lastSirra && grave > at(list, 'turnin 252', is('turnin', 252)) && list[grave].s === list[at(list, 'turnin 58', is('turnin', 58))].s, 'Althea\'s Weathered Grave hand-in with The Night Watch, after Sirra');
+	// Fix round 2026-11-20: a character who finished 58 on 05-duskwood hands it in on the first Darkshire stop (`when
+	// complete 58`); the stop after Sirra keeps The Night Watch's hand-in for everyone else.
+	assert.ok(grave > lastSirra && grave > at(list, 'turnin 252', is('turnin', 252)) && list.some(({ goal, s }) => is('turnin', 58)(goal) && s === list[grave].s), 'Althea\'s Weathered Grave hand-in with The Night Watch, after Sirra');
 });
 
 // Level tidy 0.4.0: Worgen in the Woods (222) sent players at Nightbane Tainted Ones (30-31) on 07's first loop south
@@ -7477,15 +7486,41 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	const venom = one.find(({ goal }) => goal.t === 'collect' && goal.item === 1130);
 	const spiders = one.find(({ goal }) => goal.t === 'kill' && goal.quest === 245);
 	assert.equal(venom.s, spiders.s, 'the spider venom with the Pygmy Venom Web Spiders');
+	// Fix round 2026-11-20: 57's Fiends and Horrors in one Raven Hill Cemetery step on the first west trip (Abercrombie
+	// to Sven), handed in on the Darkshire stop after it, where 58 is taken for the second trip's ghouls.
 	const horrors = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 202);
-	assert.ok(horrors.length >= 1 && horrors[0].s === list.find(({ goal }) => goal.t === 'collect' && goal.item === 1598).s, "57's Horrors with the Rot Blossoms");
 	const fiends = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 531);
-	assert.ok(fiends.s > stepOf('turnin 133', 'turnin', 133) && fiends.s < stepOf('turnin 453', 'turnin', 453), "57's Fiends between Abercrombie's effigy and Jitters");
+	assert.ok(horrors.length === 1 && horrors[0].s === fiends.s, "57's Horrors with its Fiends");
+	assert.ok(fiends.s > stepOf('turnin 157', 'turnin', 157) && fiends.s < stepOf('turnin 230 (Sven)', 'turnin', 230), "on the first west trip, Abercrombie to Sven");
+	assert.ok(stepOf('turnin 57', 'turnin', 57) === stepOf('turnin 265', 'turnin', 265) && stepOf('accept 58', 'accept', 58) === stepOf('turnin 57', 'turnin', 57), '57 handed to Althea on the next Darkshire stop, 58 taken there');
+	const spreaders = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 58 && goal.npc === 604);
+	assert.ok(spreaders && spreaders.s === list.find(({ goal }) => goal.t === 'collect' && goal.item === 884).s, "58's Plague Spreaders with Abercrombie's ghoul ribs");
 	assert.ok(![...one, ...list].some(({ goal }) => goal.quest === 173 && goal.t === 'kill'), 'the level-27 Shadow Weavers wait for the Duskwood return');
 	for (const g of [FIRST, DUSK]) assert.deepEqual(compiled(g).steps.filter((st) => st.along).map((st) => st.title), [], `${g}: no along-the-way lists`);
 	const ret = goals('forever/alliance/07-thousand-needles.guide');
 	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
 	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
+});
+
+// Fix round 2026-11-20 (Duskwood): the Insane Ghoul (177, level 26, the Tranquil Gardens' crypt right below Blind Mary)
+// is done on 05-duskwood's opening, at about 27.5, and handed to Viktori on the way into town, where Look to the Stars'
+// fourth part (181) is taken for the Duskwood return's ogres; Proving Your Worth (323) is worked at Sven's camp from
+// level 28 (its Warders are 28-29; 14 of 76 recorded takers died there), and Seeking Wisdom (269) goes to Bishop Farthing
+// on the Stormwind walk, whose The Doomed Fleet (270) is for Glorin in Menethil. 07 keeps every step for a character
+// without them.
+test(`05-duskwood: the Insane Ghoul on the opening, Proving Your Worth at Sven's from 28, Bishop Farthing on the way north`, { skip }, () => {
+	const list = goals('forever/alliance/05-duskwood.guide');
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	const glass = at(list, 'collect 1946 (177)', (g) => g.t === 'collect' && g.item === 1946);
+	assert.ok(idx('accept', 177) < glass && glass < idx('turnin', 177) && idx('turnin', 177) < idx('turnin', 154), 'Mary, the crypt, Viktori, then Madame Eva');
+	assert.equal(list[idx('accept', 181)].s, list[idx('turnin', 177)].s, '181 taken from Viktori with the glass');
+	const raiders = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 323 && goal.npc === 1110);
+	assert.ok(raiders && (raiders.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && p.n >= 28), 'the skeletons only from 28');
+	assert.ok(raiders.s > list[idx('accept', 323)].s && list[idx('turnin', 323)].s > raiders.s && list[idx('accept', 269)].s === list[idx('turnin', 323)].s, 'worked and handed back at Sven, 269 taken');
+	const farthing = list[idx('turnin', 269)];
+	assert.ok((farthing.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(269)) && list[idx('accept', 270)].s === farthing.s, 'Bishop Farthing on the Stormwind walk, The Doomed Fleet taken');
+	const ret = goals('forever/alliance/07-thousand-needles.guide');
+	for (const q of [177, 323, 58]) assert.ok(ret.some(({ goal }) => goal.quest === q && goal.t === 'turnin'), `07 keeps ${q} for a character without it`);
 });
 
 // Fitz's report (#1149): The Barrens' "The Zhevra" step sent the arrow to `goto 52.5,27.5 "Zhevra"` by the
@@ -8268,8 +8303,11 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
 	// Level tidy 0.4.0: Lifting the Curse's chain (290 -> 292 -> 293) left 06-wetlands (Captain Halyndor 30 at a player's
-	// 28) for 30-40/01's Menethil stop at about 31, which hands Cleansing the Eye to Benedictus on its own Stormwind stop.
-	assert.ok(!wet.some(({ goal }) => [290, 292, 293].includes(goal.quest)), 'Lifting the Curse and its follow-ups are not in 06-wetlands');
+	// 28) for 30-40/01's Menethil stop at about 31. Fix round 2026-11-20: 06-wetlands' second visit takes it again, but
+	// Halyndor's step shows only from level 29 (the report's level gate holds), and 30-40/01 keeps it for anyone else.
+	const curse = wet.filter(({ goal }) => goal.quest === 290 && goal.t !== 'accept' && goal.t !== 'turnin');
+	assert.ok(curse.length > 0 && curse.every(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 29)), 'Lifting the Curse is worked in 06-wetlands only from level 29');
+	assert.ok(goals(HILLSBRAD_ALLIANCE).some(({ goal }) => is('turnin', 290)(goal)), 'and 30-40/01 keeps it for a character without it');
 });
 
 // Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
@@ -8291,9 +8329,12 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
 	const ash0 = goals(ASHENVALE);
 	assert.ok(!ash0[at(ash0, 'turnin 990', is('turnin', 990))].goal.only, 'handed to Raene by everyone on 06-ashenvale');
-	assert.ok(!wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Fall of Dun Modr is handed in on 30-40/01\'s Dun Modr stop');
+	// Fix round 2026-11-20: the Wetlands are finished on 06-wetlands at 28-29, so Fall of Dun Modr goes to Longbraid on
+	// this guide's Dun Modr stop; 30-40/01's Dun Modr stop keeps it for a character who arrives without it.
+	assert.ok(wetStep('accept', 472) < wetStep('turnin', 472) && wetStep('turnin', 472) < wetStep('turnin', 633), 'Fall of Dun Modr handed in at Dun Modr on this visit, before the Thandol Span');
+	assert.ok(wetStep('turnin', 98245) > wetStep('turnin', 633) && wetStep('turnin', 98246) === wetStep('turnin', 98245), 'Howin\'s two hand-ins on the walk back south');
 	const hills = goals(HILLSBRAD_ALLIANCE);
-	assert.ok(hills.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Longbraid takes it there');
+	assert.ok(hills.some(({ goal }) => goal.t === 'turnin' && goal.quest === 472), 'Longbraid still takes it on 30-40/01 for a character without it');
 	// #1415 (flow audit: passed enders at 11-22 yd): Fallen Sky Lake and the Gleaming Crescent Necklace are done before
 	// the Astranaar stop for Raene's next part (1029 -> 1030), so they go in there, not on the last stop.
 	for (const q of [1035, 98027]) assert.equal(wetStep('turnin', q), wetStep('turnin', 1029), `${q} handed in on the Astranaar stop of 1029`);
@@ -14420,7 +14461,10 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
 	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
 		const list = goals(file);
-		assert.ok(!list.some(({ goal }) => is('accept', 1037)(goal)), `${file}: Velinde Starsong is not taken`);
+		// Fix round 2026-11-20: Velinde Starsong is taken on 06-wetlands and handed in on the same guide's Darnassus hop
+		// (not carried 18 levels): a guide that takes it hands it in later in itself.
+		const take = list.findIndex(({ goal }) => is('accept', 1037)(goal));
+		if (take >= 0) assert.ok(file === A('06-wetlands') && list.slice(take).some(({ goal }) => is('turnin', 1037)(goal)), `${file}: Velinde Starsong is taken only where the same guide hands it in`);
 		// A copy a player still carries is handed in only while it is in the log.
 		for (const { step } of list.filter(({ goal }) => is('turnin', 1037)(goal))) {
 			assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1037)), `${file}: turnin 1037 only while carried`);
@@ -14429,7 +14473,7 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	for (const q of [5845, 2479]) assert.ok(fixes.deliberate.keep.some((k) => k.q === q), `keep ${q} is a record`);
 	assert.ok(fixes.deliberate.optional.some((k) => k.q === 706), 'optional 706 is a record');
-	assert.ok(fixes.overrides.skip.some((k) => k.q === 1037 && k.faction === 'Alliance'), 'skip 1037 is a record');
+	assert.ok(fixes.overrides.include.some((k) => k.q === 1037 && k.after && k.after[1] === 1022), 'include 1037 (taken with The Howling Vale, handed in on the same guide) is a record');
 });
 
 // The same report in the hand-written guides (reputation, class, legacy): quests a player holds finished at their
@@ -17327,7 +17371,7 @@ test('Alliance Wetlands: Raene’s delivery continues after the Glowing Gem, inc
 // Ilkrud and the Zoram Strand (west), with Raene's two hunts offered on every Astranaar stop and left. Ashenvale fix round
 // (2026-11-20): Elune's Tear, then one sweep up the west and the hearth to Astranaar, then Stonetalon north to the Peak
 // and its flight back, then the south-east and Dal Bloodclaw. Raene's Cleansing 1024 (the walk to Shael'dryn) is taken
-// on 06-wetlands' first Astranaar stop and handed in where Shael'dryn gives 1026. #2837: Ilkrud is at the Fire Scar Shrine.
+// on 06-wetlands' walk east through Astranaar after the western posts and handed in where Shael'dryn gives 1026. #2837: Ilkrud is at the Fire Scar Shrine.
 test('Ashenvale: one sweep up the west on the first visit, Shael\'dryn on the second, Ilkrud at the Fire Scar Shrine (Twerkjob, #2837)', { skip }, () => {
 	const list = goals(ASHENVALE);
 	assert.ok(!list.some(({ goal }) => goal.quest === 1024), 'no Shael\'dryn trip on the first visit');
