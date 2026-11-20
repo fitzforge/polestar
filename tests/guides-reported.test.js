@@ -7893,6 +7893,21 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: the swamp leg ends at 
 	assert.ok(!goals('forever/alliance/40-50/05-the-hinterlands.guide').some(({ goal }) => goal.t === 'turnin' && (goal.quest === 1364 || goal.quest === 1425)), 'nothing left for the level-48 guide');
 });
 
+// Fix round 2026-11-20 (Alliance 40-50 route review: five Booty Bay stops in about one level): the Bloodsail camp's
+// Snuff and Dizzy's eye and Scaring Shaky's gorilla giblets come from the camp and the hills just above it, so they are
+// one trip and one return to town, not town -> camp -> town -> gorillas -> town.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: Bloodsail snuff and the Mistvale giblets on one trip, one Booty Bay return (route review 2026-11-20)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const giblets = stepOf('collect 3919', (g) => g.t === 'collect' && g.item === 3919);
+	const snuff = stepOf('collect 3910', (g) => g.t === 'collect' && g.item === 3910);
+	const back = stepOf('turnin 606', is('turnin', 606));
+	assert.equal(stepOf('turnin 587', is('turnin', 587)), back, 'Deeg on the same return as Shaky');
+	assert.equal(stepOf('turnin 576', is('turnin', 576)), back, 'Dizzy on the same return');
+	assert.ok(snuff < giblets && giblets < back, 'camp, hills, town');
+	assert.ok(!list.some(({ goal, s }) => s > snuff && s < back && goal.t === 'turnin'), 'no town stop between the camp and the hills');
+});
+
 // The whole pattern: a child quest (the data's `parent`) is offered only while its parent is in the log, so no leveling
 // guide accepts one unless that guide, or a guide that leads into it, accepts the parent first.
 test('Leveling guides: a child quest is accepted only after its parent (offer sweep, #1579)', { skip }, () => {

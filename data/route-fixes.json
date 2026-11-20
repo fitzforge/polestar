@@ -6485,6 +6485,19 @@
 		"together": [
 			{
 				"a": [
+					"task",
+					606,
+					0
+				],
+				"b": [
+					"turnin",
+					587
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Scaring Shaky's Elder Mistvale Gorillas (40; spawns 31-35,58-68) live on the hills just east of the Bloodsail camp north of Booty Bay (Raiders and Mages 26-33,66-74), where Up to Snuff and Keep An Eye Out are worked. The giblets are taken on the same trip and all three are handed in on one return to town (Shaky at the tunnel mouth), instead of town -> camp -> town -> gorillas -> town: one Booty Bay stop and one round trip fewer at about 40. Scaring Shaky is taken on 30-40/04b; the fallback accept for a fresh starter stays on the stop before the camp."
+			},
+			{
+				"a": [
 					"turnin",
 					1398
 				],
