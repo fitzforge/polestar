@@ -25,8 +25,9 @@ return {
 	["The western {zone:2548}"] = "{zone:2548}西部",
 
 	-- Step 3: Scout Bolain
-	-- {npc:260026} Scout Bolain
-	["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
+	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -454,11 +455,16 @@ return {
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "向西过河到{area:16736}：营地周围的农民木堆可以拿到木材捆。\n小心：精英{npc:263380}（42级）在营地旁的河边游荡：如果它朝你过来，就后退让它过去。",
 
-	-- Step 94: Sergeant Riftan
+	-- Step 94: The Western Front
+	-- {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+
+	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "沿狭长的山谷向北前往{area:16685}：{npc:258023}在暮光教派要塞下方守着一个小营地。",
 
-	-- Step 95: The Twilight camps
+	-- Step 96: The Twilight camps
 	["The Twilight camps"] = "暮光营地",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -468,7 +474,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "击杀一个{npc:258652}",
 
-	-- Step 96: Marshal Ryan
+	-- Step 97: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250}受伤躺在山谷西缘的营地之间。\n小心：{npc:256881}和{npc:256891}（精英，46级）据守他北边的要塞：从南边接近莱恩。",
 	-- {npc:257250} Marshal Ryan
@@ -476,74 +482,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}：交给{area:16724}的{npc:257558}",
 
-	-- Step 97: The ogre mine
+	-- Step 98: The ogre mine
 	["The ogre mine"] = "食人魔矿洞",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "营地北边，教派在一座矿洞里驱使食人魔矿工干活，由暮光征服者监工。\n小心：暮光执行者（精英，45级）穿行营地时会经过矿洞口。等它走过再进去，把矿工和征服者拉到外面打。",
 
-	-- Step 99: Bring Me His Head
+	-- Step 100: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}是精英（46级），在山谷尽头的要塞里，身边围着执行者：建议组队。",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}：交给{npc:257591}",
 
-	-- Step 100: Back to Farholde Keep
+	-- Step 101: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "返回{area:16724}",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "你的炉石绑定在{area:16724}的旅店：使用炉石，或向南骑回要塞。",
 
-	-- Step 101: Farholde Keep
+	-- Step 102: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "从旅店出发：进去路上找{npc:260070}，然后是要塞里的{npc:257558}和{npc:257591}。",
 
-	-- Step 103: Demar Brant
+	-- Step 104: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}：交给{zone:1453}的{npc:278088}",
 
-	-- Step 104: The Twilight Threat
+	-- Step 105: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}：把基尔加的头颅交给{object:2117}的{npc:1748}",
 
-	-- Step 105: Sister Rowland
+	-- Step 106: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}在要塞西南角的大教堂里。",
 
-	-- Step 106: Stormwind
+	-- Step 107: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087}可飞往{zone:1453}。{npc:278088}在{object:2098}等候。",
 
-	-- Step 108: Train before the Badlands
+	-- Step 109: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "前往{zone:1418}前先训练",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "{zone:2548}没有职业训练师，{zone:1418}和{zone:1425}指南途中也没有：找{npc:257087}飞往{zone:1453}，先训练再继续。",
 
-	-- Step 109: Your class trainer
+	-- Step 110: Your class trainer
 	["Your class trainer"] = "你的职业训练师",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "{zone:2548}没有职业训练师：飞走之前先在{zone:1453}训练。",
 
-	-- Step 110: Stormwind flight master
+	-- Step 111: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 111: Shaman trainer
+	-- Step 112: Shaman trainer
 	["Shaman trainer"] = "萨满祭司训练师",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}和{zone:1453}都没有萨满祭司训练师，{zone:1418}和{zone:1425}指南途中也没有：飞往{area:1537}训练；从那里飞到{area:144}很近。",
 
-	-- Step 112: Leave Stormwind
+	-- Step 113: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "离开{zone:1453}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "下一个指南从{zone:1432}南边的{zone:1418}开始：飞往{area:144}。{zone:1453}的狮鹫管理员在{object:2096}。",
 
-	-- Step 113: Loch Modan
+	-- Step 114: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "还没有前往{area:144}的飞行路线：从{zone:1453}乘{area:2257}前往{zone:1455}，出城门向东穿过{zone:1426}，经隧道进入{zone:1432}，再沿道路前往{area:144}。",
 
-	-- Step 114: Fly to Thelsamar
+	-- Step 115: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "飞往{area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -551,6 +557,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}：埋下纪念品",
 }

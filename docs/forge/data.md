@@ -192,6 +192,52 @@ shift; `--accept` makes them the last good ones, `--all` lists every field.
 forge data check --help
 ```
 
+### The data-diff gate: `forge data diff`
+
+The statistics gate counts fields; it can't see one NPC change. 0.4.1's data refresh passed it and
+listed 12 faction leaders as rares (Thrall with 127 points over Orgrimmar), so the rare alert went
+off in every capital and Thrall's hand-in point left his throne room. `forge data diff` compares a
+build with the live release's, NPC by NPC, object by object and quest by quest, and fails on the
+invariants a release holds:
+
+```sh
+forge data diff --old <the live release's data/forever> --new data/forever --out <dir>
+```
+
+It writes `data-diff.md` (the verdict and violations first, then every change, big ones first) and
+`data-diff.json`; the last line printed is `data diff: PASS ...` or `data diff: FAIL <n>
+violation(s) ...`, and it exits 1 on a violation.
+
+- Changes it lists: spawn points per NPC and object (a big jump: x3 and +10, or every point lost), a
+  new point more than 200 yd from every old one, roles gained or lost (rare, vendor, trainer...) with
+  the Codex's rare, elite and boss flags and the rank, faction; per quest, givers and enders gained or
+  lost, a hand-in that moved, level and minimum level, `pre` and `preAny`; spawn heights and travel in
+  counts.
+- Invariants that fail it:
+  - `friendly-rare`: no NPC of faction A, H or AH is a rare in the Codex (the Codex build drops the
+    flag and the role for them; the source data's rare role is listed in the report);
+  - `leader-spawns`: a faction leader (rank 3, a player faction's, in a capital) keeps at most 5
+    places (or its old count; points within 30 yd of each other, players' recorded spots round an NPC
+    that stands still, are one place), each point within 60 yd of one it had;
+  - `capital-spawns`: an NPC of a player faction in 1 to 5 places, all in a capital, keeps at most 5,
+    no point more than 200 yd from where it stood;
+  - `spawn-jump`: no NPC goes from 3 points or fewer to more than 20 unless it is a known roamer
+    (`KNOWN_ROAMERS` in `crates/forge-data/src/diff.rs`, added with the evidence that it patrols);
+  - `ender-moved`: no quest's hand-in moves more than 200 yd (an ender that is a known roamer
+    excepted).
+
+  A correction record naming the NPC (or, for `ender-moved`, the quest or its ender) in
+  `forever-db/corrections` lets a leader, capital or hand-in move through: the move is then a
+  reviewed fact, not a side effect.
+
+Every data refresh pull request carries the report against the live release's data, and every big
+row is explained in it or fixed; the release runs it on its own build (RELEASING.md, step 2).
+
+<!-- ci -->
+```sh
+forge data diff --help
+```
+
 ### What it reads
 
 | Input | Where | Notes |

@@ -29,6 +29,7 @@
 ## X-Website: https://github.com/fitzforge/polestar
 
 Nav\Nav.xml
+Trails\Trails.lua
 Routing\Costs.lua
 Routing\PathGrid.lua
 Routing\Path.lua
