@@ -13201,8 +13201,8 @@ end
 -- take, at NPC npc in the first guide after it that takes it there
 -- (Own.laterGuides), for the character (Own.laterOk), with no `abandon` of
 -- it on the way (the loaded guide's, or a guide's before that one) and room
--- in the log. When not, why, naming that guide; when so, true, nil and that
--- guide (Engine.LaterAcceptGuide).
+-- in the log. When not, why, naming that guide; when so, true, nil, that
+-- guide and its accept goal (Engine.LaterAcceptGuide).
 function Own.laterWants(q, npc)
 	local later, past = Own.laterGuides()
 	local dropped = layoutOf(guide).abandons[q] and guide.id or nil
@@ -13217,7 +13217,7 @@ function Own.laterWants(q, npc)
 				if not ok then return false, ("%s (%s step %d)"):format(why, g.id, t.s) end
 				local room = Own.logRoom()
 				if room < 1 then return false, ("log full (room %d, %s step %d)"):format(room, g.id, t.s) end
-				return true, nil, g
+				return true, nil, g, t.goal
 			end
 		end
 		if l.abandons[q] then dropped = dropped or g.id end
@@ -17218,9 +17218,9 @@ function Engine.AcceptRefusal(questID)
 end
 
 -- The later guide auto-accept takes quest q for, at the NPC whose window is
--- open (Own.laterWants, or a later guide's While-you're-here pick-up line):
--- Automation says so in chat. nil when a loaded guide takes q (no word: as
--- before) or nothing wants it. Asked before the accept.
+-- open (Own.laterWants, or a later guide's While-you're-here pick-up line),
+-- and the quest's title: Automation says so in chat. nil when a loaded guide
+-- takes q (no word: as before) or nothing wants it. Asked before the accept.
 function Engine.LaterAcceptGuide(questID)
 	if not questID or questID == 0 or guide == nil then return nil end
 	if not player then refreshPlayer() end
@@ -17235,12 +17235,12 @@ function Engine.LaterAcceptGuide(questID)
 	end
 	useActive()
 	if loaded then return nil end
-	local ok, _, g = Own.aheadWants(questID)
-	if ok then return g end
+	local ok, _, g, goal = Own.aheadWants(questID)
+	if ok then return g, goal and questTitle(goal) end
 	if not Own.hereWants(questID, "take") then return nil end
 	for i = 1, Own.hereOnN do
 		local e = Own.hereOn[i]
-		if e.s == Own.NEXT_STEP and e.goal.quest == questID then return e.later end
+		if e.s == Own.NEXT_STEP and e.goal.quest == questID then return e.later, questTitle(e.goal) end
 	end
 	return nil
 end
