@@ -743,3 +743,17 @@ test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guard
 test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
 	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
 });
+
+test('In Demand - Ancient Elven Curiosities is offered from level 60, as the live server says (#3072)', () => {
+	assert.equal(corrections.quests[96076].set.minLevel, 60);
+});
+
+// The Codex's `how` (the public mechanics' facts) is what a Lookup pick-up step says beyond the objectives (#2714).
+test('pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes\' chests (#3002)', () => {
+	const { quests } = require('../data/mechanics-public.json');
+	const how = (q) => (quests[q]?.steps ?? []).map((s) => s.fact).join(' ');
+	assert.match(how(94748), /Twilight Champions .* drop the Twilight Key/);
+	assert.match(how(93404), /inside Maraudon/);
+	assert.match(how(3801), /ghost only a dead character can see/);
+	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
+});

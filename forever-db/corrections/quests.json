@@ -17436,6 +17436,26 @@
 		],
 		"note": "Step Two: More Rock (96026), a Forever quest of the Riverglades: its ender, Hamur (263440), where players handed it in (the quest's own text names it)."
 	},
+	"96076": {
+		"set": {
+			"minLevel": 60
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on builds 1.60.1.70888, 70938 and 70959: minLevel 60"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix (227853) offered it only to a level 60 character; 22 people at levels 29-49 opened his window without it"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3072: a level 59 Night Elf Hunter at Pix Xizzix in Booty Bay was not offered it"
+			}
+		],
+		"note": "In Demand - Ancient Elven Curiosities (96076) is offered from level 60 on Forever; the data had no level, so the Dire Maul pick-up guide sent a level 59 player to Pix Xizzix for it."
+	},
 	"96082": {
 		"set": {
 			"end": {
