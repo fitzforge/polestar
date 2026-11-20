@@ -94,7 +94,9 @@ fn undoing_a_skip_brings_back_the_route_before_a_level_gated_step_and_it_applies
 
 #[test]
 fn undoing_a_skip_forgets_the_when_outcome_it_stored() {
-	let out = run_with(&money_guide(), r#"
+	let out = run_with(
+		&money_guide(),
+		r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
 		E.Skip(); flush()
@@ -103,7 +105,8 @@ fn undoing_a_skip_forgets_the_when_outcome_it_stored() {
 		emit(state())                                  -- back on 2, step 3's outcome gone with the skip
 		w.setMoney(100000); E.ToggleGoal(2, 1); flush()
 		emit(state())                                  -- the money in the bags before the route reaches step 3: it applies
-		emit(Polestar.CharState().skipStored == nil)"#);
+		emit(Polestar.CharState().skipStored == nil)"#,
+	);
 	assert_eq!(out[0], json!({ "live": 4, "skipped": "- true true - - - -", "when": "- - - - - - -" }));
 	assert_eq!(out[1], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }), "the undo takes step 3's stored outcome back");
 	assert_eq!(out[2]["live"], 3, "step 3 is the live step with the money");
@@ -129,13 +132,16 @@ fn undoing_a_skip_takes_back_the_jump_it_led_to() {
 
 #[test]
 fn a_step_the_player_brought_back_meanwhile_stays_when_the_skip_is_undone() {
-	let out = run_with(&money_guide(), r#"
+	let out = run_with(
+		&money_guide(),
+		r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
 		E.Skip(); flush()                              -- 2 skipped, 3 stored failed (no money)
 		E.Unskip(3); flush()                           -- the player brings step 3 back: kept for good
 		E.Unskip(2); flush()
-		emit(state())"#);
+		emit(state())"#,
+	);
 	assert_eq!(out[0], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - true - - - -" }), "step 3 kept (Own.keep)");
 }
 

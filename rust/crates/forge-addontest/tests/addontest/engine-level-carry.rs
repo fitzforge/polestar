@@ -125,13 +125,7 @@ emit(r)"#
 	assert_eq!(out["guide"], "test/two");
 	assert_eq!(
 		out["shape"],
-		json!([
-			"Erelas <test/one 2> accept:20",
-			"Flight master goto",
-			"Far camp accept:30",
-			"Wildkin kill:20",
-			"Far camp turnin:30 turnin:20",
-		]),
+		json!(["Erelas <test/one 2> accept:20", "Flight master goto", "Far camp accept:30", "Wildkin kill:20", "Far camp turnin:30 turnin:20",]),
 		"Second Zone takes Erelas' accept beside its flight master, before the wildkin: {out}"
 	);
 	assert_eq!(out["live"], 2, "still 11: passed, on to the flight master: {out}");
@@ -228,7 +222,11 @@ w.setXP(59000, 98000)
 w.complete({ 3764, 162, 2944 })
 w.onQuest(3661, {})"#
 			.to_string(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Alliance", dir.join("Polestar_Guides_Alliance"))],
+		addons: vec![
+			Addon::files("Polestar", &["Core/Core.xml"]),
+			Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")),
+			Addon::dir("Polestar_Guides_Alliance", dir.join("Polestar_Guides_Alliance")),
+		],
 		script: format!(
 			r#"
 E = Polestar.Engine
