@@ -277,8 +277,12 @@ quest's later goals with it (orphaned). A quest the player carries whose remaini
 hand-in ahead or not: a hand-in is no work, #1595) is
 noted `behind`: the guide window lists it under the step as "Still to do"
 (`Engine.GetBehind`; a click points the arrow, a right-click skips or
-abandons it) and While-here offers its objectives nearby; the place stays. A
-quest ahead that needed something passed is planned again (`Own.replan`,
+abandons it) and While-here offers its objectives nearby; the place stays.
+Recovery bypasses the update's `gone` mark, not the step's conditions.
+Both lists check `when` against the character now, not the outcome saved
+when the route passed the step. A hunt that needs level 34 cannot supply
+a badge or an arrow at 33; its saved quest remains available at 34.
+A quest ahead that needed something passed is planned again (`Own.replan`,
 `Own.goneSource`): the passed step comes back just before it when it is on
 the way (the catch-up's local rule), else the quest drops out with what
 follows. Safety: the mapping runs once per saved guide (the save is stamped
@@ -2076,6 +2080,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`stepGroups` counts it as held), so the arrow does not lead to the
   ender; its goal view has `pinOpen = "ticked"` and the window says to
   finish the objectives first.
+- **Shared quest supplies.** When several held quests require the same
+  item, `Own.sharedCollect` compares the bag count once with the sum of
+  their payments. Repeated goals for one quest count once. A skipped quest
+  or an optional collect (including one the player skipped) adds nothing.
+  The step view shows one required row per item. Paying a quest updates
+  both sides: three lungs spent on one bloodmage are no longer in the bags,
+  and those three are no longer owed.
 - **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
@@ -2116,8 +2127,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   with its own places, in one group (`e.group`); only one shows, measured to
   the nearest copy (`Own.hereNearest` hands the line over, its serial kept),
   its row naming the earliest step (the view's `firstStep`, `later` from it);
-  a dismiss or an expiry is for the whole group. A hand-in or a pick-up keeps
-  only its first step. With `behavior.whileHereTurnins`, a later
+  a dismiss or an expiry is for the whole group. If two quests in a later
+  step share a drop source and the next few steps offer the other quest,
+  `Own.waitForHuntPartner` defers the hunt invitation until that pickup.
+  It does not defer a live goal, discard incidental loot, or wait for a
+  quest already held, paid, declined or unavailable.
+  A hand-in or a pick-up keeps only its first step. With `behavior.whileHereTurnins`, a later
   `turnin` of a ready quest counts too, weighed by what it costs rather than
   by its distance (a hand-in is a short walk to one NPC and a click): its
   detour (`Own.hereDetour`, on every poll: the seconds of extra walking to
@@ -2499,13 +2514,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   from the guide as registered). `Own.feederPlan` follows each such accept
   to the quest it lacks that the guide does not bring, then down that
   quest's chain in the guides leading here (`next` or a route choice, back
-  8 guides; a quest in the log only handed in). A chain goes in when it
+  8 guides; a quest in the log needs no pickup). A chain goes in when it
   opens an accept that is not grey, all its places are in the guide's own
   zones, and, done before the first accept it opens, it costs at most 5
   minutes (`Own.feedCost`: a straight-run detour there and back from the
   nearest place the guide and the feeder steps already in go before that
   accept, plus 90 s per objective); its source steps, with its goals only,
-  go after the guide's nearest step before that accept. Every other such
+  go after the guide's nearest step before that accept. A feeder step
+  keeps the source step's `when` conditions: a bag requirement still
+  gates the pickup or payment. If two chains share a visit, the first
+  occurrence pulls forward the other chain's unpaid work before the
+  shared hand-in; the visit itself appears only once. Every other such
   accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
@@ -10734,7 +10753,8 @@ was already built without it.
   plans); then the web database's `commondrop` rows (world books, world blues) at 1%
   or more, so those no longer crowd out a boss's own loot (Onyxia's Sacks
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
-  (Recorder `enter`, `data/forever/instances.json`), else the curated table
+  (Recorder `enter`, `data/forever/instances.json`; its world position must fall
+  inside the dungeon's known entrance zone, even when recorded on another map), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
   map where one walks in, `{ key, instance, map, x, y, z?, source, note }`, each
   with its source, checked against the corpse point and our guides'

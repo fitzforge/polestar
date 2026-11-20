@@ -566,12 +566,14 @@ step Surena Caledon
   only Warlock
   zone Elwynn Forest
   tip Head back out through Goldshire and east along the road to the Brackwell Pumpkin Patch. Surena Caledon (level 9) stands by its farmhouse.
+  goto 71.0,80.8 "Brackwell Pumpkin Patch"
   collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
 
 step The Binding
   only Warlock
   zone Stormwind City
   tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls.
+  enter "Stormwind City" @69.5,85.5
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
   complete 1689                               -- Subdue the voidwalker

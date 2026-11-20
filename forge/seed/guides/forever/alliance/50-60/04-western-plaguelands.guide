@@ -12,6 +12,9 @@ next polestar-experimental/hyjal-1
 # into this file.
 # Added here: The Giant Guardian (2844), Wandering Shay (2845), at the Feralas stop where the Northspring harpies are below you.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
+# Davil's Libram (Heroes of Darrowshire, 5168) is taken on the Silithus guide's Hearthglen overlook stop at about 60
+# (0.4.3): the town hall's Scarlet Paladins are 55-56 elites, with elite priests and two level 63 High Clerists, at
+# about 56 here.
 
 step Chillwind Camp
   zone Western Plaguelands
@@ -202,8 +205,12 @@ step Fly to Light's Hope Chapel
 step Light's Hope Chapel
   zone Eastern Plaguelands
   turnin 5210                         -- Carlin Redpath
-  accept 5168
   accept 5181
+
+step Carlin Redpath: Heroes of Darrowshire
+  when group 5168
+  tip The libram is inside Hearthglen among elite Scarlet guards. Take this for the later group visit.
+  accept 5168
 
 step Aurora Skycaller
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
@@ -254,11 +261,6 @@ step Tirion Fordring
   zone Eastern Plaguelands
   turnin 5742                         -- Listen to his story
   accept 5781 optional                -- Mercutio Filthgorger is elite: grouping up is advised
-
-step Davil's Libram
-  zone Western Plaguelands
-  tip Davil's Libram lies in the town hall of Hearthglen, west of Tirion: the Scarlet guards stand close together.
-  collect 12954 quest 5168.1          -- Davil's Libram; inside
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
@@ -472,7 +474,6 @@ step Gadgetzan
   use 12928 "Umi's Mechanical Yeti" quest 5163.2 @51.1,26.9 -- On Sprinkle
   kill 7583 quest 5163.2 @51.1,26.9 map 1446 "Scare Sprinkle with Umi's Mechanical Yeti" -- Sprinkle
   turnin 5538                         -- Krinkle Goodsteel
-  accept 5801                         -- For Chillwind Camp: keep it
   accept 4504                         -- Tran'rek, north side of town: the tar is in Un'Goro, keep it
 
 step Gaeriyan
@@ -561,6 +562,12 @@ step Southwind Village
   tip The tortured druids and sentinels haunt the ruined village south-west of Layo.
   kill 12178 quest 1125.1             -- Tortured Druid
   kill 12179 quest 1125.2             -- Tortured Sentinel
+
+step Dusty Reliquary
+  when level>=56
+  when onquest 5527
+  tip The reliquary is inside the ruined building on the south-east side of Southwind Village. Take it while you are clearing the Sentinels, and give it to Rabine when you see him next.
+  collect 22201 quest 5527.1          -- Dusty Reliquary; inside
 
 step Layo Starstrike
   turnin 1125

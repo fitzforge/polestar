@@ -448,6 +448,12 @@ function Engine.GreyLeftOut(id, q, level)
 	return chainNeeds(g, level)[q] == nil
 end
 
+-- Optional collects keep their own row and count, including when the player
+-- uses SkipGoal. Only required quest objectives contribute to a shared stack.
+function Own.paymentItem(goal)
+	return goal.t == "collect" and goal.quest and goal.oi and not goal.upto and not goal.optional and goal.item
+end
+
 -- Per guide: each goal's step index, each quest's accept, turn-in and
 -- abandon goals ({ s, key = "s:g", step, goal }), `starters`: a plain
 -- `collect` of an item (no quest) -> the accept after it in its step that
@@ -462,6 +468,7 @@ local function layoutOf(g)
 	local l = Own.layoutCache[g]
 	if l then return l end
 	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {}, at = {}, needs = {} }
+	local firstCollect = {}
 	for s, step in ipairs(g.steps) do
 		for gi, goal in ipairs(step.goals) do
 			l.stepOf[goal] = s
@@ -484,6 +491,23 @@ local function layoutOf(g)
 						l.needs[p] = list
 					end
 					list[#list + 1] = goal.quest
+				end
+			end
+			-- Repeated visits to the same quest are one payment. Keep a demand
+			-- index only for items that different quests ask the player to collect.
+			local item = Own.paymentItem(goal)
+			if item then
+				local first = firstCollect[item]
+				if not first then
+					firstCollect[item] = goal
+				elseif first.quest ~= goal.quest then
+					l.sharedItems = l.sharedItems or {}
+					local byQuest = l.sharedItems[item]
+					if not byQuest then
+						byQuest = { [first.quest] = first }
+						l.sharedItems[item] = byQuest
+					end
+					byQuest[goal.quest] = goal
 				end
 			end
 			if goal.t == "collect" and not goal.quest and goal.item and (goal.count or 1) == 1 then
@@ -2261,7 +2285,7 @@ function Own.feederPlan(g)
 				local c = Own.feedCost(near, fresh)
 				if c <= Own.FEED_LOCAL then
 					cost, ch.inserted = cost + c, true
-					local last = 0
+					local last, prev = 0, nil
 					for _, st in ipairs(mine) do
 						local p = placed[st.key]
 						if p then
@@ -2269,6 +2293,13 @@ function Own.feederPlan(g)
 							p.goals = {}
 							for _, goal in ipairs(p.step.goals) do
 								if p.has[goal] then p.goals[#p.goals + 1] = goal end
+							end
+							-- Another chain put this shared visit after our pickup. Request
+							-- it here too; the first visit will do both chains' work.
+							if placedAt[st.key] >= U then
+								gaps[U - 1] = gaps[U - 1] or {}
+								table.insert(gaps[U - 1], p)
+								placedAt[st.key] = U - 1
 							end
 							if placedAt[st.key] > last then last = placedAt[st.key] end
 						else
@@ -2285,8 +2316,14 @@ function Own.feederPlan(g)
 							placed[st.key], placedAt[st.key] = st, bestJ
 							gaps[bestJ] = gaps[bestJ] or {}
 							table.insert(gaps[bestJ], st)
+							p = st
 							last = bestJ
 						end
+						if prev then
+							p.before = p.before or {}
+							p.before[#p.before + 1] = prev
+						end
+						prev = p
 					end
 				end
 			end
@@ -2346,16 +2383,21 @@ function Own.feederPlan(g)
 		end
 		local src = st.step
 		return { title = src.title, note = src.note, image = src.image, label = src.label, only = src.only,
-			goals = goals, feeder = st.id, feederStep = st.s }
+			when = src.when, goals = goals, feeder = st.id, feederStep = st.s }
 	end
 	local steps, fromBase, legs, feeders = {}, {}, {}, 0
 	local prevOwn = 0 -- g's step just before, when nothing came in between
+	local function addStep(st)
+		if st.emitted then return end
+		st.emitted = true
+		-- The first chain to reach a shared visit may have placed it before
+		-- another chain's work. Bring just its prerequisites forward with it.
+		for _, prev in ipairs(st.before or NONE) do addStep(prev) end
+		steps[#steps + 1] = feederStep(st)
+		feeders, prevOwn = feeders + 1, nil
+	end
 	local function add(list2)
-		for _, st in ipairs(list2 or NONE) do
-			steps[#steps + 1] = feederStep(st)
-			feeders = feeders + 1
-			prevOwn = nil
-		end
+		for _, st in ipairs(list2 or NONE) do addStep(st) end
 	end
 	add(gaps[0])
 	local starters = l.starters
@@ -3306,6 +3348,25 @@ function Own.bagCollect(goal)
 	return Q and Q.IsLoaded() and Q.UsesOnly(goal.quest, goal.item) or false
 end
 
+-- Each quest-log line can count the same stack as ready. At a shared
+-- collection, count the stack once against all payments still in the log.
+function Own.sharedCollect(goal)
+	local shared = guide and layoutOf(guide).sharedItems
+	local wants = shared and shared[Own.paymentItem(goal)]
+	if not wants then return end
+	local C, total = Compat(), 0
+	if not C.IsOnQuest(goal.quest) or Own.questSkipped(goal.quest) then return end
+	for q, g in pairs(wants) do
+		if C.IsOnQuest(q) and not Own.questSkipped(q) and not Own.bagCollect(g) then
+			total = total + (g.count or 1)
+		end
+	end
+	if total > 0 then
+		local count = C.GetItemCount(goal.item) or 0
+		return count >= total, math.min(count, total), total
+	end
+end
+
 -- Objective goals: done when objective `oi` (its line, Own.objectiveLine) is
 -- finished or the quest is ready for turn-in or turned in. Returns done, cur, max.
 local function objectiveState(goal)
@@ -4159,7 +4220,11 @@ function Own.goalDoneLive(s, g, goal)
 		return Own.laterQuestDone(s, g)
 	elseif t == "collect" then
 		if goal.quest then
-			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then return objectiveState(goal) end
+			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then
+				local done, cur, max = Own.sharedCollect(goal)
+				if done ~= nil then return done, cur, max, nil, "shared" end
+				return objectiveState(goal)
+			end
 			if C.IsQuestReadyForTurnIn(goal.quest) then return true end
 			return countState(goal)
 		end
@@ -6465,11 +6530,10 @@ function Own.isField(goal)
 	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
--- A goal a `loop` step placed on its points though it is no field goal: a
--- `skill` on a gathering round, or the accept, turnin or talk of an NPC who
--- walks (`spread` over the loop's `spots`). Its points are searched one after
--- another as a field goal's are: a dwell at one moves the arrow to the next.
-Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true }
+-- A search goal follows its loop points without being a field goal: gathering
+-- a skill, using a quest item, or finding an NPC who walks. A dwell at one
+-- point moves the arrow to the next.
+Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true, use = true }
 function Own.isSearch(goal)
 	return Own.SEARCH[goal.t] == true and goal.spread == true and goal.spots ~= nil
 end
@@ -7921,6 +7985,13 @@ function Engine.GetBehind()
 	return {}
 end
 
+-- Recover work passed by an update, not permission to do it. A fresh
+-- invitation or waypoint needs today's conditions, not a passed step's latch.
+function Own.behindApplies(step, goal)
+	return Guides.Matches(step.only, player) and Guides.Matches(goal.only, player)
+		and (not step.when or Own.whenFails(step) == nil)
+end
+
 function Own.behindList()
 	local s = ns.CharState()
 	local mine = guide and type(s.behind) == "table" and s.behind[guide.id]
@@ -7935,7 +8006,8 @@ function Own.behindList()
 	for j, step in ipairs(guide.steps) do
 		for g, goal in ipairs(step.goals) do
 			local q = goal.quest
-			if q and mine[q] and not seen[q] and goal.t ~= "accept" and goal.map and not goalDone(j, g, goal) then
+			if q and mine[q] and not seen[q] and goal.t ~= "accept" and goal.map and Own.behindApplies(step, goal)
+				and not Own.goalSkipped(j, g) and not goalDone(j, g, goal) then
 				seen[q] = true
 				local gc, gx, gy = goalWorld(goal)
 				local yards = c and gc == c and math.floor(math.sqrt((gx - px) ^ 2 + (gy - py) ^ 2) + 0.5) or nil
@@ -11809,9 +11881,25 @@ function Own.stepView(i)
 	local status = stepStatusOf(i)
 	local groups, focus, groupOf = stepGroups(i)
 	local goals = {}
+	local shared
 	for g, goal in ipairs(step.goals) do
 		goals[g] = goalView(i, g, goal, status, groupOf[g])
 		goals[g].pinOpen = Own.pinOpen(i, goal) or nil
+		local v = goals[g]
+		if v.progress and v.progress.kind == "shared" and v.status ~= "skipped" then
+			shared = shared or {}
+			if not shared[goal.item] then shared[goal.item] = v end
+		end
+	end
+	if shared then
+		for g, goal in ipairs(step.goals) do
+			local first = shared[Own.paymentItem(goal)]
+			if first and goals[g] ~= first then
+				-- Keep the underlying goal and quest, but show one bag count,
+				-- including after one of the other payments was skipped or made.
+				goals[g].folded, goals[g].progress = true, nil
+			end
+		end
 	end
 	-- A quest that starts from an item reads as one line, the accept, with how
 	-- to get the item under it (`starter`). Until the item is in the bags the
@@ -12812,13 +12900,44 @@ function Own.hereAfterOwn(s, g, q)
 	return false
 end
 
+-- Two drops from the same hunt: don't invite the player to farm the first
+-- before the upcoming pickup that lets them get both. Only the suggestion
+-- waits; the live step and any drops already earned are untouched.
+function Own.waitForHuntPartner(s, goal, live, nearTo)
+	local npc = goal.fromKind == "npc" and goal.fromId
+	if not npc or s <= live or (goal.fromNpcs and #goal.fromNpcs > 1) then return false end
+	local C = Compat()
+	for gi, other in ipairs(guide.steps[s].goals) do
+		if other.t == "collect" and other.fromKind == "npc" and other.fromId == npc and other.quest and other.quest ~= goal.quest
+			and not C.IsOnQuest(other.quest) and not questDone(other.quest) and not Own.questSkipped(other.quest)
+			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
+			local ready, freed = Own.READY_NONE, 0
+			for i = live, math.min(nearTo, s - 1) do
+				local step = guide.steps[i]
+				if stepApplies(step) and not isSkipped(i) then
+					for j, g in ipairs(step.goals) do
+						if g.t == "accept" and g.quest == other.quest and Own.aheadOk(i, j, g, ready, true) and Own.logRoom() + freed > 0 then return true end
+						-- The visit may hand in a held parent before offering its follow-up.
+						if g.t == "turnin" and not g.optional and C.IsOnQuest(g.quest) and not ready[g.quest]
+							and goalApplies(g) and not Own.goalSkipped(i, j) and not Own.questSkipped(g.quest) then
+							if ready == Own.READY_NONE then ready = {} end
+							ready[g.quest], freed = true, freed + 1
+						end
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log (an accept: one not taken), is a candidate, as what ("work",
 -- "turnin" or "take"), how many are left (see above), and for a hand-in or a
 -- pick-up whether the route reaches it anyway (Own.hereSoon: then it shows
 -- only at its NPC). `shown`: Own.hereShown's. An accept comes here with the
 -- log's room checked (Own.hereBuild).
-function Own.hereFits(s, g, goal, live, shown)
+function Own.hereFits(s, g, goal, live, shown, nearTo)
 	local q, t = goal.quest, goal.t
 	local C = Compat()
 	local liveGoals = guide.steps[live].goals
@@ -12862,6 +12981,7 @@ function Own.hereFits(s, g, goal, live, shown)
 	if t == "interact" and not Own.hereCarries(q) then return nil end
 	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
+	if t == "collect" and Own.waitForHuntPartner(s, goal, live, nearTo) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
 	return "work", left
@@ -13111,7 +13231,7 @@ function Own.hereBuild()
 				local goal = steps[s].goals[idx[i + 1]]
 				local q = goal.quest
 				local back = behind ~= nil and behind[q] and true or false
-				if s > live or back then
+				if (back and Own.behindApplies(steps[s], goal)) or (not back and s > live) then
 					local g = idx[i + 1]
 					local on = C.IsOnQuest(q)
 					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
@@ -13123,7 +13243,7 @@ function Own.hereBuild()
 					if (on and not C.IsQuestFailed(q)) or take then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
-						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
+						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown, nearTo) end
 						if kind then
 							n = n + 1
 							-- places: where the target spawns on the map (Own.hereTick
