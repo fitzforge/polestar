@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "等级 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "在这里补足经验到10级：{area:362}的{quest:840}需要10级。\n{quest:96825}所需的仙人掌果长在这些小屋旁：刷怪时顺手采集。",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "击杀{npc:3111}刷经验",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "11级",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "在对付{npc:3203}（12级）和他的小鬼之前，先在这里升到11级：雷霆蜥蜴（9-10级）就在米莎小屋西边的山脊上吃草。",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "刷{npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -434,6 +434,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电蜥蜴在 {npc:3293} 西面及西南面不远处的 {area:369} 吃草。\n费索占据着 {area:362} 西北面 {area:369} 的火刃营地。猎人：途中用 {item:15908} 驯服一只 {npc:3099}。\n小心：费索周围有火刃祭司，部分敌人两两联动，会一起进入战斗，而且刷新很快。\n小心：12级精英哈利科尔在{area:369}的蜥蜴群中游荡：拉怪前先留意他的位置。",
 	-- ["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "在这里补足经验到10级：{area:362} 的 {quest:840} 需要10级。",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "在这里补足经验到10级：{area:362}的{quest:840}需要10级。\n{quest:96825}所需的仙人掌果长在这些小屋旁：刷怪时顺手采集。",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "在对付{npc:3203}（12级）和他的小鬼之前，先在这里升到11级：雷霆蜥蜴（9-10级）就在米莎小屋西边的山脊上吃草。",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "涉水前往北侧的回音岛。血爪族母 在那里的迅猛龙之间徘徊。\n再向西涉水返回森金村南侧的海岸。杜隆塔尔猛虎在那里游荡，鞭尾龙的卵则在海滩沿线的巢中。",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "学会{skill:129}后，{npc:265809}还会提供对应的露营 101 任务：交给{area:362}的{npc:5943}。",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "学会{skill:165}后，{npc:265809}还会提供对应的露营 101 任务：交给{zone:1454}的{npc:3365}（下一篇指南）。",
@@ -444,6 +446,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "学会{skill:202}后，{npc:265809}还会提供对应的露营 101 任务：交给{area:362}的{npc:11025}。",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "学会{skill:333}后，{npc:265809}还会提供对应的露营 101 任务：交给{zone:1454}的{npc:11066}（下一篇指南）。",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "学会{skill:393}后，{npc:265809}还会提供对应的露营 101 任务：交给{zone:1454}的{npc:7088}（下一篇指南）。",
+	-- ["grind on {npc:3130}"] = "刷{npc:3130}",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809}在{area:362}南面不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交给{npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}：交给{npc:11066}",

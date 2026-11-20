@@ -7,38 +7,66 @@ do
 			id = "polestar-experimental/hyjal-1",
 			pack = "polestar-experimental",
 			title = "{area:616}",
-			faction = "Alliance",
 			minLevel = 57,
 			maxLevel = 60,
+			factionLevels = { Alliance = { min = 57, max = 60 }, Horde = { min = 57, max = 60 } },
 			category = "Leveling",
 			keywords = { "mount hyjal", "hyjal", "tainted foothills", "felblood scar", "ketharas", "moonglade", "barkskin burrow", "elderwild", "mourning's rest", "cradle of tranquility", "shrine of aviana", "dae'gun", "summit of eternity", "nordrassil", "experimental", "alpha" },
 			why = "About 100 quests in Forever's new endgame zone, 57 to 59.",
 			zone = 2482,
 			zoneName = "Mount Hyjal",
 			next = "forever/alliance/50-60/06-silithus",
-			pitch = "A new Forever zone south of {zone:1452}.",
+			nextChoices = { "forever/alliance/50-60/06-silithus", "forever/horde/50-60/06-silithus" },
+			pitch = "A new Forever zone south of {area:618}.",
 			pros = { "About 350,000 quest experience", "No boat: {area:2255} is a flight away", "Two flight paths inside the zone" },
-			cons = { "Elites roam, a few group quests" },
+			cons = { "Bring help: elites line the gorge" },
 			author = "Polestar",
 			version = 1,
-			group = true,
-			names = { ["area:16848"] = "Elderwild", ["area:16849"] = "Summit of Eternity", ["area:16853"] = "Tainted Foothills", ["area:16866"] = "Dae'gun", ["area:16867"] = "Shrine of Aviana", ["area:16868"] = "Mourning's Rest", ["area:17050"] = "Felblood Scar", ["area:17144"] = "Malorne's Retreat", ["area:17145"] = "Cradle of Tranquility", ["area:1769"] = "Timbermaw Hold", ["area:2255"] = "Everlook", ["area:2256"] = "Darkwhisper Gorge", ["area:2361"] = "Nighthaven", ["area:493"] = "Moonglade", ["area:616"] = "Mount Hyjal", ["area:87"] = "Goldshire", ["item:262802"] = "Moonveil Moss", ["item:267289"] = "Scarlet Dart Tuber", ["item:274411"] = "Survivor's Torch", ["item:276100"] = "Felhound Spike", ["npc:11118"] = "Innkeeper Vizzie", ["npc:11802"] = "Dendrite Starblaze", ["npc:216289"] = "Orokai", ["npc:228216"] = "Nami", ["npc:2329"] = "Michelle Belle", ["npc:243509"] = "Noxious Slime", ["npc:243815"] = "Sebelia", ["npc:243855"] = "Toron Rockhoof", ["npc:244511"] = "Zet'gan", ["npc:244512"] = "Ortak Lomgok", ["npc:244517"] = "Sefira Everbright", ["npc:248041"] = "Hyjal Stag", ["npc:248366"] = "Fraxinus", ["npc:248367"] = "Hyacinth", ["npc:248395"] = "Tainted Shrubbery", ["npc:248709"] = "Sunderbark", ["npc:249051"] = "Celastrus the Bitter", ["npc:249052"] = "Witherbeard", ["npc:249053"] = "Hyjal Owl", ["npc:249226"] = "Death Wailer", ["npc:249228"] = "Fleshflay Ravener", ["npc:249229"] = "Felguard Sentinel", ["npc:249230"] = "Defiling Hound", ["npc:249234"] = "Johun \"Punchy\" Dillas", ["npc:249235"] = "Kaylaena Springwhisper", ["npc:249238"] = "Legion Hulk", ["npc:249247"] = "Forgotten Soldier", ["npc:249549"] = "Fenwick Togglespring", ["npc:249968"] = "Hnaz Blunderflame", ["npc:251199"] = "Head Scratcher", ["npc:252063"] = "Deadwood Den Guardian", ["npc:252457"] = "Mazzogore", ["npc:254131"] = "Skylord Omnuron", ["npc:254501"] = "Tree Branch", ["npc:254915"] = "Thisalee Crow", ["npc:255009"] = "Veteran of the Third War", ["npc:255183"] = "Jezerelle the Swaying", ["npc:255683"] = "Shalla'kal", ["npc:255691"] = "Spectral Frostwyrm", ["npc:255693"] = "Kala'th", ["npc:256222"] = "Ketharas", ["npc:256646"] = "Osi Mistpaw", ["npc:256660"] = "Thobon Sapclaw", ["npc:256809"] = "Predatory Hyjal Stag", ["npc:256978"] = "Brerufa", ["npc:257753"] = "Curious Crow", ["npc:259695"] = "Renalard", ["npc:260148"] = "Scourge Reanimator", ["npc:260422"] = "Ashen Acolyte", ["npc:260440"] = "Brashann Grimdark", ["npc:260626"] = "Bluebell", ["npc:260661"] = "Suma Mossmane", ["npc:260674"] = "Ve'han Talongrasp", ["npc:260825"] = "Phoebe Highfeather", ["npc:260826"] = "Zarrat Wormwing", ["npc:262036"] = "Ruined Ballista", ["npc:263394"] = "Bethra'zel the Feeble", ["npc:263406"] = "Elaena Moonwhisper", ["npc:263426"] = "Mazzogore the Weak", ["npc:263757"] = "Felflick", ["npc:264089"] = "Eluneth", ["npc:264306"] = "Awakened Fel Ash Slime", ["npc:264521"] = "Daythor Brellan", ["npc:264795"] = "Marn Euhorn", ["npc:265586"] = "Thylaen", ["npc:266802"] = "Thark Gorax", ["npc:266803"] = "Quintus Wainworth", ["npc:266886"] = "Ruined Flying Machine", ["npc:266887"] = "Ruined Catapult", ["npc:267097"] = "Maerion Thaelemaches", ["npc:267109"] = "Galvinquam Leafsyre", ["npc:267113"] = "Marrosis", ["npc:267121"] = "Yashiro", ["npc:267158"] = "Jereman", ["npc:267439"] = "Doomguard Xarkul", ["npc:268168"] = "Lisbael Highfeather", ["npc:278305"] = "Velician", ["npc:40833"] = "Tiala Whitemane", ["npc:41861"] = "Fayran Elthas", ["object:650219"] = "Jewel of the Horizon", ["object:650234"] = "Loose Cog", ["object:651262"] = "Unmarked Grave", ["object:651409"] = "Corrupted Growth", ["quest:90487"] = "Ancient Allies", ["quest:90647"] = "The Staff of the Mountain", ["quest:90702"] = "Disturbed Grave", ["quest:90750"] = "More Work?", ["quest:90865"] = "Eyes of the Watchers", ["quest:91688"] = "To the Summit of Eternity", ["quest:91697"] = "Meet the Elders", ["quest:91754"] = "Rub Some Dirt In It", ["quest:91755"] = "Leaves to Ligatures", ["quest:91770"] = "Bark Bite", ["quest:91881"] = "The Western Post", ["quest:91883"] = "Spear of the Skylord", ["quest:91923"] = "Celastrus the Bitter", ["quest:92008"] = "Premiere Parts", ["quest:92009"] = "Crate Expectations", ["quest:92011"] = "Rubble Rummage", ["quest:92014"] = "Fox Hole", ["quest:92015"] = "Area Denial Skunks", ["quest:92017"] = "Cleansing Winds", ["quest:92064"] = "Tree Free", ["quest:92100"] = "Anywhere But Here", ["quest:92111"] = "Of Friend and Fur", ["quest:92147"] = "Highfeather Helper", ["quest:92169"] = "Paying Back the Pact", ["quest:92171"] = "Taking to New Heights", ["quest:92317"] = "Stolen Life", ["quest:92328"] = "Siegecraft", ["quest:92335"] = "Ashes of the Legion Ascent", ["quest:92449"] = "Blight No More", ["quest:92500"] = "A Bit of the Sky", ["quest:92533"] = "Twisted Tools", ["quest:92591"] = "Final Death", ["quest:92593"] = "Avalanche of Corruption", ["quest:92594"] = "Kindling, Kinda", ["quest:92609"] = "Feathers in Flight", ["quest:92612"] = "Aid from Moonglade", ["quest:92702"] = "Branch Out", ["quest:92959"] = "The Dying Ancients", ["quest:92960"] = "Siphoned Ephemeral Essence", ["quest:93197"] = "Mending Communications", ["quest:93383"] = "Contents Under Pressure", ["quest:93407"] = "A Thorn in the Paw", ["quest:93584"] = "Cult Closure", ["quest:93615"] = "Kits and Cats", ["quest:93617"] = "Prey and Predator", ["quest:93747"] = "Violence Into Verdure", ["quest:93759"] = "The Bounty of Nature", ["quest:93773"] = "The Pact", ["quest:93825"] = "Barkbound Blessings", ["quest:93826"] = "Deal Dread to Deadwood", ["quest:93827"] = "Windswept Wards", ["quest:93831"] = "Sweetpaw Jam", ["quest:93952"] = "Balance Through Strength", ["quest:94479"] = "One Person's Trash", ["quest:94782"] = "The Western Post", ["quest:94832"] = "Belle's Ring", ["quest:95006"] = "Stolen Power", ["quest:95218"] = "More of the Same", ["quest:95248"] = "To the Summit of Eternity", ["quest:95316"] = "The Experimental Method", ["quest:95317"] = "Notation, Notation, Notation", ["quest:95318"] = "Taste of Ash", ["quest:95319"] = "Crystalline Collection", ["quest:95320"] = "A Curious Question", ["quest:95378"] = "The Hydra's Head", ["quest:95379"] = "A Revenge So Sweet", ["quest:95380"] = "A Prolific Source", ["quest:95568"] = "Seeds for a New Season", ["quest:95569"] = "Hope for Hatchlings", ["quest:95611"] = "Rites of Respect", ["quest:95766"] = "Fine Feathered Friend", ["quest:95793"] = "Stemming the Demon Tide", ["quest:96003"] = "Drawing Down the Malevolent", ["quest:96025"] = "As the Crow Flies", ["quest:96131"] = "An Oldstone But An Old Friend", ["quest:96145"] = "Past Wing and Claw", ["quest:96209"] = "The Ancient, Orokai", ["quest:96252"] = "Tarnished Treasures", ["quest:96255"] = "Amalgamated Marrow", ["quest:96262"] = "Prickly Pinecones", ["quest:96296"] = "Fetid Corruption", ["quest:96321"] = "The Dying God", ["quest:96322"] = "A Revenge Now Bitter", ["quest:96435"] = "A Fitting End", ["quest:96550"] = "Battle Recall", ["quest:96559"] = "Supply Drop", ["quest:96796"] = "Woods Workshop", ["quest:96830"] = "Farsight Guided", ["quest:96833"] = "Venom Maws", ["quest:96930"] = "The Capricious Corvid", ["quest:96931"] = "Heading Up the Mountain", ["quest:96939"] = "The Balance of Life and Death", ["quest:96957"] = "Bone Sweet Bone", ["quest:96959"] = "Blademaster's Bonfires", ["quest:96964"] = "A Clever Creature", ["quest:96971"] = "To Outfox a Demon", ["quest:96978"] = "Violent Venison", ["quest:96979"] = "Sacred Refreshment", ["quest:96991"] = "Trail Assist", ["quest:96992"] = "Resupply", ["quest:97009"] = "Maerion's Misery", ["spell:18960"] = "Teleport: Moonglade", ["zone:1448"] = "Felwood", ["zone:1452"] = "Winterspring" },
-			written = { ["Back to Osi, then the two elders at the back of the burrow. {npc:260661} stands beside Osi, {npc:256660} a little north-west of them, where the recording met him. {npc:260661}'s moss grows around {area:16848}, later in this guide; {npc:256660}'s amulets come from the harpies at the {area:16867}, also later in this guide, and you bring both back here then."] = "Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana, also later in this guide, and you bring both back here then.", ["Brie, the second kitten, plays just west of {npc:249234}'s camp."] = "Brie, the second kitten, plays just west of Johun's camp.", ["Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nEast from the Cradle towards the {area:16867}, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for {npc:260825}."] = "Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nEast from the Cradle towards the Shrine of Aviana, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for Phoebe.", ["Fill {npc:267109}'s gourd at the falls beside the bridge. Solstice, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.", ["Fly down to {npc:260626} for {npc:249235} and {npc:256222}."] = "Fly down to Bluebell for Kaylaena and Ketharas.", ["Into the burrow for the elders, {npc:260661} and {npc:256660}."] = "Into the burrow for the elders, Suma and Thobon.", ["North to {npc:255683}, then {npc:267109} in the ruins south of her."] = "North to Shalla'kal, then Galvinquam in the ruins south of her.", ["North-east across the Cradle to {npc:249234}'s camp at the edge of {area:16866}."] = "North-east across the Cradle to Johun's camp at the edge of Dae'gun.", ["North-east into the {area:17145}: {npc:267109} rests in the ruins south of {npc:255683}, on your way."] = "North-east into the Cradle of Tranquility: Galvinquam rests in the ruins south of Shalla'kal, on your way.", ["North-east to {npc:263394}: use {npc:263406}'s eye on him to drain him, then kill him. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.\n{npc:267097} waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come."] = "North-east to Bethra'zel: use Elaena's eye on him to drain him, then kill him. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.\nMaerion Thaelemaches waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.", ["North-west over the shrub field to {npc:249235}'s workshop on the slope above it. {quest:91923}, an elite (level 57), patrols the field, and {npc:248709}, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to {npc:249235}."] = "North-west over the shrub field to Kaylaena Springwhisper's workshop on the slope above it. Celastrus the Bitter, an elite (level 57), patrols the field, and Sunderbark, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to Kaylaena.", ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "South down the west side of the shrub field to the ancients' outpost: kill the Tainted Shrubbery you pass for Kaylaena. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.", ["South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order."] = "South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.", ["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse Tiala's staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.", ["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp: leave her be."] = "The Rustleaf Foxes are thick in the woods around Johun's camp.\nCareful: Jezerelle the Swaying (61, rare) walks the woods north of the camp: leave her be.", ["The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope, and {npc:260826}, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine."] = "The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and Thobon's amulets; the bangles lie in their nests, the Jewel of the Horizon in a nest on the western slope, and Zarrat Wormwing, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine.", ["The moss for {npc:260661} grows around {area:16848}: by the outposts and on the slopes north of them."] = "The moss for Suma grows around Elderwild: by the outposts and on the slopes north of them.", ["The seeds and the owl eggs lie on the slopes between the Hermit's Abode and the road you came in on: search north-east up towards {npc:266803} and {npc:266802}."] = "The seeds and the owl eggs lie on the slopes between the Hermit's Abode and the road you came in on: search north-east up towards Quintus and Thark.", ["The worker {npc:244517} means is a peasant just north of her; {npc:264521} stands between them."] = "The worker Sefira means is a peasant just north of her; Daythor Brellan stands between them.", ["{npc:228216} stands between {area:2255}'s two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the {area:16853} and take it to {npc:249235} without detours or fights (about four minutes in the recording). If it fizzles out anyway, {npc:228216} fills it again."] = "Nami stands between Everlook's two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the Tainted Foothills and take it to Kaylaena without detours or fights (about four minutes in the recording). If it fizzles out anyway, Nami fills it again.", ["{npc:249051}"] = "Celastrus", ["{npc:249234}'s camp"] = "Johun's camp", ["{npc:249235}'s workshop"] = "Kaylaena's workshop", ["{npc:255683} and {npc:267109}"] = "Shalla'kal and Galvinquam", ["{npc:263394}"] = "Bethra'zel", ["{npc:263394} and {npc:267097}"] = "Bethra'zel and Maerion", ["{npc:263406}, {npc:249052} and {npc:267121}"] = "Elaena, Witherbeard and Yashiro", ["{npc:264521} and {npc:244517}"] = "Daythor Brellan and Sefira", ["{quest:96796}: for {npc:249235}, on the way"] = "Woods Workshop: for Kaylaena, on the way" },
+			names = { ["area:16848"] = "Elderwild", ["area:16849"] = "Summit of Eternity", ["area:16853"] = "Tainted Foothills", ["area:16866"] = "Dae'gun", ["area:16867"] = "Shrine of Aviana", ["area:16868"] = "Mourning's Rest", ["area:17050"] = "Felblood Scar", ["area:17144"] = "Malorne's Retreat", ["area:17145"] = "Cradle of Tranquility", ["area:1769"] = "Timbermaw Hold", ["area:2249"] = "Frostwhisper Gorge", ["area:2255"] = "Everlook", ["area:2256"] = "Darkwhisper Gorge", ["area:2361"] = "Nighthaven", ["area:367"] = "Sen'jin Village", ["area:493"] = "Moonglade", ["area:616"] = "Mount Hyjal", ["area:618"] = "Winterspring", ["area:87"] = "Goldshire", ["item:253249"] = "Horde Flag", ["item:262802"] = "Moonveil Moss", ["item:267289"] = "Scarlet Dart Tuber", ["item:271879"] = "Eye of Endless Influence", ["item:274411"] = "Survivor's Torch", ["item:274979"] = "Hyjal Silphium", ["item:276100"] = "Felhound Spike", ["npc:10201"] = "Lady Hederine", ["npc:10897"] = "Sindrayl", ["npc:11118"] = "Innkeeper Vizzie", ["npc:11801"] = "Rabine Saturna", ["npc:11802"] = "Dendrite Starblaze", ["npc:11939"] = "Umber", ["npc:12740"] = "Faustron", ["npc:216289"] = "Orokai", ["npc:228216"] = "Nami", ["npc:2329"] = "Michelle Belle", ["npc:243509"] = "Noxious Slime", ["npc:243815"] = "Sebelia", ["npc:243855"] = "Toron Rockhoof", ["npc:244511"] = "Zet'gan", ["npc:244512"] = "Ortak Lomgok", ["npc:244517"] = "Sefira Everbright", ["npc:248041"] = "Hyjal Stag", ["npc:248366"] = "Fraxinus", ["npc:248367"] = "Hyacinth", ["npc:248395"] = "Tainted Shrubbery", ["npc:248709"] = "Sunderbark", ["npc:249051"] = "Celastrus the Bitter", ["npc:249052"] = "Witherbeard", ["npc:249053"] = "Hyjal Owl", ["npc:249226"] = "Death Wailer", ["npc:249228"] = "Fleshflay Ravener", ["npc:249229"] = "Felguard Sentinel", ["npc:249230"] = "Defiling Hound", ["npc:249234"] = "Johun \"Punchy\" Dillas", ["npc:249235"] = "Kaylaena Springwhisper", ["npc:249238"] = "Legion Hulk", ["npc:249247"] = "Forgotten Soldier", ["npc:249549"] = "Fenwick Togglespring", ["npc:249968"] = "Hnaz Blunderflame", ["npc:252063"] = "Deadwood Den Guardian", ["npc:252457"] = "Mazzogore", ["npc:254131"] = "Skylord Omnuron", ["npc:254501"] = "Tree Branch", ["npc:254915"] = "Thisalee Crow", ["npc:255009"] = "Veteran of the Third War", ["npc:255183"] = "Jezerelle the Swaying", ["npc:255683"] = "Shalla'kal", ["npc:255691"] = "Spectral Frostwyrm", ["npc:255693"] = "Kala'th", ["npc:256222"] = "Ketharas", ["npc:256646"] = "Osi Mistpaw", ["npc:256660"] = "Thobon Sapclaw", ["npc:256809"] = "Predatory Hyjal Stag", ["npc:256978"] = "Brerufa", ["npc:257753"] = "Curious Crow", ["npc:259695"] = "Renalard", ["npc:260148"] = "Scourge Reanimator", ["npc:260422"] = "Ashen Acolyte", ["npc:260440"] = "Brashann Grimdark", ["npc:260626"] = "Bluebell", ["npc:260661"] = "Suma Mossmane", ["npc:260674"] = "Ve'han Talongrasp", ["npc:260825"] = "Phoebe Highfeather", ["npc:260826"] = "Zarrat Wormwing", ["npc:262036"] = "Ruined Ballista", ["npc:263394"] = "Bethra'zel the Feeble", ["npc:263406"] = "Elaena Moonwhisper", ["npc:263426"] = "Mazzogore the Weak", ["npc:263757"] = "Felflick", ["npc:264089"] = "Eluneth", ["npc:264306"] = "Awakened Fel Ash Slime", ["npc:264521"] = "Daythor Brellan", ["npc:264795"] = "Marn Euhorn", ["npc:265586"] = "Thylaen", ["npc:265788"] = "Kal'tinzan", ["npc:265862"] = "Enho Runehoof", ["npc:265895"] = "Maruke", ["npc:266802"] = "Thark Gorax", ["npc:266803"] = "Quintus Wainworth", ["npc:266886"] = "Ruined Flying Machine", ["npc:266887"] = "Ruined Catapult", ["npc:267097"] = "Maerion Thaelemaches", ["npc:267109"] = "Galvinquam Leafsyre", ["npc:267113"] = "Marrosis", ["npc:267121"] = "Yashiro", ["npc:267158"] = "Jereman", ["npc:267439"] = "Doomguard Xarkul", ["npc:268168"] = "Lisbael Highfeather", ["npc:278305"] = "Velician", ["npc:3187"] = "Tai'tasi", ["npc:40833"] = "Tiala Whitemane", ["npc:41861"] = "Fayran Elthas", ["npc:7428"] = "Frostmaul Giant", ["npc:7463"] = "Hederine Slayer", ["object:179565"] = "Dusty Reliquary", ["object:650219"] = "Jewel of the Horizon", ["object:650234"] = "Loose Cog", ["object:651262"] = "Unmarked Grave", ["object:651409"] = "Corrupted Growth", ["object:656786"] = "Troll Remains", ["quest:1185"] = "Under the Chitin Was...", ["quest:6844"] = "Umber, Archivist", ["quest:6845"] = "Uncovering Past Secrets", ["quest:90487"] = "Ancient Allies", ["quest:90647"] = "The Staff of the Mountain", ["quest:90702"] = "Disturbed Grave", ["quest:90750"] = "More Work?", ["quest:90865"] = "Eyes of the Watchers", ["quest:91688"] = "To the Summit of Eternity", ["quest:91697"] = "Meet the Elders", ["quest:91754"] = "Rub Some Dirt In It", ["quest:91755"] = "Leaves to Ligatures", ["quest:91770"] = "Bark Bite", ["quest:91794"] = "Flags of Our Forebears", ["quest:91881"] = "The Western Post", ["quest:91883"] = "Spear of the Skylord", ["quest:91923"] = "Celastrus the Bitter", ["quest:92008"] = "Premiere Parts", ["quest:92009"] = "Crate Expectations", ["quest:92011"] = "Rubble Rummage", ["quest:92014"] = "Fox Hole", ["quest:92015"] = "Area Denial Skunks", ["quest:92017"] = "Cleansing Winds", ["quest:92064"] = "Tree Free", ["quest:92100"] = "Anywhere But Here", ["quest:92111"] = "Of Friend and Fur", ["quest:92147"] = "Highfeather Helper", ["quest:92169"] = "Paying Back the Pact", ["quest:92171"] = "Taking to New Heights", ["quest:92317"] = "Stolen Life", ["quest:92328"] = "Siegecraft", ["quest:92335"] = "Ashes of the Legion Ascent", ["quest:92446"] = "Head Scratcher", ["quest:92449"] = "Blight No More", ["quest:92500"] = "A Bit of the Sky", ["quest:92533"] = "Twisted Tools", ["quest:92591"] = "Final Death", ["quest:92592"] = "Final Death", ["quest:92593"] = "Avalanche of Corruption", ["quest:92594"] = "Kindling, Kinda", ["quest:92609"] = "Feathers in Flight", ["quest:92612"] = "Aid from Moonglade", ["quest:92702"] = "Branch Out", ["quest:92959"] = "The Dying Ancients", ["quest:92960"] = "Siphoned Ephemeral Essence", ["quest:93383"] = "Contents Under Pressure", ["quest:93407"] = "A Thorn in the Paw", ["quest:93584"] = "Cult Closure", ["quest:93615"] = "Kits and Cats", ["quest:93617"] = "Prey and Predator", ["quest:93747"] = "Violence Into Verdure", ["quest:93759"] = "The Bounty of Nature", ["quest:93773"] = "The Pact", ["quest:93825"] = "Barkbound Blessings", ["quest:93826"] = "Deal Dread to Deadwood", ["quest:93827"] = "Windswept Wards", ["quest:93831"] = "Sweetpaw Jam", ["quest:93952"] = "Balance Through Strength", ["quest:94479"] = "One Person's Trash", ["quest:94782"] = "The Western Post", ["quest:94832"] = "Belle's Ring", ["quest:95006"] = "Stolen Power", ["quest:95218"] = "More of the Same", ["quest:95248"] = "To the Summit of Eternity", ["quest:95316"] = "The Experimental Method", ["quest:95317"] = "Notation, Notation, Notation", ["quest:95318"] = "Taste of Ash", ["quest:95319"] = "Crystalline Collection", ["quest:95320"] = "A Curious Question", ["quest:95378"] = "The Hydra's Head", ["quest:95379"] = "A Revenge So Sweet", ["quest:95380"] = "A Prolific Source", ["quest:95568"] = "Seeds for a New Season", ["quest:95569"] = "Hope for Hatchlings", ["quest:95611"] = "Rites of Respect", ["quest:95766"] = "Fine Feathered Friend", ["quest:95793"] = "Stemming the Demon Tide", ["quest:96003"] = "Drawing Down the Malevolent", ["quest:96025"] = "As the Crow Flies", ["quest:96131"] = "An Oldstone But An Old Friend", ["quest:96145"] = "Past Wing and Claw", ["quest:96209"] = "The Ancient, Orokai", ["quest:96252"] = "Tarnished Treasures", ["quest:96255"] = "Amalgamated Marrow", ["quest:96262"] = "Prickly Pinecones", ["quest:96296"] = "Fetid Corruption", ["quest:96321"] = "The Dying God", ["quest:96322"] = "A Revenge Now Bitter", ["quest:96435"] = "A Fitting End", ["quest:96550"] = "Battle Recall", ["quest:96559"] = "Supply Drop", ["quest:96616"] = "Herbs for the Bruised and Weary", ["quest:96622"] = "A Rest Without Pain", ["quest:96796"] = "Woods Workshop", ["quest:96830"] = "Farsight Guided", ["quest:96833"] = "Venom Maws", ["quest:96930"] = "The Capricious Corvid", ["quest:96931"] = "Heading Up the Mountain", ["quest:96939"] = "The Balance of Life and Death", ["quest:96957"] = "Bone Sweet Bone", ["quest:96959"] = "Blademaster's Bonfires", ["quest:96964"] = "A Clever Creature", ["quest:96971"] = "To Outfox a Demon", ["quest:96978"] = "Violent Venison", ["quest:96979"] = "Sacred Refreshment", ["quest:96991"] = "Trail Assist", ["quest:96992"] = "Resupply", ["quest:96998"] = "Tribal Colors", ["quest:96999"] = "Wrap Return", ["quest:97009"] = "Maerion's Misery", ["spell:18960"] = "Teleport: Moonglade", ["zone:1411"] = "Durotar", ["zone:1448"] = "Felwood", ["zone:1451"] = "Silithus", ["zone:1454"] = "Orgrimmar" },
+			written = { ["Back to Osi, then the two elders at the back of the burrow. {npc:260661} stands beside Osi, {npc:256660} a little north-west of them, where the recording met him. {npc:260661}'s moss grows around {area:16848}, later in this guide; {npc:256660}'s amulets come from the harpies at the {area:16867}, also later in this guide, and you bring both back here then."] = "Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana, also later in this guide, and you bring both back here then.", ["Brie, the second kitten, plays just west of {npc:249234}'s camp."] = "Brie, the second kitten, plays just west of Johun's camp.", ["Bring help for the two level 60 demons. Use {npc:263406}'s eye to drain each one before fighting; if the drain fails, do not attack."] = "Bring help for the two level 60 demons. Use Elaena's eye to drain each one before fighting; if the drain fails, do not attack.", ["Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nEast from the Cradle towards the {area:16867}, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for {npc:260825}."] = "Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nEast from the Cradle towards the Shrine of Aviana, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for Phoebe.", ["Fill {npc:267109}'s gourd at the falls beside the bridge. Solstice, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.", ["Fly down to {npc:260626} for {npc:249235} and {npc:256222}."] = "Fly down to Bluebell for Kaylaena and Ketharas.", ["If you brought the {object:179565} from Southwind, give it to {npc:11801} here as well."] = "If you brought the Dusty Reliquary from Southwind, give it to Rabine here as well.", ["Into the burrow for the elders, {npc:260661} and {npc:256660}."] = "Into the burrow for the elders, Suma and Thobon.", ["North to {npc:255683}, then {npc:267109} in the ruins south of her."] = "North to Shalla'kal, then Galvinquam in the ruins south of her.", ["North-east across the Cradle to {npc:249234}'s camp at the edge of {area:16866}."] = "North-east across the Cradle to Johun's camp at the edge of Dae'gun.", ["North-east into the {area:17145}: {npc:267109} rests in the ruins south of {npc:255683}, on your way."] = "North-east into the Cradle of Tranquility: Galvinquam rests in the ruins south of Shalla'kal, on your way.", ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.", ["North-east up the slope from the veteran, north of {area:16868}: {npc:244512}'s silphium grows in the meadows there, where the Horde players in our recordings picked it. Then ride west to {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over these slopes: keep out of their way."] = "North-east up the slope from the veteran, north of Mourning's Rest: Ortak's silphium grows in the meadows there, where the Horde players in our recordings picked it. Then ride west to Elderwild.\nCareful: Death Wailers (61, rare elites) drift over these slopes: keep out of their way.", ["North-west over the shrub field to {npc:249235}'s workshop on the slope above it. {quest:91923}, an elite (level 57), patrols the field, and {npc:248709}, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to {npc:249235}."] = "North-west over the shrub field to Kaylaena Springwhisper's workshop on the slope above it. Celastrus the Bitter, an elite (level 57), patrols the field, and Sunderbark, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to Kaylaena.", ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "South down the west side of the shrub field to the ancients' outpost: kill the Tainted Shrubbery you pass for Kaylaena. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.", ["South-west to {npc:263426}, in the middle of {area:16866}: drain him with the eye first, as {npc:263394}, then kill him. Undrained, he is a level 60 elite.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you."] = "South-west to Mazzogore the Weak, in the middle of Dae'gun: drain him with the eye first, as Bethra'zel, then kill him. Undrained, he is a level 60 elite.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you.", ["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse Tiala's staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.", ["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp: leave her be."] = "The Rustleaf Foxes are thick in the woods around Johun's camp.\nCareful: Jezerelle the Swaying (61, rare) walks the woods north of the camp: leave her be.", ["The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope. The corrupted knots grow on the trees just north-west of the shrine."] = "The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and Thobon's amulets; the bangles lie in their nests, the Jewel of the Horizon in a nest on the western slope. The corrupted knots grow on the trees just north-west of the shrine.", ["The moss for {npc:260661} grows around {area:16848}: by the outposts and on the slopes north of them."] = "The moss for Suma grows around Elderwild: by the outposts and on the slopes north of them.", ["The seeds and the owl eggs lie on the slopes between the Hermit's Abode and the road you came in on: search north-east up towards {npc:266803} and {npc:266802}."] = "The seeds and the owl eggs lie on the slopes between the Hermit's Abode and the road you came in on: search north-east up towards Quintus and Thark.", ["The worker {npc:244517} means is a peasant just north of her; {npc:264521} stands between them."] = "The worker Sefira means is a peasant just north of her; Daythor Brellan stands between them.", ["{npc:228216} stands between {area:2255}'s two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the {area:16853} and take it to {npc:249235} without detours or fights (about four minutes in the recording). If it fizzles out anyway, {npc:228216} fills it again."] = "Nami stands between Everlook's two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the Tainted Foothills and take it to Kaylaena without detours or fights (about four minutes in the recording). If it fizzles out anyway, Nami fills it again.", ["{npc:244512}'s poultice is for two of the outpost's wounded: {npc:265895} lies at the north end of {area:16848}, {npc:265862} just south of {npc:244512}."] = "Ortak's poultice is for two of the outpost's wounded: Maruke lies at the north end of Elderwild, Enho Runehoof just south of Ortak.", ["{npc:249051}"] = "Celastrus", ["{npc:249234}'s camp"] = "Johun's camp", ["{npc:249235}'s workshop"] = "Kaylaena's workshop", ["{npc:255683} and {npc:267109}"] = "Shalla'kal and Galvinquam", ["{npc:263394}"] = "Bethra'zel", ["{npc:263406}, {npc:249052} and {npc:267121}"] = "Elaena, Witherbeard and Yashiro", ["{npc:264521} and {npc:244517}"] = "Daythor Brellan and Sefira", ["{npc:265895} and {npc:265862}"] = "Maruke and Enho", ["{quest:96796}: for {npc:249235}, on the way"] = "Woods Workshop: for Kaylaena, on the way" },
 			steps = {
 				{
-					title = "Into {area:616}",
-					note = "Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{area:616} lies south of {zone:1452}. Fly to {area:2255} and ride south through {zone:1452} to {area:2256} at its southern end: the gorge leads up into {area:616}. The ride in is not in our recordings yet: if the arrow loses the way, keep to the gorge.\nBind your Hearthstone at {area:2255}'s inn before you ride: partway through this guide {npc:256222} sends you to {area:493}, and the way there starts in {area:2255}.",
-					when = { { k = "zone", neg = true, name = "Mount Hyjal", area = 616 } },
+					title = "Reach {area:2255}",
+					note = "Fly to {area:2255} if its flight path is known. Wait there for help before entering the elite-lined gorge; use the {zone:1451} route if you are alone.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", neg = true, name = "Mount Hyjal", area = 616 }, { k = "zone", neg = true, name = "Winterspring", area = 618 }, { k = "taxi", name = "Everlook", node = 52 } },
 					goals = {
 						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
+					},
+				},
+				{
+					title = "Reach {area:2255}",
+					note = "Fly to {area:2255} if its flight path is known. Wait there for help before entering the elite-lined gorge; use the {zone:1451} route if you are alone.",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", neg = true, name = "Mount Hyjal", area = 616 }, { k = "zone", neg = true, name = "Winterspring", area = 618 }, { k = "taxi", name = "Everlook", node = 53 } },
+					goals = {
+						{ t = "fly", location = "Everlook", node = 53, area = 2255 },
+					},
+				},
+				{
+					title = "Into {area:616}",
+					note = "Experimental route (alpha). It is written from Forever's quest data and players' recordings of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{area:616} lies south of {area:618}. Bind your Hearthstone at {area:2255}'s inn, then ride south down the road through {area:2249} and on through {area:2256}, which leads up into {area:616}: partway through this guide {npc:256222} sends you to {area:493}, and the way there starts in {area:2255}.\nCareful: elites stand along the whole way in. Frostmaul Giants and Preservers (59-60) flank the road through {area:2249}, and Hederine Slayers, Initiates and Manastalkers (57-58) line {area:2256} from its mouth to the zone line, with {npc:10201} (61) on its east side. The arrows mark the road, not a safe gap between patrols. Wait for help at {area:2255}. Below 57, stay with the group for the foothill camps too. If you are alone, choose the {zone:1451} guide instead.\nIf {area:2255} is not on your flight map, ride through {area:1769} from northern {zone:1448}, then follow the road east through {area:618} to town. Learn your side's flight path before leaving the inn.",
+					when = { { k = "zone", neg = true, name = "Mount Hyjal", area = 616 } },
+					goals = {
+						{ t = "getfp", npc = 11138, npcName = "Maethrya", location = "Everlook", node = 52, area = 2255, map = 1452, x = 62.33, y = 36.61, z = 701.6, f = "e", only = { factions = { "Alliance" } } },
+						{ t = "getfp", npc = 11139, npcName = "Yugrek", location = "Everlook", node = 53, area = 2255, map = 1452, x = 60.43, y = 36.36, z = 710.8, only = { factions = { "Horde" } } },
 						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", area = 2255, map = 1452, x = 61.31, y = 38.89, z = 721.7 },
-						{ t = "goto", text = "{area:2256}", map = 1452, x = 50.5, y = 82.8 },
+						{ t = "goto", text = "The road through {area:2249}", map = 1452, x = 62.3, y = 67 },
+						{ t = "goto", text = "The mouth of {area:2256}", map = 1452, x = 60.3, y = 73 },
+						{ t = "goto", map = 1452, x = 59.2, y = 76.5 },
+						{ t = "goto", map = 1452, x = 61.2, y = 79.5 },
+						{ t = "goto", map = 1452, x = 61.1, y = 81.5 },
+						{ t = "goto", text = "Turn west here", map = 1452, x = 58.3, y = 82.2 },
+						{ t = "goto", map = 1452, x = 56.6, y = 80.7 },
+						{ t = "goto", map = 1452, x = 55.6, y = 83 },
+						{ t = "goto", map = 1452, x = 53.5, y = 84.6 },
+						{ t = "goto", text = "Into {area:616}", map = 1452, x = 50.5, y = 83.2 },
 						{ t = "enter", location = "Mount Hyjal", area = 616, map = 2482, x = 85.5, y = 73.2 },
 					},
 				},
 				{
 					title = "The road in",
-					note = "Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{npc:266803} (Alliance) and {npc:266802} (Horde) wait together by the road a little inside the zone. Neither of their quests is in our recordings yet.",
+					note = "Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{npc:266803} (Alliance) and {npc:266802} (Horde) wait together by the road a little inside the zone.",
 					goals = {
 						{ t = "accept", quest = 96833, title = "Venom Maws", npc = 266803, npcName = "Quintus Wainworth", qlvl = 56, map = 2482, x = 79.85, y = 70.69, only = { factions = { "Alliance" } }, note = "{quest:96833}: for {npc:256222}, the hermit" },
 						{ t = "accept", quest = 96830, title = "Farsight Guided", npc = 266802, npcName = "Thark Gorax", qlvl = 57, map = 2482, x = 79.98, y = 70.73, only = { factions = { "Horde" } }, note = "{quest:96830}: for {npc:244512} in {area:16848}, later in this guide; keep it" },
@@ -53,7 +81,7 @@ do
 				},
 				{
 					title = "{npc:256222}",
-					note = "{npc:256222}, the hermit, lives at the Hermit's Abode a little further south-west. The quest data has him take the cog; that hand-in is not recorded yet.",
+					note = "{npc:256222}, the hermit, lives at the Hermit's Abode a little further south-west.",
 					goals = {
 						{ t = "turnin", quest = 96833, title = "Venom Maws", npc = 256222, npcName = "Ketharas", map = 2482, x = 73.27, y = 81.7, spots = { { x = 73.3, y = 81.9, r = 15, n = 2 } }, only = { factions = { "Alliance" } } },
 						{ t = "turnin", quest = 94479, title = "One Person's Trash", npc = 256222, npcName = "Ketharas", map = 2482, x = 73.27, y = 81.7, spots = { { x = 73.3, y = 81.9, r = 15, n = 2 } } },
@@ -117,8 +145,8 @@ do
 					title = "The ruined catapult and flying machine",
 					note = "Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each.",
 					goals = {
-						{ t = "goto", text = "{npc:266887}", map = 2482, x = 62.6, y = 82.9 },
-						{ t = "goto", text = "{npc:266886}", map = 2482, x = 66.1, y = 83.2 },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 2, map = 2482, x = 62.6, y = 82.9, note = "Plant a seed beside the {npc:266887}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 3, map = 2482, x = 66.1, y = 83.2, note = "Plant a seed beside the {npc:266886}" },
 					},
 				},
 				{
@@ -128,7 +156,7 @@ do
 						{ t = "kill", quest = 92594, title = "Kindling, Kinda", target = "Tainted Shrubbery", npc = 248395, count = 15, oi = 1, map = 2482, x = 65.55, y = 73.85, spots = { { x = 66.2, y = 71.2, r = 66, n = 13 }, { x = 64.3, y = 69.3, r = 49, n = 13 }, { x = 63.8, y = 66.5, r = 52, n = 8 }, { x = 60.76, y = 69.42, r = 73, n = 26 }, { x = 58.2, y = 76.1, r = 57, n = 18 }, { x = 56.9, y = 80.3, r = 80, n = 10 }, { x = 68.6, y = 69.1, r = 68, n = 17 }, { x = 71, y = 72.1, r = 69, n = 18 }, { x = 72.7, y = 75.3, r = 42, n = 10 } }, spread = true, lvl = 56 },
 						{ t = "collect", quest = 91755, title = "Leaves to Ligatures", item = 247892, itemName = "Verdant Leaves", count = 12, oi = 1, map = 2482, x = 65.55, y = 73.85, spots = { { x = 66.2, y = 71.2, r = 66, n = 13 }, { x = 64.3, y = 69.3, r = 49, n = 13 }, { x = 63.8, y = 66.5, r = 52, n = 8 }, { x = 61.1, y = 67.8, r = 100, n = 19 }, { x = 59.5, y = 71.4, r = 58, n = 18 }, { x = 58.2, y = 76.1, r = 57, n = 18 }, { x = 56.9, y = 80.3, r = 80, n = 10 }, { x = 68.6, y = 69.1, r = 68, n = 17 }, { x = 71, y = 72.1, r = 69, n = 18 }, { x = 72.7, y = 75.3, r = 42, n = 10 } }, spread = true, lvl = 56, from = "Tainted Shrubbery", fromKind = "npc", fromId = 248395, fromNpcs = { { npc = 248395, npcName = "Tainted Shrubbery" } } },
 						{ t = "collect", quest = 93759, title = "The Bounty of Nature", item = 267289, itemName = "Scarlet Dart Tuber", count = 6, oi = 2, map = 2482, x = 59.5, y = 73.5, spots = { { x = 57.03, y = 74.82, r = 0 }, { x = 58.22, y = 78.53, r = 0 }, { x = 59.38, y = 69.97, r = 0 }, { x = 59.91, y = 73.26, r = 0 }, { x = 63.89, y = 70.39, r = 0 }, { x = 74.39, y = 76.45, r = 0 } }, from = "Scarlet Dart Tuber", fromKind = "object", fromId = 626685 },
-						{ t = "complete", quest = 93747, title = "Violence Into Verdure", map = 2482, x = 70.4, y = 70.7, note = "the {npc:262036}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 70.4, y = 70.7, note = "Plant a seed beside the {npc:262036}" },
 					},
 				},
 				{
@@ -315,11 +343,24 @@ do
 				},
 				{
 					title = "{npc:263757}",
-					when = { { k = "onquest", q = { 96255 } } },
+					when = { { k = "complete", q = 96255 } },
 					goals = {
 						{ t = "turnin", quest = 96255, title = "Amalgamated Marrow", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
-						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } }, note = "{quest:96322}" },
-						{ t = "talk", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } }, note = "{npc:263757}: decide his fate" },
+					},
+				},
+				{
+					title = "{quest:96322}",
+					when = { { k = "turnedin", q = 96255 }, { k = "available", q = 96322, pre = { 96255 } } },
+					goals = {
+						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.28, y = 77.22, spots = { { x = 49.28, y = 77.22, r = 18, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
+					},
+				},
+				{
+					title = "Decide {npc:263757}'s fate",
+					note = "Speak to {npc:263757} in his cage and choose an answer. Take his news to the crow once the decision is in your quest log.",
+					when = { { k = "onquest", q = { 96322 } }, { k = "complete", neg = true, q = 96322 } },
+					goals = {
+						{ t = "talk", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", oi = 1, map = 2482, x = 49.28, y = 77.22, spots = { { x = 49.28, y = 77.22, r = 18, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
 					},
 				},
 				{
@@ -341,7 +382,7 @@ do
 				},
 				{
 					title = "The {npc:257753}",
-					when = { { k = "onquest", q = { 96322 } } },
+					when = { { k = "complete", q = 96322 } },
 					goals = {
 						{ t = "turnin", quest = 96322, title = "A Revenge Now Bitter", npc = 257753, npcName = "Curious Crow", map = 2482, x = 48.16, y = 85.72 },
 					},
@@ -350,8 +391,8 @@ do
 					title = "The Ashen workstations",
 					note = "Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.",
 					goals = {
-						{ t = "goto", text = "Slime Workstation", map = 2482, x = 43.4, y = 76.2 },
-						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 72.5 },
+						{ t = "goto", text = "Slime Workstation", map = 2482, x = 42.42, y = 72.75 },
+						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 68.7 },
 						{ t = "goto", text = "Disease Workstation", map = 2482, x = 46.6, y = 68 },
 						{ t = "goto", text = "Vessel Workstation", map = 2482, x = 49.6, y = 69.6 },
 						{ t = "complete", quest = 95316, title = "The Experimental Method", objs = { { text = "Alchemy Workstation disrupted", count = 1 }, { text = "Slime Workstation disrupted", count = 1 } } },
@@ -361,8 +402,6 @@ do
 					title = "The {npc:257753}",
 					goals = {
 						{ t = "turnin", quest = 95316, title = "The Experimental Method", npc = 257753, npcName = "Curious Crow", map = 2482, x = 48.16, y = 85.72 },
-						{ t = "accept", quest = 91881, title = "The Western Post", npc = 257753, npcName = "Curious Crow", minLevel = 54, qlvl = 57, pre = { 95316 }, preTitles = { [95316] = "The Experimental Method" }, map = 2482, x = 48.16, y = 85.72, only = { factions = { "Alliance" } }, note = "{quest:91881}: for {npc:244517} in {area:16848}, later in this guide; keep it" },
-						{ t = "accept", quest = 94782, title = "The Western Post", npc = 257753, npcName = "Curious Crow", minLevel = 54, qlvl = 57, pre = { 95316 }, preTitles = { [95316] = "The Experimental Method" }, map = 2482, x = 48.16, y = 85.72, only = { factions = { "Horde" } }, note = "{quest:91881}: for {npc:244511} in {area:16848}, later in this guide; keep it" },
 					},
 				},
 				{
@@ -389,28 +428,85 @@ do
 				},
 				{
 					title = "Hearth to {area:2255}",
-					note = "Your Hearthstone is bound in {area:2255}: use it, and go on to {area:493} from there.",
-					only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK" } },
-					when = { { k = "bound", name = "Everlook", area = 2255 }, { k = "cooldown", neg = true, item = 6948 } },
+					note = "Use your Hearthstone to return to {area:2255}. If you know {spell:18960}, you can go straight there instead.",
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 }, { k = "bound", name = "Everlook", area = 2255 }, { k = "has", n = 1, item = 6948 }, { k = "cooldown", neg = true, item = 6948 } },
 					goals = {
 						{ t = "hearth", location = "Everlook", area = 2255 },
+						{ t = "enter", location = "Winterspring", area = 618 },
 					},
 				},
 				{
 					title = "Fly to {area:493}",
-					note = "Back west to {npc:260626} at the ancients' outpost and fly to {area:493}. Druids: {spell:18960} is quicker. (No flight path to {area:493} yet? The road in is {area:1769}'s tunnel, from {zone:1452} or {zone:1448}.)",
-					when = { { k = "zone", name = "Mount Hyjal", area = 616 } },
+					note = "Open {npc:260626}'s flight map at the {area:16853}. Take {area:493} if she offers it. If she lists only {area:2255}, fly there and change for {area:493}.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 }, { k = "taxi", name = "Moonglade", node = 49 }, { k = "taxi", name = "Everlook", node = 52 } },
 					goals = {
 						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
 						{ t = "fly", location = "Moonglade", node = 49, area = 493 },
 					},
 				},
 				{
+					title = "Reach {area:618}",
+					note = "Fly from {npc:260626} to {area:2255} if it is on her flight map. Stay out of the gorge.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 }, { k = "taxi", neg = true, name = "Moonglade", node = 49 }, { k = "taxi", name = "Everlook", node = 52 } },
+					goals = {
+						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
+						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
+					},
+				},
+				{
 					title = "Fly to {area:493}",
-					note = "Fly to {area:493} from {area:2255}'s flight master. No flight path to {area:493} yet? The way in is the tunnel through {area:1769}, at the western end of {zone:1452}.",
-					when = { { k = "zone", name = "Winterspring", area = 618 } },
+					note = "Open {npc:260626}'s flight map at the {area:16853}. Take {area:493} if she offers it. If she lists only {area:2255}, fly there and change for {area:493}.",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 }, { k = "taxi", name = "Moonglade", node = 69 }, { k = "taxi", name = "Everlook", node = 53 } },
+					goals = {
+						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
+						{ t = "fly", location = "Moonglade", node = 69, area = 493 },
+					},
+				},
+				{
+					title = "Reach {area:618}",
+					note = "Fly from {npc:260626} to {area:2255} if it is on her flight map. Stay out of the gorge.",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 }, { k = "taxi", neg = true, name = "Moonglade", node = 69 }, { k = "taxi", name = "Everlook", node = 53 } },
+					goals = {
+						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
+						{ t = "fly", location = "Everlook", node = 53, area = 2255 },
+					},
+				},
+				{
+					title = "Safe passage from Hyjal",
+					note = "Check {npc:260626}'s flight map. Take {area:493} only if she offers it. A druid who knows {spell:18960} can go directly. If your Hearthstone is bound in {area:2255}, wait for it to be ready; otherwise arrange a summon to {area:493} or pause here. A ready Hearthstone bound elsewhere can take you out safely, but that inn is not a route to {area:493}. Do not leave through the gorge on your own.",
+					when = { { k = "zone", name = "Mount Hyjal", area = 616 } },
+					goals = {
+						{ t = "enter", location = "Moonglade", area = 493 },
+					},
+				},
+				{
+					title = "Fly to {area:493}",
+					note = "Check your flight map at {area:2255} and take {area:493} if it is offered. If you cannot fly, arrange safe passage to {area:2361}.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", name = "Winterspring", area = 618 }, { k = "taxi", name = "Moonglade", node = 49 } },
 					goals = {
 						{ t = "fly", location = "Moonglade", node = 49, area = 493 },
+					},
+				},
+				{
+					title = "Fly to {area:493}",
+					note = "Check your flight map at {area:2255} and take {area:493} if it is offered. If you cannot fly, arrange safe passage to {area:2361}.",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", name = "Winterspring", area = 618 }, { k = "taxi", name = "Moonglade", node = 69 } },
+					goals = {
+						{ t = "fly", location = "Moonglade", node = 69, area = 493 },
+					},
+				},
+				{
+					title = "Reach {area:493}",
+					note = "If you can safely use {area:1769} from {area:618} or {zone:1448}, take the {area:493} passage. Otherwise arrange a summon to {area:2361}, use {spell:18960} if you know it, or pause here. Don't go through {area:2256}.",
+					when = { { k = "zone", neg = true, name = "Moonglade", area = 493 } },
+					goals = {
+						{ t = "enter", location = "Moonglade", area = 493 },
 					},
 				},
 				{
@@ -438,12 +534,84 @@ do
 					},
 				},
 				{
-					title = "Fly to {area:2255}",
-					note = "South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order.",
+					title = "{npc:11939}",
+					note = "Only with {quest:6844} (6844) in your log, carried from your last guide: {npc:11939} walks around {area:2361}, and his next errand goes to {npc:11801} in the village's middle. Both are handed in here so the {zone:1451} guide doesn't come back for them.",
+					when = { { k = "onquest", q = { 6844 } } },
 					goals = {
-						{ t = "getfp", npc = 10897, npcName = "Sindrayl", location = "Moonglade", node = 49, area = 493, map = 1450, x = 48.21, y = 67.24, z = 462.7, spots = { { x = 48, y = 67.3, z = 462.7, r = 15, n = 3 } }, only = { factions = { "Alliance" } } },
+						{ t = "turnin", quest = 6844, title = "Umber, Archivist", npc = 11939, npcName = "Umber", map = 1450, x = 44.88, y = 35.6, z = 494.1, f = "e", spots = { { x = 46.17, y = 37.71, r = 48, n = 1 } }, note = "{npc:11939} walks around {area:2361}" },
+					},
+				},
+				{
+					title = "{quest:6845}",
+					when = { { k = "available", q = 6845, minLevel = 54, pre = { 6844 } } },
+					goals = {
+						{ t = "accept", quest = 6845, title = "Uncovering Past Secrets", npc = 11939, npcName = "Umber", minLevel = 54, qlvl = 57, pre = { 6844 }, preTitles = { [6844] = "Umber, Archivist" }, map = 1450, x = 44.88, y = 35.6, z = 494.1, f = "e", spots = { { x = 46.17, y = 37.71, r = 48, n = 1 } } },
+					},
+				},
+				{
+					title = "{npc:11801}",
+					when = { { k = "onquest", q = { 6845 } } },
+					goals = {
+						{ t = "turnin", quest = 6845, title = "Uncovering Past Secrets", npc = 11801, npcName = "Rabine Saturna", map = 1450, x = 51.65, y = 44.79, z = 488.6 },
+					},
+				},
+				{
+					title = "{npc:11801}",
+					note = "If you brought the {object:179565} from Southwind, give it to {npc:11801} here as well.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "complete", q = 5527 } },
+					goals = {
+						{ t = "turnin", quest = 5527, title = "A Reliquary of Purity", npc = 11801, npcName = "Rabine Saturna", map = 1450, x = 51.65, y = 44.79, z = 488.6 },
+					},
+				},
+				{
+					title = "{quest:1185}",
+					note = "Collect {npc:11939}'s reward before leaving {area:2361}.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "turnedin", q = 6845 }, { k = "turnedin", neg = true, q = 1185 } },
+					goals = {
+						{ t = "turnin", quest = 1185, title = "Under the Chitin Was...", npc = 11939, npcName = "Umber", minLevel = 54, qlvl = 57, pre = { 6845 }, map = 1450, x = 44.88, y = 35.6, z = 494.1, f = "e", spots = { { x = 46.17, y = 37.71, r = 48, n = 1 } }, direct = true },
+					},
+				},
+				{
+					title = "{area:493} flight path",
+					note = "Take your side's flight path before leaving {area:2361}: {npc:10897} for Alliance, {npc:12740} for Horde.",
+					goals = {
+						{ t = "getfp", npc = 10897, npcName = "Sindrayl", location = "Moonglade", node = 49, area = 493, map = 1450, x = 47.92, y = 67.16, z = 462.7, spots = { { x = 48, y = 67.3, z = 462.7, r = 15, n = 3 } }, only = { factions = { "Alliance" } } },
 						{ t = "getfp", npc = 12740, npcName = "Faustron", location = "Moonglade", node = 69, area = 493, map = 1450, x = 32.14, y = 66.36, z = 492.4, spots = { { x = 32.1, y = 66.5, z = 492.4, r = 15, n = 2 } }, only = { factions = { "Horde" } } },
+					},
+				},
+				{
+					title = "Fly to {area:2255}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "zone", name = "Moonglade", area = 493 }, { k = "taxi", name = "Everlook", node = 52 } },
+					goals = {
 						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
+					},
+				},
+				{
+					title = "Fly to {area:2255}",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", name = "Moonglade", area = 493 }, { k = "taxi", name = "Everlook", node = 53 } },
+					goals = {
+						{ t = "fly", location = "Everlook", node = 53, area = 2255 },
+					},
+				},
+				{
+					title = "Return to {area:618}",
+					note = "If your Hearthstone is ready and bound in {area:2255}, use it. Otherwise take the {area:618} passage only if you can safely use {area:1769}, or arrange transport to {area:2255}. If neither is possible, pause here.",
+					when = { { k = "zone", neg = true, name = "Winterspring", area = 618 } },
+					goals = {
+						{ t = "enter", location = "Winterspring", area = 618 },
+					},
+				},
+				{
+					title = "{area:2255} flight path",
+					note = "Learn your side's flight path in town before leaving for Hyjal again.",
+					when = { { k = "zone", name = "Winterspring", area = 618 } },
+					goals = {
+						{ t = "getfp", npc = 11138, npcName = "Maethrya", location = "Everlook", node = 52, area = 2255, map = 1452, x = 62.33, y = 36.61, z = 701.6, f = "e", only = { factions = { "Alliance" } } },
+						{ t = "getfp", npc = 11139, npcName = "Yugrek", location = "Everlook", node = 53, area = 2255, map = 1452, x = 60.43, y = 36.36, z = 710.8, only = { factions = { "Horde" } } },
 					},
 				},
 				{
@@ -455,9 +623,19 @@ do
 					},
 				},
 				{
-					title = "Fly to the {area:16853}",
+					title = "{area:2255} flight map",
+					note = "Open your flight master's map now. Take {area:16853} only if the flight is offered and you can pay the fare. Do not carry the crate through {area:2256}.",
+					when = { { k = "zone", name = "Winterspring", area = 618 }, { k = "subzone", name = "Everlook", area = 2255 } },
 					goals = {
-						{ t = "fly", location = "Tainted Foothills", node = 3242, area = 16853 },
+						{ t = "talk", npc = 11138, npcName = "Maethrya", map = 1452, x = 62.33, y = 36.61, z = 701.6, f = "e", only = { factions = { "Alliance" } } },
+						{ t = "talk", npc = 11139, npcName = "Yugrek", map = 1452, x = 60.43, y = 36.36, z = 710.8, only = { factions = { "Horde" } } },
+					},
+				},
+				{
+					title = "Land at the {area:16853}",
+					note = "Wait until you land at {npc:260626}. If your {area:2255} flight master does not offer {area:16853}, or you cannot pay the fare, pause here. Stay out of the gorge. If the cells fizzle, return to {npc:228216} for a fresh crate.",
+					goals = {
+						{ t = "enter", location = "Tainted Foothills", area = 16853 },
 					},
 				},
 				{
@@ -486,6 +664,13 @@ do
 					goals = {
 						{ t = "turnin", quest = 96930, title = "The Capricious Corvid", npc = 257753, npcName = "Curious Crow", map = 2482, x = 48.16, y = 85.72 },
 						{ t = "accept", quest = 96931, title = "Heading Up the Mountain", npc = 257753, npcName = "Curious Crow", qlvl = 58, pre = { 96930 }, preTitles = { [96930] = "The Capricious Corvid" }, map = 2482, x = 48.16, y = 85.72, note = "{quest:96931}: for the {area:17145}, later in this guide" },
+					},
+				},
+				{
+					title = "{quest:91881}",
+					goals = {
+						{ t = "accept", quest = 91881, title = "The Western Post", npc = 257753, npcName = "Curious Crow", minLevel = 54, qlvl = 57, pre = { 95316 }, preTitles = { [95316] = "The Experimental Method" }, map = 2482, x = 48.16, y = 85.72, only = { factions = { "Alliance" } }, note = "{quest:91881}: for {npc:244517} in {area:16848}, later in this guide; keep it" },
+						{ t = "accept", quest = 94782, title = "The Western Post", npc = 257753, npcName = "Curious Crow", minLevel = 54, qlvl = 57, pre = { 95316 }, preTitles = { [95316] = "The Experimental Method" }, map = 2482, x = 48.16, y = 85.72, only = { factions = { "Horde" } }, note = "{quest:91881}: for {npc:244511} in {area:16848}, later in this guide; keep it" },
 					},
 				},
 				{
@@ -573,7 +758,7 @@ do
 				},
 				{
 					title = "{quest:94782}",
-					note = "North up the valley to {area:16848}, where the Horde outpost ({npc:244511}, {npc:244512}) and the Alliance's stand next to each other. The Horde hand-ins and quests here are not in our recordings yet.",
+					note = "North up the valley to {area:16848}, where the Horde outpost ({npc:244511}, {npc:244512}, {npc:265788}) and the Alliance's stand next to each other.",
 					only = { factions = { "Horde" } },
 					when = { { k = "onquest", q = { 94782 } } },
 					goals = {
@@ -592,12 +777,45 @@ do
 					title = "{area:16848}",
 					note = "The two outposts of {area:16848}.",
 					goals = {
-						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66, only = { factions = { "Alliance" } }, note = "{npc:244517}: {quest:92591}" },
 						{ t = "accept", quest = 92449, title = "Blight No More", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 58, map = 2482, x = 15.67, y = 54.66, only = { factions = { "Alliance" } }, note = "{quest:92449}" },
 						{ t = "accept", quest = 95027, title = "Feathers in Flight", npc = 249968, npcName = "Hnaz Blunderflame", minLevel = 54, qlvl = 57, map = 2482, x = 15.64, y = 49.99, only = { factions = { "Alliance" } }, note = "{npc:249968}: {quest:92609}" },
-						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, only = { factions = { "Horde" } }, note = "{npc:244511}: {quest:92591}" },
 						{ t = "accept", quest = 95026, title = "Blight No More", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 58, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, only = { factions = { "Horde" } }, note = "{quest:92449}" },
 						{ t = "accept", quest = 92609, title = "Feathers in Flight", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 57, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, only = { factions = { "Horde" } }, note = "{quest:92609}" },
+						{ t = "accept", quest = 96616, title = "Herbs for the Bruised and Weary", npc = 244512, npcName = "Ortak Lomgok", minLevel = 54, qlvl = 57, map = 2482, x = 12.94, y = 52.88, only = { factions = { "Horde" } }, note = "{npc:244512}: {quest:96616}, on the way back from {area:16868}" },
+					},
+				},
+				{
+					title = "{quest:92592}",
+					only = { factions = { "Horde" } },
+					when = { { k = "level", op = ">=", n = 59 } },
+					goals = {
+						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
+					},
+				},
+				{
+					title = "{quest:92592}",
+					note = "Bring help below 59: burning the bone pile calls a level 59-60 {npc:260148}.",
+					only = { factions = { "Horde" } },
+					when = { { k = "level", op = "<", n = 59 }, { k = "group", q = 92592 } },
+					goals = {
+						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "level", op = ">=", n = 59 } },
+					goals = {
+						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66 },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "Bring help below 59: burning the bone pile calls a level 59-60 {npc:260148}.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "level", op = "<", n = 59 }, { k = "group", q = 92591 } },
+					goals = {
+						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66 },
 					},
 				},
 				{
@@ -632,7 +850,7 @@ do
 				},
 				{
 					title = "{area:16868}",
-					note = "The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them. Burn the bone pile at the south-eastern end with the {item:274411}: the {npc:260148} that answers carries the amulet.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.\nCareful: the {npc:260148} is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.",
+					note = "The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.",
 					goals = {
 						{ t = "kill", quest = 92449, title = "Blight No More", target = "Forgotten Soldier", npc = 249247, count = 3, oi = 1, map = 2482, x = 22.95, y = 49.52, spots = { { x = 23.4, y = 48.4, r = 47, n = 7 }, { x = 23.3, y = 51.4, r = 52, n = 14 }, { x = 25.7, y = 51.6, r = 54, n = 8 }, { x = 23.1, y = 55.2, r = 56, n = 11 }, { x = 25.7, y = 54.9, r = 47, n = 12 }, { x = 26.8, y = 57.8, r = 35, n = 7 }, { x = 20.5, y = 59.7, r = 61, n = 9, alt = true }, { x = 26.9, y = 60.9, r = 27, n = 4, alt = true } }, lvl = 58, only = { factions = { "Alliance" } } },
 						{ t = "kill", quest = 92449, title = "Blight No More", target = "Fleshflay Ravener", npc = 249228, count = 12, oi = 2, map = 2482, x = 22.46, y = 49.28, spots = { { x = 23.1, y = 49.9, r = 62, n = 6 }, { x = 23.3, y = 47.6, r = 62, n = 7 }, { x = 23, y = 51.9, r = 70, n = 13 }, { x = 23.3, y = 55.2, r = 76, n = 20 }, { x = 26.2, y = 52.7, r = 64, n = 19 }, { x = 26.4, y = 56.4, r = 49, n = 16 }, { x = 20.1, y = 60.3, r = 75, n = 13, alt = true }, { x = 26.4, y = 60, r = 39, n = 4, alt = true } }, lvl = 58, only = { factions = { "Alliance" } } },
@@ -640,7 +858,30 @@ do
 						{ t = "kill", quest = 95026, title = "Blight No More", target = "Fleshflay Ravener", npc = 249228, count = 12, oi = 2, map = 2482, x = 22.46, y = 49.28, spots = { { x = 23.1, y = 49.9, r = 62, n = 6 }, { x = 23.3, y = 47.6, r = 62, n = 7 }, { x = 23, y = 51.9, r = 70, n = 13 }, { x = 23.3, y = 55.2, r = 76, n = 20 }, { x = 26.2, y = 52.7, r = 64, n = 19 }, { x = 26.4, y = 56.4, r = 49, n = 16 }, { x = 20.1, y = 60.3, r = 75, n = 13, alt = true }, { x = 26.4, y = 60, r = 39, n = 4, alt = true } }, lvl = 58, only = { factions = { "Horde" } } },
 						{ t = "collect", quest = 90865, title = "Eyes of the Watchers", item = 273322, itemName = "Watcher's Eye", count = 8, oi = 1, map = 2482, x = 22.67, y = 50.39, spots = { { x = 23.6, y = 51.3, r = 50, n = 11 }, { x = 23.2, y = 46.4, r = 19, n = 3 }, { x = 22.4, y = 54.5, r = 56, n = 7 }, { x = 26.1, y = 52.8, r = 45, n = 8 }, { x = 26.7, y = 56.7, r = 48, n = 10 }, { x = 27.1, y = 61.4, r = 24, n = 4 } }, lvl = 58, from = "Eternal Sentry", fromKind = "npc", fromId = 249237, fromNpcs = { { npc = 249237, npcName = "Eternal Sentry" } } },
 						{ t = "collect", quest = 90702, title = "Disturbed Grave", item = 273642, itemName = "Ring of the Fallen Soldier", oi = 1, map = 2482, x = 22.46, y = 49.28, spots = { { x = 23.1, y = 49.9, r = 62, n = 6 }, { x = 23.3, y = 47.6, r = 62, n = 7 }, { x = 23, y = 51.9, r = 70, n = 13 }, { x = 23.3, y = 55.2, r = 76, n = 20 }, { x = 26.6, y = 51, r = 48, n = 6 }, { x = 26.1, y = 53.4, r = 52, n = 15 }, { x = 26.4, y = 56.4, r = 49, n = 16, alt = true }, { x = 20.1, y = 60.3, r = 75, n = 13, alt = true }, { x = 26.4, y = 60, r = 39, n = 4, alt = true } }, lvl = 58, only = { factions = { "Alliance" } }, from = "Fleshflay Ravener", fromKind = "npc", fromAlso = "Fleshflayer Ravener", fromId = 249228, fromAlsoId = 267125, fromNpcs = { { npc = 249228, npcName = "Fleshflay Ravener" }, { npc = 267125, npcName = "Fleshflayer Ravener" } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "Burn the bone pile at the south-eastern end with the {item:274411}, at full health with the ruins around it cleared. The {npc:260148} (59-60) carries the amulet. Below 59, wait for help.",
+					when = { { k = "level", op = ">=", n = 59 }, { k = "onquest", q = { 92591, 92592 } } },
+					goals = {
 						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spots = { { x = 28, y = 57.7, r = 26, n = 2 } }, lvl = 60, only = { factions = { "Alliance" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+						{ t = "collect", quest = 92592, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spots = { { x = 28, y = 57.7, r = 26, n = 2 } }, lvl = 60, only = { factions = { "Horde" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "Burn the bone pile at the south-eastern end with the {item:274411}, at full health with the ruins around it cleared. The {npc:260148} (59-60) carries the amulet. Below 59, wait for help.",
+					when = { { k = "level", op = "<", n = 59 }, { k = "group", q = 92591 }, { k = "onquest", q = { 92591 } } },
+					goals = {
+						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spots = { { x = 28, y = 57.7, r = 26, n = 2 } }, lvl = 60, only = { factions = { "Alliance" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+					},
+				},
+				{
+					title = "{quest:92592}",
+					note = "Burn the bone pile at the south-eastern end with the {item:274411}, at full health with the ruins around it cleared. The {npc:260148} (59-60) carries the amulet. Below 59, wait for help.",
+					when = { { k = "level", op = "<", n = 59 }, { k = "group", q = 92592 }, { k = "onquest", q = { 92592 } } },
+					goals = {
 						{ t = "collect", quest = 92592, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spots = { { x = 28, y = 57.7, r = 26, n = 2 } }, lvl = 60, only = { factions = { "Horde" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
 					},
 				},
@@ -653,15 +894,37 @@ do
 					},
 				},
 				{
+					title = "{item:274979}",
+					note = "North-east up the slope from the veteran, north of {area:16868}: {npc:244512}'s silphium grows in the meadows there, where the Horde players in our recordings picked it. Then ride west to {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over these slopes: keep out of their way.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "interact", quest = 96616, title = "Herbs for the Bruised and Weary", object = 654624, objName = "Hyjal Silphium", oi = 1, map = 2482, x = 27.4, y = 43.8, spots = { { x = 27.4, y = 43.8, r = 30 }, { x = 29.6, y = 43, r = 30 }, { x = 30, y = 42.5, r = 30 }, { x = 29.7, y = 43.8, r = 30 } }, spread = true },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "complete", q = 92591 } },
+					goals = {
+						{ t = "turnin", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
+					},
+				},
+				{
 					title = "{area:16848}",
 					note = "West to the Alliance outpost.",
 					only = { factions = { "Alliance" } },
 					goals = {
-						{ t = "turnin", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 92449, title = "Blight No More", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 90702, title = "Disturbed Grave", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 95027, title = "Feathers in Flight", npc = 249968, npcName = "Hnaz Blunderflame", map = 2482, x = 15.64, y = 49.99 },
 						{ t = "accept", quest = 90750, title = "More Work?", npc = 244517, npcName = "Sefira Everbright", qlvl = 55, pre = { 92449, 95026 }, preTitles = { [92449] = "Blight No More", [95026] = "Blight No More" }, map = 2482, x = 15.67, y = 54.66, note = "{npc:244517}: {quest:90750}" },
+					},
+				},
+				{
+					title = "{quest:91688}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "available", q = 91688, minLevel = 54, preAll = { 92449, 92591 } } },
+					goals = {
 						{ t = "accept", quest = 91688, title = "To the Summit of Eternity", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 59, preAll = { 92449, 92591 }, preTitles = { [92449] = "Blight No More", [92591] = "Final Death" }, map = 2482, x = 15.67, y = 54.66, note = "{quest:91688}: for {npc:254915}, later in this guide; keep it" },
 					},
 				},
@@ -680,14 +943,51 @@ do
 					},
 				},
 				{
-					title = "{area:16848}",
-					note = "West to the Horde outpost.",
+					title = "{quest:92592}",
 					only = { factions = { "Horde" } },
+					when = { { k = "complete", q = 92592 } },
 					goals = {
 						{ t = "turnin", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
+					},
+				},
+				{
+					title = "{area:16848}",
+					note = "West to the Horde outpost: {npc:244511}, then {npc:244512} beside him.",
+					only = { factions = { "Horde" } },
+					goals = {
 						{ t = "turnin", quest = 95026, title = "Blight No More", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
 						{ t = "turnin", quest = 92609, title = "Feathers in Flight", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
+						{ t = "accept", quest = 91794, title = "Flags of Our Forebears", npc = 265788, npcName = "Kal'tinzan", minLevel = 54, qlvl = 59, map = 2482, x = 13.65, y = 53.12, only = { factions = { "Horde" } }, note = "{npc:265788}: {quest:91794}: the flag and the heraldry are in {area:16866}, later in this guide; keep it" },
+						{ t = "turnin", quest = 96616, title = "Herbs for the Bruised and Weary", npc = 244512, npcName = "Ortak Lomgok", map = 2482, x = 12.94, y = 52.88 },
+						{ t = "accept", quest = 96622, title = "A Rest Without Pain", npc = 244512, npcName = "Ortak Lomgok", minLevel = 54, qlvl = 57, pre = { 96616 }, preTitles = { [96616] = "Herbs for the Bruised and Weary" }, map = 2482, x = 12.94, y = 52.88, note = "{quest:96622}" },
+					},
+				},
+				{
+					title = "{quest:95248}",
+					only = { factions = { "Horde" } },
+					when = { { k = "available", q = 95248, minLevel = 54, preAll = { 92592, 92609, 94782, 95026 } } },
+					goals = {
 						{ t = "accept", quest = 95248, title = "To the Summit of Eternity", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 59, preAll = { 92592, 92609, 94782, 95026 }, preTitles = { [92592] = "Final Death", [92609] = "Feathers in Flight", [94782] = "The Western Post", [95026] = "Blight No More" }, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, note = "{quest:95248}: for {npc:254915}, later in this guide; keep it" },
+					},
+				},
+				{
+					title = "{npc:265895} and {npc:265862}",
+					note = "{npc:244512}'s poultice is for two of the outpost's wounded: {npc:265895} lies at the north end of {area:16848}, {npc:265862} just south of {npc:244512}.",
+					only = { factions = { "Horde" } },
+					when = { { k = "onquest", q = { 96622 } } },
+					goals = {
+						{ t = "talk", npc = 265895, npcName = "Maruke", map = 2482, x = 11.9, y = 48.6 },
+						{ t = "talk", npc = 265862, npcName = "Enho Runehoof", map = 2482, x = 12.9, y = 53.7 },
+						{ t = "turnin", quest = 96622, title = "A Rest Without Pain", npc = 244512, npcName = "Ortak Lomgok", map = 2482, x = 12.9, y = 52.9 },
+					},
+				},
+				{
+					title = "{quest:92446}",
+					note = "{quest:92446} is elite (level 60 in our data): grouping up is advised. {npc:244511}'s rabbit carcass lures him out in the woods by the Deadwood camps south-east of here, on part 3's way back to Barkskin Burrow; his claws come back here at the end of this guide.",
+					only = { factions = { "Horde" } },
+					when = { { k = "group", q = 92446 } },
+					goals = {
+						{ t = "accept", quest = 92446, title = "Head Scratcher", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 60, pre = { 92609 }, preTitles = { [92609] = "Feathers in Flight" }, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
 					},
 				},
 				{
@@ -869,36 +1169,80 @@ do
 					title = "The {area:16867}",
 					goals = {
 						{ t = "turnin", quest = 96296, title = "Fetid Corruption", npc = 260825, npcName = "Phoebe Highfeather", map = 2482, x = 54.48, y = 63.91 },
-						{ t = "accept", quest = 91883, title = "Spear of the Skylord", npc = 254131, npcName = "Skylord Omnuron", qlvl = 59, map = 2482, x = 54.31, y = 63.95, note = "{npc:254131}: {quest:91883}" },
 						{ t = "accept", quest = 92147, title = "Highfeather Helper", npc = 260825, npcName = "Phoebe Highfeather", qlvl = 58, map = 2482, x = 54.48, y = 63.91, note = "{npc:260825}: {quest:92147}" },
 						{ t = "accept", quest = 96252, title = "Tarnished Treasures", npc = 260825, npcName = "Phoebe Highfeather", qlvl = 58, map = 2482, x = 54.48, y = 63.91, note = "{quest:96252}" },
 					},
 				},
 				{
+					title = "{quest:91883}",
+					when = { { k = "level", op = ">=", n = 58 } },
+					goals = {
+						{ t = "accept", quest = 91883, title = "Spear of the Skylord", npc = 254131, npcName = "Skylord Omnuron", qlvl = 59, map = 2482, x = 54.31, y = 63.95 },
+					},
+				},
+				{
+					title = "{quest:91883}",
+					note = "Bring help below 58 for {npc:260826} (59). The other harpies can be done without him.",
+					when = { { k = "level", op = "<", n = 58 }, { k = "group", q = 91883 } },
+					goals = {
+						{ t = "accept", quest = 91883, title = "Spear of the Skylord", npc = 254131, npcName = "Skylord Omnuron", qlvl = 59, map = 2482, x = 54.31, y = 63.95 },
+					},
+				},
+				{
 					title = "The harpy grounds",
-					note = "The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope, and {npc:260826}, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine.",
+					note = "The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope. The corrupted knots grow on the trees just north-west of the shrine.",
 					goals = {
 						{ t = "collect", quest = 92147, title = "Highfeather Helper", item = 268997, itemName = "Wormwing Pinfeather", count = 18, oi = 1, map = 2482, x = 54.27, y = 62.9, spots = { { x = 54.8, y = 61.7, r = 47, n = 23 }, { x = 52.8, y = 60.4, r = 74, n = 37 }, { x = 55.4, y = 59, r = 48, n = 28 }, { x = 54.2, y = 57.7, r = 66, n = 37 }, { x = 51.4, y = 57.9, r = 85, n = 70 }, { x = 49.5, y = 56.5, r = 62, n = 38 }, { x = 46.8, y = 58.6, r = 74, n = 30, alt = true }, { x = 47.1, y = 56.1, r = 119, n = 36, alt = true } }, lvl = 59, fromNpcs = { { npc = 249221, npcName = "Wormwing Windwitch" }, { npc = 249220, npcName = "Wormwing Harpy" }, { npc = 249222, npcName = "Wormwing Ambusher" }, { npc = 249223, npcName = "Wormwing Fledgling" }, { npc = 260826, npcName = "Zarrat Wormwing" } } },
 						{ t = "collect", quest = 93827, title = "Windswept Wards", item = 263028, itemName = "Enchanted Harpy Amulet", count = 16, oi = 1, map = 2482, x = 54.27, y = 62.9, spots = { { x = 54.7, y = 61.5, r = 46, n = 19 }, { x = 52.8, y = 60.7, r = 68, n = 25 }, { x = 55.5, y = 59, r = 45, n = 18 }, { x = 54.6, y = 57.8, r = 39, n = 24 }, { x = 52.7, y = 57.7, r = 52, n = 32 }, { x = 50.9, y = 58.2, r = 77, n = 48 }, { x = 49.3, y = 56.4, r = 67, n = 31, alt = true }, { x = 46.9, y = 58.6, r = 71, n = 30, alt = true }, { x = 47, y = 56, r = 114, n = 34, alt = true } }, lvl = 59, fromNpcs = { { npc = 249221, npcName = "Wormwing Windwitch" }, { npc = 249220, npcName = "Wormwing Harpy" }, { npc = 249222, npcName = "Wormwing Ambusher" }, { npc = 260826, npcName = "Zarrat Wormwing" } } },
 						{ t = "collect", quest = 96252, title = "Tarnished Treasures", item = 273164, itemName = "Tarnished Highfeather Bangle", count = 8, oi = 1, map = 2482, x = 53, y = 60.4, spots = { { x = 47.72, y = 59.49, r = 0 }, { x = 48.67, y = 57.04, r = 0 }, { x = 50.03, y = 59.67, r = 0 }, { x = 52.55, y = 59.79, r = 0 }, { x = 52.71, y = 60.67, r = 0 }, { x = 53.27, y = 60.51, r = 0 } }, from = "Tarnished Highfeather Bangle", fromKind = "object", fromId = 650902 },
 						{ t = "collect", quest = 92500, title = "A Bit of the Sky", item = 272974, itemName = "The Jewel of the Horizon", oi = 1, map = 2482, x = 47.7, y = 59.4, from = "The Jewel of the Horizon", fromKind = "object", fromId = 650219 },
+					},
+				},
+				{
+					title = "{quest:91883}",
+					note = "{npc:260826} (59) carries the spear among the harpies. Below 58, wait for help.",
+					when = { { k = "level", op = ">=", n = 58 }, { k = "onquest", q = { 91883 } } },
+					goals = {
 						{ t = "collect", quest = 91883, title = "Spear of the Skylord", item = 268998, itemName = "Omnuron's Spear", oi = 1, map = 2482, x = 47.62, y = 58.3, spots = { { x = 48.7, y = 57.5, r = 54, n = 14 }, { x = 47.4, y = 55.8, r = 61, n = 6 }, { x = 51.1, y = 58, r = 59, n = 14 }, { x = 54.2, y = 58.2, r = 50, n = 11 }, { x = 54.6, y = 60.9, r = 15, n = 2 } }, lvl = 59, from = "Zarrat Wormwing", fromKind = "npc", fromId = 260826, fromNpcs = { { npc = 260826, npcName = "Zarrat Wormwing" } } },
+					},
+				},
+				{
+					title = "{quest:91883}",
+					note = "{npc:260826} (59) carries the spear among the harpies. Below 58, wait for help.",
+					when = { { k = "level", op = "<", n = 58 }, { k = "group", q = 91883 }, { k = "onquest", q = { 91883 } } },
+					goals = {
+						{ t = "collect", quest = 91883, title = "Spear of the Skylord", item = 268998, itemName = "Omnuron's Spear", oi = 1, map = 2482, x = 47.62, y = 58.3, spots = { { x = 48.7, y = 57.5, r = 54, n = 14 }, { x = 47.4, y = 55.8, r = 61, n = 6 }, { x = 51.1, y = 58, r = 59, n = 14 }, { x = 54.2, y = 58.2, r = 50, n = 11 }, { x = 54.6, y = 60.9, r = 15, n = 2 } }, lvl = 59, from = "Zarrat Wormwing", fromKind = "npc", fromId = 260826, fromNpcs = { { npc = 260826, npcName = "Zarrat Wormwing" } } },
+					},
+				},
+				{
+					title = "{quest:91883}",
+					when = { { k = "complete", q = 91883 } },
+					goals = {
+						{ t = "turnin", quest = 91883, title = "Spear of the Skylord", npc = 254131, npcName = "Skylord Omnuron", map = 2482, x = 54.31, y = 63.95 },
 					},
 				},
 				{
 					title = "The {area:16867}",
 					goals = {
-						{ t = "turnin", quest = 91883, title = "Spear of the Skylord", npc = 254131, npcName = "Skylord Omnuron", map = 2482, x = 54.31, y = 63.95 },
 						{ t = "turnin", quest = 92147, title = "Highfeather Helper", npc = 260825, npcName = "Phoebe Highfeather", map = 2482, x = 54.48, y = 63.91 },
 						{ t = "turnin", quest = 96252, title = "Tarnished Treasures", npc = 260825, npcName = "Phoebe Highfeather", map = 2482, x = 54.48, y = 63.91 },
 					},
 				},
 				{
 					title = "The Deadwood camps",
-					note = "South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named {npc:251199} (level 60) may roam the camps' eastern end.",
+					note = "South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named {quest:92446} (level 60) may roam the camps' eastern end.",
 					goals = {
 						{ t = "kill", quest = 93826, title = "Deal Dread to Deadwood", target = "Deadwood Totemic", npc = 252116, count = 8, oi = 1, map = 2482, x = 39.83, y = 65.89, spots = { { x = 39.2, y = 66.6, r = 40, n = 6 }, { x = 36.6, y = 71, r = 55, n = 10 }, { x = 34, y = 68.7, r = 76, n = 18 }, { x = 30.7, y = 74.6, r = 72, n = 15 }, { x = 30.2, y = 80.5, r = 75, n = 15 }, { x = 32.9, y = 82.8, r = 51, n = 5 }, { x = 35.6, y = 76.3, r = 40, n = 5 }, { x = 26.3, y = 74.3, r = 54, n = 10 }, { x = 23.7, y = 69.5, r = 69, n = 12 }, { x = 23.4, y = 64.7, r = 82, n = 17 }, { x = 27.5, y = 61.3, r = 63, n = 12 }, { x = 31, y = 57.3, r = 40, n = 7 }, { x = 37.7, y = 68.2, r = 50, n = 16, alt = true }, { x = 35.7, y = 73.8, r = 73, n = 9, alt = true }, { x = 31.4, y = 60.5, r = 40, n = 3, alt = true }, { x = 33.4, y = 75.8, r = 40, n = 5, alt = true }, { x = 35.3, y = 80.4, r = 40, n = 2, alt = true }, { x = 28.7, y = 59.3, r = 52, n = 11, alt = true } }, spread = true, lvl = 57 },
 						{ t = "kill", quest = 93826, title = "Deal Dread to Deadwood", target = "Deadwood Fel-Tender", npc = 252096, count = 8, oi = 2, map = 2482, x = 40.39, y = 64.78, spots = { { x = 40, y = 65.3, r = 40, n = 2 }, { x = 38.1, y = 69.3, r = 40, n = 8 }, { x = 35.5, y = 75.7, r = 49, n = 11 }, { x = 30.7, y = 74.3, r = 73, n = 10 }, { x = 33.1, y = 68.9, r = 61, n = 12 }, { x = 26.3, y = 74.4, r = 78, n = 11 }, { x = 23.7, y = 69.5, r = 71, n = 14 }, { x = 23.2, y = 65, r = 68, n = 18 }, { x = 26.7, y = 60.6, r = 54, n = 9 }, { x = 31, y = 57.4, r = 40, n = 8 }, { x = 30.6, y = 81, r = 40, n = 8 }, { x = 32.8, y = 82.7, r = 42, n = 4 }, { x = 38.6, y = 67, r = 40, n = 8, alt = true }, { x = 35.9, y = 68, r = 50, n = 12, alt = true }, { x = 36.4, y = 72.3, r = 60, n = 11, alt = true }, { x = 33.5, y = 74.2, r = 55, n = 7, alt = true }, { x = 31.4, y = 60.7, r = 40, n = 6, alt = true }, { x = 29.1, y = 58.9, r = 42, n = 8, alt = true }, { x = 28.5, y = 61.7, r = 42, n = 7, alt = true }, { x = 30.7, y = 77.2, r = 42, n = 4, alt = true } }, spread = true, lvl = 57 },
+					},
+				},
+				{
+					title = "{quest:92446}",
+					note = "{quest:92446} is elite (level 60 in our data): grouping up is advised. Put {npc:244511}'s rabbit carcass down in the woods at the camps' eastern end, where the Horde players in our recordings fought him, and take his claws.",
+					only = { factions = { "Horde" } },
+					when = { { k = "group", q = 92446 }, { k = "onquest", q = { 92446 } } },
+					goals = {
+						{ t = "collect", quest = 92446, title = "Head Scratcher", item = 251781, itemName = "Head Scratcher's Scratchers", oi = 1, map = 2482, x = 35.4, y = 71.3, spots = { { x = 35.4, y = 71.3, r = 90, n = 9 }, { x = 36.3, y = 73.4, r = 32, n = 3, alt = true }, { x = 34.4, y = 68.4, r = 31, n = 4, alt = true } }, lvl = 60, from = "Head Scratcher", fromKind = "npc", fromRank = 1, fromId = 251199, fromNpcs = { { npc = 251199, npcName = "Head Scratcher" } }, group = { kind = "elite", lvl = 60, rank = 1 } },
 					},
 				},
 				{
@@ -954,7 +1298,7 @@ do
 				},
 				{
 					title = "{area:16866}",
-					note = "Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.",
+					note = "Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.",
 					goals = {
 						{ t = "kill", quest = 95793, title = "Stemming the Demon Tide", target = "Felguard Sentinel", npc = 249229, count = 12, oi = 1, map = 2482, x = 57.12, y = 46.18, spots = { { x = 57.1, y = 46.2, r = 40, n = 1 }, { x = 58.2, y = 36.9, r = 54, n = 16 }, { x = 54.9, y = 37.1, r = 65, n = 15 }, { x = 51, y = 36.8, r = 66, n = 15 }, { x = 49.2, y = 29.4, r = 40, n = 1 }, { x = 46.3, y = 33, r = 94, n = 17 }, { x = 54.8, y = 30.5, r = 44, n = 8 }, { x = 61.9, y = 26.9, r = 40, n = 5 }, { x = 62.3, y = 31.9, r = 40, n = 3 }, { x = 63.3, y = 37.1, r = 56, n = 11 }, { x = 63.1, y = 41.3, r = 60, n = 6 }, { x = 66, y = 40.6, r = 40, n = 2 }, { x = 58.1, y = 44.6, r = 47, n = 7, alt = true }, { x = 57.2, y = 40.8, r = 60, n = 12, alt = true }, { x = 57.8, y = 33.9, r = 40, n = 7, alt = true }, { x = 60, y = 33.4, r = 40, n = 1, alt = true }, { x = 52.9, y = 33.1, r = 60, n = 16, alt = true }, { x = 65.3, y = 37, r = 40, n = 3, alt = true }, { x = 50, y = 34.1, r = 52, n = 10, alt = true }, { x = 49.8, y = 31.5, r = 51, n = 10, alt = true }, { x = 59.7, y = 27.9, r = 52, n = 3, alt = true } }, spread = true, lvl = 59 },
 						{ t = "collect", quest = 92960, title = "Siphoned Ephemeral Essence", item = 271220, itemName = "Ephemeral Essence", count = 6, oi = 1, map = 2482, x = 55.65, y = 43.61, spots = { { x = 56.7, y = 41.8, r = 65, n = 14 }, { x = 59.6, y = 42, r = 47, n = 6 }, { x = 60.9, y = 47.1, r = 40, n = 3 }, { x = 65.3, y = 38.9, r = 40, n = 2 }, { x = 63.5, y = 34.4, r = 46, n = 6 }, { x = 60.2, y = 34.5, r = 59, n = 12 }, { x = 56.9, y = 33.5, r = 52, n = 6 }, { x = 52.6, y = 36.6, r = 57, n = 17 }, { x = 49.4, y = 35.1, r = 68, n = 19 }, { x = 50, y = 43.1, r = 70, n = 9 }, { x = 53.3, y = 43.7, r = 65, n = 17 }, { x = 61.8, y = 27.6, r = 61, n = 19 }, { x = 53.6, y = 40.2, r = 48, n = 14, alt = true }, { x = 59.5, y = 45.6, r = 52, n = 8, alt = true }, { x = 56.4, y = 36.7, r = 55, n = 11, alt = true }, { x = 59, y = 38.3, r = 56, n = 11, alt = true }, { x = 62.9, y = 39.1, r = 40, n = 4, alt = true }, { x = 51.9, y = 32.4, r = 55, n = 17, alt = true }, { x = 63.9, y = 37.3, r = 52, n = 12, alt = true }, { x = 59.3, y = 29.7, r = 69, n = 18, alt = true }, { x = 63, y = 31.2, r = 52, n = 17, alt = true } }, spread = true, lvl = 59, from = "Defiling Hound", fromKind = "npc", fromId = 249230, fromNpcs = { { npc = 249230, npcName = "Defiling Hound" } } },
@@ -966,15 +1310,25 @@ do
 						{ t = "complete", quest = 92593, title = "Avalanche of Corruption", map = 2482, x = 53.7, y = 33.5, only = { factions = { "Alliance" } }, note = "scout the Horde tower", objs = { { text = "Dae'gun Horde Tower scouted", count = 1 } } },
 						{ t = "collect", quest = 96971, title = "To Outfox a Demon", item = 275958, itemName = "Abandoned Supplies", count = 8, oi = 1, map = 2482, x = 50.2, y = 37, spots = { { x = 49.25, y = 36.02, r = 0 }, { x = 49.62, y = 37.09, r = 0 }, { x = 50.11, y = 37.25, r = 0 }, { x = 50.63, y = 36.67, r = 0 }, { x = 51.47, y = 37.99, r = 0 }, { x = 56.1, y = 43.48, r = 0 }, { x = 56.76, y = 43.84, r = 0 }, { x = 56.8, y = 44.23, r = 0 } }, from = "Abandoned Supplies", fromKind = "object", fromId = 656604, group = { kind = "elite", lvl = 61, near = true, rank = 1 } },
 						{ t = "collect", quest = 92335, title = "Ashes of the Legion Ascent", item = 253239, itemName = "Azgalor's Ashes", count = 1, oi = 1, map = 2482, x = 49.5, y = 34.6, from = "Azgalor's Ashes", fromKind = "object", fromId = 650227, group = { kind = "elite", lvl = 59, near = true, rank = 1 } },
+						{ t = "collect", quest = 91794, title = "Flags of Our Forebears", item = 274949, itemName = "Scrap of Horde Heraldry", count = 3, oi = 2, map = 2482, x = 51, y = 36.8, spots = { { x = 51, y = 36.8, r = 66, n = 15 }, { x = 52.9, y = 33.1, r = 60, n = 16 }, { x = 54.9, y = 37.1, r = 65, n = 15 }, { x = 58.2, y = 36.9, r = 54, n = 16 }, { x = 57.8, y = 33.9, r = 40, n = 7 }, { x = 57.2, y = 40.8, r = 60, n = 12 }, { x = 58.1, y = 44.6, r = 47, n = 7 }, { x = 63.1, y = 41.3, r = 60, n = 6 }, { x = 63.3, y = 37.1, r = 56, n = 11 }, { x = 65.3, y = 37, r = 40, n = 3 }, { x = 66, y = 40.6, r = 40, n = 2 }, { x = 46.3, y = 33, r = 94, n = 17 }, { x = 50, y = 34.1, r = 52, n = 10, alt = true }, { x = 49.8, y = 31.5, r = 51, n = 10, alt = true }, { x = 49.2, y = 29.4, r = 40, n = 1, alt = true }, { x = 54.8, y = 30.5, r = 44, n = 8, alt = true }, { x = 57.1, y = 46.2, r = 40, n = 1, alt = true }, { x = 60, y = 33.4, r = 40, n = 1, alt = true }, { x = 59.7, y = 27.9, r = 52, n = 3, alt = true }, { x = 62.3, y = 31.9, r = 40, n = 3, alt = true }, { x = 61.9, y = 26.9, r = 40, n = 5, alt = true } }, spread = true, lvl = 59, only = { factions = { "Horde" } }, fromNpcs = { { npc = 249229, npcName = "Felguard Sentinel" } } },
+						{ t = "interact", quest = 91794, title = "Flags of Our Forebears", object = 577731, objName = "Horde Flag", oi = 1, map = 2482, x = 49.8, y = 31.8, only = { factions = { "Horde" } } },
+						{ t = "accept", quest = 96998, title = "Tribal Colors", object = 656786, objName = "Troll Remains", minLevel = 54, qlvl = 58, map = 2482, x = 61.6, y = 41.5, only = { factions = { "Horde" } }, note = "{object:656786}: {quest:96998}, for {npc:244511} in {area:16848}; keep it" },
 					},
 				},
 				{
 					title = "{npc:263406}, {npc:249052} and {npc:267121}",
 					goals = {
 						{ t = "turnin", quest = 92960, title = "Siphoned Ephemeral Essence", npc = 263406, npcName = "Elaena Moonwhisper", map = 2482, x = 43.77, y = 32.24 },
-						{ t = "accept", quest = 96003, title = "Drawing Down the Malevolent", npc = 263406, npcName = "Elaena Moonwhisper", qlvl = 60, pre = { 92960 }, preTitles = { [92960] = "Siphoned Ephemeral Essence" }, map = 2482, x = 43.77, y = 32.24, note = "{quest:96003}" },
 						{ t = "turnin", quest = 95793, title = "Stemming the Demon Tide", npc = 249052, npcName = "Witherbeard", map = 2482, x = 43.74, y = 31.94 },
 						{ t = "turnin", quest = 96959, title = "Blademaster's Bonfires", npc = 267121, npcName = "Yashiro", map = 2482, x = 49.33, y = 32.63 },
+					},
+				},
+				{
+					title = "{quest:96003}",
+					note = "Bring help for the two level 60 demons. Use {npc:263406}'s eye to drain each one before fighting; if the drain fails, do not attack.",
+					when = { { k = "group", q = 96003 } },
+					goals = {
+						{ t = "accept", quest = 96003, title = "Drawing Down the Malevolent", npc = 263406, npcName = "Elaena Moonwhisper", qlvl = 60, pre = { 92960 }, preTitles = { [92960] = "Siphoned Ephemeral Essence" }, map = 2482, x = 43.77, y = 32.24 },
 					},
 				},
 				{
@@ -985,10 +1339,18 @@ do
 					},
 				},
 				{
-					title = "{npc:263394} and {npc:267097}",
-					note = "North-east to {npc:263394}: use {npc:263406}'s eye on him to drain him, then kill him. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.\n{npc:267097} waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.",
+					title = "{npc:263394}",
+					note = "North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.",
+					when = { { k = "group", q = 96003 }, { k = "onquest", q = { 96003 } } },
 					goals = {
+						{ t = "use", quest = 96003, title = "Drawing Down the Malevolent", item = 271879, itemName = "Eye of Endless Influence", oi = 1, note = "{item:271879}: drain before attacking" },
 						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Bethra'zel the Feeble", npc = 263394, oi = 1, map = 2482, x = 57.61, y = 31.11, spots = { { x = 58.2, y = 32.2, r = 33, n = 4 }, { x = 58.3, y = 35.4, r = 15, n = 1 } }, lvl = 60, note = "{npc:263394}", group = { kind = "elite", lvl = 60, rank = 1 } },
+					},
+				},
+				{
+					title = "{npc:267097}",
+					note = "{npc:267097} waits a little further north-east. His Felhound Spikes come from the Defiling Hounds, and in our only recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.",
+					goals = {
 						{ t = "accept", quest = 97009, title = "Maerion's Misery", npc = 267097, npcName = "Maerion Thaelemaches", qlvl = 59, map = 2482, x = 63.28, y = 25.85, note = "{npc:267097}: {quest:97009}" },
 						{ t = "collect", quest = 97009, title = "Maerion's Misery", item = 276100, itemName = "Felhound Spike", count = 12, oi = 1, map = 2482, x = 63.17, y = 25.99, spots = { { x = 61.8, y = 27.6, r = 61, n = 19 }, { x = 63.5, y = 34.4, r = 46, n = 6 }, { x = 60.2, y = 34.5, r = 59, n = 12 }, { x = 56.4, y = 36.7, r = 55, n = 11 }, { x = 56.7, y = 41.8, r = 65, n = 14 }, { x = 59.6, y = 42, r = 47, n = 6 }, { x = 60.9, y = 47.1, r = 40, n = 3 }, { x = 65.3, y = 38.9, r = 40, n = 2 }, { x = 53.6, y = 40.2, r = 48, n = 14 }, { x = 50, y = 43.1, r = 70, n = 9 }, { x = 49.4, y = 35.1, r = 68, n = 19 }, { x = 51.9, y = 32.4, r = 55, n = 17 }, { x = 63, y = 31.2, r = 52, n = 17, alt = true }, { x = 59.3, y = 29.7, r = 69, n = 18, alt = true }, { x = 63.9, y = 37.3, r = 52, n = 12, alt = true }, { x = 56.9, y = 33.5, r = 52, n = 6, alt = true }, { x = 62.9, y = 39.1, r = 40, n = 4, alt = true }, { x = 59, y = 38.3, r = 56, n = 11, alt = true }, { x = 52.6, y = 36.6, r = 57, n = 17, alt = true }, { x = 59.5, y = 45.6, r = 52, n = 8, alt = true }, { x = 53.3, y = 43.7, r = 65, n = 17, alt = true } }, spread = true, lvl = 59, optional = true, from = "Defiling Hound", fromKind = "npc", fromId = 249230, fromNpcs = { { npc = 249230, npcName = "Defiling Hound" } } },
 						{ t = "turnin", quest = 97009, title = "Maerion's Misery", npc = 267097, npcName = "Maerion Thaelemaches", map = 2482, x = 63.28, y = 25.85, optional = true },
@@ -996,13 +1358,16 @@ do
 				},
 				{
 					title = "{npc:252457}",
-					note = "South-west to {npc:263426}, in the middle of {area:16866}: drain him with the eye too, then kill him.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you.",
+					note = "South-west to {npc:263426}, in the middle of {area:16866}: drain him with the eye first, as {npc:263394}, then kill him. Undrained, he is a level 60 elite.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you.",
+					when = { { k = "group", q = 96003 }, { k = "onquest", q = { 96003 } } },
 					goals = {
+						{ t = "use", quest = 96003, title = "Drawing Down the Malevolent", item = 271879, itemName = "Eye of Endless Influence", oi = 2, note = "{item:271879}: drain before attacking" },
 						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Mazzogore", npc = 252457, count = 1, oi = 2, map = 2482, x = 50.68, y = 37.65, spots = { { x = 50.7, y = 39.1, r = 34, n = 3 } }, lvl = 60, note = "{npc:263426}", group = { kind = "elite", lvl = 60, rank = 1 } },
 					},
 				},
 				{
 					title = "{npc:263406}",
+					when = { { k = "group", q = 96003 }, { k = "complete", q = 96003 } },
 					goals = {
 						{ t = "turnin", quest = 96003, title = "Drawing Down the Malevolent", npc = 263406, npcName = "Elaena Moonwhisper", map = 2482, x = 43.77, y = 32.24 },
 						{ t = "accept", quest = 96025, title = "As the Crow Flies", npc = 263406, npcName = "Elaena Moonwhisper", qlvl = 59, pre = { 96003 }, preTitles = { [96003] = "Drawing Down the Malevolent" }, map = 2482, x = 43.77, y = 32.24, note = "{quest:96025}: for {npc:254915} at the Summit" },
@@ -1018,26 +1383,20 @@ do
 				},
 				{
 					title = "The {area:16849}",
-					note = "East up to the {area:16849}, the druids' camp. {npc:41861}, the flight master, stands at its north end; {npc:264795}, {npc:243855} and {npc:254915} along the path south; {npc:40833} indoors next to Thisalee; {npc:243815}, the innkeeper, at the south-east end. The Horde's hand-in to Thisalee is not in our recordings yet.",
+					note = "East up to the {area:16849}, the druids' camp. {npc:41861}, the flight master, stands at its north end; {npc:264795}, {npc:243855} and {npc:254915} along the path south; {npc:40833} indoors next to Thisalee; {npc:243815}, the innkeeper, at the south-east end.",
 					goals = {
 						{ t = "getfp", npc = 41861, npcName = "Fayran Elthas", location = "Summit of Eternity", node = 559, area = 16849, map = 2482, x = 68.7, y = 44.1, note = "{npc:41861}, at the flight point" },
 						{ t = "turnin", quest = 96991, title = "Trail Assist", npc = 264795, npcName = "Marn Euhorn", map = 2482, x = 68.3, y = 46.71 },
 						{ t = "turnin", quest = 91688, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99, only = { factions = { "Alliance" } } },
 						{ t = "turnin", quest = 95248, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99, only = { factions = { "Horde" } } },
-						{ t = "turnin", quest = 96025, title = "As the Crow Flies", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99 },
-						{ t = "accept", quest = 93197, title = "Mending Communications", npc = 243815, npcName = "Sebelia", qlvl = 58, map = 2482, x = 70.87, y = 51.55, note = "{npc:243815}: {quest:93197}: for {npc:11118} in {area:2255}, at the end" },
 						{ t = "sethome", npc = 243815, npcName = "Sebelia", location = "Summit of Eternity", area = 16849, map = 2482, x = 70.87, y = 51.55 },
 					},
 				},
 				{
-					title = "The Summit's Blackthorne quests",
-					note = "A group stop: the Blackthorne camps north-east of the Summit hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with {npc:260674} (60, elite) in the middle and Ghansurok (61, elite) on the ridge. Grouping up is encouraged, look for people to do it with. Skip these if you are alone.",
-					when = { { k = "group", q = 93584 } },
+					title = "{quest:96025}",
+					when = { { k = "onquest", q = { 96025 } } },
 					goals = {
-						{ t = "accept", quest = 92017, title = "Cleansing Winds", npc = 264795, npcName = "Marn Euhorn", qlvl = 59, map = 2482, x = 68.3, y = 46.71, note = "{npc:264795}: {quest:92017}" },
-						{ t = "accept", quest = 92533, title = "Twisted Tools", npc = 243855, npcName = "Toron Rockhoof", qlvl = 60, map = 2482, x = 68.88, y = 48.35, note = "{npc:243855}: {quest:92533}" },
-						{ t = "accept", quest = 93584, title = "Cult Closure", npc = 254915, npcName = "Thisalee Crow", qlvl = 60, map = 2482, x = 68.99, y = 49.99, note = "{npc:254915}: {quest:93584}" },
-						{ t = "accept", quest = 93407, title = "A Thorn in the Paw", npc = 40833, npcName = "Tiala Whitemane", qlvl = 60, map = 2482, x = 68.85, y = 50.6, note = "{npc:40833}: {quest:93407}" },
+						{ t = "turnin", quest = 96025, title = "As the Crow Flies", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99 },
 					},
 				},
 				{
@@ -1087,6 +1446,25 @@ do
 					},
 				},
 				{
+					title = "Back to {area:16848}",
+					note = "Horde: ride west across the foothills and north up the valley to {area:16848}, about four minutes, for {npc:265788}'s flags and {npc:244511}'s war paint wrap. The Hearthstone then takes you back up to the Summit.",
+					only = { factions = { "Horde" } },
+					when = { { k = "onquest", q = { 91794, 96998 } } },
+					goals = {
+						{ t = "turnin", quest = 91794, title = "Flags of Our Forebears", npc = 265788, npcName = "Kal'tinzan", map = 2482, x = 13.7, y = 53.1 },
+						{ t = "turnin", quest = 96998, title = "Tribal Colors", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } } },
+						{ t = "accept", quest = 96999, title = "Wrap Return", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 58, pre = { 96998 }, preTitles = { [96998] = "Tribal Colors" }, map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, optional = true, note = "{npc:244511}: {quest:96999}, for {npc:3187} in {area:367}, {zone:1411}; the {zone:1451} guide passes {zone:1454}, a short ride north of it" },
+					},
+				},
+				{
+					title = "{npc:244511}",
+					only = { factions = { "Horde" } },
+					when = { { k = "onquest", q = { 92446 } } },
+					goals = {
+						{ t = "turnin", quest = 92446, title = "Head Scratcher", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spots = { { x = 13.9, y = 54.7, r = 15, n = 2 } }, note = "{quest:92446}'s claws" },
+					},
+				},
+				{
 					title = "Hearth to the {area:16849}",
 					when = { { k = "cooldown", neg = true, item = 6948 } },
 					goals = {
@@ -1095,7 +1473,7 @@ do
 				},
 				{
 					title = "Fly to the {area:16849}",
-					note = "Hearthstone not ready: ride back west to {npc:260626} and fly up.",
+					note = "Hearthstone not ready: ride to {npc:260626} at the ancients' outpost and fly up.",
 					when = { { k = "cooldown", item = 6948 } },
 					goals = {
 						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
@@ -1108,6 +1486,17 @@ do
 					when = { { k = "onquest", q = { 90647 } } },
 					goals = {
 						{ t = "turnin", quest = 90647, title = "The Staff of the Mountain", npc = 40833, npcName = "Tiala Whitemane", map = 2482, x = 68.85, y = 50.6 },
+					},
+				},
+				{
+					title = "The Summit's Blackthorne quests",
+					note = "A group stop: the Blackthorne camps north-east of the Summit hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with {npc:260674} (60, elite) in the middle and Ghansurok (61, elite) on the ridge. Grouping up is encouraged, look for people to do it with. Skip these if you are alone.",
+					when = { { k = "group", q = 93584 } },
+					goals = {
+						{ t = "accept", quest = 92017, title = "Cleansing Winds", npc = 264795, npcName = "Marn Euhorn", qlvl = 59, map = 2482, x = 68.3, y = 46.71, note = "{npc:264795}: {quest:92017}" },
+						{ t = "accept", quest = 92533, title = "Twisted Tools", npc = 243855, npcName = "Toron Rockhoof", qlvl = 60, map = 2482, x = 68.88, y = 48.35, note = "{npc:243855}: {quest:92533}" },
+						{ t = "accept", quest = 93584, title = "Cult Closure", npc = 254915, npcName = "Thisalee Crow", qlvl = 60, map = 2482, x = 68.99, y = 49.99, note = "{npc:254915}: {quest:93584}" },
+						{ t = "accept", quest = 93407, title = "A Thorn in the Paw", npc = 40833, npcName = "Tiala Whitemane", qlvl = 60, map = 2482, x = 68.85, y = 50.6, note = "{npc:40833}: {quest:93407}" },
 					},
 				},
 				{
@@ -1164,15 +1553,23 @@ do
 					},
 				},
 				{
+					title = "{npc:243815}",
+					note = "Take the innkeeper's letter just before leaving the Summit.",
+					goals = {
+						{ t = "accept", quest = 93197, title = "Mending Communications", npc = 243815, npcName = "Sebelia", qlvl = 58, map = 2482, x = 70.87, y = 51.55 },
+					},
+				},
+				{
 					title = "Fly to {area:2255}",
 					note = "{npc:41861} flies you to {area:2255}.",
 					goals = {
-						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
+						{ t = "fly", location = "Everlook", node = 52, area = 2255, only = { factions = { "Alliance" } } },
+						{ t = "fly", location = "Everlook", node = 53, area = 2255, only = { factions = { "Horde" } } },
 					},
 				},
 				{
 					title = "{npc:11118}",
-					note = "{npc:11118} is in {area:2255}'s inn. She has more mail for you in {zone:1452}, outside this guide.",
+					note = "{npc:11118} is in {area:2255}'s inn. She has more mail for you in {area:618}, outside this guide.",
 					goals = {
 						{ t = "turnin", quest = 93197, title = "Mending Communications", npc = 11118, npcName = "Innkeeper Vizzie", map = 1452, x = 61.31, y = 38.89, z = 721.7 },
 					},

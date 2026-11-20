@@ -62,162 +62,173 @@ return {
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010}, the Drag"] = "{npc:7010}, La Calada",
 
-	-- Step 20: Dran Droffers
+	-- Step 20: Zilzibin Drumlore
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1444} Feralas
+	["Take {quest:4494} from {npc:7010} while you are in the Drag. {npc:5594} is on your {area:976} stop after {zone:1444}."] = "",
+
+	-- Step 21: Dran Droffers
 	["The Droffers' shop is a few steps further into the Drag."] = "La tienda de los Droffers está a pocos pasos más adentro de La Calada.",
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, La Calle Mayor",
 
-	-- Step 22: Ride into Azshara
+	-- Step 22: Orgrimmar
+	-- {npc:8659} Jes'rimon · {quest:4300} Bone-Bladed Weapons · {object:172960} Cleft of Shadow · {zone:1456} Thunder Bluff
+	["{npc:8659} gives {quest:4300} in the {object:172960}. Train here before you leave; druids and paladins train at {zone:1456} instead."] = "",
+
+	-- Step 24: Ride into Azshara
 	-- {zone:1447} Azshara
 	["Ride into {zone:1447}"] = "Entra en {zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "Cabalga hacia el este por el camino desde el Puesto del Hachazo. {npc:11548} espera en {area:1235}, junto al camino, a pocos pasos al oeste de {area:3137}, de la Alianza: llega desde el oeste y evita a los Centinelas de Azshara y a Jarrodenus (élite).",
 
-	-- Step 23: Haldarr Encampment: kill these as you meet them
+	-- Step 25: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
 	["{area:1236}: kill these as you meet them"] = "",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Las apariciones de Altonato rondan las ruinas justo al norte del santuario; los sátiros Haldarr acampan un poco más al norte.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
 
-	-- Step 24: Loh'atu
+	-- Step 26: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
 	["Back to {npc:11548} at the shrine; stay west of the {area:3137} guards."] = "Vuelve con {npc:11548} al santuario; mantente al oeste de los guardias de {area:3137}.",
 
-	-- Step 25: Valormok
+	-- Step 27: Valormok
 	-- {area:1237} Valormok
 	["Follow the road north to {area:1237}, the Horde camp."] = "Sigue el camino hacia el norte hasta {area:1237}, el campamento de la Horda.",
 
-	-- Step 26: Fly to Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "Vuela a {area:1637}",
+	-- Step 28: Fly to Orgrimmar for March of the Silithid
+	-- {area:1637} Orgrimmar · {quest:4493} March of the Silithid
+	["Fly to {area:1637} for {quest:4493}"] = "",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 27: Orgrimmar
+	-- Step 29: Fly to Orgrimmar for Bone-Bladed Weapons
+	-- {area:1637} Orgrimmar · {quest:4300} Bone-Bladed Weapons
+	["Fly to {area:1637} for {quest:4300}"] = "",
+
+	-- Step 30: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, La Calada: si aún lo llevas",
 
-	-- Step 28: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1447} Azshara
-	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} requiere nivel 50: {npc:7010}, en La Calada, la da a partir de entonces. Si no tienes 50, la guía de {zone:1447} a nivel 55 la vuelve a ofrecer.",
+	-- Step 31: Zilzibin Drumlore
+	-- {zone:1447} Azshara · {quest:4494} March of the Silithid · {area:976} Gadgetzan · {zone:1454} Orgrimmar
+	["If you reached 50 in {zone:1447}, take {quest:4494} here for {area:976}. If it is not available yet, your later {zone:1454} visit offers it again."] = "",
 
-	-- Step 30: Paladin trainer
-	["Paladin trainer"] = "",
-	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	-- Step 33: Fly from Valormok to Thunder Bluff
+	-- {area:1237} Valormok · {area:1638} Thunder Bluff
+	["Fly from {area:1237} to {area:1638}"] = "",
 
-	-- Step 31: Fly to Thunder Bluff
+	-- Step 34: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
-	-- Step 32: Thunder Bluff
-	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
-	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Vuela a {zone:1456}; está de camino a {area:1099}. ¿Aún no tienes esa ruta de vuelo? Vuela a {area:378} y cabalga al oeste por {zone:1412}. Hamuul y Magatha están en {area:1639}; los druidas y paladines entrenan aquí ({npc:3033}, {npc:246344}).",
+	-- Step 35: Thunder Bluff
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {area:1639} Elder Rise
+	["If {zone:1456} is not on your flight map, use {area:378} if the flight master offers it. From Taurajo ride west into {zone:1412}, then north past {area:222} to the lifts. Visit Pala at the inn, then Hamuul on {area:1639}."] = "",
 	-- {npc:6746} Innkeeper Pala
 	["{npc:6746}, at the inn: for Hamuul"] = "{npc:6746}, en la posada: para Hamuul",
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{npc:5769}, on the {area:1639}"] = "{npc:5769}, en {area:1639}",
 
-	-- Step 33: Class trainer
-	["Class trainer"] = "Instructor de clase",
-
-	-- Step 34: Thunder Bluff
+	-- Step 36: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil
 	["{quest:3761} is gathered in the next guide."] = "{quest:3761} se recoge en la siguiente guía.",
 
-	-- Step 35: Fly to Camp Mojache
+	-- Step 37: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 36: Camp Mojache
+	-- Step 38: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
 	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: los osos están en {zone:1448}",
 
-	-- Step 37: Frayfeather Hippogryphs
+	-- Step 39: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "Hipogrifos Plumavieja",
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body."] = "Los hipogrifos anidan en las colinas al suroeste del campamento. Mata uno y usa la Vasija de muisek hipogrifo sobre su cuerpo.",
 
-	-- Step 38: Hippogryph nests
+	-- Step 40: Hippogryph nests
 	["Hippogryph nests"] = "Nidos de hipogrifo",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
 	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "Los nidos de hipogrifo están en las colinas al sur, alrededor de {area:2522}; cada uno contiene un huevo para {object:142071}.",
 
-	-- Step 40: Sprite Darters
+	-- Step 42: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Duendes dardo",
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija sobre cada uno que mates.",
 
-	-- Step 42: Wandering Forest Walkers
+	-- Step 44: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "Caminabosques deambulantes",
 	-- {zone:1444} Feralas
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths."] = "Los antárboles deambulan por los caminos del bosque entre el campamento y el centro de {zone:1444}; hay pocos, así que búscalos por los senderos.",
 
-	-- Step 45: The Forgotten Coast: kill these as you meet them
+	-- Step 47: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los Elementales marinos y los Rocíos del mar recorren la orilla alrededor del muelle.\nLos caminantes de la tierra y los gigantes del risco recorren las colinas al norte del muelle. Primero, dispara a cada uno con {item:18904}: encogidos, ya no son élite. Cada gigante encogido suelta residuo; usa también la Vasija de muisek gigante de montaña sobre su cuerpo.",
 
-	-- Step 47: Northspring harpies
+	-- Step 49: Northspring harpies
 	["Northspring harpies"] = "Arpías Nortearroyo",
 	["The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time."] = "Las arpías Fuenteboreal anidan en las crestas del extremo noroeste, pasadas las colinas de los gigantes. Las Clamavientos curan, así que mátalas primero y atráelas de una en una.",
 
-	-- Step 48: Back to Camp Mojache
+	-- Step 50: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "De vuelta a {area:1099}",
 
-	-- Step 49: Fly to Gadgetzan
+	-- Step 51: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Maestro de vuelo de {area:1099}",
 
-	-- Step 50: Gadgetzan
+	-- Step 52: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 52: Gadgetzan
+	-- Step 54: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 
-	-- Step 53: The Egg-O-Matic
+	-- Step 55: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}"] = "",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 
-	-- Step 54: Marin Noggenfogger
+	-- Step 56: Marin Noggenfogger
 	-- {zone:1449} Un'Goro Crater
 	["Pestlezugg's samples come from {zone:1449}."] = "Las muestras de Morterozugg vienen de {zone:1449}.",
 
-	-- Step 55: Marvon Rivetseeker
+	-- Step 57: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "Cabalga hacia el sur por el camino hasta {area:1938}; {npc:7771} acampa al lado. Desde aquí, el camino hacia el oeste baja a {zone:1449}, donde empieza la siguiente guía.",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Guarda {quest:3444}: el cofre de {npc:7771} se abre en una visita posterior.",
 
-	-- Step 56: The Dunemaul Compound
+	-- Step 58: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
 	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, carried from your first {zone:1446} visit."] = "Al sur de {area:1938}, los ogros Mazoduna ocupan su recinto, con {npc:12046} en el extremo este: es la misión de {npc:11758}, que llevas desde tu primera visita a {zone:1446}.",
 
-	-- Step 57: Thistleshrub Valley
+	-- Step 59: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los Cardizales nudosos y los Moldeadores de raíces (48-50) de {quest:3362} son para {npc:7876}, misión que llevas desde tu primera visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} la recoge en la parada de {area:976} de la siguiente guía, junto con la de {npc:11758}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north-east to {npc:8420}."] = "Vuelve al noreste con {npc:8420}.",
+	-- ["Class trainer"] = "Instructor de clase",
 	-- ["Fly from {area:1237} to {zone:1454}, walk out of the main gate to the zeppelin towers and take the zeppelin to {object:3202}."] = "Vuela de {area:1237} a {zone:1454}, sal por la puerta principal hasta las torres de los zepelines y toma el zepelín a {object:3202}.",
 	-- ["Fly to the {area:1497}"] = "Vuela a {area:1497}",
+	-- ["Fly to {area:1637}"] = "Vuela a {area:1637}",
+	-- ["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Vuela a {zone:1456}; está de camino a {area:1099}. ¿Aún no tienes esa ruta de vuelo? Vuela a {area:378} y cabalga al oeste por {zone:1412}. Hamuul y Magatha están en {area:1639}; los druidas y paladines entrenan aquí ({npc:3033}, {npc:246344}).",
 	-- ["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and {npc:4046} are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "Vuela a {zone:1456}; está de camino a {area:1099}. ¿Aún no tienes esa ruta de vuelo? Vuela a {area:378} y cabalga al oeste por {zone:1412}. Hamuul Runatótem y {npc:4046} están en {area:1639}; los druidas y paladines entrenan aquí ({npc:3033}, {npc:246344}).",
 	-- ["Follow the road south; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "Sigue el camino hacia el sur; los basiliscos toman el sol en las rocas al este, en medio de la selva. Sus fragmentos caen a menudo.",
 	-- ["From {area:3317}'s flight master, fly to the {area:1497}."] = "Con el maestro de vuelo de {area:3317}, vuela a {area:1497}.",
@@ -251,4 +262,5 @@ return {
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, en el borde este del campamento: no da experiencia, solo un teletransporte a la torre de Azshara",
 	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761} se reúne en la siguiente guía; el pago de {npc:4046} se entrega a {npc:8587} más adelante.",
+	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} requiere nivel 50: {npc:7010}, en La Calada, la da a partir de entonces. Si no tienes 50, la guía de {zone:1447} a nivel 55 la vuelve a ofrecer.",
 }

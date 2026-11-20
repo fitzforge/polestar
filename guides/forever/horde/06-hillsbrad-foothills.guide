@@ -54,6 +54,15 @@ next forever/horde/04-the-barrens
 # take Bunthen Plainswind's flight to Thunder Bluff for Aquatic Form (31) and training at Turak
 # Runetotem, and fly on to the Crossroads, where the next guide starts, in place of the zeppelin.
 
+step Beren's Peril
+  when subzone "Beren's Peril"
+  when onquest 516
+  when !complete 516
+  zone Silverpine Forest
+  tip If you're already at the cave, finish the Ravenclaws here. Pull them away from the elite spirit by the Offering Stone.
+  kill 1974 quest 516.1
+  kill 1973 quest 516.2
+
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
@@ -139,13 +148,31 @@ step Tarren Mill
 # ---------------------------------------------------------------- East: Durnholde
 step Durnholde Keep: kill these as you meet them
   zone Hillsbrad Foothills
-  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
+  tip Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key. You only need the key for a lock that is still closed.
   tip From Tarren Mill go south-east into the hills on the way to Durnholde Keep. Rogues, Watchmen and Shadow Mages hold the camps along the way; the Shadow Mages carry Lydon's Vials of Innocent Blood.
   kill 2260 quest 549.1
   kill 2261 quest 549.2               -- Syndicate Watchman walks around here: look inside the circle on the map
-  interact 1721 quest 498.1           -- Drull's ball and chain
-  interact 1722 quest 498.2           -- Tog'thar's ball and chain
   collect 5620 quest 1066.1           -- Vial of Innocent Blood, from the Syndicate Shadow Mages
+
+step Jailor Eston
+  when onquest 498
+  when !done drull-freed
+  collect 3467                        -- Dull Iron Key, from Jailor Eston
+
+step Jailor Marlgen
+  when onquest 498
+  when !done togthar-freed
+  collect 3499                        -- Burnished Gold Key, from Jailor Marlgen
+
+step Free Tog'thar
+  label togthar-freed
+  when onquest 498
+  interact 1722 quest 498.2           -- Tog'thar's ball and chain
+
+step Free Drull
+  label drull-freed
+  when onquest 498
+  interact 1721 quest 498.1           -- Drull's ball and chain
 
 step Tarren Mill
   turnin 498                          -- Krusk, inside
@@ -154,13 +181,22 @@ step Tarren Mill
   accept 1067                         -- Apothecary Lydon: his toxin is for Apothecary Zamah, on the Barrens & Stonetalon guide's Thunder Bluff stop
 
 step The Sepulcher
+  when complete 95981
   zone Silverpine Forest
-  tip From Tarren Mill fly to the Sepulcher: Shadow Priest Allister stands by the crypt entrance.
-  goto 60.21,18.75 map 1424 "Tarren Mill flight master"
+  tip From Tarren Mill, take the bat to the Sepulcher. Shadow Priest Allister stands by the crypt entrance.
   fly "The Sepulcher"
-  turnin 516                          -- Shadow Priest Allister
   turnin 95981                        -- Shadow Priest Allister
+  note Still need Ravenclaw Guardians or Drudgers? They are in the cave at Beren's Peril, south-east of Ambermill. You don't need to go back there to collect Allister's other rewards.
+
+step Shadow Priest Allister
+  when complete 479
+  zone Silverpine Forest
   turnin 479                          -- Shadow Priest Allister: Ambermill's pendants
+
+step Shadow Priest Allister
+  when complete 516
+  zone Silverpine Forest
+  turnin 516                          -- Shadow Priest Allister
 
 step Hadrec and Dalar
   when dungeon "Shadowfang Keep"
@@ -187,7 +223,7 @@ step Dalar Dawnweaver
 
 step Fly to the Undercity
   zone Silverpine Forest
-  tip Fly on from Karos Razok, the bat handler just east of the crypt, to the Undercity.
+  tip Fly to the Undercity. At the Sepulcher, Karos Razok is just east of the crypt. If you have no business there, take the bat straight from Tarren Mill.
   fly "Undercity"
   zone Undercity
 

@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "{npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}：{npc:246143} 逃进了教堂西边的山丘，就在前往 {area:155} 的路上。",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "向{npc:246143}提供帮助",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -601,5 +603,6 @@ return {
 	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009}站在{npc:1495}的营地。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}：{npc:246143}逃进了教堂西边的山丘。",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}：{npc:246143} 逃进了教堂西边的山丘，就在前往 {area:155} 的路上。",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897}占据着营地东南方不远处的农场。{item:275851}散落在教徒之间的地面上，教徒身上也带有一些。",
 }

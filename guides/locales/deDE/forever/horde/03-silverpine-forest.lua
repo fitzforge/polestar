@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Nördlich von {area:228}. {npc:1983} spukt auf dem {area:240}: Töte sie und geh dann über das Feld. Vorsicht: {npc:1983} (14) erscheint, sobald du Gnolle der Moderfelle auf dem Feld getötet hast: Kämpfe mit voller Gesundheit gegen sie.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -317,6 +317,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Scheckige Worgs streifen durch die Hügel um das Haus. Geh dann am Seeufer entlang nach Süden: Die Schredder und Gezeitenjäger der Finsterflossen dort lassen die Murlocaugen fallen.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Wieder nach Norden zum Haus der Yoricks. {quest:425} lauert ein kurzes Stück westlich davon.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Nördlich vom Grabmal ({area:228}). Nachtseele spukt auf dem Feld ({area:240}): Töte sie und geh dann über das Feld.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Nördlich von {area:228}. {npc:1983} spukt auf dem {area:240}: Töte sie und geh dann über das Feld. Vorsicht: {npc:1983} (14) erscheint, sobald du Gnolle der Moderfelle auf dem Feld getötet hast: Kämpfe mit voller Gesundheit gegen sie.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Nordöstlich der Flüchtlinge spuken die Zwangsarbeiter und Wächter von Rabenklaue in den Ruinen von {quest:516} im Südosten des Waldes.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Nur wenn {npc:1938} dir {quest:98298} gegeben hat: Die Blutheuler streifen durch die Wälder südwestlich von {area:233}, östlich von Pyrewood; sie lassen {item:280375} fallen.",
 	-- ["Road to Silverpine"] = "Straße zum Silberwald",

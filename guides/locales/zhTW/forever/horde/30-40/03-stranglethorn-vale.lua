@@ -13,8 +13,8 @@ return {
 	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 
 	-- Step 2: Thunder Bluff
-	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "從{area:2408}飛往{area:1638}，在{area:1639}找{npc:3033}訓練，再從那裡飛往{zone:1454}。",
+	-- {area:2408} Shadowprey Village · {area:976} Gadgetzan · {area:439} Shimmering Flats · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} (or from {area:976}, after the {area:439}' south) to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -116,16 +116,15 @@ return {
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦里營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 18: Thoroughly Scavenged Supplies
-	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
-	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦里營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
+	-- {npc:268992} Zimmix Sputterspark
+	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "{area:301}：遇到就殺",
-	-- {npc:729} Sin'Dall
+	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "經過營地往西，晶背蜥蜴（34-35級）待在岩石上；再過去村子裡的每個血頂食人妖都可能掉落耳朵。\n營地西南方山頂上的37級猛虎{npc:729}先別打：他在這裡比你高兩級，40-50級荊棘谷指南會再回來處理他。\n小心：迅猛龍巢穴裡有幼年迅猛龍，你攻擊成年迅猛龍時牠們會加入戰鬥。",
+	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -138,6 +137,10 @@ return {
 	["{item:277957}, from the Bloodscalp Scouts, Hunters and Mystics"] = "{item:277957}，來自血頂斥候、獵手和秘法師",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "護送{npc:268992}離開遺跡並保護他存活：他安全後羅茲基爾就會接收消息。",
+
+	-- Step 21: Nesingwary's camp
+	-- {npc:729} Sin'Dall
+	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
 	-- Step 22: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -227,9 +230,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder tigers and Lashtail raptors"] = "老虎與鞭尾迅猛龍",
+	-- ["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "從{area:2408}飛往{area:1638}，在{area:1639}找{npc:3033}訓練，再從那裡飛往{zone:1454}。",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "沿著道路從{object:3202}向北走；奈辛瓦里的狩獵營地在河東北方的山丘上。從現在起，保留你拾取的每一頁{quest:338}：{npc:716}稍後會要。",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "沿著道路向南前往山谷南端的{area:35}，從懸崖中的隧道進入。待在道路上：路旁叢林的等級比你高很多。部落飛行管理員{npc:2858}在上層平台等候。",
 	-- ["Green Hills pages"] = "荊棘谷的青山書頁",
+	-- ["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦里營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}的每一頁從血頂和劈顱食人妖身上的掉落率約為1%；保留你拾取的每一頁，其餘的到拍賣場找。{npc:716}會在本指南稍後收下這些章節。",
 	-- ["Shadowmaw panthers"] = "深喉獵豹",
 	-- ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "荊棘谷猛虎（32級）在營地周圍及南邊的山丘上遊蕩，黑豹（32級）在營地西邊和西南邊的空地。帶著打磨過的水晶的風險投資公司地質學家（34-36級）在營地東南方{area:37}旁的營地工作。小心：風險投資公司特務（39級）站在風險投資公司房屋旁西側營地的地質學家之間：去東側營地打，避開他們。",
@@ -238,6 +243,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "深喉獵豹（37-38級）在莫什奧格山丘東邊以及往東北通往湖泊的叢林中潛行；牠們會從潛行中發動攻擊。沿途拾取你找到的每一頁荊棘谷的青山。",
 	-- ["The camp by the river"] = "河邊的營地",
 	-- ["Venture Co. camp"] = "風險投資公司營地",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "經過營地往西，晶背蜥蜴（34-35級）待在岩石上；再過去村子裡的每個血頂食人妖都可能掉落耳朵。\n營地西南方山頂上的37級猛虎{npc:729}先別打：他在這裡比你高兩級，40-50級荊棘谷指南會再回來處理他。\n小心：迅猛龍巢穴裡有幼年迅猛龍，你攻擊成年迅猛龍時牠們會加入戰鬥。",
 	-- ["Zeppelin to {object:3202}"] = "搭飛艇前往{object:3202}",
 	-- ["from {npc:4723}"] = "從{npc:4723}身上取得",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}，在{object:20691}裡",

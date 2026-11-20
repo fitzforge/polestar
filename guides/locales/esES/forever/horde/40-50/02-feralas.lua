@@ -61,10 +61,19 @@ return {
 	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "",
-	-- {object:759} Holy Spring · {area:35} Booty Bay
-	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "Al oeste, hasta la costa: los exploradores nagas vadean la orilla y llevan los haces de juncos; {object:759} burbujea en las colinas justo al este. Después sigue la costa al sur hasta {area:35}.",
+	-- {object:759} Holy Spring · {area:43} Wild Shore · {area:35} Booty Bay
+	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "",
 
-	-- Step 10: Booty Bay
+	-- Step 10: The Wild Shore
+	-- {area:43} Wild Shore
+	["The {area:43}"] = "{area:43}",
+	["Stay on the beach with the swashbucklers (41-43); the charts and the orders lie in their tents and in the rowboat beside the larger camp. Leave the ships alone."] = "",
+
+	-- Step 12: Dudd Fizzlescroll
+	-- {quest:95384} Partial Mystical Notes · {npc:260873} Dudd Fizzlescroll · {area:35} Booty Bay
+	["If you already have the {quest:95384}, give them to {npc:260873} here in {area:35}."] = "",
+
+	-- Step 14: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "En {area:35}: {npc:2494} en los muelles, {npc:2486} junto a la posada, {npc:2498} dentro, MacKinley, {npc:737} y {npc:773} en el piso de arriba.",
 	-- {npc:2498} Crank Fizzlebub
@@ -75,34 +84,28 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "{npc:773}, arriba: para {quest:2864} en {area:976}, más adelante en esta guía",
 
-	-- Step 11: The Wild Shore
+	-- Step 17: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
-	["The {area:43}"] = "{area:43}",
-	-- {area:43} Wild Shore · {npc:2493} Dizzy One-Eye
-	["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Al sur de Bahía del Botín, los aventureros Velasangre acampan en {area:43}; las cartas y las órdenes están en sus tiendas y en el bote de remos junto al campamento más grande. Cualquier Velasangre puede llevar tabaco y el Ojo de {npc:2493}, así que sigue matando hasta tener ambos.",
+	["Unfinished {area:43} errands"] = "",
+	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "",
 
-	-- Step 12: Booty Bay
-	["Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50."] = "Vuelve al pueblo. Los capitanes de barco, el siguiente encargo de Cuernomar, son para tu parada en Tuercespina hacia el nivel 50.",
-	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
-
-	-- Step 13: Fly to Grom'gol
+	-- Step 21: Fly to Grom'gol
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 14: Grom'gol Base Camp
+	-- Step 22: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
 	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "El vuelo aterriza en {object:3202}: {npc:2519} y {npc:2465}, luego la torre del zepelín.",
 
-	-- Step 15: Zeppelin to Orgrimmar
+	-- Step 24: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
-	-- Step 16: Orgrimmar
+	-- Step 25: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 18: Riding at 40
+	-- Step 27: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla recibes una montura. {npc:4752} entrena a los orcos en {object:172958}, junto a la perrera de {npc:3362}. Los cielonatos la aprenden con {npc:265756} en {area:17684}, en {area:16638}, en la Isla de Zephras, con un zancavendavales: el barco celeste a la isla sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, cada cinco minutos aprox. Las demás monturas de tu raza cuestan 20 de oro cada una: Coleccionables, Monturas · Nivel 40 tiene una guía para cada una.",
@@ -113,7 +116,7 @@ return {
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Equitación y Zancavendavales: {npc:265756}, en {area:17684}, en {area:16638}, en la Isla de Zephras.",
 
-	-- Step 20: Riding at 40
+	-- Step 29: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
 	-- {npc:7953} Xar'Ti
@@ -121,17 +124,17 @@ return {
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
 	["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "Raptores: Zjolnir, junto a {npc:7953}, en {area:367}.",
 
-	-- Step 21: Fly to Thunder Bluff
+	-- Step 30: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
-	-- Step 23: Thunder Bluff
+	-- Step 32: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "Tu instructor está en {zone:1456}: {npc:3033} (druidas) en {area:1639}, {npc:246344} (paladines).",
 
-	-- Step 25: Riding at 40
+	-- Step 34: Riding at 40
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla recibes una montura. Cada raza la aprende del instructor de su raza: el tuyo es {npc:3690}, en {area:222}, con los kodos de {npc:3685} (20 de oro cada uno) a su lado. Después vuelve a subir al maestro de vuelo de {zone:1456}.",
 	-- {npc:3690} Kar Stormsinger
@@ -139,56 +142,56 @@ return {
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
 	["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "Kodos: {npc:3685}, junto a {npc:3690}, en {area:222}.",
 
-	-- Step 26: Fly to Freewind Post
+	-- Step 35: Fly to Freewind Post
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Vuela a {area:484}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 27: Fly to Gadgetzan
+	-- Step 36: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 
-	-- Step 30: Ratchet for the Felsteed
+	-- Step 39: Ratchet for the Felsteed
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392}, por el Corcel vil",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
 	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
 
-	-- Step 31: Fly to Freewind Post
+	-- Step 40: Fly to Freewind Post
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 37: Gadgetzan
+	-- Step 46: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "Al llegar volando: primero las misiones de {area:976}, junto al maestro de vuelo; luego {area:2240} está a poca distancia al norte, cruzando la frontera de {zone:1446}.",
 
-	-- Step 38: Gadgetzan
+	-- Step 47: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
 	["For your {area:978} run, in the next guide: {quest:2864} wants scarab shells, and {npc:7804}, a short walk from the flight master, {quest:3042} from the Sandfury trolls."] = "Para tu incursión en {area:978}, en la siguiente guía: {quest:2864} quiere caparazones de escarabajo, y {npc:7804}, a poca distancia del maestro de vuelo, {quest:3042} de los trols Furiarena.",
 
-	-- Step 39: Mirage Raceway
+	-- Step 48: Mirage Raceway
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
 	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 
-	-- Step 40: To Gadgetzan
+	-- Step 49: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "",
 
-	-- Step 41: Gadgetzan
+	-- Step 50: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
 	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} es el pueblo goblin amurallado justo pasada la frontera de {zone:1446}.",
 
-	-- Step 43: Noonshade Ruins: kill these as you meet them
+	-- Step 52: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Deambulador puede llevar una bolsa de agua: Luglunket quiere cinco.\nCuidado: los Pícaros Deambuladores (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
 
-	-- Step 45: Steamwheedle Port
+	-- Step 54: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Cabalga hacia el noreste hasta Puerto Bonvapor, el puerto goblin de la costa.",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "",
@@ -199,31 +202,31 @@ return {
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
 	["{npc:260405}, on the pier: Friz's errand from the {zone:2548}, if you carry it"] = "{npc:260405}, en el muelle: el encargo de Friz de {zone:2548}, si lo llevas",
 
-	-- Step 46: Lost Rigger Cove: kill these as you meet them
+	-- Step 55: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea en cuanto empieza: aleja primero a sus guardias de él.",
 	["Upstairs"] = "",
 
-	-- Step 47: Waterspring Field: kill these as you meet them
+	-- Step 56: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 48: Steamwheedle Port
+	-- Step 57: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "para {area:35}, hacia el nivel 51 (40-50/06)",
 
-	-- Step 50: Fly to Freewind Post
+	-- Step 59: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
-	-- Step 52: Camp Mojache
+	-- Step 61: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
@@ -233,41 +236,41 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
 
-	-- Step 53: Gordunni Outpost
+	-- Step 62: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Al norte de los gnolls, los ogros ocupan un puesto en lo alto de una colina; atrae hacia ti a los magos ogros. El cobalto está en los montículos de tierra alrededor del puesto, y el pergamino está en el suelo, dentro.\nCuidado: {npc:222233} (nivel 43, élite) está en el puesto: atrae a los ogros hacia ti, lejos de él.",
 
-	-- Step 54: Woodpaw north camp
+	-- Step 63: Woodpaw north camp
 	["Woodpaw north camp"] = "Campamento Zarpaleña del norte",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "Los gnolls Zarpaleña acampan en las colinas justo al noroeste de Mojache; cualquiera puede soltar una crin.\nCuidado: todos los gnolls Zarpaleña salvo el Alfa huyen a pedir ayuda al 15 % de salud, lo que puede atraer más gnolls al combate.",
 
-	-- Step 55: Camp Mojache
+	-- Step 64: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}: dentro de una hora",
 
-	-- Step 56: Feralas: kill these as you meet them
+	-- Step 65: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Los duendes dardo revolotean sobre la arboleda justo al oeste de Mojache; casi todos sueltan un ala. Los Alfas Zarpaleña dirigen los campamentos al suroeste: mátalos antes de una hora.\nCuidado: la mayoría de los Alfas están en pequeños campamentos de tiendas con 2-4 gnolls más que se unen al combate, y otros gnolls patrullan entre los campamentos.",
 
-	-- Step 58: Grimtotem camp
+	-- Step 67: Grimtotem camp
 	["Grimtotem camp"] = "Campamento Tótem Siniestro",
 	-- {npc:222286} Namida Grimtotem
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "Los tauren Tótem Siniestro acampan junto a la arboleda de los duendes dardo; asaltantes, naturalistas y chamanes llevan cuernos.\nCuidado: {npc:222286} (nivel 43, élite) está en el campamento: atrae a los asaltantes y chamanes lejos de ella.",
 
-	-- Step 59: Woodpaw battle map
+	-- Step 68: Woodpaw battle map
 	["Woodpaw battle map"] = "Mapa de batalla Zarpaleña",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "El mapa de batalla está en el campamento Zarpaleña al sur de Mojache.",
 
-	-- Step 60: Camp Mojache
+	-- Step 69: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "para {zone:1454}, hacia el nivel 45",
 
-	-- Step 61: The Writhing Deep
+	-- Step 70: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber.\nCareful: {quest:7731} is level 47: clear the hive around him and pull him alone at full health."] = "La colmena Zukk'ash excava en las colinas al sureste del campamento; {quest:7731} espera en su cámara más profunda.\nCuidado: {quest:7731} es de nivel 47: limpia la colmena a su alrededor y atráelo solo, con la salud al máximo.",
 
-	-- Step 62: Ruins of Isildien: kill these as you meet them
+	-- Step 71: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "",
 	-- {area:1105} Feral Scar Vale
@@ -275,17 +278,17 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
 
-	-- Step 63: Feral Scar Vale yetis
+	-- Step 72: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "",
-	-- {area:1105} Feral Scar Vale
-	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
+	-- {area:1105} Feral Scar Vale · {npc:5346} Bloodroar the Stalker
+	["North-west of the ruins, pull one yeti at a time at the eastern mouth of {area:1105} for thick hides. Careful: larger yetis crowd the cave further west, and {npc:5346}, a level 48 rare, lurks at the far end."] = "",
 
-	-- Step 64: Homing Robot OOX-22/FE
+	-- Step 73: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
 
-	-- Step 65: Camp Mojache
+	-- Step 74: Camp Mojache
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
@@ -296,6 +299,7 @@ return {
 	["{zone:2652} is next, a ride north from {area:1099} into {zone:1443}: keep your {zone:1454} hand-ins (Neeru, Zilzibin, {npc:4485}, {npc:7311}) for the flight there after it."] = "{zone:2652} es lo siguiente, cabalgando al norte desde {area:1099} hasta {zone:1443}: guarda tus entregas de {zone:1454} (Neeru, Zilzibin, {npc:4485}, {npc:7311}) para el vuelo hasta allí después.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50."] = "Vuelve al pueblo. Los capitanes de barco, el siguiente encargo de Cuernomar, son para tu parada en Tuercespina hacia el nivel 50.",
 	-- ["Eastern Wastewander camps"] = "Campamentos Deambulador del este",
 	-- ["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the Drag."] = "Vuela a {area:1637}. Los hermanos Droffers tienen su tienda en La Calle Mayor.",
@@ -316,6 +320,7 @@ return {
 	-- ["Rogue Vale screechers"] = "Pícaros estridadores del valle",
 	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773}, en {area:159}.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883}, y muchos más piratas del pueblo se unen a la pelea en cuanto empieza.",
+	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Al sur de Bahía del Botín, los aventureros Velasangre acampan en {area:43}; las cartas y las órdenes están en sus tiendas y en el bote de remos junto al campamento más grande. Cualquier Velasangre puede llevar tabaco y el Ojo de {npc:2493}, así que sigue matando hasta tener ambos.",
 	-- ["Southern Gordunni ruins"] = "Ruinas Gordunni del sur",
 	-- ["Southern Wastewander camps"] = "Campamentos Deambulador del sur",
 	-- ["Sprite darters and Woodpaw alphas"] = "Duendes dardo y Alfas Zarpaleña",
@@ -325,6 +330,7 @@ return {
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "El zepelín a {object:3202} sale de la torre justo al noreste de la puerta principal de {zone:1454}.",
 	-- ["The {zone:1454} zeppelin leaves from the tower beside {object:3202}; it lands just outside {zone:1454}'s main gate."] = "El zepelín a {zone:1454} sale de la torre junto a {object:3202}; aterriza justo fuera de la puerta principal de {zone:1454}.",
 	-- ["Thysta, the flight master, stands just east of the zeppelin tower. Fly to {area:75}: the next guide starts there."] = "Thysta, la maestra de vuelo, está justo al este de la torre del zepelín. Vuela a {area:75}: allí empieza la siguiente guía.",
+	-- ["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "Al oeste, hasta la costa: los exploradores nagas vadean la orilla y llevan los haces de juncos; {object:759} burbujea en las colinas justo al este. Después sigue la costa al sur hasta {area:35}.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
 	-- ["for the {zone:1425}, around level 48"] = "para {zone:1425}, hacia el nivel 48",

@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "Nível 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Complete aqui até o nível 10: {quest:840}, em {area:362}, pede nível 10.\nAs figueiras-da-índia de {quest:96825} crescem perto destas cabanas: colete-as enquanto mata monstros.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "mate {npc:3111} até subir",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "Nível 11",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Suba aqui até o nível 11 antes de enfrentar {npc:3203} (12) e o diabrete dele: os Lagartos Trovejantes (9-10) pastam na serra logo a oeste da cabana de Misha.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "farme {npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -432,6 +432,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam em {area:369}, logo a oeste e sudoeste de {npc:3293}.\nBulho manda no acampamento da Lâmina Ardente em {area:369}, a noroeste de {area:362}. Caçadores: domem um {npc:3099} com o {item:15908} pelo caminho.\nCuidado: sectários da Lâmina Ardente cercam Bulho, alguns andam em dupla e puxam juntos, e eles renascem rápido.\nCuidado: Halikor, um elite de nível 12, vagueia por {area:369} entre os lagartos: fique de olho nele antes de puxar.",
 	-- ["Thunder lizards across the river"] = "Lagartos trovejantes do outro lado do rio",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "Complete aqui até o nível 10: {quest:840}, em {area:362}, pede nível 10.",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Complete aqui até o nível 10: {quest:840}, em {area:362}, pede nível 10.\nAs figueiras-da-índia de {quest:96825} crescem perto destas cabanas: colete-as enquanto mata monstros.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Suba aqui até o nível 11 antes de enfrentar {npc:3203} (12) e o diabrete dele: os Lagartos Trovejantes (9-10) pastam na serra logo a oeste da cabana de Misha.",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "Atravesse a água até a ilha mais ao norte das Ilhas do Eco. A Matriarca ronda entre os raptores de lá.\nVolte pela água para oeste até a praia ao sul de Sen'jin. Tigres de Durotar rondam por lá, e os ovos de Açoitacauda ficam em ninhos ao longo da praia.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Com {skill:129} aprendidos, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:5943}, em {area:362}.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Com {skill:165} aprendido, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:3365}, em {zone:1454} (próximo guia).",
@@ -442,6 +444,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Com {skill:202} aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:11025}, em {area:362}.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Com {skill:333} aprendido, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:11066}, em {zone:1454} (próximo guia).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Com {skill:393} aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:7088}, em {zone:1454} (próximo guia).",
+	-- ["grind on {npc:3130}"] = "farme {npc:3130}",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}.",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",

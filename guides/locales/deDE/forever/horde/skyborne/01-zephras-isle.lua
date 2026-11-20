@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926} streifen über die Hänge südwestlich des Dorfes, auf dem Weg zu {npc:252095}.\nDie Höhle der Ursera liegt westlich des Dorfes. {npc:251115}, ihre Matriarchin, sitzt an ihrem hinteren Ende.",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Auf der Straße nach Südosten nach {area:16638} beobachtet {npc:273017} die {quest:98512} direkt nördlich von ihm.",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}, von {npc:3005}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, von {npc:3027}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -524,6 +527,7 @@ return {
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Verlass {zone:1456} mit einem Aufzug und folge der Straße nach Süden an {area:222} vorbei und durch den östlichen Pass ins {zone:1413}; nimm vom Pass aus die {area:458} nach Norden nach {area:380}, der Hordestadt mitten im {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Abschied von {area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Auf der Straße nach Südosten nach {area:16638} beobachtet {npc:273017} die {quest:98512} direkt nördlich von ihm.",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "Auf dem Weg nach Norden zurück zu {npc:255853} an den Fällen.",
 	-- ["Prideclaws and Galestriders"] = "Rudelkrallen und Windschreiter",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Rudelkrallen und Windschreiter teilen sich die Wiesen südlich des Dorfs. Behalte {item:5469} für {npc:251905}; die Eier kommen später von den Hippogryphen.",
@@ -573,6 +577,7 @@ return {
 	-- ["{area:16624}, last time"] = "{area:16624}, ein letztes Mal",
 	-- ["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your Skysight racial ability next to it."] = "{npc:249363} steht bei {area:17678}, östlich des Dorfes. {npc:251143} und Al'Aketh Converts versammeln sich direkt nördlich von ihr. {object:460001} liegt direkt nordöstlich von ihr: Wirke deine Rassenfähigkeit Skysight daneben.",
 	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "{npc:250926} streifen über die Hänge südwestlich des Dorfs, auf dem Weg zu {npc:252095}.",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926} streifen über die Hänge südwestlich des Dorfes, auf dem Weg zu {npc:252095}.\nDie Höhle der Ursera liegt westlich des Dorfes. {npc:251115}, ihre Matriarchin, sitzt an ihrem hinteren Ende.",
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} schickt dich zur {area:16988}, gleich östlich des Dorfs: Trink dort {item:6635}, um {npc:251166} zu sehen, und bring dann {item:6656} zu ihm zurück.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} steht im Dorf.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, in der Dorfmitte",

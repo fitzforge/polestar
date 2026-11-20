@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} и {zone:1427} на 46-48-м уровне: лагеря Скитальцев Пустыни, сопровождение NPC {npc:5955} и {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} и {zone:1427} на 46-48-м уровне: лагеря Скитальцев Пустыни, сопровождение NPC {npc:5955} и {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Устройство Холстомера",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "Под землей",
 
 	-- Step 24: OOX-17/TN
@@ -233,4 +235,5 @@ return {
 	-- ["the {object:150075} in the square"] = "{object:150075} на площади",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} – на севере Котлована. В лавовых озерах плавают пламезавры: выманивайте их к краю. Секретные планы лежат на верхнем уступе ямы.",
 	-- ["{area:392} pier"] = "Пирс: {area:392}",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} и {zone:1427} на 46-48-м уровне: лагеря Скитальцев Пустыни, сопровождение NPC {npc:5955} и {area:1446}.",
 }

@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。"
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "谢申克的勘探设备",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初级勘探员斯克林杰的装备在一个森提帕尔虫巢的入口处。\n注意：装备旁有一只虫子守着。隧道内有许多虫子巡逻，其中一些为50级，因此战斗时经常会引来额外的敌人。",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "在地下",
 
 	-- Step 24: OOX-17/TN
@@ -214,6 +216,7 @@ return {
 	-- ["From the {area:35} flight master, above the harbour."] = "从港口上方的{area:35}飞行管理员处出发。",
 	-- ["From {area:1099}'s flight master."] = "从{area:1099}的飞行管理员处出发。",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "再往南，初级勘察员谢申克的勘探设备在一个森提帕尔巢穴的入口处。",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初级勘探员斯克林杰的装备在一个森提帕尔虫巢的入口处。\n注意：装备旁有一只虫子守着。隧道内有许多虫子巡逻，其中一些为50级，因此战斗时经常会引来额外的敌人。",
 	-- ["Greater Lava Spiders"] = "灼热熔岩蜘蛛",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "重型作战傀儡在卡拉然下方的大熔炉里巡逻，掉落傀儡之油；在它们中间漂荡的熔岩元素和炽热元素掉落烈焰之心。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；黑铁奴隶贩子可能掉落{item:11818}：留着它。",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然下方的大熔炉巡逻，会掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在各条小路上驱赶奴隶；奴隶贩子可能掉落 {item:11818}：保留它。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443} 的入口位于大熔炉北部。熏火龙在其中的熔岩池里游动：将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45—46级）被引到时会向15码内的盟友求援，可在最远15码外投网，并在近战中使用撕裂。",
@@ -247,4 +250,5 @@ return {
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}在大熔炉北部。熏火龙在熔岩池里游动：把它们引到池边。秘密设计图在坑的上层岩架上。",
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}：沿途遇到就击杀",
 	-- ["{area:392} pier"] = "{area:392}码头",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。",
 }

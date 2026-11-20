@@ -31,7 +31,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), elfos noturnos, rondam a mata ao sul e a sudeste do acampamento de lenhadores; eles ficam furtivos, então fique atento.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), elfos noturnos, rondam a mata ao sul e a sudeste do acampamento de lenhadores; eles ficam furtivos, então fique atento."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "Acampamento de Lenhadores Brado Guerreiro",
@@ -243,6 +244,7 @@ return {
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Fale com {npc:10181}, no {object:36126}: {quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "Cobogó em {area:392}: o próximo guia passa por lá",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "As Sementes de Gaia ficam na grama em volta da margem sul de {area:464}, ao norte de Rocha do Sol.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), elfos noturnos, rondam a mata ao sul e a sudeste do acampamento de lenhadores; eles ficam furtivos, então fique atento.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "A estrada sobe para o norte como {area:1076}. {quest:1483} tem uma cabana onde a estrada se divide para leste rumo a {area:461}.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "O {npc:12864} patrulha a estrada a leste de {area:428} rumo a {area:430}.",
 	-- ["Thistlefur Hold"] = "Toca dos Pelocardo",

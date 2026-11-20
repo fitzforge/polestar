@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926} merodean por las laderas al suroeste de la aldea, de camino a {npc:252095}.\nLa guarida de los Ursera está al oeste de la aldea. {npc:251115}, su matriarca, está al fondo.",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "En el camino al sureste hacia {area:16638}, {npc:273017} vigila a {quest:98512}, justo al norte de él.",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}, de {npc:3005}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, de {npc:3027}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -521,6 +524,7 @@ return {
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Sal de {zone:1456} por un elevador y sigue el camino al sur pasando {area:222} y por el paso del este hasta {zone:1413}; desde el paso, toma {area:458} al norte hasta {area:380}, el pueblo de la Horda en el centro de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Salida de {area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "En el camino al sureste hacia {area:16638}, {npc:273017} vigila a {quest:98512}, justo al norte de él.",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "De camino al norte, vuelve con {npc:255853} junto a la cascada.",
 	-- ["Prideclaws and Galestriders"] = "Leozarpas y zancavientos",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Leozarpas y Zancavientos comparten las praderas al sur de la aldea. Guarda la {item:5469} para {npc:251905}; los huevos vienen después, de los hipogrifos.",
@@ -568,6 +572,7 @@ return {
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638} está junto al aterrizaje: sube en un elevador y aprende la ruta de vuelo con {npc:2995}, el maestro de jinetes del viento.",
 	-- ["{area:16624}, last time"] = "{area:16624}, por última vez",
 	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "{npc:250926} merodean por las laderas al suroeste de la aldea, de camino a {npc:252095}.",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926} merodean por las laderas al suroeste de la aldea, de camino a {npc:252095}.\nLa guarida de los Ursera está al oeste de la aldea. {npc:251115}, su matriarca, está al fondo.",
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} te envía a {area:16988}, justo al este de la aldea: bebe allí la {item:6635} para ver a {npc:251166} y luego llévale el {item:6656}.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} está en la aldea.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, en el centro de la aldea",

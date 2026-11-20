@@ -30,7 +30,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), Nachtelfen, pirschen durch die Wälder südlich und südöstlich des Holzfällerlagers; sie sind getarnt, also halte nach ihnen Ausschau.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), Nachtelfen, pirschen durch die Wälder südlich und südöstlich des Holzfällerlagers; sie sind getarnt, also halte nach ihnen Ausschau."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "Holzfällerlager der Warsong",
@@ -243,6 +244,7 @@ return {
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "Sputtervalve in {area:392}: Der nächste Guide kommt dort vorbei",
 	-- ["Talk to {npc:10181}"] = "Sprich mit {npc:10181}",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "Die Gaeasamenkörner liegen im Gras am Südufer von {area:464}, nördlich vom Sonnenfels.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), Nachtelfen, pirschen durch die Wälder südlich und südöstlich des Holzfällerlagers; sie sind getarnt, also halte nach ihnen Ausschau.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "Die Straße steigt als {area:1076} nach Norden an. {quest:1483} hat eine Hütte, wo die Straße nach Osten zum {area:461} abzweigt.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrouilliert auf der Straße östlich von {area:428} Richtung {area:430}.",
 	-- ["Thistlefur Hold"] = "Höhle der Distelfelle",

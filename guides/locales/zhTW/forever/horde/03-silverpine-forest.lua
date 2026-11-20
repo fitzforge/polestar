@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "在{area:228}北邊。{npc:1983}在{area:240}出沒：殺了它，然後走過整片田地。小心：在田裡殺掉腐皮豺狼人後，{npc:1983}（14級）就會出現：滿血再跟她打。",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -313,6 +313,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "雜斑座狼在房子周圍的山丘徘徊。然後沿著湖岸向南走：那裡的邪鰭切割者和邪鰭潮行者會掉落魚人眼睛。",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "再次向北前往尤瑞克家。{quest:425}潛伏在房子西邊不遠處。",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "在{area:228}北邊。奈塔拉什在{area:240}出沒：殺了它，然後走過整片田地。",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "在{area:228}北邊。{npc:1983}在{area:240}出沒：殺了它，然後走過整片田地。小心：在田裡殺掉腐皮豺狼人後，{npc:1983}（14級）就會出現：滿血再跟她打。",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "在難民的東北方，鴉爪苦工和鴉爪守護者在森林東南部的{quest:516}廢墟出沒。",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "僅限{npc:1938}給了你{quest:98298}時：血嘯者在{area:233}西南方、焚木村東邊的樹林中徘徊；牠們會掉落{item:280375}。",
 	-- ["Road to Silverpine"] = "前往銀松森林的道路",

@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "지하",
 
 	-- Step 24: OOX-17/TN
@@ -233,4 +235,5 @@ return {
 	-- ["the {object:150075} in the square"] = "광장의 {object:150075}",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄칩니다. 가장자리로 끌어오세요. 비밀 설계도는 구덩이 위쪽 바위 턱에 있습니다.",
 	-- ["{area:392} pier"] = "{area:392} 부두",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}.",
 }

@@ -78,6 +78,15 @@ step Boat to Powderfuse Port
   tip Steamwheedle Port is on the coast north-east of Gadgetzan: wait on the pier for the goblin boat to Powderfuse Port.
   goto 67.57,23.1 "Boat to Powderfuse Port"
 
+step Land at Powderfuse Port
+  when !taxi "Kargath"
+  when !onquest 95062
+  when !turnedin 95062
+  zone Riverglades
+  tip Board at Steamwheedle and ride to Powderfuse Port. Leave the boat and walk west along the docks to Friz's stall. Reaching the Tanaris pier is not the crossing.
+  enter "Powderfuse Port" @79.45,52.71
+  talk 255897                          -- Friz, at the west end of the docks
+
 step Powderfuse Port
   when !taxi "Kargath"
   zone Riverglades
@@ -293,8 +302,8 @@ step Tran'gul
   accept 94680                          -- Twilight Missives
 
 step Fuzzle
-  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, hides in the middle of the town.
-  accept 94961                          -- Biting the Hand
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle is in a cage on the south side of town.
+  accept 94961 @47.31,51.36 map 2548 -- Fuzzle in his cage, not the end of his escort
 
 step Sunnyglade
   tip The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.
@@ -374,10 +383,19 @@ step Bolder'ok
   when onquest 95420
   tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
   turnin 95420                          -- Clugfist
-  accept 95424                          -- Might Makes Right
-  accept 95425                          -- Unworthy Champion
+
+step Might Makes Right
+  when turnedin 95420
+  when available 95424
+  accept 95424                          -- Clugfist
+
+step Unworthy Champion
+  when turnedin 95420
+  when available 95425
+  accept 95425                          -- Clugfist
 
 step The Twilight ogres' camp
+  when level>=41
   when onquest 95424,95425
   tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. Klunk, who carries the Skullbasher, stands among them. Just south of the ogres, Scoutmaster Vargas (an Alliance elite, level 42) and his Farholde Ambushers hold the scouts' camp: keep north of it unless you came with a group for him.
   kill 260968 x7 quest 95424.1          -- Twilight Mauler
@@ -397,6 +415,21 @@ step Na'zok
   turnin 95163
   turnin 95162
 
+step Twilight camp before the escort
+  when level>=41
+  when onquest 95424
+  when !complete 95424
+  tip Before taking Jom-jom home, finish any Maulers and Firecallers you still need here. Stay on the ridge, north of Vargas and his ambushers.
+  kill 260968 x7 quest 95424.1
+  kill 261497 x7 quest 95424.2 @75.7,26.9
+
+step Klunk before the escort
+  when level>=41
+  when onquest 95425
+  when !complete 95425
+  tip If you still need the Skullbasher, Klunk is at the same camp as Jom-jom. Take it back with the escort.
+  collect 269257 quest 95425.1
+
 step Jom-jom's Escape
   tip Jom-jom waits by the Twilight ogres' camp north-east of Na'zok: take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
   accept 94556 @73.4,24.7               -- Jom-jom, in the cave
@@ -406,10 +439,39 @@ step Bolder'ok
   tip Back to Clugfist on his hill. Jezap Jinglesprocket runs the Bloodmaster's Ring just below it.
   turnin 94556                          -- Clugfist
 
-step Clugfist
-  when turnedin 95420
-  turnin 95424                          -- Clugfist
+step Clugfist: Might Makes Right
+  when complete 95424
+  turnin 95424
+
+step Clugfist: Unworthy Champion
+  when complete 95425
   turnin 95425
+
+step Finish Might Makes Right
+  when level>=41
+  when onquest 95424
+  when !complete 95424
+  tip If you joined the route with Clugfist's hunt unfinished, the Maulers and Firecallers are at the Twilight camp on the ridge east of Na'zok. Stay north of Vargas and his ambushers.
+  kill 260968 x7 quest 95424.1
+  kill 261497 x7 quest 95424.2 @75.7,26.9
+
+step Finish Unworthy Champion
+  when level>=41
+  when onquest 95425
+  when !complete 95425
+  tip Klunk is in the same Twilight camp. Take his Skullbasher back to Clugfist with any finished hunt.
+  collect 269257 quest 95425.1
+
+step Clugfist: the finished hunt
+  when complete 95424
+  turnin 95424
+
+step Clugfist: the recovered Skullbasher
+  when complete 95425
+  turnin 95425
+
+step Clugfist
+  when turnedin 95424
   accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, later in this guide
   accept 94668                          -- Bloodmaster's Ring
   turnin 94668                          -- Jezap Jinglesprocket
@@ -505,8 +567,29 @@ step The crawlers and Trapclaw
   collect 268586 quest 95254.1          -- Trapclaw's Pincer
   collect 268632 x15 quest 95261.1 optional -- Keep entrails from these crawlers; the later ridge and beach finish any missing ones.
 
+step Wharfmaster Whizzbuzz
+  when level<42
+  when complete 95119
+  turnin 95119
+
+step Fimbo Greasemitz: Trapclaw
+  when level<42
+  when complete 95254
+  turnin 95254
+
+step Fimbo Greasemitz: A Taste of the Sea
+  when level<42
+  when complete 95121
+  turnin 95121
+
+step Friz Frazzlespark
+  when level<42
+  when complete 95288
+  turnin 95288
+
 step Before the Eastsea camp
   when level<42
+  when onquest 95119,95288
   tip The Eastsea Musketeers reach 43. Leave the camp for now. At 40 or 41, if Raptor Mastery is still in your log, the Jungle Stalkers west of the Venture Co. mine in Stranglethorn are 40-41. At 42 resume on the beach north of Powderfuse Port for the buccaneers and musketeers.
   level 42
 
@@ -517,18 +600,36 @@ step The Eastsea pirates
   kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
   collect 268796 x8 quest 95288.1       -- Smuggled Goods
 
-step Powderfuse Port
-  tip Back to the port, from the north pier west through the docks.
-  turnin 95119                          -- Wharfmaster Whizzbuzz
-  accept 95122                          -- Unchecked Expansion
-  accept 95123                          -- A Blast Ye Scurvy Dogs!
-  turnin 95254                          -- Fimbo Greasemitz
-  turnin 95121
-  turnin 95288                          -- Friz Frazzlespark
-  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
+step Wharfmaster Whizzbuzz
+  when complete 95119
+  turnin 95119
 
 step Wharfmaster Whizzbuzz
-  when onquest 95120
+  when level>=42
+  when turnedin 95119
+  tip Take the raider and powder-keg jobs for the return to the cliffs at 44.
+  accept 95122
+  accept 95123
+
+step Fimbo Greasemitz: Trapclaw
+  when complete 95254
+  turnin 95254
+
+step Fimbo Greasemitz: A Taste of the Sea
+  when complete 95121
+  turnin 95121
+
+step Friz Frazzlespark
+  when complete 95288
+  turnin 95288
+
+step Friz Frazzlespark
+  when turnedin 95288
+  tip Keep the delivery for Captain Bentcoin on the raider visit.
+  accept 95293
+
+step Wharfmaster Whizzbuzz
+  when complete 95120
   turnin 95120
 
 step Argo Brinewhistle
@@ -548,8 +649,34 @@ step Beast Entrails as you go
   tip Careful: Old Rot-Chum (elite, 42) wanders the shore and Ghostmaw (elite, 42) the river: take your beasts away from them.
   collect 268632 x15 quest 95261.1      -- Beast Entrails
 
+step Wharfmaster Whizzbuzz: the raiders
+  when level<44
+  when complete 95122
+  turnin 95122
+
+step Wharfmaster Whizzbuzz: the powder kegs
+  when level<44
+  when complete 95123
+  turnin 95123
+
+step Friz Frazzlespark: the captain’s bargain
+  when level<44
+  when complete 95294
+  turnin 95294
+
+step Wharfmaster Whizzbuzz: the ships
+  when level<44
+  when complete 95165
+  turnin 95165
+
+step Wharfmaster Whizzbuzz: Admiral Lamora
+  when level<44
+  when complete 95124
+  turnin 95124
+
 step Before the raiders
   when level<44
+  when onquest 95122,95123,95293,95165,95124,95261
   tip The raiders and Admiral Lamora reach 45. Pause here at Wharfmaster Whizzbuzz on the north pier. At 42-43, if you still have Keep An Eye Out or Up to Snuff, the pirates on the Wild Shore south of Booty Bay count; stay on the beach, not the ships. If those are already done, don't make that trip. At 44 resume here for the raiders on the cliffs. You don't need to farm the first camp.
   level 44
 
@@ -567,51 +694,82 @@ step Captain Bentcoin
   turnin 95293                          -- Captain Bentcoin
   accept 95294                          -- Captain Haynes: Smuggler's Bargain
 
-step Powderfuse Port
-  tip Back to the port.
-  turnin 95122                          -- Wharfmaster Whizzbuzz
+step Wharfmaster Whizzbuzz: the raiders
+  when complete 95122
+  turnin 95122
+
+step Wharfmaster Whizzbuzz: the powder kegs
+  when complete 95123
   turnin 95123
-  accept 95165                          -- See Ya, Scallywags!
-  accept 95124                          -- Admiral Lamora
-  turnin 95294                          -- Friz Frazzlespark
-  accept 95296                          -- Friz: Shipping and Handling, for Wharfmaster Steamfizzle at Steamwheedle Port in the Feralas & Tanaris guide
+
+step Wharfmaster Whizzbuzz
+  when level>=44
+  when turnedin 95123
+  tip Whizzbuzz gives you the ship charges and the order for Admiral Lamora.
+  accept 95165
+  accept 95124
+
+step Friz Frazzlespark
+  when complete 95294
+  turnin 95294
+
+step Friz Frazzlespark
+  when turnedin 95294
+  tip Keep the shipping papers for Wharfmaster Steamfizzle at Steamwheedle Port in Tanaris.
+  accept 95296
 
 step The pirates' ships
   when level>=44
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora patrols the top deck of the middle ship. Once she's down, go below deck for the loot chest in the hold. Keep an eye out for Gul'gash on the way.
   tip Careful: Admiral Lamora is level 45, so clear the deck around her first and come in with full health.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
-  collect 268506 quest 95124.2          -- Lamora's Loot
+  collect 268506 quest 95124.2 @90.5,29.4 -- Open Lamora's chest in the hold
   use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
   use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
 
 step Rotflesh Mushrooms
+  when level>=44
   when onquest 95261
   tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
   collect 268664 x8 quest 95261.2       -- Rotflesh Mushroom
 
 step Finish the Beast Entrails
+  when level>=44
   when onquest 95261
   when !has 268632 x15
   tip South-east back towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. Gul'gash wanders down to this beach too.
   collect 268632 x15 quest 95261.1 @78.7,49.8  -- Beast Entrails
 
-step Powderfuse Port
+step Powderfuse Port: Wharfmaster Whizzbuzz
   label argo
-  tip Down to the port.
-  turnin 95165                          -- Wharfmaster Whizzbuzz
-  turnin 95124
-  turnin 95261                          -- Argo Brinewhistle
-  accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
+  when complete 95165
+  turnin 95165
 
-step The Monster Surfaces
-  when onquest 95267
-  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
-  collect 268633 quest 95267.1          -- Sea Monster's Head
+step Wharfmaster Whizzbuzz
+  when complete 95124
+  turnin 95124
 
 step Argo Brinewhistle
+  when complete 95261
+  turnin 95261
+
+step Argo Brinewhistle
+  when level>=44
+  when turnedin 95261
+  tip Argo can give you the bait for the shallows south-west of the port. Old Rot-Chum, the elite, walks the same shore.
+  accept 95267 optional
+
+step The Monster Surfaces
+  when level>=44
   when onquest 95267
+  when !complete 95267
+  tip At the junk in the shallows south-west of the port, use Argo's Big Ball o' Bait. Kill the threshadon that comes to the bait and take its head. Give Old Rot-Chum, the elite that walks this shore, plenty of room.
+  use 268647 quest 95267.1 @74.39,72.38 -- Big Ball o' Bait at the junk
+  collect 268633 quest 95267.1 @74.39,72.38 -- Loot the summoned threshadon's head
+
+step Argo Brinewhistle
+  when complete 95267
   turnin 95267
 
 # Riverglades for the Horde, part 4 of 4 (2026-11-12). Hand-written from players'

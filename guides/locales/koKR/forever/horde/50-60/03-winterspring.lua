@@ -26,7 +26,8 @@ return {
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.\n주의: 보초는 56레벨까지 있습니다. 한 번에 한 마리씩 끌어오고 야영지의 토템은 피하세요.",
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.\n주의: 보초는 56레벨까지 있습니다. 한 번에 한 마리씩 끌어오고 야영지의 토템은 피하세요."
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.\nIf you are 54, take the level 55 Den Watchers and leave the 56s."] = "",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +42,8 @@ return {
 	["Raging Owlbeasts"] = "흉포한 올빼미야수",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "흉포한 올빼미야수는 {area:2246}와(과) {area:2255} 사이 길가, {area:2251} 북쪽 언덕을 돌아다닙니다. 주의: 가장 큰 것은 56레벨입니다. 한 번에 한 마리씩 끌어오세요.",
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "흉포한 올빼미야수는 {area:2246}와(과) {area:2255} 사이 길가, {area:2251} 북쪽 언덕을 돌아다닙니다. 주의: 가장 큰 것은 56레벨입니다. 한 번에 한 마리씩 끌어오세요."
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time.\nAt 54, take owlbeasts no higher than 55."] = "",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -54,12 +56,14 @@ return {
 	["Ice Thistle yetis"] = "얼음엉겅퀴설인",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨립니다. 얼음엉겅퀴설인(55-56)을 사냥하고, 맹렬한 설인과 덩치큰 설인(56-58)은 남겨 두세요. 뿔은 나중에 다시 올 때 모읍니다.",
+	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨립니다. 얼음엉겅퀴설인(55-56)을 사냥하고, 맹렬한 설인과 덩치큰 설인(56-58)은 남겨 두세요. 뿔은 나중에 다시 올 때 모읍니다."
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
 	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "서리바람 키메라",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "키메라는 {area:2255} 남쪽과 서쪽의 설원을 돌아다닙니다. {area:2245} 동굴은 피하세요. 그곳의 푸른 용족은 정예입니다.",
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
 	-- Step 11: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
@@ -94,6 +98,8 @@ return {
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 19: Elder Rise
+	-- {area:1237} Valormok
+	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}의 {npc:3033}, {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
@@ -134,11 +140,15 @@ return {
 	-- ["In the {object:172961}."] = "{object:172961}에 있습니다.",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "맹렬한 설인과 덩치큰 설인은 세게 때립니다. 한 번에 한 마리씩 끌어오세요.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.\n주의: 보초는 56레벨까지 있습니다. 한 번에 한 마리씩 끌어오고 야영지의 토템은 피하세요.",
 	-- ["Pristine Yeti Horns"] = "온전한 설인 뿔",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "흉포한 올빼미야수는 {area:2246}와(과) {area:2255} 사이 길가, {area:2251} 북쪽 언덕을 돌아다닙니다. 주의: 가장 큰 것은 56레벨입니다. 한 번에 한 마리씩 끌어오세요.",
 	-- ["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "길을 따라 서쪽으로 {area:2251}을(를) 지나가세요. 흉포한 올빼미야수는 그 북쪽 언덕을 돌아다닙니다.",
+	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "키메라는 {area:2255} 남쪽과 서쪽의 설원을 돌아다닙니다. {area:2245} 동굴은 피하세요. 그곳의 푸른 용족은 정예입니다.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "털보숭이 마을이 {area:2255} 북동쪽 골짜기를 가득 메우고 있습니다. 치유하는 주술사를 먼저 처치하세요. 안쪽 동굴의 {npc:10738}은(는) 정예입니다. 들어가지 마세요.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨립니다. 얼음엉겅퀴설인(55-56)을 사냥하고, 맹렬한 설인과 덩치큰 설인(56-58)은 남겨 두세요. 뿔은 나중에 다시 올 때 모읍니다.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "설인 언덕은 {area:2255} 바로 남동쪽에서 시작합니다. 모든 설인이 털가죽을 떨어뜨리지만, 뿔은 맹렬한 설인과 덩치큰 설인만 떨어뜨리므로 완료 후를 위해 남겨 두세요.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "{area:2255}에서 퀘스트를 제출하기 전에 이곳에서 55.04레벨까지 올리십시오. 제출하면 56레벨이 됩니다. 이곳에서는 얼음엉겅퀴설인(55-56)이 가장 레벨이 낮고, 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인(56-58)은 더 강하게 공격합니다. 또는 파티와 함께 대신 {area:1584} 던전이나 {area:1583} 던전(아래쪽)을 도십시오.",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "우미의 세 번째 장난은 {area:976}와(과) 운고로 분화구의 고블린을 노립니다. 나중을 위해 보관하세요.",

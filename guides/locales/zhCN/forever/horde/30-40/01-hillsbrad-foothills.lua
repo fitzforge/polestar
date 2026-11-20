@@ -122,7 +122,14 @@ return {
 	["Hillsbrad Peasants"] = "希尔斯布莱德农民",
 	["Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping."] = "回到农田：农民在农舍南边干活。小心：逃跑的农民如果跑到镇公所，可能会带回更多敌人；用减速或定身可以阻止他们逃跑。",
 
-	-- Step 26: Durnholde Keep
+	-- Step 24: Hillsbrad Human Skulls
+	-- plural, as words: Hillsbrad Human Skulls = {item:3692} Hillsbrad Human Skull
+	["Hillsbrad Human Skulls"] = "",
+	-- {quest:546} Souvenirs of Death
+	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
+	["Still carrying {quest:546}? Gather the skulls from Hillsbrad Peasants in the southern fields. Stay away from the town hall and the guards on the road."] = "",
+
+	-- Step 28: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
 	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
@@ -133,11 +140,11 @@ return {
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的镣铐",
 	["Drull's ball and chain"] = "德鲁尔的镣铐",
 
-	-- Step 27: Krusk
+	-- Step 29: Krusk
 	-- {area:272} Tarren Mill
 	["Back to {area:272}."] = "返回{area:272}。",
 
-	-- Step 28: The river south of Tarren Mill: kill these as you meet them
+	-- Step 30: The river south of Tarren Mill: kill these as you meet them
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272}南边的河：遇到就杀",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
@@ -145,16 +152,16 @@ return {
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}，从钳嘴龟身上获取",
 
-	-- Step 29: Mudsnout Blossoms
+	-- Step 31: Mudsnout Blossoms
 	-- {area:290} Dun Garok
 	["South of the river's bend, the Mudsnout gnolls (26-28) camp in the hills above {area:290}; the blossoms grow among their tents. The Shamans heal and call their friends: pull them first."] = "在河湾南边，泥鼻豺狼人（26-28级）在{area:290}上方的山丘扎营；花就长在他们的帐篷之间。萨满会治疗并呼叫同伴：先拉他们。",
 
-	-- Step 30: North of Southshore
+	-- Step 32: North of Southshore
 	["North of Southshore"] = "南海镇北边",
 	-- {area:287} Hillsbrad · {area:271} Southshore
 	["From the blossoms, back north along the river and then west to {area:287} town, well north of {area:271} (its guards are 55)."] = "采完花后，沿河返回北边，再向西前往{area:287}镇，在{area:271}北边很远处（那里的卫兵是55级）。",
 
-	-- Step 31: The smithy
+	-- Step 33: The smithy
 	["The smithy"] = "铁匠铺",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "向西穿过丘陵前往{area:287}镇：铁匠铺就在镇中央。{npc:2404}和他的学徒在熔炉旁工作；{object:1736}堆在旁边。{npc:2449}在铁匠铺附近走动；{npc:2451}在镇子东南边的田里干活。"
@@ -163,47 +170,47 @@ return {
 	-- {npc:2449} Citizen Wilkes
 	["{npc:2449}, on the west side of the town"] = "",
 
-	-- Step 32: Tarren Mill
+	-- Step 34: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["for {npc:2055}, on the {zone:1458} stop at the end of this guide"] = "交给{npc:2055}，在本指南结尾的{zone:1458}站交还",
 	-- {npc:2429} Novice Thaivand · {item:3708} Helcular's Rod
 	["{npc:2429}, in the town: {item:3708}, from the yetis on the way to the town hall"] = "镇里的{npc:2429}：{item:3708}，在前往市政厅路上的雪人身上获得",
 
-	-- Step 33: Helcular's Rod
+	-- Step 35: Helcular's Rod
 	-- {area:277} Foothill Caverns
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
 	["West of Tarren Mill, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but they hit hard and come in pairs."] = "在塔伦米尔以西，洞穴雪人和凶恶的雪人（30-32级）遍布山中的{area:277}；约每十六只中有一只携带魔棒。待在这片洞穴里：更北边那个洞穴的山岭雪人和巨型雪人（32-34级）也带着魔棒，但它们打人很痛，而且成对出现。",
 
-	-- Step 34: Town hall
+	-- Step 36: Town hall
 	["Town hall"] = "市政厅",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "继续前往雪人洞穴西南边的{area:287}镇。市政厅在镇子西侧：{npc:2335}（30级）和{npc:2448}在里面，旁边是城镇登记簿；公告就贴在它旁边。议员们在镇上走动。",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}，在里面",
 
-	-- Step 35: Tarren Mill
+	-- Step 37: Tarren Mill
 	-- {area:271} Southshore
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
 	["Thaivand's next errand, the flames, sends you among the Mountain and Giant Yetis (32-34) and to Helcular's grave inside {area:271}: leave it."] = "塞万德的下一个差事（火焰）要你深入山岭雪人和巨型雪人（32-34级）之中，还要去{area:271}里的赫尔库拉之墓：先不要做。",
 
-	-- Step 36: Melisara
+	-- Step 38: Melisara
 	-- {npc:2278} Melisara · {area:272} Tarren Mill · {npc:2410} Magus Wordeen Voidglare
 	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "为本指南稍后的达拉然城之行做准备：{npc:2278}站在{area:272}，在{npc:2410}东边不远处。",
 
-	-- Step 37: City of Dalaran
+	-- Step 39: City of Dalaran
 	["City of Dalaran"] = "达拉然城",
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
 	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "达拉然城是适合28-33级左右五人小队的地下城，位于紫罗兰穹顶之下。没有{item:277507}的话，就从弹坑西北的下水管道进去：箭头会指引你。\n副本内：{npc:247126}是{npc:2278}要的。下水道里的{npc:268743}会给你“投机教育”，并在原处交还。",
 	-- {quest:96986} The Grave Knight · {npc:247126} Atrexis the Grave Knight
 	["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}：{npc:247126}，在副本内",
 
-	-- Step 39: Azurelode Mine
+	-- Step 41: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
 	["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "向西南穿过{area:287}镇，前往{area:288}。矿工在隧道内作业；{npc:2305}（30级）和{npc:2450}（29级）在深处。",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "在{area:288}里面",
 
-	-- Step 40: Level 30
+	-- Step 42: Level 30
 	["Level 30"] = "30 级",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
@@ -212,13 +219,13 @@ return {
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "击杀{npc:2375}刷经验",
 
-	-- Step 41: Finish the Turtle Meat
+	-- Step 43: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "收集完{item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
 	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "还没凑够十块{item:3712}？{area:272}东边的河边有很多钳嘴龟，就在你从矿洞回来的路上。",
 
-	-- Step 42: Tarren Mill
+	-- Step 44: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["North-east back to {area:272}, passing well north of {area:271} (its guards are 55)."] = "向东北返回{area:272}，从{area:271}北边远远绕过（那里的卫兵是55级）。",
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
@@ -228,7 +235,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "把“渗透”留在任务日志里：辛迪加成员（32-35级）现在比你高，38-39级指南（奥特兰克和阿拉希）第一次到{area:272}时会完成它。",
 
-	-- Step 43: Voidglare, Bel'varil and Tallow
+	-- Step 45: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow
 	["Voidglare, Bel'varil and {npc:2770}"] = "伍德格莱尔、贝瓦里尔和{npc:2770}",
 	-- {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow · {area:272} Tarren Mill
@@ -244,55 +251,55 @@ return {
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "把这些任务留在任务日志里：它们的营地现在比你高二到四级，38-39级指南第一次到{area:272}时以及在{area:321}会完成它们。",
 
-	-- Step 44: Melisara
+	-- Step 46: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
 	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "达拉然城之行得到的{quest:96986}：{npc:2278}，在{npc:2410}东边不远处。",
 
-	-- Step 45: Battle of Hillsbrad with a group
+	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
 	["{quest:539} with a group"] = "组队完成 {quest:539}",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "达萨利亚的最后一战在 {area:290}，即 {area:271} 东南侧的矮人要塞：那里所有矮人都是精英（28-32 级），{npc:2304} 也是。有队伍的话，经验很丰厚。",
 
-	-- Step 46: Humbert's Sword with a group
+	-- Step 48: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
 	["{quest:547} with a group"] = "组队完成 {quest:547}",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "{npc:2419} 的剑也由 {area:290} 的这些矮人掉落（约十二分之一）。",
 
-	-- Step 47: Dun Garok
+	-- Step 49: Dun Garok
 	-- {area:290} Dun Garok
 	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "从大门开始向内清理 {area:290}；矮人会在生命值降到 30% 时逃跑求援。",
 
-	-- Step 48: Tarren Mill
+	-- Step 50: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
 	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "交给 {zone:1458} 的 {npc:2425}，在本篇指南结尾完成",
 
-	-- Step 50: Fly to Undercity
+	-- Step 52: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "{area:272}的飞行管理员",
 
-	-- Step 51: Master Apothecary Faranell
+	-- Step 53: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
 	["{npc:2055} stands in the Apothecarium, in the {object:36126}."] = "{npc:2055}站在{object:36126}的炼金房里。",
 	-- {quest:513} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
 	["Faranell's next {quest:513} needs a {item:3388} ({skill:171}) and the {area:287} coast: leave it."] = "法拉尼尔的下一个任务{quest:513}需要一瓶{item:3388}（{skill:171}），还要去{area:287}海岸：先不要做。",
 
-	-- Step 52: Varimathras
+	-- Step 54: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
 	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "{npc:2425} 站在 {object:36126}，就在希尔瓦娜斯旁边。",
 	-- {npc:2425} Varimathras
 	["{npc:2425}: Darthalia's commendation"] = "{npc:2425}：达萨利亚的表彰",
 
-	-- Step 53: Calder Gray
+	-- Step 55: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
 	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038}站在炼金房里。他的{quest:97985}的目标是Stormheart，一个30级精英，在{area:484}东边的峡谷里走动，就在下一份指南前往{area:439}的路上。",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}：下次到{zone:1458}时（约38级）再回来找他",
 
-	-- Step 54: Undercity trainers
+	-- Step 56: Undercity trainers
 	-- {zone:1458} Undercity
 	["{zone:1458} trainers"] = "{zone:1458}的训练师",
 	-- {zone:1458} Undercity · {object:36070} War Quarter · {object:36073} Rogues' Quarter · {object:36082} Magic Quarter · {npc:260093} Garen Largo

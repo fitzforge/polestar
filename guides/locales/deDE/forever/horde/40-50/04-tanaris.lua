@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Scrimshanks Ausrüstung",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Centipaar-Baus.\nVorsicht: Ein Käfer bewacht die Ausrüstung. Viele Käfer patrouillieren in den Tunneln, einige davon Stufe 50, sodass Kämpfe oft zusätzliche Adds ziehen.",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 24: OOX-17/TN
@@ -214,6 +216,7 @@ return {
 	-- ["From the {area:35} flight master, above the harbour."] = "Vom Flugmeister in {area:35}, oberhalb des Hafens.",
 	-- ["From {area:1099}'s flight master."] = "Vom Flugmeister in {area:1099}.",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Baus der Centipaar.",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Centipaar-Baus.\nVorsicht: Ein Käfer bewacht die Ausrüstung. Viele Käfer patrouillieren in den Tunneln, einige davon Stufe 50, sodass Kämpfe oft zusätzliche Adds ziehen.",
 	-- ["Greater Lava Spiders"] = "Große Lavaspinnen",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Schwere Kriegsgolems patrouillieren im Kessel unter Kalaran und lassen das Öl fallen; die Magmaelementare und Lodernden Elementare zwischen ihnen lassen die Herzen fallen. Die Zuchtmeister und Sklavenhändler der Dunkeleisenzwerge treiben die Sklaven auf den Wegen an; ein Sklavenhändler kann {item:11818} fallen lassen: Behalte ihn.",
 	-- ["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Heavy War Golems patrouillieren im Kessel unterhalb von Velarok und lassen das Öl fallen; die Magma und Blazing Elementals, die zwischen ihnen umhertreiben, lassen die Herzen fallen. Die Dark Iron Taskmasters und Slavers treiben die Sklaven auf den Pfaden an; ein Slaver kann {item:11818} fallen lassen: Behalte ihn.\nDie Searing Lava Spiders streifen über die Plateaus und Lavatümpel im Südwesten der Schlucht.\n{area:1443} öffnet sich im Norden des Kessels. Incendosaurs schwimmen in seinen Lavatümpeln: Zieh sie an den Rand. Die geheimen Pläne liegen auf dem oberen Sims der Grube.\nVorsicht: Dark Iron Slavers (Stufe 45-46) rufen beim Pullen Verbündete im Umkreis von 15 yd zu Hilfe, wirken Netz aus bis zu 15 yd und benutzen Zerreißen im Nahkampf.",
@@ -243,4 +246,5 @@ return {
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} öffnet sich im Norden des Kessels. Incendosaurier schwimmen in ihren Lavabecken: Pull sie an den Rand. Die geheimen Pläne liegen auf dem oberen Sims der Grube.",
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}: töte diese, wenn du sie triffst",
 	-- ["{area:392} pier"] = "Pier von {area:392}",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
 }

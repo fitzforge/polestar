@@ -31,7 +31,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "나이트 엘프 {quest:6503}(23-24)이(가) 벌목기지 남쪽과 남동쪽 숲에 숨어 다닙니다. 은신하므로 주의하세요.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "나이트 엘프 {quest:6503}(23-24)이(가) 벌목기지 남쪽과 남동쪽 숲에 숨어 다닙니다. 은신하므로 주의하세요."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "전쟁노래부족 벌목기지",
@@ -230,6 +231,7 @@ return {
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "{object:36126}의 {npc:10181}와(과) 대화하세요: {quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "{area:392}의 스퍼터밸브: 다음 가이드에서 그곳을 지납니다",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "가이아 씨앗은 해바위 야영지 북쪽, {area:464} 남쪽 기슭 주변의 풀밭에 있습니다.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "나이트 엘프 {quest:6503}(23-24)이(가) 벌목기지 남쪽과 남동쪽 숲에 숨어 다닙니다. 은신하므로 주의하세요.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "길은 {area:1076}(이)라는 이름으로 북쪽으로 올라갑니다. {quest:1483}의 오두막은 길이 동쪽 {area:461}(으)로 갈라지는 곳에 있습니다.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864}은(는) {area:428} 동쪽에서 {area:430} 쪽으로 길을 순찰합니다.",
 	-- ["Thistlefur Hold"] = "엉겅퀴일족 소굴",

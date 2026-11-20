@@ -26,7 +26,8 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}：沿途击杀以下目标",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。\n小心：冬泉巢穴守卫最高56级：一次引一只，并远离营地的图腾。",
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。\n小心：冬泉巢穴守卫最高56级：一次引一只，并远离营地的图腾。"
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.\nIf you are 54, take the level 55 Den Watchers and leave the 56s."] = "",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}：冬泉熊怪约每十只掉一个，继续击杀直到掉落",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +42,8 @@ return {
 	["Raging Owlbeasts"] = "狂暴的枭兽",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "狂怒的枭兽出没于{area:2251}北面的山丘，就在{area:2246}与{area:2255}之间的路旁。小心：最强的有56级：一次引一只。",
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "狂怒的枭兽出没于{area:2251}北面的山丘，就在{area:2246}与{area:2255}之间的路旁。小心：最强的有56级：一次引一只。"
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time.\nAt 54, take owlbeasts no higher than 55."] = "",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -54,12 +56,14 @@ return {
 	["Ice Thistle yetis"] = "冰蓟雪人",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮：专打冰蓟雪人（55-56级），别碰冰蓟雪人女王和冰蓟雪人王（56-58级），它们的角留到以后再来时收集。",
+	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮：专打冰蓟雪人（55-56级），别碰冰蓟雪人女王和冰蓟雪人王（56-58级），它们的角留到以后再来时收集。"
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
 	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "冰风奇美拉",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "奇美拉在{area:2255}南边和西边的雪原上游荡。远离{area:2245}的洞穴：里面的蓝龙龙人都是精英。",
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
 	-- Step 11: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
@@ -94,6 +98,8 @@ return {
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。",
 
 	-- Step 19: Elder Rise
+	-- {area:1237} Valormok
+	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
@@ -135,12 +141,16 @@ return {
 	-- ["Level 55.04"] = "等级 55.04",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "冰蓟雪人女王和冰蓟雪人王攻击很重：一次引一只。",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。\n小心：冬泉巢穴守卫最高56级：一次引一只，并远离营地的图腾。",
 	-- ["Pristine Yeti Horns"] = "完美的雪人角",
 	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "狂怒的枭兽出没于{area:2251}北面的山丘，就在{area:2246}与{area:2255}之间的路旁。",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "狂怒的枭兽出没于{area:2251}北面的山丘，就在{area:2246}与{area:2255}之间的路旁。小心：最强的有56级：一次引一只。",
 	-- ["Ride back west to {area:2246}."] = "向西骑回{area:2246}。",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "沿道路向西经过{area:2251}；狂暴的枭兽在它北边的山丘上游荡。",
+	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "奇美拉在{area:2255}南边和西边的雪原上游荡。远离{area:2245}的洞穴：里面的蓝龙龙人都是精英。",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "熊怪村庄占满了{area:2255}东北的山谷。先杀冬泉萨满祭司；他们会治疗。后面洞穴里的{npc:10738}是精英：别进去。",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮：专打冰蓟雪人（55-56级），别碰冰蓟雪人女王和冰蓟雪人王（56-58级），它们的角留到以后再来时收集。",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "雪人的山丘就在{area:2255}东南不远处开始。每个雪人都会掉落毛皮；只有冰蓟雪人女王和冰蓟雪人王掉落角，所以交还后再去打它们。",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "在这里补到55.04级，再去{area:2255}交任务，交完会升到56级。冰蓟雪人（55-56级）是这里等级最低的；冰蓟雪人女王和冰蓟雪人王（56-58级）打得更重。也可以组队去{area:1584}副本或{area:1583}副本（下层）。",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "乌米的第三个恶作剧针对的是{area:976}和安戈洛环形山的地精：留到之后。",

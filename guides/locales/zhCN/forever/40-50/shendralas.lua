@@ -46,14 +46,15 @@ return {
 	-- {area:2657} Valley of Bones · {quest:93644} Tattered Journal
 	["The {area:2657}: a {quest:93644}"] = "{area:2657}：{quest:93644}",
 	-- {quest:93644} Tattered Journal · {zone:2652} Shen'dralas · {area:2657} Valley of Bones
-	-- plural, as words: Outcast Necromancers = {npc:11559} Outcast Necromancer · Magram Necromancers = {npc:253272} Magram Necromancer · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新内容：如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n山谷中的流放通灵师和玛格拉姆通灵师会掉落{quest:93644}，其作者住在{zone:2652}：玩家通常杀几只就能拿到。玛格拉姆半人马在你攻击前不会主动攻击；其中的玛格拉姆亡灵可汗（45级）是精英，别去招惹。\n吉尔吉斯和玛格拉姆半人马各有自己的{area:2657}任务链，能额外获得约20000到30000经验，但每条任务链都要求该部族声望达到尊敬。两个部族互为敌对，所以只能为其中一个效力：声望分类下的“吉尔吉斯与玛格拉姆半人马声望”指南会说明做法。",
+	-- plural, as words: Outcast Necromancers = {npc:11559} Outcast Necromancer · Magram Necromancers = {npc:253272} Magram Necromancer
+	-- was: ["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新内容：如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n山谷中的流放通灵师和玛格拉姆通灵师会掉落{quest:93644}，其作者住在{zone:2652}：玩家通常杀几只就能拿到。玛格拉姆半人马在你攻击前不会主动攻击；其中的玛格拉姆亡灵可汗（45级）是精英，别去招惹。\n吉尔吉斯和玛格拉姆半人马各有自己的{area:2657}任务链，能额外获得约20000到30000经验，但每条任务链都要求该部族声望达到尊敬。两个部族互为敌对，所以只能为其中一个效力：声望分类下的“吉尔吉斯与玛格拉姆半人马声望”指南会说明做法。"
+	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "",
 
 	-- Step 7: The western pylon
 	["The western pylon"] = "西侧水晶塔",
 	-- {quest:92914} Strange Pylons
-	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector
-	["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here."] = "向东穿过山谷，前往基座上的奇怪水晶：点击它开始{quest:92914}。周围的衰败的水晶塔守护者（42-43级）是守卫它的法力元素。食尸者（45级，精英）在此处以东的山谷中游荡。",
+	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.\nCareful: click the crystal from the road on its west side and move on: the Protectors stand two and three together east and north-east of it, where Corpsefeeders and the Magram Necrokhans (elites, 45) walk too."] = "",
 
 	-- Step 8: Bristleback Retreat: the eastern pylon
 	-- {area:16677} Bristleback Retreat
@@ -78,7 +79,7 @@ return {
 	-- Step 12: Magram Village
 	-- {item:255656} Pylon Fragment
 	-- plural, as words: Magram Guardians = {npc:255560} Magram Guardian
-	["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it."] = "{item:255656}位于村落西缘，有玛格拉姆守护者（39-41级）看守。",
+	["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it. They leave you be unless you have fought the Magram: pick the fragment up without a fight. Every Magram you kill turns the clan against you, and back in the valley that means the Necrokhans (level 45, elites) at the western pylon as well."] = "",
 
 	-- Step 13: Gelkis Village
 	-- {area:405} Desolace · {area:606} Gelkis Village · {item:255657} Pylon Shard
@@ -98,70 +99,121 @@ return {
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "{npc:253471}派你去取{item:255662}，它放在神殿内{npc:255486}旁边。{quest:96018}要求你在修复水晶塔之前用过滤网收集法力：把它放在背包里，就能处理不稳定的法力裂隙，即沿北边道路漂浮的法力火花。",
 
-	-- Step 17: The western pylon: repair it
-	["The western pylon: repair it"] = "西侧水晶塔：修复它",
-	-- {spell:1289727} Repair and Recharge Pylon · {area:2657} Valley of Bones
-	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it."] = "沿道路向北前往第一座水晶塔，途中从不稳定的法力裂隙收集法力。衰朽的水晶塔守护者守卫着它：在水晶塔旁杀死一个，然后对其使用{spell:1289727}，像玩家修复它那样。\n注意：水晶塔位于{area:2657}边缘，玛格拉姆亡灵可汗和食尸者（45级精英）在此游荡，初生的水晶塔守护者（43级精英）在道路上徘徊。修复前先把衰朽的水晶塔守护者从它们身边引开。",
-	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}，然后对其使用{spell:1289727}",
+	-- Step 17: Four crystals for the first unfinished pylon
+	["Four crystals for the first unfinished pylon"] = "",
+	-- {item:255662} Mana Sieve
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
+	["Use the {item:255662} on Unstable Mana Rifts north of the temple. Each repair spends four crystals. If both pylons are unfinished, gather eight here or refill on the valley road after the western repair. If only one is unfinished, four are enough. Let the wandering elite Protectors pass."] = "",
+	-- {item:255662} Mana Sieve · {npc:264149} Unstable Mana Rift
+	["{item:255662} on an {npc:264149}"] = "",
+	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
+	["Coalesced Mana Crystals for one repair"] = "",
 
-	-- Step 18: Bristleback Retreat: repair the eastern pylon
+	-- Step 18: The road south of the western pylon
+	["The road south of the western pylon"] = "",
+	-- {area:16677} Bristleback Retreat · {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["Check the western repair in your quest log. If it is already checked, do not visit this waypoint: take four crystals east to {area:16677} (73.4,23.9). Enter from the west and stay off the south side, away from Kog'thug and his bodyguards. Repair the eastern pylon there; the route resumes when the log shows both.\nNorth up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
+	["the road just south of the western pylon"] = "",
+
+	-- Step 19: The western pylon: repair it
+	["The western pylon: repair it"] = "西侧水晶塔：修复它",
+	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
+	["Pull one {npc:252711} back to the road if it guards the crystal. Stand on the west face and use {spell:1289727}. The quest log must show the western pylon repaired; a dead Protector alone does not count."] = "",
+	["Repair the western pylon from this side"] = "",
+
+	-- Step 20: Four crystals for the eastern pylon
+	["Four crystals for the eastern pylon"] = "",
+	-- {area:16677} Bristleback Retreat
+	["Check your bags after the western repair. If fewer than four crystals remain, use the Sieve on rifts along the valley road before entering {area:16677}. Give roaming Corpsefeeders and hostile Necrokhans room."] = "",
+	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
+	["Four unspent Coalesced Mana Crystals"] = "",
+
+	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}：修复东侧水晶塔",
-	-- {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
-	["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿山谷道路向东前往东侧水晶塔，用同样方法修复，先杀一个{npc:252711}，从西边接近：{npc:253527}（43级精英）和他的保镖占据着野猪人营地南侧，还有一只食尸者（45级精英）在道路上巡逻。",
+	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon · {npc:253527} Kog'thug the Brave
+	["Enter from the west. Pull a single {npc:252711} clear if needed, then use {spell:1289727} at the eastern crystal. Keep away from {npc:253527} and his bodyguards on the south side of the camp."] = "",
+	-- {npc:253471} Mordent Evenshade
+	["Repair the eastern pylon, then return to {npc:253471}"] = "",
 
-	-- Step 19: Evenshade's Overlook
-	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
-	["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "沿山谷道路返回西边，再向南找{npc:253471}。{quest:93016}要求你听他讲完：再和他对话一次，然后交还任务。",
+	-- Step 22: Unfinished pylon repairs
+	["Unfinished pylon repairs"] = "",
+	-- {npc:253471} Mordent Evenshade · {area:16677} Bristleback Retreat · {zone:2652} Shen'dralas · {zone:1444} Feralas
+	["Check your quest log before going back to {npc:253471}. Each unchecked pylon needs four crystals from the rifts. For the western repair, approach from the road at 43.9,37.0 and use the west face. For the eastern repair, enter {area:16677} from the west. Return to {npc:253471} only after both repairs count.\nIf you want to leave {zone:2652} now, keep the quest. This line takes you back to your {zone:1444} route; you can return for the unfinished repair later."] = "",
+	-- {zone:2652} Shen'dralas
+	["Leave {zone:2652} with the repair quest in my log"] = "",
+
+	-- Step 23: Evenshade's Overlook
+	-- {npc:253471} Mordent Evenshade
+	["Follow the valley road west and south to {npc:253471} with both repairs finished."] = "",
+
+	-- Step 24: A Brief History Lesson
+	-- {npc:253471} Mordent Evenshade
+	["Hear {npc:253471} out, then speak to him again for the reward."] = "",
 	-- {npc:253471} Mordent Evenshade
 	["{npc:253471}: hear him out"] = "{npc:253471}：听他讲完",
 
-	-- Step 20: Liranne
+	-- Step 26: Liranne
 	-- {quest:93568} Partially Digested Collar · {npc:255385} Liranne
 	["A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was."] = "一只潜行者吐出了{quest:93568}：神殿北边的{npc:255385}知道它是谁的。",
 
-	-- Step 21: The temple: Magister Kirandis
+	-- Step 27: The temple: Magister Kirandis
 	-- {npc:254656} Magister Kirandis
 	["The temple: {npc:254656}"] = "神殿：{npc:254656}",
 	-- {npc:254656} Magister Kirandis · {npc:254578} Mithera · {quest:93341} Forlorn Gardens
 	["{npc:254656} waits inside the temple. Then {npc:254578}, on the temple's eastern side, has work in the {quest:93341}."] = "{npc:254656}在神殿内等候。随后神殿东侧的{npc:254578}有{quest:93341}的任务交给你。",
 
-	-- Step 22: The Forlorn Gardens: the pedestal
+	-- Step 28: The Forlorn Gardens: the pedestal
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}: the pedestal"] = "{quest:93341}：基座",
 	-- {quest:93341} Forlorn Gardens
 	["East of the temple the {quest:93341} have run wild, and their plants attack on sight. Examine the pedestal at the gardens' southern end."] = "神殿东边的{quest:93341}已经荒芜失控，那里的植物见人就攻击。检查花园南端的基座。",
 
-	-- Step 24: The Forlorn Gardens
+	-- Step 30: Mithera’s garden errands
+	-- {npc:254578} Mithera
+	["{npc:254578}’s garden errands"] = "",
+
+	-- Step 31: The Forlorn Gardens
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}"] = "{quest:93341}",
 	-- {npc:254674} Woodwyrd · {area:2100} Maraudon
 	-- plural, as words: Rowdy Roses = {npc:254566} Rowdy Rose · Terrible Tulips = {npc:254567} Terrible Tulip · Malevolent Marigolds = {npc:254572} Malevolent Marigold · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
 	["Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. {npc:254674}, the treant in the middle of the gardens, has a request of his own that needs water from {area:2100}, a dungeon: this guide leaves it.\nThe Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them."] = "花园各处都长着{npc:254566}和{npc:254567}；{npc:254572}则集中在北部。花园中央的树人{npc:254674}也有自己的请求，需要地下城{area:2100}的水：本指南跳过它。\n在花园里游荡的辛德拉是中立的，和神殿守卫一样：别去惹他们，把花怪从他们身边拉开。小心：{npc:276401}（精英，43级）在地区中部游荡，花园里也有：远离它们。",
 
-	-- Step 25: Mithera
+	-- Step 33: The temple: Historian Biraxas
+	-- {npc:255486} Historian Biraxas
+	["The temple: {npc:255486}"] = "",
 	-- {npc:255486} Historian Biraxas · {npc:254656} Magister Kirandis · {npc:252711} Decrepit Pylon Protector
 	["{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north."] = "见过{npc:254656}之后，神殿里的{npc:255486}有任务交给你：取一颗{npc:252711}（42-43级，非精英）的心脏，沿路向北骑一小段就到。",
 
-	-- Step 26: A Heart of Crystal
-	-- {npc:253471} Mordent Evenshade
-	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector
-	["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "最近的{npc:252711}站在北边的路旁，从地区中部一直到西边的水晶塔，以及{npc:253471}的瞭望台周围：其中一只带着毕拉克萨斯要的心脏。",
+	-- Step 34: A Heart of Crystal
+	-- {npc:252711} Decrepit Pylon Protector
+	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "",
 
-	-- Step 27: Historian Biraxas
-	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones
-	["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}已完成：骑马向北穿过{area:2657}返回；下一步会告诉你之后的路线去向。",
+	-- Step 36: Mana Mania
+	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
+	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "",
 
-	-- Step 28: Shadowprey Village
+	-- Step 37: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
 	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}已完成。骑马向北穿过{area:2657}，再沿{area:405}南缘向西前往{area:2408}：下一篇指南从{area:1637}开始，交还{zone:1444}指南的任务。你的炉石绑定在{area:1099}：如果炉石已冷却，就用炉石回去，从{area:1099}飞往{area:1637}。",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飞行管理员",
 
-	-- Step 29: Back to your route
+	-- Step 38: Back to your route
 	["Back to your route"] = "回到你的路线",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}已完成。你的{zone:1444}指南从这里继续：骑马向北穿过{area:2657}，沿{area:405}南缘向西，再向南进入{zone:1444}，前往{area:1108}的码头，从那里坐船去{area:1116}。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "沿山谷道路返回西边，再向南找{npc:253471}。{quest:93016}要求你听他讲完：再和他对话一次，然后交还任务。",
+	-- ["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿山谷道路向东前往东侧水晶塔，用同样方法修复，先杀一个{npc:252711}，从西边接近：{npc:253527}（43级精英）和他的保镖占据着野猪人营地南侧，还有一只食尸者（45级精英）在道路上巡逻。",
+	-- ["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here."] = "向东穿过山谷，前往基座上的奇怪水晶：点击它开始{quest:92914}。周围的衰败的水晶塔守护者（42-43级）是守卫它的法力元素。食尸者（45级，精英）在此处以东的山谷中游荡。",
+	-- ["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新内容：如果某个步骤有误，请在Polestar的Discord或GitHub告诉我们，并注明是哪个步骤。\n山谷中的流放通灵师和玛格拉姆通灵师会掉落{quest:93644}，其作者住在{zone:2652}：玩家通常杀几只就能拿到。玛格拉姆半人马在你攻击前不会主动攻击；其中的玛格拉姆亡灵可汗（45级）是精英，别去招惹。\n吉尔吉斯和玛格拉姆半人马各有自己的{area:2657}任务链，能额外获得约20000到30000经验，但每条任务链都要求该部族声望达到尊敬。两个部族互为敌对，所以只能为其中一个效力：声望分类下的“吉尔吉斯与玛格拉姆半人马声望”指南会说明做法。",
+	-- ["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it."] = "沿道路向北前往第一座水晶塔，途中从不稳定的法力裂隙收集法力。衰朽的水晶塔守护者守卫着它：在水晶塔旁杀死一个，然后对其使用{spell:1289727}，像玩家修复它那样。\n注意：水晶塔位于{area:2657}边缘，玛格拉姆亡灵可汗和食尸者（45级精英）在此游荡，初生的水晶塔守护者（43级精英）在道路上徘徊。修复前先把衰朽的水晶塔守护者从它们身边引开。",
+	-- ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "最近的{npc:252711}站在北边的路旁，从地区中部一直到西边的水晶塔，以及{npc:253471}的瞭望台周围：其中一只带着毕拉克萨斯要的心脏。",
+	-- ["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it."] = "{item:255656}位于村落西缘，有玛格拉姆守护者（39-41级）看守。",
+	-- ["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}，然后对其使用{spell:1289727}",
+	-- ["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}已完成：骑马向北穿过{area:2657}返回；下一步会告诉你之后的路线去向。",
 }

@@ -4,6 +4,24 @@
 		"about": "v1's deliberate orders (player-report fixes pinned by tests/guides-reported.test.js and the guides' 'Order changes against the export' headers) as hard precedence pairs: every step of `a` comes before every step of `b` when both are in the order. Kinds: accept, task (an objective site of the quest), turnin. `group`: {q, size, why}: the group an elite or group quest wants (1 soloable elite, 2-4 a group of that many, 5 never taken) where Forever's creature data reads it wrong; the route may take it with a solo fallback (docs/forge/routes.md, Group quests).",
 		"pairs": [
 			{
+				"a": ["turnin", 3941],
+				"b": ["turnin", 974],
+				"faction": "Horde",
+				"why": "On the second crater trip Ringo's escort ends at Marshal's Refuge. Visit Collie there before returning to Krakle, not after Torwa's hunts."
+			},
+			{
+				"a": ["turnin", 213],
+				"b": ["accept", 209],
+				"faction": "Horde",
+				"why": "#3145: Kebok takes the crystals and offers the tusks upstairs. Take the tusks there if he already has the ears, before heading down to the docks."
+			},
+			{
+				"a": ["task", 604],
+				"b": ["accept", 2864],
+				"faction": "Horde",
+				"why": "#3145: On the way south from the naga coast, finish the beach work before entering Booty Bay for Krazek and the wind rider if the character is already 42."
+			},
+			{
 				"a": [
 					"task",
 					5231
@@ -6440,7 +6458,7 @@
 			}
 		],
 		"notes": [
-			"Horde Riverglades (#3145): show entrails with the crawlers without making players farm fifteen there. Take ready Argo hand-ins at Powderfuse Port before the level-45 pirates. Track missing entrails after this dock; finish them after the ridge mushrooms before returning to Argo. Leave the optional sea monster on the ordinary return to port. A lower-level character can quest elsewhere instead of farming the camp. Stranglethorn: hand ready Partial Mystical Notes to Dudd on a scheduled Booty Bay visit; never collect them for this stop.",
+			"Horde Riverglades (#3145): show entrails with the crawlers without making players farm fifteen there. Take ready Argo hand-ins at Powderfuse Port before the level-45 pirates. Track missing entrails after this dock; finish them after the ridge mushrooms before returning to Argo. Leave the optional sea monster on the ordinary return to port. A lower-level character can quest elsewhere instead of farming the camp. Stranglethorn: hand ready Partial Mystical Notes to Dudd on a scheduled Booty Bay visit; never collect them for this stop. Pay earned pincer, meat and cargo rewards before an underlevel player pauses. If they skip the pause, an unfinished camp reward never blocks them at the docks: 95119 opens the raider jobs, 95123 opens the ships, and 95294 opens the Tanaris papers. Keep the mushroom ridge and the optional bait excursion on the later ship visit.",
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
@@ -8793,6 +8811,11 @@
 		],
 		"group": [
 			{
+				"q": 4021,
+				"size": 3,
+				"why": "Counterattack! ends with level 20 elite Warlord Krom'zar and two guards. His death creates the banner. Leave starting and fighting the event to a group. Regthar still pays anyone who already has the piece."
+			},
+			{
 				"q": 95427,
 				"size": 2,
 				"why": "Horde Riverglades (route round 0.4.3, Fitz's call, #3145): Twilight No More! asks for both heads of Chogg'Zac, a level-41 elite ogre at the western edge of Sunnyglade, at the quest's own level, so the creature data reads it soloable (size 1); an elite is a group mob, so it is a group choice (a group of 2) and the solo player skips it with the ogre story that waits on it (Spread the Word, Land of Giants, Bolder'ok and the Bloodmaster's Ring, Da'grosh's camp: about 21,000 XP). Players' recordings: 73 of 76 people who met him killed him, many alone at 42-43; the choice is theirs. The solo player leaves the zone by the Rog'mar flight to Kargath."
@@ -9458,8 +9481,8 @@
 			},
 			{
 				"q": 4021,
-				"reason": "Flow coverage, 2026-11-07: Counterattack! (level 20, from 11) is offered by Regthar Deathgate, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
-				"issue": "-",
+				"reason": "At Regthar's post in the Barrens, groups can defend the bunkers after handing in Hezrul Bloodmark. Krom'zar is elite; the grunts helping at the post are not a player group. Keep the banner hand-in for anyone who brings it.",
+				"issue": "#3145",
 				"after": [
 					"turnin",
 					852

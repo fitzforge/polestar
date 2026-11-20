@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}在村莊西南方的山坡上徘徊，就在前往{npc:252095}的路上。\n熊人巢穴在村莊西邊。牠們的族母{npc:251115}坐在巢穴最深處。",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "地下",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "在往東南去{area:16638}的路上，{npc:273017}監視著就在他北邊不遠的{quest:98512}。",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}，向{npc:3005}購買",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}，向{npc:3027}購買",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -519,6 +522,7 @@ return {
 	-- ["Kuramaa"] = "庫拉瑪",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "搭升降梯離開{zone:1456}，沿道路向南經過{area:222}，穿過東邊的山口進入{zone:1413}；從山口沿{area:458}向北前往{area:380}，即{zone:1413}中央的部落城鎮。",
 	-- ["Leaving {area:16635}"] = "離開{area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "在往東南去{area:16638}的路上，{npc:273017}監視著就在他北邊不遠的{quest:98512}。",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "向北的路上，回到瀑布旁找{npc:255853}。",
 	-- ["Prideclaws and Galestriders"] = "群爪與逐風者",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "群爪和逐風者共同分布在村莊南邊的草地上。把{item:5469}留給{npc:251905}；蛋稍後從角鷹獸身上取得。",
@@ -558,6 +562,7 @@ return {
 	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "學會{skill:393}後，{npc:263664}也會提供對應的露營入門任務：由申德村的{npc:257024}負責接取。",
 	-- ["talk to {npc:251905}"] = "與{npc:251905}交談",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}就在降落處旁：搭升降梯上去，向雙足飛龍管理員{npc:2995}學習飛行路線。",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}在村莊西南方的山坡上徘徊，就在前往{npc:252095}的路上。\n熊人巢穴在村莊西邊。牠們的族母{npc:251115}坐在巢穴最深處。",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}站在村莊裡。",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}，在村莊中央",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}站在{area:16638}的東側。",

@@ -13,8 +13,8 @@ return {
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
 	-- Step 2: Thunder Bluff
-	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	-- {area:2408} Shadowprey Village · {area:976} Gadgetzan · {area:439} Shimmering Flats · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} (or from {area:976}, after the {area:439}' south) to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -116,16 +116,15 @@ return {
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729}(37)은(는) forever/horde/40-50/01-stranglethorn-vale 가이드의 다음 네싱워리 방문(약 40레벨) 때 처리합니다",
 
 	-- Step 18: Thoroughly Scavenged Supplies
-	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
-	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "네싱워리 야영지에서 서쪽으로 가는 길가에 {object:661516} 더미가 있습니다. {quest:97328}을(를) 시작하며, 도난당한 화물은 앞쪽 해안의 {area:102}에 있습니다.",
+	-- {npc:268992} Zimmix Sputterspark
+	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "",
-	-- {npc:729} Sin'Dall
+	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
+	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -138,6 +137,10 @@ return {
 	["{item:277957}, from the Bloodscalp Scouts, Hunters and Mystics"] = "{item:277957}, 붉은머리부족 정찰병, 사냥꾼, 신비술사에게서 획득",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 호위하며 살려 두세요. 안전해지면 로즈길이 소식을 받습니다.",
+
+	-- Step 21: Nesingwary's camp
+	-- {npc:729} Sin'Dall
+	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
 	-- Step 22: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -230,6 +233,7 @@ return {
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 나중에 {npc:716}이(가) 요구합니다.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "길을 따라 골짜기 남쪽 끝의 {area:35}(으)로 가서 절벽의 터널로 들어가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 훨씬 높습니다. 호드 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",
 	-- ["Green Hills pages"] = "푸른 언덕의 쪽",
+	-- ["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "네싱워리 야영지에서 서쪽으로 가는 길가에 {object:661516} 더미가 있습니다. {quest:97328}을(를) 시작하며, 도난당한 화물은 앞쪽 해안의 {area:102}에 있습니다.",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}의 쪽은 붉은머리부족과 백골가루부족 트롤에게서 각각 약 1% 확률로 떨어집니다. 얻은 쪽은 모두 보관하고 나머지는 경매장에서 찾아보세요. {npc:716}은(는) 이 가이드 후반에 장을 받습니다.",
 	-- ["Shadowmaw panthers"] = "그림자퓨마",
 	-- ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "가시덤불 호랑이(32)는 야영지 주변과 남쪽 언덕을, 표범(32)은 서쪽과 남서쪽 빈터를 돌아다닙니다. 연마된 수정을 지닌 투자개발회사 지질학자(34-36)는 야영지 남동쪽 {area:37} 근처 야영지에서 일합니다. 주의: 투자개발회사 건물 근처 서쪽 야영지에는 투자개발회사 요원(39)이 지질학자 사이에 서 있으니, 그들을 피해 동쪽 야영지에서 사냥하세요.",
@@ -238,6 +242,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
 	-- ["The camp by the river"] = "강가의 야영지",
 	-- ["Venture Co. camp"] = "투자개발회사 야영지",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 	-- ["from {npc:4723}"] = "{npc:4723}에게서",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, {object:20691} 안",

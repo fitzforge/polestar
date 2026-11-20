@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Au nord de {area:228}. {npc:1983} hante le {area:240} : tuez-le, puis traversez le champ. Attention : {npc:1983} (14) apparaît une fois que vous avez tué des gnolls Poil-Putride dans le champ : affrontez-la avec toute votre vie.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -326,6 +326,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Les Worgs chamarrés rôdent sur les collines autour de la maison. Marchez ensuite vers le sud le long de la rive du lac : les Déchiqueteurs et les Chasse-marée Aileron noir y lâchent les yeux de murloc.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Retournez au nord jusqu'à la maison des Yorick. {quest:425} rôde à courte distance à l'ouest.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Au nord de {area:228}. Cinglenuit hante {area:240} : tuez-le, puis traversez le champ.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Au nord de {area:228}. {npc:1983} hante le {area:240} : tuez-le, puis traversez le champ. Attention : {npc:1983} (14) apparaît une fois que vous avez tué des gnolls Poil-Putride dans le champ : affrontez-la avec toute votre vie.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Au nord-est des réfugiés, les Manouvriers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, au sud-est de la forêt.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Seulement si {npc:1938} vous a donné {quest:98298} : les Hurle-sang rôdent dans les bois au sud-ouest de {area:233}, à l'est de Bois-du-Bûcher ; ils lâchent {item:280375}.",
 	-- ["Paladin trainer"] = "Maître des paladins",

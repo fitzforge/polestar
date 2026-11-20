@@ -86,8 +86,9 @@ return {
 	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "從{area:2360}往東北前往路邊的戰歌伐木營地：{npc:12867}站在那裡。",
 
 	-- Step 18: Ashenvale Outrunners
-	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。",
+	-- {quest:6503} Ashenvale Outrunners · {npc:12676} Sharptalon
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。"
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: {npc:12676} (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 19: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
@@ -152,20 +153,20 @@ return {
 	-- Step 40: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飛往{area:1638}",
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "從左拉姆加飛往{area:1638}。如果你不知道它的飛行路線，改飛往{area:378}，然後向北步行穿過{zone:1412}。",
+	-- {area:1638} Thunder Bluff
+	["Check the flight map at Zoram'gar for {area:1638}."] = "",
 	-- {area:2897} Zoram'gar Outpost
 	["{area:2897} flight master"] = "{area:2897}飛行管理員",
 
 	-- Step 41: Skywatcher Plateau
-	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "大地之環的營地和它的三個任務在{zone:1456}以北的{area:17045}上。知道{zone:1456}的飛行點就先飛過去，再坐升降機下去；否則飛到{area:378}，向北穿過{zone:1412}步行；箭頭隨後帶你繞到高原北端並爬上去。",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
+	["From {zone:1456}, take the north lift down. Without that flight path, use {area:378} if its flight is offered and approach through {zone:1412}. Follow the north side of the plateau and look for the way up to the Earthen Ring camp; the second arrow marks the camp on top, not the foot of the bluff."] = "",
 	["North of Thunder Bluff"] = "雷霆崖以北",
 
 	-- Step 43: The Earthen Ring
 	["The Earthen Ring"] = "陶土議會",
-	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "大地之環營地在峭壁以北：{npc:264074}、{npc:264072}和{npc:259118}。從{zone:1456}乘升降梯下去；若從{area:378}步行過來，就一直向北穿過峭壁。",
+	-- {npc:264072} Yorn Grimtotem · {npc:264074} Mazu'kon · {npc:259118} Muln Earthfury · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
+	["{npc:264072}, {npc:264074} and {npc:259118} stand on {area:17045}. Without {zone:1456}'s flight path, take a flight to {area:378} only if offered, or approach through {zone:1412} on foot. Look for the way up on the north side."] = "",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96261} comes once this is handed in"] = "{npc:259118}：交還這個任務後會提供{quest:96261}",
 
@@ -192,21 +193,18 @@ return {
 	["{item:273658}, from {npc:264082}: it does not drop for everyone"] = "{item:273658}，來自{npc:264082}：不是每個人都會掉落",
 
 	-- Step 48: The Earthen Ring
-	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "向南回到營地，然後上到{zone:1456}搭乘飛往{area:378}的飛行路線。",
+	-- {npc:259118} Muln Earthfury
+	["Return to {npc:259118} at the Earthen Ring camp."] = "",
 
-	-- Step 49: Class trainer
-	["Class trainer"] = "職業訓練師",
-
-	-- Step 50: Apothecary Zamah
+	-- Step 49: Apothecary Zamah
 	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
 	["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "{npc:3419}站在{area:1640}下方洞穴的{area:2197}，在{npc:2995}西邊。",
 
-	-- Step 51: Thunder Bluff
+	-- Step 50: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456}'s central rise"] = "{zone:1456}的中央高台",
 
-	-- Step 52: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal
 	["Into {area:1638} by a lift: {npc:2995}, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet."] = "坐升降機進入{area:1638}：馭風者管理員{npc:2995}站在中央的高地上。還沒學會他的飛行點就先跟他飛一次。",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
@@ -214,15 +212,18 @@ return {
 	-- {npc:3057} Cairne Bloodhoof
 	["Talk to {npc:3057}"] = "與{npc:3057}交談",
 
-	-- Step 53: Zangen Stonehoof
+	-- Step 52: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:4721} stands a short walk east of {npc:2995}."] = "{npc:4721}站在{npc:2995}東邊不遠處。",
 	-- {npc:4721} Zangen Stonehoof · {npc:4722} Rau Cliffrunner · {area:484} Freewind Post
 	["{npc:4721}: {npc:4722} at {area:484}, later in this guide"] = "{npc:4721}：{area:484}的{npc:4722}，在本指南稍後",
 
-	-- Step 54: Tah Winterhoof
+	-- Step 53: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:3024} stands beside {npc:4721}, east of {npc:2995}."] = "{npc:3024}站在{npc:4721}旁邊，位於{npc:2995}東邊。",
+
+	-- Step 54: Class trainer
+	["Class trainer"] = "職業訓練師",
 
 	-- Step 55: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
@@ -257,8 +258,6 @@ return {
 	["{npc:10377}, by the wind rider master"] = "{npc:10377}，在雙足飛龍管理員旁",
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "{npc:10537}旁的通緝告示",
-	-- {npc:4877} Jandia
-	["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "{npc:4877}的兩個鷹身人任務在離開亂風崗時接受；牠們的巢穴留到下次來亂風崗時（約30級）再處理。",
 
 	-- Step 61: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -292,16 +291,16 @@ return {
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}，地下",
 	["the end of the planks"] = "",
-	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
-	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在崗哨西邊的鷹身人巢穴",
-	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
-	["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150}（{npc:4490}，31級）留到下次來亂風崗時（約30級）再做：先留著。",
 
-	-- Step 66: Freewind Post
+	-- Step 67: Dorn Plainstalker
+	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
+	["{quest:1150} starts a fight deep in the den. Take it if you plan to face {npc:4490} with a group."] = "",
+
+	-- Step 68: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁邊",
 
-	-- Step 68: Darkcloud Pinnacle
+	-- Step 74: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在亂風崗西邊，恐怖圖騰在{area:2097}下方紮營。密信放在東南、西南和西北營地的{object:176344}裡。",
@@ -312,7 +311,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}，西北營地",
 
-	-- Step 69: Level 28
+	-- Step 75: Level 28
 	["Level 28"] = "28級",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "還不到28級？這些營地周圍的恐怖圖騰（25-28級）等級剛好：在爬上去找{npc:10646}之前多殺一些。超過後，此步驟會自動跳過。或者，有小隊的話改打{area:2797}地城。",
@@ -321,42 +320,53 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "刷{npc:10759}",
 
-	-- Step 70: Lakota Windsong
-	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}繞路提醒：箭頭可能找不到上{area:2097}的小路。如果你在峽谷底部，沿著小路和繩橋爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
+	-- Step 76: Lakota Windsong
+	-- {area:485} Great Lift · {npc:10896} Arnak Grimtotem · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong
+	["{area:485} detour warning: if you are already on the mesa, stay up and cross the rope bridge toward {npc:10896}; do not drop to the canyon or go to the {area:485}. From the canyon floor, follow the path up {area:2097} and take the rope bridges. Clear {npc:10896} (29) and the guards beside {npc:10646} before freeing her. Protect her from the Grimtotem ambushers on the way down."] = "",
 
-	-- Step 71: Highperch
+	-- Step 77: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。風巢飛龍族王（30-31級）和稀有的心刃（32級）也在這裡築巢：繞開牠們拉怪。",
 
-	-- Step 72: Whitereach Post
+	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一個任務「聖火」在{zone:1456}完成，不在這條路線上。跳過。",
 
-	-- Step 73: Kanati Greycloud
+	-- Step 79: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "只有在{npc:10617}掉落他的陰謀給你時才做：{npc:10638}站在{area:2237}。",
 
-	-- Step 75: Hypercapacitor Gizmo
+	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
 
-	-- Step 76: Whitereach Post
+	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "擊殺前來對付{npc:10638}的{npc:10720}",
 
-	-- Step 79: Freewind Post
+	-- Step 85: Screeching harpies
+	["Screeching harpies"] = "",
+	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Pull the harpies along the cliff below {area:487}. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of {npc:4877}'s supplies you still need along the way. Leave the {object:20447} alone: they call {npc:4490}."] = "",
+
+	-- Step 86: Stolen Freewind Supplies
+	-- {quest:98069} Stolen Freewind Supplies · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4877} Jandia
+	["Look for {quest:98069} at the foot of the cliff. The {object:20447} inside the cave are not {npc:4877}'s supplies."] = "",
+
+	-- Step 87: Harpy Foodstuffs
+	-- {area:487} Roguefeather Den · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Clear the back of {area:487} with your group. Break the {object:20447} and stay together for the ambush. Kill {npc:4490} (31) when she comes, then loot her claw before the harpies return."] = "",
+	-- {item:5843} Grenka's Claw · {object:20447} Harpy Foodstuffs (no name in this language: may be words)
+	["{item:5843}, at the {object:20447}"] = "",
+
+	-- Step 88: Freewind Post
 	-- {area:2237} Whitereach Post · {area:484} Freewind Post
 	["Back east past {area:2237} to {area:484}."] = "向東經過{area:2237}回到{area:484}。",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}，在裡面",
-	-- {npc:4877} Jandia
-	["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店裡",
-	-- {npc:4877} Jandia · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance · {area:487} Roguefeather Den · {area:2240} Mirage Raceway
-	["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 
-	-- Step 80: Level 29
+	-- Step 94: Level 29
 	["Level 29"] = "29級",
 	-- {area:484} Freewind Post · {area:2797} Blackfathom Deeps
 	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
@@ -367,12 +377,14 @@ return {
 	["grind on {npc:4249}"] = "擊殺{npc:4249}練等",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "向南回到營地，然後上到{zone:1456}搭乘飛往{area:378}的飛行路線。",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "在永久往東之前，先從廢墟回到左拉姆加。",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿著小路爬到{area:2097}頂端。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "從希瑞斯的營地沿道路向東，到十字路口的雙足飛龍管理員那裡，飛往{area:2897}。先留著爐石：本指南稍後在{area:431}綁定更省時間。",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "在左拉姆加東邊，薊皮熊怪佔據村莊和他們巢穴周圍的山丘。",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "從{area:392}飛往{zone:1440}海岸的{area:2897}。",
 	-- ["Fly from {zone:1456} to {area:378} and take the road south to the {area:1718} at the bottom of the {zone:1413}."] = "從{zone:1456}飛往{area:378}，沿著道路向南前往{zone:1413}底端的{area:1718}。",
+	-- ["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "從左拉姆加飛往{area:1638}。如果你不知道它的飛行路線，改飛往{area:378}，然後向北步行穿過{zone:1412}。",
 	-- ["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, ride west into {zone:1412} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "如果你知道飛行路線，就飛往{area:1638}。如果不知道，飛往{area:378}，向西騎進{zone:1412}經過{area:222}前往{area:1638}，並在中央高地向{npc:2995}取得飛行路線。",
 	-- ["Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "沿著峽谷向東離開台地，進入鹽灘。{area:2240}的哥布林和地精是中立的，會給雙方陣營任務。",
 	-- ["Follow the canyon west to {area:2237}."] = "沿著峽谷向西前往{area:2237}。",
@@ -381,6 +393,7 @@ return {
 	-- ["His crate is for Stranglethorn, later on the route"] = "他的箱子要送到荊棘谷，在路線稍後",
 	-- ["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "如果跳過了{quest:5151}，而且還沒到29.49級，先在這裡擊殺鷹身人：反正下一站就是{area:487}。外圍的尖嘯的鷹身人（28-29級）與你等級相當；裡面的尖嘯的遊蕩者和尖嘯的喚風者（29-30級）打得更痛。超過這個進度，本步驟會自動跳過。或者，組隊去打{area:2797}地城。",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "巢穴裡的隧道沿途散落著食人妖的箱子。{npc:12818}被關在深處：救出他並一路保護他出去，之後他會跑回{area:428}。",
+	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 	-- ["Naga brazier"] = "納迦火盆",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "沿著道路向北前往{area:431}和旁邊的{area:428}。",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "在往東北回碎木崗哨的路上：{npc:12676}在戰歌伐木營地東南方的樹林中徘徊。",
@@ -388,14 +401,18 @@ return {
 	-- ["Sharptalon"] = "沙普塔隆",
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "暗雲峰南邊是{area:487}的鷹身人。{npc:4490}（31級）在牠們之間走動：先清掉她周圍的鷹身人再拉她。那裡的尖嘯的鷹身人、尖嘯的遊蕩者和尖嘯的喚風者是{npc:4877}的任務目標；她要的{quest:98069}散落在懸崖腳下的地上，以及上面頂端的洞穴裡。",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "從{zone:1456}搭升降梯下去。陶土議會營地位於峭壁北邊：{npc:264074}、{npc:264072}和{npc:259118}。",
+	-- ["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "大地之環的營地和它的三個任務在{zone:1456}以北的{area:17045}上。知道{zone:1456}的飛行點就先飛過去，再坐升降機下去；否則飛到{area:378}，向北穿過{zone:1412}步行；箭頭隨後帶你繞到高原北端並爬上去。",
+	-- ["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "大地之環營地在峭壁以北：{npc:264074}、{npc:264072}和{npc:259118}。從{zone:1456}乘升降梯下去；若從{area:378}步行過來，就一直向北穿過峭壁。",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克營地遍布亂風崗北邊的峽谷；每個營地都有加拉克斥候、加拉克爭鬥者和加拉克逐風者。有一個落單的{npc:10617}在營地之間走動：遇到就殺了他，他的信會開始一個交給{area:2237}的任務。",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "下一份指南會從這裡飛往十字路口和{zone:1454}。",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。",
 	-- ["The salt flats"] = "鹽灘",
 	-- ["The {area:1718}"] = "{area:1718}",
 	-- ["Thistlefur Hold"] = "薊皮熊怪的巢穴",
 	-- ["Tideress"] = "泰德雷斯",
 	-- ["Ursangous"] = "烏薩苟斯",
 	-- ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。",
+	-- ["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}繞路提醒：箭頭可能找不到上{area:2097}的小路。如果你在峽谷底部，沿著小路和繩橋爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}，在升降梯頂端",
 	-- ["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest."] = "{npc:12676}是一隻大型夜刃豹，在戰歌伐木營地東南方的樹林中徘徊。她的爪子會開始下一個狩獵任務。",
 	-- ["{npc:12696}, once all three hunts are in"] = "{npc:12696}，三個狩獵任務都交完後",
@@ -405,8 +422,12 @@ return {
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}站在伐木營地。夜精靈的梣谷先驅者在營地東南方的樹林中潛行；他們會潛行，要留意。",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}是 Forever 新增的角色，站在{area:421}西岸，有三個快速的屠龍者任務。",
 	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克營地東邊的台地頂上。為了{quest:1149}，從他旁邊的木板盡頭走下去：你會安全落地。",
+	-- ["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在崗哨西邊的鷹身人巢穴",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}：他的信要交給{zone:1418}的馬特克，約38級時",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}是一隻攻擊力很強的石元素，在{area:482}的懸崖上走動，往西回去經過{area:2237}。{npc:4499}是精英：建議組隊。",
+	-- ["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "{npc:4877}的兩個鷹身人任務在離開亂風崗時接受；牠們的巢穴留到下次來亂風崗時（約30級）再處理。",
+	-- ["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店裡",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}，商業用品商人：{area:487}的尖嘯的鷹身人；在旅店裡",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868}散落在賽道北邊的鹽灘各處。恐蠍劫掠者和鹽殼龜在北半部遊蕩，鹽湖食腐鷲在上空盤旋，鹽石蜥蜴在賽道西邊覓食。鹽石水晶蜥蜴在鹽灘中央遊蕩，鹽石凝視者（34-35級，比你高五級：一次拉一隻）在最南邊。",
+	-- ["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150}（{npc:4490}，31級）留到下次來亂風崗時（約30級）再做：先留著。",
 }

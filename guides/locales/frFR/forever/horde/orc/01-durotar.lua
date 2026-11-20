@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "Niveau 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Montez ici jusqu'au niveau 10 : {quest:840}, à {area:362}, demande le niveau 10.\nLes figues de Barbarie pour {quest:96825} poussent près de ces huttes : cueillez-les en tuant des monstres.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "tuez en boucle : {npc:3111}",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "Niveau 11",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Montez ici jusqu'au niveau 11 avant {npc:3203} (12) et son diablotin : les Lézards-tonnerre (9-10) paissent sur la crête juste à l'ouest de la hutte de Misha.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "tuez des {npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -435,6 +435,8 @@ return {
 	-- ["Thunder lizards across the river"] = "Lézards-tonnerre de l'autre côté du fleuve",
 	-- ["To {area:1637}"] = "Vers {area:1637}",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "Montez ici jusqu'au niveau 10 : {quest:840}, à {area:362}, demande le niveau 10.",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Montez ici jusqu'au niveau 10 : {quest:840}, à {area:362}, demande le niveau 10.\nLes figues de Barbarie pour {quest:96825} poussent près de ces huttes : cueillez-les en tuant des monstres.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Montez ici jusqu'au niveau 11 avant {npc:3203} (12) et son diablotin : les Lézards-tonnerre (9-10) paissent sur la crête juste à l'ouest de la hutte de Misha.",
 	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.\nWade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach."] = "Traversez à gué jusqu'à l'île de l'Écho la plus au nord. La Matriarche rôde parmi les raptors.\nRevenez à gué vers l'ouest jusqu'au rivage au sud de Sen'jin. Des Tigres de Durotar y rôdent et les œufs de Fouette-queue reposent dans des nids le long de la plage.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Si vous avez appris {skill:129}, {npc:265809} propose aussi sa quête Camping 101 : c'est {npc:5943}, à {area:362}, qui la reçoit.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Si vous avez appris {skill:165}, {npc:265809} propose aussi sa quête Camping 101 : c'est {npc:3365}, à {zone:1454} (guide suivant), qui la reçoit.",
@@ -445,6 +447,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Si vous avez appris {skill:202}, {npc:265809} propose aussi sa quête Camping 101 : c'est {npc:11025}, à {area:362}, qui la reçoit.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Si vous avez appris {skill:333}, {npc:265809} propose aussi sa quête Camping 101 : c'est {npc:11066}, à {zone:1454} (guide suivant), qui la reçoit.",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Si vous avez appris {skill:393}, {npc:265809} propose aussi sa quête Camping 101 : c'est {npc:7088}, à {zone:1454} (guide suivant), qui la reçoit.",
+	-- ["grind on {npc:3130}"] = "tuez des {npc:3130}",
 	-- ["{item:4862} on the way"] = "{item:4862} en chemin",
 	-- ["{item:4890} on the way"] = "{item:4890} en chemin",
 	-- ["{item:4892} along the way to {area:367}"] = "{item:4892} sur le chemin de {area:367}",

@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "O {npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: a {npc:246143} fugiu para as colinas a oeste da igreja, no caminho para {area:155}.",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "Ofereça ajuda ao {npc:246143}",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -596,5 +598,6 @@ return {
 	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009} fica no acampamento de {npc:1495}.",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, o mestre de mantícoras",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}: o {npc:246143} fugiu para as colinas logo a oeste da igreja.",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: a {npc:246143} fugiu para as colinas a oeste da igreja, no caminho para {area:155}.",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897} ocupa a fazenda logo a sudeste do acampamento. Os Fragmentos de Cristal Necrótico ficam no chão entre os sectários, e os sectários também levam alguns.",
 }

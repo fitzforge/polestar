@@ -122,7 +122,14 @@ return {
 	["Hillsbrad Peasants"] = "힐스브래드 소작농",
 	["Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping."] = "다시 밭으로 가세요. 소작농은 농가 남쪽에서 일합니다. 주의: 도망치는 소작농이 마을 회관에 닿으면 적을 더 데려올 수 있습니다. 감속이나 이동 불가 효과로 도망가지 못하게 하세요.",
 
-	-- Step 26: Durnholde Keep
+	-- Step 24: Hillsbrad Human Skulls
+	-- plural, as words: Hillsbrad Human Skulls = {item:3692} Hillsbrad Human Skull
+	["Hillsbrad Human Skulls"] = "",
+	-- {quest:546} Souvenirs of Death
+	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
+	["Still carrying {quest:546}? Gather the skulls from Hillsbrad Peasants in the southern fields. Stay away from the town hall and the guards on the road."] = "",
+
+	-- Step 28: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
 	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
@@ -133,11 +140,11 @@ return {
 	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
 	["Drull's ball and chain"] = "드럴의 족쇄",
 
-	-- Step 27: Krusk
+	-- Step 29: Krusk
 	-- {area:272} Tarren Mill
 	["Back to {area:272}."] = "{area:272}(으)로 돌아가세요.",
 
-	-- Step 28: The river south of Tarren Mill: kill these as you meet them
+	-- Step 30: The river south of Tarren Mill: kill these as you meet them
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272} 남쪽 강: 마주치는 대로 처치하세요",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
@@ -145,16 +152,16 @@ return {
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "무쇠턱거북에게서 얻는 {item:3712}",
 
-	-- Step 29: Mudsnout Blossoms
+	-- Step 31: Mudsnout Blossoms
 	-- {area:290} Dun Garok
 	["South of the river's bend, the Mudsnout gnolls (26-28) camp in the hills above {area:290}; the blossoms grow among their tents. The Shamans heal and call their friends: pull them first."] = "강이 굽어지는 곳 남쪽, {area:290} 위 언덕에 진흙주둥이 놀(26-28)이 야영하고 있으며, 꽃은 그들의 천막 사이에서 자랍니다. 주술사는 치유하고 동료를 부르니 먼저 끌어내세요.",
 
-	-- Step 30: North of Southshore
+	-- Step 32: North of Southshore
 	["North of Southshore"] = "사우스쇼어 북쪽",
 	-- {area:287} Hillsbrad · {area:271} Southshore
 	["From the blossoms, back north along the river and then west to {area:287} town, well north of {area:271} (its guards are 55)."] = "꽃이 있는 곳에서 강을 따라 다시 북쪽으로 간 뒤, 서쪽의 {area:287} 마을로 가세요. {area:271}에서 한참 북쪽에 있습니다(경비병은 55레벨).",
 
-	-- Step 31: The smithy
+	-- Step 33: The smithy
 	["The smithy"] = "대장간",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 대장간 근처를 걸어 다니고, {npc:2451}은(는) 마을 남동쪽 밭에서 일합니다."
@@ -163,47 +170,47 @@ return {
 	-- {npc:2449} Citizen Wilkes
 	["{npc:2449}, on the west side of the town"] = "",
 
-	-- Step 32: Tarren Mill
+	-- Step 34: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["for {npc:2055}, on the {zone:1458} stop at the end of this guide"] = "이 가이드 마지막의 {zone:1458} 방문 때 {npc:2055}에게 제출합니다",
 	-- {npc:2429} Novice Thaivand · {item:3708} Helcular's Rod
 	["{npc:2429}, in the town: {item:3708}, from the yetis on the way to the town hall"] = "마을의 {npc:2429}: {item:3708}, 마을 회관으로 가는 길의 설인에게서 얻습니다",
 
-	-- Step 33: Helcular's Rod
+	-- Step 35: Helcular's Rod
 	-- {area:277} Foothill Caverns
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
 	["West of Tarren Mill, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but they hit hard and come in pairs."] = "타렌 밀농장 서쪽, 언덕의 {area:277}에는 동굴 설인과 사나운 설인(30-32)이 가득합니다. 열여섯 마리 중 한 마리꼴로 마법봉을 지니고 있습니다. 이 동굴에만 머무르세요. 더 북쪽 동굴의 산악 설인과 거대한 설인(32-34)도 마법봉을 지니지만, 세게 때리고 짝을 지어 다닙니다.",
 
-	-- Step 34: Town hall
+	-- Step 36: Town hall
 	["Town hall"] = "마을 회관",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "",
 
-	-- Step 35: Tarren Mill
+	-- Step 37: Tarren Mill
 	-- {area:271} Southshore
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
 	["Thaivand's next errand, the flames, sends you among the Mountain and Giant Yetis (32-34) and to Helcular's grave inside {area:271}: leave it."] = "사이반드의 다음 심부름인 불꽃 퀘스트는 산악 설인과 거대한 설인(32-34) 사이와 {area:271} 안의 헬쿨라 무덤으로 보냅니다. 받지 마세요.",
 
-	-- Step 36: Melisara
+	-- Step 38: Melisara
 	-- {npc:2278} Melisara · {area:272} Tarren Mill · {npc:2410} Magus Wordeen Voidglare
 	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "달라란 시 공략용(이 가이드 후반): {npc:2278}은(는) {area:272}에서 {npc:2410} 동쪽으로 조금 걸어가면 서 있습니다.",
 
-	-- Step 37: City of Dalaran
+	-- Step 39: City of Dalaran
 	["City of Dalaran"] = "달라란 시",
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
 	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "달라란 시는 보랏빛 돔 아래에 있는 약 28~33레벨 5인 파티용 던전입니다. {item:277507}이(가) 없다면 분화구 북서쪽의 하수관으로 들어가십시오. 화살표가 그곳으로 안내합니다.\n내부: {npc:247126}은(는) {npc:2278}의 퀘스트 대상입니다. 하수도의 {npc:268743}이(가) 'Opportunistic Education'을 주며, 그곳에서 다시 받습니다.",
 	-- {quest:96986} The Grave Knight · {npc:247126} Atrexis the Grave Knight
 	["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, 내부",
 
-	-- Step 39: Azurelode Mine
+	-- Step 41: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
 	["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:287} 마을을 지나 남서쪽의 {area:288}(으)로 가세요. 광부들이 갱도에서 일하고, {npc:2305}(30)와(과) {npc:2450}(29)은(는) 깊숙한 곳에 있습니다.",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "",
 
-	-- Step 40: Level 30
+	-- Step 42: Level 30
 	["Level 30"] = "",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
@@ -212,13 +219,13 @@ return {
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "{npc:2375} 사냥",
 
-	-- Step 41: Finish the Turtle Meat
+	-- Step 43: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "{item:3712} 마저 모으기",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
 	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "아직 {item:3712} 10개가 안 되나요? 광산에서 돌아오는 길, {area:272} 동쪽 강가에 무쇠턱거북이 줄지어 있습니다.",
 
-	-- Step 42: Tarren Mill
+	-- Step 44: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["North-east back to {area:272}, passing well north of {area:271} (its guards are 55)."] = "북동쪽 {area:272}(으)로 돌아가십시오. {area:271}의 경비병은 55레벨이니 그 북쪽으로 멀찍이 돌아서 가십시오.",
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
@@ -228,7 +235,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "'Infiltration'은 퀘스트 목록에 남겨 두세요. 신디케이트(32-35)는 지금 레벨보다 높으며, 38-39레벨 가이드(알터랙과 아라시)의 첫 {area:272} 순회에서 진행합니다.",
 
-	-- Step 43: Voidglare, Bel'varil and Tallow
+	-- Step 45: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow
 	["Voidglare, Bel'varil and {npc:2770}"] = "보이드글레어, 벨바릴, {npc:2770}",
 	-- {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow · {area:272} Tarren Mill
@@ -244,55 +251,55 @@ return {
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "이 퀘스트들은 퀘스트 목록에 남겨 두세요. 해당 진영은 지금 레벨보다 2~4레벨 높으며, 38-39 가이드의 첫 {area:272} 순회와 {area:321}에서 처리합니다.",
 
-	-- Step 44: Melisara
+	-- Step 46: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
 	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "달라란 시 공략에서 얻은 {quest:96986}: {npc:2410}에서 동쪽으로 조금 걸어가면 있는 {npc:2278}.",
 
-	-- Step 45: Battle of Hillsbrad with a group
+	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
 	["{quest:539} with a group"] = "",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "",
 
-	-- Step 46: Humbert's Sword with a group
+	-- Step 48: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
 	["{quest:547} with a group"] = "",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "",
 
-	-- Step 47: Dun Garok
+	-- Step 49: Dun Garok
 	-- {area:290} Dun Garok
 	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "",
 
-	-- Step 48: Tarren Mill
+	-- Step 50: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
 	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "",
 
-	-- Step 50: Fly to Undercity
+	-- Step 52: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 51: Master Apothecary Faranell
+	-- Step 53: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
 	["{npc:2055} stands in the Apothecarium, in the {object:36126}."] = "{npc:2055}은(는) {object:36126}의 연금술 실험실에 서 있습니다.",
 	-- {quest:513} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
 	["Faranell's next {quest:513} needs a {item:3388} ({skill:171}) and the {area:287} coast: leave it."] = "파라넬의 다음 퀘스트인 {quest:513}에는 {item:3388}({skill:171})과(와) {area:287} 해안이 필요합니다. 그냥 두세요.",
 
-	-- Step 52: Varimathras
+	-- Step 54: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
 	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "",
 	-- {npc:2425} Varimathras
 	["{npc:2425}: Darthalia's commendation"] = "",
 
-	-- Step 53: Calder Gray
+	-- Step 55: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
 	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038}은(는) 연금술 실험실에 서 있습니다. 그의 {quest:97985}은(는) Stormheart가 대상입니다. 30레벨 정예로, 다음 가이드에서 {area:439}(으)로 가는 길, {area:484} 동쪽 협곡을 걸어 다닙니다.",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}: 다음 {zone:1458} 방문 때(약 38레벨) 그에게 돌아갑니다",
 
-	-- Step 54: Undercity trainers
+	-- Step 56: Undercity trainers
 	-- {zone:1458} Undercity
 	["{zone:1458} trainers"] = "{zone:1458} 상급자",
 	-- {zone:1458} Undercity · {object:36070} War Quarter · {object:36073} Rogues' Quarter · {object:36082} Magic Quarter · {npc:260093} Garen Largo

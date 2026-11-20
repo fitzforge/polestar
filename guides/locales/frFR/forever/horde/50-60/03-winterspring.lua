@@ -26,7 +26,8 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246} : tuez-les au passage",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.\nAttention : les Protecteurs vont jusqu'au niveau 56 : attirez-les un par un et tenez-vous à l'écart des totems des camps.",
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.\nAttention : les Protecteurs vont jusqu'au niveau 56 : attirez-les un par un et tenez-vous à l'écart des totems des camps."
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.\nIf you are 54, take the level 55 Den Watchers and leave the 56s."] = "",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771} : environ un furbolg Tombe-hiver sur dix en porte une ; continuez à les tuer jusqu'à ce qu'elle tombe",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +42,8 @@ return {
 	["Raging Owlbeasts"] = "Chouettards enragés ({npc:7451})",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Les Chouettards enragés parcourent les collines au nord du {area:2251}, près de la route entre {area:2246} et {area:2255}. Attention : les plus gros sont de niveau 56 : attirez-les un par un.",
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Les Chouettards enragés parcourent les collines au nord du {area:2251}, près de la route entre {area:2246} et {area:2255}. Attention : les plus gros sont de niveau 56 : attirez-les un par un."
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time.\nAt 54, take owlbeasts no higher than 55."] = "",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -54,12 +56,14 @@ return {
 	["Ice Thistle yetis"] = "Yétis Chardon de glace",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure : tuez les Yétis Chardon de glace (55-56) et laissez les Matriarches et Patriarches (56-58), dont les cornes seront pour une visite ultérieure.",
+	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure : tuez les Yétis Chardon de glace (55-56) et laissez les Matriarches et Patriarches (56-58), dont les cornes seront pour une visite ultérieure."
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
 	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Chimères Frisevent",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Les chimères parcourent les champs de neige au sud et à l'ouest de {area:2255}. Évitez la grotte de {area:2245} : ses draconiens bleus sont élites.",
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
 	-- Step 11: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
@@ -94,6 +98,8 @@ return {
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} et {npc:14728} se tiennent sur {area:1641}. Chaque don de Rumstag prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez ce que vous avez, passez le reste.",
 
 	-- Step 19: Elder Rise
+	-- {area:1237} Valormok
+	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} sur la {area:1639} ; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
@@ -138,12 +144,16 @@ return {
 	-- ["Level 55.04"] = "Niveau 55.04",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Les Matriarches et Patriarches frappent fort : attirez-les un par un.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.\nAttention : les Protecteurs vont jusqu'au niveau 56 : attirez-les un par un et tenez-vous à l'écart des totems des camps.",
 	-- ["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
 	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Les Chouettards enragés parcourent les collines au nord du {area:2251}, près de la route entre {area:2246} et {area:2255}.",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Les Chouettards enragés parcourent les collines au nord du {area:2251}, près de la route entre {area:2246} et {area:2255}. Attention : les plus gros sont de niveau 56 : attirez-les un par un.",
 	-- ["Ride back west to {area:2246}."] = "Retournez vers l'ouest jusqu'aux {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Chevauchez vers l'est, puis descendez vers le sud la {area:2249}. Les Géants Cognegivre y sont des élites de niveau 59 : restez au milieu et ne vous arrêtez pas. L'étrange source se trouve à l'entrée de la {area:2256}, à l'extrémité sud.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Chevauchez vers l'ouest sur la route en passant le {area:2251} ; les Chouettards enragés ({npc:7451}) parcourent les collines au nord.",
+	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Les chimères parcourent les champs de neige au sud et à l'ouest de {area:2255}. Évitez la grotte de {area:2245} : ses draconiens bleus sont élites.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Le village furbolg occupe la vallée au nord-est de {area:2255}. Tuez d'abord les Chamans ; ils soignent. {npc:10738}, dans la grotte du fond, est un élite : n'y allez pas.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure : tuez les Yétis Chardon de glace (55-56) et laissez les Matriarches et Patriarches (56-58), dont les cornes seront pour une visite ultérieure.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure ; seuls les Matriarches et Patriarches lâchent des cornes, gardez donc celles-ci pour après la remise de quête.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56."] = "Montez ici jusqu'au niveau 55.04 avant de rendre les quêtes ({area:2255}) : elles vous font passer au niveau 56.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complétez ici jusqu'au niveau 55.04 avant de rendre les quêtes à {area:2255} : elles vous amènent au niveau 56. Les Yétis Chardon de glace (55-56) sont les plus faibles ici ; les Matriarches et les Patriarches (56-58) frappent plus fort. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1583} (inférieur).",

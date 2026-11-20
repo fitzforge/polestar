@@ -35,56 +35,85 @@ return {
 	-- plural, as words: Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "小型元素在{area:340}和{npc:2921}营地之间的平地上飘荡，就在向东返回的路上。这个地区的每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
 
-	-- Step 7: Badlands: kill these as you meet them
-	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
-	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。\n小心：巨型秃鹫为39-41级，你39级时41级的比你高两级：挑39和40级的打，一次引一只。之后为{npc:2817}的翅膀击杀的秃鹫（37级）也会掉落胃，但几率较低。",
-
-	-- Step 8: Rock Elementals
+	-- Step 7: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "{npc:92}",
-	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
-	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "向东南穿过盆地，较大的石元素（39级）在{area:345}西边的斜坡上，每只都会掉落一块石板。所有石元素都可能掉落{npc:6868}需要的石元素的碎片。小心：恶毒幻象（42级，精英）也会飘过这些斜坡。",
+	-- {npc:2921} Lotwil Veriatus · {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld · {npc:5394} Neeka Bloodscar
+	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Feral Crag Coyotes = {npc:2728} Feral Crag Coyote · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["South-east from {npc:2921}'s camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of {area:345}; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop {npc:5394}'s jawbones and {npc:6868}'s fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "",
 
-	-- Step 9: Agmond's End
+	-- Step 8: Agmond's End
 	-- {area:345} Agmond's End · {area:1517} Uldaman
 	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "塞尔杜林坐在{area:345}的矮人废墟中，就在石元素东边。他的石板就在{area:1517}洞口内侧不远处，旁边有38级精英：这是组队任务。",
 
+	-- Step 9: Level 39 for Indurium
+	-- {quest:1108} Indurium
+	["Level 39 for {quest:1108}"] = "",
+	-- {npc:5394} Neeka Bloodscar · {npc:6868} Jarkal Mossmeld
+	-- plural, as words: Feral Crag Coyotes = {npc:2728} Feral Crag Coyote
+	["Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close."] = "",
+	-- plural, as words: Feral Crag Coyotes = {npc:2728} Feral Crag Coyote
+	["Feral Crag Coyotes"] = "",
+
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "石窟穴居人",
-	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "从{area:345}向北走，在{area:1877}南边的洞口周围有石窟穴居人挖掘；石窟断骨者和石窟萨满祭司会掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
+	-- plural, as words: Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Stonevault Shamans = {npc:2894} Stonevault Shaman
+	["Hunt Stonevault Bonesnappers (39-40) at the south-western edge of the camp for the flakes. Leave Murdaloc (42) and the Stonevault Shamans (40-41) alone. Watch for Anathemus (45, rare elite) on patrol."] = "",
 
-	-- Step 11: Valley of Fangs
+	-- Step 11: Buzzards by the Stonevault hills
+	-- plural, as words: Buzzards = {npc:2830} Buzzard
+	["Buzzards by the Stonevault hills"] = "",
+	-- {npc:2817} Rigglefuzz
+	-- plural, as words: Buzzards = {npc:2830} Buzzard
+	["Gather {npc:2817}'s wings from the Buzzards on these hills. Leave the giants to the west alone."] = "",
+
+	-- Step 12: Feral Crag Coyotes
+	-- plural, as words: Buzzards = {npc:2830} Buzzard · Feral Crag Coyotes = {npc:2728} Feral Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
+	["On the hills beside the Buzzards, Feral Crag Coyotes (37-38) drop both jawbones and fangs. Stay away from Zaricotl and Anathemus on patrol, and leave the Giant Buzzards to the west alone."] = "",
+
+	-- Step 13: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
 	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "向北通往{area:1517}的道路穿过{area:1877}：途中把翅膀和薄片交给{npc:2817}和{npc:4618}。",
 	-- {area:2240} Mirage Raceway · {area:484} Freewind Post · {zone:1446} Tanaris
 	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "交给{area:2240}的菲兹尔·铜栓，约43级从{area:484}前往{zone:1446}时会路过",
 
-	-- Step 12: Ancient Chest
+	-- Step 14: Ancient Chest
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Keep north on the road to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "继续沿道路向北前往{zone:1418}北部的{area:1517}入口：箱子就在洞口内侧不远处。{npc:2932}和黑曜石石像（38级）站在旁边，暗影熔炉挖掘者（35-36级）在隧道里干活，全是精英：让队伍待在一起。",
 	["Below ground"] = "在地下",
 
-	-- Step 13: Agmond's End
+	-- Step 15: Starving Buzzards
+	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard
+	["Starving Buzzards"] = "",
+	-- {npc:2817} Rigglefuzz · {area:346} Hammertoe's Digsite
+	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard · Buzzards = {npc:2830} Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["Still short of gizzards after gathering {npc:2817}'s wings? Hunt the Starving Buzzards (35-37) north of {area:346}. They drop gizzards more often than the Buzzards at the Stonevault hills. Stay away from the roaming Malevolent Mirages (42, elite)."] = "",
+
+	-- Step 16: Agmond's End
 	-- {area:1877} Valley of Fangs
 	["Head back south down the road, past the {area:1877}."] = "沿道路向南返回，经过 {area:1877}。",
 
-	-- Step 14: The Dustbowl
+	-- Step 17: Badlands: kill these as you meet them
+	-- {zone:1418} Badlands
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
+	-- {area:1877} Valley of Fangs · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl · {zone:1418} Badlands · {area:340} Kargath · {npc:2817} Rigglefuzz
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage · Ridge Stalker Patriarchs = {npc:2734} Ridge Stalker Patriarch · Buzzards = {npc:2830} Buzzard
+	["West from the {area:1877} towards {npc:2921}'s camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards {area:340}: leave them. The Buzzards (37) you killed for {npc:2817}'s wings drop gizzards too, more rarely."] = "",
+
+	-- Step 18: The Dustbowl
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
-	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "向西北穿过盆地前往{npc:2921}的营地。还缺加卡尔要的碎片？营地西面的平地上有次级石元素（37级），大约每击杀五只就能掉落一份。",
+	-- was: ["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "向西北穿过盆地前往{npc:2921}的营地。还缺加卡尔要的碎片？营地西面的平地上有次级石元素（37级），大约每击杀五只就能掉落一份。"
+	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five."] = "",
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "{npc:2921}接下来的研究需要西南沟壑中的巨型石元素（42-44级）掉落的护腕，等级远高于当前：先别接。",
 
-	-- Step 15: Kargath
-	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向西返回{area:340}。{npc:5394}在{area:340}的上层，远高于飞行管理员所在位置；沿坡道上去，箭头无法区分高度。",
+	-- Step 19: Kargath
+	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar · {zone:2548} Riverglades · {zone:1418} Badlands · {area:16685} Twilight's Shroud · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows · {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {area:16743} Rog'mar
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart. The {zone:2548}, Forever's new zone, lie south of the {zone:1418} through the pass of {area:16685}; the route goes there at about 41, after {zone:1434} and the {zone:1435}. Careful if you go now: the Twilight camps of {npc:258570}'s valley, right below the pass, are 43-46, with Twilight Enforcers (45, elite) on patrol and {npc:256881} and {npc:256891} (46, elite) in the fortress. Going anyway? Load the {zone:2548} guide: it starts at {area:16743}, east along the valley, away from those camps."] = "",
 	-- {area:340} Kargath · {object:3202} Grom'gol
 	["The next guide flies from {area:340} to {object:3202}."] = "下一份指南会从{area:340}飞往{object:3202}。",
 
@@ -92,9 +121,14 @@ return {
 	-- ["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "{zone:1418} 的所有石元素都会掉落 {npc:6868} 所需的碎片：{npc:2921} 营地西侧平地上的次级石元素（37 级）较为安全，掉落概率约为五分之一。只有西南部峡谷中的巨型石元素（42-44 级，远高于你当前等级）会掉落 {npc:2921} 所需的护腕，概率也约为五分之一：逐个拉怪，每次战斗后休息，或暂时不打。沿途继续击杀你还需要的土狼和秃鹫。",
 	-- ["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and go south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "前往阿拉希南缘的大桥 {object:2673}，过桥后向南穿过 {zone:1437}（避开 {area:150}），再向东进入 {zone:1432}；道路从 {zone:1432} 南侧通往 {zone:1418}。沿路向南到 {area:1877} 的地精营地。",
 	-- ["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向北返回{area:340}。{npc:5394}站在{area:340}的上层，远高于飞行管理员：沿坡道上去，箭头无法区分上下层。",
+	-- ["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向西返回{area:340}。{npc:5394}在{area:340}的上层，远高于飞行管理员所在位置；沿坡道上去，箭头无法区分高度。",
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "继续沿道路向北；箱子在{area:1517}挖掘场，位于道路西北方的废墟脚下。",
+	-- ["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "向西北穿过盆地前往{npc:2921}的营地。还缺加卡尔要的碎片？营地西面的平地上有次级石元素（37级），大约每击杀五只就能掉落一份。",
+	-- ["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "向东南穿过盆地，较大的石元素（39级）在{area:345}西边的斜坡上，每只都会掉落一块石板。所有石元素都可能掉落{npc:6868}需要的石元素的碎片。小心：恶毒幻象（42级，精英）也会飘过这些斜坡。",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "峭壁老山狗和巨型秃鹫在{area:1878}南边的盆地中游荡。山狗掉落颚骨和尖牙；巨型秃鹫掉落胃。\n更大的石元素站在{area:1878}西北方的山坡上；每个都掉落一块石板。每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。",
+	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。\n小心：巨型秃鹫为39-41级，你39级时41级的比你高两级：挑39和40级的打，一次引一只。之后为{npc:2817}的翅膀击杀的秃鹫（37级）也会掉落胃，但几率较低。",
+	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "从{area:345}向北走，在{area:1877}南边的洞口周围有石窟穴居人挖掘；石窟断骨者和石窟萨满祭司会掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
 	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "石窟穴居人在{area:1877}南边、通往{area:345}路上的洞口周围挖掘；石窟断骨者和石窟萨满祭司掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
 	-- ["The next guide flies from {area:340} to {area:35}."] = "下一篇指南会从 {area:340} 飞往 {area:35}。",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞尔杜林坐在{area:1877}南边{area:345}的矮人废墟中。",

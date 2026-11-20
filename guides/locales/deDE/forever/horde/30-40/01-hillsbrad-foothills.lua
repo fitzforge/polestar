@@ -122,7 +122,14 @@ return {
 	["Hillsbrad Peasants"] = "Arbeiter von Hillsbrad",
 	["Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping."] = "Zurück zu den Feldern: Die Arbeiter von Hillsbrad schuften südlich der Bauernhäuser. Vorsicht: Ein fliehender Arbeiter, der das Rathaus erreicht, kann Verstärkung mitbringen; Verlangsamungen oder Wurzeln halten sie von der Flucht ab.",
 
-	-- Step 26: Durnholde Keep
+	-- Step 24: Hillsbrad Human Skulls
+	-- plural, as words: Hillsbrad Human Skulls = {item:3692} Hillsbrad Human Skull
+	["Hillsbrad Human Skulls"] = "",
+	-- {quest:546} Souvenirs of Death
+	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
+	["Still carrying {quest:546}? Gather the skulls from Hillsbrad Peasants in the southern fields. Stay away from the town hall and the guards on the road."] = "",
+
+	-- Step 28: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
 	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
@@ -133,11 +140,11 @@ return {
 	["{npc:2238}'s ball and chain"] = "Kugel und Kette von {npc:2238}",
 	["Drull's ball and chain"] = "Drulls Kugel und Kette",
 
-	-- Step 27: Krusk
+	-- Step 29: Krusk
 	-- {area:272} Tarren Mill
 	["Back to {area:272}."] = "Zurück nach {area:272}.",
 
-	-- Step 28: The river south of Tarren Mill: kill these as you meet them
+	-- Step 30: The river south of Tarren Mill: kill these as you meet them
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "Der Fluss südlich von {area:272}: Töte diese, wenn sie dir begegnen",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
@@ -145,16 +152,16 @@ return {
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}, von den Schnappkiefern",
 
-	-- Step 29: Mudsnout Blossoms
+	-- Step 31: Mudsnout Blossoms
 	-- {area:290} Dun Garok
 	["South of the river's bend, the Mudsnout gnolls (26-28) camp in the hills above {area:290}; the blossoms grow among their tents. The Shamans heal and call their friends: pull them first."] = "Südlich der Flussbiegung lagern die Gnolle der Schlammschnauzen (26-28) in den Hügeln oberhalb von {area:290}; die Blüten wachsen zwischen ihren Zelten. Die Schamanen heilen und rufen Verstärkung: Zieh sie zuerst.",
 
-	-- Step 30: North of Southshore
+	-- Step 32: North of Southshore
 	["North of Southshore"] = "Nördlich von Süderstade",
 	-- {area:287} Hillsbrad · {area:271} Southshore
 	["From the blossoms, back north along the river and then west to {area:287} town, well north of {area:271} (its guards are 55)."] = "Von den Blüten zurück nach Norden den Fluss entlang und dann nach Westen zum Ort {area:287}, ein gutes Stück nördlich von {area:271} (die Wachen dort sind 55).",
 
-	-- Step 31: The smithy
+	-- Step 33: The smithy
 	["The smithy"] = "Die Schmiede",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Westwärts über die Ausläufer zur Stadt {area:287}: die Schmiede steht in ihrer Mitte. {npc:2404} und seine Lehrlinge arbeiten in der Schmiede; das {object:1736} liegt daneben gestapelt. {npc:2449} geht die Westseite der Stadt entlang; {npc:2451} arbeitet auf dem Feld südöstlich der Stadt.",
@@ -162,47 +169,47 @@ return {
 	-- {npc:2449} Citizen Wilkes
 	["{npc:2449}, on the west side of the town"] = "{npc:2449}, auf der Westseite der Stadt",
 
-	-- Step 32: Tarren Mill
+	-- Step 34: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["for {npc:2055}, on the {zone:1458} stop at the end of this guide"] = "für {npc:2055}, beim Halt in {zone:1458} am Ende dieses Guides",
 	-- {npc:2429} Novice Thaivand · {item:3708} Helcular's Rod
 	["{npc:2429}, in the town: {item:3708}, from the yetis on the way to the town hall"] = "{npc:2429} im Ort: {item:3708}, von den Yetis auf dem Weg zum Rathaus",
 
-	-- Step 33: Helcular's Rod
+	-- Step 35: Helcular's Rod
 	-- {area:277} Foothill Caverns
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti · Giant Yetis = {npc:2251} Giant Yeti
 	["West of Tarren Mill, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but they hit hard and come in pairs."] = "Westlich von Tarrens Mühle füllen die Höhlenyetis und Wilden Yetis (30-32) {area:277} in den Hügeln; etwa jeder sechzehnte trägt die Rute. Bleib in diesen Höhlen: Die Berg- und Riesenyetis (32-34) der Höhle weiter nördlich tragen sie auch, aber sie schlagen hart zu und kommen zu zweit.",
 
-	-- Step 34: Town hall
+	-- Step 36: Town hall
 	["Town hall"] = "Rathaus",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Weiter zur Stadt {area:287}, südwestlich der Yetihöhlen. Das Rathaus liegt auf der Westseite der Stadt: {npc:2335} (30) und {npc:2448} sind mit dem Stadtregister drinnen; die Proklamation hängt daneben. Stadträte laufen durch die Stadt.",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}, drinnen",
 
-	-- Step 35: Tarren Mill
+	-- Step 37: Tarren Mill
 	-- {area:271} Southshore
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
 	["Thaivand's next errand, the flames, sends you among the Mountain and Giant Yetis (32-34) and to Helcular's grave inside {area:271}: leave it."] = "Thaivands nächster Auftrag, die Flammen, schickt dich zu den Berg- und Riesenyetis (32-34) und zu Helculars Grab mitten in {area:271}: Lass ihn aus.",
 
-	-- Step 36: Melisara
+	-- Step 38: Melisara
 	-- {npc:2278} Melisara · {area:272} Tarren Mill · {npc:2410} Magus Wordeen Voidglare
 	["For your City of Dalaran run, later in this guide: {npc:2278} stands in {area:272}, a short walk east of {npc:2410}."] = "Für deinen Run durch die City of Dalaran, später in diesem Guide: {npc:2278} steht in {area:272}, ein kurzes Stück östlich von {npc:2410}.",
 
-	-- Step 37: City of Dalaran
+	-- Step 39: City of Dalaran
 	["City of Dalaran"] = "City of Dalaran",
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
 	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "Die City of Dalaran ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 28 bis 33, unter der violetten Kuppel. Ohne {item:277507} gehst du durch das Abwasserrohr nordwestlich des Kraters hinein: Der Pfeil führt dorthin.\nDrinnen: {npc:247126} ist für {npc:2278}. {npc:268743} in der Kanalisation gibt Opportunistic Education und nimmt die Quest dort auch wieder entgegen.",
 	-- {quest:96986} The Grave Knight · {npc:247126} Atrexis the Grave Knight
 	["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, drinnen",
 
-	-- Step 39: Azurelode Mine
+	-- Step 41: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
 	["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Geh südwestlich am Ort {area:287} vorbei zur {area:288}. Minenarbeiter arbeiten in den Tunneln; {npc:2305} (30) und {npc:2450} (29) sind tief im Inneren.",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "In der {area:288}",
 
-	-- Step 40: Level 30
+	-- Step 42: Level 30
 	["Level 30"] = "Stufe 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
@@ -211,13 +218,13 @@ return {
 	-- {npc:2375} Torn Fin Coastrunner
 	["grind on {npc:2375}"] = "grinde an {npc:2375}",
 
-	-- Step 41: Finish the Turtle Meat
+	-- Step 43: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "{item:3712} fertig sammeln",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
 	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "Noch keine zehn {item:3712}? Die Schnappkiefer säumen den Fluss östlich von {area:272}, auf deinem Rückweg von der Mine.",
 
-	-- Step 42: Tarren Mill
+	-- Step 44: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["North-east back to {area:272}, passing well north of {area:271} (its guards are 55)."] = "Nach Nordosten zurück nach {area:272}, mit großem Abstand nördlich an {area:271} vorbei (die Wachen dort sind 55).",
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
@@ -227,7 +234,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Behalte Infiltration im Questlog: Das Syndikat (32-35) liegt jetzt über dir, und der Guide 38-39 (Alterac und Arathi) erledigt sie auf seiner ersten Runde in {area:272}.",
 
-	-- Step 43: Voidglare, Bel'varil and Tallow
+	-- Step 45: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow
 	["Voidglare, Bel'varil and {npc:2770}"] = "Voidglare, Bel'varil und {npc:2770}",
 	-- {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow · {area:272} Tarren Mill
@@ -243,55 +250,55 @@ return {
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "Behalte diese im Questlog: Ihre Lager liegen jetzt zwei bis vier Stufen über dir, und der Guide 38-39 erledigt sie auf seiner ersten Runde in {area:272} und in {area:321}.",
 
-	-- Step 44: Melisara
+	-- Step 46: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
 	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} aus deinem Run durch die City of Dalaran: {npc:2278}, ein kurzes Stück östlich von {npc:2410}.",
 
-	-- Step 45: Battle of Hillsbrad with a group
+	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
 	["{quest:539} with a group"] = "{quest:539} mit einer Gruppe",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "Darthalias letzte Schlacht findet bei {area:290} statt, der Zwergenfestung südöstlich von {area:271}: Jeder Zwerg dort ist Elite (28-32), {npc:2304} auch. Tolle EP, wenn du eine Gruppe dafür hast.",
 
-	-- Step 46: Humbert's Sword with a group
+	-- Step 48: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
 	["{quest:547} with a group"] = "{quest:547} mit einer Gruppe",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "Das Schwert von {npc:2419} fällt von denselben Zwergen von {area:290} (etwa eines von zwölf).",
 
-	-- Step 47: Dun Garok
+	-- Step 49: Dun Garok
 	-- {area:290} Dun Garok
 	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "Räume {area:290} vom Tor an aus; die Zwerge rennen bei 30% Gesundheit los, um Hilfe zu holen.",
 
-	-- Step 48: Tarren Mill
+	-- Step 50: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
 	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "für {npc:2425} in der {zone:1458}, am Ende dieses Guides",
 
-	-- Step 50: Fly to Undercity
+	-- Step 52: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Flieg zur {area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Flugmeister von {area:272}",
 
-	-- Step 51: Master Apothecary Faranell
+	-- Step 53: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
 	["{npc:2055} stands in the Apothecarium, in the {object:36126}."] = "{npc:2055} steht im Apothekarium, im {object:36126}.",
 	-- {quest:513} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
 	["Faranell's next {quest:513} needs a {item:3388} ({skill:171}) and the {area:287} coast: leave it."] = "Faranells nächste Quest {quest:513} braucht ein {item:3388} ({skill:171}) und die Küste von {area:287}: Lass sie aus.",
 
-	-- Step 52: Varimathras
+	-- Step 54: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
 	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "{npc:2425} steht neben Sylvanas im {object:36126}.",
 	-- {npc:2425} Varimathras
 	["{npc:2425}: Darthalia's commendation"] = "{npc:2425}: Darthalias Belobigung",
 
-	-- Step 53: Calder Gray
+	-- Step 55: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
 	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038} steht im Apothekarium. Seine Quest {quest:97985} gilt Stormheart, einem Elite der Stufe 30, der durch die Schlucht östlich vom {area:484} läuft, auf dem Weg zur {area:439} im nächsten Guide.",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}: zurück zu ihm beim nächsten Halt in {zone:1458}, bei etwa Stufe 38",
 
-	-- Step 54: Undercity trainers
+	-- Step 56: Undercity trainers
 	-- {zone:1458} Undercity
 	["{zone:1458} trainers"] = "Lehrer in {zone:1458}",
 	-- {zone:1458} Undercity · {object:36070} War Quarter · {object:36073} Rogues' Quarter · {object:36082} Magic Quarter · {npc:260093} Garen Largo

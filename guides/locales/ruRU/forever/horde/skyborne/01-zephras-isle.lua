@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Медверы ({npc:250926}) бродят по склонам к юго-западу от деревни, по пути к {npc:252095}.\nЛогово урсер – к западу от деревни. {npc:251115}, их матриарх, сидит в дальнем конце.",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "Под землей",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "На дороге на юго-восток к месту {area:16638} {npc:273017} следит за целью задания {quest:98512} чуть к северу от себя.",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}, у персонажа {npc:3005}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, у персонажа {npc:3027}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -520,6 +523,7 @@ return {
 	-- ["Kuramaa"] = "Курамаа",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Спуститесь на подъемнике из города {zone:1456} и идите по дороге на юг мимо места {area:222} и через восточный перевал в край {zone:1413}; от перевала идите на север по дороге ({area:458}) к месту {area:380} – городку Орды в центре края {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Покидаем место: {area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "На дороге на юго-восток к месту {area:16638} {npc:273017} следит за целью задания {quest:98512} чуть к северу от себя.",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "По пути на север – снова к персонажу {npc:255853} у водопада.",
 	-- ["Prideclaws and Galestriders"] = "Когти прайда и буреноги",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Когти прайда и буреноги бродят по лугам к югу от деревни. Сохраните {item:5469} для {npc:251905}; яйца будут позже, с гиппогрифов.",
@@ -560,6 +564,7 @@ return {
 	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:393}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257024} в Шен'даре.",
 	-- ["talk to {npc:251905}"] = "поговорите с персонажем {npc:251905}",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638} – рядом с местом посадки: поднимитесь на подъемнике и откройте маршрут у персонажа {npc:2995}, распорядителя полетов.",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Медверы ({npc:250926}) бродят по склонам к юго-западу от деревни, по пути к {npc:252095}.\nЛогово урсер – к западу от деревни. {npc:251115}, их матриарх, сидит в дальнем конце.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} стоит в деревне.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, в центре деревни",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} стоит в восточной части места {area:16638}.",

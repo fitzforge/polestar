@@ -14,65 +14,173 @@ return {
 	-- Step 2: Diseased Wolves
 	["Diseased Wolves"] = "Loups malades",
 	-- {area:200} Dalson's Tears · {area:202} Writhing Haunt
-	["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time."] = "Les loups parcourent les champs entre Andorhal, {area:200} et le {area:202}. Finissez-les sur le chemin du retour vers l'est. Attention : les plus gros sont de niveau 54 : attirez-les un par un.",
+	["The wolves roam the fields between {area:200} and the {area:202}, all the way west to Felstone Farm. Careful: the biggest are 54: pull them one at a time.\nAt 52, take the level 53 wolves; leave the 54s alone."] = "",
 
-	-- Step 3: Dalson's Tears farmhouse
-	-- {area:200} Dalson's Tears
-	["{area:200} farmhouse"] = "Ferme de {area:200}",
-	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
-	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Le journal se trouve dans la ferme, le meuble est à l'intérieur et les latrines sont derrière. Un {npc:10816} porte la clé des latrines ; {npc:10836} sort quand vous ouvrez les latrines et porte la clé du meuble.",
-
-	-- Step 4: Mulgris Deepriver
+	-- Step 3: Mulgris Deepriver
 	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "Sa chasse suivante, les Grizzlys malades (55-56), attend la visite des Maleterres vers le niveau 58.",
 
-	-- Step 6: High Executor Derrington
+	-- Step 5: High Executor Derrington
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nTake a {object:176092} from the crate next to Derrington for {quest:5096}."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.\nPrenez une {object:176092} dans la caisse à côté de Derrington pour {quest:5096}.",
 
-	-- Step 7: Scarlet forward camp
+	-- Step 6: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les Invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
 
-	-- Step 8: The Bulwark
+	-- Step 7: The Bulwark
 	-- {area:152} The Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Chevauchez vers le sud-ouest en passant la ferme des Felstone et suivez la route vers l'ouest jusqu'à {area:152}.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "Les tours de guet de Derrington et le chaudron de Vandis se font lors d'une visite ultérieure : gardez-les.",
 
-	-- Step 10: Paladin trainer
+	-- Step 9: Paladin trainer
 	["Paladin trainer"] = "Maître des paladins",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152} ({zone:1420}) ; {zone:1454} n'a pas de maître des paladins",
 
-	-- Step 11: Zeppelin to Orgrimmar
+	-- Step 10: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
 
-	-- Step 12: Orgrimmar
+	-- Step 11: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "Le centre d'{zone:1454}",
 
-	-- Step 13: Jes'rimon
+	-- Step 12: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} prend les griffes de ravasaure d'Un'Goro ; il se tient dans {object:172960}, à courte distance du centre de la ville.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 14: Class trainer
+	-- Step 13: Class trainer
 	["Class trainer"] = "Maître de classe",
 
-	-- Step 15: Druid trainer
+	-- Step 14: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} ({zone:1412}) ; {zone:1454} n'a pas de maître des druides",
 
-	-- Step 16: Fly to Splintertree Post
-	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "Prendre un vol pour {area:431}",
+	-- Step 15: Fly to Valormok
+	-- {area:1237} Valormok
+	["Fly to {area:1237}"] = "Prendre un vol pour {area:1237}",
+	-- {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1447}'s camps are 46-53, right at your level now: fly over before {zone:1448}."] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
-	-- Step 18: Emerald Sanctuary
+	-- Step 16: Valormok
+	-- {npc:3621} Kurll · {zone:1447} Azshara
+	["{npc:3621}: Mosshoof hides on the way through {zone:1447}"] = "",
+	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
+	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473} : {quest:91569}, une baguette sur les arcanistes elfes de sang",
+
+	-- Step 17: Ruins of Eldarath: kill these as you meet them
+	-- {area:1221} Ruins of Eldarath
+	["{area:1221}: kill these as you meet them"] = "{area:1221} : tuez-les au passage",
+	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time."] = "",
+
+	-- Step 18: Ruins of Eldarath
+	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Allez à l'est jusqu'aux ruines sur la côte. Remplissez les quatre fioles du Chimiste Cuely aux bassins le long du rivage ; des nagas Fouette-bile patrouillent entre eux.",
+
+	-- Step 19: Mosshoof hides
+	["Mosshoof hides"] = "",
+	-- {area:1237} Valormok · {npc:3621} Kurll
+	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
+	["Look for Mosshoof Runners, Stags and Coursers between {area:1237} and the coast. They drop the hides for {npc:3621}."] = "",
+
+	-- Step 20: Makrinni Burrowers
+	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["Makrinni Burrowers"] = "Fouisseurs makrinni",
+	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
+	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Les Fouisseurs makrinni (50-51) creusent le sable juste à l'est des ruines, sur le chemin du nord-est ; eux et les caches enfouies là donnent les Fragments de trésor de Bien-né.",
+
+	-- Step 21: Ekkal
+	-- {zone:1447} Azshara · {npc:235903} Ekkal
+	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Continuez au nord-est à travers le centre d'{zone:1447} : {npc:235903} campe près de la route.",
+	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
+	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903} : {quest:86746}, les satyres au nord du camp des elfes de sang",
+
+	-- Step 22: Kim'jael
+	-- {area:1227} Bay of Storms
+	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "Chevauchez au nord-est jusqu'au camp du gobelin sur les falaises au-dessus de {area:1227}, juste au nord des elfes de sang.",
+
+	-- Step 23: Thalassian Base Camp
+	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
+	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Les elfes de sang campent sur les falaises au nord-est, près de {area:1227}. Les quatre pièces d'équipement de {npc:8420} se trouvent dans les caisses autour du camp ; les Arcanistes elfes de sang portent la baguette de {npc:247473}.\nAttention : un {npc:250023}, un élite de niveau 55-57, se tient à la lisière ouest du camp : occupez-vous des elfes de sang par le côté est.",
+	-- {item:246680} Mana-Siphoning Wand
+	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
+	["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}, sur les Arcanistes elfes de sang",
+
+	-- Step 24: Magus Rimtori's camp
+	-- {npc:8578} Magus Rimtori
+	["{npc:8578}'s camp"] = "Le camp de {npc:8578}",
+	-- {object:151286} Kaldorei Tome of Summoning
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "Le camp de Rimtori se trouve à l'extrémité est du camp de base. Lisez-y le {object:151286} : sur Forever, le Tome sin'dorei à côté demande ensuite les sceaux des trois officiers du camp.",
+
+	-- Step 25: Seals of the Sin'dorei
+	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
+	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Chacun des trois officiers du camp (53) porte un sceau : {npc:247006} au centre du camp, {npc:247013} à son extrémité est, et {npc:246991}, qui patrouille sa moitié ouest : affrontez-le du côté est de sa ronde, là où pointe la Flèche.\nAttention : le {npc:250023}, un élite de niveau 55-57, se tient à la lisière ouest du camp, près du bout de la ronde de Hawkhelm : attendez que Hawkhelm revienne vers l'est.",
+	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
+	["{item:246725}, from {npc:247006}"] = "{item:246725}, sur {npc:247006}",
+	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
+	["{item:246721}, from {npc:246991}"] = "{item:246721}, sur {npc:246991}",
+	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
+	["{item:246722}, from {npc:247013}"] = "{item:246722}, sur {npc:247013}",
+
+	-- Step 26: The Legashi satyrs
+	["The Legashi satyrs"] = "Les satyres legashi",
+	-- {npc:235903} Ekkal
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Les satyres legashi (51-52) occupent les collines au nord du camp des elfes de sang : {npc:235903} en veut cinq de chaque type.",
+
+	-- Step 27: Kim'jael
+	-- {npc:8420} Kim'jael
+	["Back north-west to {npc:8420}."] = "Retournez au nord-ouest auprès de {npc:8420}.",
+
+	-- Step 28: Ruins of Eldarath: Some Rune
+	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
+	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
+	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "Allez au sud jusqu'à la lisière nord des {area:1221}. Les Sirènes et les Myrmidons Fouette-bile (50-52) qui s'y trouvent portent la rune de {npc:8420} ; elle tombe rarement, alors longez la lisière jusqu'à l'obtenir.",
+
+	-- Step 29: Kim'jael
+	-- {npc:8420} Kim'jael
+	["Back north to {npc:8420} with the rune, then south-west along the road."] = "Retournez au nord auprès de {npc:8420} avec la rune, puis suivez la route vers le sud-ouest.",
+
+	-- Step 30: Ekkal
+	-- {npc:235903} Ekkal
+	["South-west along the road: {npc:235903} takes the satyrs."] = "Suivez la route vers le sud-ouest : {npc:235903} prend les satyres.",
+
+	-- Step 31: Valormok
+	-- {area:1237} Valormok
+	["Ride back west to {area:1237}."] = "Retournez à l'ouest jusqu'à {area:1237}.",
+	-- {zone:1456} Thunder Bluff
+	["Magatha is at the next {zone:1456} stop"] = "",
+	-- {npc:5770} Nara Wildmane
+	["{npc:5770} is there too"] = "",
+	-- {zone:1452} Winterspring · {npc:8578} Magus Rimtori
+	["Keep the seals for the tome. Return after {zone:1452} for {npc:8578} (55)."] = "",
+
+	-- Step 32: Archmage Xylem
+	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
+	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "La tour de Xylem se dresse sur la falaise juste au nord de {area:1237} : {npc:8395}, à {area:1237}, vous y téléporte gratuitement (parlez-lui) ; sinon, le chemin serpente par son flanc nord.",
+	-- was: ["Upstairs"] = "À l'étage"
+	["Upstairs"] = "À l'étage",
+
+	-- Step 34: Fly back to Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Fly back to {area:1637}"] = "",
+	-- {area:1237} Valormok
+	["{area:1237} flight master"] = "Maître de vol de {area:1237}",
+
+	-- Step 35: Jes'rimon
+	-- {area:1237} Valormok
+	["Keep the payment for the return to {area:1237}"] = "",
+
+	-- Step 36: Fly to Splintertree Post
+	-- {area:431} Splintertree Post
+	["Fly to {area:431}"] = "Prendre un vol pour {area:431}",
+
+	-- Step 38: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "Le camp des druides se trouve juste après la frontière.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}, à côté de {npc:10921} : {quest:86577}, les organes des ours et des loups de {zone:1448}",
@@ -81,101 +189,76 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}, à l'ouest du camp",
 
-	-- Step 19: Deadwood Village
+	-- Step 39: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "Le village des furbolgs Mort-bois se trouve juste au sud du Sanctuaire. Chaque Mort-bois tué augmente aussi votre réputation auprès du {area:1769} ; gardez les plumes de coiffe.",
 
-	-- Step 20: Southern Jaedenar
+	-- Step 40: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sud de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Suivez la route vers le nord-ouest. Le sud de {area:1763}, autour de son puits de lune corrompu, est tenu par des cultistes, adeptes, gardes du Conseil des ombres et leurs molosses.",
 
-	-- Step 22: The Jaedenar moonwell
+	-- Step 42: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "Le puits de lune de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "Retournez au nord jusqu'à {area:1763}. Remplissez la gourde de Greta au puits de lune corrompu au milieu du camp sud.",
 
-	-- Step 23: Bloodvenom Post
+	-- Step 43: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "Le camp de la Horde juste au nord de {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306} : les chouettards sont à {zone:1452}",
 
-	-- Step 24: Shatter Scar Vale
+	-- Step 44: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "À l'est du Poste de la Vénéneuse, le val criblé de cratères où errent les Bêtes d'entropie et les Horreurs. Tuez-en deux de chaque, puis allez à chacun des trois cratères d'eau gangrenée.",
 	["Southern crater"] = "Cratère sud",
 	["Western crater"] = "Cratère ouest",
 	["Northern crater"] = "Cratère nord",
 
-	-- Step 25: Statue of Malorne
+	-- Step 45: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
-	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "La Statue de Malorne se dresse juste au sud du vallon, près de la route vers le nord : sa babiole lance une quête pour {npc:9996} au {area:1997}.",
+	-- was: ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "La Statue de Malorne se dresse juste au sud du vallon, près de la route vers le nord : sa babiole lance une quête pour {npc:9996} au {area:1997}."
+	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996}, handed in on the last ride north past {area:1997}."] = "",
 
-	-- Step 26: Irontree Woods
-	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1997} Bloodvenom Post · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager · Deadwood Den Watchers = {npc:7156} Deadwood Den Watcher
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Suivez la route vers le nord-est jusqu'au {area:1767}. Les Ecorcheurs et Déchireurs Crochebois de l'est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo, et leurs organes sont pour {npc:10920}.\nLes Protecteurs Mort-bois (53-54) et les Vengeurs (54-55) du {area:1762} sont les suivants : sous le niveau 54, continuez à chasser les grizzlys et les ravageurs (51-52) ici jusqu'au niveau 54. Les quêtes rendues ensuite à {area:1769}, au {area:2479} et au {area:1997} vous amènent presque au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1417} ou le donjon {area:1584}.",
+	-- Step 46: Irontree Woods
+	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
+	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, sur les ours de la griffe colérique",
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}, sur les loups Gangrepatte",
-	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "tuez en boucle : {npc:8957}",
 
-	-- Step 27: Irontree Woods
+	-- Step 47: Irontree Woods
 	["Below ground"] = "Sous terre",
 
-	-- Step 28: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Le village des furbolgs Mort-bois juste à l'ouest du tunnel. {npc:9462} (56) se tient parmi eux. {npc:11557}, un furbolg amical, est assis à l'extrémité nord du village.",
-	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557} : gardez 30 {quest:6031} pour lui ; il n'échange qu'à partir de Neutre auprès des Grumegueules ; sous terre",
+	-- Step 48: The Jadefire moonwell
+	["The Jadefire moonwell"] = "Le puits de lune des Jadefeu",
+	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
+	-- was: ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Retournez vers le sud en passant {area:1763} jusqu'au puits de lune corrompu des satyres Jadefeu et remplissez-y la flasque de {npc:9996}."
+	["On the return from Irontree, ride south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 29: Nafien
-	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
-	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "La route se termine à {npc:15395}, devant le tunnel du {area:1769}, à l'extrême nord-est.",
+	-- Step 49: Overlord Ror
+	-- {area:1761} Deadwood Village
+	["Ror stands at the far south end of {area:1761}."] = "Ror se tient à l'extrême sud du {area:1761}.",
 
-	-- Step 30: Felpaw Village
-	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Attention : les Protecteurs sont de niveau 53-54 et les Vengeurs Mort-bois 54-55 ; ils appellent les alliés à moins de 25 m sous 50 % de vie et fuient chercher de l'aide sous 15 %.\nContinuez à les tuer jusqu'à ce que l'un d'eux laisse tomber un {quest:8470}, environ une fois sur trente, puis faites un clic droit dessus : {npc:11558} à {area:1769} le prend dès que les Grumegueules vous sont Neutres, maintenant s'ils le sont déjà, ou quand le dernier guide repasse par la grotte au niveau 59.",
-
-	-- Step 31: Nafien
-	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
-	["Keep {quest:8465} for {zone:1452}."] = "Gardez {quest:8465} pour {zone:1452}.",
-
-	-- Step 32: Timbermaw Hold
-	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "Entrez dans la grotte : {npc:11558} se tient juste à l'entrée.",
-	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558} : les Grumegueules ne vous parlent qu'à partir de Neutre ; patrouille par ici : regardez dans le cercle sur la carte",
-
-	-- Step 33: Emerald Sanctuary
-	-- {zone:1448} Felwood
-	["Ride the road south through {zone:1448} to the Sanctuary."] = "Suivez la route vers le sud à travers {zone:1448} jusqu'au Sanctuaire.",
+	-- Step 50: Emerald Sanctuary
+	["Stop at the Sanctuary on the ride north from Ror."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, à l'ouest du Sanctuaire",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "Gardez {quest:5158} : {npc:5901} est dans {zone:1413}.",
 
-	-- Step 34: Overlord Ror
-	-- {area:1761} Deadwood Village
-	["Ror stands at the far south end of {area:1761}."] = "Ror se tient à l'extrême sud du {area:1761}.",
-
-	-- Step 35: The Jadefire moonwell
-	["The Jadefire moonwell"] = "Le puits de lune des Jadefeu",
-	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
-	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Retournez vers le sud en passant {area:1763} jusqu'au puits de lune corrompu des satyres Jadefeu et remplissez-y la flasque de {npc:9996}.",
-
-	-- Step 36: Bloodvenom Post
-	["Ride north up the road again."] = "Remontez la route vers le nord.",
+	-- Step 51: Bloodvenom Post
+	-- {area:1997} Bloodvenom Post
+	["Ride north up the road to {area:1997}, on the way to the tunnel."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996} : {quest:86612}",
 
-	-- Step 37: Winna Hazzard's kitten
+	-- Step 52: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "Le chaton de {npc:9996}",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -183,17 +266,38 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, au puits de lune des Jadefeu",
 
-	-- Step 39: Level 55
-	["Level 55"] = "Niveau 55",
-	-- {zone:1452} Winterspring · {npc:9996} Winna Hazzard · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Les quêtes de {zone:1452} sont de niveau 55-58. Sous le niveau 55 après les quêtes rendues à {npc:9996} ? Les furbolgs Mort-bois (53-55) du {area:1762} sont à votre niveau et sur votre route vers le tunnel de {area:1769} au nord : tuez-les jusqu'au niveau 55. Chaque mort augmente aussi votre réputation auprès des Grumegueules. Attention : les Protecteurs et les Vengeurs appellent les alliés proches sous la moitié de leur vie et fuient chercher de l'aide quand ils sont presque morts : attirez-les un par un depuis la lisière du village. C'est un long complément pour qui suit uniquement cet itinéraire. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1417}.",
-	-- {npc:7157} Deadwood Avenger
-	["grind on {npc:7157}"] = "tuez en boucle : {npc:7157}",
+	-- Step 54: Level 54
+	["Level 54"] = "",
+	-- {area:16620} Alcaz Prison · {area:1584} Blackrock Depths
+	["On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the {area:16620} dungeon or the {area:1584} dungeon instead."] = "",
+
+	-- Step 55: Nafien
+	-- {area:1762} Felpaw Village · {npc:15395} Nafien
+	["Follow the road north past {area:1762} to {npc:15395} at the tunnel entrance."] = "",
+
+	-- Step 56: Felpaw Village
+	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
+	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
+	-- was: ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Attention : les Protecteurs sont de niveau 53-54 et les Vengeurs Mort-bois 54-55 ; ils appellent les alliés à moins de 25 m sous 50 % de vie et fuient chercher de l'aide sous 15 %.\nContinuez à les tuer jusqu'à ce que l'un d'eux laisse tomber un {quest:8470}, environ une fois sur trente, puis faites un clic droit dessus : {npc:11558} à {area:1769} le prend dès que les Grumegueules vous sont Neutres, maintenant s'ils le sont déjà, ou quand le dernier guide repasse par la grotte au niveau 59."
+	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village.\nCareful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	-- {npc:11557} Meilosh · {quest:6031} Runecloth
+	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557} : gardez 30 {quest:6031} pour lui ; il n'échange qu'à partir de Neutre auprès des Grumegueules ; sous terre",
+
+	-- Step 57: Nafien
+	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
+	["Keep {quest:8465} for {zone:1452}."] = "Gardez {quest:8465} pour {zone:1452}.",
+
+	-- Step 58: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "Entrez dans la grotte : {npc:11558} se tient juste à l'entrée.",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558} : les Grumegueules ne vous parlent qu'à partir de Neutre ; patrouille par ici : regardez dans le cercle sur la carte",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Une {item:13140} est tombée : utilisez-la pour lancer la quête, puis libérez {npc:11018} de sa cage au {area:1770}, la grotte à l'extrémité nord de {area:1763}.",
 	-- ["Back at the {area:2479}."] = "De retour au {area:2479}.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De retour au {area:1762}, les furbolgs Mort-bois (53-54) sont près du tunnel et chaque mort augmente votre réputation auprès des Grumegueules.",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Attention : les Protecteurs sont de niveau 53-54 et les Vengeurs Mort-bois 54-55 ; ils appellent les alliés à moins de 25 m sous 50 % de vie et fuient chercher de l'aide sous 15 %.\nContinuez à les tuer jusqu'à ce que l'un d'eux laisse tomber un {quest:8470}, environ une fois sur trente, puis faites un clic droit dessus : {npc:11558} à {area:1769} le prend dès que les Grumegueules vous sont Neutres, maintenant s'ils le sont déjà, ou quand le dernier guide repasse par la grotte au niveau 59.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Attention : les Protecteurs Mort-bois sont de niveau 53-54 ; ils appellent leurs alliés à moins de 25 m sous 50 % de vie et fuient chercher de l'aide sous 15 %.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Attention : les Guetteurs de la tanière sont de niveau 53-54 ; ils appellent les alliés à moins de 25 m sous 50 % de vie et fuient chercher de l'aide sous 15 %.\nEn dessous du niveau 54.54, continuez à combattre les Mort-bois ici après le décompte de {npc:15395} : les quêtes rendues à {area:1769} et au {area:2479} vous amènent au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1417}.\nContinuez à les tuer jusqu'à ce que l'un d'eux laisse tomber un {quest:8470}, environ une fois sur trente, puis faites un clic droit dessus : {npc:11558} à {area:1769} le prend dès que les Grumegueules vous sont Neutres, maintenant s'ils le sont déjà, ou quand le dernier guide repasse par la grotte au niveau 59.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "Traversez la rivière vers l'est jusqu'à {area:2627}, la ville en ruine au nord-ouest des {zone:1423}. {npc:12384} est assis dans une hutte à sa lisière.",
@@ -201,6 +305,7 @@ return {
 	-- ["Diseased Grizzlies"] = "Grizzlys malades",
 	-- ["Fly to the {area:1497}"] = "Volez jusqu'à {area:1497}",
 	-- ["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
+	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Suivez la route vers le nord-est jusqu'au {area:1767}. Les Ecorcheurs et Déchireurs Crochebois de l'est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo, et leurs organes sont pour {npc:10920}.\nLes Protecteurs Mort-bois (53-54) et les Vengeurs (54-55) du {area:1762} sont les suivants : sous le niveau 54, continuez à chasser les grizzlys et les ravageurs (51-52) ici jusqu'au niveau 54. Les quêtes rendues ensuite à {area:1769}, au {area:2479} et au {area:1997} vous amènent presque au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Suivez la route vers le nord-est jusqu'au {area:1767}. Les Ecorcheurs et Déchireurs Crochebois de l'est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo. Sous le niveau 54.21, continuez à chasser les grizzlys et les ravageurs : les rendus au {area:1997} et au {area:2479} vous mènent au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1417}.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Depuis le maître de vol de {area:2268}, volez jusqu'à {area:1497}.",
 	-- ["Jadefire moonwell"] = "Puits de lune des Jadefeu",
@@ -221,29 +326,38 @@ return {
 	-- ["Level 54.54"] = "Niveau 54.54",
 	-- ["Level 54.7"] = "Niveau 54.7",
 	-- ["Level 54.87"] = "Niveau 54.87",
+	-- ["Level 55"] = "Niveau 55",
 	-- ["On the way"] = "En chemin",
 	-- ["Only with 5 Deadwood Headdress Feathers"] = "Seulement avec 5 Coiffures de plumes mort-bois ({item:21377})",
 	-- ["Radley and Durgen"] = "Radley et Durgen",
+	-- ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Retournez vers le sud en passant {area:1763} jusqu'au puits de lune corrompu des satyres Jadefeu et remplissez-y la flasque de {npc:9996}.",
 	-- ["Ride back south-east to the Sanctuary."] = "Retournez vers le sud-est jusqu'au Sanctuaire.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Retournez à {area:1497}, prenez le zeppelin pour {zone:1454} et volez jusqu'au {area:431}. Suivez la route vers l'ouest en quittant Bois-brisé et prenez l'embranchement nord vers {zone:1448}.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Retraversez la rivière vers l'ouest et continuez jusqu'au {area:192} ; {npc:11610} se cache sur la colline au nord-est.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Chevauchez vers le nord le long des collines de l'est ; {npc:1855} vit dans une petite maison au bord de {area:2619}, à la frontière des {zone:1423}.",
+	-- ["Ride north up the road again."] = "Remontez la route vers le nord.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Chevauchez vers le nord-ouest jusqu'à Andorhal. {npc:10667} attend dans l'auberge en ruine à l'ouest de la ville ; les squelettes à l'intérieur sont de niveau 54-57, restez donc sur les bords.",
 	-- ["Ride south past the {area:202} to {area:197}. Kill the Diseased Wolves you meet in the fields on the way."] = "Chevauchez vers le sud en passant le {area:202} jusqu'à {area:197}. Tuez les Loups malades que vous croisez dans les champs en chemin.",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "Chevauchez vers le sud en passant le {area:202} jusqu'à {area:197} ; la maison de {npc:10927} se dresse au bord de la route, et le monument de {npc:10936} est dans le cimetière derrière. Tuez les Loups malades que vous croisez dans les champs en chemin.",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Suivez la route vers le sud à travers {area:361} jusqu'au Sanctuaire.",
+	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "Suivez la route vers le sud à travers {zone:1448} jusqu'au Sanctuaire.",
 	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Chevauchez vers l'ouest jusqu'au {area:192} ; {npc:11610} se cache sur la colline au nord-est.",
 	-- ["Scarlet Crusade"] = "Croisade écarlate",
 	-- ["Scarlet forward camp"] = "Camp avancé écarlate",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Emmenez le chaton au même puits de lune et relâchez-le là ; une fois changé en {npc:10042}, ramenez-le à {npc:9996} et cliquez dessus pour le lui remettre.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Les annales se trouvent parmi les Tomes moisis ({object:176150}) de l'hôtel de ville d'Andorhal ; ouvrez-les jusqu'à trouver le bon.",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Le village des furbolgs Mort-bois juste à l'ouest du tunnel. {npc:9462} (56) se tient parmi eux. {npc:11557}, un furbolg amical, est assis à l'extrémité nord du village.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Le village des furbolgs Mort-bois se trouve juste au sud du Sanctuaire. Chaque Mort-bois tué augmente aussi votre réputation auprès du {area:1769} ; gardez les plumes de coiffure. Continuez à les tuer jusqu'au niveau 53.92 : les prochains rendus du Sanctuaire et {area:1763} le demandent. Ou, en groupe, faites plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec {object:176092} et plantez la bannière du Fléau.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Les ours parcourent les collines au nord et à l'est du {area:202}.",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Le livre se trouve dans l'auberge en ruine de {area:2627} ; les morts-vivants de la ville sont de niveau 54-56, attirez-les donc un par un.\nLes Grandes termitières sont dispersées sur les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière que vous croisez.",
+	-- ["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Le journal se trouve dans la ferme, le meuble est à l'intérieur et les latrines sont derrière. Un {npc:10816} porte la clé des latrines ; {npc:10836} sort quand vous ouvrez les latrines et porte la clé du meuble.",
+	-- ["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "La route se termine à {npc:15395}, devant le tunnel du {area:1769}, à l'extrême nord-est.",
 	-- ["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "La succube {npc:9518} attend au milieu de {area:1763}, à côté de {npc:11020}.",
 	-- ["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east."] = "Les loups parcourent les champs entre Andorhal, {area:200} et le {area:202}. Finissez-les sur le chemin du retour vers l'est.",
+	-- ["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time."] = "Les loups parcourent les champs entre Andorhal, {area:200} et le {area:202}. Finissez-les sur le chemin du retour vers l'est. Attention : les plus gros sont de niveau 54 : attirez-les un par un.",
 	-- ["The {area:152}"] = "{area:152}",
+	-- ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "La Statue de Malorne se dresse juste au sud du vallon, près de la route vers le nord : sa babiole lance une quête pour {npc:9996} au {area:1997}.",
 	-- ["Through {area:1769}"] = "À travers le {area:1769}",
 	-- ["To {zone:1448}"] = "Vers {zone:1448}",
 	-- ["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53."] = "Montez ici jusqu'au niveau 52.63 avant de rendre les quêtes ({area:200}) : elles vous font passer au niveau 53.",
@@ -272,7 +386,10 @@ return {
 	-- ["grind on {npc:7153}"] = "tuez en boucle : {npc:7153}",
 	-- ["grind on {npc:7155}"] = "tuez en boucle : {npc:7155}",
 	-- ["grind on {npc:7156}"] = "tuez en boucle : {npc:7156}",
+	-- ["grind on {npc:7157}"] = "tuez en boucle : {npc:7157}",
+	-- ["grind on {npc:8957}"] = "tuez en boucle : {npc:8957}",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "Les Écarlates d'{area:190} sont de niveau 58-60. Entrez jusqu'au point haut marqué sur votre carte, observez la ville, puis repartez.",
+	-- ["{area:200} farmhouse"] = "Ferme de {area:200}",
 	-- ["{area:2268} flight master"] = "Maître de vol de {area:2268}",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627} : tuez-les au fil de vos rencontres",
 	-- ["{npc:10840}, at the graveyard's south end"] = "{npc:10840}, à l'extrémité sud du cimetière",
@@ -295,4 +412,5 @@ return {
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210} se rend à {area:2268} : gardez-la pour plus tard.",
 	-- ["{quest:5408}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5408} : les morts-vivants de {area:2627} les laissent tomber tant que vous portez la {item:12846}",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, un butin rare",
+	-- ["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Les quêtes de {zone:1452} sont de niveau 55-58. Sous le niveau 55 après les quêtes rendues à {npc:9996} ? Les furbolgs Mort-bois (53-55) du {area:1762} sont à votre niveau et sur votre route vers le tunnel de {area:1769} au nord : tuez-les jusqu'au niveau 55. Chaque mort augmente aussi votre réputation auprès des Grumegueules. Attention : les Protecteurs et les Vengeurs appellent les alliés proches sous la moitié de leur vie et fuient chercher de l'aide quand ils sont presque morts : attirez-les un par un depuis la lisière du village. C'est un long complément pour qui suit uniquement cet itinéraire. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1417}.",
 }

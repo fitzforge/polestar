@@ -107,6 +107,21 @@ step Escort Ringo
 step Marshal's Refuge
   turnin 4491                         -- Spraggle Frock
 
+step Quixxil
+  when onquest 5163
+  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti"
+
+step J.D. Collie
+  when onquest 3941
+  tip J.D. Collie is at the back of the refuge cave.
+  turnin 3941                         -- J.D. Collie, below ground
+
+step Linken's Memory
+  when turnedin 3941
+  when available 3942
+  accept 3942
+  note Keep Linken's Memory for Eridan at the Emerald Sanctuary.
+
 step Krakle
   turnin 974
   accept 980
@@ -145,17 +160,9 @@ step Torwa Pathfinder
   turnin 4292
   turnin 4301
 
-step Marshal's Refuge
-  zone Un'Goro Crater
-  tip Return to the camp on the north wall. J.D. Collie is inside the cave.
-  turnin 3941                         -- J.D. Collie, below ground
-  accept 3942
-  note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
-  kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Use Umi's Mechanical Yeti on Quixxil
-
 step Layo Starstrike
   zone Silithus
-  tip The pass from Un'Goro comes out at Valor's Rest, the graveyard in north-east Silithus. Layo stands among the graves.
+  tip Ride around the crater to the north-western pass. It leads up to Valor's Rest in Silithus; Layo stands among the graves.
   turnin 1124
   accept 1125
 

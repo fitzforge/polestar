@@ -19,8 +19,8 @@ do
 			nextChoices = { "forever/horde/40-50/03-feralas", "forever/alliance/40-50/03-feralas" },
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "Forgotten Coast", ["area:1116"] = "Feathermoon Stronghold", ["area:150"] = "Menethil Harbor", ["area:1637"] = "Orgrimmar", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2577"] = "Dire Maul", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["npc:276401"] = "Nascent Pylon Protector", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1444"] = "Feralas", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
-			written = { ["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.", ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.", ["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.", ["{npc:253471} wants a fragment and a shard of the pylons back from {area:405}'s two centaur villages: {area:604} lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village."] = "Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village." },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "Forgotten Coast", ["area:1116"] = "Feathermoon Stronghold", ["area:150"] = "Menethil Harbor", ["area:1637"] = "Orgrimmar", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2577"] = "Dire Maul", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["item:255667"] = "Coalesced Mana Crystal", ["item:286647"] = "Depleted Crystal Heart", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["npc:276401"] = "Nascent Pylon Protector", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93394"] = "Meeting the Magister", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["quest:99258"] = "Mana Mania", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1444"] = "Feralas", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
+			written = { ["Check your quest log before going back to {npc:253471}. Each unchecked pylon needs four crystals from the rifts. For the western repair, approach from the road at 43.9,37.0 and use the west face. For the eastern repair, enter {area:16677} from the west. Return to {npc:253471} only after both repairs count.\nIf you want to leave {zone:2652} now, keep the quest. This line takes you back to your {zone:1444} route; you can return for the unfinished repair later."] = "Check your quest log before going back to Mordent. Each unchecked pylon needs four crystals from the rifts. For the western repair, approach from the road at 43.9,37.0 and use the west face. For the eastern repair, enter Bristleback Retreat from the west. Return to Mordent only after both repairs count.\nIf you want to leave Shen'dralas now, keep the quest. This line takes you back to your Feralas route; you can return for the unfinished repair later.", ["Follow the valley road west and south to {npc:253471} with both repairs finished."] = "Follow the valley road west and south to Mordent with both repairs finished.", ["Hear {npc:253471} out, then speak to him again for the reward."] = "Hear Mordent out, then speak to him again for the reward.", ["Repair the eastern pylon, then return to {npc:253471}"] = "Repair the eastern pylon, then return to Mordent", ["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.", ["{npc:253471} wants a fragment and a shard of the pylons back from {area:405}'s two centaur villages: {area:604} lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village."] = "Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village." },
 			steps = {
 				{
 					title = "North into {area:405}",
@@ -70,15 +70,15 @@ do
 				},
 				{
 					title = "The {area:2657}: a {quest:93644}",
-					note = "New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.",
+					note = "New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.",
 					goals = {
-						{ t = "collect", item = 260347, itemName = "Tattered Journal", map = 2652, x = 31.21, y = 5.08, spotsPacked = "33.8,8.2,,69,42;35.5,30.3,,63,42;23.7,24.6,63.4,52,24;46.5,42.2,,66,41;41.8,54.6,,40,6;37.4,65.2,,40,1,,40;31.1,70.9,,40,2,,40;62.3,74.9,,40,2;60.5,53.2,,40,4;60.3,37,,68,10;64.1,23.5,,43,4;49.7,26.4,,63,34;34.8,13.8,,53,32,1;34.1,19.5,,67,76,1;31.6,26.9,,64,148,1;35.7,25.9,,75,50,1;26.9,26.5,,50,56,1;41.5,30.5,,52,32,1;46.2,33.3,,63,47,1;49.3,33,,41,17,1;55.6,23.1,,67,39,1;58.8,27.5,,68,19,1;60.5,24,,73,28,1;51.4,47.8,,52,13,1;33.6,63.7,,40,2,1,40;58,49,,60,20,1;56.1,54.9,,79,35,1;59.8,57.2,,55,19,1;36,72.3,,44,3,1,40;58.7,67.3,,54,8,1;57.1,72.3,,50,13,1", spread = true, lvl = 43, from = "Outcast Necromancer", fromKind = "npc", fromAlso = "Magram Necromancer", fromId = 11559, fromAlsoId = 253272, fromNpcs = { { npc = 253272, npcName = "Magram Necromancer" }, { npc = 11559, npcName = "Outcast Necromancer" } } },
+						{ t = "collect", npc = 11559, npcName = "Outcast Necromancer", item = 260347, itemName = "Tattered Journal", map = 2652, x = 27.3, y = 23.95, spotsPacked = "27.3,23.95,,8;26.59,27.52,,8", spread = true },
 						{ t = "accept", quest = 93644, title = "Tattered Journal", item = 260347, itemName = "Tattered Journal", qlvl = 45 },
 					},
 				},
 				{
 					title = "The western pylon",
-					note = "East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.",
+					note = "East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.\nCareful: click the crystal from the road on its west side and move on: the Protectors stand two and three together east and north-east of it, where Corpsefeeders and the Magram Necrokhans (elites, 45) walk too.",
 					goals = {
 						{ t = "accept", quest = 92914, title = "Strange Pylons", object = 577959, objName = "Shen'dralar Pylon", qlvl = 43, map = 2652, x = 43.44, y = 34.08, spotsPacked = "43.7,34.7,,15,7" },
 					},
@@ -115,7 +115,7 @@ do
 				},
 				{
 					title = "{area:604}",
-					note = "The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it.",
+					note = "The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it. They leave you be unless you have fought the Magram: pick the fragment up without a fight. Every Magram you kill turns the clan against you, and back in the valley that means the Necrokhans (level 45, elites) at the western pylon as well.",
 					goals = {
 						{ t = "collect", quest = 96010, title = "Fragments of the Pylons", item = 255656, itemName = "Pylon Fragment", count = 1, oi = 1, map = 1443, x = 68.1, y = 79.2, from = "Pylon Fragment", fromKind = "object", fromId = 607122 },
 					},
@@ -144,32 +144,89 @@ do
 				{
 					title = "The temple: the {item:255662}",
 					note = "{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.",
+					when = { { k = "onquest", q = { 96018 } }, { k = "complete", neg = true, q = 96018 } },
 					goals = {
 						{ t = "collect", item = 255662, itemName = "Mana Sieve", map = 2652, x = 45.9, y = 78.2, from = "Mana Sieve", fromKind = "object", fromId = 584729 },
 					},
 				},
 				{
-					title = "The western pylon: repair it",
-					note = "North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.",
+					title = "Four crystals for the first unfinished pylon",
+					note = "Use the {item:255662} on Unstable Mana Rifts north of the temple. Each repair spends four crystals. If both pylons are unfinished, gather eight here or refill on the valley road after the western repair. If only one is unfinished, four are enough. Let the wandering elite Protectors pass.",
+					label = "first-pylon-crystals",
+					when = { { k = "onquest", q = { 96018 } }, { k = "complete", neg = true, q = 96018 } },
 					goals = {
-						{ t = "kill", quest = 96018, title = "Powering the Pylons", target = "Decrepit Pylon Protector", npc = 252711, count = 1, oi = 2, map = 2652, x = 43.97, y = 35.59, spotsPacked = "43.97,35.59,,138,66;46.6,32.4,,40,12,1;48.5,37.1,,40,4,1;46.7,41.7,,40,4,1;34.3,26.1,,40,1,1;72.7,23.2,,99,33,1;76.4,22.4,,44,14,1", lvl = 43, note = "{npc:252711}, then {spell:1289727} on it" },
+						{ t = "use", item = 255662, itemName = "Mana Sieve", map = 2652, x = 40.18, y = 49.62, optional = true, note = "{item:255662} on an {npc:264149}" },
+						{ t = "collect", item = 255667, itemName = "Coalesced Mana Crystal", count = 4, map = 2652, x = 40.18, y = 49.62, note = "Coalesced Mana Crystals for one repair" },
+					},
+				},
+				{
+					title = "The road south of the western pylon",
+					note = "Check the western repair in your quest log. If it is already checked, do not visit this waypoint: take four crystals east to {area:16677} (73.4,23.9). Enter from the west and stay off the south side, away from Kog'thug and his bodyguards. Repair the eastern pylon there; the route resumes when the log shows both.\nNorth up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.",
+					label = "western-pylon-approach",
+					when = { { k = "done", label = "first-pylon-crystals" }, { k = "complete", neg = true, q = 96018 } },
+					goals = {
+						{ t = "goto", text = "the road just south of the western pylon", map = 2652, x = 43.9, y = 37, r = 10 },
+					},
+				},
+				{
+					title = "The western pylon: repair it",
+					note = "Pull one {npc:252711} back to the road if it guards the crystal. Stand on the west face and use {spell:1289727}. The quest log must show the western pylon repaired; a dead Protector alone does not count.",
+					label = "western-pylon-repaired",
+					when = { { k = "done", label = "western-pylon-approach" } },
+					goals = {
+						{ t = "cast", spell = 1289727, spellName = "Repair and Recharge Pylon", map = 2652, x = 43.97, y = 35.59, optional = true },
+						{ t = "interact", quest = 96018, title = "Powering the Pylons", object = 577959, objName = "Shen'dralar Pylon", oi = 2, map = 2652, x = 43.97, y = 35.59, spotsPacked = "43.97,35.59,,4;43.89,35.64,,4", spread = true, note = "Repair the western pylon from this side", group = { kind = "elite", lvl = 45, near = true, rank = 1 } },
+					},
+				},
+				{
+					title = "Four crystals for the eastern pylon",
+					note = "Check your bags after the western repair. If fewer than four crystals remain, use the Sieve on rifts along the valley road before entering {area:16677}. Give roaming Corpsefeeders and hostile Necrokhans room.",
+					label = "eastern-pylon-crystals",
+					when = { { k = "done", label = "western-pylon-repaired" }, { k = "onquest", q = { 96018 } }, { k = "complete", neg = true, q = 96018 } },
+					goals = {
+						{ t = "use", item = 255662, itemName = "Mana Sieve", map = 2652, x = 51.6, y = 36.94, optional = true, note = "{item:255662} on an {npc:264149}" },
+						{ t = "collect", item = 255667, itemName = "Coalesced Mana Crystal", count = 4, map = 2652, x = 51.6, y = 36.94, note = "Four unspent Coalesced Mana Crystals" },
 					},
 				},
 				{
 					title = "{area:16677}: repair the eastern pylon",
-					note = "East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.",
+					note = "Enter from the west. Pull a single {npc:252711} clear if needed, then use {spell:1289727} at the eastern crystal. Keep away from {npc:253527} and his bodyguards on the south side of the camp.",
+					when = { { k = "done", label = "eastern-pylon-crystals" } },
 					goals = {
-						{ t = "kill", quest = 96018, title = "Powering the Pylons", target = "Decrepit Pylon Protector", npc = 252711, count = 1, oi = 3, map = 2652, x = 73.4, y = 23.91, spotsPacked = "73.4,23.91,,117,33;76.4,22.4,,44,14,1;48.5,37.1,,40,4,1;46.6,32.4,,40,12,1;45.8,36.3,,46,30,1;46.7,41.7,,40,4,1;42.8,31.4,,75,36,1;34.3,26.1,,40,1,1", lvl = 43, note = "{npc:252711}, then {spell:1289727} on it" },
+						{ t = "cast", spell = 1289727, spellName = "Repair and Recharge Pylon", map = 2652, x = 73.4, y = 23.91, optional = true },
+						{ t = "interact", quest = 96018, title = "Powering the Pylons", object = 577960, objName = "Shen'dralar Pylon", oi = 3, map = 2652, x = 73.4, y = 23.91, note = "Repair the eastern pylon, then return to {npc:253471}", group = { kind = "elite", lvl = 45, near = true, rank = 1 } },
+					},
+				},
+				{
+					title = "Unfinished pylon repairs",
+					note = "Check your quest log before going back to {npc:253471}. Each unchecked pylon needs four crystals from the rifts. For the western repair, approach from the road at 43.9,37.0 and use the west face. For the eastern repair, enter {area:16677} from the west. Return to {npc:253471} only after both repairs count.\nIf you want to leave {zone:2652} now, keep the quest. This line takes you back to your {zone:1444} route; you can return for the unfinished repair later.",
+					when = { { k = "onquest", q = { 96018 } }, { k = "complete", neg = true, q = 96018 } },
+					goals = {
+						{ t = "task", text = "Leave {zone:2652} with the repair quest in my log" },
 					},
 				},
 				{
 					title = "{area:16678}",
-					note = "Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in.",
+					note = "Follow the valley road west and south to {npc:253471} with both repairs finished.",
+					when = { { k = "complete", q = 96018 } },
 					goals = {
 						{ t = "turnin", quest = 96018, title = "Powering the Pylons", npc = 253471, npcName = "Mordent Evenshade", map = 2652, x = 35.07, y = 46.23, spotsPacked = "35,46.5,,15,3" },
+					},
+				},
+				{
+					title = "{quest:93016}",
+					note = "Hear {npc:253471} out, then speak to him again for the reward.",
+					when = { { k = "turnedin", q = 96018 } },
+					goals = {
 						{ t = "accept", quest = 93016, title = "A Brief History Lesson", npc = 253471, npcName = "Mordent Evenshade", qlvl = 43, pre = { 96018 }, preTitles = { [96018] = "Powering the Pylons" }, map = 2652, x = 35.07, y = 46.23, spotsPacked = "35,46.5,,15,3" },
 						{ t = "talk", quest = 93016, title = "A Brief History Lesson", npc = 253471, npcName = "Mordent Evenshade", oi = 1, map = 2652, x = 35.07, y = 46.23, spotsPacked = "35,46.5,,15,3", note = "{npc:253471}: hear him out" },
 						{ t = "turnin", quest = 93016, title = "A Brief History Lesson", npc = 253471, npcName = "Mordent Evenshade", map = 2652, x = 35.07, y = 46.23, spotsPacked = "35,46.5,,15,3" },
+					},
+				},
+				{
+					title = "{quest:93394}",
+					when = { { k = "turnedin", q = 93016 } },
+					goals = {
 						{ t = "accept", quest = 93394, title = "Meeting the Magister", npc = 253471, npcName = "Mordent Evenshade", qlvl = 43, pre = { 93016 }, preTitles = { [93016] = "A Brief History Lesson" }, map = 2652, x = 35.07, y = 46.23, spotsPacked = "35,46.5,,15,3" },
 					},
 				},
@@ -185,6 +242,7 @@ do
 				{
 					title = "The temple: {npc:254656}",
 					note = "{npc:254656} waits inside the temple. Then {npc:254578}, on the temple's eastern side, has work in the {quest:93341}.",
+					when = { { k = "turnedin", q = 93016 } },
 					goals = {
 						{ t = "turnin", quest = 93394, title = "Meeting the Magister", npc = 254656, npcName = "Magister Kirandis", map = 2652, x = 47.29, y = 76.4 },
 						{ t = "accept", quest = 93341, title = "Forlorn Gardens", npc = 254578, npcName = "Mithera", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 53.09, y = 76, spotsPacked = "53.3,76.1,,15,2" },
@@ -193,14 +251,22 @@ do
 				{
 					title = "The {quest:93341}: the pedestal",
 					note = "East of the temple the {quest:93341} have run wild, and their plants attack on sight. Examine the pedestal at the gardens' southern end.",
+					when = { { k = "onquest", q = { 93341 } } },
 					goals = {
 						{ t = "complete", quest = 93341, title = "Forlorn Gardens", map = 2652, x = 70.3, y = 79.7, objs = { { text = "Pedestal examined", count = 1 } } },
 					},
 				},
 				{
 					title = "{npc:254578}",
+					when = { { k = "complete", q = 93341 } },
 					goals = {
 						{ t = "turnin", quest = 93341, title = "Forlorn Gardens", npc = 254578, npcName = "Mithera", map = 2652, x = 53.49, y = 76.1, spotsPacked = "53.3,76.1,,15,2" },
+					},
+				},
+				{
+					title = "{npc:254578}’s garden errands",
+					when = { { k = "turnedin", q = 93341 } },
+					goals = {
 						{ t = "accept", quest = 93362, title = "What They've Done to My Peonies", npc = 254578, npcName = "Mithera", qlvl = 43, pre = { 93341 }, preTitles = { [93341] = "Forlorn Gardens" }, map = 2652, x = 53.49, y = 76.1, spotsPacked = "53.3,76.1,,15,2" },
 						{ t = "accept", quest = 93594, title = "Word of the Woods", npc = 254578, npcName = "Mithera", qlvl = 43, pre = { 93341 }, preTitles = { [93341] = "Forlorn Gardens" }, map = 2652, x = 53.49, y = 76.1, spotsPacked = "53.3,76.1,,15,2" },
 					},
@@ -208,6 +274,7 @@ do
 				{
 					title = "The {quest:93341}",
 					note = "Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. {npc:254674}, the treant in the middle of the gardens, has a request of his own that needs water from {area:2100}, a dungeon: this guide leaves it.\nThe Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them.",
+					when = { { k = "turnedin", q = 93341 } },
 					goals = {
 						{ t = "kill", quest = 93362, title = "What They've Done to My Peonies", target = "Rowdy Rose", npc = 254566, count = 4, oi = 1, map = 2652, x = 58.22, y = 79.66, spotsPacked = "62.8,77.9,,97,50;61.3,72.7,,59,28;66.5,72.1,,58,40;67.7,76.4,,56,31;66.8,67.8,,41,7;70.4,79.3,,49,16;70.9,74.5,,46,11,1", lvl = 42 },
 						{ t = "kill", quest = 93362, title = "What They've Done to My Peonies", target = "Terrible Tulip", npc = 254567, count = 4, oi = 2, map = 2652, x = 58.82, y = 77.77, spotsPacked = "63.2,76.6,,92,52;65.9,69,,46,8;67.6,72.6,,67,36;69.2,77.9,,68,29;71.4,71.4,,62,29", lvl = 42 },
@@ -217,24 +284,42 @@ do
 				},
 				{
 					title = "{npc:254578}",
-					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north.",
+					when = { { k = "complete", q = 93362 } },
 					goals = {
 						{ t = "turnin", quest = 93362, title = "What They've Done to My Peonies", npc = 254578, npcName = "Mithera", map = 2652, x = 53.49, y = 76.1, spotsPacked = "53.3,76.1,,15,2" },
+					},
+				},
+				{
+					title = "The temple: {npc:255486}",
+					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north.",
+					when = { { k = "turnedin", q = 93394 } },
+					goals = {
 						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 45.78, y = 78.13 },
 					},
 				},
 				{
 					title = "{quest:99257}",
-					note = "The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants.",
+					note = "Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side.",
+					when = { { k = "onquest", q = { 99257 } } },
 					goals = {
-						{ t = "collect", quest = 99257, title = "A Heart of Crystal", item = 286647, itemName = "Depleted Crystal Heart", count = 1, oi = 1, map = 2652, x = 46.58, y = 43.53, spotsPacked = "46.7,41.7,,40,4;48.5,37.1,,40,4;44.18,34.68,,27,15;34.3,26.1,,40,1;72.8,23.08,,15,4;76.4,22.4,,44,14", spread = true, lvl = 43, from = "Decrepit Pylon Protector", fromKind = "npc", fromId = 252711, fromNpcs = { { npc = 252711, npcName = "Decrepit Pylon Protector" } } },
+						{ t = "collect", quest = 99257, title = "A Heart of Crystal", npc = 252711, npcName = "Decrepit Pylon Protector", item = 286647, itemName = "Depleted Crystal Heart", count = 1, oi = 1, map = 2652, x = 43.97, y = 35.59, spotsPacked = "43.97,35.59,,4;43.89,35.64,,4", spread = true },
 					},
 				},
 				{
 					title = "{npc:255486}",
-					note = "{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there.",
+					when = { { k = "complete", q = 99257 } },
 					goals = {
 						{ t = "turnin", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", map = 2652, x = 45.78, y = 78.13 },
+					},
+				},
+				{
+					title = "{quest:99258}",
+					note = "Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised.",
+					when = { { k = "group", q = 99258 }, { k = "turnedin", q = 99257 } },
+					goals = {
+						{ t = "accept", quest = 99258, title = "Mana Mania", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 99257 }, preTitles = { [99257] = "A Heart of Crystal" }, map = 2652, x = 45.78, y = 78.13 },
+						{ t = "kill", quest = 99258, title = "Mana Mania", target = "Nascent Pylon Protector", npc = 276401, count = 1, oi = 1, map = 2652, x = 49.96, y = 87.86, spotsPacked = "50.5,65.8,,15,2;54.2,66.2,,15,2;46.7,60.5,,41,8;45.59,55.27,,26,8;42.5,59.5,,15,4;63.8,71,,15,4;50,87.9,,15,1,1;57.5,78.9,,15,1,1;36.6,58.6,,17,5,1;54.2,50.7,,16,5,1;38.3,53.1,,26,7,1;32.4,52.8,,15,1,1;48.9,43.2,,15,2,1;38.4,46.2,,34,7,1;45.8,38.3,,19,7,1", spread = true, lvl = 43, group = { kind = "elite", lvl = 43, rank = 1 } },
+						{ t = "turnin", quest = 99258, title = "Mana Mania", npc = 255486, npcName = "Historian Biraxas", map = 2652, x = 45.78, y = 78.13 },
 					},
 				},
 				{
@@ -19742,21 +19827,21 @@ Polestar.RegisterExperimental({
 		id = "polestar-experimental/hyjal-1",
 		pack = "polestar-experimental",
 		title = "{area:616}",
-		faction = "Alliance",
 		minLevel = 57,
 		maxLevel = 60,
+		factionLevels = { Alliance = { min = 57, max = 60 }, Horde = { min = 57, max = 60 } },
 		topLevel = 60,
 		zone = 2482,
 		zoneName = "Mount Hyjal",
-		pitch = "A new Forever zone south of {zone:1452}.",
+		pitch = "A new Forever zone south of {area:618}.",
 		pros = { "About 350,000 quest experience", "No boat: {area:2255} is a flight away", "Two flight paths inside the zone" },
-		cons = { "Elites roam, a few group quests" },
-		questIds = { 96833, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 91881, 96321, 96131, 92612, 96209, 95006, 93773, 92009, 92011, 96930, 92171, 96931, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92591, 92449, 95027, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 91883, 92147, 96252, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96003, 97009, 96025, 93197, 92017, 92533, 93584, 93407, 92328, 90647, 92169 },
-		joins = { "forever/alliance/50-60/06-silithus" },
-		start = { map = 1452, x = 61.31, y = 38.89 },
+		cons = { "Bring help: elites line the gorge" },
+		questIds = { 96833, 96830, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 96321, 96131, 92612, 96209, 95006, 93773, 6845, 92009, 92011, 96930, 92171, 96931, 91881, 94782, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92449, 95027, 95026, 92609, 96616, 92592, 92591, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 91794, 96622, 95248, 92446, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 92147, 96252, 91883, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96998, 96003, 97009, 96025, 92328, 90647, 96999, 92017, 92533, 93584, 93407, 92169, 93197 },
+		joins = { "forever/alliance/50-60/06-silithus", "forever/horde/50-60/06-silithus" },
+		start = { map = 1452, x = 62.33, y = 36.61, f = "e" },
 		focus = { map = 2482, x = 85.5, y = 73.2 },
 		viaMap = 1452,
 		via = "Winterspring",
-		names = { ["area:2255"] = "Everlook", ["area:616"] = "Mount Hyjal", ["zone:1452"] = "Winterspring" },
+		names = { ["area:2255"] = "Everlook", ["area:616"] = "Mount Hyjal", ["area:618"] = "Winterspring" },
 	},
 })

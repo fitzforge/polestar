@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "{npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}：{npc:246143}逃到了教堂西邊的山丘上，就在前往{area:155}的路上。",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "向{npc:246143}伸出援手",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -579,4 +581,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}與{npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}和{npc:5667}站在教堂旁。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，雙足飛龍管理員",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}：{npc:246143}逃到了教堂西邊的山丘上，就在前往{area:155}的路上。",
 }

@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "К северу от места {area:228}. {npc:1983} бродит по {area:240}: убейте ее, затем пройдите через поле. Осторожно: {npc:1983} (14) появляется, как только вы убьете гноллов из племени Гнилошкурых на поле: сражайтесь с ней с полным здоровьем.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -316,6 +316,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Крапчатые ворги ({npc:1766}) рыщут по холмам вокруг дома. Затем идите на юг вдоль берега озера: живорезы ({npc:1767}) и волноловы из племени Злобного Плавника роняют глаза мурлоков.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Снова на север к дому Йориков. {quest:425} прячется недалеко к западу от него.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "К северу от места {area:228}. Плеть ночи бродит здесь: {area:240}. Убейте ее, затем пройдите через поле.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "К северу от места {area:228}. {npc:1983} бродит по {area:240}: убейте ее, затем пройдите через поле. Осторожно: {npc:1983} (14) появляется, как только вы убьете гноллов из племени Гнилошкурых на поле: сражайтесь с ней с полным здоровьем.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "К северо-востоку от беженцев чернорабочие ({npc:1974}) и стражи Когтя Ворона бродят по руинам ({quest:516}) на юго-востоке леса.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Только если {npc:1938} дал вам {quest:98298}: кровавые ревуны рыщут в лесу к юго-западу от места {area:233}, к востоку от Деревни Погребальных Костров; с них падает {item:280375}.",
 	-- ["Road to Silverpine"] = "Дорога в Серебряный бор",

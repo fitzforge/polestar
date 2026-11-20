@@ -514,7 +514,7 @@ step Level 28
   level 28 grind 10759                -- grind on Grimtotem Stomper
 
 step Lakota Windsong
-  tip Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
+  tip Great Lift detour warning: if you are already on the mesa, stay up and cross the rope bridge toward Arnak; do not drop to the canyon or go to the Great Lift. From the canyon floor, follow the path up Darkcloud Pinnacle and take the rope bridges. Clear Arnak Grimtotem (29) and the guards beside Lakota Windsong before freeing her. Protect her from the Grimtotem ambushers on the way down.
   collect 12884 quest 5147 @38.1,26.9 -- Arnak Grimtotem
   accept 4904 @37.95,26.45            -- Lakota Windsong
   complete 4904

@@ -26,7 +26,8 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: Töte sie, wenn du ihnen begegnest",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Pfadfinder, Höhlenbehüter und Totemiker teilen sich die Furbolglager um die heißen Quellen; Struppige Eulenbestien streifen über die Hänge dazwischen. Töte zuerst die Totemiker. Heb jeden {item:14047}, den du plünderst, für Meilosh auf.\nVorsicht: Die Höhlenbehüter sind bis Stufe 56: Zieh sie einzeln und halte dich von den Totems der Lager fern.",
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Pfadfinder, Höhlenbehüter und Totemiker teilen sich die Furbolglager um die heißen Quellen; Struppige Eulenbestien streifen über die Hänge dazwischen. Töte zuerst die Totemiker. Heb jeden {item:14047}, den du plünderst, für Meilosh auf.\nVorsicht: Die Höhlenbehüter sind bis Stufe 56: Zieh sie einzeln und halte dich von den Totems der Lager fern."
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.\nIf you are 54, take the level 55 Den Watchers and leave the 56s."] = "",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: Etwa jeder zehnte Winterquell-Furbolg trägt einen; töte sie weiter, bis einer fallen gelassen wird",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +42,8 @@ return {
 	["Raging Owlbeasts"] = "Tobende Eulenbestien",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Tobende Eulenbestien streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}. Vorsicht: Die größten sind Stufe 56: Zieh sie einzeln.",
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Tobende Eulenbestien streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}. Vorsicht: Die größten sind Stufe 56: Zieh sie einzeln."
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time.\nAt 54, take owlbeasts no higher than 55."] = "",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -54,12 +56,14 @@ return {
 	["Ice Thistle yetis"] = "Eisdistelyetis",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen: Kümmere dich um die Eisdistelyetis (55-56) und lass die Matriarchinnen und Patriarchen (56-58) in Ruhe; ihre Hörner holst du bei einem späteren Besuch.",
+	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen: Kümmere dich um die Eisdistelyetis (55-56) und lass die Matriarchinnen und Patriarchen (56-58) in Ruhe; ihre Hörner holst du bei einem späteren Besuch."
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
 	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Eiswindschimären",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Die Schimären streifen über die Schneefelder südlich und westlich von {area:2255}. Halte dich von der Höhle von {area:2245} fern: Ihre blauen Drachkin sind Elite.",
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
 	-- Step 11: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
@@ -94,6 +98,8 @@ return {
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} und {npc:14728} stehen auf {area:1641}. Jede von Rumstags Spenden nimmt sechzig Wolle, Seide oder Magiestoff aus deinen Taschen: Gib ab, was du dabeihast, den Rest überspringe.",
 
 	-- Step 19: Elder Rise
+	-- {area:1237} Valormok
+	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} auf der {area:1639}; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
@@ -135,12 +141,16 @@ return {
 	-- ["Level 55.04"] = "Stufe 55,04",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Matriarchinnen und Patriarchen schlagen hart zu: Zieh sie einzeln.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Pfadfinder, Höhlenbehüter und Totemiker teilen sich die Furbolglager um die heißen Quellen; Struppige Eulenbestien streifen über die Hänge dazwischen. Töte zuerst die Totemiker. Heb jeden {item:14047}, den du plünderst, für Meilosh auf.",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Pfadfinder, Höhlenbehüter und Totemiker teilen sich die Furbolglager um die heißen Quellen; Struppige Eulenbestien streifen über die Hänge dazwischen. Töte zuerst die Totemiker. Heb jeden {item:14047}, den du plünderst, für Meilosh auf.\nVorsicht: Die Höhlenbehüter sind bis Stufe 56: Zieh sie einzeln und halte dich von den Totems der Lager fern.",
 	-- ["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Raging Owlbeasts streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}.",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Tobende Eulenbestien streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}. Vorsicht: Die größten sind Stufe 56: Zieh sie einzeln.",
 	-- ["Ride back west to {area:2246}."] = "Reite zurück nach Westen zu {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Reite nach Osten, dann nach Süden die {area:2249} hinunter. Die Frosthagelriesen dort sind Elite der Stufe 59: Halte dich in der Mitte und bleib in Bewegung. Die seltsame Quelle ist am Eingang von {area:2256}, am Südende.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Reite auf der Straße nach Westen am {area:2251} vorbei; Tobende Eulenbestien streifen durch die Hügel nördlich davon.",
+	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Die Schimären streifen über die Schneefelder südlich und westlich von {area:2255}. Halte dich von der Höhle von {area:2245} fern: Ihre blauen Drachkin sind Elite.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Das Furbolgdorf füllt das Tal nordöstlich von {area:2255}. Töte zuerst die Schamanen; sie heilen. {npc:10738} in der Höhle hinten ist Elite: Bleib draußen.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen: Kümmere dich um die Eisdistelyetis (55-56) und lass die Matriarchinnen und Patriarchen (56-58) in Ruhe; ihre Hörner holst du bei einem späteren Besuch.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen; nur Matriarchinnen und Patriarchen lassen Hörner fallen, also heb die für nach der Abgabe auf.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Hol hier Stufe 55,04 auf, bevor du die Quests bei {area:2255} abgibst: Sie bringen dich auf Stufe 56. Die Eisdistelyetis (55-56) sind hier die niedrigsten; die Matriarchinnen und Patriarchen (56-58) schlagen härter zu. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1583} (Untere).",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Umis dritter Streich gilt Goblins in {area:976} und Un'Goro: Behalte ihn für später.",

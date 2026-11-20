@@ -9,50 +9,59 @@ return {
 	-- Step 1: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飛往{area:1638}",
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:3419} Apothecary Zamah
-	["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "飛往{area:1638}（如果沒有那裡的飛行路線，箭頭會經由{area:378}和{zone:1412}）：那裡的兩位長者會給予在本指南和下一份指南路線中完成的任務，{npc:3419}會收下萊登的毒素。",
+	-- {area:1638} Thunder Bluff · {npc:3419} Apothecary Zamah
+	["Fly to {area:1638}: two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "",
 
-	-- Step 2: Apothecary Zamah
-	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
-	["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "{npc:3419}站在{area:1640}下方洞穴的{area:2197}，在{npc:2995}西邊。",
+	-- Step 2: Fly to Thunder Bluff for Zamah
+	-- {area:1638} Thunder Bluff
+	["Fly to {area:1638} for Zamah"] = "",
+
+	-- Step 3: Apothecary Zamah
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {area:378} Camp Taurajo · {zone:1413} The Barrens · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["If you don't know {zone:1456}'s flight path, you can enter the city by lift from {zone:1412}. If {area:378} is on your flight map, it is across the {zone:1413} border from {zone:1412}. In {zone:1456}, descend into the {area:2197} under {area:1640} to find Zamah."] = "",
 	-- {npc:3419} Apothecary Zamah · {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad · {area:461} Windshear Crag
 	["{npc:3419}: the {item:5638} goes on the {object:19594} at {area:461}, on this guide's Windshear trip"] = "{npc:3419}：{item:5638}要放到{area:461}的{object:19594}上，於本指南前往風剪山崖時完成",
 
-	-- Step 3: Thunder Bluff
+	-- Step 4: Tal
+	-- {area:1638} Thunder Bluff · {npc:2995} Tal
+	["Before leaving {area:1638}, speak to {npc:2995} on the central rise to learn the flight path."] = "",
+
+	-- Step 5: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
-	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "雙足飛龍管理員{npc:2995}站在中央高台上：如果還沒有他的飛行路線就先取得。{npc:3024}和{npc:4721}站在他東邊不遠處。",
+	["{npc:2995}, the wind rider master, stands on the central rise. {npc:3024} and {npc:4721} stand a short walk east of him."] = "",
 	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	["{npc:3024}: the {object:667362} grows in {area:464}, by Sun Rock"] = "{npc:3024}：{object:667362}生長在烈日石居旁的{area:464}",
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}：藥瓶來自下一份指南的{zone:1440}",
 
-	-- Step 4: Fly to Camp Taurajo
+	-- Step 6: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "飛往{area:378}",
-	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
-	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "飛往{area:378}：{zone:1456}中央高台上的{npc:2995}；若你從十字路口開始本指南，就找十字路口的雙足飛龍管理員。",
+	-- {area:378} Camp Taurajo
+	["Take an available flight to {area:378}. If you are already there, continue to the camp."] = "",
 
-	-- Step 5: Camp Taurajo
-	-- {area:378} Camp Taurajo · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
-	["The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "飛行會在{area:378}的雙足飛龍管理員處降落。{npc:3433}站在營地北緣，{npc:3387}和{npc:3430}（在籠子裡）在中間。",
+	-- Step 7: Camp Taurajo
+	-- {area:378} Camp Taurajo · {zone:1413} The Barrens · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
+	["The next errands start at {area:378} in the southern {zone:1413}. If its flight path is unknown, reach the camp by road. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "",
 	-- {npc:3433} Tatternack Steelforge
 	["{npc:3433}, at the north edge of the camp"] = "{npc:3433}，在營地北緣",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}，在籠子裡",
 
-	-- Step 6: Grunt Logmar
+	-- Step 8: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911}站在飛行管理員旁。他要的{npc:268623}（23級）是精英：建議組隊；兩個入侵計程車兵不是精英。",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911}：那些士兵和掠奪者營地就在{npc:3341}以東，在往南的路上",
 
-	-- Step 7: Field of Giants
-	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
+	-- Step 9: Field of Giants
+	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants · {npc:3253} Silithid Harvester
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
-	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "在陶拉祖營地南邊，前往{npc:3341}的路上，異種蠍土丘散布在{area:390}；蛋就在土丘裡，異種群居蠍會出來保護。\n小心：這一帶的異種群居蠍會放出許多會打斷施法的小怪；荊棘術之類的傷害護盾一下就能殺死牠們。",
+	-- was: ["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "在陶拉祖營地南邊，前往{npc:3341}的路上，異種蠍土丘散布在{area:390}；蛋就在土丘裡，異種群居蠍會出來保護。\n小心：這一帶的異種群居蠍會放出許多會打斷施法的小怪；荊棘術之類的傷害護盾一下就能殺死牠們。"
+	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers release tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit. Avoid Brontus (27 rare elite) and the {npc:3253} (24 rare) near the mounds."] = "",
 
-	-- Step 9: Brine
+	-- Step 11: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "{npc:5899}的小屋在{area:378}南邊、野豬人水坑上方的山脊上，在前往{area:359}的路上。",
 	-- {npc:5899} Brine · {area:272} Tarren Mill
@@ -60,7 +69,7 @@ return {
 	-- {npc:5899} Brine · {zone:1440} Ashenvale
 	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}：藍色水袋在下一份指南的{zone:1440}裝滿",
 
-	-- Step 10: Gann Stonespire
+	-- Step 12: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
 	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "{npc:3341}沿路向南往{area:359}方向走，大約在 46,75 到 46,81 之間：他不在箭頭處，就沿路走直到碰上。{npc:14242}坐在路東邊的樹上，座標 47.9,77.5。",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
@@ -68,67 +77,67 @@ return {
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
 	["{npc:14242}, up in the tree just east of {npc:3341}"] = "{npc:14242}，在{npc:3341}東邊不遠的樹上",
 
-	-- Step 11: Wrongly Blamed, Justly Corrected
+	-- Step 13: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "{npc:14242}那棵樹以東幾步有個小營地：兩個入侵計程車兵，還有洛格瑪要的{npc:268623}。{npc:268623}是精英：建議組隊。",
 
-	-- Step 12: Bael Modan
+	-- Step 14: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
 	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "在加恩·石塔南邊，巴爾丹矮人在{area:359}挖掘。巴爾丹挖掘者和巴爾丹工頭在坑中工作；{npc:3392}（26級）身上帶著日誌：單獨把他拉過來。\n小心：挖掘者（21-22級）和工頭（22-23級）血量降到15%時會跑去求援，所以會有更多矮人加入戰鬥。",
 	-- {npc:3375} Bael'dun Foreman · {area:359} Bael Modan
 	["{npc:3375} walks around {area:359}: look inside the circle on the map"] = "{npc:3375}在{area:359}一帶走動：到地圖上的圓圈裡找",
 
-	-- Step 13: Blackthorn Ridge
+	-- Step 15: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
 	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "在加恩·石塔西邊，鋼鬃野豬人佔據{area:1701}。{npc:3436}在東側，{npc:3434}在南邊，{npc:3435}在西端。洛克·奧克班恩（25級）和鋼鬃戰士（24-25級）比你高幾級；稀有精英{npc:5859}有時會在山脊上走動：別惹他。鋼鬃探路者和鋼鬃捕獵者會掉落鋼鬃背刺匕首，鋼鬃先知會掉落魔杖，鋼鬃戰士會掉落鋼鬃大盾。稀有的紅色風蛇{quest:885}在山脊上空飛行：牠的羽毛會開啟任務。\n小心：鋼鬃捕獵者會潛行移動，並以{spell:1752}攻擊，可能毫無預警地加入戰鬥。",
 
-	-- Step 14: Field to Clear
+	-- Step 16: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
 	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128}在{area:1156}一帶走動：到地圖上的圓圈裡找",
 
-	-- Step 16: Bael'dun fortress
+	-- Step 18: Bael'dun fortress
 	["Bael'dun fortress"] = "巴爾丹要塞",
 	-- {npc:3414} General Twinbraid
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
 	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "",
 
-	-- Step 18: The flying machine
+	-- Step 20: The flying machine
 	["The flying machine"] = "飛行器",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
 	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飛行器停在挖掘場內的平台上。對它使用{npc:3341}給你的{item:5021}。",
 
-	-- Step 20: To Camp Taurajo
+	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["To {area:378}"] = "前往{area:378}",
 	-- {area:378} Camp Taurajo
 	["North up the road to {area:378}: your hearthstone takes you there if it is ready."] = "沿道路向北前往{area:378}：如果爐石冷卻好了，可以直接用它回去。",
 
-	-- Step 22: Grunt Logmar
+	-- Step 24: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
 	["{npc:5911}, beside the flight master"] = "{npc:5911}，在飛行管理員旁",
 
-	-- Step 23: Fly to Crossroads
+	-- Step 25: Fly to Crossroads
 	["Fly to Crossroads"] = "飛往十字路口",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "{area:378}飛行管理員",
 
-	-- Step 24: The Crossroads
+	-- Step 26: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}，在塔頂",
 	-- {npc:3428} Korran
 	["{npc:3428}, west of the north gate"] = "{npc:3428}，在北門西邊",
 
-	-- Step 25: Fly to Ratchet
+	-- Step 27: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	["Crossroads flight master"] = "十字路口飛行管理員",
 
-	-- Step 26: Sputtervalve
+	-- Step 28: Sputtervalve
 	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442} stands beside the flight master you land at. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442}站在你降落處的飛行管理員旁邊。他的新命令要交給{area:1076}的{npc:4201}，在本指南後段。",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
@@ -136,40 +145,40 @@ return {
 	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442}: for {npc:4201}, on the way up the {area:1076}"] = "{npc:3442}：交給{npc:4201}，在沿{area:1076}上行的路上",
 
-	-- Step 27: Mebok Mizzyrix
+	-- Step 29: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix
 	["{area:718} quests still in your log: {npc:3446} stands beside the WANTED poster, Bigglefuzz on the dock by the flight master."] = "任務日誌裡還有{area:718}任務：{npc:3446}站在通緝告示旁，畢格弗斯在飛行管理員旁的碼頭上。",
 
-	-- Step 28: Crane Operator Bigglefuzz
+	-- Step 30: Crane Operator Bigglefuzz
 	-- {npc:3665} Crane Operator Bigglefuzz
 	["{npc:3665}, on the dock"] = "{npc:3665}，在碼頭上",
 
-	-- Step 29: Merchant Coast
+	-- Step 31: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874}在{area:392}飛行管理員正北的海岸上紮營。",
 
-	-- Step 30: Isha Awak
+	-- Step 32: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}是一隻巨大的長頸龍，在{area:391}外的淺水中游動，位於{npc:3388}東邊。",
 
-	-- Step 32: Seereth Stonebreak
+	-- Step 34: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak
 	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "沿道路向西經過雷戈薩的碉堡：{npc:4049}在石爪山脈邊緣的路旁紮營。",
 	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
 	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way back down from Sun Rock"] = "{npc:4049}：{npc:4074}和{npc:4073}在{npc:4201}東邊遊蕩，於從烈日石居下山的路上",
 
-	-- Step 33: The road west
+	-- Step 35: The road west
 	["The road west"] = "西邊的道路",
 	-- {npc:4049} Seereth Stonebreak
 	["The road west past {npc:4049}'s camp"] = "沿道路向西經過{npc:4049}的營地",
 
-	-- Step 34: Malaka'jin
+	-- Step 36: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
 	["Follow the road on west past {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "沿道路繼續向西經過{npc:4049}的營地進入石爪山脈：{npc:3995}在{area:2539}的地底下等著，位於{area:1076}腳下。",
 	-- {npc:3995} Witch Doctor Jin'Zil
 	["{npc:3995}, below ground"] = "{npc:3995}，在地下",
 
-	-- Step 35: Ziz Fizziks
+	-- Step 37: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:3442} Sputtervalve
 	["Up the {area:1076} to {npc:4201}' hut, where the road forks east to {area:461}: {npc:3442}'s orders are for him."] = "沿著{area:1076}往上走到{npc:4201}的小屋，道路在那裡向東分岔通往{area:461}：{npc:3442}的命令是給他的。",
 	-- {npc:4201} Ziz Fizziks
@@ -179,7 +188,7 @@ return {
 	-- {npc:4202} Gerenzo Wrenchwhistle · {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
 	["Keep {npc:4202} (27) and {npc:4049}'s robots: {area:461} comes in one trip on the way back down from Sun Rock."] = "保留{npc:4202}（27級）和{npc:4049}的機器人任務：從烈日石居下山時一趟完成{area:461}。",
 
-	-- Step 36: Sun Rock Retreat
+	-- Step 38: Sun Rock Retreat
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
 	["On up the {area:1076} from {npc:4201}' hut to {area:460}."] = "從{npc:4201}的小屋繼續沿{area:1076}往上前往{area:460}。",
 	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
@@ -189,37 +198,39 @@ return {
 	-- {npc:11860} Maggran Earthbinder
 	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
 	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}：從血怒鷹身人身上取得閃亮日長石",
+
+	-- Step 39: Tammra Windfield
+	-- {npc:11864} Tammra Windfield
+	["Give Makaba's news to {npc:11864} at the bonfire before you leave for the gate."] = "",
+
+	-- Step 40: Sun Rock Retreat
 	-- {npc:4198} Braelyn Firehand
 	["{npc:4198}, outside the gate"] = "{npc:4198}，在大門外",
 
-	-- Step 37: Tammra Windfield
-	-- {npc:11864} Tammra Windfield
-	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864}站在烈日石居內的營火旁：馬卡巴帶來的卡雅還活著的消息正是給她的。",
-
-	-- Step 38: Gaea Seeds
+	-- Step 41: Gaea Seeds
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["Gaea Seeds"] = "蓋亞之種",
 	-- {area:464} Mirkfallon Lake
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "蓋亞種子躺在{area:464}南岸周圍的草叢裡，就在日巖以北。\n注意：湖邊的傲翼會作為關聯群一起仇恨。",
 
-	-- Step 39: Mirkweed
+	-- Step 42: Mirkweed
 	-- {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
 	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "{object:667362}生長在{area:464}的湖底，就在同一片南岸外：潛到植物和乾燥的暗色草堆那裡；兩者都會給予豆莢。注意你的呼吸。",
 
-	-- Step 40: Stonetalon Mountains: kill these as you meet them
+	-- Step 43: Stonetalon Mountains: kill these as you meet them
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442}: kill these as you meet them"] = "{zone:1442}：遇到就殺",
 	-- {area:467} Stonetalon Peak
 	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
 	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "沿著道路向北前往{area:467}。巨角鹿在沿途覓食；腐蝕獸、夜行虎和靈龍在山峰下方的樹林中遊蕩，塞納里奧德魯伊則佔據那裡的樹林。",
 
-	-- Step 41: Sun Rock Retreat
+	-- Step 44: Sun Rock Retreat
 	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
 	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}的下一個任務「奧達努斯」在{zone:1440}的聯盟那一側。跳過。",
 
-	-- Step 42: The Charred Vale: kill these as you meet them
+	-- Step 45: The Charred Vale: kill these as you meet them
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "{area:465}：遇到就殺",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
@@ -230,37 +241,37 @@ return {
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
 	["Gaea Dirt Mounds"] = "蓋亞土堆",
 
-	-- Step 43: Sun Rock Retreat
+	-- Step 46: Sun Rock Retreat
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}，在{npc:11862}旁邊",
 	-- {npc:11862} Tsunaman
 	["{npc:11862}, up on the ledge"] = "{npc:11862}，在上方的岩架上",
 
-	-- Step 44: Shredding Machines
+	-- Step 47: Shredding Machines
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
 	["Back down the {area:1076} to {npc:4201}' hut, then east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "沿{area:1076}下山回到{npc:4201}的小屋，然後沿道路向東前往{area:461}：{npc:4074}在岔路口東邊不遠的道路上巡邏，{npc:4073}則在更東北方、山崖下方的山坡上。兩者都是落單的伐木機器人；牠們會四處移動，所以沿著道路走直到遇見牠們。",
 
-	-- Step 45: Gerenzo Wrenchwhistle
+	-- Step 48: Gerenzo Wrenchwhistle
 	-- {area:461} Windshear Crag · {npc:4073} XT:4 · {quest:1096} Gerenzo Wrenchwhistle
 	["On east to {area:461}, past where {npc:4073} roams: {quest:1096} (27) stands at the top of the Venture Co. tower. Clear the Venture Co. on the way up. His Mechanical Arm is for Ziz."] = "繼續往東前往{area:461}，經過{npc:4073}遊蕩的地方：{quest:1096}（27級）站在風險投資公司塔樓頂端。上去的路上清掉風險投資公司的人。他的機械手臂是給吉茲的。",
 	-- {item:5736} Gerenzo's Mechanical Arm · {quest:1096} Gerenzo Wrenchwhistle
 	["{item:5736}, from {quest:1096}"] = "{item:5736}，來自{quest:1096}",
 
-	-- Step 46: The Flying Machine Airport
+	-- Step 49: The Flying Machine Airport
 	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
 	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}是{npc:4202}塔樓東南方不遠處的平臺：把札瑪的{item:5638}放在上面。札瑪的任務在下一份指南停留{zone:1456}時繳交。",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "把{item:5638}放在{object:19594}上",
 
-	-- Step 47: Ziz Fizziks
+	-- Step 50: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {area:2539} Malaka'jin
 	["Back west to {npc:4201}' hut, on the way down to {area:2539}."] = "向西回到{npc:4201}的小屋，就在下山前往{area:2539}的路上。",
 
-	-- Step 48: Malaka'jin
+	-- Step 51: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["On down the {area:1076} to {area:2539}."] = "繼續沿{area:1076}往下前往{area:2539}。",
 
-	-- Step 49: Seereth Stonebreak
+	-- Step 52: Seereth Stonebreak
 	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak
 	["East along the road from {area:2539} to {npc:4049}'s camp."] = "從{area:2539}沿道路向東前往{npc:4049}的營地。",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
@@ -284,9 +295,11 @@ return {
 	-- ["Fly back to the {area:380}. The next guide starts here and takes the road north to the {area:1703} and {zone:1440}."] = "飛回{area:380}。下一份指南從這裡開始，沿道路向北前往{area:1703}和{zone:1440}。",
 	-- ["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "飛往{area:1637}學習20級技能。{npc:3354}在{object:172958}，{npc:5892}在{object:172957}。",
 	-- ["Fly to {area:1637} to train."] = "飛往{area:1637}訓練。",
+	-- ["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "飛往{area:1638}（如果沒有那裡的飛行路線，箭頭會經由{area:378}和{zone:1412}）：那裡的兩位長者會給予在本指南和下一份指南路線中完成的任務，{npc:3419}會收下萊登的毒素。",
 	-- ["Fly to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}."] = "飛往{area:1638}學習20級技能：{npc:3033}在{area:1639}。",
 	-- ["Fly to {area:1638} first: two of its elders give quests worked on this guide's and the next guide's walks."] = "先飛往{area:1638}：那裡的兩位長者會給予在本指南和下一份指南路線中完成的任務。",
 	-- ["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "飛往{area:1638}訓練：{npc:3033}在{area:1639}。",
+	-- ["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "飛往{area:378}：{zone:1456}中央高台上的{npc:2995}；若你從十字路口開始本指南，就找十字路口的雙足飛龍管理員。",
 	-- ["Follow the {area:458} south to {area:378}."] = "沿{area:458}向南前往{area:378}。",
 	-- ["From {area:2539} follow the road east to {npc:4049}'s camp, then south-east across the plains to {area:378}."] = "從{area:2539}沿道路向東前往{npc:4049}的營地，然後往東南穿過平原前往{area:378}。",
 	-- ["From {area:378} follow the road west through the gate into {zone:1412}, then north past {area:222} to {zone:1456}; a lift at the foot of the bluffs takes you up."] = "從{area:378}沿道路向西穿過大門進入{zone:1412}，然後往北經過{area:222}前往{zone:1456}；高崖腳下的升降梯會載你上去。",
@@ -303,6 +316,7 @@ return {
 	-- ["Ride north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "從{area:380}向北騎到{area:384}，在{object:19464}裝滿{item:15842}，然後回{area:380}找{npc:3448}。沒有{skill:182}？他旁邊的{npc:3490}出售{item:2449}，每次三個，賣完要等補貨。",
 	-- ["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "草原獅王在丘陵東邊的平原遊蕩，發動過的陷阱就在牠們之間。{quest:876}率領西邊丘陵中的巫翼鷹身人。",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "在陶拉祖營地南邊，異種蠍土丘散布在{area:390}；蛋就在土丘裡，異種群居蠍會出來保護。異種收割者很稀有：看到就殺掉取得頭部。",
+	-- ["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "在陶拉祖營地南邊，前往{npc:3341}的路上，異種蠍土丘散布在{area:390}；蛋就在土丘裡，異種群居蠍會出來保護。\n小心：這一帶的異種群居蠍會放出許多會打斷施法的小怪；荊棘術之類的傷害護盾一下就能殺死牠們。",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "保持潛行：{npc:7287}身上帶著塔的鑰匙；加里維克斯和他的帶鎖箱在塔頂。加里維克斯是精英：建議組隊。",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "赤鱗鐮爪龍在{area:380}南邊、{area:1697}周圍的平原狩獵；牠們會掉落角。下次經過{area:392}時繳交。",
 	-- ["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "牛頭人：{npc:11957}在橋上方的南邊山丘等著。天裔精靈：{npc:272054}站在雙橋南邊。然後前往湖東邊的獸穴：解除變形，點擊入口的雕像獲得五分鐘的潛行，避開裡面的靈魂，每種聖物各拿一個；{item:280680}在白貓雕像的腳下。",
@@ -311,6 +325,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "地區東北角礦坑的風險投資公司監工和風險投資公司執行者會掉落{item:5097}。",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "觸鬚掉落十五分鐘後就會消失，所以現在在往北的回程路上收集：在{area:390}的土丘擊殺異種群居蠍和異種爬行者直到收集五個，然後立刻用爐石回到{area:378}。",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飛行器停在挖掘場內的平台上。",
+	-- ["The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "飛行會在{area:378}的雙足飛龍管理員處降落。{npc:3433}站在營地北緣，{npc:3387}和{npc:3430}（在籠子裡）在中間。",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}的20級職業任務（{npc:3354}、{npc:5892}、術士和盜賊訓練師）只在20級後才提供，所以飛之前先在這裡升到20級。{area:380}西南方平原上的雷鷹雛鳥（18級）和{area:388}的科卡爾半人馬（14-15級）是最近值得打的怪；你需要的經驗遠不到一級。",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盜在{area:392}南邊的海灘上紮營；{npc:3467}站在營地南端。",
 	-- ["The {area:2363}"] = "{area:2363}",
@@ -335,12 +350,14 @@ return {
 	-- ["{item:2449}: herbalists pick it here"] = "{item:2449}：草藥學家可在這裡採集",
 	-- ["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}會載德魯伊飛到那裡",
 	-- ["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}：{npc:3033}的歡迎",
+	-- ["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864}站在烈日石居內的營火旁：馬卡巴帶來的卡雅還活著的消息正是給她的。",
 	-- ["{npc:12296}: use the {item:15826} on them; they roam the plains all around the {area:380}"] = "{npc:12296}：對牠們使用{item:15826}；牠們在{area:380}周圍的平原各處遊蕩",
 	-- ["{npc:209797} swims in the harbour just off {area:392}'s docks. {npc:209797} is elite: grouping up is advised."] = "{npc:209797}在{area:392}碼頭外的港口中游動。{npc:209797}是精英：建議組隊。",
 	-- ["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}的{npc:2391}教授毒藥：先留著",
 	-- ["{npc:2391} in {area:272} teaches {spell:2842}: keep it"] = "{area:272}的{npc:2391}教授{spell:2842}：先留著",
 	-- ["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, ride west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "{npc:246344}在{area:1638}訓練聖騎士。你還沒有那裡的飛行路線：飛往{area:378}，向西騎過{zone:1412}並搭升降梯上去，在中央高台向{npc:2995}學習飛行路線。",
 	-- ["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}."] = "{npc:262119}和他的水兵佔據{npc:261366}南邊的失事商隊。",
+	-- ["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "雙足飛龍管理員{npc:2995}站在中央高台上：如果還沒有他的飛行路線就先取得。{npc:3024}和{npc:4721}站在他東邊不遠處。",
 	-- ["{npc:3238}, on the plain between {npc:3341} and the ridge"] = "{npc:3238}，在{npc:3341}與山脊之間的平原",
 	-- ["{npc:3341} waits in a small camp further south, on the road toward {area:359}."] = "{npc:3341}在更南邊、通往{area:359}道路上的小營地等著。",
 	-- ["{npc:3389} stands at the Kolkar watch post just west of the {area:380}."] = "{npc:3389}站在{area:380}西邊不遠的科卡爾半人馬哨站。",
@@ -348,6 +365,7 @@ return {
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the {area:380}."] = "{npc:3395}在{area:380}東南方{area:388}的科卡爾半人馬之間走動。",
 	-- ["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. Hand his head to {npc:3389} on your last {area:380} stop."] = "{npc:3396}率領{npc:3389}南邊、{area:387}西岸的科卡爾半人馬。最後一次在{area:380}停留時，把他的頭交給{npc:3389}。",
 	-- ["{npc:3401} stands in the {object:172960}. Target him and type /salute to finish {quest:2460}."] = "{npc:3401}站在{object:172960}。選取他並輸入 /salute 以完成{quest:2460}。",
+	-- ["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "{npc:3419}站在{area:1640}下方洞穴的{area:2197}，在{npc:2995}西邊。",
 	-- ["{npc:3428}: the eggs are in the {area:390}, later"] = "{npc:3428}：蛋在{area:390}，之後再去",
 	-- ["{npc:3429}. Keep it: Kadrak at the {area:1703}, next guide"] = "{npc:3429}。先留著：下一份指南中{area:1703}的卡德拉克",
 	-- ["{npc:3432} offers {quest:95774} once {quest:4921} is handed in"] = "繳交{quest:4921}後，{npc:3432}會提供{quest:95774}",

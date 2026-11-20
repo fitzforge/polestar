@@ -26,7 +26,8 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: убивайте их по пути",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.\nОсторожно: дозорные бывают 56 уровня: выманивайте по одному и держитесь подальше от тотемов в лагерях.",
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.\nОсторожно: дозорные бывают 56 уровня: выманивайте по одному и держитесь подальше от тотемов в лагерях."
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.\nIf you are 54, take the level 55 Den Watchers and leave the 56s."] = "",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -41,7 +42,8 @@ return {
 	["Raging Owlbeasts"] = "Бешеные совухи",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Бешеные совухи бродят по холмам к северу от места {area:2251}, у дороги между {area:2246} и {area:2255}. Осторожно: самые крупные – 56 уровня: выманивайте по одному.",
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Бешеные совухи бродят по холмам к северу от места {area:2251}, у дороги между {area:2246} и {area:2255}. Осторожно: самые крупные – 56 уровня: выманивайте по одному."
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time.\nAt 54, take owlbeasts no higher than 55."] = "",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
@@ -54,12 +56,14 @@ return {
 	["Ice Thistle yetis"] = "Йети ледополохов",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети: бейте йети с Холмов ледополоха (55-56) и не трогайте матриархов и патриархов (56-58) – их рога понадобятся позже.",
+	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети: бейте йети с Холмов ледополоха (55-56) и не трогайте матриархов и патриархов (56-58) – их рога понадобятся позже."
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
 	-- Step 10: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Хладноветрые химеры",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Химеры бродят по снежным полям к югу и западу от места {area:2255}. Держитесь подальше от пещеры ({area:2245}): синие дракониды там – элита.",
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
 	-- Step 11: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
@@ -94,6 +98,8 @@ return {
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 19: Elder Rise
+	-- {area:1237} Valormok
+	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} ({area:1639}); {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
@@ -134,11 +140,15 @@ return {
 	-- ["In the {object:172961}."] = "Ориентир: {object:172961}.",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Матриархи и патриархи бьют сильно: выманивайте по одному.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Землепроходцы, дозорные и тотемисты живут в лагерях фурболгов вокруг горячих источников; лохматые совухи бродят по склонам между ними. Сначала убивайте тотемистов. Сохраняйте всю добытую ткань ({item:14047}) для Мейлоша.\nОсторожно: дозорные бывают 56 уровня: выманивайте по одному и держитесь подальше от тотемов в лагерях.",
 	-- ["Pristine Yeti Horns"] = "Безупречные рога йети ({item:12367})",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Бешеные совухи бродят по холмам к северу от места {area:2251}, у дороги между {area:2246} и {area:2255}. Осторожно: самые крупные – 56 уровня: выманивайте по одному.",
 	-- ["Ride back west to {area:2246}."] = "Возвращайтесь на запад сюда: {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Езжайте на восток, затем на юг через место {area:2249}. Великаны ледяного молота там – элита 59-го уровня: держитесь середины и не останавливайтесь. Странный источник – у входа сюда: {area:2256}, в южном конце.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Езжайте на запад по дороге мимо места {area:2251}; бешеные совухи бродят по холмам к северу.",
+	-- ["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Химеры бродят по снежным полям к югу и западу от места {area:2255}. Держитесь подальше от пещеры ({area:2245}): синие дракониды там – элита.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов занимает долину к северо-востоку от места {area:2255}. Сначала убивайте шаманов: они лечат. {npc:10738} в пещере в глубине – элита: не заходите.",
+	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети: бейте йети с Холмов ледополоха (55-56) и не трогайте матриархов и патриархов (56-58) – их рога понадобятся позже.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Холмы йети начинаются чуть к юго-востоку от места {area:2255}. Мех падает с любого йети; рога – только с матриархов и патриархов, оставьте их на после сдачи.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Наберите здесь уровень 55.04, прежде чем сдавать задания здесь: {area:2255}; они поднимут вас до 56-го уровня. Йети ледополохов (55-56) здесь самые низкоуровневые; матриархи и патриархи (56-58) бьют сильнее. Или, с группой, пройдите вместо этого подземелье {area:1584} или подземелье {area:1583} (нижняя часть).",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Третья шутка Юми – над гоблинами ({area:976}) и в Ун'Горо: сохраните на потом.",

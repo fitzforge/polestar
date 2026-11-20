@@ -31,7 +31,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en el bosque al sur y al sureste del aserradero; usan sigilo, así que mantente atento.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en el bosque al sur y al sureste del aserradero; usan sigilo, así que mantente atento."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "Aserradero Grito de Guerra",
@@ -237,6 +238,7 @@ return {
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Habla con {npc:10181}, en {object:36126}: {quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "Petardol en {area:392}: la siguiente guía pasa por allí",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "Las semillas de Gaia están en la hierba alrededor de la orilla sur de {area:464}, al norte del Refugio Roca del Sol.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en el bosque al sur y al sureste del aserradero; usan sigilo, así que mantente atento.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "El camino sube al norte como {area:1076}. {quest:1483} tiene una choza donde el camino se bifurca al este hacia {area:461}.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrulla el camino al este de {area:428}, hacia {area:430}.",
 	-- ["Thistlefur Hold"] = "Bastión Piel de Cardo",

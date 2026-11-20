@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}은(는) {npc:252095}에게 가는 길, 마을 남서쪽 비탈을 배회합니다.\n우르세라 굴은 마을 서쪽에 있습니다. 그들의 어미인 {npc:251115}은(는) 굴 맨 안쪽에 있습니다.",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "지하",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{npc:3005}에게서 {item:278081}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{npc:3027}에게서 {item:278083}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -558,6 +561,7 @@ return {
 	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "{skill:393}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257024}에게 완료하세요.",
 	-- ["talk to {npc:251905}"] = "{npc:251905}와(과) 대화하세요",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}은(는) 착륙장 옆에 있습니다. 승강기를 타고 올라가 와이번 조련사 {npc:2995}에게서 비행 경로를 배우세요.",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}은(는) {npc:252095}에게 가는 길, 마을 남서쪽 비탈을 배회합니다.\n우르세라 굴은 마을 서쪽에 있습니다. 그들의 어미인 {npc:251115}은(는) 굴 맨 안쪽에 있습니다.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}은(는) 마을에 있습니다.",
 	-- ["{npc:251374}, at the village centre"] = "마을 한가운데의 {npc:251374}",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}은(는) {area:16638} 동쪽에 있습니다.",

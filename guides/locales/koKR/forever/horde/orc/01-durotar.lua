@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "여기서 10레벨까지 올리세요. {area:362}의 {quest:840}에는 10레벨이 필요합니다.\n{quest:96825}의 가시배는 이 오두막들 옆에서 자랍니다. 사냥하면서 채집하세요.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "11레벨",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "{npc:3203}(12)과(와) 그의 임프에게 가기 전에 여기서 11레벨까지 올리세요. 천둥도마뱀(9-10)은 미샤의 오두막 바로 서쪽 산등성이에서 풀을 뜯습니다.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "{npc:3130} 사냥",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -427,6 +427,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}와(과) {npc:3131}이(가) 다리 건너 {area:369}에서 풀을 뜯으며, 누구든 {item:6486}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {npc:3293} 바로 서쪽과 남서쪽의 {area:369}에서 풀을 뜯습니다.\n피즐은 {area:362} 북서쪽 {area:369}의 불타는칼날단 야영지를 차지하고 있습니다. 사냥꾼: 가는 길에 {item:15908}(으)로 {npc:3099}을(를) 길들이세요.\n주의: 불타는칼날단 이교도들이 피즐을 둘러싸고 있으며, 일부는 연결되어 있어 두 마리씩 덤비고, 빨리 다시 나타납니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
 	-- ["Thunder lizards across the river"] = "강 건너 천둥도마뱀",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "여기서 10레벨까지 올리세요. {area:362}의 {quest:840}에는 10레벨이 필요합니다.\n{quest:96825}의 가시배는 이 오두막들 옆에서 자랍니다. 사냥하면서 채집하세요.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "{npc:3203}(12)과(와) 그의 임프에게 가기 전에 여기서 11레벨까지 올리세요. 천둥도마뱀(9-10)은 미샤의 오두막 바로 서쪽 산등성이에서 풀을 뜯습니다.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "{skill:129}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {area:362}의 {npc:5943}에게 완료하세요.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "{skill:165}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:3365}에게 완료하세요(다음 가이드).",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "{skill:171}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:11046}에게 완료하세요(다음 가이드).",
@@ -436,6 +438,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "{skill:202}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {area:362}의 {npc:11025}에게 완료하세요.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "{skill:333}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:11066}에게 완료하세요(다음 가이드).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "{skill:393}을(를) 배웠다면 {npc:265809}에게서 해당 기술의 야영 기초(Camping 101) 퀘스트도 받을 수 있습니다. {zone:1454}의 {npc:7088}에게 완료하세요(다음 가이드).",
+	-- ["grind on {npc:3130}"] = "{npc:3130} 사냥",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: {npc:11046}에게 전달",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: {npc:11066}에게 전달",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: {npc:2855}에게 전달",

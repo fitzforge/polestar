@@ -152,6 +152,7 @@ return {
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
 	-- {area:511} Wyrmbog
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向东穿过{area:511}：火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守着更东南方的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱散落在龙人营地里。",
+	["Pick up the grog outside the cave before going in for the strongbox."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 

@@ -13,8 +13,8 @@ return {
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 
 	-- Step 2: Thunder Bluff
-	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	-- {area:2408} Shadowprey Village · {area:976} Gadgetzan · {area:439} Shimmering Flats · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} (or from {area:976}, after the {area:439}' south) to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -116,16 +116,15 @@ return {
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) ждет следующего визита к Несингвэри, примерно на 40-м уровне в forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 18: Thoroughly Scavenged Supplies
-	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
-	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "По пути на запад от лагеря Несингвэри у тропы лежат тщательно обысканные припасы ({object:661516}): они начинают задание {quest:97328}, а украденные грузы лежат впереди на побережье: {area:102}.",
+	-- {npc:268992} Zimmix Sputterspark
+	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "{area:301}: убивайте их по пути",
-	-- {npc:729} Sin'Dall
+	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
+	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -138,6 +137,10 @@ return {
 	["{item:277957}, from the Bloodscalp Scouts, Hunters and Mystics"] = "{item:277957} – с разведчиков, охотников и мистиков из племени Кровавого Скальпа",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Выведите NPC {npc:268992} из руин и сохраните ему жизнь: Подгребай примет новости, когда он будет в безопасности.",
+
+	-- Step 21: Nesingwary's camp
+	-- {npc:729} Sin'Dall
+	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
 	-- Step 22: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -230,6 +233,7 @@ return {
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Идите по дороге на север из места {object:3202}; охотничий лагерь Эрнестуэя — на холме к северо-востоку от реки. С этого момента сохраняйте каждую страницу из книги «{quest:338}»: позже их попросит {npc:716}.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "Идите по дороге на юг к месту {area:35} на южной оконечности долины и войдите через туннель в скалах. Не сходите с дороги: джунгли рядом намного выше вашего уровня. {npc:2858}, распорядитель полетов Орды, ждет на верхней палубе.",
 	-- ["Green Hills pages"] = "Страницы «Зеленых холмов»",
+	-- ["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "По пути на запад от лагеря Несингвэри у тропы лежат тщательно обысканные припасы ({object:661516}): они начинают задание {quest:97328}, а украденные грузы лежат впереди на побережье: {area:102}.",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "Страницы книги «{item:2755}» падают с шансом около 1% каждая с троллей из племен Кровавого Скальпа и Дробителей Черепов; сохраняйте каждую найденную страницу, а остальные поищите на аукционе. {npc:716} принимает главы позже в этом гайде.",
 	-- ["Shadowmaw panthers"] = "Тенебрюхие пантеры",
 	-- ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Тигры Тернистой долины (32) бродят по холмам вокруг лагеря и к югу от него, пантеры (32) – по полянам к западу и юго-западу. Геологи Торговой компании (34-36), у которых упавшие кристаллы, работают в лагерях у места {area:37}, к юго-востоку от лагеря. Осторожно: агенты Торговой компании (39) стоят среди геологов в западных лагерях у дома Торговой компании: работайте в восточных лагерях, подальше от них.",
@@ -238,6 +242,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Тенебрюхие пантеры (37-38) крадутся по джунглям к востоку от холмов Мош'Огг и на северо-восток к озеру; они нападают из невидимости. Собирайте по пути каждую страницу «Зеленых холмов».",
 	-- ["The camp by the river"] = "Лагерь у реки",
 	-- ["Venture Co. camp"] = "Лагерь Торговой компании",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
 	-- ["Zeppelin to {object:3202}"] = "Дирижабль: {object:3202}",
 	-- ["from {npc:4723}"] = "с NPC {npc:4723}",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, в объекте {object:20691}",

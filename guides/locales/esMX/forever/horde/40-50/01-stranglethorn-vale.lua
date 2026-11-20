@@ -9,8 +9,9 @@ return {
 	-- Step 1: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "Vuela a {area:1497}",
-	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
-	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Tu entrenamiento de nivel 40 está en {area:1497}: vuela ahí desde {area:340}, entrena y toma el zepelín desde las torres de afuera de la ciudad hasta {object:3202}.",
+	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words) · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:16743} Rog'mar · {npc:258570} Da'grosh
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}.\nThe {zone:2548} route starts after Stranglethorn and the Swamp, at about 41. Heading south through {area:16685} now? Load the {zone:2548} guide and keep east to {area:16743}. {npc:258570}'s camps below the pass are 43-46, with elite Twilight Enforcers (45), Kilgar and Morg (46)."] = "",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Maestro de vuelo de {area:340}",
 
@@ -34,6 +35,9 @@ return {
 	-- Step 5: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
+	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:16743} Rog'mar · {npc:258570} Da'grosh
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["The {zone:2548} route starts after Stranglethorn and the Swamp, at about 41. Heading south through {area:16685} now? Load the {zone:2548} guide and keep east to {area:16743}. {npc:258570}'s camps below the pass are 43-46, with elite Twilight Enforcers (45), Kilgar and Morg (46)."] = "",
 
 	-- Step 6: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -59,6 +63,16 @@ return {
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: las pieles Bocaquebrada que juntaste antes; adentro",
 	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol (no name in this language: may be words)
 	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495}: el {npc:2635} toma el sol en la costa entre Zul'Kunda y {object:3202}, más adelante en este recorrido",
+
+	-- Step 11: Kebok
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "{npc:737}, en el piso de arriba, ya tiene su siguiente encargo: los colmillos Machacacráneos vienen de los trols de Zul'Mamwe, más adelante en este recorrido.",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
+
+	-- Step 12: Booty Bay docks
+	-- {area:35} Booty Bay
+	["{area:35} docks"] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}, en los muelles: la carta de Gazlowe, si la llevas",
 	-- {npc:4631} Wharfmaster Lozgil · {quest:97332} Twice Misplaced Trust · {npc:259961} Wharfmaster Whizzbuzz · {area:16727} Powderfuse Port · {zone:2548} Riverglades
@@ -68,83 +82,77 @@ return {
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, en el balcón junto a MacKinley",
 	["Inside"] = "Adentro",
 
-	-- Step 11: Kebok
-	-- {npc:737} Kebok
-	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "{npc:737}, en el piso de arriba, ya tiene su siguiente encargo: los colmillos Machacacráneos vienen de los trols de Zul'Mamwe, más adelante en este recorrido.",
-	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
-
-	-- Step 12: Bloodsail Correspondence
+	-- Step 13: Bloodsail Correspondence
 	-- {area:35} Booty Bay
 	["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "Sal del pueblo por el túnel; la nota está en la cala de los piratas justo al norte de {area:35}.",
 
-	-- Step 14: Mistvale gorillas
+	-- Step 15: Mistvale gorillas
 	["Mistvale gorillas"] = "Gorilas Velo de Bruma",
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Los gorilas recorren el valle alrededor de Unbagwa. Los ancianos sueltan las menudencias; cualquiera puede soltar un colmillo: guarda diez para Unbagwa, cuyo Mokk (44) espera a tu paso por Tuercespina hacia el nivel 45.\nCuidado: los gorilas Velo de Bruma ancianos (40-41) están muy juntos en el valle: atráelos de uno en uno.",
 
-	-- Step 16: Venture Co. mine
+	-- Step 17: Venture Co. mine
 	["Venture Co. mine"] = "Mina de Ventura y Cía.",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Más al norte, los goblins de Ventura y Cía. excavan en la mina al este del camino; mineros, capataces, topógrafos y manitas sueltan los cristales.\nCuidado: Panteras Fauceumbría y tigresas de Tuercespina en sigilo rondan la zona alrededor del campamento.",
 
-	-- Step 17: Shadowmaw Panthers
+	-- Step 18: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Shadowmaw Panthers"] = "",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
 
-	-- Step 19: Lashtail Raptors
+	-- Step 20: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Raptores colazote",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
 
-	-- Step 20: Nesingwary's camp
+	-- Step 21: Nesingwary's camp
 	["Nesingwary's camp"] = "Campamento de Nesingwary",
 	["Head north up the road; the hunters camp on the hill above the river."] = "Sube al norte por el camino; los cazadores acampan en la colina sobre el río.",
 
-	-- Step 21: Sin'Dall
+	-- Step 22: Sin'Dall
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	["{npc:729}, the tiger {npc:717} sent you after on your last visit, prowls the hilltop just south-west of the camp."] = "{npc:729}, el tigre que {npc:717} te mandó cazar en tu última visita, merodea por la cima de la colina justo al suroeste del campamento.",
 
-	-- Step 24: Nesingwary's camp
+	-- Step 25: Nesingwary's camp
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "No hiciste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
 
-	-- Step 25: The Green Hills of Stranglethorn
+	-- Step 26: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot · {quest:338} The Green Hills of Stranglethorn
 	["{npc:716} collects the pages of {quest:338}: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages."] = "{npc:716} colecciona las páginas de {quest:338}: los trols del valle las sueltan de vez en cuando. Toma su misión; recibe cada capítulo una vez que tengas todas sus páginas.",
 
-	-- Step 26: Chapter I
+	-- Step 27: Chapter I
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter I is in your bags"] = "{npc:716}: tienes en tus bolsas todas las páginas del capítulo I",
 
-	-- Step 27: Chapter II
+	-- Step 28: Chapter II
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter II is in your bags"] = "{npc:716}: tienes en tus bolsas todas las páginas del capítulo II",
 
-	-- Step 28: Chapter III
+	-- Step 29: Chapter III
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter III is in your bags"] = "{npc:716}: tienes en tus bolsas todas las páginas del capítulo III",
 
-	-- Step 29: Chapter IV
+	-- Step 30: Chapter IV
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter IV is in your bags"] = "{npc:716}: tienes en tus bolsas todas las páginas del capítulo IV",
 
-	-- Step 30: The Green Hills of Stranglethorn
+	-- Step 31: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: the four chapters"] = "{npc:716}: los cuatro capítulos",
 
-	-- Step 31: Zul'Kunda
+	-- Step 32: Zul'Kunda
 	["Zul'Kunda"] = "Zul'Kunda",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "Al oeste de la expedición, los jefes Sangrapellejo {npc:1061} y {npc:1062} están juntos en las ruinas de Zul'Kunda. Limpia antes sus guardias y luego atráelos.\nEn la costa entre Zul'Kunda y {object:3202}, un {npc:2635} (élite de nivel 38) comparte los puntos de aparición de los crocoliscos normales: mátalo si está presente y toma su piel para {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "de {object:52}, en las ruinas",
 
-	-- Step 32: Grom'gol
+	-- Step 33: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}, junto a {npc:2497}",
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
@@ -154,55 +162,55 @@ return {
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: la entrada de la caverna bajo {area:104}, al oeste del campamento",
 
-	-- Step 33: Riding at 40
+	-- Step 34: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a {zone:1454}: {npc:4752} enseña a los orcos en el {object:172958}, junto a la perrera de {npc:3362} (lobos a 20 de oro cada uno). Luego el zepelín de vuelta a {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1454} hacia el nivel 45.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, instructor de equitación",
 
-	-- Step 34: Riding at 40
+	-- Step 35: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a {zone:1454} y ve al sur por el camino de {zone:1411} hasta {area:367}: {npc:7953} enseña a los trols ahí, con los raptores de Zjolnir (20 de oro cada uno). Luego vuelve al zepelín hacia {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1454} hacia el nivel 45.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, instructor de equitación",
 
-	-- Step 35: Riding at 40
+	-- Step 36: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a {zone:1454}, vuela a {zone:1456} y baja hasta {area:222}: {npc:3690} enseña a los tauren ahí, con los kodos de {npc:3685} (20 de oro cada uno). Luego vuela de vuelta a {zone:1454} para el zepelín de {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1456} hacia el nivel 45.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, instructor de equitación",
 
-	-- Step 36: Riding at 40
+	-- Step 37: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes un Zancavientos, y {zone:2548} después de Tuercespina son una larga caminata sin él. Toma el zepelín desde la torre de {object:3202} a {zone:1454} y vuela a {zone:1456}: la nave aérea a {zone:2521} sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, más o menos cada cinco minutos, y {npc:265756} enseña a los Celestes en {area:17684} de {area:16638}. Luego vuelve a {zone:1454} para el zepelín de {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1454} hacia el nivel 45.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, Instructor de equitación, en {area:17684} de {area:16638}",
 
-	-- Step 37: Riding at 40
+	-- Step 38: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {area:1497} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1435} Swamp of Sorrows
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a las torres de {area:1497}: {npc:4773} enseña a los Renegados en {area:159}, un poco al norte, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno). Luego el zepelín de vuelta a {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1435} vuelve a pasar por {area:1497} hacia el nivel 47.",
 
-	-- Step 38: Your mount at 40
+	-- Step 39: Your mount at 40
 	["Your mount at 40"] = "Tu montura a nivel 40",
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in {zone:1454}'s {object:172960} starts it and {npc:6251} in {area:392} teaches it, both on the {zone:1444} guide's {zone:1454} stop at about 45."] = "Los brujos no compran la equitación: tu montura es el Corcel vil, de tu misión de clase. Zevrost en el {object:172960} de {zone:1454} la inicia y {npc:6251} en {area:392} la enseña, ambos en la parada en {zone:1454} de la guía de {zone:1444}, alrededor del nivel 45.",
 	-- {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Felsteed: Zevrost in {zone:1454}, then {npc:6251} in {area:392}, on the {zone:1444} guide's {zone:1454} stop."] = "Corcel vil: Zevrost en {zone:1454}, luego {npc:6251} en {area:392}, en la parada en {zone:1454} de la guía de {zone:1444}.",
 
-	-- Step 39: The Vile Reef
+	-- Step 40: The Vile Reef
 	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol (no name in this language: may be words) · {area:104} Vile Reef
 	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: al oeste de {object:3202}, nada sobre {area:104} y bucea hasta la entrada de la caverna en el arrecife; la misión se completa al encontrarla. Deja la caverna por ahora: los acechadores de la selva están al sur, a lo largo de la costa.",
 	-- {area:16550} Drowned City
 	["the {area:16550}'s entrance, underwater"] = "la entrada de {area:16550}, bajo el agua",
 
-	-- Step 40: Jungle stalkers
+	-- Step 41: Jungle stalkers
 	["Jungle stalkers"] = "Acechadores de la selva",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast.\nCareful: the Jungle Stalkers (40-41) are thick here: pull one at a time and rest between fights."] = "Los raptores acechadores cazan en la jungla al sur de {object:3202}, hacia la costa oeste.\nCuidado: aquí abundan los Acechadores de la selva (40-41): atráelos de a uno y descansa entre combates.",
 	["The naga explorers on the coast south of here (43-44) are for Bloads and Mok'thardin: keep both quests for your Stranglethorn stop at about 45."] = "Los exploradores naga de la costa al sur de aquí (43-44) son para Bloads y Mok'thardin: guarda ambas misiones para tu parada en Tuercespina alrededor del nivel 45.",
 
-	-- Step 41: Booty Bay
+	-- Step 42: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "Ve al sur, hasta {area:35}. Phillipe el Tembloroso espera en los muelles.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
@@ -223,32 +231,36 @@ return {
 	-- {npc:2488} Deeg · {area:43} Wild Shore
 	["{npc:2488}, on the top floor: keep it for the {area:43} at about 45"] = "{npc:2488}, en el piso superior: guárdala para {area:43} alrededor del nivel 45",
 
-	-- Step 42: The Bloodsail ships
+	-- Step 43: Dudd Fizzlescroll
+	-- {quest:95384} Partial Mystical Notes · {npc:260873} Dudd Fizzlescroll · {area:35} Booty Bay
+	["If you already have the {quest:95384}, give them to {npc:260873} here in {area:35}."] = "",
+
+	-- Step 44: The Bloodsail ships
 	["The Bloodsail ships"] = "Los barcos Velasangre",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "El pergamino, {quest:624}, está en las cubiertas de los tres barcos frente a {area:43}, con tripulaciones de piratas de 42-45 que van en parejas y capitanes de 45-48: hazla en grupo. Su cadena sigue por {zone:1435}, {zone:1445} y {zone:1425}.",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "para una parada posterior en {zone:1435}",
 
-	-- Step 43: Fly to Grom'gol
+	-- Step 45: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Vuela de vuelta a {object:3202}: los Partecráneos de Zul'Mamwe están justo al este.",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
-	-- Step 44: Zul'Mamwe
+	-- Step 46: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruinas de Zul'Mamwe",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:1059} Ana'thek the Cruel · {npc:1061} Gan'zulah
 	["From {object:3202} head east to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: {npc:1059} (45) walks the south-western ruins with two guards; Speaking with {npc:1061}'s last piece, his Broken Armor, waits for your Stranglethorn stop at about 45."] = "Desde {object:3202} ve al este hasta las ruinas Partecráneos, al este de la mina de Ventura y Cía.; atrae a los cazacabezas y rabiosos de a uno. Un montón de cráneos trofeo está en el lado norte de las ruinas. Todos los Partecráneos pueden soltar un colmillo o un collar: los collares son la parte lenta, así que sigue matando en el campamento de los guerreros al norte de las ruinas hasta tenerlos todos. Cuidado: {npc:1059} (45) recorre las ruinas del suroeste con dos guardias; la última pieza de Hablar con {npc:1061}, su Armadura rota, espera tu parada en Tuercespina alrededor del nivel 45.",
 	["Skullsplitter warriors"] = "Guerreros Machacacráneos",
 
-	-- Step 45: Balia'mah Ruins: kill these as you meet them
+	-- Step 47: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "{area:127}: mata a estos según te los encuentres",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Los siguientes cráneos trofeo están en las pequeñas ruinas justo al norte del campamento de los guerreros.\nLos últimos cráneos están en las ruinas a poca distancia al oeste, de camino de vuelta a {object:3202}.",
 
-	-- Step 46: Grom'gol Base Camp
+	-- Step 48: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Head west to {object:3202}."] = "Ve al oeste, hasta {object:3202}.",
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
@@ -256,28 +268,28 @@ return {
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Guarda {quest:571}, {quest:621} y los colmillos de {npc:737}: el jefe Partecráneos, los campamentos de Zanzil, la costa naga y {area:35} llegan en tu parada en Tuercespina alrededor del nivel 45, después de {zone:2548}.",
 
-	-- Step 48: Nesingwary's Expedition
+	-- Step 50: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Sube al norte por el camino hasta el campamento de los cazadores.",
 
-	-- Step 50: Raptor Mastery
+	-- Step 52: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:730} es élite de nivel 43: la mayoría de las clases lo hacen solas a nivel 45, pero puede que necesites ayuda. Omítelo si estás solo.",
 
-	-- Step 51: Panther Mastery
+	-- Step 53: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:728} es élite de nivel 40: la mayoría de las clases lo hacen solas a nivel 42, pero puede que necesites ayuda. Omítelo si estás solo.",
 
-	-- Step 55: Big Game Hunter
+	-- Step 57: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:731} es élite de nivel 43: la mayoría de las clases lo hacen solas a nivel 45, pero puede que necesites ayuda. Omítelo si estás solo.\nCuidado: Tigres y panteras Fauceumbría en sigilo rondan cerca de él. Despéjalos antes de atraerlo. Cuando lo atraes, {npc:731} pide ayuda a las criaturas en 20 m.",
 
-	-- Step 60: Into the Swamp of Sorrows
+	-- Step 62: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "A {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Sigue el camino al este desde {zone:1431} por {zone:1430} hasta el pantano. {npc:1776} espera en {area:657}, el campamento draenei justo al lado del camino donde entra desde {zone:1430}.",
 
-	-- Step 61: Stonard
+	-- Step 63: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Ve al este hasta {area:75}, entre los juncos al sur del camino.",
 	-- {npc:5591} Dar
@@ -287,29 +299,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}, en el piso superior",
 
-	-- Step 62: Sawtooth crocolisks
+	-- Step 64: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Denteserra",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Los crocoliscos se revuelcan en los charcos alrededor del campamento de {npc:5391} y al sur hacia {area:75}; más o menos uno de cada cuatro suelta un flanco.",
 
-	-- Step 63: Noboru the Cudgel
+	-- Step 65: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru deambula por el claro al suroeste de {area:76}; su garrote inicia una misión.",
 
-	-- Step 64: Draenethyst crystals
+	-- Step 66: Draenethyst crystals
 	["Draenethyst crystals"] = "Cristales draenetistas",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Ve al noreste hasta {area:76}. Los cristales están a lo largo del camino que sube a la jaula de {npc:5391}.",
 
-	-- Step 65: Galen's Escape
+	-- Step 67: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} está prisionero en {area:76}, en el noreste del pantano. Libéralo y síguelo hacia afuera, rechazando a las criaturas del pantano que lo persiguen.",
 
-	-- Step 66: Galen's Strongbox
+	-- Step 68: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "Su caja fuerte espera en su antiguo campamento al norte de {area:75}, de camino de vuelta al oeste.",
 
-	-- Step 67: Harborage
+	-- Step 69: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Ve al oeste por el camino hasta el campamento draenei de {area:657}, cerca de la entrada desde {zone:1430}. {quest:698} va para {npc:5592} en {area:1978} en la próxima visita al pantano: guarda los flancos.",
 
@@ -371,6 +383,7 @@ return {
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:731} es élite de nivel 43: la mayoría de las clases lo hacen solas a nivel 45, pero puede que necesites ayuda. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.\nCuidado: Tigres y panteras Fauceumbría en sigilo rondan cerca de él. Despéjalos antes de atraerlo. Cuando lo atraes, {npc:731} pide ayuda a las criaturas en 20 m.",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "Al oeste de la expedición, los jefes Sangrapellejo {npc:1061} y {npc:1062} están juntos en las ruinas de Zul'Kunda. Limpia antes sus guardias y luego atráelos.",
 	-- ["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "Al oeste de la expedición, los jefes Sangrapellejo {npc:1061} y {npc:1062} están juntos en las ruinas de Zul'Kunda. Limpia antes sus guardias y luego atráelos. Quédate con los Sangrapellejo aquí hasta el nivel 41: {quest:586}, en el caldero a continuación, te envía contra Machacacráneos de nivel 41-43.\nEn la costa entre Zul'Kunda y {object:3202}, un {npc:2635} (élite de nivel 38) comparte los puntos de aparición de los crocoliscos normales: mátalo si está presente y toma su piel para {npc:2495}.",
+	-- ["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Tu entrenamiento de nivel 40 está en {area:1497}: vuela ahí desde {area:340}, entrena y toma el zepelín desde las torres de afuera de la ciudad hasta {object:3202}.",
 	-- ["Zanzil's camps"] = "Campamentos de Zanzil",
 	-- ["for Stoley in {zone:1446}"] = "para Stoley en {zone:1446}",
 	-- ["for a later stop in the {area:8}"] = "para una parada posterior en {area:8}",

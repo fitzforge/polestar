@@ -83,6 +83,13 @@ step Booty Bay
   accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   turnin 213                          -- Kebok
+
+step Kebok
+  when turnedin 189
+  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
+  accept 209                            -- Kebok, upstairs
+
+step Booty Bay docks
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
   accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
@@ -94,11 +101,6 @@ step Booty Bay
   accept 617                            -- Privateer Bloads
   vendor nearest
   accept 595                            -- First Mate Crazz
-
-step Kebok
-  when turnedin 189
-  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
-  accept 209                            -- Kebok, upstairs
 
 # ---------------------------------------------------------------- Booty Bay
 

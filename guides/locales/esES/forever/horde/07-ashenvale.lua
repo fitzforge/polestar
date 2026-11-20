@@ -86,8 +86,9 @@ return {
 	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "Desde {area:2360}, ve al noreste hasta el Aserradero Grito de Guerra, junto al camino: allí está {npc:12867}.",
 
 	-- Step 18: Ashenvale Outrunners
-	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en los bosques al sur y al sureste del aserradero; usan sigilo, así que estate atento.",
+	-- {quest:6503} Ashenvale Outrunners · {npc:12676} Sharptalon
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en los bosques al sur y al sureste del aserradero; usan sigilo, así que estate atento."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: {npc:12676} (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 19: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
@@ -152,20 +153,20 @@ return {
 	-- Step 40: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "Vuela a {area:1638} desde Zoram'gar. Si no conoces su ruta de vuelo, vuela a {area:378} y ve a pie al norte por {zone:1412}.",
+	-- {area:1638} Thunder Bluff
+	["Check the flight map at Zoram'gar for {area:1638}."] = "",
 	-- {area:2897} Zoram'gar Outpost
 	["{area:2897} flight master"] = "",
 
 	-- Step 41: Skywatcher Plateau
-	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
+	["From {zone:1456}, take the north lift down. Without that flight path, use {area:378} if its flight is offered and approach through {zone:1412}. Follow the north side of the plateau and look for the way up to the Earthen Ring camp; the second arrow marks the camp on top, not the foot of the bluff."] = "",
 	["North of Thunder Bluff"] = "",
 
 	-- Step 43: The Earthen Ring
 	["The Earthen Ring"] = "El Anillo de la Tierra",
-	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "",
+	-- {npc:264072} Yorn Grimtotem · {npc:264074} Mazu'kon · {npc:259118} Muln Earthfury · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
+	["{npc:264072}, {npc:264074} and {npc:259118} stand on {area:17045}. Without {zone:1456}'s flight path, take a flight to {area:378} only if offered, or approach through {zone:1412} on foot. Look for the way up on the north side."] = "",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96261} comes once this is handed in"] = "",
 
@@ -192,21 +193,18 @@ return {
 	["{item:273658}, from {npc:264082}: it does not drop for everyone"] = "{item:273658}, de {npc:264082}: no cae para todo el mundo",
 
 	-- Step 48: The Earthen Ring
-	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "Vuelve al sur al campamento y sube a {zone:1456} para volar a {area:378}.",
+	-- {npc:259118} Muln Earthfury
+	["Return to {npc:259118} at the Earthen Ring camp."] = "",
 
-	-- Step 49: Class trainer
-	["Class trainer"] = "Instructor de clase",
-
-	-- Step 50: Apothecary Zamah
+	-- Step 49: Apothecary Zamah
 	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
 	["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "{npc:3419} está en {area:2197}, las cuevas bajo {area:1640}, al oeste de {npc:2995}.",
 
-	-- Step 51: Thunder Bluff
+	-- Step 50: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456}'s central rise"] = "Meseta central de {zone:1456}",
 
-	-- Step 52: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal
 	["Into {area:1638} by a lift: {npc:2995}, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet."] = "",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
@@ -214,15 +212,18 @@ return {
 	-- {npc:3057} Cairne Bloodhoof
 	["Talk to {npc:3057}"] = "",
 
-	-- Step 53: Zangen Stonehoof
+	-- Step 52: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:4721} stands a short walk east of {npc:2995}."] = "{npc:4721} está a poca distancia al este de {npc:2995}.",
 	-- {npc:4721} Zangen Stonehoof · {npc:4722} Rau Cliffrunner · {area:484} Freewind Post
 	["{npc:4721}: {npc:4722} at {area:484}, later in this guide"] = "{npc:4721}: {npc:4722} en {area:484}, más adelante en esta guía",
 
-	-- Step 54: Tah Winterhoof
+	-- Step 53: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:3024} stands beside {npc:4721}, east of {npc:2995}."] = "{npc:3024} está junto a {npc:4721}, al este de {npc:2995}.",
+
+	-- Step 54: Class trainer
+	["Class trainer"] = "Instructor de clase",
 
 	-- Step 55: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
@@ -257,8 +258,6 @@ return {
 	["{npc:10377}, by the wind rider master"] = "{npc:10377}, junto al maestro de jinetes del viento",
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "El cartel de Se busca junto a {npc:10537}",
-	-- {npc:4877} Jandia
-	["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "Las dos misiones de arpías de {npc:4877} se aceptan al salir de Poblado Viento Libre; su guarida llega en la siguiente visita a Viento Libre, hacia el nivel 30.",
 
 	-- Step 61: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -292,16 +291,16 @@ return {
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
 	["the end of the planks"] = "",
-	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
-	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, en la guarida de arpías al oeste del puesto",
-	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
-	["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150} ({npc:4490}, 31) espera a la siguiente visita a Viento Libre, hacia el nivel 30: guárdala.",
 
-	-- Step 66: Freewind Post
+	-- Step 67: Dorn Plainstalker
+	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
+	["{quest:1150} starts a fight deep in the den. Take it if you plan to face {npc:4490} with a group."] = "",
+
+	-- Step 68: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "",
 
-	-- Step 68: Darkcloud Pinnacle
+	-- Step 74: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "Al oeste del Poblado Viento Libre, los campamentos Tótem Siniestro bajo {area:2097}. Las Notas secretas están en Cofres de documentos en los campamentos del sureste, suroeste y noroeste.",
@@ -312,7 +311,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}, campamento del noroeste",
 
-	-- Step 69: Level 28
+	-- Step 75: Level 28
 	["Level 28"] = "Nivel 28",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "¿No llegas a 28? Los Tótem Siniestro de estos campamentos (25-28) son del nivel adecuado: mata unos cuantos más antes de subir a por {npc:10646}. Si ya lo superas, este paso se salta solo. O, con un grupo, haz la mazmorra {area:2797}.",
@@ -321,42 +320,53 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "",
 
-	-- Step 70: Lakota Windsong
-	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Aviso de desvío en {area:485}: puede que la flecha no marque bien el sendero que sube a {area:2097}. Si estás en el fondo del cañón, sigue el sendero y los puentes de cuerda hasta {area:2097}. {npc:10646} está cautiva junto a {npc:10896} (29): acaba primero con los guardias y con {npc:10896}, luego libérala y protégela en la bajada; te atacarán emboscadores Tótem Siniestro por el camino.",
+	-- Step 76: Lakota Windsong
+	-- {area:485} Great Lift · {npc:10896} Arnak Grimtotem · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong
+	["{area:485} detour warning: if you are already on the mesa, stay up and cross the rope bridge toward {npc:10896}; do not drop to the canyon or go to the {area:485}. From the canyon floor, follow the path up {area:2097} and take the rope bridges. Clear {npc:10896} (29) and the guards beside {npc:10646} before freeing her. Protect her from the Grimtotem ambushers on the way down."] = "",
 
-	-- Step 71: Highperch
+	-- Step 77: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Al oeste del Campamento del Tramo Blanco, los dracoleones anidan en los acantilados de {area:482}; los huevos están en los nidos. {npc:10427} espera en el lado este de la zona de nidos: libéralo y mantenlo con vida en el camino de vuelta a {area:2237}.\nCuidado: dracoleones de nivel 28-29 vuelan por encima y puedes atraerlos sin querer. Un grupo de tres dracoleones puede emboscarte en cuanto pasas el primer pilar de abajo. Los patriarcas Nido Alto (30-31) y el raro Cortacorazones (32) también anidan aquí: rodéalos.",
 
-	-- Step 72: Whitereach Post
+	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "La siguiente misión de {npc:10428}, El fuego Sagrado, termina en {zone:1456}, fuera de esta ruta. Omítela.",
 
-	-- Step 73: Kanati Greycloud
+	-- Step 79: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "Solo si {npc:10617} te soltó su plan: {npc:10638} está en {area:2237}.",
 
-	-- Step 75: Hypercapacitor Gizmo
+	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:10992} es un élite de nivel 30: la mayoría de clases la matan solas a nivel 32, pero puede que necesites ayuda. Sáltala si vas solo.",
 
-	-- Step 76: Whitereach Post
+	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Mata al {npc:10720} que viene a por {npc:10638}",
 
-	-- Step 79: Freewind Post
+	-- Step 85: Screeching harpies
+	["Screeching harpies"] = "",
+	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Pull the harpies along the cliff below {area:487}. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of {npc:4877}'s supplies you still need along the way. Leave the {object:20447} alone: they call {npc:4490}."] = "",
+
+	-- Step 86: Stolen Freewind Supplies
+	-- {quest:98069} Stolen Freewind Supplies · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4877} Jandia
+	["Look for {quest:98069} at the foot of the cliff. The {object:20447} inside the cave are not {npc:4877}'s supplies."] = "",
+
+	-- Step 87: Harpy Foodstuffs
+	-- {area:487} Roguefeather Den · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Clear the back of {area:487} with your group. Break the {object:20447} and stay together for the ambush. Kill {npc:4490} (31) when she comes, then loot her claw before the harpies return."] = "",
+	-- {item:5843} Grenka's Claw · {object:20447} Harpy Foodstuffs (no name in this language: may be words)
+	["{item:5843}, at the {object:20447}"] = "",
+
+	-- Step 88: Freewind Post
 	-- {area:2237} Whitereach Post · {area:484} Freewind Post
 	["Back east past {area:2237} to {area:484}."] = "Vuelve al este, pasado {area:2237}, hasta {area:484}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "",
-	-- {npc:4877} Jandia
-	["{npc:4877}, inside the inn"] = "{npc:4877}, dentro de la posada",
-	-- {npc:4877} Jandia · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance · {area:487} Roguefeather Den · {area:2240} Mirage Raceway
-	["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "Guarda las dos misiones de arpías de {npc:4877} y {quest:1150} de {npc:2986}: {area:487} toca en la próxima visita a Poblado Viento Libre, hacia el nivel 30, con las misiones de {area:2240}.",
 
-	-- Step 80: Level 29
+	-- Step 94: Level 29
 	["Level 29"] = "Nivel 29",
 	-- {area:484} Freewind Post · {area:2797} Blackfathom Deeps
 	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
@@ -367,12 +377,14 @@ return {
 	["grind on {npc:4249}"] = "mata {npc:4249} para subir",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "Vuelve al sur al campamento y sube a {zone:1456} para volar a {area:378}.",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "Vuelve a Zoram'gar desde las ruinas antes de ir al este definitivamente.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Sube por el sendero hasta lo alto de {area:2097}. {npc:10646} está cautiva junto a {npc:10896} (29): acaba primero con los guardias y con {npc:10896}, luego libérala y protégela en la bajada; te atacarán emboscadores Tótem Siniestro por el camino.",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "Al este por el camino desde el campamento de Seereth hasta el maestro de jinetes del viento del Cruce, y vuela a {area:2897}. Guarda tu piedra de hogar: vincularla en {area:431} más adelante en esta guía ahorra más.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "Al este de Zoram'gar, los fúrbolgs Piel de Cardo llenan el poblado y las colinas que rodean su bastión.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Vuela de {area:392} a {area:2897}, en la costa de {zone:1440}.",
 	-- ["Fly from {zone:1456} to {area:378} and take the road south to the {area:1718} at the bottom of the {zone:1413}."] = "Vuela de {zone:1456} a {area:378} y toma el camino al sur hasta {area:1718}, en el extremo sur de {zone:1413}.",
+	-- ["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "Vuela a {area:1638} desde Zoram'gar. Si no conoces su ruta de vuelo, vuela a {area:378} y ve a pie al norte por {zone:1412}.",
 	-- ["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, ride west into {zone:1412} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Vuela a {area:1638} si conoces la ruta de vuelo. Si no, vuela a {area:378}, cabalga al oeste hacia {zone:1412}, pasado {area:222}, hasta {area:1638} y obtén su ruta de vuelo con {npc:2995}, en la meseta central.",
 	-- ["Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Sigue el cañón al este, sal de las mesetas y llega a El Desierto de Sal. Los goblins y gnomos de {area:2240} son neutrales y dan misiones a ambas facciones.",
 	-- ["Follow the canyon west to {area:2237}."] = "Sigue el cañón al oeste hasta {area:2237}.",
@@ -381,6 +393,7 @@ return {
 	-- ["His crate is for Stranglethorn, later on the route"] = "Su caja es para Tuercespina, más adelante en la ruta",
 	-- ["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "Si te has saltado {quest:5151} y aún te falta para 29.49, mata arpías aquí primero: {area:487} es tu siguiente parada de todos modos. Las Arpías estridentes (28-29) de su borde tienen tu nivel; las Malaplumas y Clamavientos (29-30) del interior pegan más fuerte. Si ya lo has superado, este paso se salta solo. O, con un grupo, haz en su lugar la mazmorra {area:2797}.",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "Dentro del bastión hay Cofres trol a lo largo de los túneles. {npc:12818} está retenido en lo más profundo: libéralo y protégelo hasta la salida; después volverá corriendo a {area:428}.",
+	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "Guarda las dos misiones de arpías de {npc:4877} y {quest:1150} de {npc:2986}: {area:487} toca en la próxima visita a Poblado Viento Libre, hacia el nivel 30, con las misiones de {area:2240}.",
 	-- ["Naga brazier"] = "Brasero naga",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "Al norte por el camino hasta {area:431} y {area:428}, a su lado.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "De vuelta al noreste hacia el Puesto del Hachazo: {npc:12676} merodea por los bosques al sureste del Aserradero Grito de Guerra.",
@@ -390,12 +403,14 @@ return {
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Baja de {zone:1456} en un elevador. El campamento del Anillo de la Tierra está al norte de las mesetas: {npc:264074}, {npc:264072} y {npc:259118}.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Los campamentos Galak llenan el cañón al norte del Poblado Viento Libre; exploradores, vaqueros y cazavientos comparten todos los campamentos. Un {npc:10617} solitario va de un campamento a otro: mátalo cuando lo encuentres, su nota inicia una misión para {area:2237}.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "La siguiente guía sigue volando desde aquí hasta el Cruce y {zone:1454}.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Los elfos de la noche de {quest:6503} (23-24) acechan en los bosques al sur y al sureste del aserradero; usan sigilo, así que estate atento.",
 	-- ["The salt flats"] = "El Desierto de Sal",
 	-- ["The {area:1718}"] = "{area:1718}",
 	-- ["Thistlefur Hold"] = "Bastión Piel de Cardo",
 	-- ["Tideress"] = "Tideress",
 	-- ["Ursangous"] = "Ursangous",
 	-- ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "Al oeste del Campamento del Tramo Blanco, los dracoleones anidan en los acantilados de {area:482}; los huevos están en los nidos. {npc:10427} espera en el lado este de la zona de nidos: libéralo y mantenlo con vida en el camino de vuelta a {area:2237}.\nCuidado: dracoleones de nivel 28-29 vuelan por encima y puedes atraerlos sin querer. Un grupo de tres dracoleones puede emboscarte en cuanto pasas el primer pilar de abajo.",
+	-- ["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Aviso de desvío en {area:485}: puede que la flecha no marque bien el sendero que sube a {area:2097}. Si estás en el fondo del cañón, sigue el sendero y los puentes de cuerda hasta {area:2097}. {npc:10646} está cautiva junto a {npc:10896} (29): acaba primero con los guardias y con {npc:10896}, luego libérala y protégela en la bajada; te atacarán emboscadores Tótem Siniestro por el camino.",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}, en lo alto del elevador",
 	-- ["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest."] = "{npc:12676}, una gran sable de la noche, merodea por los bosques al sureste del Aserradero Grito de Guerra. Su garra inicia la siguiente misión de caza.",
 	-- ["{npc:12696}, once all three hunts are in"] = "{npc:12696}, cuando hayas entregado las tres cacerías",
@@ -405,8 +420,12 @@ return {
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867} está en el aserradero. Los Avanzados de Vallefresno elfos de la noche acechan en los bosques al sureste; usan sigilo, así que estate atento.",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, un añadido de Forever, está en la orilla oeste de {area:421} con tres misiones rápidas de cazadragones.",
 	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} está en lo alto de una meseta al este de los campamentos Galak. Para {quest:1149}, salta desde el final de los tablones a su lado: aterrizarás sano y salvo.",
+	-- ["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, en la guarida de arpías al oeste del puesto",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}: su carta es para Martek el Exiliado, en {zone:1418}, hacia el nivel 38",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}, un elemental de roca que pega fuerte, recorre los acantilados de {area:482}, de vuelta al oeste pasando {area:2237}. {npc:4499} es élite: se recomienda ir en grupo.",
+	-- ["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "Las dos misiones de arpías de {npc:4877} se aceptan al salir de Poblado Viento Libre; su guarida llega en la siguiente visita a Viento Libre, hacia el nivel 30.",
+	-- ["{npc:4877}, inside the inn"] = "{npc:4877}, dentro de la posada",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}, la vendedora de suministros comerciales: las Arpías estridentes de {area:487}; dentro de la posada",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868} está por todo el desierto al norte del circuito. Los Atracadores escórpidos y las Tortugas caparallantes recorren la mitad norte, los Carroñeros de los Llanos de Sal vuelan en círculos y los Basiliscos Gapo Salino pastan al oeste de la pista. Los Vitropiel Gapo Salino recorren el centro del desierto, y los Observadores Gapo Salino (34-35, cinco niveles por encima de ti: de uno en uno), el extremo sur.",
+	-- ["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150} ({npc:4490}, 31) espera a la siguiente visita a Viento Libre, hacia el nivel 30: guárdala.",
 }

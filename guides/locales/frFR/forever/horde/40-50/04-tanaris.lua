@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} et la {zone:1427} aux niveaux 46-48 : les camps Bat-le-désert, l'escorte de {npc:5955} et {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} et la {zone:1427} aux niveaux 46-48 : les camps Bat-le-désert, l'escorte de {npc:5955} et {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Équipement d'analyse de Scrimshank",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Plus au sud, l'équipement du géomètre débutant Scrimshank se trouve à l'entrée d'une ruche Centipaar.\nAttention : un insecte garde l'équipement. De nombreux insectes patrouillent dans les tunnels, certains de niveau 50, les combats attirent donc souvent des monstres en plus.",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "Sous terre",
 
 	-- Step 24: OOX-17/TN
@@ -214,6 +216,7 @@ return {
 	-- ["From the {area:35} flight master, above the harbour."] = "Depuis le maître de vol de {area:35}, au-dessus du port.",
 	-- ["From {area:1099}'s flight master."] = "Depuis le maître de vol de {area:1099}.",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Plus au sud, l'Équipement d'analyse de Scrimshank se trouve à l'entrée d'une ruche Centipaar.",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Plus au sud, l'équipement du géomètre débutant Scrimshank se trouve à l'entrée d'une ruche Centipaar.\nAttention : un insecte garde l'équipement. De nombreux insectes patrouillent dans les tunnels, certains de niveau 50, les combats attirent donc souvent des monstres en plus.",
 	-- ["Greater Lava Spiders"] = "Grandes araignées de lave",
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Les Golems de guerre lourds ({npc:5854}) patrouillent dans le Chaudron sous Velarok et lâchent l'huile ; les Elémentaires de magma et flamboyants ({npc:5850}) qui dérivent parmi eux lâchent les cœurs. Les Sous-chefs Sombrefer ({npc:5846}) et les Esclavagistes mènent les esclaves sur les chemins ; un Esclavagiste peut lâcher {item:11818} : gardez-la.",
@@ -249,6 +252,7 @@ return {
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} s'ouvre au nord du Chaudron. Les Incendosaures nagent dans ses bassins de lave : attirez-les au bord. Les plans secrets sont sur la corniche supérieure de la fosse.",
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938} : tuez-les au passage",
 	-- ["{area:392} pier"] = "Quai de {area:392}",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} et la {zone:1427} aux niveaux 46-48 : les camps Bat-le-désert, l'escorte de {npc:5955} et {area:1446}.",
 	-- ["{npc:5844} along the way to {area:1446}"] = "{npc:5844} sur le chemin de {area:1446}",
 	-- ["{npc:5846} along the way to {area:1446}"] = "{npc:5846} sur le chemin de {area:1446}",
 	-- ["{npc:5854} along the way to {area:1446}"] = "{npc:5854} sur le chemin de {area:1446}",

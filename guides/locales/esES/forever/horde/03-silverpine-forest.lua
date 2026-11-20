@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Al norte de {area:228}. {npc:1983} ronda {area:240}: mátalo y luego cruza el campo. Cuidado: {npc:1983} (14) aparece una vez que has matado gnolls Putrepellejo en el campo: enfréntate a ella con la salud al máximo.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -313,6 +313,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Los Lupos jaspeados merodean por las colinas alrededor de la casa. Luego ve al sur por la orilla del lago: los Machacadores y Cazamareas Anca Vil de allí sueltan los ojos de múrloc.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "De nuevo al norte, a la casa de los Yorick. {quest:425} acecha a poca distancia al oeste.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Al norte de {area:228}. Latipesadilla ronda {area:240}: mátalo y luego cruza el campo.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Al norte de {area:228}. {npc:1983} ronda {area:240}: mátalo y luego cruza el campo. Cuidado: {npc:1983} (14) aparece una vez que has matado gnolls Putrepellejo en el campo: enfréntate a ella con la salud al máximo.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Al noreste de los refugiados, los Esclavos y Guardianes Corvozarpa rondan las ruinas de {quest:516}, en el sureste del bosque.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Solo si {npc:1938} te dio {quest:98298}: los Aullasangre merodean por los bosques al suroeste de {area:233}, al este de la Aldea Piroleña; sueltan {item:280375}.",
 	-- ["Road to Silverpine"] = "Camino al Bosque de Argénteos",

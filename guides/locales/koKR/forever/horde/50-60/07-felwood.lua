@@ -99,45 +99,49 @@ return {
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "다시 나무구렁일족 동굴로 들어가 {zone:1452} 쪽 출구로 나가세요. {npc:9298}은(는) 바로 밖 온천 옆에 있습니다.",
 	["From Krakle in Un'Goro"] = "운고로 분화구의 크래클에게서",
 
-	-- Step 26: Winterfall Runners
+	-- Step 26: Strange Sources
+	-- {area:2256} Darkwhisper Gorge · {area:2255} Everlook
+	["Only with help: level 59-60 elite Frostmaul giants flank the road to {area:2256}. Alone, skip the gorge and stay on the road to {area:2255}."] = "",
+
+	-- Step 27: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 27: Salfa
+	-- Step 28: Salfa
 	-- {quest:8464} Winterfall Activity · {area:2255} Everlook · {area:2256} Darkwhisper Gorge
 	["{quest:8464}'s village is north-east of {area:2255}, on this guide's way back from {area:2256}."] = "{quest:8464}의 마을은 {area:2255} 북동쪽, 이 가이드에서 {area:2256}에서 돌아오는 길에 있습니다.",
 
-	-- Step 28: Meilosh
+	-- Step 29: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "가방에 {quest:6031} 30개가 있다면: 길을 따라 북쪽 {area:1769}(으)로 가세요. {npc:11557}이(가) 입구 바로 안에서 거래합니다.",
 
-	-- Step 29: Kernda
+	-- Step 30: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- Step 31: Darkwhisper Gorge
-	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
+	-- {area:2256} Darkwhisper Gorge
+	["With your group, follow the road south between the elite Frostmaul giants. Turn back as soon as the quest credits at the mouth of {area:2256}; do not enter the Hederine camp."] = "",
 
-	-- Step 32: Level 59.9
-	["Level 59.9"] = "",
-	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
-	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
-	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
-
-	-- Step 33: Are We There, Yeti?
+	-- Step 32: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "북쪽 {area:2255}(으)로 가세요.",
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "",
 
-	-- Step 35: Winterfall Village
+	-- Step 34: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "털보숭이 마을은 {area:2255} 북동쪽 골짜기에 있습니다. 치유하는 주술사를 먼저 처치하세요. {npc:10738}(59, 정예)과 잔디비우스(62)는 안쪽 동굴에 있으니 들어가지 마세요.",
+
+	-- Step 35: Level 59.9
+	["Level 59.9"] = "",
+	-- {area:2057} Scholomance · {area:2279} Stratholme
+	-- plural, as words: Winterfall Ursas = {npc:7438} Winterfall Ursa
+	["Stay on the village's western edge for Winterfall Ursas (57-58). Leave the cave and its elite chief alone. Top up only until the last hand-ins can take you to 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	-- plural, as words: Winterfall Ursas = {npc:7438} Winterfall Ursa
+	["Winterfall Ursas"] = "",
 
 	-- Step 36: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -145,22 +149,25 @@ return {
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}은(는) 다음으로 동굴 속 정예인 {npc:10738}을(를) 처치하라고 보냅니다. 건너뛰세요.",
 
-	-- Step 37: Salfa
+	-- Step 38: Salfa
 	-- {zone:1452} Winterspring
 	["North of Donova, at the tunnel's {zone:1452} exit."] = "도노바 북쪽, 동굴의 {zone:1452} 출구에 있습니다.",
 
-	-- Step 38: Beads for Salfa
+	-- Step 39: Beads for Salfa
 	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity
 	["{npc:11556} takes the beads only once {quest:8464} is handed in: any Winterfall furbolg can carry them, and the camps just south of {npc:11556} are the closest."] = "{npc:11556}은(는) {quest:8464}을(를) 제출한 뒤에야 구슬을 받습니다. 눈사태일족 털보숭이는 누구나 구슬을 지니고 있을 수 있으며, {npc:11556} 바로 남쪽 야영지가 가장 가깝습니다.",
 	["Frostfire Winterfall camp"] = "얼음불꽃 눈사태일족 야영지",
 
-	-- Step 40: Grind to 60
+	-- Step 41: Grind to 60
 	["Grind to 60"] = "60까지 사냥",
-	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
-	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {zone:1452} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
-	-- {npc:7446} Rabid Shardtooth · {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring
-	["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "{zone:1452}, {area:2249}에서 {npc:7446} 사냥",
+	-- {npc:11556} Salfa
+	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
+	["If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge."] = "",
+	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
+	["Winterfall Den Watchers"] = "",
+
+	-- Step 42: Training
+	["Training"] = "",
 	-- {zone:1454} Orgrimmar · {area:2255} Everlook
 	["In {zone:1454}: fly from {area:2255}"] = "{zone:1454}에서: {area:2255}에서 비행",
 	-- {zone:1456} Thunder Bluff · {area:2255} Everlook
@@ -178,10 +185,13 @@ return {
 	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "선택 사항: 파티가 있으면 55-60 던전으로 아래 사냥을 대신하세요.",
 	-- ["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
 	-- ["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
+	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {area:618} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
+	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {zone:1452} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {area:493}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
 	-- ["Zeppelin to {zone:1454}"] = "비행선 타고 {zone:1454}(으)로",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "{area:618}, {area:2249}에서 {npc:7446} 사냥",
+	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "{zone:1452}, {area:2249}에서 {npc:7446} 사냥",
 	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "아직 가지고 있을 때만: {zone:1423} 가이드가 지나가는 길에 제출합니다",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "{npc:10306}의 다음 퀘스트 {quest:4741}은(는) {area:618}에서 여기로 다시 와야 합니다. 건너뛰세요.",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "{npc:9116}의 은색 심장은 {area:361} 북쪽의 {item:11173}을(를) 가지고 여기로 돌아와야 합니다. 건너뛰세요.",

@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 46-48: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 46-48: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Equipo de Patagolpe",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Más al sur, el equipo del topógrafo novato Scrimshank está en la entrada de una colmena Centipaar.\nCuidado: Un bicho custodia el equipo. Muchos bichos patrullan los túneles, algunos de nivel 50, así que las peleas suelen atraer refuerzos.",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 24: OOX-17/TN
@@ -214,6 +216,7 @@ return {
 	-- ["From the {area:35} flight master, above the harbour."] = "Desde el maestro de vuelo de {area:35}, sobre el puerto.",
 	-- ["From {area:1099}'s flight master."] = "Desde el maestro de vuelo de {area:1099}.",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Más al sur, el equipo del topógrafo adjunto Patagolpe está en la entrada de una colmena Centipaar.",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Más al sur, el equipo del topógrafo novato Scrimshank está en la entrada de una colmena Centipaar.\nCuidado: Un bicho custodia el equipo. Muchos bichos patrullan los túneles, algunos de nivel 50, así que las peleas suelen atraer refuerzos.",
 	-- ["Greater Lava Spiders"] = "Arañas de lava superiores ({npc:5858})",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Los Gólems de guerra pesados ({npc:5854}) patrullan La Caldera bajo Kalaran y sueltan el aceite; los Elementales de magma y Elementales llameantes ({npc:5850}) que flotan entre ellos sueltan los corazones. Los Capataces Hierro Negro ({npc:5846}) y Esclavistas arrean a los esclavos por los senderos; un Esclavista puede soltar {item:11818}: guárdala.",
 	-- ["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Los gólems de guerra pesados patrullan La Caldera debajo de Velarok y sueltan el aceite; los elementales de magma y llameantes que flotan entre ellos sueltan los corazones. Los capataces y esclavistas Hierro Negro arrean a los esclavos por los caminos; un esclavista puede soltar {item:11818}: guárdala.\nLas arañas de lava abrasadoras recorren las mesetas y pozas de lava del suroeste de la garganta.\n{area:1443} se abre en el norte de La Caldera. Los incendosaurios nadan en sus pozas de lava: atráelos al borde. Los planos secretos están en la cornisa superior del foso.\nCuidado: Los esclavistas Hierro Negro (nivel 45-46) piden ayuda a los aliados en 15 m cuando los atraes, lanzan Red desde hasta 15 m y usan Desgarrar cuerpo a cuerpo.",
@@ -243,4 +246,5 @@ return {
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} se abre en el norte de La Caldera. Los Incendosaurios ({npc:9318}) nadan en sus pozos de lava: atráelos a la orilla. Los planos secretos están en la cornisa superior del foso.",
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}: mata a estos según te los encuentres",
 	-- ["{area:392} pier"] = "Muelle de {area:392}",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 46-48: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}.",
 }

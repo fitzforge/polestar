@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "Nivel 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.\nLos higos chumbos para {quest:96825} crecen junto a estas chozas: recógelos mientras subes de nivel.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "sube de nivel con {npc:3111}",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "Nivel 11",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Sube aquí hasta nivel 11 antes de {npc:3203} (12) y su diablillo: los Truenagartos (9-10) pastan en la cresta justo al oeste de la choza de Misha.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "sube de nivel con {npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -431,6 +431,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y lomorrayos pastan en {area:369}, justo al oeste y suroeste de {npc:3293}.\nFizzle ocupa el campamento del Filo Ardiente en {area:369}, al noroeste de {area:362}. Cazadores: domestica un {npc:3099} con la {item:15908} en el camino.\nCuidado: los cultores del Filo Ardiente rodean a Fizzle, algunos vinculados, así que atacan en parejas, y reaparecen rápido.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 	-- ["Thunder lizards across the river"] = "Truenagartos al otro lado del río",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "Completa aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.\nLos higos chumbos para {quest:96825} crecen junto a estas chozas: recógelos mientras subes de nivel.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Sube aquí hasta nivel 11 antes de {npc:3203} (12) y su diablillo: los Truenagartos (9-10) pastan en la cresta justo al oeste de la choza de Misha.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Si aprendiste {skill:129}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:5943} en {area:362}.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:165}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:3365} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:171}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11046} en {zone:1454} (siguiente guía).",
@@ -440,6 +442,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Si aprendiste {skill:202}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11025} en {area:362}.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:333}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11066} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:393}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:7088} en {zone:1454} (siguiente guía).",
+	-- ["grind on {npc:3130}"] = "sube de nivel con {npc:3130}",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",

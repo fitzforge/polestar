@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Добейте здесь 10-й уровень: для задания {quest:840} ({area:362}) нужен 10-й уровень.\nКолючие груши для задания {quest:96825} растут у этих хижин: собирайте их, пока убиваете монстров.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "убивайте: {npc:3111}",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "11-й уровень",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Добейте здесь 11-й уровень, прежде чем идти на NPC {npc:3203} (12) и его беса: рокочущие ящерицы (9-10) пасутся на гребне чуть западнее хижины Миши.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "убивайте: {npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -427,6 +427,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, за мостом; {item:6486} может упасть с любого.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, чуть западнее и юго-западнее NPC {npc:3293}.\nПшикс удерживает лагерь клана Пылающего Клинка ({area:369}), к северо-западу от места {area:362}. Охотникам: по пути приручите вепря ({npc:3099}), используя {item:15908}.\nОсторожно: Пшикса окружают сектанты Пылающего Клинка, некоторые связаны и нападают парами, и они быстро возрождаются.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
 	-- ["Thunder lizards across the river"] = "Рокочущие ящерицы за рекой",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Добейте здесь 10-й уровень: для задания {quest:840} ({area:362}) нужен 10-й уровень.\nКолючие груши для задания {quest:96825} растут у этих хижин: собирайте их, пока убиваете монстров.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Добейте здесь 11-й уровень, прежде чем идти на NPC {npc:3203} (12) и его беса: рокочущие ящерицы (9-10) пасутся на гребне чуть западнее хижины Миши.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Если вы освоили навык {skill:129}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:5943}, место: {area:362}.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Если вы освоили навык {skill:165}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:3365}, место: {zone:1454} (следующее руководство).",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Если вы освоили навык {skill:171}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:11046}, место: {zone:1454} (следующее руководство).",
@@ -436,6 +438,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Если вы освоили навык {skill:202}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:11025}, место: {area:362}.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Если вы освоили навык {skill:333}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:11066}, место: {zone:1454} (следующее руководство).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Если вы освоили навык {skill:393}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:7088}, место: {zone:1454} (следующее руководство).",
+	-- ["grind on {npc:3130}"] = "убивайте: {npc:3130}",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: для персонажа {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: для персонажа {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: для персонажа {npc:2855}",

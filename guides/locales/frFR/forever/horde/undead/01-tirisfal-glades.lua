@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "{npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208} : le {npc:246143} s'est enfui dans les collines à l'ouest de l'église, sur le chemin de {area:155}.",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "Proposez votre aide : {npc:246143}",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -614,4 +616,5 @@ return {
 	-- ["{npc:5667}: Summon Imp"] = "{npc:5667} : Invocation d'un diablotin",
 	-- ["{npc:5675}: Summon Voidwalker"] = "{npc:5675} : Invocation d'un marcheur du Vide",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208} : {npc:246143} s'est enfui dans les collines juste à l'ouest de l'église.",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208} : le {npc:246143} s'est enfui dans les collines à l'ouest de l'église, sur le chemin de {area:155}.",
 }

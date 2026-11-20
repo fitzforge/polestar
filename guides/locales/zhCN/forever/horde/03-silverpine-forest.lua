@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "在{area:228}北边。{npc:1983}在{area:240}出没：杀死它，然后穿过田野。小心：在田里杀死腐皮豺狼人后，{npc:1983}（14级）就会出现：满血再和她战斗。",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -320,6 +320,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "杂斑座狼在房子周围的山丘上游荡。然后沿湖岸向南走：那里的邪鳍切割者和邪鳍潮行者会掉落鱼人的眼球。",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "再次向北前往尤瑞克家。{quest:425}潜伏在房子西边不远处。",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "在{area:228}北边。奈塔拉什在{area:240}出没：杀死它，然后穿过田野。",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "在{area:228}北边。{npc:1983}在{area:240}出没：杀死它，然后穿过田野。小心：在田里杀死腐皮豺狼人后，{npc:1983}（14级）就会出现：满血再和她战斗。",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "在难民东北边，鸦爪苦工和鸦爪守护者在森林东南部的{quest:516}废墟中出没。",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "仅当{npc:1938}给了你{quest:98298}时：血啸者在{area:233}西南、焚木村东边的林中游荡；它们掉落{item:280375}。",
 	-- ["Paladin trainer"] = "圣骑士训练师",

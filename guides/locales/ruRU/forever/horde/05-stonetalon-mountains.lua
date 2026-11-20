@@ -31,7 +31,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Ночные эльфы из задания {quest:6503} (23-24) рыщут в лесах к югу и юго-востоку от лагеря лесорубов; они скрываются, так что смотрите в оба.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Ночные эльфы из задания {quest:6503} (23-24) рыщут в лесах к югу и юго-востоку от лагеря лесорубов; они скрываются, так что смотрите в оба."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "Лесозаготовки Песни Войны",
@@ -232,6 +233,7 @@ return {
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Поговорите с NPC {npc:10181} ({object:36126}): {quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "Пароклапан ({area:392}): следующий гайд проходит там",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "{item:16205} лежат в траве вдоль южного берега: {area:464}, к северу от Солнечного Камня.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "Ночные эльфы из задания {quest:6503} (23-24) рыщут в лесах к югу и юго-востоку от лагеря лесорубов; они скрываются, так что смотрите в оба.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "Дорога поднимается на север – {area:1076}. Хижина: {quest:1483} – там, где дорога сворачивает на восток к месту {area:461}.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} патрулирует дорогу к востоку от места {area:428} в сторону места {area:430}.",
 	-- ["Thistlefur Hold"] = "Логово Колючего Меха",

@@ -1072,11 +1072,23 @@ step Thun'grim Firegaze
 
 step Regthar Deathgate
   turnin 852
+
+step Counterattack!
+  when turnedin 852
+  when available 4021
+  when group 4021
+  tip Warlord Krom'zar is a level 20 elite with two guards. Bring a group of three to defend the bunkers; if you're solo, continue west.
   accept 4021
 
 step Counterattack!
+  when onquest 4021
+  when !complete 4021
+  when group 4021
   tip Speak to Regthar again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until Warlord Krom'zar (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body.
-  collect 11227 quest 4021.1 @44.4,28.1 -- Piece of Krom'zar's Banner
+  collect 11227 quest 4021.1 @44.4,28.1 group 3 -- Piece of Krom'zar's Banner
+
+step Regthar Deathgate
+  when complete 4021
   turnin 4021                         -- Regthar Deathgate
 
 # ---------------------------------------------------------------- West: Seereth and the Webwinder Path

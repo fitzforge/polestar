@@ -2,6 +2,57 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "sunnyglade-fuzzle-quest-cage",
+			"quest": 94961,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.31,
+				"y": 51.36,
+				"frame": "live"
+			},
+			"note": "Take the first quest at the cage, not at one of the escort positions.",
+			"source": {
+				"kind": "recording",
+				"ref": "Live cage mark in #3078, distinct from the later escort destination."
+			},
+			"issue": 3078
+		},
+		{
+			"id": "riverglades-argo-bait-at-junk",
+			"quest": 95267,
+			"objective": 1,
+			"at": {
+				"map": 2548,
+				"x": 74.39,
+				"y": 72.38,
+				"frame": "live"
+			},
+			"note": "Use the bait here before taking the head, not at a roaming monster position.",
+			"source": {
+				"kind": "recording",
+				"ref": "Quest mark #3036 and 48 recorded objective credits within half a map point of the marked junk."
+			},
+			"issue": 3036
+		},
+		{
+			"id": "hyjal-felflick-decision-cage",
+			"quest": 96322,
+			"objective": 1,
+			"at": {
+				"map": 2482,
+				"x": 49.28,
+				"y": 77.22,
+				"frame": "live"
+			},
+			"note": "Make the decision in the cage at Felflick, not at the crow that pays the quest.",
+			"source": {
+				"kind": "recording",
+				"ref": "Eight questers got dialogue credit at Felflick; the live marker in #3194 is at his cage."
+			},
+			"issue": 3121
+		},
+		{
 			"id": "horde-indurium-stonevault-bonesnappers",
 			"faction": "Horde",
 			"quest": 1108,

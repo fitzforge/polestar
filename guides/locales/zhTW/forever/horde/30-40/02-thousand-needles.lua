@@ -81,61 +81,46 @@ return {
 	-- {npc:5905} Prate Cloudseer · {area:1717} Razorfen Kraul
 	["{npc:5905} also starts Elemental Aid ({area:1717}), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde."] = "{npc:5905}也會開啟Elemental Aid（{area:1717}），這是通往風暴武器的33-40級任務鏈：forever/class/shaman/call-of-air-horde。",
 
-	-- Step 16: Dorn Plainstalker
+	-- Step 20: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {area:484} Freewind Post · {quest:1149} Test of Faith
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\n{npc:2986} waits on the mesa just north-east of {area:484}, across the rope bridges.\nFor the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。\n{npc:2986}在{area:484}東北方不遠的平頂山上等你，要走過吊橋。\n為了{quest:1149}，從他旁邊的木板盡頭走下去：你會安全落地。",
 
-	-- Step 17: Dorn Plainstalker
-	-- {npc:2986} Dorn Plainstalker · {area:484} Freewind Post
-	["{npc:2986} waits on the mesa just north-east of {area:484}, across the rope bridges."] = "{npc:2986}在{area:484}東北方不遠的平頂山上等你，要走過吊橋。",
-	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
-	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在崗哨西邊的鷹身人巢穴",
+	-- Step 22: Dorn Plainstalker
+	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
+	["{quest:1150} starts a fight deep in the den. Take it if you plan to face {npc:4490} with a group."] = "",
 
-	-- Step 18: Jandia
-	-- {npc:4877} Jandia · {area:484} Freewind Post
-	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "商業供應商{npc:4877}站在{area:484}的旅店裡。",
-	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}：{area:487}的尖嘯鷹身人",
-	-- {npc:4877} Jandia
-	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "",
+	-- Step 23: Screeching harpies
+	["Screeching harpies"] = "",
+	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Pull the harpies along the cliff below {area:487}. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of {npc:4877}'s supplies you still need along the way. Leave the {object:20447} alone: they call {npc:4490}."] = "",
 
-	-- Step 19: The Screeching Canyon: kill these as you meet them
-	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
-	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker
-	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw."] = "亂風崗西邊、{area:2097}下方是{area:487}的鷹身人（28-30）。那裡的尖嘯鷹身人、亂羽鷹身人和喚風者都是{npc:4877}的目標；她的{quest:98069}散落在懸崖腳下的地上和頂上的洞穴裡。{npc:4490}（31）在牠們之間走動：先清掉她周圍的鷹身人再拉她，為了{npc:2986}要的爪子。",
-	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
-	-- {item:5843} Grenka's Claw · {npc:4490} Grenka Bloodscreech
-	["{item:5843}, from {npc:4490}"] = "{item:5843}，來自{npc:4490}",
+	-- Step 24: Stolen Freewind Supplies
+	-- {quest:98069} Stolen Freewind Supplies · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4877} Jandia
+	["Look for {quest:98069} at the foot of the cliff. The {object:20447} inside the cave are not {npc:4877}'s supplies."] = "",
 
-	-- Step 20: Jandia
-	-- {area:484} Freewind Post
-	["Back east to {area:484}."] = "往東回到{area:484}。",
-	-- {npc:4877} Jandia
-	["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店裡",
+	-- Step 25: Harpy Foodstuffs
+	-- {area:487} Roguefeather Den · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
+	["Clear the back of {area:487} with your group. Break the {object:20447} and stay together for the ambush. Kill {npc:4490} (31) when she comes, then loot her claw before the harpies return."] = "",
+	-- {item:5843} Grenka's Claw · {object:20447} Harpy Foodstuffs (no name in this language: may be words)
+	["{item:5843}, at the {object:20447}"] = "",
 
-	-- Step 21: Dorn Plainstalker
-	-- {npc:2986} Dorn Plainstalker · {npc:4499} Rok'Alim the Pounder
-	["Back across to {npc:2986}'s mesa north-east of the post, then take the lift down to the canyon floor. {npc:2986}'s next test, {npc:4499}, is an elite: leave it."] = "走回營地東北方{npc:2986}所在的平頂山，然後搭升降梯下到峽谷底部。{npc:2986}的下一個考驗{npc:4499}是精英：不要接。",
-
-	-- Step 22: Stormheart
+	-- Step 29: Stormheart
 	-- {npc:270094} Stormheart · {area:484} Freewind Post
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:270094} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:270094} walks the canyon road east of {area:484}'s lift, on the way to the salt flats: kill him for his heart."] = "這些是精英怪物：建議組隊，找人一起打。{npc:270094}是30級精英：大多數職業在32級時可以單刷，但你可能需要幫忙。如果你是獨自一人就跳過：路線會讓你把經驗值練回來。\n{npc:270094}在{area:484}升降梯東邊的峽谷道路上走動，就在前往鹽平原的路上：殺了他取得心臟。",
 	-- {item:279186} Stormheart's Still-beating Heart · {npc:270094} Stormheart
 	["{item:279186}, from {npc:270094}"] = "{item:279186}，來自{npc:270094}",
 
-	-- Step 23: Moktar Krin
+	-- Step 30: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "乘升降機下去，沿峽谷向東。{npc:4483}在鹽灘西北緣紮營。",
 
-	-- Step 24: Mirage Raceway
+	-- Step 31: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的哥布林和地精是中立的，向兩個陣營提供任務。",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "{npc:4452}的箱子要交給荊棘谷的{quest:5762}，在路線後面",
 
-	-- Step 25: Shimmering Flats: kill these as you meet them
+	-- Step 32: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
 	["{area:439}: kill these as you meet them"] = "{area:439}：遇到就殺",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -149,7 +134,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "{quest:1104}，來自北半部的蠍子掠奪者",
 
-	-- Step 26: Mirage Raceway
+	-- Step 33: Mirage Raceway
 	["South-west back to the raceway."] = "向西南回到賽道。",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "{npc:4452}：他的零件訂單要送給{area:392}的{quest:1111}，在後面的路線上",
@@ -158,67 +143,69 @@ return {
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}：交給{area:392}的加茲魯維，路線後面會去",
 
-	-- Step 27: Level 32
+	-- Step 34: Level 32
 	["Level 32"] = "32級",
 	-- {zone:1443} Desolace · {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "鹽沼南部和異種蠍挖掘場是32-35級，{zone:1443}的任務是32-38級。賽道繳交完還不到32級？回到鹽沼北邊，恐蠍搶奪者（31-32）在蜥蜴和龜之間遊蕩：殺到32級；別碰鹽殼鉗嘴龜（34-35）和恐蠍（33-34）。或者有小隊的話，改打{area:1717}地城。",
+	-- was: ["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "鹽沼南部和異種蠍挖掘場是32-35級，{zone:1443}的任務是32-38級。賽道繳交完還不到32級？回到鹽沼北邊，恐蠍搶奪者（31-32）在蜥蜴和龜之間遊蕩：殺到32級；別碰鹽殼鉗嘴龜（34-35）和恐蠍（33-34）。或者有小隊的話，改打{area:1717}地城。"
+	["{zone:1443}'s quests are 32-38, the flats' south and the silithid dig 32-35 (from level 34; below it they wait for the way out of {zone:1443}). Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "",
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["Scorpid Reavers"] = "恐蠍搶奪者",
 	-- {npc:4140} Scorpid Reaver
 	["grind on {npc:4140}"] = "擊殺{npc:4140}練等",
 
-	-- Step 28: The southern flats
+	-- Step 35: The southern flats
 	["The southern flats"] = "南部的鹽灘",
 	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
-	["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "賽道南邊，鹽石水晶蜥蜴（32-33）和凝視者（34-35）在鹽沼盡頭遊蕩。\n注意：35級的凝視者可能仍比你高兩級：從營地邊緣一次拉一隻，絕不要同時拉兩隻。",
+	["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nPull one Gazer at a time from the edge of the camp."] = "",
 
-	-- Step 29: The Rustmaul Dig Site
+	-- Step 36: The Rustmaul Dig Site
 	-- {item:5877} Cracked Silithid Carapace · {npc:4132} Silithid Ravager
 	["West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health, and the {npc:4132} (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth."] = "牠們西邊，異種蠍佔據了挖掘場。搜尋者和巢穴雄蜂在土堆間走動；入侵者（34-35）待在巢穴洞穴裡。你殺的第一隻異種蠍會掉落{item:5877}：打開它。\n注意：巢穴雄蜂血量降到20%時會呼救，而{npc:4132}（37，稀有）在挖掘場走動：先在外面清掉搜尋者和雄蜂（32-34），再從洞口一次拉一隻入侵者（34-35）。",
 
-	-- Step 30: Parts of the Swarm
-	["Keep killing silithid at the dig site for the heart, the talons and the carapaces."] = "在挖掘場繼續擊殺異種蟲，收集心臟、利爪和甲殼。",
+	-- Step 37: Parts of the Swarm
+	-- {npc:4132} Silithid Ravager
+	["Gather the heart, talons and carapaces from the normal silithid. Leave the rare {npc:4132} (37) alone."] = "",
 
-	-- Step 31: Moktar Krin
+	-- Step 38: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["North from the dig to {npc:4483}'s camp on the western edge of the flats."] = "從挖掘場向北到鹽灘西緣{npc:4483}的營地。",
 
-	-- Step 32: Mirage Raceway
+	-- Step 39: Mirage Raceway
 	-- {area:976} Gadgetzan
 	["East to the raceway, on the way south to {area:976}."] = "向東前往賽車場，順路再向南前往{area:976}。",
 
-	-- Step 33: Gadgetzan
+	-- Step 40: Gadgetzan
 	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:484} Freewind Post
 	["South from the raceway over the {zone:1446} border to {area:976}, the walled goblin town: learn its flight path and fly back to {area:484} from there, which is quicker than the walk west across the flats, and the next guides fly straight to {area:976}."] = "從賽車場向南越過{zone:1446}邊界前往{area:976}，那座有城牆的哥布林城鎮：學會那裡的飛行路線，然後從那裡飛回{area:484}，比向西走過平原更快，而且接下來的指南會直接飛往{area:976}。",
 
-	-- Step 35: Freewind Post
+	-- Step 42: Freewind Post
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}：交給{zone:1443}的{npc:11259}，在下一份指南中",
 
-	-- Step 36: Fly to Sun Rock Retreat
+	-- Step 49: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "飛往{area:460}",
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "{area:484}飛行管理員",
 
-	-- Step 38: Scrabblescrew's Camp
+	-- Step 51: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
 	["Head south out of Stonetalon into {zone:1443} and follow the road south to {npc:11596}'s camp."] = "向南離開石爪山脈進入{zone:1443}，沿道路向南到{npc:11596}的營地。",
 
-	-- Step 39: Ghost Walker Post
+	-- Step 52: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:11259} Nataka Longhorn · {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:596} Kodo Graveyard
 	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "{npc:5395}站在哨站裡，{npc:11259}在哨站上方的高地；{npc:5641}和{npc:4498}在哨站西邊的高地上等候，俯瞰{area:596}。",
 	-- {npc:11259} Nataka Longhorn
 	["{npc:11259}, up on the rise"] = "{npc:11259}，在高地上",
 
-	-- Step 41: Takata Steelblade and Maurin Bonesplitter
+	-- Step 54: Takata Steelblade and Maurin Bonesplitter
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter
 	["{npc:5641} and {npc:4498}"] = "{npc:5641}和{npc:4498}",
 
-	-- Step 42: Kodo Graveyard
+	-- Step 55: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "對墓地裡的老科多獸、垂死的科多獸或{npc:4702}使用{npc:11596}給的{item:13892}，然後把馴服的科多獸帶回{npc:11596}那裡。在他的營地與科多獸對話：這樣就會計數，並讓你能馴服下一隻。共五隻科多獸，一次一隻。小心：別碰地上的科多獸頭骨：打開後會召喚出一隻打得很痛的{npc:11521}（37-38級）。",
 	-- {npc:4702} Ancient Kodo
@@ -226,7 +213,7 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "被馴服的科多獸，在{npc:11596}的營地：和它對話，五次",
 
-	-- Step 44: Shadowprey Village
+	-- Step 57: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
 	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西到海岸邊的食人妖村，路上避開{area:606}。{npc:268705}站在村子正北的小路上。\n在 Forever 裡{npc:268705}可能不在這裡：如果{npc:268705}不給{quest:97265}，跳過。",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
@@ -236,30 +223,30 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}，在村子西南端",
 
-	-- Step 45: Drulzegar Skraghook
+	-- Step 58: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
 	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
 
-	-- Step 46: Ethel Rethor
+	-- Step 59: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "沿著海岸向北走，然後往內陸前往{area:2405}的廢棄塔樓：{npc:11863}在裡面等你。海岸的蚌和納迦留到{area:599}之後，一路往北走向{area:2406}時再處理。",
 
-	-- Step 47: Thunder Axe Fortress
+	-- Step 60: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向東前往{area:599}。把一名燃燒之刃信徒打到殘血，在牠死前對牠使用{item:6436}，就能充能一個{item:6435}。{npc:13019}帶著權杖站在要塞的頂樓。信徒偶爾也會掉落{item:20310}（1-5%）；如果掉落了，就閱讀它。紅色的{object:176581}先不要碰：它的{npc:11876}是37級，第二次造訪{zone:1443}時會再回來處理。",
 	["On the top floor"] = "頂層",
 
-	-- Step 48: Ethel Rethor
+	-- Step 61: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "向西返回{npc:11863}那裡。",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "{npc:11863}的下一個差事{item:15803}需要對付{area:2406}上的{npc:12369}（38級）：先別接，他的等級比你高。",
 
-	-- Step 49: Rackmore's Log
+	-- Step 62: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}躺在{npc:11863}塔樓西南方不遠處的地上，就在下往海岸的路上：閱讀它。它的兩把鑰匙只有在你接了任務時才會掉落。",
 
-	-- Step 50: Clam beds
+	-- Step 63: Clam beds
 	["Clam beds"] = "蚌床",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -272,34 +259,34 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，來自乾鉗螃蟹",
 
-	-- Step 51: Sar'theris Strand
+	-- Step 64: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "繼續往北前往{area:598}取得{item:15881}：任何滑刃納迦都可能掉落。\n小心：海灘北半部有滑刃侍衛（34-35級），還有海巫和神諭者（34-36級，施法者），在33級時最多比你高兩級：在南半部打納迦和女巫（32-33級）直到鑰匙掉落，北部留到38級第二次造訪{zone:1443}時再處理。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，來自滑刃納迦",
 
-	-- Step 52: Sar'theris Strand: Other Fish to Fry
+	-- Step 65: Sar'theris Strand: Other Fish to Fry
 	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
 	-- {npc:4714} Slitherblade Myrmidon
 	["{npc:4714}, in the strand's southern half"] = "",
 
-	-- Step 53: Rackmore's Chest
+	-- Step 66: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "游到最北端外海的{area:2406}：{object:177786}就在岸邊的{object:177673}旁。用兩把鑰匙打開它；別碰雕像。",
 
-	-- Step 54: Sargeron
+	-- Step 67: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向東經過{area:599}，沿北邊的山丘前往{area:603}的薩特廢墟。為了{npc:268705}，遇到的每一種都殺掉；暗影潛伏者無形無蹤。\n注意：憎怒盜賊出現時會使用隱藏，所以在你發現它們之前一直處於潛行狀態。",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}，在南下的路上",
 
-	-- Step 55: Khan Dez'hepah
+	-- Step 68: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35級）和一兩名戰鬥領主（32-33級）在東邊的帳篷之間走動：先清掉他周圍的怪，然後滿狀態單獨拉他。\n注意：科卡爾戰鬥領主血量降到20%時會呼叫30碼內附近的同伴。",
 
-	-- Step 56: Ghost Walker Post
+	-- Step 69: Ghost Walker Post
 	["South-west down the road to the post."] = "沿道路向西南到哨站。",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}：交給{zone:1454}的{npc:5640}，在下一份指南中",
@@ -308,7 +295,7 @@ return {
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}現在會提供「半人馬賞金」：38級第二次造訪{zone:1443}時，會在前往{area:607}的路上接取。",
 
-	-- Step 57: Shadowprey Village
+	-- Step 70: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "向西前往暗影村：你的爐石綁在那裡。",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}，在村子北邊不遠處的小路上",
@@ -316,16 +303,87 @@ return {
 	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。"
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
-	-- Step 58: Drulzegar Skraghook
+	-- Step 71: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
 	["{npc:12340}, near {npc:12031}"] = "",
 
+	-- Step 72: Cracked Silithid Carapace
+	["If you kept the cracked carapace, open it before deciding whether to return to the flats."] = "",
+
+	-- Step 73: Fly to Gadgetzan
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "飛往{area:976}",
+	-- {area:976} Gadgetzan
+	["Fly to {area:976} for the flats. Hand in any finished quests first if you're below 34; only the remaining hunts need the level."] = "",
+	-- {area:2408} Shadowprey Village
+	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
+
+	-- Step 74: Return for Parts of the Swarm
+	-- {quest:1148} Parts of the Swarm
+	["Return for {quest:1148}"] = "",
+	-- {area:976} Gadgetzan
+	["Still gathering parts after handing in the other flats quests? Fly back to {area:976}."] = "",
+
+	-- Step 75: Moktar Krin before the hunt
+	-- {npc:4483} Moktar Krin
+	["{npc:4483} before the hunt"] = "",
+
+	-- Step 76: Trackmaster Zherin before the hunt
+	-- {npc:4629} Trackmaster Zherin
+	["{npc:4629} before the hunt"] = "",
+
+	-- Step 77: Level 34 for the southern flats
+	["Level 34 for the southern flats"] = "",
+	-- {area:1717} Razorfen Kraul
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
+	["Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}."] = "",
+
+	-- Step 78: Level 34 for the Rustmaul dig
+	["Level 34 for the Rustmaul dig"] = "",
+
+	-- Step 79: Level 34 for Parts of the Swarm
+	-- {quest:1148} Parts of the Swarm
+	["Level 34 for {quest:1148}"] = "",
+
+	-- Step 80: The southern flats
+	-- {area:976} Gadgetzan · {zone:1441} Thousand Needles · {area:439} Shimmering Flats
+	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
+	["North from {area:976} over the {zone:1441} border: the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far south of the {area:439}.\nCareful: pull the Gazers one at a time from the camp's edge, never two together."] = "",
+
+	-- Step 82: Parts of the Swarm
+	-- {npc:3428} Korran
+	["Gather the parts from normal silithid, not the rare Ravager. {npc:3428} at the Crossroads takes them on the Dustwallow guide's way."] = "",
+
+	-- Step 84: Mirage Raceway
+	-- {area:976} Gadgetzan
+	["East to the raceway, on the way back south to {area:976}."] = "",
+
+	-- Step 85: Fly to Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "飛往{area:1637}",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:1637} Orgrimmar
+	["South over the {zone:1446} border to {area:976} and fly to {area:1637}, where the next guide starts."] = "",
+	-- {area:976} Gadgetzan
+	["{area:976} flight master"] = "{area:976}飛行管理員",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back across to {npc:2986}'s mesa north-east of the post, then take the lift down to the canyon floor. {npc:2986}'s next test, {npc:4499}, is an elite: leave it."] = "走回營地東北方{npc:2986}所在的平頂山，然後搭升降梯下到峽谷底部。{npc:2986}的下一個考驗{npc:4499}是精英：不要接。",
+	-- ["Back east to {area:484}."] = "往東回到{area:484}。",
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}的塔樓。",
+	-- ["Keep killing silithid at the dig site for the heart, the talons and the carapaces."] = "在挖掘場繼續擊殺異種蟲，收集心臟、利爪和甲殼。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "繼續向北前往{area:598}。滑刃侍從、滑刃納迦和滑刃女巫佔據著海灘；一次拉一隻。任何滑刃納迦都可能掉落{item:15881}。",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "葬影村的{quest:5381}和海岸的納迦需要33級。還沒到？{npc:11596}營地東邊不遠處{area:609}的科卡爾半人馬（30-32級）是離你最近、等級合適的營地：擊殺牠們直到33級。營地北邊山坡上的荒土鞭尾蠍（34-35級）等級更高。或者，組隊去打{area:1717}地城。",
+	-- ["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "賽道南邊，鹽石水晶蜥蜴（32-33）和凝視者（34-35）在鹽沼盡頭遊蕩。\n注意：35級的凝視者可能仍比你高兩級：從營地邊緣一次拉一隻，絕不要同時拉兩隻。",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "從最北端游到{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；殺死他以取得{quest:6027}。他比你高出不少等級：先休息到滿血。{object:177786}就在雕像旁的岸邊：用兩把鑰匙打開它。",
 	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。",
+	-- ["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "鹽沼南部和異種蠍挖掘場是32-35級，{zone:1443}的任務是32-38級。賽道繳交完還不到32級？回到鹽沼北邊，恐蠍搶奪者（31-32）在蜥蜴和龜之間遊蕩：殺到32級；別碰鹽殼鉗嘴龜（34-35）和恐蠍（33-34）。或者有小隊的話，改打{area:1717}地城。",
+	-- ["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw."] = "亂風崗西邊、{area:2097}下方是{area:487}的鷹身人（28-30）。那裡的尖嘯鷹身人、亂羽鷹身人和喚風者都是{npc:4877}的目標；她的{quest:98069}散落在懸崖腳下的地上和頂上的洞穴裡。{npc:4490}（31）在牠們之間走動：先清掉她周圍的鷹身人再拉她，為了{npc:2986}要的爪子。",
 	-- ["grind on {npc:4635}"] = "擊殺{npc:4635}練等",
 	-- ["{item:15766}, on the {object:177673}"] = "{item:15766}，對{object:177673}使用",
+	-- ["{item:5843}, from {npc:4490}"] = "{item:5843}，來自{npc:4490}",
+	-- ["{npc:2986} waits on the mesa just north-east of {area:484}, across the rope bridges."] = "{npc:2986}在{area:484}東北方不遠的平頂山上等你，要走過吊橋。",
+	-- ["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在崗哨西邊的鷹身人巢穴",
+	-- ["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店裡",
+	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "商業供應商{npc:4877}站在{area:484}的旅店裡。",
+	-- ["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}：{area:487}的尖嘯鷹身人",
 }

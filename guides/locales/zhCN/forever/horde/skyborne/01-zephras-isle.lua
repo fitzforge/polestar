@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}在村子西南面的山坡游荡，前往{npc:252095}途中会经过。\n乌萨拉食腐者巢穴位于村子西面。它们的族母{npc:251115}待在巢穴最深处。",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "在地下",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "在向东南前往{area:16638}的路上，{npc:273017}监视着他北边不远处的{quest:98512}。",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}，来自{npc:3005}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}，来自{npc:3027}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -523,6 +526,7 @@ return {
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "乘升降梯离开{zone:1456}，沿道路向南经过{area:222}，穿过东边的山口进入{zone:1413}；从山口沿{area:458}向北到{area:380}，即{zone:1413}中部的部落城镇。",
 	-- ["Leaving {area:16635}"] = "离开{area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "在向东南前往{area:16638}的路上，{npc:273017}监视着他北边不远处的{quest:98512}。",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "向北的路上，回到瀑布旁找{npc:255853}。",
 	-- ["Prideclaws and Galestriders"] = "傲爪和疾风陆行鸟",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "傲爪和疾风陆行鸟分布在村子南边的草地上。把{item:5469}留给{npc:251905}；蛋稍后从角鹰兽身上获得。",
@@ -572,6 +576,7 @@ return {
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}就在降落处旁：乘升降梯上去，向双足飞龙管理员{npc:2995}学习飞行路线。",
 	-- ["{area:16624}, last time"] = "最后一次回到{area:16624}",
 	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "{npc:250926}在村子西南方的山坡上潜行，就在去找{npc:252095}的路上。",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}在村子西南面的山坡游荡，前往{npc:252095}途中会经过。\n乌萨拉食腐者巢穴位于村子西面。它们的族母{npc:251115}待在巢穴最深处。",
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374}让你去村子东边不远处的{area:16988}：在那里喝下{item:6635}以看到{npc:251166}，然后把{item:6656}带回给他。",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}站在村子里。",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}，在村子中央",

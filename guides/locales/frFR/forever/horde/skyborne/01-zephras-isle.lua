@@ -73,7 +73,8 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Des {npc:250926} rôdent sur les pentes au sud-ouest du village, sur le chemin de {npc:252095}.\nLa tanière des Ursera se trouve à l'ouest du village. {npc:251115}, leur matriarche, se tient tout au fond.",
+	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end.\nCareful: pull the Ursera Scavengers to the den entrance one at a time before approaching {npc:251115}."] = "",
 	["Below ground"] = "Sous terre",
 
 	-- Step 11: Back to Thendal Village
@@ -196,7 +197,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Sur la route du sud-est vers {area:16638}, {npc:273017} surveille les {quest:98512} juste au nord de lui.",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him.\nCareful: the {quest:98512} (9-10) stand close together. Pull one at a time from the edge."] = "",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -463,6 +464,8 @@ return {
 	["{item:278081}, from {npc:3005}"] = "{item:278081}, chez {npc:3005}",
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, chez {npc:3027}",
+	-- {item:278079} Bundle of Herbs · {item:278078} Prepared Incense
+	["Use the {item:278079} to combine the four parts into {item:278078}."] = "",
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
@@ -522,6 +525,7 @@ return {
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Quittez {zone:1456} par un ascenseur et suivez la route vers le sud en passant {area:222}, puis le col oriental pour entrer dans {zone:1413} ; depuis le col, prenez la {area:458} vers le nord jusqu'à la {area:380}, la ville de la Horde au milieu de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Départ de {area:16635}",
+	-- ["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Sur la route du sud-est vers {area:16638}, {npc:273017} surveille les {quest:98512} juste au nord de lui.",
 	-- ["On the way"] = "En chemin",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "En remontant vers le nord, retournez voir {npc:255853} près des chutes.",
 	-- ["Prideclaws and Galestriders"] = "Fièregriffes et trotteurs des trombes",
@@ -576,6 +580,7 @@ return {
 	-- ["{item:253591} along the way to {npc:252800}"] = "{item:253591} sur le chemin de {npc:252800}",
 	-- ["{item:257128} on the way"] = "{item:257128} en chemin",
 	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "Des {npc:250926} rôdent sur les pentes au sud-ouest du village, sur le chemin de {npc:252095}.",
+	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Des {npc:250926} rôdent sur les pentes au sud-ouest du village, sur le chemin de {npc:252095}.\nLa tanière des Ursera se trouve à l'ouest du village. {npc:251115}, leur matriarche, se tient tout au fond.",
 	-- ["{npc:251291} along the way to {area:16624} hand-ins"] = "{npc:251291} sur le chemin des quêtes à rendre à {area:16624}",
 	-- ["{npc:251291} on the way"] = "{npc:251291} en chemin",
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} vous envoie à la {area:16988}, juste à l'est du village : buvez-y {item:6635} pour voir {npc:251166}, puis rapportez-lui {item:6656}.",

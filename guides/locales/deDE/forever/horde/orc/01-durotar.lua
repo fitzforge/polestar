@@ -250,8 +250,9 @@ return {
 
 	-- Step 51: Level 10
 	["Level 10"] = "Stufe 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Hol hier Stufe 10 auf: {quest:840} in {area:362} braucht Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: Sammle sie beim Grinden.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- plural, as words: Razormane Battleguards = {npc:3114} Razormane Battleguard
+	["Train at {area:362} at level 10 before facing the Razormane Battleguards (9-10).\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "grinde {npc:3111}",
 
@@ -303,11 +304,10 @@ return {
 
 	-- Step 69: Level 11
 	["Level 11"] = "Stufe 11",
-	-- {npc:3203} Fizzle Darkstorm
-	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
-	["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Hol hier Stufe 11 auf, bevor du dich an {npc:3203} (12) und seinen Wichtel wagst: Die Donnerechsen (9-10) grasen auf dem Kamm gleich westlich von Mishas Hütte.",
-	-- {npc:3130} Thunder Lizard
-	["grind on {npc:3130}"] = "Grinde an {npc:3130}",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge
+	["Fight the Razormane south of Misha's hut until level 11, then return for {npc:3203} (12).\nCareful: Halikor (12 elite) patrols the lizard grounds on {area:369}. Stay off the ridge while you grind."] = "",
+	-- {npc:3114} Razormane Battleguard
+	["grind on {npc:3114}"] = "",
 
 	-- Step 70: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -434,6 +434,8 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Donnerechsen und Blitzechsen grasen auf {area:369}, gleich westlich und südwestlich von {npc:3293}.\nFizzle hält das Lager der Brennenden Klinge auf {area:369}, nordwestlich von {area:362}. Jäger: Zähm unterwegs mit {item:15908} einen {npc:3099}.\nVorsicht: Kultisten der Brennenden Klinge umgeben Fizzle, manche verbunden, sodass sie zu zweit angreifen, und sie respawnen schnell.\nVorsicht: Halikor, eine Elite der Stufe 12, streift zwischen den Echsen über {area:369}: Achte auf ihn, bevor du pullst.",
 	-- ["Thunder lizards across the river"] = "Donnerechsen jenseits des Flusses",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "Hol hier Stufe 10 auf: {quest:840} in {area:362} braucht Stufe 10.",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Hol hier Stufe 10 auf: {quest:840} in {area:362} braucht Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: Sammle sie beim Grinden.",
+	-- ["Top up here to level 11 before {npc:3203} (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut."] = "Hol hier Stufe 11 auf, bevor du dich an {npc:3203} (12) und seinen Wichtel wagst: Die Donnerechsen (9-10) grasen auf dem Kamm gleich westlich von Mishas Hütte.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Wenn du {skill:129} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:5943} in {area:362} nimmt es an.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:165} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:3365} in {zone:1454} (nächster Guide) nimmt es an.",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:171} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11046} in {zone:1454} (nächster Guide) nimmt es an.",
@@ -443,6 +445,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Wenn du {skill:202} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11025} in {area:362} nimmt es an.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:333} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:11066} in {zone:1454} (nächster Guide) nimmt es an.",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:393} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:7088} in {zone:1454} (nächster Guide) nimmt es an.",
+	-- ["grind on {npc:3130}"] = "Grinde an {npc:3130}",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff Verbesserter Ruhebonus erscheint. Wenn du einen Beruf gelernt hast, bietet {npc:265809} auch sein Camping 101 an, das sein Lehrer abnimmt: in {area:362} oder in {zone:1454} am Anfang des nächsten Guides.",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: für {npc:11066}",

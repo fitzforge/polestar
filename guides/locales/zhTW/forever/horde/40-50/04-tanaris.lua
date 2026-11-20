@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48級的{area:976}和{zone:1427}：廢土流浪者營地、{npc:5955}的護送和{area:1446}。",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48級的{area:976}和{zone:1427}：廢土流浪者營地、{npc:5955}的護送和{area:1446}。"
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "謝申克的設備",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初級勘測員斯克林克的裝備躺在森提帕巢穴的入口。\n注意：一隻蟲子守著裝備。隧道裡有很多蟲子巡邏，有些是50級，所以戰鬥常會拉到額外的增援。",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "地下",
 
 	-- Step 24: OOX-17/TN
@@ -213,6 +215,7 @@ return {
 	-- ["Fly to {area:392}"] = "飛往{area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "從{area:35}港口上方的飛行管理員處出發。",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "更往南，謝申克的勘探設備在一個森提帕爾蟲巢的入口處。",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初級勘測員斯克林克的裝備躺在森提帕巢穴的入口。\n注意：一隻蟲子守著裝備。隧道裡有很多蟲子巡邏，有些是50級，所以戰鬥常會拉到額外的增援。",
 	-- ["Greater Lava Spiders"] = "巨型熔岩蜘蛛",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "重型作戰傀儡在卡拉然下方的大熔爐巡邏，會掉落油；在牠們之間飄移的熔岩元素和熾熱元素會掉落核心。黑鐵工頭和黑鐵奴隸販子在小路上驅趕奴隸；奴隸販子可能掉落{item:11818}：保留它。",
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "向北騎回{area:1446}。留在這裡：下一份指南從飛往{area:75}開始。",
@@ -233,4 +236,5 @@ return {
 	-- ["the {object:150075} in the square"] = "廣場上的{object:150075}",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}在大熔爐北部。燻火龍在它的熔岩池裡游動：把牠們拉到邊緣。秘密設計圖在坑的上層岩架上。",
 	-- ["{area:392} pier"] = "{area:392}碼頭",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48級的{area:976}和{zone:1427}：廢土流浪者營地、{npc:5955}的護送和{area:1446}。",
 }

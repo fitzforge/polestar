@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "{npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: {npc:246143}은(는) {area:155}(으)로 가는 길, 교회 서쪽 언덕으로 도망쳤습니다.",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "{npc:246143}에게 도움을 주세요",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -579,4 +581,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}와(과) {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}와(과) {npc:5667}이(가) 교회 옆에 서 있습니다.",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: {npc:246143}은(는) {area:155}(으)로 가는 길, 교회 서쪽 언덕으로 도망쳤습니다.",
 }

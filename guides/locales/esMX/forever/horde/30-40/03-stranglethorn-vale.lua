@@ -13,8 +13,8 @@ return {
 	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 
 	-- Step 2: Thunder Bluff
-	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Vuela de {area:2408} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde allí, sigue volando a {zone:1454}.",
+	-- {area:2408} Shadowprey Village · {area:976} Gadgetzan · {area:439} Shimmering Flats · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
+	["Fly from {area:2408} (or from {area:976}, after the {area:439}' south) to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -116,16 +116,15 @@ return {
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) espera a tu próxima parada con Nesingwary, hacia el nivel 40 en forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 18: Thoroughly Scavenged Supplies
-	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
-	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "Caminando al oeste desde el campamento de Nesingwary, hay un montón de Suministros saqueados a fondo junto al camino: inicia {quest:97328}, cuyos envíos robados están en {area:102}, en la costa más adelante.",
+	-- {npc:268992} Zimmix Sputterspark
+	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "{area:301}: mata a estos según te los encuentres",
-	-- {npc:729} Sin'Dall
+	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
+	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -138,6 +137,10 @@ return {
 	["{item:277957}, from the Bloodscalp Scouts, Hunters and Mystics"] = "{item:277957}, de los exploradores, cazadores y místicos Sangrapellejo",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Escolta a {npc:268992} fuera de las ruinas y mantenlo con vida: Lozgil recibe la noticia cuando esté a salvo.",
+
+	-- Step 21: Nesingwary's camp
+	-- {npc:729} Sin'Dall
+	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
 	-- Step 22: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -229,9 +232,11 @@ return {
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo de 36 después de las entregas de {object:3202}? Los Toscos y los Médicos brujos Mosh'Ogg acampan en las colinas justo al este del campamento: mátalos hasta el nivel 36, atrayéndolos de uno en uno, y luego regresa caminando a la torre del zepelín.",
 	-- ["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "Al este de las colinas Mosh'Ogg, las panteras Faucesombría (37-38) acechan en la selva hacia el lago; las tigresas de Tuercespina recorren el mismo terreno y de vez en cuando sueltan un colmillo impecable. Los crocoliscos Quijaforte bordean el río justo al oeste de la selva; guarda sus pieles para {npc:2495}. Cuidado: Las panteras Faucesombría (nivel 37-38) y las panteras Faucesombría ancianas (nivel 42-43) usan Sigilo fuera de combate, así que permanecen ocultas hasta que te acercas.",
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres mayores y raptores colazote",
+	-- ["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Vuela de {area:2408} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde allí, sigue volando a {zone:1454}.",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Sigue el camino al norte desde {object:3202}; el campamento de caza de Nesingwary está en la colina al noreste del río. Desde aquí, guarda cada página de {quest:338} que saquees: {npc:716} te las pide después.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "Sigue el camino al sur hasta {area:35}, en la punta sur de la vega, y entra por el túnel de los acantilados. No salgas del camino: la selva a los lados está muy por encima de tu nivel. {npc:2858}, el maestro de vuelo de la Horda, espera en la cubierta superior.",
 	-- ["Green Hills pages"] = "Páginas de Las verdes colinas",
+	-- ["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "Caminando al oeste desde el campamento de Nesingwary, hay un montón de Suministros saqueados a fondo junto al camino: inicia {quest:97328}, cuyos envíos robados están en {area:102}, en la costa más adelante.",
 	-- ["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "De regreso al sur hacia {object:3202}, los Raptores colazote (35-36) cazan en la selva entre el campamento y {object:3202}: cuentan para Hemet y para {npc:2464}.",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "Las páginas de {item:2755} caen con un 1% cada una de los trols Sangrapellejo y Machacacráneos; guarda cada página que saquees y busca el resto en la casa de subastas. {npc:716} recibe los capítulos más adelante en esta guía.",
 	-- ["Shadowmaw panthers"] = "Panteras Faucesombría",
@@ -243,6 +248,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Las Panteras Faucesombría (37-38) acechan en la selva al este de las colinas Mosh'Ogg y al noreste hacia el lago; atacan desde el sigilo. Saquea toda página de Las verdes colinas que encuentres en el camino.",
 	-- ["The camp by the river"] = "El campamento junto al río",
 	-- ["Venture Co. camp"] = "Campamento de Ventura y Cía.",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\n{npc:729}, un tigre de nivel 37, merodea la cima de la colina al suroeste del campamento.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
 	-- ["from {npc:4723}"] = "de {npc:4723}",

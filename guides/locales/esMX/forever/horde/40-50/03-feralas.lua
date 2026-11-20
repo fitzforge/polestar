@@ -152,6 +152,7 @@ return {
 	["{area:510}: kill these as you meet them"] = "{area:510}: mata a estos según te los encuentres",
 	-- {area:511} Wyrmbog
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Al este por {area:511}: los exploradores Crin de Fuego y los colas de ceniza recorren su borde norte con las crías y vástagos abrasadores; los pesteescamas custodian las cuevas de los dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes.",
+	["Pick up the grog outside the cave before going in for the strongbox."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} da vueltas por {area:510}: búscalo dentro del círculo del mapa",
 

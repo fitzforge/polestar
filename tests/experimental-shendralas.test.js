@@ -11,6 +11,7 @@ const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
+const { buildSimPack, playGuide } = require('../tools/lib/playtest');
 const { DATA, ROOT } = require('../tools/lib/paths');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'items.json', 'map-frames.json');
@@ -59,20 +60,43 @@ test("Shen'dralas: the temple's quests wait for Meeting the Magister, as the onl
 	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.ok(!goal.optional, 'taken by the route');
 });
 
-// Each repair is its own quest log line, credited as a kill: in players' recordings (8 recorded repairs at each pylon,
-// both factions) Repair and Recharge Pylon is cast on a Decrepit Pylon Protector (252711) just slain beside the pylon,
-// the cast's target where the recording names one. No source gives the Pile of Pylon Parts the client ties the
-// spell to, so the guide counts the log line on the Protector, not an item in the bags.
-test("Shen'dralas: each pylon repair is a Decrepit Pylon Protector at that pylon, counted by its quest log line, after the Mana Sieve", { skip }, () => {
-	const sieve = first((g) => g.t === 'collect' && g.item === 255662, 'the Mana Sieve');
-	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'kill' && goal.quest === 96018);
-	assert.ok(!goals().some(({ goal }) => goal.t === 'use' && goal.item === 271882), 'no goal needs the Pile of Pylon Parts');
-	assert.equal(repairs.length, 2, 'two repairs');
+// The two pylon credits are separate from the Sieve and the later Protector heart.
+test("Shen'dralas: each unfinished pylon gets four crystals and its own repair credit", { skip }, () => {
+	const list = goals();
+	const sieve = first(g => g.t === 'collect' && g.item === 255662, 'Mana Sieve');
+	const repairs = list.flatMap(({ goal }, i) => goal.t === 'interact' && goal.quest === 96018 ? [{ goal, i }] : []);
+	assert.deepEqual(repairs.map(({ goal }) => [goal.oi, goal.object]), [[2, 577959], [3, 577960]]);
+	let previous = sieve;
 	for (const { goal, i } of repairs) {
-		assert.ok(i > sieve, 'after the Mana Sieve');
+		const material = list.slice(previous + 1, i).find(({ goal: g }) => g.t === 'collect' && g.item === 255667);
+		assert.ok(material && material.goal.count === 4, `four unspent crystals before repair ${goal.oi}`);
+		assert.ok(material.step.goals.some(g => g.t === 'use' && g.item === 255662));
 		assert.equal(goal.map, 2652);
-		assert.equal(goal.quest, 96018);
+		previous = i;
 	}
-	assert.deepEqual(repairs.map(({ goal }) => goal.oi), [2, 3], 'Western pylon repaired, then Eastern pylon repaired');
-	assert.ok(repairs[0].goal.x < 50 && repairs[1].goal.x > 70, 'the western pylon, then the eastern one');
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.quest === 96018), 'killing the guard does not repair a pylon');
+	assert.ok(first(is('turnin', 96018), 'repair reward') > previous);
+});
+
+test("Shen'dralas: skipping an unfinished repair never offers Mordent’s payment or the locked garden chain (#2923, #3014)", { skip }, () => {
+	const file = 'forever/40-50/shendralas.guide';
+	const pack = buildSimPack([file]);
+	try {
+		const guide = pack.guides[0];
+		const inspect = `local E=Polestar.Engine; local steps=E.GetGuide().steps; local hand
+			for i,s in ipairs(steps) do for _,g in ipairs(s.goals) do if g.t=='turnin' and g.quest==96018 then hand=i end end end
+			assert(hand); E.SkipUpTo(hand); stub.advance(1)
+			local i=E.GetLiveStep(); local open={}; if i then for j,g in ipairs(steps[i].goals) do
+				if E.Applies(i,j) and not E.GoalDone(i,j) and not g.optional then open[#open+1]={g.t,g.quest or 0} end
+			end end; emit(open[1])`;
+		for (const [state, want] of [
+			['w.onQuest(96018,{{type="item",required=1,fulfilled=1},{type="event",required=1,fulfilled=1},{type="event",required=1,fulfilled=0}})', ['goto', 0]],
+			['w.onQuest(96018,{{type="item",required=1,fulfilled=1},{type="event",required=1,fulfilled=1},{type="event",required=1,fulfilled=1}})', ['turnin', 96018]],
+			['w.complete({96018})', ['accept', 93016]],
+		]) {
+			const [open] = playGuide(pack, guide, { race: 'Orc', faction: 'Horde', cls: 'ROGUE',
+				before: `w.level=46; w.moveTo(2652,43.97,35.59); w.setZone("Shen'dralas"); w.complete({96010}); ${state}`, script: inspect });
+			assert.deepEqual(open, want);
+		}
+	} finally { pack.dispose(); }
 });

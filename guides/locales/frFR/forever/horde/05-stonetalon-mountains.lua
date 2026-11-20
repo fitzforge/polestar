@@ -30,7 +30,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), des elfes de la nuit, rôdent dans les bois au sud et au sud-est du camp de bûcherons ; elles sont camouflées, restez attentif.",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), des elfes de la nuit, rôdent dans les bois au sud et au sud-est du camp de bûcherons ; elles sont camouflées, restez attentif."
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "Camp de bûcherons chanteguerre",
@@ -248,6 +249,7 @@ return {
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "Sputtervalve à {area:392} : le prochain guide y passe",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "Les Graines de Gaea ({item:16205}) se trouvent dans l'herbe autour de la rive sud du {area:464}, au nord de Roche-Soleil.",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "Les Graines de Gaea se trouvent dans l'herbe autour de la rive sud du {area:464}, au nord du Roc-Soleil.\nAttention : les Fièrailes autour du lac peuvent attaquer en groupe lié.",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "{quest:6503} (23-24), des elfes de la nuit, rôdent dans les bois au sud et au sud-est du camp de bûcherons ; elles sont camouflées, restez attentif.",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "La route grimpe vers le nord : c'est {area:1076}. {quest:1483} a une cabane là où la route bifurque vers l'est en direction de {area:461}.",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrouille sur la route à l'est de {area:428}, en direction de {area:430}.",
 	-- ["Thistlefur Hold"] = "Antre des Crins-de-Chardon",

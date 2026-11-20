@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Ao norte do {area:228}. {npc:1983} assombra o {area:240}: mate-o e depois atravesse o campo. Cuidado: {npc:1983} (14) aparece depois que você mata gnolls Putricouro no campo: enfrente-a com a vida cheia.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -317,6 +317,7 @@ return {
 	-- ["Moonrage Bloodhowlers"] = "Uivassangues Lunafúria",
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Worgs Mosqueados rondam as colinas em volta da casa. Depois ande para o sul pela margem do lago: os Retalhadores e Caçamarés Pinavil de lá deixam cair os olhos de murloc.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "De novo ao norte até a casa dos Yorick. {quest:425} espreita a uma curta caminhada a oeste dela.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Ao norte do {area:228}. {npc:1983} assombra o {area:240}: mate-o e depois atravesse o campo. Cuidado: {npc:1983} (14) aparece depois que você mata gnolls Putricouro no campo: enfrente-a com a vida cheia.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "A nordeste dos refugiados, os Mourejantes e Guardiões Corvinalle assombram as ruínas de {quest:516}, no sudeste da floresta.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Só se {npc:1938} lhe deu {quest:98298}: os Uivassangues rondam a mata a sudoeste de {area:233}, a leste de Lenhardente; eles deixam cair os {item:280375}.",
 	-- ["Paladin trainer"] = "Instrutor de paladino",

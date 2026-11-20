@@ -14,65 +14,173 @@ return {
 	-- Step 2: Diseased Wolves
 	["Diseased Wolves"] = "生病的狼",
 	-- {area:200} Dalson's Tears · {area:202} Writhing Haunt
-	["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time."] = "狼在安多哈尔、{area:200}和{area:202}之间的田野里游荡。向东骑回去的路上把它们杀完。小心：最大的有54级，一次只拉一只。",
+	["The wolves roam the fields between {area:200} and the {area:202}, all the way west to Felstone Farm. Careful: the biggest are 54: pull them one at a time.\nAt 52, take the level 53 wolves; leave the 54s alone."] = "",
 
-	-- Step 3: Dalson's Tears farmhouse
-	-- {area:200} Dalson's Tears
-	["{area:200} farmhouse"] = "{area:200}的农舍",
-	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
-	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
-
-	-- Step 4: Mulgris Deepriver
+	-- Step 3: Mulgris Deepriver
 	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "他的下一个狩猎任务——患病的灰熊（55-56级）——留到约58级再来瘟疫之地时完成。",
 
-	-- Step 6: High Executor Derrington
+	-- Step 5: High Executor Derrington
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nTake a {object:176092} from the crate next to Derrington for {quest:5096}."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。\n从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}。",
 
-	-- Step 7: Scarlet forward camp
+	-- Step 6: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场再往前一点，位于{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别惹其他人。",
 
-	-- Step 8: The Bulwark
+	-- Step 7: The Bulwark
 	-- {area:152} The Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "向西南骑过费尔斯通农场，沿道路向西回到{area:152}。",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "德灵顿的哨塔和范蒂丝的瘟疫之锅留到之后再来时完成：留着它们。",
 
-	-- Step 10: Paladin trainer
+	-- Step 9: Paladin trainer
 	["Paladin trainer"] = "圣骑士训练师",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152}在{zone:1420}；{zone:1454}没有圣骑士训练师",
 
-	-- Step 11: Zeppelin to Orgrimmar
+	-- Step 10: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 12: Orgrimmar
+	-- Step 11: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
-	-- Step 13: Jes'rimon
+	-- Step 12: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}接收来自安戈洛的暴掠龙爪；他站在{object:172960}，离城中心步行不远。",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 
-	-- Step 14: Class trainer
+	-- Step 13: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 15: Druid trainer
+	-- Step 14: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 
-	-- Step 16: Fly to Splintertree Post
-	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "飞往{area:431}",
+	-- Step 15: Fly to Valormok
+	-- {area:1237} Valormok
+	["Fly to {area:1237}"] = "飞往{area:1237}",
+	-- {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1447}'s camps are 46-53, right at your level now: fly over before {zone:1448}."] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 18: Emerald Sanctuary
+	-- Step 16: Valormok
+	-- {npc:3621} Kurll · {zone:1447} Azshara
+	["{npc:3621}: Mosshoof hides on the way through {zone:1447}"] = "",
+	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
+	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}：{quest:91569}，从血精灵奥术师身上获取一根魔杖",
+
+	-- Step 17: Ruins of Eldarath: kill these as you meet them
+	-- {area:1221} Ruins of Eldarath
+	["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time."] = "",
+
+	-- Step 18: Ruins of Eldarath
+	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向东骑往海岸边的废墟。在沿岸的海潮之池装满科雷的四个瓶子；恶鞭纳迦在海潮之池之间巡逻。",
+
+	-- Step 19: Mosshoof hides
+	["Mosshoof hides"] = "",
+	-- {area:1237} Valormok · {npc:3621} Kurll
+	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
+	["Look for Mosshoof Runners, Stags and Coursers between {area:1237} and the coast. They drop the hides for {npc:3621}."] = "",
+
+	-- Step 20: Makrinni Burrowers
+	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["Makrinni Burrowers"] = "马克林尼掘地者",
+	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
+	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "马克林尼掘地者（50-51级）在废墟东边不远的沙地里挖掘，正好在往东北的路上；它们和那里埋藏的宝箱会给出上层精灵财宝碎片。",
+
+	-- Step 21: Ekkal
+	-- {zone:1447} Azshara · {npc:235903} Ekkal
+	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "继续向东北穿过{zone:1447}中部：{npc:235903}在路旁扎营。",
+	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
+	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}：{quest:86746}，血精灵营地北边的萨特",
+
+	-- Step 22: Kim'jael
+	-- {area:1227} Bay of Storms
+	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "向东北骑到{area:1227}上方悬崖上的地精营地，就在血精灵营地北边。",
+
+	-- Step 23: Thalassian Base Camp
+	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
+	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "血精灵在东北的悬崖上扎营，就在{area:1227}旁边。{npc:8420}的四件装备在营地周围的箱子里；血精灵奥术师身上带着{npc:247473}要的魔杖。\n小心：一个{npc:250023}（55-57级精英）站在营地西缘：从营地东侧对付血精灵。",
+	-- {item:246680} Mana-Siphoning Wand
+	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
+	["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}，来自血精灵奥术师",
+
+	-- Step 24: Magus Rimtori's camp
+	-- {npc:8578} Magus Rimtori
+	["{npc:8578}'s camp"] = "{npc:8578}的营地",
+	-- {object:151286} Kaldorei Tome of Summoning
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。",
+
+	-- Step 25: Seals of the Sin'dorei
+	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
+	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "营地的三名军官（53级）各带一枚印记：{npc:247006}在营地中央，{npc:247013}在营地东端，{npc:246991}在营地西半边巡逻：在他巡逻路线的东侧、箭头所指处对付他。\n小心：{npc:250023}（55-57级精英）站在营地西缘，靠近鹰盔巡逻路线的尽头：等鹰盔走回东边再动手。",
+	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
+	["{item:246725}, from {npc:247006}"] = "{item:246725}，来自{npc:247006}",
+	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
+	["{item:246721}, from {npc:246991}"] = "{item:246721}，来自{npc:246991}",
+	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
+	["{item:246722}, from {npc:247013}"] = "{item:246722}，来自{npc:247013}",
+
+	-- Step 26: The Legashi satyrs
+	["The Legashi satyrs"] = "雷加希萨特",
+	-- {npc:235903} Ekkal
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "雷加希萨特（51-52级）占据着血精灵营地以北的山丘：{npc:235903}要每种各五只。",
+
+	-- Step 27: Kim'jael
+	-- {npc:8420} Kim'jael
+	["Back north-west to {npc:8420}."] = "向西北回到{npc:8420}处。",
+
+	-- Step 28: Ruins of Eldarath: Some Rune
+	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
+	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
+	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "向南骑到{area:1221}的北缘。那里的恶鞭海妖和恶鞭侍从（50-52级）携带{npc:8420}的符文；掉率不高，沿着边缘一路刷到掉落为止。",
+
+	-- Step 29: Kim'jael
+	-- {npc:8420} Kim'jael
+	["Back north to {npc:8420} with the rune, then south-west along the road."] = "带着符文向北回到{npc:8420}处，然后沿道路向西南走。",
+
+	-- Step 30: Ekkal
+	-- {npc:235903} Ekkal
+	["South-west along the road: {npc:235903} takes the satyrs."] = "沿道路向西南：向{npc:235903}交还萨特任务。",
+
+	-- Step 31: Valormok
+	-- {area:1237} Valormok
+	["Ride back west to {area:1237}."] = "向西骑回{area:1237}。",
+	-- {zone:1456} Thunder Bluff
+	["Magatha is at the next {zone:1456} stop"] = "",
+	-- {npc:5770} Nara Wildmane
+	["{npc:5770} is there too"] = "",
+	-- {zone:1452} Winterspring · {npc:8578} Magus Rimtori
+	["Keep the seals for the tome. Return after {zone:1452} for {npc:8578} (55)."] = "",
+
+	-- Step 32: Archmage Xylem
+	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
+	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "塞勒姆的法师塔位于{area:1237}正北的悬崖上：{area:1237}的{npc:8395}可以免费把你传送上去（与他对话）；否则沿北侧的小路盘旋而上。",
+	-- was: ["Upstairs"] = "在楼上"
+	["Upstairs"] = "在楼上",
+
+	-- Step 34: Fly back to Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Fly back to {area:1637}"] = "",
+	-- {area:1237} Valormok
+	["{area:1237} flight master"] = "{area:1237}的飞行管理员",
+
+	-- Step 35: Jes'rimon
+	-- {area:1237} Valormok
+	["Keep the payment for the return to {area:1237}"] = "",
+
+	-- Step 36: Fly to Splintertree Post
+	-- {area:431} Splintertree Post
+	["Fly to {area:431}"] = "飞往{area:431}",
+
+	-- Step 38: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "德鲁伊的营地就在边界过去一点。",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}，在{npc:10921}旁：{quest:86577}，收集{zone:1448}熊和狼的器官",
@@ -81,101 +189,77 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}，在营地西侧",
 
-	-- Step 19: Deadwood Village
+	-- Step 39: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪的村庄就在翡翠圣地正南。每杀一个死木熊怪也会提升你在{area:1769}的声望；留着死木头饰羽毛。",
 
-	-- Step 20: Southern Jaedenar
+	-- Step 40: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763}南部",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿道路向西北。{area:1763}南部那口被腐化的月亮井周围被暗影议会的加德纳尔祭司、加德纳尔精兵、卫兵和恶犬占据。",
 
-	-- Step 22: The Jaedenar moonwell
+	-- Step 42: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763}的月亮井",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南部营地中央被腐化的月亮井装满格雷塔的水壶。",
 
-	-- Step 23: Bloodvenom Post
+	-- Step 43: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763}正北的部落营地。",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}：枭兽在{zone:1452}",
 
-	-- Step 24: Shatter Scar Vale
+	-- Step 44: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "在血毒岗哨东边，是{npc:9878}和热能恐兽游荡的坑洼山谷。每种各杀两只，然后走到三个邪能水坑的每一个那里。",
 	["Southern crater"] = "南部水坑",
 	["Western crater"] = "西部水坑",
 	["Northern crater"] = "北部水坑",
 
-	-- Step 25: Statue of Malorne
+	-- Step 45: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
-	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "玛洛恩雕像就在山谷正南、往北的道路旁：它的饰物会开启一个交给{area:1997}的{npc:9996}的任务。",
+	-- was: ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "玛洛恩雕像就在山谷正南、往北的道路旁：它的饰物会开启一个交给{area:1997}的{npc:9996}的任务。"
+	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996}, handed in on the last ride north past {area:1997}."] = "",
 
-	-- Step 26: Irontree Woods
-	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1997} Bloodvenom Post · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager · Deadwood Den Watchers = {npc:7156} Deadwood Den Watcher
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者也在同一片树林里游荡，是塔罗要的目标，它们的器官交给{npc:10920}。\n接下来是{area:1762}的死木守卫（53-54级）和死木复仇者（54-55级）：不到54级的话，就在这里继续击杀灰熊和掠夺者（51-52级）直到54级。之后在{area:1769}、{area:2479}和{area:1997}交还任务，基本能把你带到55级。也可组队挑战{area:1417}地下城或{area:1584}地下城。",
+	-- Step 46: Irontree Woods
+	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
+	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
+	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者在同一片树林里游荡，是塔罗要的。"
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}，来自怒爪灰熊",
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}，来自魔爪狼",
-	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "击杀{npc:8957}刷经验",
 
-	-- Step 27: Irontree Woods
+	-- Step 47: Irontree Woods
 	["Below ground"] = "在地下",
 
-	-- Step 28: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "隧道正西的死木熊怪村庄。{npc:9462}（56级）站在它们中间。{npc:11557}是一个友善的熊怪，坐在村庄北端。",
-	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}：为他留着 30 个 {quest:6031}；木喉声望达到中立后才肯交易；在地下",
+	-- Step 48: The Jadefire moonwell
+	["The Jadefire moonwell"] = "碧火月亮井",
+	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
+	-- was: ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "向南骑过{area:1763}，前往碧火萨特那口被腐化的月亮井，在那里装满{npc:9996}的小瓶。"
+	["On the return from Irontree, ride south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 29: Nafien
-	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
-	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "道路的尽头是{npc:15395}，就在遥远东北的{area:1769}隧道外。",
+	-- Step 49: Overlord Ror
+	-- {area:1761} Deadwood Village
+	["Ror stands at the far south end of {area:1761}."] = "洛尔站在{area:1761}最南端。",
 
-	-- Step 30: Felpaw Village
-	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "小心：死木守卫为53-54级，死木复仇者为54-55级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。",
-
-	-- Step 31: Nafien
-	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
-	["Keep {quest:8465} for {zone:1452}."] = "留着{quest:8465}去{zone:1452}。",
-
-	-- Step 32: Timbermaw Hold
-	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "走进洞穴：{npc:11558}就在入口内侧。",
-	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}：木喉熊怪只会在声望达到中立后与你交谈；他在附近巡逻，请在地图标示的圆圈内寻找",
-
-	-- Step 33: Emerald Sanctuary
-	-- {zone:1448} Felwood
-	["Ride the road south through {zone:1448} to the Sanctuary."] = "沿道路向南穿过{zone:1448}前往翡翠圣地。",
+	-- Step 50: Emerald Sanctuary
+	["Stop at the Sanctuary on the ride north from Ror."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}，在翡翠圣地西侧",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "留着{quest:5158}：{npc:5901}在{zone:1413}。",
 
-	-- Step 34: Overlord Ror
-	-- {area:1761} Deadwood Village
-	["Ror stands at the far south end of {area:1761}."] = "洛尔站在{area:1761}最南端。",
-
-	-- Step 35: The Jadefire moonwell
-	["The Jadefire moonwell"] = "碧火月亮井",
-	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
-	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "向南骑过{area:1763}，前往碧火萨特那口被腐化的月亮井，在那里装满{npc:9996}的小瓶。",
-
-	-- Step 36: Bloodvenom Post
-	["Ride north up the road again."] = "再次沿道路向北骑行。",
+	-- Step 51: Bloodvenom Post
+	-- {area:1997} Bloodvenom Post
+	["Ride north up the road to {area:1997}, on the way to the tunnel."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}：{quest:86612}",
 
-	-- Step 37: Winna Hazzard's kitten
+	-- Step 52: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}的小猫",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -183,17 +267,38 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月亮井",
 
-	-- Step 39: Level 55
-	["Level 55"] = "等级 55",
-	-- {zone:1452} Winterspring · {npc:9996} Winna Hazzard · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "{zone:1452}的任务为55-58级。交完{npc:9996}的任务后还不到55级？{area:1762}的死木熊怪（53-55级）正适合你的等级，也在你北上前往{area:1769}隧道的路上：击杀它们直到55级。每次击杀还会提升木喉声望。小心：死木守卫和死木复仇者生命值低于一半时会呼叫附近盟友，濒死时会逃跑求援：从村子边缘一次拉一只。只走这条路线的玩家需要花较长时间补经验。也可组队挑战{area:1584}地下城或{area:1417}地下城。",
-	-- {npc:7157} Deadwood Avenger
-	["grind on {npc:7157}"] = "击杀{npc:7157}刷经验",
+	-- Step 54: Level 54
+	["Level 54"] = "",
+	-- {area:16620} Alcaz Prison · {area:1584} Blackrock Depths
+	["On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the {area:16620} dungeon or the {area:1584} dungeon instead."] = "",
+
+	-- Step 55: Nafien
+	-- {area:1762} Felpaw Village · {npc:15395} Nafien
+	["Follow the road north past {area:1762} to {npc:15395} at the tunnel entrance."] = "",
+
+	-- Step 56: Felpaw Village
+	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
+	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
+	-- was: ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "小心：死木守卫为53-54级，死木复仇者为54-55级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。"
+	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village.\nCareful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	-- {npc:11557} Meilosh · {quest:6031} Runecloth
+	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}：为他留着 30 个 {quest:6031}；木喉声望达到中立后才肯交易；在地下",
+
+	-- Step 57: Nafien
+	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
+	["Keep {quest:8465} for {zone:1452}."] = "留着{quest:8465}去{zone:1452}。",
+
+	-- Step 58: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "走进洞穴：{npc:11558}就在入口内侧。",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}：木喉熊怪只会在声望达到中立后与你交谈；他在附近巡逻，请在地图标示的圆圈内寻找",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "拾取到{item:13140}后，使用它开始任务，再到{area:1763}北端的洞穴{area:1770}中，将{npc:11018}从笼子里救出。",
 	-- ["Back at the {area:2479}."] = "返回{area:2479}。",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "回到{area:1762}，死木熊怪（53-54级）就在隧道附近，每杀一个都会提升你的木喉要塞声望。",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "小心：死木守卫为53-54级，死木复仇者为54-55级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "小心：洞穴守卫为 53-54 级，生命值低于 50% 时会呼叫 25 码内的同伴援助，低于 15% 时还会逃跑求援。",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "注意：死木守卫为53-54级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n达到{npc:15395}要求的击杀数后，如果还没到54.54级，就继续在这里击杀死木熊怪；去{area:1769}和{area:2479}交还任务后就能升到55级。也可组队挑战{area:1584}副本或{area:1417}副本。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "向东渡河进入{area:2627}，这是位于{zone:1423}西北部的废弃城镇。{npc:12384}坐在城镇边缘的一间小屋里。",
@@ -201,6 +306,7 @@ return {
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
 	-- ["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- ["Fly to {area:272}"] = "飞往{area:272}",
+	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者也在同一片树林里游荡，是塔罗要的目标，它们的器官交给{npc:10920}。\n接下来是{area:1762}的死木守卫（53-54级）和死木复仇者（54-55级）：不到54级的话，就在这里继续击杀灰熊和掠夺者（51-52级）直到54级。之后在{area:1769}、{area:2479}和{area:1997}交还任务，基本能把你带到55级。也可组队挑战{area:1417}地下城或{area:1584}地下城。",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者在同一片树林里游荡，是塔罗要的。",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者也在同一片树林里游荡，是塔罗要的目标。若还没到54.21级，就继续击杀灰熊和掠夺者；去{area:1997}和{area:2479}交完任务即可到55级。也可组队挑战{area:1584}副本或{area:1417}副本。",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "从{area:2268}的飞行管理员处飞往{area:1497}。",
@@ -221,31 +327,40 @@ return {
 	-- ["Level 54.54"] = "等级 54.54",
 	-- ["Level 54.7"] = "等级 54.7",
 	-- ["Level 54.87"] = "等级 54.87",
+	-- ["Level 55"] = "等级 55",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "仅当掉落了{item:13140}时：使用它开始任务，然后到{area:1763}北端的洞穴{area:1770}里，把笼子里的{npc:11018}救出来，并护送她出去。",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "仅当你救出了{npc:11018}时：魅魔{npc:9518}在{area:1763}中部，就在{npc:11020}旁边等候。",
 	-- ["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
 	-- ["Radley and Durgen"] = "莱德雷和杜尔根",
+	-- ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "向南骑过{area:1763}，前往碧火萨特那口被腐化的月亮井，在那里装满{npc:9996}的小瓶。",
 	-- ["Ride back south-east to the Sanctuary."] = "向东南骑回翡翠圣地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "骑回{area:1497}，乘飞艇前往{zone:1454}，飞往{area:431}。沿道路向西离开碎木岗哨，在岔路口向北进入{zone:1448}。",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西骑回河对岸，继续前往{area:192}；{npc:11610}躲在它东北的山上。",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "沿东边的山丘向北骑行；{npc:1855}住在{area:2619}旁的一间小房子里，就在与{zone:1423}的交界处。",
+	-- ["Ride north up the road again."] = "再次沿道路向北骑行。",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候；里面的骷髅是54-57级，所以沿着边缘走。",
 	-- ["Ride south past the {area:202} to {area:197}; {npc:10927}'s house stands by the road, and {npc:10936}'s monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way."] = "向南骑过{area:202}前往{area:197}；{npc:10927}的房子在路旁，{npc:10936}的纪念碑在房后的墓地里。路上把在田野里遇到的生病的狼都杀掉。",
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "沿道路向南穿过{area:361}前往翡翠圣地。",
+	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "沿道路向南穿过{zone:1448}前往翡翠圣地。",
 	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西骑往{area:192}；{npc:11610}躲在它东北的山上。",
 	-- ["Scarlet Crusade"] = "血色十字军",
 	-- ["Scarlet forward camp"] = "血色十字军前线营地",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "把小猫带到同一口月亮井并在那里放出它；它变成{npc:10042}后，把它带回{npc:9996}那里，点击它交给她。",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "达隆郡的历史就在安多哈尔市政厅里的发霉的书籍中间；一本本打开，直到找到正确的那本。",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "隧道正西的死木熊怪村庄。{npc:9462}（56级）站在它们中间。{npc:11557}是一个友善的熊怪，坐在村庄北端。",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪的村庄就在翡翠圣地正南。每杀一个死木熊怪也会提升你在{area:1769}的声望；留着死木头饰羽毛。",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "死木熊怪的村庄就在翡翠圣地南边不远处。每击杀一个死木熊怪也会提升 {area:1769} 声望；留着死木头饰羽毛。继续击杀，直到 53.92 级：翡翠圣地接下来的交任务环节和 {area:1763} 的路线需要达到这个进度。也可组队前往 {area:1417} 副本或 {area:1584} 副本。",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "血色十字军的帐篷在{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "熊在{area:202}北边和东边的山丘上游荡。",
 	-- ["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "熊在{area:202}北侧和东侧的山丘上游荡。若未到53.02级，击杀八只后继续刷；{area:202}的任务交还后会升到54级。也可以组队刷{area:1417}副本或{area:1584}副本。",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "账本在{area:2627}被毁的旅店里；镇上的亡灵是54-56级，所以一次只拉一只。\n大型白蚁丘遍布{area:2627}东边的山丘。对经过的每个白蚁丘使用{item:15042}。",
+	-- ["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
+	-- ["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "道路的尽头是{npc:15395}，就在遥远东北的{area:1769}隧道外。",
 	-- ["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "魅魔{npc:9518}在{area:1763}中央，位于{npc:11020}旁边。",
 	-- ["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east."] = "狼在安多哈尔、{area:200}和{area:202}之间的田野里游荡。向东骑回去的路上把它们杀完。",
+	-- ["The wolves roam the fields between Andorhal, {area:200} and the {area:202}. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time."] = "狼在安多哈尔、{area:200}和{area:202}之间的田野里游荡。向东骑回去的路上把它们杀完。小心：最大的有54级，一次只拉一只。",
 	-- ["The {area:152}"] = "{area:152}",
+	-- ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "玛洛恩雕像就在山谷正南、往北的道路旁：它的饰物会开启一个交给{area:1997}的{npc:9996}的任务。",
 	-- ["Through {area:1769}"] = "穿过{area:1769}",
 	-- ["To {zone:1448}"] = "前往{zone:1448}",
 	-- ["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Carrion Lurkers (52-53) west of the Scarlet camp are at your level; the Scarlet Mages and Knights (54-56) are higher. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "先在此刷到 52.63 级，再去 {area:200} 交任务，交完即可到 53 级。血色营地西边的腐虫潜伏者（52-53 级）与你等级相当；血色法师和血色骑士（54-56 级）等级更高。也可组队前往 {area:1417} 副本或 {area:2100} 副本。",
@@ -273,7 +388,10 @@ return {
 	-- ["grind on {npc:7153}"] = "反复击杀{npc:7153}补足经验",
 	-- ["grind on {npc:7155}"] = "反复击杀{npc:7155}补足经验",
 	-- ["grind on {npc:7156}"] = "击杀{npc:7156}刷经验",
+	-- ["grind on {npc:7157}"] = "击杀{npc:7157}刷经验",
+	-- ["grind on {npc:8957}"] = "击杀{npc:8957}刷经验",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "{area:190}的血色十字军是58-60级。骑到地图上标记的高处，俯瞰城镇，然后离开。",
+	-- ["{area:200} farmhouse"] = "{area:200}的农舍",
 	-- ["{area:2268} flight master"] = "{area:2268}的飞行管理员",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}：遇到就击杀",
 	-- ["{npc:10840} stands at the south end of the {area:197} graveyard, where the road from {area:272} comes in."] = "{npc:10840} 站在 {area:197} 墓地南端，来自 {area:272} 的道路入口处。",
@@ -295,4 +413,5 @@ return {
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210}要前往{area:2268}：留到之后。",
 	-- ["{quest:5408}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5408}：佩戴{item:12846}时，{area:2627}的亡灵会掉落它们",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}，稀有掉落",
+	-- ["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "{zone:1452}的任务为55-58级。交完{npc:9996}的任务后还不到55级？{area:1762}的死木熊怪（53-55级）正适合你的等级，也在你北上前往{area:1769}隧道的路上：击杀它们直到55级。每次击杀还会提升木喉声望。小心：死木守卫和死木复仇者生命值低于一半时会呼叫附近盟友，濒死时会逃跑求援：从村子边缘一次拉一只。只走这条路线的玩家需要花较长时间补经验。也可组队挑战{area:1584}地下城或{area:1417}地下城。",
 }

@@ -8,7 +8,8 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} e {zone:1427} no nível 46-48: os acampamentos Errantes, a escolta de {npc:5955} e {area:1446}.",
+	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} e {zone:1427} no nível 46-48: os acampamentos Errantes, a escolta de {npc:5955} e {area:1446}."
+	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -111,7 +112,8 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "O equipamento de Anilhacido",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Mais ao sul, o aparelho do Topógrafo Júnior Anilhacido está na boca de uma colmeia Centiparte.\nCuidado: um inseto guarda o aparelho. Muitos insetos patrulham os túneis, alguns de nível 50, então as lutas costumam trazer bicho a mais.",
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "No subterrâneo",
 
 	-- Step 24: OOX-17/TN
@@ -214,6 +216,7 @@ return {
 	-- ["From the {area:35} flight master, above the harbour."] = "Do mestre de voo de {area:35}, acima do porto.",
 	-- ["From {area:1099}'s flight master."] = "Do mestre de voo do {area:1099}.",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Mais ao sul, o equipamento do Inspetor Júnior Anilhacido está na entrada de uma colmeia Centiparte.",
+	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Mais ao sul, o aparelho do Topógrafo Júnior Anilhacido está na boca de uma colmeia Centiparte.\nCuidado: um inseto guarda o aparelho. Muitos insetos patrulham os túneis, alguns de nível 50, então as lutas costumam trazer bicho a mais.",
 	-- ["Greater Lava Spiders"] = "Aranhas de Lava Abrasadoras",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Golens de Guerra Pesados patrulham O Caldeirão abaixo de Kalaran e deixam cair o óleo; os Elementais de Magma e Fulgurantes que flutuam entre eles deixam cair os corações. Os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas; um Feitor pode deixar cair a {item:11818}: guarde-a.",
 	-- ["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Golens de Guerra Pesados patrulham o Caldeirão abaixo de Velarok e deixam cair o óleo; os Elementais de Magma e Fulgurantes que flutuam entre eles deixam cair os corações. Os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas; um Feitor pode deixar cair a {item:11818}: guarde.\nAs Aranhas de Lava Abrasadoras andam pelos platôs e poças de lava no sudoeste da garganta.\n{area:1443} se abre no norte do Caldeirão. Incendossauros nadam nas poças de lava de lá: puxe-os até a borda. Os planos secretos estão na plataforma de cima do fosso.\nCuidado: os Feitores Ferro Negro (nível 45-46) chamam ajuda de aliados num raio de 15 m quando são puxados, jogam Rede de até 15 m e usam Dilacerar no corpo a corpo.",
@@ -246,4 +249,5 @@ return {
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443} se abre no norte d'O Caldeirão. Incendossauros nadam nas poças de lava: atraia-os para a borda. Os planos secretos ficam na saliência superior do fosso.",
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}: vá matando estes pelo caminho",
 	-- ["{area:392} pier"] = "Píer de {area:392}",
+	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} e {zone:1427} no nível 46-48: os acampamentos Errantes, a escolta de {npc:5955} e {area:1446}.",
 }

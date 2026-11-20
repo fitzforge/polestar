@@ -152,6 +152,7 @@ return {
 	["{area:510}: kill these as you meet them"] = "{area:510}: töte diese, wenn du sie triffst",
 	-- {area:511} Wyrmbog
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Weiter östlich durch {area:511}: Die Firemane-Späher und Aschenschwänze streifen mit den Searing-Jungtieren und Welpen am Nordrand umher; die Scalebane bewachen die Drachenhöhlen weiter südöstlich. Mok'Morokks Schnupftabak, Grog und Truhe liegen in den Lagern der Drachkin.",
+	["Pick up the grog outside the cave before going in for the strongbox."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} läuft um {area:510} herum: schau in den Kreis auf der Karte",
 

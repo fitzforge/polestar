@@ -99,45 +99,49 @@ return {
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "Volte ao túnel dos Presamatos e pegue a saída para {zone:1452}; {npc:9298} acampa junto às fontes termais logo do lado de fora.",
 	["From Krakle in Un'Goro"] = "De Gualter, na Cratera Un'Goro",
 
-	-- Step 26: Winterfall Runners
+	-- Step 26: Strange Sources
+	-- {area:2256} Darkwhisper Gorge · {area:2255} Everlook
+	["Only with help: level 59-60 elite Frostmaul giants flank the road to {area:2256}. Alone, skip the gorge and stay on the road to {area:2255}."] = "",
+
+	-- Step 27: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em grupinhos; espere na beira da estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 
-	-- Step 27: Salfa
+	-- Step 28: Salfa
 	-- {quest:8464} Winterfall Activity · {area:2255} Everlook · {area:2256} Darkwhisper Gorge
 	["{quest:8464}'s village is north-east of {area:2255}, on this guide's way back from {area:2256}."] = "A vila de {quest:8464} fica a nordeste de {area:2255}, no caminho de volta de {area:2256} neste guia.",
 
-	-- Step 28: Meilosh
+	-- Step 29: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Com 30 {quest:6031} nas bolsas: siga a estrada para o norte até {area:1769}; {npc:11557} negocia logo depois da entrada.",
 
-	-- Step 29: Kernda
+	-- Step 30: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "O totem de Lenha Morta de {area:1762}, se {npc:11558} não o aceitou na época: ela espera na boca do túnel de {area:1769} e fala com você a partir de Neutro com os Presamatos, reputação que os furbolgs de Lenha Morta de {zone:1448} lhe deram.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 31: Darkwhisper Gorge
-	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Vá para leste e depois desça para o sul por {area:2249}. Os Gigantes Friomalho de lá são elite de nível 59: fique no meio e não pare. A estranha fonte está na entrada de {area:2256}, no extremo sul.",
+	-- {area:2256} Darkwhisper Gorge
+	["With your group, follow the road south between the elite Frostmaul giants. Turn back as soon as the quest credits at the mouth of {area:2256}; do not enter the Hederine camp."] = "",
 
-	-- Step 32: Level 59.9
-	["Level 59.9"] = "Nível 59.9",
-	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
-	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Complete aqui até o nível 59.9 antes das entregas em {zone:1452}: elas levam você ao nível 60. Os Dentilhaços Raivosos (59) de {area:2249}, logo ao norte da fonte estranha, dão muito mais experiência do que os furbolgs de {area:1769}. Ou, em grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
-	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "mate {npc:7446} até subir",
-
-	-- Step 33: Are We There, Yeti?
+	-- Step 32: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Cavalgue para o norte até {area:2255}.",
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "Assuste {npc:10978} com o {npc:10980}",
 
-	-- Step 35: Winterfall Village
+	-- Step 34: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "A vila furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738} (59, elite) e Xandivious (62) ficam na caverna dos fundos: não entre.",
+
+	-- Step 35: Level 59.9
+	["Level 59.9"] = "Nível 59.9",
+	-- {area:2057} Scholomance · {area:2279} Stratholme
+	-- plural, as words: Winterfall Ursas = {npc:7438} Winterfall Ursa
+	["Stay on the village's western edge for Winterfall Ursas (57-58). Leave the cave and its elite chief alone. Top up only until the last hand-ins can take you to 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	-- plural, as words: Winterfall Ursas = {npc:7438} Winterfall Ursa
+	["Winterfall Ursas"] = "",
 
 	-- Step 36: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -145,22 +149,25 @@ return {
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "Depois {npc:9298} manda você atrás de {npc:10738}, um elite na caverna dele. Pule.",
 
-	-- Step 37: Salfa
+	-- Step 38: Salfa
 	-- {zone:1452} Winterspring
 	["North of Donova, at the tunnel's {zone:1452} exit."] = "Ao norte de Donova, na saída do túnel para {zone:1452}.",
 
-	-- Step 38: Beads for Salfa
+	-- Step 39: Beads for Salfa
 	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity
 	["{npc:11556} takes the beads only once {quest:8464} is handed in: any Winterfall furbolg can carry them, and the camps just south of {npc:11556} are the closest."] = "{npc:11556} só aceita as contas depois que {quest:8464} for entregue: qualquer furbolg Invernoso pode carregá-las, e os acampamentos logo ao sul de {npc:11556} são os mais próximos.",
 	["Frostfire Winterfall camp"] = "Acampamento Invernoso das fontes termais",
 
-	-- Step 40: Grind to 60
+	-- Step 41: Grind to 60
 	["Grind to 60"] = "Mate monstros até o 60",
-	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
-	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "As missões acabam aqui. Dentilhaços Raivosos rondam {area:2249}, no sul de {zone:1452}, ao sul da estrada que sai de {area:2255}.",
-	-- {npc:7446} Rabid Shardtooth · {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring
-	["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "mate {npc:7446} em {area:2249}, {zone:1452}",
+	-- {npc:11556} Salfa
+	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
+	["If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge."] = "",
+	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
+	["Winterfall Den Watchers"] = "",
+
+	-- Step 42: Training
+	["Training"] = "",
 	-- {zone:1454} Orgrimmar · {area:2255} Everlook
 	["In {zone:1454}: fly from {area:2255}"] = "Em {zone:1454}: voe de {area:2255}",
 	-- {zone:1456} Thunder Bluff · {area:2255} Everlook
@@ -180,13 +187,18 @@ return {
 	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "Opcional: em grupo, uma masmorra 55-60 substitui a matança abaixo.",
 	-- ["Ride back west to {area:2246}."] = "Volte para oeste até {area:2246}.",
 	-- ["Ride east along the road to {area:2255}."] = "Siga a estrada para o leste até {area:2255}.",
+	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Vá para leste e depois desça para o sul por {area:2249}. Os Gigantes Friomalho de lá são elite de nível 59: fique no meio e não pare. A estranha fonte está na entrada de {area:2256}, no extremo sul.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Siga para o noroeste até {area:1763}. Os quatro braseiros ficam entre as construções do Concílio das Sombras; use a água purificada em cada um.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "As missões acabam aqui. Dentilhaços Raivosos rondam {area:2249}, no sul de {area:618}, ao sul da estrada que sai de {area:2255}.",
+	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "As missões acabam aqui. Dentilhaços Raivosos rondam {area:2249}, no sul de {zone:1452}, ao sul da estrada que sai de {area:2255}.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Atravesse o túnel dos Presamatos até {area:493}. {npc:11939} lê numa casa em {area:2361}.",
 	-- ["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Complete aqui até o nível 59.9 antes das entregas em {area:618}: elas levam você ao nível 60. Ou, em grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
+	-- ["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Complete aqui até o nível 59.9 antes das entregas em {zone:1452}: elas levam você ao nível 60. Os Dentilhaços Raivosos (59) de {area:2249}, logo ao norte da fonte estranha, dão muito mais experiência do que os furbolgs de {area:1769}. Ou, em grupo, faça a masmorra {area:2057} ou a masmorra {area:2279}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 	-- ["grind on {npc:7441}"] = "mate {npc:7441} até subir",
+	-- ["grind on {npc:7446}"] = "mate {npc:7446} até subir",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "mate {npc:7446} em {area:2249}, {area:618}",
+	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "mate {npc:7446} em {area:2249}, {zone:1452}",
 	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "só se ainda estiver com ela: o guia de {zone:1423} a entrega no caminho",
 	-- ["sixty {item:14047}, if you carry them"] = "sessenta {item:14047}, se estiver carregando",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "A próxima missão de {npc:10306}, {quest:4741}, traria você de volta de {area:618}. Pule.",

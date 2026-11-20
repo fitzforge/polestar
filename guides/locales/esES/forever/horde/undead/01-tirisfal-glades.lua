@@ -74,9 +74,11 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "La {npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: la {npc:246143} huyó a las colinas al oeste de la iglesia, de camino a {area:155}.",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}. Offer him aid: he turns on you, and the quest counts once he falls."] = "",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "Ofrece ayuda a la {npc:246143}",
+	-- {npc:246143} Frightened Paladin
+	["the {npc:246143}, once he turns on you"] = "",
 
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
@@ -579,4 +581,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808} y {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808} y {npc:5667} están junto a la iglesia.",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
+	-- ["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: la {npc:246143} huyó a las colinas al oeste de la iglesia, de camino a {area:155}.",
 }

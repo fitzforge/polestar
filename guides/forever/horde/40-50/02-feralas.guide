@@ -78,40 +78,85 @@ step Witch Doctor Unbagwa
 
 step The Cape of Stranglethorn: kill these as you meet them
   zone Stranglethorn Vale
-  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them. Then follow the coast south to Booty Bay.
+  when level>=43
+  when onquest 573,617
+  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them.
+  tip Follow the coast south. If you still need the Wild Shore pirates, take the road past the Booty Bay tunnel to the beach before going into town.
   collect 4029 quest 617.1
   kill 1907 quest 573.1
   collect 737 quest 573.2 @29.0,61.9
 
-step Booty Bay
+step The Wild Shore
   zone Stranglethorn Vale
-  tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
-  turnin 617                          -- Privateer Bloads
-  turnin 348                          -- Fin Fizracket
-  turnin 621                          -- Crank Fizzlebub, inside
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
-  turnin 209                          -- Kebok, upstairs
-  accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
+  tip Stay on the beach with the swashbucklers (41-43); the charts and the orders lie in their tents and in the rowboat beside the larger camp. Leave the ships alone.
+  when level>=42
+  when onquest 604,576,587
+  loop
+  goto 26.67,82.84 map 1434 era r 26
+  goto 27.11,82.77 map 1434 era r 24
+  goto 27.70,83.00 map 1434 era r 25
+  kill 1563 quest 604.1
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+  collect 3897 quest 576.1 npc 1563
+  collect 3910 quest 587.1 npc 1563
+
+step Dizzy One-Eye
+  when complete 576
+  turnin 576
 
 step Dudd Fizzlescroll
   when complete 95384
   tip If you already have the Partial Mystical Notes, give them to Dudd here in Booty Bay.
   turnin 95384
 
-step The Wild Shore
-  zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
-  collect 3920 quest 604.2
-  collect 3921 quest 604.3
-  collect 3897 quest 576.1
-  collect 3910 quest 587.1
-  kill 1563 quest 604.1
+step Privateer Bloads
+  when complete 617
+  turnin 617
 
 step Booty Bay
-  tip Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50.
-  turnin 604                          -- Fleet Master Seahorn
-  turnin 576                          -- Dizzy One-Eye
-  turnin 587                          -- Deeg, on the top floor
+  zone Stranglethorn Vale
+  tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
+  turnin 348                          -- Fin Fizracket
+  turnin 621                          -- Crank Fizzlebub, inside
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  turnin 209                          -- Kebok, upstairs
+  accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
+
+step Deeg
+  when complete 587
+  turnin 587
+
+step Fleet Master Seahorn
+  when complete 604
+  turnin 604
+
+step Unfinished Wild Shore errands
+  zone Stranglethorn Vale
+  tip If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships.
+  when level>=42
+  when onquest 604,576,587
+  loop
+  goto 26.67,82.84 map 1434 era r 26
+  goto 27.11,82.77 map 1434 era r 24
+  goto 27.70,83.00 map 1434 era r 25
+  kill 1563 quest 604.1
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+  collect 3897 quest 576.1 npc 1563
+  collect 3910 quest 587.1 npc 1563
+
+step Dizzy One-Eye
+  when complete 576
+  turnin 576
+
+step Deeg
+  when complete 587
+  turnin 587
+
+step Fleet Master Seahorn
+  when complete 604
+  turnin 604
 
 step Fly to Grom'gol
   zone Stranglethorn Vale
@@ -121,6 +166,9 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
   turnin 589                          -- Kin'weelay
+
+step Far Seer Mok'thardin
+  when complete 573
   turnin 573                          -- Far Seer Mok'thardin
 
 step Zeppelin to Orgrimmar
@@ -138,7 +186,7 @@ step Orgrimmar
 # Flow: Kargath (where the Riverglades end) -> fly to Grom'gol -> Stranglethorn's
 # 43-46 errands carried from 40-50/01 in one sweep south (Zul'Mamwe, Grom'gol, the
 # basilisks, the ghost pirates and Zanzil's camps, Unbagwa and Mokk, the naga coast,
-# Booty Bay, the Wild Shore, Booty Bay) -> fly Grom'gol -> zeppelin to Orgrimmar
+# the Wild Shore, Booty Bay) -> fly Grom'gol -> zeppelin to Orgrimmar
 # (training, riding; Druids and Paladins:
 # Thunder Bluff for training; Warlocks: Ratchet for the Felsteed) -> fly
 # Freewind Post -> Gadgetzan (flight path) -> eastern

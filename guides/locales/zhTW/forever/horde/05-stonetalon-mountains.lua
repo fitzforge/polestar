@@ -31,7 +31,8 @@ return {
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
-	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。",
+	-- was: ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。"
+	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.\nCareful: Sharptalon (31) patrols the Outrunners' woods. Give her room."] = "",
 
 	-- Step 6: Warsong lumber camp
 	["Warsong lumber camp"] = "戰歌伐木營地",
@@ -230,6 +231,7 @@ return {
 	-- ["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "與{object:36126}的{npc:10181}交談：{quest:93739}",
 	-- ["Sputtervalve in {area:392}: the next guide passes there"] = "{area:392}的斯布特瓦夫：下一份指南會經過那裡",
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "蓋亞之種散落在烈日石居北邊{area:464}南岸周圍的草地上。",
+	-- ["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。",
 	-- ["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "道路以{area:1076}向北爬升。{quest:1483}的小屋在道路向東分岔通往{area:461}的地方。",
 	-- ["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864}在{area:428}東邊通往{area:430}的道路上巡邏。",
 	-- ["Thistlefur Hold"] = "薊皮熊怪的巢穴",

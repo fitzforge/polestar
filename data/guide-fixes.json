@@ -2,6 +2,133 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "riverglades-clugfist-actual-level-41",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95424,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=41",
+			"note": "The ogres share a ridge with the start of the escort to Bolder’ok. Do unpaid work before taking Jom-jom back where possible. Ready rewards are independent, and only the paid Mauler hunt unlocks the decree.",
+			"source": {
+				"kind": "questie",
+				"ref": "260968 reaches 42; 260973 is 42. Quest prerequisites for 95428 and 94668 name 95424. See #3040."
+			},
+			"issue": 3040
+		},
+		{
+			"id": "horde-cape-wild-shore-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 604,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "level>=42",
+			"note": "The normal swashbucklers at the Wild Shore tents reach 43. Check the player's level on the approach and again after the town rewards.",
+			"source": {
+				"kind": "client",
+				"ref": "Bloodsail Swashbuckler (1563); quests 604, 576 and 587."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "riverglades-clugfist-95424-ready",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95424,
+				"goal": "turnin"
+			},
+			"goalNote": "Return to Clugfist with the finished hunt.",
+			"note": "A player arriving with either hunt unfinished must still see its camp work. Pay this job only on its own completion, not just because Land of Giants was handed in.",
+			"source": {
+				"kind": "recording",
+				"ref": "Both active jobs were still at zero in #3040."
+			},
+			"issue": 3040
+		},
+		{
+			"id": "riverglades-clugfist-95425-ready",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95425,
+				"goal": "turnin"
+			},
+			"goalNote": "Return to Clugfist with the finished hunt.",
+			"note": "A player arriving with either hunt unfinished must still see its camp work. Pay this job only on its own completion, not just because Land of Giants was handed in.",
+			"source": {
+				"kind": "recording",
+				"ref": "Both active jobs were still at zero in #3040."
+			},
+			"issue": 3040
+		},
+		{
+			"id": "riverglades-lamora-middle-ship-hold",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 2
+			},
+			"goalNote": "Open the chest in the hold of the middle ship; the admiral patrols its top deck.",
+			"note": "Both objectives use the middle ship but not the same deck. No floor height is assumed.",
+			"source": {
+				"kind": "recording",
+				"ref": "Player observed the patrol and the hold in #3172. Lamora’s Treasure Chest is object 629472."
+			},
+			"issue": 3172
+		},
+		{
+			"id": "powderfuse-land-before-the-crate",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95062,
+				"goal": "accept"
+			},
+			"goalNote": "Arrive on the Steamwheedle boat before taking the crate at the docks.",
+			"note": "Reaching the Tanaris pier or passing over Powderfuse is not disembarking. Speak to Friz at his waterfront stall; a character holding the crate or knowing Kargath does not repeat the boat approach.",
+			"source": {
+				"kind": "recording",
+				"ref": "In #3147 the crate step was active in Tanaris. The transport destination is Powderfuse Port, map 2548."
+			},
+			"issue": 3147
+		},
+		{
+			"id": "hyjal-seed-the-three-wrecks",
+			"at": {
+				"guide": "polestar-experimental/hyjal-1",
+				"quest": 93747,
+				"goal": "accept"
+			},
+			"goalNote": "Use the Bag of Enchanted Seeds at each of the three wrecks.",
+			"note": "Each cast has its own quest-log line. The walk reaches the catapult, flying machine and ballista in that order.",
+			"source": {
+				"kind": "recording",
+				"ref": "The three lines at accept are ballista, catapult and flying machine; spell 1287099 accompanies planting, #3170."
+			},
+			"issue": 3170
+		},
+		{
+			"id": "hyjal-disrupt-the-ashen-workstations",
+			"at": {
+				"guide": "polestar-experimental/hyjal-1",
+				"quest": 95316,
+				"goal": "accept"
+			},
+			"goalNote": "Disrupt the Slime and Alchemy stations on the way up to the Disease and Vessel stations.",
+			"note": "Use the workstations in the camp, not points south of them. The player marks for Slime (#3195) and Alchemy (#3196) confirm #3169.",
+			"source": {
+				"kind": "recording",
+				"ref": "Live Hyjal coordinates in #3169, #3195 and #3196; no change to the other two stations."
+			},
+			"issue": 3169
+		},
+		{
 			"id": "freewind-harpies-offer",
 			"faction": "Horde",
 			"at": {
@@ -356,19 +483,19 @@
 			"id": "2282-darkcloud-arnak-navigation-warning",
 			"faction": "Horde",
 			"at": { "quest": 5147, "goal": "objective", "objective": 1 },
-			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
-			"note": "#2282: put the Great Lift warning first so it leads the collapsed step tip. The existing darkcloud-pinnacle-climb record describes the path and rope bridges from the canyon floor to Arnak's plateau. No coordinates are added: the authored Era entrance and the reporter's live map position are different frames. Keep the shared combat and escort advice; this is a warning while #2027 tracks the walking-map repair, not a change to the target or route.",
-			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
-			"issue": 2282
+			"tip": "Great Lift detour warning: if you are already on the mesa, stay up and cross the rope bridge toward Arnak; do not drop to the canyon or go to the Great Lift. From the canyon floor, follow the path up Darkcloud Pinnacle and take the rope bridges. Clear Arnak Grimtotem (29) and the guards beside Lakota Windsong before freeing her. Protect her from the Grimtotem ambushers on the way down.",
+			"note": "Keep #2282's canyon climb and describe the bridge for someone already on the mesa. This does not change the navigation graph or either quest target.",
+			"source": { "kind": "in-game-check", "ref": "#2944: player on the mesa at 34.21,30.30 with the bridge in reach; #2282 documents the distinct canyon-floor approach." },
+			"issue": 2944
 		},
 		{
 			"id": "2282-darkcloud-lakota-navigation-warning",
 			"faction": "Horde",
 			"at": { "quest": 4904, "goal": "accept" },
-			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
-			"note": "#2282: carry the same warning and complete combat/escort advice at Lakota's pickup, including when the writer separates it from Arnak's objective or the route contains only Free at Last. Identical tips keep their current shared step unchanged apart from the warning. The canyon-floor directions do not send a player already on the plateau back down.",
-			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
-			"issue": 2282
+			"tip": "Great Lift detour warning: if you are already on the mesa, stay up and cross the rope bridge toward Arnak; do not drop to the canyon or go to the Great Lift. From the canyon floor, follow the path up Darkcloud Pinnacle and take the rope bridges. Clear Arnak Grimtotem (29) and the guards beside Lakota Windsong before freeing her. Protect her from the Grimtotem ambushers on the way down.",
+			"note": "Keep #2282's canyon climb and describe the bridge for someone already on the mesa. This does not change the navigation graph or either quest target.",
+			"source": { "kind": "in-game-check", "ref": "#2944: player on the mesa at 34.21,30.30 with the bridge in reach; #2282 documents the distinct canyon-floor approach." },
+			"issue": 2944
 		},
 		{
 			"id": "2107-xabraxxis-demon-bag",
@@ -4663,6 +4790,33 @@
 			"issue": 2025
 		},
 		{
+			"id": "3212-allister-ready-95981",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/06-hillsbrad-foothills", "quest": 95981, "goal": "turnin" },
+			"when": "complete 95981",
+			"note": "Allister pays each reward separately. An open Ravenclaw hunt is not a reason to fly to the crypt.",
+			"source": { "kind": "in-game-check", "ref": "#3212: both Beren's Peril objectives unfinished when Allister offered the other two rewards." },
+			"issue": 3212
+		},
+		{
+			"id": "3212-allister-ready-479",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/06-hillsbrad-foothills", "quest": 479, "goal": "turnin" },
+			"when": "complete 479",
+			"note": "Allister pays each reward separately. An open Ravenclaw hunt is not a reason to fly to the crypt.",
+			"source": { "kind": "in-game-check", "ref": "#3212: both Beren's Peril objectives unfinished when Allister offered the other two rewards." },
+			"issue": 3212
+		},
+		{
+			"id": "3212-allister-ready-516",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/06-hillsbrad-foothills", "quest": 516, "goal": "turnin" },
+			"when": "complete 516",
+			"note": "Allister pays each reward separately. An open Ravenclaw hunt is not a reason to fly to the crypt.",
+			"source": { "kind": "in-game-check", "ref": "#3212: both Beren's Peril objectives unfinished when Allister offered the other two rewards." },
+			"issue": 3212
+		},
+		{
 			"id": "2025-h21-ambermill-high-order-mages",
 			"faction": "Horde",
 			"at": {
@@ -6373,8 +6527,9 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
-			"note": "Review (0.3.6): the step said 'open both locks' without the keys; items.json: Dull Iron Key 3467 drops from Jailor Eston 2427 (100%), Burnished Gold Key 3499 from Jailor Marlgen 2428 (100%), both at Durnholde (1424 ~79.5,41); the knowledge base's steps for 498 use both keys.",
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key. You only need the key for a lock that is still closed.",
+			"issue": 3193,
+			"note": "#3193: the first Hillsbrad visit needs a visible key for each unfinished lock. The keyring counts as inventory; a rescued prisoner does not need another key. Dull Iron Key 3467 drops from Eston 2427 and Burnished Gold Key 3499 from Marlgen 2428.",
 			"source": {
 				"kind": "client",
 				"ref": "items.json 3467/3499 drops; quest-steps.json 498"
@@ -7614,6 +7769,15 @@
 					"ref": "quest 3181 starts from item 10000 (Margol's Horn), ender Mountaineer Pebblebitty (3836, 18.18,84.01 Loch Modan)"
 				}
 			]
+		},
+		{
+			"id": "horde-dragonmurk-grog-at-the-mouth",
+			"faction": "Horde",
+			"at": { "quest": 1166, "goal": "objective", "objective": 2, "guide": "forever/horde/40-50/03-feralas" },
+			"goalNote": "Pick up the grog outside the cave before going in for the strongbox.",
+			"note": "The grog stands outside the entrance. Take it on the way in, before the strongbox below ground; the snuff lies at the camp to the east.",
+			"source": { "kind": "in-game-check", "ref": "Dustwallow Marsh: the grog (19905) at 38.7,65.6, the strongbox (19906) at 36.6,69.5 indoors, and the snuff (19904) at 44.5,66.0." },
+			"pr": 3145
 		},
 		{
 			"id": "way-musty-scroll-walk-with-cortellos-riddle",

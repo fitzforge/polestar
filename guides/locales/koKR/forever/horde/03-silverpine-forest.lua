@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "{area:228} 북쪽입니다. {npc:1983}이(가) {area:240}에 출몰합니다. 처치한 뒤 들판을 가로지르세요. 주의: 들판에서 썩은가죽 놀을 처치하면 {npc:1983}(14)이(가) 나타납니다. 생명력이 가득 찬 상태로 싸우세요.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health. Sons of Arugal, level 24-25 elite worgen, roam the roads and fields of Silverpine, one of them by the {area:240}: give them a wide berth."] = "",
 
 	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
@@ -313,6 +313,7 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "점박이 검은늑대가 집 주변 언덕을 배회합니다. 그런 다음 호숫가를 따라 남쪽으로 가세요. 그곳의 썩은지느러미멀록 갈퀴잡이와 바다사냥꾼이 멀록 눈알을 떨어뜨립니다.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "다시 북쪽으로 요릭 가족 집에 가세요. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "{area:228} 북쪽입니다. 나이트래쉬가 {area:240}에 출몰합니다. 처치한 뒤 들판을 가로지르세요.",
+	-- ["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "{area:228} 북쪽입니다. {npc:1983}이(가) {area:240}에 출몰합니다. 처치한 뒤 들판을 가로지르세요. 주의: 들판에서 썩은가죽 놀을 처치하면 {npc:1983}(14)이(가) 나타납니다. 생명력이 가득 찬 상태로 싸우세요.",
 	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "피난민 북동쪽, 숲 남동쪽에 있는 {quest:516} 폐허에 까마귀발톱 노역꾼과 수호병이 출몰합니다.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "{npc:1938}이(가) {quest:98298}을(를) 준 경우에만: 혈투사는 {area:233} 남서쪽, 장작나무 마을 동쪽 숲을 배회하며 {item:280375}을(를) 떨어뜨립니다.",
 	-- ["Road to Silverpine"] = "은빛소나무 숲으로 가는 길",
