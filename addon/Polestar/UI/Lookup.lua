@@ -1493,15 +1493,15 @@ LK.gen = 0
 local function stale() LK.gen = LK.gen + 1 end
 
 -- ItemClass and class-scoped ItemSubclass labels from the Codex taxonomy.
-local CLASS_LABEL, SUBCLASS_LABEL
-local function loadTaxonomyLabels()
-	CLASS_LABEL = {
+local itemCategories = {}
+function itemCategories.LoadLabels()
+	itemCategories.classLabels = {
 		[0] = L["Consumable"], L["Container"], L["Weapon"], L["Gem"], L["Armor"], L["Reagent"],
 		L["Projectile"], L["Trade Goods"], L["Item Enhancement"], L["Recipe"], L["Money"], L["Quiver"],
 		L["Quest"], L["Key"], L["Permanent"], L["Miscellaneous"], L["Glyph"], L["Battle Pets"],
 		L["WoW Token"], L["Profession"], L["Housing"],
 	}
-	SUBCLASS_LABEL = {
+	itemCategories.subclassLabels = {
 		[0] = { [0] = L["Explosives and Devices"], L["Potion"], L["Elixir"], L["Flask"], L["Scroll"],
 			L["Food & Drink"], L["Item Enhancement"], L["Bandage"], L["Other"],
 			[14] = L["Device"], [15] = L["Temporary Item Enhancement"] },
@@ -1528,13 +1528,13 @@ local function loadTaxonomyLabels()
 	}
 end
 
-local function categoryLabel(class)
-	if not CLASS_LABEL then loadTaxonomyLabels() end
-	return CLASS_LABEL[class] or format(L["Category %d"], class)
+function itemCategories.ClassLabel(class)
+	if not itemCategories.classLabels then itemCategories.LoadLabels() end
+	return itemCategories.classLabels[class] or format(L["Category %d"], class)
 end
 
-local function subclassLabel(class, subclass)
-	return SUBCLASS_LABEL[class] and SUBCLASS_LABEL[class][subclass] or format(L["Type %d"], subclass)
+function itemCategories.SubclassLabel(class, subclass)
+	return itemCategories.subclassLabels[class] and itemCategories.subclassLabels[class][subclass] or format(L["Type %d"], subclass)
 end
 
 do
@@ -1584,8 +1584,8 @@ do
 		local usable, usableOrigin, usableTip = usableBy(S, f)
 		local path
 		if f.itemClass then
-			local class = categoryLabel(f.itemClass)
-			local subclass = f.itemSubclass and subclassLabel(f.itemClass, f.itemSubclass) or L["Unknown"]
+			local class = itemCategories.ClassLabel(f.itemClass)
+			local subclass = f.itemSubclass and itemCategories.SubclassLabel(f.itemClass, f.itemSubclass) or L["Unknown"]
 			path = format(L["%s › %s"], class, subclass)
 		end
 		local facts = {
@@ -1735,19 +1735,18 @@ do
 	end
 end
 
-local function categoryOrder(a, b)
+function itemCategories.SortOrder(a, b)
 	if a.sortLabel ~= b.sortLabel then return a.sortLabel < b.sortLabel end
 	return (a.subclass or a.class) < (b.subclass or b.class)
 end
 
-local categoryColumn, taxonomy
-local function itemTaxonomy()
+function itemCategories.Tree()
 	local C = ns.Codex
 	if not (C and C.FilterColumn and C.DecodeFilter and C.FilterCategory) then return end
 	local blob, count = C.FilterColumn("item")
 	if not blob or count == 0 then return end
-	if categoryColumn == blob then return taxonomy end
-	categoryColumn, taxonomy = blob, nil
+	if itemCategories.column == blob then return itemCategories.tree end
+	itemCategories.column, itemCategories.tree = blob, nil
 	local classes, byClass, byKey, seen = {}, {}, {}, {}
 	local sortLabel = ns.Search.Fold or string.lower
 	-- The directory covers all five item-backed kinds. Read only the packed
@@ -1760,14 +1759,14 @@ local function itemTaxonomy()
 			if class then
 				local parent = byClass[class]
 				if not parent then
-					local label = categoryLabel(class)
+					local label = itemCategories.ClassLabel(class)
 					parent = { key = "item:" .. class, parent = "item", class = class, label = label,
 						sortLabel = sortLabel(label), children = {} }
 					byClass[class], byKey[parent.key] = parent, parent
 					classes[#classes + 1] = parent
 				end
 				if subclass then
-					local label = subclassLabel(class, subclass)
+					local label = itemCategories.SubclassLabel(class, subclass)
 					local node = { key = parent.key .. ":" .. subclass, parent = parent.key, id = id,
 						class = class, subclass = subclass, label = label, sortLabel = sortLabel(label) }
 					byKey[node.key] = node
@@ -1777,10 +1776,10 @@ local function itemTaxonomy()
 		end
 	end
 	if #classes == 0 then return end
-	table.sort(classes, categoryOrder)
-	for _, node in ipairs(classes) do table.sort(node.children, categoryOrder) end
-	taxonomy = { classes = classes, byKey = byKey }
-	return taxonomy
+	table.sort(classes, itemCategories.SortOrder)
+	for _, node in ipairs(classes) do table.sort(node.children, itemCategories.SortOrder) end
+	itemCategories.tree = { classes = classes, byKey = byKey }
+	return itemCategories.tree
 end
 
 -- The current list, built once per query and kind (the hub asks for the
@@ -1891,7 +1890,7 @@ local function current()
 		-- LK.Select: this runs inside a render.
 		if sel and sel.kind ~= "guide" then setSelection() end
 	end
-	local tree = loaded and filterData and itemTaxonomy()
+	local tree = loaded and filterData and itemCategories.Tree()
 	if not tree then category = nil end
 	local total = 0
 	if query ~= "" then
@@ -2013,15 +2012,17 @@ end
 -- The list as laid out: { t = "folder"|"row"|"action", y, ... }, top down.
 local entries = {}
 
-local drawerOpen, chromeHeight = false, 0
+local filtersUI = { drawerOpen = false, chromeHeight = 0 }
 local resetListSelection
-local function viewHeight() return max(1, shell:GetHeight() - SH.top - 8 - chromeHeight) end
+function filtersUI.ViewHeight()
+	return max(1, shell:GetHeight() - SH.top - 8 - filtersUI.chromeHeight)
+end
 
 -- Draw the entries in view (and a row either side), from the pools.
 local function paintVisible()
 	if not (root and results) then return end
 	local top = results:GetVerticalScroll() or 0
-	local lo, hi = top - ROW_H * 2, top + viewHeight() + ROW_H * 2
+	local lo, hi = top - ROW_H * 2, top + filtersUI.ViewHeight() + ROW_H * 2
 	local width = MID_W - ROW_X * 2
 	local body = results.Child
 	local nf, nr = 0, 0
@@ -2072,7 +2073,7 @@ local function reveal()
 	if not sel then return end
 	for _, e in ipairs(entries) do
 		if e.t == "row" and e.res.kind == sel.kind and e.res.id == sel.id then
-			local top, view = results:GetVerticalScroll() or 0, viewHeight()
+			local top, view = results:GetVerticalScroll() or 0, filtersUI.ViewHeight()
 			if e.y < top then
 				W.ScrollTo(results, e.y - 8)
 			elseif e.y + ROW_H > top + view then
@@ -2108,8 +2109,6 @@ local function fixedButtonText(button, text, lines)
 	button.psTipLines = lines
 end
 
-local filtersUI = {}
-
 local function showControls(c)
 	local button, visibility = root.SearchOrder, root.Visibility
 	local showOrder = query ~= "" or c.loaded and kind ~= "all" and itemCapable()
@@ -2120,7 +2119,7 @@ local function showControls(c)
 	local text = groups > 0 and format(L["Filters (%d)"], groups) or L["Filters"]
 	local history = groups > 0 and query == "" and kind == "all" and HISTORY_TIP
 	fixedButtonText(visibility, text, history or nil)
-	visibility.Icon:SetTexture(Theme.Media(drawerOpen and "chevron-up" or "chevron-down"))
+	visibility.Icon:SetTexture(Theme.Media(filtersUI.drawerOpen and "chevron-up" or "chevron-down"))
 	if not showOrder then return visibility:GetWidth() + 12 end
 	local value = effectiveOrder()
 	fixedButtonText(button, value == "most" and mostLabel(sortStat) or ORDER_LABELS[value])
@@ -2283,7 +2282,7 @@ function LK.Render()
 	-- The engraving only behind a list with nothing in it.
 	root.Watermark:SetShown(#entries == 0)
 	body:SetWidth(MID_W)
-	W.SetScrollContent(results, y + 16, viewHeight())
+	W.SetScrollContent(results, y + 16, filtersUI.ViewHeight())
 	paintVisible()
 	if c.loaded and itemDetails.direct and itemDetails.outside == nil then itemDetails.outside = directOutsideFilters(c, sel) end
 	renderDetails(loaded, reason)
@@ -2510,7 +2509,7 @@ local function sectionKeyboard(key, fromSearch, shifted)
 			headerFocus:GetScript("OnEscapePressed")(headerFocus)
 			return true, true
 		end
-		if drawerOpen then filtersUI.Toggle(); return true, true end
+		if filtersUI.drawerOpen then filtersUI.Toggle(); return true, true end
 		if not fromSearch then return focusSearch() end
 		return false
 	end
@@ -2761,7 +2760,7 @@ local function installFilterChrome()
 	end
 
 	local function commitRange(range)
-		if not (drawerOpen and range.dirty) then return true end
+		if not (filtersUI.drawerOpen and range.dirty) then return true end
 		local valid, lo, hi = validateRange(range)
 		if not valid then return false end
 		local changed = lo ~= range.appliedLo or hi ~= range.appliedHi
@@ -2898,7 +2897,7 @@ local function installFilterChrome()
 
 	local function paintDrawer(c)
 		local drawer = rawget(root, "FilterDrawer")
-		if not drawerOpen then if drawer then drawer:Hide() end; return 0 end
+		if not filtersUI.drawerOpen then if drawer then drawer:Hide() end; return 0 end
 		local showItems = itemControls(c)
 		local colWidth = (MID_W - 2 * SH.pad - 12) / 2
 		if not drawer then
@@ -3125,8 +3124,8 @@ local function installFilterChrome()
 		buildChipGroups(c)
 		local height = paintDrawer(c)
 		height = height + paintStrip(groups, height)
-		if height ~= chromeHeight then
-			chromeHeight = height
+		if height ~= filtersUI.chromeHeight then
+			filtersUI.chromeHeight = height
 			results:SetPoint("TOPLEFT", root, "TOPLEFT", 0, -4 - height)
 		end
 		local owner = rawget(root, "FilterMenuOwner")
@@ -3182,19 +3181,19 @@ local function installFilterChrome()
 
 	function filtersUI.Toggle()
 		filtersUI.HideMenu()
-		if drawerOpen then
+		if filtersUI.drawerOpen then
 			finishRanges()
 			filtersUI.DiscardRanges()
 		end
-		drawerOpen = not drawerOpen
+		filtersUI.drawerOpen = not filtersUI.drawerOpen
 		showControls(current())
-		W.SetScrollContent(results, results.psContent, viewHeight())
+		W.SetScrollContent(results, results.psContent, filtersUI.ViewHeight())
 		paintVisible()
 	end
 
 	function filtersUI.Hide()
-		if drawerOpen then finishRanges() end
-		drawerOpen = false
+		if filtersUI.drawerOpen then finishRanges() end
+		filtersUI.drawerOpen = false
 		filtersUI.HideMenu()
 		filtersUI.DiscardRanges()
 		root.SearchOrder:Hide()
@@ -3388,7 +3387,7 @@ local function namesChanged()
 	if root and root:IsVisible() then reconcile() end
 end
 ns.On("CODEX_LOADED", function()
-	categoryColumn = nil
+	itemCategories.column = nil
 	category = nil
 	namesChanged()
 end)
