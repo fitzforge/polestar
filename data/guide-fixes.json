@@ -14177,6 +14177,46 @@
 				}
 			],
 			"issue": 3212
+		},
+		{
+			"id": "a1-darkshore-onu-with-cave-mushrooms",
+			"faction": "Alliance",
+			"at": {
+				"quest": 948,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"follows": {
+				"quest": 947,
+				"goal": "turnin"
+			},
+			"note": "03-darkshore's last Auberdine stop (0.4.2): Barithras Moonshade offers Onu (948) once Cave Mushrooms (947) is handed in to him. The stop took it after Gwennyth's turtle (4727) and Gubber's crab chunks (1138) on the pier, 99 yd off, so the player walked back to Barithras; it is now taken at the hand-in, before the pier.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 948 pre 947, both from Barithras Moonshade (3583)"
+				}
+			]
+		},
+		{
+			"id": "horde-epl-villains-of-darrowshire-with-brother-carlin",
+			"faction": "Horde",
+			"at": {
+				"quest": 5181,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"follows": {
+				"quest": 5210,
+				"goal": "turnin"
+			},
+			"note": "50-60/05's third Light's Hope Chapel stop (0.4.2): Carlin Redpath offers Villains of Darrowshire (5181) once Brother Carlin (5210) is handed in to him. The stop took it after The Restless Souls from Caretaker Alen (5281), 125 yd off, so the player walked back to Carlin; it is now taken at the hand-in, then Alen.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 5181 pre 5210, given and taken by Carlin Redpath (11063)"
+				}
+			]
 		}
 	]
 }

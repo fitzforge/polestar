@@ -17406,8 +17406,8 @@ do
 					title = "{area:2268}",
 					goals = {
 						{ t = "turnin", quest = 5210, title = "Brother Carlin", npc = 11063, npcName = "Carlin Redpath", map = 1423, x = 71.6, y = 49.95, z = 86.8 },
-						{ t = "accept", quest = 5281, title = "The Restless Souls", npc = 11038, npcName = "Caretaker Alen", minLevel = 55, qlvl = 60, map = 1423, x = 69.94, y = 53.52, z = 95.9, spotsPacked = "69.8,53.7,95.9,15,2", note = "{npc:11038}, if you didn't take {quest:5281} on the last stop" },
 						{ t = "accept", quest = 5181, title = "Villains of Darrowshire", npc = 11063, npcName = "Carlin Redpath", minLevel = 50, qlvl = 57, pre = { 5210 }, preTitles = { [5210] = "Brother Carlin" }, map = 1423, x = 71.6, y = 49.95, z = 86.8 },
+						{ t = "accept", quest = 5281, title = "The Restless Souls", npc = 11038, npcName = "Caretaker Alen", minLevel = 55, qlvl = 60, map = 1423, x = 69.94, y = 53.52, z = 95.9, spotsPacked = "69.8,53.7,95.9,15,2", note = "{npc:11038}, if you didn't take {quest:5281} on the last stop" },
 						{ t = "note", text = "{npc:11063}'s Heroes of Darrowshire needs a group in {area:190} and a ride back here at the end: leave it." },
 					},
 				},
