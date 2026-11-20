@@ -33,7 +33,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "Al sur por el camino: las tiendas de los cazadores están justo al oeste. {npc:717} y Hemet te dieron estas en la primera vuelta: acéptalas ahora solo si no lo hiciste.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "{npc:717}. Guárdalo para la visita posterior si te saltas a {npc:729} en la colina de los raptoras.",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, si 30-40/04 no te la dio: los Raptores colazote, después de las ruinas de la selva",
@@ -80,23 +80,23 @@ return {
 
 	-- Step 11: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
-	["{npc:729} on the raptor hill"] = "",
+	["{npc:729} on the raptor hill"] = "{npc:729} en la colina de los raptoras",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
-	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "",
+	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "Mira la cima de la colina camino de los raptoras. Si {npc:729} no está aquí o no puedes sacarla sola, sigue; {npc:717} puede aceptar la garra en la visita posterior.",
 	-- {npc:729} Sin'Dall
-	["{npc:729}'s hill"] = "",
+	["{npc:729}'s hill"] = "la colina de {npc:729}",
 	-- {npc:729} Sin'Dall
-	["{npc:729} (37) prowls the hilltop."] = "",
+	["{npc:729} (37) prowls the hilltop."] = "{npc:729} (37) ronda la cima.",
 
 	-- Step 12: The Lashtail raptors
 	["The Lashtail raptors"] = "Los raptores colazote",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "Al este de las ruinas, caza raptoras Cola de Lagarto alrededor de la colina al suroeste del campamento de Nesingwary. Si llevas {quest:187}, tienes al menos 36 y ves a {npc:729} (37) sola, puedes llevarte su garra aquí o dejar la caza para tu próxima visita.",
 
 	-- Step 13: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["Hand the paw to {npc:717} beside Hemet."] = "",
+	["Hand the paw to {npc:717} beside Hemet."] = "Entrega la garra a {npc:717} junto a Hemet.",
 
 	-- Step 14: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary

@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
-	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "El vuelo aterriza junto a {npc:7876}. Toma las misiones del pueblo antes de cabalgar al oeste hasta {area:979}.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 	-- {npc:11758} Andi Lynn · {area:1938} Broken Pillar
@@ -47,7 +47,7 @@ return {
 
 	-- Step 9: Senior Surveyor Fizzledowser
 	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
-	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "De vuelta al este, con Fizzledowser, en el lado oeste de {area:976}; {npc:7771} está al sur desde ahí.",
 
 	-- Step 10: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
@@ -93,7 +93,7 @@ return {
 
 	-- Step 19: Slake That Thirst
 	-- {spell:686} Shadow Bolt
-	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Cuidado: los hechiceros de las sombras (nivel 42-43) invocan a un abisario fuera de combate y atacan con Inmolar y {spell:686}. Los pícaros pueden desarmarte, los rufianes se mueven en Sigilo, y los asesinos usan Ejecutar cuando estás al 20% de vida o menos.",
 
 	-- Step 20: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
@@ -111,7 +111,7 @@ return {
 
 	-- Step 23: Scrimshank's gear
 	["Scrimshank's gear"] = "Equipo de análisis de Patagolpe",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Más al sur, el equipo del aperador junior Scrimshank está en la entrada de una colmena Centipaar.\nCuidado: un bicho guarda el equipo. Muchos bichos patrullan los túneles, algunos de nivel 50, así que las peleas a menudo arrastran refuerzos extra.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 24: OOX-17/TN
@@ -128,7 +128,7 @@ return {
 
 	-- Step 26: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
-	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "para {npc:5204} en {zone:1458}, sobre el nivel 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, hacia el nivel 50",
 
@@ -159,7 +159,7 @@ return {
 
 	-- Step 33: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "los esclavistas y gólems de {area:246}",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Cabalga al sur desde {area:1446} hacia La Caldera: los Capataces y Esclavistas Hierro Negro arrean a los esclavos por los caminos, y los Gólems de guerra pesados patrullan el fondo bajo {npc:8479}. Cuidado: los gólems más grandes son de nivel 49: atráelos de uno en uno.",

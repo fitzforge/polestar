@@ -79,7 +79,7 @@ return {
 	-- Step 18: The Ruins of Stardust
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
 	-- plural, as words: Shadethicket Raincallers = {npc:3783} Shadethicket Raincaller
-	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "",
+	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "De nuevo al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.\nCuidado: los invocadores de lluvia y los madereros de Shadethicket (22-24) están entre los arbustos. Limpia un arbusto cada vez; no atravieses el campamento.",
 
 	-- Step 19: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
@@ -91,7 +91,7 @@ return {
 
 	-- Step 21: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
+	["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:417} y entra por el lado este: {npc:3664} y sus guardias ocupan una colina dentro. Saca primero a sus guardias.",
 
 	-- Step 22: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
@@ -212,10 +212,10 @@ return {
 	-- Step 44: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze · Crimson Oozes = {npc:1031} Crimson Ooze · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
-	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
+	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "Al noroeste de {npc:1244}: los correndederos y los tramperos Musgobrevadera (22-24) junto al río al suroeste de {area:309} sueltan pedernal, casi todos. Los mocos negros, carmesí y monstruosos llenan {area:309}, justo al oeste del camino a {area:205} y al norte del campamento de Einar. Cuidado: los mocos negros y carmesí también sueltan {item:3349}. Saca a esos en vez de luchar contra los mocos monstruosos más grandes (25-26).\nCuidado: las garras podridas enloquecidas (25-26) rondan {area:1025} alrededor de {npc:1244} y al norte de él: cruza hasta el río y no caces el pedernal ahí. Los brutos, místicos y Alfas Musgobrevadera (24-27) ocupan las colinas al noroeste del campamento de los correndederos.",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "",
+	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "{item:2611}: los correndederos y tramperos Musgobrevadera junto al río",
 
 	-- Step 45: Menethil
 	["Menethil"] = "Menethil",

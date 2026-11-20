@@ -73,7 +73,7 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "Usa el {item:13892} de {npc:11596} sobre un kodo viejo, moribundo o {npc:4702}: se convierte en un kodo domado que te sigue. Llévalo andando al campamento de {npc:11596}; allí, habla con el kodo: eso lo cuenta y te deja domar el siguiente. Cinco kodos, de uno en uno; los kodos viejos también sueltan las pieles, y los azotadores Escorpashi que cazan alrededor del cementerio llevan el veneno. Cuidado: los kodos ancestrales (36-37) pegan duro: dómalos, y lucha solo contra los kodos viejos por las pieles.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "en un kodo viejo, moribundo o {npc:4702} en el cementerio; no lo mates",
 	-- {npc:11596} Smeed Scrabblescrew
@@ -82,7 +82,7 @@ return {
 	-- Step 14: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
-	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "Al noreste del campamento de {npc:11596} hasta {area:609}, en el camino de vuelta a {area:608}: cada Kolkar suelta orejas de centauro para {npc:5752} y {quest:93224} para {npc:5396}. Los Magram al sureste del campamento de {npc:11596} también las sueltan, pero su aldea tiene nigromantes (42-43) y guardianes (39-41): quédate con los Kolkar (30-35).",
 
 	-- Step 15: Nijel's Point
 	-- {npc:5638} Kreldig Ungor

@@ -136,7 +136,7 @@ return {
 
 	-- Step 35: Carlin Redpath: Heroes of Darrowshire
 	-- {area:190} Hearthglen
-	["The libram is inside {area:190} among elite Scarlet guards. Take this for the later group visit."] = "",
+	["The libram is inside {area:190} among elite Scarlet guards. Take this for the later group visit."] = "El libram está dentro de {area:190}, entre guardias de la Cruz Escarlata de élite. Llévatelo para la visita de grupo posterior.",
 
 	-- Step 36: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
@@ -383,7 +383,7 @@ return {
 
 	-- Step 95: Dusty Reliquary
 	-- {area:2738} Southwind Village · {npc:11801} Rabine Saturna
-	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "",
+	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "El relicario está dentro del edificio en ruinas en el lado sureste de {area:2738}. Cógelo mientras limpias a los centinelas, y dáselo a {npc:11801} la próxima vez que lo veas.",
 	-- {object:179565} Dusty Reliquary
 	["{object:179565}; inside"] = "{object:179565}; adentro",
 

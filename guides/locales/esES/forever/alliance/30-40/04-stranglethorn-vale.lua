@@ -124,7 +124,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} colecciona {item:2755}: casi todos los humanoides de la selva sueltan las páginas. Convierte las páginas en capítulos sobre la marcha.",
 	-- {npc:729} Sin'Dall
-	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "Guárdalo para otra visita: {npc:729} (37) ronda la colina de Cola de Lagarto.",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "guárdala: los Raptores colazote vienen en la segunda vuelta (04b), alrededor de la colina de {npc:729}",
