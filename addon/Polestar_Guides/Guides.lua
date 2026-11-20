@@ -382,8 +382,8 @@ do
 					title = "The ruined catapult and flying machine",
 					note = "Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each.",
 					goals = {
-						{ t = "goto", text = "{npc:266887}", map = 2482, x = 62.6, y = 82.9 },
-						{ t = "goto", text = "{npc:266886}", map = 2482, x = 66.1, y = 83.2 },
+						{ t = "goto", text = "{npc:266887}", map = 2482, x = 62.9, y = 82.9 },
+						{ t = "goto", text = "{npc:266886}", map = 2482, x = 66.1, y = 83.5 },
 					},
 				},
 				{
@@ -584,7 +584,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 96255, title = "Amalgamated Marrow", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spotsPacked = "49.3,77.1,,15,1;48.6,73.5,,15,1,1" },
 						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.3, y = 77.1, spotsPacked = "49.3,77.1,,15,1;48.6,73.5,,15,1,1", note = "{quest:96322}" },
-						{ t = "talk", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spotsPacked = "49.3,77.1,,15,1;48.6,73.5,,15,1,1", note = "{npc:263757}: decide his fate" },
+						{ t = "complete", quest = 96322, title = "A Revenge Now Bitter", map = 2482, x = 49.3, y = 77.2, note = "{npc:263757}: decide his fate" },
 					},
 				},
 				{
@@ -615,8 +615,8 @@ do
 					title = "The Ashen workstations",
 					note = "Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.",
 					goals = {
-						{ t = "goto", text = "Slime Workstation", map = 2482, x = 43.4, y = 76.2 },
-						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 72.5 },
+						{ t = "goto", text = "Slime Workstation", map = 2482, x = 42.5, y = 73.1 },
+						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 68.3 },
 						{ t = "goto", text = "Disease Workstation", map = 2482, x = 46.6, y = 68 },
 						{ t = "goto", text = "Vessel Workstation", map = 2482, x = 49.6, y = 69.6 },
 						{ t = "complete", quest = 95316, title = "The Experimental Method", objs = { { text = "Alchemy Workstation disrupted", count = 1 }, { text = "Slime Workstation disrupted", count = 1 } } },
@@ -683,7 +683,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 96209, title = "The Ancient, Orokai", npc = 216289, npcName = "Orokai", map = 1450, x = 41.45, y = 43.63, z = 454.6, f = "e" },
 						{ t = "accept", quest = 95006, title = "Stolen Power", npc = 216289, npcName = "Orokai", qlvl = 58, pre = { 96209 }, preTitles = { [96209] = "The Ancient, Orokai" }, map = 1450, x = 41.45, y = 43.63, z = 454.6, f = "e", note = "{quest:95006}" },
-						{ t = "talk", npc = 216289, npcName = "Orokai", map = 1450, x = 41.45, y = 43.63, z = 454.6, f = "e", note = "{npc:216289}: ready to watch" },
+						{ t = "complete", quest = 95006, title = "Stolen Power", note = "{npc:216289}: ready to watch" },
 					},
 				},
 				{
