@@ -48,11 +48,12 @@ next forever/horde/50-60/04-azshara
 # - Not taken: Guarding Secrets (4882, 4883, to Nara Wildmane here). The
 #   Blue-feathered Necklace that starts it drops from Winterspring's
 #   Moontouched and Berserk Owlbeasts only after Wild Guardians (4741) is
-#   done, and 4741 is not even accepted until 05-eastern-plaguelands.
+#   done: 4741 is taken from Trull on this guide's Bloodvenom stop and done on
+#   the last guide's Winterspring loop, which takes Guarding Secrets (4882) too.
 #
 # Left open for later guides: The Everlook Report (6029) and Duke Nicholas
 # Zverenhoff (6030, Plaguelands), A Strange One (6605), Runecloth (6031: keep
-# 30 Runecloth for Meilosh), Wild Guardians (4521, Trull in Felwood), Falling
+# 30 Runecloth for Meilosh), Wild Guardians' next part (4741, Trull), Falling
 # to Corruption (5084) and Winterfall Ritual Totem (8471, both in Felwood),
 # The Videre Elixir (3909, back to Donova), Are We There, Yeti? (5163: the
 # goblins in Tanaris and Un'Goro), Rabine Saturna (1123, Moonglade) and the
@@ -177,6 +178,7 @@ step Gregan Brewspewer
   accept 4041
 
 step Evoroot
+  when onquest 3909
   tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
   collect 11242 quest 4041.1 @44.5,10.2 map 1444
 

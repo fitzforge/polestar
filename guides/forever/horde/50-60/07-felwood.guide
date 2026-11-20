@@ -50,12 +50,12 @@ step Orgrimmar
 #   Blackrock Spire), Alterac Mountains (7241: a battleground quest, dropped
 #   with its accept), Ratchet and Duke Hydraxis after 60 (4502, 6804, 6805).
 # - The Undercity stop moved first (the route starts next to it) and holds no
-#   quests any more: Champion of the Banshee Queen (5961) and the Eastern
-#   Plaguelands stop (6030, 5142) went to 06; ... and a Batch of Ooze (4294)
+#   quests any more: Champion of the Banshee Queen (5961) is taken in 04 and
+#   handed in in 05, the Duke (6030) in 05; ... and a Batch of Ooze (4294)
 #   needs Un'Goro slime samples the route never collects.
 # - The two Orgrimmar stops are one, on the way to Felwood: the runecloth
 #   donations (7836, 7824). Calm Before the Storm (4509, 4511) went with Pawn
-#   Captures Queen in 06; Betrayed (3507) is turned in by 04.
+#   Captures Queen in 06; Betrayed (3507) is not on the route (Azshara is 02).
 # - No hearth binds: the guide ends where it grinds. The export's binds (the
 #   Undercity, Booty Bay, Orgrimmar, Everlook, Light's Hope) served the
 #   dropped trips.

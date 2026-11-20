@@ -71,9 +71,8 @@ step Winterspring
 #   so the Azshara guide has no second Orgrimmar stop for them.
 # - Binds immediately replaced are dropped (Camp Mojache, Thunder Bluff);
 #   the Orgrimmar bind is kept for the hearth at the end. No bind at
-#   Everlook (0.4.0): no step hearths back there, and the Gadgetzan bind still
-#   set from the Azshara guide makes the trip to Camp Mojache faster (Hearthstone
-#   and a flight from Gadgetzan, about 5 minutes saved in the travel model).
+#   Everlook (0.4.0): no step hearths back there. The trip to Camp Mojache is
+#   now a flight from Bloodvenom Post at the end of Felwood's ride north.
 # - Dropped: In Defense of Frostwolf (7241, a battleground quest); Return to
 #   Tinkee (4810: Burning Steppes, never on the later route) and Duke
 #   Hydraxis' Poisoned Water and Stormers and Rumblers (6804, 6805: the
@@ -92,11 +91,12 @@ step Winterspring
 # - Not taken: Guarding Secrets (4882, 4883, to Nara Wildmane here). The
 #   Blue-feathered Necklace that starts it drops from Winterspring's
 #   Moontouched and Berserk Owlbeasts only after Wild Guardians (4741) is
-#   done, and 4741 is not even accepted until 05-eastern-plaguelands.
+#   done: 4741 is taken from Trull on this guide's Bloodvenom stop and done on
+#   the last guide's Winterspring loop, which takes Guarding Secrets (4882) too.
 #
 # Left open for later guides: The Everlook Report (6029) and Duke Nicholas
 # Zverenhoff (6030, Plaguelands), A Strange One (6605), Runecloth (6031: keep
-# 30 Runecloth for Meilosh), Wild Guardians (4521, Trull in Felwood), Falling
+# 30 Runecloth for Meilosh), Wild Guardians' next part (4741, Trull), Falling
 # to Corruption (5084) and Winterfall Ritual Totem (8471, both in Felwood),
 # The Videre Elixir (3909, back to Donova), Are We There, Yeti? (5163: the
 # goblins in Tanaris and Un'Goro), Rabine Saturna (1123, Moonglade) and the
@@ -124,7 +124,7 @@ step Chillwind chimaeras
 
 step Everlook
   turnin 3783                         -- Umi Rumplesnicker
-  accept 977                          -- Umi: keep it, the Pristine Yeti Horns come on the Eastern Plaguelands guide's Everlook stop at about 57
+  accept 977                          -- Umi: keep it, the Pristine Yeti Horns come on the Eastern Plaguelands guide's Everlook stop at about 56
   turnin 4809                         -- Felnok Steelspring
   note The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop.
 
@@ -213,6 +213,7 @@ step Talo Thornhoof
 # ---------------------------------------------------------------- Feralas
 
 step Evoroot
+  when onquest 3909
   tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
   collect 11242 @44.5,10.2 map 1444
 

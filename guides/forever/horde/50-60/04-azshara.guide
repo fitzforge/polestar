@@ -67,7 +67,7 @@ step Zilzibin Drumlore
 step Zilzibin Drumlore
   when available 4494
   zone Orgrimmar
-  tip Only if March of the Silithid isn't done yet: Zilzibin works in the Drag. Pestlezugg takes it in Gadgetzan on the Eastern Plaguelands guide's way to Un'Goro.
+  tip Only if March of the Silithid isn't done yet: Zilzibin works in the Drag. Pestlezugg takes it in Gadgetzan on the Silithus guide's first stop, after Mount Hyjal.
   accept 4494
 
 step Vehena

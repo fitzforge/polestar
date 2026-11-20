@@ -9,7 +9,7 @@ next forever/50-60/mount-hyjal
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Flow (2026-11-20): one Plaguelands sweep at 56-58. From Felstone Field (end of 50-60/04): the Bulwark -> Dalson's
+# Flow (2026-11-20): one Plaguelands sweep, at about 54.7-56.3 by the level model. From Felstone Field (end of 50-60/04): the Bulwark -> Dalson's
 # Tears -> Andorhal (towers, Chromie's A Matter of Time and Counting Out Time) -> the Bulwark -> the Writhing Haunt and
 # Mulgris -> the Eastern Plaguelands loop (Tirion's hunts, Light's Hope Chapel, Darrowshire, Marlene and Chromie by the
 # Tarren Mill flight, Nathanos, Terrordale, Plaguewood, Corin's Crossing) -> Carlin -> Nathanos -> Tirion (Redemption,
@@ -230,6 +230,8 @@ step Light's Hope Chapel
   accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   accept 5181
   note Carlin's Heroes of Darrowshire needs a group in Hearthglen and a ride back here at the end: leave it.
+# Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
+# handed in on this guide, the bind and hearth are no longer as described), the steps hold.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #

@@ -39,7 +39,7 @@ step Dalson's Tears farmhouse
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
-  note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
+  note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55.
 
 step Tirisfal Glades
   zone Tirisfal Glades

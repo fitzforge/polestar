@@ -347,12 +347,13 @@ step Torwa Pathfinder
 
 step Tanaris
   zone Tanaris
+  tip Torwa's corner has no flight master: ride north to Marshal's Refuge and fly to Gadgetzan.
   goto 52.4,27.0 "Gadgetzan"
 
 step Gadgetzan
   zone Tanaris
   when has 8564
-  tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
+  tip Still carrying The Super Egg-O-Matic? The machine stands in the middle of Gadgetzan.
   turnin 2741 direct
 
 step Alchemist Pestlezugg

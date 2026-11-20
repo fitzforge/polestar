@@ -230,6 +230,8 @@ step Marvon Rivetseeker
 # ---------------------------------------------------------------- On to Silithus
 
 step On to Silithus
+# Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
+# handed in on this guide, the bind and hearth are no longer as described), the steps hold.
   zone Un'Goro Crater
   tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
   fly "Marshal's Refuge"

@@ -17,14 +17,14 @@ next forever/horde/50-60/02-felwood
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 # 0.4.0 level tidy (mobs 2+ over the player done where they fit): Beware of Pterrordax's Frenzied Pterrordax (4501.2,
 # 51-54) are killed on the pylon loop at about 52, its Pterrordax (50-52) on the first loop; Pawn Captures Queen (4507)
-# is taken on 50-60/05's Gadgetzan stop and worked on 50-60/06's Un'Goro loop; A Plague Upon Thee (5901) is taken at
+# is taken on 50-60/06's Gadgetzan stop and worked on its Un'Goro loop; A Plague Upon Thee (5901) is taken at
 # the Bulwark on 50-60/04 and worked on 50-60/05's Terrordale stop. Super Sticky (4504) stays on the first loop: its tar drops from the Tar
 # Beasts (50-51) and Creepers (51-52) too. The Rise of the Machines (4061, War Reavers 53-55) is left out (no later
-# Burning Steppes visit). A short top-up to 51 on Larion's Threshers (only below 51) opens the crater, in place of the
-# three small grinds it had; the Trappers and Gorishi (52-53) get Careful tips. Krom'Grul (3822, level 54 alone in his
+# Burning Steppes visit). No grind opens the crater any more (the Horde route arrives at about 51); the Trappers and
+# Gorishi (52-53) get Careful tips. Krom'Grul (3822, level 54 alone in his
 # caves) is offered from level 53, with no top-up for it. Bungle in the Jungle (4496) needs March of the Silithid from
-# 40-50/06 (level 50); without it, 50-60/04-06 take both later. The Jediga deliveries moved to 50-60/04 (Andron Gant
-# there).
+# 40-50/06 (level 50); without it, 50-60/04-06 take both later. The Jediga deliveries are taken in 50-60/02's Azshara
+# (Andron Gant takes his in 50-60/04).
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -58,7 +58,7 @@ step Un'Goro Crater
 # - Dropped: The Mighty U'cha (4301): U'cha lives in the north-east cave and
 #   Torwa in the south-east corner, so it costs two extra crossings of the
 #   crater for 5,650 XP.
-# - Grind: the top-up to 51 opens the crater (see the note at the top).
+# - Grind: none (the old top-up to 51 is gone).
 # - Bungle in the Jungle (4496) is turned in when the hearth lands in Gadgetzan
 #   instead of on a later Tanaris visit.
 # - The Kargath bind is dropped (replaced unused); the Light's Hope Chapel

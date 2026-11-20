@@ -9528,8 +9528,10 @@ test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Ve
 // Horde 50-60 audit (0.4.0), travel sweep of the Hearthstone binds: Winterspring bound at Everlook and no step hearthed
 // back there; the guide leaves Everlook by flight for Camp Mojache, which the Gadgetzan bind (set in the Azshara guide
 // at 50 and still in force) makes about 5 minutes shorter (Hearthstone to Gadgetzan, then the flight), and dropping it
-// changes nothing outside the guide. The Orgrimmar bind of the next guide stays (its hearth from Valormok).
-test('forever/horde/50-60/03-winterspring.guide: no Everlook bind, the Gadgetzan bind carries the trip to Camp Mojache', { skip }, () => {
+// changes nothing outside the guide. The Orgrimmar bind of the next guide stays (its hearth from Valormok). Since the
+// 2026-11-20 round the guide reaches Camp Mojache by the flight from Bloodvenom Post after Felwood; the check that
+// Winterspring binds nowhere still holds.
+test('forever/horde/50-60/03-winterspring.guide: no Everlook bind, Orgrimmar stays bound for the next guide', { skip }, () => {
 	assert.ok(!goals('forever/horde/50-60/03-winterspring.guide').some(({ goal }) => goal.t === 'sethome'), 'no bind in the Winterspring guide');
 	assert.ok(goals('forever/horde/50-60/04-azshara.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Orgrimmar'), 'Orgrimmar is still bound in the Azshara guide');
 	assert.ok(goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Gadgetzan'), 'the Gadgetzan bind it relies on');
