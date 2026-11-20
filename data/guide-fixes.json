@@ -5475,6 +5475,25 @@
 			]
 		},
 		{
+			"id": "h3040-stv-sindall-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 188,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"when": "level>=36",
+			"tip": "North from Grom'gol to the hilltop just south-west of Nesingwary's camp: Sin'Dall prowls there alone. Careful: Sin'Dall (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes.",
+			"note": "Sin'Dall (729) is level 37: the end of 30-40/03, after the level 36 top-up at Grom'gol, is the first point of the guide where he is no more than one over the player. The hunt and Ajeck's hand-in come there instead of on the 40-50 visit.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 729 Sin'Dall, level 37, map 1434 31.8,16.4; quests.json 188 ender 717"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-elder-tigers",
 			"faction": "Horde",
 			"at": {

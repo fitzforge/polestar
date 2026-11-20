@@ -4514,7 +4514,7 @@
 					188
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15): Tiger Mastery's Sin'Dall (188, a single level 37 tiger) is two over the player at Nesingwary's camp on 30-40/03 (players' recorded 25th percentile 35.8 caps the level there at 35, so no top-up helps). Ajeck gives it on that stop and it is carried; the tiger and the hand-in come on the 40-50 Stranglethorn visit's Nesingwary stop at about 40, after 30-40/03 ends on Mok'thardin's hand-in."
+				"why": "Horde level tidy (2026-11-15): Tiger Mastery's Sin'Dall (188, a single level 37 tiger) is two over the player at Nesingwary's camp on 30-40/03 (players' recorded 25th percentile 35.8 caps the level there at 35, so no top-up helps); Ajeck gives it on that stop. Horde 30-40 (2026-11-20): instead of riding through four guides to the 40-50 Stranglethorn visit, the tiger and the hand-in come at the end of 30-40/03, after Mok'thardin's hand-in at Grom'gol and the level 36 top-up, `when level>=36` (Sin'Dall one over, with a Careful tip): about 1.5 km north to his hilltop and Ajeck and back to the zeppelin tower, for 2,850 XP. 40-50/01's Sin'Dall steps (`when onquest 188`) stay for a player who reaches 30-40/03's end below 36."
 			},
 			{
 				"a": [
