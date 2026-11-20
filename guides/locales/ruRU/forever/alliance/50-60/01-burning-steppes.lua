@@ -195,36 +195,27 @@ return {
 	-- {area:199} Felstone Field · {zone:1452} Winterspring
 	["keep it: the {area:199} cauldron waits for the {zone:1452} guide's Chillwind stop, at about 55"] = "сохраните: котел ({area:199}) ждет остановки в лагере Промозглого Ветра в гайде по зоне {zone:1452}, примерно на 55",
 
-	-- Step 45: Janice Felstone
-	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
-	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "Призрак {npc:10778} бродит у дома ({area:199}) к западу от места {area:200}; ее посылка лежит внутри.",
-	["Upstairs"] = "Наверху",
-	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "{object:175894}, внутри",
-	-- {zone:1453} Stormwind
-	["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
-
-	-- Step 46: Fly to Morgan's Vigil
+	-- Step 45: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["Fly to {area:2418}"] = "Летите сюда: {area:2418}",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Распорядитель полетов: {area:3197}",
 
-	-- Step 47: Fly to Lakeshire
+	-- Step 46: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "Летите сюда: {area:69}",
 
-	-- Step 48: Morgan's Vigil flight master
+	-- Step 47: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "Распорядитель полетов: {area:2418}",
 	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
 	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "Езжайте на восток из места {area:69} и вверх по перевалу в зону {zone:1428}: {area:2418} – наверху.",
 
-	-- Step 49: Morgan's Vigil
+	-- Step 48: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "",
 
-	-- Step 50: Level 52 at Dreadmaul Rock
+	-- Step 49: Level 52 at Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	["Level 52 at {area:249}"] = "Уровень 52 у места {area:249}",
 	-- {area:249} Dreadmaul Rock · {area:1417} Sunken Temple
@@ -233,137 +224,137 @@ return {
 	-- {npc:7033} Firegut Ogre
 	["grind on {npc:7033}"] = "охота: {npc:7033}",
 
-	-- Step 51: Dreadmaul Rock
+	-- Step 50: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Огры из клана Огненного Чрева занимают большую скалу к северу от Дозора, громилы – на ее восточной стороне.\nОсторожно: по Степям бродят сбежавшие гончие Недр (60-й уровень), несколько – на склонах к западу и югу от места {area:249}: выманивайте огров на самой скале и осматривайтесь перед каждым нападением.",
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}, под землей",
 
-	-- Step 52: Morgan's Vigil
+	-- Step 51: Morgan's Vigil
 	-- {npc:9177} Oralius · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain
 	-- plural, as words: Blackrock Medallions = {item:11467} Blackrock Medallion
 	["{npc:9177}' next tasks ({npc:9176}, and fifty Blackrock Medallions) send you among the Blackrock orcs of 55-58 at the foot of {area:254}: skip them."] = "Следующие задания NPC {npc:9177} ({npc:9176} и пятьдесят медальонов Черной горы) отправят вас к оркам Черной горы 55-58 уровня у подножия места {area:254}: пропустите их.",
 
-	-- Step 53: Flame Crest
+	-- Step 52: Flame Crest
 	-- {area:251} Flame Crest
 	["Follow the road west, then climb north to the goblin camp on {area:251}."] = "Идите по дороге на запад, затем поднимитесь на север к лагерю гоблинов: {area:251}.",
 
-	-- Step 54: Ruins of Thaurissan: kill these as you meet them
+	-- Step 53: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: убивайте их по пути",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Используйте {item:12284} на существе {npc:7047} на склонах к востоку от места {area:251} прямо перед его смертью, затем заберите оставшуюся эссенцию.\nОсторожно: {npc:8981} (56-й уровень, редкий) ходит по склонам у детенышей, а {npc:7040} и драконы вокруг них – элитные: используйте инкарцинатор на детеныше с краю и осматривайтесь перед каждым нападением.",
 
-	-- Step 55: Ruins of Thaurissan
+	-- Step 54: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
 	-- plural, as words: War Reavers = {npc:7039} War Reaver · Thaurissan Firewalkers = {npc:7037} Thaurissan Firewalker
 	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest {area:251}.\nCareful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and {npc:8978} (57) holds the {object:147516} camp south-west of {area:251}: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp."] = "Реликвии – резные камни, разбросанные по месту {area:250} вокруг места {area:251}: нажимайте на них, пока сведения не будут восстановлены. Берите те, что на южном краю руин, ближе к месту {area:251}.\nОсторожно: боевые разорители и огнеходы Тауриссана – 53-55 уровня, а {npc:8978} (57) занимает лагерь ({object:147516}) к юго-западу от места {area:251}: берите реликвии с края руин, выманивайте по одному и держитесь подальше от лагеря.",
 
-	-- Step 56: Flame Crest
+	-- Step 55: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Ends with {quest:4808} in {area:2255}, {zone:1452}: keep it"] = "Завершается заданием «{quest:4808}» ({area:2255}, {zone:1452}): сохраните",
 
-	-- Step 57: Cyrus Therepentous
+	-- Step 56: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Откройте {item:10569} из зоны {zone:1427}, чтобы достать {item:10575}, затем скажите NPC {npc:9459}, что принесли доказательство своих подвигов: сражаться с драконом не придется.",
 	["Below ground"] = "Под землей",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, из клада",
 
-	-- Step 59: A Taste of Flame
+	-- Step 58: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 61: Level 52.08
+	-- Step 60: Level 52.08
 	["Level 52.08"] = "",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "убивайте: {npc:9690}",
 
-	-- Step 62: Morgan's Vigil
+	-- Step 61: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Езжайте по дороге назад на восток к Дозору.",
 
-	-- Step 63: Fly to Nethergarde Keep
+	-- Step 62: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "Летите в {area:1438}",
 
-	-- Step 64: Ambassador Ardalan
+	-- Step 63: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
 	["Ardalan is inside {area:1438}."] = "Ардалан находится внутри крепости ({area:1438}).",
 	-- {npc:3546} Bernie Heisten · {quest:87295} Deflective Surface
 	["{npc:3546}: {quest:87295}, the scales come from the basilisks ahead"] = "{npc:3546}: «{quest:87295}», чешуя – с василисков впереди",
 
-	-- Step 65: Swamp of Sorrows
+	-- Step 64: Swamp of Sorrows
 	-- {zone:1419} Blasted Lands · {zone:1435} Swamp of Sorrows · {npc:10996} Fallen Hero · {area:75} Stonard
 	["Ride north out of the {zone:1419} into the {zone:1435}: the {npc:10996} stands by the road from the {zone:1419}. Keep clear of {area:75}, the Horde town to the north-east."] = "Езжайте на север из зоны {zone:1419} в зону {zone:1435}: {npc:10996} стоит у дороги, ведущей из зоны {zone:1419}. Держитесь подальше от места {area:75} – это город Орды на северо-востоке.",
 
-	-- Step 66: Fallen Hero of the Horde
+	-- Step 65: Fallen Hero of the Horde
 	["Listen to his tale, then ride back south to Kum'isha."] = "Выслушайте его рассказ, затем езжайте назад на юг к Кум'ише.",
 
-	-- Step 67: Back to the Blasted Lands
+	-- Step 66: Back to the Blasted Lands
 	-- {zone:1419} Blasted Lands
 	["Back to the {zone:1419}"] = "Назад в зону {zone:1419}",
 	["Bloodmages' camp"] = "Лагерь магов крови",
 
-	-- Step 68: Blasted Lands: kill these as you meet them
+	-- Step 67: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
 	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: убивайте их по пути",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Езжайте назад на юг в зону {zone:1419} за зверями для магов крови: голодные хохотуны бродят по сухим холмам к югу от лагеря магов крови, скорпоки-острожалы снуют посередине северной части, а черные душегубы ({npc:5982}) кружат над всем этим. Пеплогривые кабаны и краснокаменные василиски обитают на склонах к юго-западу от крепости.\nОсторожно: здесь бродят два элитных противника: {npc:221740} (50) посреди зоны около 44,34 и {npc:247015} (55) на гребне около 39,32. Увидев одного из них, охотьтесь в другом месте.",
 
-	-- Step 70: Kum'isha the Collector
+	-- Step 69: Kum'isha the Collector
 	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear · {spell:10854} Flames of Chaos · {npc:247015} Vek'zol
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him."] = "Кум'иша ждет на холме ({area:2517}) к юго-западу от крепости. Противники зоны {zone:1419} по пути роняют несовершенные фрагменты дренетиста; принесите ей, сколько есть. Подходите к ее холму прямо от крепости, по дороге, и уходите тем же путем.\nОсторожно: Фелкулар, {npc:7664} и Илифар – элитные противники 60-го уровня. Разелих применяет {spell:2691}, {spell:8255} и Истребление, а по мере потери здоровья добавляет {object:141891}, {spell:10854}, а затем Исступление на 15%.\nОсторожно: {npc:247015}, элитный противник 55-го уровня, стоит у холма Кум'иши (около 50,35) и западнее (около 39,32), а лагеря Жуткой Тучи и Клятвы Тени вокруг – 53-55 уровня: добывайте фрагменты с противников по пути от крепости, а не рядом с ним.",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 71: The bloodmages
+	-- Step 70: The bloodmages
 	["The bloodmages"] = "Маги крови",
 	-- {zone:1419} Blasted Lands
 	["Ride north to the bloodmages' camp beside the road into the {zone:1419}."] = "Езжайте на север к лагерю магов крови у дороги в зону {zone:1419}.",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "Вторая ступень заданий магов крови платит за те же части предметом-усилением без опыта: пропустите.",
 
-	-- Step 72: Bernie Heisten
+	-- Step 71: Bernie Heisten
 	-- {npc:3546} Bernie Heisten · {area:1438} Nethergarde Keep
 	["Back to {npc:3546} in {area:1438} before you hearth."] = "Вернитесь к NPC {npc:3546} ({area:1438}), прежде чем использовать камень возвращения.",
 
-	-- Step 73: To Ironforge
+	-- Step 72: To Ironforge
 	-- {zone:1455} Ironforge
 	["Hearth back to {zone:1455}'s inn."] = "Вернитесь камнем возвращения в таверну ({zone:1455}).",
 
-	-- Step 74: Fly to Thelsamar
+	-- Step 73: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Летите сюда: {area:144}",
 
-	-- Step 77: Fly to Ironforge
+	-- Step 76: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 
-	-- Step 80: Royal Historian Archesonus
+	-- Step 79: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}: the relics you read in the Steppes are his."] = "Аркессон стоит рядом с королем Магни ({object:171709}): реликвии, которые вы прочли в Пылающих степях, – для него.",
 
-	-- Step 81: Fly to Menethil Harbor
+	-- Step 80: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 
-	-- Step 83: Fly to Rut'theran Village
+	-- Step 82: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
-	-- Step 84: Rut'theran Village
+	-- Step 83: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "Дикие совухи – в зоне {zone:1452}: сохраните",
 
-	-- Step 87: Darnassus
+	-- Step 86: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "Портал в деревне {area:702} ведет наверх, в город {zone:1457}: {npc:9047} ждет в анклаве ({area:1658}) на севере города.",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
@@ -371,13 +362,13 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "В городе {zone:1455} нет учителя друидов",
 
-	-- Step 88: Mathrengyl Bearwalker
+	-- Step 87: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217} is upstairs in the druids' building of the {area:1658}: go in by its south door."] = "{npc:4217} – наверху в здании друидов в анклаве ({area:1658}): входите через южную дверь.",
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, наверху",
 
-	-- Step 89: Gracina Spiritmight
+	-- Step 88: Gracina Spiritmight
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740} стоит рядом с Тирандой в Храме Луны, на юге города.",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
@@ -385,11 +376,11 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1422} Western Plaguelands
 	["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "Для NPC {npc:5594} ({area:976}) из гайда по зоне {zone:1422}: сохраните задание",
 
-	-- Step 90: Portal to Teldrassil
+	-- Step 89: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Портал: {zone:1438}",
 
-	-- Step 91: Daryn Lightwind
+	-- Step 90: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} стоит наверху, над NPC {npc:7916}: поднимитесь внутри здания, стрелка не различает этажи.",
 
@@ -401,6 +392,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:150} and take the boat to {area:442}."] = "Летите из города {zone:1455} в {area:150} и сядьте на корабль до места {area:442}.",
 	-- ["Fly from {zone:1455} to {area:69}."] = "Летите из города {zone:1455} в {area:69}.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "Летите в {area:150} и сядьте на корабль до места {area:442}, затем на корабль дальше: {area:702}.",
+	-- ["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "От причала ({area:442}) летите в {area:415}.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Необязательно: {npc:8395} хочет два неповрежденных пера гиппогрифа с гиппогрифов вокруг его лагеря. По данным, опыта за это не дают.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Необязательно: призрак {npc:8888} стоит на своей гробнице на огромной цепи внутри горы ({area:254}), и видят его только мертвые. Если вы все равно погибнете у горы, доберитесь до него духом, прежде чем воскреснуть.",
@@ -419,9 +411,11 @@ return {
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Мощи – это резные камни, разбросанные по руинам ({area:250}) вокруг места {area:251}: щелкайте по ним, пока не восстановите сведения.",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Святилище лежит в юго-западном углу зоны {area:16}, к югу от заставы ({area:3137}).",
 	-- ["The {quest:4296}"] = "{quest:4296}",
+	-- ["Upstairs"] = "Наверху",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Используйте {item:12284} на противнике {npc:7047} на склонах к востоку от места {area:251} незадолго до его смерти, затем заберите оставшуюся эссенцию.",
 	-- ["Wildkin feathers"] = "Перья диких совухов",
 	-- ["{area:199} cauldron"] = "Котел: {area:199}",
+	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "Призрак {npc:10778} бродит у дома ({area:199}) к западу от места {area:200}; ее посылка лежит внутри.",
 	-- ["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075} охраняет котел ({area:199}) к западу от Андорала.",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363} ждет на холме к юго-западу от крепости ({area:2517}). С существ зоны {zone:1419} по пути падают несовершенные фрагменты дренетиста; принесите ей, сколько есть.",
@@ -429,5 +423,6 @@ return {
 	-- ["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420} стоит лагерем на севере ({area:1219}); его снаряжение разбросано по всему месту {area:1220} сразу к юго-востоку от него.",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176} и орки из клана Черной Горы занимают лагеря и крепость у подножия горы ({area:254}), к западу от места {area:251}. Выманивайте их по одному; медальон может выпасть с любого орка и ворга, так что убивайте, пока не наберете пятьдесят.\nОсторожно: с NPC {npc:9176} связан страж, который вступит в бой, а рядом патрулирует второй солдат; перебейте патруль, прежде чем нападать.\nОсторожно: по Пылающим степям бродят Огнеклятые, элементали огня 60-го уровня, иногда между лагерями Черной Горы: осматривайтесь перед каждым нападением и пропускайте их.",
 	-- ["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177}: медальоны падают с орков из клана Черной Горы, держите задание открытым всё время в Пылающих степях",
+	-- ["{object:175894}, inside"] = "{object:175894}, внутри",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "В городе {zone:1455} нет учителя друидов: поднимитесь порталом в город {zone:1457}, обучитесь в анклаве ({area:1658}) и спуститесь назад: {area:702}.",
 }

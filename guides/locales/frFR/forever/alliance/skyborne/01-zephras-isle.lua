@@ -249,6 +249,10 @@ return {
 	-- Step 56: Valanaar, the turncoat
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}, le traître",
+	-- {npc:252448} Alvarion Windfield · {npc:252359} Lotheluum Starbreeze · {npc:259012} Ealaane Nimbuswalker
+	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "",
+	-- {npc:252448} Alvarion Windfield
+	["Listen to {npc:252448}'s story"] = "Écoutez l'histoire de {npc:252448}",
 
 	-- Step 57: Valanaar
 	-- {npc:252383} Valennia Stormfist · {npc:252476} Talaanis Shadowsong · {area:16638} Valanaar · {npc:252475} Elaadrin Evengale · {npc:253204} Dondallion Whisperwind
@@ -277,8 +281,6 @@ return {
 	["{npc:252389}, beside {npc:257006}: the first {item:15908}"] = "{npc:252389}, à côté de {npc:257006} : le premier {item:15908}",
 	-- {npc:255940} Donaal Downbreeze
 	["Innkeeper {npc:255940}, by the west gate"] = "L'aubergiste {npc:255940}, près de la porte ouest",
-	-- {npc:252448} Alvarion Windfield
-	["Listen to {npc:252448}'s story"] = "Écoutez l'histoire de {npc:252448}",
 	-- {npc:257006} Nyalah Brightfire
 	["{npc:257006}, inside"] = "{npc:257006}, à l'intérieur",
 

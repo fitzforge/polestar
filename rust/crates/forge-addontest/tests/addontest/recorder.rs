@@ -587,3 +587,54 @@ fn on_forever_the_player_s_full_name_with_its_surname_is_put_back_as_the_name_to
 		emit({ text = recs("text") })"#);
 	assert_eq!(out["text"], json!(["text|7|Kobold Camp Cleanup|Well met, $N.|$N, they say."]));
 }
+
+/// Walking helpers for the height mark (the Recorder turned on): `walk(n, z, speed)` takes n one-second steps of
+/// 10.4 yd along Elwynn at the client height z (nil: the client's 0) and own speed (7 unless given), `marks()` the
+/// text of every `mark` once the chunks are stored.
+const HEIGHT: &str = r#"
+cmd("on")
+local W = stub.world
+local x = 10
+local function walk(n, z, speed)
+	W.moving, W.speed = true, speed or 7
+	for _ = 1, n do x = x + 0.2; stub.moveTo(x, 50); W.z = z; stub.advance(1) end
+	W.moving, W.speed = false, 0
+end
+local function marks()
+	logout()
+	local out = {}
+	for _, r in ipairs(all()) do if r[1] == "mark" then out[#out + 1] = r[#r] end end
+	return out
+end
+"#;
+
+#[test]
+fn once_a_session_a_mark_says_what_the_client_gives_for_the_player_s_height_after_ten_steps_on_foot() {
+	let zero = run(&format!("{HEIGHT}{}", r#"walk(12); emit(marks())"#));
+	assert_eq!(zero, json!(["height: zero"]));
+	let fixed = run(&format!("{HEIGHT}{}", r#"walk(12, 33.25); emit(marks())"#));
+	assert_eq!(fixed, json!(["height: fixed"]));
+	// Carried steps don't count (else ten 0s would say "zero"), nine steps say nothing yet, the tenth says
+	// "mixed", and a height that changes says "real" once more.
+	let mixed = run(&format!(
+		"{HEIGHT}{}",
+		r#"
+		walk(12, nil, 0)            -- carried on a deck: no steps of the player's own
+		stub.advance(6)             -- docked: still for 5 ticks ends the ride
+		walk(9)                     -- 0 every time
+		walk(1, 12.5)
+		walk(1, 14)
+		walk(5, 15)
+		emit(marks())"#
+	));
+	assert_eq!(mixed, json!(["height: mixed", "height: real"]));
+	let none = run(&format!(
+		"{HEIGHT}{}",
+		r#"
+		local position = UnitPosition
+		function UnitPosition(unit) local a, b, _, c = position(unit); return a, b, nil, c end
+		walk(12)
+		emit(marks())"#
+	));
+	assert_eq!(none, json!(["height: none"]));
+}

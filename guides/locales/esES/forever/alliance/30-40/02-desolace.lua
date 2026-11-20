@@ -72,16 +72,17 @@ return {
 
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
 	-- Step 14: Kolkar Village
-	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
-	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Los Kolkar recorren las llanuras alrededor de {area:609}; sus orejas son para {npc:5752}.",
+	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
+	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
 	-- Step 15: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
@@ -107,6 +108,7 @@ return {
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Toma el barco a {area:442} en los muelles de Puerto de Menethil. {npc:3649} está en {area:442}, al norte del maestro de vuelo.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "La caravana Gizelton espera en {area:2407}.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.",
+	-- ["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Los Kolkar recorren las llanuras alrededor de {area:609}; sus orejas son para {npc:5752}.",
 	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Los escórpidos Scorpashi cazan en las colinas alrededor de {area:2407}, en el camino al sur.",
 	-- ["The {area:1276}"] = "{area:1276}",
 	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Usa el {item:13892} de {npc:11596} en un {npc:4700} y lleva el kodo domado a su campamento, cinco veces; los Kodos envejecidos también sueltan los pellejos.",
