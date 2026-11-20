@@ -66,24 +66,24 @@ return {
 	-- Step 15: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "",
+	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303}是小队任务：营地西边的废墟里有30个黑铁精英（27-31级）。单人就跳过。",
 	-- {npc:1074} Motley Garmason
-	["{npc:1074}, in the camp"] = "",
+	["{npc:1074}, in the camp"] = "{npc:1074}，在营地里",
 
 	-- Step 16: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
-	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "",
+	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756}是小队任务：{item:280806}在{area:1016}的{object:147516}营地里，位于{area:205}东南，就在那群精英矮人中间。单人就跳过。",
 	-- {npc:1073} Ashlan Stonesmirk
-	["{npc:1073}, in the camp"] = "",
+	["{npc:1073}, in the camp"] = "{npc:1073}，在营地里",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "这些都是精英怪物：黑铁矮人、坑道者、破坏者和爆破手（27-31级）挤满了营地西边的废墟；{npc:1364}（34级，精英）在其中走动。",
 
 	-- Step 18: Direforge Hill
 	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "这些都是精英怪物：丹莫罗东南约500码，黑铁在{area:1016}扎营：{item:280806}就在他们的帐篷之间。然后折返，经过营地向北前往{area:880}。",
 
 	-- Step 19: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: Motley Garmason
 	-- {npc:1075} Rhag Garmason
-	["in the camp, beside {npc:1075}"] = "",
+	["in the camp, beside {npc:1075}"] = "在营地里，{npc:1075}旁边",
 
 	-- Step 23: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
@@ -130,16 +130,16 @@ return {
 
 	-- Step 29: Howin Kindfeather
 	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
-	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "",
+	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "{quest:98291}是小队任务：{area:17716}有16个龙喉精英（29-30级），就在{npc:270637}东边。单人就跳过。",
 
 	-- Step 30: Dragonmaw Retreat
 	-- {npc:270637} Howin Kindfeather
 	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "这些都是精英怪物：龙喉夺回者、缚魂者和渗透者（29-30级，精英）就在{npc:270637}东边扎营。",
 
 	-- Step 31: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather
-	["back west to {npc:270637}"] = "",
+	["back west to {npc:270637}"] = "向西返回{npc:270637}处",
 
 	-- Step 32: Prospector Whelgar
 	["Below ground"] = "在地下",
