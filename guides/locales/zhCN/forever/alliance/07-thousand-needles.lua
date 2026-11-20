@@ -119,7 +119,7 @@ return {
 	["{npc:663}'s hunt: reach 30 or keep it for later"] = "",
 	-- {area:42} Darkshire · {quest:173} Worgen in the Woods · {area:121} Tranquil Gardens Cemetery · {npc:663} Calor · {npc:661} Jonathan Carevin
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
-	["To finish the hunt here, pull lone Nightbane Dark Runners (28–29) west of {area:42} until 30. Stay near the road and leave Fenros (32) alone; don't chase runners into the cemetery packs.\nPrefer to keep questing? Tick the keep-in-log line and leave {quest:173} in your log. At 30, track it west of {area:121}. Bring the kills to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
+	["To finish the hunt here, pull lone Nightbane Dark Runners (28–29) west of {area:42} until 30. Stay near the road and leave Fenros (32) alone; don't chase runners into the cemetery packs. Or, with a group, run the Scarlet Monastery Graveyard instead.\nPrefer to keep questing? Tick the keep-in-log line and leave {quest:173} in your log. At 30, track it west of {area:121}. Bring the kills to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
 	-- {quest:173} Worgen in the Woods
 	["Keep {quest:173} in my log for level 30"] = "",
 
@@ -127,7 +127,7 @@ return {
 	-- {npc:663} Calor
 	["Keep {npc:663}'s hunt for level 30"] = "",
 	-- {quest:173} Worgen in the Woods · {area:121} Tranquil Gardens Cemetery · {npc:663} Calor · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["Leave the Nightbane alone. Keep {quest:173} in your quest log and earn levels elsewhere. At 30, track the hunt west of {area:121}. Return to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
+	["Leave the Nightbane alone. Keep {quest:173} in your log and carry on with the guide. At 30, track the hunt west of {area:121}. Return to {npc:663} by the {area:42} town hall, then take his note to {npc:661}."] = "",
 
 	-- Step 30: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras

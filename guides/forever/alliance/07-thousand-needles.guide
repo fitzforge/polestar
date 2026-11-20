@@ -167,9 +167,9 @@ step Back to Darkshire
 step Calor's hunt: reach 30 or keep it for later
   when onquest 222
   when !complete 222
-  when level>=28
+  when level>=29.5
   when level<30
-  tip To finish the hunt here, pull lone Nightbane Dark Runners (28–29) west of Darkshire until 30. Stay near the road and leave Fenros (32) alone; don't chase runners into the cemetery packs.
+  tip To finish the hunt here, pull lone Nightbane Dark Runners (28–29) west of Darkshire until 30. Stay near the road and leave Fenros (32) alone; don't chase runners into the cemetery packs. Or, with a group, run the Scarlet Monastery Graveyard instead.
   tip Prefer to keep questing? Tick the keep-in-log line and leave Worgen in the Woods in your log. At 30, track it west of Tranquil Gardens Cemetery. Bring the kills to Calor by the Darkshire town hall, then take his note to Jonathan Carevin.
   goto 67.13,49.61 "Nightbane Dark Runners" map 1431 era
   level 30 grind 205 either
@@ -178,8 +178,8 @@ step Calor's hunt: reach 30 or keep it for later
 step Keep Calor's hunt for level 30
   when onquest 222
   when !complete 222
-  when level<28
-  tip Leave the Nightbane alone. Keep Worgen in the Woods in your quest log and earn levels elsewhere. At 30, track the hunt west of Tranquil Gardens Cemetery. Return to Calor by the Darkshire town hall, then take his note to Jonathan Carevin.
+  when level<29.5
+  tip Leave the Nightbane alone. Keep Worgen in the Woods in your log and carry on with the guide. At 30, track the hunt west of Tranquil Gardens Cemetery. Return to Calor by the Darkshire town hall, then take his note to Jonathan Carevin.
   task "Keep Worgen in the Woods in my log for level 30"
 
 step Nightbane Vile Fangs and Tainted Ones

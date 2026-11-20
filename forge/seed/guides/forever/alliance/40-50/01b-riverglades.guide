@@ -381,12 +381,14 @@ step Apprentice Claire
   turnin 95562
 
 step Back to Claire for the filled catalyst
+  when turnedin 95562
   when available 94884
   when !indoors
   tip If you left after giving Claire the heads, use the cave mouth to collect her delivery for Farholde.
   goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
 
 step Claire's message for Farholde
+  when turnedin 95562
   when available 94884
   accept 94884                          -- An Unsettling Discovery: for Ashe Amberhall in Farholde Keep
 

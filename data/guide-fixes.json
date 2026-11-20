@@ -159,6 +159,22 @@
 			"issue": 2900
 		},
 		{
+			"id": "sunnyglade-claire-message-after-the-heads",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 94884,
+				"goal": "accept"
+			},
+			"when": "turnedin 95562",
+			"note": "Claire offers An Unsettling Discovery after both heads have been handed in. Do not lead a solo player who skipped the elite hunt back to the cave for her message.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Quest 94884 lists 95562 as its prerequisite. The head hand-in, not just its ready flag, opens the message."
+			},
+			"issue": 2900
+		},
+		{
 			"id": "sunnyglade-claire-return-94884",
 			"faction": "Alliance",
 			"at": {
@@ -175,11 +191,12 @@
 				},
 				"label": "Sunnyglade cave mouth",
 				"when": [
+					"turnedin 95562",
 					"available 94884",
 					"!indoors"
 				]
 			},
-			"note": "Use the eastern cave mouth on the return only when Claire has business for this character; keep the giver inside.",
+			"note": "Lead a player with this offer to the cave mouth without moving Claire out of the cave. A missing or unpaid head does not open the way back.",
 			"source": {
 				"kind": "recording",
 				"ref": "The live entrance marked in #2900."
@@ -6887,7 +6904,7 @@
 				"guide": "forever/alliance/30-40/06b-desolace"
 			},
 			"tip": "Hearth to Nijel's Point if you're bound there and the stone is ready. From the inn, turn in what's ready as you head south: Brother Anton, Kreldig, then Captain Pentigast. On foot, take the road east from Ethel Rethor and up the pass. If you have all five carved totems, the captain takes them at the entrance.",
-			"note": "The inn is north of Anton, Kreldig and the captain. The road enters from the south beside the captain. Players who already delivered the totems on the first visit can go straight to Anton and finish at Kreldig, near the flight master.",
+			"note": "The inn is north of Anton, Kreldig and the captain. Follow the inn-to-flight-master order: Anton, Kreldig, then Pentigast for any totems still in the bags. The road from Ethel Rethor passes the captain on entry, so a player can pay him there instead; he is not due twice.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -12983,7 +13000,7 @@
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/07-thousand-needles", "quest": 222, "goal": "objective", "objective": 1 },
 			"when": "level>=30",
-			"note": "Both cemetery hunts in the seed require an unfinished hunt and actual level 30. At the last Darkshire stop a player still at 28–29 can top up on Dark Runners or keep the hunt for later; below 28 only the quest-log option is offered.",
+			"note": "Both cemetery hunts in the seed require an unfinished hunt and actual level 30. At the last Darkshire stop, offer Dark Runners only within half a level of 30. Below 29.5 keep the hunt and continue; a group can choose the Scarlet Monastery Graveyard instead of farming.",
 			"source": [{ "kind": "questie", "ref": "Nightbane Dark Runner 205 is 28–29; Vile Fang 206 is 29–30 and Tainted One 920 is 30–31. The Dark Runner west of Darkshire at 67.13,49.61 in the Era frame is separate from the cemetery packs." }],
 			"pr": 3144
 		},

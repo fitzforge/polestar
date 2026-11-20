@@ -154,6 +154,10 @@ test('Riverglades: enter Claire’s cave for an available pickup or a ready rewa
 			local i=visit('turnin',95642);local j=visit('turnin',95643);E.SkipUpTo(i-1);stub.advance(.6);
 			local right=E.GetLiveStep()==j-1;local door=point();inside();emit({right,door,E.GetLiveStep()==j,point()})`);
 		assert.deepEqual(some,[true,mouth,true,npc], 'one ready sibling is payable; the other does not send the player back');
+		for (const state of ['', 'w.onQuest(95562,{1,1});w.finish(95562)', 'w.complete({95562});w.onQuest(94884,{})', 'w.complete({95562,94884})']) {
+			const bypass=play('w.complete({95642,95643});'+state, `local i=visit('accept',94884);E.SkipUpTo(i-1);stub.advance(.6);emit(E.GetLiveStep()>i)`);
+			assert.equal(bypass,true,'no cave or pickup for skipped or unpaid heads, or a message already accepted or paid');
+		}
 		const after=play('w.complete({95642,95643,95562})', `local i=visit('accept',94884);E.SkipUpTo(i-1);stub.advance(.6);local door=point();inside();emit({door,E.GetLiveStep()==i,point()})`);
 		assert.deepEqual(after,[mouth,true,npc], 'the already-paid heads still open the delivery');
 	} finally { pack.dispose(); }
@@ -2283,7 +2287,9 @@ test('Alliance Nijel’s Point: leave Anton with his letter before the last stop
 			if g.quest==261 or g.quest==1052 or g.quest==1455 or g.quest==93224 then emit(g.quest) end`);
 		for (const [state, level, x, y, carried, expected] of [
 			['at the inn, totems already paid', 38, 66.27, 6.55, `w.complete({93224}); ${anton}`, [261, 1052, 1455]],
-			['from the pass with five totems', 38, 66.77, 11.51, `${totems}; ${anton}`, [93224, 261, 1052, 1455]],
+			['at the inn with five totems', 38, 66.27, 6.55, `${totems}; ${anton}`, [261, 1052, 1455, 93224]],
+			['keeps the totems for the return past the flight master', 38, 66.77, 11.51, `${totems}; ${anton}`, [261, 1052, 1455, 93224]],
+			['pays the captain while coming up the pass', 38, 66.56, 10.9, `${totems}; w.turnIn(93224); ${anton}`, [261, 1052, 1455]],
 		]) {
 			const actions = playGuide(pack, guide, { race: 'NightElf', faction: 'Alliance', cls: 'HUNTER',
 				before: `w.level=${level}; w.moveTo(1443,${x},${y}); w.complete({1454}); w.onQuest(1455,{}); ${carried}`,
@@ -4091,18 +4097,21 @@ test(`${THOUSAND_NEEDLES}: Calor's cemetery hunt waits for actual level 30; his 
 		const crypt = step('collect', 177), ogres = step('collect', 181), westReturn = step('turnin', 252);
 		assert.ok(crypt && crypt < step('turnin', 177) && step('accept', 181) < ogres && ogres < westReturn);
 		const held = 'w.complete({173,221}); w.onQuest(222,{8,8})';
+		const at29 = xp => `${held}; w.xp,w.xpMax=${xp},44300`;
 		const kill = ['kill:206', 'kill:920'], pay = ['turnin:222', 'accept:223', 'turnin:223'];
 		const chain = ['accept:173', 'kill:533', 'turnin:173', 'accept:221', 'kill:205', 'turnin:221', 'accept:222'];
 		for (const [state, level, setup, atOgres, expected, visit, choice] of [
 			['fresh at 31', 31, '', '', [...chain, ...kill, ...pay], 'first'],
 			['carrying at 30', 30, held, '', [...kill, ...pay], 'first'],
 			['dings on western loop', 29, held, 'w.setLevel(30)', [...kill, ...pay], 'late'],
-			['takes the local top-up at 29', 29, held, '', ['top-up', ...kill, ...pay], 'late'],
-			['takes the local top-up at 28', 28, held, '', ['top-up', ...kill, ...pay], 'late'],
-			['chooses to keep the hunt at 29', 29, held, '', ['top-up'], 'late', 'keep'],
-			['skips the grind at 28', 28, held, '', ['top-up'], 'late', 'skip'],
+			['still a full level short', 29, at29(0), '', ['keep in log'], 'late', 'keep'],
+			['one XP short of halfway', 29, at29(22149), '', ['keep in log'], 'late', 'keep'],
+			['at halfway takes the local top-up', 29, at29(22150), '', ['top-up', ...kill, ...pay], 'late'],
+			['past halfway chooses to keep the hunt', 29, at29(22151), '', ['top-up'], 'late', 'keep'],
+			['skips the grind at halfway', 29, at29(22150), '', ['top-up'], 'late', 'skip'],
+			['two levels short', 28, held, '', ['keep in log'], 'late', 'keep'],
 			['below the Dark Runners at 27', 27, held, '', ['keep in log'], 'late', 'keep'],
-			['finishes the hunt externally during the choice', 29, held, '', ['top-up', ...pay], 'late', 'ready'],
+			['finishes the hunt externally during the choice', 29, at29(22150), '', ['top-up', ...pay], 'late', 'ready'],
 			['finished elsewhere at 29', 29, `${held}; w.finish(222)`, '', pay, 'arrival'],
 			['finished during western loop', 29, held, 'w.finish(222)', pay, 'late'],
 			['hunt already rewarded', 29, 'w.complete({173,221,222})', '', pay.slice(1), 'arrival'],
@@ -4113,14 +4122,14 @@ test(`${THOUSAND_NEEDLES}: Calor's cemetery hunt waits for actual level 30; his 
 			const script = SIMULATE.replace('local function act(i, g, r)', `local function act(i, g, r)
 				if r.t == 'collect' and r.quest == 181 then ${atOgres} end
 				if r.t=='goto' and G.steps[i].goals[2] and G.steps[i].goals[2].grind==205 then
-					assert(E.GetLiveStep()==i and w.level>=28 and w.level<30 and w.log[222])
+					assert(E.GetLiveStep()==i and w.level==29 and w.xp*2>=w.xpMax and w.log[222])
 					local rows=E.GetStepView(i).goals
 					assert(rows[3].t=='task' and rows[3].manual and rows[3].status~='na' and rows[3].status~='done', 'keeping the quest must be a visible alternative to grinding')
 					assert(r.map==1431 and math.abs(r.x-67.13)<.02 and math.abs(r.y-49.61)<.02, 'marked Dark Runner camp')
 					emit({action='top-up', step=i})
 					${choice === 'keep' ? 'E.ToggleGoal(i,3); stub.advance(.6); return' : choice === 'skip' ? 'E.Skip(); stub.advance(.6); return' : choice === 'ready' ? 'w.finish(222); stub.advance(.6); return' : ''}
 				elseif r.t=='task' then
-					assert(E.GetLiveStep()==i and w.level<28 and w.log[222] and g.manual, 'a visible keep-in-log instruction without a grind')
+					assert(E.GetLiveStep()==i and (w.level<29 or w.level==29 and w.xp*2<w.xpMax) and w.log[222] and g.manual, 'a visible keep-in-log instruction without a grind')
 					emit({action='keep in log',step=i})
 				end
 				if r.quest==173 or r.quest==221 or r.quest==222 or r.quest==223 then

@@ -142,7 +142,6 @@ step Azore Aldamort
 
 step Nijel's Point
   tip Hearth to Nijel's Point if you're bound there and the stone is ready. From the inn, turn in what's ready as you head south: Brother Anton, Kreldig, then Captain Pentigast. On foot, take the road east from Ethel Rethor and up the pass. If you have all five carved totems, the captain takes them at the entrance.
-  turnin 93224                        -- Captain Pentigast
   turnin 261                          -- Brother Anton
   accept 1052                         -- for Raleigh the Devout in Southshore: keep it
   turnin 1466                         -- Kreldig Ungor
@@ -150,6 +149,7 @@ step Nijel's Point
   turnin 1456 optional
   accept 1457                         -- for Roetten Stonehammer in Ironforge: keep it
   accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
+  turnin 93224                        -- Captain Pentigast
 
 step Fly to Theramore
   zone Dustwallow Marsh

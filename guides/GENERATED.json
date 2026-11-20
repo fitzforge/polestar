@@ -9,7 +9,7 @@
     "forever/alliance/05-duskwood.guide": "50b5a48f7a7d3dd8597b809d6b339dc467bfb2ed055e8008b07d12aad33fe971",
     "forever/alliance/06-ashenvale.guide": "2b49421a49198fd9c5ccf52f637e427fd33aa9aa760e2d2cc02f546152443ab9",
     "forever/alliance/06-wetlands.guide": "9d4f046a2d7a4fd7628161aafba7e94c5acc55292dd22b3c3be00fc453a3756c",
-    "forever/alliance/07-thousand-needles.guide": "9967221ac7494b60262dc65433b8140f7f3a9c2e89a5186aea2074b3851cd327",
+    "forever/alliance/07-thousand-needles.guide": "65197e4d4ddbf61874029248eb03d8993e4a9dc0fedc7b8f5ebc47929fc3a762",
     "forever/alliance/30-40/01-hillsbrad-foothills.guide": "2eece85139482df6bf3a1406ee2b38c7af4349f018473f061e78ebf430a5d669",
     "forever/alliance/30-40/02-desolace.guide": "d978a888feda332423bc79a04d0cb43248c3f3dcfd9c63308629faf1fe651d48",
     "forever/alliance/30-40/03-ashenvale.guide": "3ec06593a2df2a1b1bc69843f270ec46e8687fc3b4c134a147b37912f87efa6b",
@@ -17,15 +17,15 @@
     "forever/alliance/30-40/04b-stranglethorn-vale.guide": "4fa1908168ddc183369bfaa01ab4184b9573911df7ddf805938694dfe7b07749",
     "forever/alliance/30-40/05-arathi-highlands.guide": "740aff9d56435f2c82ed368388f269d3653fb64d0a89d17476d8c2cfbbeb4b97",
     "forever/alliance/30-40/06-badlands.guide": "bc7eadead14f11528032b82ca144ee6c0849da3397b043170ac6227a8bb47f4f",
-    "forever/alliance/30-40/06b-desolace.guide": "d4258a859c7d626d43e0b201f65a9c01fbf97859e6c26421883a20305adc3f03",
+    "forever/alliance/30-40/06b-desolace.guide": "d63ffc2af171f1347b56bfa3883a045f96499533a2d82a90a2d3c14cb8f0bcca",
     "forever/alliance/40-50/01-stranglethorn-vale.guide": "3e8e2bb5bfa3556150a1c0a8229d7c74ea6784503d314714bbef25a93d72c2ed",
-    "forever/alliance/40-50/01b-riverglades.guide": "e740e99c0db2e50ad3a88e1ec41dbf97239e3b96be5dd68c03c3abb604ba8796",
+    "forever/alliance/40-50/01b-riverglades.guide": "0acdd2669230a905060c9a80aa117e434a488e9c022c52a79edb73652d3e6f19",
     "forever/alliance/40-50/02-badlands.guide": "67d67111dd1b49619a5607075e9b42a2b662576a0515651f1175056e6788452c",
     "forever/alliance/40-50/03-feralas.guide": "8fa8f8b14a21b3857ac0605006b149bded8af17dc84f3ba9b50df2c2697a37ca",
     "forever/alliance/40-50/04-tanaris.guide": "d828067da456cbb61e72828a87a25aa598438b2324c7a788ce4d07af272ac67b",
     "forever/alliance/40-50/05-the-hinterlands.guide": "28efb56c39e9c802c1717fd9e1b3bb3269f38acb9a0b570385bb7507e7b9c071",
     "forever/alliance/40-50/06-searing-gorge.guide": "84428a24a83167d251b5c9fd6f575d98cc664b02432fbbd26cdd4c873aec980f",
-    "forever/alliance/40-50/07-un-goro-crater.guide": "9d977b04a19bc60f4185a466519d022734234f19c7d5691cd56f00417b0e8eb9",
+    "forever/alliance/40-50/07-un-goro-crater.guide": "1ff6e84224e6ca59e8a69352ef132f1c64ae4d1d5117f73c52bf0806f57e34cb",
     "forever/alliance/50-60/01-burning-steppes.guide": "5ab24048de5cbf087147c0744bf6ab4d8d3f02f9423f4fade89e70c5a70abeed",
     "forever/alliance/50-60/02-felwood.guide": "5c8d9d5fb6f076f4c1d6b78dbebe7f01bc2d0aedc444ac63cd4960c8565ffa6a",
     "forever/alliance/50-60/03-winterspring.guide": "dd0d3ed508087d29302bb10aa21f2ef22e2c9a909557b9c79ecd7e1c78f8835c",
@@ -68,6 +68,6 @@
     "forever/horde/tauren/01-mulgore.guide": "c35d104496d79e6243ce1fe50207b531e3850e5e4661016a5a3a5f804b33fd76",
     "forever/horde/troll/01-durotar.guide": "c476d61af4c6b603b57d362113ba2dfa4c2f29d8f8254a7600e011b81643374a",
     "forever/horde/undead/01-tirisfal-glades.guide": "9e24e07f1f32c2f1da6619059c9e2642fe4e1bb2acbab138739a4d1f1de8b75c",
-    "legs.json": "63cce5fc75a5dd337b449deaebed7225ef9c9485f6aa78bad547cfa2ecf6df8b"
+    "legs.json": "b6473b0b22d5b01b1c64672dff609ff27ad0acb8924136da175d2dd6314d53eb"
   }
 }

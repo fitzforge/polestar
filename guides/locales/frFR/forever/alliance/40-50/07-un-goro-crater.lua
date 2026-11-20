@@ -44,9 +44,9 @@ return {
 
 	-- Step 20: The south dunes
 	["The south dunes"] = "",
-	-- {area:982} Noxious Lair · {area:976} Gadgetzan · {quest:10} The Scrimshank Redemption · {area:981} Gaping Chasm · {area:1938} Broken Pillar · {zone:1446} Tanaris · {npc:9619} Torwa Pathfinder
+	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:982} Noxious Lair · {quest:10} The Scrimshank Redemption · {area:981} Gaping Chasm · {area:1938} Broken Pillar · {zone:1446} Tanaris · {npc:9619} Torwa Pathfinder
 	-- plural, as words: Thistleshrub Rootshapers = {npc:5485} Thistleshrub Rootshaper · Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["The Hazzali tunnels and Thistleshrub Rootshapers can be level 50. Read “XP to go” on the level goal for your remaining experience. The ordinary Dunemaul Ogres (45–46) are on the southern edge of the compound. A full level here is a long grind; you can leave this guide open and earn the balance elsewhere.\nAt 49, if you still need insect parts, resume at the {area:982} and take them to Pestlezugg in {area:976} (50.9,27.0). Already on {quest:10}? Resume at the {area:981} south of the {area:1938}. If your {zone:1446} work is all paid, take the ramp to {npc:9619} (71.6,76.0 in Un'Goro)."] = "",
+	["The Hazzali tunnels and Thistleshrub Rootshapers can be level 50. Read “XP to go” on the level goal for your remaining experience. The ordinary Dunemaul Ogres (45–46) are on the southern edge of the compound. If you are passing {area:976} with Gor'marok's head, hand it to {npc:11758} first. A full level here is a long grind; you can leave this guide open and earn the balance elsewhere.\nAt 49, if you still need insect parts, resume at the {area:982} and take them to Pestlezugg in {area:976} (50.9,27.0). Already on {quest:10}? Resume at the {area:981} south of the {area:1938}. If your {zone:1446} work is all paid, take the ramp to {npc:9619} (71.6,76.0 in Un'Goro)."] = "",
 
 	-- Step 21: Andi Lynn
 	-- {npc:11758} Andi Lynn · {area:976} Gadgetzan
