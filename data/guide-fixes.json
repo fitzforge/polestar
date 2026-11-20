@@ -10927,12 +10927,11 @@
 			"id": "2025-great-lift-wait",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1135,
-				"goal": "objective",
-				"objective": 1
+				"quest": 1100,
+				"goal": "accept"
 			},
-			"tip": "Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.",
-			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. The step's earlier tip (the lift, the cliffs, the venom sacs) is kept in this one.",
+			"tip": "Down the Great Lift into Thousand Needles. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. Henrig Lonebrow's Journal lies a couple of hundred yards north-east of the lift's foot, in Darkcloud Pinnacle, where the Grimtotems (25-27) camp.",
+			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. Since the 2026-11-20 fix round the first Thousand Needles step is Lonebrow's Journal by the lift's foot, so the lift's warning is on it, the step active on the way down.",
 			"source": [
 				{
 					"kind": "recording",

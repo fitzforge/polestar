@@ -15840,10 +15840,11 @@ test(`${ARATHI}: Ironforge to Thelsamar by flight when you know the flight path,
 
 // 0.4.0 route audit (Refs #2025): 30-40/03 sends players down the Great Lift into Thousand Needles for Highperch with no
 // word on the lift; players' recordings show 11 deaths of 3 people there on this guide's way down, none with an attacker
-// recorded (falls). The step says to wait for the lift.
+// recorded (falls). The step says to wait for the lift. Since the 2026-11-20 fix round the first Thousand Needles step,
+// the one active on the way down, is Lonebrow's Journal by the lift's foot: the warning is there.
 test(`${ASHENVALE_30}: the Great Lift step says to wait for the lift`, { skip }, () => {
 	const list = goals(ASHENVALE_30);
-	const sac = list[at(list, 'collect 5809', (g) => g.t === 'collect' && g.item === 5809)];
+	const sac = list[at(list, 'accept 1100', is('accept', 1100))];
 	const tip = [].concat(sac.step.note || []).join(' ');
 	assert.match(tip, /Careful:.*lift is level/, tip);
 	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-great-lift-wait');

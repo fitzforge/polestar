@@ -14,7 +14,9 @@ next forever/alliance/30-40/02-desolace
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 # Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
 # stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
-# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
+# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model. Since the
+# 2026-11-20 fix round, 30-40/03's added Theramore and Raceway quests bring players here above 33.2 (level model: 0 of 28
+# runs top up, 7 did for 3-10 minutes before); the step stays only as a guard for a player who skipped them.
 # Level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (195, 35-36) are hunted on the second loop (04b) at about 36 and
 # Tiger Mastery's Sin'Dall (188, level 37) is optional on that hill from level 36, otherwise on 40-50/01's visit, not here at
 # 33-34; Ajeck and Hemet give them here, where the elder tigers and raptors are handed in. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
@@ -41,7 +43,9 @@ step Boat to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  turnin 1180                         -- Wharfmaster Lozgil, on the dock
+  accept 1181                         -- Wharfmaster Lozgil: for Baron Revilgaz, upstairs in the tavern
   getfp "Booty Bay"
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside
@@ -54,6 +58,8 @@ step Booty Bay
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578
+  turnin 1181                         -- Baron Revilgaz
+  note The Baron's next errand sends you into the Venture Co. house at Lake Nazferiti, among Venture Co. Agents (39): leave it.
 
 step North to Nesingwary's Expedition
   zone Stranglethorn Vale

@@ -14,8 +14,16 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast. Claim Rackmore's Treasure! (6161)
-# is taken from Rackmore's Log beside Karnitol's Chest here and carried to that south loop, where its keys and chest are.
+# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
+# Since the 2026-11-20 fix round Claim Rackmore's Treasure! (6161) is done here: its log lies beside Karnitol's Chest,
+# the silver key drops from the Drysnap crabs around the wreck (33-35), the golden key from the Slitherblade naga of
+# the coast north of it (32-35) and the chest stands at the coast's northern tip, so the coast is walked once, north
+# from the wreck and back south-east past Azore's tower to Thunder Axe Fortress (about 1,400 yards added). Bone
+# Collector (5501) is taken at Kormek's Hut on the way from the fortress to Smeed's camp, its Kodo Bones lie in the
+# graveyard the kodo taming already works, and Bibbly takes them on the way home from Kolkar Village. Both were carried
+# to the south loop at 38-39 before. Left there: Karnitol's satchel (1456), which Kreldig gives only on the last
+# Nijel's Point stop and which drops from the Tidehunters and Sea Witches (35-37), and the Sceptre of Light's hand-in
+# (5741), whose Book of the Ancients needs Lord Kragaru (38).
 
 # ---------------------------------------------------------------- Getting there
 
@@ -66,10 +74,23 @@ step Karnitol's Chest
   tip The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.
   turnin 1454                         -- Karnitol's Chest
   accept 1455                         -- For Kreldig Ungor, at the end of this guide
-  accept 6161                         -- Rackmore's Log, beside the chest: keep it, its keys and chest come on Desolace's south loop at the end of 30-40
+  accept 6161 object 177787           -- Rackmore's Log, beside the chest: its two keys drop only while you have the quest
+
+step Rackmore's Silver Key
+  tip West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry Rackmore's Silver Key, about one in seven.
+  collect 15878 quest 6161.1 @33.4,30.1 map 1443 -- Rackmore's Silver Key, from the Drysnap crabs
+
+step Sar'theris Strand
+  tip Keep north to Sar'theris Strand for Rackmore's Golden Key: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.
+  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across.
+  collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
+
+step Rackmore's Chest
+  tip Swim out to Ranazjar Isle off the far northern tip: Rackmore's Chest stands on the shore beside the Serpent Statue. Open it with both keys; leave the statue alone.
+  turnin 6161 @30.0,8.7 map 1443     -- Rackmore's Chest
 
 step Dalinda Malem
-  tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.
+  tip Back south-east past Azore's tower to the Burning Blade's fortress: Dalinda hides inside it.
   turnin 1438                         -- Inside
   accept 1439
 
@@ -89,9 +110,17 @@ step Escort Dalinda
   note Lead Dalinda out of the fortress; she walks off once you are clear of it. Vahlarriel takes the turn-in at Nijel's Point at the end of the guide.
   complete 1440
 
+step Bibbly F'utzbuckle
+  tip Kormek's Hut stands by the road south of the fortress, on the way to Smeed's camp. Bibbly collects Kodo Bones; they lie among the skeletons of the Kodo Graveyard, where Smeed's kodos are.
+  accept 5501
+
 step Smeed Scrabblescrew
   tip Smeed's camp is on the road south of Kolkar Village, by the Kodo Graveyard.
   accept 5561
+
+step Kodo Bones
+  tip West into the Kodo Graveyard first: Bibbly's Kodo Bones lie among the skeletons on its western side.
+  collect 13703 quest 5501 @47.5,58.5 map 1443 -- Kodo Bone, among the skeletons
 
 step Kodo Graveyard
   tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides.
@@ -112,6 +141,10 @@ step Kolkar Village
   goto 71.7,41.6 map 1443 era r 120
   collect 6067 quest 1387 -- Centaur Ear
   collect 254432 quest 93224.1 -- Carved Centaur Totem
+
+step Kormek's Hut
+  tip North-west from Kolkar Village back along the road to Nijel's Point: Bibbly waits at Kormek's Hut.
+  turnin 5501                         -- Bibbly F'utzbuckle
 
 # ---------------------------------------------------------------- Nijel's Point
 

@@ -6463,6 +6463,18 @@
 				],
 				"faction": "Alliance",
 				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
+			},
+			{
+				"a": [
+					"turnin",
+					6161
+				],
+				"b": [
+					"turnin",
+					1438
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round (2026-11-20): Claim Rackmore's Treasure! is done on the first Desolace visit (30-40/02, about 34): the log beside Karnitol's Chest, the silver key from the Drysnap crabs around the wreck (33-35), the golden key from the Slitherblade naga of Sar'theris Strand's southern half (32-34) and the chest on Ranazjar Isle, then back south-east past Azore's tower to Thunder Axe Fortress (about 1,400 yd added; the coast walked once). It was carried to the south loop at 38-39 (30-40/06b) for 2,800 XP. Players' recordings: 37 of 37 guide followers at the first visit were already within one level of the crabs and naga."
 			}
 		],
 		"notes": [
@@ -6485,6 +6497,7 @@
 			"Alliance 12-31 fix round (2026-11-20), Duskwood: Dusky Crab Cakes (93) is handed in with Jitters' Growling Gut on 04-redridge-mountains' Darkshire stop for everyone, its six Gooey Spider Legs collected on the Hushed Bank on the way (spiders 18-25, about 30% each), and Return to Jitters (240) taken there. 05-duskwood: Look to the Stars' Insane Ghoul (177, 26, the Tranquil Gardens' crypt below Blind Mary) on the opening and Viktori on the way into town (181 taken there for the Duskwood return); The Night Watch (57) on the first west trip, handed in on the Darkshire stop after it with its third part (58) taken for the Plague Spreaders among Abercrombie's ghouls (handed in on 07-thousand-needles' first Darkshire stop); Proving Your Worth (323) worked at Sven's from level 28 and Seeking Wisdom (269) handed to Bishop Farthing on the Stormwind walk, his The Doomed Fleet (270) for Glorin in Menethil (06-wetlands). 07-thousand-needles keeps every step for a character without them. Hand edits.",
 			"Alliance 12-31 fix round (2026-11-20), Wetlands: 06-wetlands finishes the zone at 28-29: after Rethiel's Blisters on the Land the east loop goes to the Dragonmaw Gates (98072, 98245, 98246) and Dun Modr / the Thandol Span (472, 631-634, 637), back past Howin (hand-ins) to Menethil; Lifting the Curse (290-293) from level 29 at the end, Lightforge Iron (270 -> 321, 324, 322) on the first Menethil stops for a player carrying The Doomed Fleet, Sully Balloo's Letter and Sara Balloo's Plea (637, 683) on its Ironforge stop, Blessed Arm and Cleansing the Eye (322, 293) on its Stormwind stop. 30-40/01-hillsbrad-foothills' Wetlands loop and 30-40/03-ashenvale's Lightforge steps stay for a character who arrives without them (agreed with the Alliance 30-40 band). Hand edits.",
 			"Alliance starts fix round (2026-11-20), nightelf/02-darkshore: Buzzbox 411 (1001) is taken from Buzzbox 827 on the hand-in of his first quest (end of nightelf/01-teldrassil, the Long Wash) and its Thresher Eyes collected on Night Elf Darkshore's first beach stop; Buzzbox 411 takes them north of Bashal'Aran at the end of the first loop and gives Buzzbox 323 (1002, the Moonstalkers 14-15 of the second loop). Thundris Windweaver (4761) is taken from Terenthis with the hand-in of How Big a Threat? (984) and handed to Thundris on the same Auberdine stop, The Cliffspring River (4762) taken there and its sample filled at the falls at the north-east end of the second loop, beside Buzzbox 323; Beached Sea Turtle (4725, 44.1,20.8, mobs 15) is taken on the walk west from the falls. All five go in on the last Auberdine stop (3,575 XP). Every quest the Auberdine stops walk past that goes on to 03-darkshore is taken here (pick up now, do later: their work is on 03-darkshore after Westfall): Deep Ocean, Vast Sea (982) from Gorbold on the second stop; The Tower of Althalaxx, Tharnariun's Hope and Cave Mushrooms (965, 2139, 947), and from level 15 The Blackwood Corrupted (4763, its own step) on the last. Expanding Horizons (97914) goes from Thundris to Baros Alexston on the Stormwind walk, beside his compass quest, and Making Do (97926) back to Thundris on 03-darkshore's first Auberdine stop. Turtle 4727 (Encrusted Tide Crawlers 18-20) and Buzzbox 525 (1003) stay on 03-darkshore, which keeps every line for other races and for a Night Elf who skipped them. Hand edits; recordings: Night Elf accepts at P25 13 (1001, 30 people), 13 (4761, 26), 14 (4762, 28).",
+			"Alliance 30-40 fix round (2026-11-20): 30-40/03 takes Wharfmaster Dizzywig (1111, with Rocket Car Parts' hand-in) and Pozzik's Goblin Sponsorship (1178, with Load Lightening's) at the Mirage Raceway and hands both in at Ratchet beside the Booty Bay boat, Gazlowe's 1180 goes to Wharfmaster Lozgil on the Booty Bay dock where 30-40/04 lands and Lozgil's 1181 to Baron Revilgaz on that stop (the include records above already place them after 1110, 1176, 1178 and 1180; no walk added). A Host of Evil (6626) is a `when group 6626` step on the Barrens leg: the Razorfen Battleguards, Thornweavers and Death's Head Cultists outside Razorfen Downs are elites of 33-34 at players' 32-33. A Bump in the Road (1175) stays out (the Alliance skip above): a `when level>=34` step never shows in a 31-33 guide. Hand edits.",
 			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals and soil at the Lashers and Threshers (56.6,35.0; 48-50) and J.D. Collie's crystals at the clusters on the jungle's north-eastern edge (72.2,21.1; Lashers, young Diemetradons and Pterrordax 48-50), away from the Flayers, Trappers, Tar Lords and oozes (50-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45), right before the content that needs it. Un'Goro's 49.79 top-up, shown only to players under the plan, points at the eastern jungle's Lashers and Threshers (48-50) instead of the Pterrordax (50-52); Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) is gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
@@ -11612,6 +11625,60 @@
 					3601
 				],
 				"reason": "Horde level tidy, round 3 (0.4.0): Kim'jael's \"Missing\" Equipment (level 53, 6,550 XP) is taken with Kim'jael Indeed!'s hand-in on 50-60/04's Thalassian Base Camp trip (about 55.9). Some Rune drops from the Spitelash Sirens and Myrmidons (50-52), which reach the northern edge of the Ruins of Eldarath (about 47,44), 800 yd south of Kim'jael: a short ride there and back before the road west, about 2.5 minutes mounted plus the kills. Players' recordings: the rune looted off Sirens (6195) and Myrmidons (6196), handed in at Kim'jael.",
+				"issue": "-"
+			},
+			{
+				"q": 1265,
+				"after": [
+					"turnin",
+					1264
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): The Missing Diplomat (level 35, from 28, 275 XP) is taken from Commander Samaul with Tapoke's report (1264) on 30-40/03's first Theramore stop and done at Sentry Point, the watchtower where the road to the Shady Rest Inn turns west: Archmage Tervosh appears at its foot once it is explored (players' recordings: 45 people, Tervosh seen at the tower at the objective's tick, hand-in at him). It waited for 40-50/01 at 39 although 30-40/03 walks past the tower at 32. Tervosh's next errand (1266, Private Hendel at North Point Tower) stays on 40-50/01, whose route goes there.",
+				"issue": "-"
+			},
+			{
+				"q": 1252,
+				"after": [
+					"accept",
+					1253
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lieutenant Paval Reethe's badge (level 40, from 30, 780 XP; a talk quest) lies in the ashes of the Shady Rest Inn beside the Black Shield (1253) that 30-40/03 takes there, and goes to Captain Vimes, whom the guide's second Theramore stop visits for 1284 and 1320. Players' recordings: accepted at a 25th percentile of 33.0 (43 Alliance characters).",
+				"issue": "-"
+			},
+			{
+				"q": 1259,
+				"after": [
+					"turnin",
+					1252
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Vimes's follow-up (315 XP) goes to Adjutant Tesoran on the same floor of Foothold Citadel, on 30-40/03's second Theramore stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1285,
+				"after": [
+					"turnin",
+					1259
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Daelin's Men (285 XP), Tesoran back to Vimes on the same floor. The Deserters (1286, Balos Jacken, off 30-40/03's path) stays on 40-50/01.",
+				"issue": "-"
+			},
+			{
+				"q": 1100,
+				"after": [
+					"accept",
+					1135
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lonebrow's Journal (level 34, from 29, 1,350 XP): the journal (object 19861) lies about 200 yd north-east of the Great Lift's foot, which 30-40/03 takes down to Highperch, and Falfindel Waywarder stands about 480 yd north of the Highperch wyverns: about 700 yd added. Players' recordings: accepted at a 25th percentile of 31.8 (42 Alliance characters). The Crone of the Kraul (1101) is inside Razorfen Kraul: left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5501,
+				"after": [
+					"task",
+					1440
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Bone Collector (level 39, from 33, 2,250 XP): Bibbly F'utzbuckle stands at Kormek's Hut (62.2,38.9), on 30-40/02's walk from Thunder Axe Fortress to Smeed's camp; the Kodo Bones lie among the skeletons of the Kodo Graveyard (46-49,57-61), where the kodo taming already goes, and Bibbly takes them on the way home from Kolkar Village (about 300 yd added). It was taken and handed in on 30-40/06b at 38.9 with a second walk back to the hut. Players' recordings: accepted at a 25th percentile of 35.2 (48 characters).",
 				"issue": "-"
 			}
 		],
