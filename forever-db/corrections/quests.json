@@ -2544,6 +2544,22 @@
 		],
 		"note": "Defenders of Darrowshire: each Darrowshire Spirit is freed by talking to it, not killed."
 	},
+	"5244": {
+		"set": {
+			"preAll": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): Wynd Nightchaser offered The Ruins of Kel'Theril after To Winterspring! (5249) alone to 2 people and after Starfall (5250) alone to 2 people; 16 people took it, none with both done"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 5244 has no all-of prerequisite list"
+			}
+		],
+		"note": "The Ruins of Kel'Theril (5244) is offered after either To Winterspring! (5249) or Starfall (5250), which lead to it and exclude each other. The merged data also asked for both at once, a need no player could meet; it goes, and the two stay the quest's lead-ins."
+	},
 	"5321": {
 		"set": {
 			"objectives": [
@@ -2888,6 +2904,23 @@
 			}
 		],
 		"note": "The Ashenvale Hunt has no prerequisite on Forever: Senani Thunderheart at Splintertree Post offers it to any Horde player from level 20. The merged data listed Thork's breadcrumb (6382) as a prerequisite beside the two breadcrumbs it already marked, so a player who never took the breadcrumb was told to fetch it first, and Ursangous, Sharptalon and Shadumbra drop their trophies only once 6383 is handed in (#1531)."
+	},
+	"6564": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): 29 characters took Allegiance to the Old Gods from the Damp Note without ever handing in Trouble in the Deeps (6562), 11 of them recorded from level 15 or lower"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 6564 has no prerequisite"
+			}
+		],
+		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
 	},
 	"6641": {
 		"set": {
@@ -9736,6 +9769,28 @@
 			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
 		},
 		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
+	},
+	"98096": {
+		"set": {
+			"pre": [
+				98067
+			],
+			"preAny": [
+				98067
+			],
+			"minLevel": 45
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): Sentinel Dalia Sunblade offered Sisters In Duty in 3 windows (3 people), each time with Eyes of the Sentinels (98067) done and at level 45 or higher; 3 people took it at 48 and handed it in to Commander Truesong at Talrendis Point"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 98096 follows 98067"
+			}
+		],
+		"note": "Sisters In Duty (98096, Darnassus) follows Eyes of the Sentinels (98067) and opens at level 45. The merged data had neither, so it could be offered right after the level 11 quest."
 	},
 	"98189": {
 		"set": {
