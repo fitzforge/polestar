@@ -7,6 +7,8 @@ section: players
   If you're already on a vendor's floor, a walk that ends farther away
   won't send you back outside. Standing beneath a trainer no longer starts
   a short walk that ends on the same lower floor without reaching the stairs.
+  A steering shortcut must reach the requested storey, not just a floor
+  close in height. This keeps the decks beneath Nissa Firestone distinct.
   At bends such as the Ironforge gryphon roost, the arrow follows the aisle
   even when the game doesn't flag it as indoors. On open ground it can
   still point farther ahead when the map shows a clear straight walk.

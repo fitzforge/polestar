@@ -121,3 +121,25 @@ test('Ironforge street walks round the signpost in both directions without closi
 		}
 	}
 });
+
+test('a steering shortcut cannot cross the Ironforge trainer floors or the Searing Gorge entrance jump', () => {
+	const parts = navParts(path.join(ADDONS, 'Polestar_Nav'));
+	const { emitted: [sight] } = runAddon({
+		stubs: ['stub_world.lua', 'stub_encoding.lua', 'stub_packs.lua'],
+		before: ["stub.clientBuild = '70532'", ...parts.map(n => `stub.packs[${JSON.stringify(n)}] = {${tocFiles(n).map(p => JSON.stringify(p)).join(',')}}`)].join('\n'),
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Nav/Nav.xml'] }, 'Polestar_Nav'],
+		script: `
+			local p, frames = Polestar_NavEngine, {}
+			p.after = function(fn) frames[#frames+1] = fn end
+			local function checks(x,y,z,X,Y,Z)
+				p.Prefetch(0,x,y)
+				while #frames>0 do table.remove(frames,1)() end
+				local function sight(a,b,c,d,e,f) return p.Sight(0,a,b,c,d,e,f,'Alliance') end
+				return {sight(x,y,z,x+.02,y,z), sight(X,Y,Z,X+.02,Y,Z),
+					sight(x,y,z,X,Y,Z), sight(X,Y,Z,x,y,z)}
+			end
+			emit({checks(-4876.6,-1149.2,505.77007,-4876.58,-1149.2,512.43678),
+				checks(-7323.96,-1094.79,279.02,-7323.96,-1092.71,277.57)})`,
+	});
+	assert.deepEqual(sight, [[true, true, false, false], [true, true, false, false]]);
+});

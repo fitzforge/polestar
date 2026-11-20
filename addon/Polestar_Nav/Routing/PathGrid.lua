@@ -1722,8 +1722,8 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 -- the surface from the node under the start (the one nearest z1, within ZTOL), as the drawn line's straightening does
 -- (sight): never through a closed step (a wall, a cliff edge, a building's side), from one floor to another or into
 -- water, and on a map with classes never onto indoor or indoor city ground nor into a town hostile to profile ("Horde",
--- "Alliance"; nil: none is). True when it reaches the end cell on a surface within ZTOL of z2 (any, z2 nil); false
--- when blocked or the start stands on no surface within ZTOL of z1. Reads decoded clusters only, as Path.SurfacesAt:
+-- "Alliance"; nil: none is). With z2, the walk must reach the floor nearest that height, within ZTOL; without
+-- z2, the connected floor suffices. A blocked step or an unusable start returns false. Reads decoded clusters only:
 -- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
 -- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
 -- reader's slot stay as they were), never yields and allocates nothing.
@@ -1797,7 +1797,9 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 		ix, iy = ix + mx * sx, iy + my * sy
 	end
 	if clear and z2 then
-		clear = abs(zOf(st.cl[k], node) - z2) <= ZTOL
+		-- A floor within the height tolerance can still be the storey below the requested one.
+		local target, gap = surface(st, k, (tx % C)*C + ty % C, -1, z2, st.cl[k])
+		clear = target == node and gap <= ZTOL
 	end
 	if clear and st.D.solidSamples and solidChord(st, x1,y1,z1, x2,y2,z2 or zOf(st.cl[k],node)) then clear = false end
 	for i = 1, sightN do
