@@ -789,6 +789,7 @@
 		"data/route-fixes.json overrides.skip q=78133": "no guide has quest 78133 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=78134": "no guide has quest 78134 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=857 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=97265 Horde": "no guide has quest 97265 (2026-11-20: left out, giver never seen)",
 		"data/route-fixes.json overrides.skip q=98094 Horde": "no guide has quest 98094 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98095 Horde": "no guide has quest 98095 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98240 Alliance": "no guide has quest 98240 (0.4.0)",

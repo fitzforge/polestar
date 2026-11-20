@@ -2031,13 +2031,27 @@ test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on t
 
 // Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
 // only on the second (38), carried through Stranglethorn; players' recordings show 4 people abandoning it on the way.
-// Felgur stands at Ghost Walker Post, where the second visit stops before the Valley of Spears.
-test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit, before the Valley of Spears', { skip }, () => {
+// Horde 30-40 (2026-11-20): the first visit now works the north-east first, with Ghost Walker Post as its hub, so
+// Felgur's Centaur Bounty and Gurda's Carved Centaur Totems (93225; both drop from the Magram, 32-34, at the camp's
+// north-western edge) are taken, worked and handed in on that visit, before the walk west to Shadowprey: nothing rides
+// through Stranglethorn. The second visit keeps both at Ghost Walker Post for a character who loads it fresh.
+test('forever/horde/30-40: Centaur Bounty and the centaur totems are done on the first Desolace visit, never carried through Stranglethorn', { skip }, () => {
 	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
-	assert.deepEqual(first.filter(({ goal }) => is('accept', 1366)(goal)).length, 0, 'not taken on the first visit');
+	const khan = at(first, 'turnin 1365', is('turnin', 1365));
+	const clams = at(first, 'accept 6142', is('accept', 6142));
+	for (const q of [1366, 93225]) {
+		const acc = at(first, `accept ${q}`, is('accept', q));
+		const work = at(first, `collect for ${q}`, (g) => g.t === 'collect' && g.quest === q);
+		const tin = at(first, `turnin ${q}`, is('turnin', q));
+		assert.equal(first[acc].step.title, 'Ghost Walker Post', `${q}: taken at Ghost Walker Post`);
+		assert.ok(khan <= acc && acc < work && work < tin && tin < clams, `${q}: taken after Khan's head, worked, handed in before Shadowprey`);
+		assert.equal(first[tin].step.title, 'Ghost Walker Post', `${q}: handed in at Ghost Walker Post`);
+		const { goal } = first[work];
+		if (goal.x != null) assert.ok(goal.map === 1443 && Math.hypot(goal.x - 66, goal.y - 71) < 2, `${q}: the Magram camp's north-western edge (got ${goal.map} ${goal.x},${goal.y})`);
+	}
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	const acc = at(list, 'accept 1366', is('accept', 1366));
-	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'at Ghost Walker Post');
+	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'a fresh start of the second visit still takes it at Ghost Walker Post');
 	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
 });
 
@@ -3080,7 +3094,6 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 // giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
 for (const [q, title, giver, files] of [
 	[93176, 'My Little Friends', 'Amaryllis Webb', ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']],
-	[97265, 'Hate the Hatefury', "Aka'rai", ['forever/horde/30-40/02-thousand-needles.guide']],
 ]) {
 	test(`${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)`, { skip }, () => {
 		let n = 0;
@@ -3094,6 +3107,16 @@ for (const [q, title, giver, files] of [
 		assert.ok(n >= 2, `the accept and the hand-in are found (${n})`);
 	});
 }
+
+// Hate the Hatefury (97265), the other quest of that sweep: Desolace's first visit now works Sargeron before it reaches
+// Shadowprey (2026-11-20), where Aka'rai would give it, so the optional accept could no longer come before its satyrs.
+// It is left out with its never-seen reason: no guide waits on, or sends anyone to, a giver nobody has seen.
+test("Hate the Hatefury (97265): no guide sends anyone to Aka'rai, and the skip says why (#1314)", { skip }, () => {
+	for (const file of allGuides().filter((f) => f.includes('/horde/'))) assert.ok(!goals(file).some(({ goal }) => goal.quest === 97265), `${file} has no Hate the Hatefury goal`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	const skip = rf.overrides.skip.find((s) => s.q === 97265 && s.faction === 'Horde');
+	assert.ok(skip && /never been seen/.test(skip.reason), 'a skip record with the never-seen reason');
+});
 
 // --- Hammerfall (never-taken check, 2026-11-08): the Defiler's Basic Care Package (8263) needs Friendly with the
 // Defilers (the game's quest data: RequiredMinRepFaction 510, 3000), which the leveling route never earns; Rutherford

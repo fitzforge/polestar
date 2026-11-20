@@ -4842,23 +4842,6 @@
 			"issue": 1314
 		},
 		{
-			"id": "1314-desolace-hate-the-hatefury-optional",
-			"at": {
-				"quest": 97265,
-				"goal": "accept"
-			},
-			"faction": "Horde",
-			"tip": "Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.",
-			"note": "Hate the Hatefury (97265, Aka'rai 268705, Desolace 25.4,67.2) is taken optional, with its kills at Sargeron and its hand-in at Shadowprey, so nothing waits on it: nobody has been recorded taking it or being offered it, and Aka'rai was never seen, though players passed her spot (#1314's pattern: Hearts of the Lost). The seed guide carries the optional goals.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings to 2026-11-08: 0 people accepted, progressed, handed in or were offered 97265; Aka'rai (268705) never seen by anyone, though 2 Horde people (1 established) passed within about 50 yd of her spawn at levels 33-34, in 2 sessions"
-				}
-			],
-			"issue": 1314
-		},
-		{
 			"id": "0306-talk-of-the-town-may-be-missing",
 			"at": {
 				"quest": 98463,
@@ -5617,6 +5600,24 @@
 				{
 					"kind": "eg",
 					"ref": "EG Link live quest 5581"
+				}
+			]
+		},
+		{
+			"id": "h3040-desolace-magram-ears-and-totems",
+			"faction": "Horde",
+			"at": {
+				"quest": 1366,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"tip": "South-east of the post, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge, nearest the post; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda. Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.",
+			"note": "Desolace's first visit (2026-11-20) takes Centaur Bounty and Carved Centaur Totems at Ghost Walker Post after Khan Dez'hepah's head and works both at the Magram camp's north-western edge (Scouts 4638 and Outrunners 4639 32-33, Wranglers 4640 33-34, about 65.6-67.1,69-75), the lowest centaurs near the post; the camp's middle and south are 34-38.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4638-4645, 4662 spawns on map 1443; items.json 6067 and 254432 drops (254432 per its #1602 correction)"
 				}
 			]
 		},

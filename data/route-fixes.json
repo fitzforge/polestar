@@ -4603,14 +4603,26 @@
 			{
 				"a": [
 					"turnin",
-					1323
+					1366
 				],
 				"b": [
 					"accept",
-					1366
+					6142
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 audit (0.4.0; level tidy 2026-11-15): Centaur Bounty (1366) is worked only on the second Desolace visit (30-40/04-dustwallow-marsh, at 38): taken at the end of the first it rode through Stranglethorn, and players dropped it (players' recordings: 4 people abandoned it). Felgur stands at Ghost Walker Post, the second visit's stop before the Valley of Spears, after Dustwallow (Krog's 1323 at Brackenwall)."
+				"why": "Horde 30-40 (2026-11-20): Desolace's first visit (30-40/02) works the north-east first, with Ghost Walker Post as its hub: Azore, Thunder Axe Fortress, Sargeron and Khan Dez'hepah, then the post, where Felgur gives Centaur Bounty (1366) for Khan's head. Its ears come from the Magram Scouts, Outrunners and Wranglers (32-34) at the camp's north-western edge, about 600 yd south-east of the post, and it is handed in on the way back to the Kodo Graveyard, before the walk west to Shadowprey Village (Mai'Lahii's 6142). It used to be offered on the visit's last stop and taken on the second visit at 37 (players' recordings: 4 people abandoned it when it was carried through Stranglethorn); the route now walks about 800 yd more in Desolace for 3,750 XP and the Magram kills, at the level where the visit stands (model 32.6-33.2)."
+			},
+			{
+				"a": [
+					"turnin",
+					93225
+				],
+				"b": [
+					"accept",
+					6142
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 (2026-11-20): Carved Centaur Totems (93225, level 40, from 30, 2,350 XP) drop from the Kolkar and Magram centaurs as well as the Maraudine (players' recordings, build 70862: 41 drops from six Kolkar and seven Magram kinds, item 254432's correction for #1602). Gurda Wildmane stands beside Felgur at Ghost Walker Post, so the first Desolace visit (30-40/02) takes it with Centaur Bounty and collects both from the Magram Scouts, Outrunners and Wranglers (32-34) at the camp's north-western edge, handing both in on the same post stop. The second visit (30-40/04) then walks from Shadowprey straight to the Valley of Spears for Melizza instead of east to the post and back twice; its Ghost Walker steps stay for a character who loads that guide fresh."
 			},
 			{
 				"a": [
@@ -8721,10 +8733,6 @@
 				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Amaryllis Webb (217412, Swamp of Sorrows), giver and ender of My Little Friends, has never been seen in players' recordings and nobody has taken or been offered the quest; it stays at Watcher Biggs' step as optional (its STV hand-in too), with a tip to skip it if she doesn't offer it"
 			},
 			{
-				"q": 97265,
-				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Aka'rai (268705, Desolace), giver and ender of Hate the Hatefury, has never been seen in players' recordings, though 2 Horde people passed her spot at 33-34, and nobody has taken or been offered the quest; it stays at Shadowprey as optional (its Sargeron kills and hand-in too), with a tip to skip it if she doesn't offer it"
-			},
-			{
 				"q": 98463,
 				"why": "Never-seen check (2026-11-08, 0.3.6): Barkeep Kelly in Southshore's inn was passed by 4 Alliance people in players' recordings, and none opened her window or was offered Talk of the Town; it stays on the Southshore stop (and its Booty Bay hand-in) as optional, with a tip to skip it if she doesn't offer it"
 			},
@@ -10008,15 +10016,6 @@
 					1147
 				],
 				"reason": "Horde 30-40 re-order (2026-11-07): Cliffwatcher Longhorn in Freewind Post (min level 32): Family Tree is taken on the walk back through Freewind to its flight master after the Shimmering Flats (not on the way out, below 32), and goes to Nataka Longhorn at Ghost Walker Post on the Desolace visit that follows.",
-				"issue": ""
-			},
-			{
-				"q": 97265,
-				"after": [
-					"turnin",
-					5561
-				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Aka'rai stands by the path into Shadowprey Village: Hate the Hatefury is taken on the first Shadowprey stop and its satyrs killed at Sargeron with Befouled by Satyr's, handed in on the second Shadowprey stop.",
 				"issue": ""
 			},
 			{
@@ -12002,6 +12001,12 @@
 				"faction": "Horde",
 				"reason": "Horde level tidy (2026-11-15): Book of the Ancients (6027): Lord Kragaru (38) rises from the Serpent Statue on Ranazjar Isle at about 34 on 30-40/02 (recorded 25th percentile 34.2), four levels over, and no later Horde visit passes Azore's tower. Left out; Rackmore's chest beside the statue is still opened.",
 				"issue": "-"
+			},
+			{
+				"q": 97265,
+				"faction": "Horde",
+				"reason": "Horde 30-40 (2026-11-20): Hate the Hatefury's giver and ender, Aka'rai (268705, by the path into Shadowprey Village), has never been seen in players' recordings and nobody has been offered the quest (never-seen check 2026-11-08, #1314's pattern). Desolace's first visit now works Sargeron before it reaches Shadowprey, so the optional accept could no longer come before its satyrs. Left out.",
+				"issue": "#1314"
 			},
 			{
 				"q": 3381,
