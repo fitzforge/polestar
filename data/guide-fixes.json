@@ -14302,6 +14302,42 @@
 				}
 			],
 			"issue": 2358
+		},
+		{
+			"id": "3104-reliquary-of-purity-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"optional": true,
+			"note": "#3104, #3270: Rabine Saturna offers A Reliquary of Purity (5527) only to a character who has been inside Dire Maul and spoken with him about it, so the Moonglade step held players he offered nothing to. The accept is optional; the quest's fact is in data/mechanics-public.json.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
+		},
+		{
+			"id": "3104-reliquary-of-purity-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.",
+			"note": "#3104, #3270: the step says why Rabine may not offer the quest (a Dire Maul visit first).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
 		}
 	]
 }

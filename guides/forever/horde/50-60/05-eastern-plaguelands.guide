@@ -615,7 +615,8 @@ step Moonglade
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
-  accept 5527
+  tip Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.
+  accept 5527 optional
 
 step Rabine Saturna
   zone Moonglade

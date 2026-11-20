@@ -18185,3 +18185,12 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: no repeatable Countin
 	assert.ok(!list.some(({ goal }) => goal.quest === 4973), 'no goal on quest 4973');
 	at(list, 'turnin 4972', is('turnin', 4972));
 });
+
+// #3104 (Sugawolf), #3270 (Dehra), 0.4.1.1: Rabine Saturna offers A Reliquary of Purity only after a visit inside Dire
+// Maul, so the Moonglade step held players he offered nothing to. The accept is optional and the tip says why.
+test('Horde Eastern Plaguelands: Rabine\'s A Reliquary of Purity is optional and says it needs a Dire Maul visit (#3104)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const { step, goal } = list[at(list, 'accept 5527', is('accept', 5527))];
+	assert.equal(goal.optional, true, 'the accept never holds the guide');
+	assert.match(step.note || '', /Dire Maul/);
+});
