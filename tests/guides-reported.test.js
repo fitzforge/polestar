@@ -563,15 +563,19 @@ test(`${MULGORE}: Sparring Match counts the Novice Warriors between the accept a
 	assert.ok(accept < kills && kills < turnin, 'accept, the Novice Warriors, then the hand-in');
 });
 
-// --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
-// 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
-test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
+// --- Mulgore (level tidy 0.4.0; 0.4.2 route round): the Galak centaurs (8-9, Herak 11) and the Venture Co. Mine (8-10,
+// Fizsprocket 12) were worked at 9. 0.4.0 moved both after northern Mulgore, a third trip east at 11. Under today's
+// bar (mobs at most one to two levels up, with a tip) the centaurs and the workers OUTSIDE the mine are done on the
+// one east loop at about 10 (model), and the mine itself is never entered: Fizsprocket's quests are left out.
+test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. workers on one east loop, the mine left out`, { skip }, () => {
 	const list = goals(MULGORE);
-	const back = at(list, 'turnin 745 (Sharing the Land)', is('turnin', 745));
-	for (const q of [743, 746, 760]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < at(list, "Herak's Head (99080)", (g) => g.t === 'collect' && g.quest === 99080), `${q} is handed in before the centaurs`);
-	assert.ok(back < at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080), 'the centaurs after the Bloodhoof hand-ins');
-	assert.ok(back < at(list, 'the mine (764)', (g) => g.t === 'kill' && g.quest === 764), 'the mine after the Bloodhoof hand-ins');
-	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
+	const caravan = at(list, 'turnin 749 (the caravan)', is('turnin', 749));
+	const centaurs = at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080);
+	const workers = at(list, 'the workers (764)', (g) => g.t === 'kill' && g.quest === 764);
+	const mull = at(list, 'turnin 759 (Mull)', is('turnin', 759));
+	for (const [i, what] of [[centaurs, 'the centaurs'], [workers, 'the workers']]) assert.ok(caravan < i && i < mull, `${what} between the caravan and Mull's hand-in`);
+	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'the Wildmane totem (760)', (g) => g.t === 'use' && g.quest === 760), 'Baine takes the head before northern Mulgore');
+	assert.deepEqual(list.filter(({ goal }) => [765, 98424].includes(goal.quest) || (goal.t === 'level' && goal.grind === 2978)).map(({ goal }) => `${goal.t} ${goal.quest || goal.level}`), [], 'no Fizsprocket and no top-up on the Venture workers for him');
 });
 
 // --- Tirisfal Glades (level tidy 0.4.0): the cult's farm (cultists 10-12, quests 12) was done at 10 on the way out to the

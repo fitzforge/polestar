@@ -11432,6 +11432,18 @@
 		],
 		"skip": [
 			{
+				"q": 765,
+				"faction": "Horde",
+				"reason": "Mulgore (0.4.2 route round): Supervisor Fizsprocket (12) stands at the back of the Venture Co. Mine's packed tunnels. He was the only reason for a third trip from Bloodhoof to the east side at 11 (with a level-11 grind before the mine); the workers outside, the Galak centaurs and the caravan are now one loop at about 10, and that trip goes. 900 XP left out.",
+				"issue": "#3255"
+			},
+			{
+				"q": 98424,
+				"faction": "Horde",
+				"reason": "Mulgore (0.4.2 route round): Fizsprocket's Notes start from Supervisor Fizsprocket's Mulgore Expansion Plans and the other pages lie inside the mine: left out with Supervisor Fizsprocket (765). 850 XP.",
+				"issue": "#3255"
+			},
+			{
 				"q": 4061,
 				"faction": "Horde",
 				"reason": "Horde 50-60 level tidy (0.4.0): The Rise of the Machines' War Reavers are 53-55 among the Thaurissan dwarves (7 spawns 53+, a recorded death) at the route's only Burning Steppes pass (model 52-53): 3 levels over at a dangerous spot, and no later Burning Steppes visit on the Horde route. Offered to the team (no later band passes the Steppes).",
@@ -14050,27 +14062,27 @@
 			},
 			{
 				"a": [
-					"turnin",
-					745
-				],
-				"b": [
 					"task",
 					99080
 				],
+				"b": [
+					"turnin",
+					759
+				],
 				"faction": "Horde",
-				"why": "Level tidy 0.4.0 (Mulgore): Drive Them Out (11) sent players at the Galak Centaurs and Outrunners (8-10) and Herak the Pillager (11) at 9 (players' 25th percentile 9.2). The centaurs now come after northern Mulgore and the Bloodhoof hand-ins (Sharing the Land, Dwarven Digging, Dangers of the Windfury, Wildmane Cleansing), at about 11, on a loop from Bloodhoof to Morin Cloudstalker, the centaurs, the mine, Morin and Baine before Red Rocks"
+				"why": "Mulgore (0.4.2 route round): Drive Them Out's Galak centaurs (8-9) and Herak the Pillager (11) are done on the loop east from Bloodhoof with the caravan and the alpha teeth, at about 10 in the level model (players' 25th percentile 9.2 at the accept): Herak is less than two levels up, with a Careful tip. Level tidy 0.4.0 had moved them after northern Mulgore, which made a third trip east at 11."
 			},
 			{
 				"a": [
-					"turnin",
-					745
-				],
-				"b": [
 					"task",
 					764
 				],
+				"b": [
+					"turnin",
+					759
+				],
 				"faction": "Horde",
-				"why": "Level tidy 0.4.0 (Mulgore): the Venture Co. Mine (Workers and Supervisors 8-10, Supervisor Fizsprocket 12; 6 players died there) was worked at 9; with the centaurs (the record before) it now comes after the Bloodhoof hand-ins at about 11. The Ravaged Caravan's hand-in to Morin (751) and his two quests go with it, on the first Morin stop of that loop"
+				"why": "Mulgore (0.4.2 route round): The Venture Co.'s Workers (8) and Supervisors (9) are killed outside the mine on the same east loop, between Morin's two stops at the Winterhoof Water Well. The mine itself (packed tunnels, Supervisor Fizsprocket 12, the recorded deaths) is no longer entered: Fizsprocket's two quests are left out (records under skip)."
 			},
 			{
 				"a": [
