@@ -112,9 +112,9 @@ local FACTION = { A = ns.FactionName("A"), H = ns.FactionName("H"), AH = L["Both
 local shell, root, results, details -- the hub window, this section, the results scroll, the details pane
 local query, kind = "", "all"
 local category, openBranches = nil, {}
--- The searches' order, "best" or "az": not saved. It holds while the hub is
--- open, and the hub closing with its search box empty resets it.
-local order = "best"
+-- Most has a separate stat and keeps the base search order for other kinds.
+-- These choices live until the hub closes with its search box empty.
+local order, baseOrder, sortStat = "best", "best", nil
 local sel -- { kind, id, title, subtitle, quality }
 local sourceSel -- index into the selection's sources
 local visible = {} -- results in the middle pane, top to bottom
@@ -186,8 +186,8 @@ local function search(text, only, opts)
 	local S = ns.Search
 	if text == "" or not (S and S.Query) then return {}, {} end
 	opts.kinds = only
-	local results, counts, _, info = S.Query(text, opts)
-	return results or {}, counts or {}, info
+	local results, counts, syntaxError, info = S.Query(text, opts)
+	return results or {}, counts or {}, info, syntaxError
 end
 
 local function codexRecord(k, id)
@@ -1535,15 +1535,24 @@ end
 -- few results per kind for a search, or totals for browsing, and under one
 -- kind its first page. Search.Subtitle fills subtitles for drawn rows only.
 local cache = {}
+local function itemCapable()
+	return kind == "all" or KIND[kind] and KIND[kind].item
+end
+
+local function effectiveOrder()
+	if order == "most" and itemCapable() then return order end
+	return query == "" and "az" or baseOrder
+end
+
 local function listOptions(saved)
 	return {
 		subtitles = false,
 		ids = true,
 		categoryTotals = true,
-		filters = LK.SearchFilters(saved or LK.ItemFilters(), category),
+		filters = LK.SearchFilters(saved, category),
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
-		order = order,
+		order = effectiveOrder(), baseOrder = baseOrder, sortStat = sortStat,
 	}
 end
 
@@ -1554,7 +1563,7 @@ local function current()
 	local saved = normalizeItemFilters(savedState)
 	local opts = listOptions(saved)
 	local counts, before, list = {}, {}, {}
-	local filterData, classDormant, categoryTotals
+	local filterData, classDormant, categoryTotals, syntaxError
 	local function mergeInfo(info)
 		if not info then return end
 		filterData = filterData or info.filtersAvailable
@@ -1569,7 +1578,7 @@ local function current()
 			opts.resultKind, opts.limit = kind, PAGE
 		end
 		local info
-		list, counts, info = search(query, nil, opts)
+		list, counts, info, syntaxError = search(query, nil, opts)
 		mergeInfo(info)
 	else
 		local S = ns.Search
@@ -1595,7 +1604,7 @@ local function current()
 	if not loaded and query == "" and kind ~= "guide" then counts[kind] = nil end
 	-- Search's pre-filter counts include the visibility switches. For a kind
 	-- they might have emptied, also ask for its candidates with both off.
-	if loaded and (opts.hideRetired or opts.hideNoSource) then
+	if loaded and not syntaxError and (opts.hideRetired or opts.hideNoSource) then
 		local missing = {}
 		for _, k in ipairs(kinds()) do
 			local spec = KIND[k.key]
@@ -1630,7 +1639,8 @@ local function current()
 	end
 	cache = { query = query, kind = kind, category = category, gen = LK.gen, list = list, counts = counts,
 		total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting,
-		before = before, filterData = loaded and filterData, classDormant = classDormant, saved = saved, savedState = savedState }
+		before = before, filterData = loaded and filterData, classDormant = classDormant, saved = saved, savedState = savedState,
+		syntaxError = syntaxError }
 	return cache
 end
 
@@ -1638,7 +1648,7 @@ end
 function LK.More()
 	local c = current()
 	if kind == "all" then return end
-	local opts = listOptions()
+	local opts = listOptions(c.saved)
 	opts.limit, opts.offset = PAGE, #c.list
 	local more
 	if query == "" then
@@ -1722,7 +1732,10 @@ function LK.Nav()
 end
 
 -- A drawn row's subtitle, asked for once.
+local STAT_SUBTITLE = { [2] = L["Amount unknown"], [3] = L["No listed stat"], [4] = L["Unknown"] }
 local function subtitleOf(res)
+	if res.statBucket == 1 then return tostring(res.statAmount) end
+	if res.statBucket then return STAT_SUBTITLE[res.statBucket] end
 	if res.subtitle == nil and not res.psSubtitled then
 		res.psSubtitled = true
 		local S = ns.Search
@@ -1808,15 +1821,15 @@ local function reveal()
 	end
 end
 
-local ORDER_CHOICES = { { value = "best", text = L["Best match"] }, { value = "az", text = L["A to Z"] } }
+local ORDER_LABELS = { best = L["Best match"], az = L["A to Z"] }
 local HISTORY_TIP = { L["Recent lookups show your history."] }
 local VISIBILITY_CHOICES = {
 	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"] },
 	{ path = "lookup.hideNoSource", text = L["Hide no known source"] },
 }
 
-local function orderChoice()
-	return order == "az" and ORDER_CHOICES[2] or ORDER_CHOICES[1]
+local function mostLabel(code)
+	return format(L["Most %s"], ns.Search.StatLabel(code))
 end
 
 local function fixedButtonText(button, text, lines)
@@ -1836,7 +1849,7 @@ local filtersUI = {}
 
 local function showControls(c)
 	local button, visibility = root.SearchOrder, root.Visibility
-	local showOrder = query ~= ""
+	local showOrder = query ~= "" or c.loaded and kind ~= "all" and itemCapable()
 	if not showOrder and W.MenuShown(button) then W.HideMenu() end
 	button:SetShown(showOrder)
 	visibility:Show()
@@ -1846,7 +1859,8 @@ local function showControls(c)
 	fixedButtonText(visibility, text, history or nil)
 	visibility.Icon:SetTexture(Theme.Media(drawerOpen and "chevron-up" or "chevron-down"))
 	if not showOrder then return visibility:GetWidth() + 12 end
-	fixedButtonText(button, orderChoice().text)
+	local value = effectiveOrder()
+	fixedButtonText(button, value == "most" and mostLabel(sortStat) or ORDER_LABELS[value])
 	return visibility:GetWidth() + button:GetWidth() + 20
 end
 
@@ -1875,8 +1889,13 @@ function LK.Render()
 	end
 	local subtitle
 	if query == "" then
-		subtitle = counts[kind] and format(L["%d, from A to Z"], counts[kind])
-			or L["Every guide, item, mount, NPC, quest and place, and where to get it."]
+		local n = counts[kind]
+		if n and effectiveOrder() == "most" then
+			subtitle = n == 1 and L["1 result"] or format(L["%d results"], n)
+		else
+			subtitle = n and format(L["%d, from A to Z"], n)
+				or L["Every guide, item, mount, NPC, quest and place, and where to get it."]
+		end
 	else
 		local n = kind == "all" and total or (counts[kind] or #list)
 		subtitle = n == 1 and format(L["1 result for %s"], LQ .. query .. RQ) or format(L["%d results for %s"], n, LQ .. query .. RQ)
@@ -1946,7 +1965,9 @@ function LK.Render()
 	end
 
 	local empty
-	if reason == "loading" and #list == 0 then
+	if c.syntaxError == "id-syntax" then
+		empty = L["Use # followed by an item ID."]
+	elseif reason == "loading" and #list == 0 then
 		empty = L["Loading the Codex\226\128\166"]
 	elseif query == "" and kind == "all" then
 		empty = loaded and L["Type a name in the search box: a mount you saw, an item you want, an NPC or a quest."]
@@ -1963,7 +1984,7 @@ function LK.Render()
 			empty = L["Filters hide every entry here."]
 		elseif query == "" then
 			empty = L["Nothing to list here."]
-		elseif loaded and query:match("^%s*#0*[1-9]%d*%s*$") then
+		elseif loaded and query:match("^%s*#") then
 			empty = L["No item with that ID here."]
 		else
 			empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
@@ -2030,13 +2051,15 @@ end
 
 function LK.Order() return order end
 
--- The header dropdown: the current search's order.
-function LK.SetOrder(value)
-	value = value == "az" and "az" or "best"
-	if value == order then return end
-	flushPending()
-	order = value
+local function changeOrder(value, stat)
+	if value == order and stat == sortStat then return end
+	if value ~= "most" then baseOrder = value end
+	order, sortStat = value, stat
 	restartList()
+end
+
+function LK.SetOrder(value)
+	changeOrder(value == "az" and "az" or "best", sortStat)
 end
 
 local function setQuery(text)
@@ -2078,9 +2101,24 @@ end
 local function headerMenu(button)
 	if not (button and button:IsVisible()) then return end
 	if W.MenuShown(button) then return W.HideMenu() end
-	local items = {}
-	for i, choice in ipairs(ORDER_CHOICES) do
-		items[i] = { text = choice.text, checked = choice == orderChoice(), onClick = function() LK.SetOrder(choice.value) end }
+	local items, selected = {}, effectiveOrder()
+	local function addChoice(value)
+		items[#items + 1] = { text = ORDER_LABELS[value], checked = value == selected,
+			onClick = function() if value ~= selected then LK.SetOrder(value) end end }
+	end
+	if query ~= "" then addChoice("best") end
+	addChoice("az")
+	if itemCapable() then
+		local code = sortStat or LK.ItemFilters().stat
+		if code then
+			items[#items + 1] = { text = mostLabel(code), checked = selected == "most",
+				onClick = function() changeOrder("most", code) end }
+		end
+		items[#items + 1] = { text = L["Choose a stat…"], onClick = function()
+			filtersUI.StatMenu(button, sortStat, function(stat)
+				changeOrder(stat and "most" or baseOrder, stat)
+			end)
+		end }
 	end
 	filtersUI.ShowMenu(button, items, button:GetWidth(), true)
 end
@@ -2308,12 +2346,13 @@ local function installFilterChrome()
 		end
 	end
 
-	function filtersUI.ShowMenu(button, items, width, currentChoice)
+	function filtersUI.ShowMenu(button, items, width, currentChoice, searchFold)
 		root.FilterMenuOwner = button
 		local keyboard = headerFocus == button and UI.Picker.HasSectionKeys() and not ns.Compat.InCombat()
 		W.HideTip(button)
 		width = min(width, MID_W - 2 * SH.pad)
-		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice, keyboard = keyboard })
+		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice,
+			keyboard = keyboard or searchFold ~= nil, searchFold = searchFold })
 	end
 
 	local function singleChoice(items, key, value, text, selected)
@@ -2362,6 +2401,26 @@ local function installFilterChrome()
 			for _, id in ipairs(group) do singleChoice(items, "slot", id, slotLabels[id], selected) end
 		end
 		filtersUI.ShowMenu(button, items, 256, true)
+	end
+
+	local function foldStat(text)
+		return ns.Search.Fold(text):sub(2)
+	end
+
+	function filtersUI.StatMenu(button, selected, choose)
+		if W.MenuShown(button) then return W.HideMenu() end
+		local S, items = ns.Search, {}
+		local function add(code, label)
+			items[#items + 1] = { text = label, checked = selected == code,
+				searchText = S.StatSearchText(code), onClick = function() choose(code) end }
+		end
+		add(nil, L["Any stat"])
+		for _, code in ipairs(S.StatCodes()) do add(code, S.StatLabel(code)) end
+		filtersUI.ShowMenu(button, items, 300, false, foldStat)
+	end
+
+	local function statFilterMenu(button)
+		filtersUI.StatMenu(button, LK.ItemFilters().stat, function(code) changeItemFilter("stat", code) end)
 	end
 
 	local function editValue(box)
@@ -2520,12 +2579,13 @@ local function installFilterChrome()
 			L["Uses item class restrictions and equipment proficiencies."])
 		item.Rarity = makeDropdown(drawerCell(item, 4, colWidth), L["Rarity"], rarityMenu)
 		item.Slot = makeDropdown(drawerCell(item, 5, colWidth), L["Slot"], slotMenu)
+		item.Stat = makeDropdown(drawerCell(item, 6, colWidth), L["Stat"], statFilterMenu)
 		drawer.Item = item
 		return item
 	end
 
 	local function itemControls(c)
-		return c.filterData and (kind == "all" or KIND[kind] and KIND[kind].item)
+		return c.filterData and itemCapable()
 	end
 
 	local function newChrome(y)
@@ -2556,6 +2616,7 @@ local function installFilterChrome()
 			fixedButtonText(item.Class, classText(c))
 			fixedButtonText(item.Rarity, rarityText(c.saved.quality))
 			fixedButtonText(item.Slot, slotText(c.saved.slot))
+			fixedButtonText(item.Stat, ns.Search.StatLabel(c.saved.stat) or L["Any stat"])
 		elseif item and item:IsShown() then
 			filtersUI.DiscardRanges()
 		end
@@ -2769,7 +2830,7 @@ local function installFilterChrome()
 			local item = rawget(drawer, "Item")
 			if item and item:IsVisible() then
 				local first, second = item.Required, item.Level
-				for _, b in ipairs({ first.Min, first.Max, second.Min, second.Max, item.Class, item.Rarity, item.Slot }) do
+				for _, b in ipairs({ first.Min, first.Max, second.Min, second.Max, item.Class, item.Rarity, item.Slot, item.Stat }) do
 					controls[#controls + 1] = b
 				end
 			end
@@ -2874,7 +2935,7 @@ function LK.Build(parent, hub)
 	root.CodexLine:SetWidth(MID_W - SH.pad * 2)
 	root.Visibility = W.Button(hub.Header, L["Filters"], filtersUI.Toggle, { icon = "chevron-down", height = 24, width = 112 })
 	root.Visibility:SetPoint("BOTTOMRIGHT", hub.Header, "BOTTOMRIGHT", -SH.pad, 16)
-	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, headerMenu, { icon = "chevron-down", height = 24, width = 184 })
+	root.SearchOrder = W.Button(hub.Header, ORDER_LABELS.best, headerMenu, { icon = "chevron-down", height = 24, width = 184 })
 	root.SearchOrder:SetPoint("RIGHT", root.Visibility, "LEFT", -8, 0)
 	root.SearchOrder:Hide()
 	root.Visibility:Hide()
@@ -2887,8 +2948,8 @@ function LK.Build(parent, hub)
 		filtersUI.Hide()
 		local P = UI.Picker
 		local text = P and P.Query and P.Query() or query
-		if text == "" and order ~= "best" then
-			order = "best"
+		if text == "" and (order ~= "best" or sortStat) then
+			order, baseOrder, sortStat = "best", "best", nil
 			stale()
 		end
 	end)
@@ -2937,6 +2998,7 @@ if UI.RegisterSection then
 		nav = LK.Nav, onNav = selectNav,
 		search = onSearch, enter = onEnter, step = LK.Step, keyboard = sectionKeyboard,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
+		searchTip = L["Search by name, item ID or stat. Try #19019 or haste."],
 	})
 end
 

@@ -82,6 +82,7 @@
 --     the available facts cannot establish eligibility, or the class is unavailable.
 --   Search.StatLabel(code) -> localized label|nil
 --   Search.StatCodes([text]) -> codes in localized label order, optionally filtered by substring
+--   Search.StatSearchText(code) -> folded English label and aliases for a picker row
 --   Search.MatchStat(text) -> code|nil for a complete folded label or alias
 --   Search.Release()   -- frees per-search caches and Codex stat maps on hub hide
 --   Search.Subtitle(result) -> text|nil   -- guides "Zone · 1-6"; Codex entities Lookup.Subtitle
@@ -296,6 +297,11 @@ end
 function Search.StatLabel(code)
 	local entry = statLabels[code]
 	return entry and entry[1]
+end
+
+function Search.StatSearchText(code)
+	local entry = statLabels[code]
+	return entry and table.concat(entry, "\n", 2)
 end
 
 -- Search.StatCodes([text]) -> fresh list of codes in localized label order.

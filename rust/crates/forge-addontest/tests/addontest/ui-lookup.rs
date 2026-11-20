@@ -924,6 +924,13 @@ fn lookup_filter_drawer_and_strip_fit_both_hub_widths_and_keyboard_uses_the_shor
 			edit(PolestarMenu.Filter, "shield")
 			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
 			assert(LK.ItemFilters().slot == 14 and focusMark(item.Slot) and #LK.Recent() == historyCount)
+			key("TAB")
+			assert(focusMark(item.Stat))
+			key("ENTER")
+			assert(PolestarMenu.Filter:HasFocus())
+			edit(PolestarMenu.Filter, "strength")
+			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
+			assert(LK.ItemFilters().stat == 4 and focusMark(item.Stat) and #LK.Recent() == historyCount)
 			item.Rarity:Click()
 			UI.Picker.ShowSection("Guides")
 			assert(not PolestarMenu:IsShown() and not drawer:IsShown() and not strip:IsShown())
@@ -1958,7 +1965,211 @@ fn everything_in_a_to_z_previews_each_kind_s_first_five_the_top_of_its_show_all_
 }
 
 #[test]
-fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_searching() {
+fn lookup_stat_picker_filters_aliases_and_routes_enter_to_the_picker() {
+	let out = run_packed_lookup(
+		&json!({ "items": {
+			"71": { "name": "Trial Charm", "levelsSource": "client", "stats": { "36": 0 } },
+			"72": { "name": "Trial Staff", "levelsSource": "client", "stats": { "136": 0 } },
+			"73": { "name": "Trial Axe", "levelsSource": "client", "stats": { "128": 0 } }
+		} }),
+		r#"
+		UI.ShowLookup()
+		LK.SetKind("item")
+		UI.Picker.search:ClearFocus()
+		LK.root.Visibility:Click()
+		local stat = assert(LK.root.FilterDrawer.Item.Stat, "the Stat control")
+		assert(stat.Label:GetText() == "Any stat")
+		local activated = 0
+		LK.Activate = function() activated = activated + 1 end
+		local function filter(text)
+			local box = PolestarMenu.Filter
+			assert(box:HasFocus())
+			box:SetText(text)
+			stub.RunScript(box, "OnTextChanged", true)
+			return box
+		end
+		stat:Click()
+		local menu = PolestarMenu
+		assert(menu:GetWidth() == 300 and #menu.rows == 56)
+		assert(menu.rows[1].Text:GetText() == "Any stat" and menu.rows[2].Text:GetText() == "Agility")
+		local box = filter("unmatched")
+		assert(menu.Empty:IsShown() and menu.Empty:GetText() == "Nothing matches.")
+		stub.RunScript(box, "OnEnterPressed")
+		assert(menu:IsShown() and LK.ItemFilters().stat == nil)
+		box = filter("undead")
+		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead")
+		stub.RunScript(box, "OnArrowPressed", "DOWN")
+		assert(menu.psKeyRow.Text:GetText() == "Spell Damage vs Undead")
+		stub.RunScript(box, "OnArrowPressed", "UP")
+		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead")
+		stub.RunScript(box, "OnArrowPressed", "DOWN")
+		stub.RunScript(box, "OnEnterPressed")
+		assert(LK.Selected().id == 72 and LK.shown.rows == 1 and not menu:IsShown())
+		assert(stat.Label:GetText() == "Spell Damage vs Undead")
+		assert(Polestar.CharState().ui.lookupItemFilters.stat == 136)
+		assert(LK.root.FilterStrip.Chips[1].psTip == "Clear Stat · Spell Damage vs Undead")
+
+		stat:Click()
+		filter("undead")
+		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead", "the first match precedes the checked match")
+		box = filter("aste rat")
+		assert(menu.psKeyRow.Text:GetText() == "Haste", "an alias substring")
+		stub.RunScript(box, "OnEnterPressed")
+		assert(LK.ItemFilters().stat == 36 and LK.Selected().id == 71 and LK.shown.rows == 1)
+		local order = LK.root.SearchOrder
+		assert(choose(order, "Most Haste"))
+		assert(rowFor(LK.results.Child, "Trial Charm").Sub:GetText() == "Amount unknown")
+		assert(choose(stat, "Any stat") and LK.ItemFilters().stat == nil)
+		assert(order.Label:GetText() == "Most Haste" and LK.shown.rows == 3, "the sort survives clearing its original filter")
+		assert(activated == 0 and #LK.Recent() == 0)
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_most_draws_all_buckets_and_pages_in_preview_order_with_an_independent_filter() {
+	let mut items = json!({
+		"71": { "name": "Trial Unmeasured", "levelsSource": "client", "stats": { "7": 0, "31": 0 } },
+		"72": { "name": "Trial Base", "levelsSource": "client", "stats": { "31": 0 } },
+		"73": { "name": "Trial Aardvark" },
+		"74": { "name": "Trial Retired", "status": "retired", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100, "31": 0 } },
+		"75": { "name": "Trial Mount", "kind": "mount", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } }
+	});
+	for i in 1..=52 {
+		items[(100 + i).to_string()] = json!({
+			"name": format!("Trial Sword {i:02}"), "levelsSource": "client", "statAmountSource": "client", "stats": { "7": i }
+		});
+	}
+	let out = run_packed_lookup(
+		&json!({ "items": items, "quests": { "81": { "title": "Trial Quest" } } }),
+		r#"
+		UI.ShowLookup({ query = "tri" })
+		LK.SetKind("item")
+		local order = LK.root.SearchOrder
+		assert(choose(order, "A to Z"))
+		LK.More()
+		assert(LK.shown.rows == 56)
+		assert(choose(order, "Choose a stat…"))
+		local box = PolestarMenu.Filter
+		type_("trial")
+		assert(LK.Query() == "tri", "the hub query is still waiting for the debounce")
+		box:SetText("stamina")
+		stub.RunScript(box, "OnTextChanged", true)
+		stub.RunScript(box, "OnEnterPressed")
+		assert(LK.Query() == "trial" and order.Label:GetText() == "Most Stamina" and LK.ItemFilters().stat == nil)
+		assert(LK.shown.rows == 50 and LK.Selected().id == 74 and LK.results:GetVerticalScroll() == 0)
+		assert(rowFor(LK.results.Child, "Trial Retired").Sub:GetText() == "100")
+
+		local firstPage = bottom()
+		assert(firstPage[#firstPage - 1] == "Trial Sword 04" and firstPage[#firstPage] == "Show more (6 more)")
+		local scroll = LK.results:GetVerticalScroll()
+		rowFor(LK.results.Child, "Show more (6 more)"):Click()
+		assert(LK.shown.rows == 56 and LK.Selected().id == 74 and LK.results:GetVerticalScroll() == scroll)
+		local tail = bottom()
+		assert(table.concat(tail, "|", #tail - 5) ==
+			"Trial Sword 03|Trial Sword 02|Trial Sword 01|Trial Unmeasured|Trial Base|Trial Aardvark")
+		for _, sample in ipairs({ { "Trial Unmeasured", "Amount unknown" }, { "Trial Base", "No listed stat" },
+			{ "Trial Aardvark", "Unknown" } }) do
+			assert(rowFor(LK.results.Child, sample[1]).Sub:GetText() == sample[2])
+		end
+
+		LK.SetKind("all")
+		assert(rowFor(LK.results.Child, "Trial Mount").Sub:GetText() == "18")
+		local preview, top = {}, {}
+		for _, row in ipairs(shownRows(LK.results.Child)) do
+			if row.psResult and row.psResult.kind == "item" then preview[#preview + 1] = row.Title:GetText() end
+		end
+		assert(#preview == 5 and preview[1] == "Trial Retired")
+		assert(rowFor(LK.results.Child, "Show all 56")):Click()
+		local page = rowTexts(LK.results.Child)
+		for i = 1, 5 do top[i] = page[i] end
+		assert(table.concat(preview, "|") == table.concat(top, "|"))
+		LK.SetKind("quest")
+		assert(order.Label:GetText() == "A to Z")
+		order:Click()
+		assert(not menuChoice("Choose a stat…"))
+		Polestar.Widgets.HideMenu()
+		LK.SetKind("item")
+		assert(order.Label:GetText() == "Most Stamina")
+
+		LK.root.Visibility:Click()
+		local stat = LK.root.FilterDrawer.Item.Stat
+		stat:Click()
+		box:SetText("hit rating")
+		stub.RunScript(box, "OnTextChanged", true)
+		stub.RunScript(box, "OnEnterPressed")
+		assert(LK.ItemFilters().stat == 31 and LK.shown.rows == 3 and LK.Selected().id == 74)
+		assert(order.Label:GetText() == "Most Stamina")
+		assert(table.concat(rowTexts(LK.results.Child), "|") == "Trial Retired|Trial Unmeasured|Trial Base")
+		assert(LK.root.FilterStrip.Clear:IsVisible())
+		LK.root.FilterStrip.Clear:Click()
+		assert(LK.ItemFilters().stat == nil and LK.shown.rows == 50 and LK.Selected().id == 74)
+		assert(order.Label:GetText() == "Most Stamina")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_query_help_exact_ids_and_most_order_lifetime() {
+	let out = run_packed_lookup(
+		&json!({ "items": {
+			"19019": { "name": "Trial Blade", "levelsSource": "client", "stats": { "36": 0 } },
+			"71": { "name": "Replica 19019", "levelsSource": "client" }
+		} }),
+		r##"
+		UI.ShowLookup({ query = "19019" })
+		LK.SetKind("item")
+		local box, order = UI.Picker.search, LK.root.SearchOrder
+		stub.RunScript(box, "OnEnter")
+		assert(GameTooltip:GetOwner() == box)
+		assert(GameTooltip.lines[1] == "Search by name, item ID or stat. Try #19019 or haste.")
+		assert(LK.shown.rows == 2 and LK.Selected().id == 19019)
+		local function query(q) type_(q); stub.advance(0.3) end
+		query("#19019")
+		assert(LK.shown.rows == 1 and LK.Selected().id == 19019)
+		query("#71")
+		assert(LK.shown.rows == 1 and LK.Selected().id == 71)
+		query("#019019")
+		assert(LK.shown.rows == 1 and LK.Selected().id == 19019)
+		query("#1")
+		assert(LK.shown.empty == "No item with that ID here." and LK.Selected() == nil)
+		query("#abc")
+		assert(LK.shown.empty == "Use # followed by an item ID." and LK.Selected() == nil)
+		query("haste")
+		assert(LK.shown.rows == 1 and LK.Selected().id == 19019)
+
+		assert(choose(order, "Choose a stat…"))
+		local filter = PolestarMenu.Filter
+		filter:SetText("haste")
+		stub.RunScript(filter, "OnTextChanged", true)
+		stub.RunScript(filter, "OnEnterPressed")
+		PolestarPicker:Hide()
+		UI.ToggleLookup()
+		assert(LK.Query() == "haste" and LK.Order() == "most" and order.Label:GetText() == "Most Haste")
+		query("")
+		assert(order.Label:GetText() == "Most Haste" and LK.Selected().id == 19019)
+		PolestarPicker:Hide()
+		UI.ToggleLookup()
+		assert(LK.Order() == "best" and order:IsShown() and order.Label:GetText() == "A to Z")
+		order:Click()
+		assert(menuChoice("A to Z") and not menuChoice("Best match") and not menuChoice("Most Haste"))
+		Polestar.Widgets.HideMenu()
+		LK.SetKind("all")
+		assert(not order:IsShown())
+		UI.Picker.ShowSection("Guides")
+		assert(box.psTip == nil)
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn search_dropdown_restarts_the_kind_list_and_shows_a_to_z_when_browsing_items() {
 	let out = run(r#"
 		for i = 239, 1, -1 do
 			table.insert(lookupstub.entities, { kind = "item", id = 90000 + i, title = ("Ring %03d"):format(i) })
@@ -1992,10 +2203,10 @@ fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_
 		local kept = LK.Order()
 		type_("")
 		emit({ before = before, picked = picked, after = after, pages = pages, tails = tails, last = last, onAll = onAll,
-			onEmpty = order and order:IsShown() or false, kept = kept, emptied = LK.Order(), controls = controls })"#);
+			onEmpty = order and order:IsShown() and order.Label:GetText() or false, kept = kept, emptied = LK.Order(), controls = controls })"#);
 	assert_eq!(out["picked"], true);
 	assert_eq!(out["onAll"], true, "Everything's search offers the order too");
-	assert_eq!(out["onEmpty"], false);
+	assert_eq!(out["onEmpty"], "A to Z");
 	assert_eq!(out["kept"], "az", "paging keeps the search's order");
 	assert_eq!(out["emptied"], "az", "the hub is still open");
 	assert_eq!(out["controls"], json!({ "Best match": true, "Filters": true }));

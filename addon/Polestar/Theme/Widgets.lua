@@ -2379,11 +2379,12 @@ local function menuLong()
 	return sc
 end
 
--- Does an item hold the filter's text (any case)?
-local function holds(item, needle)
+-- Does the label or any extra search term hold the filter's text?
+local function holds(item, needle, fold)
 	if needle == "" then return true end
-	local text = item.text and tostring(item.text):lower()
-	return text ~= nil and text:find(needle, 1, true) ~= nil
+	local text = item.text and fold(tostring(item.text))
+	return (text and text:find(needle, 1, true) ~= nil)
+		or (item.searchText and item.searchText:lower():find(needle, 1, true) ~= nil)
 end
 
 function layoutMenu()
@@ -2401,7 +2402,8 @@ function layoutMenu()
 	local sc = long and menuLong() or rawget(menu, "Scroll")
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
-	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
+	local fold = opts.searchFold or string.lower
+	local needle = long and fold(menu.Filter:GetText() or "") or ""
 	local y = long and 0 or -pad
 	local nrow, nsep, shownRows = 0, 0, 0
 	W.SetMenuKeyRow(menu, nil)
@@ -2478,7 +2480,7 @@ function layoutMenu()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
 			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + (long and 10 or 0))
-			if holds(item, needle) then
+			if holds(item, needle, fold) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
 				-- In a long list, clear of its scroll bar.
@@ -2541,10 +2543,12 @@ function layoutMenu()
 	end
 end
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen }, { separator = true }, ... }
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen, searchText }, { separator = true }, ... }
 -- With keepOpen, onClick updates the item checks and the rows repaint in place.
 -- It can return true to lay out the list again if its choices changed.
--- opts: { point, relPoint, x, y, minWidth, maxWidth, current, keyboard }
+-- opts: { point, relPoint, x, y, minWidth, maxWidth, current, keyboard, searchFold }
+-- searchFold normalizes the query and label. Extra searchText uses the same
+-- normalization in advance, with terms separated by newlines.
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred

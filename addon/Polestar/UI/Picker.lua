@@ -1789,6 +1789,7 @@ end
 --     keyboard = fn(key, fromSearch, shifted) -> handled, keepFocus,
 --       -- optional: Tab from search, then keys while captured; nil key releases focus
 --     searchPlaceholder = "...",       -- optional; or a list of wordings, longest first (the first that fits shows)
+--     searchTip = "...",               -- optional search box tooltip
 --   })
 ---------------------------------------------------------------------------
 
@@ -1898,6 +1899,11 @@ local function sectionLayout(s)
 	if not on then win.Close:SetFrameLevel(details.Scrim:GetFrameLevel() + 2) end
 	if win.PlaceThanks then win.PlaceThanks() end
 	W.SetSearchPlaceholder(win.Search, (s and s.searchPlaceholder) or (s and s.search and L["Search"]) or HUB_SEARCH)
+	local tip = s and s.searchTip
+	if win.Search.psTip ~= tip then
+		W.HideTip(win.Search)
+		win.Search.psTip = tip
+	end
 	win.Search:SetShown(not s or s.search ~= nil)
 end
 
@@ -2310,6 +2316,9 @@ local function build()
 		if not (s and s.keyboard and s.keyboard("ESCAPE", true)) then self:ClearFocus() end
 	end)
 	win.Search:HookScript("OnEditFocusGained", releaseSectionKeys)
+	win.Search:HookScript("OnEnter", W.SimpleTip)
+	win.Search:HookScript("OnLeave", W.HideTip)
+	win.Search:HookScript("OnHide", W.HideTip)
 
 	-- Middle: the header, tab row and list end where the details begin; no
 	-- footer, the list runs to the window's bottom.
