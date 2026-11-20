@@ -85,7 +85,7 @@ return {
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {zone:1450}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
+	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939}이(가) {area:2361} 주변을 돌아다닙니다: 지도에서 원 안을 보세요",
 
 	-- Step 21: Class trainer
 	["Class trainer"] = "직업 전문가",
