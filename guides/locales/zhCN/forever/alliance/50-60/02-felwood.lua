@@ -147,42 +147,62 @@ return {
 	["{npc:11138}, the Alliance flight master"] = "",
 
 	-- Step 28: Rut'theran Village
+	-- {npc:7916} Erelas Ambersky · {quest:3661} Favored of Elune? · {zone:1425} Hinterlands
+	["{npc:7916}: {quest:3661}, the feathers from the {zone:1425}"] = "",
 	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
 	["{npc:7916}: the wildkin feathers lie along {zone:1452}'s road, on the next guide; {npc:7916} takes them on the Plaguelands guide's way through: keep it"] = "",
 
-	-- Step 30: The Temple Gardens
+	-- Step 29: Daryn Lightwind
+	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+
+	-- Step 31: The Temple Gardens
 	-- {item:11682} Eridan's Vial
 	["Fill {item:11682} at the moonwell inside the Temple of the Moon."] = "",
 
-	-- Step 32: Mathrengyl Bearwalker
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}."] = "",
+	-- Step 32: Gracina Spiritmight
+	-- {npc:7740} Gracina Spiritmight
+	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
+	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
+	["{npc:7740}: {quest:162}, from {area:976}"] = "",
+	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
+	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
+
+	-- Step 34: Mathrengyl Bearwalker
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker
+	["{npc:9047} waits in the {area:1658}; Fandral and {npc:4217} stand upstairs in its druids' building."] = "",
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil
+	["{npc:9047}, in the {area:1658}: {quest:3764}"] = "",
+	-- {npc:3516} Arch Druid Fandral Staghelm
+	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "",
+	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
+	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "",
 
-	-- Step 33: Portal to Teldrassil
+	-- Step 35: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "",
 
-	-- Step 34: Rut'theran Village flight master
+	-- Step 36: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 35: Feathermoon Stronghold
+	-- Step 37: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "",
 
-	-- Step 37: Boat to The Forgotten Coast
+	-- Step 39: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "",
 
-	-- Step 38: Zorbin Fandazzle
+	-- Step 40: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Take the boat to the mainland: {npc:14637} waits on the dock where it lands."] = "",
 
-	-- Step 39: The Forgotten Coast: kill these as you meet them
+	-- Step 41: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
@@ -195,38 +215,38 @@ return {
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
 	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
 
-	-- Step 40: Zorbin Fandazzle
+	-- Step 42: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Back to {npc:14637} on the dock."] = "",
 
-	-- Step 41: Gregan Brewspewer
+	-- Step 43: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
 	["Ride north-east from the dock past the {area:1119} to {npc:7775}'s camp. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
 
-	-- Step 42: Rockbiter
+	-- Step 44: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
 
-	-- Step 43: Evoroot
+	-- Step 45: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
 	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
 
-	-- Step 44: Shay Leafrunner
+	-- Step 46: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
 	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
 
-	-- Step 45: Wandering Shay
+	-- Step 47: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
 	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
 
-	-- Step 46: Gregan Brewspewer
+	-- Step 48: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
 	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one at the start of the next guide, and Gaeriyan in {area:976} shows himself only to someone who has drunk one."] = "",
 
-	-- Step 47: Feralas
+	-- Step 49: Feralas
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
-	["Ride east along the road to {area:489}, on the {zone:1441} border."] = "",
+	["Ride east along the road to {area:489}, on the {zone:1441} border: the next guide flies from there."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ends in the {zone:1413}: keep it"] = "在{zone:1413}结束：留着",

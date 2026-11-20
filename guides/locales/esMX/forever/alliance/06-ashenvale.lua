@@ -65,7 +65,8 @@ return {
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28",
+	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28"
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
 
 	-- Step 14: The Zoram Strand
 	-- {area:413} Maestra's Post · {area:414} Zoram Strand · {npc:3846} Talen
@@ -135,8 +136,9 @@ return {
 
 	-- Step 28: The Pridewings
 	["The Pridewings"] = "",
+	-- {npc:5928} Sorrow Wing
 	-- plural, as words: Pridewing Wyverns = {npc:4012} Pridewing Wyvern
-	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies."] = "",
+	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "",
 
 	-- Step 29: Stonetalon Peak
 	-- {area:467} Stonetalon Peak · {npc:3994} Keeper Albagorm · {npc:16458} Innkeeper Faralia
@@ -162,7 +164,8 @@ return {
 
 	-- Step 33: Gleaming Crescent Pendant
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it."] = "",
+	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
+	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "",
 
@@ -223,7 +226,7 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
-	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 28"] = "",
+	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}: he won't offer 305 while you carry it"] = "{npc:2096}: no ofrece la 305 mientras la lleves",
 	-- {npc:2096} Tarrel Rockweaver
@@ -259,7 +262,8 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27",
+	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27"
+	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
 
 	-- Step 48: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
@@ -428,6 +432,7 @@ return {
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "mata Asaltantes Faucedraco ({npc:1034}) y Correpantanos en el campamento Faucedraco, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
 	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: correpantanos y tejebrumas Pellejomusgo",
+	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} y {npc:258785} están en {object:32386}, en {object:32362}.",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: para {npc:2104}, en el castillo",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}, en la biblioteca real",
@@ -440,6 +445,7 @@ return {
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104} está en {area:2103}, a poca distancia de {npc:1242}.",
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "Puede que {npc:210995} no las ofrezca a todas las clases; si no lo hace, sigue adelante.; recorre {area:1276}: el mapa marca dónde buscar",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}: la respuesta de Alexston",
+	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664} y sus abisarios ocupan {area:412}, al sur del santuario. Atrae primero a sus guardias.",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693} está junto al maestro de vuelo, en el extremo este de la calle principal; luego de vuelta al oeste hasta el muelle.",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}. Los Elementales de agua podrida vadean el lago. Cuidado: {npc:12759}, una elemental de agua de nivel 27, recorre el lago entre ellos; también suelta los brazales, pero los elementales pequeños son presas más seguras a este nivel.",

@@ -178,9 +178,9 @@ return {
 	-- Step 36: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
 	["{zone:1419}: kill these as you meet them"] = "",
-	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {npc:272386} Snickerfang Matriarch · {item:8244} Flawless Draenethyst Sphere
-	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and a {npc:272386} (60) dens at about 54,43: give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
+	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {area:1440} Serpent's Coil · {item:8244} Flawless Draenethyst Sphere
+	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk · Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch
+	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the {area:1440} (about 54-62, 31-47): give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
 	-- {item:8244} Flawless Draenethyst Sphere
 	["{item:8244}, a rare drop"] = "",
 
@@ -197,8 +197,8 @@ return {
 
 	-- Step 40: Sergeant Danneth
 	-- {area:1440} Serpent's Coil · {area:1438} Nethergarde Keep · {npc:7728} Kirith the Damned · {npc:7666} Archmage Allistarj
-	-- plural, as words: Shadowsworn Cultists = {npc:6004} Shadowsworn Cultist
-	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, south-east of {area:1438}: Danneth hides just inside.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "",
+	-- plural, as words: Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch · Shadowsworn Cultists = {npc:6004} Shadowsworn Cultist
+	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, due south of {area:1438}: Danneth hides just inside.\nCareful: Snickerfang Matriarchs (60) roam the ground between Kum'isha's hill and the caverns: watch for them on the ride and go round them, there and back.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "",
 
 	-- Step 41: Nethergarde Keep
 	-- {area:1438} Nethergarde Keep · {npc:3546} Bernie Heisten
@@ -234,51 +234,15 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
 
-	-- Step 52: Fly to Rut'theran Village
-	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "飛往{area:702}",
+	-- Step 52: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine · {area:415} Astranaar · {zone:1448} Felwood · {zone:1457} Darnassus
+	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}飛行管理員",
 
-	-- Step 54: Daryn Lightwind
-	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}站在樓上，在{npc:7916}上方：從裡面走上去，箭頭無法分辨樓層。",
-
-	-- Step 57: Darnassus
-	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
-	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "{area:702}的傳送門通往上方的{zone:1457}：{npc:9047}在城市北邊的{area:1658}等候。",
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
-	["{npc:9047}, in the {area:1658}"] = "{npc:9047}，在{area:1658}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "{zone:1455}沒有德魯伊訓練師",
-
-	-- Step 59: Arch Druid Fandral Staghelm
-	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, upstairs"] = "",
-	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "{npc:4217}，在樓上",
-	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
-	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
-
-	-- Step 60: Gracina Spiritmight
-	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740}站在城市南部月神殿裡的泰蘭妲身旁。",
-	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
-	["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740}：{quest:162}，來自{area:976}",
-	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
-	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
-
-	-- Step 61: Portal to Teldrassil
-	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "傳送門前往{zone:1438}",
-
-	-- Step 62: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
-	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
-
-	-- Step 63: Into Azshara
+	-- Step 53: Into Azshara
 	-- {zone:1447} Azshara
 	["Into {zone:1447}"] = "進入{zone:1447}",
 	-- {area:415} Astranaar · {area:2358} Forest Song · {zone:1447} Azshara · {area:1235} Shadowsong Shrine
@@ -286,22 +250,22 @@ return {
 	-- {area:1235} Shadowsong Shrine
 	["East along the road to {area:1235}"] = "沿道路向東前往{area:1235}",
 
-	-- Step 64: Shadowsong Shrine
+	-- Step 54: Shadowsong Shrine
 	-- {zone:1447} Azshara · {area:3137} Talrendis Point
 	["The shrine lies in the south-west corner of {zone:1447}, south of {area:3137}."] = "神殿位於{zone:1447}西南角，在{area:3137}南邊。",
 
-	-- Step 65: Talrendis Point
+	-- Step 55: Talrendis Point
 	-- {npc:239822} Commander Truesong · {npc:240482} Berdun Cliffbrew · {area:3137} Talrendis Point
 	["Just north-east of the shrine: {npc:239822} and {npc:240482} keep the Alliance camp at {area:3137}."] = "就在神殿東北方：{npc:239822}和{npc:240482}駐守在{area:3137}的聯盟營地。",
 
-	-- Step 66: Mosshoof Runners
+	-- Step 56: Mosshoof Runners
 	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
 	["Mosshoof Runners"] = "苔蹄奔跑者",
 	-- {area:3137} Talrendis Point
 	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
 	["The Mosshoof Runners (45-47) graze the hills north of {area:3137}, on the way to the satyrs."] = "苔蹄奔跑者（45-47）在{area:3137}北邊的山丘上吃草，就在前往薩特的路上。",
 
-	-- Step 67: Azshara: kill these as you meet them
+	-- Step 57: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
 	["{zone:1447}: kill these as you meet them"] = "{zone:1447}：沿途擊殺以下目標",
 	-- {npc:222478} Sentinel Keldara Sunblade
@@ -309,12 +273,12 @@ return {
 	-- {npc:222478} Sentinel Keldara Sunblade
 	["{npc:222478}, in the camp"] = "{npc:222478}，在營地裡",
 
-	-- Step 68: The western shore
+	-- Step 58: The western shore
 	["The western shore"] = "西岸",
 	-- plural, as words: Spitelash Warriors = {npc:6190} Spitelash Warrior
 	["The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs."] = "惡鞭戰士（46-47）和惡鞭尖叫者（47-48）佔據薩特東北方的西岸。",
 
-	-- Step 69: Talrendis Point
+	-- Step 59: Talrendis Point
 	-- {area:3137} Talrendis Point
 	["Back south-west to {area:3137}."] = "向西南返回{area:3137}。",
 	-- {npc:239822} Commander Truesong · {quest:88809} Preserving Eldarath · {area:1221} Ruins of Eldarath
@@ -322,37 +286,37 @@ return {
 	-- {npc:239822} Commander Truesong · {quest:92345} Beneath Nordrassil · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {zone:1448} Felwood
 	["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, on the {zone:1448} guide: keep it"] = "",
 
-	-- Step 72: Ogtinc
+	-- Step 62: Ogtinc
 	-- {npc:8405} Ogtinc · {area:1224} Bear's Head
 	["Ride north-east from the shrine: {npc:8405} camps at the {area:1224}, in the hills above the road."] = "從神殿向東北騎：{npc:8405}在{area:1224}紮營，位於道路上方的山丘上。",
 
-	-- Step 73: Sanath Lim-yo
+	-- Step 63: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
 	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "和{npc:8395}說話前先下坐騎：他會把你傳送到他營地上方懸崖上{npc:8379}的塔裡。",
 
-	-- Step 74: Archmage Xylem
+	-- Step 64: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "塔頂的學徒會把你送回去。",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
 	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "血精靈在{area:1220}，就在去{npc:8420}的路上",
 
-	-- Step 75: The Ruins of Eldarath
+	-- Step 65: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
 	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的惡鞭納迦身上帶著{item:13815}。{npc:8507}的四塊符文石立在遺跡之間：對每一塊使用他的{item:10445}。"
 	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "",
 
-	-- Step 76: Lord Sarthiss
+	-- Step 66: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
 	-- plural, as words: Eldarath Relics = {item:280608} Eldarath Relic
 	-- was: ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "不管是否在補等級，這片遺跡的惡鞭納迦都會掉落楚頌的埃達拉斯文物。{npc:239939}（52級）站在埃達拉斯遺跡中，惡鞭侍從的西南方：單獨把他拉出來。"
 	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "",
 
-	-- Step 77: Ekkal
+	-- Step 67: Ekkal
 	-- {npc:235903} Ekkal · {npc:8420} Kim'jael
 	["{npc:235903} camps by the road north to {npc:8420}: his satyrs are in {npc:8420}'s camp."] = "{npc:235903}在往北通往{npc:8420}的道路旁紮營：他要的薩特在{npc:8420}的營地裡。",
 
-	-- Step 78: Mosshoof Coursers
+	-- Step 68: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "苔蹄快步者",
 	-- {area:1224} Bear's Head · {area:1219} Legashi Encampment
@@ -360,45 +324,45 @@ return {
 	-- was: ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}東北方、往{area:1219}方向的山丘上覓食；更大的一群在南邊的空地上遊蕩。\n小心：苔蹄快步者是52-53級，在這裡比你高一兩級：從獸群邊緣一次拉一隻。"
 	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "",
 
-	-- Step 81: Kim'jael
+	-- Step 71: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp · {npc:6647} Magister Hawkhelm · {npc:235903} Ekkal
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor · Legashi Soulstealers = {npc:236867} Legashi Soulstealer
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him.\nCareful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with {npc:6647} (53) among them: take the equipment from the camp's edge and pull the elves one at a time.\n{npc:235903}'s satyrs, rogues and hellcallers (51-53) are the Legashi around {npc:8420}'s camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them."] = "{npc:8420}在北邊的{area:1219}紮營；他的裝備散落在他東南方不遠的{area:1220}各處。\n小心：血精靈勘測員是51-52級，收復者是52-53級，其中還有{npc:6647}（53級）：從營地邊緣拿裝備，一次拉一個精靈。\n{npc:235903}要的薩特、盜賊和地獄召喚者（51-53級）是{npc:8420}營地周圍的萊加希族；更東邊的萊加希竊魂者、地獄喚醒者和黑衛士（53級）不在任務內：待在他們西邊。",
 	-- {item:20028} Glittering Dust
 	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}，來自血精靈勘測員和收復者",
 
-	-- Step 84: Ekkal
+	-- Step 74: Ekkal
 	-- {npc:235903} Ekkal
 	["On the road back south, {npc:235903} takes the satyrs."] = "往南回去的路上，把薩特交給{npc:235903}。",
 
-	-- Step 85: Rubbing: Rune of Sael'hai
+	-- Step 75: Rubbing: Rune of Sael'hai
 	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne
 	["{item:7972}: the {npc:7864}, about 10%"] = "{item:7972}：{npc:7864}，約10%",
 
-	-- Step 86: Sanath Lim-yo
+	-- Step 76: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
 	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "向西騎回{npc:8395}的營地並下坐騎：他會再把你傳送到克希雷姆那裡。",
 
-	-- Step 88: The Temple of Zin-Malor
+	-- Step 78: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
 	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "恨鱗海妖在{area:1223}周圍的廢墟和海灘遊蕩，就在{npc:8395}以南。只有海妖帶著珊瑚，尖嘯者沒有。",
 
-	-- Step 89: Archmage Xylem
+	-- Step 79: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
 	["Back up through {npc:8395}'s teleport."] = "再次透過{npc:8395}的傳送上去。",
 	-- {area:1417} Sunken Temple
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "克希雷姆的最後一個任務“消滅莫法茲”在{area:1417}：跳過。",
 
-	-- Step 91: Ravencrest Monument
+	-- Step 81: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "游到{zone:1447}南端外海的小島。如果{npc:8392}不在那裡，發射你的{item:10444}向他發出信號，然後等他降落。",
 	-- {zone:1455} Ironforge · {zone:1422} Western Plaguelands
 	["Tymor in {zone:1455}, on the {zone:1422} guide's {zone:1455} stop: keep it"] = "",
 
-	-- Step 92: Talrendis Point
+	-- Step 82: Talrendis Point
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood
 	["Back to Truesong at {area:3137}: {zone:1448}, the next guide, is a short ride west."] = "",
 
@@ -413,6 +377,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:150} and take the boat to {area:442}."] = "從{zone:1455}飛往{area:150}，搭船前往{area:442}。",
 	-- ["Fly from {zone:1455} to {area:69}."] = "從{zone:1455}飛往{area:69}。",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "飛往{area:150}，搭船前往{area:442}，再轉船前往{area:702}。",
+	-- ["Fly to {area:702}"] = "飛往{area:702}",
 	-- ["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "給{area:976}的{npc:5594}，在{zone:1422}指南中：保留此任務",
 	-- ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "從{area:442}碼頭飛往{area:415}。",
@@ -422,6 +387,7 @@ return {
 	-- ["Level 52.08"] = "52.08級",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "可選：{npc:8395}要兩根完整的角鷹獸羽毛，從他營地周圍的角鷹獸身上取得。資料沒有列出這個任務的經驗值。",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "可選：{npc:8888}的鬼魂站在{area:254}內巨大鎖鏈上的墳墓上，只有死者能看見他。如果你反正在山附近死了，在復活前讓你的靈魂跑去找他。",
+	-- ["Portal to {zone:1438}"] = "傳送門前往{zone:1438}",
 	-- ["Priests and Mages trained here at the end of the Un'Goro guide"] = "牧師和法師已在安戈洛指南結尾於此學習過",
 	-- ["Read the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript."] = "閱讀{area:251}西南方遺跡中{object:147516}營地裡的石板，抄下文字。",
 	-- ["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "向南騎回{zone:1419}，獵殺血法師要的野獸：饑餓的彎牙土狼在血法師營地南邊的乾燥山丘遊蕩，厚甲毒刺蠍在北部中央爬行，{npc:5982}禿鷲在整片區域上空盤旋。灰鬃野豬和紅石蜥蜴分布在要塞西南方的山坡上。\n小心：這裡有兩隻精英在遊蕩：{npc:221740}（50級）在地區中央約44,34附近，{npc:247015}（55級）在約39,32的山脊上。看到其中一隻就換個地方打。",
@@ -441,6 +407,7 @@ return {
 	-- ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "不管是否在補等級，這片遺跡的惡鞭納迦都會掉落楚頌的埃達拉斯文物。{npc:239939}（52級）站在埃達拉斯遺跡中，惡鞭侍從的西南方：單獨把他拉出來。",
 	-- ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south."] = "最近的苔蹄快步者在{area:1224}東北方、往{area:1219}方向的山丘上覓食；更大的一群在南邊的空地上遊蕩。",
 	-- ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}東北方、往{area:1219}方向的山丘上覓食；更大的一群在南邊的空地上遊蕩。\n小心：苔蹄快步者是52-53級，在這裡比你高一兩級：從獸群邊緣一次拉一隻。",
+	-- ["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "{area:702}的傳送門通往上方的{zone:1457}：{npc:9047}在城市北邊的{area:1658}等候。",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "遺物是散布在{area:251}周圍{area:250}的雕刻石塊：點擊它們，直到資訊全部取回。",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "神殿位於{area:16}西南角，在{area:3137}南邊。",
 	-- ["The wildkin are in {zone:1452}: keep it"] = "梟獸在{zone:1452}：保留此任務",
@@ -463,12 +430,18 @@ return {
 	-- ["{npc:239822}: {quest:88809}, the relics drop from the naga of the top-up ahead"] = "{npc:239822}：{quest:88809}，遺物由前面練級時打的納迦掉落",
 	-- ["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, keep it"] = "{npc:239822}：{quest:92345}，交給{zone:1457}的{npc:4217}，保留此任務",
 	-- ["{npc:4217} is upstairs in the druids' building of the {area:1658}: go in by its south door."] = "{npc:4217}在{area:1658}德魯伊建築的樓上：從南門進去。",
+	-- ["{npc:4217}, upstairs"] = "{npc:4217}，在樓上",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363}在要塞西南方的山丘{area:2517}等候。沿途的{zone:1419}怪物會掉落不完美的德萊尼水晶碎片；把你有的帶給她。",
+	-- ["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740}站在城市南部月神殿裡的泰蘭妲身旁。",
+	-- ["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740}：{quest:162}，來自{area:976}",
+	-- ["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}站在樓上，在{npc:7916}上方：從裡面走上去，箭頭無法分辨樓層。",
 	-- ["{npc:8395} wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one."] = "{npc:8395}要兩根完整的角鷹獸羽毛，從他營地周圍的雷首角鷹獸身上取得，也就是你在這裡練級的那些：大約每三隻有一隻會帶著一根。",
 	-- ["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420}在北邊的{area:1219}紮營；他的裝備散落在他東南方不遠處的{area:1220}各處。",
+	-- ["{npc:9047}, in the {area:1658}"] = "{npc:9047}，在{area:1658}",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176}和黑石獸人佔據{area:251}西邊、{area:254}山腳下的營地和要塞。一次拉一隻；每個獸人和座狼都可能掉落徽章，所以一直殺到你有五十個為止。\n小心：{npc:9176}身邊有一名連動的守衛會一起參戰，附近還有第二名士兵在巡邏；拉怪前先清掉巡邏的士兵。\n小心：火誓者（60級火元素）在燃燒平原遊蕩，有些在黑石營地之間：每次拉怪前先看看，讓牠們走過去。",
 	-- ["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177}：黑石獸人會掉落徽章，在整個燃燒平原期間保持此任務進行中",
 	-- ["{object:175894}, inside"] = "{object:175894}，室內",
+	-- ["{zone:1455} has no druid trainer"] = "{zone:1455}沒有德魯伊訓練師",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455}沒有德魯伊訓練師：走傳送門上到{zone:1457}，在{area:1658}學習，然後回到下方的{area:702}。",
 }

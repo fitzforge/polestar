@@ -18,14 +18,21 @@ return {
 	-- {npc:11754} Meggi Peppinrocker · {npc:9298} Donova Snowden · {area:2255} Everlook
 	-- was: ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} läuft um {area:2255} umher: Schau in den Kreis auf der Karte"
 	["{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map"] = "",
-	-- {npc:10305} Umi Rumplesnicker · {zone:1452} Winterspring
-	["{npc:10305}: the yetis come on this guide's {zone:1452} loop: keep it"] = "",
+	-- {npc:10305} Umi Rumplesnicker
+	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
+	["{npc:10305}: the Rogue Ice Thistles on the road west carry the furs"] = "",
 
-	-- Step 3: Wildkin feathers: on the road west
-	["Wildkin feathers: on the road west"] = "",
-	-- {npc:9298} Donova Snowden
-	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride."] = "",
+	-- Step 3: The road west: feathers, furs and horns
+	["The road west: feathers, furs and horns"] = "",
+	-- {npc:9298} Donova Snowden · {item:12366} Thick Yeti Fur · {item:12444} Uncracked Chillwind Horn · {npc:10468} Felnok Steelspring
+	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "",
+	-- {item:12366} Thick Yeti Fur
+	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
+	["{item:12366}, from the Rogue Ice Thistles"] = "",
+	-- {item:12444} Uncracked Chillwind Horn
+	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
+	["{item:12444}, from the Fledgling Chillwinds"] = "",
 
 	-- Step 4: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -38,11 +45,11 @@ return {
 	-- Step 5: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: Töte sie, wenn du ihnen begegnest",
-	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {npc:11557} Meilosh · {area:1769} Timbermaw Hold
-	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for {npc:11557} in {area:1769}.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
+	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
+	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
+	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
 	-- {item:14047} Runecloth · {npc:11557} Meilosh
-	-- was: ["{quest:6031}, for Meilosh later"] = "{quest:6031}, später für Meilosh"
-	["{item:14047}, for {npc:11557}"] = "",
+	["{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw"] = "",
 
 	-- Step 6: Winterfall Ritual Totem
 	-- {npc:11558} Kernda
@@ -143,6 +150,7 @@ return {
 	-- Step 25: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	-- was: ["{item:15785}; below ground"] = "{item:15785}; unterirdisch"
 	["Below ground"] = "",
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
@@ -307,16 +315,11 @@ return {
 	-- {area:1770} Shadow Hold
 	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
 
-	-- Step 60: Arathandris Silversky
-	-- {npc:9528} Arathandris Silversky
-	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	["{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards on the spot."] = "",
-
-	-- Step 61: Greta Mosshoof: A Final Blow
+	-- Step 60: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
 	["{quest:5242} is a group quest at this level: {npc:9861} (52), {npc:9860} (54) and {npc:9517} (57) fight together at the back of {area:1770}. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "",
 
-	-- Step 62: Rakaiah
+	-- Step 61: Rakaiah
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
 	-- {npc:9518} Rakaiah
@@ -324,7 +327,7 @@ return {
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
-	-- Step 63: A Final Blow
+	-- Step 62: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9861} Moora
@@ -334,8 +337,13 @@ return {
 	-- {npc:9517} Shadow Lord Fel'dan
 	["{npc:9517}; below ground"] = "",
 
-	-- Step 64: The Emerald Sanctuary
+	-- Step 63: The Emerald Sanctuary
 	["Ride back south-east to the Sanctuary."] = "",
+
+	-- Step 64: Arathandris Silversky
+	-- {npc:9528} Arathandris Silversky · {area:1770} Shadow Hold
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into {area:1770}) on the spot."] = "",
 
 	-- Step 66: Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
@@ -386,7 +394,7 @@ return {
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
+	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
@@ -406,17 +414,16 @@ return {
 	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
 	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "",
 
-	-- Step 81: Ice Thistle Hills: kill these as you meet them
-	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest",
-	-- {area:2255} Everlook · {area:2244} Winterfall Village
-	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Chillwind Ravagers = {npc:7449} Chillwind Ravager
-	-- was: ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Eisdistelyetis leben in den Hügeln südlich von {area:2244}, Eiswindschimären im Tal Richtung {area:2255}.\nVorsicht: Die Eisdistelyetis sind 55-56 und die Schimären 55-57: Nimm die Wilden Eisdistelyetis (53-55) und die Eiswindjungen (53-55) am Rand der Hügel und lass die Eiswindverheerer (57-59) in Ruhe."
-	["Ice Thistle yetis live in the hills east of {area:2255}, south of {area:2244}; the Chillwind Chimaeras fly in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "",
+	-- Step 81: The road to Everlook: furs and horns
+	-- {area:2255} Everlook
+	["The road to {area:2255}: furs and horns"] = "",
+	-- {area:2255} Everlook · {npc:9298} Donova Snowden
+	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
+	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
 
 	-- Step 82: Winterfall Village
 	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity · {area:2255} Everlook · {npc:10738} High Chief Winterfall · {npc:10199} Grizzle Snowpaw
-	["{npc:11556}'s {quest:8464}: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out.\nCareful: {npc:10199} (59, rare) walks the village: leave him be."] = "",
+	["{npc:11556}'s {quest:8464}: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out.\nCareful: the village is dense and its Ursa and Shaman are over you: pull from the edge, one at a time. {npc:10199} (59, rare) walks the village: leave him be."] = "",
 
 	-- Step 84: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
@@ -521,6 +528,7 @@ return {
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "grinde {npc:7460} bei {area:2247}, {zone:1452}",
 	-- ["{area:150} flight master"] = "Flugmeister von {area:150}",
 	-- ["{area:199} cauldron"] = "Kessel im {area:199}",
+	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest",
 	-- ["{area:2255} flight master"] = "Flugmeister in {area:2255}",
 	-- ["{area:2255}'s inn"] = "Gasthaus von {area:2255}",
 	-- ["{item:12383}, 110 yd north"] = "{item:12383}, 110 yd nördlich",

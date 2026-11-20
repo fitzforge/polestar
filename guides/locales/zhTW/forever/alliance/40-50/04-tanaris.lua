@@ -122,8 +122,8 @@ return {
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南騎往{area:1938}的挖掘營地。{npc:7771}會給你一頂探測頭盔：戴上它就能看見{quest:3161}土堆，它們密集分布在營地周圍的沙地上，以及往西南方巨魔那邊。",
 	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
 	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
-	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {zone:1446} Tanaris
-	["{npc:7771}: the {item:10556} is in {area:392}, on the 50-60 {zone:1446} and Un'Goro guide, which hands it in here: keep it"] = "",
+	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
+	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "",
 
 	-- Step 25: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley

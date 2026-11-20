@@ -89,7 +89,8 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있고, 그에게 가는 길의 해안에 {quest:4723}이(가) 놓여 있습니다.",
+	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있고, 그에게 가는 길의 해안에 {quest:4723}이(가) 놓여 있습니다."
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "그렐족 귀걸이",
 	-- {item:5338} Ancient Moonstone Seal
@@ -164,6 +165,9 @@ return {
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "",
+	-- {item:12237} Fine Crab Chunks
+	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
+	["{item:12237} from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them"] = "",
 
 	-- Step 29: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
@@ -173,7 +177,11 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "달표범 송곳니",
 
-	-- Step 31: The Tower of Althalaxx
+	-- Step 31: Beached Sea Turtle
+	-- {quest:4727} Beached Sea Turtle · {npc:10219} Gwennyth Bly'Leggonde · {area:442} Auberdine
+	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "",
+
+	-- Step 32: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "버즈박스 323 동쪽, {npc:3661}은(는) 탑 아래에서 암흑이교도 광신자들 사이에 숨어 있습니다. 그의 편지는 {zone:1440}의 수호자 델그렌에게 가져가야 하니 보관하세요.\n주의: 암흑이교도 소환사(28-29)는 공허방랑자를 데리고 {npc:3660}(31)와(과) 함께 탑 안에 있습니다. 탑 남쪽의 광신자들에게서 양피지를 얻고 탑에는 가까이 가지 마세요.",
@@ -181,7 +189,7 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: 암흑이교도 광신자",
 
-	-- Step 32: The cave and the Den Mother
+	-- Step 33: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "동굴과 {npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
@@ -192,7 +200,7 @@ return {
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "",
 
-	-- Step 33: The northern Blackwood camp
+	-- Step 34: The northern Blackwood camp
 	["The northern Blackwood camp"] = "",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
@@ -200,12 +208,12 @@ return {
 	-- {item:12347} Filled Cleansing Bowl
 	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "{item:12347}을(를) 사용한 뒤 자브락시스를 처치하고, 땅에 떨어진 악마 가방을 클릭해 부적을 획득하십시오. 부적을 얻기 전에 자브락시스가 사라지면 퀘스트를 다시 받아 새 그릇을 받으십시오.",
 
-	-- Step 34: The cave and the Den Mother
+	-- Step 35: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "",
 
-	-- Step 35: Auberdine
+	-- Step 36: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "",
 
@@ -231,6 +239,7 @@ return {
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:10076}와(과) {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다.",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 그곳의 루테란 비행 경로를 익히십시오. 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있습니다.",
+	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있고, 그에게 가는 길의 해안에 {quest:4723}이(가) 놓여 있습니다.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "신도나 암살단원이 {item:5352}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하십시오",
 	-- ["Read both tablets"] = "두 석판을 모두 읽으십시오",
 	-- ["Scaber Stalks"] = "껄껄이그물버섯",

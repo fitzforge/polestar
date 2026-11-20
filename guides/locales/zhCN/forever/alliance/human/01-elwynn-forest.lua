@@ -76,10 +76,16 @@ return {
 	["The crates of grapes lie in the vineyards behind the Defias. {npc:103} waits by the cabin at the east end of the valley."] = "装葡萄的箱子在迪菲亚身后的葡萄园里。{npc:103}在山谷东端的小屋旁等候。",
 
 	-- Step 12: Kelsey Fargo
-	-- {npc:248362} Shinyfinder Narf
-	["She stands outside the mine entrance. {npc:248362}, inside, is a level 3 elite: from level 5 he is two levels under you."] = "",
+	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
+	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "",
 
-	-- Step 13: Inside Echo Ridge Mine
+	-- Step 13: The Big Picture
+	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
+	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "",
+	-- {npc:247226} Kelsey Fargo
+	["{npc:247226}, outside the mine"] = "",
+
+	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "{area:34}里面",
 	-- {npc:248362} Shinyfinder Narf
@@ -89,11 +95,11 @@ return {
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80}在{area:34}附近走动：查看地图上的圆圈范围内",
 
-	-- Step 14: Shinyfinder Narf
+	-- Step 15: Shinyfinder Narf
 	-- {npc:248362} Shinyfinder Narf
 	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "",
 
-	-- Step 15: Northshire Abbey
+	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
 	["{npc:823}, at the Abbey steps"] = "{npc:823}，在修道院台阶处",
 	-- {npc:375} Priestess Anetta · {npc:377} Priestess Josetta · {area:87} Goldshire
@@ -101,13 +107,13 @@ return {
 	-- {npc:952} Brother Neals
 	["{npc:952}, upstairs"] = "{npc:952}，在楼上",
 
-	-- Step 16: Northshire Abbey
+	-- Step 17: Northshire Abbey
 	-- {area:87} Goldshire
 	["his kobold tracker shows the kobolds to click on the road to {area:87}"] = "他的狗头人追踪器会显示前往{area:87}路上可点击的狗头人",
 	-- {npc:6774} Falkhaan Isenstrider
 	["{npc:6774}, by the stables south of the Abbey"] = "{npc:6774}，在修道院南边的马厩旁",
 
-	-- Step 18: Goldshire
+	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
 	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "沿道路向南离开山谷到{area:87}。{npc:240}站在路西侧的铁匠铺外，{npc:241}在铁匠铺南边的路旁，{npc:295}和{npc:253}在路对面的狮王之傲旅店里。",
 	-- {npc:295} Innkeeper Farley
@@ -119,76 +125,76 @@ return {
 	-- {npc:377} Priestess Josetta · {npc:12423} Guard Roberts · {area:18} Crystal Lake
 	["{npc:377}: heal {npc:12423} at {area:18}"] = "{npc:377}：在{area:18}治疗{npc:12423}",
 
-	-- Step 21: Sam Sarsaparilla
+	-- Step 22: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
 	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}在旅店东北方扎营。学会一项专业后，他还会提供该专业的野营入门，交给该专业的训练师：剥皮、制皮和钓鱼在湖岸，{skill:129}和锻造在{area:87}。",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "在他的营火旁坐下（/sit），直到获得{spell:1229451}",
 
-	-- Step 22: Camping 101: Skinning
+	-- Step 23: Camping 101: Skinning
 	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
 	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306}会在你的{skill:393}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:6306}",
 
-	-- Step 23: Camping 101: Leatherworking
+	-- Step 24: Camping 101: Leatherworking
 	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
 	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632}会在你的{skill:165}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:1632}",
 
-	-- Step 24: Camping 101: Fishing
+	-- Step 25: Camping 101: Fishing
 	-- {npc:1651} Lee Brown · {skill:356} Fishing
 	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651}会在你的{skill:356}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:1651}",
 
-	-- Step 25: Camping 101: First Aid
+	-- Step 26: Camping 101: First Aid
 	-- {npc:2329} Michelle Belle · {skill:129} First Aid
 	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}：交给狮王之傲旅店里的{npc:2329}",
 
-	-- Step 26: Camping 101: Blacksmithing
+	-- Step 27: Camping 101: Blacksmithing
 	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
 	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}：交给{area:87}铁匠铺的{npc:514}",
 
-	-- Step 27: Helene Peltskinner
+	-- Step 28: Helene Peltskinner
 	["talk to the trainer"] = "与训练师交谈",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, on the lake shore east of town; inside"] = "{npc:6306}，在镇子东边的湖岸上；在里面",
 
-	-- Step 28: Adele Fielder
+	-- Step 29: Adele Fielder
 	-- {npc:1632} Adele Fielder · {npc:6306} Helene Peltskinner
 	["{npc:1632}, beside {npc:6306}"] = "{npc:1632}，在{npc:6306}旁边",
 
-	-- Step 29: The lake shore
+	-- Step 30: The lake shore
 	["The lake shore"] = "湖岸",
 	-- {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:6306}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}：仅限剥皮者，毛皮需剥皮获得；在里面",
 
-	-- Step 31: Crystal Lake
+	-- Step 32: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
 	["The Fishing Traps sit along the west shore of the lake."] = "捕鱼陷阱分布在湖的西岸。",
 
-	-- Step 32: Guard Roberts
+	-- Step 33: Guard Roberts
 	-- {npc:12423} Guard Roberts · {area:18} Crystal Lake · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
 	["{npc:12423} kneels wounded by a tree on the west shore of {area:18}, among the Fishing Traps. Cast {spell:613} (Rank 2) on him, then {spell:1243}: Rank 1 of {spell:613} does not count. He walks off once both land and is back in about 3 minutes."] = "{npc:12423}受伤跪在{area:18}西岸的一棵树旁，就在捕鱼陷阱之间。对他施放{spell:613}（等级2），然后施放{spell:1243}：等级1的{spell:613}不算。两个法术都生效后他会走开，大约3分钟后回来。",
 	-- {npc:12423} Guard Roberts
 	["Heal and fortify {npc:12423}"] = "治疗{npc:12423}并为其施加耐力",
 
-	-- Step 34: Crystal Lake: kill these as you meet them
+	-- Step 35: Crystal Lake: kill these as you meet them
 	-- {area:18} Crystal Lake
 	["{area:18}: kill these as you meet them"] = "{area:18}：遇到就击杀",
 	-- plural, as words: Murloc Streamrunners = {npc:735} Murloc Streamrunner · Junk Piles = {object:694785} Junk Pile
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group."] = "鱼人和鱼人激流者占据着东岸；垃圾堆就在它们的营地里。小心：鱼人站得很近，一场战斗很容易同时引来两三只：从营地边缘一只一只地拉，不要追着一只跑进下一群。",
 
-	-- Step 36: Goldshire
+	-- Step 37: Goldshire
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430}在旅店厨房里做饭。{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：走室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:1430} Tomas
@@ -196,29 +202,29 @@ return {
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}，在楼上：{item:16605}",
 
-	-- Step 37: Michelle Belle
+	-- Step 38: Michelle Belle
 	-- {npc:2329} Michelle Belle
 	["{npc:2329}, in the Lion's Pride Inn"] = "{npc:2329}，在狮王之傲旅店里",
 
-	-- Step 38: Smith Argus
+	-- Step 39: Smith Argus
 	-- {npc:514} Smith Argus
 	["{npc:514}, at the smithy across the road"] = "{npc:514}，在路对面的铁匠铺",
 
-	-- Step 39: Maybell Maclure
+	-- Step 40: Maybell Maclure
 	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {npc:251} Maybell Maclure
 	["Follow the road south out of {area:87} to the {area:64}. {npc:251} waits by the house."] = "沿道路向南离开{area:87}到{area:64}。{npc:251}在房子旁等候。",
 
-	-- Step 40: Tommy Joe Stonefield
+	-- Step 41: Tommy Joe Stonefield
 	["He stands by the river west of the farm."] = "他站在农场西边的河旁。",
 
-	-- Step 41: The Stonefield Farm
+	-- Step 42: The Stonefield Farm
 	["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house.\nShe sits inside the farmhouse."] = "斯通菲尔德农场在矿洞西边。斯通菲尔德妈妈和波尼斯·斯通菲尔德姑妈站在房子旁。\n她坐在农舍里。",
 
-	-- Step 42: Billy Maclure
+	-- Step 43: Billy Maclure
 	-- {area:64} Maclure Vineyards
 	["Billy plays in the {area:64}, east of the mine."] = "比利·马科伦在矿洞东边的{area:64}玩耍。",
 
-	-- Step 43: Elwynn Forest: kill these as you meet them
+	-- Step 44: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
 	["{zone:1429}: kill these as you meet them"] = "{zone:1429}：遇到就杀",
 	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
@@ -229,10 +235,10 @@ return {
 	["{item:286215}: Stonetusk Boars"] = "{item:286215}：{npc:113}",
 	["Chunks of Boar Meat"] = "大块野猪肉",
 
-	-- Step 44: "Auntie" Bernice Stonefield
+	-- Step 45: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "波尼斯·斯通菲尔德姑妈",
 
-	-- Step 46: Maclure Vineyards: kill these as you meet them
+	-- Step 47: Maclure Vineyards: kill these as you meet them
 	-- {area:64} Maclure Vineyards
 	["{area:64}: kill these as you meet them"] = "{area:64}：遇到就杀",
 	-- {npc:248464} Nimsy
@@ -242,7 +248,7 @@ return {
 	-- plural, as words: Large Candles = {item:772} Large Candle
 	["Large Candles"] = "{item:772}",
 
-	-- Step 47: Maclure Vineyards: kill these as you meet them
+	-- Step 48: Maclure Vineyards: kill these as you meet them
 	-- {npc:248464} Nimsy
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:248464} (level 6 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{npc:248464}（6级精英）需要2人小队。如果你独自一人就跳过：路线会让你把经验刷回来。",
 	-- plural, as words: Lost Books = {item:248001} Lost Book · Kobold Miners = {npc:40} Kobold Miner
@@ -250,80 +256,80 @@ return {
 	-- {npc:248464} Nimsy
 	["Fun with Elementals: {npc:248464}"] = "绘本：和元素一起玩：{npc:248464}",
 
-	-- Step 48: Goldtooth
+	-- Step 49: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
 	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87}在{area:57}里面，不在上方的山丘上：从入口进去，一直靠左走到矿洞底层的最深处；不要上楼梯。葡萄园周围的迪菲亚强盗偶尔会掉落{item:1972}：右键点击它。\n小心：矿洞深处的狗头人{npc:248464}（6级）是精英，{npc:79}（10级，稀有）在隧道里游荡：一次拉一只狗头人。",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "{item:981}；在地下",
 
-	-- Step 49: Goldshire
+	-- Step 50: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：走室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "交给{zone:1453}的{npc:279}（02-westfall）",
 
-	-- Step 51: Level 8.39
+	-- Step 52: Level 8.39
 	["Level 8.39"] = "等级 8.39",
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "如果你跳过了{quest:91775}，在这里刷到8.39级以跟上路线计划。",
 	-- {npc:40} Kobold Miner
 	["grind on {npc:40}"] = "刷{npc:40}",
 
-	-- Step 52: Class trainer
+	-- Step 53: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 53: Shaman trainer
+	-- Step 54: Shaman trainer
 	["Shaman trainer"] = "萨满祭司训练师",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446}在{zone:1426}；{area:87}没有萨满祭司训练师",
 
-	-- Step 54: Druid trainer
+	-- Step 55: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}在{zone:1453}；{area:87}没有德鲁伊训练师",
 
-	-- Step 55: Jason Mathers
+	-- Step 56: Jason Mathers
 	-- {area:87} Goldshire · {npc:383} Jason Mathers
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "沿湖岸向东离开{area:87}。{npc:383}站在镇子东北方的湖岸上。",
 
-	-- Step 56: Crystal Lake: kill these as you meet them
+	-- Step 57: Crystal Lake: kill these as you meet them
 	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
 	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "东岸的鱼人掉落海草。剥皮者：森林灰狼在湖和{area:91}之间的树林里游荡；更东边的觅食的灰狼也能剥出毛皮。\n小心：11级稀有鱼人{npc:276180}在{npc:261}的桥边河里走动，在觅食的灰狼所在树林的东边：别去惹他。",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "{item:1256}",
 
-	-- Step 57: The Tower of Azora
+	-- Step 58: The Tower of Azora
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 	-- {npc:248242} Hamish Bergwort · {npc:248248} Blixie Fitzwink
 	["{npc:248242} and {npc:248248} stand at the foot of the tower."] = "{npc:248242}和{npc:248248}站在塔脚下。",
 
-	-- Step 58: The bridge
+	-- Step 59: The bridge
 	["The bridge"] = "桥",
 	-- {npc:261} Guard Thomas · {npc:248265} Ormin Pelford
 	["{npc:261} guards the bridge on the road east; {npc:248265} stands just across it."] = "{npc:261}守卫着向东道路上的桥；{npc:248265}就站在桥对面。",
 
-	-- Step 59: Downstream and Princess
+	-- Step 60: Downstream and Princess
 	-- {quest:91733} Downstream · {npc:330} Princess
 	["{quest:91733} and {npc:330}"] = "{quest:91733}和{npc:330}",
 	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:261} Guard Thomas · {npc:248278} Croaky
 	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear · Prowlers = {npc:118} Prowler
 	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to {npc:261}, after the logging camp and the mine. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional."] = "{item:247813}、浸水的斧头和浸水的工具箱在桥南边的河里。{npc:330}是一头大野猪，和她的{npc:390}在河西边的{area:62}拱地：先把小猪拉开。沿途击杀森林熊幼崽；觅食的灰狼（9-10级）留到伐木营地和矿洞之后回{npc:261}的路上再打。小心：{npc:248278}是鱼人河岸上的11级精英。只有组队再去拿他的头；否则别管他：这是可选的。",
 
-	-- Step 60: Croaky
+	-- Step 61: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
 	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "{npc:248278}是桥南边鱼人河岸上的11级精英：建议组队，找人一起做。{quest:91740}需要2人小队。如果你独自一人就跳过：路线会让你把经验刷回来。右键点击它的头接取任务。",
 
-	-- Step 62: Level 8.85
+	-- Step 63: Level 8.85
 	["Level 8.85"] = "等级 8.85",
 	-- {quest:91740} Croaky's Head
 	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "如果你跳过了{quest:91740}，在这里刷到8.85级以跟上路线计划。",
 	-- {npc:1922} Gray Forest Wolf
 	["grind on {npc:1922}"] = "刷{npc:1922}",
 
-	-- Step 64: The Eastvale Logging Camp
+	-- Step 65: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	-- {area:86} Stone Cairn Lake
@@ -331,26 +337,26 @@ return {
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}，在里面",
 
-	-- Step 65: A half-eaten body
+	-- Step 66: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "它躺在伐木场西北方的河边。",
 
-	-- Step 66: Stone Cairn Lake
+	-- Step 67: Stone Cairn Lake
 	-- {area:86} Stone Cairn Lake · {object:56} Rolf's corpse · {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard · Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "迪菲亚流浪巫师在{area:86}岸边扎营；它们也掉落红色亚麻面罩。{object:56}在东北岸的鱼人村里。\n小心：流浪巫师会远程施法，还有一个{npc:6866}（10级）和它们一起在岸边走动：一次拉一只。",
 	-- plural, as words: Red Linen Bandanas = {item:1019} Red Linen Bandana
 	["Red Linen Bandanas"] = "{item:1019}",
 
-	-- Step 67: The gnoll camps
+	-- Step 68: The gnoll camps
 	["The gnoll camps"] = "豺狼人营地",
 	-- {area:86} Stone Cairn Lake · {quest:91725} Stolen Enchanting Supplies
 	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "河爪豺狼人在{area:86}西边的山丘上扎营；{quest:91725}在它们的营地里。",
 
-	-- Step 68: The Jasperlode Mine's entrance
+	-- Step 69: The Jasperlode Mine's entrance
 	-- {quest:76} The Jasperlode Mine
 	["{quest:76}'s entrance"] = "{quest:76}的入口",
 
-	-- Step 69: Jasperlode Mine: kill these as you meet them
+	-- Step 70: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}：遇到就杀",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
@@ -360,23 +366,23 @@ return {
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476}在{area:54}附近走动：在地图上的圆圈里找",
 
-	-- Step 70: The Tower of Azora
+	-- Step 71: The Tower of Azora
 	["Follow the hills south to the tower."] = "沿山丘向南走到塔。",
 
-	-- Step 71: Guard Thomas
+	-- Step 72: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "沿道路向东经过{area:91}到桥。在桥南边的河边杀完觅食的灰狼和森林熊幼崽。",
 
-	-- Step 73: Stone Cairn Lake
+	-- Step 74: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.\nCareful: the Rogue Wizards cast from range and a {npc:6866} (10) walks the shore with them: pull them one at a time."] = "伐木场东北方。迪菲亚流浪巫师在湖岸边扎营。\n小心：流浪巫师会远程施法，还有一个{npc:6866}（10级）和它们一起在岸边走动：一次拉一只。",
 
-	-- Step 74: The Tower of Azora
+	-- Step 75: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "沿山丘向南走到塔，就在向西的路上。",
 
-	-- Step 75: Goldshire
+	-- Step 76: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿道路向西返回{area:87}；到镇子前，{npc:6306}站在湖岸上。{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：从里面的楼梯上去，箭头无法区分楼层。",
 	-- {npc:6306} Helene Peltskinner
@@ -394,36 +400,36 @@ return {
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}：交给{zone:1453}的{npc:6122}",
 
-	-- Step 77: Jennea Cannon
+	-- Step 78: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:5497}站在{object:2101}的法师圣殿塔里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
-	-- Step 79: Gakin the Darkbinder
+	-- Step 80: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 
-	-- Step 80: Woo Ping
+	-- Step 81: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺便：向{npc:11867}（{object:2096}，10银币）学习法杖；升级期间，法杖提供的法术属性比单手武器多。",
 
-	-- Step 81: Mirror Lake
+	-- Step 82: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 
-	-- Step 82: Surena Caledon
+	-- Step 83: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿过{area:87}返回，沿路向东到{area:62}。{npc:881}（9级）站在农舍旁。",
 
-	-- Step 83: The Binding
+	-- Step 84: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回去找{npc:6122}。在{object:2164}地下室的召唤法阵处使用{item:6928}，击败召唤出的虚空行者。",
 	["Subdue the voidwalker"] = "制服虚空行者",
 
-	-- Step 84: Back to Elwynn Forest
+	-- Step 85: Back to Elwynn Forest
 	-- {zone:1429} Elwynn Forest
 	["Back to {zone:1429}"] = "返回{zone:1429}",
 
-	-- Step 85: Taming the Beast
+	-- Step 86: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的训练师站在一起。她的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把驯兽棒带回给她。{npc:524}和{npc:822}在{area:64}南边的山丘上游荡，森林灰狼在{area:18}东边的树林里。",
@@ -442,11 +448,11 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}，在她旁边：{spell:5149}",
 
-	-- Step 86: Maybell Maclure
+	-- Step 87: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "沿道路向南到{area:64}。",
 
-	-- Step 87: The Stonefield Farm
+	-- Step 88: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894}出售{quest:91736}所需的新鲜的红苹果。从狗头人和箱子拾取的苹果也算：凑够四个后，购买目标会自动完成。",
@@ -454,7 +460,7 @@ return {
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "{item:4536}，来自{npc:894}，用于{quest:91736}",
 
-	-- Step 88: The Applejack Still
+	-- Step 89: The Applejack Still
 	-- {quest:91736} Applejack Still
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
@@ -463,17 +469,17 @@ return {
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}，来自蒸馏器",
 
-	-- Step 89: Westbrook Garrison
+	-- Step 90: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
 	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "沿道路向南前往{area:120}，这里位于通往{zone:1436}的路上。{npc:963}站在兵营外；{npc:955}在兵营里。只有当你带着{item:247824}时他才有{quest:91738}：与他交谈，任务会直接进入交还阶段。",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}：给{area:108}的{npc:234}",
 
-	-- Step 90: Sergeant De Vries
+	-- Step 91: Sergeant De Vries
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}：他要你的{item:247824}；在里面",
 
-	-- Step 91: Forest's Edge
+	-- Step 92: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "{npc:97}和河爪豺狼人前锋占据着要塞南边、{zone:1436}边境沿线的山丘。",

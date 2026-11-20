@@ -65,7 +65,8 @@ return {
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约28级",
+	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约28级"
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
 
 	-- Step 14: The Zoram Strand
 	-- {area:413} Maestra's Post · {area:414} Zoram Strand · {npc:3846} Talen
@@ -135,8 +136,9 @@ return {
 
 	-- Step 28: The Pridewings
 	["The Pridewings"] = "",
+	-- {npc:5928} Sorrow Wing
 	-- plural, as words: Pridewing Wyverns = {npc:4012} Pridewing Wyvern
-	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies."] = "",
+	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "",
 
 	-- Step 29: Stonetalon Peak
 	-- {area:467} Stonetalon Peak · {npc:3994} Keeper Albagorm · {npc:16458} Innkeeper Faralia
@@ -162,7 +164,8 @@ return {
 
 	-- Step 33: Gleaming Crescent Pendant
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it."] = "",
+	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
+	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "",
 
@@ -223,7 +226,7 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
-	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 28"] = "",
+	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}: he won't offer 305 while you carry it"] = "{npc:2096}：任务 305 已在日志中时，他不会再次提供",
 	-- {npc:2096} Tarrel Rockweaver
@@ -259,7 +262,8 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘场西边山谷里的较大迅猛龙，留到下次来{zone:1437}时击杀，约27级",
+	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘场西边山谷里的较大迅猛龙，留到下次来{zone:1437}时击杀，约27级"
+	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
 
 	-- Step 48: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
@@ -437,6 +441,7 @@ return {
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龙喉营地刷{npc:1034}和龙喉沼泽行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合并两块碎片",
 	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：藓皮沼泽行者和藓皮织雾者",
+	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘场西边山谷里的较大迅猛龙，留到下次来{zone:1437}时击杀，约27级",
 	-- ["{npc:11218} sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "{npc:11218}睡在{zone:1439}南部的{area:448}。使用{item:13536}唤醒他，带他沿道路向南进入{area:331}，到{area:413}找{npc:11219}；他每次睡着时都再吹一次号角。\n小心：沿途会有预设的伏击，每次三个怪：{zone:1439}路段是熊怪，靠近{area:413}时是亡灵。",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：交给城堡里的{npc:2104}",
@@ -452,6 +457,7 @@ return {
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on."] = "{npc:210995}可能不会向所有职业提供这些任务；如果没有，就继续路线。",
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995}可能不会向所有职业提供这些任务；没有任务就继续路线。他在{area:1276}附近巡逻，地图标出了寻找范围。",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}：巴隆斯·阿历克斯顿的回信",
+	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约28级",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664}和他的虚空行者占据着神殿南边的{area:412}。先拉他的卫兵。",
 	-- ["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}：交{area:442}接到的{quest:990}（其他人在下次来{area:331}时接）",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693}站在飞行管理员旁边，位于主街东端；然后向西返回码头。",

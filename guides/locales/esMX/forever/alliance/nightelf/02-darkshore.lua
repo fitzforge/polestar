@@ -76,7 +76,7 @@ return {
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; las llenan grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {object:17183} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla, de camino hacia él."
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Pendientes grell",
 	-- {item:5338} Ancient Moonstone Seal
@@ -86,7 +86,7 @@ return {
 	-- Step 13: Buzzbox 411
 	-- {quest:4723} Beached Sea Creature · {quest:1001} Buzzbox 411 · {area:442} Auberdine
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["North of Bashal'Aran by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}."] = "",
+	["North-north-west of Asterion by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}."] = "",
 
 	-- Step 14: Auberdine
 	-- {npc:3693} Terenthis · {npc:3649} Thundris Windweaver
@@ -102,8 +102,8 @@ return {
 	["Fill the tube at the moonwell in the village"] = "Llena el tubo en el pozo de la luna del pueblo",
 
 	-- Step 16: Cerellean Whiteclaw
-	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran
-	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
+	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran · {zone:1439} Darkshore
+	["{npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead: from level 14.5 you take it there, else on your next {zone:1439} visit."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644}, en el muelle",
 
@@ -142,6 +142,8 @@ return {
 	["Back north to {area:447}: the flame burns in the south of the ruins."] = "De vuelta al norte hasta {area:447}: la llama arde en el sur de las ruinas.",
 
 	-- Step 23: Anaya's Pendant
+	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
+	["Careful: {npc:3667} (16) is over you: pull her on her own at full health. {npc:2184}, a rare (17), also walks the ruins: leave her be."] = "",
 	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
 	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
 
@@ -182,7 +184,9 @@ return {
 
 	-- Step 31: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore
-	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit, and the bowl is filled at the moonwell then."] = "",
+	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "",
+	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
+	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
 
 	-- Step 32: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw

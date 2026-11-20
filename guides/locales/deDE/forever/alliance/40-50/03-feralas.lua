@@ -143,24 +143,22 @@ return {
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 28: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} bittet dich dann, Nachrichten nach {zone:1457} zu bringen: Überspring das, {area:976} schickt dich stattdessen dorthin.",
-
-	-- Step 29: Angelas Moonbreeze
+	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 31: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "Reite nach {area:489}",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "Noch keine Flugroute nach {area:489}: Nimm das Boot zurück zur Küste und reite nach Osten die Straße entlang nach {area:489}, an der Grenze zu {zone:1441}.",
 
-	-- Step 32: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Reite nach Nordosten zum Außenposten der Nachtelfen an der Grenze zu {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -194,6 +192,7 @@ return {
 	-- ["{area:1136}: kill these as you meet them"] = "{area:1136}: Töte diese, sobald sie dir begegnen",
 	-- ["{area:978} instead of grinding"] = "{area:978} statt Grinden",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}s Folgequests sind Stufe 55: Überspring sie.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} bittet dich dann, Nachrichten nach {zone:1457} zu bringen: Überspring das, {area:976} schickt dich stattdessen dorthin.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} wandert durch die Hügel nördlich von {npc:7765}, zwischen den Harpyien der Nordschwingen; ihre Glocke liegt in der Truhe neben ihr.",
 	-- ["{npc:7774}'s escort"] = "{npc:7774}s Eskorte",
 }

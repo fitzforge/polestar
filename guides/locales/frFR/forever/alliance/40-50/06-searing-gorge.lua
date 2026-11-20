@@ -114,8 +114,9 @@ return {
 
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "Niveau 48.66",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "tuez en boucle : {npc:9318}",
 
@@ -142,10 +143,11 @@ return {
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Niveau 48.98",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Si vous avez passé {quest:3452}, tuez des monstres ici jusqu'au niveau 48.98 pour suivre le plan de l'itinéraire.",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "tuez en boucle : {npc:5844}",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -187,6 +189,7 @@ return {
 	-- ["Greater Lava Spiders"] = "Araignées de lave incendiaires",
 	-- ["Hearth to {area:2101}"] = "Pierre de foyer vers {area:2101}",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Les Golems de guerre lourds patrouillent au fond du Chaudron sous Velarok Lamevent ; les Elémentaires de magma dérivent parmi eux. Golems et élémentaires laissent tomber l'huile, les élémentaires les cœurs.",
+	-- ["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Si vous avez passé {quest:3452}, tuez des monstres ici jusqu'au niveau 48.98 pour suivre le plan de l'itinéraire.",
 	-- ["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "Si vous avez passé {quest:7701}, tuez des monstres ici jusqu'au niveau 48.66 pour suivre le plan de l'itinéraire.",
 	-- ["Listen to Velarok's story once more."] = "Écoutez encore une fois l'histoire de Velarok.",
 	-- ["On the way"] = "En chemin",
@@ -197,6 +200,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Les araignées errent sur les plateaux et autour des bassins de lave au sud de {npc:8436}, sur le chemin de Velarok.",
 	-- ["Velarok Windblade"] = "Velarok Lamevent",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok Lamevent se tient sur le rebord du Chaudron, au sud du {area:1446}. Écoutez son histoire.",
+	-- ["grind on {npc:5844}"] = "tuez en boucle : {npc:5844}",
 	-- ["{item:10551} on the way"] = "{item:10551} en chemin",
 	-- ["{npc:5844} along the way to {area:1446}"] = "{npc:5844} sur le chemin de {area:1446}",
 	-- ["{npc:5846} along the way to {area:1446}"] = "{npc:5846} sur le chemin de {area:1446}",

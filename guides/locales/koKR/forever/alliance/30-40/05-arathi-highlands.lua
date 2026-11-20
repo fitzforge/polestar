@@ -80,6 +80,10 @@ return {
 	-- {npc:5476} Watcher Biggs
 	["South down the road to {npc:5476}, on the way west out of the swamp."] = "",
 
+	-- Step 14: Duskwood
+	-- {zone:1430} Deadwind Pass · {area:42} Darkshire
+	["Back west through {zone:1430} to {area:42}."] = "{zone:1430}을(를) 지나 서쪽으로 {area:42}까지 돌아가세요.",
+
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
 	["{npc:661}, in {area:42}"] = "",
@@ -89,8 +93,6 @@ return {
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}(으)로 날아가세요",
-	-- {zone:1430} Deadwind Pass · {area:42} Darkshire
-	["Back west through {zone:1430} to {area:42}."] = "{zone:1430}을(를) 지나 서쪽으로 {area:42}까지 돌아가세요.",
 
 	-- Step 17: Stormwind
 	-- {npc:1141} Angus Stern · {area:17203} Stormwind Harbor

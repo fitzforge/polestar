@@ -65,7 +65,8 @@ return {
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: os círculos dele ficam para a sua próxima visita a {zone:1440}, por volta do nível 28",
+	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: os círculos dele ficam para a sua próxima visita a {zone:1440}, por volta do nível 28"
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
 
 	-- Step 14: The Zoram Strand
 	-- {area:413} Maestra's Post · {area:414} Zoram Strand · {npc:3846} Talen
@@ -135,8 +136,9 @@ return {
 
 	-- Step 28: The Pridewings
 	["The Pridewings"] = "",
+	-- {npc:5928} Sorrow Wing
 	-- plural, as words: Pridewing Wyverns = {npc:4012} Pridewing Wyvern
-	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies."] = "",
+	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "",
 
 	-- Step 29: Stonetalon Peak
 	-- {area:467} Stonetalon Peak · {npc:3994} Keeper Albagorm · {npc:16458} Innkeeper Faralia
@@ -162,7 +164,8 @@ return {
 
 	-- Step 33: Gleaming Crescent Pendant
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it."] = "",
+	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
+	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "",
 
@@ -223,7 +226,7 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
-	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 28"] = "",
+	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}: he won't offer 305 while you carry it"] = "{npc:2096}: ele não oferece a 305 enquanto você estiver com ela",
 	-- {npc:2096} Tarrel Rockweaver
@@ -259,7 +262,8 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: os raptors maiores do vale a oeste da escavação ficam para a sua próxima visita a {zone:1437}, por volta do nível 27",
+	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: os raptors maiores do vale a oeste da escavação ficam para a sua próxima visita a {zone:1437}, por volta do nível 27"
+	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
 
 	-- Step 48: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
@@ -433,6 +437,7 @@ return {
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "farme Saqueadores Presa do Dragão e Corre-brejos no acampamento Presa do Dragão, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: junte as duas metades",
 	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: Corre-charcos e Tecebrumas Pelemusgo",
+	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: os raptors maiores do vale a oeste da escavação ficam para a sua próxima visita a {zone:1437}, por volta do nível 27",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} e {npc:258785} estão no {object:32386}, na {object:32362}.",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: para {npc:2104} na fortaleza",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}, na Biblioteca Real",
@@ -445,6 +450,7 @@ return {
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104} fica na {area:2103}, a uma curta caminhada de {npc:1242}.",
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} pode não oferecer estas para todas as classes; se não oferecer, siga em frente.; anda por {area:1276}: o mapa marca onde procurar",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}: a resposta de Alexston",
+	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: os círculos dele ficam para a sua próxima visita a {zone:1440}, por volta do nível 28",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664} e seus emissários do caos ocupam as {area:412} ao sul do santuário. Atraia os guardas dele primeiro.",
 	-- ["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}: {quest:990}, de {area:442} (os outros pegam na próxima visita a {area:331})",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693} fica junto ao mestre de voo, no extremo leste da rua principal; depois volte para oeste até o cais.",

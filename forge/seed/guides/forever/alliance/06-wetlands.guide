@@ -304,7 +304,7 @@ step Fen Creepers along the river
 
 step Rethiel the Greenwarden
   turnin 275
-  accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of the Hillsbrad Foothills guide
 
 # ---------------------------------------------------------------- The Dragonmaw Gates and Dun Modr
 
@@ -365,10 +365,10 @@ step Captain Stoutfist
   tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, James Halloran by the docks.
   turnin 464                              -- On the top floor
   turnin 98221
-  accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of the Hillsbrad Foothills guide
   turnin 469                              -- James Halloran, by the docks
   turnin 98072                            -- James Halloran
-  accept 98240                            -- James Halloran: the crate for Howin Kindfeather, on the Wetlands loop of 30-40/01-hillsbrad-foothills
+  accept 98240                            -- James Halloran: the crate for Howin Kindfeather, on the Wetlands loop of the Hillsbrad Foothills guide
 
 step Captain Halyndor
   zone Wetlands
@@ -413,7 +413,7 @@ step Thundris Windweaver
   zone Darkshore
   when onquest 97926
   tip Thundris Windweaver stands at the north end of Auberdine.
-  turnin 97926                            -- Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first Auberdine stop)
+  turnin 97926                            -- Alexston's reply, if you still carry it (the route hands it in on the Darkshore return's first Auberdine stop)
 
 step Auberdine
   zone Darkshore

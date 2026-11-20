@@ -156,7 +156,7 @@ return {
 
 	-- Step 28: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
-	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} 완료. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽 {area:2408}(으)로 가십시오. 다음 가이드는 {zone:1444} 가이드의 제출 퀘스트와 함께 {area:1637}에서 이어집니다. 귀환석이 {area:1099}에 설정되어 있으니, 사용할 수 있다면 대신 귀환석으로 그곳에 가서 {area:1099}에서 {area:1637}(으)로 날아가십시오.",
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
@@ -164,4 +164,7 @@ return {
 	["Back to your route"] = "원래 경로로 돌아가기",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} 완료. 여기서부터 {zone:1444} 가이드가 이어집니다. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽으로 간 뒤 남쪽 {zone:1444}(으)로 들어가, {area:1116}(으)로 가는 배가 출발하는 {area:1108}의 부두로 가십시오.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} 완료. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽 {area:2408}(으)로 가십시오. 다음 가이드는 {zone:1444} 가이드의 제출 퀘스트와 함께 {area:1637}에서 이어집니다. 귀환석이 {area:1099}에 설정되어 있으니, 사용할 수 있다면 대신 귀환석으로 그곳에 가서 {area:1099}에서 {area:1637}(으)로 날아가십시오.",
 }

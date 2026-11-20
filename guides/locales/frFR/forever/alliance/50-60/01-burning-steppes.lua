@@ -178,9 +178,9 @@ return {
 	-- Step 36: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
 	["{zone:1419}: kill these as you meet them"] = "{zone:1419} : tuez-les au passage",
-	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {npc:272386} Snickerfang Matriarch · {item:8244} Flawless Draenethyst Sphere
-	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and a {npc:272386} (60) dens at about 54,43: give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
+	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {area:1440} Serpent's Coil · {item:8244} Flawless Draenethyst Sphere
+	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk · Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch
+	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the {area:1440} (about 54-62, 31-47): give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
 	-- {item:8244} Flawless Draenethyst Sphere
 	["{item:8244}, a rare drop"] = "",
 
@@ -197,8 +197,8 @@ return {
 
 	-- Step 40: Sergeant Danneth
 	-- {area:1440} Serpent's Coil · {area:1438} Nethergarde Keep · {npc:7728} Kirith the Damned · {npc:7666} Archmage Allistarj
-	-- plural, as words: Shadowsworn Cultists = {npc:6004} Shadowsworn Cultist
-	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, south-east of {area:1438}: Danneth hides just inside.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "",
+	-- plural, as words: Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch · Shadowsworn Cultists = {npc:6004} Shadowsworn Cultist
+	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, due south of {area:1438}: Danneth hides just inside.\nCareful: Snickerfang Matriarchs (60) roam the ground between Kum'isha's hill and the caverns: watch for them on the ride and go round them, there and back.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "",
 
 	-- Step 41: Nethergarde Keep
 	-- {area:1438} Nethergarde Keep · {npc:3546} Bernie Heisten
@@ -234,51 +234,15 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
 
-	-- Step 52: Fly to Rut'theran Village
-	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "Prendre un vol pour {area:702}",
+	-- Step 52: Fly to Astranaar
+	-- {area:415} Astranaar
+	["Fly to {area:415}"] = "",
+	-- {area:442} Auberdine · {area:415} Astranaar · {zone:1448} Felwood · {zone:1457} Darnassus
+	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Maître de vol d'{area:442}",
 
-	-- Step 54: Daryn Lightwind
-	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} se tient à l'étage, au-dessus de {npc:7916} : montez par l'intérieur, la flèche ne distingue pas les étages.",
-
-	-- Step 57: Darnassus
-	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
-	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "Le portail de {area:702} mène à {zone:1457} : {npc:9047} attend à {area:1658}, au nord de la cité.",
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
-	["{npc:9047}, in the {area:1658}"] = "{npc:9047}, à {area:1658}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "{zone:1455} n'a pas de maître des druides",
-
-	-- Step 59: Arch Druid Fandral Staghelm
-	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, upstairs"] = "",
-	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "{npc:4217}, à l'étage",
-	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
-	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
-
-	-- Step 60: Gracina Spiritmight
-	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740} se tient à côté de Tyrande dans le temple de la Lune, au sud de la ville.",
-	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
-	["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740} : {quest:162}, depuis {area:976}",
-	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
-	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
-
-	-- Step 61: Portal to Teldrassil
-	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "Portail vers {zone:1438}",
-
-	-- Step 62: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
-	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
-
-	-- Step 63: Into Azshara
+	-- Step 53: Into Azshara
 	-- {zone:1447} Azshara
 	["Into {zone:1447}"] = "Vers {zone:1447}",
 	-- {area:415} Astranaar · {area:2358} Forest Song · {zone:1447} Azshara · {area:1235} Shadowsong Shrine
@@ -286,22 +250,22 @@ return {
 	-- {area:1235} Shadowsong Shrine
 	["East along the road to {area:1235}"] = "Vers l'est par la route jusqu'à {area:1235}",
 
-	-- Step 64: Shadowsong Shrine
+	-- Step 54: Shadowsong Shrine
 	-- {zone:1447} Azshara · {area:3137} Talrendis Point
 	["The shrine lies in the south-west corner of {zone:1447}, south of {area:3137}."] = "Le Sanctuaire de Shadowsong se trouve dans le coin sud-ouest d'{zone:1447}, au sud de {area:3137}.",
 
-	-- Step 65: Talrendis Point
+	-- Step 55: Talrendis Point
 	-- {npc:239822} Commander Truesong · {npc:240482} Berdun Cliffbrew · {area:3137} Talrendis Point
 	["Just north-east of the shrine: {npc:239822} and {npc:240482} keep the Alliance camp at {area:3137}."] = "Juste au nord-est du sanctuaire : {npc:239822} et {npc:240482} tiennent le camp de l'Alliance de {area:3137}.",
 
-	-- Step 66: Mosshoof Runners
+	-- Step 56: Mosshoof Runners
 	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
 	["Mosshoof Runners"] = "Coureurs Sabots-de-mousse",
 	-- {area:3137} Talrendis Point
 	-- plural, as words: Mosshoof Runners = {npc:8759} Mosshoof Runner
 	["The Mosshoof Runners (45-47) graze the hills north of {area:3137}, on the way to the satyrs."] = "Les Coureurs Sabots-de-mousse (45-47) paissent dans les collines au nord de {area:3137}, sur le chemin des satyres.",
 
-	-- Step 67: Azshara: kill these as you meet them
+	-- Step 57: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
 	["{zone:1447}: kill these as you meet them"] = "{zone:1447} : tuez-les au passage",
 	-- {npc:222478} Sentinel Keldara Sunblade
@@ -309,12 +273,12 @@ return {
 	-- {npc:222478} Sentinel Keldara Sunblade
 	["{npc:222478}, in the camp"] = "{npc:222478}, dans le camp",
 
-	-- Step 68: The western shore
+	-- Step 58: The western shore
 	["The western shore"] = "La rive ouest",
 	-- plural, as words: Spitelash Warriors = {npc:6190} Spitelash Warrior
 	["The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs."] = "Les Guerriers (46-47) et Hurleurs (47-48) Fouette-bile tiennent la rive ouest, au nord-est des satyres.",
 
-	-- Step 69: Talrendis Point
+	-- Step 59: Talrendis Point
 	-- {area:3137} Talrendis Point
 	["Back south-west to {area:3137}."] = "Retournez au sud-ouest à {area:3137}.",
 	-- {npc:239822} Commander Truesong · {quest:88809} Preserving Eldarath · {area:1221} Ruins of Eldarath
@@ -322,37 +286,37 @@ return {
 	-- {npc:239822} Commander Truesong · {quest:92345} Beneath Nordrassil · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {zone:1448} Felwood
 	["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, on the {zone:1448} guide: keep it"] = "",
 
-	-- Step 72: Ogtinc
+	-- Step 62: Ogtinc
 	-- {npc:8405} Ogtinc · {area:1224} Bear's Head
 	["Ride north-east from the shrine: {npc:8405} camps at the {area:1224}, in the hills above the road."] = "Chevauchez vers le nord-est depuis le sanctuaire : {npc:8405} campe à {area:1224}, dans les collines au-dessus de la route.",
 
-	-- Step 73: Sanath Lim-yo
+	-- Step 63: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
 	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "Descendez de monture avant de parler à {npc:8395} : il vous téléporte à la tour de {npc:8379}, sur la falaise au-dessus de son camp.",
 
-	-- Step 74: Archmage Xylem
+	-- Step 64: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "L'apprenti en haut de la tour vous renvoie en bas.",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
 	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "Les elfes de sang sont au {area:1220}, sur le chemin de {npc:8420}",
 
-	-- Step 75: The Ruins of Eldarath
+	-- Step 65: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
 	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Les nagas Fouette-bile de {area:1221} portent {item:13815}. Les quatre runes de {npc:8507} se dressent parmi les ruines : utilisez son {item:10445} sur chacune."
 	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "",
 
-	-- Step 76: Lord Sarthiss
+	-- Step 66: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
 	-- plural, as words: Eldarath Relics = {item:280608} Eldarath Relic
 	-- was: ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "Les nagas Fouette-bile de ces ruines laissent tomber les Reliques d'Eldarath de Chant-vrai, montée de niveau ou non. {npc:239939} (52) se tient dans les ruines d'Eldarath, au sud-ouest des Myrmidons : attirez-le seul."
 	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "",
 
-	-- Step 77: Ekkal
+	-- Step 67: Ekkal
 	-- {npc:235903} Ekkal · {npc:8420} Kim'jael
 	["{npc:235903} camps by the road north to {npc:8420}: his satyrs are in {npc:8420}'s camp."] = "{npc:235903} campe au bord de la route qui mène au nord vers {npc:8420} : ses satyres sont dans le camp de {npc:8420}.",
 
-	-- Step 78: Mosshoof Coursers
+	-- Step 68: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "Coursiers Sabots-de-mousse",
 	-- {area:1224} Bear's Head · {area:1219} Legashi Encampment
@@ -360,45 +324,45 @@ return {
 	-- was: ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "Les Coursiers Sabots-de-mousse les plus proches paissent dans les collines au nord-est de {area:1224}, vers {area:1219} ; un troupeau plus grand parcourt les terres dégagées au sud.\nAttention : les Coursiers Sabots-de-mousse sont 52-53, un ou deux niveaux au-dessus de vous ici : attirez-les un par un depuis le bord du troupeau."
 	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "",
 
-	-- Step 81: Kim'jael
+	-- Step 71: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp · {npc:6647} Magister Hawkhelm · {npc:235903} Ekkal
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor · Legashi Soulstealers = {npc:236867} Legashi Soulstealer
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him.\nCareful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with {npc:6647} (53) among them: take the equipment from the camp's edge and pull the elves one at a time.\n{npc:235903}'s satyrs, rogues and hellcallers (51-53) are the Legashi around {npc:8420}'s camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them."] = "{npc:8420} campe à {area:1219} au nord ; son équipement est éparpillé dans {area:1220}, juste au sud-est de lui.\nAttention : les Géomètres elfes de sang sont 51-52 et les Reconquérants 52-53, avec {npc:6647} (53) parmi eux : prenez l'équipement depuis le bord du camp et attirez les elfes un par un.\nLes satyres, voleurs et invocateurs infernaux de {npc:235903} (51-53) sont les Legashi autour du camp de {npc:8420} ; les Voleurs d'âme, Fléaux infernaux et Gardes noirs Legashi (53) plus à l'est n'en font pas partie : restez à l'ouest d'eux.",
 	-- {item:20028} Glittering Dust
 	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}, sur les géomètres et les vengeurs elfes de sang",
 
-	-- Step 84: Ekkal
+	-- Step 74: Ekkal
 	-- {npc:235903} Ekkal
 	["On the road back south, {npc:235903} takes the satyrs."] = "Sur la route du retour vers le sud, {npc:235903} prend les satyres.",
 
-	-- Step 85: Rubbing: Rune of Sael'hai
+	-- Step 75: Rubbing: Rune of Sael'hai
 	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne
 	["{item:7972}: the {npc:7864}, about 10%"] = "{item:7972} : les {npc:7864}, environ 10 %",
 
-	-- Step 86: Sanath Lim-yo
+	-- Step 76: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
 	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "Revenez vers l'ouest jusqu'au camp de {npc:8395} et descendez de monture : il vous téléporte de nouveau auprès de Xylem.",
 
-	-- Step 88: The Temple of Zin-Malor
+	-- Step 78: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
 	["The {area:1223}"] = "Le {area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "Les Sirènes Fouette-bile errent dans les ruines et sur la plage autour du {area:1223}, juste au sud de {npc:8395}. Seules les Sirènes portent le corail, pas les Screamers.",
 
-	-- Step 89: Archmage Xylem
+	-- Step 79: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
 	["Back up through {npc:8395}'s teleport."] = "Remontez par le téléporteur de {npc:8395}.",
 	-- {area:1417} Sunken Temple
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "La dernière tâche de Xylem, Détruire Morphaz, se trouve dans le {area:1417} : passez-la.",
 
-	-- Step 91: Ravencrest Monument
+	-- Step 81: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Nagez jusqu'au petit îlot au large de la pointe sud d'{zone:1447}. Si {npc:8392} n'est pas là, tirez avec votre {item:10444} pour lui faire signe, et attendez qu'il atterrisse.",
 	-- {zone:1455} Ironforge · {zone:1422} Western Plaguelands
 	["Tymor in {zone:1455}, on the {zone:1422} guide's {zone:1455} stop: keep it"] = "",
 
-	-- Step 92: Talrendis Point
+	-- Step 82: Talrendis Point
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood
 	["Back to Truesong at {area:3137}: {zone:1448}, the next guide, is a short ride west."] = "",
 
@@ -415,6 +379,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:69}."] = "Prenez un vol de {zone:1455} pour {area:69}.",
 	-- ["Fly to {area:1438}."] = "Prenez un vol pour {area:1438}.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "Prenez un vol pour {area:150} et le bateau pour {area:442}, puis le bateau pour {area:702}.",
+	-- ["Fly to {area:702}"] = "Prendre un vol pour {area:702}",
 	-- ["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "Pour l'{npc:5594} à {area:976}, dans le guide des {zone:1422} : gardez-le",
 	-- ["For {zone:1453}: keep it"] = "Pour {zone:1453} : gardez-la",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "Depuis le quai d'{area:442}, prenez un vol pour {area:415}.",
@@ -431,6 +396,7 @@ return {
 	-- ["On the way"] = "En chemin",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Facultatif : {npc:8395} veut deux Plumes d'hippogryphe sans défaut des hippogryphes autour de son camp. Les données n'indiquent aucune expérience pour cette quête.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Facultatif : le fantôme de {npc:8888} se tient sur sa tombe, sur la grande chaîne à l'intérieur de {area:254}, et seuls les morts peuvent le voir. Si vous mourez près de la montagne de toute façon, menez votre esprit jusqu'à lui avant de ressusciter.",
+	-- ["Portal to {zone:1438}"] = "Portail vers {zone:1438}",
 	-- ["Priests and Mages trained here at the end of the Un'Goro guide"] = "Les prêtres et les mages se sont entraînés ici à la fin du guide d'Un'Goro",
 	-- ["Read the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript."] = "Lisez la tablette dans le camp {object:147516} parmi les ruines, au sud-ouest de {area:251}, pour en copier la transcription.",
 	-- ["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Retournez vers le sud dans les {zone:1419} pour les bêtes des mages de sang : des Raillecrocs affamées rôdent dans les collines arides au sud du camp des mages de sang, des Aiguillonneurs scorpoks courent au milieu du nord et des vautours {npc:5982} tournoient au-dessus de tout cela. Les Sangliers cendrés et les Basilics Rougepierre partagent les pentes au sud-ouest du donjon.\nAttention : deux élites rôdent ici : {npc:221740} (50) au milieu de la zone vers 44,34, et {npc:247015} (55) sur la crête vers 39,32. Si vous en voyez un, chassez ailleurs.",
@@ -451,6 +417,7 @@ return {
 	-- ["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Les Plumes d'Indomptable jonchent le sol des {zone:1425}, au sud et à l'est du {area:348}, là où rôdent les chouettards ; les monstres d'ici sont désormais bien en dessous de votre niveau.",
 	-- ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south."] = "Les Coursiers Sabots-de-mousse les plus proches paissent dans les collines au nord-est de {area:1224}, vers {area:1219} ; un troupeau plus grand parcourt les terres dégagées au sud.",
 	-- ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "Les Coursiers Sabots-de-mousse les plus proches paissent dans les collines au nord-est de {area:1224}, vers {area:1219} ; un troupeau plus grand parcourt les terres dégagées au sud.\nAttention : les Coursiers Sabots-de-mousse sont 52-53, un ou deux niveaux au-dessus de vous ici : attirez-les un par un depuis le bord du troupeau.",
+	-- ["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "Le portail de {area:702} mène à {zone:1457} : {npc:9047} attend à {area:1658}, au nord de la cité.",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Les reliques sont les pierres sculptées éparpillées dans {area:250} autour de {area:251} : cliquez dessus jusqu'à ce que l'information soit récupérée.",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Les reliques sont les pierres sculptées éparpillées dans les {area:250} autour de {area:251} : cliquez dessus jusqu'à récupérer les informations.\nLisez la tablette dans le camp {object:147516} parmi les ruines, au sud-ouest de {area:251}, pour en copier la transcription.\nUtilisez le {item:12284} sur un {npc:7047} sur les pentes à l'est de {area:251} juste avant qu'il meure, puis ramassez l'essence qu'il laisse.\nAttention : un {npc:8981} (niveau 56, rare) arpente les pentes près des rejetons, et les {npc:7040} et Wyrmides autour d'eux sont élites : utilisez l'Incarcinatrix sur un rejeton en bordure et regardez autour de vous avant chaque attaque.",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Le sanctuaire se trouve dans le coin sud-ouest d'{area:16}, au sud de {area:3137}.",
@@ -484,16 +451,22 @@ return {
 	-- ["{npc:239822}: {quest:88809}, the relics drop from the naga of the top-up ahead"] = "{npc:239822} : {quest:88809}, les reliques tombent sur les nagas de la session d'XP suivante",
 	-- ["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, keep it"] = "{npc:239822} : {quest:92345}, pour {npc:4217} à {zone:1457}, gardez-la",
 	-- ["{npc:4217} is upstairs in the druids' building of the {area:1658}: go in by its south door."] = "{npc:4217} est à l'étage du bâtiment des druides de l'{area:1658} : entrez par sa porte sud.",
+	-- ["{npc:4217}, upstairs"] = "{npc:4217}, à l'étage",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
 	-- ["{npc:6116} along the way to {area:1235}"] = "{npc:6116} sur le chemin de {area:1235}",
 	-- ["{npc:6117} along the way to {area:1235}"] = "{npc:6117} sur le chemin de {area:1235}",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363} attend à {area:2517}, la colline au sud-ouest du donjon. Les monstres des {zone:1419} en chemin laissent tomber les Fragments de draenéthyste imparfaits ; apportez-lui ce que vous avez.",
+	-- ["{npc:7740} stands beside Tyrande in the Temple of the Moon, in the south of the city."] = "{npc:7740} se tient à côté de Tyrande dans le temple de la Lune, au sud de la ville.",
+	-- ["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740} : {quest:162}, depuis {area:976}",
+	-- ["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} se tient à l'étage, au-dessus de {npc:7916} : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- ["{npc:8395} wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one."] = "{npc:8395} veut deux Plumes d'hippogryphe sans défaut des hippogryphes Cogne-tonnerre autour de son camp, ceux sur lesquels vous complétez votre niveau ici : environ un sur trois en porte une.",
 	-- ["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420} campe à {area:1219}, au nord ; son équipement est éparpillé dans tout {area:1220}, juste au sud-est.",
+	-- ["{npc:9047}, in the {area:1658}"] = "{npc:9047}, à {area:1658}",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty."] = "{npc:9176} et les orcs Blackrock tiennent les camps et le Bastion Rochenoire au pied de {area:254}, à l'ouest de {area:251}. Attirez-les un par un ; chaque orc et chaque worg peut laisser tomber un médaillon, tuez-en jusqu'à en avoir cinquante.",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176} et les orcs Blackrock tiennent les camps et la forteresse au pied du {area:254}, à l'ouest de {area:251}. Attirez-les un par un ; chaque orc et chaque worg peut lâcher un médaillon, tuez-les donc jusqu'à en avoir cinquante.\nAttention : {npc:9176} a un garde lié qui se joint au combat, et un second soldat patrouille tout près ; éliminez la patrouille avant de l'attirer.\nAttention : les Firesworn, des élémentaires de feu de niveau 60, errent dans les Steppes, certains entre les camps Blackrock : regardez avant chaque attaque et laissez-les passer.",
 	-- ["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177} : les orcs Blackrock laissent tomber les médaillons, gardez-la ouverte dans toutes les Steppes",
 	-- ["{object:153556} on the way"] = "{object:153556} en chemin",
 	-- ["{object:175894}, inside"] = "{object:175894}, à l'intérieur",
+	-- ["{zone:1455} has no druid trainer"] = "{zone:1455} n'a pas de maître des druides",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455} n'a pas de maître des druides : prenez le portail pour monter à {zone:1457} et entraînez-vous à {area:1658}, puis redescendez à {area:702}.",
 }

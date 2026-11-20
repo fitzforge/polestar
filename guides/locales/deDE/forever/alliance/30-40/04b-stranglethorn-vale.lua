@@ -124,7 +124,13 @@ return {
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "Schnappkieferkrokilisken sonnen sich am Fluss mitten im Dschungel, auf dem Weg nach Süden nach {area:35}.",
 
-	-- Step 18: Booty Bay
+	-- Step 18: Tokal
+	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
+	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
+	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
+	["{item:4600}, from {npc:2832}"] = "",
+
+	-- Step 19: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, drinnen",
 	-- {npc:2496} Baron Revilgaz

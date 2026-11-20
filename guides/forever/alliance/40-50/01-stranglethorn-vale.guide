@@ -586,7 +586,7 @@ step Misty Valley
   collect 6065 quest 1364 @5.5,31.4 map 1435 -- Khadgar's Essays on Dimensional Convergence
 
 step Amaryllis Webb
-  turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
+  turnin 93176 optional               -- Amaryllis Webb: My Little Friends, from the Arathi Highlands guide
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 

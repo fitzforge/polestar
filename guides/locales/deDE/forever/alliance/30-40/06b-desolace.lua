@@ -35,6 +35,8 @@ return {
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "Folge der Straße nach Süden zu {area:2407}.",
+	-- {npc:11438} Bibbly F'utzbuckle
+	["{npc:11438}, if 30-40/02 didn't give it"] = "",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
@@ -91,8 +93,12 @@ return {
 	-- Step 17: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}. Dort steht {npc:11863}s Turm auf dem Hügel, auf dem Weg zum Wrack.",
+	-- {npc:11863} Azore Aldamort
+	["{npc:11863}, if 30-40/02 didn't take the sceptre back to him"] = "",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, von Magtoor in den {zone:1435}",
+	-- {npc:11863} Azore Aldamort
+	["{npc:11863}, if 30-40/02 didn't give it"] = "",
 
 	-- Step 18: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort

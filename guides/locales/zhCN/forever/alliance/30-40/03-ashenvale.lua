@@ -63,8 +63,10 @@ return {
 	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "",
 	-- {npc:4967} Archmage Tervosh
 	["{npc:4967}, at the foot of the tower"] = "",
-	-- {npc:4966} Private Hendel · {area:504} North Point Tower · {zone:1445} Dustwallow Marsh
-	["Tervosh's next errand, to {npc:4966} at {area:504}, is for the {zone:1445} visit at 39: leave it."] = "",
+	-- {npc:4967} Archmage Tervosh · {npc:4966} Private Hendel · {area:504} North Point Tower · {zone:1445} Dustwallow Marsh
+	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "",
+	-- {npc:4966} Private Hendel · {zone:1445} Dustwallow Marsh
+	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "",
 
 	-- Step 11: The Shady Rest Inn
 	-- {zone:1413} Barrens

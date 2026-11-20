@@ -156,7 +156,7 @@ step Kormek's Hut
   tip North-west from Kolkar Village back along the road to Nijel's Point: Bibbly waits at Kormek's Hut. He sends you after the robber to Booty Bay, where the next guide ends: keep it.
   turnin 5501                         -- Bibbly F'utzbuckle
   turnin 79229
-  accept 79235                        -- Bibbly F'utzbuckle: Tokal waits in Booty Bay, at the end of 30-40/04b
+  accept 79235                        -- Bibbly F'utzbuckle: Tokal waits in Booty Bay, at the end of the next guide
 
 # ---------------------------------------------------------------- Nijel's Point
 
@@ -167,7 +167,7 @@ step Nijel's Point
   turnin 93224                        -- Captain Pentigast
   turnin 1459                         -- Kreldig Ungor
   turnin 1455
-  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06b-desolace): keep it
+  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on Desolace's south loop at the end of 30-40: keep it
 
 # ---------------------------------------------------------------- To Stormwind
 

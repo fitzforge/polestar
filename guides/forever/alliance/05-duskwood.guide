@@ -126,7 +126,7 @@ step Tranquil Gardens Cemetery
 step Viktori Prism'Antras
   tip North into Darkshire: Viktori's house stands at the east end of town, on the way in.
   turnin 177                              -- Viktori Prism'Antras, inside
-  accept 181                              -- Look to the Stars: the ogres of Vul'Gol, on your Duskwood return (07-thousand-needles)
+  accept 181                              -- Look to the Stars: the ogres of Vul'Gol, on your Duskwood return
 
 step Madame Eva
   turnin 154                          -- Inside
@@ -310,7 +310,7 @@ step Bishop Farthing
   when onquest 269
   tip On into Stormwind: Bishop Farthing stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for Glorin Steelbrow in Menethil Harbor, where the flight lands.
   turnin 269                              -- Bishop Farthing, in the Cathedral of Light
-  accept 270                              -- For Glorin Steelbrow in Menethil Harbor (06-wetlands)
+  accept 270                              -- For Glorin Steelbrow in Menethil Harbor (the Wetlands guide)
 
 step Gazin Tenorm
   only Human,Paladin

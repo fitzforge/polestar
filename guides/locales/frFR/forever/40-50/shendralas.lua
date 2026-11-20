@@ -156,7 +156,7 @@ return {
 
 	-- Step 28: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
-	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} est terminé. Retournez au nord par {area:2657}, puis à l'ouest le long de la bordure sud de {area:405} jusqu'à {area:2408} : le prochain guide reprend à {area:1637}, avec les quêtes à rendre du guide de {zone:1444}. Votre pierre de foyer est liée à {area:1099} : si elle est prête, utilisez-la et prenez plutôt un vol pour {area:1637} depuis {area:1099}.",
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
@@ -164,4 +164,7 @@ return {
 	["Back to your route"] = "Retour à votre itinéraire",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} est terminé. Votre guide de {zone:1444} reprend d'ici : retournez au nord par {area:2657}, à l'ouest le long de la bordure sud de {area:405}, puis au sud dans {zone:1444}, jusqu'au quai de {area:1108} d'où le bateau traverse vers {area:1116}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} est terminé. Retournez au nord par {area:2657}, puis à l'ouest le long de la bordure sud de {area:405} jusqu'à {area:2408} : le prochain guide reprend à {area:1637}, avec les quêtes à rendre du guide de {zone:1444}. Votre pierre de foyer est liée à {area:1099} : si elle est prête, utilisez-la et prenez plutôt un vol pour {area:1637} depuis {area:1099}.",
 }

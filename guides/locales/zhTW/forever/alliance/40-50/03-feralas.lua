@@ -143,24 +143,22 @@ return {
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}站在他屋子的樓上：從裡面上樓，箭頭分不清樓層。",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 28: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接著會要你把消息帶到{zone:1457}：跳過，{area:976}會改派你去那裡。",
-
-	-- Step 29: Angelas Moonbreeze
+	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 31: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "騎往{area:489}",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "還沒有到{area:489}的飛行路線：搭船回到海岸，沿道路向東騎往{zone:1441}邊界上的{area:489}。",
 
-	-- Step 32: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "向東北騎往{zone:1441}邊界上的夜精靈前哨站。",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -185,6 +183,7 @@ return {
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "如果你帶著{zone:1441}的{quest:1100}",
 	-- ["{area:978} instead of grinding"] = "以{area:978}代替練等",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}的補充任務是55級：跳過。",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接著會要你把消息帶到{zone:1457}：跳過，{area:976}會改派你去那裡。",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}在{npc:7765}北邊的山丘上、北泉鷹身人之間遊蕩；她的鈴鐺在她旁邊的箱子裡。",
 	-- ["{npc:7774}'s escort"] = "護送{npc:7774}",
 }

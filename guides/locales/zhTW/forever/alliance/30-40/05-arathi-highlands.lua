@@ -80,6 +80,10 @@ return {
 	-- {npc:5476} Watcher Biggs
 	["South down the road to {npc:5476}, on the way west out of the swamp."] = "沿路向南到{npc:5476}，在向西離開沼澤的路上。",
 
+	-- Step 14: Duskwood
+	-- {zone:1430} Deadwind Pass · {area:42} Darkshire
+	["Back west through {zone:1430} to {area:42}."] = "向西穿過{zone:1430}回到{area:42}。",
+
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
 	["{npc:661}, in {area:42}"] = "",
@@ -89,8 +93,6 @@ return {
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飛往{zone:1453}",
-	-- {zone:1430} Deadwind Pass · {area:42} Darkshire
-	["Back west through {zone:1430} to {area:42}."] = "向西穿過{zone:1430}回到{area:42}。",
 
 	-- Step 17: Stormwind
 	-- {npc:1141} Angus Stern · {area:17203} Stormwind Harbor

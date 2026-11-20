@@ -352,7 +352,7 @@ step Goldshire
   turnin 62                                   -- Marshal Dughan
   accept 76
   turnin 60                                   -- William Pestle, inside
-  accept 61                                   -- Morgan Pestle in Stormwind takes it (02-westfall)
+  accept 61                                   -- Morgan Pestle in Stormwind takes it (the Westfall guide)
   turnin 107
   accept 112
   train class
@@ -506,7 +506,7 @@ step Goldshire
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (the Westfall guide)
   accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it

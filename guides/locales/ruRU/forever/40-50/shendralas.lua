@@ -156,7 +156,7 @@ return {
 
 	-- Step 28: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
-	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} пройден. Езжайте обратно на север через {area:2657}, затем на запад вдоль южного края зоны {area:405} до места {area:2408}: следующий гайд начинается здесь: {area:1637}, со сдачей заданий из гайда по зоне {zone:1444}. Ваш камень возвращения привязан здесь: {area:1099}. Если он готов, вернитесь туда и летите в {area:1637} оттуда ({area:1099}).",
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 
@@ -164,4 +164,7 @@ return {
 	["Back to your route"] = "Назад к вашему маршруту",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}: всё выполнено. Дальше продолжает ваш гайд по зоне {zone:1444}: езжайте назад на север через {area:2657}, на запад вдоль южного края зоны {area:405} и на юг в зону {zone:1444}, к причалу ({area:1108}), откуда корабль идет в {area:1116}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} пройден. Езжайте обратно на север через {area:2657}, затем на запад вдоль южного края зоны {area:405} до места {area:2408}: следующий гайд начинается здесь: {area:1637}, со сдачей заданий из гайда по зоне {zone:1444}. Ваш камень возвращения привязан здесь: {area:1099}. Если он готов, вернитесь туда и летите в {area:1637} оттуда ({area:1099}).",
 }

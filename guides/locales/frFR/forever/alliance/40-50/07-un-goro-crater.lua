@@ -21,69 +21,87 @@ return {
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} se tient sur les quais où accoste le bateau.",
 
-	-- Step 4: Fly to Gadgetzan
-	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
+	-- Step 4: Fly to Ratchet
+	-- {area:392} Ratchet
+	["Fly to {area:392}"] = "",
+	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
+	["{npc:7771}'s {item:10556} stands in {area:392}: fly there first, then on to {area:976}."] = "",
 	["Theramore flight master"] = "Maître de vol de Theramore",
 
-	-- Step 5: Gadgetzan
-	-- {area:976} Gadgetzan
-	["The flight from Theramore lands in {area:976}."] = "Le vol depuis Theramore atterrit à {area:976}.",
+	-- Step 5: The Stone Circle
+	-- {quest:3444} The Stone Circle
+	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
 
-	-- Step 6: Marin Noggenfogger
+	-- Step 6: Fly to Gadgetzan
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "",
+
+	-- Step 8: Gadgetzan
+	-- {area:976} Gadgetzan
+	["The flight lands in {area:976}."] = "",
+
+	-- Step 9: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.",
 
-	-- Step 8: The Noxious Lair
+	-- Step 11: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "Chevauchez vers l'ouest jusqu'à la ruche Centipaar dans les dunes. N'importe quel Centipaar peut laisser tomber des parties d'insecte.\nAttention : les Traînards Centipaar lancent {npc:4196} en combat comme hors combat, ce qui fait apparaître de petits renforts qui vous interrompent.",
 
-	-- Step 9: Dunemaul Compound
+	-- Step 12: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Chevauchez vers le sud jusqu'au camp des ogres. Il est rempli de brutes et d'exécuteurs (46-48) ; {npc:12046} (49) se tient au milieu, entouré de gardes : éliminez-les d'abord.",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "{npc:12046}, sous terre",
 
-	-- Step 10: Thistleshrub Valley: kill these as you meet them
+	-- Step 13: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362} : tuez-les au passage",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "Chevauchez vers l'ouest jusqu'à {quest:3362}. Les collecteurs de rosée laissent tomber les glandes ; seules certaines sont pleines, gardez donc la chargée. Des Chardonniers noueux et des façonneurs de racines occupent aussi la vallée.\nAttention : les chardonniers se déplacent beaucoup, vous pouvez facilement attirer des monstres en trop.",
 
-	-- Step 11: Gadgetzan
+	-- Step 14: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Revenez vers le nord-est jusqu'à {area:976} : {npc:11758} se tient du côté est de la ville.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 
-	-- Step 12: The Gaping Chasm
+	-- Step 15: Broken Pillar
+	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
+	["On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}."] = "",
+	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
+	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+
+	-- Step 16: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Chevauchez vers le sud après le {area:1938} jusqu'au {area:981}, les tunnels Hazzali ; l'équipement de Scrimshank se trouve tout au fond.\nAttention : un insecte garde l'équipement. De nombreux insectes patrouillent dans les tunnels, certains de niveau 50, et les combats attirent souvent des renforts.",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "{item:8593} ; sous terre",
 
-	-- Step 13: Gadgetzan
-	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
-	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "Pour {npc:7740} à {zone:1457}, à la fin du guide des {zone:1428} : gardez-le",
+	-- Step 17: Gadgetzan
+	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1448} Felwood
+	["For {npc:7740} in {zone:1457}, on the {zone:1448} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 15: Torwa Pathfinder
+	-- Step 19: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Chevauchez vers l'ouest hors de {area:976} jusqu'à la longue rampe qui descend dans {zone:1449}. {npc:9619} campe au pied de la rampe, dans le coin sud-est du cratère.",
 
-	-- Step 16: Fresh Threshadon Carcass
+	-- Step 20: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
 	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "Le cadavre de Threshadon gît au bord de l'eau, au nord de {npc:9619}.\nAttention : des Ravasaures peau-de-venin (50-51) chassent le long de l'eau : attirez-les un par un avant de fouiller la carcasse.\nN'importe quel ravasaure peut laisser tomber une {item:280459} : faites un clic droit dessus, {npc:9619} la prend.",
 
-	-- Step 17: Torwa Pathfinder
+	-- Step 21: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, si un ravasaure a laissé tomber l'écaille",
 	-- {area:1943} Ironstone Plateau
 	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Les gorilles du {area:1943} portent les peaux : gardez-la pour la deuxième visite d'Un'Goro, vers le niveau 56"
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "",
 
-	-- Step 18: Lar'korwi Mates and the raft
+	-- Step 22: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Compagnes de Lar'korwi ({npc:9683}) et le radeau",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -92,11 +110,11 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "{object:161504}, sous l'eau",
 
-	-- Step 19: Torwa Pathfinder
+	-- Step 23: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "Retournez vers l'est voir {npc:9619} avec les glandes.",
 
-	-- Step 20: Marshal's Refuge
+	-- Step 24: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
 	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Chevauchez vers le nord-ouest jusqu'au refuge.\nGardez vos distances avec les diablosaures et les stégodons élites. Ramassez désormais chaque {npc:271301} et chaque {object:157936} que vous croisez.",
 	-- {npc:9998} Shizzle
@@ -111,7 +129,7 @@ return {
 	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270} et {npc:9618} ont des quêtes parmi des monstres de niveau 51-55 : gardez-les pour la deuxième visite d'Un'Goro, vers le niveau 56."
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "",
 
-	-- Step 21: Fire Plume Ridge and the eastern jungle
+	-- Step 25: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537} et la jungle de l'est",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -122,17 +140,17 @@ return {
 	-- {quest:3764} Un'Goro Soil
 	["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, sur les Batteurs et les tas de terre",
 
-	-- Step 22: Lakkari Tar Pits
+	-- Step 26: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "Des amas de cristaux se dressent partout dans le cratère. Les Seigneurs du goudron (53-54) des fosses et les limons alentour (50-54) sont plus forts que vous : prenez les amas en lisière nord-est de la jungle, parmi les Flagellants et les jeunes bêtes (48-50).",
 
-	-- Step 23: Marshal's Refuge
+	-- Step 27: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Pour {npc:7775} en {zone:1444} : gardez-la",
 
-	-- Step 24: Level 50
+	-- Step 28: Level 50
 	["Level 50"] = "",
 	-- {zone:1455} Ironforge
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
@@ -155,6 +173,7 @@ return {
 	-- ["Fly to {area:415}"] = "Prendre un vol pour {area:415}",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Pour les personnages de niveau 49 à 50, mais la plupart des quêtes ici sont de niveau 51-53 : c'est voulu, pour leur expérience. Les bêtes du cratère sont de niveau 48-55 et les silithides Gorishi 51-54 : attirez-les un par un.",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Pour les personnages de niveau 49 à 50, mais la plupart des quêtes ici sont de niveau 51-53 : c'est voulu, pour leur expérience. Cette première visite se limite à la moitié est du cratère, où les bêtes sont de niveau 48-52 : attirez-les une par une ; les pylônes, les ossements et la ruche attendront la visite suivante d'Un'Goro, vers le niveau 56.",
+	-- ["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "Pour {npc:7740} à {zone:1457}, à la fin du guide des {zone:1428} : gardez-le",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Quatre estampes de runes en {zone:1447} : gardez-la",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Depuis {area:144}, prenez un vol pour {area:150}, le bateau pour Theramore, puis un vol pour {area:976}. La première quête de {npc:9619} dans le cratère demande le niveau 48 : finissez le niveau ici s'il vous manque.",
 	-- ["From {area:392}, fly to {area:976}."] = "Depuis {area:392}, prenez un vol pour {area:976}.",
@@ -192,6 +211,7 @@ return {
 	-- ["The Gorishi hive"] = "La ruche Gorishi",
 	-- ["The dead Threshadon lies by the water north of {npc:9619}."] = "Le battrodon mort se trouve au bord de l'eau au nord de {npc:9619}.",
 	-- ["The east side"] = "Le côté est",
+	-- ["The flight from Theramore lands in {area:976}."] = "Le vol depuis Theramore atterrit à {area:976}.",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "Les gorilles vivent sur {area:1943}, à l'est de {area:541}. Gardez leurs peaux pour {npc:9619}. N'entrez pas dans la grotte la plus profonde : {npc:9622} est de niveau 55.",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "Les gorilles de {area:1943} viennent en petits groupes et ne laissent encore rien tomber pour vous ; la quête des peaux de {npc:9619} vient plus tard. N'entrez pas dans la grotte la plus profonde : {npc:9622} est de niveau 55.",
 	-- ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Les gorilles du {area:1943} portent les peaux : gardez-la pour la deuxième visite d'Un'Goro, vers le niveau 56",

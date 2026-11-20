@@ -65,7 +65,8 @@ return {
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法陣留到下次來{zone:1440}時處理，約28級",
+	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法陣留到下次來{zone:1440}時處理，約28級"
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
 
 	-- Step 14: The Zoram Strand
 	-- {area:413} Maestra's Post · {area:414} Zoram Strand · {npc:3846} Talen
@@ -135,8 +136,9 @@ return {
 
 	-- Step 28: The Pridewings
 	["The Pridewings"] = "",
+	-- {npc:5928} Sorrow Wing
 	-- plural, as words: Pridewing Wyverns = {npc:4012} Pridewing Wyvern
-	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies."] = "",
+	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "",
 
 	-- Step 29: Stonetalon Peak
 	-- {area:467} Stonetalon Peak · {npc:3994} Keeper Albagorm · {npc:16458} Innkeeper Faralia
@@ -162,7 +164,8 @@ return {
 
 	-- Step 33: Gleaming Crescent Pendant
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it."] = "",
+	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
+	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "",
 
@@ -223,7 +226,7 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
-	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 28"] = "",
+	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}: he won't offer 305 while you carry it"] = "{npc:2096}：你帶著305時，他不會給你任務",
 	-- {npc:2096} Tarrel Rockweaver
@@ -259,7 +262,8 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘場西邊山谷裡更大的迅猛龍留到你下次{zone:1437}之行，大約27級時",
+	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘場西邊山谷裡更大的迅猛龍留到你下次{zone:1437}之行，大約27級時"
+	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
 
 	-- Step 48: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
@@ -423,6 +427,7 @@ return {
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龍喉營地刷龍喉襲擊者和龍喉沼澤行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
 	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：苔皮沼奔者和苔皮織霧者",
+	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘場西邊山谷裡更大的迅猛龍留到你下次{zone:1437}之行，大約27級時",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：給城堡裡的{npc:2104}",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}，在皇家圖書館",
@@ -433,6 +438,7 @@ return {
 	-- ["{npc:2097}, by the north gate"] = "{npc:2097}，在北門旁",
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104}站在{area:2103}，離{npc:1242}不遠。",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}：巴洛斯·艾力克斯頓的回信",
+	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法陣留到下次來{zone:1440}時處理，約28級",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664}和他的虛無行者佔據神殿南邊的{area:412}。先拉他的守衛。",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693}站在飛行管理員旁，在主街東端；然後向西回到碼頭。",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}站在{area:421}東岸的{area:420}。污濁的水元素在湖中涉水。小心：27級水元素{npc:12759}在牠們之間的湖中走動；她也會掉落護腕，但以你現在的等級，打小元素比較安全。",

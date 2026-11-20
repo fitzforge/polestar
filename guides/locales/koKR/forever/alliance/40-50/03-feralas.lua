@@ -143,24 +143,22 @@ return {
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 28: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
-
-	-- Step 29: Angelas Moonbreeze
+	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 31: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "{area:489}까지 이동",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "아직 {area:489} 비행 경로가 없습니다. 배를 타고 해안으로 돌아가 길을 따라 동쪽으로, {zone:1441} 경계의 {area:489}까지 가십시오.",
 
-	-- Step 32: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "북동쪽으로 {zone:1441} 경계의 나이트 엘프 전초기지까지 가십시오.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -185,6 +183,7 @@ return {
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "{zone:1441}에서 {quest:1100}을(를) 가져왔다면",
 	-- ["{area:978} instead of grinding"] = "사냥 대신 {area:978}",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}의 재충전 퀘스트는 55레벨입니다: 건너뛰십시오.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}은(는) {npc:7765} 북쪽 언덕의 바람계곡일족 하피 사이를 떠돕니다. 샤이의 종은 그녀 옆 상자에 있습니다.",
 	-- ["{npc:7774}'s escort"] = "{npc:7774} 호위",
 }

@@ -34,7 +34,6 @@ return {
 	-- was: ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: espete-o com a {item:22432}"
 	["Devilsaur: stab it with the {item:22432}"] = "",
 	-- {item:22432} Devilsaur Barb
-	-- was: ["Stab a {npc:6498} with the {item:22432}"] = "Espete um {npc:6498} com a {item:22432}"
 	["Stab a Devilsaur with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple

@@ -41,8 +41,6 @@ return {
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
 	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "얼라이언스 천막의 {npc:17082}: {area:2743}의 {npc:17080}에게 가져갑니다",
-	-- {npc:15181} Commander Mar'alith
-	["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: 브론즈비어드 야영지는 나중에 남쪽으로 가는 길에 들릅니다",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: 서판 조각은 황혼의 발굴지에서 얻습니다",
 	-- {npc:15306} Bor Wildmane
@@ -72,6 +70,8 @@ return {
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
 	["{npc:15190}, upstairs beside {npc:15189}"] = "",
+	-- {npc:15181} Commander Mar'alith
+	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
 	-- Step 13: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
@@ -147,8 +147,9 @@ return {
 	-- Step 29: Level 60
 	-- was: ["Level 60"] = "60레벨"
 	["Level 60"] = "",
-	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
-	["{area:3425}'s last hand-ins leave a player who followed only this route about half a level short of 60. Finish it with a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}."] = "",
+	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
+	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
+	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: the {area:2057} or {area:2279} dungeons, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Andorhal"] = "안돌할",
@@ -276,6 +277,7 @@ return {
 	-- ["{npc:11803} holds the cultists' camp in the far south-west."] = "{npc:11803}이(가) 맨 남서쪽의 이교도 야영지를 지킵니다.",
 	-- ["{npc:14722}, in the {object:2096}"] = "{npc:14722}, {object:2096} 안",
 	-- ["{npc:15174}, the innkeeper"] = "여관주인 {npc:15174}",
+	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: 브론즈비어드 야영지는 나중에 남쪽으로 가는 길에 들릅니다",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: 황혼의 문서는 이곳 다음 목적지인 발굴지에서 얻습니다",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, 얼라이언스 천막",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852}은(는) 61레벨 정예입니다",

@@ -143,24 +143,22 @@ return {
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 28: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "Затем {npc:3936} просит отнести вести в {zone:1457}: пропустите, {area:976} сам отправит вас туда.",
-
-	-- Step 29: Angelas Moonbreeze
+	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
 	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 31: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "Езжайте в {area:489}",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "Маршрута полета в {area:489} пока нет: плывите на корабле обратно на побережье и езжайте на восток по дороге в {area:489}, на границе зоны {zone:1441}.",
 
-	-- Step 32: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Езжайте на северо-восток к заставе ночных эльфов на границе зоны {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -185,6 +183,7 @@ return {
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "если у вас есть {quest:1100} из зоны {zone:1441}",
 	-- ["{area:978} instead of grinding"] = "{area:978} вместо гринда",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "Пополнения {npc:14637} — 55-го уровня: пропустите их.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "Затем {npc:3936} просит отнести вести в {zone:1457}: пропустите, {area:976} сам отправит вас туда.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} бродит по холмам к северу от NPC {npc:7765}, среди гарпий из стаи Студеных Ключей; ее колокольчик в сундуке рядом.",
 	-- ["{npc:7774}'s escort"] = "Сопровождение: {npc:7774}",
 }

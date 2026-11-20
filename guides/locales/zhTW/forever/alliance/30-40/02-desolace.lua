@@ -83,21 +83,29 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "帶{npc:5644}走出要塞；離開要塞後她就會自行離去。指南結尾時在{area:608}向{npc:5642}繳交。",
 
-	-- Step 14: Bibbly F'utzbuckle
+	-- Step 14: Azore Aldamort
+	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
+	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "",
+	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+
+	-- Step 15: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
 	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "",
 
-	-- Step 15: Smeed Scrabblescrew
+	-- Step 16: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "{npc:11596}的營地在{area:609}南邊的路上，位於{area:596}旁。",
 
-	-- Step 16: Kodo Bones
-	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones
-	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side."] = "",
+	-- Step 17: Kodo Bones
+	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {object:417353} Extinguished Campfire (no name in this language: may be words) · {quest:79229} Highway Robbery
+	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "",
 	-- {item:13703} Kodo Bone
 	["{item:13703}, among the skeletons"] = "",
+	-- {quest:79229} Highway Robbery · {object:417353} Extinguished Campfire (no name in this language: may be words)
+	["{quest:79229}: the {object:417353}"] = "",
 
-	-- Step 17: Kodo Graveyard
+	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
 	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。"
@@ -107,26 +115,29 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "被馴服的科多獸，在{npc:11596}的營地：和它對話，五次",
 
-	-- Step 19: Kolkar Village
+	-- Step 20: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 20: Kormek's Hut
-	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut
-	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}."] = "",
+	-- Step 21: Kormek's Hut
+	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
+	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
+	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
+	["{npc:11438}: Tokal waits in {area:35}, at the end of 30-40/04b"] = "",
 
-	-- Step 21: Nijel's Point
+	-- Step 22: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：背包在西北海岸外，位於30-40（06-荒蕪之地）結尾的南線上：先留著",
+	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：背包在西北海岸外，位於30-40（06-荒蕪之地）結尾的南線上：先留著"
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06b-desolace): keep it"] = "",
 
-	-- Step 22: Fly to Auberdine
+	-- Step 23: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "{area:608}飛行管理員",
 
-	-- Step 23: Boat to Stormwind Harbor
+	-- Step 24: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 
@@ -148,6 +159,7 @@ return {
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "跟著車隊向南經過{area:609}；途中科卡爾伏擊者會襲擊車隊。待在附近直到它停在{area:2617}。伏擊者是34-35級，而且分波出現：如果你低於33級就跳過。",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}：{item:279915}，來自米奈希爾",
+	-- ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：背包在西北海岸外，位於30-40（06-荒蕪之地）結尾的南線上：先留著",
 	-- ["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644}躲在{area:608}西南方火刃的要塞裡。",
 	-- ["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}，在箱子旁邊：先留著，它的鑰匙和箱子在30-40結尾的{zone:1443}南線上",
 }

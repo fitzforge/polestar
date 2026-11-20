@@ -193,7 +193,7 @@ step Darkshire
   accept 66                               -- Madame Eva, inside
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 66                               -- Clerk Daltry, in the town hall
-  accept 67                               -- Clerk Daltry: The Legend of Stalvan, the footlocker in Westfall's Moonbrook, at the west end of your next Duskwood loop (05-duskwood)
+  accept 67                               -- Clerk Daltry: The Legend of Stalvan, the footlocker in Westfall's Moonbrook, at the west end of your next Duskwood loop (the Duskwood guide)
   accept 56                               -- Commander Althea Ebonlocke, in the town hall
   accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
   accept 164                              -- Elaine Carevin, at the south end of town; inside
@@ -411,4 +411,4 @@ step Back to Lakeshire
   turnin 98387
   turnin 98386                                -- Foreman Oslow
   turnin 128                                  -- Guard Howe, by the gryphons south of the bridge
-  note Next: the gryphon to Darkshire for Duskwood's second loop (05-duskwood).
+  note Next: the gryphon to Darkshire for Duskwood's second loop (the Duskwood guide).

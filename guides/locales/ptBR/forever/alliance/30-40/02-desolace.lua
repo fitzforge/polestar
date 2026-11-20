@@ -83,21 +83,29 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Leve {npc:5644} para fora da fortaleza; ela vai embora quando vocês saírem. {npc:5642} recebe a entrega em {area:608}, no fim do guia.",
 
-	-- Step 14: Bibbly F'utzbuckle
+	-- Step 14: Azore Aldamort
+	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
+	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "",
+	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+
+	-- Step 15: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
 	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "",
 
-	-- Step 15: Smeed Scrabblescrew
+	-- Step 16: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "O acampamento de {npc:11596} fica na estrada ao sul de {area:609}, perto de {area:596}.",
 
-	-- Step 16: Kodo Bones
-	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones
-	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side."] = "",
+	-- Step 17: Kodo Bones
+	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {object:417353} Extinguished Campfire (no name in this language: may be words) · {quest:79229} Highway Robbery
+	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "",
 	-- {item:13703} Kodo Bone
 	["{item:13703}, among the skeletons"] = "",
+	-- {quest:79229} Highway Robbery · {object:417353} Extinguished Campfire (no name in this language: may be words)
+	["{quest:79229}: the {object:417353}"] = "",
 
-	-- Step 17: Kodo Graveyard
+	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
 	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Use o {item:13892} de {npc:11596} em um Kodo Idoso, Moribundo ou {npc:4702}: ele vira um kodo domado que segue você. Leve-o de volta ao acampamento de {npc:11596}; lá, fale com o kodo: isso o conta e deixa você domar o próximo. Cinco kodos, um de cada vez; os Kodos Idosos também soltam as peles, e os Escorpachis Açoitadores que caçam em volta do cemitério levam o veneno."
@@ -107,26 +115,29 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "o kodo domado, no acampamento de {npc:11596}: fale com ele, cinco vezes",
 
-	-- Step 19: Kolkar Village
+	-- Step 20: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 20: Kormek's Hut
-	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut
-	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}."] = "",
+	-- Step 21: Kormek's Hut
+	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
+	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
+	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
+	["{npc:11438}: Tokal waits in {area:35}, at the end of 30-40/04b"] = "",
 
-	-- Step 21: Nijel's Point
+	-- Step 22: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: a bolsa fica ao largo da costa noroeste, no circuito sul no fim de 30-40 (06-badlands): guarde-a",
+	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: a bolsa fica ao largo da costa noroeste, no circuito sul no fim de 30-40 (06-badlands): guarde-a"
+	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06b-desolace): keep it"] = "",
 
-	-- Step 22: Fly to Auberdine
+	-- Step 23: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Voe para {area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "Mestre de voo de {area:608}",
 
-	-- Step 23: Boat to Stormwind Harbor
+	-- Step 24: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Barco para {area:17203}",
 
@@ -149,6 +160,7 @@ return {
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "Acompanhe a caravana para o sul, passando por {area:609}; Emboscadores Kolkar a atacam no caminho. Fique perto até ela parar em {area:2617}. Os emboscadores são de nível 34-35 e vêm em ondas: pule se você estiver abaixo do 33.",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, ao norte de {area:413}",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, de Sylessa, no Porto de Menethil",
+	-- ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: a bolsa fica ao largo da costa noroeste, no circuito sul no fim de 30-40 (06-badlands): guarde-a",
 	-- ["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se esconde na fortaleza da Lâmina Ardente, a sudoeste de {area:608}.",
 	-- ["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, ao lado do baú: guarde-o, as chaves e o baú vêm no circuito sul de {zone:1443}, no fim do 30-40",
 }
