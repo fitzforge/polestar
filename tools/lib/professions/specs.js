@@ -89,7 +89,8 @@ const SPECS = {
 		// Brikk Keencraft (1002836) only, never at Bengus Deepforge or Saru Steelfury (1004258/1003355). Forever
 		// moved the plans 25 points down but not off the Artisan list: at 205 Saru teaches no Heavy Mithril
 		// Breastplate (#1956, the reporter's trainer window).
-		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan' },
+		// Brikk also teaches the three Dense Stone recipes at 225; Bengus does not (#3136).
+		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan', 16639: 'Artisan', 16640: 'Artisan', 16641: 'Artisan' },
 		// Expert 50s (a Forever beta guide tested to 225; Classic's list asks 45s), Artisan 5g (Classic's list).
 		rankCost: { Expert: 5000, Artisan: 50000 },
 		assumed: [

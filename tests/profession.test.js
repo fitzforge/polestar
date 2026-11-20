@@ -373,6 +373,17 @@ test('draft: a rank only a few trainers teach comes after the shopping, and its 
 	assert.ok(steps.indexOf('step Journeyman Tailoring') < steps.indexOf('step Tailoring 75-150: vendor goods'));
 });
 
+test('draft: the first recipes at a rank visit use their own trainers (#3136)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 75, 10), rec(2, 75, 90, 100, 10)]);
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1 },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 90, spec: { taughtBy: { 2: 'Journeyman' } } });
+	const visit = text.split('\nstep Journeyman Tailoring\n')[1].split('\nstep ')[0];
+	assert.deepEqual(visit.split('\n').filter((l) => l.startsWith('  learn 2')), ['  learn 2 npc 7 only Alliance', '  learn 2 npc 8 only Horde']);
+});
+
 test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after a one-visit bracket (Rugged Leather at Drakk Stonehand)', () => {
 	// Expert Leatherworking: Telonis or Una teach Thick Leather (160) too, so
 	// one visit; Rugged Leather (195) only Drakk or Hahrana teach.

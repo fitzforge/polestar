@@ -8772,7 +8772,6 @@ do
 			{ npc = 4258, npcName = "Bengus Deepforge", map = 1455, x = 52.27, y = 41.27, z = 498.9, faction = "A" },
 			{ npc = 3355, npcName = "Saru Steelfury", map = 1454, x = 82.11, y = 23.29, z = 24.4, faction = "H" },
 			{ npc = 4561, npcName = "Daniel Bartlett", map = 1458, x = 64.31, y = 37.84, z = -43, faction = "H" },
-			{ npc = 2836, npcName = "Brikk Keencraft", map = 1434, x = 28.99, y = 75.47, z = 24, faction = "AH" },
 		}
 		local candidateLists = {
 			{ candidateRecords[10], candidateRecords[2], candidateRecords[8], candidateRecords[3], candidateRecords[6], candidateRecords[4], candidateRecords[1], candidateRecords[5], candidateRecords[7], candidateRecords[9], candidateRecords[11], candidateRecords[12] },
@@ -8781,8 +8780,7 @@ do
 			{ candidateRecords[76], candidateRecords[77] },
 			{ candidateRecords[18], candidateRecords[21], candidateRecords[22], candidateRecords[24], candidateRecords[23], candidateRecords[16], candidateRecords[75], candidateRecords[14], candidateRecords[13], candidateRecords[17], candidateRecords[19], candidateRecords[20], candidateRecords[25] },
 			{ candidateRecords[77], candidateRecords[76] },
-			{ candidateRecords[79] },
-			{ candidateRecords[79], candidateRecords[76], candidateRecords[77] },
+			{ { npc = 2836, npcName = "Brikk Keencraft", map = 1434, x = 28.99, y = 75.47, z = 24, faction = "AH" } },
 			{ { npc = 11278, npcName = "Magnus Frostwake", map = 1422, x = 68.12, y = 77.57, z = 62.1, f = "e", faction = "AH" } },
 			{ candidateRecords[14], candidateRecords[15], { npc = 12782, npcName = "Captain O'Neal", map = 1453, x = 74.34, y = 67.69, z = 105.3, faction = "AH" }, { npc = 9859, npcName = "Auctioneer Lympkin", map = 1455, x = 25.81, y = 75.55, z = 505.2, f = "e", faction = "A" }, { npc = 8721, npcName = "Auctioneer Epitwee", map = 1458, x = 64.42, y = 52.41, z = -56.8, f = "e", faction = "H" }, { npc = 15675, npcName = "Auctioneer Stockton", map = 1458, x = 71.42, y = 46.69, z = -56.8, f = "e", faction = "H" }, { npc = 15684, npcName = "Auctioneer Tricket", map = 1458, x = 60.49, y = 41.75, z = -56.8, f = "e", faction = "H" }, { npc = 15682, npcName = "Auctioneer Cain", map = 1458, x = 67.65, y = 35.9, z = -56.8, f = "e", faction = "H" }, candidateRecords[13], candidateRecords[17], candidateRecords[19], candidateRecords[20], candidateRecords[25] },
 		}
@@ -9243,11 +9241,15 @@ do
 					goals = {
 						{ t = "level", level = 35 },
 						{ t = "train", skill = "Blacksmithing", skillLine = 164, rank = 4, rankMax = 300, candidates = candidateLists[7] },
-						{ t = "learn", spell = 16640, spellName = "Dense Weightstone", skillLine = 164, candidates = candidateLists[8] },
-						{ t = "learn", spell = 9968, spellName = "Heavy Mithril Boots", skillLine = 164, candidates = candidateLists[8] },
+						{ t = "learn", spell = 16640, spellName = "Dense Weightstone", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 16640, spellName = "Dense Weightstone", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Horde" } } },
+						{ t = "learn", spell = 9968, spellName = "Heavy Mithril Boots", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 9968, spellName = "Heavy Mithril Boots", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Horde" } } },
 						{ t = "learn", spell = 9920, spellName = "Solid Grinding Stone", skillLine = 164, candidates = candidateLists[4] },
-						{ t = "learn", spell = 10001, spellName = "Big Black Mace", skillLine = 164, candidates = candidateLists[8] },
-						{ t = "learn", spell = 16639, spellName = "Dense Grinding Stone", skillLine = 164, candidates = candidateLists[8] },
+						{ t = "learn", spell = 10001, spellName = "Big Black Mace", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 10001, spellName = "Big Black Mace", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Horde" } } },
+						{ t = "learn", spell = 16639, spellName = "Dense Grinding Stone", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 16639, spellName = "Dense Grinding Stone", npc = 2836, npcName = "Brikk Keencraft", skillLine = 164, map = 1434, x = 28.99, y = 75.47, z = 24, only = { factions = { "Horde" } } },
 					},
 				},
 				{
@@ -9255,7 +9257,7 @@ do
 					note = "{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422}).",
 					section = 4,
 					goals = {
-						{ t = "buy", item = 12819, itemName = "Plans: Ornate Thorium Handaxe", candidates = candidateLists[9] },
+						{ t = "buy", item = 12819, itemName = "Plans: Ornate Thorium Handaxe", candidates = candidateLists[8] },
 					},
 				},
 				{
@@ -9263,7 +9265,7 @@ do
 					note = "{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422}).",
 					section = 4,
 					goals = {
-						{ t = "buy", item = 12823, itemName = "Plans: Huge Thorium Battleaxe", candidates = candidateLists[9] },
+						{ t = "buy", item = 12823, itemName = "Plans: Huge Thorium Battleaxe", candidates = candidateLists[8] },
 					},
 				},
 				{
@@ -9271,17 +9273,17 @@ do
 					note = "What 225-300 takes that the Auction House sells: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799}. The counts drop by what your bags, bank and mail hold.",
 					section = 4,
 					goals = {
-						{ t = "auction", item = 1210, itemName = "Shadowgem", count = 44, candidates = candidateLists[10] },
-						{ t = "auction", item = 3860, itemName = "Mithril Bar", count = 596, candidates = candidateLists[10] },
-						{ t = "auction", item = 4304, itemName = "Thick Leather", count = 142, candidates = candidateLists[10] },
-						{ t = "auction", item = 7909, itemName = "Aquamarine", count = 19, candidates = candidateLists[10] },
-						{ t = "auction", item = 7910, itemName = "Star Ruby", count = 19, candidates = candidateLists[10] },
-						{ t = "auction", item = 7912, itemName = "Solid Stone", count = 44, candidates = candidateLists[10] },
-						{ t = "auction", item = 7971, itemName = "Black Pearl", count = 11, candidates = candidateLists[10] },
-						{ t = "auction", item = 8170, itemName = "Rugged Leather", count = 206, candidates = candidateLists[10] },
-						{ t = "auction", item = 12359, itemName = "Thorium Bar", count = 2026, candidates = candidateLists[10] },
-						{ t = "auction", item = 12365, itemName = "Dense Stone", count = 801, candidates = candidateLists[10] },
-						{ t = "auction", item = 12799, itemName = "Large Opal", count = 10, candidates = candidateLists[10] },
+						{ t = "auction", item = 1210, itemName = "Shadowgem", count = 44, candidates = candidateLists[9] },
+						{ t = "auction", item = 3860, itemName = "Mithril Bar", count = 596, candidates = candidateLists[9] },
+						{ t = "auction", item = 4304, itemName = "Thick Leather", count = 142, candidates = candidateLists[9] },
+						{ t = "auction", item = 7909, itemName = "Aquamarine", count = 19, candidates = candidateLists[9] },
+						{ t = "auction", item = 7910, itemName = "Star Ruby", count = 19, candidates = candidateLists[9] },
+						{ t = "auction", item = 7912, itemName = "Solid Stone", count = 44, candidates = candidateLists[9] },
+						{ t = "auction", item = 7971, itemName = "Black Pearl", count = 11, candidates = candidateLists[9] },
+						{ t = "auction", item = 8170, itemName = "Rugged Leather", count = 206, candidates = candidateLists[9] },
+						{ t = "auction", item = 12359, itemName = "Thorium Bar", count = 2026, candidates = candidateLists[9] },
+						{ t = "auction", item = 12365, itemName = "Dense Stone", count = 801, candidates = candidateLists[9] },
+						{ t = "auction", item = 12799, itemName = "Large Opal", count = 10, candidates = candidateLists[9] },
 					},
 				},
 				{
@@ -13159,8 +13161,6 @@ do
 			{ npc = 3367, npcName = "Felika", map = 1454, x = 60.6, y = 51.37, faction = "H" },
 			{ npc = 4225, npcName = "Saenorion", map = 1457, x = 63.85, y = 22.16, z = 1343.4, faction = "A" },
 			{ npc = 3485, npcName = "Wrahk", map = 1413, x = 52.21, y = 31.74, z = 95.9, faction = "H" },
-			{ npc = 11098, npcName = "Hahrana Ironhide", map = 1444, x = 74.37, y = 43.1, z = 26.4, faction = "H" },
-			{ npc = 11097, npcName = "Drakk Stonehand", map = 1424, x = 98.7, y = 2.3, z = 113.9, f = "e", faction = "A" },
 			{ npc = 7947, npcName = "Vivianna", map = 1444, x = 31.23, y = 43.51, z = 13.6, faction = "A" },
 		}
 		local candidateLists = {
@@ -13170,7 +13170,7 @@ do
 			{ candidateRecords[107], candidateRecords[108], candidateRecords[110], candidateRecords[109], candidateRecords[104], candidateRecords[102], candidateRecords[129], candidateRecords[100], candidateRecords[99], candidateRecords[103], candidateRecords[105], candidateRecords[106], candidateRecords[111] },
 			{ candidateRecords[130], candidateRecords[131] },
 			{ candidateRecords[118], candidateRecords[130], candidateRecords[116], candidateRecords[117], candidateRecords[119], candidateRecords[120], candidateRecords[115], candidateRecords[114], candidateRecords[113], candidateRecords[112], candidateRecords[12] },
-			{ candidateRecords[141], candidateRecords[142] },
+			{ { npc = 11098, npcName = "Hahrana Ironhide", map = 1444, x = 74.37, y = 43.1, z = 26.4, faction = "H" }, { npc = 11097, npcName = "Drakk Stonehand", map = 1424, x = 98.7, y = 2.3, z = 113.9, f = "e", faction = "A" } },
 			{ candidateRecords[105], candidateRecords[99], { npc = 8724, npcName = "Auctioneer Wabang", map = 1454, x = 55.84, y = 64.81, z = 20.1, f = "e", faction = "H" }, { npc = 8723, npcName = "Auctioneer Golothas", map = 1457, x = 56.24, y = 54.04, z = 1321.7, f = "e", faction = "A" }, candidateRecords[100], candidateRecords[101], candidateRecords[102], candidateRecords[104], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[111] },
 		}
 		Polestar.RegisterGuide({
@@ -13593,7 +13593,8 @@ do
 					goals = {
 						{ t = "level", level = 35 },
 						{ t = "train", skill = "Leatherworking", skillLine = 165, rank = 4, rankMax = 300, candidates = candidateLists[7] },
-						{ t = "learn", spell = 19058, spellName = "Rugged Armor Kit", skillLine = 165, candidates = { candidateRecords[141], candidateRecords[130], candidateRecords[131], candidateRecords[142] } },
+						{ t = "learn", spell = 19058, spellName = "Rugged Armor Kit", npc = 11097, npcName = "Drakk Stonehand", skillLine = 165, map = 1425, x = 13.37, y = 43.38, z = 113.9, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 19058, spellName = "Rugged Armor Kit", npc = 11098, npcName = "Hahrana Ironhide", skillLine = 165, map = 1444, x = 74.37, y = 43.1, z = 26.4, only = { factions = { "Horde" } } },
 					},
 				},
 				{
@@ -13601,8 +13602,8 @@ do
 					note = "Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817}).",
 					section = 4,
 					goals = {
-						{ t = "buy", item = 2325, itemName = "Black Dye", count = 39, candidates = { candidateRecords[66], candidateRecords[59], candidateRecords[74], candidateRecords[75], candidateRecords[21], candidateRecords[143], candidateRecords[87], candidateRecords[86], candidateRecords[68], candidateRecords[62], candidateRecords[64], candidateRecords[63], candidateRecords[20], candidateRecords[67], candidateRecords[140], candidateRecords[69], candidateRecords[70], candidateRecords[57], candidateRecords[60], candidateRecords[56], candidateRecords[82], candidateRecords[138], candidateRecords[137], candidateRecords[71], candidateRecords[135], candidateRecords[72], candidateRecords[77], candidateRecords[76], candidateRecords[136], candidateRecords[139], candidateRecords[132], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[125], candidateRecords[123], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[126], candidateRecords[51], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[84], candidateRecords[85], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[93], candidateRecords[94], candidateRecords[95], candidateRecords[128], candidateRecords[97], candidateRecords[98] } },
-						{ t = "buy", item = 14341, itemName = "Rune Thread", count = 82, candidates = { candidateRecords[66], candidateRecords[59], candidateRecords[74], candidateRecords[75], candidateRecords[21], candidateRecords[143], candidateRecords[87], candidateRecords[86], candidateRecords[68], candidateRecords[64], candidateRecords[63], candidateRecords[20], candidateRecords[67], candidateRecords[140], candidateRecords[69], candidateRecords[70], candidateRecords[57], candidateRecords[60], candidateRecords[56], candidateRecords[82], candidateRecords[138], candidateRecords[137], candidateRecords[71], candidateRecords[135], candidateRecords[72], candidateRecords[77], candidateRecords[76], candidateRecords[136], candidateRecords[139], candidateRecords[132], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[125], candidateRecords[123], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[126], candidateRecords[51], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[84], candidateRecords[85], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[93], candidateRecords[94], candidateRecords[95], candidateRecords[128], candidateRecords[98] } },
+						{ t = "buy", item = 2325, itemName = "Black Dye", count = 39, candidates = { candidateRecords[66], candidateRecords[59], candidateRecords[74], candidateRecords[75], candidateRecords[21], candidateRecords[141], candidateRecords[87], candidateRecords[86], candidateRecords[68], candidateRecords[62], candidateRecords[64], candidateRecords[63], candidateRecords[20], candidateRecords[67], candidateRecords[140], candidateRecords[69], candidateRecords[70], candidateRecords[57], candidateRecords[60], candidateRecords[56], candidateRecords[82], candidateRecords[138], candidateRecords[137], candidateRecords[71], candidateRecords[135], candidateRecords[72], candidateRecords[77], candidateRecords[76], candidateRecords[136], candidateRecords[139], candidateRecords[132], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[125], candidateRecords[123], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[126], candidateRecords[51], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[84], candidateRecords[85], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[93], candidateRecords[94], candidateRecords[95], candidateRecords[128], candidateRecords[97], candidateRecords[98] } },
+						{ t = "buy", item = 14341, itemName = "Rune Thread", count = 82, candidates = { candidateRecords[66], candidateRecords[59], candidateRecords[74], candidateRecords[75], candidateRecords[21], candidateRecords[141], candidateRecords[87], candidateRecords[86], candidateRecords[68], candidateRecords[64], candidateRecords[63], candidateRecords[20], candidateRecords[67], candidateRecords[140], candidateRecords[69], candidateRecords[70], candidateRecords[57], candidateRecords[60], candidateRecords[56], candidateRecords[82], candidateRecords[138], candidateRecords[137], candidateRecords[71], candidateRecords[135], candidateRecords[72], candidateRecords[77], candidateRecords[76], candidateRecords[136], candidateRecords[139], candidateRecords[132], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[125], candidateRecords[123], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[126], candidateRecords[51], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[84], candidateRecords[85], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[93], candidateRecords[94], candidateRecords[95], candidateRecords[128], candidateRecords[98] } },
 					},
 				},
 				{
@@ -15020,8 +15021,6 @@ do
 			{ npc = 1474, npcName = "Rann Flamespinner", map = 1432, x = 35.99, y = 45.73, z = 325.3, faction = "A" },
 			{ npc = 8934, npcName = "Christopher Hewen", map = 1436, x = 52.21, y = 52.88, z = 35.3, faction = "A" },
 			{ npc = 2816, npcName = "Androd Fadran", map = 1417, x = 44.94, y = 46.74, z = 22.1, faction = "A" },
-			{ npc = 2399, npcName = "Daryl Stack", map = 1416, x = 62.7, y = 82.7, z = 57, f = "e", faction = "H" },
-			{ npc = 11052, npcName = "Timothy Worthington", map = 1445, x = 66.17, y = 51.73, z = 17.3, faction = "A" },
 		}
 		local candidateLists = {
 			{ candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12] },
@@ -15031,7 +15030,6 @@ do
 			{ candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[11], candidateRecords[12], candidateRecords[90], candidateRecords[91], candidateRecords[92] },
 			{ candidateRecords[105], candidateRecords[106], candidateRecords[115], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[116], candidateRecords[11], candidateRecords[12] },
 			{ candidateRecords[115], candidateRecords[116] },
-			{ candidateRecords[121], candidateRecords[116], candidateRecords[115], candidateRecords[122] },
 			{ candidateRecords[100], candidateRecords[101], candidateRecords[103], candidateRecords[102], candidateRecords[97], candidateRecords[95], { npc = 15659, npcName = "Auctioneer Jaxon", map = 1453, x = 61.16, y = 70.68, z = 96.7, faction = "A" }, candidateRecords[94], candidateRecords[93], candidateRecords[96], candidateRecords[98], candidateRecords[99], candidateRecords[104] },
 		}
 		Polestar.RegisterGuide({
@@ -15307,9 +15305,11 @@ do
 					section = 4,
 					goals = {
 						{ t = "level", level = 35 },
-						{ t = "train", skill = "Tailoring", skillLine = 197, rank = 4, rankMax = 300, candidates = { candidateRecords[121], candidateRecords[122] } },
-						{ t = "learn", spell = 18401, spellName = "Bolt of Runecloth", skillLine = 197, candidates = candidateLists[8] },
-						{ t = "learn", spell = 18402, spellName = "Runecloth Belt", skillLine = 197, candidates = candidateLists[8] },
+						{ t = "train", skill = "Tailoring", skillLine = 197, rank = 4, rankMax = 300, candidates = { { npc = 2399, npcName = "Daryl Stack", map = 1416, x = 62.7, y = 82.7, z = 57, f = "e", faction = "H" }, { npc = 11052, npcName = "Timothy Worthington", map = 1445, x = 66.17, y = 51.73, z = 17.3, faction = "A" } } },
+						{ t = "learn", spell = 18401, spellName = "Bolt of Runecloth", npc = 11052, npcName = "Timothy Worthington", skillLine = 197, map = 1445, x = 66.17, y = 51.73, z = 17.3, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 18401, spellName = "Bolt of Runecloth", npc = 2399, npcName = "Daryl Stack", skillLine = 197, map = 1424, x = 63.61, y = 20.83, z = 57, only = { factions = { "Horde" } } },
+						{ t = "learn", spell = 18402, spellName = "Runecloth Belt", npc = 11052, npcName = "Timothy Worthington", skillLine = 197, map = 1445, x = 66.17, y = 51.73, z = 17.3, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 18402, spellName = "Runecloth Belt", npc = 2399, npcName = "Daryl Stack", skillLine = 197, map = 1424, x = 63.61, y = 20.83, z = 57, only = { factions = { "Horde" } } },
 					},
 				},
 				{
@@ -15333,10 +15333,10 @@ do
 					note = "What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold.",
 					section = 4,
 					goals = {
-						{ t = "auction", item = 8170, itemName = "Rugged Leather", count = 420, candidates = candidateLists[9] },
-						{ t = "auction", item = 14047, itemName = "Runecloth", count = 3195, candidates = candidateLists[9] },
-						{ t = "auction", item = 14227, itemName = "Ironweb Spider Silk", count = 124, candidates = candidateLists[9] },
-						{ t = "auction", item = 14504, itemName = "Pattern: Runecloth Shoulders", count = 1, candidates = candidateLists[9] },
+						{ t = "auction", item = 8170, itemName = "Rugged Leather", count = 420, candidates = candidateLists[8] },
+						{ t = "auction", item = 14047, itemName = "Runecloth", count = 3195, candidates = candidateLists[8] },
+						{ t = "auction", item = 14227, itemName = "Ironweb Spider Silk", count = 124, candidates = candidateLists[8] },
+						{ t = "auction", item = 14504, itemName = "Pattern: Runecloth Shoulders", count = 1, candidates = candidateLists[8] },
 					},
 				},
 				{

@@ -216,8 +216,10 @@ step Artisan Tailoring
   tip Artisan raises the cap from 225 to 300; it needs Tailoring 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills). The arrow picks the nearest of your faction. Learn now: Bolt of Runecloth (from 205) and Runecloth Belt (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 Rugged Leather, 3195 Runecloth and 124 Ironweb Spider Silk to gather or buy.
   level 35
   train Tailoring Artisan
-  learn 18401
-  learn 18402
+  learn 18401 npc 11052 only Alliance
+  learn 18401 npc 2399 only Horde map 1424
+  learn 18402 npc 11052 only Alliance
+  learn 18402 npc 2399 only Horde map 1424
 
 step Tailoring 225-300: vendor goods
   tip Buy the whole bracket's share in one go: 116 Rune Thread (58g); about 58g in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
