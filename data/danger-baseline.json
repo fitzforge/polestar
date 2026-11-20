@@ -21010,6 +21010,112 @@
 			],
 			"reason": "a rare (Rippa, 44) not needed for the goal; the step's Careful tip names it and says to stay out of the water",
 			"evidence": "route level 40.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rippa 44-44; recordings (2026-11-20 index): done by 41 (median 42.42), deaths 15, abandons 2; 11 of the 41 people at 41.6 or under; Rippa met by 5 people and killed nobody: the deaths within 60 yd are the camp's"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 756.1|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 756.1",
+			"kind": "rare",
+			"title": "Mulgore: kill these as you meet them",
+			"level": 8.6,
+			"mobs": [
+				"Ghost Howl 12-12"
+			],
+			"reason": "a rare (Ghost Howl, 12) not needed for the goal; the step's Careful tip names it",
+			"evidence": "route level 8.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ghost Howl 12-12; recordings (2026-11-20 index): done by 32 (median 8.29), deaths 0, abandons 0; 30 of the 32 people at 9.6 or under; Ghost Howl met by 10 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1104.1|rare",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1104.1",
+			"kind": "rare",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 32.3,
+			"mobs": [
+				"Ironeye the Invincible 37-37"
+			],
+			"reason": "a rare (Ironeye the Invincible, 37) not needed for the goal; the step's Careful tip names it and the south-east of the flats where it roams",
+			"evidence": "route level 32.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ironeye the Invincible 37-37; recordings (2026-11-20 index): done by 119 (median 33.78), deaths 0, abandons 4; 41 of the 119 people at 33.3 or under; Ironeye met by 12 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94879.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94879.1",
+			"kind": "elite",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Ghostmaw 42-42",
+				"Chogg'Zac 41-41"
+			],
+			"reason": "the step's Careful tips name Chogg'Zac (41, elite) in Sunnyglade's western streets and Ghostmaw (42, elite) wandering up from the south-west fields, and say to let them pass; the pages drop from the cultists",
+			"evidence": "route level 41.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ghostmaw 42-42, Chogg'Zac 41-41; recordings (2026-11-20 index): done by 56 (median 41.31), deaths 16, abandons 0; 43 of the 56 people at 42.8 or under; Chogg'Zac killed nobody in the recordings, Ghostmaw's recorded kills were Horde players"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 5062.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 5062.1",
+			"kind": "elite",
+			"title": "Incendia Agave",
+			"level": 28.7,
+			"mobs": [
+				"Ailgrha Splittusk 38-38 x7",
+				"Ravaging Tempest 40-40 x3"
+			],
+			"reason": "the step picks the agave on the camps' north-western side and its Careful tip names the Ravaging elementals and Ailgrha Splittusk (38, elite) south and east of the camps (as the over row for this goal: players' recordings place them at 36-41,35-43 only)",
+			"evidence": "route level 28.7 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ailgrha Splittusk 38-38 x7, Ravaging Tempest 40-40 x3; recordings (2026-11-20 index): done by 35 (median 30.23), deaths 2, abandons 12; 9 of the 35 people at 29.7 or under; in the whole archive Ailgrha Splittusk killed 1 player and the Ravaging Tempests 3"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 662.2|pack",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 662.2",
+			"kind": "pack",
+			"title": "The Drowned Reef: kill these as you meet them",
+			"level": 38.5,
+			"mobs": [
+				"8 spawns 40+"
+			],
+			"reason": "the step's Careful tip names the Daggerspine Raiders and Sorceresses (38-40) standing close together on the shore and says to pull them one at a time; the pack only just counts (8 spawns of 40 and up)",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); 8 spawns 40+; recordings (2026-11-20 index): done by 51 (median 39.21), deaths 10, abandons 3; 30 of the 51 people at 39.5 or under"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.1|over",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.1",
+			"kind": "over",
+			"title": "Badlands: kill these as you meet them",
+			"level": 38.9,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "the 55-56s are Zaricotl, a rare buzzard, not needed for the goal; the step's Careful tip names him",
+			"evidence": "route level 38.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Zaricotl 55-56 x2; recordings (2026-11-20 index): done by 29 (median 41.16), deaths 0, abandons 1; 5 of the 29 people at 39.9 or under, none died within 60 yd; Zaricotl killed 3 Alliance players in the recordings, no Horde player"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.2|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.2",
+			"kind": "over",
+			"title": "Skeletal Raiders",
+			"level": 28.5,
+			"mobs": [
+				"Commander Felstrom 32-32 x9"
+			],
+			"reason": "the 32s are Commander Felstrom, a rare not needed for the goal; the step's Careful tip names him in the cemetery's west part",
+			"evidence": "route level 28.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Commander Felstrom 32-32 x9; recordings (2026-11-20 index): done by 66 (median 29.55), deaths 5, abandons 9; 30 of the 66 people at 29.5 or under; Felstrom killed nobody in the recordings"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.3|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.3",
+			"kind": "over",
+			"title": "Skeletal Raiders",
+			"level": 28.5,
+			"mobs": [
+				"Commander Felstrom 32-32 x10"
+			],
+			"reason": "the 32s are Commander Felstrom, a rare not needed for the goal; the step's Careful tip names him in the cemetery's west part",
+			"evidence": "route level 28.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Commander Felstrom 32-32 x10; recordings (2026-11-20 index): done by 67 (median 29.73), deaths 4, abandons 9; 30 of the 67 people at 29.5 or under; Felstrom killed nobody in the recordings"
 		}
 	]
 }
