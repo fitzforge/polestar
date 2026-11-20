@@ -5015,3 +5015,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."
 -- L["Show all (%d)"] = "모두 보기 (%d)"
 -- L["≈ %s"] = "≈ %s"
+-- L["Pick up where you left off, or start something new."] = "하던 곳에서 이어가거나 새로 시작하십시오."
+-- L["Nothing open yet. Pick a category on the left to find a guide."] = "아직 열린 것이 없습니다. 왼쪽에서 분류를 골라 가이드를 찾으십시오."

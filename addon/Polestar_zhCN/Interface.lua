@@ -5024,3 +5024,5 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"
 -- L["Show all (%d)"] = "显示全部 (%d)"
 -- L["≈ %s"] = "≈ %s"
+-- L["Pick up where you left off, or start something new."] = "继续上次的进度，或开始新的指南。"
+-- L["Nothing open yet. Pick a category on the left to find a guide."] = "尚未打开任何指南。从左侧选择分类来查找指南。"
