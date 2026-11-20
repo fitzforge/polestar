@@ -184,6 +184,7 @@ fn t_1596_optional_work_and_other_classes_steps_keep_the_walk() {
 fn t_1596_redrett_on_the_shipped_ashenvale_passes_the_thunder_bluff_walk() {
 	let dir = forge_addontest::run::addons_dir();
 	let before = r#"local w = stub.world
+stub.clientBuild = "70532"
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "ROGUE", "Rogue", 30
 w.money = 500000
 w.onQuest(2841, { { required = 2, fulfilled = 0 } })

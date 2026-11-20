@@ -9,6 +9,7 @@ local L = ns.L
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para terminar la entrega."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Mostrar/ocultar ventana de la guía"
@@ -246,6 +247,10 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Gris para ti: da %d%% de E
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -669,6 +674,7 @@ L["Player"] = "Jugador"
 L["Cursor"] = "Cursor"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 L["Search here"] = "Busca aquí"
 L["Arrived"] = "Llegaste"
 L["Click the arrow for the next spot"] = "Haz clic en la flecha para el siguiente lugar"
@@ -681,6 +687,9 @@ L["Click for the next spot."] = "Haz clic para el siguiente lugar."
 L["No position here"] = "Sin posición aquí"
 L["Shift-drag to move."] = "Mayús+arrastrar para mover."
 L["No waypoint"] = "Sin punto de ruta"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Lugar %d de %d"
@@ -711,7 +720,8 @@ L["Walk to the flight master"] = "Camina hasta el maestro de vuelo"
 L["Fly to %s"] = "Vuela a %s"
 L["Hearth to %s"] = "Piedra de hogar a %s"
 L["%s: saves %d min"] = "%s: ahorra %d min"
-L["No route: walk straight to the target."] = "No hay ruta: camina directo al objetivo."
+L["No safe walking route"] = "No hay una ruta segura a pie"
+L["Finding a walking route"] = "Buscando una ruta a pie"
 L["Show the travel route to the current target"] = "Mostrar la ruta de viaje al objetivo actual"
 L["Walk to the boat"] = "Camina hasta el barco"
 L["Walk to the zeppelin tower"] = "Camina hasta la torre del zepelín"
@@ -2440,7 +2450,6 @@ L["%s in your bank"] = "%s en tu banco"
 L["%s in your mail"] = "%s en tu correo"
 L["%s has %s"] = "%s tiene %s"
 L["%s to buy"] = "%s por comprar"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "(solo hay %s a la venta)"
 L["(old price)"] = "(precio antiguo)"
 
@@ -3547,6 +3556,7 @@ L["Carried to later guides"] = "Pasan a guías posteriores"
 L["Not part of your route"] = "Fuera de tu ruta"
 L["Keep or abandon them"] = "Conservarlas o abandonarlas"
 L["Each with its Abandon button, which asks in the game's own window first."] = "Cada una con su botón Abandona, que pregunta primero en la ventana del propio juego."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Haz clic para seleccionar y marcar a %s (fuera de combate)."
@@ -4613,6 +4623,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Esta guía es para personajes de la %s. Polestar no te guiará por ella."
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Presiona %s para reanudar, o abre la ventana de la guía."
@@ -5024,3 +5037,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "El tamaño del texto de Polestar, aparte de la escala de la ventana. Cambia de inmediato. Clic derecho para restablecer."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "No hay basura con la que liberar espacio. Ctrl+Alt+clic en un objeto para marcarlo como basura."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Durante la pausa, no se aceptan ni se entregan misiones por ti, ni se elige recompensa, hasta que Polestar se reanude."
+-- L["≈ %s"] = "≈ %s"

@@ -236,26 +236,30 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}, à l'extrémité sud-ouest du village",
 
-	-- Step 45: Ethel Rethor
+	-- Step 45: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+
+	-- Step 46: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Remontez la côte vers le nord, puis enfoncez-vous dans les terres jusqu'à la tour en ruine d'{area:2405} : {npc:11863} attend à l'intérieur. Les praires et les nagas de la côte viendront après {area:599}, en une seule marche vers le nord jusqu'à {area:2406}.",
 
-	-- Step 46: Thunder Axe Fortress
+	-- Step 47: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Allez vers l'est jusqu'à {area:599}. Affaiblissez un cultiste de la Lame ardente, puis utilisez la {item:6436} sur lui avant qu'il ne meure pour remplir une {item:6435}. Le {npc:13019} se tient au dernier étage de la forteresse avec le Sceptre. Les cultistes laissent aussi parfois tomber une {item:20310} (1-5 %) ; si vous en obtenez une, lisez-la. Laissez le {object:176581} rouge pour l'instant : son {npc:11876} est de niveau 37, et la seconde visite en {zone:1443} y reviendra.",
 	["On the top floor"] = "Au dernier étage",
 
-	-- Step 47: Ethel Rethor
+	-- Step 48: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
 	["Back west to {npc:11863}."] = "Retournez vers l'ouest voir {npc:11863}.",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "La course suivante d'{npc:11863}, le {item:15803}, nécessite le {npc:12369} (38) sur {area:2406} : laissez-la, il est au-dessus de votre niveau.",
 
-	-- Step 48: Rackmore's Log
+	-- Step 49: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} gît sur le sol juste au sud-ouest de la tour de {npc:11863}, sur le chemin qui descend vers le rivage : lisez-le. Ses deux clés ne tombent que si vous avez la quête.",
 
-	-- Step 49: Clam beds
+	-- Step 50: Clam beds
 	["Clam beds"] = "Bancs de praires",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -268,29 +272,34 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, sur les crabes Sèchepince",
 
-	-- Step 50: Sar'theris Strand
+	-- Step 51: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Continuez vers le nord jusqu'à {area:598} pour la {item:15881} : n'importe quel Ondulame peut la lâcher.\nAttention : les Myrmidons (34-35) tiennent la moitié nord de la plage avec les Sorcières des mers et les Oracles (34-36, lanceurs de sorts), jusqu'à deux niveaux au-dessus de vous à 33 : chassez les Nagas et Ensorceleuses (32-33) de la moitié sud jusqu'à obtenir la clé, et laissez le nord pour la seconde visite en {zone:1443}, au niveau 38.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, sur les nagas Lame-sinueuse",
 
-	-- Step 51: Rackmore's Chest
+	-- Step 52: Sar'theris Strand: Other Fish to Fry
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	-- {npc:4714} Slitherblade Myrmidon
+	["{npc:4714}, in the strand's southern half"] = "",
+
+	-- Step 53: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Nagez jusqu'à {area:2406}, au large de la pointe nord : le {object:177786} se trouve sur le rivage à côté de la {object:177673}. Ouvrez-le avec les deux clés ; ne touchez pas à la statue.",
 
-	-- Step 52: Sargeron
+	-- Step 54: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "Allez vers l'est au-delà de {area:599}, puis longez les collines du nord jusqu'aux ruines des satyres de {area:603}. Tuez chaque type que vous rencontrez pour {npc:268705} ; les Traqueurs de l'ombre se déplacent invisibles.\nAttention : les Voleurs Furie-haineuse utilisent Camouflage en apparaissant, ils restent donc camouflés jusqu'à ce que vous les trouviez.",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}, sur le chemin du sud",
 
-	-- Step 53: Khan Dez'hepah
+	-- Step 55: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "Vers le sud jusqu'au {area:609}. {quest:1365} (35) se promène parmi les tentes du côté est avec un ou deux Seigneurs de guerre (32-33) : nettoyez les alentours, puis attirez-le seul, avec toute votre vie.\nAttention : les Seigneurs de guerre kolkars appellent les alliés à moins de 30 m quand ils tombent à 20 % de vie.",
 
-	-- Step 54: Ghost Walker Post
+	-- Step 56: Ghost Walker Post
 	["South-west down the road to the post."] = "Descendez la route vers le sud-ouest jusqu'au poste.",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641} : pour {npc:5640} à {zone:1454}, guide suivant",
@@ -299,12 +308,17 @@ return {
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} propose maintenant « La prime aux centaures » : acceptez-la lors du deuxième passage à {zone:1443}, au niveau 38, en route vers {area:607}.",
 
-	-- Step 55: Shadowprey Village
+	-- Step 57: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "Vers l'ouest jusqu'à Proie-de-l'Ombre : votre pierre de foyer y est liée.",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}, sur le sentier juste au nord du village",
-	-- {item:14547} Hand of Iruxos · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, D'autres poissons à frire de Drulzegar et les autres quêtes 37-40 de {zone:1443} attendent la seconde visite, au niveau 38 : les guides suivants prennent un vol pour {zone:1454} puis le zeppelin pour {zone:1434}.",
+	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
+	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, D'autres poissons à frire de Drulzegar et les autres quêtes 37-40 de {zone:1443} attendent la seconde visite, au niveau 38 : les guides suivants prennent un vol pour {zone:1454} puis le zeppelin pour {zone:1434}."
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+
+	-- Step 58: Drulzegar Skraghook
+	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
+	["{npc:12340}, near {npc:12031}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Retournez au sud jusqu'à la tour de {npc:11863}.",
@@ -318,6 +332,7 @@ return {
 	-- ["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats."] = "Au sud de la piste, les Peaux de cristal du sel gemme (32-33) et les Contemplateurs (34-35) parcourent l'extrémité des Salines.",
 	-- ["Sparkleshell Snappers"] = "Mordeuses nacrétoile",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Nagez jusqu'à {area:2406}, au large de la pointe nord, et utilisez la {item:15766} sur la {object:177673} : {npc:12369} (38) surgit ; tuez-le pour obtenir le {quest:6027}. Il est bien plus fort que vous : reposez-vous d'abord. {object:177786} se trouve sur le rivage à côté de la statue : ouvrez-le avec les deux clés.",
+	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, D'autres poissons à frire de Drulzegar et les autres quêtes 37-40 de {zone:1443} attendent la seconde visite, au niveau 38 : les guides suivants prennent un vol pour {zone:1454} puis le zeppelin pour {zone:1434}.",
 	-- ["The {quest:6027}"] = "Le {quest:6027}",
 	-- ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "Utilisez le {item:13892} de {npc:11596} sur un kodo âgé, un kodo mourant ou un {npc:4702} du cimetière et ramenez le kodo apprivoisé à {npc:11596}. À son camp, parlez au kodo : il est alors compté et vous pouvez apprivoiser le suivant. Cinq kodos, un à la fois.",
 	-- ["West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health."] = "À l'ouest, les silithides grouillent sur le site de fouilles. Des Chercheurs et des Drones de la ruche se promènent parmi les monticules ; les Envahisseurs (34-35) restent dans la grotte de la ruche. Le premier silithide que vous tuez laisse tomber une {item:5877} : ouvrez-la.\nAttention : les Drones de la ruche appellent à l'aide quand ils tombent à 20 % de vie.",
