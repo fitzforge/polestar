@@ -185,3 +185,101 @@ emit({ carried = carried, hint = F.Hint:GetText() })"#,
 	assert_eq!(out["carried"]["guideMe"], false, "{out}");
 	assert_eq!(out["hint"], "No quests in your log are ready to hand in.", "{out}");
 }
+
+const HANDIN_MENU: &str = r#"
+local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
+E.SetGuide(nil)
+assert(not E.GetGuide() and #E.GetTabs() == 0, "the shortcut must work without a selected guide")
+-- No recipient data: the real planner must still open the current-log hand-ins.
+Polestar.Codex.Register("meta", {})
+Polestar.RoutePlan.Ender = function() return nil end
+local function handinMenuRow()
+	Polestar.Widgets.HideMenu()
+	GF.menuButton:Click()
+	for _, r in ipairs(PolestarMenu.rows) do
+		if r:IsShown() and r.Text:GetText() == "Hand in your finished quests" then return r end
+	end
+	error("the guide menu must offer Hand in your finished quests")
+end
+"#;
+
+#[test]
+fn the_menu_opens_all_finished_quests_without_a_guide_or_cleanup_and_reuses_its_tab() {
+	let out = run(
+		768,
+		&format!(
+			r#"{HANDIN_MENU}
+local unneeded = #(Polestar.RoutePlan.Unneeded() or {{}})
+local row = handinMenuRow()
+local disabled, cleanup = row.psItem.disabled or false, false
+for _, r in ipairs(PolestarMenu.rows) do
+	if r:IsShown() and (r.Text:GetText() or ""):find("Clean up quest log", 1, true) then cleanup = true end
+end
+row:Click()
+local first = E.GetGuide()
+local firstId, firstTabs = first and first.id or false, #E.GetTabs()
+local quests, unknown = {{}}, true
+for _, step in ipairs(first and first.steps or {{}}) do
+	for _, goal in ipairs(step.goals or {{}}) do
+		if goal.t == "turnin" then
+			quests[#quests + 1] = goal.quest
+			unknown = unknown and goal.map == nil and goal.currentLog == true
+		end
+	end
+end
+table.sort(quests)
+handinMenuRow():Click()
+emit({{ unneeded = unneeded, cleanup = cleanup, disabled = disabled, firstId = firstId,
+	firstTabs = firstTabs, quests = quests, unknown = unknown,
+	again = E.GetGuide() and E.GetGuide().id or false, tabs = #E.GetTabs() }})"#
+		),
+	);
+	assert_eq!(out["unneeded"], 0, "the shortcut does not depend on cleanup suggestions: {out}");
+	assert_eq!(out["cleanup"], false, "{out}");
+	assert_eq!(out["disabled"], false, "ready quests enable the shortcut without an active guide: {out}");
+	assert_eq!(out["firstId"], "lookup/carried/log", "the click opens the shared hand-in planner: {out}");
+	assert_eq!(out["firstTabs"], 1, "{out}");
+	assert_eq!(out["quests"], json!([9005, 9010, 9015, 9020, 9025, 9030]), "every ready quest reaches the actual guide: {out}");
+	assert_eq!(out["unknown"], true, "missing recipient locations do not block opening: {out}");
+	assert_eq!(out["again"], "lookup/carried/log", "{out}");
+	assert_eq!(out["tabs"], 1, "opening the shortcut again reuses its existing tab: {out}");
+}
+
+#[test]
+fn the_menu_keeps_an_empty_handin_action_disabled_and_refreshes_readiness_on_open() {
+	let out = run(
+		768,
+		&format!(
+			r#"{HANDIN_MENU}
+for i = 5, 30, 5 do stub.world.abandon(9000 + i) end
+local starts, start = 0, Polestar.Handins.Start
+Polestar.Handins.Start = function(...) starts = starts + 1; return start(...) end
+local row = handinMenuRow()
+local emptyDisabled = row.psItem.disabled or false
+row:Click()
+local emptyStarts, emptyTabs = starts, #E.GetTabs()
+stub.world.finish(9001)
+row = handinMenuRow()
+local readyDisabled = row.psItem.disabled or false
+row:Click()
+local readyId, readyStarts = E.GetGuide() and E.GetGuide().id or false, starts
+E.SetGuide(nil)
+stub.world.abandon(9001)
+row = handinMenuRow()
+local emptyAgain = row.psItem.disabled or false
+row:Click()
+emit({{ emptyDisabled = emptyDisabled, emptyStarts = emptyStarts, emptyTabs = emptyTabs,
+	readyDisabled = readyDisabled, readyId = readyId, readyStarts = readyStarts,
+	emptyAgain = emptyAgain, finalStarts = starts, finalTabs = #E.GetTabs() }})"#
+		),
+	);
+	assert_eq!(out["emptyDisabled"], true, "unfinished quests leave the action visible but disabled: {out}");
+	assert_eq!(out["emptyStarts"], 0, "clicking the disabled row cannot call the planner: {out}");
+	assert_eq!(out["emptyTabs"], 0, "{out}");
+	assert_eq!(out["readyDisabled"], false, "reopening the menu reads the newly finished quest: {out}");
+	assert_eq!(out["readyId"], "lookup/carried/log", "the enabled click still uses the real planner: {out}");
+	assert_eq!(out["readyStarts"], 1, "{out}");
+	assert_eq!(out["emptyAgain"], true, "reopening also reflects quests removed from the log: {out}");
+	assert_eq!(out["finalStarts"], 1, "the disabled action does not start again: {out}");
+	assert_eq!(out["finalTabs"], 0, "{out}");
+}

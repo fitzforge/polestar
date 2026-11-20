@@ -8016,8 +8016,10 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 ### Completed quests across the quest log
 
 `addon/Polestar/Lookup/Handins.lua` builds the existing `carried` planner's
-**Hand in your finished quests** guide. The quest room's **Guide me** uses
-`Polestar.Handins.Start()` to open it explicitly. `/polestar questlog` opens
+**Hand in your finished quests** guide. The guide window's menu and the quest
+room's **Guide me** both use `Polestar.Handins.Start()` to open it explicitly.
+The menu entry stays visible without a selected guide or cleanup candidates;
+it is disabled when `Handins.Ready()` is empty. `/polestar questlog` opens
 the quest room even when its cleanup list is empty; its finished-quest
 button reaches this guide. It considers the
 whole quest log, including quests outside the current zone and leveling
