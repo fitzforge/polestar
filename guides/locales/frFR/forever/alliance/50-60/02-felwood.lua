@@ -124,7 +124,7 @@ return {
 
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} se tient à la sortie vers {zone:1452} du tunnel du {area:1769}, juste à la sortie.",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
 	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
