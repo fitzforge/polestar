@@ -1559,7 +1559,7 @@ do
 				count = count + 1
 			end
 		end
-		local restrictions, itemType = origins[f.levelsSource], usedItemType and origins[f.typeSource]
+		local restrictions, itemType = origins[ns.Codex.FactSource(f, "allow")], usedItemType and origins[f.typeSource]
 		local tip
 		if restrictions and itemType and restrictions ~= itemType then
 			tip = { format(L["Class restrictions from %s"], restrictions), format(L["Item type from %s"], itemType) }
@@ -1579,6 +1579,9 @@ do
 		local indexed = f ~= nil
 		f = f or itemDetails.Empty
 		local levels, itemType = origins[f.levelsSource], origins[f.typeSource]
+		-- Each fact names its own source where it differs from levelsSource (Codex.FactSource).
+		local reqOrigin, levelOrigin = origins[C.FactSource(f, "req")], origins[C.FactSource(f, "itemLevel")]
+		local qualityOrigin = origins[C.FactSource(f, "quality")]
 		local req = f.reqLevel
 		local required = req and (req == 0 and L["No level required"] or format(L["Level %d"], req))
 		local usable, usableOrigin, usableTip = usableBy(S, f)
@@ -1590,9 +1593,9 @@ do
 		end
 		local facts = {
 			{ L["Type"], KIND[s.kind].name },
-			{ L["Required level"], required, levels },
-			{ L["Item level"], f.itemLevel and tostring(f.itemLevel), levels },
-			{ L["Rarity"], itemDetails.RarityName(quality), levels },
+			{ L["Required level"], required, reqOrigin },
+			{ L["Item level"], f.itemLevel and tostring(f.itemLevel), levelOrigin },
+			{ L["Rarity"], itemDetails.RarityName(quality), qualityOrigin },
 			{ L["Usable by"], usable, usableOrigin, usableTip },
 			{ L["Slot"], f.slot and itemDetails.SlotName(f.slot), itemType },
 			{ L["Category"], path, itemType },

@@ -64,33 +64,96 @@ const STAT_CODES: &[(&str, i64, Option<i64>)] = &[
 // The other codes have no mapped ItemDB token and come from the client.
 const ITEMDB_PRESENCE_ONLY: &[i64] = &[13, 14, 15, 31, 32];
 
+/// Where each of the four facts `levelsSource` covers came from: `Some(source)` or None for a
+/// default no table vouches for. JSON names them `reqSource`, `itemLevelSource`, `qualitySource`
+/// and `allowSource` (None is "none"); the item type group has its own `typeSource`.
+#[derive(Clone, Copy, Default)]
+struct FieldSources {
+	req: Option<&'static str>,
+	ilvl: Option<&'static str>,
+	quality: Option<&'static str>,
+	allow: Option<&'static str>,
+}
+
+impl FieldSources {
+	fn all(source: &'static str) -> Self {
+		Self { req: Some(source), ilvl: Some(source), quality: Some(source), allow: Some(source) }
+	}
+}
+
 #[derive(Default)]
 pub struct ItemDb {
 	forever: FxHashMap<u64, Rec>,
 	era: FxHashMap<u64, Rec>,
+	/// Forever.lua's `fieldsrc` table (gear/leveling.rs `field_sources`), None for a file that
+	/// predates it. An id the table lacks takes everything from Forever's list.
+	forever_fields: Option<FxHashMap<u64, FieldSources>>,
+}
+
+/// Forever.lua's `fieldsrc` rows: four letters per id, `f` Forever's list, `e` the Era row, `u` neither.
+fn read_field_sources(text: &str) -> Option<FxHashMap<u64, FieldSources>> {
+	let (_, body) = text.split_once("\nfieldsrc = {")?;
+	let body = &body[..body.find("},").unwrap_or(body.len())];
+	let re = regex::Regex::new(r#"\[(\d+)\]="([^"]*)""#).unwrap();
+	let letter = |c: char| match c {
+		'f' => Some("forever"),
+		'e' => Some("era"),
+		_ => None,
+	};
+	let mut out = FxHashMap::default();
+	for m in re.captures_iter(body) {
+		let from: Vec<Option<&'static str>> = m[2].chars().map(letter).collect();
+		if let (Ok(id), [req, ilvl, quality, allow]) = (m[1].parse::<u64>(), from.as_slice()) {
+			out.insert(id, FieldSources { req: *req, ilvl: *ilvl, quality: *quality, allow: *allow });
+		}
+	}
+	Some(out)
 }
 
 impl ItemDb {
 	pub(crate) fn load(root: &Path, warnings: &mut Vec<String>) -> Result<Self, String> {
-		let mut read = |file| {
+		let mut read = |file: &str| -> Result<(FxHashMap<u64, Rec>, String), String> {
 			let path = format!("addon/Polestar_ItemDB/{file}");
 			let text = match std::fs::read_to_string(root.join(&path)) {
 				Ok(text) => text,
 				Err(e) if e.kind() == ErrorKind::NotFound => {
 					warnings.push(format!("{path}: missing, skipping Codex item fallback from this file"));
-					return Ok(FxHashMap::default());
+					return Ok((FxHashMap::default(), String::new()));
 				}
 				Err(e) => return Err(format!("{path}: {e}")),
 			};
-			read_table(&path, &text, warnings)
+			Ok((read_table(&path, &text, warnings)?, text))
 		};
-		Ok(Self { forever: read("Forever.lua")?, era: read("Items.lua")? })
+		let (forever, forever_text) = read("Forever.lua")?;
+		let (era, _) = read("Items.lua")?;
+		Ok(Self { forever, era, forever_fields: read_field_sources(&forever_text) })
+	}
+
+	/// The sources of a selected row's required level, item level, quality and class mask. An
+	/// Era row is Era throughout. Old Forever files lack `fieldsrc`. Their generator used Era's
+	/// required level first. For the other fields, equality with Era or a default does not tell
+	/// us which source supplied the value.
+	fn field_sources(&self, id: u64, source: &'static str, rec: &Rec) -> FieldSources {
+		if source == "era" {
+			return FieldSources::all("era");
+		}
+		if let Some(fields) = &self.forever_fields {
+			return fields.get(&id).copied().unwrap_or_else(|| FieldSources::all("forever"));
+		}
+		let era = self.era.get(&id);
+		let forever = |has_value: bool, matches_era: bool| (has_value && !matches_era).then_some("forever");
+		FieldSources {
+			req: if era.is_some_and(|era| rec.req.num() == era.req.num()) { Some("era") } else { forever(rec.req.num() > 0.0, false) },
+			ilvl: forever(rec.ilvl.num() > 0.0, era.is_some_and(|era| rec.ilvl.num() == era.ilvl.num())),
+			quality: forever(rec.quality.num() != 1.0, era.is_some_and(|era| rec.quality.num() == era.quality.num())),
+			allow: forever(rec.allow.num() != 0.0, era.is_some_and(|era| rec.allow.num() == era.allow.num())),
+		}
 	}
 
 	pub(crate) fn fill(&self, items: &Obj, client: Option<&ClientFacts>) {
 		for item in items.values() {
 			let id = item.get("id").num() as u64;
-			let entry = self.forever.get(&id).map(|rec| ("forever", rec)).or_else(|| self.era.get(&id).map(|rec| ("era", rec)));
+			let entry: Option<(&'static str, &Rec)> = self.forever.get(&id).map(|rec| ("forever", rec)).or_else(|| self.era.get(&id).map(|rec| ("era", rec)));
 			if let Some((source, rec)) = entry {
 				if !item.has("levelsSource") {
 					item.set("levelsSource", source);
@@ -99,6 +162,11 @@ impl ItemDb {
 					item.set("quality", rec.quality.clone());
 					let mask = rec.allow.num();
 					item.set("allowClass", if mask == 0.0 { ALL_CLASSES } else { to_int32(mask) & ALL_CLASSES });
+					// Only a client row is trusted to gate a character by level; the pack reads these.
+					let fields = self.field_sources(id, source, rec);
+					for (name, from) in [("reqSource", fields.req), ("itemLevelSource", fields.ilvl), ("qualitySource", fields.quality), ("allowSource", fields.allow)] {
+						item.set(name, from.unwrap_or("none"));
+					}
 				}
 				if !item.has("typeSource") {
 					item.set("typeSource", source);
@@ -264,6 +332,46 @@ mod tests {
 		check("647", Some("era"), None, &[]);
 		check("4294967295", None, None, &[]);
 		assert!(mismatches.is_empty(), "{}", mismatches.join("\n"));
+	}
+
+	// Impaling Harpoon (#5200): Forever's row holds Era's level (20), because the generator copies Era's level into
+	// every row it has an Era twin for. Its facts are named for what they can be shown to be, from Forever.lua's
+	// `fieldsrc` table when it has one, else by comparison with the Era row.
+	#[test]
+	fn names_each_fact_of_a_forever_row_from_fieldsrc_or_by_comparison_with_era() {
+		let path = "addon/Polestar_ItemDB/Forever.lua";
+		let forever = |fieldsrc: &str| format!("DB.Register(nil, {{\n[5200]=\"17 22 20 3 2 6 agi9\",\n[3456]=\"12 30 25 3 4 0\",\n}})\n\nDB.RegisterLeveling({{}}, {{\n{fieldsrc}src = {{\n}},\n}})\n");
+		let era = read_table("addon/Polestar_ItemDB/Items.lua", "DB.Register({}, {\n[5200]=\"17 22 20 2 2 6 agi7\",\n})", &mut Vec::new()).unwrap();
+		let fill = |text: &str| {
+			let db = ItemDb { forever: read_table(path, text, &mut Vec::new()).unwrap(), era: era.clone(), forever_fields: read_field_sources(text) };
+			let items = parse_json(r#"{"5200":{"id":5200},"3456":{"id":3456}}"#).unwrap();
+			db.fill(items.as_obj().unwrap(), None);
+			let named = |id: &str| ["levelsSource", "reqSource", "itemLevelSource", "qualitySource", "allowSource"].map(|field| items.get(id).get(field).as_str().unwrap_or("-").to_string()).join(",");
+			(named("5200"), named("3456"))
+		};
+		// The old generator took Era's required level first. Equal values in the other
+		// positions and possible defaults cannot identify a source.
+		let (harpoon, other) = fill(&forever(""));
+		assert_eq!(harpoon, "forever,era,none,forever,none");
+		assert_eq!(other, "forever,forever,forever,forever,none");
+		// With the table: its letters, and a row it does not list is Forever's throughout.
+		let (harpoon, other) = fill(&forever("fieldsrc = {\n[3456]=\"fffu\",\n},\n"));
+		assert_eq!(harpoon, "forever,forever,forever,forever,forever");
+		assert_eq!(other, "forever,forever,forever,forever,none");
+		let (harpoon, _) = fill(&forever("fieldsrc = {\n[5200]=\"effe\",\n},\n"));
+		assert_eq!(harpoon, "forever,era,forever,forever,era");
+		assert!(read_field_sources("DB.Register(nil, {\n})").is_none());
+	}
+
+	#[test]
+	fn old_itemdb_rows_keep_rockslicers_era_level_source() {
+		let db = ItemDb::load(&Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.."), &mut Vec::new()).unwrap();
+		let items = parse_json(r#"{"872":{"id":872}}"#).unwrap();
+		db.fill(items.as_obj().unwrap(), None);
+		let item = items.get("872");
+		assert_eq!(item.get("levelsSource").as_str(), Some("forever"));
+		assert_eq!(item.get("reqLevel").as_num(), Some(16.0));
+		assert_eq!(item.get("reqSource").as_str(), Some("era"));
 	}
 
 	#[test]

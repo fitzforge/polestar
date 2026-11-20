@@ -44,7 +44,14 @@
 --       itemClass, itemSubclass, levelsSource, typeSource } | nil
 --       (scans the Index for the ID and counts preceding newlines, linear in
 --       the bytes scanned with no retained row map or record decode; sources are strings.
---       Quality stays in Index and Item. A searchable row with all fields unknown yields {}.)
+--       Quality stays in Index and Item. A searchable row with all fields unknown yields {}.
+--       levelsSource names where reqLevel, itemLevel, quality and allowClass came from unless
+--       the pack says a fact has its own: reqSource, itemLevelSource, qualitySource and
+--       allowSource are then a source string, or false for none, beside it. Absent means the
+--       fact's source is levelsSource's, and every old pack reads that way. The source
+--       bytes are only read here, never by DecodeFilter or a filter scan.)
+--   Codex.FactSource(facts, "req" | "itemLevel" | "quality" | "allow") -> source | nil
+--       (the fact's own source, else facts.levelsSource; nil for none or unknown)
 --   Codex.FilterCategory(category) -> itemClass, itemSubclass | nil
 --   Codex.FilterCategoryId(itemClass, itemSubclass) -> category | nil
 --       (directory IDs start at 1; nil subclass for a class-only entry)
@@ -105,6 +112,8 @@ local filterColumns, filterCategories, filtersTooNew
 local FILTER_VERSION = 1
 local FILTER_BYTES = 5
 local FILTER_SOURCE = { "client", "forever", "era" }
+-- Per-fact source fields and the bit pair each takes in a row's source byte.
+local FIELD_SOURCE_SCALE = { reqSource = 1, itemLevelSource = 4, qualitySource = 16, allowSource = 64 }
 local statDirectory, statPostings
 local recentStatCode, recentStatItems, olderStatCode, olderStatItems
 local statGeneration = 0
@@ -362,8 +371,12 @@ local function decodeItem(group, id, s)
 		sources = {},
 	}
 	for i = 8, n do
-		local src = decodeSource(t[i])
-		if src then rec.sources[#rec.sources + 1] = src end
+		if t[i] == "u" then
+			rec.reqLevelFallback = true
+		else
+			local src = decodeSource(t[i])
+			if src then rec.sources[#rec.sources + 1] = src end
+		end
 	end
 	return rec
 end
@@ -699,18 +712,39 @@ local function filterRow(kind, id)
 		row = row + 1
 		at = find(index, "\n", at + 1, true)
 	end
-	return column[2], row
+	return column[2], row, column
 end
 
 function Codex.FilterFacts(kind, id)
-	local blob, row = filterRow(kind, tonumber(id))
+	local blob, row, column = filterRow(kind, tonumber(id))
 	if not blob then return nil end
 	local req, ilvl, allow, slot, category, levels, types = Codex.DecodeFilter(blob, row)
 	local class, subclass = Codex.FilterCategory(category)
-	return {
+	local facts = {
 		reqLevel = req, itemLevel = ilvl, allowClass = allow, slot = slot, category = category,
 		itemClass = class, itemSubclass = subclass, levelsSource = FILTER_SOURCE[levels], typeSource = FILTER_SOURCE[types],
 	}
+	-- A pack whose facts differ in source adds a byte per row (a third column element): each
+	-- fact whose source is not levelsSource's gets its own field, false for none. An old pack
+	-- or a column without it leaves every fact on levelsSource.
+	local own = column[3]
+	local code = type(own) == "string" and #own == column[1] and byte(own, row) or nil
+	if code then
+		local group = levels or 0
+		for field, scale in pairs(FIELD_SOURCE_SCALE) do
+			local source = floor(code / scale) % 4
+			if source ~= group then facts[field] = FILTER_SOURCE[source] or false end
+		end
+	end
+	return facts
+end
+
+-- The source of a FilterFacts fact ("req", "itemLevel", "quality" or "allow"): its own, else
+-- levelsSource's; nil for none or unknown.
+function Codex.FactSource(facts, fact)
+	local own = facts[fact .. "Source"]
+	if own == nil then return facts.levelsSource end
+	return own or nil
 end
 
 -- See pack.rs encode_stats for the v1 wire format. An offset is zero-based;

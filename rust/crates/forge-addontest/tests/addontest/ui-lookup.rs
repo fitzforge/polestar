@@ -2206,6 +2206,50 @@ fn lookup_query_help_exact_ids_and_most_order_lifetime() {
 	assert_eq!(out, json!(true));
 }
 
+// Each fact names its own source: Impaling Harpoon's level is Classic Era's although Forever's list holds the row,
+// its rarity has no source, and Fel Steed Saddlebags' level and rarity come from the Era CSV alone.
+#[test]
+fn item_details_name_the_source_of_each_fact_not_only_of_the_row() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"5200": {"name": "Impaling Harpoon", "reqLevel": 20, "itemLevel": 22, "quality": 3, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 6,
+				"levelsSource": "forever", "typeSource": "forever", "reqSource": "era", "qualitySource": "none"},
+			"932": {"name": "Fel Steed Saddlebags", "reqLevel": 25, "quality": 3, "reqSource": "era", "qualitySource": "era"}
+		}}),
+		r##"
+		ITEM_QUALITY3_DESC = "Client rare"
+		local function open(id) UI.ShowLookup({ query = "#" .. id, kind = "item", id = id }) end
+		local function row(rows, label)
+			for _, r in ipairs(rows) do
+				if r:IsShown() and r.Label:GetText() == label then return r end
+			end
+			error("Missing row: " .. label)
+		end
+		local function fact(label, value, origin)
+			local r = row(LK.details.ItemFacts, label)
+			assert(r.Value:GetText() == value, label .. ": " .. r.Value:GetText())
+			assert(r.Origin:IsShown() == (origin ~= nil), label .. " origin shown")
+			if origin then assert(r.Origin:GetText() == origin, label .. ": " .. r.Origin:GetText()) end
+		end
+		open(5200)
+		fact("Required level", "Level 20", "Classic Era fallback")
+		fact("Item level", "22", "Forever list")
+		fact("Rarity", "Client rare")
+		open(932)
+		fact("Required level", "Level 25", "Classic Era fallback")
+		fact("Rarity", "Client rare", "Classic Era fallback")
+		fact("Item level", "Unknown")
+		local function matches(id, filters)
+			return #Polestar.Search.Query("#" .. id, { ids = true, resultKind = "item", filters = filters }) == 1
+		end
+		assert(matches(5200, { reqMax = 20 }) and not matches(5200, { reqMax = 19 }))
+		assert(matches(932, { quality = { [3] = true } }) and not matches(932, { quality = { [2] = true } }))
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
 #[test]
 fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinned() {
 	let out = run_packed_lookup(

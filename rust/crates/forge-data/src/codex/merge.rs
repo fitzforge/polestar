@@ -1937,6 +1937,19 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				o.set(field, value);
 			}
 		}
+		// reqSource, itemLevelSource, qualitySource and allowSource name a fact's own source when
+		// it is not levelsSource's ("none": no table vouches for it). The Era CSV alone supplies
+		// a level and rarity as Classic Era's; a rarity only a dungeon page displays has no source.
+		if c.is_some_and(|c| c.era) {
+			if req_level.is_some() {
+				o.set("reqSource", "era");
+			}
+			if c.and_then(|c| c.quality).is_some() {
+				o.set("qualitySource", "era");
+			}
+		} else if c.and_then(|c| c.quality).is_none() && o.get("levelsSource").as_str() == Some("client") {
+			o.set("qualitySource", "none");
+		}
 		o.set("repFaction", rep_faction);
 		o.set("repStanding", rep_standing);
 		o.set("reqSkill", opt(c.and_then(|c| c.req_skill)));
@@ -2601,9 +2614,11 @@ mod tests {
 		for field in ["itemLevel", "allowClass", "itemClass", "itemSubclass", "slot"] {
 			assert!(!gear.has(field), "Era gear should omit {field}");
 		}
+		// What the Era table alone gave is named for it, with no levelsSource.
+		assert!(gear.get("reqSource").strict_eq(&V::str("era")) && gear.get("qualitySource").strict_eq(&V::str("era")) && !gear.has("levelsSource"));
 		let misc = items.get("2");
 		assert_eq!(misc.get("quality").num(), 1.0);
-		assert!(!misc.has("reqLevel"));
+		assert!(!misc.has("reqLevel") && !misc.has("reqSource") && misc.get("qualitySource").strict_eq(&V::str("era")));
 	}
 
 	#[test]

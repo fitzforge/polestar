@@ -166,6 +166,44 @@ DB.RegisterLeveling({}, { names = { npcs = {
 	assert!(index.contains(r"\002destiny\001647,4,n,7\n"));
 }
 
+// The Era CSV (the cached Classic Era ItemSparse) can be the only table that knows an item: its level and rarity
+// are kept as a fallback and named Classic Era's, with no levelsSource (so no stat coverage claim), and the
+// detail record marks the level as fallback. Fel Steed Saddlebags (#932) is the case; its
+// values in this test are the fixture's own (a copy of an Era row of the golden input with new numbers).
+#[test]
+fn the_era_csv_alone_supplies_a_labelled_level_and_rarity_that_never_gates() {
+	use serde_json::{json, Value};
+	use std::fs;
+
+	let (root, data) = setup("codex-era-csv-fields");
+	let mut opts = options(&root, &data);
+	let sources = root.join("data/sources");
+	common::copy_tree(&opts.sources_dir, &sources);
+	opts.sources_dir = sources;
+	let file = opts.sources_dir.join("wago/1.15.9.70003/ItemSparse.csv");
+	let csv = fs::read_to_string(&file).unwrap();
+	let line = csv.lines().find(|l| l.starts_with("1041,")).expect("an Era row to copy").to_string();
+	let row = line.replacen("1041,", "932,", 1).replace("\"Horn of the Black Wolf\"", "\"Fel Steed Saddlebags\"");
+	let row = row.strip_suffix(",1,0,40").expect("the row ends with quality 1, no ammunition, level 40").to_string() + ",3,0,25";
+	fs::write(&file, format!("{}\n{row}\n", csv.trim_end())).unwrap();
+
+	let file = data.join("items.json");
+	let mut items: Value = serde_json::from_str(&fs::read_to_string(&file).unwrap()).unwrap();
+	items["932"] = json!({ "id": 932, "name": "Fel Steed Saddlebags" });
+	fs::write(file, items.to_string()).unwrap();
+
+	let out = codex::build_logged(&opts, &|_| {}).unwrap();
+	let items: Value = serde_json::from_str(&out.json.iter().find(|(name, _)| name == "items.json").unwrap().1).unwrap();
+	let bags = &items["932"];
+	assert_eq!((bags["reqLevel"].clone(), bags["quality"].clone()), (json!(25), json!(3)));
+	assert_eq!((bags["reqSource"].clone(), bags["qualitySource"].clone()), (json!("era"), json!("era")));
+	assert!(bags.get("levelsSource").is_none() && bags.get("itemLevelSource").is_none() && bags.get("allowSource").is_none(), "{bags}");
+	let pack: String = out.pack.iter().map(|(_, text)| text.as_str()).collect();
+	let record = pack.match_indices(r"\n932\t").map(|(at, found)| &pack[at + found.len()..]).filter_map(|rest| rest.split(r"\n").next()).find(|record| record.contains(';')).expect("932's record");
+	let fields: Vec<&str> = record.split(';').collect();
+	assert!(fields[0].starts_with('3') && fields[1] == "25" && fields.last() == Some(&"u"), "the level is marked as fallback: {record}");
+}
+
 /// Every quest on the release build's dungeon pages: (id, its XP).
 fn page_xp(journal: &str) -> Vec<(i64, Option<f64>)> {
 	let j: serde_json::Value = serde_json::from_str(journal).unwrap();

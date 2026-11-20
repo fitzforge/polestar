@@ -4,6 +4,7 @@
 --   items   "<inv> <ilvl> <req> <quality> <class> <subclass> [tokens]" (Items.lua format)
 --   src     q<quest> | d<npc>x<pct*10>z<zone> | c<spell>p<profession>s<skill>
 --   quests  "<level> <req> <side> <zone> <reqRace> <reqClass> <dungeon>|<choices>|<items>|<name>"
+--   fieldsrc  [id]="<req><ilvl><quality><class>": f Forever, e Era, u neither
 
 local DB = Polestar and Polestar.ItemDB
 if not (DB and DB.Register and DB.RegisterLeveling) then return end
@@ -35,6 +36,19 @@ names = {
 [900001]="Golden Test Bracers",
 [900002]="Golden Test Ring",
 },
+--[[
+fieldsrc = {
+[37]="effe",
+[61]="effe",
+[85]="effe",
+[1171]="efff",
+[4302]="effe",
+[4964]="effe",
+[5587]="effe",
+[900001]="fffu",
+[900002]="fffu",
+},
+]]
 src = {
 [37]="q788",
 [60]="q6",

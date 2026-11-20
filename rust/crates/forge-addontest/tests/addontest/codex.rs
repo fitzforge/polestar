@@ -128,6 +128,47 @@ assert(C.Item(6948).reqLevel == nil)
 	assert_eq!(out[4], json!({ "allowClass": 1216, "slot": 34, "category": 4, "itemClass": 15 }));
 }
 
+// Required level, item level, rarity and classes carry their own source beside levelsSource: Impaling Harpoon's
+// level is Classic Era's though Forever's list holds the row, Fel Steed Saddlebags' level and rarity come from the
+// Era CSV alone (no levelsSource), and rows with no own source read as levelsSource's, as they do in an old pack.
+#[test]
+fn codex_field_sources_label_mixed_rows_and_default_to_levels_source() {
+	let codex = json!({ "items": {
+		"5200": { "name": "Impaling Harpoon", "quality": 3, "reqLevel": 20, "itemLevel": 22, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 6,
+			"levelsSource": "forever", "typeSource": "forever", "reqSource": "era", "qualitySource": "none" },
+		"932": { "name": "Fel Steed Saddlebags", "quality": 3, "reqLevel": 25, "reqSource": "era", "qualitySource": "era" },
+		"19019": { "name": "Thunderfury", "quality": 5, "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "levelsSource": "client", "typeSource": "client" },
+		"647": { "name": "Destiny", "quality": 4, "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "levelsSource": "era", "typeSource": "era" },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(C.Load() and C.HasFilters())
+local blob, count = C.FilterColumn('item')
+assert(count == 4 and #blob == 5 * count)
+local function row(id)
+	local facts, text = C.FilterFacts('item', id), {}
+	for i, fact in ipairs({ 'req', 'itemLevel', 'quality', 'allow' }) do text[i] = C.FactSource(facts, fact) or '-' end
+	return table.concat(text, ',')
+end
+local harpoon, saddlebags, control = C.FilterFacts('item', 5200), C.FilterFacts('item', 932), C.FilterFacts('item', 19019)
+assert(harpoon.levelsSource == 'forever' and harpoon.reqSource == 'era' and harpoon.qualitySource == false)
+assert(harpoon.itemLevelSource == nil and harpoon.allowSource == nil)
+assert(saddlebags.levelsSource == nil and saddlebags.reqLevel == 25 and saddlebags.reqSource == 'era' and saddlebags.qualitySource == 'era')
+assert(control.reqSource == nil and control.qualitySource == nil and C.FilterFacts('item', 647).reqSource == nil)
+emit({ row(5200), row(932), row(19019), row(647) })
+assert(C.Item(19019).reqLevel == 60 and not C.Item(19019).reqLevelFallback)
+assert(C.Item(5200).reqLevel == 20 and C.Item(5200).reqLevelFallback)
+assert(C.Item(932).reqLevel == 25 and C.Item(932).reqLevelFallback)
+assert(C.Item(647).reqLevel == 52 and C.Item(647).reqLevelFallback)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!(["era,forever,-,forever", "era,-,era,-", "client,client,client,client", "era,era,era,era"]));
+}
+
 #[test]
 fn codex_stat_postings_cover_item_kinds_and_preserve_amount_sources() {
 	let codex = json!({ "items": {

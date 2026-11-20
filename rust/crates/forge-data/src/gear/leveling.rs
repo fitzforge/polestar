@@ -178,7 +178,9 @@ fn or(a: V, b: impl FnOnce() -> V) -> V {
 	}
 }
 
-fn record_of(it: &V, era: Option<&Rec>) -> Rec {
+// Return the row and the sources of its required level, item level, quality and class mask.
+// The letters identify Forever's list (f), the Era row (e), or a default of our own (u).
+fn record_of(it: &V, era: Option<&Rec>) -> (Rec, String) {
 	let mut stats: Vec<(String, f64)> = Vec::new();
 	if let Some(e) = era {
 		for (k, v) in &e.stats {
@@ -187,38 +189,47 @@ fn record_of(it: &V, era: Option<&Rec>) -> Rec {
 			}
 		}
 	}
+	let (req, req_from) = match era {
+		Some(e) => (e.req.clone(), 'e'),
+		None => match it.get("reqLevel") {
+			level if level.truthy() => (level, 'f'),
+			_ => (V::Num(0.0), 'u'),
+		},
+	};
+	let (ilvl, ilvl_from) = match it.get("itemLevel") {
+		level if level.truthy() => (level, 'f'),
+		_ => match era.filter(|e| e.ilvl.truthy()) {
+			Some(e) => (e.ilvl.clone(), 'e'),
+			None => (V::Num(0.0), 'u'),
+		},
+	};
+	let (quality, quality_from) = match it.get("quality") {
+		q if !q.is_nullish() => (q, 'f'),
+		_ => match era.filter(|e| !e.quality.is_nullish()) {
+			Some(e) => (e.quality.clone(), 'e'),
+			None => (V::Num(1.0), 'u'),
+		},
+	};
+	let mask = it.get("classMask");
+	let (allow, allow_from) = if mask.truthy() && (to_int32(mask.num()) & 0x5df) != 0x5df {
+		(mask, 'f')
+	} else if let Some(e) = era {
+		(e.allow.clone(), 'e')
+	} else {
+		(V::Num(0.0), 'u')
+	};
 	let mut rec = Rec {
 		id: it.get("id").num(),
 		inv: it.get("slot"),
-		ilvl: or(it.get("itemLevel"), || or(era.map(|e| e.ilvl.clone()).unwrap_or(V::Undef), || V::Num(0.0))),
-		req: match era {
-			Some(e) => e.req.clone(),
-			None => or(it.get("reqLevel"), || V::Num(0.0)),
-		},
-		quality: {
-			let q = it.get("quality");
-			if !q.is_nullish() {
-				q
-			} else {
-				match era.map(|e| e.quality.clone()) {
-					Some(q) if !q.is_nullish() => q,
-					_ => V::Num(1.0),
-				}
-			}
-		},
+		ilvl,
+		req,
+		quality,
 		cls: it.get("class"),
 		sub: match it.get("subclass") {
 			V::Num(n) if n < 0.0 => V::Num(0.0),
 			s => s,
 		},
-		allow: {
-			let mask = it.get("classMask");
-			if mask.truthy() && (to_int32(mask.num()) & 0x5df) != 0x5df {
-				mask
-			} else {
-				era.map(|e| e.allow.clone()).unwrap_or(V::Num(0.0))
-			}
-		},
+		allow,
 		unique: era.is_some_and(|e| e.unique),
 		stats,
 		dmin: None,
@@ -243,7 +254,7 @@ fn record_of(it: &V, era: Option<&Rec>) -> Rec {
 		rec.dmax = e.dmax;
 		rec.speed = e.speed;
 	}
-	rec
+	(rec, [req_from, ilvl_from, quality_from, allow_from].into_iter().collect())
 }
 
 /// A JS Map keyed by number, insertion ordered.
@@ -347,6 +358,7 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 	let mut overlay: Vec<Rec> = Vec::new();
 	let mut names: Vec<(f64, V)> = Vec::new();
 	let mut src: Vec<(f64, String)> = Vec::new();
+	let mut field_src: Vec<(f64, String)> = Vec::new();
 	let mut npcs = NumMap::default();
 	let mut zones = NumMap::default();
 	for (k, v) in flb.zones.entries() {
@@ -362,15 +374,21 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 		}
 		counts.items += 1;
 		let e = if id >= 0.0 && id.fract() == 0.0 { era.get(&(id as u64)) } else { None };
-		let rec = record_of(&it, e);
+		let (rec, fields) = record_of(&it, e);
 		match e {
 			None => {
 				counts.new_items += 1;
 				overlay.push(rec);
+				if fields != "ffff" {
+					field_src.push((id, fields));
+				}
 			}
 			Some(e) if encode(&rec) != encode(e) => {
 				counts.retuned += 1;
 				overlay.push(rec);
+				if fields != "ffff" {
+					field_src.push((id, fields));
+				}
 			}
 			Some(_) => counts.unchanged += 1,
 		}
@@ -432,6 +450,7 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 		"--   items   \"<inv> <ilvl> <req> <quality> <class> <subclass> [tokens]\" (Items.lua format)".into(),
 		"--   src     q<quest> | d<npc>x<pct*10>z<zone> | c<spell>p<profession>s<skill>".into(),
 		"--   quests  \"<level> <req> <side> <zone> <reqRace> <reqClass> <dungeon>|<choices>|<items>|<name>\"".into(),
+		"--   fieldsrc  [id]=\"<req><ilvl><quality><class>\": f Forever, e Era, u neither".into(),
 		String::new(),
 		"local DB = Polestar and Polestar.ItemDB".into(),
 		"if not (DB and DB.Register and DB.RegisterLeveling) then return end".into(),
@@ -456,6 +475,14 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 		lines.push(format!("[{}]={},", num_str(*id), lua_str(&n.to_js_string())));
 	}
 	lines.push("},".into());
+	// The Codex builder reads this comment. The addon has no use for this table at runtime.
+	lines.push("--[[".into());
+	lines.push("fieldsrc = {".into());
+	for (id, s) in &field_src {
+		lines.push(format!("[{}]={},", num_str(*id), lua_str(s)));
+	}
+	lines.push("},".into());
+	lines.push("]]".into());
 	lines.push("src = {".into());
 	for (id, s) in &src {
 		lines.push(format!("[{}]={},", num_str(*id), lua_str(s)));

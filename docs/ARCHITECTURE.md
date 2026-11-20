@@ -7994,7 +7994,9 @@ Polestar.Codex.FiltersTooNew() -> bool
 Polestar.Codex.FilterColumn(kind) -> blob, rowCount | nil
 Polestar.Codex.DecodeFilter(blob, row) -> reqLevel, itemLevel, allowClass, slot, category, levelsSource, typeSource
 Polestar.Codex.FilterLevelsSource(blob, row) -> levelsSource | nil
-Polestar.Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category, itemClass, itemSubclass, levelsSource, typeSource } | nil
+Polestar.Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category, itemClass, itemSubclass, levelsSource, typeSource,
+                                          [reqSource, itemLevelSource, qualitySource, allowSource] } | nil
+Polestar.Codex.FactSource(facts, "req" | "itemLevel" | "quality" | "allow") -> "client" | "forever" | "era" | nil
 Polestar.Codex.FilterCategory(category) -> itemClass, itemSubclass | nil
 Polestar.Codex.FilterCategoryId(itemClass, itemSubclass) -> category | nil
 Polestar.Codex.FilterSource(code) -> "client" | "forever" | "era" | nil
@@ -8041,6 +8043,10 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   without keeping a row map or decoding the item record, expands the
   category and source codes, and returns an empty table for an indexed
   row whose facts are all unknown. Quality is in the index and item record.
+  A fact whose source is not `levelsSource` has its own field
+  (`reqSource`, `itemLevelSource`, `qualitySource`, `allowSource`: a source,
+  or `false` for none); `FactSource` returns the one that applies, and an
+  old pack, with none of them, reads every fact as `levelsSource`'s.
   Category ids start at 1, with a nil subclass for a class-only entry.
   These accessors never load the pack.
 - **Stat data.** `StatCodes` lists raw codes in numeric order and
@@ -10823,7 +10829,18 @@ was already built without it.
   `Items.lua` (`era`). Both groups use that same selected row, and a
   zero ItemDB class mask becomes all supported classes. Without one
   of those sources the group has no source flag, even if a legacy
-  display value exists.
+  display value exists. `levelsSource` is the default source of its
+  four facts; one that differs has its own `reqSource`, `itemLevelSource`,
+  `qualitySource` or `allowSource` (`none`: no table vouches for it).
+  The `fieldsrc` comment in Forever.lua records what the generator
+  took from Forever's list (`f`), from the Era row (`e`) or from neither
+  (`u`) for the required level, item level, quality and class mask. For
+  older files, a matching Era required level is attributed to Era. Other
+  equal values and possible defaults have no attributed source.
+  The Era client tables alone supply a level and rarity as `era` and
+  no `levelsSource`. A fallback required level carries a `u` field in
+  the item record. Lookup can display and filter by that level while
+  keeping "Guide me" available. Client and legacy requirements still gate.
 - Item stats (`codex/itemdb.rs`): for `levelsSource = "client"`, the
   Forever client's stat codes determine presence and the selected
   ItemDB row supplies matching amounts where the units agree. For
@@ -10849,7 +10866,11 @@ was already built without it.
   The word holds a ZigZag signed amount above the low two source bits,
   or is zero for presence with an unknown amount. Coverage comes from
   the filter row's `levelsSource`. The two registrations have their
-  own versions and leave the existing detail records readable.
+  own versions and leave the existing detail records readable. A column
+  whose facts differ in source adds a third element, one byte per row
+  (two bits each for level, item level, quality and classes, lowest first,
+  same codes); only `FilterFacts` reads it, and an old reader or pack
+  ignores it.
 - Dungeons and raids (`tools/lib/codex/instances.js`, release build): every
   `Map` instance that Forever's dungeon finder (`LFGDungeons`) names, or that
   belongs to the original game (map id below 1000) and has `DungeonEncounter`
