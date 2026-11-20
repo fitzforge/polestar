@@ -17159,6 +17159,20 @@ test('Horde Stranglethorn (#3004, #3071, #3124): the warriors give tusks and nec
 	assert.ok(idx('kill', 604) < idx('accept', 2864), 'the Wild Shore before Krazek in town');
 });
 
+test('Horde Feralas in two visits: 03 ends in Dustwallow; Natural Materials and both Zorbin rounds ride on 06\'s loop', { skip }, () => {
+	const has = (s, t, q) => s.goals.some((g) => g.t === t && g.quest === q);
+	const d = compiled('forever/horde/40-50/03-feralas.guide').steps;
+	for (const q of [3128, 7003, 7721, 7734]) assert.ok(!d.some((s) => s.goals.some((g) => g.quest === q && g.t !== 'accept')), `03 works no ${q}`);
+	assert.ok(d.some((s) => has(s, 'accept', 3128)), '03 still takes Natural Materials from Uzer\'i');
+	const f = compiled('forever/horde/40-50/06-azshara.guide').steps;
+	const idx = (t, q) => f.findIndex((s) => has(s, t, q));
+	assert.ok(idx('turnin', 7003) >= 0 && idx('turnin', 7003) < idx('accept', 7725), 'Zorbin\'s first round before his second');
+	assert.ok(idx('turnin', 3128) >= 0 && idx('turnin', 3128) < idx('accept', 7003), 'the materials before the coast');
+	assert.ok(idx('accept', 3063) < idx('kill', 3063), 'Northspring taken on 06\'s camp stop');
+	const t = compiled('forever/horde/40-50/04-tanaris.guide').steps;
+	assert.ok(t.some((s) => s.goals.some((g) => g.t === 'fly') && (s.when || []).some((w) => w.k === 'zone' && !w.neg && w.name === 'Dustwallow Marsh')), '04 flies from Brackenwall');
+});
+
 test('Riverglades (Horde): Bolder\'ok return quests and both final fights are conditional', { skip }, () => {
 	const steps = compiled('forever/horde/40-50/01b-riverglades.guide').steps;
 	const find = (t, q) => steps.find((s) => s.goals.some((g) => g.t === t && g.quest === q));
