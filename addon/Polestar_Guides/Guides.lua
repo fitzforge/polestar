@@ -268,7 +268,7 @@ do
 			title = "{area:616}",
 			minLevel = 57,
 			maxLevel = 59,
-			factionLevels = { Alliance = { min = 57, max = 59 }, Horde = { min = 57, max = 59 } },
+			factionLevels = { Alliance = { min = 57, max = 59 }, Horde = { min = 57, max = 58 } },
 			category = "Leveling",
 			keywords = { "mount hyjal", "hyjal", "tainted foothills", "felblood scar", "ketharas", "moonglade", "barkskin burrow", "elderwild", "mourning's rest", "cradle of tranquility", "shrine of aviana", "dae'gun", "summit of eternity", "nordrassil" },
 			why = "About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}.",

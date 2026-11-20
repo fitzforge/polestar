@@ -334,7 +334,7 @@ one guide for both factions.
 | 23 | Winterspring | 55 to 56 |
 | 24 | Azshara & The Barrens | 55 to 56 |
 | 25 | Eastern Plaguelands, Winterspring & Tanaris | 56 to 57 |
-| 26 | **Mount Hyjal** | 57 to 59 |
+| 26 | **Mount Hyjal** | 57 to 58 |
 | 27 | Silithus, Western Plaguelands & Eastern Plaguelands | 58 to 60 |
 | 28 | Felwood, Moonglade & Winterspring | 59 to 60 |
 
