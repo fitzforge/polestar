@@ -72,16 +72,18 @@ return {
 
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Benutze den {item:13892} von {npc:11596} an einem Aged Kodo, Dying Kodo oder {npc:4702}: Es wird zu einem gezähmten Kodo, das dir folgt. Führ es zurück zum Lager von {npc:11596}; sprich dort mit dem Kodo: Das zählt es und lässt dich das nächste zähmen. Fünf Kodos, eines nach dem anderen; Aged Kodos lassen auch die Felle fallen, und die Scorpashi Lashers, die rund um den Friedhof jagen, tragen das Gift.",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Benutze den {item:13892} von {npc:11596} an einem Aged Kodo, Dying Kodo oder {npc:4702}: Es wird zu einem gezähmten Kodo, das dir folgt. Führ es zurück zum Lager von {npc:11596}; sprich dort mit dem Kodo: Das zählt es und lässt dich das nächste zähmen. Fünf Kodos, eines nach dem anderen; Aged Kodos lassen auch die Felle fallen, und die Scorpashi Lashers, die rund um den Friedhof jagen, tragen das Gift."
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "an einem Aged Kodo, Dying Kodo oder {npc:4702} auf dem Friedhof; töte es nicht",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "das gezähmte Kodo, im Lager von {npc:11596}: sprich fünfmal mit ihm",
 
 	-- Step 14: Kolkar Village
-	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
-	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Die Kolkar streifen über die Ebenen um {area:609}; ihre Ohren sind für {npc:5752}.",
+	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
+	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
 	-- Step 15: Nijel's Point
 	-- {npc:5638} Kreldig Ungor
@@ -109,8 +111,10 @@ return {
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Nimm das Schiff von Menethils Anlegestelle nach {area:442}. {npc:3649} steht in {area:442}, nördlich des Flugmeisters.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "Gizeltons Karawane wartet bei {area:2407}.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "Die Satyrn der Zornsäer halten die Ruinen von {area:603}, östlich von {area:608}.",
+	-- ["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Die Kolkar streifen über die Ebenen um {area:609}; ihre Ohren sind für {npc:5752}.",
 	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Die Skorpashi-Skorpide jagen in den Hügeln um {area:2407} an der Straße nach Süden.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Benutze den {item:13892} von {npc:11596} an einem Aged Kodo, Dying Kodo oder {npc:4702}: Es wird zu einem gezähmten Kodo, das dir folgt. Führ es zurück zum Lager von {npc:11596}; sprich dort mit dem Kodo: Das zählt es und lässt dich das nächste zähmen. Fünf Kodos, eines nach dem anderen; Aged Kodos lassen auch die Felle fallen, und die Scorpashi Lashers, die rund um den Friedhof jagen, tragen das Gift.",
 	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Benutze {npc:11596}s {item:13892} an einem {npc:4700} und führ den gezähmten Kodo zu seinem Lager zurück, fünfmal; Gealterte Kodos lassen auch die Bälge fallen.",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "Geh mit der Karawane nach Süden an {area:609} vorbei; unterwegs überfallen sie Wegelagerer der Kolkar. Bleib dicht dran, bis sie bei {area:2617} anhält. Die Wegelagerer sind Stufe 34-35 und kommen in Wellen: Überspring sie, wenn du unter 33 bist.",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, nördlich von {area:413}",

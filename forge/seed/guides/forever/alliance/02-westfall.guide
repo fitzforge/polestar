@@ -320,11 +320,13 @@ step Sentinel Hill
 # ---------------------------------------------------------------- The mines
 
 step Jangolode Mine
-  tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
+  tip Back north past Molsen Farm to the mine.
+  tip Careful: pull the four Kobold Diggers from the mouth of Jangolode Mine, one at a time. There is no need to go deeper.
   kill 1236 quest 92745.1                     -- Kobold Diggers
 
 step The Gold Coast Quarry
   tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
+  tip Careful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave.
   kill 1426 quest 92745.2                     -- Riverpaw Miners
 
 # ---------------------------------------------------------------- West and south
@@ -332,7 +334,7 @@ step The Gold Coast Quarry
 step Moonbrook: kill these as you meet them
   zone Westfall
   tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook. Alexston's Chest stands in the farmhouse at the Alexston Farmstead, among them: Baros' compass is inside.
-  tip Careful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there.
+  tip Careful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it.
   kill 589 quest 13
   kill 590 quest 13
   collect 2998 quest 399.1 @36.24,54.52       -- A Simple Compass, from Alexston's Chest
