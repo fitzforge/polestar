@@ -22,6 +22,9 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # (48-50) and Young Diemetradons (49-50) of the eastern jungle the petals already take you to; The Scent of
 # Lar'korwi (4291) goes back to Torwa on the way from the raft instead of riding the log to the next visit; the
 # Azshara top-up to 50.4 is gone (the next guide's Azshara top-up is on mobs at your level).
+# The guide ends in the crater (fix round 2026-11-20): the Burning Steppes guide now opens with the hearth to
+# Ironforge, where Priests and Mages take their Azshara class quests and train, and does Azshara at its end, so the
+# flight to Astranaar and the Priest and Mage detour through Ironforge, Menethil Harbor and Auberdine are gone from here.
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -187,40 +190,3 @@ step Level 49.79
   tip Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater.
   goto 56.6,35.0 map 1449 "Bloodpetal Thresher"
   level 49.79 grind 6511               -- grind on Bloodpetal Thresher
-
-step Fly to Astranaar
-  only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
-  zone Un'Goro Crater
-  tip The Ironforge quests were taken at the end of the Searing Gorge guide: fly straight on to Ashenvale for Azshara.
-  goto 45.3,6.0 "Marshal's Refuge flight master"
-  fly "Astranaar"
-
-step To Ironforge
-  only Priest,Mage
-  zone Ironforge
-  goto 18.15,51.45 "Stonefire Tavern"
-
-# ---------------------------------------------------------------- Ironforge (Priests and Mages)
-
-step Mystic Ward
-  only Priest,Mage
-  accept 8254 npc 11406 only Priest   -- High Priest Rohan: for Ogtinc in Azshara, keep it
-  accept 8250 npc 7312 only Mage      -- Dink, the mage trainer: for Sanath Lim-yo in Azshara, keep it
-  train class
-
-step Fly to Menethil Harbor
-  only Priest,Mage
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Menethil Harbor"
-
-step Boat to Auberdine
-  only Priest,Mage
-  zone Wetlands
-  goto 4.71,56.95 "Boat to Auberdine"
-
-step Fly to Astranaar
-  only Priest,Mage
-  zone Darkshore
-  goto 36.4,45.6 "Auberdine flight master"
-  fly "Astranaar"
