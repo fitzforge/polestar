@@ -25,7 +25,9 @@
 --     mobs of the While you're here rows, nearest row first (#1441). After the
 --     step's NPCs too while the player is within the While you're here radius
 --     of one; farther, the rows' mobs before the NPCs (#1623). A row the
---     arrow points at (clicked) comes before the step's own mobs (#2011).
+--     arrow points at (clicked) comes before the step's own mobs (#2011); a
+--     clicked row with an NPC (a pick-up, a hand-in, a flight master) puts
+--     that NPC first.
 --     Each name takes its own kind's mark and ping. Every click moves the next name to the
 --     front; a click while a living one of its names is targeted takes the
 --     next one of that name instead (Buttons.WireCycle; the step key, the
@@ -1521,7 +1523,7 @@ local function addHereGoals(qdb, skip)
 	end
 end
 
--- The open kill or collect row of While you're here the arrow points at
+-- The open kill, collect or NPC row of While you're here the arrow points at
 -- (the player clicked it: Engine.AimWhileHere), or nil.
 local function hereAimed()
 	local E = ns.Engine
@@ -1530,7 +1532,7 @@ local function hereAimed()
 	if type(wp) ~= "table" or wp.goalIndex == nil then return nil end
 	for _, v in ipairs(E.GetWhileHereList()) do
 		if v.step == wp.stepIndex and v.index == wp.goalIndex then
-			return (v.t == "kill" or v.t == "collect") and QoL.Open(v) and v or nil
+			return (v.t == "kill" or v.t == "collect" or NPC_VERBS[v.t]) and QoL.Open(v) and v or nil
 		end
 	end
 	return nil
@@ -1618,7 +1620,9 @@ end
 -- the While you're here radius of one of them; farther from all of them,
 -- the rows' mobs come first and the NPCs after (#1441, #1623). A row the
 -- arrow points at (the player clicked it) comes before the step's own goals:
--- the player chose to go and do it (#2011). -> names,
+-- the player chose to go and do it (#2011). A clicked row with an NPC (a
+-- pick-up, a hand-in) names that NPC first, then the step's mobs, or the
+-- step's NPCs without any; the radius order below then leaves it be. -> names,
 -- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
 -- guide's data), all by index. info: the target list's own call (the
 -- refresh); only it sets what Buttons.TargetInfo has for each name, so the
@@ -1659,10 +1663,17 @@ function Buttons.TargetNames(view, raw, npcs, here, cap, info)
 	local named = false
 	-- The While you're here row the player aimed the arrow at, first (#2011).
 	local aimed = here and E and E.AlongGoal and hereAimed()
+	local aimedNpc = aimed and NPC_VERBS[aimed.t]
 	if aimed then
+		local ra = E.AlongGoal(aimed.step, aimed.index) or aimed
 		newGoal(aimed.t, aimed.step, aimed.index)
-		addGoalNames(aimed, E.AlongGoal(aimed.step, aimed.index) or aimed, qdb)
-		named = #goalNames[goalCount] > 0
+		if aimedNpc then
+			local N, id = ns.Names, aimed.npc or ra.npc
+			addName((id and N and N.Npc(id)) or aimed.npcName or ra.npcName, id)
+		else
+			addGoalNames(aimed, ra, qdb)
+			named = #goalNames[goalCount] > 0
+		end
 	end
 	for g = 1, #goals do
 		local gv = goals[g]
@@ -1678,7 +1689,8 @@ function Buttons.TargetNames(view, raw, npcs, here, cap, info)
 	-- them.
 	local npcNamed = false
 	if npcs and not named then
-		goalCount, aimed = 0, nil
+		-- A clicked NPC row keeps its place in front.
+		if aimedNpc then goalCount = 1 else goalCount, aimed = 0, nil end
 		local N = ns.Names
 		for g = 1, own do
 			local gv = goals[g]
@@ -1698,7 +1710,7 @@ function Buttons.TargetNames(view, raw, npcs, here, cap, info)
 		addHereGoals(qdb, aimed)
 		arrowFirst(first)
 		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
-		if npcNamed and #names > before then
+		if npcNamed and not aimedNpc and #names > before then
 			npcSpots(goals, raws, own)
 			farWatch = npcsFar()
 			if farWatch then moveBehind(before, #names, names, nameVerb, nameNpc, nameSpecial) end

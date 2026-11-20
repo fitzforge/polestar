@@ -79,7 +79,8 @@ local function createButton(i)
 				ns.Print(message)
 			end
 		end
-		if mouse == "LeftButton" or (mouse == "RightButton" and self.psRight) then ownerScript(self, "OnClick", mouse) end
+		-- A middle-click is the row's too: it shows the quest in the quest log.
+		if mouse == "LeftButton" or mouse == "MiddleButton" or (mouse == "RightButton" and self.psRight) then ownerScript(self, "OnClick", mouse) end
 		-- Navigation can change the step and reuse this overlay. Advance the
 		-- kind whose macro just ran, after the ordinary click has finished.
 		if ran then ns.QoL.Buttons.AdvanceMark(kind) end

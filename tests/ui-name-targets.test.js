@@ -698,3 +698,53 @@ test('disabling clickable names leaves normal row actions and prevents overlays 
 	assert.ok(out.enabled > 0);
 	assert.equal(out.after, 0);
 });
+
+test('a While you\'re here row targets its NPC or mob, then points the arrow there; right-click still dismisses it', () => {
+	const [out] = run(`
+		local E, shown, calls = Polestar.Engine, {}, {}
+		E.GetWhileHereList = function() return shown end
+		E.AlongGoal = function() return nil end
+		E.AimWhileHere = function(i) calls[#calls + 1] = { "aim", i } end
+		E.DismissWhileHere = function(i) calls[#calls + 1] = { "dismiss", i } end
+		uistub.setGuide(uistub.elwynn, 3)
+		shown = { { t = "accept", npcName = "Demar Brant", quest = 9, step = 30, index = 2, status = "active", here = "take", hereText = "Take a quest" } }
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		settle()
+		local row = GF.here.Rows[1]
+		local npc = targetFor(row)
+		local first = npc and { name = npc.psName, kind = npc.psKind, macro = npc:GetAttribute("macrotext1") }
+		postClick(npc, "LeftButton", false)
+		postClick(npc, "RightButton", false)
+		-- The same row, now a mob's: the overlay follows what it says.
+		shown = { { t = "kill", subject = "Roosting Duskbat", step = 31, index = 1, status = "active", hereText = "Kill" } }
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		settle()
+		local mob = targetFor(row)
+		local seen = mob and { name = mob.psName, kind = mob.psKind }
+		local close = mob ~= nil and row.Close:GetFrameLevel() > mob:GetFrameLevel()
+		-- A middle-click still shows the quest in the quest log.
+		local shownQuest
+		Polestar.QuestRowClick = function(q, button)
+			if button == "MiddleButton" then shownQuest = q; return true end
+			return false
+		end
+		shown[1].quest = 12
+		postClick(mob, "MiddleButton", false)
+		-- A row the window clips (kept on the screen) gets no overlay.
+		local body = GF.parts.body
+		local bottom = row:GetBottom()
+		body.GetBottom = function() return bottom + 1 end
+		NT.Refresh()
+		emit({ first = first, calls = calls, mob = seen, close = close, middle = shownQuest, clipped = targetFor(row) ~= nil })`);
+	assert.equal(out.first?.name, 'Demar Brant');
+	assert.equal(out.first.kind, 'npc');
+	assert.match(out.first.macro, /\/targetexact Demar Brant(?:\n|$)/);
+	assert.match(out.first.macro, /\n\/tm \[@target,exists,nodead,nocombat\]\[@target,noharm,nodead\] !1$/, 'a star on the NPC');
+	assert.deepEqual(out.calls[0], ['aim', 1]);
+	assert.equal(out.calls.length, 2);
+	assert.equal(out.calls[1][1], 1);
+	assert.deepEqual(out.mob, { name: 'Roosting Duskbat', kind: 'mob' });
+	assert.equal(out.close, true, 'the close button stays above the overlay');
+	assert.equal(out.middle, 12, 'a middle-click reaches the row');
+	assert.equal(out.clipped, false, 'no overlay over a clipped row');
+});

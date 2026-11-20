@@ -229,6 +229,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		if hidden and not here:IsShown() then return end
 		if was and here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and GF.LayoutHere(F:GetWidth()) == was then
 			GF.PaintShades()
+			-- The rows' click-to-target names (UI/NameTargets.lua) follow what they say.
+			if GF.live and UI.NameTargets then UI.NameTargets.Refresh() end
 			return
 		end
 		GF.Layout()
