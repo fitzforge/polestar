@@ -175,7 +175,7 @@ step Flame Crest
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
-  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
+  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of Flame Crest, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
   collect 12283 quest 4726.1
   use 12284 quest 4726.1 @81.0,28.0 map 1428
 
@@ -193,6 +193,7 @@ step Flame Crest
 step Cyrus Therepentous
   when turnedin 3481
   tip Open the Hoard of the Black Dragonflight from Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds: no drake to fight.
+  tip Careful: Volchan (60, a rare fire elemental) roams the hills around Cyrus's cave: if he is about, wait for him to pass.
   accept 4022                         -- Below ground
   collect 10575 quest 4022.1          -- Black Dragonflight Molt, from the hoard
   talk 9459 quest 4022.2 @95.1,31.6 map 1428

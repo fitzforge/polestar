@@ -20815,6 +20815,84 @@
 			],
 			"reason": "the step's Careful tip names the Befouled Webwoods (10-11) north-west of Dolanaar and says to leave them for Tallonkai's quest later; the pelts come from the Nightsabers (5-6) around Dolanaar",
 			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Befouled Webwood 10-11 x3; recordings (2026-11-20 index): done by 51 (median 7.01), deaths 0, abandons 1; 30 of the 51 people at 7.3 or under, none died within 60 yd (5 people died to Befouled Webwoods elsewhere in the zone)"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|use 4726.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "use 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 50.2,
+			"mobs": [
+				"Volchan 60-60 x2"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him (guide-fixes 1575-burning-steppes-broodling-reaver)",
+			"evidence": "route level 50.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x2; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 4726 handed in by 21 people at 51.5-55.9; Volchan met by 8 Alliance people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4022.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4022.1",
+			"kind": "rare",
+			"title": "Cyrus Therepentous",
+			"level": 50.3,
+			"mobs": [
+				"Volchan 60-60"
+			],
+			"reason": "a rare (Volchan, 60) not needed for the goal; the step's Careful tip names him around Cyrus's cave. The molt comes from the hoard in the Searing Gorge before the quest is taken, so its objective seldom ticks: 12 people took and handed in Below ground (at 52.1-60.0)",
+			"evidence": "route level 50.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60; recordings (2026-11-20 index): done by 3 (median 53.56), deaths 4, abandons 0; Volchan killed nobody in the recordings; the 4 deaths within 60 yd of the cave were not his"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4022.1|rare",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4022.1",
+			"kind": "rare",
+			"title": "Cyrus Therepentous",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60"
+			],
+			"reason": "a rare (Volchan, 60) not needed for the goal; the step's Careful tip names him around Cyrus's cave. The molt comes from the hoard in the Searing Gorge before the quest is taken, so its objective seldom ticks: 12 people took and handed in Below ground (at 52.1-60.0)",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60; recordings (2026-11-20 index): done by 3 (median 53.56), deaths 4, abandons 0; Volchan killed nobody in the recordings; the 4 deaths within 60 yd of the cave were not his"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4726.1|over",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60 x4"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him with the Black Dragonspawn and Drake",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x4; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 14 of the 22 people at 53.6 or under; Volchan killed nobody in the recordings"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|use 4726.1|over",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "use 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60 x2"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him with the Black Dragonspawn and Drake",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x2; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 14 of the 22 people at 53.6 or under; Volchan killed nobody in the recordings"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|kill 4145.2|rare",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "kill 4145.2",
+			"kind": "rare",
+			"title": "Lakkari Tar Pits: kill these as you meet them",
+			"level": 51.1,
+			"mobs": [
+				"Gruff 57-57"
+			],
+			"reason": "a rare (Gruff, 57) not needed for the goal; the step's tip names him ('Avoid Gruff')",
+			"evidence": "route level 51.1 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Gruff 57-57; recordings (2026-11-20 index): done by 15 (median 52.61), deaths 0, abandons 1; 6 of the 15 people at 52.1 or under; Gruff met by 3 people, killed nobody"
 		}
 	]
 }
