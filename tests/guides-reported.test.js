@@ -3351,6 +3351,16 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+test('Darkshore coast: Elissa gives the tower letter on the Night Elf rewards stop, or beside the other races’ first Terenthis offer', { skip }, () => {
+	for (const race of ['NightElf', 'Dwarf', 'Gnome', 'Human', 'Skyborne']) {
+		const list = goals(DARKSHORE).filter(forRaceOf(race));
+		const letters = list.filter(({ goal }) => is('accept', 965)(goal));
+		assert.equal(letters.length, 1, race);
+		assert.equal(letters[0].step, list[at(list, 'Terenthis', is('accept', race === 'NightElf' ? 4761 : 984))].step, race);
+		assert.ok(letters[0].s < list[at(list, 'Balthule', is('turnin', 965))].s, race);
+	}
+});
+
 // --- Darkshore (lax, #924): "Level 20" said "grind on Elder Darkshore
 // Thresher" but its arrow led to 33.3,40.7 by Auberdine, a camp of the lower
 // Darkshore Threshers (both drop the Thresher Eyes worked there). The Elders

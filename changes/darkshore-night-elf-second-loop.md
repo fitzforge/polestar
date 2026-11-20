@@ -6,3 +6,5 @@ section: players
   15, the guide leaves Anaya for the next visit even if you already have the
   quest. Hand Grove of the Ancients to Onu on the southern beaches instead of
   carrying it through Westfall and Loch Modan.
+- On the later Darkshore visit, Night Elves pick up Elissa's letter while
+  collecting their Auberdine rewards, before heading north to the tower.
