@@ -13,6 +13,10 @@ next forever/horde/40-50/01b-riverglades
 # Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
 # the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
+# Goblin Sponsorship (1182, fix round 2026-11-20): from Baron Revilgaz on the first Booty Bay stop, for a player who
+# brought Gazlowe's letter (1180/1181); Foreman Cozzle's footlocker on the ride north from Grom'gol to Nesingwary (his
+# house by Lake Nazferiti, about 9 map units off the road; Cozzle 38, Venture Co. Agents 39, at or under the player at
+# 40), handed in on the second Booty Bay stop with 1183 taken for Pozzik at the Mirage Raceway (40-50/02).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 # Level tidy (0.4.0): the level 43-46 errands are still taken here, where the route passes their givers, and done on
 # 40-50/02's Grom'gol stop at about 45, after the Riverglades, where their mobs fit (here they ran 2-4 over the player,
@@ -100,6 +104,7 @@ step Booty Bay docks
   accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
+  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is in his house by Lake Nazferiti, on your ride north to Nesingwary
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -260,6 +265,11 @@ step Lashtail Raptors
   tip Raptor Mastery is still open: the Lashtail Raptors (35-36) hunt the jungle between Grom'gol and Nesingwary's camp, on your way north.
   kill 686 quest 195 @32.4,23.2 map 1434
 
+step Foreman Cozzle's house
+  when onquest 1182
+  tip On the ride north, a short way east of the road: Foreman Cozzle's house stands on the north shore of Lake Nazferiti. His footlocker is inside; Cozzle (38) and the Venture Co. Agents (39) stand in and around the house: pull them one at a time. Then on north-west to Nesingwary's camp.
+  collect 5852 quest 1182.1 @43.3,20.4 map 1434 -- Cozzle's Footlocker, inside the house
+
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
   tip Head north up the road; the hunters camp on the hill above the river.
@@ -418,6 +428,8 @@ step Booty Bay
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
   accept 348                            -- Fin Fizracket: Stranglethorn Fever (offered from 40), Unbagwa's part on the Feralas guide's Grom'gol stop
   turnin 600                          -- Inside
+  turnin 1182                         -- Baron Revilgaz, on the balcony
+  accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the Feralas & Tanaris guide's way
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris

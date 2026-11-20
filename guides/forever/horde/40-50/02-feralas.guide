@@ -285,6 +285,10 @@ step Orgrimmar
 # Left out: Pearl Diving (705: the export gathers the pearls but never hands
 # them in). Speaking with Nezzliok (585, export visit 38 at Grom'gol) is done
 # earlier, on the Zul'Mamwe loop of forever/horde/40-50/01-stranglethorn-vale.
+# Goblin Sponsorship (fix round 2026-11-20): Pozzik takes Baron Revilgaz's word (1183, from 40-50/01's second Booty
+# Bay stop) on the raceway stop, and Razzeric beside him the Eighteenth Pilot (1186). Left out: Razzeric's Tweaking
+# (1187): its Seaforium Booster crate is in Dustwallow Marsh and it goes back to Razzeric at the raceway, which the
+# route does not pass again after Dustwallow (its follow-ups, 1188 and 1189, go with it).
 
 # ---------------------------------------------------------------- To Orgrimmar
 
@@ -471,6 +475,9 @@ step Mirage Raceway
   tip Flown in to Gadgetzan: the raceway is a short ride north over the Tanaris border.
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  turnin 1183                           -- Pozzik: Baron Revilgaz's word, from Booty Bay
+  accept 1186
+  turnin 1186                           -- Razzeric, beside Pozzik
   accept 1190                           -- Pozzik
   turnin 1191 direct
   turnin 1190                           -- Rizzle's Unguarded Plans
