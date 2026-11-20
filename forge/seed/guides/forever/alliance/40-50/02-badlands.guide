@@ -194,10 +194,6 @@ step Theramore
   turnin 1287                         -- Captain Garran Vimes, on the top floor
   turnin 1258                         -- Morgan Stern, inside
 
-step Cortello's Riddle
-  when onquest 625
-  turnin 625                          -- Inside Bloodfen Burrow
-
 # Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,
 # whelps and Firemane 41-44), after Theramore at about 45.4, then back to Theramore's flight master for Shen'dralas.
 # They were on the Feralas guide behind `when zone "Dustwallow Marsh"`, which the route never met: it reaches Feralas

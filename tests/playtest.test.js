@@ -14,7 +14,8 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -28,6 +29,45 @@ const hasLua = (() => {
 const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
+
+test('looting a quest item puts it in bags and credits every held quest asking for it', { skip: !hasLua }, () => {
+	const collect = (quest, count) => ({ t: 'collect', item: 8392, itemName: 'Blasted Boar Lung', quest, oi: 1, count, map: 1429, x: 50, y: 50 });
+	const guide = { id: 'test/loot', pack: 'test', title: 'Supplies', minLevel: 1, maxLevel: 10, steps: [
+		{ goals: [collect(2581, 2)] },
+		{ when: [{ k: 'level', op: '>=', n: 10 }], goals: [collect(2583, 3)] },
+	] };
+	const pack = { maps: 'w.addMap(1429, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const [play, state] = playGuide(pack, guide, {
+		race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+		before: 'w.onQuest(2581, {{type="item",required=2}}); w.onQuest(2583, {{type="item",required=3}})',
+		script: `${SIMULATE}\nemit({bag=w.items[8392] or 0, sibling=w.log[2583].objectives[1].numFulfilled})`,
+	});
+	assert.ok(play.done);
+	assert.ok(state.bag >= 2, 'the looted organs remain in bags');
+	assert.equal(state.sibling, Math.min(state.bag, 3), 'the other quest reads the very same stack');
+});
+
+// A goto with a height (a cellar's stairs, a raised floor, an NPC's deck) is reached only by a visit the client's
+// UnitPosition confirms on that floor (Nav.AllowGuideArrival, #3210). The simulated player stands at the goal's
+// point on its floor, as a player who walked there does; one on another floor is not there.
+test('the simulated player reaches a goto with a height on its floor: the Gallows\' End cellar stairs', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/floor', pack: 'test', title: 'Floors', minLevel: 1, maxLevel: 10, steps: [
+		{ title: 'Brill', goals: [{ t: 'goto', map: 1420, x: 10, y: 10, text: 'Brill' }] },
+		{ title: 'The cellar stairs', goals: [{ t: 'goto', map: 1420, x: 61.66, y: 51.5, z: 34.3, text: 'The cellar stairs' }] },
+		{ title: 'Outside', goals: [{ t: 'goto', map: 1420, x: 40, y: 40, text: 'Outside' }] },
+	] };
+	const pack = { maps: 'w.addMap(1420, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const below = 'local moveTo = stub.world.moveTo\nstub.world.moveTo = function(map, x, y, z) moveTo(map, x, y, z and z - 6) end';
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			const [held] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script: `${below}\n${script}` });
+			assert.equal(held.done, false, 'a player on the floor below is not at the stairs');
+			assert.equal(held.stuck && held.stuck.step, 2, JSON.stringify(held.stuck));
+		});
+	}
+});
 
 test('invalid explicit worker counts fail before loading reference data', async () => {
 	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
@@ -157,6 +197,34 @@ test('--level-offset plays a character n levels ahead: a step behind `when level
 	const honest = await quiet(() => cmd.run(['--honest', '--level-offset', '1']));
 	assert.equal(honest.result, 2);
 	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
+});
+
+test('a skipped quest collect does not block the active collect beside it', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/collects', pack: 'test', title: 'Two errands', minLevel: 1, maxLevel: 5, steps: [
+		{ goals: [{ t: 'accept', quest: 1, title: 'The Sceptre' }] },
+		{ goals: [{ t: 'accept', quest: 2, title: 'The Gem', closedBy: [1] }] },
+		{ goals: [{ t: 'collect', quest: 2, oi: 1, item: 102, itemName: 'Gem', count: 1 }, { t: 'collect', quest: 1, oi: 1, item: 101, itemName: 'Sceptre', count: 1 }] },
+		{ goals: [{ t: 'turnin', quest: 1, title: 'The Sceptre' }] },
+	] };
+	const pack = { maps: '', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play, paid] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: `${script}\nemit(w.completed[1] == true)` });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			assert.equal(paid, true);
+		});
+	}
+});
+
+test('the CLI opens and reports a class start prerequisite unless strict start gates are requested', { skip }, async () => {
+	const args = ['--filter', 'forever/class/shaman/call-of-earth-alliance', '--class', 'Shaman'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /stuck .* at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
 });
 
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {

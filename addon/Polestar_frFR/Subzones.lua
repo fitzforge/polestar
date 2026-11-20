@@ -1517,7 +1517,7 @@ R("subzone", 31826, 33510, [[
 33507	Colline des chagrins
 33510	Colline des chagrins
 ]])
-R("subzone", 33511, 141126, [[
+R("subzone", 33511, 141131, [[
 
 33511	Colline des chagrins
 33512	Colline des chagrins
@@ -1628,7 +1628,6 @@ R("subzone", 33511, 141126, [[
 34272	Temple de la Lune
 34277	Les Jardins du temple
 34278	Les Jardins du temple
-34286	Terrasse des Artisans
 34292	Terrasse des Artisans
 34293	Terrasse des Artisans
 34294	Terrasse des Artisans
@@ -1651,7 +1650,6 @@ R("subzone", 33511, 141126, [[
 34359	Terrasse des Artisans
 34361	Terrasse des Artisans
 34362	Terrasse des Artisans
-34364	Terrasse des Artisans
 34365	Terrasse des Artisans
 34367	Terrasse des Artisans
 34368	Terrasse des Artisans
@@ -1663,8 +1661,6 @@ R("subzone", 33511, 141126, [[
 34380	Terrasse des Marchands
 34385	Terrasse des Marchands
 34387	Terrasse des Marchands
-34388	Terrasse des Marchands
-34389	Terrasse des Marchands
 34394	Terrasse des Marchands
 34395	Terrasse des Marchands
 34399	Enclave cénarienne
@@ -1675,7 +1671,6 @@ R("subzone", 33511, 141126, [[
 34405	Enclave cénarienne
 34406	Enclave cénarienne
 34408	Enclave cénarienne
-34409	Enclave cénarienne
 34591	Tanière des Griffebois
 34592	Tanière des Griffebois
 34609	Ravin des Eboulis
@@ -2019,14 +2014,14 @@ R("subzone", 33511, 141126, [[
 141124	Égouts
 141125	Égouts
 141126	Égouts
-]])
-R("subzone", 141127, 144096, [[
-
 141127	Égouts
 141128	Fossoyeuse
 141129	Fossoyeuse
 141130	Fossoyeuse
 141131	Fossoyeuse
+]])
+R("subzone", 141132, 144121, [[
+
 141132	Fossoyeuse
 141133	Fossoyeuse
 141134	Fossoyeuse
@@ -2215,7 +2210,6 @@ R("subzone", 141127, 144096, [[
 142211	Forgefer
 142212	Forgefer
 142213	Forgefer
-142214	Hall des explorateurs
 142215	Forgefer
 142216	La Garde mystique
 142218	La Grande Forge
@@ -2224,11 +2218,7 @@ R("subzone", 141127, 144096, [[
 142221	La Grande Forge
 142222	La caverne Lugubre
 142223	La Grande Forge
-142224	La Garde militaire
 142225	La Garde militaire
-142226	Forgefer
-142227	Forgefer
-142228	Forgefer
 142229	La caverne Lugubre
 142230	La caverne Lugubre
 142231	La caverne Lugubre
@@ -2238,15 +2228,12 @@ R("subzone", 141127, 144096, [[
 142235	La Bibliothèque
 142236	La Bibliothèque
 142237	La Grande Forge
-142238	La Garde mystique
 142239	Forgefer
 142240	Forgefer
 142241	Forgefer
 142242	La Garde militaire
 142243	La Garde militaire
 142244	Forgefer
-142245	La Garde militaire
-142246	Hall des explorateurs
 142247	La Garde mystique
 142249	La Garde mystique
 142250	La caverne Lugubre
@@ -2286,8 +2273,6 @@ R("subzone", 141127, 144096, [[
 142284	La Garde mystique
 142285	La Garde mystique
 142286	La Garde mystique
-142287	Forgefer
-142288	Forgefer
 142289	La Grande Forge
 142290	Brikabrok
 142291	Forgefer
@@ -2470,7 +2455,6 @@ R("subzone", 141127, 144096, [[
 144039	Quartier des Mages
 144040	Quartier des Mages
 144041	Quartier des Mages
-144042	Quartier des Mages
 144044	Quartier des Mages
 144045	Quartier des Mages
 144046	Quartier des Mages
@@ -2513,23 +2497,11 @@ R("subzone", 141127, 144096, [[
 144085	L’Agneau assassiné
 144086	L’Agneau assassiné
 144087	L’Agneau assassiné
-144088	Cathédrale de la Lumière
 144089	Cathédrale de la Lumière
 144090	Cathédrale de la Lumière
 144091	Cathédrale de la Lumière
 144092	Cathédrale de la Lumière
-144093	Cathédrale de la Lumière
-144094	Cathédrale de la Lumière
-144095	Cathédrale de la Lumière
 144096	Cathédrale de la Lumière
-]])
-R("subzone", 144097, 149286, [[
-
-144097	Cathédrale de la Lumière
-144098	Cathédrale de la Lumière
-144099	L’Agneau assassiné
-144100	L’Agneau assassiné
-144101	L’Agneau assassiné
 144102	L’Agneau assassiné
 144103	Donjon de Hurlevent
 144104	Bibliothèque royale
@@ -2550,6 +2522,9 @@ R("subzone", 144097, 149286, [[
 144119	Donjon de Hurlevent
 144120	Donjon de Hurlevent
 144121	Donjon de Hurlevent
+]])
+R("subzone", 144122, 149286, [[
+
 144122	Donjon de Hurlevent
 144123	Salle de guerre
 144124	Donjon de Hurlevent
@@ -2559,7 +2534,6 @@ R("subzone", 144097, 149286, [[
 144128	Hurlevent
 144129	Hurlevent
 144130	Hurlevent
-144131	Hurlevent
 144133	Quartier commerçant
 144134	Vieille ville
 144136	Place de la Cathédrale
@@ -2609,9 +2583,7 @@ R("subzone", 144097, 149286, [[
 144183	Centre de commandement
 144184	Centre de commandement
 144185	Quartier commerçant
-144186	Quartier commerçant
 144187	Quartier commerçant
-144188	Quartier commerçant
 144189	Quartier commerçant
 144190	Quartier commerçant
 144191	Quartier commerçant
@@ -2632,10 +2604,7 @@ R("subzone", 144097, 149286, [[
 144206	Hall des champions
 144216	Place de la Cathédrale
 144217	Quartier commerçant
-144218	Quartier commerçant
 144219	Quartier commerçant
-144220	Quartier commerçant
-144221	Hurlevent
 144226	Port de Hurlevent
 144237	Chambre du Sang
 144238	Le Hall brisé
@@ -2652,20 +2621,9 @@ R("subzone", 144097, 149286, [[
 144275	Donjon de Fort-Lointain
 144276	Donjon de Fort-Lointain
 144279	Vallée de la Force
-144293	La Herse
-144294	La Herse
 144295	La Herse
 144296	La Herse
-144297	La Herse
-144298	La Herse
 144299	La Herse
-144300	La Herse
-144301	La Herse
-144302	La Herse
-144303	La Herse
-144304	La Herse
-144305	La Herse
-144306	La Herse
 144307	La Herse
 144308	La Herse
 144309	La Herse
@@ -2675,35 +2633,26 @@ R("subzone", 144097, 149286, [[
 144314	La Herse
 144315	La Herse
 144316	La Herse
-144317	La Herse
 144318	La Herse
 144319	La Herse
-144320	La Herse
 144321	La Herse
-144322	La Herse
 144323	Vallée de la Sagesse
 144324	Vallée de la Sagesse
 144325	Vallée de la Sagesse
 144326	Vallée de la Sagesse
 144331	Vallée de l’Honneur
-144332	Vallée de l’Honneur
-144333	Vallée de l’Honneur
-144334	Vallée de l’Honneur
 144335	Vallée de l’Honneur
 144336	Vallée de l’Honneur
-144337	Vallée de l’Honneur
 144338	Vallée de l’Honneur
 144339	Vallée de l’Honneur
 144340	Vallée de l’Honneur
 144341	Vallée de l’Honneur
 144342	Vallée de l’Honneur
 144343	Vallée de l’Honneur
-144345	Vallée de l’Honneur
 144346	Vallée de l’Honneur
 144348	Vallée de l’Honneur
 144349	Vallée de l’Honneur
 144350	Vallée de l’Honneur
-144351	Vallée de l’Honneur
 144352	Vallée de l’Honneur
 144354	Vallée de l’Honneur
 144356	Faille de l’Ombre
@@ -2712,26 +2661,20 @@ R("subzone", 144097, 149286, [[
 144359	Vallée de la Force
 144360	Vallée de la Force
 144361	Vallée de la Force
-144362	Vallée de la Force
 144363	Vallée de la Force
 144364	Vallée de la Force
-144365	Vallée de la Force
 144366	Vallée de la Force
 144367	Vallée de la Force
-144368	Vallée de la Force
 144369	Vallée de la Force
-144370	Vallée de la Force
 144371	Vallée de la Force
 144372	Vallée de la Force
 144374	Vallée de la Force
 144375	Vallée de la Force
 144376	Vallée de la Force
-144377	Vallée de la Force
 144378	Vallée de la Force
 144379	Vallée de la Force
 144380	Vallée de la Force
 144381	Vallée de la Force
-144382	Vallée de la Force
 144383	Hall des Braves
 144384	Hall des Braves
 144385	Hall des Braves

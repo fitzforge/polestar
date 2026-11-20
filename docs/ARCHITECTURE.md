@@ -27,7 +27,7 @@ one into the other. The addons:
 |---|---|---|---|---|
 | `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
-| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), for now Mount Hyjal (Alliance); loaded at login unless the player switches it off (`behavior.experimentalGuides`, Options > Guide > Show experimental guides, on by default; before 0.4.0 it was off until switched on under Community guides), listed with our guides with an Experimental chip, never suggested, picked or put in a route; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
+| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), none at the moment (Mount Hyjal joined both routes in 0.4.3); loaded at login unless the player switches it off (`behavior.experimentalGuides`, Options > Guide > Show experimental guides, on by default; before 0.4.0 it was off until switched on under Community guides), listed with our guides with an Experimental chip, never suggested, picked or put in a route; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`), the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`) and the walking maps' subzone names (`Subzones.lua`, `Polestar.Names`' kind `subzone`, for the arrow's floor by subzone); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest) and `forge data subzones` (`Subzones.lua`, from the client's WMOAreaTable and AreaTable at the client build the data is built from); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the others' files alone | yes (generated) | yes |
@@ -277,8 +277,12 @@ quest's later goals with it (orphaned). A quest the player carries whose remaini
 hand-in ahead or not: a hand-in is no work, #1595) is
 noted `behind`: the guide window lists it under the step as "Still to do"
 (`Engine.GetBehind`; a click points the arrow, a right-click skips or
-abandons it) and While-here offers its objectives nearby; the place stays. A
-quest ahead that needed something passed is planned again (`Own.replan`,
+abandons it) and While-here offers its objectives nearby; the place stays.
+Recovery bypasses the update's `gone` mark, not the step's conditions.
+Both lists check `when` against the character now, not the outcome saved
+when the route passed the step. A hunt that needs level 34 cannot supply
+a badge or an arrow at 33; its saved quest remains available at 34.
+A quest ahead that needed something passed is planned again (`Own.replan`,
 `Own.goneSource`): the passed step comes back just before it when it is on
 the way (the catch-up's local rule), else the quest drops out with what
 follows. Safety: the mapping runs once per saved guide (the save is stamped
@@ -1312,6 +1316,7 @@ Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
 Compat.InCombat()                      -> bool
 Compat.IsInInstance()                  -> bool, instanceType ("party" | "raid" | "pvp" | ... inside)
 Compat.IsIndoors()                     -> bool | nil (the client's indoor state; nil without IsIndoors or when secret)
+Compat.IsSwimming()                    -> bool | nil (the client's swimming state; nil without IsSwimming or when secret)
 Compat.IsShiftKeyDown()                -> bool
 Compat.AddOnPresent(name)              -> bool   (installed and enabled: loaded, or loadable after Polestar)
 Compat.Supports(feature)               -> bool   ("skill" | "spell" | "faction" | "explore" | "achievement")
@@ -2018,7 +2023,19 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   a skip in `CharState().skipped`, read from then on (`Own.whenHolds`): a
   step passed because its condition failed never comes back when the
   condition changes, one that applied stays applied, and `Unskip` brings a
-  wrongly stored step back (storing it as held). Nothing is stored before
+  wrongly stored step back (storing it as held). A failure that can still
+  turn while the guide lasts (`Own.mayComeTrue`: `level>=N`/`level>N`, or
+  `onquest`/`complete`/`turnedin` of a quest the guide still takes or that
+  waits for a level; never a step with `group` or `dungeon` in its `when`) is
+  not stored: the step waits in `Own.whenPending` (session, per guide table,
+  worked out again from the placement) and comes back if the route reaches it
+  again; once it holds behind the live step, `Own.settlePending` (after
+  `computeCurrent` in `evaluateLoaded`) stores it as skipped instead of
+  letting it pull the route back, notes its quests' work behind the player
+  where nothing ahead works them (`Own.noteBehind`: the "Still to do" row and
+  While you're here), and leaves a level-gated step's accepts waiting
+  (`Own.waitsOf`); the guide's end stores the rest (`Own.endPending`, from
+  `Own.noteEnd` and the completion). Nothing is stored before
   `QUEST_LOG_UPDATE` (`logReady`; the log lags `PLAYER_LOGIN`):
   `Own.latchCaughtUp` stores the steps passed meanwhile once it can.
   `ResetProgress` forgets them; a pack update moves them with the steps
@@ -2075,6 +2092,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`stepGroups` counts it as held), so the arrow does not lead to the
   ender; its goal view has `pinOpen = "ticked"` and the window says to
   finish the objectives first.
+- **Shared quest supplies.** When several held quests require the same
+  item, `Own.sharedCollect` compares the bag count once with the sum of
+  their payments. Repeated goals for one quest count once. A skipped quest
+  or an optional collect (including one the player skipped) adds nothing.
+  The step view shows one required row per item. Paying a quest updates
+  both sides: three lungs spent on one bloodmage are no longer in the bags,
+  and those three are no longer owed.
 - **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
@@ -2115,8 +2139,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   with its own places, in one group (`e.group`); only one shows, measured to
   the nearest copy (`Own.hereNearest` hands the line over, its serial kept),
   its row naming the earliest step (the view's `firstStep`, `later` from it);
-  a dismiss or an expiry is for the whole group. A hand-in or a pick-up keeps
-  only its first step. With `behavior.whileHereTurnins`, a later
+  a dismiss or an expiry is for the whole group. If two quests in a later
+  step share a drop source and the next few steps offer the other quest,
+  `Own.waitForHuntPartner` defers the hunt invitation until that pickup.
+  It does not defer a live goal, discard incidental loot, or wait for a
+  quest already held, paid, declined or unavailable.
+  A hand-in or a pick-up keeps only its first step. With `behavior.whileHereTurnins`, a later
   `turnin` of a ready quest counts too, weighed by what it costs rather than
   by its distance (a hand-in is a short walk to one NPC and a click): its
   detour (`Own.hereDetour`, on every poll: the seconds of extra walking to
@@ -2212,6 +2240,27 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   candidates again, so the follow-up comes up where the player stands.
   Lines of the route's next `AHEAD` steps (`near`) rank and list before
   those further on, which read "Step N, later in this guide".
+  The guides after the loaded one (`Own.laterGuides`): for a quest the loaded
+  guide does not take, both look on into the guides the route plays next
+  (each guide's `next` as the hand-off takes it, `routeNext`: the route
+  chosen there, the only option for the character, or the recommended one
+  with "always recommended"; never past a choice still to make), while that
+  guide's `levels` start at most `HERE_ABOVE` (2) over the character
+  (`Guides.Levels` for their faction; `NEXT_MAX` (8) guides at most).
+  Auto-accept takes the first such guide's accept at the NPC
+  (`Own.laterWants`) and says so in chat ("Took <quest> now: <guide> does it
+  later, so this saves a trip back.", Automation through
+  `Engine.LaterAcceptGuide`; the loaded guide's accepts stay silent), and the
+  line shows it at its giver (`Own.hereNext`, step `Own.NEXT_STEP`, after the
+  loaded guide's lines, its sub-line "Saves a trip back: <guide> does it
+  later."), under the same guards read in that guide
+  (`Own.laterOk` through `Own.inGuide`, which runs a check with that guide
+  as the loaded one: its steps for the character, skips, `when`), never a
+  timed quest, and not one an `abandon` drops on the way there (the loaded
+  guide's or a guide's before it). The debug log names the guide when it
+  declines ("timed (<guide> step N)", "<guide> starts at level N"). Its
+  accept reads done when the route gets there (in the log), and the route
+  plan has the quest handed in later, so it is no quest off the route.
   A build reads the goals on the player's continent: `Own.hereGoalsOn`
   indexes each guide's goals with a quest and a place by continent once
   (weak per guide; again `HERE_INDEX_RETRY` (10) s on while a goal's map is
@@ -2498,13 +2547,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   from the guide as registered). `Own.feederPlan` follows each such accept
   to the quest it lacks that the guide does not bring, then down that
   quest's chain in the guides leading here (`next` or a route choice, back
-  8 guides; a quest in the log only handed in). A chain goes in when it
+  8 guides; a quest in the log needs no pickup). A chain goes in when it
   opens an accept that is not grey, all its places are in the guide's own
   zones, and, done before the first accept it opens, it costs at most 5
   minutes (`Own.feedCost`: a straight-run detour there and back from the
   nearest place the guide and the feeder steps already in go before that
   accept, plus 90 s per objective); its source steps, with its goals only,
-  go after the guide's nearest step before that accept. Every other such
+  go after the guide's nearest step before that accept. A feeder step
+  keeps the source step's `when` conditions: a bag requirement still
+  gates the pickup or payment. If two chains share a visit, the first
+  occurrence pulls forward the other chain's unpaid work before the
+  shared hand-in; the visit itself appears only once. Every other such
   accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
@@ -2518,6 +2571,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
+  `Own.feedGaps` checks each insertion in source order against both ends of
+  the route leg. A flight can bring the player to a feeder at its destination.
+  A goal on neither map needs a measured detour within the same time limit;
+  an unknown distance never justifies inserting it at the start of the guide.
   `checkShape` carries saved check-offs and skips to the new step numbers; a
   feeder step the player skips keeps its quests out of later plans
   (`CharState().feedSkips`). A giver's window that offers the quest (this
@@ -3358,6 +3415,20 @@ holds at its opening, see "Not yet available"):
 - An accept waiting for the character's level is no task in the step view
   (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
   pick-ups); the route passes it as below and the level-up brings it back.
+  Passed, it waits by quest id (`Own.noteWaits` from `latchPassed`;
+  `CharState().levelWaits[q] = { level, guide }`, forgotten once the quest is
+  in the log, done, or skipped). When the guide ends first, the next guides'
+  plans put it in (`Own.carryChains` in `Own.feederPlan`: its accept and the
+  quest's goals in the guides passed since, under the feeder rules, before
+  the guide's first goal of the quest): at the level when the route gets
+  there, it is taken on the way. Passed there under the level, it is marked
+  passed for that guide (the wait's `passed`, `Own.carryPassed`) and no longer
+  holds its step (`Own.holds`), so the level-up never pulls the route back to
+  it; While you're here offers it as a pick-up at its giver (`Own.hereBuild`
+  lets such a step behind the live one in), and a later guide's plan puts it
+  in again. One that does not fit waits on. The skip notice says which
+  (`Own.waitText`), and the guide-end window and "Continue automatically"
+  list the ones still waiting (`Engine.WaitingQuests`).
   The goals of its quest further on keep their "Requires level" line. Where
   the route waits on it instead (`Own.waitsOnLevel`: computeCurrent's own
   rule, the level hold with nothing else open there and the next open step
@@ -3528,7 +3599,7 @@ offering it); a While-you're-here hand-in line up in the active tab
 (`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
 held, of a group quest not answered for, of a quest the group waits on or
 one left out, nor a stranded hand-in no open guide has, #2918); and an
-accept of the next steps at the NPC whose window is
+accept of the next steps, or of the guides after the loaded one, at the NPC whose window is
 open (`Own.aheadWants`, "While you're here" above, with its guards); never choose among
 multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
@@ -4083,7 +4154,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
   way, alts, toGet, and on an `auction` goal the price for the count still to
   buy); `UI.MaterialsLine` shows it under the goal ("40 in your bank · 47 to
-  buy · ≈ 87s"). With the bags short and nothing left to get, the goal is
+  buy · ≈ 87s"; the sign is `Theme.Approx`'s, "~" in a face without "≈").
+  With the bags short and nothing left to get, the goal is
   fetched instead (`Own.materialPlace`): "Take <item>", from the mail (the
   purchases on their way included) at the nearest mailbox, else from the bank
   at the nearest banker (`Materials.Nearest`, Nav/Nearby.lua), picked again on
@@ -5224,11 +5296,15 @@ asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
-none). It goes to `Path.Find` as `to.z`, so the path ends on that floor; a
-search with it that fails, or whose path's last engine point before the goal
-lies more than 30 yd above or below it, is asked once more without it, and
-that answer stands for the goal (later searches for it, after straying, go
-without it too). A walk to a leg's end with a height of its own (a dock's
+none). It goes to `Path.Find` as `to.z` with `to.reach` (10 yd), so the path
+ends on that floor, or at the nearest surface on its level within 10 yd that a
+walk reaches; its answer stands, one whose last engine point lies more than 30
+yd above or below it too (the arrow says "The last steps here aren't mapped":
+before WorldFloor, 2026-11-18, such a walk was asked again without the height
+and ended on whichever floor was cheapest at the spot). A search with it that
+finds no walk at all is asked once more without it (not in a capital: "The
+capitals' floors" below), said too, and that answer stands for the goal (later
+searches for it, after straying, go without it too). A walk to a leg's end with a height of its own (a dock's
 board point, a tram, zeppelin or portal end's floor: "End heights" below)
 carries that one the same way; walks to other leg ends go
 without a height (docs/NAV_QA.md Z1-Z3). A later walk from a board point
@@ -5257,7 +5333,14 @@ bridge or upper floor above the player (at the Den's camp in the Valley of
 Trials, the rock top over the Den, whence Fastest crossed the hill to
 Hana'zua). So `Walk.lua` follows the height of the surface under the player:
 `Walk.Aim` checks at most every 0.25 s and reads the cell's surfaces
-(`Path.SurfacesAt`, into one reused table) only after moving 1 yd. Unknown,
+(`Path.SurfacesAt`, into one reused table) only after moving 1 yd. A water
+surface is read only while `Compat.IsSwimming()` says so (or for a ghost), a
+dry one only while not, when the cell has both (#2215: Booty Bay's docks lie 8
+yd over the bay, and the lowest was the water). The NPC whose window the
+player opens (`NpcFloor.Talked`: its spawn within 10 yd) puts a followed floor
+more than 6 yd off its height right, once per window, standing still too (a
+ramp walked up over a deck that runs on under it kept the follow on the deck,
+20 yd under Fleet Master Seahorn). Unknown,
 it seeds where the cell's surfaces lie within 10 yd (the router's `ZTOL`:
 the lowest), or, when `Compat.IsIndoors()` says indoors and the surfaces
 differ in indoor-ness (class indoor or indoor city against the rest), on the
@@ -5318,6 +5401,38 @@ lands after the player walked back keeps out of it). `Path.ReleaseSurfaces()`
 cancels a pending prefetch and drops it: the target cleared or no `Walk.Aim`
 for 2 s (`Walk:Refresh`), never a style change, a level-up or a hand-made
 walk, which only clear the walk.
+**The capitals' floors (2026-11-18).** In the six capitals (Stormwind,
+Ironforge, Orgrimmar, the Undercity, Thunder Bluff, Darnassus: the point's
+zone by `Travel.ZoneOf`) a walk is never planned without a height and never
+asked again without its goal's. Their streets float 11-38 yd over the
+terrain they were built on, or run under Ironforge's mountain, and searched
+without a height 33-66% of recorded city walks started or ended on another
+floor or walked the ground under the streets (CityPaths' held-out gate). The
+floor unknown, a read seeds on the surface (within 10 yd) nearest the floor
+the capital says, before the seed and the candidates: right after a flight
+lands (30 s, within 20 yd) the flight point's height (TravelData's `taxiZ`,
+TaxiNodes); else the NPC the player talked to or targeted, else the newest
+moused over or in a nameplate, within 15 s and its spawn within 30 yd
+(`Nav/NpcFloor.lua`, the Codex's spawn heights; an NPC with spawns on two
+levels there says nothing); on that height's level, or alone, the trail floor
+(`Path.TrailFloor`, the surface most walked within 4 yd by 3+ recorded
+players). A search from the player with no floor read starts from the same.
+These only seed an unknown floor: a floor followed in through a gate keeps
+(but for the NPC whose window opens, anywhere: above). Outside the capitals
+(no trail layer there) a flight's landing's height, else the NPC whose window
+the player just opened, seeds an unknown floor the same way.
+A goal there without a height ends on the trail floor at it. A goal there
+with a height is searched with `to.reach` (10 yd): when no walk reaches its
+own floor, or the walk ends more than 10 yd off its level, the router walks
+to the nearest surface on that level within 10 yd that a walk reaches
+(`Routing/Path.lua` `nearby`, six tries, `job.reached`); the arrow then says
+"The last steps here aren't mapped" under its label, as it does when none is
+found (the straight arrow, never marked unreachable for the planner). #2860:
+Daryl Riknussun's platform in the Great Forge, which the maps reach only at
+its foot, was walked to without his height out of the gate and over the
+mountain, 3,515 yd for a 356 yd walk. The measure into such a target and the
+later walks to it take the same reach (`FindMany`'s `from.reach` for the
+reversed batch); a measure that finds nothing keeps the straight estimates.
 Hand-made walks win: a crossing's own walk from end to end (but one between
 ends whose heights, `z`, lie 20 yd or more apart: a lift, which the engine
 rides), a walk between chain neighbours, to a chain node past its mouth, or
@@ -6525,7 +6640,8 @@ to be dismissed:
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
-  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  ≈ 87s · 140 held" (the price's sign is `Theme.Approx`'s, "~" in a face
+  without "≈"). Opened by the cards, the guide window's menu ("Auction
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
@@ -10696,9 +10812,10 @@ was already built without it.
   plans); then the web database's `commondrop` rows (world books, world blues) at 1%
   or more, so those no longer crowd out a boss's own loot (Onyxia's Sacks
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
-  (Recorder `enter`, `data/forever/instances.json`), else the curated table
+  (Recorder `enter`, `data/forever/instances.json`; its world position must fall
+  inside the dungeon's known entrance zone, even when recorded on another map), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
-  map where one walks in, `{ key, instance, map, x, y, source, note }`, each
+  map where one walks in, `{ key, instance, map, x, y, z?, source, note }`, each
   with its source, checked against the corpse point and our guides'
   gotos; every dungeon and raid in the Codex, Forever's own included, from
   QuestieDB's Forever dungeon table, warcraft.wiki.gg, Forever's quest data
@@ -10711,7 +10828,11 @@ was already built without it.
   `approx: true` (packed as a fifth entrance field `a`, read as
   `Codex.Instance(key).entrance.approx`). `AreaTrigger` rows name no instance
   and the trigger nearest a Corpse point is as often an inn or city trigger,
-  so they are not used. Every
+  so they are not used. A table entry's `z` (the door's floor where floors
+  stack: the Excavation Site's door 100 yd over Thelgen Rock) rides along as
+  `entrance.z` when the chosen point lies within 30 yd of the entry's; the
+  journal's page carries it (Dungeons1.lua), and `Dungeons.GuideToPoint`
+  gives it to the arrow, so the walk ends at the door. Every
   NPC placed in an instance (`npcs.json` `instances`, from QuestieDB and
   recordings, or the web database's `location` naming an `AreaTable` area of the
   instance's map) belongs to it: its drops carry the instance. An instance's
@@ -10961,7 +11082,9 @@ races.json    { "<raceFile>": { "<Alliance|Horde>": { id, bit, classes: [classFi
 spawnz.json   { npc: { "<id>": [[instanceMap, x, y, z], ...] }, object: { ... } }   (CMaNGOS classic-db creature and
               gameobject spawns on maps 0 and 1, UnitPosition's frame (x north, y west), 0.1 yd, each id's spawns sorted;
               one id per line; the compiler's goal `z`, tools/lib/dsl/heights.js; left out, with one warning, when
-              --offline has no cached dump; tools/lib/travel/cmangos.js loadSpawnHeights)
+              --offline has no cached dump; tools/lib/travel/cmangos.js loadSpawnHeights; an NPC whose rows give no height
+              within 15 yd of where players talk to it gets a row [c, x, y, z, 0] from data/npc-floors.json, the floor
+              players stand on there: `nav city npc-floors`, forge-data cmangos.rs add_recorded_heights)
 moves.json    { npc: { "<id>": [[instanceMap, x, y, cx, cy, r], ...] } }   (CMaNGOS classic-db: each creature spawn on maps
               0 and 1 that walks, its random movement within `spawndist` or its waypoint path, by spawn (`creature_movement`)
               else by creature (`creature_movement_template` path 0): the spawn's x, y, then the centre and radius in
@@ -11911,8 +12034,9 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   fall that hurts (over 14.57 yd) that his maps lack goes in only where his maps make no other way between its ends.
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
-  Three rules ported from Shortest Path Forever v1.33.0, each off until measured on the walking-map judges
-  (`forge nav pack --ground reached --ledges on --spawns on`). Only ground a player can reach stays (`pack/reach.rs`): a walk
+  Three rules ported from Shortest Path Forever v1.33.0: the ground rule on in the capitals only (the default,
+  `--ground cities`; everywhere with `--ground reached`), the other two off until measured on the walking-map judges
+  (`forge nav pack --ledges on --spawns on`). Only ground a player can reach stays (`pack/reach.rs`): a walk
   from every fixed place (flight masters, inns, boat, zeppelin, tram and lift landings, portal ends, the travel
   chains' nodes, each on its surface nearest its height within 5 yd) over steps, links, arcs, ledge drops and the
   graph's kept edges, one way where they are; every surface it never reaches is dropped (a floor), left without a

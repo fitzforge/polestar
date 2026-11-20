@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}，室內",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "在{area:498}內部",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "泥鏈營地",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "從塞拉摩沿道路往西南走到{area:511}邊緣的地精營地泥鏈營地。{npc:270723}和{npc:270727}一起站在營地裡。",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092}長在營地東邊的沼澤裡：先採集它。之後回程時，灼熱幼龍和雛龍（41-43）以及火鬃龍類在泥鏈營地北邊和西邊的沼澤築巢；牠們都會掉落蛻下的鱗片。\n小心：火鬃逆鱗守衛和喚焰者是43-44級，會施放火焰法術：一次只拉一隻。",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "然後往東北騎回塞拉摩的飛行管理員。",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "塞拉摩飛行管理員",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "術士：{quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -172,6 +168,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飛往{area:392}；{npc:6251}在銀行旁的房子裡授課。之後飛回塞拉摩島。",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飛往{area:608}，向南騎過{zone:1443}進入{zone:1444}，沿道路前往{area:1108}的碼頭；船會駛往{area:1116}，下一份指南從那裡開始。",
+	-- ["Inside {area:498}"] = "在{area:498}內部",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "向北騎到{area:144}，飛往{area:271}。{npc:3980}在旅店旁傳道。",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{area:47}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
