@@ -69,19 +69,24 @@ fn run(pre: &str, script: &str) -> Value {
 
 #[test]
 fn with_the_client_s_height_a_goto_on_a_raised_floor_is_reached_only_on_that_floor() {
-	let out = run("", r#"
+	let out = run(
+		"",
+		r#"
 		local r = { below = at(50, 50) }          -- right under it, on the ground (100)
 		r.hint = Nav.FloorHint()
 		H.z = 110                                 -- up the stairs
 		r.onFloor = at(50, 50)
 		r.said = said()
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out, json!({ "below": 1, "hint": "up", "onFloor": 2, "said": [REAL] }));
 }
 
 #[test]
 fn with_no_height_from_the_client_a_goto_with_a_height_is_reached_within_its_radius_on_the_map() {
-	let out = run(r#"H.mode = "none""#, r#"
+	let out = run(
+		r#"H.mode = "none""#,
+		r#"
 		Nav.walk.Floor = function() return 100 end -- the floor Walk follows: the ground
 		w.moveTo(1420, 50, 50.5)                     -- 10 yd short, near enough for a floor hint
 		Nav.Sample()
@@ -90,23 +95,29 @@ fn with_no_height_from_the_client_a_goto_with_a_height_is_reached_within_its_rad
 		r.arrow = Nav.Sample()
 		r.there = at(50, 50.3)
 		r.said = said()
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out, json!({ "hint": "none", "arrow": "arrived", "there": 2, "said": [heightless("none")] }));
 }
 
 #[test]
 fn a_height_of_exactly_0_on_a_raised_floor_is_no_height_and_the_goto_is_reached_on_the_map() {
-	let out = run(r#"H.mode = "zero""#, r#"
+	let out = run(
+		r#"H.mode = "zero""#,
+		r#"
 		local r = { there = at(50, 50.3) }
 		r.mode = Polestar.Compat.PlayerHeight()
 		r.said = said()
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out, json!({ "there": 2, "mode": "zero", "said": [heightless("zero")] }));
 }
 
 #[test]
 fn a_height_that_stays_the_same_while_the_player_walks_is_no_height_once_forty_readings_5_yd_apart_agree() {
-	let out = run("H.z = 12 -- what the client says wherever the player is", r#"
+	let out = run(
+		"H.z = 12 -- what the client says wherever the player is",
+		r#"
 		local r = { first = at(50, 50) }          -- taken for real (one reading on the move so far), and 98 yd off the floor
 		r.firstMode = Polestar.Compat.PlayerHeight()
 		-- Walk back 240 yd and up to the goto again, 6 yd (0.3 percent) a reading.
@@ -126,7 +137,8 @@ fn a_height_that_stays_the_same_while_the_player_walks_is_no_height_once_forty_r
 		Polestar.Compat.GetPlayerUnitPosition()
 		r.after = Polestar.Compat.PlayerHeight()
 		r.said = said()
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(
 		out,
 		json!({ "first": 1, "firstMode": "real", "short": "real", "mode": "fixed", "there": 2, "after": "real",
