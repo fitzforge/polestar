@@ -13610,6 +13610,15 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "3279-lines-of-communication-work-in-the-hinterlands",
+			"faction": "Horde",
+			"at": { "quest": 2995, "goal": "turnin" },
+			"goalNote": "Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.",
+			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
+			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
+			"issue": 3279
 		}
 	]
 }
