@@ -4452,6 +4452,16 @@ test('#2948: Our Man in Theramore is a talk to Sully McCleary, not a kill', () =
 	assert.deepEqual(fix && fix.set.objectives.map((o) => [o.type, o.id]), [['talk', 260146]]);
 });
 
+// #2781 (Brumeire, Zephras Isle): Welcome to Azeroth (95350) is offered without The Earthen Ring (95349): players'
+// recordings, 19 people. The data build re-added the server's previous-quest link, so a character carrying 95350
+// counted the whole Zephras Isle story behind it as handed in (Own.chainPast): the guide ticked A Firm Response (93746)
+// and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it. The correction drops the link.
+test('#2781: Welcome to Azeroth has no prerequisite, so carrying it proves nothing of the Zephras Isle story', () => {
+	const fix = loadCorrections().quests['95350'];
+	assert.deepEqual(fix && fix.set.pre, [], 'the correction drops The Earthen Ring (95349)');
+	assert.deepEqual(fix.set.preAny, []);
+});
+
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
 // the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
 // killed him at 44.9,51.2 (median of each person's spots).
