@@ -558,8 +558,8 @@ test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189
 	}
 });
 
-test("Champion's Hall quartermasters are vendors, not inns or auction houses (#2984, #3168)", () => {
-	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['vendor']);
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
