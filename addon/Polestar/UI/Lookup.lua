@@ -7,23 +7,30 @@
 -- Typing searches after a short pause. The sidebar shows Everything and
 -- the kinds found, with exact counts. With an empty search, Everything shows the
 -- recent lookups (CharState().ui.recentLookups) and a hint, and the sidebar
--- offers each available kind with its total. Pick a kind to browse A to Z,
--- with unavailable entries last. The list groups results by kind: under
--- Everything a search shows the first few and a "Show all" line; one kind
--- shows pages of 50 with a "Show more" line. While searching, the header
--- dropdown selects Best match or A to Z (under Everything, for each kind's
--- first few). Filters opens the item and availability controls above the
--- list; the active ones can be removed from the strip. Item filters are
--- per character and availability is account-wide. The order holds while the hub is
--- open, and closing it with an empty search box goes back to Best match.
--- Each row has an
--- icon, the name in its quality or subject colour, and a short subtitle.
+-- offers each available kind with its total. With filter data, Items opens
+-- into a tree of item classes and subclasses, with counts at each level.
+-- Pick a kind to browse A to Z, with unavailable entries last. The list
+-- groups results by kind: under Everything a search shows the first few
+-- and a "Show all" line. One kind shows pages of 50 with a "Show more"
+-- line. While searching, the header
+-- order menu offers Best match and A to Z (under Everything, for each
+-- kind's first few). With stat data, Most orders item-backed results by
+-- the chosen stat in search or browse. Filters opens a drawer above the
+-- list for level ranges, class, rarity, slot, stat and availability. The
+-- chip strip shows active filters and lets the player remove them. Drawer
+-- item filters are saved in CharState().ui.lookupItemFilters. Availability
+-- is account-wide. The order holds while the hub is open, and closing it
+-- with an empty search box goes back to Best match.
+-- Each row has an icon, the name in its quality or subject colour, and a
+-- short subtitle.
 -- Only the rows in view are drawn. Up/Down walk the results, and Enter acts
 -- on the selection.
 -- Right: the selection's details (its sources asked for once per
 -- selection): a band (the zone art of where it is got, the night band
--- without) with the kind, the icon and the name; key facts; the sources
--- from Lookup.Sources, best first (label, detail, travel time, chance, price
+-- without) with the kind, the icon and the name; key facts (for items,
+-- type, levels, rarity, usable classes, slot and category) and Stats, with
+-- provenance where known. Sources from Lookup.Sources appear best first
+-- (label, detail, travel time, chance, price
 -- or standing; ones this character cannot use yet dimmed and saying why);
 -- the selected source carries its own "Guide" button; for a quest in a
 -- chain, the chain under them (Lookup.ChainProgress, #2554): each quest done,

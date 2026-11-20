@@ -7989,6 +7989,30 @@ Options). Everything is off with `lookup.enabled`; `lookup.tooltip`,
 Polestar.Codex.Load() / IsLoaded() / Meta()       -- the local Polestar_Codex pack through Data.Pack; CODEX_LOADED(meta)
 Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId)
 Polestar.Codex.Name(kind, id) ; Codex.WithRole(role) ; Codex.Loot(kind, id) ; Codex.Each(kind, fn(id, name, quality, status))
+Polestar.Codex.HasFilters() -> bool
+Polestar.Codex.FiltersTooNew() -> bool
+Polestar.Codex.FilterColumn(kind) -> blob, rowCount | nil
+Polestar.Codex.DecodeFilter(blob, row) -> reqLevel, itemLevel, allowClass, slot, category, levelsSource, typeSource
+Polestar.Codex.FilterLevelsSource(blob, row) -> levelsSource | nil
+Polestar.Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category, itemClass, itemSubclass, levelsSource, typeSource } | nil
+Polestar.Codex.FilterCategory(category) -> itemClass, itemSubclass | nil
+Polestar.Codex.FilterCategoryId(itemClass, itemSubclass) -> category | nil
+Polestar.Codex.FilterSource(code) -> "client" | "forever" | "era" | nil
+Polestar.Codex.StatCodes() -> { code, ... } | nil
+Polestar.Codex.StatGeneration() -> number | nil
+Polestar.Codex.StatItems(code) -> { [itemId] = amount } | nil
+Polestar.Codex.StatAmountSource(code, id) -> "client" | "forever" | "era" | nil
+Polestar.Codex.ItemStats(id) -> { { code, amount, amountSource }, ... } | nil
+Polestar.Codex.ReleaseStatItems()
+
+Polestar.Search.Query(text, opts) -> results, counts, error|nil, info|nil
+Polestar.Search.Browse(kind, opts) -> results, count, info|nil
+Polestar.Search.BrowseCount(kind, opts) -> count|nil, info|nil
+Polestar.Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> eligible, usedItemType
+Polestar.Search.StatLabel(code) -> localized label|nil
+Polestar.Search.StatCodes([text]) -> codes
+Polestar.Search.StatSearchText(code) -> folded English label and aliases
+Polestar.Search.MatchStat(text) -> code|nil
 
 Polestar.Lookup.Sources(kind, id, direct) -> rows, entity  -- ranked for this character; direct: straight-line travel, no route plan (tooltips)
    -- row = { type, src, label, detail, zone, map, x, y, f, travel, effort, cost, available, why, whyText,
@@ -8007,6 +8031,89 @@ Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, tu
 Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the quest's pre (preAll), preAny (pre, the character's own) and preTitles
 ```
 
+- **Item filter data.** `RegisterFilters(version, categories, columns)`
+  enables `HasFilters` when the pack supplies a supported column for each
+  item-backed kind (`item`, `mount`, `pet`, `recipe`, `tabard`) with
+  row counts matching their indexes. A newer version sets `FiltersTooNew`.
+  `DecodeFilter` reads a 1-based index row without allocating, returning
+  numeric source codes and Blizzard class bits. `FilterLevelsSource`
+  reads just the final byte. `FilterFacts` scans the index for an id
+  without keeping a row map or decoding the item record, expands the
+  category and source codes, and returns an empty table for an indexed
+  row whose facts are all unknown. Quality is in the index and item record.
+  Category ids start at 1, with a nil subclass for a class-only entry.
+  These accessors never load the pack.
+- **Stat data.** `StatCodes` lists raw codes in numeric order and
+  `StatGeneration` keys caches to the current registration. `StatItems`
+  decodes one posting list on demand to a read-only id → amount map, with
+  0 for presence with an unknown amount. The two most recent maps stay
+  cached until `ReleaseStatItems` (also called by `Search.Release` on hub
+  hide). `StatAmountSource` scans a list up to the id and returns a source
+  for a known amount. `ItemStats` scans the lists for one item and returns
+  stats in code order, with nil amount and amount source for presence only.
+  It returns an empty table for known-empty coverage and nil for unknown
+  coverage. The presence source is `FilterFacts(...).levelsSource`.
+- **Item search.** In `Query`, `opts.ids = true` adds exact index hits
+  for a positive decimal item id, accepting outer spaces and leading
+  zeroes. A leading `#` makes it id-only, with `"id-syntax"` as the
+  third result for malformed input. Best match puts an id hit first in
+  its kind and counts it once. The same option adds hits for a complete
+  folded stat label or alias, after name hits in Best match. `StatLabel`
+  localizes a code, `StatCodes([text])` lists codes ordered by localized
+  label with optional substring matching, and `StatSearchText` gives
+  the picker's English label and aliases. `MatchStat` matches a complete
+  folded label or alias.
+- **Predicates and counts.** `Query`, `Browse` and `BrowseCount` accept
+  `opts.filters = { reqMin, reqMax, ilvlMin, ilvlMax, quality, slot, class,
+  stat, category = { class, subclass } }`. Level bounds are inclusive
+  integers in 0..999, quality is a set of integer keys 0..8 mapped to
+  true, slot is raw InventoryType (0..34), class is a Gear class file
+  token, and stat is a raw code requiring presence. Absent fields are
+  unrestricted. Active predicates require a known value for their own
+  field. Category scopes Items, and the drawer predicates apply to all
+  five item-backed kinds. `ClassEligible` uses the mask and trainable
+  armor and weapon proficiencies, returning nil if eligibility cannot
+  be established and a second result indicating whether item type
+  decided it. The optional read-only `info` (with `opts.filters` or
+  `opts.categoryTotals`) gives `filtersAvailable`, `filtersApplied`,
+  `classFilterDormant` (Gear class or proficiency data unavailable)
+  and `preFilterCounts[kind]` (after query, visibility and category,
+  before drawer predicates and paging). Requested `categoryTotals`
+  are available for indexed Items with filter data. They apply query,
+  visibility and all drawer predicates and give `root`, `classes[raw
+  class]` and `subclasses[packed category id]`. Items without a class
+  count only at the root. Search checks the packed fields before paging
+  without decoding detail records.
+- **Most order.** `Query` and `Browse` take `order = "most"` and a
+  numeric `sortStat` independent of `filters.stat`. Each item-backed
+  kind sorts after matching and filtering, before paging. Results carry
+  `statBucket`: known amounts first (descending, with `statAmount`),
+  then present with unknown amount, known absent, and unknown coverage.
+  Ties use folded display name and numeric id. Everything keeps
+  `Search.KINDS` order. Without a supported stat or for other kinds,
+  Query uses `baseOrder` (default `"best"`) and Browse uses A to Z.
+- **Lookup controls** (`UI/Lookup.lua`). Items expands to selectable
+  classes and subclasses with counts from `categoryTotals`. The
+  Filters drawer holds the two level ranges, class, rarity, slot, Stat
+  and availability controls. The chip strip shows and removes active
+  filters, and drawer item filters save to
+  `CharState().ui.lookupItemFilters`. The order menu offers Most with a
+  separate stat picker. Item details show type, levels, rarity, usable
+  classes, slot, category and Stats, with source labels or tooltips
+  where known. Packs without a supported filter column keep the flat
+  sidebar, availability controls and legacy details.
+- **Widgets** (`Theme/Widgets.lua`). `W.NumberBox(parent, opts)` makes
+  a themed number edit box with `placeholder`, `onEdit(self, user)`,
+  `onCommit(self)` on Enter or focus loss and `onCancel(self)` on
+  Escape. The caller validates the ranges. `W.ShellNav` rows accept
+  `depth` for indentation, `rowHeight`, `folded` and `onToggle(key)`
+  for a chevron separate from row selection. In `W.ShowMenu`, an item's
+  `keepOpen` repaints checks in place after its click, and the click can
+  return true to lay out the list again. `opts.maxWidth` caps the width
+  and clips long labels, and `opts.keyboard` enables `W.MenuKey` for
+  Up/Down, Enter/Space and Escape. `opts.searchFold` folds the query,
+  labels and each newline-separated term in an item's `searchText`
+  so the stat picker can find aliases.
 - **Chain progress** (`Lookup.ChainProgress`, #2554): the main line through
   a quest, back through its prerequisites (all of `pre`; of `preAny`, the one
   done, else the one `QuestChain` would pick) and forward through
@@ -10633,7 +10740,7 @@ holding every table the Codex reads; `meta.json` records it), the item
 sources players' recordings show (`data/codex/recorded.json`) and Polestar's
 own guides into
 `data/forever/codex/*.json`, then emits the load-on-demand pack
-`addon/Polestar_Codex/` (`tools/lib/codex/pack.js`) with its
+`addon/Polestar_Codex/` (`rust/crates/forge-data/src/codex/pack.rs`) with its
 `LICENSE-DATA.txt`, which lists every source with its version and licence.
 Both are build products (gitignored); the pack is part of the release:
 `pack` puts it in the zip and fails without it, `install` copies it when
@@ -10703,6 +10810,46 @@ was already built without it.
   `ContentTuning`, `GroupFinderActivity`; the Classic Era `Item`, `ItemSparse`,
   `ItemEffect` and `Map` fill items Forever's tables lack and tell Forever's
   own instances apart.
+- Item facts (`codex/client.rs`, `merge.rs`, `itemdb.rs`): Forever's
+  `ItemSparse` gives `reqLevel`, `itemLevel`, `quality` and `allowClass`
+  (the Blizzard class mask limited to the supported classes). Forever's
+  `Item` gives `itemClass`, `itemSubclass` and `slot` (InventoryType).
+  A known `reqLevel` of 0 means no level required and is kept. Legacy
+  Era client rows can still supply a nonzero requirement. The two
+  groups carry `levelsSource` and `typeSource` respectively. A group
+  with Forever client facts is marked `client`, and ItemDB does not override it.
+  For each unmarked group the build fills from the first ItemDB row
+  for that id, `addon/Polestar_ItemDB/Forever.lua` (`forever`) then
+  `Items.lua` (`era`). Both groups use that same selected row, and a
+  zero ItemDB class mask becomes all supported classes. Without one
+  of those sources the group has no source flag, even if a legacy
+  display value exists.
+- Item stats (`codex/itemdb.rs`): for `levelsSource = "client"`, the
+  Forever client's stat codes determine presence and the selected
+  ItemDB row supplies matching amounts where the units agree. For
+  ItemDB-backed levels, the selected row's mapped stats supply presence
+  and amounts. `stats` maps raw codes to signed amounts, with 0 for
+  presence only. `statAmountSource` names the selected ItemDB source
+  for all nonzero amounts on that item. The presence source is
+  `levelsSource`: an omitted map means known empty when that flag is
+  set, and unknown otherwise.
+- Packed filters and stats (`codex/pack.rs`, `Lookup/Codex.lua`):
+  after `RegisterIndex`, `RegisterFilters(1, categories, columns)`
+  supplies a directory of raw class/subclass pairs and a five-byte
+  column row per item-backed index line, in index order. The first
+  three bytes hold two 7-bit levels (127 means unknown) and a 10-bit
+  class mask (nine class bits, 512 means unknown). The last two hold
+  `categoryId * 36 + slotCode` in 12 bits and the two 2-bit source codes
+  (0 unknown, 1 client, 2 forever, 3 era). Category 0 and slot code 0
+  mean unknown, and a known slot code is InventoryType + 1. Quality
+  stays in the index. `RegisterStats(1, directory, postings)` requires
+  a supported filter column. Each raw stat code has a 24-bit offset
+  into the postings, a list spanning the five item-backed kinds.
+  Entries are unsigned LEB128 pairs of item id delta and amount word.
+  The word holds a ZigZag signed amount above the low two source bits,
+  or is zero for presence with an unknown amount. Coverage comes from
+  the filter row's `levelsSource`. The two registrations have their
+  own versions and leave the existing detail records readable.
 - Dungeons and raids (`tools/lib/codex/instances.js`, release build): every
   `Map` instance that Forever's dungeon finder (`LFGDungeons`) names, or that
   belongs to the original game (map id below 1000) and has `DungeonEncounter`
@@ -10844,7 +10991,9 @@ was already built without it.
   = items with at least one source, `pack` = files, bytes and measured
   memory), `items.json`
   (`{ id, name, quality, kind: item|mount|pet|recipe|tabard, spell, reqLevel,
-  repFaction, repStanding, reqSkill, reqSkillRank, status, sources }`; a source
+  itemLevel, allowClass, itemClass, itemSubclass, slot, levelsSource,
+  typeSource, stats, statAmountSource, repFaction, repStanding, reqSkill,
+  reqSkillRank, status, sources }`; a source
   is `{ type: vendor|drop|object|quest|craft|rep|pvp|
   container|world, from, ... }`), `npcs.json`, `objects.json`, `quests.json`
   (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings,
