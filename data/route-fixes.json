@@ -11680,6 +11680,42 @@
 				],
 				"reason": "Alliance 30-40 fix round (2026-11-20): Bone Collector (level 39, from 33, 2,250 XP): Bibbly F'utzbuckle stands at Kormek's Hut (62.2,38.9), on 30-40/02's walk from Thunder Axe Fortress to Smeed's camp; the Kodo Bones lie among the skeletons of the Kodo Graveyard (46-49,57-61), where the kodo taming already goes, and Bibbly takes them on the way home from Kolkar Village (about 300 yd added). It was taken and handed in on 30-40/06b at 38.9 with a second walk back to the hut. Players' recordings: accepted at a 25th percentile of 35.2 (48 characters).",
 				"issue": "-"
+			},
+			{
+				"q": 1040,
+				"after": [
+					"turnin",
+					1039
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): Wharfmaster Dizzywig gives Passage to Booty Bay (level 30, 600 XP) with 1039's hand-in on Ratchet's dock, where 30-40/03 ends; Caravaneer Ruzzgot stands on Booty Bay's dock, 30-40/04's first stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1041,
+				"after": [
+					"turnin",
+					1040
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Caravan Road (1,200 XP), Ruzzgot to Clerk Daltry in Darkshire, a delivery carried through 30-40/02 to 30-40/04b, which flies into Darkshire.",
+				"issue": "-"
+			},
+			{
+				"q": 1042,
+				"after": [
+					"turnin",
+					1041
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Carevin Family (250 XP), Daltry to Jonathan Carevin, beside him in Darkshire.",
+				"issue": "-"
+			},
+			{
+				"q": 1043,
+				"after": [
+					"turnin",
+					1042
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Scythe of Elune (2,450 XP): the Mound of Dirt in the Tranquil Gardens Cemetery (Duskwood 73.5,79.1, Nightbane worgen 29-31) is about 570 yd off 30-40/05's walk from Darkshire to Deadwind Pass, and Carevin takes it when the guide comes back through Darkshire. Answered Questions (1044, Darnassus) is left out.",
+				"issue": "-"
 			}
 		],
 		"skip": [

@@ -36,6 +36,15 @@ step Fly to Darkshire
   fly "Darkshire"
   zone Duskwood
 
+step Clerk Daltry
+  when onquest 1041
+  zone Duskwood
+  tip Clerk Daltry works in Darkshire's town hall, a short walk from the flight master; Jonathan Carevin stands just east of it.
+  turnin 1041                         -- Clerk Daltry
+  accept 1042
+  turnin 1042                         -- Jonathan Carevin
+  accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
+
 step Stranglethorn Vale
   zone Stranglethorn Vale
   goto 40.8,4.2 "Into Stranglethorn Vale"

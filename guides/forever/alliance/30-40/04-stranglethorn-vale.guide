@@ -46,6 +46,8 @@ step Booty Bay
   tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
   turnin 1180                         -- Wharfmaster Lozgil, on the dock
   accept 1181                         -- Wharfmaster Lozgil: for Baron Revilgaz, upstairs in the tavern
+  turnin 1040                         -- Caravaneer Ruzzgot, on the dock
+  accept 1041                         -- Caravaneer Ruzzgot: for Clerk Daltry in Darkshire, where the second Stranglethorn loop starts
   getfp "Booty Bay"
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside

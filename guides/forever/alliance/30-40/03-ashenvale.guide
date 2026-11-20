@@ -220,6 +220,8 @@ step Ratchet
   turnin 1178                         -- Gazlowe
   accept 1180                         -- Gazlowe: for Wharfmaster Lozgil, on Booty Bay's dock where the boat lands
   turnin 1111                         -- Wharfmaster Dizzywig
+  turnin 1039                         -- Wharfmaster Dizzywig: The Barrens Port, from Thyn'tel Bladeweaver in Darnassus
+  accept 1040                         -- Wharfmaster Dizzywig: for Caravaneer Ruzzgot in Booty Bay, where the boat lands
   note Dizzywig's next errand goes back to the Mirage Raceway, which the route next visits at 45: leave it.
 
 step Boat to Booty Bay

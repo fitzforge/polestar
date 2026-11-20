@@ -34,6 +34,12 @@ step Fly to Darkshire
   fly "Darkshire"
   zone Duskwood
 
+step The Scythe of Elune
+  when onquest 1043
+  zone Duskwood
+  tip South from Darkshire to the Tranquil Gardens Cemetery, on the way to Deadwind Pass: the mound of dirt by the Nightbane worgen (29-31) holds the evidence Jonathan Carevin wants.
+  complete 1043 @73.5,79.1            -- the Mound of Dirt
+
 step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 26.7,59.8 "Swamp of Sorrows"
@@ -102,6 +108,12 @@ step Watcher Biggs
 step Duskwood
   zone Duskwood
   goto 77.6,44.4 "Duskwood"
+
+step Jonathan Carevin
+  when complete 1043
+  zone Duskwood
+  turnin 1043                         -- Jonathan Carevin, in Darkshire
+  note His next errand goes to Darnassus, off this route: leave it.
 
 # ---------------------------------------------------------------- Stormwind
 
