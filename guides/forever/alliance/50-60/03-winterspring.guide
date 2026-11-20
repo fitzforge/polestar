@@ -14,7 +14,7 @@ next forever/alliance/50-60/04-western-plaguelands
 # Gadgetzan (Gaeriyan's grave), Un'Goro Crater's second visit (Linken and J.D. Collie, the pylons, the expedition,
 # Torwa, Krakle and Ringo) at about 53-54, Gadgetzan's and Ratchet's hand-ins on the way out, then Felwood's south (Greta's
 # corruption, Eridan's vial and Linken's memory, Arko'narin and Shadow Hold) and Winterspring's main loop (Donova,
-# the furbolg runners, Kel'Theril, Winterfall Village, Starfall and Mazthoril) at about 54-55, ending in
+# the furbolg runners, Kel'Theril, Starfall and Mazthoril) at about 54-55, ending in
 # Moonglade. All of it used to wait for the Western Plaguelands and Silithus guides at 56.6-59.7, while this guide
 # opened on a top-up from 53.6 to 55 at Frostfire Hot Springs.
 # Left out: Pawn Captures Queen (4507: Gorishi Hive Queen 56 in the Slithering Scar, and no Gadgetzan stop after it on
@@ -23,7 +23,10 @@ next forever/alliance/50-60/04-western-plaguelands
 # Heart (4084: the Irontree Stompers are north of the route's last Emerald Sanctuary stop), Are We There, Yeti? part 3
 # (5163: its scares are in Gadgetzan and Un'Goro, behind the route), A Reliquary of Purity (5527: level 56, and
 # Rabine's hand-in needs another Moonglade trip after Silithus), Find Ranshalla (979: Erelas gives it for the
-# feathers on the Plaguelands guide's way through Rut'theran, after Winterspring).
+# feathers on the Plaguelands guide's way through Rut'theran, after Winterspring), Winterfall Activity (8464, Salfa's
+# furbolg village east of Everlook: Ursa 57-58 and Shaman 56-57, two or more levels over the route there; with its
+# follow-up 8469, the Winterfall Spirit Beads) and Jaron's Supplies (4864: the amulet drops from the owlbeasts around
+# Jaron's wagon, 56-59).
 
 # ---------------------------------------------------------------- Donova Snowden
 
@@ -500,10 +503,9 @@ step Donova Snowden
 
 step Winterspring: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall furbolgs drop the beads; the Winterfall Runners (57) carry their crates along the road between Frostfire Hot Springs and Felwood's tunnel.
+  tip The Winterfall Runners (57) carry their crates along the road between Frostfire Hot Springs and Felwood's tunnel.
   tip Careful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with Feign Death, and they then gather by the lake so you can take the next quest.
   tip Careful: the Winterfall Runners are 57, over you here: pull one at a time, away from the camp.
-  collect 21383 x5
   collect 12829 quest 5087.1 @27.9,34.5 map 1452
 
 step Donova Snowden
@@ -542,14 +544,6 @@ step The road to Everlook: furs and horns
   collect 12366 quest 3783.1 @45.8,37.4 map 1452 -- Thick Yeti Fur, from the Rogue Ice Thistles
   collect 12444 quest 4809.1 @45.0,36.3 map 1452 -- Uncracked Chillwind Horn, from the Fledgling Chillwinds
 
-step Winterfall Village
-  zone Winterspring
-  tip Salfa's Winterfall Activity: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
-  tip Careful: the village is dense and its Ursa and Shaman are over you: pull from the edge, one at a time. Grizzle Snowpaw (59, rare) walks the village: leave him be.
-  kill 7439 quest 8464.1              -- Winterfall Shaman
-  kill 7440 quest 8464.2              -- Winterfall Den Watcher
-  kill 7438 quest 8464.3              -- Winterfall Ursa
-
 step Everlook
   zone Winterspring
   turnin 4809                         -- Felnok Steelspring
@@ -575,33 +569,10 @@ step Jaron's camp
   turnin 4861                         -- Damaged Crate
   accept 4863
   turnin 4863                         -- Jaron's Wagon
-  accept 4864
-
-step Jaron's supplies
-  tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
-  tip Careful: the Moontouched Owlbeasts here are 57 and the Berserk Owlbeasts 58: pull the Crazed (56) and Moontouched ones at the edge and leave the Berserk ones alone.
-  tip Careful: Winterspring Screechers (57-59) hunt around here too: pull the owlbeasts away from them.
-  collect 12524 quest 4864.2          -- Blue-feathered Amulet
-  collect 12525 quest 4864.1          -- Jaron's Supplies
-
-# ---------------------------------------------------------------- Back west
-
-step Starfall Village
-  zone Winterspring
-  tip Ride north up the valley, past Everlook, to Starfall Village.
-  turnin 4864                         -- Jaron Stoneshaper
-
-step Salfa
-  tip West along the road to Salfa, at the tunnel's Winterspring end.
-  turnin 8464
-
-step Salfa
-  when has 21383 x5
-  turnin 8469 direct
 
 # ---------------------------------------------------------------- Moonglade
 
 step Sindrayl
   zone Moonglade
-  tip Walk into Timbermaw Hold and take the Moonglade branch of the tunnel down to Moonglade. Sindrayl, Moonglade's flight master, stands south of the lake, outside Nighthaven: learn the flight path from him. The flight master in Nighthaven itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here.
+  tip Ride back north up the valley and west along the road to the tunnel at Winterspring's western end, where Salfa stands. Walk into Timbermaw Hold and take the Moonglade branch of the tunnel down to Moonglade. Sindrayl, Moonglade's flight master, stands south of the lake, outside Nighthaven: learn the flight path from him. The flight master in Nighthaven itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here.
   getfp "Moonglade"

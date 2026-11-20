@@ -1,7 +1,8 @@
 //! An update from the live release: the previous release (`$POLESTAR_PREVIOUS_ADDON_DIR`) plays the full-log
 //! scene's character (Goldshire, partway through the Elwynn Forest guide) with three settings changed and every
 //! companion addon enabled, and logs out; the client writes every saved variable the previous release's TOCs
-//! list. The release under test then logs in with them: no Lua error, the same guide at the same step, the
+//! list. The release under test then logs in with them: no Lua error, the same guide at the same step (its title
+//! and goals: an update that drops or merges steps ahead of it renumbers it), the
 //! changed settings kept, no addon of the release left off or turned off (#2594), the settings window loading,
 //! Install not shown again, nothing in chat, no sound, alert or automatic action, and a bounded login.
 
@@ -38,6 +39,22 @@ fn saved_variables(dir: &Path) -> Vec<(String, Vec<String>)> {
 /// The settings the player changed before the update: (path, Lua value, the value as emitted).
 const CHANGED: &[(&str, &str, &str)] = &[("nav.routeStyle", "\"roads\"", "\"roads\""), ("qol.sellJunk", "false", "false"), ("behavior.whileHereRadius", "240", "240")];
 
+/// Lua: `stepAt(i)`, step i of the loaded guide as its title and goals (verbs and ids, as the Engine keys a step for
+/// an update), or false. A release that drops or merges a step ahead of the player's renumbers theirs (0.4.2's
+/// Northshire rework put Goldshire at 50 of Elwynn Forest, 51 in 0.4.1.1), so the place is compared by this.
+const STEP_AT: &str = r#"
+local function stepAt(i)
+	local g = Polestar.Engine.GetGuide()
+	local s = g and i and g.steps[i]
+	if not s then return false end
+	local ids = {}
+	for k, x in ipairs(s.goals) do
+		ids[k] = x.t .. ":" .. tostring(x.quest or x.npc or x.item or x.spell or x.object or x.faction or x.achievement or x.level or x.location or x.map or "")
+	end
+	return (s.title or "") .. " | " .. table.concat(ids, ",")
+end
+"#;
+
 #[test]
 fn an_update_keeps_the_guide_step_settings_and_addons_2594() {
 	let Some(dir) = release_or_skip() else { return };
@@ -54,13 +71,14 @@ fn an_update_keeps_the_guide_step_settings_and_addons_2594() {
 	let before = play(&Play {
 		dir: Some(prev.clone()),
 		script: format!(
-			r#"
+			r#"{STEP_AT}
 local at = ScenesQ.place(240)
 if not at then error("the previous release loaded no guide, or none that hands in a quest to Marshal Dughan (240)", 0) end
 {sets}
 stub.advance(5)
 local E = Polestar.Engine
 local state = {{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex() or false, live = E.GetLiveStep() or false }}
+state.stepAt, state.liveAt = stepAt(state.step), stepAt(state.live)
 stub.fire("PLAYER_LOGOUT")
 local saved = {{}}
 for _, g in ipairs({{ {groups} }}) do saved[#saved + 1] = {{ g[1], ScenesQ.saved(g[2]) }} end
@@ -101,7 +119,7 @@ emit({{ state = state, saved = saved, world = ScenesQ.world(), lines = Scene.sin
 		before: format!("ScenesQ.goldshire()\nScenesQ.restore({world})\n{}\nScene.atLogin = Scene.snap()", early.join("\n")),
 		saved,
 		script: format!(
-			r#"
+			r#"{STEP_AT}
 local loginMs = ScenesQ.loginMs()
 local settle = Scene.work(function() stub.advance(10) end)
 local E = Polestar.Engine
@@ -115,6 +133,7 @@ SlashCmdList.POLESTAR("options")
 stub.advance(2)
 local d = Scene.since(Scene.atLogin)
 emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex() or false, live = E.GetLiveStep() or false,
+	stepAt = stepAt(E.GetStepIndex()), liveAt = stepAt(E.GetLiveStep()),
 	settings = settings, welcome = welcome, off = off, disabled = ScenesQ.disabled, needed = needed,
 	options = C_AddOns.IsAddOnLoaded("Polestar_Options"), lines = d.lines, sounds = d.soundIds, alerts = d.alerts, actions = d.actions,
 	loginMs = loginMs, settleMs = settle.ms }})
@@ -128,8 +147,9 @@ emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex
 	println!("before: {}\nafter: {}", serde_json::to_string_pretty(old).unwrap(), serde_json::to_string_pretty(&out).unwrap());
 
 	assert_eq!(out["guide"], old["guide"], "the update changed the loaded guide: {old} -> {out}");
-	assert_eq!(out["step"], old["step"], "the update moved the guide's step: {old} -> {out}");
-	assert_eq!(out["live"], old["live"], "the update moved the live step: {old} -> {out}");
+	assert!(old["stepAt"].is_string(), "the previous release's step has no title or goals: {old}");
+	assert_eq!(out["stepAt"], old["stepAt"], "the update moved the guide's step: {old} -> {out}");
+	assert_eq!(out["liveAt"], old["liveAt"], "the update moved the live step: {old} -> {out}");
 	for (path, _, want) in CHANGED {
 		let want: Value = serde_json::from_str(want).unwrap();
 		assert_eq!(out["settings"][path], want, "the update lost the setting {path}: {}", out["settings"]);

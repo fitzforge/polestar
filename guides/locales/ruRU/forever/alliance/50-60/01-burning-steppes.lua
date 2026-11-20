@@ -122,7 +122,8 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: убивайте их по пути",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Используйте {item:12284} на существе {npc:7047} на склонах к востоку от места {area:251} прямо перед его смертью, затем заберите оставшуюся эссенцию.\nОсторожно: {npc:8981} (56-й уровень, редкий) ходит по склонам у детенышей, а {npc:7040} и драконы вокруг них – элитные: используйте инкарцинатор на детеныше с краю и осматривайтесь перед каждым нападением.",
+	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Используйте {item:12284} на существе {npc:7047} на склонах к востоку от места {area:251} прямо перед его смертью, затем заберите оставшуюся эссенцию.\nОсторожно: {npc:8981} (56-й уровень, редкий) ходит по склонам у детенышей, а {npc:7040} и драконы вокруг них – элитные: используйте инкарцинатор на детеныше с краю и осматривайтесь перед каждым нападением."
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
 
 	-- Step 24: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
@@ -135,7 +136,7 @@ return {
 
 	-- Step 26: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Откройте {item:10569} из зоны {zone:1427}, чтобы достать {item:10575}, затем скажите NPC {npc:9459}, что принесли доказательство своих подвигов: сражаться с драконом не придется.",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	["Below ground"] = "Под землей",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, из клада",
@@ -383,6 +384,7 @@ return {
 	-- ["Help her escape the camp"] = "Помогите ей сбежать из лагеря",
 	-- ["Level 51.3 on the way north"] = "Уровень 51.3 по пути на север",
 	-- ["Level 52 at {area:249}"] = "Уровень 52 у места {area:249}",
+	-- ["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Откройте {item:10569} из зоны {zone:1427}, чтобы достать {item:10575}, затем скажите NPC {npc:9459}, что принесли доказательство своих подвигов: сражаться с драконом не придется.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Необязательно: {npc:8395} хочет два неповрежденных пера гиппогрифа с гиппогрифов вокруг его лагеря. По данным, опыта за это не дают.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Необязательно: призрак {npc:8888} стоит на своей гробнице на огромной цепи внутри горы ({area:254}), и видят его только мертвые. Если вы все равно погибнете у горы, доберитесь до него духом, прежде чем воскреснуть.",
 	-- ["Portal to {zone:1438}"] = "Портал: {zone:1438}",
@@ -414,6 +416,7 @@ return {
 	-- ["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "Доберите опыт до уровня 51.3 на мирмидонах из клана Бича Злобы (50-51) в руинах между лагерем NPC {npc:8395} и севером: эльфы крови в лагере NPC {npc:8420} – 51-53 уровня. Или, с группой, пройдите вместо этого подземелье {area:1417}.",
 	-- ["Upstairs"] = "Наверху",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Используйте {item:12284} на противнике {npc:7047} на склонах к востоку от места {area:251} незадолго до его смерти, затем заберите оставшуюся эссенцию.",
+	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Используйте {item:12284} на существе {npc:7047} на склонах к востоку от места {area:251} прямо перед его смертью, затем заберите оставшуюся эссенцию.\nОсторожно: {npc:8981} (56-й уровень, редкий) ходит по склонам у детенышей, а {npc:7040} и драконы вокруг них – элитные: используйте инкарцинатор на детеныше с краю и осматривайтесь перед каждым нападением.",
 	-- ["Wildkin feathers"] = "Перья диких совухов",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "Ваш камень возвращения привязан к городу {zone:1455} (его привязывает там гайд по зоне {zone:1425}): вернитесь в таверну.",
 	-- ["grind on {npc:6196}"] = "убивайте: {npc:6196}",

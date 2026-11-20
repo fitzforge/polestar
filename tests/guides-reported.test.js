@@ -2811,7 +2811,6 @@ for (const [guide, quest, items, also, keep] of [
 	['forever/alliance/50-60/04-western-plaguelands.guide', 5402, { 12840: 20 }, [], [['turnin', 5220], ['accept', 5222]]],
 	['forever/alliance/50-60/04-western-plaguelands.guide', 5403, { 12841: 10 }, [], [['turnin', 5220], ['accept', 5222]]],
 	['forever/alliance/50-60/02-felwood.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
-	['forever/alliance/50-60/03-winterspring.guide', 8469, { 21383: 5 }, [], []],
 	['forever/horde/40-50/06-azshara.guide', 2741, { 8564: 1 }, [], [['turnin', 2641], ['accept', 4504], ['turnin', 2661], ['accept', 2662], ['turnin', 2662]]],
 	['forever/horde/50-60/03-winterspring.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
 	['forever/horde/50-60/05-eastern-plaguelands.guide', 5887, { 11515: 6 }, [], []], // Greta's chain and the shards moved from 07 to 05's Felwood stop (2026-11-20)
@@ -9279,7 +9278,9 @@ test('forever/alliance/50-60/03-winterspring.guide: final review: Salfa where th
 	const fel = goals('forever/alliance/50-60/02-felwood.guide');
 	const salfa = at(fel, 'turnin 8465', is('turnin', 8465));
 	assert.ok(salfa < at(fel, 'getfp Everlook', (g) => g.t === 'getfp' && g.location === 'Everlook'), 'before Everlook');
-	assert.equal(fel[salfa].s, fel[at(fel, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+	// (0.4.2 danger gate: Winterfall Activity, 8464, is left out of the Alliance route: Winterfall Village's Ursa are
+	// 57-58 where the route stands at about 54.4.)
+	assert.ok(!fel.some(({ goal }) => goal.quest === 8464), 'no Winterfall Activity taken there');
 	const list = goals('forever/alliance/50-60/03-winterspring.guide');
 	assert.ok(!list.some(({ step }) => step.along) && !fel.some(({ step }) => step.along), 'no along lists');
 	const kills = new Set(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 5082).map((e) => e.s));
@@ -10861,11 +10862,13 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	assert.ok(pos(bs, 'accept', 3702) < pos(bs, 'accept', 3823), 'Archesonus on the Ironforge stop before the Steppes');
 	assert.ok(!goals(A('40-50/07-un-goro-crater')).some(({ goal }) => goal.quest === 3702 || goal.quest === 3701 || goal.quest === 4504), 'no 54s taken at 49 in Un\'Goro\'s guide');
 	// (0.4.3 fix round: the second Gadgetzan stop is on the Tanaris, Un'Goro Crater, Felwood & Winterspring guide, at
-	// about 54; Jaron's chain (Harlo's quest, minimum 53) on its Winterspring loop at about 56, with Harlo's quest taken
-	// at Everlook on that loop; The Restless Souls on the Plaguelands guide's Light's Hope stop.)
+	// about 54; Jaron's chain (Harlo's quest, minimum 53) on its Winterspring loop, with Harlo's quest taken at Everlook
+	// on that loop; The Restless Souls on the Plaguelands guide's Light's Hope stop. 0.4.2 danger gate: the chain ends
+	// at Jaron's wagon, without Jaron's Supplies, 4864, whose amulet drops from owlbeasts of 56-59.)
 	const ws = goals(A('50-60/03-winterspring'));
 	assert.ok(pos(ws, 'turnin', 4493) <= pos(ws, 'accept', 4504), 'Super Sticky from Tran\'rek on the later Gadgetzan stop');
-	assert.ok(pos(ws, 'turnin', 5082) < pos(ws, 'accept', 6604) && pos(ws, 'accept', 6604) < pos(ws, 'turnin', 4864), 'Jaron\'s chain on the Winterspring loop, after the furbolg camp');
+	assert.ok(pos(ws, 'turnin', 5082) < pos(ws, 'accept', 6604) && pos(ws, 'accept', 6604) < pos(ws, 'turnin', 4863), 'Jaron\'s chain on the Winterspring loop, after the furbolg camp');
+	assert.ok(!ws.some(({ goal }) => goal.quest === 4864), 'no Jaron\'s Supplies');
 	assert.ok(!goals(A('50-60/02-felwood')).some(({ goal }) => [6604, 4861, 4863, 4864].includes(goal.quest)), 'not on the first pass through Winterspring at 53');
 	assert.equal(wpl[pos(wpl, 'accept', 5281)].s, wpl[pos(wpl, 'turnin', 5210)].s, 'The Restless Souls from Caretaker Alen on the Light\'s Hope stop');
 	assert.ok(pos(wpl, 'turnin', 5281) > pos(wpl, 'accept', 5281), 'and handed to Egan in Terrordale');

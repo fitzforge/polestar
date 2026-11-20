@@ -122,7 +122,8 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요.",
+	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요."
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
 
 	-- Step 24: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
@@ -135,7 +136,7 @@ return {
 
 	-- Step 26: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "{zone:1427}에서 얻은 {item:10569}을(를) 열어 {item:10575}을(를) 꺼낸 뒤, {npc:9459}에게 업적의 증거를 가져왔다고 말하세요. 비룡과 싸울 필요는 없습니다.",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	["Below ground"] = "지하",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, 보물에서",
@@ -382,6 +383,7 @@ return {
 	-- ["Help her escape the camp"] = "야영지 탈출 돕기",
 	-- ["Level 51.3 on the way north"] = "북쪽으로 가는 길에 51.3레벨까지",
 	-- ["Level 52 at {area:249}"] = "{area:249}에서 52레벨까지",
+	-- ["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "{zone:1427}에서 얻은 {item:10569}을(를) 열어 {item:10575}을(를) 꺼낸 뒤, {npc:9459}에게 업적의 증거를 가져왔다고 말하세요. 비룡과 싸울 필요는 없습니다.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "선택: {npc:8395}이(가) 야영지 주변 히포그리프에게서 얻는 {item:10450} 2개를 원합니다. 데이터에는 경험치가 나와 있지 않습니다.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "선택: {npc:8888}의 유령은 {area:254} 안 거대한 사슬 위 그의 무덤에 서 있으며, 죽은 자만 그를 볼 수 있습니다. 어차피 산 근처에서 죽었다면 부활하기 전에 영혼 상태로 그에게 달려가세요.",
 	-- ["Portal to {zone:1438}"] = "{zone:1438}행 차원문",
@@ -413,6 +415,7 @@ return {
 	-- ["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "{npc:8395}의 야영지와 북쪽 사이 폐허의 원한의꼬리일족 미르미돈(50-51)을 사냥해 51.3레벨까지 올리세요. {npc:8420}의 야영지에 있는 블러드 엘프는 51-53레벨입니다. 또는 파티가 있다면 대신 {area:1417} 던전을 도세요.",
 	-- ["Upstairs"] = "위층",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.",
+	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요.",
 	-- ["Wildkin feathers"] = "올빼미야수 깃털",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "귀환석이 {zone:1455}에 설정되어 있습니다({zone:1425} 가이드에서 그곳으로 정합니다). 귀환석으로 여관에 돌아가십시오.",
 	-- ["grind on {npc:7033}"] = "{npc:7033} 사냥",

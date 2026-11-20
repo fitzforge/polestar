@@ -120,9 +120,10 @@ return {
 	-- Step 21: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
-	-- {object:19868} Rocket Car Rubble
+	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요.",
+	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요."
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "",
 	-- {item:5795} Hardened Tortoise Shell
 	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
 	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, 소금껍질거북에게서 획득",
@@ -207,5 +208,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: 이 가이드 끝에서 메네실 항구의 {npc:1480}에게",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}은(는) {area:429} 사티로스의 우두머리이며 나뭇가지를 지니고 있습니다.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963}, {npc:4962}은(는) 모두 메네실 항구 여관에 있습니다. {npc:4963}와(과) 대화하면 타포케가 덤벼들지만, 쓰러뜨리면 포기합니다. {npc:1480}은(는) 여관에서 북동쪽으로 조금 걸어간 곳에 있습니다.",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
 }

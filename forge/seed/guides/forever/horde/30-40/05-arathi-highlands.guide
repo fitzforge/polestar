@@ -361,7 +361,7 @@ step Doctor Draxlegauge
 
 step The Drowned Reef: kill these as you meet them
   zone Arathi Highlands
-  tip West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.
+  tip Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.
   tip Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.
   kill 2595 quest 664.1               -- Underwater
   collect 4492 quest 666              -- Underwater

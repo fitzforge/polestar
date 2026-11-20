@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "血帆海盜：遇到就殺",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。"
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
@@ -477,6 +478,7 @@ return {
 	-- ["Bloodsail pirates"] = "血帆海盜",
 	-- ["Cold Eye Basilisks"] = "冷眼蜥蜴",
 	-- ["Cortello's scroll"] = "科泰羅的卷軸",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "每個血帆海盜都會掉落鼻煙，其中一個帶著{npc:2493}的眼睛；血帆流氓在城鎮北邊的岸上走動。海圖和命令在{area:35}南邊{area:43}的海盜營地裡。\n小心：{area:43}營地的血帆術士和血帆流氓是41-43級，比你高一級以上，而且站得很近：從邊緣一隻一隻拉。",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "每個贊吉爾信徒都可能掉落混合物；{npc:2537}在營地南部走動。",
 	-- ["Fly to {area:144}"] = "飛往{area:144}",

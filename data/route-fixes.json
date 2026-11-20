@@ -12941,6 +12941,24 @@
 				"q": 4973,
 				"reason": "#3001 (Edet): the second Counting Out Time is repeatable (575 XP for five more watches), and the game never flags a repeatable quest as completed, so after a relog the guide could not tell it had been handed in and went back to it. The repeat leaves the leveling route; the first Counting Out Time (4972) stays.",
 				"issue": "#3001"
+		},
+		{
+				"q": 8464,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Winterfall Activity sends the player into Winterfall Village east of Everlook for eight Ursa (57-58) and eight Shaman (56-57); the Alliance route reaches it at about 54.4 by the level model (Tanaris, Un'Goro Crater, Felwood & Winterspring guide), so the Ursa stand about three levels over the player. Players' recordings agree it doesn't fit there: 26 people took it (at 49.7-55.5), 6 finished it (at 54.1-59.6) and 7 abandoned it. The route has no later Winterspring stop near Salfa, so it is left out with its follow-up 8469 (the Horde route does it in its last Felwood guide at about 59).",
+				"issue": "-"
+			},
+			{
+				"q": 8469,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Winterfall Spirit Beads is offered only after Winterfall Activity (8464), which the Alliance route leaves out.",
+				"issue": "-"
+			},
+			{
+				"q": 4864,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Jaron's Supplies asks for the Blue-feathered Amulet, which drops only from the owlbeasts around Jaron's wagon at Mazthoril: Crazed 56-57, Moontouched 57-58, Berserk 58-59. The Alliance route stands there at about 54.6 by the level model, two to four levels under them, and players' recordings have 4 people taking it (at 55.2-59.9) and 3 finishing it. Left out; Jaron's crate and wagon (4861, 4863) stay, as they ask for no fight.",
+				"issue": "-"
 			}
 		],
 		"revert": [

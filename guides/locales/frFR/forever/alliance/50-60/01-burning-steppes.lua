@@ -123,7 +123,8 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250} : tuez-les au passage",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Utilisez le {item:12284} sur un {npc:7047} sur les pentes à l'est de {area:251} juste avant qu'il meure, puis ramassez l'essence qu'il laisse.\nAttention : un {npc:8981} (niveau 56, rare) arpente les pentes près des rejetons, et les {npc:7040} et Wyrmides autour d'eux sont élites : utilisez l'Incarcinatrix sur un rejeton en bordure et regardez autour de vous avant chaque attaque.",
+	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Utilisez le {item:12284} sur un {npc:7047} sur les pentes à l'est de {area:251} juste avant qu'il meure, puis ramassez l'essence qu'il laisse.\nAttention : un {npc:8981} (niveau 56, rare) arpente les pentes près des rejetons, et les {npc:7040} et Wyrmides autour d'eux sont élites : utilisez l'Incarcinatrix sur un rejeton en bordure et regardez autour de vous avant chaque attaque."
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
 
 	-- Step 24: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
@@ -136,7 +137,7 @@ return {
 
 	-- Step 26: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Ouvrez le {item:10569} de {zone:1427} pour en récupérer la {item:10575}, puis dites à {npc:9459} que vous apportez la preuve de vos exploits : aucun drake à combattre.",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	["Below ground"] = "Sous terre",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, dans le trésor",
@@ -395,6 +396,7 @@ return {
 	-- ["Level 52 at {area:249}"] = "Niveau 52 à {area:249}",
 	-- ["Level 52.08"] = "Niveau 52.08",
 	-- ["On the way"] = "En chemin",
+	-- ["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Ouvrez le {item:10569} de {zone:1427} pour en récupérer la {item:10575}, puis dites à {npc:9459} que vous apportez la preuve de vos exploits : aucun drake à combattre.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Facultatif : {npc:8395} veut deux Plumes d'hippogryphe sans défaut des hippogryphes autour de son camp. Les données n'indiquent aucune expérience pour cette quête.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Facultatif : le fantôme de {npc:8888} se tient sur sa tombe, sur la grande chaîne à l'intérieur de {area:254}, et seuls les morts peuvent le voir. Si vous mourez près de la montagne de toute façon, menez votre esprit jusqu'à lui avant de ressusciter.",
 	-- ["Portal to {zone:1438}"] = "Portail vers {zone:1438}",
@@ -435,6 +437,7 @@ return {
 	-- ["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "Montez jusqu'au niveau 51.3 sur les Myrmidons Fouette-bile (50-51) des ruines entre le camp de {npc:8395} et le nord : les elfes de sang du camp de {npc:8420} sont 51-53. Ou, en groupe, faites plutôt le donjon {area:1417}.",
 	-- ["Upstairs"] = "À l'étage",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Utilisez le {item:12284} sur un {npc:7047} sur les pentes à l'est de {area:251} juste avant sa mort, puis ramassez l'essence qu'il laisse.",
+	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Utilisez le {item:12284} sur un {npc:7047} sur les pentes à l'est de {area:251} juste avant qu'il meure, puis ramassez l'essence qu'il laisse.\nAttention : un {npc:8981} (niveau 56, rare) arpente les pentes près des rejetons, et les {npc:7040} et Wyrmides autour d'eux sont élites : utilisez l'Incarcinatrix sur un rejeton en bordure et regardez autour de vous avant chaque attaque.",
 	-- ["Wildkin feathers"] = "Plumes d'Indomptable",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "Votre Pierre de foyer est liée à {zone:1455} (le guide des {zone:1425} l'y lie) : utilisez-la pour retourner à l'auberge.",
 	-- ["grind on {npc:6196}"] = "tuez en boucle : {npc:6196}",
