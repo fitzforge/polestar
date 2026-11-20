@@ -6576,6 +6576,44 @@
 			{
 				"a": [
 					"task",
+					606,
+					0
+				],
+				"b": [
+					"turnin",
+					587
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Scaring Shaky's Elder Mistvale Gorillas (40; spawns 31-35,58-68) live on the hills just east of the Bloodsail camp north of Booty Bay (Raiders and Mages 26-33,66-74), where Up to Snuff and Keep An Eye Out are worked. The giblets are taken on the same trip and all three are handed in on one return to town (Shaky at the tunnel mouth), instead of town -> camp -> town -> gorillas -> town: one Booty Bay stop and one round trip fewer at about 40. Scaring Shaky is taken on 30-40/04b; the fallback accept for a fresh starter stays on the stop before the camp."
+			},
+			{
+				"a": [
+					"turnin",
+					1398
+				],
+				"b": [
+					"turnin",
+					1425
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Deliver the Shipment, given by Watcher Biggs with Driftwood's hand-in, goes to Nethergarde Keep at the Blasted Lands' north edge, a short ride south through the pass from Biggs; the route leaves the swamp that way and flies out from the keep, instead of walking back west to Darkshire and carrying it to a Nethergarde stop at 48 six guides later. Players' recordings: 37 Alliance people rode the road from the swamp to the keep at 38-45, no deaths on it."
+			},
+			{
+				"a": [
+					"task",
+					1364,
+					0
+				],
+				"b": [
+					"turnin",
+					1364
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Mazen's Behest's essays come from Misty Valley in the Swamp of Sorrows and Watcher Mahar Ba waits in Nethergarde Keep, where the swamp leg now ends (see 1425 above), so the quest is handed in on the same trip."
+			},
+			{
+				"a": [
+					"task",
 					1387,
 					0
 				],
@@ -8720,6 +8758,10 @@
 				"why": "c15 review: A Donation of Runecloth, Orgrimmar (Vehena): sixty cloth from the player's bags, not a drop the route can farm; the route counted its XP as certain. Optional like the Alliance donations (Main's call): a player without the cloth skips the hand-in, and the route no longer counts on it"
 			},
 			{
+				"q": 2876,
+				"why": "Fix round 2026-11-20 (Alliance 40-50/04): Ship Schedules starts from a Ship Schedule a Southsea pirate can drop at Lost Rigger Cove; a `when has 9250` step on the next Steamwheedle Port stop takes it and hands it to Security Chief Bilgewhizzle in the same building, so a character without the drop never sees it and the route never counts its XP. Recorded: 11 people took and handed it in at 43-51 (rec.py quest 2876). Likewise the Alliance Feralas and Hinterlands robot steps (2766/2767, 485/836 below) show only with their beacon in the bags, the rewards on 05's Booty Bay stop."
+			},
+			{
 				"q": 2766,
 				"why": "c15 review: Find OOX-22/FE! starts from the Distress Beacon, a 0.8-2.5 % drop of the Forgotten Coast's crawlers (the game's loot data); v1 marks it optional. c15 counted it: the route walked 285 s to the beacon's coast at 45.7 and planned the escort into Feralas II (Orc.json order[1207-1210]), and banked its XP"
 			},
@@ -9028,6 +9070,11 @@
 	"overrides": {
 		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip). pairs: {a, b: [accept|task|turnin, quest], why, source}: a before b. leftout: {q, guide, reason, issue}: an accept of that guide whose prerequisite only an earlier visit to the zone brings, left out for characters without it instead of brought back (read by forge guide lint, not the route build). Lines whose reason or source starts F<n> come from player reports (forge judge feedback, data/local/research/RouteFeedback.json).",
 		"include": [
+			{
+				"q": 3445,
+				"reason": "Fix round 2026-11-20 (Alliance 40-50): The Sunken Temple is a courier from Angelas Moonbreeze in Feathermoon Stronghold to Marvon Rivetseeker at the Broken Pillar in Tanaris (3,650 XP, minimum level 46): taken on 40-50/03's last Feathermoon stop (level model about 46.6, in a `when level>=46` step) and handed in on 40-50/04's dig stop at the Broken Pillar (about 47.6), two stops the route already makes, instead of on the 50-60 Feralas stop at about 56. Players' recordings (Alliance, all players): taken at 46 and handed in at 48 (25th percentile, 28 and 25 people).",
+				"issue": "-"
+			},
 			{
 				"q": 97924,
 				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Helene Peltskinner in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 12 took it, 12 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
@@ -10562,6 +10609,24 @@
 				"issue": "-"
 			},
 			{
+				"q": 1190,
+				"after": [
+					"turnin",
+					1137
+				],
+				"reason": "Fix round 2026-11-20: Keeping Pace is given by Pozzik at the Mirage Raceway once News for Fizzle (1137) is handed in to Fizzle in the gnomes' camp beside him; its work is Zamek's diversion and a click on Rizzle's Unguarded Plans in the same camp, so it is done on the raceway stop both routes already make (Alliance 40-50/04, Horde 40-50/02). There is no race to wait for: the earlier Alliance skip's reason did not match the quest. Recorded: 19 Alliance people took and finished it, P25 level 43 both ways.",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"after": [
+					"turnin",
+					1190
+				],
+				"reason": "Fix round 2026-11-20: Rizzle's Schematics is taken from Rizzle's Unguarded Plans as Keeping Pace is handed in there and handed back to Pozzik a few steps away, on the same Mirage Raceway stop.",
+				"issue": "-"
+			},
+			{
 				"q": 1428,
 				"after": [
 					"turnin",
@@ -11721,6 +11786,12 @@
 		],
 		"skip": [
 			{
+				"q": 1395,
+				"faction": "Alliance",
+				"reason": "Fix round 2026-11-20 (Alliance 40-50): Supplies for Nethergarde's Crate of Power Stones lasts an hour from Watchmaster Sorigal in Darkshire. 40-50/01 now closes the swamp's quests at Nethergarde Keep at about 41, with the whole swamp between Darkshire and the keep, and 40-50/05 no longer rides Darkshire -> Deadwind Pass -> the swamp -> the Blasted Lands only for it, Thadius Grimshade (2990) and the bloodmage accepts (those two moved to the Burning Steppes guide's Nethergarde and bloodmage stops). No Darkshire stop is left before a Nethergarde visit; 2,900 XP left out instead of a 15-20 minute leg.",
+				"issue": "-"
+			},
+			{
 				"q": 4061,
 				"faction": "Horde",
 				"reason": "Horde 50-60 level tidy (0.4.0): The Rise of the Machines' War Reavers are 53-55 among the Thaurissan dwarves (7 spawns 53+, a recorded death) at the route's only Burning Steppes pass (model 52-53): 3 levels over at a dangerous spot, and no later Burning Steppes visit on the Horde route. Offered to the team (no later band passes the Steppes).",
@@ -11942,24 +12013,6 @@
 				"q": 115,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Shadow Magic only once Blackrock Menace (20) and Blackrock Blockade (98387) are handed in (the data's preAll; players' recordings: refused in every recorded window before then). The route hands them in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1190,
-				"faction": "Alliance",
-				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137): the Horde leaves out 1137; the Alliance hands 1137 in at 45 in 40-50/04, where Keeping Pace would send it back across Thousand Needles to Rizzle for a race the route doesn't wait for. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1194,
-				"faction": "Alliance",
-				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
-				"issue": "-"
-			},
-			{
-				"q": 1191,
-				"faction": "Alliance",
-				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
 				"issue": "-"
 			},
 			{

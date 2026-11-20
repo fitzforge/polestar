@@ -291,11 +291,11 @@ one guide for both factions.
 | 17 | Desolace | 38 to 39 |
 | 18 | Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows | 39 to 41 |
 | 19 | **Riverglades** | 41 to 45 |
-| 20 | Badlands & The Hinterlands | 45 to 46 |
+| 20 | Badlands & The Hinterlands | 44 to 45 |
 | 21 | **Shen'dralas** | 45 to 46 |
-| 22 | Feralas | 45 to 47 |
+| 22 | Feralas | 45 to 46 |
 | 23 | Tanaris | 46 to 48 |
-| 24 | The Hinterlands & Blasted Lands | 47 to 48 |
+| 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
 | 25 | Searing Gorge | 48 to 49 |
 | 26 | Un'Goro Crater | 49 to 50 |
 | 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |

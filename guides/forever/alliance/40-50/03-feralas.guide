@@ -2,7 +2,7 @@
 guide forever/alliance/40-50/03-feralas
 title Feralas
 faction Alliance
-levels 45-47
+levels 45-46
 zone Feralas
 next forever/alliance/40-50/04-tanaris
 pitch Feathermoon's isle, ogres, yetis and the Isle of Dread.
@@ -15,6 +15,9 @@ con Boats to and from the island
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
+# The Sunken Temple (3445, fix round 2026-11-20): Angelas Moonbreeze's courier is taken on the last Feathermoon stop
+# and handed to Marvon Rivetseeker at the Broken Pillar on the Tanaris guide's dig stop (about 47.6), instead of on
+# the 50-60 Feralas stop at about 56; it needs level 46.
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
 # Left out: Zorbin's Zapped Giants and Fuel for the Zapping (7003, 7721; Sea Elementals and zapped giants 47-49, elite
 # giants around them) and Pratt's Improved Quality and Pristine Yeti Hide (7733, 7735; Rage Scar yetis 46-49, #1999).
@@ -174,6 +177,19 @@ step Ironfur bears
   tip Careful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
 
+step OOX-22/FE Distress Beacon
+  when has 8705
+  tip Only with the distress beacon, a rare drop in Feralas: it starts a quest to find the robot it calls for.
+  accept 2766 item 8705 optional      -- OOX-22/FE Distress Beacon
+
+step Homing Robot OOX-22/FE
+  when onquest 2766
+  tip The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast, where the boat to Feathermoon leaves; its reward waits with Oglethorpe Obnoticus in Booty Bay, on the Hinterlands guide's Booty Bay stop.
+  tip Careful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock.
+  turnin 2766 optional                -- Homing Robot OOX-22/FE
+  accept 2767 optional
+  complete 2767 optional
+
 step Feathermoon Stronghold
   tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4265                         -- Ginro Hearthkindle
@@ -183,6 +199,11 @@ step Feathermoon Stronghold
 
 step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
+
+step Angelas Moonbreeze
+  when level>=46
+  tip Angelas Moonbreeze in Feathermoon Stronghold sends you to Marvon Rivetseeker at the Broken Pillar in Tanaris, where the Tanaris guide stops for his dig.
+  accept 3445                         -- for Marvon Rivetseeker at the Broken Pillar in Tanaris: keep it
 
 step Fly to Thalanaar
   when taxi "Thalanaar"
