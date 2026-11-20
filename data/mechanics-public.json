@@ -480,6 +480,19 @@
 			],
 			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
 		},
+		"97536": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 278194,
+					"count": 5,
+					"fact": "Use the Crate of Radioactive Refuse five times in the Tanaris desert. Stay clear of Gadgetzan and move away from the last pile before using it again.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest supplies the crate and describes where to empty it. Seven people's recordings show discard credit on cast 1303853; MIG reported the item use in #3159."
+		},
 		"96018": {
 			"kinds": [
 				{

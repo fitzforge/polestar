@@ -9141,6 +9141,18 @@
 		],
 		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (route audit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
 	},
+	"97536": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 5, "text": "Experimental Refuse discarded" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "Quest 97536, objective 1: seven people gained credit on cast 1303853, including all five casts without a kill." },
+			{ "kind": "in-game-check", "ref": "#3159" }
+		],
+		"note": "Using the crate advances the refuse counter. The credit names the same ID as a Wastewander Rogue, but a rogue is not a target."
+	},
 	"97539": {
 		"set": {
 			"end": {
