@@ -227,10 +227,13 @@ L["Artisan %s"] = "专家级%s"
 -- L["Ride to the flight master"] = ""
 -- L["Requires level %d: the guide comes back for it then"] = ""
 -- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "开关指南窗口"
@@ -370,6 +373,9 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "地点 %d/%d"

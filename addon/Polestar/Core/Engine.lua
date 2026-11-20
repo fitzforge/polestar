@@ -12938,7 +12938,15 @@ end
 -- from this NPC to its hand-in fits LIMIT_SHARE of its time
 -- (Own.aheadLimitOk). An escort (`escort`) is never one: it starts walking
 -- when taken, so only its own step takes it, with its warning (#1618).
--- Only the loaded guide's steps, never another tab's or the next guide's.
+-- The loaded guide's steps, then the guides the route plays after it
+-- (Own.laterGuides: each one's next, the route chosen there or the one the
+-- hand-off takes by itself, never past a choice still to make, while it
+-- starts at most HERE_ABOVE levels over the player), for a quest the loaded
+-- guide does not take: a giver the player stands at now is a trip back
+-- saved there too (Own.laterWants, Own.hereNext). The same rules in that
+-- guide (Own.laterOk: its steps, skips and `when`; never a timed quest),
+-- and no `abandon` of it on the way; its accept reads done when the route
+-- gets there, as the loaded guide's do. Never another tab's guide.
 --
 -- A While-you're-here hand-in whose NPC the route comes back to after
 -- leading away (Own.hereVisit) is the whole visit when every open goal of
@@ -13110,7 +13118,8 @@ end
 
 -- Whether auto-accept takes quest q at the NPC whose window is open: an
 -- accept of it at that NPC in a later step of the loaded guide for the
--- character (Own.aheadOk), with room in the log. When not, why.
+-- character (Own.aheadOk), else, for a quest the loaded guide does not take,
+-- in a guide after it (Own.laterWants), with room in the log. When not, why.
 function Own.aheadWants(q)
 	if guide == nil or not computed then return false, "no guide placed" end
 	if ns.Party and ns.Party.HoldsQuest(q) then return false, "the group holds it" end
@@ -13130,6 +13139,93 @@ function Own.aheadWants(q)
 					if room < 1 then return false, ("log full (room %d, step %d)"):format(room, i) end
 					return true
 				end
+			end
+		end
+	end
+	if layoutOf(guide).accepts[q] then return false, ("no accept here after step %d"):format(computed) end
+	return Own.laterWants(q, npc)
+end
+
+Own.NEXT_MAX = 8 -- guides after the loaded one whose accepts are taken ahead, at most (short guides, a loop of `next`)
+
+-- fn(...) with guide g read as the loaded guide (its steps, skips, `when`
+-- outcomes, layout and While-you're-here index: a guide the route plays
+-- later, not loaded for that), the loaded one back after, also when fn
+-- fails; -> fn's first two results. A pass's memo of the loaded guide
+-- (Own.comingSeen) is not read meanwhile.
+function Own.inGuide(g, fn, ...)
+	local was, seen = guide, Own.comingSeen
+	guide, Own.comingSeen = g, nil
+	local ok, a, b = pcall(fn, ...)
+	guide, Own.comingSeen = was, seen
+	if not ok then error(a, 0) end
+	return a, b
+end
+
+-- The guides the route plays after the loaded leveling guide, in order, whose
+-- accepts are taken ahead (see "Accepts ahead"): each one's next (routeNext:
+-- the route chosen there, the only option for the character, or the
+-- recommended one with "always recommended"; none while the player has a
+-- choice to make), for the character, while it starts (Guides.Levels, the
+-- character's faction) at most HERE_ABOVE levels over the player, NEXT_MAX
+-- at most; and the first next guide past that level, or nil (the debug
+-- log's reason).
+function Own.laterGuides()
+	local list, from = {}, guide
+	if not (from.category == nil or from.category == "Leveling") then return list, nil end
+	if not player then refreshPlayer() end
+	local level, seen = player.level or 1, { [from.id] = true }
+	while #list < Own.NEXT_MAX do
+		local id, asks = routeNext(from)
+		local g = not asks and id and not seen[id] and Guides.Get(id) or nil
+		if not (g and Guides.GuideMatches(g, player)) then break end
+		seen[id] = true
+		if (tonumber((Guides.Levels(g, player.faction))) or 1) > level + Own.HERE_ABOVE then return list, g end
+		list[#list + 1] = g
+		from = g
+	end
+	return list, nil
+end
+
+-- Own.aheadOk for accept a, goal j of step s of a guide the route plays
+-- later, read as loaded (Own.inGuide): the step for the character and not
+-- skipped, never a timed quest (`near` false: its clock would run all the
+-- way there).
+function Own.laterOk(s, j, a, ready)
+	if not stepApplies(guide.steps[s]) then return false, "step not for this character" end
+	if isSkipped(s) then return false, "step skipped" end
+	return Own.aheadOk(s, j, a, ready, false)
+end
+
+-- Auto-accept past the loaded guide: quest q, which the loaded guide does not
+-- take, at NPC npc in the first guide after it that takes it there
+-- (Own.laterGuides), for the character (Own.laterOk), with no `abandon` of
+-- it on the way (the loaded guide's, or a guide's before that one) and room
+-- in the log. When not, why, naming that guide; when so, true, nil, that
+-- guide and its accept goal (Engine.LaterAcceptGuide).
+function Own.laterWants(q, npc)
+	local later, past = Own.laterGuides()
+	local dropped = layoutOf(guide).abandons[q] and guide.id or nil
+	for _, g in ipairs(later) do
+		local l = layoutOf(g)
+		for _, t in ipairs(l.accepts[q] or NONE) do
+			if t.goal.npc == npc then
+				if dropped then return false, ("abandoned later (%s)"):format(dropped) end
+				local j = 1
+				while t.step.goals[j] ~= t.goal do j = j + 1 end
+				local ok, why = Own.inGuide(g, Own.laterOk, t.s, j, t.goal, nil)
+				if not ok then return false, ("%s (%s step %d)"):format(why, g.id, t.s) end
+				local room = Own.logRoom()
+				if room < 1 then return false, ("log full (room %d, %s step %d)"):format(room, g.id, t.s) end
+				return true, nil, g, t.goal
+			end
+		end
+		if l.abandons[q] then dropped = dropped or g.id end
+	end
+	if past then
+		for _, t in ipairs(layoutOf(past).accepts[q] or NONE) do
+			if t.goal.npc == npc then
+				return false, ("%s starts at level %d (step %d)"):format(past.id, tonumber((Guides.Levels(past, player.faction))) or 1, t.s)
 			end
 		end
 	end
@@ -13473,6 +13569,67 @@ function Own.hereStranded(list, n, live)
 	return n
 end
 
+-- Pick-ups for the guides after the loaded one (see "Accepts ahead"): an
+-- accept of one of Own.laterGuides whose giver stands on the player's
+-- continent, for a quest the loaded guide does not take, that the player
+-- can take now (Own.laterOk with every prerequisite done; no `abandon` of it
+-- on the way, as Own.laterWants) is a pick-up line like a later step's, at
+-- step Own.NEXT_STEP (its goal in Own.nextGoals by quest), ranked after the
+-- route's next steps (near false), its sub-line naming that guide. The first
+-- guide's accept of a quest only, and none for a quest a line has already
+-- (`key` set as Own.hereGroups sets it). -> the new n.
+Own.NEXT_STEP = -3 -- the step of a later guide's pick-up line: no step of the loaded guide has it
+Own.nextGoals = {} -- quest -> the later guide's accept goal of its pick-up line
+function Own.hereNext(list, n)
+	if not Own.hereTurnins then return n end
+	local later = Own.laterGuides()
+	if #later == 0 then return n end
+	local C = Compat()
+	local c = C.GetPlayerWorldPosition()
+	if not c then return n end
+	local level = player.level or 1
+	local topQ, mine = level + Own.HERE_ABOVE, layoutOf(guide)
+	local dropped, have, room = mine.abandons, nil, nil
+	for _, g in ipairs(later) do
+		local idx = Own.inGuide(g, Own.hereGoalsOn, c)
+		for i = 1, idx and #idx or 0, 2 do
+			local s, j = idx[i], idx[i + 1]
+			local goal = g.steps[s].goals[j]
+			local q = goal.quest
+			if goal.t == "accept" and not mine.accepts[q] and not dropped[q] and not goal.limit and not goal.optional and not goal.either
+				and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level
+				and not C.IsOnQuest(q) and not questDone(q) and not missingPre(goal) then
+				if not have then
+					have = {}
+					for m = 1, n do have[list[m].key or false] = true end
+				end
+				if room == nil then room = Own.logRoom() >= 1 end
+				if not room then return n end
+				if not have["a" .. q] and Own.inGuide(g, Own.laterOk, s, j, goal, Own.READY_NONE) then
+					have["a" .. q] = true
+					Own.nextGoals[q] = goal
+					n = n + 1
+					list[n] = { s = Own.NEXT_STEP, g = q, goal = goal, kind = "take", left = 0, places = 1,
+						npcs = false, seen = false, spot = false, d = false, pick = 0,
+						budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "a" .. q,
+						sub = L["Saves a trip back: %s does it later."]:format(g.title or g.id), later = g,
+						tip = L["A guide later on your route takes this quest here: taken now, its step is done when you get there."],
+						on = false, since = 0, yards = 0, serial = 0, view = false }
+				end
+			end
+		end
+		-- What this guide drops is no pick-up for a guide after it.
+		local abandons = layoutOf(g).abandons
+		if next(abandons) then
+			local both = {}
+			for q in pairs(dropped) do both[q] = true end
+			for q in pairs(abandons) do both[q] = true end
+			dropped = both
+		end
+	end
+	return n
+end
+
 -- Direct hand-ins whose items the player carries (#2561). A `turnin ...
 -- direct` never enters the log, so the quest-log checks of a later step's
 -- hand-in (Own.hereFits) and of the stranded ones never see it ready. One
@@ -13686,6 +13843,8 @@ function Own.hereBuild()
 		n = Own.hereGroups(list, n)
 		-- Finished quests no step ahead hands in, at their ender on this map.
 		n = Own.hereStranded(list, n, live)
+		-- Pick-ups for the guides after this one.
+		n = Own.hereNext(list, n)
 		-- Direct hand-ins whose items are in the bags (#2561).
 		n = Own.hereDirect(list, n, live, nearTo)
 	end
@@ -14382,8 +14541,9 @@ function Own.hereViewOf(e)
 		local goal, left = e.goal, e.left
 		v = goalView(e.s, e.g, goal, "current", nil)
 		v.step, v.firstStep, v.here, v.left, v.appeared, v.later = e.s, e.first or e.s, e.kind, left, e.serial, not e.near
-		-- A stranded hand-in's line says why (Own.hereStranded), not a step.
-		if e.sub then v.hereSub, v.hereTip = e.sub, L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] end
+		-- A stranded hand-in's line and a later guide's pick-up say why
+		-- (Own.hereStranded, Own.hereNext), not a step.
+		if e.sub then v.hereSub, v.hereTip = e.sub, e.tip or L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] end
 		local text
 		if e.kind == "turnin" then
 			local _, npc = npcOf(goal)
@@ -15464,6 +15624,8 @@ function Own.alongGoal(s, g)
 		local goal = Own.strandGoals[g]
 		return goal or nil
 	end
+	-- A later guide's pick-up line (Own.hereNext): g is its quest.
+	if s == Own.NEXT_STEP then return Own.nextGoals[g] end
 	local step = guide.steps[s]
 	return step and step.goals[g] or nil
 end
@@ -17007,8 +17169,8 @@ end
 -- a quest an open guide hands in (#2918): "Auto turn-in" hands in the guide's
 -- quests, and one no open guide has is the player's to hand in.
 -- "take": a pick-up line up for questID whose NPC's window is open, so
--- auto-accept takes it however far on the route takes it.
--- Other accepts ahead: Own.aheadWants.
+-- auto-accept takes it however far on the route takes it (a later guide's
+-- too, Own.hereNext). Other accepts ahead: Own.aheadWants.
 function Own.hereWants(questID, kind)
 	if Own.hereHeld or guide == nil or Own.hereGuide ~= guide or Own.questSkipped(questID)
 		or (ns.Party and ns.Party.HoldsQuest(questID)) then return false end
@@ -17018,7 +17180,7 @@ function Own.hereWants(questID, kind)
 		local e = Own.hereOn[i]
 		local goal = e.goal
 		if e.kind == kind and goal.quest == questID
-			and (e.s < 1 and Own.openGuidesHandIn(questID)
+			and (e.s == Own.NEXT_STEP or e.s < 1 and Own.openGuidesHandIn(questID)
 				or e.s >= 1 and Own.groupPending(guide.steps[e.s]) ~= questID and not Own.dungeonPending(guide.steps[e.s]))
 			and (kind ~= "take" or goal.npc == npc or goal.object == npc) then return true end
 	end
@@ -17053,6 +17215,34 @@ function Engine.AcceptRefusal(questID)
 	if Engine.WantsQuest("accept", questID) then return nil end
 	local _, why = Own.aheadWants(questID)
 	return why or "not wanted"
+end
+
+-- The later guide auto-accept takes quest q for, at the NPC whose window is
+-- open (Own.laterWants, or a later guide's While-you're-here pick-up line),
+-- and the quest's title: Automation says so in chat. nil when a loaded guide
+-- takes q (no word: as before) or nothing wants it. Asked before the accept.
+function Engine.LaterAcceptGuide(questID)
+	if not questID or questID == 0 or guide == nil then return nil end
+	if not player then refreshPlayer() end
+	if scheduled then flush() end
+	local loaded = false
+	for i = 1, #tabs do
+		use(tabs[i])
+		if Own.wantsLoaded("accept", questID, 0) then
+			loaded = true
+			break
+		end
+	end
+	useActive()
+	if loaded then return nil end
+	local ok, _, g, goal = Own.aheadWants(questID)
+	if ok then return g, goal and questTitle(goal) end
+	if not Own.hereWants(questID, "take") then return nil end
+	for i = 1, Own.hereOnN do
+		local e = Own.hereOn[i]
+		if e.s == Own.NEXT_STEP and e.goal.quest == questID then return e.later, questTitle(e.goal) end
+	end
+	return nil
 end
 
 -- Whether the loaded guide takes quest q as an escort (a goal of it with
