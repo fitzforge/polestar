@@ -3,7 +3,9 @@
 -- loaded and picked): Journey style, read off where the layout places the Journey card.
 local J
 -- Whether the layout leaves the Journey card showing: it hides it in the foot style, where the chips stand for it.
+-- The card is shown before it is handed over, as the window's Journey shows itself before the layout places it.
 local function journeyShown()
+	J:Show()
 	Polestar.ThemeInternal.LAYOUTS.atlas.hooks.guidePlace("journey", J, 300, 40)
 	return J:IsShown()
 end
