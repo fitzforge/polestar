@@ -12225,6 +12225,19 @@
 			},
 			{
 				"a": [
+					"turnin",
+					528
+				],
+				"b": [
+					"accept",
+					546
+				],
+				"faction": "Horde",
+				"why": "Hillsbrad (0.4.2 route round, agreed with the 30-40 slice): Souvenirs of Death is no longer taken on 06-hillsbrad-foothills' first Tarren Mill stop at 22-25. Its skulls drop from every Hillsbrad human and kept players longer in the fields step where 19 route followers died; 30-40/01's Tarren Mill visit at about 30 takes it and kills the same Peasants, Miners and Councilmen there.",
+				"source": "0.4.2 route round: players' recordings (followers' deaths on the skull step)"
+			},
+			{
+				"a": [
 					"accept",
 					1097
 				],

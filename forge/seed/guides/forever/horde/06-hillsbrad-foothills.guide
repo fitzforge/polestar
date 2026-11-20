@@ -87,14 +87,13 @@ step Mountain Lion Blood
 step Tarren Mill
   turnin 527                          -- High Executor Darthalia
   accept 528
-  accept 546                          -- Deathguard Samsa
   turnin 501                          -- Apothecary Lydon, inside
   accept 502
   turnin 496                          -- Apothecary Lydon, inside
   accept 499
   turnin 499                          -- Umpi, next to Lydon; inside
 
-# ---------------------------------------------------------------- West: Stanley, peasants and skulls
+# ---------------------------------------------------------------- West: Stanley and the peasants
 
 step Stanley
   tip Stanley is Farmer Ray's dog, at the northern farmhouse in Hillsbrad Fields.
@@ -102,15 +101,13 @@ step Stanley
 
 step Hillsbrad Fields: kill these as you meet them
   zone Hillsbrad Foothills
-  tip The Peasants work the fields south of the farmhouses. Every Hillsbrad human drops skulls; the Peasants drop them most often.
+  tip The Peasants work the fields south of the farmhouses.
   tip Careful: A fleeing peasant that reaches the town hall can bring back many adds, including Hillsbrad footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.
-  collect 3692 quest 546.1 @30.3,40.3 -- Hillsbrad Human Skull: the Peasants in the fields
   kill 2267 quest 528.1
 
 step Tarren Mill
   turnin 528                          -- High Executor Darthalia
-  turnin 546                          -- Deathguard Samsa
-  note Darthalia's next Battle of Hillsbrad and Lydon's Elixir of Agony are for the next visit, at about 30.
+  note Darthalia's next Battle of Hillsbrad, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30.
 
 # ---------------------------------------------------------------- East: Durnholde
 step Durnholde Keep: kill these as you meet them

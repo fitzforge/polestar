@@ -12617,10 +12617,13 @@ test('Horde Call of Fire: every Telf Joolam step sends the player up the mountai
 // Final route review (0.3.6) put Masoj before the Mudsnout Blossoms and the southern peak after them. Since the 0.4.0
 // level tidy none of that loop is in Hillsbrad 22-25: Elixir of Agony (509, level 28, Mudsnout gnolls 27-28) goes with
 // Battle of Hillsbrad 529 and Dangerous! to the Tarren Mill visit at about 30, and Valuable Vantages is left out.
+// Souvenirs of Death (546) goes there too since the 0.4.2 route round: its skulls kept players longer in the fields
+// step where 19 route followers died at 22-25, and 30-40/01 kills the same Hillsbrad humans at about 30.
 test('Hillsbrad (Horde 22-25): the quests two or more levels over wait for the visit at 30', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	for (const q of [509, 513, 529, 567, 98094, 98095]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} not taken at 23-25`);
-	for (const q of [527, 528, 546, 498, 549]) assert.ok(list.some(({ goal }) => is('turnin', q)(goal)), `${q} still done and handed in`);
+	assert.ok(!list.some(({ goal }) => goal.quest === 546), 'Souvenirs of Death waits for the visit at 30');
+	for (const q of [527, 528, 498, 549]) assert.ok(list.some(({ goal }) => is('turnin', q)(goal)), `${q} still done and handed in`);
 });
 
 // Final route review (0.3.6): Durotar Warlocks walked from Skull Rock into Orgrimmar for The Binding and back out to
