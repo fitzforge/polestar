@@ -17,6 +17,7 @@ fn world_spacing(yards_across: f64) -> f64 {
 
 const PRELUDE: &str = r#"
 local N, Pins, nav = Polestar.Nav, Polestar.Pins, stub.nav
+Polestar.Set("nav.navRouting", false) -- Walk legs use compass bearings; travel still plans the boat and flight legs.
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, label or "Target")
@@ -218,6 +219,7 @@ fn world_map_spacing_scales_with_the_viewed_map_60_to_its_width_at_least_15_yd_c
 		r.zone = worldDots(9000)
 		nav.showWorldMap(9002)
 		r.small = worldDots(9002)
+		nav.addGround(0, 1, -1, 1401, 999)                -- the walk begins outside the viewed map
 		nav.place(0, 1400)                                -- 400 yd off the map's west edge
 		target(0, 0)
 		nav.showWorldMap(9000)
@@ -368,6 +370,24 @@ fn the_dots_crawl_toward_the_target_while_shown_and_hold_still_with_reduced_moti
 	for (wx, wy) in before {
 		assert!(after.iter().any(|&(ex, ey)| (ex - wx).abs() < 1e-6 && (ey - wy).abs() < 1e-6), "the dot at {wx},{wy} stays put as the player walks");
 	}
+}
+
+#[test]
+fn the_target_stays_selected_but_an_unsafe_walk_has_no_fallback_trail() {
+	let out = run(r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.routeLines", false)
+		nav.place(0, 0)
+		target(0, 800)
+		local r = { clear = Pins.GetTrail() ~= nil }
+		-- Enemy settlement halfway along the apparent straight walk.
+		N.danger.hubBins[0].Alliance[3] = nav.groundDisk(0, 400, 25)
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		r.blocked = { N.GetTarget() ~= nil, Pins.GetTrail() ~= nil, N.Sample() }
+		target(0, -800)
+		r.other = Pins.GetTrail() ~= nil
+		emit(r)"#);
+	assert_eq!(out[0], json!({"clear":true,"blocked":[true,false,"unsafe"],"other":true}));
 }
 
 #[test]

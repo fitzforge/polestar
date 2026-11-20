@@ -225,10 +225,15 @@ L["Artisan %s"] = "%s (мастер)"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Окно гайда"
@@ -355,6 +360,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar на паузе: стрелка снова последует за гайдом, когда вы живым выйдете из подземелья, или после /polestar resume."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 L["Search here"] = "Ищите здесь"
 L["Arrived"] = "На месте"
 L["Click the arrow for the next spot"] = "Щелкните стрелку для следующей точки"
@@ -367,6 +373,9 @@ L["Drag to move."] = "Перетащите, чтобы переместить."
 L["Click for the next spot."] = "Щелкните для следующей точки."
 L["Shift-drag to move."] = "Для перемещения перетащите, удерживая Shift."
 L["No waypoint"] = "Нет путевой точки"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Точка %d из %d"
@@ -441,7 +450,8 @@ L["Walk to the entrance"] = "Идти ко входу"
 L["Walk to the lift"] = "Идти к подъемнику"
 L["%s, Top"] = "%s, верх"
 L["%s, Bottom"] = "%s, низ"
-L["No route: walk straight to the target."] = "Маршрута нет: идите прямо к цели."
+L["No safe walking route"] = "Нет безопасного пешего пути"
+L["Finding a walking route"] = "Поиск пешего маршрута"
 L["Show the travel route to the current target"] = "Показать маршрут к текущей цели"
 L["Hostile town: %s"] = "Враждебный город: %s"
 L["Ride the elevator up"] = "Подняться на лифте"
@@ -1405,7 +1415,6 @@ L["%s in your bank"] = "в банке: %s"
 L["%s in your mail"] = "на почте: %s"
 L["%s has %s"] = "%s: %s"
 L["%s to buy"] = "купить: %s"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "(выставлено только %s)"
 L["(old price)"] = "(старая цена)"
 
@@ -1672,6 +1681,11 @@ L["Worth doing near here: %s"] = "Стоит сделать поблизости
 L["%d left out here"] = "Пропущено здесь: %d"
 L["Left out here"] = "Пропущено здесь"
 L["Turn off Skip grey quests"] = "Выключить «Пропускать серые задания»"
+-- L["This guide stays open in its tab and picks up by itself at that level."] = ""
+-- L["Click to switch to its tab"] = ""
+-- L["Click to open it in a new tab"] = ""
+-- L["Hides this line until more quests are off your route."] = ""
+-- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2577,7 +2591,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "Скрывать метки шага на карте во время паузы"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "Во время паузы с карт также исчезают метки целей шага, их области, «Пока вы здесь» и следующие шаги."
 L["No quest automation while paused"] = "Без автоматизации заданий во время паузы"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Во время паузы задания не принимаются и не сдаются за вас, а награда не выбирается, пока Polestar не продолжит работу."
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "Клавиша или кнопка геймпада, которая ставит Polestar на паузу или снимает с неё. Он также продолжит сам, когда вы живым выйдете из подземелья."
 L["Let a following addon show the way"] = "Доверить путь аддону, который следует за Polestar"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "Скрывает стрелку Polestar, пока другой аддон сам показывает цель Polestar, как Waypoint Pin из Naowh Forever при включенном Follow Polestar. Тогда этот аддон также ставит метку самой игры."
@@ -2607,6 +2620,7 @@ L["Repair: gear worn below"] = "Починка: прочность ниже"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Напоминает о починке, когда прочность какого-либо предмета снаряжения опускается ниже этой доли. 0 — никогда."
 L["play Freedoom Arcade by petllama"] = "играть в Freedoom Arcade от petllama"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade от petllama (GPL-2.0 или новее) запускает три уровня Freedoom от проекта Freedoom (лицензия BSD) из папки Polestar_Arcade."
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3544,6 +3558,7 @@ L["Carried to later guides"] = "Переходят в следующие гай�
 L["Not part of your route"] = "Вне вашего маршрута"
 L["Keep or abandon them"] = "Оставить или отказаться"
 L["Each with its Abandon button, which asks in the game's own window first."] = "У каждого своя кнопка «Отказаться», которая сначала спросит в окне самой игры."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."
@@ -4609,6 +4624,10 @@ L["Jump anyway"] = "Все равно перейти"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Откройте один раз карту любого распорядителя полетов на этом континенте, чтобы Polestar узнал ваши маршруты полета."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Этот гайд для персонажей фракции %s. Polestar не будет вести вас по нему."
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Нажмите %s, чтобы продолжить, или откройте окно гайда."
@@ -4773,6 +4792,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["After turn-ins: at least +1 level"] = ""
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
+
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
@@ -4981,3 +5010,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Не включает серые задания и их сдачу, если они не нужны для последующего задания."
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Нет хлама, чтобы освободить место. Ctrl+Alt-щелчок по предмету помечает его как хлам."
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Во время паузы задания не принимаются и не сдаются за вас, а награда не выбирается, пока Polestar не продолжит работу."
+-- L["≈ %s"] = "≈ %s"

@@ -480,6 +480,55 @@
 			],
 			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
 		},
+		"1024": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"item": 5463,
+					"count": 1,
+					"fact": "Keep the Glowing Gem that Raene gives you in your bags. Shael'dryn needs it at the moonwell; if you banked it, collect it before going there.",
+					"confidence": "high"
+				}
+			],
+			"note": "The server lists one Glowing Gem as both supplied and required. In #3043 the quest log showed no item counter at the moonwell."
+		},
+		"98071": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": { "id": 279390, "name": "Case of Fallrook Varietal" },
+					"fact": "In Dun Garok, use the Case of Fallrook Varietal by the fire on the lowest floor. Pick up the Sack of Homebrew Hops between the stairs and take it back to Brewmeister Bilger.",
+					"confidence": "high"
+				}
+			],
+			"note": "The report in #3054 places the wine by the fire and the sack between the stairs. Two people recorded both counters, one in each order: the delivery is not a prerequisite for the hops."
+		},
+		"1154": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "explore",
+					"fact": "Enter the Dor'Danil Barrow Den in southern Ashenvale and descend to the bottom for the Legacy of the Aspects.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest describes the book at the bottom of the den. In #3069 the player was at its map point but had no directions underground."
+		},
+		"97536": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 278194,
+					"count": 5,
+					"fact": "Use the Crate of Radioactive Refuse five times in the Tanaris desert. Stay clear of Gadgetzan and move away from the last pile before using it again.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest supplies the crate and describes where to empty it. Seven people's recordings show discard credit on cast 1303853; MIG reported the item use in #3159."
+		},
 		"96018": {
 			"kinds": [
 				{

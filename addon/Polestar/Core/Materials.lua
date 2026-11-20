@@ -99,9 +99,18 @@ end
 -- The ways
 ---------------------------------------------------------------------------
 
+-- A goal's material way: "gather" (`collect … gather`), "auction" or nil.
+local function wayOf(goal)
+	local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
+	if way and goal.item then return way end
+	return nil
+end
+
 -- Per guide's steps (weak: steps a guide releases take theirs along): item -> { gather = { { goal, step } },
--- auction = { ... } }, the steps walked once.
+-- auction = { ... } }, the steps walked once. Built for the guides whose ways are asked (the running ones and the
+-- windows'); Materials.Tracked takes only the items (itemSets) of the others.
 local indexes = setmetatable({}, { __mode = "k" })
+local itemSets = setmetatable({}, { __mode = "k" }) -- steps -> { [item] = true }, until their index is built
 function Materials.Index(guide)
 	local steps = guide and guide.steps
 	if not steps then return {} end
@@ -110,8 +119,8 @@ function Materials.Index(guide)
 	ix = {}
 	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
-			local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
-			if way and goal.item then
+			local way = wayOf(goal)
+			if way then
 				local e = ix[goal.item]
 				if not e then
 					e = { gather = {}, auction = {} }
@@ -122,8 +131,22 @@ function Materials.Index(guide)
 			end
 		end
 	end
-	indexes[steps] = ix
+	indexes[steps], itemSets[steps] = ix, nil
 	return ix
+end
+
+-- The materials of a guide's steps, keys only: their index once built, else the items alone, walked once.
+local function itemsOf(steps)
+	local set = indexes[steps] or itemSets[steps]
+	if set then return set end
+	set = {}
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if wayOf(goal) then set[goal.item] = true end
+		end
+	end
+	itemSets[steps] = set
+	return set
 end
 
 -- The first goal of `list` that is this character's (its step's and its own `only`).
@@ -274,8 +297,9 @@ function Materials.Tracked()
 	local tabs = E and E.TabIds and E.TabIds() or {}
 	for _, h in ipairs(G and G.List and G.List() or {}) do
 		local def = (h.category == "Professions" or tabs[h.id]) and G.Get(h.id)
-		if def and rawget(def, "steps") then
-			for item in pairs(Materials.Index(def)) do tracked[item] = true end
+		local steps = def and rawget(def, "steps")
+		if steps then
+			for item in pairs(itemsOf(steps)) do tracked[item] = true end
 		end
 	end
 	return tracked
@@ -289,18 +313,17 @@ local function bagCount(item)
 	return Compat.GetItemCount(item) or 0
 end
 
-local function liveBank(item)
-	return max(0, (Compat.GetItemCount(item, true) or 0) - bagCount(item))
+local function liveBank(item, bags)
+	return max(0, (Compat.GetItemCount(item, true) or 0) - (bags or bagCount(item)))
 end
 
 -- The bank: live while it is open or before the first visit; else the snapshot, and for an item it does not hold
 -- (tracked only since), what the client reports.
-local function bankCount(item)
-	local s = state()
-	if bankOpen or not s.bankSeen then return liveBank(item) end
-	local n = s.bank[item]
-	if n == nil then return liveBank(item) end
-	return n
+local function stored(s, item, bags)
+	local bank
+	if not bankOpen and s.bankSeen then bank = s.bank[item] end
+	if bank == nil then bank = liveBank(item, bags) end
+	return bank, s.mail[item] or 0, s.coming[item] or 0
 end
 
 -- The bank as it is now, for every tracked item (0 kept: the snapshot holds the item).
@@ -367,8 +390,7 @@ ns.RegisterEvent("COMMODITY_PURCHASED", function(_, item, quantity) bought(item,
 ns.RegisterEvent("ITEM_PURCHASED", function(_, item) bought(item, 1) end)
 
 function Materials.Stored(item)
-	local s = state()
-	return bankCount(item), s.mail[item] or 0, s.coming[item] or 0
+	return stored(state(), item)
 end
 
 -- The nearest "mailbox" or "bank" (a banker) for the arrow to fetch a material from (Nav/Nearby.lua): { id, name,
@@ -397,8 +419,9 @@ local function altsWith(item)
 end
 
 function Materials.Have(item)
-	local bank, mail, coming = Materials.Stored(item)
-	local parts = { bags = bagCount(item), bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
+	local bags = bagCount(item)
+	local bank, mail, coming = stored(state(), item, bags)
+	local parts = { bags = bags, bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
 	local total = parts.bags + bank + mail + coming
 	parts.altsCounted = ns.Get("professions.altMaterials") and true or false
 	if parts.altsCounted then
@@ -408,10 +431,13 @@ function Materials.Have(item)
 end
 
 function Materials.OwnCounts()
-	local out
-	for item in pairs(Materials.Tracked()) do
-		local bank, mail, coming = Materials.Stored(item)
-		local n = bagCount(item) + bank + mail + coming
+	local tracked = Materials.Tracked()
+	if not next(tracked) then return nil end
+	local s, out = state(), nil
+	for item in pairs(tracked) do
+		local bags = bagCount(item)
+		local bank, mail, coming = stored(s, item, bags)
+		local n = bags + bank + mail + coming
 		if n > 0 then
 			out = out or {}
 			out[item] = n

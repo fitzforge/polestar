@@ -596,6 +596,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif n.classKind == "PALADIN" then
 				title = L["Level 40: class mount (Paladin)"]
 				body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
+			elseif n.classKind == "PALADIN_FORSAKEN" then
+				title = L["Level 40: class mount (Paladin)"]
+				body  = L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."]
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
@@ -881,7 +884,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
 		-- finished leveling guide handed off by itself. Said in the banner for
 		-- SKIPPED_SECONDS, in chat while the window is hidden; the quests a later
-		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept.
+		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept,
+		-- and so are the accepts still waiting for the character's level
+		-- (Engine.WaitingQuests): the next guide's to take, or a later one's.
 		ns.On("GUIDE_CONTINUED", function(fromId, toId, carried)
 			local G = ns.Guides
 			local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
@@ -895,6 +900,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				for i, c in ipairs(carried) do titles[i] = ns.Quoted(c.title) end
 				ns.Print(string.format(L["Keep these, a later guide hands them in: %s"], table.concat(titles, ", ")))
 			end
+			local E = Engine()
+			local waiting = E and E.WaitingQuests and E.WaitingQuests(fromId, toId) or {}
+			local here, later = {}, {}
+			for _, w in ipairs(waiting) do
+				local line = string.format(L["%s (level %d)"], ns.Quoted(w.title), w.level)
+				if w.next then here[#here + 1] = line else later[#later + 1] = line end
+			end
+			if #here > 0 then ns.Print(string.format(L["%s takes these once you reach their level: %s"], n.toTitle, table.concat(here, ", "))) end
+			if #later > 0 then ns.Print(string.format(L["Waiting for your level, taken where a later guide passes the giver: %s"], table.concat(later, ", "))) end
 			if not F then return end
 			notices.continued = n
 			if ns.IsLoggedIn() then GF.Layout() end

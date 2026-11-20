@@ -384,8 +384,8 @@ local BUILTIN = {
 			help = L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."],
 			search = "pause the guide, paused, map pins, minimap, world map", child = true },
 		{ kind = "toggle", key = "pause.automation", label = L["No quest automation while paused"],
-			help = L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."],
-			search = "pause the guide, paused, automation", child = true },
+			help = L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."],
+			search = "pause the guide, paused, automation, flight, taxi, flight master", child = true },
 		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
 			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
 	} },
@@ -1877,7 +1877,10 @@ local function buildMore()
 	catcher:SetScript("OnClick", function() more:Hide() end)
 	catcher:Hide()
 	more.Catcher = catcher
-	more:SetScript("OnHide", function() catcher:Hide() end)
+	more:SetScript("OnHide", function()
+		catcher:Hide()
+		if W.ClosePicker then W.ClosePicker() end
+	end)
 	more:Hide()
 	ns.CloseOnEscape("PolestarOptionsMore")
 	if ns.Gamepad and ns.Gamepad.Register then

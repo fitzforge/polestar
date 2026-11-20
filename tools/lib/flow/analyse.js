@@ -220,7 +220,7 @@ function analyse(w, quests, proj) {
 		const ia = acc.get(q);
 		const go = E[ia].goal;
 		if (j >= ia) return false;
-		const L = j > 0 ? E[j - 1].level : 1;
+		const L = j > 0 ? E[j - 1].eff : w.effLevel(1, 0);
 		if (go.minLevel && L < go.minLevel) return false;
 		if (go.qlvl && go.qlvl > L + 3) return false;
 		for (const c of list(go.closedBy)) if (getI(acc, c) < j) return false;
@@ -277,7 +277,7 @@ function analyse(w, quests, proj) {
 			if (k <= j || objPass.has(k)) continue;
 			if (dist(p, ap) > r) continue;
 			const q = E[k].goal.quest;
-			const L = j > 0 ? E[j - 1].level : 1;
+			const L = j > 0 ? E[j - 1].eff : w.effLevel(1, 0);
 			if (lvl && lvl > L + WH_MOBS_ABOVE) continue;   // a camp While you're here would not offer
 			if (inLog(q, j)) {
 				objPass.set(k, { j, kind: 'deferred', pos: ap });

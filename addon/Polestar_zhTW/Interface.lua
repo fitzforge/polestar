@@ -225,10 +225,15 @@ L["Artisan %s"] = "專家級%s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "切換指南視窗"
@@ -355,6 +360,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暫停：當你活著離開地城，或輸入 /polestar resume 後，箭頭會重新跟隨指南。"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 L["Search here"] = "在此搜尋"
 L["Arrived"] = "已抵達"
 L["Click the arrow for the next spot"] = "點擊箭頭前往下一處"
@@ -367,6 +373,9 @@ L["Drag to move."] = "拖曳以移動。"
 L["Click for the next spot."] = "點擊前往下一處。"
 L["Shift-drag to move."] = "Shift-拖曳以移動。"
 L["No waypoint"] = "沒有路徑點"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "第 %d/%d 處"
@@ -441,7 +450,8 @@ L["Walk to the entrance"] = "走到入口"
 L["Walk to the lift"] = "走到升降梯"
 L["%s, Top"] = "%s，上層"
 L["%s, Bottom"] = "%s，下層"
-L["No route: walk straight to the target."] = "無路線：直接走向目標。"
+L["No safe walking route"] = "沒有安全的步行路線"
+L["Finding a walking route"] = "正在尋找步行路線"
 L["Show the travel route to the current target"] = "顯示前往目前目標的旅行路線"
 L["Hostile town: %s"] = "敵對城鎮：%s"
 L["Ride the elevator up"] = "搭乘升降梯上去"
@@ -1405,7 +1415,6 @@ L["%s in your bank"] = "銀行中 %s 個"
 L["%s in your mail"] = "郵件中 %s 個"
 L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
 
@@ -1672,6 +1681,11 @@ L["Worth doing near here: %s"] = "附近值得做的：%s"
 L["%d left out here"] = "此處略過 %d 個"
 L["Left out here"] = "此處略過"
 L["Turn off Skip grey quests"] = "關閉跳過灰色任務"
+-- L["This guide stays open in its tab and picks up by itself at that level."] = ""
+-- L["Click to switch to its tab"] = ""
+-- L["Click to open it in a new tab"] = ""
+-- L["Hides this line until more quests are off your route."] = ""
+-- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2577,7 +2591,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "暫停時隱藏步驟的地圖標記"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "暫停時，步驟目標的標記、目標區域、「順道完成」以及後續步驟也會從地圖上移除。"
 L["No quest automation while paused"] = "暫停時不自動處理任務"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "用於暫停或恢復 Polestar 的按鍵或控制器按鈕。你活著離開地城時，它也會自動恢復。"
 L["Let a following addon show the way"] = "讓跟隨 Polestar 的插件指路"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "當其他插件自行顯示 Polestar 的目標時，隱藏 Polestar 的箭頭，例如 Naowh Forever 的 Waypoint Pin 在開啟 Follow Polestar 時就會這樣做。此時該插件也會設定遊戲自身的地圖標記。"
@@ -2607,6 +2620,7 @@ L["Repair: gear worn below"] = "修理：裝備耐久度低於"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "當任一件裝備的耐久度低於此比例時，提醒你修理。0：永不提醒。"
 L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更新版本）從 Polestar_Arcade 資料夾執行 Freedoom 專案的三個 Freedoom 關卡（BSD 授權）。"
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3544,6 +3558,7 @@ L["Carried to later guides"] = "留待之後指南的任務"
 L["Not part of your route"] = "不在你的路線中"
 L["Keep or abandon them"] = "保留或放棄"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每個任務都有「放棄」按鈕，會先在遊戲本身的視窗中確認。"
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
@@ -4609,6 +4624,10 @@ L["Jump anyway"] = "仍要跳轉"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在這片大陸上開啟任一位飛行管理員的地圖一次，Polestar 就能知道你的飛行路線。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南適用於%s角色。Polestar 不會引導你完成它。"
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4773,6 +4792,16 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["After turn-ins: at least +1 level"] = ""
 -- L["XP after turn-ins"] = ""
 -- L["XP remaining after turn-ins"] = ""
+
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
@@ -4974,3 +5003,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略過灰色任務及其繳交，除非之後的任務需要先完成它們。"
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "沒有可騰出空間的垃圾。Ctrl+Alt 點擊物品可將其標記為垃圾。"
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
+-- L["≈ %s"] = "≈ %s"
