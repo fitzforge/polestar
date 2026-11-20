@@ -1402,6 +1402,61 @@ fn stat_filter_waits_for_a_pack_with_postings_support() {
 }
 
 #[test]
+fn lookup_stat_filters_use_the_corrected_forever_ring_stats() {
+	use forge_addontest::{run::root, tmp::TempDir};
+	use forge_data::codex::{self, client, pack::ADDON};
+	use std::fs;
+
+	let golden = root().join("rust/tests/golden");
+	let mut opts = codex::Options::new(&golden.join("codex/input/root"));
+	opts.data_dir = golden.join("world/root/data/forever");
+	opts.sources_dir = golden.join("codex/input/sources");
+	opts.version = Some("0.0.0-test".into());
+	opts.measure = false;
+	let mut inputs = codex::load_inputs(&opts, &|_| {}).unwrap();
+	inputs.forever.items = forge_guide::js::parse_json(r#"{"272406":{"id":272406,"name":"Channeler's Ring"},"272407":{"id":272407,"name":"Blessed Band of Light"}}"#).unwrap();
+	let build = "1.60.1.70938";
+	let mut tables = client::Tables::default();
+	// A minimal ItemSparse fixture with the two corrected stat-code sets from push 114062.
+	tables.insert(
+		"ItemSparse",
+		forge_data::tables::parse_csv(concat!(
+			"ID,RequiredLevel,StatModifier_bonusStat_0,StatModifier_bonusStat_1,StatModifier_bonusStat_2,StatModifier_bonusStat_3\n",
+			"272406,1,5,31,45,-1\n",
+			"272407,1,6,7,41,42\n",
+		))
+		.unwrap(),
+	);
+	inputs.client = Some(client::client_facts(&tables, build));
+	let out = codex::build_inputs(&opts, &inputs).unwrap();
+	let scratch = TempDir::new("polestar-lookup-ring-stats-");
+	let pack = scratch.path().join(ADDON);
+	fs::create_dir(&pack).unwrap();
+	for (name, content) in out.pack {
+		fs::write(pack.join(name), content).unwrap();
+	}
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", ADDON_FILES), Addon::dir(ADDON, pack)],
+		script: r##"
+		local S, C = Polestar.Search, Polestar.Codex
+		assert(C.Load() and C.HasFilters() and C.StatCodes())
+		local function finds(id, stat)
+			local rows = S.Query("#" .. id, { ids = true, resultKind = "item", subtitles = false, filters = stat and { stat = stat } })
+			return #rows == 1 and rows[1].id == id
+		end
+		assert(finds(272406, 45), "Channeler's Ring has Spell Power")
+		assert(not finds(272406, 6), "Channeler's Ring has no Spirit")
+		assert(finds(272407), "Blessed Band of Light is searchable")
+		assert(finds(272407, 6), "Blessed Band of Light has Spirit")
+		assert(not finds(272407, 31), "Blessed Band of Light has no Hit")
+		"##
+		.into(),
+		..Default::default()
+	});
+}
+
+#[test]
 fn stat_filters_require_presence_and_share_counts_across_search_and_browse() {
 	run_stat_lookup(
 		r##"
