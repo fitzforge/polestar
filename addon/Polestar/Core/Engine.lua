@@ -735,6 +735,52 @@ function Own.questSkipped(q)
 	return type(list) == "table" and list[q] == true
 end
 
+-- Accepts a leveling guide's route passed because the character was under
+-- the quest's level (CharState().levelWaits: quest id -> { level, guide }),
+-- kept by quest id over a reload or a pack update. The same guide comes back
+-- for one on the level-up (computeCurrent: the first open step); when the
+-- guide ends first, the guides after it take it where their route passes its
+-- giver (Own.feederPlan's `carry` chains) instead of dropping it with what
+-- follows. Noted as the route moves past the accept (Own.noteWaits), or past
+-- a `when level>=N` step that takes it (Own.waitsOf); forgotten once the
+-- quest is in the log, done, or skipped by the player (Engine.SkipQuest, or
+-- the carried step skipped: CharState().feedSkips).
+function Own.waitList(create)
+	local st = ns.CharState()
+	if type(st.levelWaits) ~= "table" then
+		if not create then return nil end
+		st.levelWaits = {}
+	end
+	return st.levelWaits
+end
+
+function Own.waitGone(q)
+	local fs = ns.CharState().feedSkips
+	return Compat().IsOnQuest(q) or questDone(q) or Own.questSkipped(q) or (type(fs) == "table" and fs[q] == true)
+end
+
+-- The waiting accepts still to take (Own.waitList, the gone ones dropped), or nil.
+function Own.pruneWaits()
+	local t = Own.waitList()
+	if not t then return nil end
+	for q, w in pairs(t) do
+		if type(w) ~= "table" or Own.waitGone(q) then t[q] = nil end
+	end
+	if next(t) == nil then
+		ns.CharState().levelWaits = nil
+		return nil
+	end
+	return t
+end
+
+-- Accept `goal` of the loaded guide waits for `level`: a leveling guide's,
+-- one the route needs (not optional).
+function Own.noteWait(goal, level)
+	local q = goal.quest
+	if not (q and level and guide and Own.leveling(guide)) or goal.optional or Own.waitGone(q) then return end
+	Own.waitList(true)[q] = { level = level, guide = guide.id }
+end
+
 Own.skipMarks = {}
 function Own.skipMark(goal)
 	local q = goal.quest
@@ -872,7 +918,12 @@ end
 -- item used up, a zone left), a step that applied stays applied, and the
 -- player can still Unskip a step stored off by mistake. A `complete` failing
 -- on a quest the player carries is not stored (Own.failsForNow): the hand-in
--- comes back once the quest is done.
+-- comes back once the quest is done. Nor, until the guide ends, is a failure
+-- that can still turn while the player plays this guide (Own.mayComeTrue: a
+-- level to reach, a quest the guide still takes): the step waits
+-- (Own.whenPending), comes back if the route reaches it again, and is stored
+-- as skipped at the guide's end (Own.endPending) or once it holds behind the
+-- live step (Own.settlePending: never a jump back).
 
 -- Quest `p.q` can be taken now: not in the log or done, the level reached,
 -- its prerequisites done (missingPre, as an accept's), its `parent` in the
@@ -1349,8 +1400,12 @@ end
 -- can be read (it lags PLAYER_LOGIN; Own.latchCaughtUp stores the steps
 -- passed meanwhile). A step for other characters (`only`) stores nothing, nor
 -- does one that fails only on a quest the player is still doing
--- (Own.failsForNow): it is checked again.
-function Own.latchWhen(s)
+-- (Own.failsForNow): it is checked again. One whose failure can still turn
+-- in this guide (Own.mayComeTrue) waits in Own.whenPending instead, unless
+-- `final` (the guide's end, Own.endPending): then it is stored as skipped.
+-- A level-gated step stored as skipped leaves its accepts waiting for the
+-- guides after this one (Own.waitsOf).
+function Own.latchWhen(s, final)
 	local step = guide.steps[s]
 	if not logReady or not (step and step.when) or not Guides.Matches(step.only, player) then return end
 	local state = ns.CharState()
@@ -1358,12 +1413,97 @@ function Own.latchWhen(s)
 	if (held and held[s]) or (skipped and skipped[s]) then return end
 	local field = Own.whenFails(step) == nil and "when" or "skipped"
 	if field == "skipped" and Own.failsForNow(step) then return end
+	local pending = Own.whenPending(guide)
+	if field == "skipped" and not final and Own.mayComeTrue(step) then
+		pending[s] = true
+		return
+	end
+	pending[s] = nil
 	local t = state[field][guide.id]
 	if not t then
 		t = {}
 		state[field][guide.id] = t
 	end
 	t[s] = true
+	if field == "skipped" then Own.waitsOf(step) end
+end
+
+-- The steps of guide table g passed with a `when` that can still turn
+-- (Own.latchWhen): step -> true, for the session. Gone with the table (a
+-- plan or a pack update makes a new one; Own.latchCaughtUp works them out
+-- again from the placement).
+Own.pendingOf = setmetatable({}, { __mode = "k" })
+function Own.whenPending(g)
+	local p = Own.pendingOf[g]
+	if not p then
+		p = {}
+		Own.pendingOf[g] = p
+	end
+	return p
+end
+
+-- Whether step's failing `when` can still hold while the player plays this
+-- guide: each predicate that fails is a level to reach (`level>=N`,
+-- `level>N`), or `onquest`, `complete` or `turnedin` of a quest that may yet
+-- be in the log or handed in (Own.mayTake). Never a negated one, a group or
+-- dungeon answer, an item, money or a place: those latch as before.
+function Own.mayComeTrue(step)
+	local any = false
+	for _, p in ipairs(step.when or NONE) do
+		if Own.predicateFails(step, p) then
+			if p.neg then return false end
+			if p.k == "level" then
+				if p.op ~= ">=" and p.op ~= ">" then return false end
+			elseif p.k == "onquest" or p.k == "complete" or p.k == "turnedin" then
+				local ok = false
+				for _, q in ipairs(type(p.q) == "table" and p.q or { p.q }) do
+					if Own.mayTake(q, p.k) then
+						ok = true
+						break
+					end
+				end
+				if not ok then return false end
+			else
+				return false
+			end
+			any = true
+		end
+	end
+	return any
+end
+
+-- Quest q may still be in the log (`onquest`, `complete`) or handed in
+-- (`turnedin`, kind k) in the loaded guide: not done or skipped by the
+-- player, and in the log already (for `complete` and `turnedin`), or taken
+-- by an accept of this guide for the character, or waiting for a level
+-- (Own.waitList).
+function Own.mayTake(q, k)
+	if not q or Own.questSkipped(q) or questDone(q) then return false end
+	if Compat().IsOnQuest(q) then return k ~= "onquest" end
+	for _, e in ipairs(layoutOf(guide).accepts[q] or NONE) do
+		if Guides.Matches(e.goal.only, player) then return true end
+	end
+	local w = Own.waitList()
+	return w ~= nil and w[q] ~= nil
+end
+
+-- Step stored as skipped with its `when` gated on a level (`level>=N`,
+-- `level>N`, every other predicate holding): its accepts wait for that level
+-- (Own.noteWait), at least their quests' own.
+function Own.waitsOf(step)
+	local n
+	for _, p in ipairs(step.when) do
+		if p.k == "level" and not p.neg and (p.op == ">=" or p.op == ">") then
+			local v = p.op == ">" and p.n + 1 or p.n
+			if not n or v > n then n = v end
+		elseif Own.predicateFails(step, p) then
+			return
+		end
+	end
+	if not n then return end
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "accept" and Guides.Matches(goal.only, player) then Own.noteWait(goal, math.max(n, tonumber(goal.minLevel) or 0)) end
+	end
 end
 
 -- Once per loaded guide, after the quest log can be read: store the
@@ -2167,13 +2307,15 @@ function Own.feederPlan(g)
 			end
 		end
 	end
-	Own.workChains(g, chains, list, function()
+	local function getIdx()
 		if not idx then
 			idx, read = Own.feederIndex(g)
 			Own.goneSource(g, idx)
 		end
 		return idx
-	end)
+	end
+	Own.workChains(g, chains, list, getIdx)
+	Own.carryChains(g, chains, list, getIdx, acceptOf)
 	if #list == 0 then
 		for _, id in ipairs(read or NONE) do
 			if not Engine.TabIds()[id] then Guides.Release(id) end
@@ -2359,9 +2501,10 @@ function Own.feederPlan(g)
 	end
 	-- A chain the player skipped is theirs: its accepts stay, passed as
 	-- "skipped" (Engine.SkipQuest), not left out. So do those waiting on a
-	-- quest the player holds: "Hand in X first" says what to do.
+	-- quest the player holds: "Hand in X first" says what to do. A waiting
+	-- accept that could not go in (`carry`) leaves g as it is.
 	for _, ch in ipairs(list) do
-		if not ch.inserted and not ch.skipped and not ch.work and ch.quests[ch.p] ~= "turnin" then
+		if not ch.inserted and not ch.skipped and not ch.work and not ch.carry and ch.quests[ch.p] ~= "turnin" then
 			for _, d in ipairs(ch.deps) do
 				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
 				drop[d.q] = true
@@ -2477,6 +2620,55 @@ function Own.workChains(g, chains, list, getIdx)
 					end
 				end
 			end
+		end
+	end
+end
+
+-- Accepts an earlier guide of the route passed for the character's level
+-- (Own.waitList), not taken since. Each is a chain of its own (`carry`)
+-- for Own.feederPlan: its accept in that guide, with the quest's goals in the
+-- guides after it up to g (work the route passed while it waited), placed
+-- under the feeder rules (g's own zones, at most FEED_LOCAL) before g's first
+-- goal of the quest, where g passes nearest the giver. There it is g's like
+-- its own accepts: taken on the way at the level, else passed and come back
+-- for on the level-up. One that cannot go in leaves g as it is and waits on
+-- for the guides after g. Never one g takes itself, a group quest the player
+-- answered Skip, or any while the quest log has no room (Own.logRoom).
+-- acceptOf(q) -> g's own accept of q for the character, or nil.
+function Own.carryChains(g, chains, list, getIdx, acceptOf)
+	local waits = Own.pruneWaits()
+	if not waits or Own.logRoom() < 1 then return end
+	local qs = {}
+	for q in pairs(waits) do
+		if not chains[q] and not acceptOf(q) then qs[#qs + 1] = q end
+	end
+	table.sort(qs)
+	for _, q in ipairs(qs) do
+		local idx = getIdx()
+		local from = idx.first[q]
+		local src
+		for _, e in ipairs(from and from.id ~= g.id and idx.goals[q] or NONE) do
+			if e.id == from.id and e.goal.t == "accept" then
+				src = e
+				break
+			end
+		end
+		local open = src ~= nil
+		for _, p in ipairs(src and src.step.when or NONE) do
+			if p.k == "group" and not p.neg and Own.groupAnswer(p.q) == "skip" then open = false end
+		end
+		if open then
+			local U = #g.steps + 1
+			for s, step in ipairs(g.steps) do
+				for _, goal in ipairs(step.goals) do
+					if goal.quest == q and s < U then U = s end
+				end
+			end
+			local d = { q = q, s = U, title = from.title, whole = true, worth = true }
+			local ch = { p = q, from = from, ok = true, carry = true, quests = { [q] = true }, deps = { d }, order = #list + 1 }
+			d.chains = { ch }
+			chains[q] = ch
+			list[#list + 1] = ch
 		end
 	end
 end
@@ -5157,6 +5349,94 @@ local function computeCurrent()
 	return Own.everyStep(guide) and Own.levelHold() or nil
 end
 
+-- The accepts of step s the route moves past because the character is under
+-- their quest's level (unavailableFor's "level" mark) wait for it
+-- (Own.waitList): not on a step the player skipped, nor an optional one.
+function Own.noteWaits(s)
+	if not logReady or isSkipped(s) then return end
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "accept" and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+			local u = unavailableFor(goal)
+			if u and u.reason == "level" then Own.noteWait(goal, tonumber(goal.minLevel)) end
+		end
+	end
+end
+
+-- A step the route passed with a `when` that could still turn
+-- (Own.whenPending) and that holds now: ahead of the live step `was` (the
+-- route went back before it), it simply applies and the route comes to it;
+-- behind it, it would pull the arrow back (`now`, the live step worked out
+-- with it applying, is that step), so it is stored as skipped instead, its
+-- quests' work noted behind the player where the route has none of it ahead
+-- (Own.noteBehind: a "Still to do" row, While you're here), its accepts
+-- waiting for the guides after this one (Own.waitsOf). One done meanwhile is
+-- stored as held. True when one was stored as skipped (the live step is to be
+-- worked out again).
+function Own.settlePending(was, now)
+	local p = Own.pendingOf[guide]
+	if not (p and next(p) and was) or placing then return false end
+	local state = ns.CharState()
+	local held, sk = state.when[guide.id], state.skipped[guide.id]
+	local stored = false
+	for s in pairs(p) do
+		local step = guide.steps[s]
+		if not step or (held and held[s]) or (sk and sk[s]) then
+			p[s] = nil
+		elseif s < was and (not now or s <= now) and Own.whenFails(step) == nil then
+			p[s] = nil
+			local field = stepDone(s) and "when" or "skipped"
+			state[field][guide.id] = state[field][guide.id] or {}
+			state[field][guide.id][s] = true
+			held, sk = state.when[guide.id], state.skipped[guide.id]
+			if field == "skipped" then
+				Own.noteBehind(s, was)
+				Own.waitsOf(step)
+				stored = true
+			end
+		end
+	end
+	return stored
+end
+
+-- The work of step s (kill, collect, use, ... with a place) of quests in the
+-- log that no step from `live` on works: noted behind the player
+-- (CharState().behind, Engine.GetBehind), so the "Still to do" row and While
+-- you're here offer it where the route won't go back.
+function Own.noteBehind(s, live)
+	local C, steps, st = Compat(), guide.steps, ns.CharState()
+	for _, goal in ipairs(steps[s].goals) do
+		local q = goal.quest
+		if q and goal.t ~= "accept" and goal.t ~= "turnin" and goal.map and C.IsOnQuest(q) and Guides.Matches(goal.only, player) then
+			local ahead = false
+			for j = live, #steps do
+				if j ~= s and stepApplies(steps[j]) and not isSkipped(j) then
+					for _, o in ipairs(steps[j].goals) do
+						if o.quest == q and o.t ~= "accept" and o.t ~= "turnin" then
+							ahead = true
+							break
+						end
+					end
+				end
+				if ahead then break end
+			end
+			if not ahead then
+				if type(st.behind) ~= "table" then st.behind = {} end
+				st.behind[guide.id] = st.behind[guide.id] or {}
+				st.behind[guide.id][q] = true
+			end
+		end
+	end
+end
+
+-- The guide's end: the steps still waiting on their `when` (Own.whenPending)
+-- are stored, as skipped where it fails (Own.latchWhen `final`).
+function Own.endPending()
+	local p = Own.pendingOf[guide]
+	if not p then return end
+	for s in pairs(p) do Own.latchWhen(s, true) end
+	Own.pendingOf[guide] = nil
+end
+
 -- Store the live-done latchable goals of steps from..to (steps the route has
 -- just moved past), and whether their `when` held (Own.latchWhen). A travel
 -- step the route passed for the planner's flight (Own.flightPassed), or a
@@ -5164,13 +5444,15 @@ end
 -- its walk and flight latched too: they are behind the player once the route
 -- moves on, even after that flight lands and nothing flies on any more
 -- (#1768: the walk up to Thunder Bluff opened again on landing in Camp
--- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff).
+-- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff). Its
+-- accepts waiting for a level are noted (Own.noteWaits).
 local function latchPassed(from, to)
 	local steps = guide.steps
 	for s = from, to do
 		local step = steps[s]
 		Own.latchWhen(s)
 		if stepApplies(step) then
+			Own.noteWaits(s)
 			local flown = not Own.goalsDone(s) and (Own.flightPassed(s) or Own.alreadyAcross(s))
 			for g, goal in ipairs(step.goals) do
 				if latchable(goal) and goalApplies(goal) and not checked(s, g)
@@ -9336,6 +9618,8 @@ Own.skipQueue = {}
 -- starting item (a `collect` with no quest, unavailableFor's starter) speaks
 -- for the quest it starts (#1724: its nil quest as a key raised "table
 -- index is nil" and stopped the evaluation); a goal with neither says nothing.
+-- An accept waiting for the character's level in a leveling guide says what
+-- happens to it (Own.waitText).
 function Own.queueSkips(s)
 	local step = guide.steps[s]
 	if not step or isSkipped(s) or not stepApplies(step) then return end
@@ -9350,9 +9634,26 @@ function Own.queueSkips(s)
 				Own.skipQueue[guide.id] = q
 			end
 			q.seen[quest] = true
-			q.skips[#q.skips + 1] = { quest = quest, title = questTitle(a), reason = u.reason, text = unavailableText(u) }
+			local text = u.reason == "level" and goal.t == "accept" and Own.waitText(s, u.accept) or unavailableText(u)
+			q.skips[#q.skips + 1] = { quest = quest, title = questTitle(a), reason = u.reason, text = text }
 		end
 	end
+end
+
+-- An accept of step s waiting for its level (Own.waitList): the level, and
+-- that the guide comes back for it then (the level-up brings the route back
+-- to its step), or that a later guide takes it: when the rest of the guide
+-- pays too little XP to reach that level (Levels.ForGuide from step s on; the
+-- Codex off: when no work for the character follows s). nil outside a
+-- leveling guide, or for an optional accept.
+function Own.waitText(s, a)
+	if not Own.leveling(guide) or a.optional then return nil end
+	local lvl = tonumber(a.minLevel) or 0
+	local run = ns.Levels and ns.Levels.ForGuide and ns.Levels.ForGuide(guide.id, nil, s + 1)
+	local back
+	if run and run.to then back = run.to.level >= lvl else back = Own.lastWork(s) ~= nil end
+	if back then return L["Requires level %d: the guide comes back for it then"]:format(lvl) end
+	return L["Requires level %d: kept for a later guide"]:format(lvl)
 end
 
 -- Group quests (`when group`) the route passed because the player's answer
@@ -9596,6 +9897,7 @@ function Own.noteEnd()
 		return
 	end
 	ends[id] = true
+	Own.endPending()
 	local undone = 0
 	for s = computed or #steps + 1, #steps do
 		if stepApplies(steps[s]) and not isSkipped(s) and not stepDone(s) then undone = undone + 1 end
@@ -9630,6 +9932,34 @@ function Engine.CarriedQuests(id)
 	return out
 end
 
+-- The accepts leveling guide `id` passed for the character's level, still
+-- waiting (Own.waitList), by quest id: { quest, title, level, next } each,
+-- `next` true when guide `toId` (loaded, planned) takes it (a step put in by
+-- Own.carryChains; passed there already, it is listed all the same). The
+-- guide-end window lists them under the carried quests; "Continue
+-- automatically" says them in chat (GUIDE_CONTINUED).
+function Engine.WaitingQuests(id, toId)
+	local out = {}
+	local t = id and Own.pruneWaits()
+	if not t then return out end
+	local to = toId and Guides.Get(toId)
+	local taken = {}
+	for _, step in ipairs(to and to.steps or NONE) do
+		for _, goal in ipairs(step.feeder and step.goals or NONE) do
+			if goal.t == "accept" and goal.quest and t[goal.quest] then taken[goal.quest] = true end
+		end
+	end
+	local qs = {}
+	for q, w in pairs(t) do
+		if w.guide == id or taken[q] then qs[#qs + 1] = q end
+	end
+	table.sort(qs)
+	for i, q in ipairs(qs) do
+		out[i] = { quest = q, title = titleOfQuest(q), level = tonumber(t[q].level) or 0, next = taken[q] or false }
+	end
+	return out
+end
+
 -- Evaluate the loaded tab. Only the active tab announces step and waypoint
 -- changes; background tabs keep their state for GetTabs and automation.
 local function evaluateLoaded(active)
@@ -9646,7 +9976,10 @@ local function evaluateLoaded(active)
 	local gate = Own.startGate(guide)
 	local wasComputed = computed
 	Own.pruneLost()
+	Own.pruneWaits()
 	computed = gate and gate.step or computeCurrent()
+	-- A passed step whose `when` turned behind the live step stays passed (Own.settlePending).
+	if not gate and Own.settlePending(wasComputed, computed) then computed = computeCurrent() end
 	-- Placed once the quest log could be read (it can lag PLAYER_LOGIN).
 	local wasPlacing = placing
 	if placing and (logReady or GetTime() >= placing) then placing = nil end
@@ -9766,6 +10099,7 @@ local function evaluateLoaded(active)
 		local id = guide.id
 		if not completedFired[id] then
 			completedFired[id] = true
+			Own.endPending()
 			-- The guide list keeps its check over a reload or relog (GetGuideState; CharState().guideDone).
 			-- A guide the catch-up passed whole is no finish until every quest the character can take in it
 			-- is turned in: not for its quests left out.
