@@ -8819,6 +8819,11 @@
 		],
 		"group": [
 			{
+				"q": 91752,
+				"size": 1,
+				"why": "The Big Picture (Elwynn, level 3): Shinyfinder Narf is a level 3 elite and the route reaches him at about 5.3 (level model), two levels over him: an elite two or more levels under the player is solo content (Alliance starts fix round, 2026-11-20). Players' recordings: 56 people took it (accept 25th percentile 5), 46 handed it in. Its follow-ups (91758, 91772) are talks and clicks on the road to Goldshire."
+			},
+			{
 				"q": 5168,
 				"size": 2,
 				"why": "Heroes of Darrowshire takes a group into the elite Scarlet guards at Hearthglen. The solo route stays outside the hall. Scarlet Paladins and priests are elite in the creature data, with a level 63 High Clerist beside the libram (#3144)."

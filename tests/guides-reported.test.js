@@ -16491,6 +16491,32 @@ test(`${NE_DARKSHORE}: Cleansing of the Infected on the second loop, Grove of th
 	assert.ok((dret[at(dret, 'turnin 952', is('turnin', 952))].step.when || []).some((p) => p.k === 'onquest' && !p.neg), '03-darkshore-return keeps it only while carried');
 });
 
+// Twerkjob (back and forth in Darkshore) and the 2026-11-20 fix round: Night Elf Darkshore walked past Buzzbox 411 and
+// 323, Thundris Windweaver and The Cliffspring River and a Beached Sea Turtle (1001, 1002, 4761, 4762, 4725: 3,575 XP at
+// mobs 12-15, on the shore and hills its two loops walk), and 03-darkshore handed the same NPCs' quests out after the
+// Westfall trip. Now they are worked on Night Elf Darkshore, and every quest its Auberdine stops walk past that goes on
+// to 03-darkshore is taken there: Deep Ocean, Vast Sea (982) on the second stop, The Tower of Althalaxx, Tharnariun's
+// Hope and Cave Mushrooms (965, 2139, 947) on the last; Expanding Horizons (97914) goes to Baros on the Stormwind walk.
+// Turtle 4727 (mobs 18-20) and Buzzbox 525 (1003) stay on 03-darkshore, which keeps every line for a player who skipped them.
+test(`${NE_DARKSHORE}: Buzzbox, Thundris and the Cliffspring River are done on the loops that walk them; the Tower, Deep Ocean and Tharnariun's Hope are taken for 03-darkshore`, { skip }, () => {
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	const idx = (t, q) => at(ne, `${t} ${q}`, is(t, q));
+	assert.ok(idx('accept', 1001) < idx('turnin', 1001) && idx('turnin', 1001) < idx('turnin', 984), 'Buzzbox 411 handed in at the end of the first loop');
+	assert.ok(idx('accept', 1002) < idx('turnin', 1002) && idx('turnin', 1002) < idx('turnin', 985), 'Buzzbox 323 handed in at the end of the second loop');
+	assert.equal(ne[idx('accept', 4761)].s, ne[idx('turnin', 984)].s, 'Thundris Windweaver taken with Terenthis\'s hand-in');
+	assert.ok(idx('accept', 4762) < at(ne, 'Cliffspring sample', (g) => g.t === 'collect' && g.item === 12349) && idx('turnin', 4762) > idx('turnin', 1002), 'the Cliffspring sample on the second loop');
+	assert.ok(idx('accept', 4725) < idx('turnin', 4725), 'turtle 4725 taken and handed in');
+	assert.ok(!ne.some(({ goal }) => goal.quest === 4727 || goal.quest === 1003), 'turtle 4727 and Buzzbox 525 stay on 03-darkshore');
+	for (const q of [965, 2139, 947, 982]) {
+		const stop = q === 982 ? idx('turnin', 984) : idx('turnin', 985);
+		assert.equal(ne[idx('accept', q)].s, ne[stop].s, `${q} taken on the Auberdine stop that walks past its giver`);
+		assert.ok(!ne.some(({ goal }) => goal.quest === q && goal.t !== 'accept'), `${q} worked on 03-darkshore`);
+	}
+	assert.ok(idx('accept', 97914) < idx('turnin', 97914), 'Expanding Horizons handed to Baros on the Stormwind walk');
+	const shared = goals(DARKSHORE);
+	for (const q of [1001, 1002, 4761, 4762, 4725, 965, 982, 2139]) assert.ok(shared.some(({ goal }) => goal.quest === q && goal.t === 'turnin'), `03-darkshore keeps ${q} for a player without it`);
+});
+
 // Level tidy (0.4.0), Dun Morogh: the Snow Leopard Prowler (6) came at a recorded 4.8, the Grizzled Den's Elder
 // Wendigos and Shamans (8) at 6.3, the Leper Gnomes (8-10) and Frostmane Hold's Hideskinners (9-10) at 8.3, and
 // Call of Fire's Stonesplinter Seers (13-14) right after the tunnel at 12. Grund comes after Grik'nir, the den once
@@ -16521,7 +16547,14 @@ for (const guide of DUN_MOROGHS) {
 test(`${ELWYNN}: level tidy: grinds at the player's level, the Prowlers on the walk back to Guard Thomas`, { skip }, () => {
 	const list = goals(ELWYNN);
 	const grind = (title) => list.find(({ step, goal }) => step.title === title && goal.t === 'level');
-	assert.equal(grind('Level 5.77').goal.note, 'grind on Stonetusk Boar');
+	// Alliance starts fix round (2026-11-20): The Big Picture (91752, Shinyfinder Narf: a level 3 elite, two under the player
+	// at about 5.3) is solo content now, so the 5.48 and 5.77 top-ups that replaced it for solo players are gone.
+	assert.ok(!grind('Level 5.48') && !grind('Level 5.77'), 'no top-up in place of The Big Picture');
+	const narf = list[at(list, 'Shinyfinder Narf', (g) => g.t === 'collect' && g.quest === 91752)];
+	assert.ok(!(narf.step.when || []).some((p) => p.k === 'group'), 'The Big Picture is on the solo route');
+	assert.ok((narf.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 5), 'from level 5, two over Narf');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.id === 'a-fix-elwynn-narf-from-5' && /two levels under you/.test([f.tip].flat().join(' '))), 'and the step says how to take Narf');
 	assert.equal(grind('Level 8.85').goal.note, 'grind on Gray Forest Wolf');
 	const prowlers = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 52 && goal.npc === 118);
 	assert.equal(prowlers.length, 1, 'the Prowlers in one step');

@@ -161,8 +161,8 @@
 			"id": "1575-elwynn-echo-ridge-narf",
 			"faction": "Alliance",
 			"at": { "quest": 21, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.",
-			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite (his own quest is a group step of its own). Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought.",
+			"tip": "Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.",
+			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite. Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought. Alliance starts fix round (2026-11-20): his own quest (The Big Picture, 91752) is the next step, from level 5 (a-fix-elwynn-narf-from-5), so this tip says to leave him below 5.",
 			"source": [
 				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
 				{ "kind": "recording", "ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite" }
@@ -13655,6 +13655,27 @@
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 3987 Dal Bloodclaw 25 at 39.6,36.3"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ne-darkshore-cliffspring-falls",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4762,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"tip": [
+				"North-east up the Cliffspring River to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.",
+				"Careful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the Den Mother's bears (18-19) lair in the hills south of them: keep to the river."
+			],
+			"note": "Alliance starts fix round (2026-11-20): The Cliffspring River is done at the north-east end of Night Elf Darkshore's second loop at about 14.5. The falls' Moonstalkers are 14-15; the Encrusted Tide Crawlers (17-20, 51-54,17-23) on the shore and the Den Mother (18-19, 51.5,38.3) are 3+ over and named so the player keeps clear.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2069 Moonstalker 14-15 (spawns 44-55,20-32), 2233 Encrusted Tide Crawler 17-20 (51-54,17-23), 6788 Den Mother 18-19 at 51.5,38.3"
 				}
 			]
 		},
