@@ -98,10 +98,9 @@ fn walking_past_that_giver_shows_the_next_guides_quest_as_a_pick_up_line_naming_
 	"#);
 	assert_eq!(
 		out,
-		json!([
-			"2:1 Take “Kobold Camp Cleanup” from Marshal Dughan: saves a trip back | nil",
-			"-3:9 Take “The Killing Fields” from Marshal Dughan: saves a trip back | Later on your route: Westfall",
-		])
+		json!(
+			["2:1 Take “Kobold Camp Cleanup” from Marshal Dughan: saves a trip back | nil", "-3:9 Take “The Killing Fields” from Marshal Dughan: saves a trip back | Later on your route: Westfall",]
+		)
 	);
 }
 
@@ -147,8 +146,5 @@ fn once_the_route_reaches_the_next_guide_its_accept_taken_ahead_reads_done_and_n
 	// Westfall starts at Gryan (step 1: nothing of it is passed for the quest taken ahead); its step 2 reads The
 	// Killing Fields done, the timed quest still to take. Before the hand-off the route plan has the quest handed in
 	// later, so it is no quest off the route.
-	assert_eq!(
-		out,
-		json!({ "started": true, "guide": "test/westfall", "live": 1, "done": true, "timed": false, "plan": "later", "off": "", "skipped": "", "onQuest": true })
-	);
+	assert_eq!(out, json!({ "started": true, "guide": "test/westfall", "live": 1, "done": true, "timed": false, "plan": "later", "off": "", "skipped": "", "onQuest": true }));
 }
