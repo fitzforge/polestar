@@ -18315,3 +18315,21 @@ test('forever/alliance/human/01-elwynn-forest.guide: a Nibbled-On Book from the 
 		assert.ok(list.some(({ goal, s }) => s > kill.s && goal.t === 'turnin' && goal.quest === 91741 && goal.optional), `and handed in after ${kill.step.title}`);
 	}
 });
+
+// #3193 (Degen G.), #3274 (Donkeyman), 0.4.1: the 06 Hillsbrad step for The Rescue went straight to the two locked balls
+// and chains with no step for the jailors' keys, as the 30-40 copy did before #2512. The keys come first, on the same step.
+test('forever/horde/06-hillsbrad-foothills.guide: the jailors\' keys before their locks (#3193)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const key = (item, npc) => {
+		const i = at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item);
+		assert.equal(list[i].goal.fromId, npc, `collect ${item} leads to its jailor ${npc}`);
+		return i;
+	};
+	const lock = (object) => at(list, `interact ${object}`, (g) => g.t === 'interact' && g.object === object && g.quest === 498);
+	const dull = key(3467, 2427);
+	const gold = key(3499, 2428);
+	const drull = lock(1721);
+	const togthar = lock(1722);
+	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
+	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
+});

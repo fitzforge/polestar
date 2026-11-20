@@ -14524,6 +14524,25 @@
 				}
 			],
 			"issue": 3012
+		},
+		{
+			"id": "3193-hillsbrad-22-rescue-keys",
+			"faction": "Horde",
+			"at": {
+				"quest": 498,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
+			"note": "#3193, #3274: The Rescue's two locks each need a jailor's key, and the 06 Hillsbrad step went straight to the balls and chains (the 30-40 copy got the keys for #2512). The keys are goals of their own before the locks, on the same step; the seed carries the lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (as #2512): Jailor Eston's loot held the Dull Iron Key for 37 people, Jailor Marlgen's the Burnished Gold Key for 40"
+				}
+			],
+			"issue": 3193
 		}
 	]
 }
