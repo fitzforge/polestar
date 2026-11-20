@@ -1527,6 +1527,40 @@ local function chunkDanger(st, k, danger)
 	return any and out or nil
 end
 
+-- Sparse points on fixed collision faces, not filled boxes or extra walking edges.
+-- Each point is indexed in every cluster within shoulder reach. Visit only clusters
+-- crossed by the actual chord; no grid decode, even for a long line across tiles.
+local function solidChord(st, x, y, z, X, Y, Z)
+	local bins = st.D.solidSamples
+	if not bins or not z or not Z then return false end
+	local r, c = floor((x-st.x0)/TILE), floor((y-st.y0)/TILE)
+	local R, C = floor((X-st.x0)/TILE), floor((Y-st.y0)/TILE)
+	local points = bins[r*st.ny+c]
+	if r == R and c == C and not points then return false end
+	local dx, dy, dz = X-x, Y-y, Z-z
+	local ds = dx*dx + dy*dy
+	local sx, sy = dx >= 0 and 1 or -1, dy >= 0 and 1 or -1
+	while true do
+		if points then
+			for i = 1, #points, 3 do
+				local u, v = points[i]-x, points[i+1]-y
+				local t = ds > 0 and math.min(1, max(0, (u*dx+v*dy)/ds)) or 0
+				local h = points[i+2] - (z+t*dz)
+				u, v = u-t*dx, v-t*dy
+				-- Inscribed shoulder disc minus source/coordinate rounding; ignore
+				-- toe-only contacts and points above the body or on another deck.
+				if h > .29 and h < 1.95 and u*u+v*v < .454^2 then return true end
+			end
+		end
+		if r == R and c == C then return false end
+		local tx = r == R and huge or (st.x0+(r+(sx>0 and 1 or 0))*TILE-x)/dx
+		local ty = c == C and huge or (st.y0+(c+(sy>0 and 1 or 0))*TILE-y)/dy
+		if tx <= ty then r = r+sx end
+		if ty <= tx then c = c+sy end
+		points = bins[r*st.ny+c]
+	end
+end
+
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
 -- following the surface from node to node, so it cannot jump between floors. With limit (a map with classes), every
 -- node crossed must also cost no more than limit (Costs.Mult for profile in style, times dangerAt(k, node) when
@@ -1534,6 +1568,12 @@ end
 local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, dangerAt, sample)
 	local ax, ay, bx, by = P.x[a], P.y[a], P.x[b], P.y[b]
 	local k, node = P.k[a], P.n[a]
+	if st.D.solidSamples and (st.D.solidSamples[k] or k ~= P.k[b] or (a == 1 and P.from) or (b == #P.x and P.to)) then
+		local first, last = a == 1 and P.from, b == #P.x and P.to
+		if solidChord(st, first and first.x or st.x0+(ax+.5)*st.cs, first and first.y or st.y0+(ay+.5)*st.cs,
+			first and first.z or zOf(st.cl[k] or grid(st,k),node), last and last.x or st.x0+(bx+.5)*st.cs,
+			last and last.y or st.y0+(by+.5)*st.cs, last and last.z or zOf(st.cl[P.k[b]] or grid(st,P.k[b]),P.n[b])) then return false end
+	end
 	local dx, dy = bx - ax, by - ay
 	local sx, sy = dx > 0 and 1 or -1, dy > 0 and 1 or -1
 	local nx, ny = dx * sx, dy * sy
@@ -1759,6 +1799,7 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 	if clear and z2 then
 		clear = abs(zOf(st.cl[k], node) - z2) <= ZTOL
 	end
+	if clear and st.D.solidSamples and solidChord(st, x1,y1,z1, x2,y2,z2 or zOf(st.cl[k],node)) then clear = false end
 	for i = 1, sightN do
 		st.used[sightK[i]] = sightU[i]
 	end
@@ -1964,6 +2005,7 @@ ns.PathGrid = {
 	Classed = Classed,
 	surface = surface,
 	zOf = zOf,
+	solidChord = solidChord,
 	floorCell = floorCell,
 	floorsOf = floorsOf,
 	KINDS = KINDS,

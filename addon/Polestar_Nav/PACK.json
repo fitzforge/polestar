@@ -47,7 +47,7 @@
 			"clampedCosts": 0,
 			"maxDegree": 63,
 			"rawBytes": 40883124,
-			"packedBytes": 20791015,
+			"packedBytes": 20791019,
 			"files": 42,
 			"hubs": 101,
 			"roads": {
@@ -66,6 +66,37 @@
 				"cell": 15594,
 				"layer": 1,
 				"z": 502,
+				"sign": {
+					"cellPairs": [
+						[
+							14325,
+							14454
+						],
+						[
+							14326,
+							14453
+						],
+						[
+							14326,
+							14454
+						],
+						[
+							14327,
+							14454
+						],
+						[
+							14453,
+							14454
+						],
+						[
+							14454,
+							14455
+						]
+					],
+					"layer": 1,
+					"z": 502,
+					"solidSamples": 3
+				},
 				"dearerEdges": 0
 			}
 		},
@@ -169,7 +200,7 @@
 		}
 	},
 	"files": {
-		"Nav/Nav0.lua": "0cb3192c987ecdc912d7e501ce69f88f5d4b33675d11ed339b68e8ce08fc286f",
+		"Nav/Nav0.lua": "9e5814fc8c641303d8d82387f35f55cea03cce9905758d1e79b5c206e68b7bd9",
 		"Polestar_Nav_EK/Nav0_1.lua": "be5a56835324ffc9a6550481e212f56465c32033d966017371c55b85a94abe38",
 		"Polestar_Nav_EK/Nav0_2.lua": "4d9d1ec2e651405c7e38cd23c575c5b5baaccc56628cd9555001ad226b748206",
 		"Polestar_Nav_EK/Nav0_3.lua": "70f065787eab4a62ecc2bb738ae25b62ab48082e437ac6f5468beb0a0b1ad992",
@@ -268,7 +299,7 @@
 		"Nav/Chokepoints.lua": "55dad3a6e3a621708a14d060f3f7f0540d95dbc1b2f77470086c51755ef047f6",
 		"Polestar_Nav_R0_10_10/Pages.lua": "ea003590d7636898b96cdb145daab8fc53a02e5e6b5707fa60c29c9e4c3a6489",
 		"Polestar_Nav_R0_10_7/Pages.lua": "e3c19ccb4f020620e05122c1666c1a032d4bc827ae791618fd52efa67bff3687",
-		"Polestar_Nav_R0_10_8/Pages.lua": "e3f5447b14aff07ce3002cfd477d6a9878b4d3df6a46e330faf7817429c7a4dd",
+		"Polestar_Nav_R0_10_8/Pages.lua": "09b6db71accc729dd71bdc778c9accafe81ce728cdabf3d7a3e3555b32dcefe4",
 		"Polestar_Nav_R0_10_9/Pages.lua": "a7286a87b78711211c954eb937f885180d79117c95e0d2c7bca4d9b1c1737a6e",
 		"Polestar_Nav_R0_11_10/Pages.lua": "2f9f68ef7e04b8c4bed0fc4692572b436c205d0d458409a5e5a9743ed8367172",
 		"Polestar_Nav_R0_11_5/Pages.lua": "40b0be764be16d041b4aa128118bdc60cd6d36b01714097d920789c81d93af5a",
@@ -658,7 +689,7 @@
 	],
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "1aaef3d609d8d320cfe32b1b1ab43427ac7078aca1bab082bc384be483fc1591",
+		"manifestSha256": "fc3813e1fb01dd39d8e250b2f64ecb64b46df00e7eb7d1b2cbda015bdf06d261",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",

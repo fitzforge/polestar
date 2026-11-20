@@ -3,6 +3,8 @@
 //! and pass that directory to tools/lib/nav/import-regions.js. Neither the source nor the installed addon is edited.
 //! At the grounded center the body intersects the fixed gryphon roost in both base builds (70532 and 70959).
 //! Off-center stances in the same cell are clear. This is not a cell mask or a ban on standing near the roost.
+//! On the street the sign blocks six pairs of ground-layer steps. Three separate points on its faces
+//! also bound shortcuts; they do not mark a whole cell, model volume or standing position as occupied.
 use flate2::read::ZlibDecoder;
 use forge_nav::pack::cuts::reprice;
 use forge_nav::pack::encode::{block, BLOCK_BYTES};
@@ -17,6 +19,9 @@ const SOURCE: &str = "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2b
 const PARTS: [&str; 2] = ["Polestar_Nav_EK/Nav0_20.lua", "Polestar_Nav_EK/Nav0_21.lua"];
 const CLUSTER: usize = 471;
 const CELL: usize = 15594;
+// Map 0, cluster 471: both ends are layer 1 at packed height 502. These are cell IDs, not node IDs.
+const SIGN_PAIRS: [(usize, usize); 6] = [(14325, 14454), (14326, 14453), (14326, 14454), (14327, 14454), (14453, 14454), (14454, 14455)];
+const SIGN_SAMPLES: &str = "PolestarPathData[0].solidSamples = { [471] = {-4866.847,-1107.031,502.515,-4864.583,-1106.652,502.515,-4866.632,-1108.366,502.515} }\n";
 
 fn hash(bytes: &[u8]) -> String {
 	format!("{:x}", Sha256::digest(bytes))
@@ -24,7 +29,7 @@ fn hash(bytes: &[u8]) -> String {
 
 // A reviewed cluster's interior cell has exactly one extra floor. No border, entrance, arc or explicit link
 // is incident on it. In particular removing a step's target alone would redirect that step to the base floor.
-fn remove(before: &Cluster, rows: &[Row], cell: usize, z: f64) -> Result<Cluster, String> {
+fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, sign_pairs: &[(usize, usize); P]) -> Result<Cluster, String> {
 	let (c, n) = (before.c, before.n());
 	let (x, y) = (cell / c, cell % c);
 	let (u, count) = before.floors_of(cell);
@@ -52,6 +57,23 @@ fn remove(before: &Cluster, rows: &[Row], cell: usize, z: f64) -> Result<Cluster
 			}
 		}
 	}
+	// Resolve stable cell/layer addresses before the roost removal renumbers the floor nodes.
+	let street = |lc| before.surface(lc, 1, 502.0).filter(|&v| before.val[v] == 1 && before.z[v] == 502.0).ok_or("sign: expected street floor");
+	let mut excluded = [(0, 0); P];
+	for (pair, &(a, b)) in excluded.iter_mut().zip(sign_pairs) {
+		let (s, t) = (street(a)?, street(b)?);
+		*pair = (s, t);
+		for (from, to, source, target) in [(a, b, s, t), (b, a, t, s)] {
+			let dx = (to / c) as i64 - (from / c) as i64;
+			let dy = (to % c) as i64 - (from % c) as i64;
+			let d = (0..8).find(|&d| (DX[d], DY[d]) == (dx, dy)).ok_or("sign: not neighboring cells")?;
+			let steps = &mut after.steps[source - n];
+			if *steps & (1 << d) == 0 || before.surface(to, -1, before.z[source]) != Some(target) {
+				return Err(format!("sign: missing street step {from} -> {to}"));
+			}
+			*steps &= !(1 << d);
+		}
+	}
 	let shift = |v: u32| v - u32::from(v as usize > u);
 	for (v, _, _) in &mut after.links {
 		*v = shift(*v);
@@ -66,9 +88,10 @@ fn remove(before: &Cluster, rows: &[Row], cell: usize, z: f64) -> Result<Cluster
 	after.index();
 	let (mut old, mut new) = (Vec::new(), Vec::new());
 	for v in (0..before.t()).filter(|&v| v != u) {
+		let at_sign = excluded.iter().any(|&(a, b)| a == v || b == v);
 		for reverse in [false, true] {
 			before.moves(v, reverse, &mut old);
-			old.retain(|m| m.0 != u);
+			old.retain(|&(w, _)| w != u && !(at_sign && (excluded.contains(&(v, w)) || excluded.contains(&(w, v)))));
 			for m in &mut old {
 				m.0 = shift(m.0 as u32) as usize;
 			}
@@ -126,7 +149,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 		assert_eq!(manifest["files"][key], hash(&b), "unrecognized {key}");
 		Ok(b)
 	};
-	let meta = String::from_utf8(read("Polestar_Nav/Nav/Nav0.lua", "Nav/Nav0.lua")?)?;
+	let mut meta = String::from_utf8(read("Polestar_Nav/Nav/Nav0.lua", "Nav/Nav0.lua")?)?;
 	let number = |key: &str| -> f64 { meta.split_once(&format!("\n\t{key} = ")).unwrap().1.split(',').next().unwrap().parse().unwrap() };
 	let c = number("cells") as usize;
 	let ny = number("ny") as usize;
@@ -147,7 +170,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let before = Cluster::decode(c, cs, number("zstep"), get("grid"), get("height"), Some(get("floor")), Some(get("class")), Some(get("area")), Some(get("arc")))?;
 	let mut rows = decode_graph(get("graph"))?;
 	assert_eq!((before.z[CELL], rows.len()), (768.0, 306));
-	let after = remove(&before, &rows, CELL, 502.0)?;
+	let after = remove(&before, &rows, CELL, 502.0, &SIGN_PAIRS)?;
 	let (dearer, gone) = reprice(&before, &after, &mut rows, number("swim"));
 	assert_eq!(gone, 0, "disconnected entrance edge needs review");
 	let changed = BTreeMap::from([
@@ -161,6 +184,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	fs::create_dir(dest)?; // Never overwrite or follow links into the input (or into an installed addon).
 	fs::create_dir(dest.join("Polestar_Nav_EK"))?;
 	fs::create_dir(dest.join("Polestar_Nav"))?;
+	meta.push_str(SIGN_SAMPLES);
+	fs::create_dir(dest.join("Polestar_Nav/Nav"))?;
+	manifest["files"]["Nav/Nav0.lua"] = json!(hash(meta.as_bytes()));
+	fs::write(dest.join("Polestar_Nav/Nav/Nav0.lua"), meta)?;
 	for (key, part) in PARTS.iter().zip(&parts) {
 		let mut out = Vec::with_capacity(part.len());
 		for line in part.split_inclusive(|&b| b == b'\n') {
@@ -186,9 +213,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let stats = &mut map["leffe"];
 	stats["floors"] = json!(stats["floors"].as_i64().unwrap() - 1);
 	stats["areaSurfaces"] = json!(stats["areaSurfaces"].as_i64().unwrap() - area_removed);
-	map["occupiedFloor"] = json!({"sourceManifestSha256": SOURCE, "cluster": CLUSTER, "cell": CELL, "layer": 1, "z": 502, "dearerEdges": dearer});
+	map["occupiedFloor"] = json!({
+		"sourceManifestSha256": SOURCE, "cluster": CLUSTER, "cell": CELL, "layer": 1, "z": 502,
+		"sign": {"cellPairs": SIGN_PAIRS, "layer": 1, "z": 502, "solidSamples": 3}, "dearerEdges": dearer
+	});
 	fs::write(dest.join(MANIFEST), serde_json::to_string_pretty(&manifest)? + "\n")?;
-	println!("Removed the occupied Ironforge center; {dearer} dearer entrance edges, none lost");
+	println!("Removed the occupied Ironforge center and six street step pairs; {dearer} dearer entrance edges, none lost");
 	Ok(())
 }
 
@@ -211,8 +241,8 @@ mod tests {
 	#[test]
 	fn removing_ground_does_not_redirect_its_neighbor_onto_the_roof() {
 		let c = floors();
-		assert!(remove(&c, &[], 5, 768.0).is_err());
-		let after = remove(&c, &[], 5, 502.0).unwrap();
+		assert!(remove(&c, &[], 5, 768.0, &[]).is_err());
+		let after = remove(&c, &[], 5, 502.0, &[]).unwrap();
 		assert_eq!(after.z[5], 768.0);
 		let neighbor = after.surface(6, 1, 502.0).unwrap();
 		let mut moves = Vec::new();
@@ -221,19 +251,52 @@ mod tests {
 	}
 
 	#[test]
+	fn sign_cut_keeps_the_neighbor_upper_walk_and_one_way_arc() {
+		let mut c = floors();
+		let lo = c.surface(6, 1, 0.0).unwrap();
+		let hi = c.add_floor(6, 1, 520.0, 0, 0);
+		let other_lo = c.add_floor(7, 1, 502.0, 0, 0);
+		let other_hi = c.add_floor(7, 1, 520.0, 0, 0);
+		let neighbor = c.add_floor(10, 1, 502.0, 0, 0);
+		c.steps[lo - 16] |= 1 | 4; // +x to the neighbor, +y through the sign
+		c.steps[other_lo - 16] = 8;
+		c.steps[neighbor - 16] = 2;
+		c.steps[hi - 16] = 4;
+		c.steps[other_hi - 16] = 8;
+		c.add_arc(other_hi, lo, 12.0);
+
+		let after = remove(&c, &[], 5, 502.0, &[(6, 7)]).unwrap();
+		let node = |lc, layer| after.surface(lc, layer, 0.0).unwrap();
+		let mut moves = Vec::new();
+		for back in [false, true] {
+			after.moves(node(6, 1), back, &mut moves);
+			assert!(!moves.iter().any(|m| m.0 == node(7, 1)));
+			assert!(moves.contains(&(node(10, 1), 1.0)));
+			assert_eq!(moves.contains(&(node(7, 2), 3.0)), back);
+			after.moves(node(7, 1), back, &mut moves);
+			assert!(moves.is_empty());
+			after.moves(node(6, 2), back, &mut moves);
+			assert_eq!(moves, [(node(7, 2), 1.0)]);
+			after.moves(node(7, 2), back, &mut moves);
+			assert!(moves.contains(&(node(6, 2), 1.0)));
+			assert_eq!(moves.contains(&(node(6, 1), 3.0)), !back);
+		}
+	}
+
+	#[test]
 	fn another_layer_or_incident_entrance_link_or_arc_needs_a_new_review() {
 		let mut c = floors();
 		let u = c.surface(5, 1, 502.0).unwrap();
 		let v = c.surface(6, 1, 502.0).unwrap();
 		let row = Row { cell: 5, layer: 1, comp: 0, edges: vec![] };
-		assert!(remove(&c, &[row], 5, 502.0).is_err());
+		assert!(remove(&c, &[row], 5, 502.0, &[]).is_err());
 		c.links.push((v as u32, 3, 1));
-		assert!(remove(&c, &[], 5, 502.0).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
 		c.links.clear();
 		c.add_arc(v, u, 4.0);
-		assert!(remove(&c, &[], 5, 502.0).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
 		c.arcs.clear();
 		c.add_floor(5, 1, 510.0, 0, 0);
-		assert!(remove(&c, &[], 5, 502.0).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
 	}
 }

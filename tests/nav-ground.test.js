@@ -85,3 +85,39 @@ test('a displaced start cannot sell the unwalkable chord out of the Stonefire Ta
 		assert.ok(answer.knots > 2 && answer.yards > 20.31 && answer.vendorYards > 20.31);
 	}
 });
+
+test('Ironforge street walks round the signpost in both directions without closing the west pavement', () => {
+	const parts = navParts(path.join(ADDONS, 'Polestar_Nav'));
+	const { emitted: [lines] } = runAddon({
+		stubs: ['stub_world.lua', 'stub_encoding.lua', 'stub_packs.lua'],
+		before: ["stub.clientBuild = '70532'", ...parts.map(n => `stub.packs[${JSON.stringify(n)}] = {${tocFiles(n).map(p => JSON.stringify(p)).join(',')}}`)].join('\n'),
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Nav/Nav.xml'] }, 'Polestar_Nav'],
+		script: `
+			local p, frames = Polestar_NavEngine, {}
+			p.after = function(fn) frames[#frames+1] = fn end
+			local function walk(x,y,X,Y)
+				local points
+				p.Find(0,{x=x,y=y,z=502},{x=X,y=Y,z=502},function(line, _, job)
+					if job.walkChecked and not job.reached then
+						points = {}
+						for _,v in ipairs(line) do points[#points+1]={v.x,v.y,v.z} end
+					end
+				end,{profile='Alliance',walkLevel=23})
+				while #frames>0 do table.remove(frames,1)() end
+				return points or false
+			end
+			local a,b,c,d = -4864.5833333333,-1122.9166666667,-4868.75,-1097.9166666667
+			emit({walk(a,b,c,d),walk(c,d,a,b),walk(c,-1118.75,c,-1102.0833333333)})`,
+	});
+	for (const line of lines) {
+		assert.ok(Array.isArray(line) && line.length >= 2, 'the pavement remains connected');
+		for (let i = 1; i < line.length; ++i) {
+			const [x, y, z] = line[i - 1], [X, Y, Z] = line[i], dx = X-x, dy = Y-y;
+			assert.ok(Math.abs(z-502)<1 && Math.abs(Z-502)<1, 'stay on the pavement');
+			for (const [px, py] of [[-4866.847,-1107.031],[-4864.583,-1106.652],[-4866.632,-1108.366]]) {
+				const t = Math.max(0, Math.min(1, ((px-x)*dx+(py-y)*dy)/(dx*dx+dy*dy || 1)));
+				assert.ok(Math.hypot(x+t*dx-px,y+t*dy-py) >= .454, 'a shoulder crosses a fixed sign face');
+			}
+		}
+	}
+});

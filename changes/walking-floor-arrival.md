@@ -10,8 +10,9 @@ section: players
   At bends such as the Ironforge gryphon roost, the arrow follows the aisle
   even when the game doesn't flag it as indoors. On open ground it can
   still point farther ahead when the map shows a clear straight walk.
-  From the Ironforge flight master, the walking map also goes around
-  the gryphon perch instead of putting a step inside it.
+  From the Ironforge flight master, the walking map goes around the
+  gryphon perch. Farther down the street, the arrow keeps the turn
+  around the signpost instead of pointing through it.
 - With real-path routing on, missing walking data no longer sends the
   arrow straight across unmapped ground. Turning routing off still shows
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.

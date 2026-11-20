@@ -146,16 +146,20 @@ function Safe.segment(job, x, y, X, Y)
 end
 function Safe.line(job, points, from, to)
 	if not points or not points[1] then return false end
+	local st = State(job.map)
+	local solid = st and st.D.solidSamples and Grid.solidChord
 	local a = from
 	for i = 1, #points do
 		local b = points[i]
 		if b.rideFrom == a then
 			if Safe.segment(job, a.x, a.y, a.x, a.y) or Safe.segment(job, b.x, b.y, b.x, b.y) then return false end
+			if solid and (solid(st,a.x,a.y,a.z,a.x,a.y,a.z) or solid(st,b.x,b.y,b.z,b.x,b.y,b.z)) then return false end
+		elseif solid and solid(st,a.x,a.y,a.z,b.x,b.y,b.z) then return false
 		elseif Safe.segment(job, a.x, a.y, b.x, b.y) then return false end
 		a = b
 		tick()
 	end
-	return not Safe.segment(job, a.x, a.y, to.x, to.y)
+	return not Safe.segment(job, a.x, a.y, to.x, to.y) and not (solid and solid(st,a.x,a.y,a.z,to.x,to.y,to.z))
 end
 function Safe.xy(st, k, cell)
 	return st.x0 + (floor(k / st.ny) * st.C + floor(cell / st.C) + .5) * st.cs,
