@@ -139,7 +139,10 @@ fn placement_never_answers_a_labelled_task_for_the_player() {
 			before: format!("{WORLD}w.onQuest(783, {{ {{ required = 3, fulfilled = 1 }} }})"),
 			addons: vec![core()],
 			saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/choice", manual = {{ ["test/choice"] = {{ ["1:1"] = {stored} }} }} }}"#))],
-			script: [TEST_PACK, TEST_SOURCE, r#"
+			script: [
+				TEST_PACK,
+				TEST_SOURCE,
+				r#"
 Polestar.RegisterGuide({ id = "test/choice", pack = "test", title = "Choice", minLevel = 1, maxLevel = 10, steps = {
 	{ label = "field", goals = { { t = "task", text = "I am at the field" } } },
 	{ goals = { { t = "accept", quest = 783, title = "A Threat Within" } } },
@@ -149,7 +152,9 @@ stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(.7)
 local E = Polestar.Engine
 local function state() return { live = E.GetLiveStep(), task = E.GoalDone(1, 1), arrow = E.GetWaypoint() ~= nil } end
 emit(state()); E.ToggleGoal(1, 1); stub.advance(.3); emit(state())
-"#].join("\n"),
+"#,
+			]
+			.join("\n"),
 			..Default::default()
 		});
 		let unanswered = json!({"live": 1, "task": false, "arrow": false});

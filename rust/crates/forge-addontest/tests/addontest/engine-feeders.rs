@@ -141,7 +141,10 @@ fn t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone() 
 
 #[test]
 fn an_unpriced_remote_feeder_does_not_land_at_the_start_of_a_guide() {
-	let out = run("", NEAR, r#"
+	let out = run(
+		"",
+		NEAR,
+		r#"
 local function goal(t, q, map, pre)
 	return { t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }
 end
@@ -159,14 +162,19 @@ register("test/trip", {
 E.SetGuide("test/trip"); flush()
 local g = E.GetGuide()
 emit({ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {})[903] ~= nil })
-"#);
+"#,
+	);
 	assert_eq!(out, json!({"first": 902, "hidden": true}));
 }
 
 #[test]
 fn feeder_work_must_fit_the_visits_in_route_order() {
 	for (work_map, imported) in [(1440, false), (1429, true)] {
-		let out = run("", NEAR, &format!(r#"
+		let out = run(
+			"",
+			NEAR,
+			&format!(
+				r#"
 local function at(t, q, map, pre)
 	return {{ t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }}
 end
@@ -183,7 +191,9 @@ Polestar.RegisterGuide({{ id = "test/later", pack = "test", title = "Later", fac
 E.SetGuide("test/later"); flush()
 local g = E.GetGuide()
 emit({{ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {{}})[913] ~= nil, feeder = g.steps[3] and g.steps[3].feeder or false }})
-"#));
+"#
+			),
+		);
 		assert_eq!(out["first"], 911);
 		assert_eq!(out["hidden"], !imported, "work map {work_map}: {out}");
 		assert_eq!(out["feeder"], if imported { json!("test/earlier") } else { json!(false) });
