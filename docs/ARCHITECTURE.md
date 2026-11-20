@@ -2075,6 +2075,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`stepGroups` counts it as held), so the arrow does not lead to the
   ender; its goal view has `pinOpen = "ticked"` and the window says to
   finish the objectives first.
+- **Shared quest supplies.** When several held quests require the same
+  item, `Own.sharedCollect` compares the bag count once with the sum of
+  their payments. Repeated goals for one quest count once. A skipped quest
+  or an optional collect (including one the player skipped) adds nothing.
+  The step view shows one required row per item. Paying a quest updates
+  both sides: three lungs spent on one bloodmage are no longer in the bags,
+  and those three are no longer owed.
 - **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
   `background` along step is compiled as the along step it is: the
   `background` line only drives the lint (a finish step before the
@@ -2115,8 +2122,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   with its own places, in one group (`e.group`); only one shows, measured to
   the nearest copy (`Own.hereNearest` hands the line over, its serial kept),
   its row naming the earliest step (the view's `firstStep`, `later` from it);
-  a dismiss or an expiry is for the whole group. A hand-in or a pick-up keeps
-  only its first step. With `behavior.whileHereTurnins`, a later
+  a dismiss or an expiry is for the whole group. If two quests in a later
+  step share a drop source and the next few steps offer the other quest,
+  `Own.waitForHuntPartner` defers the hunt invitation until that pickup.
+  It does not defer a live goal, discard incidental loot, or wait for a
+  quest already held, paid, declined or unavailable.
+  A hand-in or a pick-up keeps only its first step. With `behavior.whileHereTurnins`, a later
   `turnin` of a ready quest counts too, weighed by what it costs rather than
   by its distance (a hand-in is a short walk to one NPC and a click): its
   detour (`Own.hereDetour`, on every poll: the seconds of extra walking to
@@ -2498,13 +2509,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   from the guide as registered). `Own.feederPlan` follows each such accept
   to the quest it lacks that the guide does not bring, then down that
   quest's chain in the guides leading here (`next` or a route choice, back
-  8 guides; a quest in the log only handed in). A chain goes in when it
+  8 guides; a quest in the log needs no pickup). A chain goes in when it
   opens an accept that is not grey, all its places are in the guide's own
   zones, and, done before the first accept it opens, it costs at most 5
   minutes (`Own.feedCost`: a straight-run detour there and back from the
   nearest place the guide and the feeder steps already in go before that
   accept, plus 90 s per objective); its source steps, with its goals only,
-  go after the guide's nearest step before that accept. Every other such
+  go after the guide's nearest step before that accept. A feeder step
+  keeps the source step's `when` conditions: a bag requirement still
+  gates the pickup or payment. If two chains share a visit, the first
+  occurrence pulls forward the other chain's unpaid work before the
+  shared hand-in; the visit itself appears only once. Every other such
   accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
