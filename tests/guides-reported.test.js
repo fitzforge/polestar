@@ -18347,3 +18347,14 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 	});
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
 });
+
+// #3172 (Yunra, 0.4.1.1): Admiral Lamora walks the middle ship's top deck and her loot chest is below deck (players'
+// recordings: 40 of 40 Lamora's Loot ticks indoors); both sides' steps said the chest stands beside her.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Lamora's loot chest is below deck (#3172)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'Lamora\'s Loot', (g) => g.quest === 95124 && g.oi === 2)];
+		assert.match(step.note || '', /below deck/);
+		assert.doesNotMatch(step.note || '', /chest beside her/);
+	});
+}

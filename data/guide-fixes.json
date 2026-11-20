@@ -14562,6 +14562,23 @@
 				}
 			],
 			"issue": 3211
+		},
+		{
+			"id": "3172-lamora-loot-below-deck",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Admiral Lamora walks the middle ship's top deck; her loot chest is below deck.",
+			"note": "#3172: Admiral Lamora (257861) walks the middle pirate ship's top deck, and Lamora's Loot is in a chest below deck; both sides' Riverglades steps said she stands by the ship with the chest beside her.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 40 of 40 Lamora's Loot ticks indoors (below deck)"
+				}
+			],
+			"issue": 3172
 		}
 	]
 }

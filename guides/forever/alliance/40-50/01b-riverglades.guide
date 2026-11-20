@@ -512,7 +512,7 @@ step Powderfuse Port
   turnin 95294                          -- Friz Frazzlespark
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
