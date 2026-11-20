@@ -2,6 +2,22 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "a40-riverglades-second-wave-level-44",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95122,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 44,
+			"note": "Fix round 2026-11-20 (Riverglades placement study, both 30-50 Alliance bands): the top-up before the port's second wave goes to 44, not 44.4. Its Eastsea Raiders are 44-45, Bombardiers 43-44 and Admiral Lamora 45, so at 44 nothing is more than one over the player. Level model (28 runs): the Riverglades top-up falls from 527 to 359 minutes; Searing Gorge's existing top-ups take back 109 and Un'Goro's 8, so the band's grinding falls by 50 minutes and comes as short top-ups rather than one 1.4-level block. A split Riverglades (part 1 at 38-40, part 2 after the Badlands & Hinterlands) was measured and not adopted: 73 minutes less grinding, but worse flow (8 more walked-past givers) and quest chains split across guides.",
+			"source": {
+				"kind": "recording",
+				"ref": "Guide followers at the second wave (archive to 2026-11-19): 25th percentile 44.17 (7 people); the model arrives at 42.98 before the top-up."
+			}
+		},
+		{
 			"id": "a40-sunken-temple-level-46",
 			"faction": "Alliance",
 			"at": {
