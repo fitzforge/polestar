@@ -38963,13 +38963,6 @@
 				],
 				"english": "The Questioner"
 			},
-			"npc:256247": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Belathaan Brightwish"
-			},
 			"npc:256389": {
 				"reason": "no-source",
 				"scenes": [
@@ -39073,14 +39066,6 @@
 					"guides"
 				],
 				"english": "Zaal Stormshield"
-			},
-			"npc:257446": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Teo Hammerstorm"
 			},
 			"npc:257558": {
 				"reason": "no-source",
@@ -39714,20 +39699,6 @@
 				],
 				"english": "Golm"
 			},
-			"npc:271481": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Captive Fire Elemental"
-			},
-			"npc:271546": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Mountaineer Gretchen"
-			},
 			"npc:272203": {
 				"reason": "no-source",
 				"scenes": [
@@ -39758,13 +39729,6 @@
 				],
 				"english": "Coldrasp"
 			},
-			"npc:275657": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Heglan Shadeeye"
-			},
 			"npc:275662": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -39785,13 +39749,6 @@
 					"guides"
 				],
 				"english": "Lasher Sproutling"
-			},
-			"npc:275744": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Sentinel Lynessa Duskblossom"
 			},
 			"npc:275811": {
 				"reason": "same-as-english",
@@ -39933,20 +39890,6 @@
 				],
 				"english": "Scarlet Crusade Forward Camp"
 			},
-			"object:178206": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Foulweald Totem Mound"
-			},
-			"object:179677": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Kroshius' Remains"
-			},
 			"object:179746": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -39960,20 +39903,6 @@
 					"tooltips"
 				],
 				"english": "Adamantite Bound Chest"
-			},
-			"object:409311": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Spear of Mannoroth"
-			},
-			"object:409315": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Shattered Orb"
 			},
 			"object:424373": {
 				"reason": "no-source",

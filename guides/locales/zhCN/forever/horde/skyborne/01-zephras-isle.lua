@@ -54,9 +54,9 @@ return {
 	["The standing stones"] = "立石",
 	-- {npc:249363} Yala Windwatcher · {area:17678} Thendal Standing Stones · {npc:251143} Roiling Winds · {object:460001} Elemental Convergence (no name in this language: may be words) · {spell:1259686} Skysight
 	-- plural, as words: Al'Aketh Converts = {npc:251160} Al'Aketh Convert
-	["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your {spell:1259686} racial ability next to it."] = "{npc:249363}站在村子东边的{area:17678}。{npc:251143}和{npc:251160}聚集在她北边不远处。{object:460001}就在她东北方：在它旁边施放你的种族技能{spell:1259686}。",
+	["{npc:249363} stands at the {area:17678}, east of the village. {npc:251143} and Al'Aketh Converts gather just north of her. The {object:460001} is just north-east of her: cast your {spell:1259686} racial ability next to it."] = "{npc:249363}站在村子东边的{area:17678}。{npc:251143}和{npc:251160}聚集在她北边不远处。元素汇聚处就在她东北方：在它旁边施放你的种族技能{spell:1259686}。",
 	-- {spell:1259686} Skysight · {object:460001} Elemental Convergence (no name in this language: may be words)
-	["Cast {spell:1259686} near the {object:460001}"] = "在{object:460001}附近施放{spell:1259686}",
+	["Cast {spell:1259686} near the {object:460001}"] = "在元素汇聚处附近施放{spell:1259686}",
 
 	-- Step 8: The Cirrusfly Queen
 	["The queen hovers at the south-east end of the grove, on your way back from the stones."] = "卷云蝇后在林地东南端盘旋，就在你从立石返回的路上。",
@@ -420,7 +420,7 @@ return {
 
 	-- Step 90: Confront Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
-	["Take the Portal to {area:16630} in the shrine up to the heights. Fight east along the ledge to the Peacekeepers at its end, ride the wind current up to the upper terrace and tell {npc:252475} you are ready. Leave the {object:617084} up there alone until Rohash has withdrawn; then it takes you straight back to town."] = "通过神殿内通往 {area:16630} 的传送门上到高处。沿平台向东战斗，抵达尽头的维和者处，再乘气流上到上层平台，告诉 {npc:252475} 你准备好了。等罗哈什撤退后再使用上面的 {object:617084}；它会将你直接送回镇上。",
+	["Take the Portal to {area:16630} in the shrine up to the heights. Fight east along the ledge to the Peacekeepers at its end, ride the wind current up to the upper terrace and tell {npc:252475} you are ready. Leave the {object:617084} up there alone until Rohash has withdrawn; then it takes you straight back to town."] = "通过神殿内通往 {area:16630} 的传送门上到高处。沿平台向东战斗，抵达尽头的维和者处，再乘气流上到上层平台，告诉 {npc:252475} 你准备好了。等罗哈什撤退后再使用上面的传送门直接回镇。",
 
 	-- Step 91: The Fate of Zephras
 	-- {npc:254344} Endaria Mistgaze · {npc:251968} Ayessa Dawnsinger
