@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "붉은해적단 해적: 만나는 대로 처치하세요",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "붉은해적단은 모두 코담배를 떨어뜨리고, 그중 하나가 {npc:2493}의 눈을 가지고 있습니다. 편지를 찾았던 마을 바로 북쪽 해변의 붉은해적단 야영지에서 약탈자와 마법사(39-41)에게서 얻으세요. 마을 남쪽의 {area:43} 야영지(흑마법사와 해적 검객 41-43)는 48레벨 방문 때로 남겨 두세요.",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "붉은해적단은 모두 코담배를 떨어뜨리고, 그중 하나가 {npc:2493}의 눈을 가지고 있습니다. 편지를 찾았던 마을 바로 북쪽 해변의 붉은해적단 야영지에서 약탈자와 마법사(39-41)에게서 얻으세요. 마을 남쪽의 {area:43} 야영지(흑마법사와 해적 검객 41-43)는 48레벨 방문 때로 남겨 두세요."
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "고릴라 언덕",
@@ -477,6 +478,7 @@ return {
 	-- ["Bloodsail pirates"] = "붉은해적단 해적",
 	-- ["Cold Eye Basilisks"] = "{npc:690}",
 	-- ["Cortello's scroll"] = "코르텔로의 두루마리",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "붉은해적단은 모두 코담배를 떨어뜨리고, 그중 하나가 {npc:2493}의 눈을 가지고 있습니다. 편지를 찾았던 마을 바로 북쪽 해변의 붉은해적단 야영지에서 약탈자와 마법사(39-41)에게서 얻으세요. 마을 남쪽의 {area:43} 야영지(흑마법사와 해적 검객 41-43)는 48레벨 방문 때로 남겨 두세요.",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "붉은해적단은 모두 코담배를 떨어뜨리고, 그중 하나가 {npc:2493}의 눈을 가지고 있습니다. 붉은해적단 칼잡이는 마을 바로 북쪽 해안을 걸어다닙니다. 해도와 명령서는 {area:35} 남쪽 {area:43}의 해적 야영지에 있습니다.\n주의: {area:43} 야영지의 흑마법사와 칼잡이는 41-43레벨로 한 레벨 이상 높고 서로 가까이 서 있습니다. 가장자리에서 하나씩 끌어오세요.",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "잔질의 추종자는 누구나 혼합물을 떨어뜨릴 수 있습니다. {npc:2537}은(는) 야영지 남쪽을 걸어다닙니다.",
 	-- ["Fly to {area:144}"] = "{area:144}(으)로 비행",

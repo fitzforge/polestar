@@ -126,8 +126,8 @@ return {
 
 	-- Step 25: The Legashi satyrs
 	["The Legashi satyrs"] = "Die Satyrn der Legashi",
-	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Die Satyrn der Legashi (51-52) halten die Hügel nördlich des Lagers der Blutelfen: {npc:235903} will fünf von jeder Art.",
+	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -211,8 +211,8 @@ return {
 	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Südliches {area:1763}",
-	-- {area:1763} Jaedenar
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Folge der Straße nach Nordwesten. Den Süden von {area:1763}, um seinen verderbten Mondbrunnen, halten Kultisten, Adepten, Wachen und Hunde des Schattenrats.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
 	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -291,6 +291,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Folge der Straße nach Nordosten zu {area:1767}. Die Wucherborkenschinder und -zerfetzer an der Ostseite des Waldes tragen jeweils ein {item:11503}; Zornklauengrizzlys und Teufelspfotenverheerer streifen für Talo durch denselben Wald, und ihre Organe sind für {npc:10920}.\nAls Nächstes kommen die Höhlenbehüter der Totenwaldfelle (53-54) und Rächer (54-55) in {area:1762}: Unter Stufe 54 jage hier weiter die Grizzlys und Verheerer (51-52), bis du 54 bist. Die folgenden Abgaben in {area:1769}, im {area:2479} und am {area:1997} bringen dich fast auf 55. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:1584}.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Folge der Straße nach Nordosten zum {area:1767}. Die Wucherborkenschinder und -schredder auf der Ostseite des Waldes tragen je einen {item:11503}; Wutklauengrizzlys und Teufelspfotenverheerer streifen für Talo durch denselben Wald.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Folge der Straße nach Nordosten zu {area:1767}. Die Warpwood Moss Flayers und Shredders an der Ostseite des Waldes tragen jeweils ein {item:11503}; Angerclaw Grizzlies und Felpaw Ravagers streifen durch denselben Wald für Talo. Solange du unter Stufe 54,21 bist, jage die Grizzlies und Ravagers weiter: Die Abgaben bei {area:1997} und {area:2479} bringen dich auf Stufe 55. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1417}.",
+	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Folge der Straße nach Nordwesten. Den Süden von {area:1763}, um seinen verderbten Mondbrunnen, halten Kultisten, Adepten, Wachen und Hunde des Schattenrats.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Flieg vom Flugmeister der {area:2268} nach {area:1497}.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "Seine nächste Jagd, die kranken Grizzlys (55-56), wartet auf den Besuch in den Pestländern mit etwa 58.",
 	-- ["Jadefire moonwell"] = "Mondbrunnen der Jadefeuersatyrn",
@@ -333,6 +334,7 @@ return {
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "Das Furbolgdorf der Totenwaldfelle liegt gleich südlich des Refugiums. Jeder getötete Totenwaldfell erhöht auch deinen Ruf bei der {area:1769}; behalte die Kopfputzfedern.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Das Furbolg-Dorf der Deadwood liegt direkt südlich des Sanctuary. Jeder Kill bei den Deadwood erhöht auch deinen Ruf bei {area:1769}; behalte die Kopfschmuck-Federn. Töte sie weiter bis Stufe 53,92: Die nächsten Abgaben im Sanctuary und bei {area:1763} brauchen sie. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:1584}.",
 	-- ["The Jadefire moonwell"] = "Der Mondbrunnen der Jadefeuersatyrn",
+	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Die Satyrn der Legashi (51-52) halten die Hügel nördlich des Lagers der Blutelfen: {npc:235903} will fünf von jeder Art.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Die Zelte des Scharlachroten Kreuzzugs stehen zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Die Bären streifen durch die Hügel nördlich und östlich vom {area:202}.",
 	-- ["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Die Bären streifen durch die Hügel nördlich und östlich von {area:202}. Solange du unter Stufe 53,02 bist, jage sie nach dem achten weiter: Die Abgaben bei {area:202} bringen dich auf Stufe 54. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:1584}.",

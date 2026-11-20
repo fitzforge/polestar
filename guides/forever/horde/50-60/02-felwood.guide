@@ -171,6 +171,7 @@ step Magus Rimtori
 
 step The Legashi satyrs
   tip The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: Ekkal wants five of each kind.
+  tip Careful: Prince Halanox (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be.
   kill 6200 quest 86746.1             -- Legashi Satyr
   kill 6201 quest 86746.2             -- Legashi Rogue
   kill 6202 quest 86746.3             -- Legashi Hellcaller
@@ -286,6 +287,7 @@ step Deadwood Village
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: pull the cultists and hounds away from him.
   kill 7125 quest 5155.1
   kill 7113 quest 5155.2
   kill 7115 quest 5155.3
