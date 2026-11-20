@@ -22,8 +22,10 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # Collector (5501) is taken at Kormek's Hut on the way from the fortress to Smeed's camp, its Kodo Bones lie in the
 # graveyard the kodo taming already works, and Bibbly takes them on the way home from Kolkar Village. Both were carried
 # to the south loop at 38-39 before. Left there: Karnitol's satchel (1456), which Kreldig gives only on the last
-# Nijel's Point stop and which drops from the Tidehunters and Sea Witches (35-37), and the Sceptre of Light's hand-in
-# (5741), whose Book of the Ancients needs Lord Kragaru (38). Highway Robbery (79229) starts at an Extinguished
+# Nijel's Point stop and which drops from the Tidehunters and Sea Witches (35-37), and the Book of the Ancients (6027),
+# whose Lord Kragaru (38) rises at the Serpent Statue: Azore gives it when the Sceptre of Light (5741, level 33) is
+# handed in, which is done here, back up his hill from the fortress (about 1,600 yards added; it rode five guides to
+# the south loop before), and it is carried there. Highway Robbery (79229) starts at an Extinguished
 # Campfire just north of the Kodo Bones, goes to Bibbly at Kormek's Hut on the way home, and Bibbly's On the Lam
 # (79235) is carried to Tokal at the end of 30-40/04b in Booty Bay (about 200 yards added).
 
@@ -111,6 +113,11 @@ step Escort Dalinda
   goto 58.3,30.9 "Out of Thunder Axe Fortress"
   note Lead Dalinda out of the fortress; she walks off once you are clear of it. Vahlarriel takes the turn-in at Nijel's Point at the end of the guide.
   complete 1440
+
+step Azore Aldamort
+  tip Back west up the hill to Azore's tower with the sceptre, then south along the road to Kormek's Hut.
+  turnin 5741                         -- Azore Aldamort
+  accept 6027                         -- Azore Aldamort: Lord Kragaru (38) rises at the Serpent Statue, for the south loop at the end of 30-40 (06b): keep it
 
 step Bibbly F'utzbuckle
   tip Kormek's Hut stands by the road south of the fortress, on the way to Smeed's camp. Bibbly collects Kodo Bones; they lie among the skeletons of the Kodo Graveyard, where Smeed's kodos are.

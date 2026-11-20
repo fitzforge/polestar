@@ -16631,6 +16631,18 @@
 				"faction": "Alliance",
 				"why": "#2742 (Eykko): Falkhaan Isenstrider (45.6,47.7) before the kobold tracks of Shhh! We're Hunting Kobolds (91772), which run from 47.7,45.9 down the road to Goldshire, so the stables are not a walk back north.",
 				"source": "#2742"
+			},
+			{
+				"a": [
+					"turnin",
+					5741
+				],
+				"b": [
+					"accept",
+					5501
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix pass (2026-11-20): the Sceptre of Light (5741, level 33, 2,650 XP) goes back to Azore Aldamort on the first Desolace visit (30-40/02, about 34.5), up his hill west of Thunder Axe Fortress right after the sceptre drops there and before the road south to Kormek's Hut: about 1,600 yards added (the flow audit's longest 02 carry, 5741 over five guides and 406 carried minutes, goes). Azore's Book of the Ancients (6027) is taken there and carried to the south loop (30-40/06b), whose Lord Kragaru (38) it needs."
 			}
 		],
 		"leftout": [

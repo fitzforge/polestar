@@ -7945,6 +7945,17 @@ test('Alliance 30-40: Highway Robbery at the Kodo Bones, Bibbly on the way home,
 	assert.ok(at(bb, 'accept 79236', is('accept', 79236)) < at(bb, 'turnin 79236', is('turnin', 79236)), 'the grog quest taken first');
 });
 
+// Route audit (2026-11-20): the Sceptre of Light (level 33) rode five guides from Thunder Axe Fortress to the south loop;
+// it goes back to Azore up his hill right after the fortress, and his Book of the Ancients is carried to 06b instead.
+test('Alliance 30-40: the Sceptre of Light back to Azore on the first Desolace visit, the Book of the Ancients carried', { skip }, () => {
+	const des = goals('forever/alliance/30-40/02-desolace.guide');
+	const sceptre = at(des, 'collect 15750', (g) => g.t === 'collect' && g.item === 15750);
+	const back = at(des, 'turnin 5741', is('turnin', 5741));
+	assert.ok(sceptre < back && back < at(des, 'accept 5501', is('accept', 5501)), 'after the fortress, before Kormek\'s Hut');
+	assert.equal(des[at(des, 'accept 6027', is('accept', 6027))].s, des[back].s, 'the Book of the Ancients taken there');
+	assert.ok(goals(DESOLACE_SOUTH).some(({ goal }) => is('turnin', 6027)(goal)), '... and handed in on the south loop');
+});
+
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
 // (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
 // reporter in game, 2026-11-10, and every recorded window).

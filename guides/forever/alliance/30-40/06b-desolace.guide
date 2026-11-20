@@ -21,6 +21,8 @@ con A long trip out to Kalimdor
 # Nijel's Point is visited once at the end instead of in the middle of the loop as well.
 # Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
 # boat lands in Theramore only for the flight to Nijel's Point.
+# Since the 2026-11-20 fix pass the Sceptre of Light (5741) is handed in on the first Desolace visit (30-40/02), which
+# takes the Book of the Ancients (6027) from Azore there and carries it here; his lines here are for a character without them.
 
 # ---------------------------------------------------------------- To Theramore
 
@@ -107,10 +109,10 @@ step Hornizz Brimbuzzle
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort
-  turnin 5741
+  turnin 5741                         -- Azore Aldamort, if 30-40/02 didn't take the sceptre back to him
   turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
   tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
-  accept 6027
+  accept 6027                         -- Azore Aldamort, if 30-40/02 didn't give it
 
 step Karnitol's Chest
   tip The wrecked ship's chest lies just south-west of Azore's tower.
