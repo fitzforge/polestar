@@ -4168,7 +4168,8 @@ test('Horde 40-50/02: flown in to Gadgetzan, its quests come before the Mirage R
 });
 
 test('Horde 40-50: the steps beside the elites and level 60 roamers the danger gate reviewed warn about them (#1575)', { skip }, () => {
-	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['03-feralas', 3128, 'Vale Screamer']]) {
+	// Fix round 2026-11-20: Natural Materials' logs (objective 1, west of Camp Mojache) are gathered on 06's forest walker step.
+	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['06-azshara', '3128.1', 'Vale Screamer']]) {
 		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split(/\n(?=step )/);
 		const step = steps.find((t) => new RegExp(`^\\s+(kill|collect) \\d+ quest ${quest}\\b`, 'm').test(t));
 		assert.ok(step, `${n}: the objective of ${quest} is in the guide`);
@@ -8136,24 +8137,24 @@ test('forever/horde/40-50/02-feralas.guide: flow re-order: one sweep from the Wr
 // Flow review, Horde 40-60 (#1166): the Pool of Tears on the ride east before Misty Reed Post (it went Misty Reed,
 // pool, Misty Reed); Natural Materials' minerals with the logs and the sinew with the fragments; Improved Quality
 // (taken on the previous Feralas visit) done on the ride back from the harpies and handed in on the last Mojache stop.
-test('forever/horde/40-50/03-feralas.guide: flow re-order: the Pool of Tears before Misty Reed, the Rage Scar yetis on the way back', { skip }, () => {
-	const file = 'forever/horde/40-50/03-feralas.guide';
-	const list = goals(file);
+// Fix round 2026-11-20 (Feralas in two visits): the materials and the yetis ride on 40-50/06's Feralas loop; each
+// material comes on the Muisek hunt that already walks its creatures (the sinew and fragments together on the
+// hippogryphs), and the yetis still come on the ride back from the harpies, before the last Mojache stop.
+test('Horde Swamp and Feralas flow re-order (#1166): the Pool of Tears before Misty Reed, the Rage Scar yetis on the way back', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
 	assert.ok(at(list, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175) < at(list, 'turnin 699', is('turnin', 699)), 'the pool before Misty Reed Post');
-	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
-	assert.equal(step(9589), step(9590), 'minerals and logs on one step');
-	assert.equal(step(9591), step(9592), 'sinew and fragments on one step');
-	// The Northspring harpies (48-50) are worked on 40-50/06's Feralas loop at about 51 since the 0.4.0 level tidy:
-	// the yetis come on the ride back from the coast, Talo's quest is taken here and handed in there.
-	const vale = at(list, 'talk 8612 quest 3520', (g) => g.t === 'talk' && g.quest === 3520);
-	const yetis = at(list, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947);
-	const turnin = at(list, 'turnin 7734', is('turnin', 7734));
-	assert.ok(vale < yetis && yetis < turnin, 'Rogue Vale, Rage Scar yetis, then Mojache');
-	assert.ok(!list.some(({ goal }) => goal.quest === 3063 && goal.t !== 'accept'), 'Talo\'s harpies are only taken here');
 	const az = goals('forever/horde/40-50/06-azshara.guide');
-	assert.ok(at(az, 'kill 5366 quest 3063', (g) => g.t === 'kill' && g.quest === 3063) < at(az, 'turnin 3063', is('turnin', 3063)), 'the harpies and Talo on 06\'s Feralas loop');
-	assert.ok(goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('accept', 7734)(goal)), 'Improved Quality comes from the previous guide');
-	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7734)(goal)), 'not carried to the Azshara guide');
+	const stepOf = (item) => az[at(az, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(stepOf(9591), stepOf(9592), 'sinew and fragments on one step');
+	assert.equal(stepOf(9591), stepOf(9595), 'with the hippogryphs\' Muisek');
+	assert.equal(stepOf(9589), stepOf(9596), 'minerals with the sprite darters\' Muisek');
+	assert.equal(stepOf(9590), stepOf(9593), 'logs with the forest walkers\' Muisek');
+	const harpies = at(az, 'kill 5366 quest 3063', (g) => g.t === 'kill' && g.quest === 3063);
+	const yetis = at(az, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947);
+	const turnin = at(az, 'turnin 7734', is('turnin', 7734));
+	assert.ok(harpies < yetis && yetis < turnin && turnin < at(az, 'turnin 3063', is('turnin', 3063)) + 1, 'harpies, Rage Scar yetis, then Mojache');
+	assert.ok(!list.some(({ goal }) => goal.quest === 7734), 'no yetis on 03');
+	assert.ok(goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('accept', 7734)(goal)), 'Improved Quality comes from the first Feralas visit');
 });
 
 // Flow review, Horde 40-60 (#1166): Caught! is handed in at the outhouse right after its work (the guide came back to
@@ -9211,8 +9212,12 @@ test('forever/horde/40-50/03-feralas.guide: final review: the snapper claws on t
 	assert.equal(claws.s, list[at(list, 'collect 6184', (g) => g.t === 'collect' && g.item === 6184)].s, 'with the crawler legs');
 	assert.ok(!compiled(file).steps.some((step) => /next guide starts here/.test(step.note || '')), 'no next-guide tip mid-guide');
 	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Sunken Temple/.test(goal.text || goal.note || '')), 'no Sunken Temple note');
-	const last = list.map((e, i) => i).filter((i) => is('turnin', 3128)(list[i].goal)).pop();
-	assert.ok(at(list, 'turnin 7734', is('turnin', 7734)) < last && list[at(list, 'turnin 7734', is('turnin', 7734))].s === list[last].s, 'Jangdor first on the last Mojache stop, coming in from the north-west');
+	// Fix round 2026-11-20 (Feralas in two visits): the yetis and Jangdor's hand-in are on 06's loop; Jangdor still comes
+	// on the last Mojache stop, the one after the ride back from the north-west.
+	const az = goals('forever/horde/40-50/06-azshara.guide');
+	const jang = at(az, 'turnin 7734', is('turnin', 7734));
+	assert.equal(az[jang].s, az[at(az, 'turnin 3063', is('turnin', 3063))].s, 'Jangdor on the last Mojache stop, with Talo');
+	assert.ok(at(az, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947) < jang, 'coming in from the yetis in the north-west');
 });
 
 // Final route review, Horde 40-60: Tooga's escort ends at Steamwheedle Port, but the Noxious Lair sat between the
@@ -11171,7 +11176,7 @@ test('Horde 40-60 final review: tips point the way the route goes', { skip }, ()
 	assert.doesNotMatch(basilisks, /north out of Booty Bay/);
 	assert.equal(stepTips(H('40-50/06-azshara'), /turnin 3380/).length, 1, "one tip at Marvon's camp");
 	assert.doesNotMatch(stepTips(H('40-50/05-the-hinterlands'), /kill 2925 quest 7828/).join(' '), /back east/);
-	assert.doesNotMatch(stepTips(H('40-50/03-feralas'), /(kill|talk) 8612 quest 3520/).join(' '), /Ride west/);
+	assert.doesNotMatch(stepTips(H('40-50/02-feralas'), /(kill|talk) 8612 quest 3520/).join(' '), /Ride west/); // the screechers on 02's west sweep since the fix round
 	assert.doesNotMatch(stepTips(H('50-60/01-un-goro-crater'), /accept 5021/).join(' '), /Leave the Undercity/);
 });
 
@@ -11262,8 +11267,8 @@ test('Horde 43-47 follow-up: the Steamwheedle Port hand-ins on the first Tanaris
 	assert.ok(at(fer, 'accept 3520', is('accept', 3520)) < cove, 'accept 3520 on the first Steamwheedle Port stop');
 	const sw = goals('forever/horde/40-50/03-feralas.guide');
 	assert.ok(!sw.some(({ goal }) => goal.map === 1446), 'no Tanaris stop in the 45-47 guide');
-	const fly = sw.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
-	assert.ok(fly.includes('Camp Mojache') && !fly.includes('Gadgetzan'), 'Brackenwall flies to Camp Mojache');
+	// Fix round 2026-11-20: 03 ends at Brackenwall and 04 flies on to Gadgetzan for the Tanaris guide itself, not for these.
+	assert.ok(!sw.some(({ goal }) => goal.t === 'fly' && goal.location === 'Gadgetzan'), 'no flight to Gadgetzan in the 45-47 guide');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
 	assert.ok(!pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 3520), 'the swamp-stay pairs anchor on the screecher work, not the accept');
 });
@@ -12928,7 +12933,7 @@ test('use lines for an earlier guide\'s quest item are bound to the objective', 
 	for (const [guide, item, quest] of [
 		['forever/alliance/50-60/04-western-plaguelands.guide', 12815, 5097],
 		['forever/alliance/50-60/04-western-plaguelands.guide', 12928, 5163],
-		['forever/horde/40-50/03-feralas.guide', 10699, 3520],
+		['forever/horde/40-50/02-feralas.guide', 10699, 3520],
 		['forever/horde/50-60/06-silithus.guide', 12815, 5098],
 	]) {
 		const uses = goals(guide).filter(({ goal }) => goal.t === 'use' && goal.item === item);
@@ -16769,7 +16774,7 @@ test('#2327: a leveling guide that ends on the way into another zone drops that 
 // objective on the spirit's gossip. Feralas (Horde 40-50) told the player to kill the spirit. The goal is a talk now,
 // after the bramble's use, and the tip says so.
 test('#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble', { skip }, () => {
-	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const list = goals('forever/horde/40-50/02-feralas.guide'); // the screechers on 02's west sweep since the fix round (2026-11-20)
 	const use = at(list, 'use 10699', (g) => g.t === 'use' && g.item === 10699 && g.quest === 3520);
 	const talk = at(list, 'talk 8612', (g) => g.t === 'talk' && g.npc === 8612 && g.quest === 3520);
 	assert.ok(use < talk && list[use].step === list[talk].step, 'the bramble first, then the spirit, in one step');
