@@ -11480,29 +11480,6 @@
 				],
 				"reason": "Alliance 30-40 fix round (2026-11-20): Bone Collector (level 39, from 33, 2,250 XP): Bibbly F'utzbuckle stands at Kormek's Hut (62.2,38.9), on 30-40/02's walk from Thunder Axe Fortress to Smeed's camp; the Kodo Bones lie among the skeletons of the Kodo Graveyard (46-49,57-61), where the kodo taming already goes, and Bibbly takes them on the way home from Kolkar Village (about 300 yd added). It was taken and handed in on 30-40/06b at 38.9 with a second walk back to the hut. Players' recordings: accepted at a 25th percentile of 35.2 (48 characters).",
 				"issue": "-"
-			},
-			{
-				"q": 686,
-				"reason": "Alliance 30-40 fix round (2026-11-20): A King's Tribute (686, 689, 700; levels 30-31, 6,200 XP) is done inside 30-40/05-arathi-highlands: King Magni gives it on the walk from the tram to the Ironforge flight master, Grand Mason Marblesten stands south of the High Seat, the five Alterac Granite lie beside the road from Southshore into the Alterac Mountains (Alterac 39-41.5,88-96.5), which the guide takes to Gavin's Naze, and 689 and 700 are handed in on the guide's last Ironforge stop. About 1.1 km of walking inside Ironforge; nothing carried past the guide. It was never taken after Sara Balloo's Plea (683, 30-40/01).",
-				"issue": "-"
-			},
-			{
-				"q": 689,
-				"after": [
-					"turnin",
-					686
-				],
-				"reason": "Alliance 30-40 fix round (2026-11-20): see A King's Tribute (686) above.",
-				"issue": "-"
-			},
-			{
-				"q": 700,
-				"after": [
-					"turnin",
-					689
-				],
-				"reason": "Alliance 30-40 fix round (2026-11-20): see A King's Tribute (686) above.",
-				"issue": "-"
 			}
 		],
 		"skip": [
@@ -17105,12 +17082,6 @@
 				"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
 				"reason": "Death to the Dragonmaw, a group choice at Howin, needs his Razormaw Needling (98245) and Trying Times (98246) from 06-wetlands first (10 Razormaw Incisors and 12 Perfect Razormaw Eggs): too long to bring back for a group-only quest. A character who starts here without them is not offered it.",
 				"issue": "#2822"
-			},
-			{
-				"q": 686,
-				"guide": "forever/alliance/30-40/05-arathi-highlands",
-				"reason": "A King's Tribute needs Sara Balloo's Plea (683), which Sara Balloo gives in Ironforge for Sully Balloo's Letter (637, an item found earlier in 30-40/01-hillsbrad-foothills): too far to bring back for a character who starts at 05. A character who starts here without it is not offered King Magni's quest.",
-				"issue": "-"
 			}
 		]
 	}

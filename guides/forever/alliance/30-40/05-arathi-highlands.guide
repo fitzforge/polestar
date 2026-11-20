@@ -25,9 +25,6 @@ pitch For characters of 35 to 37. Faldir's Cove, where the naga and the professo
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
-# Since the 2026-11-20 fix round: A King's Tribute (686, 689, 700) is done in this guide for characters who brought Sara
-# Balloo's Plea (683) to King Magni in 30-40/01: Magni and Grand Mason Marblesten on the walk from the tram to the flight
-# master, the Alterac Granite beside the road from Southshore to Gavin's Naze, and both hand-ins on the last Ironforge stop.
 #
 # City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it, the Image
 # of Archmage Modera's Starving Arcane and Heart of Disruption (92457, 92458, after An Alarming Request, 92432) are
@@ -156,16 +153,6 @@ step Stormwind
 step Tram to Ironforge
   zone Stormwind City
   goto 64.5,7.5 "Tram to Ironforge"
-
-step King Magni Bronzebeard
-  zone Ironforge
-  tip Off the tram, west through the city to the High Seat: King Magni has a tribute for Grand Mason Marblesten, a short walk south of him.
-  accept 686                          -- King Magni Bronzebeard
-
-step Grand Mason Marblesten
-  zone Ironforge
-  turnin 686
-  accept 689                          -- Grand Mason Marblesten: the Alterac Granite lies on the road into the Alterac Mountains, later in this guide
 
 step Fly to Southshore
   zone Ironforge
@@ -398,8 +385,7 @@ step Alterac Mountains
 
 step Gavin's Naze
   zone Alterac Mountains
-  tip Follow the road north out of Southshore into the mountains: the Alterac Granite lies in chunks beside the road where it climbs out of the foothills. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings.
-  collect 4521 x5 quest 689 @40.2,92.0 map 1416 -- Alterac Granite, beside the road
+  tip Follow the road north out of Southshore into the mountains. Mountain lions roam the slopes; the Syndicate in Strahnbrad wear the signet rings.
   kill 2407 quest 564.2 @44.2,76.7 map 1416 -- Hulking Mountain Lion
   kill 2406 quest 564.1 @32.1,82.8 map 1416 -- Mountain Lion
 
@@ -502,16 +488,6 @@ step Ironforge
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
   accept 707                          -- Prospector Stormpike: for Prospector Ironband in Loch Modan, next
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Grand Mason Marblesten
-  zone Ironforge
-  tip From the Hall of Explorers through the city to Grand Mason Marblesten, south of the High Seat, then King Magni on the High Seat itself.
-  turnin 689
-  accept 700
-
-step King Magni Bronzebeard
-  zone Ironforge
-  turnin 700
 
 step Fly to Thelsamar
   when taxi "Thelsamar"
