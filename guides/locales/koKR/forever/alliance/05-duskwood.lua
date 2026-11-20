@@ -12,12 +12,12 @@ return {
 	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
 	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "{area:69} 비행 조련사",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "그녀의 집은 {area:42} 남동쪽 언덕 위, {area:121} 위쪽에 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
 	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "",
 
@@ -41,7 +41,7 @@ return {
 	-- {area:42} Darkshire
 	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, 내부",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, 마을 회관",
 	-- {npc:273} Tavernkeep Smitts
@@ -72,7 +72,7 @@ return {
 
 	-- Step 15: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: 만나는 대로 처치하세요",
 	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "묘지를 지나 남쪽 {area:94} 방향으로 가십시오. 묘지 남쪽 절반에는 해골 악령과 해골 병사가 돌아다닙니다. 정예인 {npc:522}이(가) 무덤 사이를 배회하니 멀리하십시오.",
@@ -127,7 +127,7 @@ return {
 
 	-- Step 26: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "지하철을 타고 {zone:1455}(으)로",
 
 	-- Step 27: Shaman training
 	["Shaman training"] = "주술사 수련",

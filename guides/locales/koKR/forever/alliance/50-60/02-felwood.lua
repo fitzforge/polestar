@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702} 비행 조련사",
 
@@ -22,7 +22,7 @@ return {
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, {npc:11554} 바로 동쪽 폐허",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, 내부",
 	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}: {zone:1448}에서 만나는 곰과 늑대로 {quest:86577}",
 
@@ -40,7 +40,7 @@ return {
 	-- {item:9328} Super Snapper FX
 	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "{npc:7153} 사냥",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
@@ -51,14 +51,14 @@ return {
 	-- {area:1763} Jaedenar
 	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "{npc:7155} 사냥",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
 	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "",
 	-- {npc:7109} Jadefire Felsworn
-	["grind on {npc:7109}"] = "",
+	["grind on {npc:7109}"] = "{npc:7109} 사냥",
 
 	-- Step 10: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
@@ -82,7 +82,7 @@ return {
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["Still short of level 52.9 after the {area:2479}'s hand-ins? Top up on the Entropic Beasts in {area:1766}, the next stop north."] = "{area:2479}의 퀘스트를 제출한 뒤에도 52.9레벨이 안 됩니까? 다음 목적지인 북쪽 {area:1766}의 혼돈의 야수를 잡아 경험치를 채우십시오.",
 	-- {npc:9878} Entropic Beast
-	["grind on {npc:9878}"] = "",
+	["grind on {npc:9878}"] = "{npc:9878} 사냥",
 
 	-- Step 15: Shatter Scar Vale
 	-- {npc:7136} Infernal Sentry
@@ -99,7 +99,7 @@ return {
 
 	-- Step 17: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}: 만나는 대로 처치하세요",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618}은(는) 북서쪽의 사티로스 골짜기이며, 맨 끝에 {npc:10648}이(가) 있습니다. 그가 {quest:939}을(를) 떨어뜨리고, 비취불꽃의 사티로스는 누구나 {item:11674}을(를) 떨어뜨릴 수 있습니다.\n주의: {npc:10648}(55)은(는) 골짜기 맨 끝에 있고 주위에 지옥소환사(53-54)가 있습니다. 그를 끌어오기 전에 하나씩 처리하세요.",
 

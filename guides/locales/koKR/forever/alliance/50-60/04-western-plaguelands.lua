@@ -12,7 +12,7 @@ return {
 
 	-- Step 3: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}: 만나는 대로 처치하세요",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the {quest:5401} (equip it as a trinket first).\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "해골 타작꾼과 걸신들린 구울이 야영지 북쪽 들판을 돌아다닙니다. {quest:5401}을(를) 착용하고 있으면 이곳의 모든 스컬지가 스컬지석을 떨어뜨립니다(먼저 장신구로 착용하세요).\n주의: 이 언데드들은 멀리서도 알아차리며, 하나를 끌면 근처의 다른 언데드도 싸움에 합류합니다.\n주의: {npc:10411}(3곳 출현, 15분 재생성)은 전투 중이 아닐 때 투명해지며, 전투가 시작되면 바위날개 가고일을 부릅니다.",
@@ -30,7 +30,7 @@ return {
 
 	-- Step 6: The Writhing Haunt: kill these as you meet them
 	-- {area:202} The Writhing Haunt
-	["{area:202}: kill these as you meet them"] = "",
+	["{area:202}: kill these as you meet them"] = "{area:202}: 만나는 대로 처치하세요",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}: 처치할 때 {quest:5401}을(를) 착용하세요",
 
@@ -81,7 +81,7 @@ return {
 
 	-- Step 17: Mulgris Deepriver
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 20: Diseased Grizzlies
 	["Diseased Grizzlies"] = "오염된 불곰",
@@ -132,7 +132,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "{area:2268}(으)로 날아가기",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "{area:3197} 비행 조련사",
 
 	-- Step 35: Carlin Redpath: Heroes of Darrowshire
 	-- {area:190} Hearthglen
@@ -167,7 +167,7 @@ return {
 
 	-- Step 41: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: 만나는 대로 처치하세요",
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "주의: 광포한 역병사냥개는 57-58레벨이니 하나씩 끌어서 잡으세요.",
 
@@ -192,13 +192,13 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348} 비행 조련사",
 
 	-- Step 50: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442} 비행 조련사",
 
 	-- Step 51: Rut'theran Village
 	-- {zone:1452} Winterspring
@@ -236,7 +236,7 @@ return {
 
 	-- Step 62: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "배를 타고 {area:1108}(으)로",
 
 	-- Step 63: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
@@ -267,7 +267,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 비행",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489} 비행 조련사",
 
 	-- Step 71: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
@@ -286,9 +286,9 @@ return {
 
 	-- Step 74: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 76: Donova Snowden
 	["Ride west along the road to the hot springs."] = "길을 따라 서쪽 온천으로 가세요.",
@@ -313,7 +313,7 @@ return {
 
 	-- Step 81: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "{npc:7583}에게",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
@@ -333,7 +333,7 @@ return {
 
 	-- Step 85: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "{area:541}(으)로 날아가기",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
@@ -341,7 +341,7 @@ return {
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "{area:976}에서 {area:541}(으)로 날아가세요. {npc:8737}은(는) 피난처 안쪽에 있고, {npc:9117}은(는) 그 뒤 동굴에 있습니다.\n{npc:9997}의 친구 {npc:9999}이(가) 실종되었습니다.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 
@@ -359,7 +359,7 @@ return {
 
 	-- Step 91: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: 길에서 만나는 대로 잡으세요",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "{npc:11740}은(는) 요새 북서쪽 모래언덕을 파고, {npc:11735}와(과) {npc:11738}은(는) 사방을 돌아다닙니다.",
 
@@ -368,7 +368,7 @@ return {
 	-- {item:9328} Super Snapper FX
 	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "{npc:11740} 사냥",
 
 	-- Step 93: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -385,7 +385,7 @@ return {
 	-- {area:2738} Southwind Village · {npc:11801} Rabine Saturna
 	["The reliquary is inside the ruined building on the south-east side of {area:2738}. Take it while you are clearing the Sentinels, and give it to {npc:11801} when you see him next."] = "",
 	-- {object:179565} Dusty Reliquary
-	["{object:179565}; inside"] = "",
+	["{object:179565}; inside"] = "{object:179565}; 안에",
 
 	-- Step 97: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
@@ -442,7 +442,7 @@ return {
 
 	-- Step 109: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "타르 야수와 타르 군주는 분화구로 내려가는 길에 있는 피난처 남쪽의 {area:538}에서 뒹굴고 있습니다.",
@@ -491,7 +491,7 @@ return {
 
 	-- Step 121: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}: 만나는 대로 처치하세요",
 
 	-- Step 122: The Gorishi hive
 	["The Gorishi hive"] = "고리쉬 벌집",

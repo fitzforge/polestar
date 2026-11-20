@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Fly to Grom'gol
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "{area:75} 비행 조련사",
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
@@ -61,7 +61,7 @@ return {
 
 	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
-	["{area:1577}: kill these as you meet them"] = "",
+	["{area:1577}: kill these as you meet them"] = "{area:1577}: 만나는 대로 처치하세요",
 	-- {object:759} Holy Spring · {area:35} Booty Bay
 	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "서쪽 해안으로 가세요. 나가 탐험가가 해안을 따라 걸어다니며 갈대 묶음을 지니고 있습니다. {object:759}은(는) 그 바로 동쪽 언덕에서 솟아납니다. 그 뒤 해안을 따라 남쪽 {area:35}(으)로 가세요.",
 
@@ -69,10 +69,10 @@ return {
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "{area:35}: 부두의 {npc:2494}, 여관 옆의 {npc:2486}, 여관 안의 {npc:2498}, 위층의 맥킨리, {npc:737}, {npc:773}.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, 내부",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, 위층",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "위층의 {npc:773}: 이 가이드 후반 {area:976}의 {quest:2864}용",
 
@@ -89,7 +89,7 @@ return {
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35} 비행 조련사",
 
 	-- Step 14: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
@@ -144,7 +144,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "{area:484}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 27: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -158,7 +158,7 @@ return {
 
 	-- Step 31: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 37: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
@@ -176,7 +176,7 @@ return {
 
 	-- Step 40: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "{area:976}(으)로",
 
 	-- Step 41: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
@@ -184,7 +184,7 @@ return {
 
 	-- Step 43: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: 만나는 대로 처치하세요",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "약탈자와 좀도둑은 {area:976} 동쪽 모래언덕에 야영하고 있습니다. 사막유랑단은 누구나 물주머니를 지니고 있을 수 있습니다. 루글룬켓에게 다섯 개가 필요합니다.\n주의: 사막유랑단 도적(43-44레벨)은 은신한 채 움직이므로 보이지 않게 다가올 수 있습니다.",
@@ -192,9 +192,9 @@ return {
 	-- Step 45: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "북동쪽 해안의 고블린 항구로 가세요.",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, 내부",
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, 내부",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: 날카로운비명은 {zone:1444}에 삽니다. 다음 {zone:1444} 방문 때",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
@@ -202,14 +202,14 @@ return {
 
 	-- Step 46: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: 만나는 대로 처치하세요",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "해안을 따라 남쪽으로 가면 남쪽바다해적단이 만을 차지하고 있습니다. {npc:7883}와(과) 도난당한 화물은 만 맨 끝 부두에 있습니다. 해적은 누구나 모자를 떨어뜨릴 수 있으며, 납치범이 가장 자주 떨어뜨립니다.\n주의: {npc:7883}(45) 곁에는 해적 두세 명이 서 있고, 싸움이 시작되면 마을의 해적이 훨씬 더 많이 합류합니다. 먼저 호위병을 그에게서 떼어 끌어오세요.",
 	["Upstairs"] = "위층",
 
 	-- Step 47: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
+	["{area:985}: kill these as you meet them"] = "{area:985}: 만나는 대로 처치하세요",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
@@ -232,7 +232,7 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
 	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: 45레벨쯤 {zone:1454}에서",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, 내부",
 
 	-- Step 53: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
@@ -270,7 +270,7 @@ return {
 
 	-- Step 62: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
+	["{area:2522}: kill these as you meet them"] = "{area:2522}: 만나는 대로 처치하세요",
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.\nCareful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge."] = "벌집에서 서쪽으로 {area:1105} 아래의 오우거 폐허로 가세요. 주술사, 흑마법사, 싸움꾼이 가득하며, 남쪽 끝의 대마법사가 구슬을 지니고 있습니다.\n주의: 대마법사(45-46)와 주술사는 원거리에서 주문을 쓰고 폐허는 빽빽하니, 가장자리에서 하나씩 끌어오세요.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
@@ -290,7 +290,7 @@ return {
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: {zone:1454}의 {npc:7010}에게",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas
 	["for {zone:1454}, after {zone:2652}"] = "{zone:2652} 이후 {zone:1454}에서",
 	-- {zone:2652} Shen'dralas · {area:1099} Camp Mojache · {zone:1443} Desolace · {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {npc:7311} Uthel'nay

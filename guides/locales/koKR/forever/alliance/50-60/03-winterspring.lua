@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "{zone:1452}(으)로",
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
@@ -38,11 +38,11 @@ return {
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:14047} Runecloth · {area:1584} Blackrock Depths · {area:2577} Dire Maul
 	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Top up here first to level 55 on its Pathfinders (53-54) at the camp's edge: the Den Watchers inside are 55-56. Killing them raises your Timbermaw reputation and fills your bags with {item:14047} for Meilosh. Or, with a group, run {area:1584} or {area:2577} instead."] = "서쪽 눈사태일족 야영지는 {npc:11556}와(과) {npc:9298} 사이의 언덕에 있습니다. 먼저 야영지 가장자리의 눈사태일족 길잡이(53-54)를 잡아 55레벨까지 올리세요. 안쪽의 눈사태일족 굴 감시자는 55-56레벨입니다. 이들을 처치하면 나무구렁 평판이 오르고, 메일로쉬에게 줄 {item:14047}도 가방에 쌓입니다. 파티가 있다면 대신 {area:1584}이나 {area:2577}을(를) 도세요.",
 	-- {npc:7442} Winterfall Pathfinder
-	["grind on {npc:7442}"] = "",
+	["grind on {npc:7442}"] = "{npc:7442} 사냥",
 
 	-- Step 9: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: 만나는 대로 처치하세요",
 	-- {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth
 	["Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh."] = "이곳의 퍼볼그는 누구든 {item:12771}(약 10분의 1 확률: 이 퀘스트들에 필요한 처치 수 안에 나옵니다)과 {quest:8471}(약 30분의 1 확률)을(를) 떨어뜨릴 수 있습니다. 떨어진 것을 오른쪽 클릭하세요. 퍼볼그가 떨어뜨리는 {item:14047}은(는) 메일로쉬를 위해 보관하세요.",
 
@@ -67,7 +67,7 @@ return {
 
 	-- Step 14: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "",
+	["{area:2247}: kill these as you meet them"] = "{area:2247}: 만나는 대로 처치하세요",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Chillwind Ravagers = {npc:7449} Chillwind Ravager
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "얼음엉겅퀴설인은 {area:2244} 남쪽 언덕에, 서리바람 키메라는 {area:2255} 쪽 골짜기에 삽니다.\n주의: 얼음엉겅퀴설인은 55-56레벨, 키메라는 55-57레벨입니다. 언덕 가장자리의 떠도는 얼음엉겅퀴설인(53-55)과 어린 서리바람 키메라(53-55)를 잡고, 갈퀴발톱 서리바람 키메라(57-59)는 피하세요.",
@@ -110,7 +110,7 @@ return {
 	-- Step 22: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "{area:2255} 비행 조련사",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -118,7 +118,7 @@ return {
 
 	-- Step 24: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
 	-- Step 25: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "퓨어하트, 두마, 밸러피스트, 맥도넬은 야영지 한가운데, 비행 조련사 옆에 서 있습니다.",
@@ -155,11 +155,11 @@ return {
 	-- Step 29: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 30: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "{zone:1423}(으)로",
 
 	-- Step 32: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath

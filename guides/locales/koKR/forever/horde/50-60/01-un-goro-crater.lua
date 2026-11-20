@@ -36,7 +36,7 @@ return {
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Bloodpetal Threshers = {npc:6511} Bloodpetal Thresher
 	["Top up here to level 51 before the crater's loop: its {npc:9166} and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and {npc:9118} wants five of them. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "분화구를 돌기 전에 여기서 레벨 51까지 올리세요. {npc:9166}와 칼날가시 붉은꽃잎덩굴손은 52레벨까지 있습니다. 피난처 남동쪽 비탈의 덩이줄기 붉은꽃잎덩굴손(49-50)은 레벨이 낮고, {npc:9118}이(가) 5마리를 원합니다. 또는 파티로 {area:1417} 던전이나 {area:2100} 던전을 도세요.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "{npc:6511} 사냥",
 
 	-- Step 6: Pterrordax
 	-- {npc:9166} Pterrordax · {npc:9998} Shizzle · {npc:9997} Spraggle Frock · {npc:9167} Frenzied Pterrordax
@@ -50,7 +50,7 @@ return {
 
 	-- Step 8: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Elder Diemetradons = {npc:9164} Elder Diemetradon · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales {npc:9998} wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time."] = "남서쪽으로 분화구 한가운데의 화산인 {area:537}(으)로 가세요. 그 기슭에 칼날가시 붉은꽃잎덩굴손이 자랍니다.\n온천 남쪽에서는 공룡 뼈가 스테고돈 사이 땅에 놓여 있고 근처 디메트로돈도 떨어뜨립니다. 디메트로돈은 {npc:9998}이(가) 원하는 비늘도 지니고 있습니다. 주의: 스테고돈은 정예(52-53)이니 끌지 말고 주변의 뼈만 주우세요. 덩치큰 디메트로돈은 53-55이니 작은 것을 잡으세요. 라바사우루스는 남서쪽에서 무리 지어 사냥합니다. 발톱은 {npc:8659}에게 가져가며, 가끔 구겨진 일지를 지닌 개체가 있습니다(희귀 획득물: 얻었을 때만 퀘스트를 받으세요). 레벨 57 스테고돈인 그러프는 피하세요.\n서쪽 절벽을 따라 남서쪽으로 가세요. 그곳 밀림에 질긴뿌리 붉은꽃잎덩굴손이 자랍니다. 주의: 가장 큰 것은 53레벨이니 하나씩 끌어오세요.",
@@ -113,7 +113,7 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "입구의 {npc:9998}",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "{npc:9118}의 {quest:4147}과(와) {npc:8737}의 편지는 이후 가이드를 위해 보관하세요.",
 
@@ -165,7 +165,7 @@ return {
 
 	-- Step 33: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "{area:976}(으)로",
 
 	-- Step 34: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
 	-- Step 36: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -181,13 +181,13 @@ return {
 
 	-- Step 37: Back to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Back to {area:976}"] = "",
+	["Back to {area:976}"] = "{area:976}(으)로 돌아가기",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 38: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
 
@@ -237,7 +237,7 @@ return {
 
 	-- Step 48: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: 만나는 대로 처치하세요",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "서쪽 발굴지로 가세요. {quest:4296}은(는) 발굴지 한가운데 타우릿산 드워프들 사이에 있습니다. 베껴 쓰세요.\n검은 새끼용이 {area:251} 바로 동쪽 언덕에 둥지를 틉니다. 새끼용이 거의 죽었을 때 {npc:10267}의 {item:12284}을(를) 사용해 정수를 포획하세요.\n주의: 50-53 정예인 {npc:7040}와(과) {npc:7044}이(가) 같은 언덕을 돌아다닙니다. 새끼용을 그들에게서 떨어진 곳으로 끌어오거나 파티를 꾸리세요.",
@@ -254,7 +254,7 @@ return {
 
 	-- Step 53: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "{area:1497}(으)로 날아가기",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340} 비행 조련사",
 

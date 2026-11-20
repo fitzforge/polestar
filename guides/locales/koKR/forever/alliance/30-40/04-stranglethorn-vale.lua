@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "배를 타고 {area:35}(으)로",
 	-- {area:392} Ratchet · {area:35} Booty Bay
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "",
 
@@ -17,7 +17,7 @@ return {
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}, 은행, 안",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, 내부",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
 	["{npc:6807}, {object:56910}; upstairs"] = "",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
@@ -33,7 +33,7 @@ return {
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
-	["North to {area:100}"] = "",
+	["North to {area:100}"] = "북쪽 {area:100}(으)로",
 	-- {object:3202} Grom'gol
 	["Follow the main road north the length of the jungle, past the {object:3202} turn-off, to the hunters' camp just west of the road."] = "",
 
@@ -97,7 +97,7 @@ return {
 
 	-- Step 15: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
-	["{area:101}: kill these as you meet them"] = "",
+	["{area:101}: kill these as you meet them"] = "{area:101}: 만나는 대로 처치하세요",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
 	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "쿠르젠 반란군이 {area:99} 동쪽 야영지를 차지하고 있습니다. 쿠르젠 밀림전사와 쿠르젠 약사가 서 있는 바깥쪽부터 처리하고, 천막 옆 보급품 상자를 뒤지세요. {quest:200}의 장부는 주둔지 서쪽 오두막에 있습니다. 주의: 쿠르젠 정예병과 쿠르젠 주술사(36)가 동굴 옆 주둔지 동쪽 절반을 차지하고 있으니 서쪽에 머무르세요.",
@@ -113,7 +113,7 @@ return {
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
 	["The elder tigers next are 34-35: short of 33.2? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "다음 덩치큰 가시덤불 호랑이는 34-35레벨입니다. 33.2레벨이 안 되나요? 33.2레벨이 될 때까지 주둔지 바깥쪽의 쿠르젠 밀림전사와 쿠르젠 약사를 계속 잡으세요. 아니면 파티와 함께 {area:796} 던전(도서관)을 도세요.",
 	-- {npc:937} Kurzen Jungle Fighter
-	["grind on {npc:937}"] = "",
+	["grind on {npc:937}"] = "{npc:937} 사냥",
 
 	-- Step 18: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
@@ -140,12 +140,12 @@ return {
 	-- {area:35} Booty Bay
 	["Hearth back to {area:35}."] = "",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, 내부",
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, 위층",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
@@ -157,7 +157,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35} 비행 조련사",
 
 	-- Step 24: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
@@ -174,11 +174,11 @@ return {
 	-- {area:467} Stonetalon Peak · {zone:1443} Desolace · {area:415} Astranaar · {area:465} Charred Vale
 	["You know the {area:467} flight: it lands closer to {zone:1443} than {area:415} does. From the peak, follow the road south through the mountains to the {area:465}."] = "{area:467} 비행 경로를 알고 있습니다. {area:415}보다 {zone:1443}에 더 가깝게 내립니다. 봉우리에서 길을 따라 산맥을 지나 남쪽의 {area:465}(으)로 가세요.",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442} 비행 조련사",
 
 	-- Step 28: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 
 	-- Step 29: Fly to Astranaar
 	-- {area:415} Astranaar · {quest:1738} Heartswood
@@ -192,7 +192,7 @@ return {
 
 	-- Step 31: Stonetalon Mountains
 	-- {area:608} Nijel's Point
-	["The road to {area:608}"] = "",
+	["The road to {area:608}"] = "{area:608}(으)로 가는 길",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "붉은머리부족 트롤",

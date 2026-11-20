@@ -17,11 +17,11 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
-	["Into {zone:1434}"] = "",
+	["Into {zone:1434}"] = "{zone:1434}(으)로",
 
 	-- Step 4: Rebel Camp
 	-- {zone:1431} Duskwood
@@ -51,7 +51,7 @@ return {
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, in his cage"] = "{npc:218230}, 우리 안",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, 지하",
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "",
 
@@ -120,20 +120,20 @@ return {
 
 	-- Step 17: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, 내부",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, 선술집 위층",
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "{zone:1416}의 대마법사 앤자이럼 룬위버에게",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, 위층",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, 위층",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}은(는) 위층에 있습니다. 이 선택 퀘스트에는 {item:4278} 4개가 필요합니다. {zone:1417}에서 {skill:186} 75로 저급 혈석 광맥을 캐거나, 경매장에서 광석을 사거나, 채광하는 친구에게 부탁하세요. 코볼트는 이 광석을 떨어뜨리지 않습니다. 광석을 구할 수 없으면 이 퀘스트는 건너뛰세요.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, 내부",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks"] = "{npc:4631}, 부두 위",

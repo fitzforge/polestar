@@ -70,7 +70,7 @@ return {
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, 내부",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
@@ -94,7 +94,7 @@ return {
 
 	-- Step 15: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403}: 만나는 대로 처치하세요",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: To Camp Mojache
 	-- {area:1099} Camp Mojache
-	["To {area:1099}"] = "",
+	["To {area:1099}"] = "{area:1099}(으)로",
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
 	["Hearth to {area:1099}: your hearthstone is still bound there from the {zone:1444} & {zone:1446} guide."] = "귀환석으로 {area:1099}에 가세요. {zone:1444} & {zone:1446} 가이드 이후 귀환석이 아직 그곳에 귀속되어 있습니다.",
 
@@ -125,7 +125,7 @@ return {
 
 	-- Step 24: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Fly to {area:496}"] = "",
+	["Fly to {area:496}"] = "{area:496}(으)로 날아가기",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
@@ -133,11 +133,11 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, 지하",
 
 	-- Step 26: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "{object:2555}",
 
 	-- Step 27: The Musty Scroll
 	-- {object:2555} Musty Scroll
@@ -145,11 +145,11 @@ return {
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "{object:2555}",
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "{area:498} 안",
 
 	-- Step 28: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
-	["{area:510}: kill these as you meet them"] = "",
+	["{area:510}: kill these as you meet them"] = "{area:510}: 만나는 대로 처치하세요",
 	-- {area:511} Wyrmbog
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "남서쪽의 {object:2555}(으)로 간 뒤, 동쪽으로 {area:511}을(를) 지나가세요. 화염갈기혈족 정찰병과 불꽃술사가 갓 부화한 화염 새끼용, 화염 새끼용과 함께 북쪽 가장자리를 돌아다니고, 맹독전사는 더 남동쪽의 용 동굴을 지킵니다. 모크모로크의 코담배, 그로그주, 금고는 용족 야영지에 있습니다."
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
@@ -170,7 +170,7 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "담쟁이 마을로 돌아가서 하는 {npc:4500}의 도전에는 3인 파티가 필요합니다. 혼자라면 북쪽으로 돌아가기 전에 이곳 {area:511} 북쪽 가장자리의 화염갈기혈족 정찰병을 사냥해 45.37레벨까지 올리세요. 그러면 다시 내려올 필요가 없습니다. 파티가 있다면 대신 {area:978} 던전을 도세요.",
 	-- {npc:4329} Firemane Scout
-	["grind on {npc:4329}"] = "",
+	["grind on {npc:4329}"] = "{npc:4329} 사냥",
 
 	-- Step 33: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
@@ -180,7 +180,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "{area:496} 비행 조련사",
 
 	-- Step 35: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "화살요정용과 나무정령",
@@ -203,7 +203,7 @@ return {
 
 	-- Step 39: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {zone:1444} Feralas · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next {zone:1444} visit.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "바다 물보라 정령(47-48)은 부두 바로 남쪽 해안을 따라 다닙니다. 바다 정령(48-49)과 마찬가지로 물의 정령 핵을 떨어뜨립니다. 파도 거인과 성큼걸이 바다거인(47-49)은 같은 해변 앞바다에 있습니다. 먼저 {item:18904}(으)로 쏘면 작아져서 정예의 힘을 잃습니다. 북쪽 언덕의 평지거인과 절벽거인(48-50)은 다음 {zone:1444} 방문 때로 남겨 두세요.\n형상축소기는 2시간 지속됩니다. 해안을 떠나기 전에 두 퀘스트 모두 {npc:14637}에게 제출하세요.",
@@ -227,7 +227,7 @@ return {
 
 	-- Step 42: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, 내부",
 	-- {npc:7776} Talo Thornhoof · {zone:1444} Feralas
 	["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "{npc:7776}의 북녘샘 하피(48-50)는 51레벨쯤 {zone:1444}에 갈 때 처리합니다. 퀘스트를 보관하세요.",
 

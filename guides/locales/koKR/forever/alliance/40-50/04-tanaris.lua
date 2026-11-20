@@ -40,7 +40,7 @@ return {
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "같은 현상수배 전단: {npc:7847}은(는) 훨씬 나중, {area:976} 이후에 나옵니다",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, 내부",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
 	["{npc:7882}: {quest:97530}, the bangles come from the ogres on your way south"] = "{npc:7882}: {quest:97530}, 팔찌는 남쪽으로 가는 길의 오우거에게서 얻습니다",
 	-- {npc:7881} Stoley
@@ -48,7 +48,7 @@ return {
 
 	-- Step 7: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: 만나는 대로 처치하세요",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "서쪽 {area:976} 쪽으로 돌아가십시오. 가는 길의 모래언덕에는 사막유랑단 약탈자와 사막유랑단 좀도둑이 있고, 누구든 사막유랑단 물주머니를 지니고 있을 수 있습니다.\n주의: 사막유랑단 도적(43-44레벨)은 은신한 채 움직이므로 보이지 않게 다가올 수 있습니다.",
@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: 만나는 대로 처치하세요",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "해안을 따라 남쪽 해적단 소굴로 가십시오. 남쪽바다해적단이 해변과 배에 우글거립니다: 가장자리부터 하나씩 끌어내십시오. {npc:7883}은(는) 반대편에 서 있고, {npc:7881}의 도둑맞은 화물은 야영지에 있습니다.\n주의: {npc:7883} 곁에는 해적 두세 명이 서 있고, 싸움이 시작되면 마을의 해적이 훨씬 더 많이 합류합니다.",
 	-- {quest:2873} Stoley's Shipment
@@ -68,7 +68,7 @@ return {
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, 내부",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
 	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
@@ -193,9 +193,9 @@ return {
 
 	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "{area:348}(으)로 날아가기",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
@@ -209,7 +209,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, 내부",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}: {quest:86620}, {area:348} 바로 동쪽 언덕의 알",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
