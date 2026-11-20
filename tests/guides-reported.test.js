@@ -18333,3 +18333,17 @@ test('forever/horde/06-hillsbrad-foothills.guide: the jailors\' keys before thei
 	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
 	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
 });
+
+// #3211 (budzyS, 0.4.1.1): Seeping Corruption's step pointed at the Ruins of Eldarath with a bare complete, so the arrow
+// never led to Cuely's four tide pools on the shore. Each vial is a goal at its pool, south to north.
+test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tide pool (#3211)', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const pools = [[10691, 48.0, 60.6], [10692, 48.0, 51.2], [10693, 48.7, 48.4], [10694, 47.4, 46.3]];
+	const idx = pools.map(([item, x, y], n) => {
+		const i = at(list, `vial ${n + 1}`, (g) => g.t === 'collect' && g.item === item && g.quest === 3568);
+		const { goal } = list[i];
+		assert.ok(goal.map === 1447 && Math.hypot(goal.x - x, goal.y - y) <= 1, `vial ${n + 1} at ${x},${y} (${goal.x},${goal.y})`);
+		return i;
+	});
+	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
+});

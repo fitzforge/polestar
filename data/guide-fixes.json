@@ -14543,6 +14543,25 @@
 				}
 			],
 			"issue": 3193
+		},
+		{
+			"id": "3211-cuely-vials-at-the-tide-pools",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.",
+			"note": "#3211: Seeping Corruption's step pointed at the Ruins of Eldarath (35.0,55.0) with a bare complete, so the arrow never led to the four tide pools on the shore east of them. Each vial is a goal at its own pool (the First to Fourth Tide Pool objects, 152598, 152604, 152605, 152606), south to north: 48.0,60.6 on Southridge Beach, then 48.0,51.2, 48.7,48.4 and 47.4,46.3; the seed's copy of the step (50-60/04) carries the same lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools; #3211's report at 48.19,60.63"
+				}
+			],
+			"issue": 3211
 		}
 	]
 }

@@ -99,9 +99,11 @@ step Valormok
   accept 3505
 
 step Ruins of Eldarath
-  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
-  goto 35.0,55.0 "Ruins of Eldarath"
-  complete 3568
+  tip Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.
+  collect 10691 quest 3568.1 @48.0,60.6 map 1447 -- Filled Vial Labeled #1: the tide pool on Southridge Beach
+  collect 10692 quest 3568.2 @48.0,51.2 map 1447 -- #2, north along the shore
+  collect 10693 quest 3568.3 @48.7,48.4 map 1447 -- #3
+  collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Thalassian Base Camp
   tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms.
