@@ -14285,6 +14285,23 @@
 				}
 			],
 			"issue": 3002
+		},
+		{
+			"id": "2358-drowned-reef-breath",
+			"at": {
+				"quest": 662,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.",
+			"note": "#2358: Deep Sea Salvage's charts and logs (Faldir's Cove, both sides' Arathi Highlands guides) lie deep inside the two sunken wrecks, a long dive with no water breathing; the reef step gave no heads-up. The tip says to watch the breath bar and names the potion.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2358: long dives in the wrecks with no water breathing (two players)"
+				}
+			],
+			"issue": 2358
 		}
 	]
 }

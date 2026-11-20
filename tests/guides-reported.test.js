@@ -18138,3 +18138,13 @@ test('forever/alliance/06-wetlands.guide: the Iron Pommel step names the Rotting
 	assert.match(tips, /Rotting Slime/);
 	assert.doesNotMatch(tips, /Shadethicket furbolg camps/);
 });
+
+// #2358 (kevintoshi0208, Gemini1661): Deep Sea Salvage's charts and logs lie deep inside Faldir's Cove's sunken wrecks, a
+// long dive with no water breathing; neither side's reef step gave a heads-up.
+for (const guide of ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/horde/30-40/05-arathi-highlands.guide']) {
+	test(`${guide}: the Drowned Reef step warns about breath in the wrecks (#2358)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'the Maiden\'s Folly Charts', (g) => g.quest === 662 && g.oi === 1)];
+		assert.match(step.note || '', /watch your breath/);
+	});
+}
