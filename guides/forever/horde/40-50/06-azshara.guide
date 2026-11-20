@@ -127,6 +127,7 @@ step Zilzibin Drumlore
 
 step Zilzibin Drumlore
   when level>=50
+  when available 4494
   zone Orgrimmar
   tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in Azshara, this guide brings you back for it from Valormok; else the Azshara guide at 55 offers it again.
   accept 4494
@@ -193,6 +194,7 @@ step Fly to Orgrimmar
 step Zilzibin Drumlore
   when zone "Orgrimmar"
   when level>=50
+  when available 4494
   zone Orgrimmar
   tip Zilzibin is in the Drag; your class trainer next.
   accept 4494
