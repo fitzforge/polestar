@@ -717,6 +717,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	local note = goal.note
 	if note and source and (note == goal.source.name or note == goal.subject) then note = nil end
 	if note then parts[#parts + 1] = note end
+	local AU = UI.AuctionBuys
+	if AU and AU.CanBuyGoal(goal) then parts[#parts + 1] = L["Optional: buy at the auction house (/polestar ah)"] end
 	-- Party members' counts on this quest (Quests/Party.lua).
 	local together = ns.Party and ns.Party.Line(goal, noMissing)
 	if together then parts[#parts + 1] = together end

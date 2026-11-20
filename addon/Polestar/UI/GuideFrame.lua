@@ -553,6 +553,10 @@ GF.Part(function(GF)
 		end
 		local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
 		if show then items[#items + 1] = show end
+		local AU = UI.AuctionBuys
+		if AU and AU.CanBuyGoal(goal) then
+			items[#items + 1] = { text = L["Auction house buys"], icon = "icon-buy", onClick = AU.Show }
+		end
 		-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
 		local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
 		local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
@@ -3597,6 +3601,7 @@ GF.Part(function(GF)
 		ns.On("GUIDE_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
+		ns.On("AUCTION_BUYS_CHANGED", whenReady(GF.Refill))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
