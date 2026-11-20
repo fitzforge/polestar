@@ -11,7 +11,7 @@
 			"faction": "Horde",
 			"guide": "forever/horde/50-60/07-felwood",
 			"levels": [59, 60],
-			"reason": "Kept on purpose in 0.4.3: since Mount Hyjal joined the Horde route, the level model reaches 60 in the Silithus guide (58.7 -> 60) and never plays this one; it finishes the Felwood, Moonglade and Winterspring chains the Silithus guide starts, for players who come in at 59 or 60."
+			"reason": "Kept on purpose in 0.4.2: since Mount Hyjal joined the Horde route, the level model reaches 60 in the Silithus guide (58.7 -> 60) and never plays this one; it finishes the Felwood, Moonglade and Winterspring chains the Silithus guide starts, for players who come in at 59 or 60."
 		}
 	],
 	"routes": {
