@@ -2102,13 +2102,27 @@ test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on t
 
 // Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
 // only on the second (38), carried through Stranglethorn; players' recordings show 4 people abandoning it on the way.
-// Felgur stands at Ghost Walker Post, where the second visit stops before the Valley of Spears.
-test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit, before the Valley of Spears', { skip }, () => {
+// Horde 30-40 (2026-11-20): the first visit now works the north-east first, with Ghost Walker Post as its hub, so
+// Felgur's Centaur Bounty and Gurda's Carved Centaur Totems (93225; both drop from the Magram, 32-34, at the camp's
+// north-western edge) are taken, worked and handed in on that visit, before the walk west to Shadowprey: nothing rides
+// through Stranglethorn. The second visit keeps both at Ghost Walker Post for a character who loads it fresh.
+test('forever/horde/30-40: Centaur Bounty and the centaur totems are done on the first Desolace visit, never carried through Stranglethorn', { skip }, () => {
 	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
-	assert.deepEqual(first.filter(({ goal }) => is('accept', 1366)(goal)).length, 0, 'not taken on the first visit');
+	const khan = at(first, 'turnin 1365', is('turnin', 1365));
+	const clams = at(first, 'accept 6142', is('accept', 6142));
+	for (const q of [1366, 93225]) {
+		const acc = at(first, `accept ${q}`, is('accept', q));
+		const work = at(first, `collect for ${q}`, (g) => g.t === 'collect' && g.quest === q);
+		const tin = at(first, `turnin ${q}`, is('turnin', q));
+		assert.equal(first[acc].step.title, 'Ghost Walker Post', `${q}: taken at Ghost Walker Post`);
+		assert.ok(khan <= acc && acc < work && work < tin && tin < clams, `${q}: taken after Khan's head, worked, handed in before Shadowprey`);
+		assert.equal(first[tin].step.title, 'Ghost Walker Post', `${q}: handed in at Ghost Walker Post`);
+		const { goal } = first[work];
+		if (goal.x != null) assert.ok(goal.map === 1443 && Math.hypot(goal.x - 66, goal.y - 71) < 2, `${q}: the Magram camp's north-western edge (got ${goal.map} ${goal.x},${goal.y})`);
+	}
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	const acc = at(list, 'accept 1366', is('accept', 1366));
-	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'at Ghost Walker Post');
+	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'a fresh start of the second visit still takes it at Ghost Walker Post');
 	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
 });
 
@@ -3151,7 +3165,6 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 // giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
 for (const [q, title, giver, files] of [
 	[93176, 'My Little Friends', 'Amaryllis Webb', ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']],
-	[97265, 'Hate the Hatefury', "Aka'rai", ['forever/horde/30-40/02-thousand-needles.guide']],
 ]) {
 	test(`${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)`, { skip }, () => {
 		let n = 0;
@@ -3165,6 +3178,16 @@ for (const [q, title, giver, files] of [
 		assert.ok(n >= 2, `the accept and the hand-in are found (${n})`);
 	});
 }
+
+// Hate the Hatefury (97265), the other quest of that sweep: Desolace's first visit now works Sargeron before it reaches
+// Shadowprey (2026-11-20), where Aka'rai would give it, so the optional accept could no longer come before its satyrs.
+// It is left out with its never-seen reason: no guide waits on, or sends anyone to, a giver nobody has seen.
+test("Hate the Hatefury (97265): no guide sends anyone to Aka'rai, and the skip says why (#1314)", { skip }, () => {
+	for (const file of allGuides().filter((f) => f.includes('/horde/'))) assert.ok(!goals(file).some(({ goal }) => goal.quest === 97265), `${file} has no Hate the Hatefury goal`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	const skip = rf.overrides.skip.find((s) => s.q === 97265 && s.faction === 'Horde');
+	assert.ok(skip && /never been seen/.test(skip.reason), 'a skip record with the never-seen reason');
+});
 
 // --- Hammerfall (never-taken check, 2026-11-08): the Defiler's Basic Care Package (8263) needs Friendly with the
 // Defilers (the game's quest data: RequiredMinRepFaction 510, 3000), which the leveling route never earns; Rutherford
@@ -7057,8 +7080,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'turnin 2932', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
-		// (Since the Horde 30-40 re-order the Druids fly from Freewind Post, Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
-		['horde/30-40/01-hillsbrad-foothills', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar|from Shadowprey/],
+		// (Since the Horde 30-40 re-order the Druids fly from Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
 		['horde/30-40/03-stranglethorn-vale', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
@@ -9055,15 +9077,16 @@ test('forever/alliance/30-40/06-badlands.guide: final review: Rigglefuzz on the 
 // skipped their level-30 training; Druids at 32 flew Orgrimmar -> Thunder Bluff -> Orgrimmar; the Undercity shopping
 // note and the Shamans' Sepulcher trip came after the flight to Tarren Mill.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: final review: training in the cities the walk passes', { skip }, () => {
-	// Since the Horde 30-40 re-order the Druids train in Thunder Bluff on the flight from Freewind Post (30) and from
-	// Orgrimmar to Freewind Post (32-33), the Paladins with Garen Largo in the Undercity on the way to Tarren Mill (30)
-	// and on the way back from Arathi (32-33).
+	// Since the Horde 30-40 re-order the Druids train in Thunder Bluff on the flight from Orgrimmar to Freewind Post
+	// (32-33; since 2026-11-20 their training at 28 is on forever/horde/07-ashenvale's Thunder Bluff stop, so 30-40/01,
+	// which starts at Camp Taurajo at 29, has none), the Paladins with Garen Largo in the Undercity on the way to
+	// Tarren Mill (30) and on the way back from Arathi (32-33).
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const flies = (l, dest) => l.findIndex(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes(dest));
 	const trains = (l) => l.map((e, i) => (e.goal.t === 'train' ? i : -1)).filter((i) => i >= 0);
 	const tm = (l) => flies(l, 'Tarren Mill');
 	const dru = list.filter(forClass('DRUID'));
-	assert.ok(flies(dru, 'Thunder Bluff') >= 0 && flies(dru, 'Thunder Bluff') < trains(dru)[0] && trains(dru)[0] < flies(dru, 'Crossroads'), 'Druids: Thunder Bluff on the flight from Freewind Post to the Crossroads');
+	assert.ok(flies(dru, 'Thunder Bluff') < 0, 'Druids: no Thunder Bluff detour at 29, between two training levels');
 	const pal = list.filter(forClass('PALADIN'));
 	assert.ok(trains(pal)[0] < tm(pal), 'Paladins: Garen Largo before the flight to Tarren Mill');
 	assert.equal(pal.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, 'Paladins: one flight to Tarren Mill');
@@ -10858,8 +10881,8 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers a dungeon at its level', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	// Horde 0.4.0 audit (round 2): one top-up to 30 after the Azurelode Mine, right before the last Tarren Mill stop, so
-	// Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
+	// Horde 0.4.0 audit (round 2): one top-up to 30 near the last Tarren Mill stop (since 2026-11-20 after its hand-ins, on
+	// the river's Snapjaws, 29-31), so Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
 	const tops = goals(guide).filter(({ goal }) => goal.t === 'level');
 	assert.deepEqual(tops.map(({ goal }) => goal.level), [30], 'one top-up in Hillsbrad, to 30');
 	const tip = [tops[0].step.note, tops[0].step.tip].flat().filter(Boolean).join(' ');
@@ -12150,12 +12173,14 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 
 // Mokii's report (#1431): Dustwallow's level 37.5 grind on the far Mirefin coast came before the Brackenwall hand-ins
 // the player already had ready. A written grind comes after the ready hand-ins it would otherwise hold back (the same
-// in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
+// in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops, and since 2026-11-20 Hillsbrad's level 30
+// top-up, which came before the last Tarren Mill stop's four hand-ins).
 test("Mokii's report (#1431): Horde 30-40 grinds come after the ready hand-ins", { skip }, () => {
 	for (const [guide, level, after] of [
 		['forever/horde/30-40/04-dustwallow-marsh.guide', 36, [1177, 1202, 1239]],
 		['forever/horde/30-40/02-thousand-needles.guide', 32, [1110, 1104, 1105]],
 		['forever/horde/30-40/03-stranglethorn-vale.guide', 35, [568]],
+		['forever/horde/30-40/01-hillsbrad-foothills.guide', 30, [7321, 539, 567, 546]],
 	]) {
 		const list = goals(guide);
 		const grind = at(list, `${guide}: level ${level}`, (g) => g.t === 'level' && g.level + (g.frac || 0) === level);

@@ -4514,7 +4514,7 @@
 					188
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15): Tiger Mastery's Sin'Dall (188, a single level 37 tiger) is two over the player at Nesingwary's camp on 30-40/03 (players' recorded 25th percentile 35.8 caps the level there at 35, so no top-up helps). Ajeck gives it on that stop and it is carried; the tiger and the hand-in come on the 40-50 Stranglethorn visit's Nesingwary stop at about 40, after 30-40/03 ends on Mok'thardin's hand-in."
+				"why": "Horde level tidy (2026-11-15): Tiger Mastery's Sin'Dall (188, a single level 37 tiger) is two over the player at Nesingwary's camp on 30-40/03 (players' recorded 25th percentile 35.8 caps the level there at 35, so no top-up helps); Ajeck gives it on that stop. Horde 30-40 (2026-11-20): instead of riding through four guides to the 40-50 Stranglethorn visit, the tiger and the hand-in come at the end of 30-40/03, after Mok'thardin's hand-in at Grom'gol and the level 36 top-up, `when level>=36` (Sin'Dall one over, with a Careful tip): about 1.5 km north to his hilltop and Ajeck and back to the zeppelin tower, for 2,850 XP. 40-50/01's Sin'Dall steps (`when onquest 188`) stay for a player who reaches 30-40/03's end below 36."
 			},
 			{
 				"a": [
@@ -4603,14 +4603,26 @@
 			{
 				"a": [
 					"turnin",
-					1323
+					1366
 				],
 				"b": [
 					"accept",
-					1366
+					6142
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 audit (0.4.0; level tidy 2026-11-15): Centaur Bounty (1366) is worked only on the second Desolace visit (30-40/04-dustwallow-marsh, at 38): taken at the end of the first it rode through Stranglethorn, and players dropped it (players' recordings: 4 people abandoned it). Felgur stands at Ghost Walker Post, the second visit's stop before the Valley of Spears, after Dustwallow (Krog's 1323 at Brackenwall)."
+				"why": "Horde 30-40 (2026-11-20): Desolace's first visit (30-40/02) works the north-east first, with Ghost Walker Post as its hub: Azore, Thunder Axe Fortress, Sargeron and Khan Dez'hepah, then the post, where Felgur gives Centaur Bounty (1366) for Khan's head. Its ears come from the Magram Scouts, Outrunners and Wranglers (32-34) at the camp's north-western edge, about 600 yd south-east of the post, and it is handed in on the way back to the Kodo Graveyard, before the walk west to Shadowprey Village (Mai'Lahii's 6142). It used to be offered on the visit's last stop and taken on the second visit at 37 (players' recordings: 4 people abandoned it when it was carried through Stranglethorn); the route now walks about 800 yd more in Desolace for 3,750 XP and the Magram kills, at the level where the visit stands (model 32.6-33.2)."
+			},
+			{
+				"a": [
+					"turnin",
+					93225
+				],
+				"b": [
+					"accept",
+					6142
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 (2026-11-20): Carved Centaur Totems (93225, level 40, from 30, 2,350 XP) drop from the Kolkar and Magram centaurs as well as the Maraudine (players' recordings, build 70862: 41 drops from six Kolkar and seven Magram kinds, item 254432's correction for #1602). Gurda Wildmane stands beside Felgur at Ghost Walker Post, so the first Desolace visit (30-40/02) takes it with Centaur Bounty and collects both from the Magram Scouts, Outrunners and Wranglers (32-34) at the camp's north-western edge, handing both in on the same post stop. The second visit (30-40/04) then walks from Shadowprey straight to the Valley of Spears for Melizza instead of east to the post and back twice; its Ghost Walker steps stay for a character who loads that guide fresh."
 			},
 			{
 				"a": [
@@ -8722,10 +8734,6 @@
 				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Amaryllis Webb (217412, Swamp of Sorrows), giver and ender of My Little Friends, has never been seen in players' recordings and nobody has taken or been offered the quest; it stays at Watcher Biggs' step as optional (its STV hand-in too), with a tip to skip it if she doesn't offer it"
 			},
 			{
-				"q": 97265,
-				"why": "Never-seen check (2026-11-08, 0.3.6; #1314's pattern): Aka'rai (268705, Desolace), giver and ender of Hate the Hatefury, has never been seen in players' recordings, though 2 Horde people passed her spot at 33-34, and nobody has taken or been offered the quest; it stays at Shadowprey as optional (its Sargeron kills and hand-in too), with a tip to skip it if she doesn't offer it"
-			},
-			{
 				"q": 98463,
 				"why": "Never-seen check (2026-11-08, 0.3.6): Barkeep Kelly in Southshore's inn was passed by 4 Alliance people in players' recordings, and none opened her window or was offered Talk of the Town; it stays on the Southshore stop (and its Booty Bay hand-in) as optional, with a tip to skip it if she doesn't offer it"
 			},
@@ -10088,15 +10096,6 @@
 				"issue": ""
 			},
 			{
-				"q": 97265,
-				"after": [
-					"turnin",
-					5561
-				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Aka'rai stands by the path into Shadowprey Village: Hate the Hatefury is taken on the first Shadowprey stop and its satyrs killed at Sargeron with Befouled by Satyr's, handed in on the second Shadowprey stop.",
-				"issue": ""
-			},
-			{
 				"q": 1436,
 				"after": [
 					"turnin",
@@ -10948,6 +10947,26 @@
 				"issue": "#2635"
 			},
 			{
+				"q": 705,
+				"reason": "Horde 30-40 (2026-11-20): Pearl Diving (705, level 37, 3,550 XP): Rigglefuzz, whom 30-40/06 visits in the Valley of Fangs, takes nine Blue Pearls on the spot; the step shows only when the bags hold them (`when has`), so nothing is bought or farmed for it.",
+				"issue": "-"
+			},
+			{
+				"q": 713,
+				"reason": "Horde 30-40 (2026-11-20): Coolant Heads Prevail (713, level 37, 2,850 XP): Lotwil Veriatus, whom 30-40/06 visits, takes a Frost Oil on the spot; the step shows only when the bags hold one (`when has`).",
+				"issue": "-"
+			},
+			{
+				"q": 714,
+				"reason": "Horde 30-40 (2026-11-20): Gyro... What? (714, level 37, 2,850 XP, after 713): Lotwil Veriatus takes a Gyrochronatom on the spot; the step shows only when 713 is handed in and the bags hold one.",
+				"issue": "-"
+			},
+			{
+				"q": 715,
+				"reason": "Horde 30-40 (2026-11-20): Liquid Stone (715, level 37, 2,100 XP, after 714): Lucien Tosselwrench, beside Lotwil, takes a Healing Potion and a Lesser Invisibility Potion on the spot; the step shows only when 714 is handed in and the bags hold both.",
+				"issue": "-"
+			},
+			{
 				"q": 583,
 				"reason": "Catch-up in forever/horde/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/horde/30-40/03-stranglethorn-vale arrives without Welcome to the Jungle (583), so Barnil Stonepot's The Green Hills of Stranglethorn (338) and its chapters (339-342) were hidden. Nesingwary's camp, where the guide stops anyway, now has Barnil give it and Hemet take it back first, `when !turnedin 583`: a talk, 125 XP at 39 (half: level 30), and it opens Barnil's page hand-ins (775 XP a chapter). Recordings: 84 players took it at 30-38.",
 				"issue": "#2635"
@@ -11038,6 +11057,11 @@
 				],
 				"reason": "#1933 Kolbi (Skyborne Druid 33, 0.3.7, standing in the Apothecarium at the first step of 30-40/02-thousand-needles): Thundering Hearts (97985, level 33, offered from 25, 3,300 XP) was in no Horde guide. Calder Gray (270038) gives it and takes it back in the Apothecarium, Undercity 48.7,70.2. Taken on a stop the route makes anyway: forever/horde/30-40/01-hillsbrad-foothills ends in the Undercity (Varimathras for 550, class training) and 30-40/02-thousand-needles leaves from there by zeppelin, so the accept goes right after 550's hand-in. Its one objective, Stormheart's Still-beating Heart (279186), drops from Stormheart (270094, level 30), who walks the canyon floor east of Freewind Post: players' recordings loot the heart at Thousand Needles 55.7,55.2, 59.5,56.7, 53.0,54.0 and 50.5,46.3 (16 people, 10 counted), along the ride from the lift to the Shimmering Flats that guide makes to Moktar Krin. Handed in on the route's next Undercity visit, the opening stop of 30-40/05-arathi-highlands (zeppelin and class training, at 38). Stormheart is an elite in game (Forever's quest data files 97985 as an elite quest, and Calder Gray's text asks for friends), but the creature data gives 270094 no rank, so the group rule finds no elite work for it: with Stormheart's rank set it reads one elite under the quest's level (size 1, with the solo skip). Not checked in game.",
 				"issue": "#1933"
+			},
+			{
+				"q": 1164,
+				"reason": "Horde 30-40 (2026-11-20), agreed with the 40-50 slice: To Steal From Thieves (level 36, from 27, 2,800 XP) is taken from Genavie Callow beside the Undercity flight master on 30-40/05's Undercity stop at about 37.5; the Dabyrie family (33-35) farm lies just north of the road east through Arathi, between the Boulderfist camp and the Shards of Myzrael, which 30-40/05 walks; 40-50/01-stranglethorn-vale flies Warriors, Paladins, Rogues, Priests, Mages and Warlocks from Kargath to the Undercity for their level 40 training and hands it in beside the flight master they land at. Hunters, Shamans and Druids fly from Kargath straight to Grom'gol, so the steps are only for the other classes.",
+				"issue": "-"
 			},
 			{
 				"q": 3762,
@@ -11364,6 +11388,15 @@
 					509
 				],
 				"reason": "Horde 0.4.0 audit: Soothing Turtle Bisque (level 31, from 28, 2,500 XP) from Christoph Jeffcoat, who stands in Tarren Mill and sells its Soothing Spices himself; the Turtle Meat drops from the Snapjaws (29) that line the river from Tarren Mill south to the Mudsnout gnolls, the walk 30-40/01 makes first. It is taken on the first Tarren Mill stop and handed in on the stop after the Azurelode Mine, with Darthalia's. It replaces part of the Level 32 top-up in 30-40/02 (players at about 29.5-30 here).",
+				"issue": "-"
+			},
+			{
+				"q": 546,
+				"after": [
+					"accept",
+					552
+				],
+				"reason": "Horde 30-40 (2026-11-20), agreed with the 1-30 slice: Souvenirs of Death (level 25, from 20, 2,550 XP) from Deathguard Samsa in Tarren Mill wants thirty Hillsbrad Human Skulls, which drop (80%) from every Hillsbrad human. 30-40/01 kills them anyway at 29-30 (the town hall's Councilmen, Magistrate and Clerk, the Azurelode Mine's Miners, Foreman and Hackett), so it is taken on the Tarren Mill stop after the smithy (after the catch-up for Battle of Hillsbrad, its prerequisite), finished on the Miners and handed in on the last stop with Darthalia's. On the 22-25 guide's skull step among the Peasants of the fields players died (19 followers in players' recordings).",
 				"issue": "-"
 			},
 			{
@@ -11790,12 +11823,6 @@
 				"issue": ""
 			},
 			{
-				"q": 1164,
-				"faction": "Horde",
-				"reason": "Horde 30-40 re-order (2026-11-07): To Steal From Thieves is offered by Genavie Callow in the Undercity, which the route passes at 30 (the Dabyrie family are 33-35, quest level 36) and at 32-33 after Arathi; it never comes back to the Undercity after the 38-39 Arathi visit, so the heads would be carried from 30 or walked back for. Left out.",
-				"issue": ""
-			},
-			{
 				"q": 1361,
 				"faction": "Horde",
 				"reason": "Horde 30-40 re-order (2026-11-07): Regthar Deathgate (640 XP) was handed in on a trip from Orgrimmar to the Crossroads and up to the Forgotten Pools at the end of the old Arathi guide; the new order passes the Crossroads by flight only, so it is left out with its follow-up The Kolkar of Desolace (1362).",
@@ -12097,6 +12124,12 @@
 				"faction": "Horde",
 				"reason": "Horde level tidy (2026-11-15): Book of the Ancients (6027): Lord Kragaru (38) rises from the Serpent Statue on Ranazjar Isle at about 34 on 30-40/02 (recorded 25th percentile 34.2), four levels over, and no later Horde visit passes Azore's tower. Left out; Rackmore's chest beside the statue is still opened.",
 				"issue": "-"
+			},
+			{
+				"q": 97265,
+				"faction": "Horde",
+				"reason": "Horde 30-40 (2026-11-20): Hate the Hatefury's giver and ender, Aka'rai (268705, by the path into Shadowprey Village), has never been seen in players' recordings and nobody has been offered the quest (never-seen check 2026-11-08, #1314's pattern). Desolace's first visit now works Sargeron before it reaches Shadowprey, so the optional accept could no longer come before its satyrs. Left out.",
+				"issue": "#1314"
 			},
 			{
 				"q": 3381,

@@ -2,7 +2,7 @@
 guide forever/horde/30-40/04-dustwallow-marsh
 title Dustwallow Marsh & Desolace
 faction Horde
-levels 36-38
+levels 36-37
 zone Dustwallow Marsh
 next forever/horde/30-40/05-arathi-highlands
 
@@ -12,9 +12,12 @@ next forever/horde/30-40/05-arathi-highlands
 # Added here: The Theramore Docks (1202), Parts of the Swarm (1184). Goblin Sponsorship (1178) and
 # Wharfmaster Dizzywig (1111) are handed in at Ratchet on the way to the Booty Bay boat, in 03.
 # Left out: Gizelton Caravan (5943), The Kolkar of Desolace (1362).
-# Carved Centaur Totems (93225) and Ghost-o-plasm Round Up (6134) are worked at 38 on the Maraudine
-# Scouts, Wranglers and Maulers (36-39) of the valley's eastern edge and on the Magrami Spectres
-# (38-39), each with a tip to keep away from the elites beside them (Khan Hratha and the Rock Worms,
+# Carved Centaur Totems (93225) and Centaur Bounty (1366) are done on the first Desolace visit
+# (forever/horde/30-40/02-thousand-needles, 2026-11-20: both drop from the Magram there, and Felgur
+# and Gurda stand at its hub); their Ghost Walker Post and Valley of Spears steps here are for a
+# character who loads this guide without them, at 38 on the Maraudine Scouts, Wranglers and Maulers
+# (36-39) of the valley's eastern edge. Ghost-o-plasm Round Up (6134) is worked on the Magrami
+# Spectres (38-39). Each says where the elites beside them stand (Khan Hratha and the Rock Worms,
 # 41-42; the Magram Necrokhans and Corpsefeeders, 45). The ghost-o-plasm comes last, after Mannoroc
 # Coven just north of the Valley of Bones (#2357).
 
@@ -28,8 +31,8 @@ next forever/horde/30-40/05-arathi-highlands
 # murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
 # Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
 # Warriors: The Affray on Fray Island) -> fly to Shadowprey Village (Taiga's Hand of Iruxos, Drulzegar's
-# Other Fish to Fry) -> Ghost Walker Post (Gurda, Felgur) -> the Valley of Spears (Melizza) -> Hornizz ->
-# Ghost Walker Post -> Thunder Axe Fortress -> Sar'theris Strand (the Slitherblade, 34-36, at 37-38: they
+# Other Fish to Fry) -> the Valley of Spears (Melizza) -> Hornizz -> Thunder Axe Fortress -> Sar'theris
+# Strand (the Slitherblade, 34-36, at 37-38: they
 # were two over on the first visit at 33) -> Shadowprey (Taiga, Drulzegar) -> Mannoroc Coven -> the Valley of Bones -> Hornizz ->
 # hearth to Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
 # where the next guide takes the Undercity zeppelin.

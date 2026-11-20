@@ -4842,23 +4842,6 @@
 			"issue": 1314
 		},
 		{
-			"id": "1314-desolace-hate-the-hatefury-optional",
-			"at": {
-				"quest": 97265,
-				"goal": "accept"
-			},
-			"faction": "Horde",
-			"tip": "Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.",
-			"note": "Hate the Hatefury (97265, Aka'rai 268705, Desolace 25.4,67.2) is taken optional, with its kills at Sargeron and its hand-in at Shadowprey, so nothing waits on it: nobody has been recorded taking it or being offered it, and Aka'rai was never seen, though players passed her spot (#1314's pattern: Hearts of the Lost). The seed guide carries the optional goals.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings to 2026-11-08: 0 people accepted, progressed, handed in or were offered 97265; Aka'rai (268705) never seen by anyone, though 2 Horde people (1 established) passed within about 50 yd of her spawn at levels 33-34, in 2 sessions"
-				}
-			],
-			"issue": 1314
-		},
-		{
 			"id": "0306-talk-of-the-town-may-be-missing",
 			"at": {
 				"quest": 98463,
@@ -5492,6 +5475,25 @@
 			]
 		},
 		{
+			"id": "h3040-stv-sindall-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 188,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"when": "level>=36",
+			"tip": "North from Grom'gol to the hilltop just south-west of Nesingwary's camp: Sin'Dall prowls there alone. Careful: Sin'Dall (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes.",
+			"note": "Sin'Dall (729) is level 37: the end of 30-40/03, after the level 36 top-up at Grom'gol, is the first point of the guide where he is no more than one over the player. The hunt and Ajeck's hand-in come there instead of on the 40-50 visit.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 729 Sin'Dall, level 37, map 1434 31.8,16.4; quests.json 188 ender 717"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-elder-tigers",
 			"faction": "Horde",
 			"at": {
@@ -5621,6 +5623,24 @@
 			]
 		},
 		{
+			"id": "h3040-desolace-magram-ears-and-totems",
+			"faction": "Horde",
+			"at": {
+				"quest": 1366,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"tip": "South-east of the post, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge, nearest the post; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda. Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.",
+			"note": "Desolace's first visit (2026-11-20) takes Centaur Bounty and Carved Centaur Totems at Ghost Walker Post after Khan Dez'hepah's head and works both at the Magram camp's north-western edge (Scouts 4638 and Outrunners 4639 32-33, Wranglers 4640 33-34, about 65.6-67.1,69-75), the lowest centaurs near the post; the camp's middle and south are 34-38.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4638-4645, 4662 spawns on map 1443; items.json 6067 and 254432 drops (254432 per its #1602 correction)"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-boulderfist-hall-southwest",
 			"faction": "Horde",
 			"at": {
@@ -5653,6 +5673,24 @@
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 2561 spawns on map 1417"
+				}
+			]
+		},
+		{
+			"id": "h3040-hillsbrad-souvenirs-on-the-miners",
+			"faction": "Horde",
+			"at": {
+				"quest": 546,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"tip": "Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.",
+			"note": "Hillsbrad Human Skulls (3692) drop at 80% from every Hillsbrad human; 30-40/01 takes Souvenirs of Death after the smithy and kills the town hall's and the Azurelode Mine's humans (Miners 2269, 26-27, 24 spawns) anyway, and the mine is the last of them before the Tarren Mill hand-in.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3692 drops; npcs.json 2269 spawns on map 1424"
 				}
 			]
 		},
@@ -13610,6 +13648,24 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "h3040-arathi-dabyrie-farm",
+			"faction": "Horde",
+			"at": {
+				"quest": 1164,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"tip": "On along the road east: the Dabyrie farm lies just north of it. Marcel (34) and Fardel (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); Kenata (35) stands at the farm's north-eastern edge.",
+			"note": "Kenata (4480, 35, 56.4,36.1), Marcel (4481, 34, 54.2,38.1) and Fardel Dabyrie (4479, 33, 54.8,38.2) each drop their head (100%); the farm lies just north of the road from the Boulderfist camp to the Shards of Myzrael, at 37.5-38 for the route.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4479-4481 and 2581-2582 on map 1417; items.json 5830-5832"
+				}
+			]
 		}
 	]
 }
