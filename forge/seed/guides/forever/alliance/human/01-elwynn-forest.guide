@@ -161,6 +161,7 @@ step Marshal Dughan
 
 step Goldshire
   when group 91775
+  when turnedin 91772
   accept 91775
 
 step Sam Sarsaparilla

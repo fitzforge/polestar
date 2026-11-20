@@ -6848,7 +6848,11 @@ test("Flight path sweep (#939): Gnome Warlocks learn Ratchet's flight path at th
 		.filter(forClass('WARLOCK'));
 	const felsteed = at(list, "Strahad Farsan's hand-in of 4488", is('turnin', 4488));
 	const fp = list.findIndex(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet');
-	const fly = list.findIndex(({ goal }, i) => i < felsteed && goal.t === 'fly' && goal.location === 'Ratchet');
+	// Fix pass (2026-11-20): 40-50/01 now flies Theramore -> Ratchet for the Booty Bay boat, but only `when taxi "Ratchet"`
+	// (a character who learnt it in 30-40/03); the Felsteed flight still comes after the dock's flight path.
+	const early = list.filter(({ step, goal }, i) => i < fp && goal.t === 'fly' && goal.location === 'Ratchet');
+	assert.ok(early.every(({ step }) => (step.when || []).some((p) => p.k === 'taxi' && !p.neg)), 'an earlier flight to Ratchet only with its flight path known');
+	const fly = list.findIndex(({ goal }, i) => i > fp && i < felsteed && goal.t === 'fly' && goal.location === 'Ratchet');
 	assert.ok(fp >= 0, "Ratchet's flight path is learned before 40-50/02-badlands");
 	assert.ok(fp < fly, "the flight to Ratchet for Strahad Farsan comes after its flight path");
 	const walks = list.slice(fp + 1, felsteed).filter(({ step, goal }) => step !== list[fp].step && goal.t === 'goto' && goal.text === 'Ratchet');
@@ -11559,7 +11563,8 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	// Fix round 2026-11-20: Cenarion Aid (8254) and Magecraft (8250), minimum 50, are taken on the Burning Steppes guide's
 	// opening Ironforge stop, which 07 now hands over to; 07 still brings Priests and Mages to 50 before it ends, so
 	// the accept is never offered below its minimum (the fix holds, one guide on).
-	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
+	// (Fix pass 2026-11-20: the Priest/Mage-only level line is gone; the refuge's Level 50 step holds every class under 50.)
+	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && (!goal.only || /priest/i.test(JSON.stringify(goal.only))));
 	assert.ok(gate >= 0, "Priests reach 50 in Un'Goro before the next guide's Cenarion Aid");
 	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
 	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
@@ -17282,9 +17287,11 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
 	assert.ok(grim(harlo.step), 'accept 472 only while 304 is not handed in');
 	assert.deepEqual(wet.filter(({ s }) => s === harlo.s).map(({ goal }) => `${goal.t} ${goal.quest}`), ['accept 472'], 'Harlo\'s step holds Fall of Dun Modr alone');
-	const menethil = wet[at(wet, 'accept 288', is('accept', 288))];
+	// Fix pass (2026-11-20): The Third Fleet (288) is a `when !turnedin 288` step of its own before the Menethil Harbor
+	// step (06-ashenvale does it); the Menethil step is the one with Fitzsimmons' next quest (289).
+	const menethil = wet[at(wet, 'accept 289', is('accept', 289))];
 	assert.equal(menethil.s + 1, harlo.s, 'right after the Menethil Harbor step');
-	for (const q of [288, 289, 464, 98221, 281, 471, 98208]) {
+	for (const q of [289, 464, 98221, 281, 471, 98208]) {
 		const e = wet[at(wet, `accept ${q}`, is('accept', q))];
 		assert.equal(e.s, menethil.s, `accept ${q} stays on the Menethil Harbor step`);
 		assert.ok(!grim(e.step), `accept ${q} is not gated on A Grim Task`);
