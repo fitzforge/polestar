@@ -11,12 +11,6 @@ pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's e
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-step Feralas
-  when !zone "Dustwallow Marsh"
-  when !zone "Tanaris"
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache"
-
 step Fly to Gadgetzan
   when zone "Dustwallow Marsh"
   zone Dustwallow Marsh
@@ -26,7 +20,8 @@ step Fly to Gadgetzan
   zone Tanaris
 
 step Fly to Gadgetzan
-  when zone "Feralas"
+  when !zone "Dustwallow Marsh"
+  when !zone "Tanaris"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache flight master"
   fly "Gadgetzan"

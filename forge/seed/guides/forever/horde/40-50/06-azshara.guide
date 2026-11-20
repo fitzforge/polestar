@@ -148,8 +148,7 @@ step Zor Lonetree
   zone Orgrimmar
   tip Zor Lonetree stands in the Valley of Wisdom: Nazeer Bloodpike's report from Dustwallow Marsh.
   turnin 1262                           -- Zor Lonetree
-  accept 7541
-  turnin 7541
+  turnin 7541 direct                    -- Zor Lonetree: Service to the Horde
 
 # ---------------------------------------------------------------- To Azshara
 
@@ -202,15 +201,15 @@ step Zilzibin Drumlore
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
-  when zone "Azshara"
-  zone Azshara
-  goto 22.0,49.7 "Valormok flight master"
-  fly "Thunder Bluff"
-
-step Fly to Thunder Bluff
   when zone "Orgrimmar"
   zone Orgrimmar
   goto 45.3,63.8 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Fly to Thunder Bluff
+  when zone "Azshara"
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
   fly "Thunder Bluff"
 
 step Thunder Bluff

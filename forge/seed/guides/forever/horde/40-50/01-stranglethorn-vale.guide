@@ -98,13 +98,13 @@ step Kebok
   tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
   accept 209                            -- Kebok, upstairs
 
-step Booty Bay docks
+step Booty Bay
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
   accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
-  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is in his house by Lake Nazferiti, on your ride north to Nesingwary
+  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is in his house by Lake Nazferiti, on your way north to Nesingwary
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
@@ -271,7 +271,8 @@ step Lashtail Raptors
 
 step Foreman Cozzle's house
   when onquest 1182
-  tip On the ride north, a short way east of the road: Foreman Cozzle's house stands on the north shore of Lake Nazferiti. His footlocker is inside; Cozzle (38) and the Venture Co. Agents (39) stand in and around the house: pull them one at a time. Then on north-west to Nesingwary's camp.
+  tip On the way north, a short way east of the road: Foreman Cozzle's house stands on the north shore of Lake Nazferiti. Foreman Cozzle (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp.
+  collect 5851 "Cozzle's Key" @42.6,18.4 map 1434 -- Foreman Cozzle
   collect 5852 quest 1182.1 @43.3,20.4 map 1434 -- Cozzle's Footlocker, inside the house
 
 step Nesingwary's camp
@@ -614,5 +615,5 @@ step Misty Reed Post
 
 step Stonard
   zone Swamp of Sorrows
-  tip Ride back north-west along the road to Stonard: Fel'zerul, on the top floor, takes the artifacts. Fresh Meat's crawlers and Katar's murlocs wait for your next swamp visit.
+  tip Back north-west along the road to Stonard: Fel'zerul, on the top floor, takes the artifacts. Fresh Meat's crawlers and Katar's murlocs wait for your next swamp visit.
   turnin 1424                           -- Fel'zerul, on the top floor

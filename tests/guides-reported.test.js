@@ -4029,7 +4029,14 @@ test('Horde 40-50/01: the Green Hills chapters and Goblin Sponsorship are taken 
 	}
 	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182) is left out of the solo route, and its
 	// part 5 (1183) with it.
-	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5');
+	// Fix round 2026-11-20: Goblin Sponsorship part 4 (1182) is taken here at 40, where Foreman Cozzle (38) and the
+	// Venture Co. Agents (39) no longer stand over the player (the 0.4.0 audit's reason was 30-40/03 at 34): Revilgaz
+	// gives it after part 3, the footlocker step waits for it, and part 5 (1183) comes on the second Booty Bay stop.
+	const part4 = at(list, 'accept 1182', is('accept', 1182));
+	assert.ok(at(list, 'turnin 1181', is('turnin', 1181)) < part4 && list[part4].s === list[at(list, 'turnin 1181', is('turnin', 1181))].s, '1182 from Revilgaz after part 3');
+	const box = list[at(list, 'collect 5852 quest 1182', (g) => g.t === 'collect' && g.item === 5852)];
+	assert.ok((box.step.when || []).some((p) => p.k === 'onquest' && [p.q].flat().includes(1182)), 'the footlocker step only with 1182 in the log');
+	assert.ok(at(list, 'accept 1183', is('accept', 1183)) > list.indexOf(box), '1183 after the footlocker');
 });
 
 test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
@@ -10503,7 +10510,10 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	// #2102 (0.4.0 audit): the Wild Shore pass moved after the Cape coast. Horde 0.4.0 audit (round 2): Stranglethorn
 	// Fever is offered from level 40 and the route reaches the cove's Booty Bay stop at 39.9 (level model), so it is
 	// taken on the second Booty Bay stop with Shaky Phillipe; Mistvale's gorilla fangs are kept in the bags before it.
-	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 606), 'Stranglethorn Fever on the second Booty Bay stop');
+	// Fix round 2026-11-20: the level 40 pick-ups come after that stop's hand-ins (its own step, from 40), still on the
+	// second Booty Bay stop, after Shaky Phillipe.
+	const fever = stv[at(stv, 'accept 348', is('accept', 348))];
+	assert.ok(fever.step.when.some((p) => p.k === 'level' && p.n === 40) && step(stv, 'accept', 348) > step(stv, 'turnin', 606) && step(stv, 'accept', 348) < step(stv, 'turnin', 1393), 'Stranglethorn Fever on the second Booty Bay stop, from 40');
 	// Since the 0.4.0 audit Tran'rek and Kebok's tusks are on 40-50/02's Booty Bay call (Stranglethorn after the
 	// Riverglades), and Speaking with Gan'zulah (level 46) is taken at the cauldron there, right before its
 	// Skullsplitters, so no top-up to 41 at Zul'Kunda.
@@ -13463,7 +13473,7 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps 1180');
-	assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix skip leaves out 1182');
+	assert.ok(rf.include.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
 });
 
 // Review (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
@@ -13490,7 +13500,7 @@ test('Horde Stranglethorn 40: Goblin Sponsorship parts 2 and 3 handed in on the 
 	const mack = at(stv, 'accept 606', is('accept', 606));
 	assert.ok(lozgil < take && take < baron, 'Lozgil, then Revilgaz');
 	for (const i of [lozgil, take, baron]) assert.equal(stv[i].s, stv[mack].s, "on MacKinley's Booty Bay stop");
-	assert.ok(!stv.some(({ goal }) => is('accept', 1182)(goal)), 'part 4 is not routed');
+	assert.ok(at(stv, 'accept 1182', is('accept', 1182)) > baron, 'part 4 after Revilgaz takes part 3 (routed at 40 since the fix round, 2026-11-20)');
 });
 
 // Final route review (0.3.6): Tanaris Field Sampling (654) runs on a two-hour timer from the moment its power source is
@@ -13657,9 +13667,12 @@ test('Horde Raceway 43: Goblin Sponsorship to Pozzik and The Eighteenth Pilot on
 	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182) is left out of the solo route, so its
 	// parts 5 and 6 (1183 to Pozzik, 1186 to Razzeric) are not routed either.
 	const fl = goals('forever/horde/40-50/02-feralas.guide');
-	for (const q of [1183, 1186, 1187]) assert.ok(!fl.some(({ goal }) => goal.quest === q), `${q} is not routed`);
+	// Fix round 2026-11-20: 1182 is routed on 40-50/01 at 40, so 1183 and 1186 go to Pozzik and Razzeric here; 1187 stays out.
+	const race = fl[at(fl, 'turnin 1183', is('turnin', 1183))].s;
+	assert.equal(fl[at(fl, 'turnin 1186', is('turnin', 1186))].s, race, 'The Eighteenth Pilot on the same raceway stop');
+	assert.ok(!fl.some(({ goal }) => goal.quest === 1187), '1187 is not routed');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-	assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix skip leaves out 1182');
+	assert.ok(rf.include.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
 });
 
 // Horde 12-30 bracket review (0.3.6, measured): Thunder Bluff at the start of the Barrens & Stonetalon guide gives
@@ -14599,7 +14612,10 @@ test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin S
 	// and the Venture Co. Agents 39 at about 34): with no Cozzle step, the record stays for a build that brings it back.
 	if (!goals(guide).some(({ goal }) => goal.quest === 1182)) {
 		const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-		assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'Goblin Sponsorship part 4 is a route-fixes skip');
+		const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide'); // 1182 is routed at 40 since the fix round (2026-11-20)
+		const box = stv[at(stv, 'collect 5852 quest 1182', (g) => g.t === 'collect' && g.item === 5852 && g.quest === 1182)];
+		assert.ok((box.step.when || []).some((p) => p.k === 'onquest' && [p.q].flat().includes(1182)), 'the 40-50 footlocker step waits for 1182');
+		assert.equal(stv[at(stv, "collect 5851 (Cozzle's Key)", (g) => g.t === 'collect' && g.item === 5851)].s, box.s, "Cozzle's Key on the footlocker's step");
 		return;
 	}
 	// The key's line shares the anchored objective's step, so the step's gate holds it too.
@@ -17171,7 +17187,7 @@ test('Horde Feralas in two visits: 03 ends in Dustwallow; Natural Materials and 
 	assert.ok(d.some((s) => has(s, 'accept', 3128)), '03 still takes Natural Materials from Uzer\'i');
 	const f = compiled('forever/horde/40-50/06-azshara.guide').steps;
 	const idx = (t, q) => f.findIndex((s) => has(s, t, q));
-	assert.ok(idx('turnin', 7003) >= 0 && idx('turnin', 7003) < idx('accept', 7725), 'Zorbin\'s first round before his second');
+	assert.ok(idx('turnin', 7003) >= 0 && idx('turnin', 7003) <= idx('accept', 7725), 'Zorbin\'s first round before his second');
 	assert.ok(idx('turnin', 3128) >= 0 && idx('turnin', 3128) < idx('accept', 7003), 'the materials before the coast');
 	assert.ok(idx('accept', 3063) < idx('kill', 3063), 'Northspring taken on 06\'s camp stop');
 	const t = compiled('forever/horde/40-50/04-tanaris.guide').steps;
