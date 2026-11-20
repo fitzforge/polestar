@@ -199,7 +199,7 @@ return {
 	-- Step 30: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["Ride back west along the road to {npc:10927}'s farmhouse; {npc:10936}'s monument is just north of it."] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {npc:10667} Chromie
 	["{npc:10667} in Andorhal, later on this loop: keep it"] = "",
 	-- {item:12894} Joseph's Wedding Ring
