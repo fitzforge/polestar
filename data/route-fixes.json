@@ -8435,6 +8435,32 @@
 				],
 				"faction": "Horde",
 				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.6-53.8 by the level model (the version that skips steps behind their conditions), two or more over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 53.9-54.1, and the Careful tip sends the player at the 55s. The price is one more ride across the valley and back to Everlook's flight master."
+			},
+			{
+				"a": [
+					"turnin",
+					5561
+				],
+				"b": [
+					"task",
+					1366,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde Desolace, first visit (fix pass, 2026-11-20): from Ghost Walker Post the kodos (Kodo Graveyard, west of the post) and Smeed (east of it) come before the Magram camp (south-east of Smeed), and Felgur's and Gurda's hand-ins are made at the post on the way west to Shadowprey: 12,106 yd instead of 12,472 straight-line and one return to the post fewer, with the same mobs and the same hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
+					5561
+				],
+				"b": [
+					"task",
+					93225,
+					1
+				],
+				"faction": "Horde",
+				"why": "Horde Desolace, first visit (fix pass, 2026-11-20): Smeed's kodos before the Magram camp, as for Centaur Bounty (1366): one return to Ghost Walker Post fewer."
 			}
 		],
 		"stay": [

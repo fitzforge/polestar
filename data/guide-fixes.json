@@ -13882,6 +13882,29 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-desolace-khan-dezhepah-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 1365,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"tip": "Careful: Khan Dez'hepah is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.",
+			"note": "Khan Dez'hepah (5600, level 35, normal) is met at about 32.6 by the level model; players' recorded accept levels for Khan Dez'hepah's quest put the 25th percentile at 33 (70 people). The Careful tip names the gap; Centaur Bounty (1366) needs his head handed in first, so the step can't move later on this visit.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 5600 Khan Dez'hepah level 35"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 1365 (2026-11-20): accept levels of 70 people, 25th percentile 33"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }

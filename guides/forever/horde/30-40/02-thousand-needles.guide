@@ -399,7 +399,7 @@ step Sargeron
 step Khan Dez'hepah
   zone Desolace
   tip South to Kolkar Village. Khan Dez'hepah (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.
-  tip Careful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.
+  tip Careful: Khan Dez'hepah is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.
   collect 6066 quest 1365
 
 step Ghost Walker Post
@@ -411,21 +411,8 @@ step Ghost Walker Post
   accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
   note Takata's next errand sends you after a demon lord with an elite guard, and Maurin's next Corrupter errand back to Sargeron: leave them.
   turnin 1365                         -- Felgur Twocuts
-  accept 1366                         -- Felgur Twocuts: the Magram centaurs just south-east of the post, next
+  accept 1366                         -- Felgur Twocuts: the Magram centaurs south-east of the post, after Smeed's kodos
   accept 93225                        -- Gurda Wildmane: her totems drop from the same Magram centaurs
-
-step Magram Village
-  zone Desolace
-  tip South-east of the post, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge, nearest the post; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda.
-  tip Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.
-  collect 6067 quest 1366 @66.0,71.0  -- Centaur Ear, from the Magram Scouts, Outrunners and Wranglers
-  collect 254432 x5 quest 93225.1 @66.0,71.0 -- Carved Centaur Totem, from the same centaurs
-
-step Ghost Walker Post
-  zone Desolace
-  tip Back north-west to the post.
-  turnin 1366                         -- Felgur Twocuts
-  turnin 93225                        -- Gurda Wildmane
 
 step Kodo Graveyard
   zone Desolace
@@ -436,6 +423,19 @@ step Kodo Graveyard
 step Scrabblescrew's Camp
   zone Desolace
   turnin 5561                         -- Smeed Scrabblescrew
+
+step Magram Village
+  zone Desolace
+  tip South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda.
+  tip Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.
+  collect 6067 quest 1366 @66.0,71.0  -- Centaur Ear, from the Magram Scouts, Outrunners and Wranglers
+  collect 254432 x5 quest 93225.1 @66.0,71.0 -- Carved Centaur Totem, from the same centaurs
+
+step Ghost Walker Post
+  zone Desolace
+  tip Back north-west to the post, on your way west.
+  turnin 1366                         -- Felgur Twocuts
+  turnin 93225                        -- Gurda Wildmane
 
 # ---------------------------------------------------------------- The west coast
 
