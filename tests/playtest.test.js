@@ -279,12 +279,16 @@ test('a hand-over must land on a guide the character can follow: a Human handed 
 	]);
 });
 
+// The recommendation ranks the options by the travel time to each guide's start. The play runs on a client build the
+// walking data is not built for (the stub's), where the travel planner refuses every unmeasured walk and the engine
+// falls back to the straight-line time on one continent and a flat hour across: so the fixture's choice is on one
+// continent (route-choice.guide), where the second option is the nearer one by the walk.
 test('a route choice lands on whichever option the engine recommends, not only the first', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'handover') });
-	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'tirisfal', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'route-choice', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
 	assert.equal(results.length, 1);
 	assert.equal(results[0].ok, true, JSON.stringify(results[0]));
-	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one');
+	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one, a few steps away');
 });
 
 test('a `next` option whose `when` does not hold is no hand-over: the engine goes on to one offered, or the guide ends there', { skip }, async () => {
