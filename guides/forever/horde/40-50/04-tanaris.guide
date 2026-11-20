@@ -210,6 +210,11 @@ step Gadgetzan
   turnin 379
   note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
+step Andi Lynn
+  when complete 5863
+  tip Andi Lynn stands a few steps from Bilgewhizzle: the Dunemaul Compound.
+  turnin 5863                           -- Andi Lynn
+
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
   accept 2606
@@ -218,7 +223,6 @@ step Gadgetzan
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
-  turnin 5863                           -- Andi Lynn
 
 step Marvon Rivetseeker
   turnin 3161
