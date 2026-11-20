@@ -15,11 +15,12 @@ next forever/alliance/50-60/06-silithus
 # first Alliance player (levels 57 to 60), then Alliance players who followed this guide and Horde players who quested
 # through the zone (levels 55 to 60, 2026-11). The Horde steps (Thark Gorax, the Western Post, Elderwild's Zet'gan,
 # Ortak Lomgok and Kal'tinzan, Faustron's Moonglade flight path, Thisalee's hand-in) follow the Horde recordings.
-# On both routes it comes before the faction's Silithus guide (50-60/06), at about 57 by the level model. Alliance:
-# after the Western Plaguelands guide (50-60/04, which ends at Marshal's Refuge in Un'Goro); Horde: after the Eastern
-# Plaguelands guide (50-60/05, which ends at Valor's Rest in Silithus). Both fly to Everlook, ride in through
-# Darkwhisper Gorge and leave from the Summit of Eternity by the flight to Everlook; the Silithus guides pick up from
-# there (the Alliance's with Everlook's errands, the Horde's with the flight back to Marshal's Refuge).
+# On both routes it comes before the faction's Silithus guide (50-60/06), at about 56.5 (Alliance) and 57 (Horde) by
+# the level model. Alliance: after the Western & Eastern Plaguelands guide (50-60/04, which ends in Menethil Harbor on
+# the boat to Theramore); Horde: after the Eastern Plaguelands guide (50-60/05, which ends at Everlook in Winterspring).
+# Both fly to Everlook, ride in through Darkwhisper Gorge and leave from the Summit of Eternity by the flight to
+# Everlook; the Silithus guides pick up from there (the Alliance's with Everlook's errands, the Horde's with the flight
+# from Everlook to Gadgetzan).
 # Order: the way in from Everlook through Darkwhisper Gorge (binding the Hearthstone there), Ketharas the hermit
 # and his first errands by the road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost
 # and its flight path, the fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the
@@ -49,7 +50,7 @@ next forever/alliance/50-60/06-silithus
 step Into Mount Hyjal
   when !zone "Mount Hyjal"
   tip New in Forever: this guide follows what players did on Mount Hyjal. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip Mount Hyjal lies south of Winterspring. Fly to Everlook (coming from Silithus, ride back north through the pass to Marshal's Refuge's flight master first), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
+  tip Mount Hyjal lies south of Winterspring. Fly to Everlook (from Theramore on the Alliance route; the Horde route already ends there), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
   tip Careful: elites stand along the whole way in. Frostmaul Giants and Preservers (59-60) flank the road through Frostwhisper Gorge, and Hederine Slayers, Initiates and Manastalkers (57-58) line Darkwhisper Gorge from its mouth to the zone line, with Lady Hederine (61) on its east side. Follow the arrows' line at full speed, never stop or fight on the way, and don't turn off it.
   fly "Everlook"
   zone Winterspring
@@ -408,8 +409,10 @@ step Ketharas
 # about 0.7 level lower (level model: 57.9 against 58.6), and any Alliance player under 58 then, on the guide's second
 # pass (Marrosis' bones), with the hand-in on the ride back to Elderwild at the end. To the Summit of Eternity (91688,
 # 95248) is offered only once Final Death is handed in, so it is taken wherever that happens. Final Death is taken
-# alone only from 57.6 at Elderwild (the second pass comes about 0.4 level later, at 58 by then); a character still
-# under 58 after the second pass gets an abandon step, as no later visit comes back for it.
+# alone at Elderwild only from 57.6 (Alliance) and 57.85 (Horde): the Horde's second pass comes only about 0.15 level
+# after Elderwild (level model 2026-11-20: 57.35 at Elderwild, 57.47 at the second pass), so a Horde character accepts
+# it alone only when it reaches the bone pile at 58; under that it is a group choice. A character still under 58
+# after the second pass gets an abandon step, as no later visit comes back for it.
 # To the Summit of Eternity's accept steps read `when turnedin` Final Death: accept after Final Death.
 
 step The Curious Crow
@@ -508,10 +511,16 @@ step Elderwild
   accept 96616 only Horde               -- Ortak Lomgok: Herbs for the Bruised and Weary, on the way back from Mourning's Rest
 
 step Final Death
+  only Alliance
   when level>=57.6
   tip Final Death's Scourge Reanimator is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through Mourning's Rest.
-  accept 92591 only Alliance            -- Sefira Everbright
-  accept 92592 only Horde               -- Zet'gan
+  accept 92591                          -- Sefira Everbright
+
+step Final Death
+  only Horde
+  when level>=57.85
+  tip Final Death's Scourge Reanimator is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through Mourning's Rest.
+  accept 92592                          -- Zet'gan
 
 step Final Death
   only Alliance
@@ -522,7 +531,7 @@ step Final Death
 
 step Final Death
   only Horde
-  when level<57.6
+  when level<57.85
   when group 92592
   tip A group choice at your level: the Scourge Reanimator that answers Final Death's bone pile is level 59-60.
   accept 92592                          -- Zet'gan
