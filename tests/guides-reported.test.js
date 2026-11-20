@@ -18128,3 +18128,13 @@ test('forever/horde/40-50/02-feralas.guide: Camp Mojache\'s bind comes before Ro
 	const bind = list.findIndex(({ goal, s }) => goal.t === 'sethome' && s === rok.s);
 	assert.ok(bind >= 0 && bind < list.indexOf(rok), 'the sethome goal comes before turnin 2981 in the same step');
 });
+
+// #3002 (Wetlands, 0.4.1): Raene's Cleansing's Iron Pommel comes from the Rusty Chests the Rotting Slimes leave when
+// they die, in and around the Dor'Danil Barrow Den; the tip sent players to the furbolg camps for chests.
+test('forever/alliance/06-wetlands.guide: the Iron Pommel step names the Rotting Slimes (#3002)', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const { step } = list[at(list, 'the Iron Pommel', (g) => g.t === 'collect' && g.item === 5519)];
+	const tips = step.note || '';
+	assert.match(tips, /Rotting Slime/);
+	assert.doesNotMatch(tips, /Shadethicket furbolg camps/);
+});

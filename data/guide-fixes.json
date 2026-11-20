@@ -14262,6 +14262,29 @@
 				}
 			],
 			"issue": 3266
+		},
+		{
+			"id": "3002-iron-pommel-rotting-slimes",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1027,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Rotting Slimes in and around the Barrow Den leave a Rusty Chest when they die: open the chests until one holds the pommel.",
+			"note": "#3002: the Iron Pommel (5519) for Raene's Cleansing comes only from Rusty Chests (19021), which the Rotting Slimes (3928) of the Dor'Danil Barrow Den leave when they die; the tip sent players to the Shadethicket furbolg camps for chests standing there. The tip names the slimes, as the quest's note in data/mechanics-public.json does.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3002 (0.4.1): the chests are inside and dropped by the Rotting Slimes"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed"
+				}
+			],
+			"issue": 3002
 		}
 	]
 }
