@@ -1164,6 +1164,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			}
 		}
 	}
+	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
+	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
+	// rare alert, pins and list read this flag.
+	for (id, n) in npcs.entries() {
+		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			n.set("rare", false);
+			if let Some(&i) = role_ix.get(&*id) {
+				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
 	// vendor, from the client's item class; an NPC whose merchant window players
 	// recorded is a vendor of what it listed. A recorded fact changes what the
@@ -2542,6 +2553,29 @@ mod tests {
 		assert!(obj("88003").get("tame").truthy());
 		assert!(obj("88003").get("useItem").is_nullish(), "a tame stays a tame");
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
+	}
+
+	// #2929 #2942: an NPC on a player faction's side is never a rare in the Codex, whatever made it one (a
+	// rare rank, the source's rare role); a hostile rare stays one.
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_is_no_rare_2929_2942() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare"], "spawns": {} },
+			"5797": { "id": 5797, "name": "Aean Swiftriver", "faction": "A", "rank": 4, "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 2, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let rare = |id: &str| (codex.npcs.get(id).get("rare").truthy(), codex.npcs.get(id).get("roles").items().iter().any(|r| r.as_str() == Some("rare")));
+		assert_eq!(rare("4949"), (false, false), "a faction leader");
+		assert_eq!(rare("5797"), (false, false), "a rare-ranked NPC of the Alliance");
+		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
+		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
+		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
 	}
 
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,

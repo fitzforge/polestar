@@ -173,7 +173,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			w.class, w.className = ${JSON.stringify(cls)}, ${JSON.stringify(cls)}
 			w.faction = ${JSON.stringify(faction)}
 			w.level = ${g.minLevel || 1}
-			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y})` : ''}
+			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y}${start.z != null ? `, ${start.z}` : ''})` : ''}
 			${before}`,
 		addons: ['Polestar'],
 		...(saved ? { saved: { Polestar: saved } } : {}),
@@ -1108,7 +1108,7 @@ local function act(i, g, r)
 		changeStack(g.item, math.max(0, ((g.progress and g.progress.max) or r.count or 1) - (w.items[g.item] or 0)))
 		if P and P.lose == g.item then armed = i end
 	elseif t == "goto" then
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 	elseif t == "talk" then
 		w.gossip(g.npc); w.close()
 	elseif t == "train" then
@@ -1131,7 +1131,7 @@ local function act(i, g, r)
 		w.setZone(g.subject, g.subject)
 	elseif t == "die" then
 		-- A deathskip: back alive beside the graveyard's Spirit Healer.
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 		stub.fire("PLAYER_UNGHOST")
 	elseif t == "level" then
 		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
@@ -1167,7 +1167,7 @@ local function act(i, g, r)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)
-		w.moveTo(r.map, r.x, r.y)
+		w.moveTo(r.map, r.x, r.y, r.z)
 		w.explore(id)
 		-- An explore tied to a quest is its find (an event line).
 		if q and w.log[q] then

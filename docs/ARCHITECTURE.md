@@ -2538,6 +2538,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
+  `Own.feedGaps` checks each insertion in source order against both ends of
+  the route leg. A flight can bring the player to a feeder at its destination.
+  A goal on neither map needs a measured detour within the same time limit;
+  an unknown distance never justifies inserting it at the start of the guide.
   `checkShape` carries saved check-offs and skips to the new step numbers; a
   feeder step the player skips keeps its quests out of later plans
   (`CharState().feedSkips`). A giver's window that offers the quest (this
