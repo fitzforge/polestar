@@ -539,10 +539,6 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	-- Aim: slide along the path from the projection.
 	local limit = n
 	if stop and stop < limit then limit = stop end
-	-- Indoors, a checked path has already dropped the corners its straight-line
-	-- check could skip. Aim along the current piece, not across the remaining
-	-- bend. Projection above still advances when the player rounds it.
-	if not hill and xs.checkedTurns and idx < limit then limit = idx end
 	-- Coarse sight can see through the obstruction a surveyed turn goes around. The
 	-- next such turn limits both kinds of look-ahead. Projection still passes it
 	-- normally; a player who has already walked around it need not backtrack.
@@ -605,6 +601,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		S.sightAt = nil
 	end
 	S.sighted = sat ~= nil
+	-- A searched path already discarded the corners it could skip. The corridor
+	-- below is only a geometric estimate: keep its aim on the current piece.
+	-- Outdoors a straight line actually cleared by sight can still lead farther.
+	if xs.checkedTurns and idx < limit then limit = idx end
 	local r2 = RADIUS * RADIUS
 	local sx, sy, done = p0x, p0y, 0
 	local qx, qy, qAlong, qSeg -- the corridor's aim, its yards along the path past the projection and its segment
