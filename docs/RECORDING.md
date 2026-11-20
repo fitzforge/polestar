@@ -249,7 +249,7 @@ Fights and loot
 | `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (a catch from a fishing pool has the pool as `o`/srcId; from open water the bobber is left out and `srcKind`/`srcId` are empty), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (the drop-chance denominator) |
 | `gather` | objectId, P, how, skillLineId, rank | a world object gathered with a skill, right after its `loot` (which has the items): `how` `h` herb (Herbalism 182), `m` ore (Mining 186), `f` fishing pool (Fishing 356), `l` lock picked (Lockpicking 633); `rank` = the player's rank in that skill then (the node needs at most that). Once per object per 5 minutes (a pool gives many catches), at most 20 a minute |
 | `unit` | npcId, level, cls, react, P, src | a creature seen on a nameplate, target or mouseover: once per (npcId, level) per session, and once per 100 yd per npcId per session. `react` `h` hostile, `n` neutral, `f` friendly; `src` `p` plate, `t` target, `m` mouseover |
-| `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover) |
+| `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover); P is the player's position for a plate, target or mouseover, the rare's own for a vignette |
 | `treasure` | objectId, P | a treasure vignette |
 | `enter` | instanceId, instanceType, difficulty, P | entering an instance (P = last outdoor position) |
 | `encounter` | encounterId, ok (1/0), difficulty, size | `ENCOUNTER_END` (its start is `engage`, in explorer mode) |

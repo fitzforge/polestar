@@ -537,6 +537,18 @@ static RACE_NAMES: [[&str; 9]; 9] = [
 	["人類", "獸人", "矮人", "夜精靈", "不死族", "牛頭人", "地精", "食人妖", "天裔精靈"],
 ];
 
+/// A walking-region addon name, as written by the map packer. Reject paths,
+/// aliases and out-of-range tiles before using the name as a folder.
+pub fn nav_region(name: &str) -> Option<(&str, u8, u8)> {
+	let (map, tile) = name.strip_prefix("Polestar_Nav_R")?.split_once('_')?;
+	let (row, col) = tile.split_once('_')?;
+	let coord = |s: &str| match s.as_bytes() {
+		[b'0'..=b'9'] | [b'1', b'0'..=b'5'] => s.parse::<u8>().ok(),
+		_ => None,
+	};
+	matches!(map, "0" | "1" | "2991").then_some((map, coord(row)?, coord(col)?))
+}
+
 /// TOC_ADDONS: the addons with fixed texts, in order.
 pub fn toc_addons() -> Vec<&'static str> {
 	TEXT.iter().map(|t| t.0).collect()
@@ -544,6 +556,14 @@ pub fn toc_addons() -> Vec<&'static str> {
 
 /// addon -> [(locale, title, notes)] in LOCALE_CODES order.
 pub fn toc_text(addon: &str) -> Result<Vec<(&'static str, String, String)>, String> {
+	if let Some((map, row, col)) = nav_region(addon) {
+		let mut text = toc_text("Polestar_Nav")?;
+		for (_, title, _) in &mut text {
+			use std::fmt::Write;
+			write!(title, " [{map}:{row},{col}]").unwrap();
+		}
+		return Ok(text);
+	}
 	if let Some((_, titles, notes)) = TEXT.iter().find(|t| t.0 == addon) {
 		return Ok(LOCALE_CODES.iter().enumerate().map(|(i, l)| (*l, titles[i].to_string(), notes[i].to_string())).collect());
 	}

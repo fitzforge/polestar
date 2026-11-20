@@ -12,8 +12,10 @@ next forever/alliance/30-40/03-ashenvale
 # Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
 # Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
-# Solo players never see it (when group 474). Howin's Word to Ironforge (98300) is left out: he offers it only after Death to the
-# Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
+# Solo players never see it (when group 474). Death to the Dragonmaw (98291) is a group quest (#2822): 16 elite Dragonmaw
+# (29-30) in Dragonmaw Retreat, just east of Howin. Howin's Word to Ironforge (98300) is left out: he offers it only after
+# Stopping the Cycle (98297), a level 34 elite Subdued Dragonspawn at the Dragonmaw Gates, about 1,000 yards east, which the
+# route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # The Dark Iron War (303, the ruins' elites) and Bring Back a Bang (88756, the explosives on Direforge Hill among the same
 # elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route.
@@ -172,6 +174,22 @@ step Rethiel the Greenwarden
 step Howin Kindfeather
   when complete 98246
   turnin 98246                        -- Trying Times: the eggs
+
+step Howin Kindfeather
+  when group 98291
+  tip Death to the Dragonmaw is a group quest: 16 elite Dragonmaw (29-30) in Dragonmaw Retreat, just east of Howin. Skip it if you are alone.
+  accept 98291                        -- Howin Kindfeather
+
+step Dragonmaw Retreat
+  when group 98291
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of Howin.
+  kill 271351 quest 98291.1           -- Dragonmaw Reclaimer
+  kill 271348 quest 98291.2           -- Dragonmaw Soulbinder
+  kill 271346 quest 98291.3           -- Dragonmaw Infiltrator
+
+step Howin Kindfeather
+  when group 98291
+  turnin 98291                        -- back west to Howin
 
 step Prospector Whelgar
   when group 98310

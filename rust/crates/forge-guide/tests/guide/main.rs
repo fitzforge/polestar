@@ -28,6 +28,7 @@ mod dsl_place_ids;
 mod dsl_resolve;
 mod dsl_section;
 mod dsl_shared_candidates;
+mod dsl_skill_nearest;
 mod dsl_skipto;
 mod dsl_smart;
 mod dsl_upto;

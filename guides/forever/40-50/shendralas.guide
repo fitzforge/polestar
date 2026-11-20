@@ -150,8 +150,11 @@ step Evenshade's Overlook
   turnin 93016
   accept 93394
 
+# Liranne is not there before Mordent's pylons chain is done (#2946: she was missing for a player who had only found
+# the pylons, so While you're here sent the collar to an empty spot): the step waits for A Brief History Lesson.
 step Liranne
   when has 259461
+  when turnedin 93016
   tip A Prowler gave up a Partially Digested Collar: Liranne, north of the temple, knows whose it was.
   accept 93568
   turnin 93568

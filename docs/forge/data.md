@@ -228,10 +228,16 @@ folds them into the store's quests, NPCs, objects and items:
 
 - quest giver and ender lists become the union of what every character sees: a quest both
   factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
-- any other field (objective text, zone, next quest, spawns, drops) changes only when every
-  character sees the same value; otherwise the store's value stays.
+- an NPC's or object's spawn points and the quests it starts and ends become the union too: a
+  summoned demon one faction meets in its own city and the other in theirs has both places (#2038);
+- any other field (objective text, zone, next quest, a quest's prerequisites, an item's droppers)
+  changes only when every character sees the same value; otherwise the store's value stays. An
+  item's faction fixes name the NPCs that hand it over as its droppers (Soothing Spices' vendors),
+  which our data would read as mobs to kill.
 
-The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+The build log lists what changed and every field still kept from the store because characters see
+it differently (check that list at each QuestieDB update: a fact one faction needs that the data
+can't carry is a correction), and `meta.json` counts it under the QuestieDB source's
 `dynamicCorrections`.
 
 ### How the merge works
@@ -246,6 +252,14 @@ The build goes in layers. A later layer wins over an earlier one:
 
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
+
+A rare's sightings in the recordings (its nameplate, the cursor or the target meeting it) are where
+the player stood, up to about 100 yards from the rare. They don't each become a spawn point: each
+map's sightings are grouped (2.5% of the map) and the groups' centres are the places, and where
+another source already places the rare on that map, only a centre farther than that from all of its
+points is added (#2816). Only a true rare's sightings count (classed rare or rare elite, or a vignette's
+with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
+faction leader got the spots where players stood when they saw him (#2894).
 
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every

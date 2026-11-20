@@ -54,8 +54,15 @@ const RECORDED_MISS_YARDS: f64 = 60.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
-/// `skill`: a gathering round, the herbs or veins that raise the skill found by walking the points.
-const LOOP_VERBS: [&str; 4] = ["kill", "collect", "interact", "skill"];
+/// A one-off item use beside a search is not a target of the search. A use
+/// tied to an objective follows the circuit while that objective is open.
+fn loop_target(g: &V) -> bool {
+	match g.get("t").as_str() {
+		Some("kill" | "collect" | "interact" | "skill") => true,
+		Some("use") => !g.get("quest").is_undef() && !g.get("oi").is_undef(),
+		_ => false,
+	}
+}
 /// A step with none of those: the loop is where to look for someone who walks, the NPC of its accept,
 /// turnin and talk goals.
 const LOOP_NPC_VERBS: [&str; 3] = ["accept", "turnin", "talk"];
@@ -1411,8 +1418,8 @@ fn only_of(c: &V) -> V {
 	}
 }
 
-/// A `loop` step: its `goto` points are the places to search for its kill, collect, interact and skill
-/// goals, or with none of those for the NPC of its accept, turnin and talk goals.
+/// A `loop` step: its `goto` points are the places to search for its objectives,
+/// or with none of those for the NPC of its accept, turnin and talk goals.
 fn apply_loop(step: &V, s: &V, r: &mut R) {
 	let data = r.data;
 	let ln = s.get("loop");
@@ -1435,28 +1442,24 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 		return r.err(&own.hidden("_line"), "a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it", None);
 	}
 	let sgoals = s.get("goals");
-	let placeable = |verbs: &[&str]| -> Vec<V> {
-		goals
-			.iter()
-			.enumerate()
-			.filter(|(i, g)| {
-				g.get("t").as_str().is_some_and(|t| verbs.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
-			})
-			.map(|(_, g)| g.clone())
-			.collect()
-	};
-	let mut targets = placeable(&LOOP_VERBS);
-	if targets.is_empty() && !goals.iter().any(|g| g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t))) {
-		targets = placeable(&LOOP_NPC_VERBS);
-	}
-	if targets.is_empty() {
+	let search = goals.iter().any(loop_target);
+	let mut targets = goals
+		.iter()
+		.enumerate()
+		.filter_map(|(i, g)| {
+			let eligible = if search { loop_target(g) } else { g.get("t").as_str().is_some_and(|t| LOOP_NPC_VERBS.contains(&t)) };
+			let source = sgoals.at(i);
+			(eligible && !source.get("explicitCoords").truthy() && !source.get("anywhere").truthy() && !g.get("candidates").truthy()).then_some(g)
+		})
+		.peekable();
+	if targets.peek().is_none() {
 		return r.err(
 			&ln,
-			"`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk",
+			"`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk",
 			Some("a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path"),
 		);
 	}
-	for goal in &targets {
+	for goal in targets {
 		goal.set("map", first.get("map"));
 		goal.set("x", first.get("x"));
 		goal.set("y", first.get("y"));
@@ -1482,6 +1485,66 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 			set_if(&p, "z", crate::heights::spot_height(data, goal, &p).unwrap_or_default());
 		}
 	}
+	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
+	step.set("goals", kept);
+}
+
+/// `skill <Profession> <N> nearest` (#2529): the step's `goto` points are the places to do it, each for the
+/// characters its own `only` and the step's name (faction, races, classes). They become the goal's
+/// `candidates`, so the arrow leads to the one nearest the player when the step comes up, as for
+/// `train … nearest`; the gotos leave the step.
+fn apply_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
+	let sgoals = s.get("goals").items();
+	let Some(at) = sgoals.iter().position(|g| g.get("verb").as_str() == Some("skill") && g.get("nearest").truthy()) else { return };
+	let ln = sgoals[at].get("line");
+	if s.get("loop").truthy() {
+		return r.err(&ln, "`skill … nearest` picks one of the step's points, `loop` walks them all: drop one of the two", None);
+	}
+	if sgoals[at].get("explicitCoords").truthy() {
+		return r.err(&ln, "`skill … nearest` takes its places from the step's `goto` points: drop `@x,y`", None);
+	}
+	let goals = step.get("goals").items();
+	let gotos: Vec<V> = goals.iter().filter(|g| g.get("t").as_str() == Some("goto")).cloned().collect();
+	if gotos.iter().any(|g| g.get("x").is_undef()) {
+		return;
+	}
+	if gotos.len() < 2 {
+		return r.err(&ln, "`skill … nearest` needs at least two `goto` points in its step", Some("list the places as `goto x,y` lines; for one place, drop `nearest`"));
+	}
+	if let Some(own) = gotos.iter().find(|g| g.get("optional").truthy()) {
+		return r.err(&own.hidden("_line"), "a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick", None);
+	}
+	let outer = step.get("only");
+	let pick = |o: &V, k: &str| -> V {
+		let v = o.get(k);
+		if v.is_undef() {
+			outer.get(k)
+		} else {
+			v
+		}
+	};
+	let candidates: Vec<V> = gotos
+		.iter()
+		.map(|g| {
+			let o = g.get("only");
+			let c: V = obj! { "map" => g.get("map"), "x" => g.get("x"), "y" => g.get("y") }.into();
+			set_if(&c, "f", g.get("f"));
+			let mut sides = pick(&o, "factions").items();
+			if sides.is_empty() && faction.truthy() {
+				sides = vec![faction.clone()];
+			}
+			let tag = match sides.first().and_then(|s| s.as_str()) {
+				Some("Alliance") if sides.len() == 1 => "A",
+				Some("Horde") if sides.len() == 1 => "H",
+				_ => "AH",
+			};
+			c.set("faction", tag);
+			set_if(&c, "races", pick(&o, "races"));
+			set_if(&c, "classes", pick(&o, "classes"));
+			c
+		})
+		.collect();
+	goals[at].set("candidates", candidates);
 	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
 	step.set("goals", kept);
 }
@@ -1920,7 +1983,9 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 			let gmap = goal.get("map");
-			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) {
+			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
+			let nearest_place = g.get("verb").as_str() == Some("goto") && s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy());
+			if !gmap.is_undef() && !matches!(zone_id, V::Null) && !gmap.strict_eq(&zone_id) && !includes(&zones_set, &gmap) && !nearest_place {
 				let name = |id: &V| {
 					let z = data.zone(id);
 					if z.truthy() && z.get("name").truthy() {
@@ -1994,6 +2059,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				}
 			}
 		}
+		apply_nearest(&step, s, &guide.get("faction"), r);
 		gsteps.push(step);
 	}
 	if route_needs_group(&gsteps.items()) {
@@ -3953,7 +4019,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		&& !goal.get("candidates").truthy()
 		&& !g.get("nearest").truthy()
 		&& !g.get("anywhere").truthy()
-		&& !(ctx.loop_ && LOOP_VERBS.contains(&v))
+		&& !(ctx.loop_ && loop_target(&goal))
 	{
 		r.warn(
 			&ln,

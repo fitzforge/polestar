@@ -31,26 +31,22 @@ local function pinPoint()
 end
 "#;
 
+const COMPASS: &str = "Polestar.Set(\"nav.navRouting\", false)\n";
+
 fn run(script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
-		login: true,
-		script: format!("{PRELUDE}{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	run_scene(&["Core/Init.lua", "Nav/Nav.xml"], "", script)
 }
 
-fn run_themed(script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		login: true,
-		script: format!("{PRELUDE}{script}"),
-		..Default::default()
-	})
-	.remove(0)
+fn run_compass(script: &str) -> Value {
+	run_scene(&["Core/Init.lua", "Nav/Nav.xml"], COMPASS, script)
+}
+
+fn themed_compass(script: &str) -> Value {
+	run_scene(&["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml"], COMPASS, script)
+}
+
+fn run_scene(files: &[&str], mode: &str, script: &str) -> Value {
+	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![Addon::files("Polestar", files)], login: true, script: format!("{PRELUDE}{mode}{script}"), ..Default::default() }).remove(0)
 }
 
 fn num(v: &Value) -> f64 {
@@ -94,7 +90,8 @@ fn mmss(t: &str) -> f64 {
 
 #[test]
 fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_styles() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local cases = {
 			{ "N", 100, 0, 0 }, { "W", 0, 100, 0 }, { "S", -100, 0, 0 }, { "E", 0, -100, 0 },
 			{ "NE", 100, -100, 0 }, { "NW", 100, 100, 0 }, { "SW", -100, 100, 0 }, { "SE", -100, -100, 0 },
@@ -114,7 +111,8 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 					sheet = A.sheet:IsShown(), body = A.body:IsShown() }
 			end
 		end
-		emit(out)"#);
+		emit(out)"#,
+	);
 	let expected: [(&str, f64); 12] = [
 		("N", 0.0),
 		("W", PI / 2.0),
@@ -157,8 +155,76 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 }
 
 #[test]
+fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
+	let out = run_compass(
+		r#"
+		nav.useGameGround()
+		nav.faction = "Horde"
+		Polestar.Set("nav.travel", false)
+		-- An Alliance boundary near Stormwind. The same waypoint stays on the safe side
+		-- while the player passes it, steps onto enemy ground and turns back out.
+		local wx, edge = -8143-1/3, 600
+		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
+		nav.place(wx, edge + 34)
+		local tx, ty = nav.Compat.WorldToMap(0, wx, edge + 11, 1429)
+		N.SetTarget(1429, tx, ty, "Outside town")
+		stub.advance(.5)
+		local function walk(i)
+			nav.place(wx, edge + 34 - i * .32)
+			stub.advance(.05)
+		end
+		for i = 1, 120 do walk(i) end
+		local refused = A.GetMode()
+		for i = 119, 0, -1 do
+			walk(i)
+			if A.GetMode() == "travel" then
+				local y = nav.player.wy
+				local a = nav.facing + A.GetAngle()
+				local why = N.danger.Blocked(0, wx, y, wx+.32*math.cos(a), y+.32*math.sin(a), nav.faction)
+				emit({ refused, why or "clear", math.sin(a) > 0 })
+				return
+			end
+		end
+		emit({refused, "did not resume"})"#,
+	);
+	assert_eq!(out, json!(["unsafe", "clear", true]), "the first visible walking stride must lead away from town");
+}
+
+#[test]
+fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
+	let out = run_compass(
+		r#"
+		nav.useGameGround()
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.arrowStyle", "flat")
+		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
+		local x, y = -8133-1/3+.551, 590 -- just outside the shoulder margin along Stormwind's edge
+		local tx, ty = nav.Compat.WorldToMap(0, x, y-12, 1429)
+		local function approach(side)
+			nav.faction = side
+			nav.place(x+20.48, y)
+			N.SetTarget(1429, tx, ty, "Along the boundary")
+			stub.advance(1)
+			for i = 64, 0, -1 do
+				nav.place(x+i*.32, y)
+				stub.advance(.05)
+				assert(A.GetMode() == "travel" and A.body:IsShown())
+			end
+			local a = nav.facing + A.body:GetRotation()
+			N.ClearTarget()
+			return math.cos(a)*.32 -- displacement across the boundary, not along it
+		end
+		local h = approach("Horde")
+		emit({h, approach("Alliance")})"#,
+	);
+	assert!(num(&out[0]) >= -0.001, "Horde's visible next stride enters the enemy settlement: {}", out[0]);
+	assert!(num(&out[1]) < -0.001, "the same turn on friendly ground should still ease");
+}
+
+#[test]
 fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn_a_second_turning_the_camera_moves_the_arrow_at_once() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		target(100, 0)
 		stub.advance(1)
 		local before = A.GetAngle()
@@ -173,7 +239,8 @@ fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn
 		local settled = A.GetAngle()
 		nav.facing = -math.pi / 2           -- turn to face east: the target is straight ahead
 		stub.advance(0.05)
-		emit({ before = before, early = early, later = later, settled = settled, faced = A.GetAngle(), frames = frames })"#);
+		emit({ before = before, early = early, later = later, settled = settled, faced = A.GetAngle(), frames = frames })"#,
+	);
 	near(num(&out["before"]), 0.0, 1e-6, "before");
 	let early = num(&out["early"]);
 	let later = num(&out["later"]);
@@ -202,7 +269,8 @@ fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn
 // re-points nothing.
 #[test]
 fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_the_heading_lies_between_them() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local step = 2 * math.pi / 100
 		local function r3(x) return math.floor(x * 1000 + 0.5) / 1000 end
 		local function blend(k) local f, g, w = N.ArrowBlend(k * step); return { f, g, r3(w) } end
@@ -228,7 +296,8 @@ fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_t
 		r.stillCalls = calls
 		Polestar.Set("nav.arrowStyle", "flat")
 		r.flat = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() }
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out["on"], json!([10, 11, 0]), "on a frame: that frame alone");
 	assert_eq!(out["quarter"], json!([10, 11, 0.25]));
 	assert_eq!(out["back"], json!([10, 9, 0.25]));
@@ -260,7 +329,8 @@ fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_t
 // stand at the arrow's heading to a hundredth of a degree.
 #[test]
 fn turning_the_3d_arrow_draws_each_heading_between_its_frames_not_the_nearest_frame() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local step = 2 * math.pi / 100
 		target(100, 0)
 		stub.advance(1)
@@ -284,7 +354,8 @@ fn turning_the_3d_arrow_draws_each_heading_between_its_frames_not_the_nearest_fr
 			if A.GetAngle() ~= was then moved = moved + 1 end
 			was = A.GetAngle()
 		end
-		emit({ worst = worst, between = between, moved = moved, final = A.GetAngle() })"#);
+		emit({ worst = worst, between = between, moved = moved, final = A.GetAngle() })"#,
+	);
 	assert!(num(&out["worst"]) < 0.01, "the drawn heading is the arrow's to {:.4} degrees", num(&out["worst"]));
 	assert!(num(&out["between"]) >= 2.0, "turning, {} of {} frames are drawn between two sheet frames", out["between"], out["moved"]);
 	near(num(&out["final"]), -(30.0f64).atan2(100.0), 1e-3, "settled on the target");
@@ -391,7 +462,8 @@ fn the_turn_eases_in_and_out_never_passes_the_new_bearing_keeps_up_with_a_turnin
 // turning the camera still moves the arrow at once.
 #[test]
 fn turning_gathers_speed_into_a_new_bearing_and_slows_into_it_never_past_it_the_camera_still_turns_it_at_once() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local function frame(dt)
 			stub.now = stub.now + dt
 			for _, fr in ipairs(stub.frames) do
@@ -414,7 +486,8 @@ fn turning_gathers_speed_into_a_new_bearing_and_slows_into_it_never_past_it_the_
 		local settled = A.GetAngle()
 		nav.facing = goal
 		frame(1 / 60)
-		emit({ speeds = speeds, past = past, settled = settled, goal = goal, faced = A.GetAngle() })"#);
+		emit({ speeds = speeds, past = past, settled = settled, goal = goal, faced = A.GetAngle() })"#,
+	);
 	let speeds: Vec<f64> = out["speeds"].as_array().unwrap().iter().map(num).collect();
 	let peak = speeds.iter().cloned().fold(0.0, f64::max);
 	let first = speeds.iter().position(|&s| s > 1e-9).unwrap();
@@ -426,7 +499,8 @@ fn turning_gathers_speed_into_a_new_bearing_and_slows_into_it_never_past_it_the_
 
 #[test]
 fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local r = {}
 		local function snap()
 			return { style = A.GetStyle(), sheet = A.sheet:IsShown(), spec = A.sheetSpec:IsShown(), body = A.body:IsShown(),
@@ -446,7 +520,8 @@ fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
 		Polestar.Set("nav.arrowStyle", "flat")
 		r.arrivedFlat = snap()
 		r.default = Polestar.GetDefault("nav.arrowStyle")
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out["default"], "skin", "the skin's arrow by default: the 3D one in the house style");
 	let solid = &out["solid"];
 	assert_eq!(json!([solid["style"], solid["sheet"], solid["spec"], solid["body"], solid["frame"]]), json!(["3d", true, true, false, 25]));
@@ -464,14 +539,16 @@ fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
 
 #[test]
 fn distance_is_in_yards_and_the_colour_shifts_from_accent_to_success_as_you_close_in() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		target(300, 400)                   -- 500 yd
 		stub.advance(0.2)
 		local far = { A.body:GetVertexColor() }
 		local farText = A.distText:GetText()
 		nav.place(282, 376)                -- (18, 24) short: 30 yd
 		stub.advance(0.2)
-		emit({ farText = farText, far = far, near = { A.body:GetVertexColor() }, nearText = A.distText:GetText(), dist = N.GetDistance() })"#);
+		emit({ farText = farText, far = far, near = { A.body:GetVertexColor() }, nearText = A.distText:GetText(), dist = N.GetDistance() })"#,
+	);
 	assert_eq!(out["farText"], "500 yd");
 	assert_eq!(out["nearText"], "30 yd");
 	near(num(&out["dist"]), 30.0, 1e-9, "");
@@ -486,25 +563,29 @@ fn distance_is_in_yards_and_the_colour_shifts_from_accent_to_success_as_you_clos
 
 #[test]
 fn in_metres_the_arrow_redraws_its_distance_at_once_without_waiting_for_it_to_change() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		target(300, 400)                   -- 500 yd
 		stub.advance(0.2)
 		local yards = A.distText:GetText()
 		Polestar.Set("nav.distanceUnit", "metres")
-		emit({ yards = yards, metres = A.distText:GetText() })"#);
+		emit({ yards = yards, metres = A.distText:GetText() })"#,
+	);
 	assert_eq!(out, json!({ "yards": "500 yd", "metres": "457 m" }));
 }
 
 #[test]
 fn era_frame_targets_convert_through_the_registered_era_bounds() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		-- Era frame of map 9000 is offset from the live one: era (50, 50) is world (30, -40).
 		Polestar.RegisterMapFrames({ era = { [9000] = { c = 0, top = 1030, bottom = -970, left = 960, right = -1040 } } })
 		N.SetTarget(9000, 50, 50, "Era point", "e")
 		local era = N.GetDistance()
 		local _, _, rel = N.Sample()
 		N.SetTarget(9000, 50, 50, "Live point")
-		emit({ era = era, rel = rel, live = N.GetDistance(), liveCoords = { N.LiveCoords({ map = 9000, x = 50, y = 50, f = "e" }) } })"#);
+		emit({ era = era, rel = rel, live = N.GetDistance(), liveCoords = { N.LiveCoords({ map = 9000, x = 50, y = 50, f = "e" }) } })"#,
+	);
 	near(num(&out["era"]), 50.0, 1e-9, "era distance");
 	near(num(&out["rel"]), (-40f64).atan2(30.0), 1e-9, "era bearing");
 	near(num(&out["live"]), 0.0, 1e-9, "live distance");
@@ -513,7 +594,8 @@ fn era_frame_targets_convert_through_the_registered_era_bounds() {
 
 #[test]
 fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_and_one_nav_arrived() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local seen, arrivals = {}, 0
 		Polestar.On("NAV_ARRIVED", function(t) if t == N.GetTarget() then arrivals = arrivals + 1 end end)
 		target(20, 0)
@@ -533,7 +615,8 @@ fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_a
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), #stub.sounds }
 		seen[#seen + 1] = arrivals
-		emit(seen)"#);
+		emit(seen)"#,
+	);
 	assert_eq!(out, json!([["travel", "20 yd", 0], ["arrived", "Arrived", 1, true, false], ["arrived", 1], ["travel", "20 yd", false], ["arrived", 1], 2]));
 }
 
@@ -567,19 +650,285 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 	let out = run(r#"
 		local m, x, y = nav.mapPoint(20, 0)
 		N.SetTarget(m, x, y, "Upstairs", nil, nil, 30)
-		local floor = 10
-		N.walk.Floor = function() return floor end
-		nav.place(15, 0)                   -- 5 yd across, 20 yd below
+		local z = 10
+		nav.Compat.GetPlayerUnitPosition = function()
+			local p = nav.player
+			return p.wx, p.wy, z, p.c
+		end
+		nav.place(15, 0)                   -- 5 yd across, 20 yd below; no mapped stairs
 		stub.advance(0.2)
-		local seen = { { A.GetMode(), N.FloorHint(), A.floorIcon:IsShown() } }
-		floor = 50                         -- above it
+		local seen = { { A.GetMode(), N.FloorHint(), A.floorIcon:IsShown(), A.dial:IsShown(), A.distText:GetText(),
+			N.CanDrawGroundApproach(), #N.GetRouteGeometry().legs } }
+		z = 50                             -- above it
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), N.FloorHint() }
-		floor = 29                         -- on its floor
+		z = 29                             -- 5 yd horizontally, but still outside the 3D visit
 		stub.advance(0.2)
-		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown() }
+		seen[#seen + 1] = { A.GetMode(), A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
+		nav.place(16, 0)                   -- within the sphere on its floor
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
+		z = nil                            -- losing the live measurement hides the ring
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
+		z = 29                             -- not a departure: no second chime
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
 		emit(seen)"#);
-	assert_eq!(out, json!([["travel", "up", true], ["travel", "down"], ["arrived", true, false]]));
+	assert_eq!(
+		out,
+		json!([
+			["unmapped", "up", true, false, "The last steps here aren't mapped", false, 0],
+			["unmapped", "down"],
+			["unmapped", false, false, 0],
+			["arrived", true, false, true, 1],
+			["unmapped", false, 1],
+			["arrived", true, 1]
+		])
+	);
+}
+
+#[test]
+fn an_exhausted_walk_on_a_slope_needs_a_proven_last_stride_then_an_actual_visit() {
+	let out = run(r#"
+		local function height(x) return 16 + 0.7 * x end
+		nav.Compat.GetPlayerUnitPosition = function()
+			local p = nav.player
+			return p.wx, p.wy, height(p.wx), p.c
+		end
+		local answer
+		N.Path = {
+			Find = function(c, from, to, callback)
+				answer = function() callback({ from, to }, 20, {}) end
+				return { map = c }
+			end,
+			-- This test slope has one measured strip. There is no proof beside it.
+			FootprintDrySight = function(c, x, y, z, gx, gy, gz)
+				return c == 0 and x >= 15 and x < gx and y == 0 and gy == 0
+					and gx == 20 and z == height(x) and gz == height(gx)
+			end,
+		}
+		local m, x, y = nav.mapPoint(20, 0)
+		N.SetTarget(m, x, y, "Top of the slope", nil, nil, height(20))
+		N.Sample()
+		answer()
+		local out = {}
+		local function stand(x, y)
+			nav.place(x, y)
+			stub.advance(0.2)
+			local state, _, _, dx, dy, measured = N.Sample()
+			out[#out + 1] = {state, dx or false, dy or false, measured or false, A.ring:IsShown(), #stub.sounds}
+		end
+		stand(15.5, 0.5)  -- within the follower's horizontal reach, beside the proven strip
+		stand(15.5, 0)    -- still outside the visit sphere, now one proven stride remains
+		stand(16.5, 0)    -- actual XYZ within five yards
+		emit(out)"#);
+	assert_eq!(out, json!([["unmapped", false, false, false, false, 0], ["travel", 4.5, 0, true, false, 0], ["arrived", 3.5, 0, false, true, 1]]));
+}
+
+#[test]
+fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
+	let out = run(r#"
+		nav.Compat.GetPlayerUnitPosition = function() return 0, 0, 12, 0 end
+		local request, calls
+		N.Path = { Find = function(_, from, to, answer)
+			calls = calls + 1
+			request = { from = from, to = to, answer = answer }
+			return request
+		end }
+		local out = {}
+		local function probe()
+			calls = 0
+			N.walk.Probe(0, 0, 0, 20, 0, 14, function(yards)
+				out[#out + 1] = { yards, calls }
+			end)
+		end
+		local start, goal = { x = 0, y = 0, z = 12 }, { x = 20, y = 0, z = 14 }
+		probe()
+		request.answer(nil, "no safe walking route", {})
+		probe()
+		request.answer({start, goal}, 20, { reached = goal })
+		probe()
+		request.answer({start, { x = 20, y = 0, z = 5 }}, 20, {})
+		probe()
+		request.answer({start, { x = 10, y = 0, z = 14 }}, 10, {})
+		probe()
+		request.answer(nil, "unreachable", {})
+		probe()
+		request.answer({ { x = 0, y = 0, z = 20 }, goal }, 20, {})
+		probe()
+		out[#out + 1] = { request.from.z, request.to.z }
+		request.answer({ start, { x = 0, y = 15, z = 12 }, goal }, 100, {})
+		emit(out)"#);
+	assert_eq!(out, json!([[false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
+}
+
+#[test]
+fn a_corpse_walk_probe_returns_the_checked_path_not_a_distance_or_a_substitute_floor() {
+	let out = run(r#"
+		local ghost, request, results = true, nil, {}
+		UnitIsGhost = function() return ghost end
+		N.Path = { Find = function(_, from, to, done, opts)
+			request = { from = from, to = to, done = done, opts = opts }
+			return request
+		end }
+		local start, bend, corpse = {x=0,y=0,z=9}, {x=0,y=15,z=9}, {x=20,y=0}
+		local line = { start, bend, corpse }
+		local function probe(z, goalZ)
+			N.walk.Probe(0, 0, 0, 20, 0, goalZ, function(yards, _, _, path)
+				results[#results+1] = { yards, path == line }
+			end, true, z)
+		end
+		probe(9)
+		local sent = { request.from.z, request.to.z == nil, request.opts.waterWalking }
+		request.done(line, 40, {walkChecked=true})             -- unknown corpse floor stays unknown
+		probe(9); request.done(line, 40, {})                   -- legacy distance only
+		probe(nil); request.done(line, 40, {walkChecked=true}) -- no known starting floor
+		probe(30); request.done(line, 40, {walkChecked=true})  -- same XY, other starting floor
+		probe(9, 30); request.done(line, 40, {walkChecked=true})
+		probe(9); request.done(line, 40, {walkChecked=true, reached=bend})
+		probe(9); nav.level = nav.level + 1; request.done(line, 40, {walkChecked=true})
+		probe(9); nav.faction = "Horde"; request.done(line, 40, {walkChecked=true})
+		probe(9); ghost = false; request.done(line, 40, {walkChecked=true})
+		probe(9); request.done(nil, "no safe walking route", {blockedReason="opposing-settlement"})
+		emit({ sent, results })"#);
+	assert_eq!(out, json!([[9, true, true], [[40, true], [40, false], [40, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false], [false, false]]]));
+}
+
+#[test]
+fn a_checked_corpse_detour_waits_for_its_live_bearing_and_keeps_the_ordinary_held_radius() {
+	let out = run(r#"
+		UnitIsGhost = function() return true end
+		IsIndoors = function() return true end
+		nav.Compat.GetPlayerUnitPosition = function() return nav.player.wx, nav.player.wy, 9, 0 end
+		local request
+		N.Path = { Find = function(_, from, to, done)
+			request = { from = from, to = to, done = done }
+			return request
+		end }
+		nav.useTravelWorld()
+		nav.place(0, 0)
+		local m, x, y = nav.mapPoint(200, 0)
+		N.Hold(m, x, y, "Corpse")
+		-- The planner has priced the detour; its separate live search is pending.
+		local leg = N.travel.CurrentLeg()
+		leg.corpseGround = true
+		local state, _, angle = N.Sample()
+		local pending = { state, angle == nil, #N.GetRouteGeometry().legs }
+		request.done({ request.from, {x=0,y=80,z=9}, {x=200,y=80,z=9}, request.to }, 360, {walkChecked=true})
+		local moved, _, _, dx, dy, measured = N.Sample()
+		local clear = { moved, measured, dx == 0 and dy > 0, N.CanDrawGroundApproach(0,0,0,200,0), #N.GetRouteGeometry().legs[1].pts }
+		nav.place(193, 0)
+		emit({ pending, clear, N.Sample() == "arrived", N.IsHeld(), N.GetTarget().z == nil })"#);
+	assert_eq!(out, json!([["routing", true, 0], ["travel", true, true, false, 4], true, true, true]));
+}
+
+#[test]
+fn walking_measures_keep_stacked_origins_and_targets_separate() {
+	let out = run(r#"
+		local W = N.walk
+		local places = { { wx = 600, wy = 0, z = 30, start = true },
+			{ wx = 50, wy = 0, z = 10 }, { wx = 50, wy = 0, z = 30 } }
+		-- Two flat decks with no stairs between them.
+		N.Path = { FindMany = function(map, goal, points, done, opts)
+			local costs, job = {}, { yards = {} }
+			for i, p in ipairs(points) do
+				local clear = p.z == goal.z and not N.danger.Blocked(map, p.x, p.y, goal.x, goal.y, opts.profile, opts.walkLevel)
+				costs[i] = clear and math.abs(p.x - goal.x) or false
+				job.yards[i] = costs[i]
+				if clear then job.walkChecked = true end
+			end
+			done(costs, nil, job)
+			return job
+		end }
+		W.Measure(0, 0, 0, false, places, 10)
+		local low = W.Measured(0, 0, 0, false, 10)
+		local newFloor = W.Measured(0, 0, 0, false, 30) == nil
+		W.Measure(0, 0, 0, false, places, 30)
+		local high = W.Measured(0, 0, 0, false, 30)
+		emit({ newFloor, low(0, 50, 0, false, 10), low(0, 50, 0, false, 30),
+			high(0, 50, 0, false, 10), high(0, 50, 0, false, 30),
+			high(0, 600, 0, true, 30), high(0, 600, 0, true, 10) == nil,
+			high(0, 600, 0, true) == nil, W.Measured(0, 0, 0, false) == nil })"#);
+	assert_eq!(out, json!([true, 50, false, false, 50, 600, true, true, true]));
+}
+
+#[test]
+fn a_walk_measure_deferred_in_combat_starts_with_the_current_policy_and_goal_floor() {
+	let out = run(r#"
+		local W = N.walk
+		local m, x, y = nav.mapPoint(600, 0)
+		N.SetTarget(m, x, y, "Upper deck", nil, nil, 30)
+		local c, gx, gy, gz = N.GetTargetWorld()
+		local calls, profile, level, floor = 0
+		N.Path = { FindMany = function(_, from, _, _, opts)
+			calls, profile, level, floor = calls + 1, opts.profile, opts.walkLevel, from.z
+			return {}
+		end }
+		stub.inCombat = true
+		W.Measure(c, gx, gy, false, { { wx = 0, wy = 0, start = true }, { wx = 50, wy = 0 } }, gz)
+		local queued = calls == 0
+		nav.faction, nav.level = "Horde", 27
+		stub.inCombat = false
+		W:Refresh()
+		emit({ queued, calls, profile, level, floor })"#);
+	assert_eq!(out, json!([true, 1, "Horde", 27, 30]));
+}
+
+#[test]
+fn an_empty_walking_batch_is_not_a_refusal_and_does_not_ask_or_replan_again() {
+	let out = run(r#"
+		target(600, 0)
+		local c, gx, gy = N.GetTargetWorld()
+		local asks, refreshes, done = 0, 0, nil
+		local places = {{wx=0,wy=0,start=true},{wx=50,wy=0}}
+		N.Path = {FindMany = function(_, _, _, cb) asks, done = asks + 1, cb; return {} end}
+		N.travel.Remeasured = function() refreshes = refreshes + 1 end
+		N.walk.Measure(c, gx, gy, false, places)
+		done(nil, "unsupported", {})
+		local cost = N.walk.Measured(c, gx, gy, false)
+		N.walk.Measure(c, gx, gy, false, places)
+		emit({ asks, refreshes, cost(c, 0, 0, true) == nil, cost(c, 50, 0, false) == nil })"#);
+	assert_eq!(out, json!([1, 0, true, true]));
+}
+
+#[test]
+fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and_landing_intact() {
+	let out = run_compass(
+		r#"
+		local hubs = N.danger.hubBins[0].Alliance
+		nav.place(0, 0)
+		hubs[0] = nav.groundDisk(0, 55, 6)
+		target(0, 766)
+		local direct = { N.Sample(), #N.GetRouteGeometry().legs }
+		hubs[0] = nil
+		nav.useTravelWorld()
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		nav.place(0, 600)
+		target(0, -780)
+		local function pathCounts()
+			local legs = N.GetRouteGeometry().legs
+			local counts = {}
+			for i, leg in ipairs(legs) do counts[i] = { leg.kind, #leg.pts } end
+			return counts
+		end
+		local before = pathCounts()
+		-- The itinerary is in place. Refuse just the live approach to the flight master.
+		hubs[5] = nav.groundDisk(0, 670, 6)
+		local refused = N.Sample()
+		local after = pathCounts()
+		local _, ci = N.GetRoute()
+		-- Reading the map must not advance the flight, even at its boarding spot.
+		nav.place(0, 790)
+		pathCounts()
+		local _, still = N.GetRoute()
+		nav.place(0, 600)
+		hubs[5] = nil
+		local clear = N.Sample()
+		emit({ direct, before, refused, after, still == ci, clear, pathCounts() })"#,
+	);
+	let full = json!([["walk", 2], ["flight", 2], ["walk", 2]]);
+	assert_eq!(out, json!([["unsafe", 0], full, "unsafe", [["walk", 0], ["flight", 2], ["walk", 2]], true, "travel", full]));
 }
 
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour
@@ -589,7 +938,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 // and its text hidden; the arrow comes back.
 #[test]
 fn during_the_catch_up_the_arrow_shows_an_hourglass_turning_over_then_comes_back() {
-	let out = run_themed(
+	let out = themed_compass(
 		r#"
 		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
 		target(300, 400)
@@ -612,7 +961,7 @@ fn during_the_catch_up_the_arrow_shows_an_hourglass_turning_over_then_comes_back
 
 #[test]
 fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_ember_the_game_looks_their_own_then_the_ring_and_the_check() {
-	let out = run_themed(
+	let out = themed_compass(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
 		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
@@ -687,7 +1036,7 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 // is its own again (WoW Forever's quest arrow, with no edge).
 #[test]
 fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gold() {
-	let out = run_themed(
+	let out = themed_compass(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
 		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
@@ -718,7 +1067,7 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 // and a skin addon keep theirs: a skin on a game look's base draws its own parts, or Polestar's where it brings none.
 #[test]
 fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
-	let out = run_themed(
+	let out = themed_compass(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return string.format("%.2f,%.2f,%.2f", r, g, b) end
 		local function file(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
@@ -832,7 +1181,7 @@ fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_pol
 // stand in for the pin's disc and rim art; Polestar's own look takes them all back.
 #[test]
 fn a_skin_s_glow_and_pin_tokens_and_masks_reach_the_arrow_and_the_pins_under_the_player_s_own_colours() {
-	let out = run_themed(
+	let out = themed_compass(
 		r##"
 		local T = Polestar.Theme
 		local function hex(r, g, b) return string.format("%02x%02x%02x", math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
@@ -882,7 +1231,7 @@ fn a_skin_s_glow_and_pin_tokens_and_masks_reach_the_arrow_and_the_pins_under_the
 
 #[test]
 fn chosen_arrow_colours_far_and_near_both_styles_and_the_arrival_ring_the_target_pin_follows_dark_picks_stay_legible() {
-	let out = run_themed(
+	let out = themed_compass(
 		r#"
 		local T = Polestar.Theme
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
@@ -935,7 +1284,8 @@ fn chosen_arrow_colours_far_and_near_both_styles_and_the_arrival_ring_the_target
 
 #[test]
 fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_outside_and_draws_its_area_under_the_target_pin() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		WorldMapFrame.Child:SetSize(1000, 1000)
 		local seen = {}
 		local function snap()
@@ -956,7 +1306,8 @@ fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_o
 		end
 		nav.setWaypoint(wp(100, 0, "A point"))
 		r.pointAreas = #nav.pins("areas")
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(
 		out["seen"],
 		json!([
@@ -995,9 +1346,10 @@ end
 
 #[test]
 fn an_area_objective_never_says_arrived_inside_a_spot_the_arrow_says_to_search_here_and_how_to_move_on() {
-	let out = run(&[
-		SEARCH,
-		r#"
+	let out = run_compass(
+		&[
+			SEARCH,
+			r#"
 		local seen = {}
 		local function snap()
 			seen[#seen + 1] = { A.GetMode(), A.distText:GetText(), A.labelText:GetText(), A.etaText:IsShown() and A.etaText:GetText() or false, A.ring:IsShown() }
@@ -1006,8 +1358,9 @@ fn an_area_objective_never_says_arrived_inside_a_spot_the_arrow_says_to_search_h
 		stub.advance(0.2); snap()                      -- 200 yd out: travelling
 		nav.place(170, 0); stub.advance(0.2); snap()   -- inside the spot
 		emit(seen)"#,
-	]
-	.concat());
+		]
+		.concat(),
+	);
 	assert_eq!(out, json!([["travel", "140 yd", "Collect Raptor Head", false, false], ["search", "Search here", "Collect Raptor Head", "Click the arrow for the next spot", true]]));
 }
 
@@ -1365,7 +1718,8 @@ fn a_goal_with_more_spots_than_grouping_can_afford_draws_no_regions_instead_of_f
 
 #[test]
 fn hidden_on_a_taxi_in_an_instance_and_without_a_target_zone_name_on_another_continent() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local seen = {}
 		local function snap(tag) seen[#seen + 1] = { tag, A.frame:IsShown(), A.GetMode() or "hidden", A.distText:GetText() } end
 		target(100, 0)
@@ -1385,7 +1739,8 @@ fn hidden_on_a_taxi_in_an_instance_and_without_a_target_zone_name_on_another_con
 		stub.advance(0.1); snap("back")
 		N.ClearTarget()
 		snap("cleared")
-		emit(seen)"#);
+		emit(seen)"#,
+	);
 	assert_eq!(
 		out,
 		json!([
@@ -1407,7 +1762,8 @@ fn hidden_on_a_taxi_in_an_instance_and_without_a_target_zone_name_on_another_con
 // once a position returns.
 #[test]
 fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_when_one_returns() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local seen = {}
 		local function snap(tag)
 			seen[#seen + 1] = { tag, A.frame:IsShown(), A.GetMode() or "hidden", A.distText:GetText(), A.labelText:GetText(),
@@ -1424,7 +1780,8 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 		nav.player = nil
 		stub.advance(1.1)
 		seen[#seen + 1] = { "no target", A.frame:IsShown(), A.GetMode() or "hidden" }
-		emit(seen)"#);
+		emit(seen)"#,
+	);
 	assert_eq!(
 		out,
 		json!([
@@ -1600,7 +1957,8 @@ fn minimap_projection_honours_view_radius_rotation_and_clamps_to_the_rim() {
 
 #[test]
 fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleared_or_disabled() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		nav.withTomTom()
 		Polestar.RegisterMapFrames({ era = { [9000] = { c = 0, top = 1030, bottom = -970, left = 960, right = -1040 } } })
 		target(100, 0, "First")
@@ -1611,7 +1969,8 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 		Polestar.Set("nav.useTomTomArrow", true)
 		local arrowWithTomTom = A.frame:IsShown()
 		Polestar.Set("nav.tomtom", false)
-		emit({ calls = TomTom.calls, arrowWithTomTom = arrowWithTomTom, arrowAfter = A.frame:IsShown() })"#);
+		emit({ calls = TomTom.calls, arrowWithTomTom = arrowWithTomTom, arrowAfter = A.frame:IsShown() })"#,
+	);
 	let calls: Vec<String> = out["calls"]
 		.as_array()
 		.unwrap()
@@ -1657,16 +2016,17 @@ fn a_tomtom_compatible_global_without_tomtom_installed_gets_no_mirror_and_never_
 
 // #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
 // with "Use TomTom's arrow" a goal across the sea showed no arrow at all. Polestar's own arrow guides until the
-// player reaches the goal's continent, then gives way to TomTom's; the mirror keeps TomTom's arrow on it.
+// player reaches the goal's continent and can hand over a checked bearing.
 #[test]
 fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_arriving_1325() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		nav.withTomTom()
 		Polestar.Set("nav.useTomTomArrow", true)
 		local out = {}
 		N.SetTarget(9001, 50, 50, "Farland goal") -- the player stands on continent 0
 		out.away, out.guides = A.frame:IsShown(), N.TomTomArrowGuides()
-		out.crazy = TomTom.calls[#TomTom.calls].crazy
+		out.calls = #TomTom.calls
 		nav.place(0, 0, 1) -- landed on the goal's continent
 		stub.fire("ZONE_CHANGED_NEW_AREA")
 		out.arrived, out.guidesThere = A.frame:IsShown(), N.TomTomArrowGuides()
@@ -1677,10 +2037,11 @@ fn with_tomtom_s_arrow_polestar_s_guides_to_another_continent_and_gives_way_on_a
 		out.near = A.frame:IsShown()
 		Polestar.Set("nav.useTomTomArrow", false)
 		out.off = N.TomTomArrowGuides()
-		emit(out)"#);
+		emit(out)"#,
+	);
 	assert_eq!(out["away"], true, "Polestar's arrow guides to another continent");
 	assert_eq!(out["guides"], false);
-	assert_eq!(out["crazy"], true, "TomTom's arrow still holds the mirrored goal");
+	assert_eq!(out["calls"], 0, "no active handoff without a walking bearing");
 	assert_eq!(out["arrived"], false, "on the goal's continent TomTom's arrow takes over");
 	assert_eq!(out["guidesThere"], true);
 	assert_eq!(out["back"], true, "leaving the continent brings Polestar's arrow back");
@@ -1703,13 +2064,17 @@ const WAYPOINT_UI: &str = r#"
 	} }
 	C_QuestLog = C_QuestLog or {}
 	C_QuestLog.IsOnQuest = function(q) return log[q] == true end
+	C_QuestLog.GetNextWaypoint = function(q)
+		local t = N.GetTarget()
+		if t and t.quest == q then return t.map, t.x / 100, t.y / 100 end
+	end
 	C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = { "quest", q } end
 	C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
 "#;
 
 #[test]
 fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		target(100, 0, "Talk to Executor Arren")
@@ -1741,7 +2106,7 @@ fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() 
 
 #[test]
 fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we_tracked_is_untracked() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[376] = true
@@ -1777,7 +2142,7 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 
 #[test]
 fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_not_the_quest() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[756] = true
@@ -1785,14 +2150,26 @@ fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_
 		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", {{ kind = "collect", quest = 756, area = 60 }}))
 		-- The turn-in is one NPC: the quest is tracked.
 		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
+		-- The game now points elsewhere. Keep the checked turn-in pin, not its other bearing.
+		C_QuestLog.GetNextWaypoint = function() return 9000, 0.1, 0.9 end
+		N.Refresh()
 		emit({{ calls = calls }})"#
 	));
-	assert_eq!(out["calls"], json!([["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true], ["clear pin"], ["quest", 756]]));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
+			["clear pin"],
+			["quest", 756],
+			["quest", 0],
+			["pin", "Turn in Thunderhorn Totem", 9000, 45, 50, "Polestar", true]
+		])
+	);
 }
 
 #[test]
 fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		-- Waypoint UI is loaded but has not filled its API yet.
 		local api = WaypointUIAPI.Navigation
@@ -1811,7 +2188,7 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 
 #[test]
 fn a_plain_pin_set_before_waypoint_ui_s_api_is_ready_is_cleared_when_the_quest_is_tracked_instead() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		local api = WaypointUIAPI.Navigation
 		WaypointUIAPI.Navigation = nil
@@ -1828,7 +2205,7 @@ fn a_plain_pin_set_before_waypoint_ui_s_api_is_ready_is_cleared_when_the_quest_i
 
 #[test]
 fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
-	let out = run(&format!(
+	let out = run_compass(&format!(
 		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[756] = true
@@ -1861,11 +2238,103 @@ fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
 
 #[test]
 fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		Polestar.Set("nav.blizzardWaypoint", true)
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
-		emit({ native = nav.userWaypoints })"#);
+		emit({ native = nav.userWaypoints })"#,
+	);
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
+}
+
+#[test]
+fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		nav.useGameGround()
+		local town = N.GetTaxiNode(56)
+		nav.maps[town.map] = {{ c = 0, top = -9620.833, bottom = -11150, left = -2222.917, right = -4516.667 }}
+		local start, finish = town.wy - 400, town.wy + 400
+		local function risk(y, Y, side) return N.danger.Blocked(0, town.wx, y, town.wx, Y, side) end
+		assert(not risk(start, start, "Alliance") and not risk(finish, finish, "Alliance"))
+		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
+		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.navRouting", false) -- direct compass mode, independent of the walking engine
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.place(town.wx, start)
+		N.SetTarget(town.map, x, y, "Across Stonard")
+		local function snapshot()
+			local t = TomTom.calls[#TomTom.calls]
+			return {{ N.TomTomArrowGuides(), t and t.crazy or false, current ~= nil, A.frame:IsShown() }}
+		end
+		local out = {{ enemy = snapshot() }}
+		nav.faction, nav.level = "Horde", 1
+		N.Refresh()
+		out.friendly = snapshot()
+		nav.faction, nav.taxi = "Alliance", true
+		N.Refresh()
+		out.air = snapshot()
+		-- Land near the goal, then move across town without a route or target event.
+		nav.taxi = false
+		nav.place(town.wx, finish - 20)
+		N.Refresh()
+		out.near = snapshot()
+		current = {{ flags = "Player" }}
+		nav.place(town.wx, start)
+		N.Refresh()
+		out.mine = current and current.flags
+		out.blocked = not N.TomTomArrowGuides() and A.frame:IsShown()
+		WaypointUIAPI = nil
+		N.Reapply()
+		out.native = nav.userWaypoints[#nav.userWaypoints]
+		Polestar.Set("nav.useTomTomArrow", false)
+		local last = TomTom.calls[#TomTom.calls]
+		out.mirror = {{ last.title, last.crazy }}
+		emit(out)"#
+	));
+	assert_eq!(out["enemy"], json!([false, false, false, true]));
+	assert_eq!(out["friendly"], json!([true, true, true, false]));
+	assert_eq!(out["air"][0], true);
+	assert_eq!(out["air"][2], true);
+	assert_eq!(out["near"], json!([true, true, true, false]));
+	assert_eq!(out["mine"], "Player");
+	assert_eq!(out["blocked"], true);
+	assert_eq!(out["native"], json!(["track", false]));
+	assert_eq!(out["mirror"], json!(["Across Stonard", false]));
+}
+
+#[test]
+fn live_flight_boarding_never_hands_a_walking_beacon_the_destination() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		nav.useGameGround()
+		local a, b = N.GetTaxiNode(45), N.GetTaxiNode(71)
+		nav.maps[a.map] = {{ c = 0, top = -10566.666, bottom = -12800, left = -1241.667, right = -4591.667 }}
+		nav.maps[b.map] = {{ c = 0, top = -7031.25, bottom = -8983.333, left = -266.667, right = -3195.833 }}
+		nav.place(a.wx, a.wy)
+		nav.Compat.GetPlayerUnitPosition = function() return a.wx, a.wy, a.z, a.c end
+		nav.taxiMap = {{ mapID = 1415, nodes = {{ {{ a.id, 0 }}, {{ b.id, 1 }} }} }}
+		stub.fire("TAXIMAP_OPENED", 1)
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", true)
+		Polestar.Set("nav.blizzardWaypoint", true)
+		local x, y = nav.Compat.WorldToMap(b.c, b.wx, b.wy, b.map)
+		N.SetTarget(b.map, x, y, b.name)
+		local l = N.travel.CurrentLeg()
+		assert(l and l.kind == "fly" and l.taxiOffer and not N.travel.Stop())
+		assert(N.Sample() == "instruction")
+		local board = {{ #TomTom.calls, N.TomTomArrowGuides(), current ~= nil, A.frame:IsShown() }}
+		nav.taxiMap, nav.Compat.GetPlayerUnitPosition = nil, nil
+		local town = N.GetTaxiNode(56)
+		nav.place(town.wx, town.wy)
+		stub.fire("TAXIMAP_CLOSED")
+		N.Refresh()
+		emit({{ board, {{ #TomTom.calls, N.TomTomArrowGuides(), current ~= nil }} }})"#
+	));
+	assert_eq!(out, json!([[0, false, false, true], [0, false, false]]));
 }
 
 #[test]
@@ -1884,7 +2353,8 @@ fn the_arrow_takes_the_mouse_on_its_dial_only_and_the_hover_wash_sits_behind_the
 
 #[test]
 fn without_the_dial_the_text_under_it_takes_the_mouse_and_the_hover_wash() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local seen = {}
 		local function snap(tag)
 			local l, r, t, b = A.frame:GetHitRectInsets()
@@ -1899,7 +2369,8 @@ fn without_the_dial_the_text_under_it_takes_the_mouse_and_the_hover_wash() {
 		stub.advance(0.1); snap("no position")
 		nav.place(0, 0, 0)
 		stub.advance(0.1); snap("back")
-		emit(seen)"#);
+		emit(seen)"#,
+	);
 	// The frame is 200 wide and 64 + 66 tall: the dial at its top, the text under it.
 	assert_eq!(
 		out,
@@ -1914,7 +2385,8 @@ fn without_the_dial_the_text_under_it_takes_the_mouse_and_the_hover_wash() {
 
 #[test]
 fn settings_apply_live_scale_alpha_visibility_pins_position_and_blizzard_waypoint_the_arrow_is_always_movable() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		local r = {}
 		target(100, 0)
 		stub.advance(0.1)
@@ -1960,7 +2432,8 @@ fn settings_apply_live_scale_alpha_visibility_pins_position_and_blizzard_waypoin
 		target(0, 100, "Blizz")
 		Polestar.Set("nav.blizzardWaypoint", false)
 		r.userWaypoints = nav.userWaypoints
-		emit(r)"#);
+		emit(r)"#,
+	);
 	assert_eq!(out["scale"], 1.5);
 	assert_eq!(out["alpha"], 0.6);
 	assert_eq!(out["mouse"], true, "the arrow always takes the mouse");
@@ -2043,7 +2516,8 @@ fn with_the_lock_on_a_drag_that_does_not_move_the_arrow_does_not_save_its_spot()
 
 #[test]
 fn eta_appears_while_closing_in_at_running_speed() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		target(300, 0)
 		stub.advance(0.2)
 		local before = A.etaText:IsShown()
@@ -2056,7 +2530,8 @@ fn eta_appears_while_closing_in_at_running_speed() {
 		local color = { A.etaText:GetTextColor() }
 		Polestar.Set("nav.arrowEta", false)
 		emit({ before = before, shown = shown, text = text, off = not A.etaText:IsShown(), size = size, color = color,
-			mover = { N.Wash("mover") } })"#);
+			mover = { N.Wash("mover") } })"#,
+	);
 	assert_eq!(out["before"], false);
 	assert_eq!(out["shown"], true);
 	assert_eq!(out["off"], true, "nav.arrowEta off hides it immediately");
@@ -2210,7 +2685,8 @@ fn a_step_change_waits_for_the_engine_waypoint_no_stale_re_apply_no_second_chime
 
 #[test]
 fn the_eta_closing_speed_ignores_out_of_band_refreshes() {
-	let out = run(r#"
+	let out = run_compass(
+		r#"
 		target(600, 0)
 		stub.advance(0.2)
 		local etas = {}
@@ -2220,7 +2696,8 @@ fn the_eta_closing_speed_ignores_out_of_band_refreshes() {
 			if i % 10 == 5 then A:Refresh() end
 			if i > 60 and i % 10 == 0 then etas[#etas + 1] = A.etaText:GetText() end
 		end
-		emit({ etas = etas, dist = N.GetDistance() })"#);
+		emit({ etas = etas, dist = N.GetDistance() })"#,
+	);
 	let secs: Vec<f64> = out["etas"].as_array().unwrap().iter().map(|t| mmss(text(t))).collect();
 	let expected = num(&out["dist"]) / 7.0;
 	for s in &secs {

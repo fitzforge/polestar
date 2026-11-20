@@ -270,6 +270,25 @@ local function greetingOffers()
 	return list
 end
 
+-- Of the n quests a window offers (idAt(i) -> quest id): the first the guide
+-- accepts, else the first it hands in `direct`, else nil. Accepts come first:
+-- a direct hand-in whose items are not in the bags opens a progress window
+-- that cannot finish, and picked first it hid the accept behind it at every
+-- visit (#2914: Feathers for Grazle before Speak to Nafien at Grazle).
+local function availablePick(n, idAt, accept, turnin)
+	if accept then
+		for i = 1, n do
+			if wantsAccept(idAt(i)) then return i end
+		end
+	end
+	if turnin then
+		for i = 1, n do
+			if wantsDirect(idAt(i)) then return i end
+		end
+	end
+	return nil
+end
+
 -- Greeting panel (several quests from one NPC/object): turn-ins first, since
 -- they often unlock the follow-up to accept.
 local function onGreeting()
@@ -290,12 +309,10 @@ local function onGreeting()
 	end
 	local numAvailable = GetNumAvailableQuests and GetNumAvailableQuests() or 0
 	if (accept or turnin) and GetAvailableQuestInfo and SelectAvailableQuest then
-		for i = 1, numAvailable do
-			local q = select(5, GetAvailableQuestInfo(i))
-			if (accept and wantsAccept(q)) or (turnin and wantsDirect(q)) then
-				SelectAvailableQuest(i)
-				return true
-			end
+		local i = availablePick(numAvailable, function(k) return (select(5, GetAvailableQuestInfo(k))) end, accept, turnin)
+		if i then
+			SelectAvailableQuest(i)
+			return true
 		end
 	end
 	noteLeft("greeting", greetingOffers())
@@ -322,12 +339,10 @@ local function onGossip()
 	end
 	local available = G.GetAvailableQuests and G.GetAvailableQuests() or {}
 	if (accept or turnin) and G.SelectAvailableQuest then
-		for i = 1, #available do
-			local info = available[i]
-			if (accept and wantsAccept(info.questID)) or (turnin and wantsDirect(info.questID)) then
-				G.SelectAvailableQuest(info.questID)
-				return true
-			end
+		local i = availablePick(#available, function(k) return available[k].questID end, accept, turnin)
+		if i then
+			G.SelectAvailableQuest(available[i].questID)
+			return true
 		end
 	end
 	local ids = {}

@@ -65,6 +65,12 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
@@ -73,7 +79,7 @@ function Compat.GetPlayerInfo()
 		name = readable(UnitName("player")),
 		realm = GetRealmName and GetRealmName() or nil,
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),
@@ -295,6 +301,15 @@ function Compat.IsIndoors()
 	local ok, inside = pcall(IsIndoors)
 	if not ok or (inside ~= nil and readable(inside) == nil) then return nil end
 	return inside and true or false
+end
+
+-- The client's swimming state: true swimming, false not, nil when the client lacks IsSwimming, it errors, or keeps it
+-- secret. Nav/Walk.lua's floor follow takes a water surface for the floor only while swimming.
+function Compat.IsSwimming()
+	if not IsSwimming then return nil end
+	local ok, swimming = pcall(IsSwimming)
+	if not ok or (swimming ~= nil and readable(swimming) == nil) then return nil end
+	return swimming and true or false
 end
 
 function Compat.IsShiftKeyDown()
@@ -1008,16 +1023,24 @@ function Compat.OpenWorldMap(uiMapID)
 	return pcall(open, uiMapID) and true or false
 end
 
--- Opening the quest log at a quest: the client's QuestMapFrame_OpenToQuestDetails
--- (Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua, which Forever's client
--- loads; its own objective tracker opens a quest with it): the map with its
--- quest log, that quest's details shown. It opens the world map, so under the
--- same rules as Compat.OpenWorldMap: never in combat, never with the gamepad
--- interface. Callers check the quest is in the log (Compat.IsOnQuest).
+-- Opening the quest log at a quest, without tainting the map: the quest
+-- selected (C_QuestLog.SetSelectedQuest) and the world map opened through the
+-- client's C opener (C_Map.OpenWorldMap) at the zone the game shows the quest
+-- on (GetQuestUiMapID), else the player's own; the quest's details are the
+-- player's click on it in the log. Never the client's Lua openers
+-- (QuestMapFrame_OpenToQuestDetails, OpenQuestLog, the global OpenWorldMap):
+-- called from addon code they write the quest's page into the map's tables
+-- in Polestar's name, and while that page stays open every quest pin the map
+-- lays out in combat is blocked (#2924: 62 blocked SetPassThroughButtons
+-- calls). So there is no fallback on a client without C_Map.OpenWorldMap.
+-- Never in combat, never with the gamepad interface (as Compat.OpenWorldMap).
+-- Callers check the quest is in the log (Compat.IsOnQuest).
 --   Compat.CanOpenQuestLog() -> bool ; Compat.OpenQuestLog(questID) -> opened
 local function questLogOpener()
 	if ns.GamepadUI() then return nil end
-	return QuestMapFrame_OpenToQuestDetails
+	local QL = C_QuestLog
+	if not (C_Map and C_Map.OpenWorldMap and QL and QL.SetSelectedQuest) then return nil end
+	return C_Map.OpenWorldMap
 end
 
 function Compat.CanOpenQuestLog()
@@ -1027,7 +1050,10 @@ end
 function Compat.OpenQuestLog(questID)
 	local open = questLogOpener()
 	if not open or type(questID) ~= "number" or Compat.InCombat() then return false end
-	return pcall(open, questID) and true or false
+	local map = type(GetQuestUiMapID) == "function" and Compat.Readable(GetQuestUiMapID(questID)) or nil
+	if type(map) ~= "number" or map <= 0 then map = nil end
+	pcall(C_QuestLog.SetSelectedQuest, questID)
+	return pcall(open, map) and true or false
 end
 
 -- The continent-type uiMap (Enum.UIMapType.Continent = 2) a map belongs to,

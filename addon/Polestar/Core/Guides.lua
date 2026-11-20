@@ -396,9 +396,9 @@ Own.POINT = { __index = function(p, k)
 	if k == "x" then return p[1] elseif k == "y" then return p[2] elseif k == "z" then return p[3] elseif k == "r" then return 0 end
 end }
 
--- Packed spots -> { { x, y, z?, r, n?, alt?, lvl? }, ... }, or nil when a
--- value is not a number. A spot's fields are set one by one: a constructor
--- naming all five would size every table for eight.
+-- Packed spots -> { { x, y, z?, r, n?, alt?, lvl? }, ... }, or nil for a
+-- non-number. Lua 5.1 reserves a hash slot even for a nil assignment to a
+-- new key. Only add optional fields that exist, including on exact points.
 function Own.unpackSpots(s)
 	local out = {}
 	for rec in gmatch(s, "[^;]+") do
@@ -419,10 +419,12 @@ function Own.unpackSpots(s)
 		if r == 0 then
 			spot = setmetatable(z and { x, y, z } or { x, y }, Own.POINT)
 		else
-			spot = {}
-			spot.x, spot.y, spot.z, spot.r, spot.n = x, y, z, r, n
+			spot = { x = x, y = y, r = r }
+			if z then spot.z = z end
+			if n then spot.n = n end
 		end
-		spot.alt, spot.lvl = alt, lvl
+		if alt then spot.alt = alt end
+		if lvl then spot.lvl = lvl end
 		out[#out + 1] = spot
 	end
 	return out

@@ -2,6 +2,193 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "searing-surface-taskmasters",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						43.12,
+						40.38
+					],
+					[
+						45.68,
+						39.66
+					],
+					[
+						49.15,
+						39.93
+					],
+					[
+						44.79,
+						51.93
+					]
+				]
+			},
+			"note": "Only the group bounty uses these exterior Taskmaster ledges; omit the mine floors underneath Thorium Point.",
+			"source": {
+				"kind": "client",
+				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-surface-slavers",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 2,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						42.81,
+						40.54
+					],
+					[
+						43.2,
+						51.97
+					],
+					[
+						35.32,
+						58.47
+					]
+				]
+			},
+			"note": "The three outdoor camps are group targets. Nearby dwarves can assist; these marks do not identify solitary pulls.",
+			"source": {
+				"kind": "client",
+				"ref": "Dark Iron Slaver 5844: surface spawn heights 241.1, 243.0 and 238.0."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-furnace-daggers",
+			"faction": "Alliance",
+			"quest": 3443,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						38.15,
+						51.36
+					],
+					[
+						37.69,
+						49.65
+					],
+					[
+						40.58,
+						49.48
+					],
+					[
+						40.01,
+						48.33
+					]
+				]
+			},
+			"note": "Steamsmiths at the surface furnaces can supply all eight daggers even if the player passed on the group bounty.",
+			"source": {
+				"kind": "client",
+				"ref": "Thorium Plated Dagger 10551 drops from Dark Iron Steamsmith 5840; surface spawn heights 240.3, 241.2, 240.3 and 240.0."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "pristine-horns-western-matriarchs",
+			"faction": "Alliance",
+			"quest": 977,
+			"objective": 1,
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[
+						65.88,
+						43.57
+					],
+					[
+						66.67,
+						41.84
+					]
+				]
+			},
+			"note": "Use the two outdoor Matriarchs away from the Patriarch spawn at the cave approach. Do not direct players to the cave floor under the hill.",
+			"source": {
+				"kind": "client",
+				"ref": "Ice Thistle Matriarch 7459: exterior spawn heights 732.8 and 722.4 in Winterspring."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "jon-jon-spyglass-on-the-hill",
+			"faction": "Alliance",
+			"quest": 609,
+			"objective": 2,
+			"at": {
+				"map": 1434,
+				"x": 34.9,
+				"y": 51.8,
+				"frame": "era"
+			},
+			"note": "Jon-Jon stands with Maury on the hill, not beside Chucky at the coastal camp.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Jon-Jon the Crow's Stranglethorn spawn; quest 609 objective 2, item 3925."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "stranglethorn-young-panthers-across-the-river",
+			"quest": 190,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 39.81,
+				"y": 11,
+				"frame": "era"
+			},
+			"note": "Cam (cameronmoten) reports seeing only 1-2 Young Panthers near the original arrow and 12+ across the river. These are his firsthand field observations, not spawn-database counts. Start across the river from Nesingwary's camp, where the Young Panthers gather; keep the existing quest order.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): 1-2 Young Panthers near the old arrow, 12+ across the river"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Young Panther (683) kills on map 1434 gather at 39-45, 9-15 (about 920 kills; 81 contributors at 39-42, 9-12); the old arrows' lone spawns (36.1,7.2 and 35.0,14.2) lie where about a tenth of that is killed"
+				}
+			]
+		},
+		{
+			"id": "stranglethorn-tigers-with-young-panthers",
+			"faction": "Horde",
+			"quest": 186,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 45,
+				"y": 15,
+				"frame": "era"
+			},
+			"note": "On the Horde route, point the second Tiger Mastery hunt at the tiger group east of camp. Keep the existing combined hunt with Panther Mastery 191 and the geologists, and the earlier Panther Mastery 190 hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): regular Stranglethorn Tigers beside the Young Panthers, east of the camp"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Stranglethorn Tiger (682) kills on map 1434 form two groups of about the same size, west of the camp (27-33, 6-18, about 620 kills) and east of it (42-48, 9-21, about 600 kills; 47 contributors at 45-48, 15-18); the east group lies on the way to the geologists by Lake Nazferiti"
+				}
+			]
+		},
+		{
 			"id": "621-westfall-oats-on-the-sack",
 			"quest": 151,
 			"objective": 1,
@@ -347,6 +534,32 @@
 			"issue": 1575
 		},
 		{
+			"id": "desolace-alliance-kolkar-village-loop",
+			"quest": 1387,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1443,
+				"frame": "era",
+				"points": [
+					[71.5, 45.5],
+					[71.7, 41.6]
+				]
+			},
+			"note": "Centaur Bounty and Carved Centaur Totems share this step. Work the two Kolkar camps on the way to Nijel's Point: both have Centaurs, Scouts, Maulers, Windchasers and Battle Lords (30-35). A point by itself also offers other clans' camps nearby or on the map, including the Magram village with its level 39-43 guards. The loop keeps both goals and their target buttons in Kolkar Village. Anchor it on the ears so it does not change the later visit's separate totem step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of 1387 (0.4.x followers of the guide): 2 people died 7 times at the Magram village (map 72-76,72-76) at levels 36.4-37.1, none at Kolkar Village; route review 0.4.3, Alliance 30-40"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns on map 1443: Kolkar (4632-4637, 12976, 12977) only at 68-75,39-52; Magram Necromancer (253272) 59-66,75-86, Magram Guardian (255560) 65-72,73-83"
+				}
+			],
+			"pr": 3144
+		},
+		{
 			"id": "danger-desolace-centaur-totems-valley-of-spears",
 			"quest": 93225,
 			"objective": 1,
@@ -451,6 +664,38 @@
 				}
 			],
 			"issue": 1695
+		},
+		{
+			"id": "a043-wetlands-fire-taboo-flint-west-of-the-rotclaws",
+			"quest": 277,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1437,
+				"frame": "era",
+				"points": [
+					[
+						45.34,
+						32.49
+					],
+					[
+						43.56,
+						34.58
+					]
+				]
+			},
+			"note": "Fire Taboo's Crude Flint (06-ashenvale's Ironbeard's Tomb step at about 24, and 06-wetlands' catch-up step for a character still short of it): the point stood at 51.2,30.9, among the Maddened Rotclaws (25-26) that roam the Green Belt east of x 50, where players following the guide kept dying at 24.0-24.8. It now sits on the Mosshide Fenrunners' and Trappers' camp along the river at 43-46,32-35 (22 of their spawns there, both drop the flint), on the walk from Rethiel to Ironbeard's Tomb, with no Rotclaw spawn between x 40 and 50. Both search markers are on the river. The Green Belt is not an alternative flint camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 9 people following the guide died 26 times around 50-54,28-32 on Fire Taboo at levels 24.0-24.8 (5 of those deaths on 0.4.x)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json: Mosshide Fenrunner 1010 (22-23) 14 and Mosshide Trapper 1011 (23-24) 8 spawns in 42-47,31-36; Maddened Rotclaw 271334 (25-26): 561 spawns, none west of x 50 (4 at 50-55, y 25-35, the rest further east)"
+				}
+			],
+			"pr": 3144
 		},
 		{
 			"id": "gh036-wetlands-nordel",
@@ -686,6 +931,26 @@
 			},
 			"issue": 303,
 			"pr": 692
+		},
+		{
+			"id": "a043-dwarven-paladin-linen-at-golbolar",
+			"quest": 1648,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1426,
+				"x": 67.18,
+				"y": 58.58,
+				"frame": "era"
+			},
+			"note": "Save ten Linen Cloth at the north Stonesplinter camps before the flight to Ironforge. A paladin who reaches John Turner short can farm Rockjaw Skullthumpers on the western edge of the quarry.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "Item 2589 drops from Stonesplinter Troggs and Scouts (1161, 1162) and Rockjaw Skullthumpers (1115). The Skullthumpers spawn at 67.18,58.58 and 67.09,59.71 in Dun Morogh."
+				}
+			],
+			"pr": 3144
 		},
 		{
 			"id": "692-dunmorogh-narm-faulk",
@@ -2662,6 +2927,60 @@
 				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
 			},
 			"issue": 2825
+		},
+		{
+			"id": "a043-stonesplinter-north-camps",
+			"quest": 267,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1432,
+				"frame": "era",
+				"points": [
+					[
+						29.57,
+						72.89
+					],
+					[
+						32.37,
+						72.36
+					]
+				]
+			},
+			"note": "The north edge of Stonesplinter Valley holds both the Scouts and the Troggs. The southern valley and the eastern camps have much higher-level mobs; their markers do not belong on this starter loop.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "NPCs 1161 and 1162 both spawn in the two camps; Headsplitter patrols farther south."
+				},
+				{
+					"kind": "recording",
+					"ref": "Dun Morogh starters on 0.4.x: of 13 follower deaths on 224 or 267 at this step, 7 named Scouts and 1 a Stonesplinter Trogg. The other 5 did not record the killer."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "043-darkwhisper-gorge-by-the-road",
+			"quest": 4842,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[62.3, 67.0],
+					[62.1, 69.5],
+					[61.2, 71.4],
+					[59.8, 74.2]
+				]
+			},
+			"note": "Strange Sources (0.4.3 route round, Alliance 50-60/06): the gorge's explore point (59.8,74.2) lies just south of the Frostmaul Giants' and Preservers' camp (59-60, elite; spawns on both sides of the road at 58.1-65.7,65.1-73.0), and the straight line from Ranshalla's altar cut through it. The arrow keeps to the road on the camp's east side, the line every recorded crosser rode, to the mouth, which is about 50 yards short of the first Hederine Slayers: the step's tip says to turn back there.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-19: all 13 recorded crossings toward Darkwhisper Gorge rode the road at x 61.6-62.5 from y 64 to 71 (61.9,64.4, 62.4,67.0, 62.1,69.5, 61.2,71.4, 60.3,73.0) with no deaths on that stretch; Frostmaul Giants seen hostile by 11 people, killed by none. data/forever npcs.json: Frostmaul Giant 7428 and Preserver 7429 at 58.06-65.66,65.09-72.98, Hederine Slayer 7463 nearest at 59.4,75.1"
+			},
+			"issue": 3144
 		}
 	]
 }

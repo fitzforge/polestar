@@ -95,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "« Loup de mer » MacKinley, si le guide de Strangleronce ne l'a pas donnée",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, dernier étage, si le guide de Strangleronce ne l'a pas donnée",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, si le guide de Strangleronce ne l'a pas donnée",
+	["{npc:2487}, top floor"] = "{npc:2487}, dernier étage",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, à l'intérieur, si le guide de Strangleronce ne l'a pas donnée",
+	["{npc:2498}, inside"] = "{npc:2498}, à l'intérieur",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43} : tuez-les au passage",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Les cartes et les ordres se trouvent dans le camp pirate de la {area:43}, juste au sud de {area:35} ; ses Bretteurs parcourent le rivage. Les Démonistes et les Bretteurs (41-43) sont maintenant en dessous de votre niveau.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, dernier étage",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Les capitaines de la Voile sanglante",
@@ -133,6 +126,8 @@ return {
 	["{npc:2535} and {npc:2536}"] = "{npc:2535} et {npc:2536}",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} et {npc:2536} se tiennent ensemble dans les collines juste au nord du village de Zanzil.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Collines des gorilles",
@@ -153,8 +148,6 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "pour le {npc:2616} à Theramore : gardez-le, le guide d'Un'Goro y arrive",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "La course suivante de {npc:2498} concernant Zanzil commence à {zone:1441} : passez-la.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "{npc:2498}, à l'intérieur",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La tâche suivante de MacKinley vous envoie contre des ogres élites : passez-la.",
 
 	-- Step 30: Monogrammed Sash
@@ -177,6 +170,7 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:1494} (élite de niveau 52) demande un groupe de 2. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "« Loup de mer » MacKinley, si le guide de Strangleronce ne l'a pas donnée",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Les Sangliers cendrés et les Basilics Rougepierre partagent les pentes au sud-ouest du donjon. Evitez les Sangliers infernaux plus au sud : ils sont de niveau 52.",
 	-- ["Back to {area:144}"] = "Retour à {area:144}",
 	-- ["Boars and basilisks"] = "Sangliers et basilics",
@@ -220,6 +214,9 @@ return {
 	-- ["{area:702} flight master"] = "Maître de vol du {area:702}",
 	-- ["{item:8047}; below ground"] = "{item:8047} ; sous terre",
 	-- ["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, dernier étage, si le guide de Strangleronce ne l'a pas donnée",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, si le guide de Strangleronce ne l'a pas donnée",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, à l'intérieur, si le guide de Strangleronce ne l'a pas donnée",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, au sommet de l'arbre",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, à côté d'elle",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",

@@ -843,6 +843,47 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	assert_eq!(lazy, json!({ "before": 0, "after": 1, "s1": "Sub 100030" }));
 }
 
+#[test]
+fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
+	let [kept, matches] = first::<2>(run_with(
+		r#"
+		local opts = { kinds = { item = true }, subtitles = false }
+		local chunks = {}
+		for i = 1, 5000 do chunks[i] = "\2old silver blade number "..i.."\1"..i..",2,,20\n" end
+		local base = table.concat(chunks); chunks = nil
+		Polestar.Codex.Index = function(k) if k == "item" then return base end end
+		Polestar.Codex.IsLoaded = function() return true end
+		Polestar.Names.Localised = function() return true end
+		-- Build the same item index twice. Before the names pack is ready the result is not cached;
+		-- this pays the first scan's VM costs without charging them to the retained translation.
+		local ready = false
+		Polestar.Names.Ready = function() return ready end
+		Polestar.Names.Cached = function(_, id) if id == (ready and 1 or 2) then return "Silver Blade" end end
+		Polestar.Search.Query("unmatched", opts)
+		local function retainedKiB()
+			-- Lua 5.1 can halve its string table and scratch buffer one collection at a time.
+			local last
+			for _ = 1, 32 do
+				collectgarbage()
+				local kib = collectgarbage("count")
+				if kib == last then return kib end
+				last = kib
+			end
+			error("retained Lua heap did not settle")
+		end
+		local before = retainedKiB()
+		ready = true
+		Polestar.Search.Query("unmatched", opts)
+		emit((retainedKiB() - before) * 1024 / #base)
+		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
+	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+}
+
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every
 // name once (one plain find over each index, what any search must do), and 25,000 names against 2,500. A search
 // rebuilding its index per keystroke (a Lua pass over every line) costs far more than a few C scans; a quadratic
@@ -1449,4 +1490,22 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);
 	assert!(arr(&controls).iter().all(|c| c["kind"] == "toggle" && truthy(&c["label"]) && truthy(&c["help"])));
 	assert_eq!(defaults, json!([true, true, true, true]));
+}
+
+// Mokii's report (#2943): Tirion Fordring has a spawn on Western Plaguelands' map from the Classic data (Era frame)
+// and the same place on Eastern Plaguelands' map from Forever's data; Stratholme's pick-up guide, built in Western
+// Plaguelands, took the western point and the arrow went through Western Plaguelands to him. An Era spawn that is the
+// same place as a live spawn on another map is that live spawn; one far from it stays.
+#[test]
+fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one_2943() {
+	let out = run(r#"
+		-- The fixture's maps, side by side: Amber Vale's east edge is Ember Hollow's west edge.
+		Polestar.RegisterMapFrames({ era = { [9001] = { c = 0, left = 1000, right = -1000, top = 1000, bottom = -1000 }, [9002] = { c = 0, left = -1000, right = -3000, top = 1000, bottom = -1000 } } })
+		local N = Polestar.Lookup.Nearest
+		local twin = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 90, y = 50 })
+		local apart = N({ { map = 9001, x = 60, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 55, y = 50 })
+		local unplaced = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } })
+		emit({ twin = twin.map, apart = apart.map, unplaced = unplaced.map })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
 }

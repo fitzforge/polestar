@@ -57,7 +57,17 @@ emit({answer=answer, expected=expected, frames=frames, checkpoints=calls, public
 
 #[test]
 fn forty_stops_on_the_shipped_network_use_sparse_plans_and_bounded_real_search_slices() {
-	let out = run(r#"
+	// A synthetic clock proves checkpoint coverage, but cannot price ground-safety
+	// work. Measure wall slices with the elapsed CPU clock used by the real budget.
+	for real_clock in [false, true] {
+		let clock = if real_clock {
+			"local function budgetClock() return os.clock() * 1000 end"
+		} else {
+			"local simulated = 0; local function budgetClock() simulated = simulated + 0.005; return simulated end"
+		};
+		let out = run(&[
+			clock,
+			r#"
 local N, nav, R = Polestar.Nav, stub.nav, Polestar.HandinRoute
 nav.faction = 'Alliance'; nav.place(-10500,1046,0)
 local flags, stops = Polestar.CharState().flags, {}
@@ -72,19 +82,19 @@ for _,node in ipairs(N.GetTravelData().taxi) do
 	end
 end
 assert(#stops == 40, 'the shipped network must supply forty fixture destinations')
-local count, simulated = 0, 0
+local count = 0
 local estimate = N.EstimateTravelCooperative
 assert(type(estimate) == 'function', 'a private cooperative estimator is required')
 N.EstimateTravelCooperative = function(...) count=count+1; return estimate(...) end
-debugprofilestop = function() simulated=simulated+0.005; return simulated end
+debugprofilestop = budgetClock
 local from={map=9000,x=50,y=50}
 local order, partial
 R.Refine(stops,from,function() return true end,function(o,_,p) order,partial=o,p end)
 local maximum, wallMaximum, frames, started = 0, 0, 0, os.clock()
 while not order and frames < 620 do
-	local before, at = simulated, os.clock()
+	local before, at = budgetClock(), os.clock()
 	stub.advance(0.05)
-	maximum=math.max(maximum,simulated-before)
+	maximum=math.max(maximum,budgetClock()-before)
 	wallMaximum=math.max(wallMaximum,(os.clock()-at)*1000)
 	frames=frames+1
 end
@@ -92,14 +102,20 @@ local seen={}; for _,i in ipairs(order or {}) do seen[i]=true end
 local unique=0; for _ in pairs(seen) do unique=unique+1 end
 emit({count=count,maximum=maximum,wallMaximum=wallMaximum,wall=(os.clock()-started)*1000,frames=frames,
 	complete=order and #order or 0,unique=unique,partial=partial or false})
-"#);
-	eprintln!("real hand-in travel planning: {out}");
-	assert_eq!(out["complete"], 40);
-	assert_eq!(out["unique"], 40);
-	assert_eq!(out["partial"], false, "the sparse real-network pass completes before its deadline");
-	assert!(out["count"].as_u64().unwrap() <= 160, "at most player + two neighbors + successor per stop");
-	assert!(out["maximum"].as_f64().unwrap() < 4.0, "actual planner checkpoints bound work within a frame");
-	forge_addontest::assert_timing!(out["wallMaximum"].as_f64().unwrap() < 20.0, "recorded wall-clock slices must remain bounded on the test host");
+"#,
+		]
+		.join("\n"));
+		eprintln!("hand-in travel planning (real clock: {real_clock}): {out}");
+		assert_eq!(out["complete"], 40);
+		assert_eq!(out["unique"], 40);
+		assert_eq!(out["partial"], false, "the sparse real-network pass completes before its deadline");
+		assert!(out["count"].as_u64().unwrap() <= 160, "at most player + two neighbors + successor per stop");
+		if real_clock {
+			forge_addontest::assert_timing!(out["wallMaximum"].as_f64().unwrap() < 20.0, "recorded wall-clock slices must remain bounded on the test host");
+		} else {
+			assert!(out["maximum"].as_f64().unwrap() < 4.0, "actual planner checkpoints bound work within a frame");
+		}
+	}
 }
 
 #[test]

@@ -702,15 +702,20 @@ function handSpots(data, sources, map, f, x, y, near, altSources = sources) {
 }
 
 // A `loop` step (docs/GUIDE_FORMAT.md, "Spawn areas"): its `goto` points, in
-// order, are the places to search. Each kill, collect, interact or skill goal
-// the author did not place (`@x,y`) and that picks no place at runtime gets
-// them as its spawn areas, searched one after another (`spread`), its point
+// order, are the places to search. Each eligible goal the author did not
+// place (`@x,y`) and that picks no place at runtime gets them as its spawn
+// areas, searched one after another (`spread`), its point
 // at the first; the gotos leave the step. A spot's radius is its goto's `r`,
 // else LOOP_RADIUS yards.
 const LOOP_RADIUS = 30;
 // `skill`: a gathering round. The herbs or veins that raise the skill are
 // found by walking the points, and nothing in the data places a skill.
 const LOOP_VERBS = new Set(['kill', 'collect', 'interact', 'skill']);
+// A quest item follows the circuit while its objective is open. A one-off
+// item use beside a search is not itself a target of the search.
+function loopTarget(g) {
+	return LOOP_VERBS.has(g.t) || (g.t === 'use' && g.quest !== undefined && g.oi !== undefined);
+}
 // A step with none of those: the loop is where to look for someone who walks,
 // the NPC of its accept, turnin and talk goals (a quest giver on a patrol).
 const LOOP_NPC_VERBS = new Set(['accept', 'turnin', 'talk']);
@@ -724,11 +729,10 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const placeable = (verbs) => step.goals.filter((g, i) => verbs.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
-	let targets = placeable(LOOP_VERBS);
-	if (!targets.length && !step.goals.some((g) => LOOP_VERBS.has(g.t))) targets = placeable(LOOP_NPC_VERBS);
+	const searches = step.goals.some(loopTarget) ? loopTarget : (g) => LOOP_NPC_VERBS.has(g.t);
+	const targets = step.goals.filter((g, i) => searches(g) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
 	if (!targets.length) {
-		return err(ln, '`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
+		return err(ln, '`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
 	for (const goal of targets) {
 		goal.map = first.map;
@@ -742,6 +746,39 @@ function applyLoop(step, s, data, err) {
 		setIf(goal, 'z', goalHeight(data, goal));
 		for (const p of goal.spots) setIf(p, 'z', spotHeight(data, goal, p));
 	}
+	step.goals = step.goals.filter((g) => g.t !== 'goto');
+}
+
+// `skill <Profession> <N> nearest` (docs/GUIDE_FORMAT.md, "Smart targets"; #2529): the step's `goto` points
+// are the places to do it, each for the characters its own `only` and the step's name (faction, races).
+// They become the goal's `candidates`, so the arrow leads to the one nearest the player when the step comes
+// up, as for `train … nearest`; the gotos leave the step.
+const SIDE_TAG = { Alliance: 'A', Horde: 'H' };
+function applyNearest(step, s, err, faction) {
+	const at = s.goals.findIndex((g) => g.verb === 'skill' && g.nearest);
+	if (at < 0) return;
+	const ln = s.goals[at].line;
+	if (s.loop) return err(ln, '`skill … nearest` picks one of the step\'s points, `loop` walks them all: drop one of the two');
+	if (s.goals[at].explicitCoords) return err(ln, '`skill … nearest` takes its places from the step\'s `goto` points: drop `@x,y`');
+	const gotos = step.goals.filter((g) => g.t === 'goto');
+	if (gotos.some((g) => g.x === undefined)) return; // its coordinates' error is reported
+	if (gotos.length < 2) return err(ln, '`skill … nearest` needs at least two `goto` points in its step', 'list the places as `goto x,y` lines; for one place, drop `nearest`');
+	const own = gotos.find((g) => g.optional);
+	if (own) return err(own._line, 'a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick');
+	const outer = step.only || {};
+	const goal = step.goals[at];
+	goal.candidates = gotos.map((g) => {
+		const o = g.only || {};
+		const c = { map: g.map, x: g.x, y: g.y };
+		if (g.f) c.f = g.f;
+		const sides = o.factions || outer.factions || (faction ? [faction] : null);
+		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
+		const races = o.races || outer.races;
+		if (races) c.races = races;
+		const classes = o.classes || outer.classes;
+		if (classes) c.classes = classes;
+		return c;
+	});
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
 
@@ -1017,7 +1054,9 @@ function resolveGuide(ast, data, diag, opts = {}) {
 					);
 				}
 			}
-			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map)) {
+			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
+			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
+			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace) {
 				const name = (id) => {
 					const z = data.zone(id);
 					return z && z.name ? `${id} (${z.name})` : String(id);
@@ -1055,6 +1094,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
 			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
+		applyNearest(step, s, err, guide.faction);
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
@@ -2368,8 +2408,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'area', goalArea(data, goal));
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
-	// A `loop` step's gotos place its kill, collect and interact goals (applyLoop).
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && LOOP_VERBS.has(v))) {
+	// An authored search will place its targets after all its gotos are resolved.
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && loopTarget(goal))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);

@@ -60,7 +60,7 @@ const TYPE_ORDER = ['vendor', 'quest', 'gift', 'craft', 'rep', 'pvp', 'drop', 'o
 const SOURCE_FIELDS = {
 	vendor: ['npc', 'cost', 'limited'],
 	drop: ['npc', 'chance', 'instance'],
-	object: ['object', 'chance'],
+	object: ['object', 'chance', 'instance'],
 	quest: ['quest', 'choice'],
 	gift: ['npc', 'spell'],
 	craft: ['spell', 'skillLine', 'profession', 'skill'],

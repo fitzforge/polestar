@@ -358,6 +358,46 @@ emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status
 	}
 }
 
+// #2666 (Malifax, 0.4.0, Thousand Needles & Desolace): Kodo Roundup's step is `use 13892` (the Kodo Kombobulator, at the
+// Kodo Graveyard) then `talk 4700 quest 5561.1` (the tamed kodo, at Smeed's camp), five times. The use has no quest,
+// so it read done only once the talk was, at 5/5: the arrow stayed at the graveyard for every walk back. Now the use
+// reads done from its cast until the talk counts one more (the arrow goes to the camp), then is open again (back to
+// the graveyard); with no count for five minutes (the kodo lost), open again too.
+#[test]
+fn kodo_roundup_the_arrow_goes_to_the_camp_after_each_kombobulator_use_and_back_after_each_count_2666() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/kodo", pack = "test", title = "Kodo", zone = 1429, steps = {
+	{ title = "Kodo Graveyard", goals = {
+		{ t = "use", item = 13892, itemName = "Kodo Kombobulator", map = 1429, x = 30, y = 30 },
+		{ t = "talk", npc = 4700, npcName = "Aged Kodo", quest = 5561, oi = 1, map = 1429, x = 60, y = 60 },
+	} },
+} })
+"#,
+		before: r#"C_Item.GetItemSpell = function(id) if id == 13892 then return "Kodo Kombobulator", 18153 end end"#,
+		script: r#"
+local w = stub.world
+w.addItem(13892, 1)
+w.onQuest(5561, { 5 })
+E.SetGuide("test/kodo"); flush()
+local out = {}
+local function look(label)
+	local wp = E.GetWaypoint()
+	out[#out + 1] = label .. ": " .. E.GetStepView(1).goals[1].status .. " @" .. tostring(wp and wp.x)
+end
+look("start")
+w.cast(18153); flush(); look("tamed")
+w.progress(5561, 1, 1); flush(); look("1/5")
+w.cast(18153); flush(); look("tamed again")
+stub.advance(301); w.progress(5561, 1, 1); flush(); look("lost")
+w.cast(18153); flush(); w.progress(5561, 1, 5); flush(); look("5/5")
+emit(out)
+"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!(["start: active @30", "tamed: done @60", "1/5: active @30", "tamed again: done @60", "lost: active @30", "5/5: done @nil"]));
+}
+
 #[test]
 fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
 	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
@@ -1977,7 +2017,7 @@ fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
-		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		before: r#"stub.clientBuild = "70532"; w.setZone("Stormwind City", "Trade District")"#,
 		full: true,
 		script: r#"
 			local w = stub.world
@@ -3077,4 +3117,85 @@ fn a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_
 	let alone = at("w.onQuest(882, { { required = 1, fulfilled = 0 } })");
 	assert_eq!(carrying, alone, "1130 in the log changes nothing while 882 is in it");
 	assert_eq!(at("w.onQuest(1130, {}); w.onQuest(907, { { required = 3, fulfilled = 0 } })")["turnin"], "done", "with 882 out of the log and 907 taken, #2461's rule still counts it handed in");
+}
+
+#[test]
+fn t_2939_bloodmage_supplies_count_each_unpaid_quest_against_the_same_stack() {
+	for (faction, race, guide) in [("Alliance", "Human", "forever/alliance/50-60/01-burning-steppes"), ("Horde", "Tauren", "forever/horde/40-50/05-the-hinterlands")] {
+		let dir = forge_addontest::run::addons_dir();
+		let part = format!("Polestar_Guides_{faction}");
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!(r#"local w = stub.world; w.race, w.faction, w.level = "{race}", "{faction}", 51"#),
+			addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir(&part, dir.join(&part))],
+			script: format!(
+				r#"local w, E = stub.world, Polestar.Engine
+				local id = "{guide}"
+				local organs = {{ [8391]=true, [8392]=true, [8393]=true, [8394]=true, [8396]=true }}
+				stub.login()
+				-- Three of each item satisfies several individual lines, not all the payments.
+				for item in pairs(organs) do w.addItem(item, 3) end
+				local log = {{}}
+				for _, step in ipairs(Polestar.Guides.Get(id).steps) do
+					for _, g in ipairs(step.goals) do
+						if g.t == "collect" and organs[g.item] and g.quest then
+							local lines = log[g.quest] or {{}}
+							log[g.quest] = lines
+							lines[g.oi] = {{ type = "item", required = g.count, fulfilled = math.min(3, g.count) }}
+						end
+					end
+				end
+				for q, lines in pairs(log) do w.onQuest(q, lines) end
+				stub.fire("QUEST_LOG_UPDATE"); E.SetGuide(id); stub.advance(0.5)
+				local function view()
+					local rows = {{}}
+					for s, step in ipairs(E.GetGuide().steps) do
+						for gi, g in ipairs(step.goals) do
+							if g.t == "collect" and organs[g.item] and w.log[g.quest] then
+								local v = E.GetStepView(s).goals[gi]
+								if v.status ~= "skipped" and v.status ~= "na" and not v.folded then
+									rows[#rows + 1] = g.item .. ":" .. tostring(v.progress and v.progress.cur) .. "/" .. tostring(v.progress and v.progress.max)
+								end
+							end
+						end
+					end
+					table.sort(rows); emit(rows)
+				end
+				view()
+				w.turnIn(2583); w.addItem(8392, -3); w.addItem(8393, -2); w.addItem(8394, -1); stub.advance(0.5)
+				view()
+				E.SkipQuest(2585); stub.advance(0.5); view()"#
+			),
+			..Default::default()
+		});
+		assert_eq!(out[0], json!(["8391:3/5", "8392:3/6", "8393:3/6", "8394:3/11", "8396:3/14"]), "{faction}");
+		assert_eq!(out[1], json!(["8391:3/5", "8392:0/3", "8393:1/4", "8394:2/10", "8396:3/14"]), "{faction} after paying");
+		assert_eq!(out[2], json!(["8391:3/5", "8392:0/2", "8393:1/1", "8394:2/10", "8396:3/12"]), "{faction} after skipping");
+	}
+}
+
+#[test]
+fn shared_collect_does_not_charge_the_required_row_for_optional_or_skipped_work() {
+	let out = run(Run {
+		guides: r#"
+			local function supply(q, n, optional)
+				return { t = "collect", quest = q, item = 950, itemName = "Candle", oi = 1, count = n, optional = optional }
+			end
+			assert(Polestar.RegisterGuide({ id = "test/candles", pack = "test", title = "Candles", steps = {
+				{ goals = { supply(11, 2), supply(12, 4), supply(13, 8, true) } },
+			} }))
+		"#,
+		before: "w.onQuest(11, {2}); w.onQuest(12, {4}); w.onQuest(13, {8}); w.addItem(950, 3)",
+		script: r#"
+			stub.fire("QUEST_LOG_UPDATE"); assert(E.SetGuide("test/candles")); flush()
+			local function counts()
+				local g = E.GetStepView(1).goals
+				emit({g[1].progress.cur, g[1].progress.max, not not g[2].folded, not not g[3].folded, g[3].status == "skipped"})
+			end
+			counts(); assert(E.SkipGoal(1, 3)); counts(); assert(E.SkipGoal(1, 3)); counts()
+		"#,
+		..Default::default()
+	});
+	let open = json!([3, 6, true, false, false]);
+	assert_eq!(out, vec![open.clone(), json!([3, 6, true, false, true]), open]);
 }

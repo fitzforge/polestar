@@ -596,6 +596,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif n.classKind == "PALADIN" then
 				title = L["Level 40: class mount (Paladin)"]
 				body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
+			elseif n.classKind == "PALADIN_FORSAKEN" then
+				title = L["Level 40: class mount (Paladin)"]
+				body  = L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."]
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]

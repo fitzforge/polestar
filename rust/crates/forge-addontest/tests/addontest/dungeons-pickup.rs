@@ -620,6 +620,41 @@ fn a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_
 	assert!(takes(&smith, 90710), "a blacksmith picks it up: {}", smith["take"]);
 }
 
+// #2752 (found while triaging #2746): the profession check asked only whether the character has the profession, never
+// the rank the quest needs, so a blacksmith below 250 was still sent to Kilram for Snakestone of the Shadow Huntress
+// (5306), which needs Blacksmithing 250 (the quest data and the Forever world database agree). The Codex carries the
+// rank (`l164,250`): below it the quest is not picked up and its line says the rank; at it, it is picked up.
+#[test]
+fn a_page_quest_is_not_picked_up_below_the_profession_rank_it_needs_2752_snakestone_of_the_shadow_huntress() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9046"] = sideless_npc(9046, "Kilram", 1413, 48, 32);
+	c["quests"]["90711"] = page_quest(90711, "Snakestone of the Shadow Huntress", Value::Null, 9046, 9046);
+	c["quests"]["90711"]["xp"] = json!(2500);
+	c["quests"]["90711"]["skill"] = json!(164);
+	c["quests"]["90711"]["skillLevel"] = json!(250);
+	i["forever"]["quests"]["90711"] = json!({ "area": 209, "xp": 2500 });
+	let own = pack_of(&c, &i);
+	let at = |learn: &str| {
+		let script = format!(
+			"{learn}\n{}\nlocal why, text = Polestar.Lookup.QuestBlock(Polestar.Codex.Quest(90711), Polestar.Lookup.PlayerInfo())\nemit({{ why = why or false, text = text or false }})",
+			k(TAKE)
+		);
+		run(&own, &script, Opts::default())
+	};
+	let smith = |rank: i32| at(&format!("stub.world.learnSkill(164, \"Blacksmithing\", {rank}, 300)"));
+	let below = smith(210);
+	assert!(!takes(&below[0], 90711), "Blacksmithing 210: not picked up: {}", below[0]["take"]);
+	assert_eq!(below[1], json!({ "why": "profession", "text": "Requires Blacksmithing 250" }));
+	let none = at("");
+	assert!(!takes(&none[0], 90711), "no Blacksmithing: not picked up: {}", none[0]["take"]);
+	assert_eq!(none[1], json!({ "why": "profession", "text": "Requires Blacksmithing 250" }));
+	let master = smith(250);
+	assert!(takes(&master[0], 90711), "Blacksmithing 250: picked up: {}", master[0]["take"]);
+	assert_eq!(master[1], json!({ "why": false, "text": false }));
+}
+
 // #2439 (Onrevax, Razorfen Kraul's pick-up guide): Blueleaf Tubers asks for a Crate with Holes, the Snufflenose
 // Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
 // (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into
@@ -3182,6 +3217,30 @@ emit(take)"#),
 	)
 	.remove(0);
 	assert_eq!(out, json!([1740]));
+}
+
+// #2883 (tor, Razorfen Downs' pick-up guide at 41): Agamaggan's Blood's chain went through Rot and Regret, whose Vial of
+// Earth Song Water comes from an object inside Maraudon that the Codex holds no record of (players' recordings: 10
+// people loot it there). The Codex now names that instance on the item's object source (the data build takes it from
+// the recordings), and the vial counts as found only inside: Arugal Must Die waits. Without the instance it would not.
+#[test]
+fn a_page_quest_whose_prerequisite_needs_an_item_from_an_object_looted_only_inside_an_instance_is_not_picked_up_2883() {
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take = {}
+for i, t in ipairs(plan.take) do take[i] = t.quest.id end
+emit(take)"#);
+	let edit = |instance: Value| {
+		move |c: &mut Value, _: &mut Value| {
+			c["items"]["9301"] = json!({ "id": 9301, "name": "Vial of Earth Song Water", "quality": 2, "kind": "item", "spell": null, "reqLevel": null,
+				"sources": [{ "type": "object", "object": 612179, "chance": null, "instance": instance, "from": ["recordings", "questie"] }] });
+			c["quests"]["1011"]["objectives"] = json!([{ "type": "item", "id": 9301, "count": 1, "text": "Vial of Earth Song Water" }]);
+		}
+	};
+	let inside = run(&pack_edited(edit(json!("maraudon"))), &script, Opts::default()).remove(0);
+	assert_eq!(inside, json!([1740]), "Arugal Must Die waits: its chain needs a vial looted inside Maraudon");
+	let unknown = run(&pack_edited(edit(Value::Null)), &script, Opts::default()).remove(0);
+	assert_eq!(unknown, json!([1740, 1014]), "an object the Codex knows nothing of is no proof either way");
 }
 
 // #2535, #2539, #2543 (Fyurie, Night Elf Warrior 51, Blackrock Depths' pick-up guide): The True Masters' step said

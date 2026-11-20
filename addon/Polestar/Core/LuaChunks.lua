@@ -64,15 +64,21 @@ local function chunkOf(list, id)
 	end
 end
 
-function Store:Raw(kind, id)
+-- A bulk reader may pass its own cursor: for increasing ids, start at the
+-- last match instead of scanning the same names at the start of the chunk.
+function Store:Raw(kind, id, cursor)
 	local list = self.chunks[kind]
 	id = tonumber(id)
 	if not list or not id then return nil end
 	local text = chunkOf(list, id)
 	if not text then return nil end
-	local _, e = find(text, "\n" .. id .. "\t", 1, true)
+	local needle = "\n" .. id .. "\t"
+	local at = cursor and cursor.text == text and id > cursor.id and cursor.at or 1
+	local _, e = find(text, needle, at, true)
+	if not e and at > 1 then _, e = find(text, needle, 1, true) end -- out-of-order pack lines
 	if not e then return nil end
 	local stop = find(text, "\n", e + 1, true)
+	if cursor then cursor.text, cursor.id, cursor.at = text, id, stop end
 	return sub(text, e + 1, stop - 1)
 end
 

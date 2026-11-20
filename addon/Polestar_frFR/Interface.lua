@@ -356,6 +356,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar est en pause : la flèche suit de nouveau le guide dès que vous quittez le donjon en vie, ou après /polestar resume."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Les derniers pas ici ne sont pas cartographiés"
 L["Search here"] = "Cherchez ici"
 L["Arrived"] = "Arrivé"
 L["Click the arrow for the next spot"] = "Cliquez sur la flèche pour le point suivant"
@@ -442,7 +443,8 @@ L["Walk to the entrance"] = "Marchez jusqu'à l'entrée"
 L["Walk to the lift"] = "Marchez jusqu'à l'ascenseur"
 L["%s, Top"] = "%s, en haut"
 L["%s, Bottom"] = "%s, en bas"
-L["No route: walk straight to the target."] = "Pas d'itinéraire : allez droit sur la cible."
+L["No safe walking route"] = "Aucun itinéraire sûr à pied"
+L["Finding a walking route"] = "Recherche d’un itinéraire à pied"
 L["Show the travel route to the current target"] = "Afficher l'itinéraire vers la cible actuelle"
 L["Hostile town: %s"] = "Ville hostile : %s"
 L["Ride the elevator up"] = "Prendre l'ascenseur pour monter"
@@ -2583,7 +2585,6 @@ L["The arrow, the guide window and its nudges step aside. Polestar resumes by it
 L["Hide the step's map pins while paused"] = "Masquer les repères de l'étape sur la carte pendant la pause"
 L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = "Pendant la pause, les repères des objectifs de l'étape, leurs zones, Tant que vous êtes là et les étapes à venir disparaissent aussi des cartes."
 L["No quest automation while paused"] = "Pas d'automatisation des quêtes pendant la pause"
-L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."
 L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = "Une touche ou un bouton de manette qui met Polestar en pause ou le relance. Il reprend aussi tout seul quand vous quittez un donjon en vie."
 L["Let a following addon show the way"] = "Laisser un addon qui suit Polestar montrer le chemin"
 L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = "Masque la flèche de Polestar pendant qu'un autre addon affiche lui-même la cible de Polestar, comme le fait Waypoint Pin de Naowh Forever avec Follow Polestar activé. Cet addon place alors aussi le repère du jeu."
@@ -2613,6 +2614,7 @@ L["Repair: gear worn below"] = "Réparation : usure en dessous de"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "Vous rappelle de réparer quand une pièce de votre équipement passe sous ce pourcentage de sa durabilité. 0 : jamais."
 L["play Freedoom Arcade by petllama"] = "jouer à Freedoom Arcade de petllama"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade de petllama (GPL-2.0 ou ultérieure) fait jouer trois niveaux de Freedoom, du projet Freedoom (licence BSD), depuis le dossier Polestar_Arcade."
+-- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -4613,6 +4615,7 @@ L["Jump anyway"] = "Y aller quand même"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Ouvrez une fois la carte de n'importe quel maître de vol de ce continent pour que Polestar connaisse vos trajets aériens."
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Ce guide est pour les personnages de la faction %s. Polestar ne vous y guidera pas."
 -- L["Equip it"] = ""
+-- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Appuyez sur %s pour reprendre, ou ouvrez la fenêtre du guide."
@@ -4787,6 +4790,15 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["Waiting for your quest log."] = ""
 -- L["Wait until combat ends to load the quest data."] = ""
 -- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+-- Core/Perf.lua
+-- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
+-- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
+-- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
+-- L["Polestar perf report"] = ""
+-- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
+-- L["Perf probe: measurements cleared."] = ""
+-- L["/polestar perf: on, off, report or reset"] = ""
+-- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
@@ -5038,3 +5050,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["None of these has a known place to hand it in."] = "Aucune n'a d'endroit connu où la rendre."
 -- L["The route hands in every finished quest in your log."] = "L'itinéraire rend toutes les quêtes terminées de votre journal."
 -- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."

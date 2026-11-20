@@ -49,7 +49,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `background` | Inside an `along until` step: its goals are slow, zone-wide collections worked over the whole stay; each needs a finish step before its hand-in (GUIDE_FORMAT, "Background goals") | `background` |
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
-| `loop` | Inside a step: its `goto` points are the places to search, in order, for the step's kill, collect, interact and skill goals without `@x,y`; with none of those, for the NPC of its accept, turnin and talk goals | `loop` |
+| `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. | `loop` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
 | `level <N>.<fraction>` / `level <N>+<XP>` | Reach a point inside level N: 12.5 is halfway through 12, 12+2500 is 2500 XP into it (to whole percent; needs Polestar 0.2.6) | `level 12.5` |
@@ -132,6 +132,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `train <Profession> [Rank]` | Learn a profession or its next rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`) at the nearest trainer | `train Mining Journeyman` |
 | `skill <Profession> <N>` | Reach skill N (quote names of two words) | `skill "First Aid" 40` |
+| `skill <Profession> <N> nearest` | Reach skill N at the nearest of the step's `goto` points (two or more, each for whom its `only` names): the arrow picks one where the player is | `skill Fishing 50 nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it (needs Polestar 0.4.1) | `buff 1126 "Mark of the Wild"` |

@@ -14,7 +14,8 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -28,6 +29,23 @@ const hasLua = (() => {
 const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
+
+test('looting a quest item puts it in bags and credits every held quest asking for it', { skip: !hasLua }, () => {
+	const collect = (quest, count) => ({ t: 'collect', item: 8392, itemName: 'Blasted Boar Lung', quest, oi: 1, count, map: 1429, x: 50, y: 50 });
+	const guide = { id: 'test/loot', pack: 'test', title: 'Supplies', minLevel: 1, maxLevel: 10, steps: [
+		{ goals: [collect(2581, 2)] },
+		{ when: [{ k: 'level', op: '>=', n: 10 }], goals: [collect(2583, 3)] },
+	] };
+	const pack = { maps: 'w.addMap(1429, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const [play, state] = playGuide(pack, guide, {
+		race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+		before: 'w.onQuest(2581, {{type="item",required=2}}); w.onQuest(2583, {{type="item",required=3}})',
+		script: `${SIMULATE}\nemit({bag=w.items[8392] or 0, sibling=w.log[2583].objectives[1].numFulfilled})`,
+	});
+	assert.ok(play.done);
+	assert.ok(state.bag >= 2, 'the looted organs remain in bags');
+	assert.equal(state.sibling, Math.min(state.bag, 3), 'the other quest reads the very same stack');
+});
 
 test('invalid explicit worker counts fail before loading reference data', async () => {
 	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
@@ -136,6 +154,55 @@ test('--learn plays a player who chose the profession: the optional train is tak
 	const unknown = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--learn', 'Basketweaving']));
 	assert.equal(unknown.result, 1);
 	assert.match(unknown.out, /profession "Basketweaving" is not in the reference data/);
+});
+
+// --level-offset: the simulated player starts a level-1 guide at level 1 + n. The fixture's `when level>=2` step
+// leads nowhere: a character one level ahead plays it and is stuck there; one at the guide's level (or behind it,
+// never below 1) skips it.
+test('--level-offset plays a character n levels ahead: a step behind `when level>=2` in a level-1 guide is visited only one level ahead', { skip }, async () => {
+	const pack = path.join(PACKS, 'ahead');
+	const plain = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior']));
+	assert.equal(plain.result, 0, plain.out);
+	assert.deepEqual(lines(plain.out).filter((l) => /^(ok|stuck) /.test(l)), ['ok  ahead/northshire (Human Warrior)']);
+	const ahead = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--level-offset', '1']));
+	assert.equal(ahead.result, 1, ahead.out);
+	assert.deepEqual(lines(ahead.out).filter((l) => /^(ok|stuck) /.test(l)), ['stuck ahead/northshire (Human Warrior) at step 2 "Ahead": goal 1 (goto "Go to Nowhere") stays active']);
+	const behind = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--level-offset', '-3']));
+	assert.equal(behind.result, 0, behind.out);
+	const bad = await quiet(() => cmd.run(['--pack', pack, '--level-offset', '1.5']));
+	assert.equal(bad.result, 2);
+	assert.match(bad.out, /--level-offset takes a whole number/);
+	const honest = await quiet(() => cmd.run(['--honest', '--level-offset', '1']));
+	assert.equal(honest.result, 2);
+	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
+});
+
+test('a skipped quest collect does not block the active collect beside it', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/collects', pack: 'test', title: 'Two errands', minLevel: 1, maxLevel: 5, steps: [
+		{ goals: [{ t: 'accept', quest: 1, title: 'The Sceptre' }] },
+		{ goals: [{ t: 'accept', quest: 2, title: 'The Gem', closedBy: [1] }] },
+		{ goals: [{ t: 'collect', quest: 2, oi: 1, item: 102, itemName: 'Gem', count: 1 }, { t: 'collect', quest: 1, oi: 1, item: 101, itemName: 'Sceptre', count: 1 }] },
+		{ goals: [{ t: 'turnin', quest: 1, title: 'The Sceptre' }] },
+	] };
+	const pack = { maps: '', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play, paid] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: `${script}\nemit(w.completed[1] == true)` });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			assert.equal(paid, true);
+		});
+	}
+});
+
+test('the CLI opens and reports a class start prerequisite unless strict start gates are requested', { skip }, async () => {
+	const args = ['--filter', 'forever/class/shaman/call-of-earth-alliance', '--class', 'Shaman'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /stuck .* at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
 });
 
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {

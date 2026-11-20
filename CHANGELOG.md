@@ -1,5 +1,74 @@
 # Changelog
 
+## 0.4.1.1 (2026-11-18)
+
+### For players
+
+- Less stutter when you kill a quest mob. While the guide window reminds you
+  to visit your class trainer, it no longer works out the best trainer on
+  your way again after every kill and loot (that took a whole frame each
+  time). The target list beside the target button no longer repaints its
+  rows on every change of your target's health during a fight, or after a
+  kill or loot that leaves their counts as they were.
+- Hovering a quest in the guide window no longer scans the whole quest list
+  for every link in its chain. This also speeds up the quest page in Lookup
+  and the dungeon hand-in planner (thanks Nightcorey).
+- Less hitching on kills: the quest buttons coming and going no longer make
+  the heads-up card measure the screen again each time (once a frame at most,
+  and only when a button really moved), and the completed quest XP on the
+  XP bar no longer reads the whole quest log or re-sorts its frames on every
+  kill (#2772, #2663).
+- Rare alerts are only for rares you can fight: a rare on your side no longer
+  raises an alert, whether you meet it by its nameplate, your target or
+  mouseover, or its marker on the minimap. Faction leaders such as Thrall,
+  King Magni Bronzebeard and Varimathras are no longer taken for rares at
+  all: no alert, and no rare pin or list entry (#2929, #2942, thanks Soffish
+  and TheLombaxLegend).
+- Dungeons: "Show on map" on a dungeon's page now marks the entrance on the
+  map it opens, without starting a route there (thanks Liquidor).
+- Lookup: a quest whose objectives are places to reach one by one, such as the
+  pylons of Powering the Pylons, now has a goal at each, and the arrow moves
+  on as each one ticks instead of staying on the first (thanks Shizo).
+- Polearms: a Druid who has learned the Polearm skill can now use polearms and
+  see their gear scores, instead of being told the weapon cannot be used
+  (#2855, #2864, thanks Lunar and ESp3cter).
+- Walking to a door in the area you're already in, the arrow says "Walk to the
+  entrance" instead of naming the area: a house in the Ruins of Andorhal read
+  "Walk to the Ruins of Andorhal entrance" while you stood in the ruins
+  (thanks Edet).
+- Freedoom Arcade: "combat over. Type /doom to get back to Doom." now shows
+  once, after the fight that paused the game, instead of after every fight
+  until you went back to the game (thanks Donkeyman, #2899).
+- Auto-accept takes the step's quest before a repeatable hand-in at the same
+  NPC: at Grazle in Felwood it kept opening Feathers for Grazle and never
+  took Speak to Nafien (thanks Stompsville, #2914).
+- Class quest cards no longer name a mob of no real level: Call of Earth
+  (Horde) read "mobs up to level 9999" (thanks coredump, #2947).
+- German: the new Alliance 30-40 texts (Stranglethorn Vale, Hillsbrad
+  Foothills, Ashenvale, Argent Dawn) read in German (thanks bumblei3, #2764).
+- An item you fetch again for each use sends the arrow back for the next one
+  after every use: in Riverglades, Fetch 'n' Fletch's arrow returns to the
+  woodpiles after each Wood Bundle you fletch (#2633).
+- French: the new Alliance 30-40 texts (Stranglethorn Vale, Hillsbrad
+  Foothills, Ashenvale, Argent Dawn) read in French (thanks bumblei3, #2766).
+- The guide window's "quests aren't part of your route" line closes with its
+  ×: it stays away until more quests are off your route. A click on the line
+  still opens them to clean up (thanks TTik3r, #2829).
+- New `/polestar perf` helps find what makes the game stutter: while it is on,
+  Polestar times its own work and notes every slow moment, which event caused
+  it and what the game's addon profiler saw, and `/polestar report` (or
+  `/polestar perf report`) then includes it for you to paste. It is off unless
+  you turn it on, and off again after a reload.
+- Brazilian Portuguese: the 83 interface texts still in English are
+  translated: riding directions, the target list's looks, quest XP on the XP
+  bar, spare bags, quest chains in Lookup and more (#2815, thanks
+  tauanbinato).
+- An item a quest needs no longer sends you after it before you can take that
+  quest: in Moonglade, a druid below level 16 is no longer sent into the lake
+  for a Shrine Bauble that only Trial of the Lake can loot (#2670).
+- Russian: 938 more guide texts read in Russian, among them the Dun Morogh
+  start-zone guides (thanks bumblei3, #2758).
+
 ## 0.4.1 (2026-11-17)
 
 ### For players
