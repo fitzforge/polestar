@@ -508,6 +508,12 @@ step Class trainer
   tip Train on the way to the harbour: Old Town (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters).
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
 
+step Argos Nightwhisper
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip On the way to the harbour: Argos Nightwhisper's message goes to Gershala Nightwhisper in Auberdine, beside Terenthis, where the boat lands.
+  accept 3765                                 -- Argos Nightwhisper
+
 step Boat to Auberdine
   when !zone "Darkshore"
   zone Stormwind City
