@@ -5932,18 +5932,14 @@
 	},
 	"94465": {
 		"set": {
-			"pre": [
-				94449
-			],
-			"preAny": [
-				94449
-			]
+			"pre": [],
+			"preAny": []
 		},
 		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID 94449, BreadcrumbForQuestId 0 (a required step, not an optional breadcrumb)"
+			"kind": "recording",
+			"ref": "players' in-game recordings (data/recorded/quests.json, to 2026-11-20): Bruegs Kindleborn offered Call of Fire (94465) to 15 people (14 counted) who had not handed in Ingrid Dunwald's Call of Fire (94449); trusted"
 		},
-		"note": "Bruegs Kindleborn's Call of Fire (Dwarf Shaman) follows Ingrid Dunwald's Call of Fire 94449 from Kharanos, as the seed guide plays it (turn in 94449 at Bruegs, then take 94465). The merged data had no prerequisite, so the c14 Dwarf Shaman reached Bruegs (01-dun-morogh.guide:529-532) without 94449 and was sent back to Kharanos for it after the hearth (:584-585, with its turn-in in the Kharanos step)."
+		"note": "Bruegs Kindleborn's Call of Fire (Dwarf Shaman) needs no earlier quest: Ingrid Dunwald's Call of Fire (94449) from Kharanos only leads to him. This record used to set 94449 as its prerequisite from the server's previous-quest link, which is only the story order. The Dun Morogh guide still turns 94449 in at Bruegs before taking 94465."
 	},
 	"94466": {
 		"set": {
