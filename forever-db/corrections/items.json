@@ -151,6 +151,56 @@
 		],
 		"note": "Innkeeper Thulbek at Grom'gol sells food, drink and fish only. Only pfQuest lists him as a vendor of Hunter's Boomstick, so Nearby services' \"Bows & guns\" sent hunters to him (#1820); Uthok, also at Grom'gol, sells the arrows and bullets."
 	},
+	"2102": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Small Ammo Pouch."
+	},
+	"2512": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Rough Arrow."
+	},
+	"2515": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Sharp Arrow."
+	},
+	"2516": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Light Shot."
+	},
+	"2519": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Heavy Shot."
+	},
+	"3030": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Razor Arrow."
+	},
+	"3033": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Solid Shot."
+	},
+	"5439": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Small Quiver."
+	},
+	"11285": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Jagged Arrow."
+	},
+	"11362": {
+		"removeVendors": [6028],
+		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
+		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Medium Quiver."
+	},
 	"7228": {
 		"removeVendors": [
 			14480,

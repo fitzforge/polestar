@@ -546,6 +546,12 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
 test("Champion's Hall quartermasters are vendors, not inns or auction houses (#2984, #3168)", () => {
 	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['vendor']);
 });
