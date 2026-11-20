@@ -18215,3 +18215,17 @@ test('Tarren Mill\'s Southshore Stout buy shows only while Infiltration is in th
 	assert.ok(whenQuestOf(buys[0], ['onquest'], 533), '`when onquest 533`');
 	assert.ok((buys[0].when || []).some((p) => p.k === 'complete' && p.neg && [p.q].flat().includes(533)), '`when !complete 533`');
 });
+
+// #2923 (Gripps), #3167 (Petsq), #2714 (Unholy): Powering the Pylons needs four Coalesced Mana Crystals from the Unstable
+// Mana Rifts, gathered with the Mana Sieve, before each pylon repair; the guide only said so in its tips. A step for them
+// comes before each repair, held only while the quest still needs that pylon (the repair uses the crystals up).
+test('Shen\'dralas: a Coalesced Mana Crystal step comes before each pylon repair (#2923, #3167)', { skip }, () => {
+	const list = goals('forever/40-50/shendralas.guide');
+	for (const oi of [2, 3]) {
+		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'kill' && g.quest === 96018 && g.oi === oi)];
+		const mana = list.filter(({ goal, s }) => goal.t === 'collect' && goal.item === 255667 && goal.count === 4 && s < repair.s);
+		assert.ok(mana.length >= oi - 1, `four crystals before pylon ${oi - 1}`);
+		const last = mana[mana.length - 1];
+		assert.ok(whenQuestOf(last.step, ['onquest'], 96018), 'only while the quest is in the log');
+	}
+});
