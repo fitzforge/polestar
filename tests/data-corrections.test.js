@@ -633,6 +633,17 @@ test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () =
 	assert.match(step.fact, /Camp Taurajo/);
 });
 
+// #3069 (gidi, the Scarlet Monastery pick-up guide): the step for the first Test of Lore (1154) pointed at its book,
+// the Legacy of the Aspects, and never said the book lies underground, at the bottom of the Dor'Danil Barrow Den. The
+// mechanics record is the Codex's `how`, the note Lookup shows on the step.
+test("Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)", () => {
+	const [step] = require('../data/mechanics-public.json').quests[1154].steps;
+	assert.equal(step.action, 'explore');
+	assert.match(step.fact, /Dor'Danil Barrow Den/);
+	assert.match(step.fact, /descend to the bottom/);
+	assert.match(step.fact, /Legacy of the Aspects/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC

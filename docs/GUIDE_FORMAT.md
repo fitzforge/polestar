@@ -1389,7 +1389,8 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30%, below the guide's top level and
+lead-in step Polestar put in). From 30% (in whole percent, as the note says
+it), below the guide's top level and
 with `from` a guide for them, the guide window says while the guide's live
 step is in its first third: "Fresh start: about N% of this guide's quest XP
 follows on from <guide>. Expect about M minutes of extra grinding, or start

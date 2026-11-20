@@ -20679,5 +20679,22 @@
 			}
 		],
 		"note": "Welcome to Azeroth (95350, the airship's quest off Zephras Isle) has no prerequisite on Forever: the server's previous-quest link to The Earthen Ring (95349) is only the story order. The data build re-added that link after the recorded layer had removed it, so a character carrying 95350 counted the whole Zephras Isle story before it as handed in: the guide ticked A Firm Response and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it (#2781)."
+	},
+	"3861": {
+		"set": {
+			"end": {
+				"npc": [
+					620
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 4 people took CLUCK! from a Chicken (620) after feeding it Special Chicken Feed, 3 handed it in to a Chicken (rec.py quest 3861)"
+			}
+		],
+		"note": "CLUCK! (3861) is given and taken by any Chicken (620) the player feeds, so its hand-in is wherever chickens are. The 0.4.2 data build's chicken points moved that hand-in more than 200 yards, which is no move of the quest. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
 	}
 }
