@@ -184,7 +184,6 @@ step Marshal's Refuge
   turnin 4141                         -- Muigin
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
   turnin 4503                         -- Shizzle
-  level 50 only Priest,Mage
 
 step Level 50
   when level<50
