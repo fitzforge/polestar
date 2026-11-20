@@ -409,6 +409,7 @@ step Ketharas
 # 95248) is offered only once Final Death is handed in, so it is taken wherever that happens. Final Death is taken
 # alone only from 57.6 at Elderwild (the second pass comes about 0.4 level later, at 58 by then); a character still
 # under 58 after the second pass gets an abandon step, as no later visit comes back for it.
+# To the Summit of Eternity's accept steps read `when turnedin` Final Death: accept after Final Death.
 
 step The Curious Crow
   when onquest 96930
@@ -608,7 +609,7 @@ step Final Death
 
 step To the Summit of Eternity
   only Alliance
-  when available 91688
+  when turnedin 92591
   accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, later in this guide; keep it
 
 step Daythor Brellan and Sefira
@@ -1045,12 +1046,12 @@ step Zet'gan
 
 step To the Summit of Eternity
   only Alliance
-  when available 91688
+  when turnedin 92591
   accept 91688                          -- Sefira Everbright: for Thisalee Crow at the Summit, next
 
 step To the Summit of Eternity
   only Horde
-  when available 95248
+  when turnedin 92592
   accept 95248                          -- Zet'gan: for Thisalee Crow at the Summit, next
 
 step Zet'gan
