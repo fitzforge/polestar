@@ -124,6 +124,20 @@ fn unanswered_the_route_waits_at_the_group_step_and_asks_about_its_quest() {
 	assert_eq!(out[0], json!({ "at": 1, "q": 7, "title": "Kobold Camp Cleanup", "answer": false }));
 }
 
+// #3015 (Tilman, a German client): the group question named the quest by the guide's English title ("Gleaning Our
+// Future") while its goal line read the client's own title. The question and the Options list take the client's.
+#[test]
+fn the_group_question_and_the_list_name_the_quest_in_the_client_s_language_3015() {
+	// A German client: Names reads the client's own titles only off an English client.
+	let before = r#"function GetLocale() return "deDE" end
+stub.world.titles[7] = "Säuberung des Koboldlagers""#;
+	let out = run(Opts {
+		before,
+		..opts(r#"local q, title = E.GroupQuestion(); local list = E.GroupQuests(); emit({ q = q, title = title, listed = list[1] and list[1].title or false })"#)
+	});
+	assert_eq!(out[0], json!({ "q": 7, "title": "Säuberung des Koboldlagers", "listed": "Säuberung des Koboldlagers" }));
+}
+
 #[test]
 fn a_step_whose_goals_are_done_still_waits_for_the_answer() {
 	// Step 1 asks about A Threat Within, already in the log: its accept is done.
