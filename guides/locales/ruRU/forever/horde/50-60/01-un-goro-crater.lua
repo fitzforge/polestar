@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона."
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона.",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} отправляет вас к персонажу {npc:9298} ({zone:1452}): сохраните задание."
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} отправляет вас к персонажу {npc:9298} ({zone:1452}): сохраните задание.",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -243,15 +241,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "Еще раз выслушайте историю NPC {npc:8479}.",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "Задание «{quest:3453}» лежит на земле у ног NPC {npc:8479}; задание «{quest:3462}» стоит рядом с ним.",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "Сторожевые жаровни",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +299,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}, из клада",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -429,8 +427,6 @@ return {
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "Пока у вас есть задание {npc:11063}, после убитых воинов Плети иногда остается {npc:11064}; поговорите с ним, чтобы освободить. Убивайте нежить по пути на юго-запад сюда: {area:2262}.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "бейте смоляных скрытней: {area:538}, {zone:1449}",
 	-- ["grind on {npc:6511}"] = "убивайте: {npc:6511}",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} отправляет вас к персонажу {npc:9298} ({zone:1452}): сохраните задание.",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Призрак {npc:10926} стоит в руинах ({area:2262}) на юго-западе.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} прячется чуть к западу от места {area:2262}.",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",

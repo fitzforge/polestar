@@ -60,7 +60,7 @@ return {
 
 	-- Step 14: Fly to Valormok
 	-- {area:1237} Valormok
-	["Fly to {area:1237}"] = "",
+	["Fly to {area:1237}"] = "{area:1237}(으)로 날아가기",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
 	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
 	-- {zone:1454} Orgrimmar
@@ -68,91 +68,91 @@ return {
 
 	-- Step 15: Valormok
 	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
-	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "",
+	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, 블러드 엘프 비전술사의 마법봉",
 
 	-- Step 16: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
 	["{area:1221}: kill these as you meet them"] = "",
-	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "",
+	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "동쪽 해안의 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있으며, 원한의꼬리일족 나가(52-55)가 지키고 있습니다. 한 번에 한 마리씩 끌어오세요.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "",
+	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["Makrinni Burrowers"] = "",
+	["Makrinni Burrowers"] = "마크리니 굴파기",
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "",
+	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "마크리니 굴파기(50-51)는 폐허 바로 동쪽, 북동쪽으로 가는 길의 모래밭을 파고 있습니다. 이들과 그곳에 묻힌 은닉물에서 명가 보물 조각을 얻습니다.",
 
 	-- Step 19: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
-	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "",
+	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "{zone:1447} 중앙을 가로질러 북동쪽으로 계속 가세요. {npc:235903}은(는) 길가에 야영하고 있습니다.",
 	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
-	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "",
+	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, 블러드 엘프 야영지 북쪽의 사티로스",
 
 	-- Step 20: Kim'jael
 	-- {area:1227} Bay of Storms
-	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "",
+	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "블러드 엘프 바로 북쪽, {area:1227} 위 절벽에 있는 고블린 야영지로 북동쪽으로 가세요.",
 
 	-- Step 21: Thalassian Base Camp
 	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "",
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "블러드 엘프는 북동쪽 {area:1227} 옆 절벽에 야영하고 있습니다. {npc:8420}의 장비 네 개는 야영지 주변 상자에 있고, 블러드 엘프 비전술사가 {npc:247473}의 마법봉을 지니고 있습니다.\n주의: 야영지 서쪽 끝에 55-57레벨 정예인 {npc:250023}이(가) 서 있습니다. 블러드 엘프는 야영지 동쪽부터 처치하세요.",
 	-- {item:246680} Mana-Siphoning Wand
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["{item:246680}, from the Blood Elf Arcanists"] = "",
+	["{item:246680}, from the Blood Elf Arcanists"] = "블러드 엘프 비전술사에게서 얻는 {item:246680}",
 
 	-- Step 22: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
-	["{npc:8578}'s camp"] = "",
+	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "림토리의 야영지는 주둔지 동쪽 끝에 있습니다. 그곳의 {object:151286}을(를) 읽으세요. Forever에서는 그 옆의 신도레이 고서가 야영지 장교 세 명의 인장을 요구합니다.",
 
 	-- Step 23: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
-	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "",
+	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "야영지의 장교 세 명(53)이 각각 인장을 지니고 있습니다. {npc:247006}은(는) 야영지 중앙에, {npc:247013}은(는) 동쪽 끝에 있으며, {npc:246991}은(는) 서쪽 절반을 돌아다닙니다. 화살표가 가리키는 순찰 경로의 동쪽에서 처치하세요.\n주의: 55-57레벨 정예인 {npc:250023}이(가) 야영지 서쪽 가장자리, 호크헬름 순찰 경로의 반대쪽 끝 근처에 서 있습니다. 호크헬름이 다시 동쪽으로 올 때까지 기다리세요.",
 	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
-	["{item:246725}, from {npc:247006}"] = "",
+	["{item:246725}, from {npc:247006}"] = "{npc:247006}에게서 얻는 {item:246725}",
 	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
-	["{item:246721}, from {npc:246991}"] = "",
+	["{item:246721}, from {npc:246991}"] = "{npc:246991}에게서 얻는 {item:246721}",
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
-	["{item:246722}, from {npc:247013}"] = "",
+	["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
 
 	-- Step 24: Magus Rimtori
 	-- {npc:8578} Magus Rimtori
 	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
-	["{quest:91538}: for {npc:8587} in {area:1237}"] = "",
+	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 
 	-- Step 25: The Legashi satyrs
-	["The Legashi satyrs"] = "",
+	["The Legashi satyrs"] = "레가시 사티로스",
 	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "레가시 사티로스(51-52)가 블러드 엘프 야영지 북쪽 언덕을 차지하고 있습니다. {npc:235903}은(는) 종류별로 다섯 마리씩 원합니다.",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north-west to {npc:8420}."] = "",
+	["Back north-west to {npc:8420}."] = "북서쪽의 {npc:8420}에게 돌아가세요.",
 
 	-- Step 27: Ruins of Eldarath: Some Rune
 	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "",
+	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "남쪽 {area:1221}의 북쪽 가장자리로 가세요. 그곳의 원한의꼬리일족 세이렌과 미르미돈(50-52)이 {npc:8420}의 룬을 지니고 있습니다. 잘 나오지 않으니 나올 때까지 가장자리를 따라 처치하세요.",
 
 	-- Step 28: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north to {npc:8420} with the rune, then south-west along the road."] = "",
+	["Back north to {npc:8420} with the rune, then south-west along the road."] = "룬을 가지고 북쪽의 {npc:8420}에게 돌아간 뒤, 길을 따라 남서쪽으로 가세요.",
 
 	-- Step 29: Ekkal
 	-- {npc:235903} Ekkal
-	["South-west along the road: {npc:235903} takes the satyrs."] = "",
+	["South-west along the road: {npc:235903} takes the satyrs."] = "길을 따라 남서쪽으로: {npc:235903}에게 사티로스를 제출하세요.",
 
 	-- Step 30: Ag'tor Bloodfist
 	-- {area:1237} Valormok
-	["Ride back west to {area:1237}."] = "",
+	["Ride back west to {area:1237}."] = "서쪽의 {area:1237}(으)로 돌아가세요.",
 	-- {npc:8576} Ag'tor Bloodfist · {quest:91531} Revenge Exacted · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "",
+	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, {zone:1454}의 {npc:4485}에게",
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
-	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "",
+	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: 고서는 {zone:1454}의 {npc:3326}에게 갑니다",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
 	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
 
@@ -162,12 +162,11 @@ return {
 
 	-- Step 32: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "",
-	-- was: ["Upstairs"] = "위층"
-	["Upstairs"] = "",
+	["Upstairs"] = "위층",
 
 	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
@@ -175,7 +174,7 @@ return {
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
-	["{npc:3326}, the {object:172960}"] = "",
+	["{npc:3326}, the {object:172960}"] = "{object:172960}의 {npc:3326}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
 	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
 
@@ -332,7 +331,6 @@ return {
 	-- ["To {zone:1448}"] = "{zone:1448}(으)로",
 	-- ["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Carrion Lurkers (52-53) west of the Scarlet camp are at your level; the Scarlet Mages and Knights (54-56) are higher. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "{area:200}에서 퀘스트를 제출하기 전에 이곳에서 52.63레벨까지 올리십시오. 제출하면 53레벨이 됩니다. 붉은십자군 야영지 서쪽의 Carrion Lurkers(52-53)는 레벨이 맞고, 붉은십자군 마법사와 기사(54-56)는 레벨이 더 높습니다. 또는 파티와 함께 대신 {area:1417} 던전이나 {area:2100} 던전을 도십시오.",
 	-- ["Top up here to level 53 before {npc:10739} sends you after the Diseased Grizzlies (55-56): the Carrion Lurkers (52-53) on the way from {area:200} to the {area:202} are at your level. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "{npc:10739}이(가) 오염된 불곰(55-56)에게 보내기 전에 이곳에서 53레벨까지 올리십시오. {area:200}에서 {area:202}(으)로 가는 길의 Carrion Lurkers(52-53)가 레벨이 맞습니다. 또는 파티와 함께 대신 {area:1417} 던전이나 {area:1584} 던전을 도십시오.",
-	-- ["Upstairs"] = "위층",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "{npc:15395} 옆의 {area:1769} 터널로 들어가세요. 안쪽의 나무구렁 털보숭이는 절대 공격하지 마세요. 터널은 {zone:1452}(으)로 이어집니다. 길을 따라 동쪽으로 다음 가이드가 시작되는 고블린 마을 {area:2255}(으)로 가세요.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "{zone:1448} {area:1762}에서 마른가지일족 복수자 사냥",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "{zone:1422} {area:192}에서 붉은십자군 기사 사냥",

@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809} : pour Whuut"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809} : pour {npc:11046}",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Les massettes et les herbes-lances poussent au bord de l'eau dans {object:172958}, à l'est de la Herse.",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -494,7 +493,6 @@ return {
 	-- ["{item:4862} on the way"] = "{item:4862} en chemin",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} campe juste au sud de {area:362}. Asseyez-vous près de son feu de camp (/sit) jusqu'à ce que l'effet {spell:1229451} apparaisse.",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809} : pour Whuut",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809} : pour {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809} : pour {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809} : pour {npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809} : pour {npc:3365}",

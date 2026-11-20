@@ -24,33 +24,32 @@ return {
 
 	-- Step 3: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
-	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "",
+	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "Buvez l'{item:11243} au cimetière juste à l'est de {area:976} : il vous tue, et ce n'est que sous forme de fantôme que vous pouvez voir {npc:9299}, dans une crevasse rocheuse des collines plein nord. Parlez-lui là-bas, puis retournez à votre corps et ressuscitez : la Pierre tombale remarquable où il vous envoie se trouve dans ce cimetière.",
 
 	-- Step 4: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
-	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "",
+	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "Utilisez {item:12928} sur {npc:7583}, la petite gobeline de {area:976}. {npc:10977} et {npc:10978} seront effrayés plus loin dans le parcours.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "Effrayez {npc:7583} avec {item:12928}",
 
 	-- Step 5: Alchemist Pestlezugg
 	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "",
+	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "À l'intérieur : {quest:4493}, si vous l'avez prise à {zone:1454} pendant le guide d'{zone:1447}",
 
 	-- Step 6: Alchemist Pestlezugg
 	["Inside"] = "À l'intérieur",
 
 	-- Step 7: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
-	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} se rend à {npc:8737}, dans le Cratère d'Un'Goro : gardez-la.",
 
 	-- Step 8: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "",
+	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771} Rivetseeker campe près de la route de {area:1336}, au sud de {area:976}.",
 
 	-- Step 9: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	-- was: ["Fly to {area:541}"] = "Prendre un vol pour {area:541}"
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Prendre un vol pour {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maître de vol de {area:976}",
 
@@ -69,13 +68,11 @@ return {
 
 	-- Step 11: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
-	-- was: ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "Le col venant d'Un'Goro débouche sur {area:3077}, le cimetière du nord-est de {zone:1451}. {npc:13220} se tient parmi les tombes."
-	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "",
+	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "Le col venant d'Un'Goro débouche sur {area:3077}, le cimetière du nord-est de {zone:1451}. {npc:13220} se tient parmi les tombes.",
 
 	-- Step 12: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
-	-- was: ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Allez vers le sud-ouest jusqu'aux ruines du {area:2738}. Le {object:179565} pour {npc:11801} se trouve dans l'une des maisons en ruine."
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Allez vers le sud-ouest jusqu'aux ruines du {area:2738}. Le {object:179565} pour {npc:11801} se trouve dans l'une des maisons en ruine.",
 
 	-- Step 14: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
@@ -302,7 +299,6 @@ return {
 	-- ["Dredge and scorpids"] = "Térébrants et scorpides",
 	-- ["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "Plus à l'est sur la route, {npc:11077} garde le chaudron des {area:200}.",
 	-- ["Fly to {area:1637} and train."] = "Volez jusqu'à {area:1637} et entraînez-vous.",
-	-- ["Fly to {area:541}"] = "Prendre un vol pour {area:541}",
 	-- ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Volez jusqu'à {area:976}. Vous avez toujours {quest:2741} ? La machine se dresse au milieu de la ville.",
 	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "Volez jusqu'à {area:976}. L'{object:142071} se dresse au milieu de la ville.",
 	-- ["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
@@ -335,7 +331,6 @@ return {
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Allez vers le sud jusqu'à Andorhal. {npc:10667} attend dans l'auberge en ruine à l'ouest de la ville. Placez-vous sur le seuil de chacune des quatre tours avec {item:12815} pour la marquer ; restez en bordure de la ville. Utilisez {item:12627} près des silos au centre de la ville pour faire apparaître des Parasites temporels.",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "Partez vers le sud-est depuis {npc:1855} jusqu'à la ferme de {area:2260}.",
 	-- ["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "Partez vers le sud-est depuis {npc:1855} jusqu'à {area:2261} ; le {object:177675} se trouve juste derrière.",
-	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Allez vers le sud-ouest jusqu'aux ruines du {area:2738}. Le {object:179565} pour {npc:11801} se trouve dans l'une des maisons en ruine.",
 	-- ["Ride south-west to {npc:10667} in Andorhal."] = "Allez vers le sud-ouest jusqu'à {npc:10667}, à Andorhal.",
 	-- ["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Chevauchez jusqu'à {area:2262}, au sud-ouest ; Pamela joue entre les maisons. {npc:11886} rôde dans {area:2261}, la crypte juste à l'ouest de la ville.\nAttention : environ quatre renforts non élites arrivent avec Mercutio. Ils marchent jusqu'à la tombe au lieu d'apparaître sur place.",
 	-- ["Ride to {area:2262} in the south-west; {npc:10926} plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town."] = "Allez jusqu'à {area:2262}, au sud-ouest ; {npc:10926} joue entre les maisons. {npc:11886} rôde dans {area:2261}, la crypte juste à l'ouest du village.",
@@ -353,7 +348,6 @@ return {
 	-- ["The libram lies further north, on the way to {area:190}."] = "Le libram se trouve plus au nord, sur la route de {area:190}.",
 	-- ["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Les coffrets se trouvent dans les maisons en ruine d'Andorhal, autour de l'auberge de {npc:10667}. Attention : des goules et des squelettes se tiennent généralement près des caisses et attaquent quand vous approchez. Les goules brûlantes blessent aussi tout ce qui est à proximité et brisent le camouflage.",
 	-- ["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "La scierie se trouve juste à côté de Radley : posez le tonneau de termites de {npc:11615} au milieu.",
-	-- ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "Le col venant d'Un'Goro débouche sur {area:3077}, le cimetière du nord-est de {zone:1451}. {npc:13220} se tient parmi les tombes.",
 	-- ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "La sacoche se trouve dans les montagnes de l'extrême sud, au-delà du Campement de Bronzebeard. Poigne-de-mort, un scorpide élite, patrouille à proximité : prenez-la pendant qu'il s'éloigne.",
 	-- ["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "Le bouclier se trouve à {area:201}, au sud de la cabane de {npc:1855}.",
 	-- ["The wooden sign beside {npc:9997}"] = "Le panneau en bois à côté de {npc:9997}",

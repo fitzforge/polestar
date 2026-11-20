@@ -22,8 +22,7 @@ return {
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
-	-- was: ["{area:1497} trainers"] = "Instrutores da {area:1497}"
-	["{zone:1458} trainers"] = "",
+	["{zone:1458} trainers"] = "Instrutores de {zone:1458}",
 
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Montaria no nível 40",
@@ -366,8 +365,7 @@ return {
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
 	-- Step 78: Sawtooth snappers
-	-- was: ["Sawtooth snappers"] = "Tartaliscas Dentesserra"
-	["Sawtooth snappers"] = "",
+	["Sawtooth snappers"] = "Tartaliscas Dentesserra",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -420,7 +418,6 @@ return {
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Cavalgue para oeste pela estrada até o acampamento dos draeneis em {area:657}, perto da entrada vinda de {zone:1430}. {quest:698} vai para {npc:5592} em {area:1978} na próxima visita ao pântano: guarde os flancos.",
 	-- ["Ride west to {object:3202}."] = "Cavalgue para o oeste até {object:3202}.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Montaria exige nível 40 e custa 100 de ouro; aprender dá uma montaria, e {zone:2548} depois de Selva do Espinhaço é uma longa caminhada sem ela. Pegue o zepelim na torre de {object:3202} para as torres de {area:1497}: {npc:4773} ensina os Renegados em {area:159}, a uma curta cavalgada ao norte, com os cavalos esqueléticos de {npc:4731} (20 de ouro cada). Depois, o zepelim de volta a {object:3202}. Sem ouro? Pule esta etapa: o guia de {zone:1435} passa de novo por {area:1497} por volta do 47.",
-	-- ["Sawtooth snappers"] = "Tartaliscas Dentesserra",
 	-- ["Skullsplitter warriors"] = "Guerreiros Rachacrânio",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Ao sul de Angra do Butim, os Espadachins da Vela Sangrenta acampam em {area:43}; os mapas e as ordens ficam nas barracas deles e no bote ao lado do acampamento maior. Qualquer pirata da Vela Sangrenta pode levar rapé e o olho do {npc:2493}, então continue matando até ter os dois.",
 	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "Pegue a estrada para o norte saindo de {area:35}; Unbagwa fica numa colina em {area:1737}, a leste da estrada.",

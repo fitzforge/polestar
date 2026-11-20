@@ -243,15 +243,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "Écoutez encore une fois l'histoire de {npc:8479}.",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} se trouve par terre aux pieds de {npc:8479} ; {quest:3462} se tient à côté de lui.",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "Braseros de sentinelle",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +301,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}, dans le trésor",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 

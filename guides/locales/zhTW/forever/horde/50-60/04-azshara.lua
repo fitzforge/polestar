@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -53,14 +53,13 @@ return {
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在{object:172961}。每項捐獻從你揹包中消耗六十張毛料、絲綢或魔紋布：身上帶著的就交，其餘跳過。",
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "在{object:172958}。"
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "兩項{item:14047}捐獻都在路線後段交付：想要的話各留六十張{item:14047}。",
 
 	-- Step 12: Paladin trainer
 	["Paladin trainer"] = "聖騎士訓練師",
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "飛往{area:1237}",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "飛往{zone:1454}；{npc:4485}在{object:172958}，{npc:3326}和{npc:8659}在{object:172960}。",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "飛往{zone:1454}；{npc:4485}在{object:172958}。",
-	-- ["In the {object:172958}."] = "在{object:172958}。",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "在{object:172961}。背包裡要有毛料、絲綢和魔紋布。",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "保留要交給{npc:8659}、{npc:6522}、{npc:4485}和{npc:3326}的任務：接下來會經過{zone:1454}和{zone:1458}。瑪加薩的任務在{zone:1456}，不在這條路線上：先放著。",
 	-- ["Makrinni Burrowers"] = "瑪克林尼掘地者",

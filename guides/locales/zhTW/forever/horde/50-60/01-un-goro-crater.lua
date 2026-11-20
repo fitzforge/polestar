@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "哥布林{npc:10302}坐在{area:543}，就在水晶塔東邊。"
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "哥布林{npc:10302}坐在{area:543}，就在水晶塔東邊。",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}要你去找{zone:1452}的{npc:9298}：保留此任務。"
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}要你去找{zone:1452}的{npc:9298}：保留此任務。",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -171,8 +169,7 @@ return {
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
-	-- was: ["Escort {npc:9999}"] = "護送{npc:9999}"
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶領{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}叫醒他。"
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
@@ -243,15 +240,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "再聽一次{npc:8479}的故事。",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}就放在{npc:8479}腳邊的地上；{quest:3462}站在他旁邊。",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "哨兵火盆",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +298,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}，從寶藏中取得",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -368,7 +365,6 @@ return {
 	-- ["Black Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "黑色小龍在{area:251}東邊的山丘築巢。在小龍快死時對牠使用{npc:10267}的{item:12284}來捕捉牠的精華。",
 	-- ["Bloodpetal Flayers"] = "血瓣花掠奪者",
 	-- ["Darrowshire Spirits"] = "達隆郡居民的靈魂",
-	-- ["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飛往{area:1638}，在{area:1639}向{npc:3033}訓練，然後飛往{area:1637}搭乘前往{object:3202}的飛艇。",
 	-- ["Fly to {area:272}"] = "飛往{area:272}",
 	-- ["Fly to {area:340}"] = "飛往{area:340}",
@@ -428,8 +424,6 @@ return {
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "任務日誌中有{npc:11063}的任務時，被殺死的天譴軍有時會留下{npc:11064}；和它交談來釋放它。在向西南騎往{area:2262}的路上擊殺不死生物。",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "在{zone:1449}的{area:538}擊殺焦油潛伏者練等",
 	-- ["grind on {npc:6511}"] = "刷{npc:6511}",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}要你去找{zone:1452}的{npc:9298}：保留此任務。",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "哥布林{npc:10302}坐在{area:543}，就在水晶塔東邊。",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南方的{area:2262}廢墟中。",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}潛伏在{area:2262}西邊。",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}，{object:36073}",

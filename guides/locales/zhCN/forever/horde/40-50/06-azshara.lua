@@ -75,8 +75,7 @@ return {
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
 	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	-- was: ["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}"
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 
 	-- Step 23: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -179,8 +178,7 @@ return {
 
 	-- Step 45: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
-	-- was: ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。"
-	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "",
+	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 
 	-- Step 46: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
@@ -190,10 +188,10 @@ return {
 	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}，从巨型海元素身上获取",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}，对水中的海浪巨人和深海巨人使用",
 
 	-- Step 48: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
@@ -212,17 +210,17 @@ return {
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
 	-- Step 52: Rage Scar yetis
-	["Rage Scar yetis"] = "",
+	["Rage Scar yetis"] = "怒痕雪人",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
-	["{quest:7738}, a rare drop"] = "",
+	["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 
 	-- Step 53: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "返回{area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
 	-- Step 55: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -285,7 +283,6 @@ return {
 	-- ["Paladin trainer"] = "圣骑士训练师",
 	-- ["Ride into {area:16}"] = "骑马进入{area:16}",
 	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "向东北骑往{area:1227}上方悬崖上的地精营地。",
-	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 	-- ["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "向西南骑往废墟。四块石板散落在废墟中，由恶鞭纳迦看守；任何恶鞭海妖或恶鞭侍从都可能携带{npc:8420}的符文。",
 	-- ["Ride west back to {area:1237}."] = "向西骑回{area:1237}。",
 	-- ["Sea elementals"] = "海元素",
@@ -317,7 +314,6 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}要的焦油和匹斯特苏格要的样本都来自{zone:1449}。",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}，在营地东缘：没有经验，只能传送到克希雷姆的法师塔",
-	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 	-- ["{object:3202} flight master"] = "{object:3202} 的飞行管理员。",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}在下一个指南中收集；{npc:4046}的报酬之后交还给{npc:8587}。",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494}需要50级：到时可在暗巷区找{npc:7010}接取。不满50级的话，55级的{zone:1447}指南会再次提供。",

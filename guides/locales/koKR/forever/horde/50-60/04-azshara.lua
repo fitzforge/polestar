@@ -57,8 +57,7 @@ return {
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "{object:172958}에 있습니다."
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "{area:1237}(으)로 날아가기",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "{zone:1454}(으)로 날아가세요. {npc:4485}은(는) {object:172958}에, {npc:3326}와(과) {npc:8659}은(는) {object:172960}에 있습니다.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "{zone:1454}(으)로 날아가세요. {npc:4485}은(는) {object:172958}에 있습니다.",
-	-- ["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "{object:172961}에 있습니다. 양모 옷감, 비단 옷감, 마법 옷감을 가방에 넣어 두세요.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "{npc:8659}, {npc:6522}, {npc:4485}, {npc:3326}에게 전달할 것은 보관하세요. 다음에 {zone:1454}와(과) {zone:1458}을(를) 지나갑니다. {zone:1456}의 마가사에게 가는 것은 이 경로에서 벗어나니 그냥 두세요.",
 	-- ["Makrinni Burrowers"] = "마크리니 굴파기",

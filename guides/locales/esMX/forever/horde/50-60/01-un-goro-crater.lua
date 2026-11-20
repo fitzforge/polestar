@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "El goblin {npc:10302} está en {area:543}, justo al este de la torre de cristal."
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "El goblin {npc:10302} está en {area:543}, justo al este de la torre de cristal.",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} te envía con {npc:9298} en {zone:1452}: guárdala."
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} te envía con {npc:9298} en {zone:1452}: guárdala.",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -171,11 +169,9 @@ return {
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
-	-- was: ["Escort {npc:9999}"] = "Escolta a {npc:9999}"
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo."
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -243,15 +239,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "Escucha la historia de {npc:8479} una vez más.",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} está en el suelo a los pies de {npc:8479}; {quest:3462} está a su lado.",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "Braseros centinela",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +297,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}, del tesoro",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -370,7 +366,6 @@ return {
 	-- ["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Cuidado: Los obreros Gorishi que bajan del 45 % de salud tienen un 50 % de probabilidad de pedir ayuda a los aliados en 25 m.",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Cuidado: Hay muchos ravasaurios rondando la zona, así que es fácil atraer varios a la vez.\nPor debajo del nivel 52, sigue cazando ravasaurios aquí después de la octava garra: {quest:4061} en {area:340} necesita nivel 52, y las misiones de las Tierras de la Peste al final de esta guía son de nivel 55. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:2100}.",
 	-- ["Darrowshire Spirits"] = "Espíritus de Villa Darrow ({npc:11064})",
-	-- ["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Vuela a {area:1637} y entrena antes del zepelín a {object:3202}: la parada en {zone:1458} más adelante en esta guía no tiene instructor de cazador ni de chamán.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Vuela a {area:1637}, toma el zepelín a {object:3202} y desde allí vuela a {area:340}, construido en los acantilados del borde oeste de {zone:1418}.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Vuela a {area:1638} y entrena con {npc:3033} en {area:1639}; luego vuela a {area:1637} para el zepelín a {object:3202}.",
@@ -391,7 +386,6 @@ return {
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Guarda {quest:5152}: Marlene vive en {area:197}, en {zone:1422}.",
 	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, en el camino hacia Tirion de la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 	-- ["Lashers and Threshers"] = "Azotadores y Trilladores",
-	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Sal de {zone:1458} y cabalga al este por el camino a través de {area:85} hasta {area:152}, el fuerte de los Renegados en la frontera.",
 	-- ["Level 51"] = "Nivel 51",
 	-- ["North of Torwa, a dead Threshadon lies by the water."] = "Al norte de Torwa, un trillanodonte muerto yace junto al agua.",
@@ -441,8 +435,6 @@ return {
 	-- ["grind on {npc:6551}"] = "sube de nivel con {npc:6551}",
 	-- ["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "el cartel de madera junto a {npc:9997}, al lado del maestro de vuelo: los pterrordáctilos están en el terreno de esta guía",
 	-- ["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} te envía con {npc:9298} en {zone:1452}: guárdala.",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "El goblin {npc:10302} está en {area:543}, justo al este de la torre de cristal.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "El fantasma de {npc:10926} está en las ruinas de {area:2262}, en el suroeste.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} acecha justo al oeste de {area:2262}.",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}, en {object:36073}",

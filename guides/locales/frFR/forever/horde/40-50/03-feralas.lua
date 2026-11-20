@@ -33,7 +33,7 @@ return {
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
 	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
 	-- Step 5: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache

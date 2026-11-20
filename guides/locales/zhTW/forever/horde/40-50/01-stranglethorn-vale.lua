@@ -22,8 +22,7 @@ return {
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
-	-- was: ["{area:1497} trainers"] = "{area:1497}訓練師"
-	["{zone:1458} trainers"] = "",
+	["{zone:1458} trainers"] = "{zone:1458}的訓練師",
 
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "40級騎術",
@@ -365,8 +364,7 @@ return {
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
 	-- Step 78: Sawtooth snappers
-	-- was: ["Sawtooth snappers"] = "鹽齒鉗嘴鱷"
-	["Sawtooth snappers"] = "",
+	["Sawtooth snappers"] = "鹽齒鉗嘴鱷",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -402,7 +400,6 @@ return {
 	-- ["Ride on north to {object:3202}."] = "繼續向北騎到{object:3202}。",
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "沿道路向西騎到{area:657}的德萊尼營地，靠近{zone:1430}的入口。{quest:698}要在下次來沼澤時交給{area:1978}的{npc:5592}：留著側腹肉。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{area:1497}的飛艇塔：{npc:4773}在往北騎一小段的{area:159}教被遺忘者騎術，旁邊有{npc:4731}的骸骨戰馬（每隻20金）。然後搭飛艇回{object:3202}。金錢不夠？跳過這個步驟：{zone:1435}指南約47級時會再經過{area:1497}。",
-	-- ["Sawtooth snappers"] = "鹽齒鉗嘴鱷",
 	-- ["Skullsplitter warriors"] = "劈顱戰士",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "在藏寶海灣南邊，血帆流氓在{area:43}紮營；海圖和命令在他們的帳篷裡，以及較大營地旁的小船裡。任何血帆海盜都可能帶著鼻煙和{npc:2493}的眼睛，所以持續擊殺直到兩樣都拿到。",
 	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "沿道路從{area:35}向北出城；巫醫安巴格瓦坐在{area:1737}道路東邊的山丘上。",

@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -57,8 +57,7 @@ return {
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "Ориентир: {object:172958}."
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "Летите сюда: {area:1237}",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "Летите сюда: {zone:1454}; {npc:4485} – здесь: {object:172958}, {npc:3326} и {npc:8659} – здесь: {object:172960}.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Летите сюда: {zone:1454}; {npc:4485} – здесь: {object:172958}.",
-	-- ["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Ориентир: {object:172961}. Держите в сумках шерсть, шелковый материал и магическую ткань.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Сохраните поручения для NPC {npc:8659}, {npc:6522}, {npc:4485} и {npc:3326}: дальше вы проходите через {zone:1454} и {zone:1458}. Задание для Магаты ({zone:1456}) не по этому маршруту: оставьте его.",
 	-- ["Makrinni Burrowers"] = "Макриннские землерои",

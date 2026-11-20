@@ -53,16 +53,13 @@ return {
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
-	-- was: ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Dans {object:172961}. Chaque don prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez celles que vous avez sur vous, ignorez les autres."
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Dans {object:172961}. Chaque don prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez celles que vous avez sur vous, ignorez les autres.",
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "Dans {object:172958}."
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "Dans {object:172958}.",
 	-- {item:14047} Runecloth
-	-- was: ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Les deux dons d'{item:14047} se rendent plus loin dans le parcours : gardez soixante {item:14047} pour chacun si vous les voulez."
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Les deux dons d'{item:14047} se rendent plus loin dans le parcours : gardez soixante {item:14047} pour chacun si vous les voulez.",
 
 	-- Step 12: Paladin trainer
 	["Paladin trainer"] = "Maître des paladins",
@@ -126,7 +123,6 @@ return {
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "Retournez au nord auprès de {npc:8420} avec la rune, puis suivez la route vers le sud-ouest.",
 	-- ["Back north-west to {npc:8420}."] = "Retournez au nord-ouest auprès de {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Retournez au Tome sin'dorei : remettez les sceaux, puis utilisez-le pour invoquer {npc:8578}.\nAttention : le cristal lié à Rimtori est choisi au hasard. Chacun des deux autres invoque un infernal hostile à la place.",
-	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Les deux dons d'{item:14047} se rendent plus loin dans le parcours : gardez soixante {item:14047} pour chacun si vous les voulez.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Les deux dons d'{item:14047} se rendent plus loin dans l'itinéraire : commencez à mettre de l'{item:14047} de côté.",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Chacun des trois officiers du camp (53) porte un sceau : {npc:247006} au centre du camp, {npc:247013} à son extrémité est, et {npc:246991}, qui patrouille sa moitié ouest : affrontez-le du côté est de sa ronde, là où pointe la Flèche.\nAttention : le {npc:250023}, un élite de niveau 55-57, se tient à la lisière ouest du camp, près du bout de la ronde de Hawkhelm : attendez que Hawkhelm revienne vers l'est.",
 	-- ["Fly to the {area:380}"] = "Prendre un vol pour {area:380}",
@@ -136,8 +132,6 @@ return {
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "Prenez un vol pour {zone:1454} ; {npc:4485} se trouve dans la {object:172958}, {npc:3326} et {npc:8659} dans {object:172960}.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Volez jusqu'à {zone:1454} ; {npc:4485} se trouve dans {object:172958}.",
 	-- ["Hearth to {area:1637}"] = "Pierre de foyer vers {area:1637}",
-	-- ["In the {object:172958}."] = "Dans {object:172958}.",
-	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Dans {object:172961}. Chaque don prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez celles que vous avez sur vous, ignorez les autres.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Dans {object:172961}. Ayez l'Etoffe de laine, l'Etoffe de soie et l'Etoffe de tisse-mage dans vos sacs.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Gardez les livraisons pour {npc:8659}, {npc:6522}, {npc:4485} et {npc:3326} : vous passez ensuite par {zone:1454} et {zone:1458}. Celle de Magatha, à {zone:1456}, est hors de cet itinéraire : laissez-la.",
 	-- ["Makrinni Burrowers"] = "Fouisseurs makrinni",

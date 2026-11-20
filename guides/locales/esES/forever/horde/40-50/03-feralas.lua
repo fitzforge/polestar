@@ -29,11 +29,11 @@ return {
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
 	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 5: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache

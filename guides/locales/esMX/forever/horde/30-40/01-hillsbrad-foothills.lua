@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "Maestro de vuelo de {area:378}",
 	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
 	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
@@ -229,7 +229,7 @@ return {
 	["Level 30"] = "Nivel 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {zone:1454} Orgrimmar · {area:272} Tarren Mill · {zone:1437} Wetlands
 	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "",
-	["Snapjaws"] = "",
+	["Snapjaws"] = "Quijafortes",
 	["grind on Snapjaw"] = "",
 
 	-- Step 41: Voidglare, Bel'varil and Tallow

@@ -22,8 +22,7 @@ return {
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
-	-- was: ["{area:1497} trainers"] = "Учителя: {area:1497}"
-	["{zone:1458} trainers"] = "",
+	["{zone:1458} trainers"] = "Учителя: {zone:1458}",
 
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Верховая езда на 40-м",
@@ -365,8 +364,7 @@ return {
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
 	-- Step 78: Sawtooth snappers
-	-- was: ["Sawtooth snappers"] = "Острозубые крепкохваты"
-	["Sawtooth snappers"] = "",
+	["Sawtooth snappers"] = "Острозубые крепкохваты",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -401,7 +399,6 @@ return {
 	-- ["Ride on north to {object:3202}."] = "Езжайте дальше на север сюда: {object:3202}.",
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Езжайте на запад по дороге к лагерю дренеев ({area:657}), у въезда со стороны края {zone:1430}. {quest:698} отправляется к NPC {npc:5592} ({area:1978}) при следующем визите на болото: сохраните бока.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до башен у места {area:1497}: {npc:4773} обучает Отрекшихся ({area:159}), недалеко к северу, рядом кони-скелеты NPC {npc:4731} (по 20 золотых). Затем дирижаблем обратно до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1435} снова проходит здесь ({area:1497}) примерно на 47-м.",
-	-- ["Sawtooth snappers"] = "Острозубые крепкохваты",
 	-- ["Skullsplitter warriors"] = "Воины из племени Дробителей Черепов",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "К югу от Пиратской бухты висельники из шайки Кровавого Паруса стоят лагерем здесь: {area:43}; карты и приказы лежат в их палатках и в шлюпке рядом с большим лагерем. Нюхательный табак и глаз {npc:2493} может нести любой пират Кровавого Паруса: убивайте, пока не получите оба.",
 	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "Езжайте по дороге на север от места {area:35}; Унбагва сидит на холме ({area:1737}), к востоку от дороги.",

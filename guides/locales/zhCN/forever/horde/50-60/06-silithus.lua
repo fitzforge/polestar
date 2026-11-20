@@ -24,33 +24,32 @@ return {
 
 	-- Step 3: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
-	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "",
+	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
 
 	-- Step 4: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
-	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "",
+	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "对{area:976}的地精女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}在路线后面再吓唬。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:7583} with {item:12928}"] = "",
+	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
 	-- Step 5: Alchemist Pestlezugg
 	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "",
+	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "屋内：{quest:4493}，如果你在{zone:1447}指南中于{zone:1454}接了它",
 
 	-- Step 6: Alchemist Pestlezugg
 	["Inside"] = "在里面",
 
 	-- Step 7: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
-	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
 	-- Step 8: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "",
+	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
 	-- Step 9: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	-- was: ["Fly to {area:541}"] = "飞往{area:541}"
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
@@ -69,13 +68,11 @@ return {
 
 	-- Step 11: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
-	-- was: ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。"
-	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "",
+	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
 	-- Step 12: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
-	-- was: ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。"
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。",
 
 	-- Step 14: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
@@ -299,7 +296,6 @@ return {
 	-- ["Dredge and scorpids"] = "掘泥者和蝎子",
 	-- ["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "沿道路向东，{npc:11077}守着{area:200}的瘟疫之锅。",
 	-- ["Fly to {area:1637} and train."] = "飞往{area:1637}训练。",
-	-- ["Fly to {area:541}"] = "飞往{area:541}",
 	-- ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "飞往{area:976}。还带着{quest:2741}吗？机器立在镇中央。",
 	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "飞往{area:976}。{object:142071}立在镇中央。",
 	-- ["From the zeppelin tower ride east along the road to the {area:152}, on the way into the {zone:1422}."] = "从飞艇塔沿道路向东骑往{area:152}，即进入{zone:1422}的路上。",
@@ -331,7 +327,6 @@ return {
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "向南骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候。拿着{item:12815}站在四座塔的每一个门口来标记它；沿城镇边缘走。在镇中央的粮仓旁使用{item:12627}引出时光寄生虫。",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "从{npc:1855}处向东南骑往{area:2260}的农舍。",
 	-- ["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "从{npc:1855}处骑乘向东南前往{area:2261}，{object:177675}就在其后方。",
-	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。",
 	-- ["Ride south-west to {npc:10667} in Andorhal."] = "向西南骑往安多哈尔的{npc:10667}那里。",
 	-- ["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "骑马前往西南的 {area:2262}；帕米拉在房屋之间玩耍。{npc:11886} 潜伏在 {area:2261}，也就是镇子正西边的墓穴。\n小心：墨丘利奥会带来约四只非精英小怪。它们会走到墓前，而不是直接在原地出现。",
 	-- ["Ride to {area:2262} in the south-west; {npc:10926} plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town."] = "骑往西南的{area:2262}；{npc:10926}在房子间玩耍。{npc:11886}潜伏在城镇正西的墓穴{area:2261}里。",
@@ -349,7 +344,6 @@ return {
 	-- ["The libram lies further north, on the way to {area:190}."] = "圣契在更北边，通往{area:190}的路上。",
 	-- ["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "锁箱放在{npc:10667}所在旅店周围的安多哈尔废弃房屋里。小心：食尸鬼和骷髅通常站在箱子旁，你靠近时会发动攻击。灼热食尸鬼还会伤害附近所有人，并会打破潜行。",
 	-- ["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "锯木厂就在猎人莱德雷身旁：把{npc:11615}的白蚁桶放在厂房中央。",
-	-- ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 	-- ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "诺格的背包在遥远南方的山里，过了铜须营地。精英蝎子死亡弯钩在附近巡逻：趁它走开时拿走背包。",
 	-- ["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "盾牌在{npc:1855}小屋南边的{area:201}。",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",

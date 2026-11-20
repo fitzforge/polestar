@@ -60,7 +60,7 @@ return {
 
 	-- Step 14: Fly to Valormok
 	-- {area:1237} Valormok
-	["Fly to {area:1237}"] = "",
+	["Fly to {area:1237}"] = "Vuela a {area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
 	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
 	-- {zone:1454} Orgrimmar
@@ -68,91 +68,91 @@ return {
 
 	-- Step 15: Valormok
 	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
-	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "",
+	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, una varita de los arcanistas elfos de sangre",
 
 	-- Step 16: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
-	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: mata a estos según te los encuentres",
+	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Cabalga al este hasta las ruinas de la costa. Las cuatro tablillas están entre las ruinas, custodiadas por nagas Látigo de Ira (52-55): atráelos de uno en uno.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "",
+	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Cabalga al este hasta las ruinas de la costa. Llena los cuatro viales de Cuely en las pozas de marea a lo largo de la orilla; las nagas Látigo de Ira patrullan entre ellas.",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["Makrinni Burrowers"] = "",
+	["Makrinni Burrowers"] = "Excavadores Makrinni",
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "",
+	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Los Excavadores Makrinni (50-51) cavan en la arena justo al este de las ruinas, de camino al noreste; ellos y los alijos enterrados allí sueltan los Fragmentos de tesoro Altonato.",
 
 	-- Step 19: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
-	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "",
+	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Sigue al noreste por el centro de {zone:1447}: {npc:235903} acampa junto al camino.",
 	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
-	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "",
+	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, los sátiros al norte del campamento de los elfos de sangre",
 
 	-- Step 20: Kim'jael
 	-- {area:1227} Bay of Storms
-	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "",
+	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "Cabalga al noreste hasta el campamento del goblin en los acantilados sobre {area:1227}, justo al norte de los elfos de sangre.",
 
 	-- Step 21: Thalassian Base Camp
 	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "",
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Los elfos de sangre acampan en los acantilados del noreste, junto a {area:1227}. Las cuatro piezas de equipo de {npc:8420} están en las cajas alrededor del campamento; los Arcanistas elfos de sangre llevan la varita de {npc:247473}.\nCuidado: un {npc:250023}, élite de nivel 55-57, está en el borde oeste del campamento: encárgate de los elfos de sangre desde su lado este.",
 	-- {item:246680} Mana-Siphoning Wand
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["{item:246680}, from the Blood Elf Arcanists"] = "",
+	["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}, de los Arcanistas elfos de sangre",
 
 	-- Step 22: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
-	["{npc:8578}'s camp"] = "",
+	["{npc:8578}'s camp"] = "Campamento de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "El campamento de Rimtori está en el extremo este del campamento base. Lee {object:151286} allí: en Forever, el Tomo sin'dorei de al lado te pide luego los sellos de los tres oficiales del campamento.",
 
 	-- Step 23: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
-	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "",
+	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Cada uno de los tres oficiales del campamento (53) lleva un sello: {npc:247006} en el centro del campamento, {npc:247013} en su extremo este y {npc:246991}, que patrulla su mitad oeste: enfréntalo en el lado este de su recorrido, donde apunta la Flecha.\nCuidado: el {npc:250023}, élite de nivel 55-57, está en el borde oeste del campamento, cerca del extremo del recorrido de Hawkhelm: espera a que Hawkhelm vuelva al este.",
 	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
-	["{item:246725}, from {npc:247006}"] = "",
+	["{item:246725}, from {npc:247006}"] = "{item:246725}, de {npc:247006}",
 	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
-	["{item:246721}, from {npc:246991}"] = "",
+	["{item:246721}, from {npc:246991}"] = "{item:246721}, de {npc:246991}",
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
-	["{item:246722}, from {npc:247013}"] = "",
+	["{item:246722}, from {npc:247013}"] = "{item:246722}, de {npc:247013}",
 
 	-- Step 24: Magus Rimtori
 	-- {npc:8578} Magus Rimtori
 	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
-	["{quest:91538}: for {npc:8587} in {area:1237}"] = "",
+	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 
 	-- Step 25: The Legashi satyrs
-	["The Legashi satyrs"] = "",
+	["The Legashi satyrs"] = "Los sátiros Legashi",
 	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Los sátiros Legashi (51-52) ocupan las colinas al norte del campamento de los elfos de sangre: {npc:235903} quiere cinco de cada tipo.",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north-west to {npc:8420}."] = "",
+	["Back north-west to {npc:8420}."] = "Regresa al noroeste con {npc:8420}.",
 
 	-- Step 27: Ruins of Eldarath: Some Rune
 	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "",
+	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "Cabalga al sur hasta el borde norte de {area:1221}. Las sirenas y los mirmidones Látigo de Ira (50-52) de ahí llevan la runa de {npc:8420}; no cae seguido, así que avanza por el borde hasta conseguirla.",
 
 	-- Step 28: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north to {npc:8420} with the rune, then south-west along the road."] = "",
+	["Back north to {npc:8420} with the rune, then south-west along the road."] = "Regresa al norte con {npc:8420} con la runa y luego ve al suroeste por el camino.",
 
 	-- Step 29: Ekkal
 	-- {npc:235903} Ekkal
-	["South-west along the road: {npc:235903} takes the satyrs."] = "",
+	["South-west along the road: {npc:235903} takes the satyrs."] = "Al suroeste por el camino: {npc:235903} recibe lo de los sátiros.",
 
 	-- Step 30: Ag'tor Bloodfist
 	-- {area:1237} Valormok
-	["Ride back west to {area:1237}."] = "",
+	["Ride back west to {area:1237}."] = "Regresa cabalgando al oeste a {area:1237}.",
 	-- {npc:8576} Ag'tor Bloodfist · {quest:91531} Revenge Exacted · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "",
+	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, para {npc:4485} en {zone:1454}",
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
-	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "",
+	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: el tomo va para {npc:3326} en {zone:1454}",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
 	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
 
@@ -161,21 +161,20 @@ return {
 	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
 
 	-- Step 32: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
-	-- was: ["Upstairs"] = "Arriba"
-	["Upstairs"] = "",
+	["The apprentice at the top of the tower sends you back down."] = "El aprendiz de lo alto de la torre te manda de vuelta abajo.",
+	["Upstairs"] = "Arriba",
 
 	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 35: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
-	["{npc:3326}, the {object:172960}"] = "",
+	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
 	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
 
@@ -275,7 +274,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Te salió {item:13140}: úsala para empezar la misión y luego libera a {npc:11018} de su jaula en {area:1770}, la cueva en el extremo norte de {area:1763}.",
@@ -347,7 +346,6 @@ return {
 	-- ["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Completa aquí hasta el nivel 53.34 antes de las entregas en {area:1763}: te llevan al nivel 54. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:1584}.",
 	-- ["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 54.7 antes de las entregas en {area:1997}: te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.",
 	-- ["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 54.87 antes de las entregas en {zone:1452}: te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.",
-	-- ["Upstairs"] = "Arriba",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "Entra en el túnel de {area:1769} junto a {npc:15395} y nunca ataques a los fúrbolgs Fauces de Madera de dentro. El túnel sale a {zone:1452}; sigue el camino al este hasta {area:2255}, el pueblo goblin donde empieza la siguiente guía.",
 	-- ["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Saca a {npc:11018} de {area:1770} y mantenla con vida hasta que salga de la cueva.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "farmea vengadores Muertobosque en {area:1762}, {zone:1448}",

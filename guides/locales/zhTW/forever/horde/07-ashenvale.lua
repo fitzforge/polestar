@@ -377,7 +377,7 @@ return {
 
 	-- Step 84: Freewind Post
 	-- {area:484} Freewind Post
-	["Back east to {area:484}."] = "",
+	["Back east to {area:484}."] = "往東回到{area:484}。",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}，在裡面",
 	-- {npc:4877} Jandia
@@ -387,7 +387,7 @@ return {
 
 	-- Step 85: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "{area:484}飛行管理員",
 
 	-- Step 86: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap

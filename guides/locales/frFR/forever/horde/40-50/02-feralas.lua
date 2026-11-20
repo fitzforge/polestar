@@ -94,7 +94,7 @@ return {
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, dans l'auberge : ses bouteilles s'échouent sur la côte des {zone:1425}, vers le niveau 48",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
@@ -129,16 +129,15 @@ return {
 
 	-- Step 32: Fly to Stonard
 	-- {area:75} Stonard
-	-- was: ["Fly to {area:75}"] = "Prendre un vol pour {area:75}"
-	["Fly to {area:75}"] = "",
+	["Fly to {area:75}"] = "Prendre un vol pour {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:75} Stonard · {area:1978} Misty Reed Post
 	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Maître de vol de Grom'gol",
 
 	-- Step 33: To Stonard
 	-- {area:75} Stonard
-	["To {area:75}"] = "",
+	["To {area:75}"] = "Vers {area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
 
@@ -146,24 +145,23 @@ return {
 	-- {quest:698} Lack of Surplus · {quest:1424} Pool of Tears · {quest:1430} Fresh Meat · {npc:5593} Katar · {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, à l'intérieur",
 	-- {npc:1443} Fel'zerul
-	-- was: ["{npc:2488}, on the top floor"] = "{npc:2488}, au dernier étage"
-	["{npc:1443}, on the top floor"] = "",
+	["{npc:1443}, on the top floor"] = "{npc:1443}, au dernier étage",
 
 	-- Step 35: A Soggy Scroll
-	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "",
+	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Suivez la route vers l'ouest ; le parchemin se trouve au bord de l'eau, à l'extrême ouest du marais.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 36: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "Crocilisques Dents-de-scie",
 	-- {area:75} Stonard
-	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "Les crocilisques se vautrent dans les mares autour de l'ancien camp de Galen, juste au nord de {area:75}, sur le chemin du retour vers l'est ; environ un sur quatre laisse tomber un flanc.",
 
 	-- Step 37: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "",
+	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "Retournez à l'est après {area:75} : les Artefacts atal'ai se trouvent dans l'eau et sur les rives du Bassin des larmes (quête {quest:1424}).",
 
 	-- Step 38: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -171,19 +169,19 @@ return {
 
 	-- Step 39: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403} : tuez-les au passage",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
-	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "Les mordeurs bordent la grève au sud du poste.\nLes Clampants monstrueux parcourent les plages de la côte est, rares et dispersés : tuez tous ceux que vous voyez ainsi que ceux sur le trajet depuis le bassin.\nAttention : un {npc:272377} (niveau 60) arpente la grève sud-est : gardez vos distances.",
+	["Underwater"] = "Sous l'eau",
 
 	-- Step 41: Murlocs of the Misty Reed
-	["Murlocs of the Misty Reed"] = "",
+	["Murlocs of the Misty Reed"] = "Les murlocs de Misty Reed",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
-	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "",
+	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Les Murlocs des marais vivent sur la grève au sud du poste ; les Crache-encre sont le long du rivage à l'est et les Mange-chair plus à l'ouest, autour des huttes de la rive ouest.",
 
 	-- Step 43: Continued Threat
-	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "Encore le même rivage des murlocs : les Cracheurs d'encre à l'est du poste, les Mangeurs de chair autour des huttes de l'ouest, et les Oracles parmi les deux.",
 
 	-- Step 45: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
@@ -197,9 +195,9 @@ return {
 
 	-- Step 47: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
-	["{npc:2934}, on the way back to Zinge"] = "",
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, sur le chemin du retour vers Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "la {item:8523} de ces missions : gardez-la, la quête Les échantillons du désert de Tanaris vous la redonne à {area:976}",
 
 	-- Step 48: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
@@ -213,8 +211,7 @@ return {
 	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, maîtresse de monte"
 	["{npc:4773}, riding trainer"] = "",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
-	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Chevaux squelettes : {npc:4731}, à côté de {npc:4773} à {area:159}."
-	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "",
+	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Chevaux squelettes : {npc:4731}, à côté de {npc:4773} à {area:159}.",
 
 	-- Step 50: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -304,8 +301,7 @@ return {
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
 	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
-	-- was: ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, à côté de {npc:4630}"
-	["{npc:4706}, beside {npc:4630}"] = "",
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, à côté de {npc:4630}",
 
 	-- Step 75: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -427,8 +423,7 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Au nord-ouest des ruines, les yétis ont leur tanière dans le {area:1105} ; chaque yéti peut y laisser tomber une peau épaisse.",
 
 	-- Step 99: Rogue Vale screechers
-	-- was: ["Rogue Vale screechers"] = "Hurleurs des vallées insoumis"
-	["Rogue Vale screechers"] = "",
+	["Rogue Vale screechers"] = "Hurleurs des vallées insoumis",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
 	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
@@ -456,7 +451,6 @@ return {
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the {object:172959}."] = "Prenez un vol pour {area:1637}. Dran et Malton Droffers tiennent leur boutique dans {object:172959}.",
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "Prenez un vol pour {area:484}, descendez par l'ascenseur à l'est du poste et traversez les Salines, puis allez au sud jusqu'à {zone:1446}.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Prenez un vol pour {area:484}, puis allez à l'ouest par les canyons après {area:2237} ; la route monte dans la jungle de {zone:1444} jusqu'à {area:1099}.",
-	-- ["Fly to {area:75}"] = "Prendre un vol pour {area:75}",
 	-- ["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
 	-- ["Fly to {zone:1454}"] = "Prendre un vol pour {zone:1454}",
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Volez jusqu'à {zone:1454}. Depuis le maître de vol : {object:172960}, puis la Herse, puis {object:172958}.",
@@ -476,8 +470,6 @@ return {
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "La monte demande le niveau 40 et coûte 100 pièces d'or ; l'apprendre vous donne une monture. En Classic, chaque race l'apprend auprès du maître de sa race : le vôtre est {npc:4773} à {area:159}, avec les chevaux squelettes de {npc:4731} (20 pièces d'or chacun) à côté d'elle. Forever permet peut-être à toute race d'apprendre auprès de n'importe quel maître de monte (non confirmé) : essayez d'abord {npc:4752}, dans {object:172958} de {zone:1454}, car c'est le plus proche, et passez cette étape s'il vous l'enseigne.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "La monte demande le niveau 40 et coûte 100 pièces d'or ; l'apprendre vous donne une monture. En Classic, chaque race l'apprend auprès du maître de sa race : le vôtre est {npc:7953} à {area:367}, sur la côte de {zone:1411}, avec les raptors de Zjolnir (20 pièces d'or chacun) à côté de lui. Forever permet peut-être à toute race d'apprendre auprès de n'importe quel maître de monte (non confirmé) : essayez d'abord {npc:4752}, dans {object:172958} de {zone:1454}, car c'est le plus proche, et passez cette étape s'il vous l'enseigne.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel; no Skyborne riding trainer is known, so Skyborne try {npc:4752} too. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "La monte demande le niveau 40 et coûte 100 pièces d'or ; l'apprendre vous donne une monture. {npc:4752} l'enseigne aux orcs dans {object:172958}, près du chenil de {npc:3362} ; aucun maître de monte skyborne n'est connu, les Éolides essaient donc aussi {npc:4752}. Les autres montures de votre race coûtent 20 pièces d'or chacune : Objets de collection, Montures · Niveau 40 a un guide pour chacune.",
-	-- ["Rogue Vale screechers"] = "Hurleurs des vallées insoumis",
-	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Chevaux squelettes : {npc:4731}, à côté de {npc:4773} à {area:159}.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often."] = "Plus au sud sur la côte, les pirates des Mers du sud tiennent la crique. {npc:7883} et la cargaison volée sont sur les quais, tout au fond. Tout pirate peut laisser tomber un Chapeau de pirate des Mers du sud, les Kidnappeurs des mers du Sud le plus souvent.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Au sud le long de la côte, les pirates des Mers du Sud tiennent la crique. {npc:7883} et la cargaison volée sont sur les quais, tout au bout. N'importe quel pirate peut lâcher un chapeau, les kidnappeurs le plus souvent.\nAttention : deux ou trois pirates se tiennent avec {npc:7883} (45), et beaucoup d'autres pirates de la ville rejoignent le combat une fois qu'il a commencé : éloignez d'abord ses gardes de lui.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Au sud le long de la côte, les pirates des Mers du Sud tiennent la crique. {npc:7883} et la cargaison volée sont sur les quais, tout au bout. N'importe quel pirate peut lâcher un chapeau, les kidnappeurs le plus souvent.\nAttention : deux ou trois pirates se tiennent avec {npc:7883}, et beaucoup d'autres pirates de la ville rejoignent le combat une fois qu'il a commencé.",
@@ -510,7 +502,6 @@ return {
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} est la ville gobeline fortifiée juste après la frontière de {area:440}.",
 	-- ["{npc:2488}, on the top floor"] = "{npc:2488}, au dernier étage",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630} : les {item:5852} de {npc:2496}, si vous les avez sur vous",
-	-- ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, à côté de {npc:4630}",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, maîtresse de monte",
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, la Herse",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, la Herse",

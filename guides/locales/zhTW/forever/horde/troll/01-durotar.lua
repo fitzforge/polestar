@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}：交給胡特"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交給{npc:11046}",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "香蒲和長矛草沿著the Drag東邊{object:172958}的水邊生長。",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -479,7 +478,6 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "學會{skill:333}後，{npc:265809}也會提供它的露營入門任務：交給{zone:1454}的{npc:11066}（下一份指南）。",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "學會{skill:393}後，{npc:265809}也會提供它的露營入門任務：交給{zone:1454}的{npc:7088}（下一份指南）。",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}：交給胡特",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交給{npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}：交給{npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}：交給{npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}：交給{npc:3365}",

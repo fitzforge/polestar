@@ -129,8 +129,7 @@ return {
 
 	-- Step 32: Fly to Stonard
 	-- {area:75} Stonard
-	-- was: ["Fly to {area:75}"] = "{area:75}(으)로 날아가기"
-	["Fly to {area:75}"] = "",
+	["Fly to {area:75}"] = "{area:75}(으)로 날아가기",
 	-- {object:3202} Grom'gol · {area:75} Stonard · {area:1978} Misty Reed Post
 	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
 	-- {object:3202} Grom'gol
@@ -138,7 +137,7 @@ return {
 
 	-- Step 33: To Stonard
 	-- {area:75} Stonard
-	["To {area:75}"] = "",
+	["To {area:75}"] = "{area:75}(으)로",
 	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
 
@@ -151,18 +150,18 @@ return {
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 35: A Soggy Scroll
-	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "",
+	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "길을 따라 서쪽으로 가세요. 두루마리는 늪 맨 서쪽의 물가에 있습니다.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 36: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "톱니악어",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
 	-- Step 37: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "",
+	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "{area:75}을(를) 지나 동쪽으로 돌아가세요. 아탈라이 유물은 {quest:1424}의 물속과 기슭에 있습니다.",
 
 	-- Step 38: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -174,12 +173,12 @@ return {
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 41: Murlocs of the Misty Reed
-	["Murlocs of the Misty Reed"] = "",
+	["Murlocs of the Misty Reed"] = "안개갈대 멀록",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
-	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "",
+	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "늪지멀록은 주둔지 남쪽 해변에 삽니다. 먹물쟁이는 주둔지 동쪽 해안을 따라 있고, 청소부는 더 서쪽, 서쪽 해안의 오두막 주변에 있습니다.",
 
 	-- Step 43: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
@@ -196,13 +195,13 @@ return {
 
 	-- Step 47: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
-	["{npc:2934}, on the way back to Zinge"] = "",
+	["{npc:2934}, on the way back to Zinge"] = "징에에게 돌아가는 길의 {npc:2934}",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
 	-- Step 48: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
-	["{npc:7825}, the {object:36126}"] = "",
+	["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
 
 	-- Step 49: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",
@@ -303,8 +302,7 @@ return {
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
 	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
-	-- was: ["{npc:4706}, beside {npc:4630}"] = "{npc:4630} 옆의 {npc:4706}"
-	["{npc:4706}, beside {npc:4630}"] = "",
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4630} 옆의 {npc:4706}",
 
 	-- Step 75: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -426,8 +424,7 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
 
 	-- Step 99: Rogue Vale screechers
-	-- was: ["Rogue Vale screechers"] = "도적의 골짜기 날카로운비명"
-	["Rogue Vale screechers"] = "",
+	["Rogue Vale screechers"] = "도적의 골짜기 날카로운비명",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
 	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
@@ -453,7 +450,6 @@ return {
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the Drag."] = "{area:1637}(으)로 날아가세요. 드로퍼스 형제는 골목길에서 상점을 운영합니다.",
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "{area:484}(으)로 날아가 주둔지 동쪽 승강기를 타고 내려간 뒤, 소금 평원을 가로질러 남쪽 {zone:1446}(으)로 가세요.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "{area:484}(으)로 날아간 뒤 서쪽으로 협곡을 지나 {area:2237}을(를) 지나가세요. 길은 {zone:1444} 정글로 올라가 {area:1099}까지 이어집니다.",
-	-- ["Fly to {area:75}"] = "{area:75}(으)로 날아가기",
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "{zone:1454}(으)로 날아가세요. 비행 조련사에서부터: {object:172960}, 그다음 골목길, 그다음 {object:172958}.",
 	-- ["Hearth to {area:1099}"] = "귀환석으로 {area:1099}에 가기",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "계속 서쪽 해안으로 가세요. 해변의 점쟁이 바다마크루라와 집게발 바다마크루라는 마흔 마리에 한 번꼴로 OOX-22/FE 조난 탐지기를 떨어뜨립니다. 얻으면 사용해 퀘스트를 시작하세요.",
@@ -465,7 +461,6 @@ return {
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "서쪽으로 {zone:1444} 한가운데로 가세요. {npc:5308}을(를) 처치하고 시체에 {item:10699}을(를) 사용한 뒤, 떠오르는 영혼을 처치하세요.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 하나 받습니다. 클래식에서는 각 종족이 자기 종족의 상급자에게서 배웁니다. 당신의 상급자는 {area:159}의 {npc:4773}이며, 그 옆에서 {npc:4731}이(가) 해골마(각 20골드)를 팝니다. Forever에서는 어느 종족이든 아무 탈것 타기 상급자에게서 배울 수 있을지도 모릅니다(확인되지 않음). 가장 가까운 {zone:1454} {object:172958}의 {npc:4752}에게 먼저 시도하고, 그가 가르쳐 주면 이 단계는 건너뛰세요.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 하나 받습니다. 클래식에서는 각 종족이 자기 종족의 상급자에게서 배웁니다. 당신의 상급자는 {zone:1411} 해안 {area:367}의 {npc:7953}이며, 그 옆에서 졸니르가 랩터(각 20골드)를 팝니다. Forever에서는 어느 종족이든 아무 탈것 타기 상급자에게서 배울 수 있을지도 모릅니다(확인되지 않음). 가장 가까운 {zone:1454} {object:172958}의 {npc:4752}에게 먼저 시도하고, 그가 가르쳐 주면 이 단계는 건너뛰세요.",
-	-- ["Rogue Vale screechers"] = "도적의 골짜기 날카로운비명",
 	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "해골마: {area:159}의 {npc:4773} 옆의 {npc:4731}",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "해안을 따라 남쪽으로 가면 남쪽바다해적단이 만을 차지하고 있습니다. {npc:7883}와(과) 도난당한 화물은 만 맨 끝 부두에 있습니다. 해적은 누구나 모자를 떨어뜨릴 수 있으며, 납치범이 가장 자주 떨어뜨립니다.\n주의: {npc:7883}(45) 곁에는 해적 두세 명이 서 있고, 싸움이 시작되면 마을의 해적이 훨씬 더 많이 합류합니다. 먼저 호위병을 그에게서 떼어 끌어오세요.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "해안을 따라 남쪽으로 가면 남쪽바다해적단이 만을 차지하고 있습니다. {npc:7883}와(과) 도난당한 화물은 만 맨 끝 부두에 있습니다. 해적은 누구나 모자를 떨어뜨릴 수 있으며, 납치범이 가장 자주 떨어뜨립니다.\n주의: {npc:7883} 곁에는 해적 두세 명이 서 있고, 싸움이 시작되면 마을의 해적이 훨씬 더 많이 합류합니다.",
@@ -493,7 +488,6 @@ return {
 	-- ["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976}은(는) {area:440} 경계를 막 지나서 있는 담장 두른 고블린 마을입니다.",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: 가지고 있다면 {npc:2496}에게서 받은 {item:5852}",
-	-- ["{npc:4706}, beside {npc:4630}"] = "{npc:4630} 옆의 {npc:4706}",
 	-- ["{npc:4773}, riding trainer"] = "탈것 타기 상급자 {npc:4773}",
 	-- ["{npc:6986}, the Drag"] = "골목길의 {npc:6986}",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",

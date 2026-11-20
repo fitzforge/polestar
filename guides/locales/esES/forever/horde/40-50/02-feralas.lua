@@ -129,8 +129,7 @@ return {
 
 	-- Step 32: Fly to Stonard
 	-- {area:75} Stonard
-	-- was: ["Fly to {area:75}"] = "Vuela a {area:75}"
-	["Fly to {area:75}"] = "",
+	["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:75} Stonard · {area:1978} Misty Reed Post
 	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -138,7 +137,7 @@ return {
 
 	-- Step 33: To Stonard
 	-- {area:75} Stonard
-	["To {area:75}"] = "",
+	["To {area:75}"] = "A {area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
 
@@ -151,18 +150,18 @@ return {
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 35: A Soggy Scroll
-	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "",
+	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Cabalga hacia el oeste por el camino; el pergamino está a la orilla del agua, en el extremo oeste del pantano.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 36: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "Crocoliscos Denteserra",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
 	-- Step 37: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "",
+	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "Vuelve al este pasando {area:75}: los artefactos Atal'ai están en el agua y en las orillas de {quest:1424}.",
 
 	-- Step 38: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -174,12 +173,12 @@ return {
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 41: Murlocs of the Misty Reed
-	["Murlocs of the Misty Reed"] = "",
+	["Murlocs of the Misty Reed"] = "Múrlocs de Juncobruma",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
-	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "",
+	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Los Múrlocs del pantano viven en la playa al sur del puesto; los Vomitatintas están en la orilla al este y los Comecarnes más al oeste, alrededor de las chozas de la orilla oeste.",
 
 	-- Step 43: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
@@ -190,27 +189,26 @@ return {
 
 	-- Step 46: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- {area:75} Stonard · {area:1497} Undercity · {area:340} Kargath · {npc:5204} Apothecary Zinge · {zone:1454} Orgrimmar
 	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "",
 
 	-- Step 47: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
-	["{npc:2934}, on the way back to Zinge"] = "",
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, de camino de vuelta a Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
 	-- Step 48: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
-	["{npc:7825}, the {object:36126}"] = "",
+	["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",
 
 	-- Step 49: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1454} Orgrimmar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
 	-- {npc:4773} Velma Warnam
-	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación"
-	["{npc:4773}, riding trainer"] = "",
+	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773}, en {area:159}."
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "",
@@ -303,8 +301,7 @@ return {
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
 	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
-	-- was: ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}"
-	["{npc:4706}, beside {npc:4630}"] = "",
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}",
 
 	-- Step 75: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -426,8 +423,7 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
 
 	-- Step 99: Rogue Vale screechers
-	-- was: ["Rogue Vale screechers"] = "Pícaros estridadores del valle"
-	["Rogue Vale screechers"] = "",
+	["Rogue Vale screechers"] = "Pícaros estridadores del valle",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
 	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
@@ -454,7 +450,6 @@ return {
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the {object:172959}."] = "Vuela a {area:1637}. Los hermanos Droffers tienen su tienda en {object:172959}.",
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "Vuela a {area:484}, baja por el ascensor al este del puesto, cruza los llanos salados y sigue hacia el sur hasta {zone:1446}.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Vuela a {area:484} y cabalga hacia el oeste por los cañones, pasando {area:2237}; el camino sube a la jungla de {zone:1444} y sigue hasta {area:1099}.",
-	-- ["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Vuela a {zone:1454}. Desde el maestro de vuelo: {object:172960}, luego La Calada, luego {object:172958}.",
 	-- ["Hearth to {area:1099}"] = "Piedra de hogar a {area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Sigue cabalgando hacia el oeste hasta la costa. Los Videnistas y Quebradores Reptacostas de las playas sueltan la baliza de socorro de OOX-22/FE aproximadamente una de cada cuarenta muertes: si cae, úsala para empezar la misión.",
@@ -466,7 +461,6 @@ return {
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Cabalga hacia el oeste hasta el centro de {zone:1444}. Mata a un {npc:5308}, usa {item:10699} en su cuerpo y mata al espíritu que surge.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla recibes una montura. En Classic cada raza la aprende del instructor de su raza: la tuya es {npc:4773}, en {area:159}, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno) a su lado. Puede que en Forever cualquier raza aprenda de cualquier instructor de equitación (sin confirmar): prueba primero con {npc:4752} en {object:172958} de {zone:1454}, que es el más cercano, y sáltate este paso si te entrena.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla recibes una montura. En Classic cada raza la aprende del instructor de su raza: el tuyo es {npc:7953}, en {area:367}, en la costa de {zone:1411}, con los raptores de Zjolnir (20 de oro cada uno) a su lado. Puede que en Forever cualquier raza aprenda de cualquier instructor de equitación (sin confirmar): prueba primero con {npc:4752} en {object:172958} de {zone:1454}, que es el más cercano, y sáltate este paso si te entrena.",
-	-- ["Rogue Vale screechers"] = "Pícaros estridadores del valle",
 	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773}, en {area:159}.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea en cuanto empieza: aleja primero a sus guardias de él.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883}, y muchos más piratas del pueblo se unen a la pelea en cuanto empieza.",
@@ -494,8 +488,6 @@ return {
 	-- ["{area:1099} flight master"] = "Maestro de vuelo de {area:1099}",
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} es el pueblo goblin amurallado justo pasada la frontera de {area:440}.",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: {item:5852} de {npc:2496}, si los llevas",
-	-- ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}",
-	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, La Calle Mayor",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, La Calada",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, instructor de equitación",

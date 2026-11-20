@@ -21,20 +21,20 @@ return {
 	["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "",
 
 	-- Step 4: Andorhal watchtowers and silos
-	["Andorhal watchtowers and silos"] = "",
+	["Andorhal watchtowers and silos"] = "安多哈尔的哨塔和粮仓",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
 	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}：在楼上",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "用{item:12815}标记{npc:10903}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "用{item:12815}标记{npc:10904}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "用{item:12815}标记{npc:10905}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "用{item:12815}标记{npc:10902}",
 
 	-- Step 5: Chromie
 	["Upstairs"] = "在楼上",
@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152}."] = "",
+	["West to the {area:152}."] = "向西前往 {area:152}。",
 
 	-- Step 10: Apothecary Dithers
 	-- {quest:838} Scholomance · {area:152} The Bulwark
@@ -62,7 +62,7 @@ return {
 	["from the cauldron, for {npc:11055} at the {area:152}: on the way back west, after the {zone:1423}"] = "",
 
 	-- Step 13: Mulgris Deepriver
-	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "",
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
 	["Inside"] = "在里面",
 
 	-- Step 16: Mulgris Deepriver
@@ -70,7 +70,7 @@ return {
 	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "",
 
 	-- Step 17: Diseased Grizzlies
-	["Diseased Grizzlies"] = "",
+	["Diseased Grizzlies"] = "生病的灰熊",
 	["Careful: the grizzlies are 55-56: pull them one at a time."] = "",
 
 	-- Step 19: Into Eastern Plaguelands
@@ -251,14 +251,14 @@ return {
 	["Under 55 on the first {area:152} stop? Derrington's {quest:838} is offered now: Dithers' {quest:964} come from the skeletons on the ride back west from {area:201}."] = "",
 
 	-- Step 58: Scarlet Crusade
-	["Scarlet Crusade"] = "",
+	["Scarlet Crusade"] = "血色十字军",
 	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "",
 	-- {npc:11613} Huntsman Radley · {npc:11611} Cavalier Durgen · {npc:11610} Kirsta Deepshadow · {area:190} Hearthglen
-	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
+	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} 站在伐木营地东边；{npc:11611} 守在 {npc:11610} 东北、通往 {area:190} 的道路旁。\n小心：塔底有守卫，另有一名绕塔巡逻。与杜根·挽锤交战前先清掉它们，避免它们加入战斗。",
 
 	-- Step 61: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow · {area:190} Hearthglen
@@ -274,7 +274,7 @@ return {
 
 	-- Step 64: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152} one last time."] = "",
+	["West to the {area:152} one last time."] = "最后一次向西返回{area:152}。",
 
 	-- Step 66: Class trainer
 	["Class trainer"] = "职业训练师",
@@ -291,7 +291,7 @@ return {
 
 	-- Step 68: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "飞往{area:431}",
 	-- {zone:1454} Orgrimmar · {area:152} The Bulwark
 	["Hearth to {zone:1454} from the {area:152}: the Hearthstone is still bound there from the previous guide's {zone:1454} stop (Mages teleport). Then the flight master."] = "",
 
@@ -321,7 +321,7 @@ return {
 
 	-- Step 74: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
-	["The {area:2479}"] = "",
+	["The {area:2479}"] = "{area:2479}",
 	-- {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "",
 	-- {npc:10922} Greta Mosshoof · {zone:1413} Barrens
@@ -332,7 +332,7 @@ return {
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
-	["Back south to the Sanctuary, a short ride."] = "",
+	["Back south to the Sanctuary, a short ride."] = "向南回到翡翠圣地，路程很短。",
 
 	-- Step 77: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
@@ -344,11 +344,11 @@ return {
 	-- Step 78: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Enforcers = {npc:7114} Jaedenar Enforcer
-	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "",
+	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "掉落了一把{item:13140}：暗影堡的加德纳尔执行者、织暗者、术士和军团士兵偶尔会携带。使用它接取任务，离开时顺便把{npc:11018}从洞穴南端的笼子里救出来。",
 
 	-- Step 79: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}：在地下",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
 	["{npc:11016}: lead her out of {area:1770}"] = "",
 

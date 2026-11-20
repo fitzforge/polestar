@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -53,14 +53,13 @@ return {
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "En {object:172961}. Cada donación se lleva sesenta de lana, seda o tejido mágico de tus bolsas: entrega lo que lleves y omite el resto.",
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "En {object:172958}."
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "En {object:172958}.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Las dos donaciones de {item:14047} se entregan más adelante en la ruta: guarda sesenta de {item:14047} para cada una si las quieres.",
 
 	-- Step 12: Paladin trainer
 	["Paladin trainer"] = "Instructor de paladines",
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "Vuela a {area:1237}",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "Vuela a {zone:1454}; {npc:4485} está en {object:172958}, y {npc:3326} y {npc:8659} en {object:172960}.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Vuela a {zone:1454}; {npc:4485} está en {object:172958}.",
-	-- ["In the {object:172958}."] = "En {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "En {object:172961}. Lleva el paño de lana, de seda y de tejido mágico en tus bolsas.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Guarda las entregas para {npc:8659}, {npc:6522}, {npc:4485} y {npc:3326}: pasarás por {zone:1454} y {zone:1458} a continuación. La de Magatha, en {zone:1456}, queda fuera de esta ruta: déjala.",
 	-- ["Makrinni Burrowers"] = "Excavadores Makrinni",

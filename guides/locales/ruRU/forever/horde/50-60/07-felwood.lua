@@ -108,7 +108,7 @@ return {
 	["grind on {npc:7446}"] = "убивайте: {npc:7446}",
 
 	-- Step 27: Ice Thistle yetis
-	["Ice Thistle yetis"] = "",
+	["Ice Thistle yetis"] = "Йети ледополохов",
 	-- {area:2255} Everlook · {item:258323} Missing Mail
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",

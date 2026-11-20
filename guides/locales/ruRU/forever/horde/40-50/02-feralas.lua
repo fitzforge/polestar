@@ -129,8 +129,7 @@ return {
 
 	-- Step 32: Fly to Stonard
 	-- {area:75} Stonard
-	-- was: ["Fly to {area:75}"] = "Летите сюда: {area:75}"
-	["Fly to {area:75}"] = "",
+	["Fly to {area:75}"] = "Летите сюда: {area:75}",
 	-- {object:3202} Grom'gol · {area:75} Stonard · {area:1978} Misty Reed Post
 	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
 	-- {object:3202} Grom'gol
@@ -138,7 +137,7 @@ return {
 
 	-- Step 33: To Stonard
 	-- {area:75} Stonard
-	["To {area:75}"] = "",
+	["To {area:75}"] = "В место {area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
 
@@ -146,23 +145,23 @@ return {
 	-- {quest:698} Lack of Surplus · {quest:1424} Pool of Tears · {quest:1430} Fresh Meat · {npc:5593} Katar · {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
 	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, внутри",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 35: A Soggy Scroll
-	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "",
+	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Езжайте на запад по дороге; свиток лежит у кромки воды на дальнем западе болота.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 36: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "Острозубые кроколиски",
 	-- {area:75} Stonard
 	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
 
 	-- Step 37: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "",
+	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "Назад на восток мимо места {area:75}: артефакты Атал'ай лежат в воде и на берегах (задание: {quest:1424}).",
 
 	-- Step 38: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -170,16 +169,16 @@ return {
 
 	-- Step 39: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403}: убивайте их по пути",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 41: Murlocs of the Misty Reed
-	["Murlocs of the Misty Reed"] = "",
+	["Murlocs of the Misty Reed"] = "Мурлоки Тростникового берега",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
-	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "",
+	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "Болотные мурлоки живут на берегу к югу от лагеря; чернильщики – вдоль берега к востоку, а трупоеды – дальше к западу, у хижин на западном берегу.",
 
 	-- Step 43: Continued Threat
 	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
@@ -196,21 +195,20 @@ return {
 
 	-- Step 47: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
-	["{npc:2934}, on the way back to Zinge"] = "",
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, по пути назад к Зинге",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
 	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
 
 	-- Step 48: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
-	["{npc:7825}, the {object:36126}"] = "",
+	["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",
 
 	-- Step 49: Riding at 40
 	["Riding at 40"] = "Верховая езда на 40-м уровне",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1454} Orgrimmar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
 	-- {npc:4773} Velma Warnam
-	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, учитель верховой езды"
-	["{npc:4773}, riding trainer"] = "",
+	["{npc:4773}, riding trainer"] = "{npc:4773}, учитель верховой езды",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Кони-скелеты: {npc:4731}, рядом с персонажем {npc:4773} ({area:159})."
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "",
@@ -303,8 +301,7 @@ return {
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
 	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
-	-- was: ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, рядом: {npc:4630}"
-	["{npc:4706}, beside {npc:4630}"] = "",
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, рядом: {npc:4630}",
 
 	-- Step 75: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -426,8 +423,7 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "К северо-западу от руин, в месте {area:1105}, логово йети; толстая шкура может упасть с любого йети там.",
 
 	-- Step 99: Rogue Vale screechers
-	-- was: ["Rogue Vale screechers"] = "Крикуны Разбойничьей долины"
-	["Rogue Vale screechers"] = "",
+	["Rogue Vale screechers"] = "Крикуны Разбойничьей долины",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
 	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
@@ -452,7 +448,6 @@ return {
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the Drag."] = "Летите сюда: {area:1637}. Лавка братьев Дрофферсов – на Волоке.",
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "Летите сюда: {area:484}, спуститесь на подъемнике к востоку от лагеря, пересеките солончаки и езжайте на юг в край {zone:1446}.",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Летите сюда: {area:484}, затем езжайте на запад через каньоны мимо места {area:2237}; дорога поднимается в джунгли ({zone:1444}) и ведет сюда: {area:1099}.",
-	-- ["Fly to {area:75}"] = "Летите сюда: {area:75}",
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Летите в {zone:1454}. От распорядителя полетов: {object:172960}, затем Волок, затем {object:172958}.",
 	-- ["Hearth to {area:1099}"] = "Камень возвращения: {area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Езжайте дальше на запад к побережью. С береговых глубинников и клешнехватов на пляжах примерно один раз из сорока падает аварийный маяк OOX-22/FE: если выпадет, используйте его, чтобы начать задание.",
@@ -465,7 +460,6 @@ return {
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Езжайте на запад в центр края {zone:1444}. Убейте монстра {npc:5308}, примените на тело предмет {item:10699} и убейте поднявшийся дух.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. В Classic каждая раса учится у своего учителя: ваш – {npc:4773} ({area:159}), рядом кони-скелеты ({npc:4731}, по 20 золотых). В Forever, возможно, любая раса может учиться у любого учителя (не подтверждено): сначала попробуйте персонажа {npc:4752} ({zone:1454}, {object:172958}) – он ближе всех, и пропустите этот шаг, если он вас обучит.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. В Classic каждая раса учится у своего учителя: ваш – {npc:7953} ({area:367}, побережье края {zone:1411}), рядом ящеры Зьольнира (по 20 золотых). В Forever, возможно, любая раса может учиться у любого учителя (не подтверждено): сначала попробуйте персонажа {npc:4752} ({zone:1454}, {object:172958}) – он ближе всех, и пропустите этот шаг, если он вас обучит.",
-	-- ["Rogue Vale screechers"] = "Крикуны Разбойничьей долины",
 	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Кони-скелеты: {npc:4731}, рядом с персонажем {npc:4773} ({area:159}).",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Дальше на юг вдоль берега бухту занимают пираты Южных морей. {npc:7883} и украденный груз – на причале в дальнем конце. Шляпа может упасть с любого пирата, чаще всего с похитителей.\nОсторожно: рядом с NPC {npc:7883} (45) стоят два-три пирата, а как только начнется бой, в него вступят многие пираты из городка: сначала выманите его охрану.",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Дальше на юг вдоль берега бухту занимают пираты Южных морей. {npc:7883} и украденный груз – на причале в дальнем конце. Шляпа может упасть с любого пирата, чаще всего с похитителей.\nОсторожно: рядом с NPC {npc:7883} стоят два-три пирата, а как только начнется бой, к нему присоединятся многие пираты из городка.",
@@ -494,8 +488,6 @@ return {
 	-- ["{area:1099} flight master"] = "Распорядитель полетов: {area:1099}",
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} – обнесенный стеной гоблинский город сразу за границей края {area:440}.",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: {item:5852} от персонажа {npc:2496}, если они у вас есть",
-	-- ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, рядом: {npc:4630}",
-	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, учитель верховой езды",
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, Волок",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, Волок",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, учитель верховой езды",

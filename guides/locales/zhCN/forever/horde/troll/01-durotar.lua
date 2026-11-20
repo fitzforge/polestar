@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}：交给沃特"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交给{npc:11046}",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "香蒲和矛草长在暗巷区东边{object:172958}的水边。",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -488,7 +487,6 @@ return {
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "学会{skill:393}后，{npc:265809}还会提供对应的露营 101 任务：交给{zone:1454}的{npc:7088}（下篇指南）。",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809}在{area:362}南面不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}：交给沃特",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}：交给{npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}：交给{npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}：交给{npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}：交给{npc:3365}",

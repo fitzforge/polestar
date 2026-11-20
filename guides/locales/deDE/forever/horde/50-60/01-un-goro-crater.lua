@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Der Goblin {npc:10302} sitzt am Ort {area:543}, gleich östlich des Pylons."
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Der Goblin {npc:10302} sitzt am Ort {area:543}, gleich östlich des Pylons.",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} schickt dich zu {npc:9298} in {zone:1452}: Behalte es."
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} schickt dich zu {npc:9298} in {zone:1452}: Behalte es.",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -171,8 +169,7 @@ return {
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
-	-- was: ["Escort {npc:9999}"] = "Eskortiere {npc:9999}"
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führe {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken."
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
@@ -243,15 +240,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "Hör dir die Geschichte von {npc:8479} noch einmal an.",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} liegt zu Füßen von {npc:8479} auf dem Boden; {quest:3462} steht neben ihm.",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "Wachkohlenbecken",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +298,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}, aus dem Hort",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -370,7 +367,6 @@ return {
 	-- ["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Vorsicht: Gorishi Workers, die unter 45% Gesundheit fallen, rufen mit 50% Wahrscheinlichkeit Verbündete im Umkreis von 25 yd zu Hilfe.",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Vorsicht: In der Gegend streifen viele Ravasaurs umher, sodass du leicht mehrere gleichzeitig ziehst.\nSolange du unter Stufe 52 bist, jage hier nach der achten Klaue weiter Ravasaurs: {quest:4061} in {area:340} braucht Stufe 52, und die Quests im Pestland am Ende dieses Guides sind Stufe 55. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:2100}.",
 	-- ["Darrowshire Spirits"] = "Geister von Darrowshire",
-	-- ["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Flieg nach {area:1637} und trainiere vor dem Zeppelin nach {object:3202}: Der Halt in {zone:1458} später in diesem Guide hat keinen Jäger- oder Schamanenlehrer.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Flieg nach {area:1637}, nimm den Zeppelin nach {object:3202} und flieg von dort nach {area:340}, das in die Klippen am Westrand des Gebiets {zone:1418} gebaut ist.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Flieg nach {area:1638} und trainiere bei {npc:3033} im Gebiet {area:1639}; flieg dann nach {area:1637} zum Zeppelin nach {object:3202}.",
@@ -441,8 +437,6 @@ return {
 	-- ["grind on {npc:6551}"] = "grinde {npc:6551}",
 	-- ["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "das Holzschild neben {npc:9997}, beim Flugmeister: Die Pterrordax liegen auf dem Gelände dieses Guides",
 	-- ["{area:272} flight master"] = "Flugmeister von {area:272}",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} schickt dich zu {npc:9298} in {zone:1452}: Behalte es.",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Der Goblin {npc:10302} sitzt am Ort {area:543}, gleich östlich des Pylons.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}s Geist steht in den Ruinen von {area:2262} im Südwesten.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} lauert gleich westlich von {area:2262}.",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",

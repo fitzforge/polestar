@@ -373,12 +373,11 @@ return {
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	-- was: ["{quest:98069}, on the ground around the den"] = "{quest:98069}, par terre autour du repaire"
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}, par terre autour du repaire",
 
 	-- Step 84: Freewind Post
 	-- {area:484} Freewind Post
-	["Back east to {area:484}."] = "",
+	["Back east to {area:484}."] = "Retournez à l'est jusqu'au {area:484}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}, à l'intérieur",
 	-- {npc:4877} Jandia
@@ -388,8 +387,7 @@ return {
 
 	-- Step 85: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
-	-- was: ["{area:484} flight master"] = "Maître de vol de {area:484}"
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Maître de vol de {area:484}",
 
 	-- Step 86: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
@@ -463,7 +461,6 @@ return {
 	-- ["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- ["{area:378} flight master"] = "Maître de vol du {area:378}",
 	-- ["{area:483}: kill these as you meet them"] = "{area:483} : tuez-les au passage",
-	-- ["{area:484} flight master"] = "Maître de vol de {area:484}",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'ascenseur",
 	-- ["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "La quête suivante de {npc:10428}, Feu sacré, se termine à {zone:1456}, hors de cet itinéraire. Passez-la.",
 	-- ["{npc:12196}, beside her"] = "{npc:12196}, à côté d'elle",
@@ -492,5 +489,4 @@ return {
 	-- ["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877} : ses fournitures volées se trouvent dans le même repaire de harpies",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868} jonche les Salines au nord de la piste. Scorpides ravageurs et Tortues nacrétoile parcourent la moitié nord, des Charognards des Salines tournoient au-dessus, et des Basilics du sel gemme paissent à l'ouest de la piste. Les Peaux de cristal du sel gemme parcourent le centre des Salines et les Contemplateurs du sel gemme (34-35, cinq niveaux au-dessus de vous : un à la fois) l'extrême sud.",
 	-- ["{object:3646}; below ground"] = "{object:3646} ; sous terre",
-	-- ["{quest:98069}, on the ground around the den"] = "{quest:98069}, par terre autour du repaire",
 }

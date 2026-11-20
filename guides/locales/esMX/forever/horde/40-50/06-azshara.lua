@@ -179,8 +179,7 @@ return {
 
 	-- Step 45: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
-	-- was: ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga al noroeste hasta {area:1108}; {npc:14637} espera en el muelle."
-	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "",
+	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga al noroeste hasta {area:1108}; {npc:14637} espera en el muelle.",
 
 	-- Step 46: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
@@ -190,10 +189,10 @@ return {
 	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, de los Rocíos del mar",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, en los Zancaolas y Zancaprofundas del agua",
 
 	-- Step 48: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
@@ -212,17 +211,17 @@ return {
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
 	-- Step 52: Rage Scar yetis
-	["Rage Scar yetis"] = "",
+	["Rage Scar yetis"] = "Yetis Cicatriz de Rabia",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
-	["{quest:7738}, a rare drop"] = "",
+	["{quest:7738}, a rare drop"] = "{quest:7738}, botín raro",
 
 	-- Step 53: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "De vuelta a {area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, adentro",
 
 	-- Step 55: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -284,7 +283,6 @@ return {
 	-- ["Paladin trainer"] = "Instructor de paladines",
 	-- ["Ride into {area:16}"] = "Cabalga hacia {area:16}",
 	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "Cabalga al noreste hasta el campamento del goblin en los acantilados sobre {area:1227}.",
-	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga al noroeste hasta {area:1108}; {npc:14637} espera en el muelle.",
 	-- ["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "Cabalga al suroeste hasta las ruinas. Las cuatro tablillas están entre las ruinas, custodiadas por nagas Látigo de Ira; cualquier Sirena o Mirmidón puede llevar la runa de {npc:8420}.",
 	-- ["Ride west back to {area:1237}."] = "Cabalga al oeste de vuelta a {area:1237}.",
 	-- ["Sea elementals"] = "Elementales de mar",

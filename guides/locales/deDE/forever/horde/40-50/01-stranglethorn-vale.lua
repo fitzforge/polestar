@@ -22,8 +22,7 @@ return {
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
-	-- was: ["{area:1497} trainers"] = "Lehrer in {area:1497}"
-	["{zone:1458} trainers"] = "",
+	["{zone:1458} trainers"] = "Lehrer in {zone:1458}",
 
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Reiten mit 40",
@@ -366,8 +365,7 @@ return {
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
 	-- Step 78: Sawtooth snappers
-	-- was: ["Sawtooth snappers"] = "Sägezahnschnapper"
-	["Sawtooth snappers"] = "",
+	["Sawtooth snappers"] = "Sägezahnschnapper",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -421,7 +419,6 @@ return {
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Reite die Straße nach Westen zum Draenei-Lager bei {area:657}, nahe dem Zugang von {zone:1430}. {quest:698} geht beim nächsten Sumpfbesuch an {npc:5592} bei {area:1978}: Behalte die Flanken.",
 	-- ["Ride west to {object:3202}."] = "Reite nach Westen nach {object:3202}.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; beim Erlernen bekommst du ein Reittier, und ohne eines ist der Weg durch {zone:2548} nach dem Schlingendorntal lang. Nimm den Zeppelin vom Turm in {object:3202} zu den Türmen von {area:1497}: {npc:4773} lehrt die Verlassenen in {area:159}, einen kurzen Ritt nördlich, mit den Skelettpferden von {npc:4731} (je 20 Gold). Dann mit dem Zeppelin zurück nach {object:3202}. Zu wenig Gold? Überspring diesen Schritt: Der Guide für {zone:1435} führt dich mit etwa 47 erneut durch {area:1497}.",
-	-- ["Sawtooth snappers"] = "Sägezahnschnapper",
 	-- ["Skullsplitter warriors"] = "Krieger der Skullsplitter",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Südlich von Booty Bay lagern die Schwadroneure der Blutsegelbukaniere an der {area:43}; die Karten und Befehle liegen in ihren Zelten und im Ruderboot neben dem größeren Lager. Jeder Blutsegelbukanier kann Schnupftabak und {npc:2493}s Auge tragen, also töte weiter, bis du beides hast.",
 	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "Nimm die Straße nach Norden aus {area:35}; Unbagwa sitzt auf einem Hügel in {area:1737}, östlich der Straße.",

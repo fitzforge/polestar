@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}: für Whuut"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Rohrkolben und Speergras wachsen am Wasser im {object:172958}, östlich der Gasse.",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -489,7 +488,6 @@ return {
 	-- ["{npc:12430} kneels behind the rocks just off the road south of {area:362}, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count."] = "{npc:12430} kniet hinter den Felsen direkt neben der Straße südlich von {area:362}, auf deinem Weg zur Festung. Wirke Geringes Heilen (Rang 2) auf sie, dann Machtwort: Seelenstärke: Rang 1 von Geringes Heilen zählt nicht.",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff Verbesserter Ruhebonus erscheint. Wenn du einen Beruf gelernt hast, bietet {npc:265809} auch sein Camping 101 an, das sein Lehrer abnimmt: in {area:362} oder in {zone:1454} am Anfang des nächsten Guides.",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}: für Whuut",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: für {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: für {npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: für {npc:3365}",

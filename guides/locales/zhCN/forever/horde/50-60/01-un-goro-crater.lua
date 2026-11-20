@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。"
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。"
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -171,8 +169,7 @@ return {
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
-	-- was: ["Escort {npc:9999}"] = "护送{npc:9999}"
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "带{npc:9999}向北前往{area:541}。他晕倒时，对他使用{item:11804}把他叫醒。"
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
@@ -243,15 +240,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "再听一次{npc:8479}讲述他的故事。",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}就放在{npc:8479}脚边的地上；{quest:3462}站在他身旁。",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "哨兵火盆",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +298,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}：从宝藏中获取",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -372,7 +369,6 @@ return {
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "注意：这里有很多暴掠龙游荡，很容易同时引到多只。\n拿到第八只爪子后，如果还没到52级，就继续在这里猎杀暴掠龙：{area:340}的{quest:4061}需要52级，本指南结尾的瘟疫之地任务为55级。也可组队挑战{area:1417}副本或{area:2100}副本。",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "注意：{npc:10411}在非战斗状态下会隐形，开战后会召唤石翼石像鬼。总共只有三个刷新点，刷新间隔为 15 分钟。",
 	-- ["Darrowshire Spirits"] = "达隆郡居民的灵魂",
-	-- ["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "在乘坐前往{object:3202}的飞艇前，先飞往{area:1637}训练：本指南稍后经过的{zone:1458}没有猎人和萨满祭司训练师。",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "飞往{area:1637}，乘飞艇前往{object:3202}，再从那里飞往{zone:1418}西缘依悬崖而建的{area:340}。",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飞往{area:1638}，在{area:1639}找{npc:3033}训练，然后飞往{area:1637}乘坐前往{object:3202}的飞艇。",
@@ -453,8 +449,6 @@ return {
 	-- ["{area:2268} flight master"] = "{area:2268}的飞行管理员",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}：沿途遇到就击杀",
 	-- ["{area:272} flight master"] = "{area:272}的飞行管理员",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南边{area:2262}的废墟里。",
 	-- ["{npc:10927}, upstairs"] = "{npc:10927}：在楼上",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}潜伏在{area:2262}正西。",

@@ -75,8 +75,7 @@ return {
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
 	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	-- was: ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}"
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
 	-- Step 23: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -190,10 +189,10 @@ return {
 	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, von den Meeresschauern",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, auf die Wellen- und Tiefenschreiter im Wasser",
 
 	-- Step 48: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
@@ -212,17 +211,17 @@ return {
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
 	-- Step 52: Rage Scar yetis
-	["Rage Scar yetis"] = "",
+	["Rage Scar yetis"] = "Wutschrammyetis",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
-	["{quest:7738}, a rare drop"] = "",
+	["{quest:7738}, a rare drop"] = "{quest:7738}, eine seltene Beute",
 
 	-- Step 53: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "Zurück nach {area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, drinnen",
 
 	-- Step 55: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -316,7 +315,6 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} steht im {object:36082}.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "Der Teer für {npc:7876} und Pestlezuggs Proben stammen aus {zone:1449}.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, am Ostrand des Lagers: keine Erfahrung, nur ein Teleport zum Azsharaturm",
-	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{object:3202} flight master"] = "Flugmeister von {object:3202}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761} wird im nächsten Guide gesammelt; {npc:4046}s Bezahlung geht später zurück an {npc:8587}.",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} erfordert Stufe 50: {npc:7010} in der Gasse gibt sie ab dann. Unter 50 bietet der Guide für {zone:1447} mit 55 sie erneut an.",

@@ -17,7 +17,7 @@ return {
 	-- {zone:1445} Dustwallow Marsh · {area:496} Brackenwall Village · {area:976} Gadgetzan
 	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:1099} Camp Mojache

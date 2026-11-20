@@ -377,7 +377,7 @@ return {
 
 	-- Step 84: Freewind Post
 	-- {area:484} Freewind Post
-	["Back east to {area:484}."] = "",
+	["Back east to {area:484}."] = "Vuelve al este a {area:484}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "",
 	-- {npc:4877} Jandia

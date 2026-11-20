@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voe para {area:392}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -53,14 +53,14 @@ return {
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	-- was: ["In the {object:172958}."] = "No {object:172958}."
 	["In the {object:172958}."] = "",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "As duas doações de {item:14047} são entregues mais adiante na rota: guarde sessenta {item:14047} para cada uma, se quiser fazê-las.",
 
 	-- Step 12: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",

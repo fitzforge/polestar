@@ -60,7 +60,7 @@ return {
 
 	-- Step 14: Fly to Valormok
 	-- {area:1237} Valormok
-	["Fly to {area:1237}"] = "",
+	["Fly to {area:1237}"] = "飞往{area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
 	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
 	-- {zone:1454} Orgrimmar
@@ -68,91 +68,91 @@ return {
 
 	-- Step 15: Valormok
 	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
-	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "",
+	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}：{quest:91569}，从血精灵奥术师身上获取一根魔杖",
 
 	-- Step 16: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
-	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "向东骑到海岸边的废墟。四块石板散落在废墟中，由恶鞭纳迦（52-55级）守卫：一次引一只。",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "",
+	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向东骑往海岸边的废墟。在沿岸的海潮之池装满科雷的四个瓶子；恶鞭纳迦在海潮之池之间巡逻。",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["Makrinni Burrowers"] = "",
+	["Makrinni Burrowers"] = "马克林尼掘地者",
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "",
+	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "马克林尼掘地者（50-51级）在废墟东边不远的沙地里挖掘，正好在往东北的路上；它们和那里埋藏的宝箱会给出上层精灵财宝碎片。",
 
 	-- Step 19: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
-	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "",
+	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "继续向东北穿过{zone:1447}中部：{npc:235903}在路旁扎营。",
 	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
-	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "",
+	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}：{quest:86746}，血精灵营地北边的萨特",
 
 	-- Step 20: Kim'jael
 	-- {area:1227} Bay of Storms
-	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "",
+	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "向东北骑到{area:1227}上方悬崖上的地精营地，就在血精灵营地北边。",
 
 	-- Step 21: Thalassian Base Camp
 	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "",
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "血精灵在东北的悬崖上扎营，就在{area:1227}旁边。{npc:8420}的四件装备在营地周围的箱子里；血精灵奥术师身上带着{npc:247473}要的魔杖。\n小心：一个{npc:250023}（55-57级精英）站在营地西缘：从营地东侧对付血精灵。",
 	-- {item:246680} Mana-Siphoning Wand
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
-	["{item:246680}, from the Blood Elf Arcanists"] = "",
+	["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}，来自血精灵奥术师",
 
 	-- Step 22: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
-	["{npc:8578}'s camp"] = "",
+	["{npc:8578}'s camp"] = "{npc:8578}的营地",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。",
 
 	-- Step 23: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
-	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "",
+	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "营地的三名军官（53级）各带一枚印记：{npc:247006}在营地中央，{npc:247013}在营地东端，{npc:246991}在营地西半边巡逻：在他巡逻路线的东侧、箭头所指处对付他。\n小心：{npc:250023}（55-57级精英）站在营地西缘，靠近鹰盔巡逻路线的尽头：等鹰盔走回东边再动手。",
 	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
-	["{item:246725}, from {npc:247006}"] = "",
+	["{item:246725}, from {npc:247006}"] = "{item:246725}，来自{npc:247006}",
 	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
-	["{item:246721}, from {npc:246991}"] = "",
+	["{item:246721}, from {npc:246991}"] = "{item:246721}，来自{npc:246991}",
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
-	["{item:246722}, from {npc:247013}"] = "",
+	["{item:246722}, from {npc:247013}"] = "{item:246722}，来自{npc:247013}",
 
 	-- Step 24: Magus Rimtori
 	-- {npc:8578} Magus Rimtori
 	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
-	["{quest:91538}: for {npc:8587} in {area:1237}"] = "",
+	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交给{area:1237}的{npc:8587}",
 
 	-- Step 25: The Legashi satyrs
-	["The Legashi satyrs"] = "",
+	["The Legashi satyrs"] = "雷加希萨特",
 	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "雷加希萨特（51-52级）占据着血精灵营地以北的山丘：{npc:235903}要每种各五只。",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north-west to {npc:8420}."] = "",
+	["Back north-west to {npc:8420}."] = "向西北回到{npc:8420}处。",
 
 	-- Step 27: Ruins of Eldarath: Some Rune
 	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "",
+	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "向南骑到{area:1221}的北缘。那里的恶鞭海妖和恶鞭侍从（50-52级）携带{npc:8420}的符文；掉率不高，沿着边缘一路刷到掉落为止。",
 
 	-- Step 28: Kim'jael
 	-- {npc:8420} Kim'jael
-	["Back north to {npc:8420} with the rune, then south-west along the road."] = "",
+	["Back north to {npc:8420} with the rune, then south-west along the road."] = "带着符文向北回到{npc:8420}处，然后沿道路向西南走。",
 
 	-- Step 29: Ekkal
 	-- {npc:235903} Ekkal
-	["South-west along the road: {npc:235903} takes the satyrs."] = "",
+	["South-west along the road: {npc:235903} takes the satyrs."] = "沿道路向西南：向{npc:235903}交还萨特任务。",
 
 	-- Step 30: Ag'tor Bloodfist
 	-- {area:1237} Valormok
-	["Ride back west to {area:1237}."] = "",
+	["Ride back west to {area:1237}."] = "向西骑回{area:1237}。",
 	-- {npc:8576} Ag'tor Bloodfist · {quest:91531} Revenge Exacted · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "",
+	["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}：{quest:91531}，交给{zone:1454}的{npc:4485}",
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
-	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "",
+	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}：宝典要交给{zone:1454}的{npc:3326}",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
 	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
 
@@ -161,21 +161,20 @@ return {
 	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
 
 	-- Step 32: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
-	-- was: ["Upstairs"] = "在楼上"
-	["Upstairs"] = "",
+	["The apprentice at the top of the tower sends you back down."] = "塔顶的学徒会把你送回下面。",
+	["Upstairs"] = "在楼上",
 
 	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "{area:1237}的飞行管理员",
 
 	-- Step 35: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
-	["{npc:3326}, the {object:172960}"] = "",
+	["{npc:3326}, the {object:172960}"] = "{npc:3326}，在{object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
 	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
 
@@ -275,7 +274,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "拾取到{item:13140}后，使用它开始任务，再到{area:1763}北端的洞穴{area:1770}中，将{npc:11018}从笼子里救出。",
@@ -359,7 +358,6 @@ return {
 	-- ["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.7 级，再去 {area:1997} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 	-- ["Top up here to level 54.87 before the hand-ins at {area:2255}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到 54.87 级，再去 {area:2255} 交任务，交完即可到 55 级。也可组队前往 {area:1584} 副本或 {area:1417} 副本。",
 	-- ["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到54.87级，再去{zone:1452}交任务，交完即可到55级。也可组队挑战{area:1584}副本或{area:1417}副本。",
-	-- ["Upstairs"] = "在楼上",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "走进{npc:15395}旁边的{area:1769}隧道，千万别攻击里面的木喉熊怪。隧道出口在{zone:1452}；沿道路向东前往地精城镇{area:2255}，下一个指南从那里开始。",
 	-- ["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "护送{npc:11018}离开{area:1770}，保护她直到走出洞穴。",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "在{zone:1448}的{area:1762}刷死木复仇者",

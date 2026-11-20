@@ -33,13 +33,13 @@ return {
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
 	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
 	-- Step 5: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Летите сюда: {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris

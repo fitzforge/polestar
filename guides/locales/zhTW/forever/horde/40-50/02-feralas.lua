@@ -94,7 +94,7 @@ return {
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}，在旅店裡：他的酒瓶衝到{zone:1425}海岸上，大約48級",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
@@ -129,8 +129,7 @@ return {
 
 	-- Step 32: Fly to Stonard
 	-- {area:75} Stonard
-	-- was: ["Fly to {area:75}"] = "飛往{area:75}"
-	["Fly to {area:75}"] = "",
+	["Fly to {area:75}"] = "飛往{area:75}",
 	-- {object:3202} Grom'gol · {area:75} Stonard · {area:1978} Misty Reed Post
 	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
 	-- {object:3202} Grom'gol
@@ -138,7 +137,7 @@ return {
 
 	-- Step 33: To Stonard
 	-- {area:75} Stonard
-	["To {area:75}"] = "",
+	["To {area:75}"] = "前往{area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
 	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
 
@@ -152,18 +151,18 @@ return {
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 35: A Soggy Scroll
-	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "",
+	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "沿道路向西騎；卷軸在沼澤最西邊的水邊。",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 36: Sawtooth crocolisks
-	["Sawtooth crocolisks"] = "",
+	["Sawtooth crocolisks"] = "鹽齒鱷魚",
 	-- {area:75} Stonard
-	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "鱷魚泡在加倫舊營地周圍的水塘裡，就在{area:75}以北，在往東回來的路上；大約四個掉一個側肉。",
 
 	-- Step 37: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "",
+	["Back east past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}."] = "向東經過{area:75}：阿塔萊的文物在{quest:1424}的水中和岸邊。",
 
 	-- Step 38: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -171,19 +170,19 @@ return {
 
 	-- Step 39: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403}：遇到就殺",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 41: Murlocs of the Misty Reed
-	["Murlocs of the Misty Reed"] = "",
+	["Murlocs of the Misty Reed"] = "蘆葦崗哨的魚人",
 	-- plural, as words: Marsh Murlocs = {npc:747} Marsh Murloc
-	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "",
+	["The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore."] = "沼澤魚人住在哨站南邊的海灘；沼澤噴墨魚人在哨站東邊的岸邊，沼澤食腐魚人在更西邊、西岸的小屋周圍。",
 
 	-- Step 43: Continued Threat
-	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "又是同一段魚人海岸：噴墨者在哨站以東，食肉者在西邊的棚屋周圍，神諭者混在兩者中間。",
 
 	-- Step 45: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
@@ -191,19 +190,19 @@ return {
 
 	-- Step 46: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- {area:75} Stonard · {area:1497} Undercity · {area:340} Kargath · {npc:5204} Apothecary Zinge · {zone:1454} Orgrimmar
 	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "",
 
 	-- Step 47: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
-	["{npc:2934}, on the way back to Zinge"] = "",
+	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}，在回去找辛吉的路上",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "這些差事給{item:8523}：留著，塔納利斯野外取樣會在{area:976}還給你",
 
 	-- Step 48: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
-	["{npc:7825}, the {object:36126}"] = "",
+	["{npc:7825}, the {object:36126}"] = "{npc:7825}，{object:36126}",
 
 	-- Step 49: Riding at 40
 	["Riding at 40"] = "40級騎術",
@@ -304,8 +303,7 @@ return {
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
 	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
-	-- was: ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}，在{npc:4630}旁邊"
-	["{npc:4706}, beside {npc:4630}"] = "",
+	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}，在{npc:4630}旁邊",
 
 	-- Step 75: To Gadgetzan
 	-- {area:976} Gadgetzan
@@ -427,8 +425,7 @@ return {
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在廢墟西北，雪人在{area:1105}築巢；那裡的每個雪人都可能掉落厚重的雪人皮。",
 
 	-- Step 99: Rogue Vale screechers
-	-- was: ["Rogue Vale screechers"] = "遊蕩的山谷尖嘯者"
-	["Rogue Vale screechers"] = "",
+	["Rogue Vale screechers"] = "遊蕩的山谷尖嘯者",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
 	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
@@ -454,7 +451,6 @@ return {
 	-- ["Fly to {area:1637}. The Droffers brothers run their shop in the Drag."] = "飛往{area:1637}。杜佛斯兄弟在城裡開店。",
 	-- ["Fly to {area:484}, ride down the lift east of the post and across the salt flats, then south into {zone:1446}."] = "飛往{area:484}，搭崗哨東邊的升降梯下去，穿過鹽灘，再向南進入{zone:1446}。",
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "飛往{area:484}，然後向西騎過峽谷經過{area:2237}；道路爬升進入{zone:1444}的叢林，一路通往{area:1099}。",
-	-- ["Fly to {area:75}"] = "飛往{area:75}",
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "飛往{zone:1454}。從飛行管理員出發：先到{object:172960}，再到暗巷區，然後是{object:172958}。",
 	-- ["Hearth to {area:1099}"] = "使用爐石前往{area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "繼續向西騎到海岸。海灘上的海灘龍蝦人先知和海灘利爪龍蝦人大約每擊殺四十隻會掉落一個OOX-22/FE定位器：如果掉了，使用它開始任務。",
@@ -466,7 +462,6 @@ return {
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "向西騎進{zone:1444}中部。擊殺一隻{npc:5308}，對牠的屍體使用{item:10699}，並擊殺升起的靈魂。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "騎術需要40級，費用100金；學會後會得到一匹坐騎。在經典版中，每個種族都向自己種族的訓練師學習：你的訓練師是{area:159}的{npc:4773}，{npc:4731}的骸骨戰馬（每匹20金）就在她旁邊。Forever 可能允許任何種族向任何騎術訓練師學習（未確認）：先試試{zone:1454}{object:172958}的{npc:4752}，因為他最近；如果他能教你，就跳過此步驟。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "騎術需要40級，費用100金；學會後會得到一匹坐騎。在經典版中，每個種族都向自己種族的訓練師學習：你的訓練師是{zone:1411}海岸{area:367}的{npc:7953}，祖尼爾的迅猛龍（每隻20金）就在他旁邊。Forever 可能允許任何種族向任何騎術訓練師學習（未確認）：先試試{zone:1454}{object:172958}的{npc:4752}，因為他最近；如果他能教你，就跳過此步驟。",
-	-- ["Rogue Vale screechers"] = "遊蕩的山谷尖嘯者",
 	-- ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "骸骨戰馬：{npc:4731}，在{area:159}的{npc:4773}旁邊。",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "沿著海岸往南，南海海盜佔據著海灣。{npc:7883}和被偷的貨物在海灣盡頭的碼頭上。任何海盜都可能掉落帽子，南海綁匪最常掉。\n小心：{npc:7883}（45級）身邊站著兩三個海盜，戰鬥一開始，城裡還會有更多海盜加入：先把他的護衛從他身邊拉開。",
 	-- ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "沿著海岸往南，南海海盜佔據著海灣。{npc:7883}和被偷的貨物在海灣盡頭的碼頭上。任何海盜都可能掉落帽子，南海綁匪最常掉。\n小心：{npc:7883}身邊站著兩三個海盜，戰鬥一開始，城裡還會有更多海盜加入。",
@@ -495,7 +490,6 @@ return {
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976}是剛過{area:440}邊界、有圍牆的哥布林城鎮。",
 	-- ["{npc:2488}, on the top floor"] = "{npc:2488}，在頂層",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}：如果你身上有{npc:2496}給的{item:5852}，交給他",
-	-- ["{npc:4706}, beside {npc:4630}"] = "{npc:4706}，在{npc:4630}旁邊",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}，騎術訓練師",
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}，在城裡",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}，暗巷區",

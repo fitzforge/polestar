@@ -21,12 +21,12 @@ return {
 	["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "",
 
 	-- Step 4: Andorhal watchtowers and silos
-	["Andorhal watchtowers and silos"] = "",
+	["Andorhal watchtowers and silos"] = "Tours de guet et silos d'Andorhal",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
 	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}, à l'étage",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152}."] = "",
+	["West to the {area:152}."] = "Vers l'ouest jusqu'à {area:152}.",
 
 	-- Step 10: Apothecary Dithers
 	-- {quest:838} Scholomance · {area:152} The Bulwark
@@ -62,7 +62,7 @@ return {
 	["from the cauldron, for {npc:11055} at the {area:152}: on the way back west, after the {zone:1423}"] = "",
 
 	-- Step 13: Mulgris Deepriver
-	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "",
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 16: Mulgris Deepriver
@@ -70,7 +70,7 @@ return {
 	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "",
 
 	-- Step 17: Diseased Grizzlies
-	["Diseased Grizzlies"] = "",
+	["Diseased Grizzlies"] = "Grizzlys malades",
 	["Careful: the grizzlies are 55-56: pull them one at a time."] = "",
 
 	-- Step 19: Into Eastern Plaguelands
@@ -251,14 +251,14 @@ return {
 	["Under 55 on the first {area:152} stop? Derrington's {quest:838} is offered now: Dithers' {quest:964} come from the skeletons on the ride back west from {area:201}."] = "",
 
 	-- Step 58: Scarlet Crusade
-	["Scarlet Crusade"] = "",
+	["Scarlet Crusade"] = "Croisade écarlate",
 	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
-	["Radley and Durgen"] = "",
+	["Radley and Durgen"] = "Radley et Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11611} Cavalier Durgen · {npc:11610} Kirsta Deepshadow · {area:190} Hearthglen
-	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
+	["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} se tient à l'est du camp de bûcherons ; {npc:11611} garde la route au nord-est de {npc:11610}, en direction de {area:190}.\nAttention : des gardes se tiennent au pied de la tour et un autre en fait le tour en patrouille. Éliminez-les avant d'engager Durgen pour qu'ils ne rejoignent pas le combat.",
 
 	-- Step 61: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow · {area:190} Hearthglen
@@ -274,7 +274,7 @@ return {
 
 	-- Step 64: The Bulwark
 	-- {area:152} The Bulwark
-	["West to the {area:152} one last time."] = "",
+	["West to the {area:152} one last time."] = "Vers l'ouest jusqu'à {area:152}, une dernière fois.",
 
 	-- Step 66: Class trainer
 	["Class trainer"] = "Maître de classe",
@@ -291,7 +291,7 @@ return {
 
 	-- Step 68: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Prendre un vol pour {area:431}",
 	-- {zone:1454} Orgrimmar · {area:152} The Bulwark
 	["Hearth to {zone:1454} from the {area:152}: the Hearthstone is still bound there from the previous guide's {zone:1454} stop (Mages teleport). Then the flight master."] = "",
 
@@ -321,7 +321,7 @@ return {
 
 	-- Step 74: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
-	["The {area:2479}"] = "",
+	["The {area:2479}"] = "{area:2479}",
 	-- {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "",
 	-- {npc:10922} Greta Mosshoof · {zone:1413} Barrens
@@ -332,7 +332,7 @@ return {
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
-	["Back south to the Sanctuary, a short ride."] = "",
+	["Back south to the Sanctuary, a short ride."] = "Retournez au sud au Sanctuaire d'émeraude, un court trajet.",
 
 	-- Step 77: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
@@ -344,11 +344,11 @@ return {
 	-- Step 78: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Enforcers = {npc:7114} Jaedenar Enforcer
-	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "",
+	["A {item:13140} dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free {npc:11018} from her cage in the cave's south end on your way out."] = "Une {item:13140} est tombée : les Massacreurs, Tisseurs de ténèbres, Démonistes et Légionnaires de Jaedenar du Bastion des ombres en portent une de temps en temps. Utilisez-la pour commencer la quête, puis libérez {npc:11018} de sa cage au fond sud de la grotte en repartant.",
 
 	-- Step 79: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}, sous terre",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
 	["{npc:11016}: lead her out of {area:1770}"] = "",
 

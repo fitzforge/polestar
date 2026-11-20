@@ -152,8 +152,7 @@ return {
 
 	-- Step 31: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
-	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다."
-	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다.",
 
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
@@ -162,8 +161,7 @@ return {
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}이(가) {zone:1452}의 {npc:9298}에게 보냅니다. 보관하세요."
-	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}이(가) {zone:1452}의 {npc:9298}에게 보냅니다. 보관하세요.",
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
@@ -171,8 +169,7 @@ return {
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
-	-- was: ["Escort {npc:9999}"] = "{npc:9999} 호위"
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}(으)로 데려가세요. 기절하면 {item:11804}을(를) 사용해 깨우세요."
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
@@ -243,15 +240,15 @@ return {
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
-	["Listen to {npc:8479}'s story once more."] = "",
+	["Listen to {npc:8479}'s story once more."] = "{npc:8479}의 이야기를 한 번 더 들으십시오.",
 
 	-- Step 52: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
-	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) {npc:8479}의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
 
 	-- Step 53: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Sentry Braziers"] = "",
+	["Sentry Braziers"] = "감시용 화로",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
@@ -301,7 +298,7 @@ return {
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
 	-- {item:10575} Black Dragonflight Molt
-	["{item:10575}, from the hoard"] = "",
+	["{item:10575}, from the hoard"] = "{item:10575}, 보물에서",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
@@ -368,7 +365,6 @@ return {
 	-- ["Black Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "검은 새끼용은 {area:251} 바로 동쪽 언덕에 둥지를 틉니다. 새끼용이 거의 죽었을 때 {npc:10267}의 {item:12284}을(를) 사용해 정수를 포획하세요.",
 	-- ["Bloodpetal Flayers"] = "칼날가시 붉은꽃잎덩굴손",
 	-- ["Darrowshire Spirits"] = "다로우샤이어 영혼",
-	-- ["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "{area:1638}(으)로 날아가 {area:1639}의 {npc:3033}에게 기술을 배운 뒤, {area:1637}(으)로 날아가 {object:3202}행 비행선을 타세요.",
 	-- ["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- ["Fly to {area:340}"] = "{area:340}(으)로 비행",
@@ -427,8 +423,6 @@ return {
 	-- ["Western jungle"] = "서쪽 정글",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "{npc:11063}의 퀘스트가 있으면 처치한 스컬지가 가끔 {npc:11064}을(를) 남깁니다. 말을 걸어 풀어 주세요. 남서쪽 {area:2262}(으)로 가는 길에 언데드를 처치하세요.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "{zone:1449}, {area:538}에서 송진껍질괴물 사냥",
-	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}이(가) {zone:1452}의 {npc:9298}에게 보냅니다. 보관하세요.",
-	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}은(는) {area:2262} 바로 서쪽에 숨어 있습니다.",
 	-- ["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",

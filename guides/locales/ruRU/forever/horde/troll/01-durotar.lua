@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}: для Вуута"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: для персонажа {npc:11046}",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Рогоз и копейник растут вдоль воды – {object:172958}, к востоку от Волока.",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -479,7 +478,6 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Если вы изучили навык {skill:333}, {npc:265809} также предлагает свое задание «Походное дело 101»: сдайте его персонажу {npc:11066} ({zone:1454}, следующее руководство).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Если вы изучили навык {skill:393}, {npc:265809} также предлагает свое задание «Походное дело 101»: сдайте его персонажу {npc:7088} ({zone:1454}, следующее руководство).",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}: для Вуута",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: для персонажа {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: для персонажа {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: для персонажа {npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: для персонажа {npc:3365}",

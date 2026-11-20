@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飞往{area:392}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -53,14 +53,13 @@ return {
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在 {object:172961} 内。每次捐赠会收取背包中的六十块毛料、丝绸或魔纹布：交还随身带的，其余跳过。",
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "在{object:172958}。"
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "两项 {item:14047} 捐献都安排在路线后面交还：如果打算完成，每项各留六十块 {item:14047}。",
 
 	-- Step 12: Paladin trainer
 	["Paladin trainer"] = "圣骑士训练师",
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "飞往{area:1237}",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "飞往{zone:1454}；{npc:4485}在{object:172958}，{npc:3326}和{npc:8659}在{object:172960}。",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "飞往{zone:1454}；{npc:4485}在{object:172958}。",
-	-- ["In the {object:172958}."] = "在{object:172958}。",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "在{object:172961}。把毛料、丝绸和魔纹布带在背包里。",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "留着交给{npc:8659}、{npc:6522}、{npc:4485}和{npc:3326}的任务：接下来会经过{zone:1454}和{zone:1458}。{zone:1456}的玛加萨的任务不在这条路线上：先放着。",
 	-- ["Makrinni Burrowers"] = "马克林尼掘地者",

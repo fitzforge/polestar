@@ -22,8 +22,7 @@ return {
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
-	-- was: ["{area:1497} trainers"] = "Maîtres de {area:1497}"
-	["{zone:1458} trainers"] = "",
+	["{zone:1458} trainers"] = "Maîtres de {zone:1458}",
 
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "La monte au niveau 40",
@@ -365,8 +364,7 @@ return {
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
 	-- Step 78: Sawtooth snappers
-	-- was: ["Sawtooth snappers"] = "Mordeurs Dents-de-scie"
-	["Sawtooth snappers"] = "",
+	["Sawtooth snappers"] = "Mordeurs Dents-de-scie",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
@@ -424,7 +422,6 @@ return {
 	-- ["Riding at 40"] = "La monte au niveau 40",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "La monte exige le niveau 40 et coûte 100 po ; l'apprendre vous donne une monture, et {zone:2548} après Strangleronce sont une longue marche sans elle. Prenez le zeppelin depuis la tour de {object:3202} jusqu'aux tours de {area:1497} : {npc:4773} enseigne aux Réprouvés à {area:159}, un peu plus au nord, avec les chevaux squelettes de {npc:4731} (20 po chacun). Puis reprenez le zeppelin vers {object:3202}. À court d'or ? Passez cette étape : le guide {zone:1435} repasse par {area:1497} vers le niveau 47.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Another race's trainer (Kildar in {zone:1454}) teaches you only once you are Exalted with his city."] = "La monte demande le niveau 40 et coûte 100 pièces d'or ; l'apprendre vous donne une monture. Chaque race l'apprend auprès de son propre maître : le vôtre est {npc:7953}, à {area:367}, sur la côte de {zone:1411}, avec les raptors de Zjolnir (20 pièces d'or chacun) à côté de lui. Le maître d'une autre race (Kildar à {zone:1454}) ne vous l'enseigne qu'une fois Exalté auprès de sa ville.",
-	-- ["Sawtooth snappers"] = "Mordeurs Dents-de-scie",
 	-- ["Skullsplitter warriors"] = "Guerriers Skullsplitter",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Au sud de Baie-du-Butin, les bretteurs de la Voile sanglante campent sur {area:43} ; les cartes et les ordres se trouvent dans leurs tentes et dans la barque à côté du plus grand camp. Tout pirate de la Voile sanglante peut porter le tabac et l'œil de {npc:2493} : continuez jusqu'à avoir les deux.",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both.\nTake the road south towards {area:35}. The Elder Mistvale Gorillas (40-41) live in {area:1737}, east of the road; about one in twenty carries an aged sinew."] = "Au sud de Baie-du-Butin, les bretteurs de la Voile sanglante campent sur {area:43} ; les cartes et les ordres sont dans leurs tentes. Tout membre de la Voile sanglante peut porter du tabac à priser et l'œil de {npc:2493} : continuez à tuer jusqu'à avoir les deux.\nPrenez la route vers le sud en direction de {area:35}. Les Anciens gorilles de Valbrume (40-41) vivent dans {area:1737}, à l'est de la route ; environ un sur vingt porte un tendon vieilli.",

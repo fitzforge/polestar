@@ -373,12 +373,11 @@ return {
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	-- was: ["{quest:98069}, on the ground around the den"] = "{quest:98069}, auf dem Boden um die Höhle"
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}, auf dem Boden um die Höhle",
 
 	-- Step 84: Freewind Post
 	-- {area:484} Freewind Post
-	["Back east to {area:484}."] = "",
+	["Back east to {area:484}."] = "Zurück nach Osten zum {area:484}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}, drinnen",
 	-- {npc:4877} Jandia
@@ -388,7 +387,7 @@ return {
 
 	-- Step 85: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Flugmeister von {area:484}",
 
 	-- Step 86: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
@@ -484,5 +483,4 @@ return {
 	-- ["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}: Ihre gestohlenen Vorräte liegen in derselben Harpyienhöhle",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868} liegen überall auf den Ebenen nördlich der Rennbahn. Skorpidhäscher und Spiegelpanzerschildkröten streifen durch die Nordhälfte, Salzwüstenaasfresser kreisen am Himmel, und Salzsteinbasilisken grasen westlich der Strecke. Die Salzsteinkristallhäute streifen durch die Mitte der Ebenen und die Salzsteinstarrer (34-35, fünf Stufen über dir: einzeln) durch den äußersten Süden.",
 	-- ["{object:3646}; below ground"] = "{object:3646}; unter Tage",
-	-- ["{quest:98069}, on the ground around the den"] = "{quest:98069}, auf dem Boden um die Höhle",
 }

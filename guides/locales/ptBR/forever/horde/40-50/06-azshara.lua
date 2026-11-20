@@ -75,8 +75,7 @@ return {
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words) · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
 	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
-	-- was: ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}"
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
 	-- Step 23: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -179,8 +178,7 @@ return {
 
 	-- Step 45: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
-	-- was: ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Siga para o noroeste até {area:1108}; {npc:14637} espera no cais."
-	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "",
+	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Siga para o noroeste até {area:1108}; {npc:14637} espera no cais.",
 
 	-- Step 46: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
@@ -190,10 +188,10 @@ return {
 	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, dos Borrifos do Mar",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, nos Andarilhos das Ondas e Fundívagos na água",
 
 	-- Step 48: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
@@ -212,17 +210,17 @@ return {
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
 	-- Step 52: Rage Scar yetis
-	["Rage Scar yetis"] = "",
+	["Rage Scar yetis"] = "Yetis Cortifúria",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
-	["{quest:7738}, a rare drop"] = "",
+	["{quest:7738}, a rare drop"] = "{quest:7738}, um saque raro",
 
 	-- Step 53: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "Volte para {area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, lá dentro",
 
 	-- Step 55: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -285,7 +283,6 @@ return {
 	-- ["Paladin trainer"] = "Instrutor de paladino",
 	-- ["Ride into {area:16}"] = "Siga para {area:16}",
 	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "Siga para o nordeste até o acampamento do goblin nos penhascos acima de {area:1227}.",
-	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Siga para o noroeste até {area:1108}; {npc:14637} espera no cais.",
 	-- ["Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry {npc:8420}'s rune."] = "Siga para o sudoeste até as ruínas. As quatro tabuletas ficam entre as ruínas, guardadas por nagas Iralisca; qualquer Sirena ou Mirmidão pode carregar a runa de {npc:8420}.",
 	-- ["Ride west back to {area:1237}."] = "Volte para o oeste até {area:1237}.",
 	-- ["Sea elementals"] = "Elementais do mar",
@@ -317,7 +314,6 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} fica no {object:36082}.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "O piche de {npc:7876} e as amostras de Almofarrista vêm de {zone:1449}.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, na borda leste do acampamento: não dá experiência, só um teleporte para a Torre de Azshara",
-	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761} é coletado no próximo guia; o pagamento de {npc:4046} volta para {npc:8587} depois.",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} exige nível 50: {npc:7010}, no Drag, a oferece a partir daí. Abaixo do 50, o Guia de {zone:1447} no nível 55 a oferece de novo.",

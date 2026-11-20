@@ -57,8 +57,7 @@ return {
 
 	-- Step 11: Rashona Straglash
 	-- {object:172958} Valley of Honor
-	-- was: ["In the {object:172958}."] = "En {object:172958}."
-	["In the {object:172958}."] = "",
+	["In the {object:172958}."] = "En {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
@@ -130,7 +129,6 @@ return {
 	-- ["Fly to {area:1237}"] = "Vuela a {area:1237}",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "Vuela a {zone:1454}; {npc:4485} está en {object:172958}; {npc:3326} y {npc:8659}, en {object:172960}.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Vuela a {zone:1454}; {npc:4485} está en {object:172958}.",
-	-- ["In the {object:172958}."] = "En {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "En {object:172961}. Lleva el paño de lana, el paño de seda y la tela de paño mágico en las bolsas.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Guarda las entregas para {npc:8659}, {npc:6522}, {npc:4485} y {npc:3326}: pasarás por {zone:1454} y {zone:1458} a continuación. La de Magatha, en {zone:1456}, queda fuera de esta ruta: déjala.",
 	-- ["Makrinni Burrowers"] = "Excavadores Makrinni",

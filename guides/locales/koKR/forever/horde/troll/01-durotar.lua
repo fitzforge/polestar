@@ -160,8 +160,7 @@ return {
 
 	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}: Whuut에게 전달"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: {npc:11046}에게 전달",
 
 	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
@@ -369,7 +368,7 @@ return {
 
 	-- Step 85: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "부들과 창풀은 골목길 동쪽, {object:172958}의 물가를 따라 자랍니다.",
 
 	-- Step 87: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -477,7 +476,6 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "{skill:333}을(를) 배웠다면 {npc:265809}이(가) 야영 101 퀘스트도 줍니다. {zone:1454}(다음 가이드)의 {npc:11066}에게 전달하세요.",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "{skill:393}을(를) 배웠다면 {npc:265809}이(가) 야영 101 퀘스트도 줍니다. {zone:1454}(다음 가이드)의 {npc:7088}에게 전달하세요.",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}: Whuut에게 전달",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: {npc:11046}에게 전달",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: {npc:11066}에게 전달",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: {npc:2855}에게 전달",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: {npc:3365}에게 전달",

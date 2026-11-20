@@ -162,8 +162,7 @@ return {
 
 	-- Step 30: Camping 101: Alchemy
 	-- {npc:265809} Brakk · {npc:11046} Whuut
-	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}: para Whuut"
-	["{npc:265809}: for {npc:11046}"] = "",
+	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
 
 	-- Step 31: Razor Hill
 	-- {npc:266940} Turroc
@@ -365,7 +364,7 @@ return {
 
 	-- Step 84: Valley of Honor
 	-- {object:172958} Valley of Honor
-	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Las espadañas y el pasto lanza crecen junto al agua en {object:172958}, al este de la calle comercial de la ciudad.",
 
 	-- Step 86: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
@@ -480,7 +479,6 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:333}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11066} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:393}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:7088} en {zone:1454} (siguiente guía).",
 	-- ["{npc:265809}: for Whuut"] = "{npc:265809}: para Whuut",
-	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",

@@ -75,8 +75,7 @@ return {
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
 	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	-- was: ["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}"
-	["{npc:8659}, the {object:172960}"] = "",
+	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
 	-- Step 23: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -190,10 +189,10 @@ return {
 	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, 바다 물보라 정령에게서",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, 물속의 파도 거인과 성큼걸이 바다거인에게 사용",
 
 	-- Step 48: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
@@ -212,11 +211,11 @@ return {
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
 	-- Step 52: Rage Scar yetis
-	["Rage Scar yetis"] = "",
+	["Rage Scar yetis"] = "분노한 무쇠설인",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
-	["{quest:7738}, a rare drop"] = "",
+	["{quest:7738}, a rare drop"] = "드물게 떨어지는 {quest:7738}",
 
 	-- Step 53: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -307,7 +306,6 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}은(는) {object:36082}에 있습니다.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}의 타르와 페슬저그의 표본은 {zone:1449}에서 구합니다.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "야영지 동쪽 끝의 {npc:8395}: 경험치 없음, 아즈샤라 탑으로 순간이동만 가능",
-	-- ["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}은(는) 다음 가이드에서 모읍니다. {npc:4046}의 대금은 나중에 {npc:8587}에게 가져갑니다.",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494}은(는) 50레벨이 필요합니다. 그때부터 골목길의 {npc:7010}이(가) 줍니다. 50레벨 미만이면 55레벨 {zone:1447} 가이드에서 다시 받을 수 있습니다.",
 }

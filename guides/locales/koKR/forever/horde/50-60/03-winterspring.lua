@@ -92,12 +92,12 @@ return {
 	-- Step 14: Emerald Sanctuary
 	["North to the druids' camp."] = "",
 	-- {npc:9529} Maybess Riverbreeze
-	["{npc:9529}, on the west side of the Sanctuary"] = "",
+	["{npc:9529}, on the west side of the Sanctuary"] = "성소 서쪽의 {npc:9529}",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide."] = "",
 
 	-- Step 15: The Jadefire moonwell
-	["The Jadefire moonwell"] = "",
+	["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
@@ -105,18 +105,18 @@ return {
 	-- {area:1997} Bloodvenom Post
 	["North up the road to {area:1997}."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
-	["{npc:9996}: the {quest:86612}"] = "",
+	["{npc:9996}: the {quest:86612}"] = "{npc:9996}: {quest:86612}",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring · {zone:1423} Eastern Plaguelands
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop."] = "",
 
 	-- Step 17: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
-	["{npc:9996}'s kitten"] = "",
+	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
 	["Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
 	-- {item:12565} Winna's Kitten Carrier
-	["{item:12565}, at the Jadefire moonwell"] = "",
+	["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 
 	-- Step 19: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
