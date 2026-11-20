@@ -546,6 +546,10 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test("Champion's Hall quartermasters are vendors, not inns or auction houses (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['vendor']);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC

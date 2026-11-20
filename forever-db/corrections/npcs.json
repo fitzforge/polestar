@@ -1308,6 +1308,19 @@
 		],
 		"note": "Ursangous walks a loop south-east of Astranaar from 39.7,63.1 down to 43.7,68.8; the data had his spawn alone (sweep for #2507)."
 	},
+	"12777": {
+		"set": { "roles": ["vendor"] },
+		"source": [
+			{ "kind": "in-game-check", "ref": "#2984, #3168" },
+			{ "kind": "tdb", "ref": "creature_template 12777: npcflag 4224; npc_vendor: 96 items" }
+		],
+		"note": "Captain Dirgehammer sells armor in Champion's Hall. His service flags do not include auctions or an inn."
+	},
+	"12782": {
+		"set": { "roles": ["vendor"] },
+		"source": { "kind": "tdb", "ref": "creature_template 12782: npcflag 4224; npc_vendor: 21 items" },
+		"note": "Captain O'Neal sells weapons in Champion's Hall. He has the same vendor flags as Captain Dirgehammer, not those of an auctioneer or innkeeper (#2984)."
+	},
 	"12944": {
 		"set": {
 			"instances": [
