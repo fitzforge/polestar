@@ -313,18 +313,17 @@ local function bagCount(item)
 	return Compat.GetItemCount(item) or 0
 end
 
-local function liveBank(item)
-	return max(0, (Compat.GetItemCount(item, true) or 0) - bagCount(item))
+local function liveBank(item, bags)
+	return max(0, (Compat.GetItemCount(item, true) or 0) - (bags or bagCount(item)))
 end
 
 -- The bank: live while it is open or before the first visit; else the snapshot, and for an item it does not hold
 -- (tracked only since), what the client reports.
-local function bankCount(item)
-	local s = state()
-	if bankOpen or not s.bankSeen then return liveBank(item) end
-	local n = s.bank[item]
-	if n == nil then return liveBank(item) end
-	return n
+local function stored(s, item, bags)
+	local bank
+	if not bankOpen and s.bankSeen then bank = s.bank[item] end
+	if bank == nil then bank = liveBank(item, bags) end
+	return bank, s.mail[item] or 0, s.coming[item] or 0
 end
 
 -- The bank as it is now, for every tracked item (0 kept: the snapshot holds the item).
@@ -391,8 +390,7 @@ ns.RegisterEvent("COMMODITY_PURCHASED", function(_, item, quantity) bought(item,
 ns.RegisterEvent("ITEM_PURCHASED", function(_, item) bought(item, 1) end)
 
 function Materials.Stored(item)
-	local s = state()
-	return bankCount(item), s.mail[item] or 0, s.coming[item] or 0
+	return stored(state(), item)
 end
 
 -- The nearest "mailbox" or "bank" (a banker) for the arrow to fetch a material from (Nav/Nearby.lua): { id, name,
@@ -421,8 +419,9 @@ local function altsWith(item)
 end
 
 function Materials.Have(item)
-	local bank, mail, coming = Materials.Stored(item)
-	local parts = { bags = bagCount(item), bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
+	local bags = bagCount(item)
+	local bank, mail, coming = stored(state(), item, bags)
+	local parts = { bags = bags, bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
 	local total = parts.bags + bank + mail + coming
 	parts.altsCounted = ns.Get("professions.altMaterials") and true or false
 	if parts.altsCounted then
@@ -432,10 +431,13 @@ function Materials.Have(item)
 end
 
 function Materials.OwnCounts()
-	local out
-	for item in pairs(Materials.Tracked()) do
-		local bank, mail, coming = Materials.Stored(item)
-		local n = bagCount(item) + bank + mail + coming
+	local tracked = Materials.Tracked()
+	if not next(tracked) then return nil end
+	local s, out = state(), nil
+	for item in pairs(tracked) do
+		local bags = bagCount(item)
+		local bank, mail, coming = stored(s, item, bags)
+		local n = bags + bank + mail + coming
 		if n > 0 then
 			out = out or {}
 			out[item] = n

@@ -72,6 +72,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
@@ -136,6 +138,8 @@ mod engine_l10n;
 mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-carry.rs"]
+mod engine_level_carry;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]

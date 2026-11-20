@@ -72,6 +72,9 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} concluída. Seu guia de {zone:1444} continua daqui: volte para o norte pelo {area:2657}, para oeste pela borda sul de {area:405} e para o sul até {zone:1444}, até o cais na {area:1108}, de onde o barco atravessa para {area:1116}.",
 		["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652} concluída: volte para o norte pelo {area:2657}; a próxima etapa diz para onde sua rota segue dali.",
 } end)()
+t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["Fly to {area:2255}"] = "Voe para {area:2255}",
+} end)()
 t.guides["forever/alliance/02-westfall"] = (function() return {
 		["Back to {zone:1453}"] = "De volta a {zone:1453}",
 		["Class trainer"] = "Instrutor de classe",
