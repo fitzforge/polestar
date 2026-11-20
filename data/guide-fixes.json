@@ -13845,6 +13845,24 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-dustwallow-mojache-only-with-muisek",
+			"faction": "Horde",
+			"at": {
+				"quest": 3122,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/03-feralas"
+			},
+			"when": "onquest 3122",
+			"note": "40-50/03 flies from Orgrimmar (or Thunder Bluff for Druids and Paladins) to Camp Mojache only for Witch Doctor Uzer'i's Muisek vessel (3122, from Neeru on the Orgrimmar stop). A player who loads the guide without the Feralas chain has no 3122: the Mojache flights and stop are hidden for them, and a step flies them from where they are straight to Brackenwall Village. The Camp Mojache bind is dropped: the route's hearth is already bound there from 40-50/02, and 40-50/04 binds Gadgetzan before any hearth.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 3122 pre 3121 (40-50/02, Uzer'i's chain)"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }

@@ -61,6 +61,7 @@ step Thunder Bluff
 
 step Fly to Camp Mojache
   only Druid,Paladin
+  when onquest 3122
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Camp Mojache"
@@ -68,6 +69,7 @@ step Fly to Camp Mojache
 
 step Fly to Camp Mojache
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when onquest 3122
   zone Orgrimmar
   tip Fly to Camp Mojache (or hearth there, if your hearthstone is ready: it is still bound there from the Feralas & Tanaris guide).
   goto 45.3,63.7 "Orgrimmar flight master"
@@ -75,13 +77,20 @@ step Fly to Camp Mojache
   zone Feralas
 
 step Camp Mojache
+  when onquest 3122
   zone Feralas
-  sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
   turnin 3122                           -- Witch Doctor Uzer'i
-  accept 3123                           -- for the Hinterlands owlbeasts, around level 48
+  accept 3123                           -- for the Hinterlands owlbeasts, around level 49
   accept 3128
 
 step Fly to Brackenwall Village
+  when !zone "Feralas"
+  tip No Muisek vessel to bring Uzer'i (you didn't take the Feralas & Tanaris guide's chain): fly from here straight to Brackenwall Village.
+  fly "Brackenwall Village"
+  zone Dustwallow Marsh
+
+step Fly to Brackenwall Village
+  when zone "Feralas"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache flight master"
   fly "Brackenwall Village"
