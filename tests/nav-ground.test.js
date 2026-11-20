@@ -176,3 +176,20 @@ test('a steering shortcut cannot cross the Ironforge trainer floors or the Seari
 	});
 	assert.deepEqual(sight, [[true, true, false, false], [true, true, false, false]]);
 });
+
+test('a near waypoint is on the other deck in Silithus, not on the slope beside the player', () => {
+	const nav = 'Polestar_Nav', parts = navParts(path.join(ADDONS, nav));
+	const { emitted: [floors] } = runAddon({
+		stubs: ['stub_encoding.lua', 'stub_packs.lua'],
+		before: ["stub.clientBuild='70959'", ...parts.map(n => `stub.packs[${JSON.stringify(n)}]={${tocFiles(n).map(p => JSON.stringify(p)).join(',')}}`)].join('\n'),
+		addons: [nav],
+		script: `
+			assert(C_AddOns.LoadAddOn('Polestar_Nav_Kalimdor'))
+			local separate = Polestar_NavEngine.OnSeparateLocalFloors
+			local x,y,X,Y = -8072.916667,441.666667,-8075,439.583333
+			local low,high,Low,High = -39.512269,-36.849965,-39.991777,-36.343852
+			emit({separate(1,x,y,low,X,Y,High), separate(1,X,Y,High,x,y,low),
+				separate(1,x,y,low,X,Y,Low), separate(1,X,Y,High,x,y,high)})`,
+	});
+	assert.deepEqual(floors, [true, true, false, false]);
+});

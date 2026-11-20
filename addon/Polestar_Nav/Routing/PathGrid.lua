@@ -2546,7 +2546,10 @@ local function separateFloors(map,x,y,z,gx,gy,gz)
  if sheetMap==data and sheetX==x and sheetY==y and sheetZ==z and sheetGX==gx and sheetGY==gy and sheetGZ==gz then return sheetResult end
  sheetMap,sheetX,sheetY,sheetZ,sheetGX,sheetGY,sheetGZ,sheetResult=data,x,y,z,gx,gy,gz,false
  local ok,version,build=pcall(GetBuildInfo)
- if not ok or version~='1.60.1' or (build~='70532' and build~=70532) then return false end
+ -- These three maps have identical base terrain, placements and model geometry
+ -- on both builds. Only reject a visit from the other deck; do not grant a walk.
+ build=tonumber(build)
+ if not ok or version~='1.60.1' or not (build==70532 or (build==70959 and (map==0 or map==1 or map==2991))) then return false end
  local a,b={x=x,y=y,z=z},{x=gx,y=gy,z=gz}
  local start,goal=locate(data,a),locate(data,b);if not start or not goal then return false end
  a.cell,b.cell=start,goal

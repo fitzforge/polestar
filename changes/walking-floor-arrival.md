@@ -9,6 +9,8 @@ section: players
   a short walk that ends on the same lower floor without reaching the stairs.
   A steering shortcut must reach the requested storey, not just a floor
   close in height. This keeps the decks beneath Nissa Firestone distinct.
+  On Forever build 70959, standing on the lower deck under a nearby waypoint
+  no longer visits it when the walking map shows two distinct floors.
   At bends such as the Ironforge gryphon roost, the arrow follows the aisle
   even when the game doesn't flag it as indoors. On open ground it can
   still point farther ahead when the map shows a clear straight walk.
