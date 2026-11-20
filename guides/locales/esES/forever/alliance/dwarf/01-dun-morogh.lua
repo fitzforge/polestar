@@ -231,7 +231,7 @@ return {
 	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, en el piso de arriba: {item:16605}",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 37: Kharanos and the depot
 	-- {area:131} Kharanos

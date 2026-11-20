@@ -163,7 +163,7 @@ return {
 	-- Step 32: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "",
 	-- was: ["Upstairs"] = "Arriba"
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

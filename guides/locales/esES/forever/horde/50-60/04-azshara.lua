@@ -117,7 +117,7 @@ return {
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
 	-- Step 28: Janice Felstone
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "Vuelve al norte con {npc:8420} con la runa y luego ve al suroeste por el camino.",
