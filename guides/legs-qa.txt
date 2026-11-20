@@ -443,14 +443,14 @@ forever/horde/50-60/05-eastern-plaguelands	step 38	1:6909,-1816>7028,-2119	detou
 forever/horde/50-60/05-eastern-plaguelands	step 39	1:7028,-2119>7797,-2575	detour 1.71x straight on grid, no named passage
 forever/horde/50-60/05-eastern-plaguelands	step 42	1:7799,-2573>6394,-2539	detour 1.54x straight on grid, no named passage
 forever/horde/50-60/05-eastern-plaguelands	step 47	1:6749,-4639>6815,-4612	detour 1.99x straight on leffe, no named passage
-forever/horde/50-60/06-silithus	step 2	1:-6812,840>-6701,746	detour 1.91x straight on grid, no named passage
-forever/horde/50-60/06-silithus	step 5	1:-6856,738>-7176,441	detour 1.62x straight on leffe, no named passage
-forever/horde/50-60/06-silithus	step 49	1:1836,-4470>1630,-4376	detour 1.68x straight on leffe, no named passage
-forever/horde/50-60/06-silithus	step 50	1:1630,-4376>1332,-4649	detour 1.51x straight on leffe, no named passage
-forever/horde/50-60/06-silithus	step 56	0:2561,-1812>2332,-2070	detour 1.80x straight on grid, no named passage
-forever/horde/50-60/06-silithus	step 60	0:2833,-1540>2561,-1812	detour 1.87x straight on grid, no named passage
-forever/horde/50-60/06-silithus	step 78	0:1598,-3241>1564,-3282	detour 1.64x straight on grid, no named passage
-forever/horde/50-60/06-silithus	step 89	0:2923,-4945>3373,-4922	detour 1.74x straight on leffe, no named passage
+forever/horde/50-60/06-silithus	step 3	1:-6812,840>-6701,746	detour 1.91x straight on grid, no named passage
+forever/horde/50-60/06-silithus	step 6	1:-6856,738>-7176,441	detour 1.62x straight on leffe, no named passage
+forever/horde/50-60/06-silithus	step 50	1:1836,-4470>1630,-4376	detour 1.68x straight on leffe, no named passage
+forever/horde/50-60/06-silithus	step 51	1:1630,-4376>1332,-4649	detour 1.51x straight on leffe, no named passage
+forever/horde/50-60/06-silithus	step 57	0:2561,-1812>2332,-2070	detour 1.80x straight on grid, no named passage
+forever/horde/50-60/06-silithus	step 61	0:2833,-1540>2561,-1812	detour 1.87x straight on grid, no named passage
+forever/horde/50-60/06-silithus	step 79	0:1598,-3241>1564,-3282	detour 1.64x straight on grid, no named passage
+forever/horde/50-60/06-silithus	step 90	0:2923,-4945>3373,-4922	detour 1.74x straight on leffe, no named passage
 forever/horde/50-60/07-felwood	step 12	1:5111,-352>5337,-590	no way on either map
 forever/horde/50-60/07-felwood	step 14	1:5337,-590>5005,-438	no way on either map
 forever/horde/orc/01-durotar	step 4	1:-565,-4219>-402,-4107	detour 1.75x straight on leffe, no named passage
