@@ -12549,6 +12549,10 @@ test("Fyurie's report (#1458): Kodo Roundup uses the Kombobulator and counts at 
 // Village furbolgs (Den Watchers, Avengers, Shamans, about one kill in thirty) that Deadwood of the North (8461) and
 // the level top-up there already kill by the dozen. The Felpaw step goes on until it drops and takes the quest;
 // Kernda takes it on the next pass of Timbermaw Hold, or by the cave right away if the Timbermaw are Neutral then.
+// Fix round 2026-11-20: the quest needs Neutral with the Timbermaw, which almost no player on the route has (recordings:
+// none of 32 characters by 53, Kernda hostile to 29 people), so where a guide gates the totem's farm and accept with
+// `when rep "Timbermaw Hold" Neutral` that step comes right after the Felpaw kills instead of being part of it; the
+// quest-volume fix holds for the players who can take it.
 test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Village step and handed in to Kernda on the later pass', { skip }, () => {
 	for (const [felwood, later] of [
 		['forever/alliance/50-60/02-felwood.guide', 'forever/alliance/50-60/03-winterspring.guide'], // the later pass is 03's way north (0.4.3 fix round)
@@ -12557,8 +12561,10 @@ test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Vil
 		const list = goals(felwood);
 		const totem = list[at(list, `${felwood}: collect 20741`, (g) => g.t === 'collect' && g.item === 20741)];
 		assert.ok(!totem.goal.optional, `${felwood}: the totem holds the step until it drops`);
-		const kills = list.filter(({ s, goal }) => s === totem.s && goal.t === 'kill' && goal.quest === 8461).map(({ goal }) => goal.npc);
-		assert.deepEqual(kills.sort(), [7156, 7157, 7158], `${felwood}: in the Felpaw step with Deadwood of the North's kills`);
+		const neutral = (st) => (st.when || []).some((p) => p.k === 'rep' && !p.neg && /timbermaw/i.test(String(p.name || '')) && p.standing >= 4);
+		const killStep = neutral(totem.step) ? totem.s - 1 : totem.s;
+		const kills = list.filter(({ s, goal }) => s === killStep && goal.t === 'kill' && goal.quest === 8461).map(({ goal }) => goal.npc);
+		assert.deepEqual(kills.sort(), [7156, 7157, 7158], `${felwood}: in (or, gated to Neutral, right after) the Felpaw step with Deadwood of the North's kills`);
 		const accept = list[at(list, `${felwood}: accept 8470`, is('accept', 8470))];
 		assert.ok(accept.s === totem.s && !accept.goal.optional, `${felwood}: the totem's quest is taken in the same step`);
 		const turnin = goals(later).find(({ goal }) => is('turnin', 8470)(goal));
@@ -16006,9 +16012,10 @@ test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound 
 test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, () => {
 	const g = compiled(ARATHI);
 	// Fix round 2 (0.4.0): the level model without accept-time grinding plays it at 35.9-37.4: labelled 35-37, and the
-	// pitch still says why its level 40 quests are there.
-	assert.match(g.pitch || '', /35 to 37.*Faldir's Cove.*group stop/, g.pitch);
-	assert.equal(g.maxLevel, 37, 'the label is the levels the route plays it at');
+	// pitch still says why its level 40 quests are there. Fix round 2026-11-20: the route now plays it at 36.2-37.9
+	// (the round's level model), labelled 36-38; the pitch still explains its level 40 quests.
+	assert.match(g.pitch || '', /36 to 38.*Faldir's Cove.*group stop/, g.pitch);
+	assert.equal(g.maxLevel, 38, 'the label is the levels the route plays it at');
 });
 
 // Alliance level tidy (0.4.0): never sent at mobs two or more levels over the player. The 30-40 spots that were:
