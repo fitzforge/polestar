@@ -5,12 +5,13 @@ local L = ns.L
 local PACK = "Polestar_SkyJewels"
 
 function ns.SkyJewelsAvailable()
-	local A = C_AddOns
-	if not (A and A.IsAddOnLoadable) then return false end
-	local player = ns.Compat.Readable(UnitGUID("player"))
-	if not player then return false end
-	local ok, loadable = pcall(A.IsAddOnLoadable, PACK, player, true)
-	return ok and loadable == true
+	local C = ns.Compat
+	if not C.AddOnAvailable(PACK) then return false end
+	-- GetAddOnInfo reflects all characters, so also check this character's enable state.
+	local player = C.Readable(UnitGUID and UnitGUID("player"))
+	if not (player and C_AddOns.GetAddOnEnableState) then return true end
+	local ok, enabled = pcall(C_AddOns.GetAddOnEnableState, PACK, player)
+	return not ok or enabled ~= 0
 end
 
 function ns.OpenSkyJewels()

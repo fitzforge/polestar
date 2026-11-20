@@ -334,6 +334,15 @@ function Compat.AddOnPresent(name)
 	return select(4, A.GetAddOnInfo(name)) and true or false
 end
 
+-- The client may report an enabled load-on-demand addon as not loadable until asked to load it.
+function Compat.AddOnAvailable(name)
+	if Compat.AddOnPresent(name) then return true end
+	local A = C_AddOns
+	if not (A and A.GetAddOnInfo) then return false end
+	local ok, _, _, _, loadable, reason = pcall(A.GetAddOnInfo, name)
+	return ok and (loadable or reason == "DEMAND_LOADED" or reason == "DEP_DEMAND_LOADED") and true or false
+end
+
 -- The trait configs that can hold the player's talents, most trusted first:
 -- the active spec group's combat config, the one Forever's talent frame
 -- shows (Blizzard_PlayerSpells Camelot, ClassTalentsFrameMixin:SetTab), then

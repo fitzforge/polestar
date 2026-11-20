@@ -22,13 +22,6 @@ test('the guide menu offers Sky Jewels only when it can load for this character'
 		...login,
 		script: `
 local pack = "Polestar_SkyJewels"
-local status = "MISSING"
-function C_AddOns.IsAddOnLoadable(name, character, demandLoaded)
-	assert(name == pack and character == UnitGUID("player"), "Expected the current character's addon state")
-	if status == "MISSING" then return false, status end
-	if status == "DISABLED" or not demandLoaded then return false, status end
-	return true
-end
 local menu = Polestar.Theme.GuideParts().nav.Menu
 local entry
 Polestar.Widgets.ShowMenu = function(_, items)
@@ -42,13 +35,21 @@ local function openMenu()
 	return entry
 end
 assert(not openMenu(), "A missing addon should not get a menu entry")
-status = "DISABLED"
+local addon = { name = pack, reason = "DISABLED" }
+stub.addons[#stub.addons + 1] = addon
+assert(not openMenu(), "A disabled addon should not get a menu entry")
+addon.reason = "DEMAND_LOADED"
+addon.enabled = false
 assert(not openMenu(), "An addon disabled for this character should not get a menu entry")
-status = "DEMAND_LOADED"
+addon.enabled = true
+addon.reason = "DEP_DEMAND_LOADED"
+assert(openMenu(), "An addon with a load-on-demand dependency should get a menu entry")
+addon.reason = "DEMAND_LOADED"
 local play = assert(openMenu(), "An available load-on-demand addon should get a menu entry")
 assert(not C_AddOns.IsAddOnLoaded(pack), "Opening the menu should not load the game")
 play.onClick()
-assert(C_AddOns.IsAddOnLoaded(pack) and Polestar.SkyJewels.IsOpen(), "The menu entry did not open the game")`,
+assert(C_AddOns.IsAddOnLoaded(pack) and Polestar.SkyJewels.IsOpen(), "The menu entry did not open the game")
+assert(openMenu(), "The loaded addon should keep its menu entry")`,
 	});
 });
 
