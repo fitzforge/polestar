@@ -1,6 +1,6 @@
 guide forever/50-60/mount-hyjal
 title Mount Hyjal
-levels 57-59 Alliance
+levels 56-58 Alliance
 levels 56-58 Horde
 zone Mount Hyjal
 coords live
@@ -15,7 +15,7 @@ next forever/alliance/50-60/06-silithus
 # first Alliance player (levels 57 to 60), then Alliance players who followed this guide and Horde players who quested
 # through the zone (levels 55 to 60, 2026-11). The Horde steps (Thark Gorax, the Western Post, Elderwild's Zet'gan,
 # Ortak Lomgok and Kal'tinzan, Faustron's Moonglade flight path, Thisalee's hand-in) follow the Horde recordings.
-# On both routes it comes before the faction's Silithus guide (50-60/06), at about 56.5 (Alliance) and 57 (Horde) by
+# On both routes it comes before the faction's Silithus guide (50-60/06), at about 56 (Alliance) and 56.3 (Horde) by
 # the level model. Alliance: after the Western & Eastern Plaguelands guide (50-60/04, which ends in Menethil Harbor on
 # the boat to Theramore); Horde: after the Eastern Plaguelands guide (50-60/05, which ends at Everlook in Winterspring).
 # Both fly to Everlook, ride in through Darkwhisper Gorge and leave from the Summit of Eternity by the flight to
@@ -383,7 +383,8 @@ step Ketharas
 # berries, then the elders) with the Deadwood camps around it, Elderwild (the Alliance and Horde outposts stand
 # side by side) with Mourning's Rest and the overlook west of it, then east into the Cradle of Tranquility: the
 # wild gods' errands, Johun's camp (Alliance) and back west to Marrosis and Shalla'kal.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
 # The veteran's Anywhere But Here is taken after Mourning's Rest, on the way west to the overlook, and the
 # breadcrumbs for part 3 (A Clever Creature, Trail Assist) wait for part 3's way through the Cradle.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
@@ -799,8 +800,9 @@ step Shalla'kal and Galvinquam
 # (Alliance) and Dae'gun (Renalard first, then the demon camps west to east and back), the Summit of Eternity
 # (flight path, inn), a flight down for Kaylaena and Ketharas, then the Summit's Blackthorne camps in one sweep, and
 # out by Everlook.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
-# So the breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
+# The breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
 # through the Cradle rather than at the end of part 2, and Fetid Corruption is handed in before the Shrine's three
 # quests are taken.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): A Bit of the

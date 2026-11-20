@@ -10,8 +10,8 @@
 	],
 	"routes": {
 		"Alliance": {
-			"forever/40-50/shendralas": [45.55, 45.89],
-			"forever/50-60/mount-hyjal": [57.73, 59.48],
+			"forever/40-50/shendralas": [45.2, 45.48],
+			"forever/50-60/mount-hyjal": [56.07, 57.91],
 			"forever/alliance/02-westfall": [11.41, 17.52],
 			"forever/alliance/03-darkshore": [15.59, 19.54],
 			"forever/alliance/03-darkshore-return": [21.4, 23.41],
