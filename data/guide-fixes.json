@@ -14420,6 +14420,29 @@
 				}
 			],
 			"issue": 3044
+		},
+		{
+			"id": "3026-gordunni-cobalt-mound-to-mound",
+			"faction": "Horde",
+			"at": {
+				"quest": 2987,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "Use Orwin's Shovel on each Gordunni Dirt Mound around the outpost: the arrow goes from mound to mound.",
+			"note": "#3026: the step's `use 9466` (Orwin's Shovel, at one fixed point) came before the cobalt's collect, so the arrow stayed on that one mound until all 12 Gordunni Cobalt were in and never went round the other Gordunni Dirt Mounds (objects 144064 and 177681, about 20 spawns at 74-81,25-35). The collect, whose spots are the mounds, comes first now; the shovel's line follows it for its button.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3026 (0.4.1.1): the arrow stayed on one mound"
+				},
+				{
+					"kind": "client",
+					"ref": "objects.json 144064 and 177681 Gordunni Dirt Mound spawns on map 1444"
+				}
+			],
+			"issue": 3026
 		}
 	]
 }

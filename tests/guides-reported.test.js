@@ -18268,3 +18268,13 @@ for (const guide of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alli
 		assert.match(step.note || '', /ticks only in there, not on the hill above it/);
 	});
 }
+
+// #3026 (Petsq, 0.4.1.1): Orwin's Shovel's line, at one fixed mound, came before the Gordunni Cobalt's collect, so the
+// arrow stayed on that mound until all 12 were in. The collect, whose spots are the Gordunni Dirt Mounds, comes first.
+test('forever/horde/40-50/02-feralas.guide: the Gordunni Cobalt goes from mound to mound (#3026)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const cobalt = at(list, 'collect 9463', (g) => g.t === 'collect' && g.item === 9463 && g.quest === 2987);
+	const shovel = at(list, 'use 9466', (g) => g.t === 'use' && g.item === 9466);
+	assert.ok(cobalt < shovel && list[cobalt].s === list[shovel].s, 'the collect precedes the shovel in the same step');
+	assert.ok((list[cobalt].goal.spots || []).length > 1, 'the collect goes round more than one mound');
+});
