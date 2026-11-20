@@ -6,6 +6,7 @@
 //! - ItemSparse durations (corrections: corrections.rs).
 //! - Summoned vendors (SpellEffect): camp bots a player places sell nothing a guide can send to.
 //! - Gathering spells (SpellEffect): the casts that open a herb or an ore node.
+//! - Quest items (Item): the items of the client's Quest class.
 
 use std::path::{Path, PathBuf};
 
@@ -335,6 +336,19 @@ pub fn gathering_spells(effects: &[Row]) -> Vec<(i64, &'static str)> {
 	out
 }
 
+/// Item's Quest class (ClassID 12).
+const QUEST_CLASS: f64 = 12.0;
+
+/// The client's quest items: Item rows of the Quest class, ascending. The client's class, not the merged
+/// data's `questItem` (QuestieDB's class, before the knowledge base settles it): Forever's Burning Key (4483)
+/// is a Key in the client and a quest item in QuestieDB.
+pub fn quest_items(items: &[Row]) -> Vec<i64> {
+	let mut out: Vec<i64> = items.iter().filter(|r| col_num(r, "ClassID") == QUEST_CLASS).map(|r| col_num(r, "ID")).filter(|id| *id > 0.0 && id.fract() == 0.0).map(|id| id as i64).collect();
+	out.sort_unstable();
+	out.dedup();
+	out
+}
+
 // ---------------------------------------------------------------- place-name NPCs
 
 /// NPC records that are only a place's or a faction's name: no spawn, no service role, no quest starts, ends or
@@ -421,6 +435,13 @@ mod tests {
 			spell("3", "2", "1312643"),  // a dummy effect
 		];
 		assert_eq!(gathering_spells(&rows), vec![(2366, "herb"), (1264639, "mine"), (1312650, "herb")]);
+	}
+
+	#[test]
+	fn quest_items_are_the_client_s_quest_class() {
+		let item = |id: &str, class: &str| -> Row { [("ID", id), ("ClassID", class)].iter().map(|(k, v)| (k.to_string(), v.to_string())).collect() };
+		// Mudsnout Blossoms and Tirisfal Pumpkin are quest items; Burning Key is a Key, Briarthorn a herb.
+		assert_eq!(quest_items(&[item("3502", "12"), item("4483", "13"), item("2846", "12"), item("2450", "7")]), vec![2846, 3502]);
 	}
 
 	#[test]

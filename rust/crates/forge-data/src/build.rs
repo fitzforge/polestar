@@ -623,6 +623,8 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
 	// Forever's gathering spells (its SpellEffect): a loot window right after one is a herb or an ore node's.
 	let gather_spells = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::gathering_spells(effects)).unwrap_or_default();
+	// Its quest items (Item's Quest class): a loot window of these only is no chest's.
+	let quest_items = fwago.as_ref().and_then(|f| f.get("Item")).map(|items| extras::quest_items(items)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
@@ -635,6 +637,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			factions: &factions,
 			instances: &instances,
 			gather_spells: &gather_spells,
+			quest_items: &quest_items,
 		},
 		recordings.sessions().map_while(|r| match r {
 			Ok(r) => {

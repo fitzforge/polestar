@@ -571,6 +571,9 @@ pub struct Db<'a> {
 	/// The client's gathering spells, (spell, "herb" | "mine") by spell ([`crate::extras::gathering_spells`]):
 	/// a loot window right after one is a gather even when the Recorder did not know the spell.
 	pub gather_spells: &'a [(i64, &'static str)],
+	/// The client's quest items, ascending ([`crate::extras::quest_items`]): a loot window of these only is
+	/// no chest's.
+	pub quest_items: &'a [i64],
 }
 
 #[derive(Default)]
@@ -975,6 +978,12 @@ impl<'a> Overlay<'a> {
 		self.roles[k].entry(id).or_default().entry(role.to_string()).or_default().insert(self.voter.clone());
 	}
 
+	/// A looted item a player keeps outside a quest: no open objective wanted it (`q`), and it is not of the
+	/// client's Quest class.
+	fn keepable(&self, i: &V) -> bool {
+		!i.get("q").truthy() && !pos_int(&i.get("item")).is_some_and(|item| self.db.quest_items.binary_search(&item).is_ok())
+	}
+
 	fn xp_obs(&mut self, qid: i64, kind: &'static str, value: &V, lvl: &V) {
 		let Some(xp) = pos_int(value) else { return };
 		self.xp_seen.entry(qid).or_default().push((kind, xp, pos_int(lvl), self.ci));
@@ -1308,14 +1317,16 @@ impl<'a> Overlay<'a> {
 						self.note(WHO_FOUND + 1, id, c.map);
 					}
 					// The roles a loot window gives: a gather (the Recorder's, or a gathering cast just
-					// before it) makes a herb, an ore node or a fishing pool, never a chest.
+					// before it) makes a herb, an ore node or a fishing pool, never a chest; a chest is a
+					// plain loot window with something a player keeps outside a quest (an item no open
+					// objective wanted, and no quest item: a quest's plant or crate is no treasure).
 					let role = match gather.as_str().or(gathered) {
 						Some("herb") => Some("herb"),
 						Some("mine") => Some("mine"),
 						// A catch the client names a pool as the source of (the Recorder leaves the
 						// bobber out): the pool.
 						Some("fish") => Some("fishing"),
-						None if !gather.truthy() && list.iter().any(|i| !i.get("q").truthy()) => Some("chest"),
+						None if !gather.truthy() && list.iter().any(|i| self.keepable(i)) => Some("chest"),
 						_ => None,
 					};
 					if let Some(r) = role {
@@ -2727,11 +2738,22 @@ mod tests {
 		factions: Obj,
 		instances: Obj,
 		gather_spells: Vec<(i64, &'static str)>,
+		quest_items: Vec<i64>,
 	}
 
 	impl Tables {
 		fn new(quests: &str, npcs: &str, items: &str) -> Tables {
-			Tables { quests: obj(quests), npcs: obj(npcs), objects: obj("{}"), items: obj(items), zones: obj("{}"), factions: obj("{}"), instances: obj("{}"), gather_spells: Vec::new() }
+			Tables {
+				quests: obj(quests),
+				npcs: obj(npcs),
+				objects: obj("{}"),
+				items: obj(items),
+				zones: obj("{}"),
+				factions: obj("{}"),
+				instances: obj("{}"),
+				gather_spells: Vec::new(),
+				quest_items: Vec::new(),
+			}
 		}
 
 		fn apply(&self, recs: &[Recording]) -> Stats {
@@ -2744,6 +2766,7 @@ mod tests {
 				factions: &self.factions,
 				instances: &self.instances,
 				gather_spells: &self.gather_spells,
+				quest_items: &self.quest_items,
 			};
 			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, true)
 		}
@@ -2828,7 +2851,7 @@ mod tests {
 		)
 		.unwrap();
 		let t = Tables::new(QUESTS, NPCS, "{}");
-		let db = Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[] };
+		let db = Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[], quest_items: &[] };
 		crate::corrections::apply(&corrections, &t.quests, &t.npcs, &t.objects, &t.items, false);
 		let mut recs = vec![session("a", A, "enUS", &rewrite(10))];
 		recs.extend(from(&[B, C], &rewrite(10)));
@@ -2936,6 +2959,20 @@ mod tests {
 		assert_eq!(roles(&[cast, drop]), r#"["herb"]"#);
 		assert_eq!(roles(&[cast, drop, late]), r#"["chest","herb"]"#, "a later window with no cast before it is no gather");
 		assert_eq!(roles(&[drop]), r#"["chest"]"#, "no cast before it");
+	}
+
+	// Mudsnout Blossom (1723) gives only its quest's item, of the client's Quest class: a quest's plant is no
+	// treasure. A loot window that also holds something a player keeps (Copper Ore) is a chest's.
+	#[test]
+	fn a_loot_window_of_quest_items_only_makes_no_chest() {
+		let mut t = Tables::new(QUESTS, NPCS, "{}");
+		t.quest_items = vec![3502];
+		t.objects = obj(r#"{"1723":{"id":1723,"name":"Mudsnout Blossom","spawns":{}},"2843":{"id":2843,"name":"Battered Chest","spawns":{}}}"#);
+		let blossom = r#"{"t":1,"e":"drop","object":1723,"items":[{"item":3502,"count":1}],"map":1424,"x":30,"y":40}"#;
+		let chest = r#"{"t":2,"e":"drop","object":2843,"items":[{"item":3502,"count":1},{"item":2770,"count":1}],"map":1424,"x":31,"y":40}"#;
+		t.apply(&from(&["sent-alice"], &[blossom.into(), chest.into()]));
+		assert!(t.objects.get("1723").get("roles").items().is_empty(), "{}", j(&t.objects.get("1723").get("roles")));
+		assert_eq!(j(&t.objects.get("2843").get("roles")), r#"["chest"]"#);
 	}
 
 	#[test]
@@ -3046,7 +3083,7 @@ mod tests {
 		// #2585/#2747: loot-window chances read 1.2-3x high, so the data build passes them by: three
 		// trusted players looting 12 of 12 leave Linen at its source's 5%, and fill no gap.
 		fn db_of(t: &Tables) -> Db<'_> {
-			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[] }
+			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[], quest_items: &[] }
 		}
 		let recs = from(&[A, B, C], &loot(1501, 2589, 12, 12));
 		let t = Tables::new("{}", ZOMBIE, LINEN);
@@ -3368,7 +3405,8 @@ mod tests {
 		assert_eq!(scan.names().collect::<Vec<_>>(), whole.iter().map(|r| r.file.as_str()).collect::<Vec<_>>());
 		let (t1, t2) = (Tables::new(QUESTS, "{}", "{}"), Tables::new(QUESTS, "{}", "{}"));
 		let s1 = t1.apply(&whole);
-		let db = Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances, gather_spells: &[] };
+		let db =
+			Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances, gather_spells: &[], quest_items: &[] };
 		let mut rev = Revision::default();
 		let s2 = apply_recordings(
 			&db,

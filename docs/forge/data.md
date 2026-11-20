@@ -357,7 +357,9 @@ from players' recordings, where a loot window from an object gives:
   Mining casts, a fishing catch), or a cast of one of the client's gathering spells (SpellEffect's OPEN_LOCK on
   a Herbalism or Mining lock, such as Forever's Cultivation, 1312650, on its herb nodes) at most 3 seconds
   before it;
-- `chest` only when it was no gather and held an item no open objective wanted.
+- `chest` only when it was no gather and held something a player keeps outside a quest: an item no open
+  objective wanted and not of the client's Quest class (its Item table). A quest's plant or crate (Mudsnout
+  Blossom, Fel Cone, Tirisfal Pumpkin) gives only its quest's item, so it is no chest.
 
 The Codex's treasures (the Rares window's list and the world map's treasure pins) are the objects with the
 `chest` role and none of `herb`, `mine` or `fishing`: a herb, an ore vein or a fishing pool is never a
