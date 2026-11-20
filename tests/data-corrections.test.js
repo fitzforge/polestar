@@ -589,6 +589,12 @@ test('The Crossroads stall that changes by the day gives no Auction House or ban
 	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
 });
 
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
