@@ -4,7 +4,8 @@
 --
 --   Search.Query(text, opts) -> results, counts, error|nil
 --     opts = { kinds = { item = true, ... } | nil (all), resultKind = nil,
---              order = "best" | "az", hideRetired = false, hideNoSource = false,
+--              order = "best" | "az" | "most", sortStat = code, baseOrder = "best" | "az",
+--              hideRetired = false, hideNoSource = false,
 --              limit = 60, perKind = n, offset = n, subtitles = false, ids = false }
 --     With ids = true, a positive decimal item ID adds exact index matches in
 --     item, mount, pet, recipe and tabard. Prefix it with # for ID matches only.
@@ -12,7 +13,7 @@
 --     return empty results and counts with "id-syntax" as the third value.
 --     With ids enabled and a numeric query, rows are not re-sorted across
 --     kinds. Within a kind, the ID hit counts once and comes first in Best
---     match or in its usual place in A to Z.
+--     match, in its usual place in A to Z, or by stat amount in Most.
 --     Lookup's ids option also adds item-backed hits for a complete folded
 --     stat label or alias. Best match puts them after name hits in each kind,
 --     by standing, folded name and numeric ID. A to Z uses Browse's order.
@@ -35,6 +36,16 @@
 --     opts = { offset = 0, limit = 60, subtitles = false, hideRetired = false, hideNoSource = false }
 --     Results have the same fields without a score, A to Z with unavailable
 --     entries last. The order is cached on first use, and only the page is named.
+--   Query and Browse accept order = "most" with a numeric sortStat from
+--     Search.StatCodes(), independent of filters.stat. Most orders each item
+--     kind after query and visibility filters, before paging. If the code or
+--     pack's stat support is missing, or the kind is not item-backed, Query
+--     uses baseOrder (default "best") and Browse uses A to Z.
+--     With Most results, Everything keeps Search.KINDS order. Item-backed
+--     rows have statBucket: 1 known amount (descending, statAmount set),
+--     2 present with unknown amount, 3 known absent, 4 unknown coverage.
+--     Ties use folded displayed name and numeric ID. Most rows have no
+--     score or eagerly decoded subtitle.
 --   Search.BrowseCount(kind, opts) -> count|nil   -- same visibility filters; no sorting or loading
 --   All three take opts.filters = { reqMin, reqMax, ilvlMin, ilvlMax,
 --     quality = { [quality] = true }, slot, class, stat, category = { class, subclass } }.
@@ -364,7 +375,7 @@ end
 -- Indexes
 ---------------------------------------------------------------------------
 
-local guideIndex, guideCount, guideSource, pagedSearch
+local guideIndex, guideCount, guideSource, pagedSearch, pagedMostBrowse
 -- kind -> Browse's A to Z order of its Codex lines (orderedCodex)
 local browseIndexes = {}
 -- item id -> true when a guide of the suggestion source or ours `collects` it
@@ -482,8 +493,8 @@ if ns.On then
 	ns.On("PACKS_CHANGED", function() guideIndex = nil end)
 	-- Dungeons sort by their map names, which no translated index line
 	-- carries into Browse's cache key: sort them again when the names change.
-	ns.On("NAMES_LOADED", function() localIndex, pagedSearch, browseIndexes.instance = {}, nil, nil end)
-	ns.On("CODEX_LOADED", function() pagedSearch = nil end)
+	ns.On("NAMES_LOADED", function() localIndex, pagedSearch, pagedMostBrowse, browseIndexes.instance = {}, nil, nil, nil end)
+	ns.On("CODEX_LOADED", function() pagedSearch, pagedMostBrowse = nil, nil end)
 	-- A name learned from a unit renames its entity: translate that kind's
 	-- index again, which re-sorts its Browse order (keyed by the translations).
 	ns.On("NAME_LEARNED", function(nameKind)
@@ -590,7 +601,19 @@ local function integer(value, max)
 	end
 end
 
-local function normalizeFilters(input, statGeneration, terms)
+-- Keep all maps used by one call alive across Codex's two-entry cache.
+-- Memoize misses too, so a code shared by several roles is asked for once.
+local function statItems(code, maps)
+	if not maps then return ns.Codex.StatItems(code) end
+	local items = maps[code]
+	if items == nil then
+		items = ns.Codex.StatItems(code) or false
+		maps[code] = items
+	end
+	return items or nil
+end
+
+local function normalizeFilters(input, statGeneration)
 	if type(input) ~= "table" then return end
 	local reqMin, reqMax = integer(input.reqMin, 999), integer(input.reqMax, 999)
 	local ilvlMin, ilvlMax = integer(input.ilvlMin, 999), integer(input.ilvlMax, 999)
@@ -616,19 +639,14 @@ local function normalizeFilters(input, statGeneration, terms)
 		end
 	end
 	local classBit, prof, modeled = classProficiency(input.class)
-	local stat, statItems
-	if statGeneration and statLabels[input.stat] then
-		stat = input.stat
-		if terms and terms.stat == stat then statItems = terms.statItems
-		else statItems = ns.Codex.StatItems(stat) end
-	end
+	local stat = statGeneration and statLabels[input.stat] and input.stat or nil
 	local packed = reqMin or reqMax or ilvlMin or ilvlMax or slot or classBit
 	if not (packed or qualities or stat) then return nil, category end
 	return {
 		reqMin = reqMin, reqMax = reqMax, ilvlMin = ilvlMin, ilvlMax = ilvlMax,
 		slot = slot, qualities = qualities, packed = packed ~= nil,
 		classBit = classBit, prof = prof, modeledWeapons = modeled,
-		stat = stat, statItems = statItems,
+		stat = stat,
 		key = table.concat({ reqMin or "", reqMax or "", ilvlMin or "", ilvlMax or "", qualityMask, slot or "",
 			classBit and input.class or "", stat or "", stat and statGeneration or "" }, ":"),
 	}, category
@@ -723,6 +741,73 @@ local function rowAt(offsets, at)
 end
 
 ---------------------------------------------------------------------------
+-- Most <stat>
+---------------------------------------------------------------------------
+
+local function mostStatCode(opts)
+	if opts.order == "most" and statLabels[opts.sortStat] then return opts.sortStat end
+end
+
+-- Both stat orders use the folded displayed name and a decimal ID whose
+-- width sorts first, so equally folded names tie by numeric ID.
+local function statOrderKey(kind, blob, at, rawId, useLocalName)
+	local shown = useLocalName and localName(kind, tonumber(rawId))
+	local folded
+	if shown then
+		folded = sub(fold(shown), 2)
+	else
+		local start = at - 2
+		while byte(blob, start) ~= 2 do start = start - 1 end
+		folded = sub(blob, start + 1, at - 2)
+	end
+	return folded .. "\0" .. char(#rawId) .. rawId
+end
+
+local function keepMost(order, groups, at, amount, column, row)
+	local levelsSource = not amount and column and ns.Codex.FilterLevelsSource(column, row)
+	local key = amount or (levelsSource and "absent" or "unknown")
+	local bucket = groups[key]
+	if not bucket then
+		bucket = { statBucket = amount and (amount == 0 and 2 or 1) or (levelsSource and 3 or 4),
+			statAmount = amount ~= 0 and amount or nil }
+		groups[key] = bucket
+		order[#order + 1] = bucket
+	end
+	bucket[#bucket + 1] = at
+end
+
+local function mostFirst(a, b)
+	if a.statBucket ~= b.statBucket then return a.statBucket < b.statBucket end
+	return a.statBucket == 1 and a.statAmount > b.statAmount
+end
+
+-- Sort only ties that intersect the page, with the same offset list reused
+-- on later pages. Keep offsets and bucket metadata, not names or stat maps.
+local function appendMostPage(results, kind, blob, hits, offset, cap)
+	local start, stop = offset + 1, offset + cap
+	for _, bucket in ipairs(hits) do
+		if start <= #bucket and stop >= 1 then
+			if #bucket > 1 and not bucket.ordered then
+				local trailerWidth, useLocalName = #tostring(#blob) + 1, localised()
+				for i, at in ipairs(bucket) do
+					bucket[i] = statOrderKey(kind, blob, at, match(blob, RAW_ID, at), useLocalName) .. "\0" .. at
+				end
+				table.sort(bucket)
+				for i, key in ipairs(bucket) do bucket[i] = tonumber(match(key, "%z(%d+)$", -trailerWidth)) end
+				bucket.ordered = true
+			end
+			for i = max(start, 1), min(stop, #bucket) do
+				local row = codexRow(kind, blob, bucket[i])
+				row.statBucket, row.statAmount = bucket.statBucket, bucket.statAmount
+				results[#results + 1] = row
+			end
+		end
+		start, stop = start - #bucket, stop - #bucket
+		if stop <= 0 then return end
+	end
+end
+
+---------------------------------------------------------------------------
 -- Browse
 ---------------------------------------------------------------------------
 
@@ -731,6 +816,7 @@ local filteredBrowseCache = {}
 local guideBrowseSource, guideOrder
 local BROWSE_LINE = "\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n"
 local FILTER_BROWSE_LINE = "\1()[^,]*,%d*,(%a?),%d+\n"
+local MOST_BROWSE_LINE = "\2[^\1]*\1()(%d+),%d*,(%a?),%d+\n"
 
 local function baseBrowseCount(kind, blob, opts)
 	local cached = browseCounts[kind]
@@ -755,51 +841,65 @@ local function baseBrowseCount(kind, blob, opts)
 	return count
 end
 
-local function filteredBrowse(kind, blob, opts, info, sorted)
-	if not (info and info.filtersAvailable and NAMES_KIND[kind] == "item") then return end
+local function filteredBrowse(kind, blob, opts, info, sorted, sortCode, generation, extra)
+	local available = info and info.filtersAvailable and NAMES_KIND[kind] == "item"
+	if not (available or sortCode) then return end
 	local C = ns.Codex
-	local generation = C.StatGeneration and C.StatGeneration()
-	local filters, category = normalizeFilters(opts.filters, generation)
+	local filters, category
+	if available then filters, category = normalizeFilters(opts.filters, generation or C.StatGeneration and C.StatGeneration()) end
 	if kind ~= "item" then category = nil end
-	local wantTotals = kind == "item" and opts.categoryTotals == true
+	local wantTotals = available and kind == "item" and opts.categoryTotals == true
 	local hasPredicates = (filters or category) ~= nil
-	if not (hasPredicates or wantTotals) then return end
+	if not (hasPredicates or wantTotals or sortCode) then return end
 	local key = filters and filters.key
 	local categoryKey = category and category.key
-	local column = ns.Codex.FilterColumn(kind)
-	local cached = filteredBrowseCache[kind]
+	local column = C.FilterColumn(kind)
+	local cached = sortCode and pagedMostBrowse or filteredBrowseCache[kind]
 	if not (cached and cached.blob == blob and cached.column == column and cached.key == key and cached.categoryKey == categoryKey
+		and cached.kind == kind and cached.sortCode == sortCode and cached.generation == generation and cached.extra == extra
 		and cached.hideRetired == opts.hideRetired and cached.hideNoSource == opts.hideNoSource
 		and (cached.wantTotals or not wantTotals) and (not (sorted and hasPredicates) or cached.sorted == sorted)) then
 		local totals = wantTotals and newCategoryTotals() or nil
 		local row, count, before = 0, 0, 0
 		local matched = sorted and hasPredicates and {}
-		for at, st in gmatch(blob, FILTER_BROWSE_LINE) do
+		local order, groups, amounts
+		local statMaps = sortCode and filters and filters.stat and {}
+		if filters and filters.stat then filters.statItems = statItems(filters.stat, statMaps) end
+		if sortCode then order, groups, amounts = {}, {}, statItems(sortCode, statMaps) end
+		for at, idOrStatus, status in gmatch(blob, sortCode and MOST_BROWSE_LINE or FILTER_BROWSE_LINE) do
 			row = row + 1
-			if not hidden(st, opts) then
-				local inScope, matches = filterItem(filters, category, column, row, blob, at, totals)
+			if not hidden(status or idOrStatus, opts) then
+				local inScope, matches = true, true
+				if hasPredicates or totals then inScope, matches = filterItem(filters, category, column, row, blob, at, totals) end
 				if inScope then before = before + 1 end
 				if matches then
 					count = count + 1
 					if matched then matched[at] = true end
+					if sortCode then
+						local amount = amounts and amounts[tonumber(idOrStatus)]
+						keepMost(order, groups, at, amount, column, row)
+					end
 				end
 			end
 		end
-		local order
 		if matched then
 			order = {}
 			for _, at in ipairs(sorted.order) do
 				if matched[at] then order[#order + 1] = at end
 			end
 		end
-		cached = { blob = blob, column = column, key = key, categoryKey = categoryKey,
+		if sortCode then table.sort(order, mostFirst) end
+		cached = { kind = kind, blob = blob, column = column, key = key, categoryKey = categoryKey,
+			sortCode = sortCode, generation = generation, extra = extra,
 			hideRetired = opts.hideRetired, hideNoSource = opts.hideNoSource,
 			wantTotals = wantTotals, sorted = sorted, order = order, count = count, before = before, totals = totals }
-		filteredBrowseCache[kind] = cached
+		if sortCode then pagedMostBrowse = cached else filteredBrowseCache[kind] = cached end
 	end
-	info.filtersApplied = hasPredicates
-	info.preFilterCounts[kind] = cached.before
-	if wantTotals then info.categoryTotals = cached.totals end
+	if info then
+		info.filtersApplied = hasPredicates
+		info.preFilterCounts[kind] = cached.before
+		if wantTotals then info.categoryTotals = cached.totals end
+	end
 	return cached
 end
 
@@ -915,7 +1015,17 @@ function Search.Browse(kind, opts)
 		return results, 0
 	end
 	guideList() -- fills the curated set, also used by Query
-	local sorted = orderedCodex(kind, blob, translatedBlob(kind, blob))
+	local extra = translatedBlob(kind, blob)
+	local sortCode = NAMES_KIND[kind] == "item" and mostStatCode(opts)
+	local C = ns.Codex
+	local generation = sortCode and C.StatGeneration and C.StatGeneration()
+	if generation then
+		local sorted = filteredBrowse(kind, blob, opts, info, nil, sortCode, generation, extra)
+		appendMostPage(results, kind, blob, sorted.order, offset, limit)
+		if info then return results, sorted.count, info end
+		return results, sorted.count
+	end
+	local sorted = orderedCodex(kind, blob, extra)
 	local filtered = filteredBrowse(kind, blob, opts, info, sorted)
 	local order = filtered and filtered.order or sorted.order
 	local split, tail = #order
@@ -1065,24 +1175,9 @@ local scoreIndexes = {}
 -- stay (they are slow to rebuild).
 function Search.Release()
 	scoreIndexes, pagedSearch = {}, nil
-	filterOffsets, filteredBrowseCache = {}, {}
+	filterOffsets, filteredBrowseCache, pagedMostBrowse = {}, {}, nil
 	local C = ns.Codex
 	if C and C.ReleaseStatItems then C.ReleaseStatItems() end
-end
-
--- Stat ties use the folded index name (or its client-language equivalent)
--- with decimal ID width first, so numeric IDs sort numerically.
-local function statOrderKey(kind, blob, at, rawId, useLocalName)
-	local shown = useLocalName and localName(kind, tonumber(rawId))
-	local folded
-	if shown then
-		folded = sub(fold(shown), 2)
-	else
-		local start = at - 2
-		while byte(blob, start) ~= 2 do start = start - 1 end
-		folded = sub(blob, start + 1, at - 2)
-	end
-	return folded .. "\0" .. char(#rawId) .. rawId
 end
 
 -- A few plain index probes cost less than parsing every decimal ID. For
@@ -1096,21 +1191,22 @@ local function sparseStatItems(items)
 	return false
 end
 
-local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full, cap, filters, category, wantTotals)
+local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full, cap, filters, category, wantTotals, most, statMaps)
 	local hideRetired, hideNoSource = opts.hideRetired, opts.hideNoSource
-	local useLocalName = show and not az and localised()
+	local useLocalName = show and not az and not most and localised()
 	local checkItems = filters or category or wantTotals
 	local key = filters and filters.key
 	local categoryKey = category and category.key
-	local column = checkItems and ns.Codex.FilterColumn(kind)
-	local statItems = NAMES_KIND[kind] == "item" and terms.statItems
-	local statGeneration = statItems and terms.statGeneration
+	local column = (checkItems or most) and ns.Codex.FilterColumn(kind)
+	local statGeneration = NAMES_KIND[kind] == "item" and terms.statGeneration
+	local sortCode, sortGeneration = most and most.code, most and most.generation
 	-- Only the paged kind needs a complete ordered list. The guide index
 	-- participates in its key because its curated set affects item scores.
 	local cached = full and pagedSearch
 	if cached and cached.kind == kind and cached.blob == blob and cached.extra == extra
 		and cached.guides == list and cached.q == terms.q and cached.id == terms.id and cached.az == az
 		and cached.localNames == useLocalName and cached.statGeneration == statGeneration
+		and cached.sortCode == sortCode and cached.sortGeneration == sortGeneration
 		and cached.filterKey == key and cached.categoryKey == categoryKey and cached.column == column and cached.wantTotals == wantTotals
 		and cached.hideRetired == hideRetired and cached.hideNoSource == hideNoSource then
 		return cached.hits, cached.n, cached.before, cached.totals
@@ -1120,16 +1216,23 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	if idAt then idAt = idAt + 1 end
 	local totals = wantTotals and newCategoryTotals() or nil
 	if not (terms.q or idAt) then return {}, 0, 0, totals end
-	if not (show or extra or hideRetired or hideNoSource or idAt or statItems or checkItems) then
+	local textItems = statGeneration and statItems(terms.stat, statMaps)
+	if textItems and terms.sparseStatItems == nil then terms.sparseStatItems = sparseStatItems(textItems) end
+	if not (show or extra or hideRetired or hideNoSource or idAt or textItems or checkItems) then
 		return nil, scanNames(blob, kind, terms, false)
 	end
+	if filters and filters.stat then filters.statItems = statItems(filters.stat, statMaps) end
 
 	local offsets, translated
-	if category or wantTotals or (filters and filters.packed) then offsets, translated = itemOffsets(kind, blob, extra) end
-	local ranked = show and not az
+	if category or wantTotals or (filters and filters.packed) or (most and extra) then
+		offsets, translated = itemOffsets(kind, blob, extra)
+	end
+	local ranked = show and not az and not most
 	local hits, n, beforeFilters = {}, 0, 0
+	local groups = most and {}
+	local amounts = most and statItems(sortCode, statMaps)
 	local buckets = ranked and full and {}
-	local seen = (extra or idAt or statItems) and {} or nil
+	local seen = (extra or idAt or textItems) and {} or nil
 	local sorted = az and orderedCodex(kind, blob, extra)
 	local marked = az and {}
 	local usesCurated = ranked and next(curated) ~= nil
@@ -1206,7 +1309,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		if #hits == cap then floorScore = hits[cap].score end
 	end
 	local function scan(source, translation, statsOnly)
-		local function hit(at, t, row)
+		local function hit(at, t, row, rawId)
 			if floorScore and not (seen or filter or usesCurated or checkItems)
 				and floorScore > tierCeiling[t] then
 				n = n + 1
@@ -1227,8 +1330,8 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 				if not floorScore or s >= floorScore then keep(at, match(source, RAW_ID, at), s) end
 				return
 			end
-			local rawId, st, len
-			if seen or usesCurated then
+			local st, len
+			if (seen and not rawId) or usesCurated then
 				rawId, st, len = match(source, RANK_META, at)
 			elseif ranked or filter then
 				st, len = match(source, RANK_NO_ID, at)
@@ -1236,10 +1339,11 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 			if filter and hidden(st, opts) then return end
 			local prior = seen and seen[rawId]
 			if prior == false then return end -- already rejected by category or drawer predicates
-			if prior and statsOnly then return end -- a name or ID hit already represents this row
+			if prior and (statsOnly or most) then return end -- a name or ID hit already represents this row
+			local baseAt
+			if checkItems or most then baseAt = translation and translated and translated[at] or at end
 			if not prior then
 				if checkItems then
-					local baseAt = translation and translated and translated[at] or at
 					row = row or (offsets and rowAt(offsets, baseAt))
 					local inScope, matches = filterItem(filters, category, column, row, source, at, totals)
 					if inScope then beforeFilters = beforeFilters + 1 end
@@ -1266,20 +1370,35 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 				end
 			else
 				if seen and not statsOnly then seen[rawId] = true end
-				if az then marked[translation and sorted.translations[rawId] or at] = true end
+				if az then
+					marked[translation and sorted.translations[rawId] or at] = true
+				elseif most then
+					local amount = amounts and amounts[rawId and tonumber(rawId) or itemIdAt(blob, baseAt)]
+					if not amount and column and not row then
+						offsets = offsets or itemOffsets(kind, blob)
+						row = rowAt(offsets, baseAt)
+					end
+					keepMost(hits, groups, baseAt, amount, column, row)
+				end
 			end
 		end
 		if statsOnly then
 			if terms.sparseStatItems then
-				for id in pairs(statItems) do
+				for id in pairs(textItems) do
 					local at = find(source, "\1" .. id .. ",", 1, true)
 					if at then hit(at + 1) end
+				end
+			elseif most then
+				local row = 0
+				for at, rawId in gmatch(source, "\1()(%d+),") do
+					row = row + 1
+					if textItems[tonumber(rawId)] ~= nil then hit(at, nil, row, rawId) end
 				end
 			else
 				local row = 0
 				for at in gmatch(source, "\1()") do
 					row = row + 1
-					if statItems[itemIdAt(source, at)] ~= nil then hit(at, nil, row) end
+					if textItems[itemIdAt(source, at)] ~= nil then hit(at, nil, row) end
 				end
 			end
 		else
@@ -1294,7 +1413,7 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 			if entry then keep(entry.at, entry.id, entry.score, entry.translation) end
 		end
 	end
-	if statItems then scan(blob, false, true) end
+	if textItems then scan(blob, false, true) end
 	if az then
 		-- Filter Browse's cached offsets in their existing order. A kind's
 		-- first few (Everything) stop there: the count is already known.
@@ -1304,12 +1423,15 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 				if not full and #hits >= cap then break end
 			end
 		end
+	elseif most then
+		table.sort(hits, mostFirst)
 	elseif full then
 		table.sort(hits, function(a, b) return a.score > b.score end)
 	end
 	if full then
 		pagedSearch = { kind = kind, blob = blob, extra = extra, guides = list, q = terms.q, id = terms.id, az = az,
 			localNames = useLocalName, statGeneration = statGeneration, hideRetired = hideRetired, hideNoSource = hideNoSource, hits = hits, n = n,
+			sortCode = sortCode, sortGeneration = sortGeneration,
 			filterKey = key, categoryKey = categoryKey, column = column, wantTotals = wantTotals,
 			before = checkItems and beforeFilters, totals = totals }
 	end
@@ -1381,7 +1503,8 @@ function Search.Query(text, opts)
 	local cap = opts.perKind or (only and limit or min(DEFAULT_PER_KIND, limit))
 	-- A to Z holds for every kind searched: with several (Everything), each
 	-- kind's first few in its A to Z order, kept apart by kind.
-	local az = opts.order == "az"
+	local az = opts.order == "az" or (opts.order == "most" and opts.baseOrder == "az")
+	local sortCode = mostStatCode(opts)
 
 	-- Built even when guides are not asked for: it holds the curated set.
 	local list = guideList()
@@ -1398,14 +1521,12 @@ function Search.Query(text, opts)
 	local info = filterInfo(opts)
 	local available = info and info.filtersAvailable
 	local C = ns.Codex
-	local generation = (terms.stat or available) and codexOn() and C and C.StatGeneration and C.StatGeneration()
-	if terms.stat and generation then
-		terms.statGeneration = generation
-		terms.statItems = C.StatItems(terms.stat)
-		terms.sparseStatItems = terms.statItems and sparseStatItems(terms.statItems)
-	end
+	local generation = (terms.stat or available or sortCode) and codexOn() and C and C.StatGeneration and C.StatGeneration()
+	terms.statGeneration = terms.stat and generation
 	local filters, category
-	if available then filters, category = normalizeFilters(opts.filters, generation, terms) end
+	if available then filters, category = normalizeFilters(opts.filters, generation) end
+	local statMaps = (terms.statGeneration or (filters and filters.stat) or (generation and sortCode)) and {}
+	local most, hasMost
 	for _, k in ipairs(Search.KINDS) do
 		local kind = k.key
 		local itemKind = NAMES_KIND[kind] == "item"
@@ -1415,19 +1536,27 @@ function Search.Query(text, opts)
 			local extra = translatedBlob(kind, blob)
 			local show = (not only or only == kind) and cap > 0
 			local full = show and only ~= nil
-			local alpha = show and az
+			local itemMost
+			if show and itemKind and generation and sortCode then
+				most = most or { code = sortCode, generation = generation }
+				itemMost = most
+			end
+			local alpha = show and az and not itemMost
 			local itemFilters = itemKind and filters or nil
 			local itemCategory = kind == "item" and category or nil
 			local wantTotals = available and kind == "item" and opts.categoryTotals == true or nil
 			local hits, n, before, totals = searchCodex(kind, blob, extra, list, terms, opts, show, alpha, full,
-				cap + offset, itemFilters, itemCategory, wantTotals)
+				cap + offset, itemFilters, itemCategory, wantTotals, itemMost, statMaps)
 			if info and itemKind then
 				if itemFilters or itemCategory then info.filtersApplied = true end
 				info.preFilterCounts[kind] = before or n
 				if totals then info.categoryTotals = totals end
 			end
 			if n > 0 then counts[kind] = n end
-			if full and not alpha then
+			if itemMost then
+				appendMostPage(results, kind, blob, hits, offset, cap)
+				hasMost = hasMost or n > 0
+			elseif full and not alpha then
 				appendRankedPage(results, kind, blob, extra, hits, offset, cap)
 			elseif show then
 				for j = offset + 1, min(#hits, offset + cap) do
@@ -1441,10 +1570,14 @@ function Search.Query(text, opts)
 		end
 	end
 
-	if not (only or az or terms.id or terms.statItems) then table.sort(results, bestFirst) end
+	if not (only or az or hasMost or terms.id or (terms.statGeneration and statItems(terms.stat, statMaps))) then
+		table.sort(results, bestFirst)
+	end
 	for i = #results, limit + 1, -1 do results[i] = nil end
 	if opts.subtitles ~= false then
-		for _, r in ipairs(results) do Search.Subtitle(r) end
+		for _, r in ipairs(results) do
+			if not r.statBucket then Search.Subtitle(r) end
+		end
 	end
 	if info then return results, counts, nil, info end
 	return results, counts

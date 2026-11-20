@@ -1485,6 +1485,172 @@ fn stat_text_search_adds_a_deduplicated_lane_and_preserves_paging_and_order() {
 }
 
 #[test]
+fn most_stat_sorts_filtered_hits_and_pages_the_same_four_buckets_in_browse_and_search() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Charm Aaron", "levelsSource": "client", "statAmountSource": "client",
+				"slot": 5, "itemClass": 4, "itemSubclass": 1, "stats": { "7": 12, "31": 0 } },
+			"2": { "name": "Charm Alpha!", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"3": { "name": "Charm Delta", "levelsSource": "client",
+				"slot": 13, "itemClass": 2, "itemSubclass": 7, "stats": { "7": 0, "31": 0 } },
+			"4": { "name": "Charm Beta", "levelsSource": "client", "stats": { "31": 0 } },
+			"5": { "name": "Charm Aardvark" },
+			"6": { "name": "Charm Retired", "status": "retired", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 50, "31": 0 } },
+			"7": { "name": "Charm Sourceless", "status": "nosource", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 40 } },
+			"8": { "name": "Charm Negative", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": -2 } },
+			"10": { "name": "Charm Alpha", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"11": { "name": "Charm Epsilon", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 5 } },
+			"20": { "name": "Charm Ram", "kind": "mount", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"21": { "name": "Charm Elk", "kind": "mount", "levelsSource": "client" },
+			"22": { "name": "Charm Falcon", "kind": "pet", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"23": { "name": "Charm Recipe", "kind": "recipe", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"24": { "name": "Charm Tabard", "kind": "tabard", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } }
+		},
+		"quests": { "30": { "title": "A Charm" }, "31": { "title": "Charm Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 1 then return "Charm Omega" end end
+		local function check(rows, expectedIds, expectedBuckets, expectedAmounts)
+			local buckets, amounts = {}, {}
+			for i, row in ipairs(rows) do
+				buckets[i], amounts[i] = row.statBucket or "-", row.statAmount or "-"
+			end
+			local actual = table.concat(ids(rows), ",")
+			assert(actual == expectedIds, "IDs: " .. actual .. " expected " .. expectedIds)
+			assert(table.concat(buckets, ",") == expectedBuckets, "stat buckets: " .. table.concat(buckets, ","))
+			assert(table.concat(amounts, ",") == expectedAmounts, "stat amounts: " .. table.concat(amounts, ","))
+		end
+		local opts = { order = "most", sortStat = 7, kinds = { item = true }, subtitles = false, categoryTotals = true }
+		local function totals(count, info, expectedBefore, expectedAfter)
+			assert(count == expectedAfter and info.preFilterCounts.item == expectedBefore)
+			assert(info.categoryTotals.root == expectedAfter)
+		end
+		for _, list in ipairs({
+			function(o) return S.Browse("item", o) end,
+			function(o) local rows, counts, _, info = S.Query("charm", o); return rows, counts.item, info end,
+		}) do
+			opts.limit, opts.offset = 7, 0
+			local rows, count, info = list(opts)
+			check(rows, "6,7,2,10,1,11,8", "1,1,1,1,1,1,1", "50,40,12,12,12,5,-2")
+			assert(rows[1].status == "retired" and rows[2].status == "nosource" and rows[5].title == "Charm Omega")
+			totals(count, info, 10, 10)
+			opts.offset = 7
+			rows, count, info = list(opts)
+			check(rows, "3,4,5", "2,3,4", "-,-,-")
+			totals(count, info, 10, 10)
+			opts.limit, opts.offset, opts.hideRetired, opts.hideNoSource = 50, 0, true, true
+			rows, count, info = list(opts)
+			check(rows, "2,10,1,11,8,3,4,5", "1,1,1,1,1,2,3,4", "12,12,12,5,-2,-,-,-")
+			totals(count, info, 8, 8)
+			opts.filters = { stat = 31 }
+			rows, count, info = list(opts)
+			check(rows, "1,3,4", "1,2,3", "12,-,-")
+			totals(count, info, 8, 3)
+			opts.filters.category = { class = 4 }
+			rows, count, info = list(opts)
+			check(rows, "1", "1", "12")
+			assert(count == 1 and info.preFilterCounts.item == 1 and info.categoryTotals.root == 3)
+			assert(info.categoryTotals.classes[2] == 1 and info.categoryTotals.classes[4] == 1)
+			opts.filters.category = nil
+			opts.sortStat = 31
+			rows, count, info = list(opts)
+			check(rows, "4,3,1", "2,2,2", "-,-,-")
+			totals(count, info, 8, 3)
+			opts.sortStat, opts.filters.stat = 7, 7
+			rows, count, info = list(opts)
+			check(rows, "2,10,1,11,8,3", "1,1,1,1,1,2", "12,12,12,5,-2,-")
+			totals(count, info, 8, 6)
+			assert(S.BrowseCount("item", opts) == 6)
+			opts.order = "best"
+			local base, baseCount, baseInfo = list(opts)
+			totals(baseCount, baseInfo, 8, 6)
+			opts.order, opts.sortStat = "most", "7"
+			rows, count, info = list(opts)
+			assert(table.concat(ids(rows), ",") == table.concat(ids(base), ",") and rows[1].statBucket == nil)
+			totals(count, info, 8, 6)
+			opts.sortStat, opts.filters, opts.hideRetired, opts.hideNoSource = 7, nil, nil, nil
+		end
+		opts.kinds, opts.perKind = nil, 2
+		local rows, counts = S.Query("charm", opts)
+		check(rows, "20,21,22,6,7,23,24,31,30", "1,3,1,1,1,1,1,-,-", "18,-,18,50,40,18,18,-,-")
+		assert(counts.item == 10 and counts.mount == 2 and counts.quest == 2)
+		local translated = S.Query("omega", { order = "most", sortStat = 7, kinds = { item = true }, subtitles = false })
+		check(translated, "1", "1", "12")
+		local subtitle = Polestar.Lookup.Subtitle
+		Polestar.Lookup.Subtitle = function() error("Most rows already have their subtitle data") end
+		local onlyItems = { order = "most", sortStat = 7, kinds = { item = true }, limit = 1 }
+		check(S.Query("charm", onlyItems), "6", "1", "50")
+		check(S.Browse("item", onlyItems), "6", "1", "50")
+		Polestar.Lookup.Subtitle = subtitle
+		opts.resultKind, opts.baseOrder = "quest", "az"
+		check(S.Query("charm", opts), "30,31", "-,-", "-,-")
+		check(S.Browse("quest", opts), "30,31", "-,-", "-,-")
+		opts.resultKind, opts.baseOrder = nil, nil
+		-- A new posting generation must invalidate both page orders even with the same column and options.
+		assert(S.Query("charm", { order = "most", sortStat = 7, resultKind = "item", subtitles = false })[1].id == 6)
+		assert(S.Browse("item", opts)[1].id == 6)
+		C.RegisterStats(1, string.char(7, 0, 0, 0), string.char(5, 8))
+		local replaced = S.Query("charm", { order = "most", sortStat = 7, resultKind = "item", subtitles = false })
+		assert(replaced[1].id == 5 and replaced[1].statAmount == 1)
+		assert(S.Browse("item", opts)[1].id == 5)
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn most_stat_reuses_postings_across_typed_filter_and_sort_stat_roles() {
+	let data = json!({ "items": {
+		"1": { "name": "Blade", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12, "31": 0, "36": 0 } },
+		"2": { "name": "Mount", "kind": "mount", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 10, "31": 0, "36": 0 } },
+		"3": { "name": "Pet", "kind": "pet", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 8, "31": 0, "36": 0 } },
+		"4": { "name": "Axe", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 6, "31": 0, "36": 0 } }
+	} });
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		local fetch, calls = C.StatItems, {}
+		C.StatItems = function(code)
+			calls[code] = (calls[code] or 0) + 1
+			return fetch(code)
+		end
+		local opts = { ids = true, order = "most", sortStat = 7, filters = { stat = 31 }, subtitles = false }
+		local rows = S.Query("haste", opts)
+		assert(table.concat(ids(rows), ",") == "2,3,1,4")
+		assert(rows[1].statAmount == 10 and rows[2].statAmount == 8 and rows[3].statAmount == 12)
+		assert(calls[7] == 1 and calls[31] == 1 and calls[36] == 1)
+
+		-- The first page also counts other kinds. Show more requests only Items.
+		calls, opts.resultKind, opts.limit = {}, "item", 1
+		local first, counts = S.Query("haste", opts)
+		assert(#first == 1 and first[1].id == 1 and counts.item == 2 and counts.mount == 1 and counts.pet == 1)
+		assert(calls[7] == 1 and calls[31] == 1 and calls[36] == 1)
+		calls, opts.resultKind, opts.kinds, opts.offset = {}, nil, { item = true }, 1
+		local page, pagedCounts = S.Query("haste", opts)
+		assert(#page == 1 and page[1].id == 4 and page[1].statAmount == 6 and pagedCounts.item == 2)
+		assert(next(calls) == nil, "Show more fetched stat postings")
+
+		opts.kinds, opts.offset, opts.limit = nil, nil, nil
+		calls, opts.sortStat, opts.filters.stat = {}, 36, 36
+		rows = S.Query("haste", opts)
+		assert(#rows == 4 and rows[1].statBucket == 2)
+		assert(calls[36] == 1)
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
 fn search_item_ids_deduplicate_translations_and_match_only_the_five_item_backed_kinds() {
 	let [best, alpha, exact, limited] = first::<4>(browse(
 		r##"

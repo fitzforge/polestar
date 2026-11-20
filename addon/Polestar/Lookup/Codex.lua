@@ -37,6 +37,8 @@
 --   Codex.DecodeFilter(blob, row) -> reqLevel, itemLevel, allowClass, slot, category, levelsSource, typeSource
 --       (1-based Index row; no allocation; nil for unknown fields or absent row.
 --       allowClass uses Blizzard's class bits; sources are numeric codes.)
+--   Codex.FilterLevelsSource(blob, row) -> levelsSource | nil
+--       (same numeric source as DecodeFilter, read from just the row's final byte.)
 --   Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category,
 --       itemClass, itemSubclass, levelsSource, typeSource } | nil
 --       (scans the Index for the ID and counts preceding newlines, linear in
@@ -51,7 +53,9 @@
 --   Codex.StatGeneration() -> number | nil   -- cache key; nil before stat registration
 --   Codex.StatItems(code) -> { [itemId] = amount } | nil   -- 0 = present, amount unknown
 --       (read-only to callers; O(postings for code) on a miss, two most recent maps cached)
---       The two largest maps (codes 7 and 5) retain about 480 KiB in 64-bit Lua 5.1.
+--       The largest maps (codes 7 and 5) each use about 240 KiB in 64-bit Lua 5.1.
+--       Search holds up to three maps for one call (typed, filter and sort stat).
+--       After the call only the two most recent maps stay cached.
 --       This cache is allocated on demand and excluded from the pack's memoryKB.
 --   Codex.StatAmountSource(code, id) -> "client" | "forever" | "era" | nil
 --       (reads one list up to the ID; nil for missing stat or unknown amount)
@@ -644,6 +648,13 @@ function Codex.DecodeFilter(blob, row)
 	return req < 127 and req or nil, ilvl < 127 and ilvl or nil, allow,
 		slot > 0 and slot - 1 or nil, category > 0 and category or nil,
 		levels > 0 and levels or nil, types > 0 and types or nil
+end
+
+function Codex.FilterLevelsSource(blob, row)
+	if not blob or type(row) ~= "number" or row < 1 or row > #blob / FILTER_BYTES or row % 1 ~= 0 then return nil end
+	local last = byte(blob, row * FILTER_BYTES)
+	local levels = floor(last / 16) % 4
+	return levels > 0 and levels or nil
 end
 
 function Codex.FilterCategory(id)
