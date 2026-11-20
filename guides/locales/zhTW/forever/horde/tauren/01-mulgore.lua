@@ -186,9 +186,9 @@ return {
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
 	["{zone:1412}: kill these as you meet them"] = "{zone:1412}：遇到就殺",
-	-- {quest:96130} Chakuyak
+	-- {quest:96130} Chakuyak · {npc:3056} Ghost Howl
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
-	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "孤狼{quest:96130}在村子西邊的平原徘徊。草原捕食者和平原獅在村子北邊和西邊的平原遊蕩。",
+	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "",
 
 	-- Step 37: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
@@ -491,4 +491,5 @@ return {
 	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888}站在{area:221}。{quest:1516}需要4級，在這裡繳交任務就能達到。",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775}站在營地西端，山獅出沒的丘陵西北角：接他的任務，從那裡往南和往東獵殺山獅，然後回到{npc:2980}那裡。",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130}與{quest:756}",
+	-- ["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "孤狼{quest:96130}在村子西邊的平原徘徊。草原捕食者和平原獅在村子北邊和西邊的平原遊蕩。",
 }

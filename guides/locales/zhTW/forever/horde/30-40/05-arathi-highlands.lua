@@ -244,7 +244,8 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：遇到就殺",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "在海灣西邊，刺脊襲擊者和刺脊巫師（38-40級）佔據海岸：一次拉一隻。兩艘沉船在外海的淺水中，海圖和航海日誌在船裡；寶石散落在沉船周圍的海底。",
+	-- was: ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "在海灣西邊，刺脊襲擊者和刺脊巫師（38-40級）佔據海岸：一次拉一隻。兩艘沉船在外海的淺水中，海圖和航海日誌在船裡；寶石散落在沉船周圍的海底。"
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "",
 	["Underwater"] = "在水下",
 
 	-- Step 42: Faldir's Cove
@@ -259,4 +260,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The {object:1763} poster by the inn"] = "旅店旁的{object:1763}海報",
+	-- ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "在海灣西邊，刺脊襲擊者和刺脊巫師（38-40級）佔據海岸：一次拉一隻。兩艘沉船在外海的淺水中，海圖和航海日誌在船裡；寶石散落在沉船周圍的海底。",
 }

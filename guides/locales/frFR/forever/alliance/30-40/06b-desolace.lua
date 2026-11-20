@@ -40,7 +40,7 @@ return {
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} se tient en bordure de {area:596}, au sud-ouest de {area:2407} ; des {object:176751} gisent parmi les squelettes.",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -143,6 +143,7 @@ return {
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Des Ravageurs morts-vivants parcourent les champs d'ossements au sud du village des Magram, à l'est du Convent : la flèche mène à leur bord ouest. Utilisez ensuite la {item:15848} à sa flèche, du côté est des champs, pour attirer les Spectres magrami. Attention : des Nécrokhans magram et des Dévoreurs de cadavres (45, élites) arpentent les champs d'ossements entre les deux flèches, avec des Nécromanciens magram (42) : attirez les Ravageurs et les spectres vers vous, loin d'eux.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, si 30-40/02 ne vous l'a pas donnée",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, si 30-40/02 ne l'a pas prise : l'épave se trouve sous la tour d'{npc:11863}",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} se tient en bordure de {area:596}, au sud-ouest de {area:2407} ; des {object:176751} gisent parmi les squelettes.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} se trouve à côté de {object:35251}. Sa clé en argent est lâchée par les crabes Claquesec autour de l'épave ; la clé en or provient des nagas Ondulame de la côte nord-ouest, ensuite.",
 	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, si 30-40/02 ne l'a pas pris",
 }

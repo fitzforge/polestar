@@ -186,9 +186,9 @@ return {
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
 	["{zone:1412}: kill these as you meet them"] = "{zone:1412}: mata a estos según te los encuentres",
-	-- {quest:96130} Chakuyak
+	-- {quest:96130} Chakuyak · {npc:3056} Ghost Howl
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
-	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, merodea las llanuras al oeste del poblado. Los Acechadores de pradera ({npc:2959}) y los Pumas de las estepas ({npc:3035}) recorren las llanuras al norte y al oeste.",
+	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "",
 
 	-- Step 37: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
@@ -500,4 +500,5 @@ return {
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746}, en la elevación central, te manda con {npc:3033} en {area:1639}.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} está en el extremo oeste del campamento, en la esquina noroeste de las colinas donde merodean los Pumas monteses ({npc:2961}): acepta su misión, caza los pumas desde allí hacia el sur y el este, y luego regresa con {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} y {quest:756}",
+	-- ["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, merodea las llanuras al oeste del poblado. Los Acechadores de pradera ({npc:2959}) y los Pumas de las estepas ({npc:3035}) recorren las llanuras al norte y al oeste.",
 }

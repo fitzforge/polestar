@@ -126,8 +126,8 @@ return {
 
 	-- Step 25: The Legashi satyrs
 	["The Legashi satyrs"] = "Os sátiros Legashi",
-	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Os sátiros Legashi (51-52) ocupam as colinas ao norte do acampamento dos elfos sangrentos: {npc:235903} quer cinco de cada tipo.",
+	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -210,8 +210,8 @@ return {
 	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sul de {area:1763}",
-	-- {area:1763} Jaedenar
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Siga a estrada para noroeste. O sul de {area:1763}, em volta do poço lunar corrompido, é ocupado por sectários, adeptos, guardas e cães do Shadow Council.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
 	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -292,6 +292,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgo e Retalhadores Lenhatorta do lado leste da mata carregam cada um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil andam pela mesma mata para Talo, e os órgãos deles são para {npc:10920}.\nOs Vigias do Covil de Lenha Morta (53-54) e os Vingadores (54-55) de {area:1762} vêm a seguir: abaixo do nível 54, continue caçando os ursos-cinzentos e os assoladores (51-52) aqui até o 54. As entregas seguintes em {area:1769}, em {area:2479} e em {area:1997} levam você quase até o nível 55. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgos e Retalhadores Lenhatorta do lado leste da mata levam cada um um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil vagam pela mesma mata para Talo.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgo e Retalhadores Lenhatorta do lado leste da mata carregam cada um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil andam pela mesma mata para Talo. Abaixo do nível 54.21, continue caçando os ursos-cinzentos e os assoladores: as entregas em {area:1997} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
+	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Siga a estrada para noroeste. O sul de {area:1763}, em volta do poço lunar corrompido, é ocupado por sectários, adeptos, guardas e cães do Shadow Council.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Do mestre de voo de {area:2268}, voe para {area:1497}.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "A próxima caçada dele, os Ursos-cinzentos Enfermos (55-56), fica para a visita às Terras Pestilentas por volta do nível 58.",
 	-- ["Jadefire moonwell"] = "Poço lunar Flamejade",
@@ -338,6 +339,7 @@ return {
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "A aldeia dos furbolgs Lenha Morta fica logo ao sul do Santuário. Cada morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "A vila dos furbolgs de Lenha Morta fica logo ao sul do Santuário. Toda morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar. Continue matando-os até o nível 53.92: as próximas entregas do Santuário e {area:1763} exigem isso. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- ["The Jadefire moonwell"] = "O poço lunar Flamejade",
+	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Os sátiros Legashi (51-52) ocupam as colinas ao norte do acampamento dos elfos sangrentos: {npc:235903} quer cinco de cada tipo.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "As barracas da Cruzada Escarlate ficam entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Os ursos vagam pelas colinas ao norte e a leste de {area:202}.",
 	-- ["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Os ursos andam pelas colinas ao norte e a leste de {area:202}. Abaixo do nível 53.02, continue caçando-os depois do oitavo: as entregas em {area:202} levam você ao nível 54. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
