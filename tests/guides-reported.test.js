@@ -8530,12 +8530,13 @@ test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the 
 	assert.equal(fw[at(fw, 'accept 8464', is('accept', 8464))].goal.npc, 11556, 'taken from Salfa in 07');
 });
 
-// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first and the ride north ends
-// at Dokimi in the Crossroads; it rode north to the Crossroads and back to Ratchet.
-test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then the crates at the Crossroads', { skip }, () => {
+// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first; it rode north to the
+// Crossroads and back to Ratchet. Since #3265 the Crossroads crates are out of the route and Orgrimmar is flown to
+// from Ratchet.
+test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then Orgrimmar', { skip }, () => {
 	const list = goals('forever/horde/50-60/04-azshara.guide');
-	const crates = at(list, 'turnin 91899', is('turnin', 91899));
-	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < crates && at(list, 'turnin 5158', is('turnin', 5158)) < crates, 'Liv and Islen before the crates');
+	const org = list.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
+	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < org && at(list, 'turnin 5158', is('turnin', 5158)) < org, 'Liv and Islen before the flight to Orgrimmar');
 });
 
 // Flow review, Horde 40-60 (#1166): Corin's Crossing on the ride south from Quel'Lithien Lodge, all three hand-ins to
@@ -11663,7 +11664,8 @@ test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in wher
 	assert.ok(!ws.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no Orgrimmar donation stop in the Winterspring guide');
 	const orgStops = az.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
 	assert.equal(orgStops.length, 1, 'one Orgrimmar landing in 04');
-	assert.ok(at(az, 'turnin 91904', is('turnin', 91904)) < az.indexOf(orgStops[0]) && az.indexOf(orgStops[0]) < at(az, 'turnin 7833', is('turnin', 7833)), 'from the Crossroads straight to the donations');
+	// (#3265: the Crossroads crates are out of the route; the flight to Orgrimmar leaves from Ratchet.)
+	assert.ok(at(az, 'turnin 5158', is('turnin', 5158)) < az.indexOf(orgStops[0]) && az.indexOf(orgStops[0]) < at(az, 'turnin 7833', is('turnin', 7833)), 'from Ratchet straight to the donations');
 });
 
 // Silithus: Dearest Natalia comes from Commander Mar'alith (the top-up named Bor Wildmane), its two dwarves are
@@ -18148,3 +18150,20 @@ for (const guide of ['forever/alliance/30-40/05-arathi-highlands.guide', 'foreve
 		assert.match(step.note || '', /watch your breath/);
 	});
 }
+
+// #3265 (Zack, 0.4.1.1): the Barrens stop sent players to Dokimi in the Crossroads with Sealed Apprentice Crates, which
+// come from the trade camps' Merchant's Favor system: nothing on the route gives one. The crates' hand-ins are out of the
+// Horde route, and the flight to Orgrimmar leaves from Ratchet.
+test('Horde 50-60: no Sealed Crate hand-ins at Dokimi, Orgrimmar flown to from Ratchet (#3265)', { skip }, () => {
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/horde/50-60/'))) {
+		for (const { goal } of goals(guide)) {
+			assert.ok(!(goal.t === 'collect' && [248765, 248770].includes(goal.item)), `${guide}: no Sealed Apprentice Crate`);
+			assert.ok(![91899, 91904].includes(goal.quest), `${guide}: no A Sealed Crate (${goal.t} ${goal.quest})`);
+		}
+	}
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	const fly = list.findIndex(({ goal }) => goal.t === 'fly' && /Orgrimmar/.test(JSON.stringify(goal)));
+	assert.ok(fly > 0, 'a flight to Orgrimmar');
+	const from = list.slice(0, fly).reverse().find(({ goal }) => goal.t === 'goto');
+	assert.ok(from && Math.abs(from.goal.x - 63.1) < 0.3 && Math.abs(from.goal.y - 37.1) < 0.3, 'it leaves from the Ratchet flight master');
+});

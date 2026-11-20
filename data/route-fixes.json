@@ -3228,18 +3228,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					5158
-				],
-				"b": [
-					"accept",
-					91899
-				],
-				"faction": "Horde",
-				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
-			},
-			{
-				"a": [
 					"task",
 					6022
 				],
@@ -12930,6 +12918,18 @@
 				"faction": "Alliance",
 				"reason": "Alliance 40-50 route round (0.4.3): Cortello's Riddle part three (level 51, the treasure in the far east of the Hinterlands), only after the first two parts, which the Alliance route leaves out.",
 				"issue": "#3144"
+			},
+			{
+				"q": 91899,
+				"faction": "Horde",
+				"reason": "#3265 (Zack): A Sealed Crate (Dokimi in the Crossroads) is handed in with a Sealed Apprentice Crate (248765), which comes from the trade camps' Merchant's Favor system: nothing on the leveling route gives one, so the step held players who had none. The hand-in pays Merchant's Favor only.",
+				"issue": "#3265"
+			},
+			{
+				"q": 91904,
+				"faction": "Horde",
+				"reason": "#3265 (Zack): the second A Sealed Crate at Dokimi (crate 248770), the same Merchant's Favor hand-in as 91899: nothing on the leveling route gives the crate.",
+				"issue": "#3265"
 			}
 		],
 		"revert": [

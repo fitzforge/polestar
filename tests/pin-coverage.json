@@ -837,6 +837,8 @@
 		"data/route-fixes.json overrides.skip q=78133": "no guide has quest 78133 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=78134": "no guide has quest 78134 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=857 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=91899 Horde": "no guide has quest 91899 (2026-11-20, #3265: Dokimi's Sealed Crate hand-ins left the Horde route, nothing on it gives the crates; the skip keeps a build from taking them back)",
+		"data/route-fixes.json overrides.skip q=91904 Horde": "no guide has quest 91904 (2026-11-20, #3265: as 91899)",
 		"data/route-fixes.json overrides.skip q=98094 Horde": "no guide has quest 98094 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98095 Horde": "no guide has quest 98095 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98297": "no guide has quest 98297 (0.4.0)",
