@@ -168,6 +168,73 @@ fn run_many(script: &str) -> Value {
 	run_with(script, true, true)
 }
 
+// Control when a job completes, but ask the actual router for its answer. These
+// isolated tiles have known floors and no inter-tile links. Missing ground,
+// including a different deck at the same XY, is not a successful transfer.
+const PRICED: &str = r#"
+local solver = Polestar_NavEngine
+N.Path = fake.pending
+local frames = {}
+solver.after = function(fn) frames[#frames + 1] = fn end
+local function finish(j)
+	local result
+	local function done(value, reason, answer)
+		result = { value = value, reason = reason, job = answer }
+		j.callback(value, reason, answer)
+	end
+	if j.many then solver.FindMany(j.map, j.from, j.targets, done, j.opts, j.reverse)
+	else solver.Find(j.map, j.from, j.to, done, j.opts) end
+	while #frames > 0 do table.remove(frames, 1)() end
+	return assert(result)
+end
+"#;
+
+fn run_priced(script: &str) -> Value {
+	use forge_nav::pack::encode::{encode_heights, run_length};
+	// Keep even a cell corner within the router's five-yard endpoint limit.
+	// Heights are tenths of a yard.
+	const SIDE: usize = 80;
+	let ground = [1; SIDE * SIDE];
+	let heights = |z| lua_string(&encode_heights(&ground, &[z; SIDE * SIDE], SIDE).unwrap());
+	let world = format!(
+		r#"local function continent(cy0)
+			return {{ cells = {SIDE}, nx = 4, ny = 3, cx0 = -2, cy0 = cy0, swim = 2, zstep = .1, grid = {{}}, height = {{}} }}
+		end
+		PolestarPathData = {{ [1] = continent(-.75) }}
+		local function tile(c, wx, wy, h)
+			local d = PolestarPathData[c]
+			local side = 1600 / 3
+			local k = math.floor(wx / side - d.cx0) * d.ny + math.floor(wy / side - d.cy0) + 1
+			d.grid[k], d.height[k] = {}, h
+		end
+		function fake.testshire(cy0)
+			PolestarPathData[0] = continent(cy0)
+			tile(0, -890, 10, {}); tile(0, 900, 900, {}); tile(0, 0, 0, {})
+		end
+		fake.testshire(-.75)
+		tile(1, -400, 0, {}); tile(1, 410, 5, {})
+		"#,
+		lua_string(&run_length(&[16; SIDE * SIDE])),
+		heights(59),
+		heights(0),
+		heights(0),
+		heights(45),
+		heights(45)
+	);
+	emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua", "stub_encoding.lua"],
+		before: format!("{ENGINE}{MANY}\nfake.pending = Polestar_NavEngine\n{world}"),
+		addons: vec![
+			Addon::files("Polestar_Nav", &["Routing/Costs.lua", "Routing/PathGrid.lua", "Routing/Path.lua", "Routing/PathJobs.lua", "API.lua"]),
+			Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"]),
+		],
+		login: true,
+		script: format!("{PRELUDE}{PRICED}\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
 /// A number (NaN for anything else, as JS arithmetic on undefined).
 fn num(v: &Value) -> f64 {
 	v.as_f64().unwrap_or(f64::NAN)
@@ -2509,7 +2576,7 @@ fn review_4_after_route_advanced_off_the_boat_the_arrow_s_own_walk_is_searched_b
 
 #[test]
 fn a_walk_to_a_boat_whose_end_has_a_board_point_is_searched_to_the_deck_with_the_deck_s_height_a_later_walk_too() {
-	let out = run_many(
+	let out = run_priced(
 		r#"
 		N.RegisterTravelData({ build = "test",
 			taxi = {
@@ -2539,20 +2606,29 @@ fn a_walk_to_a_boat_whose_end_has_a_board_point_is_searched_to_the_deck_with_the
 		local kinds = {}
 		for i = ci, #legs do kinds[#kinds + 1] = legs[i].kind end
 		r.kinds = table.concat(kinds, " ")
-		fake.settle(fake.of(true)[1], function() return false end) -- measured: nothing found, straight as planned
-		fake.answer(fake.of(false)[1], -400, -20, -400, 0)
+		assert(finish(fake.of(true)[1]).job.walkChecked) -- the walk from the far deck into Testshire
+		assert(finish(fake.of(false)[1]).job.walkChecked)
 		local later = fake.of(false)[2]
 		r.later = { later and later.to.x, later and later.to.y, later and (later.to.z or "none") }
+		local path = finish(later)
+		r.deck = { path.job.walkChecked, path.value[#path.value].z }
+		local from, to = { c = 1, wx = 300, wy = 0 }, { c = 1, wx = 410, wy = 5, z = 4.5 }
+		r.priced = N.walk.LegPath(from, to) ~= nil
+		to.z = -12
+		r.otherFloor = N.walk.LegPath(from, to) ~= nil
 		emit(r)"#,
 	);
 	assert_eq!(out["arrow"], json!([-890, 10, 5.9]), "the deck, not the ship's stop in the water under it");
 	assert!(is_match(out["kinds"].as_str().unwrap(), r"^walk fly walk boat"));
 	assert_eq!(out["later"], json!([410, 5, 4.5]), "the later walk from the flight master to the deck");
+	assert_eq!(out["deck"], json!([true, 4.5]));
+	assert_eq!(out["priced"], true);
+	assert_eq!(out["otherFloor"], false, "the searched deck is not the floor underneath it");
 }
 
 #[test]
 fn the_walk_off_a_boat_whose_end_has_a_board_point_is_searched_and_measured_from_the_deck_with_the_deck_s_height() {
-	let out = run_many(
+	let out = run_priced(
 		r#"
 		N.RegisterTravelData({ build = "test",
 			taxi = {
@@ -2580,44 +2656,64 @@ fn the_walk_off_a_boat_whose_end_has_a_board_point_is_searched_and_measured_from
 		for _, p in ipairs(batch and batch.targets or {}) do
 			if p.x == 410 and p.y == 5 then r.measured = p.z or "no z" end
 		end
-		fake.settle(batch, function() return false end)
-		fake.answer(fake.of(false)[1], -600, 0, -890, 10)
+		assert(finish(batch).job.walkChecked) -- Far Roost has a walk to the goal; the deck need not have a direct one
+		assert(finish(fake.of(false)[1]).job.walkChecked)
 		local later = fake.of(false)[2]
 		r.later = later and { later.from.x, later.from.y, later.from.z or "none" }
+		r.checked = finish(later).job.walkChecked
+		local from, to = { c = 1, wx = 410, wy = 5, z = 4.5 }, { c = 1, wx = 300, wy = 0 }
+		r.priced = N.walk.LegPath(from, to) ~= nil
+		from.z = -12
+		r.otherFloor = N.walk.LegPath(from, to) ~= nil
 		emit(r)"#,
 	);
 	assert!(is_match(out["kinds"].as_str().unwrap(), r"^walk boat walk"));
 	assert_eq!(out["later"], json!([410, 5, 4.5]), "the walk off the boat starts on the far deck, at its height");
 	assert_eq!(out["measured"], 4.5, "the measure into the target from the far deck carries its height");
+	assert_eq!(out["checked"], true);
+	assert_eq!(out["priced"], true);
+	assert_eq!(out["otherFloor"], false, "a walk from the deck cannot start below it");
 }
 
 #[test]
 fn review_5_the_target_s_height_goes_with_the_measure_once_more_without_it_when_it_finds_nothing_and_with_the_last_walk_s_search() {
-	let out = run_many(
+	let out = run_priced(
 		&[
 			TERRAIN,
 			r#"
 		local r = {}
+		fake.testshire(-.25) -- Ridge Roost and the target share the same walkable tile at z=0
 		local m, x, y = nav.mapPoint(0, 0)
 		nav.place(900, 800)
 		nav.setWaypoint({ map = m, x = x, y = y, z = -40, label = "Below", stepIndex = 1, goalIndex = 1, kind = "turnin", r = 5 })
 		N.Sample()
 		local first = fake.of(true)[1]
 		r.batchZ = { first.from.z, first.from.reach or false }
-		fake.settle(first, function() return false end)
+		first.callback(nil, "error", first) -- no per-place verdict, unlike an explicit refusal at -40
 		local second = fake.of(true)[2]
 		r.retryZ = second and (second.from.z or "none")
-		fake.settle(second, function(px, py) return math.floor(math.sqrt(px * px + py * py) * 1.1) end)
-		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		local flat = finish(second)
+		for i, p in ipairs(second.targets) do
+			if p.x == 0 and p.y == 300 then r.flat = { flat.job.walkChecked, flat.job.yards[i] } end
+		end
+		assert(finish(fake.of(false)[1]).job.walkChecked)
 		local leg = fake.of(false)[2]
 		r.legZ = leg.to.z
+		local stop = finish(leg)
+		r.refused = stop.reason
+		r.finds = #fake.of(false)
+		r.lastPrice = N.walk.LegPath({ c = 0, wx = leg.from.x, wy = leg.from.y }, { c = 0, wx = 0, wy = 0, z = -40 }) or false
 		emit(r)"#,
 		]
 		.concat(),
 	);
 	assert_eq!(out["batchZ"], json!([-40, 10]), "from the target at its height, with the router's reach (WorldFloor)");
 	assert_eq!(out["retryZ"], "none", "a batch with it that finds nothing: once more without it");
+	assert_eq!(out["flat"], json!([true, 300]), "there really is a walk from Ridge Roost, but only on the surface");
 	assert_eq!(out["legZ"], -40, "the last walk is searched to the target's floor");
+	assert_eq!(out["refused"], "no safe walking route");
+	assert_eq!(out["finds"], 2, "a settled refusal at the requested floor must not start a floorless point search");
+	assert_eq!(out["lastPrice"], false);
 }
 
 #[test]
@@ -2669,18 +2765,24 @@ fn review_7_a_later_walk_searched_alive_is_not_the_ghost_s_water_walking_its_pat
 
 #[test]
 fn review_10_a_later_walk_priced_by_its_path_times_the_boat_after_it_again_by_the_timetable() {
-	let out = run_many(
+	let out = run_priced(
 		r#"
-		local T = N.travel
+		-- The only connection on this tile is a narrow dogleg from the flight master to the pier.
+		local d = PolestarPathData[0]
+		d.grid[1], d.height[1] = nil, nil
+		local bucket = floor((17067 + 700) / 64) * 1024 + floor(17067 / 64)
+		local line = "0.1:-700,0,5.9;-800,100,5.9;-800,-100,5.9;-900,0,5.9;"
+		d.localWalk = { lines = { [bucket] = C_EncodingUtil.EncodeBase64(C_EncodingUtil.CompressString(line)) } }
 		N.RegisterTravelData({ build = "test",
 			taxi = {
 				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
 				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
 			},
+			taxiZ = { [2] = 5.9 },
 			flights = { 1, 2, 1700, 2, 1, 1700 },
 			transports = {
 				{ id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
-					a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95 }, b = { "Farland Pier", 1, 400, 0, 9001, 50, 10 } },
+					a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, 5.9 }, b = { "Farland Pier", 1, 400, 0, 9001, 50, 10 } },
 			},
 		}, true)
 		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
@@ -2698,16 +2800,17 @@ fn review_10_a_later_walk_priced_by_its_path_times_the_boat_after_it_again_by_th
 		N.Sample()
 		local before = legsNow()
 		local batch = fake.of(true)[1]
-		fake.settle(batch, function() return false end) -- Farland measured: nothing found, straight as planned
-		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
-		-- Dock Roost to the docks: 400 yd along the path, 250 straight x1.25.
-		fake.answer(fake.of(false)[2], -700, 0, -800, 100, -800, -100, -900, 0)
+		assert(finish(batch).job.walkChecked) -- Farland Pier to the target
+		assert(finish(fake.of(false)[1]).job.walkChecked)
+		local walk = finish(fake.of(false)[2])
+		assert(walk.job.walkChecked and math.abs(walk.job.yards - (200 + 200 * math.sqrt(2))) < .001)
 		emit({ before = before, after = legsNow() })"#,
 	);
 	let walk_before = num(&out["before"][2][1]);
 	let walk_after = num(&out["after"][2][1]);
 	assert_eq!(out["before"][2][0], "walk");
 	assert!(walk_after > walk_before, "the walk to the docks along its path ({walk_after} s, straight {walk_before} s)");
+	assert_eq!((walk_before, walk_after), (36.0, 69.0));
 	assert_eq!(out["after"][3][0], "boat");
 	// Its leg times up to the boat's landing: the boat still leaves at 1000 s and lands at 1060.
 	let landing = |legs: &Value| -> f64 { legs.as_array().unwrap().iter().take(4).map(|l| num(&l[1])).sum() };
@@ -2812,22 +2915,31 @@ fn test_gap_handed_off_to_shortest_path_forever_refresh_cancels_the_measure_and_
 
 #[test]
 fn searches_carry_the_player_faction_and_an_unknown_faction_gets_no_ground_bearing() {
-	let out = run_many(
+	let out = run_priced(
 		&[
 			TERRAIN,
 			r#"
 		local r = {}
 		nav.faction = "Horde"
 		nav.place(0, 0)
-		target(0, -600)
+		target(0, -300)
 		N.Sample()
 		local job = fake.of(false)[1]
 		r.horde = { job.profile or false, type(job.opts), job.waterWalking == true }
-		fake.resolve(0, 0, 100, -300, 0, -600)
+		assert(finish(job).job.walkChecked)
 		r.hordeAim = aim()[1]
 		nav.faction = "Neutral"
-		target(0, -300)
-		r.noneAim = aim()
+		target(0, -200)
+		local function hud()
+			local a = N.arrow
+			a:Refresh()
+			local mode, dist, angle, dn, dw = N.Sample()
+			return { mode, dist ~= nil or angle ~= nil or dn ~= nil or dw ~= nil, a.GetMode(), a.dial:IsVisible(), a.distText:GetText() }
+		end
+		r.pending = hud()
+		local refused = finish(fake.of(false)[2])
+		r.reason = refused.job.blockedReason
+		r.settled = hud()
 		nav.faction = "Alliance"
 		nav.place(900, 900)
 		target(0, 0)
@@ -2840,7 +2952,9 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_no_ground_beari
 	);
 	assert_eq!(out["horde"], json!(["Horde", "table", false]), "the arrow's own walk: opts {{ waterWalking, profile }}");
 	assert_eq!(out["hordeAim"], "travel");
-	assert_eq!(out["noneAim"], json!(["unsafe"]), "unknown faction must not get a walking bearing");
+	assert_eq!(out["pending"], json!(["routing", false, "routing", false, "Finding a walking route"]));
+	assert_eq!(out["reason"], "unknown faction");
+	assert_eq!(out["settled"], json!(["unsafe", false, "unsafe", false, "No safe walking route"]));
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 

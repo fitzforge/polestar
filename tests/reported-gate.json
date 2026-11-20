@@ -116,8 +116,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_fastest_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_start_keeps_the_lower_level_and_the_search_from_there_starts_on_it" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gates_floor_and_takes_the_road_never_over_the_mountains" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_horde_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "ironforge_gate_after_reload_uses_the_road_below_the_mountain_only_for_the_friendly_faction" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "horde_gets_no_walking_bearing_from_stormwinds_trade_district_through_the_city_gate" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_seeded_where_the_cell_has_one_surface_it_stays_on_the_ground_under_a_rock_top_a_first_cell_with_two_stays_unknown_today_s_search" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_stays_there_under_the_bridge" },
@@ -1164,7 +1164,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "moving_past_a_quest_s_starting_item_names_the_quest_it_starts_no_nil_index_1724" }
 		] },
 		"1728": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_does_not_sell_a_flight_on_an_unchecked_walk_to_feegly_1728" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_uses_its_checked_road_instead_of_flying_back_to_a_more_distant_landing" }
 		] },
 		"1730": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-dungeons.rs", "test": "a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_for_you_says_so_1730" }

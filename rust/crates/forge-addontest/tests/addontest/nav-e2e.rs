@@ -1245,22 +1245,16 @@ emit(out)"#
 	assert!(out["zephras"].as_f64().is_some_and(|c| c > 100.0), "Zephras Isle routes on its map ({})", out["zephras"]);
 }
 
-// Fitz, 2026-10-16: a map marker near Astranaar; the route landed at a flight point south-west of it and drew a
-// straight dotted walk over the Ashenvale/Stonetalon ridge. Until his coordinates come, the case from the
-// description, with what the release zip carries (no local crossing data): a Horde character at the Crossroads who
-// knows Sun Rock Retreat, Splintertree Post and Zoram'gar Outpost, guided to Ashenvale 40,70, just north-east of the
-// ridge. Without crossing data for Kalimdor, straight x1.25 the route lands at Sun Rock Retreat, south-west, and
-// walks over the ridge; the engine's walk from there runs 365 yd off that line, and from Splintertree Post it is 240
-// yd shorter. With complete crossing data (Carbonite's, in TravelData.lua) Sun Rock Retreat's walk must take the
-// Talondeep Path and the straight plan lands at Splintertree Post already; either way the measured plan lands there
-// and draws its last walk along the engine's path.
+// From the Crossroads to Ashenvale 40,70, Sun Rock looks close across the ridge.
+// Hold the ticket until the ground is priced, then draw the shorter checked
+// Splintertree walk rather than the straight line from either landing.
 #[test]
 fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is_short_and_its_last_walk_follows_the_engines_path() {
 	skip_unless_ready!();
 	let out = run(
 		r#"
 		w.faction = "Horde"
-		w.setLevel(30) -- Compare the landings with the character in Ashenvale's level range.
+		w.setLevel(30)
 		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [29] = true, [58] = true, [61] = true, [77] = true }
 		local by = {}
 		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n end
@@ -1269,6 +1263,7 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 		-- Where the route lands, its last walk, and how the route lines draw that walk.
 		local function route()
 			local legs, ci = N.GetRoute()
+			if not legs then return nil end
 			local fly, walk
 			for i = ci, #legs do
 				if legs[i].kind == "fly" then fly = legs[i] end
@@ -1280,13 +1275,13 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 				first = { last.pts[1][2], last.pts[1][3] }, final = { last.pts[#last.pts][2], last.pts[#last.pts][3] } }
 		end
 		N.SetTarget(1440, 40, 70, "Fitz's marker", "e")
-		aim()
-		local covered = N.travel.CrossingCounts()
-		local r = { before = route(), kalimdorCrossings = false }
-		for _, c in ipairs(covered) do if c == 1 then r.kalimdorCrossings = true end end
-		local n = 0
-		while n < 400 and route().engine ~= "path" do stub.advance(0.05); aim(); n = n + 1 end
-		r.after = route()
+		local cold = aim()
+		local r = { cold = cold.state, unchecked = route() ~= nil or cold.x ~= nil or #N.GetRouteGeometry().legs > 0 }
+		for _ = 1, 400 do
+			stub.advance(0.05); aim()
+			r.after = route()
+			if r.after and r.after.engine == "path" then break end
+		end
 		local tc, tx, ty, tz = N.GetTargetWorld()
 		r.target = { tx, ty }
 		r.splinter = { splinter.wx, splinter.wy }
@@ -1306,10 +1301,8 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 		true,
 	);
 	let gap = |a: &Value, b: &Value| (f(&a[0]) - f(&b[0])).hypot(f(&a[1]) - f(&b[1]));
-	if out["kalimdorCrossings"] != true {
-		assert_eq!(out["before"]["lands"], "Sun Rock Retreat, Stonetalon Mountains", "straight x1.25 lands south-west of the ridge");
-	}
-	assert_eq!(out["before"]["n"], 2, "and draws its last walk straight");
+	assert_eq!(out["cold"], "routing");
+	assert_eq!(out["unchecked"], false, "no unchecked flight or straight line before the landing walk is priced");
 	let (m_sun, m_spl) = (f(&out["measured"]["sun"]), f(&out["measured"]["splinter"]));
 	assert!(
 		f(&out["sunPath"]["off"]) > 150.0,
@@ -1328,73 +1321,72 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 	assert!((f(&after["yards"]) - m_spl).abs() < m_spl * 0.15, "{} yd along the path, {m_spl:.0} measured", after["yards"]);
 }
 
-// The cause itself, pinned (review of travel-terrain): a Horde character at the Crossroads who knows Splintertree
-// Post and Zoram'gar Outpost (not Sun Rock Retreat), guided to targets west of Astranaar. At one of them the walk
-// from the landing straight x1.25 picks measures dearer than straight x1.25 (a ridge in the way: its path goes round,
-// over 100 yd off the line) and the measured route lands elsewhere; where the walk measures within x1.25 the landing
-// stays. Which target shows it depends on the shipped maps: on 0.2.4's Ashenvale 35,75 (Splintertree Post 1.38 x
-// straight); on the re-packed maps, which close steep faces, Ashenvale 30,70 (Zoram'gar Outpost 1.62 x, its path
-// round the ridge 590 yd off the straight line), while 35,75 now sits in a pocket every landing reaches about 3 x
-// straight and Splintertree Post is still the least of them, so it stays.
+// Both Ashenvale flights are known and affordable. The ridge reverses the choice
+// made using straight lines at one marker; neither landing reaches the other.
 #[test]
-fn ashenvale_west_of_astranaar_where_a_ridge_makes_the_straight_choices_measured_walk_dearer_than_straight_x1_25_the_measured_route_lands_elsewhere() {
+fn ashenvale_west_of_astranaar_prices_safe_walks_before_suggesting_a_flight() {
 	skip_unless_ready!();
 	let out = run(
 		r#"
 		w.faction = "Horde"
-		w.setLevel(30)
+		w.setLevel(1)
+		w.setMoney(530)
 		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [58] = true, [61] = true, [77] = true }
-		local by, byName = {}, {}
-		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n; byName[n.name] = n end
+		Polestar.CharState().flags.taxiSeen = { [1] = true }
+		local data = N.GetTravelData()
+		local by, flights = data.taxiById, data.flights[25]
 		local xr = by[25]
 		place(xr.map, xr.wx, xr.wy)
-		local function lands()
-			local legs, ci = N.GetRoute()
-			local fly
-			for i = ci, #legs do if legs[i].kind == "fly" then fly = legs[i] end end
-			return fly and fly.to.name or false
+		local function flightTime(id)
+			for i = 1, #flights, 2 do if flights[i] == id then return flights[i+1] / 30 + 2 end end
+			error("missing direct flight")
 		end
-		local r = {}
-		for _, g in ipairs({ { 30, 70 }, { 35, 75 } }) do
-			N.SetTarget(1440, g[1], g[2], "Behind the ridge", "e")
-			aim()
-			local before = lands()
-			local tc, tx, ty, tz = N.GetTargetWorld()
-			local n = 0
-			while n < 400 and not N.walk.Measured(tc, tx, ty, false, tz) do stub.advance(0.05); aim(); n = n + 1 end
-			local node = before and byName[before]
-			local cost = N.walk.Measured(tc, tx, ty, false, tz)
-			local m = node and cost and cost(1, node.wx, node.wy, false, node.z)
-			local off = 0
-			if node and m then
-				-- How far the engine's walk from that landing runs from the straight line.
-				local pts = E.FindSync(1, { x = node.wx, y = node.wy }, { x = tx, y = ty }) or {}
-				local dx, dy = tx - node.wx, ty - node.wy
-				for _, p in ipairs(pts) do
-					local s = math.max(0, math.min(1, ((p.x - node.wx) * dx + (p.y - node.wy) * dy) / (dx * dx + dy * dy)))
-					off = math.max(off, dist(node.wx + dx * s, node.wy + dy * s, p.x, p.y))
+		local function scene(x, y, refused)
+			N.SetTarget(1440, x, y, "Behind the ridge", "e")
+			local c, tx, ty, tz = N.GetTargetWorld()
+			local pending = aim()
+			assert(pending.state == "routing" and not pending.x and not N.GetRoute() and #N.GetRouteGeometry().legs == 0,
+				"offered an itinerary before its onward walk was priced")
+			for _ = 1, 600 do
+				local legs, ci = N.GetRoute()
+				if legs and legs[ci].kind == "fly" then
+					local n, cost = legs[ci].to, N.walk.Measured(c, tx, ty, false, tz)
+					assert(not refused and cost and type(cost(c, n.wx, n.wy, false, n.z)) == "number", "sold an unchecked landing")
+				end
+				stub.advance(.05); aim()
+			end
+			local cost = assert(N.walk.Measured(c, tx, ty, false, tz))
+			local straight, measured = {}, {}
+			for _, id in ipairs({58, 61}) do
+				local n = by[id]
+				local price, _, policy = cost(c, n.wx, n.wy, false, n.z)
+				if refused then
+					assert(price == false, "landing did not explicitly refuse the walk")
+				else
+					assert(type(price) == "number" and policy.profile == "Horde" and policy.walkLevel == 1)
+					straight[id] = flightTime(id) + 1.25*dist(n.wx, n.wy, tx, ty)/7
+					measured[id] = flightTime(id) + price/7
 				end
 			end
-			r[#r + 1] = { at = g, before = before, after = lands(), measured = m or false, straight = node and dist(node.wx, node.wy, tx, ty) or false, off = off }
+			local legs, ci = N.GetRoute()
+			local drawn = N.GetRouteGeometry().legs
+			if refused then
+				assert(not legs and aim().state == "unmapped" and #drawn == 0)
+			else
+				assert(straight[58] < straight[61] and measured[58] > measured[61], "terrain must reverse the landing")
+				assert(legs[ci].kind == "fly" and legs[ci].to.id == 61 and legs[ci+1].engine == "path")
+				local pts = drawn[#drawn].pts
+				assert(drawn[#drawn].kind == "walk" and #pts > 2)
+				assert(dist(pts[1][2], pts[1][3], by[61].wx, by[61].wy) < 1 and dist(pts[#pts][2], pts[#pts][3], tx, ty) < 1)
+				for i = 2, #pts do assert(not N.danger.Blocked(c, pts[i-1][2], pts[i-1][3], pts[i][2], pts[i][3], "Horde")) end
+			end
 		end
-		emit(r)"#,
+		scene(30, 70, false)
+		scene(35, 75, true)
+		emit(true)"#,
 		true,
 	);
-	let mut ridges = 0;
-	for c in out.as_array().unwrap() {
-		if c["before"] == false || c["measured"] == false || c["before"].is_null() || c["measured"].is_null() {
-			continue;
-		}
-		let ratio = f(&c["measured"]) / f(&c["straight"]);
-		if ratio > 1.25 && c["after"] != c["before"] {
-			ridges += 1;
-			assert!(f(&c["off"]) > 100.0, "{}: the walk from {} goes round ({:.0} yd off the straight line, {ratio:.2} x)", c["at"], c["before"], f(&c["off"]));
-		}
-		if ratio <= 1.25 {
-			assert_eq!(c["after"], c["before"], "{}: no ridge ({ratio:.2} x), the same landing", c["at"]);
-		}
-	}
-	assert!(ridges >= 1, "a ridge makes one straight choice's walk dearer than straight x1.25, and the measured route lands elsewhere");
+	assert_eq!(out, true);
 }
 
 // The road share of a drawn line, as `nav eval` measures it (tools/lib/nav/eval/metrics.js offRoad): a line piece
@@ -2225,22 +2217,21 @@ fn far_waypoints_from_mulgore_below_thunder_bluff_to_stonetalon_every_walk_leg_f
 }
 
 #[test]
-fn far_waypoints_from_the_ironforge_gate_to_tirisfal_every_walk_leg_follows_the_ground_before_the_planners_measure_is_in() {
+fn an_alliance_walk_from_ironforge_does_not_draw_a_route_into_guarded_brill() {
 	skip_unless_ready!();
 	let out = run(
-		&format!(
-			"{SHAPES}{}",
-			r#"
+		r#"
 		w.setLevel(20)
 		w.faction = "Alliance"
 		local _, px, py = C.MapToWorld(1426, 53.3, 35.0, "e")
 		place(1426, px, py, nil)
 		N.SetTarget(1420, 61.9, 52.3, "Brill", "e")
-		emit(shapes())"#
-		),
+		for _ = 1, 300 do aim(); stub.advance(.05) end
+		local a = aim()
+		emit({ state = a.state, bearing = a.x ~= nil, itinerary = N.GetRoute() ~= nil, target = N.GetTarget().label })"#,
 		true,
 	);
-	check_shapes(&out, 6);
+	assert_eq!(out, serde_json::json!({"state":"unsafe","bearing":false,"itinerary":false,"target":"Brill"}));
 }
 
 // Thunder Bluff (Fitz, 2026-10-23, TB 52.2,31.1 off the north lift's top): the walk on from the mesa crossing's far
@@ -2934,56 +2925,75 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
 }
 
-// #1728 (PSYzera, 0.3.6, Tauren Shaman 27, ptBR): just landed at Camp Taurajo (Barrens 44.64,58.88), guided to Feegly
-// the Exiled for The Tear of the Moons (Barrens 48.97,86.31, 1,904 yd south). The arrow sent him back to the
-// Crossroads by air and only from there on foot. The walk from where he stood measures 3,162 yd, priced by its ground
-// (cost 5,660); the Crossroads lies 3,786 yd from the target, past the measure's reach (3,000 yd), so its walk kept the
-// straight estimate (x1.25, cost 4,733), and walk + flight + that estimate beat the measured walk. The landing the plan
-// rides to is measured now however far (5,865 yd, cost 7,380), and the plan waits for that measure: he walks south,
-// and no plan along the way shows the flight back.
+// #1728: the old walk south from Camp Taurajo to Feegly cut through Bael Modan's Alliance guards.
+// A paid alternative to Freewind still needs a walk from the upper Great Lift. The same ticket
+// is usable if the flight master is the destination rather than a transfer to that walk.
 #[test]
-fn camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728() {
+fn camp_taurajo_does_not_sell_a_flight_on_an_unchecked_walk_to_feegly_1728() {
 	skip_unless_ready!();
 	let out = run(
 		r#"
 		w.faction = "Horde"
 		w.setLevel(27)
 		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [77] = true }
-		local _, px, py = C.MapToWorld(1413, 44.64, 58.88, "e")
-		place(1413, px, py, 0)
-		N.SetTarget(1413, 48.97, 86.31, "Accept The Tear of the Moons", "e")
-		aim()
-		local function route()
-			local legs, ci = N.GetRoute()
-			local out = {}
-			for i = ci or 1, legs and #legs or 0 do
-				local l = legs[i]
-				out[#out + 1] = l.kind .. "|" .. tostring(l.engine)
-			end
-			return out
+		place(1413, -2380.7, -1882.7, 95.8)
+		function GetTaxiMapID() return 1414 end
+		C_TaxiMap = C_TaxiMap or {}
+		function C_TaxiMap.GetAllTaxiNodes()
+			return { {nodeID=77,state=0,slotIndex=1}, {nodeID=25,state=1,slotIndex=2}, {nodeID=30,state=1,slotIndex=3} }
 		end
-		local flew = {}
-		local function look()
-			for _, l in ipairs(route()) do if l:find("^fly") then flew[#flew + 1] = table.concat(route(), " ") end end
-		end
-		local tc, tx, ty, tz = N.GetTargetWorld()
-		local by = {}
-		for _, nd in ipairs(N.GetTravelData().taxi) do by[nd.id] = nd end
-		local xr = by[25]
-		local n = 0
-		local function crossroads() local cost = N.walk.Measured(tc, tx, ty, false, tz) return cost and cost(1, xr.wx, xr.wy, false, xr.z) end
-		while n < 1200 and type(crossroads()) ~= "number" do stub.advance(0.05); aim(); look(); n = n + 1 end
-		for _ = 1, 200 do stub.advance(0.05); aim(); look() end
-		local cost = N.walk.Measured(tc, tx, ty, false, tz)
-		local pc, py_ = cost(1, px, py, true, N.walk.Floor(1, px, py))
-		local xc, xy = cost(1, xr.wx, xr.wy, false, xr.z)
-		emit({ after = route(), flew = flew, player = { pc, py_ }, crossroads = { xc, xy }, straight = dist(xr.wx, xr.wy, tx, ty) })"#,
+		stub.fire("TAXIMAP_OPENED", 0)
+		N.SetTarget(1413, 48.97, 86.31, "Feegly", "e")
+		local a = aim()
+		local waiting = { state=a.state, bearing=a.x~=nil, route=N.GetRoute()~=nil }
+		local x, y = C.WorldToMap(1, -5407.7, -2414.3, 1441)
+		N.SetTarget(1441, x, y, "Freewind flight master")
+		local nextAim, leg = aim(), N.travel.CurrentLeg()
+		emit({ waiting=waiting, flight=leg and leg.kind, node=leg and leg.to.id, ticket=leg and leg.taxiOffer~=nil, state=nextAim.state })"#,
 		true,
 	);
-	assert_eq!(out["after"], serde_json::json!(["walk|cost"]), "a walk south, priced by its measure: {out}");
-	assert!(out["flew"].as_array().map_or(out["flew"] == serde_json::json!({}), |a| a.is_empty()), "no plan along the way flies back: {out}");
-	assert!(f(&out["straight"]) > 3000.0, "the Crossroads lies past the measure's own reach: {out}");
-	assert!(f(&out["crossroads"][1]) > f(&out["player"][1]), "the Crossroads' walk in, measured, is the longer: {out}");
+	assert_eq!(out["waiting"], serde_json::json!({"state":"routing","bearing":false,"route":false}));
+	assert_eq!((out["state"].as_str(), out["flight"].as_str(), out["node"].as_i64(), out["ticket"].as_bool()), (Some("instruction"), Some("fly"), Some(30), Some(true)));
+}
+
+#[test]
+fn camp_taurajo_uses_its_checked_road_instead_of_flying_back_to_a_more_distant_landing() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(27)
+		Polestar.CharState().flags.taxi = { [22]=true, [23]=true, [25]=true, [77]=true }
+		local _, px, py = C.MapToWorld(1413,44.64,58.88,"e")
+		place(1413,px,py,95.9006)
+		-- Same southern road, on the open side of the Bael guards.
+		local x,y = C.WorldToMap(1,-3906.25,-2135.4166666666665,1413)
+		N.SetTarget(1413,x,y,"Barrens road",nil,nil,92)
+		local c,gx,gy,gz=N.GetTargetWorld()
+		local xr
+		for _,n in ipairs(N.GetTravelData().taxi) do if n.id==25 then xr=n end end
+		local rx,ry=xr.wx,xr.wy
+		local pc,walkYards,xc,remoteYards,checked,farChecked; local flew=false
+		for i=1,1800 do
+			local a=aim(); local legs,ci=N.GetRoute()
+			for k=ci or 1,#(legs or {}) do if legs[k].kind=="fly" then flew=true end end
+			local cost=N.walk.Measured(c,gx,gy,false,gz)
+			if cost then
+				pc,walkYards,checked=cost(c,px,py,true,95.9006)
+				xc,remoteYards,farChecked=cost(c,rx,ry,false,xr.z)
+				if type(pc)=="number" and type(xc)=="number" and a.measured then break end
+				if pc and xc==nil then N.walk.Measure(c,gx,gy,false,{{wx=px,wy=py,z=95.9006,start=true},{wx=rx,wy=ry,z=xr.z,chosen=true}},gz) end
+			end
+			stub.advance(.05)
+		end
+		local a=aim()
+		emit({walk=walkYards,remote=remoteYards,checked=type(checked)=="table" and type(farChecked)=="table",measured=a.measured,visible=a.x~=nil,
+			straight=dist(rx,ry,gx,gy),direct=dist(px,py,gx,gy),flew=flew})"#,
+		true,
+	);
+	assert_eq!(out["flew"], false, "never send the player back to a distant flight master: {out}");
+	assert_eq!((&out["measured"], &out["visible"], &out["checked"]), (&Value::Bool(true), &Value::Bool(true), &Value::Bool(true)));
+	assert!(f(&out["straight"]) > 3000.0 && f(&out["walk"]) > f(&out["direct"]) && f(&out["remote"]) > f(&out["walk"]), "both walks are priced on their own ground: {out}");
 }
 
 // A later walk's own search that finds nothing (its answer kept as `false`) while that walk's sketch

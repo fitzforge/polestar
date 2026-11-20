@@ -2424,14 +2424,23 @@ local function plan(target, held)
 	-- straight estimate while the target's walks are measured (a landing past
 	-- Walk.Measure's reach): that landing is measured too (`chosen`), and the
 	-- caller that has a route waits for it (Travel.Remeasured, #1728).
-	local landing = false
-	if places and walkCost and route and #route > 1 then
+	local landing, waitForWalk
+	if places and route and #route > 1 then
 		local last = route[#route]
 		local from = last.kind == "walk" and last.engine ~= "cost" and last.from
-		if from then
+		if from and pc == tc and not last.handmade and ns.Get("nav.navRouting") and (from.wx ~= twx or from.wy ~= twy or (tz and from.z ~= tz)) then
+			for _, leg in ipairs(route) do
+				if leg.kind == "fly" then
+					waitForWalk = true
+					break
+				end
+			end
+		end
+		if from and (walkCost or waitForWalk) then
 			for _, q in ipairs(places) do
 				if not q.start and q.wx == from.wx and q.wy == from.wy and q.z == from.z then
-					q.chosen, landing = true, true
+					q.chosen, landing = true, q
+					break
 				end
 			end
 		end
@@ -2444,6 +2453,9 @@ local function plan(target, held)
 		Travel.corpseProbe = nil
 	end
 	local pending = places and W.Measure(tc, twx, twy, ghost, places, tz) or false
+	-- A flight proves the ride, not the walk after it. A clear straight bearing
+	-- is not a price either: wait while the exact onward walk is being checked.
+	if waitForWalk and pending and landing and W.MeasuringFrom(tc, twx, twy, ghost, tz, landing) then route = nil end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
 		nearWalk.job = W.Probe(pc, px, py, twx, twy, tz, function(along, sx, sy)

@@ -23,3 +23,7 @@ section: players
   to a waypoint arrow, including when combat delays the search.
 - On the approach to Darkcloud Pinnacle, the Mesa Elevator now tells you
   to ride up from the canyon floor and down from the top.
+- A route to or from a boat deck no longer borrows a walking price from
+  the same spot on another floor. Before suggesting a flight with an onward
+  walk, the planner waits while the walk from that landing is being checked.
+  You can still fly to the landing itself.

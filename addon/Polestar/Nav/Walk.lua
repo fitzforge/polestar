@@ -1836,6 +1836,13 @@ local function placeIndex(e, x, y, z)
 	return nil
 end
 
+-- Is this particular transfer waiting on a price? A start-only refresh
+-- retains the other origins' costs and is not a pending search from them.
+function Walk.MeasuringFrom(c, x, y, water, goalZ, from)
+	return measuring and not measuring.costs and sameTarget(measuring, c, x, y, water or false, goalZ)
+		and placeIndex(measuring, from.wx, from.wy, from.z) ~= nil
+end
+
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when
 -- start): its cost (chooses) and its yards (times it; FindMany's job.yards[i],
 -- the cost itself from a router without them), false when the engine found
@@ -2029,9 +2036,16 @@ function Walk.Measure(c, x, y, water, places, goalZ)
 	end
 	local chosen = MEASURE_CHOSEN * MEASURE_CHOSEN
 	for _, p in ipairs(places) do
-		local dx, dy = p.wx - x, p.wy - y
-		local d = dx * dx + dy * dy
-		if p.chosen and not p.start and d > reach and d <= chosen then pick[#pick + 1] = p end
+		if p.chosen and not p.start then
+			local dx, dy = p.wx - x, p.wy - y
+			if dx * dx + dy * dy <= chosen then
+				local included = false
+				for _, q in ipairs(pick) do
+					if not q.start and q.wx == p.wx and q.wy == p.wy and q.z == p.z then included = true; break end
+				end
+				if not included then pick[#pick + 1] = p end
+			end
+		end
 	end
 	for _, p in ipairs(pick) do
 		if not p.start then others = true end
@@ -2089,8 +2103,8 @@ end
 -- kept by its ends and water mode (the last LEG.KEEP), so the route lines
 -- and the journey draw it along the ground and price it by its path. A walk
 -- with neither is drawn straight and keeps its estimate; a failed search is
--- kept too, and its leg stays straight. The last walk goes with the target's
--- height (once more without it, as Z2). Hand-made walks along an approach
+-- kept too, and its leg stays straight. A later walk to or from a known floor
+-- is never priced by a walk on another one. Hand-made walks along an approach
 -- chain, the pieces of a split walk and the last walk to a target after a
 -- guide `goto` (the arrow goes straight from the mouth) are never searched;
 -- a crossing, walked straight by the arrow, is searched for its line, which
@@ -2114,7 +2128,7 @@ local function ghostNow()
 end
 
 local function legKeyOf(from, to, ghost)
-	return from.c .. ":" .. from.wx .. ":" .. from.wy .. ":" .. to.wx .. ":" .. to.wy .. (ghost and ":w" or "")
+	return from.c .. ":" .. from.wx .. ":" .. from.wy .. ":" .. (from.z or "") .. ":" .. to.wx .. ":" .. to.wy .. ":" .. (to.z or "") .. (ghost and ":w" or "")
 end
 
 local function cancelLeg()
@@ -2191,24 +2205,25 @@ local function arrowPending(legs, ci)
 	return count == 0 and not failed
 end
 
--- Search one later walk (to at height z, when it has one, with the router's
--- reach; from at its own height, a dock's board point on a deck); its answer
--- is kept by key. A search with a height that finds nothing is asked once more
--- without either (flat); an end in a capital keeps its height (city above):
--- only the start's goes.
-local function searchLeg(P, mine, key, from, to, z, ghost, flat)
+-- A partial approach can guide the player, not price a transfer between decks.
+function LEG.complete(points, answer, from, to, z)
+	if type(points) ~= "table" or #points < 2 or (type(answer) == "table" and answer.reached) then return false end
+	if from.z == nil and z == nil then return true end
+	if not (type(answer) == "table" and answer.walkChecked == true) then return false end
+	local a, b = points[1], points[#points]
+	return type(a) == "table" and type(b) == "table" and a.x == from.wx and a.y == from.wy and b.x == to.wx and b.y == to.wy
+		and (not from.z or (type(a.z) == "number" and abs(a.z - from.z) <= 1))
+		and (not z or (type(b.z) == "number" and abs(b.z - z) <= 1))
+end
+
+local function searchLeg(P, mine, key, from, to, z, ghost)
 	local T = Nav.travel
-	local fz = not flat and from.z or nil
-	local inCity = z ~= nil and city.At(to.c, to.wx, to.wy)
-	if flat and not inCity then z = nil end
-	local ok, handle = pcall(P.Find, from.c, { x = from.wx, y = from.wy, z = fz }, { x = to.wx, y = to.wy, z = z, reach = z ~= nil and city.GOAL or nil }, function(points, _, answer)
+	local ok, handle = pcall(P.Find, from.c, { x = from.wx, y = from.wy, z = from.z }, { x = to.wx, y = to.wy, z = z, reach = z ~= nil and city.GOAL or nil }, function(points, _, answer)
 		if legToken ~= mine then return end
 		legJob = nil
-		local got = type(points) == "table" and #points > 0
-		if not flat and (fz or (z and not inCity)) and not got then return searchLeg(P, mine, key, from, to, z, ghost, true) end
 		legToken, legKey = nil, nil
 		local e = false
-		if got then
+		if LEG.complete(points, answer, from, to, z) then
 			local xs, ys, n, yards = line(points)
 			if n > 1 then
 				local a = type(answer) == "table" and answer or nil
@@ -2222,7 +2237,6 @@ local function searchLeg(P, mine, key, from, to, z, ghost, flat)
 		pumpLegs()
 	end, opts(ghost, from.c, from.wx, from.wy, to.wx, to.wy))
 	if not ok then
-		if not flat and (fz or (z and not inCity)) then return searchLeg(P, mine, key, from, to, z, ghost, true) end
 		legToken, legKey = nil, nil
 		keepLeg(key, false)
 		return
@@ -2326,7 +2340,7 @@ pumpShapes = function()
 		local was = legPaths[nextKey]
 		if was == nil or (was and was.cluster) then
 			local e = { coarse = true, n = 0, cluster = not whole and reason == "cluster" or nil }
-			if type(points) == "table" then
+			if LEG.complete(points, answer, from, to, z) then
 				e.xs, e.ys, e.n, e.yards = line(points)
 				local a = type(answer) == "table" and answer or nil
 				if not points.coarse and e.n > 1 and not (z and offFloor(points, z, answer)) then
