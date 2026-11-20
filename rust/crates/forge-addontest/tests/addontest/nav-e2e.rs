@@ -2350,14 +2350,14 @@ fn a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arri
 // Ironforge's gate (Fitz, 2026-10-23, a Tauren after a /reload at the gate): the client says outdoors in the gate's
 // arch, where the cell holds the city's floor (an indoor city class, 497) and the mountain's ground over it (620, the
 // one outdoor surface), so the floor was seeded on the mountain and the walk to Loch Modan was searched and drawn from
-// there, east over the mountains behind the city. An outdoor match seeds only below every indoor surface.
+// there, east over the mountains behind the city. Check the road to Kharanos on a friendly player and the same
+// departure on Horde. A cross-continent destination can choose a flight before the gate and never exercise this road.
 #[test]
-fn t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gates_floor_and_takes_the_road_never_over_the_mountains() {
+fn ironforge_gate_after_reload_uses_the_road_below_the_mountain_only_for_the_friendly_faction() {
 	skip_unless_ready!();
-	let out = run(
-		r#"
+	let scene = r#"
 		w.setLevel(30)
-		w.faction = "Horde"
+		w.faction = "@FACTION"
 		IsIndoors = function() return nil end
 		place(1426, -5010, -850, nil)
 		N.SetTarget(1426, 50, 50, "Anywhere", "e")
@@ -2368,7 +2368,7 @@ fn t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gate
 		end
 		place(1426, -5022.45, -831.61, nil)
 		local n = #finds
-		N.SetTarget(1413, 44, 80, "The Barrens 44, 80", "e")
+		N.SetTarget(1426, 46.8, 52.5, "Kharanos", "e")
 		for _ = 1, 100 do aim(); stub.advance(0.05) end
 		local f
 		for i = n + 1, #finds do
@@ -2378,12 +2378,18 @@ fn t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gate
 		for _, p in ipairs(f and f.points or {}) do
 			if p.z and dist(p.x, p.y, -5022.45, -831.61) < 400 then top = math.max(top, p.z) end
 		end
-		emit({ from = f and f.from[3] or false, top = top, n = f and f.points and #f.points or 0 })"#,
-		true,
-	);
-	assert!(f(&out["n"]) > 2.0, "the walk out is searched");
-	assert!(out["from"] == false || f(&out["from"]) < 520.0, "searched from the gate's floor or without a height ({})", out["from"]);
-	assert!(f(&out["top"]) < 520.0, "its first 400 yd stay on the road below the gate (highest {}; over the mountains it climbs past 600)", out["top"]);
+		local a = aim()
+		emit({ from = f and f.from[3] or false, top = top > -math.huge and top or false, n = f and f.points and #f.points or 0,
+			state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#;
+	let friendly = run(&scene.replace("@FACTION", "Alliance"), true);
+	assert_eq!(friendly["measured"], true, "Alliance follows the searched road out");
+	assert!(f(&friendly["n"]) > 2.0, "the walk out is searched");
+	assert!(friendly["from"] == false || f(&friendly["from"]) < 520.0, "searched from the gate's floor or without a height ({})", friendly["from"]);
+	assert!(f(&friendly["top"]) < 520.0, "the first 400 yd stay on the road below the gate ({})", friendly["top"]);
+	let enemy = run(&scene.replace("@FACTION", "Horde"), true);
+	assert_eq!(enemy["state"], "unsafe", "Ironforge is an enemy settlement");
+	assert_eq!(enemy["bearing"], false);
+	assert_eq!(enemy["n"], 0);
 }
 
 // Inside Ironforge (Fitz, 2026-10-23): the walk from the Commons to the city's crossing end at the gate stays in one
@@ -2419,8 +2425,8 @@ fn inside_ironforge_the_walk_from_the_commons_to_the_gate_searches_no_goal_floor
 // the indoor city class, as all of Stormwind's streets) and the canal level under it (59, the one outdoor surface),
 // and the client says outdoors in the open street. The floor was seeded on the canal level, and the walk to a waypoint
 // east of Goldshire went west through the city, over the mountains north-west of it, down the coast and through
-// Westfall. Outdoors says nothing of a city's floors: the floor stays unknown there, and the walk takes the gate. Both
-// factions (Stormwind is hostile to the Horde).
+// Westfall. Outdoors says nothing of a city's floors. Alliance should walk out on the street; Horde should get no
+// walking bearing through the enemy city, even when the street itself is mapped.
 fn stormwind_street(faction: &str) {
 	skip_unless_ready!();
 	let out = run(
@@ -2438,10 +2444,19 @@ fn stormwind_street(faction: &str) {
 			end
 			local north = -math.huge
 			for _, p in ipairs(f and f.points or {}) do north = math.max(north, p.x) end
-			emit({ from = f and f.from[3] or false, yards = floor(length(f and f.points or {})), n = f and f.points and #f.points or 0, north = floor(north) })"#
+			local a = aim()
+			emit({ from = f and f.from[3] or false, yards = floor(length(f and f.points or {})), n = f and f.points and #f.points or 0,
+				north = north > -math.huge and floor(north) or false, state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#
 			.replace("@FACTION", faction),
 		true,
 	);
+	if faction == "Horde" {
+		assert_eq!(out["state"], "unsafe", "the Trade District is an enemy settlement");
+		assert_eq!(out["bearing"], false, "no straight bearing through the city");
+		assert_eq!(out["n"], 0, "no walking path through the city");
+		return;
+	}
+	assert_eq!(out["measured"], true, "Alliance follows the street on the searched path");
 	assert!(f(&out["n"]) >= 2.0, "the walk out is searched");
 	assert!(out["from"] == false || f(&out["from"]) > 80.0, "searched from the street or without a height ({})", out["from"]);
 	assert!(f(&out["yards"]) < 600.0, "to the gate through the city ({} yd; over the mountains and down the coast it was over 4,000)", out["yards"]);
@@ -2449,7 +2464,7 @@ fn stormwind_street(faction: &str) {
 }
 
 #[test]
-fn t_234_floor_horde_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate() {
+fn horde_gets_no_walking_bearing_from_stormwinds_trade_district_through_the_city_gate() {
 	stormwind_street("Horde");
 }
 
