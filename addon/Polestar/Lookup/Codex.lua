@@ -463,6 +463,13 @@ local BOSS_ROLE = { r = "rare", e = "event", x = "optional" }
 -- Instance, faction and spell names in the client's language (Polestar.Names:
 -- the names pack's Map.csv and Faction names, the client's spell names), else
 -- the Codex's English.
+local ENTRANCE_OVERRIDES = {
+	["blackrock-depths"] = { map = 1428, x = 21.0, y = 23.5 },
+	["blackrock-spire"] = { map = 1428, x = 33.2, y = 24.9 },
+	["molten-core"] = { map = 1428, x = 26.4, y = 24.5 },
+	["blackwing-lair"] = { map = 1428, x = 33.7, y = 23.6 },
+}
+
 local function decodeInstance(group, id, s)
 	local t, n = split(s, ";")
 	local map = tonumber(t[4])
@@ -473,7 +480,10 @@ local function decodeInstance(group, id, s)
 		areaId = tonumber(t[3]), map = map,
 		bosses = {},
 	}
-	if t[5] and t[5] ~= "" then
+	local over = ENTRANCE_OVERRIDES[id]
+	if over then
+		rec.entrance = { map = over.map, x = over.x, y = over.y }
+	elseif t[5] and t[5] ~= "" then
 		local e = split(t[5], ",")
 		-- approx: the client's corpse point (where a ghost returns), not the way in.
 		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil }
