@@ -556,9 +556,9 @@ step Gravelsnout kobolds and Steelsnap
 
 step Incendia Agave
   zone Thousand Needles
-  tip Back east past Whitereach Post: the Incendia Agave grows on the ground among the Grimtotem camps below Darkcloud Pinnacle. Pick it on the camps' north-western side, where about nine plants grow; it comes back while you work.
+  tip Back east past Whitereach Post: the Incendia Agave grows on the ground among the Grimtotem camps below Darkcloud Pinnacle. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.
   tip Careful: the Ravaging elementals (38-40) and Ailgrha Splittusk (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them.
-  collect 12732 x10 quest 5062 @34.2,33.8 map 1441 -- Incendia Agave
+  collect 12732 x10 quest 5062 @33.3,33.4 map 1441 -- Incendia Agave
 
 step Roguefeather Den
   zone Thousand Needles
