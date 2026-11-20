@@ -7983,6 +7983,13 @@ function Engine.GetBehind()
 	return {}
 end
 
+-- Recover work passed by an update, not permission to do it. A fresh
+-- invitation or waypoint needs today's conditions, not a passed step's latch.
+function Own.behindApplies(step, goal)
+	return Guides.Matches(step.only, player) and Guides.Matches(goal.only, player)
+		and (not step.when or Own.whenFails(step) == nil)
+end
+
 function Own.behindList()
 	local s = ns.CharState()
 	local mine = guide and type(s.behind) == "table" and s.behind[guide.id]
@@ -7997,7 +8004,8 @@ function Own.behindList()
 	for j, step in ipairs(guide.steps) do
 		for g, goal in ipairs(step.goals) do
 			local q = goal.quest
-			if q and mine[q] and not seen[q] and goal.t ~= "accept" and goal.map and not goalDone(j, g, goal) then
+			if q and mine[q] and not seen[q] and goal.t ~= "accept" and goal.map and Own.behindApplies(step, goal)
+				and not Own.goalSkipped(j, g) and not goalDone(j, g, goal) then
 				seen[q] = true
 				local gc, gx, gy = goalWorld(goal)
 				local yards = c and gc == c and math.floor(math.sqrt((gx - px) ^ 2 + (gy - py) ^ 2) + 0.5) or nil
@@ -13217,7 +13225,7 @@ function Own.hereBuild()
 				local goal = steps[s].goals[idx[i + 1]]
 				local q = goal.quest
 				local back = behind ~= nil and behind[q] and true or false
-				if s > live or back then
+				if (back and Own.behindApplies(steps[s], goal)) or (not back and s > live) then
 					local g = idx[i + 1]
 					local on = C.IsOnQuest(q)
 					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
