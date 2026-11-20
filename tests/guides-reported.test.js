@@ -526,10 +526,12 @@ test('Horde starts: level tidy: Strider Meat, Poison Water and Darkhound goals p
 	}
 });
 
-// --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye's poster stands beside Executor Zygand: read with his hand-in.
-test(`${TIRISFAL}: level tidy: Maggot Eye's poster with Executor Zygand on the last Brill stop`, { skip }, () => {
+// --- Tirisfal Glades (level tidy 0.4.0; 0.4.2 route round): Maggot Eye's poster stands beside Executor Zygand. It is read
+// on the Brill stop before Agamand Mills, whose loop passes Garren's Haunt at about 10.5-11 (model), so he is killed on it.
+test(`${TIRISFAL}: Maggot Eye's poster is read in Brill before the Agamand Mills loop`, { skip }, () => {
 	const list = goals(TIRISFAL);
 	const poster = at(list, 'accept 398', is('accept', 398));
+	assert.ok(poster < at(list, "Devlin's remains (362)", (g) => g.t === 'collect' && g.quest === 362), 'the poster before Agamand Mills');
 	assert.ok(poster < at(list, 'turnin 492 (the cellar)', is('turnin', 492)), 'the poster before the inn cellar');
 	assert.ok(poster < at(list, 'turnin 99142 (Holland)', is('turnin', 99142)), 'the poster before Holland on the way out');
 });
@@ -563,15 +565,19 @@ test(`${MULGORE}: Sparring Match counts the Novice Warriors between the accept a
 	assert.ok(accept < kills && kills < turnin, 'accept, the Novice Warriors, then the hand-in');
 });
 
-// --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
-// 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
-test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
+// --- Mulgore (level tidy 0.4.0; 0.4.2 route round): the Galak centaurs (8-9, Herak 11) and the Venture Co. Mine (8-10,
+// Fizsprocket 12) were worked at 9. 0.4.0 moved both after northern Mulgore, a third trip east at 11. Under today's
+// bar (mobs at most one to two levels up, with a tip) the centaurs and the workers OUTSIDE the mine are done on the
+// one east loop at about 10 (model), and the mine itself is never entered: Fizsprocket's quests are left out.
+test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. workers on one east loop, the mine left out`, { skip }, () => {
 	const list = goals(MULGORE);
-	const back = at(list, 'turnin 745 (Sharing the Land)', is('turnin', 745));
-	for (const q of [743, 746, 760]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < at(list, "Herak's Head (99080)", (g) => g.t === 'collect' && g.quest === 99080), `${q} is handed in before the centaurs`);
-	assert.ok(back < at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080), 'the centaurs after the Bloodhoof hand-ins');
-	assert.ok(back < at(list, 'the mine (764)', (g) => g.t === 'kill' && g.quest === 764), 'the mine after the Bloodhoof hand-ins');
-	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
+	const caravan = at(list, 'turnin 749 (the caravan)', is('turnin', 749));
+	const centaurs = at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080);
+	const workers = at(list, 'the workers (764)', (g) => g.t === 'kill' && g.quest === 764);
+	const mull = at(list, 'turnin 759 (Mull)', is('turnin', 759));
+	for (const [i, what] of [[centaurs, 'the centaurs'], [workers, 'the workers']]) assert.ok(caravan < i && i < mull, `${what} between the caravan and Mull's hand-in`);
+	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'the Wildmane totem (760)', (g) => g.t === 'use' && g.quest === 760), 'Baine takes the head before northern Mulgore');
+	assert.deepEqual(list.filter(({ goal }) => [765, 98424].includes(goal.quest) || (goal.t === 'level' && goal.grind === 2978)).map(({ goal }) => `${goal.t} ${goal.quest || goal.level}`), [], 'no Fizsprocket and no top-up on the Venture workers for him');
 });
 
 // --- Tirisfal Glades (level tidy 0.4.0): the cult's farm (cultists 10-12, quests 12) was done at 10 on the way out to the
@@ -583,15 +589,18 @@ test(`${TIRISFAL}: level tidy: the Cult of the Damned after the Balnir Farmstead
 });
 
 // --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
-// percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
-// walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.
-test(`${TIRISFAL}: level tidy: Maggot Eye after the Balnir Farmstead, not on the north loop`, { skip }, () => {
+// percentile 8.1). He stays off the north loop. Since the 0.4.2 route round he is killed on the Agamand Mills loop,
+// which now runs at about 10.5-11 (model; the north loop's hand-ins come first), from Garren's Haunt on the walk back
+// to Brill, and the paw goes to Executor Zygand on the Brill stop right after: no trip of his own at the end.
+test(`${TIRISFAL}: level tidy: Maggot Eye on the Agamand Mills loop, not on the north loop`, { skip }, () => {
 	const list = goals(TIRISFAL);
 	const paw = at(list, "Maggot Eye's Paw (398)", (g) => g.t === 'collect' && g.quest === 398);
-	for (const q of [371, 369, 356]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < paw, `${q} is handed in before Maggot Eye`);
 	assert.ok(at(list, 'turnin 368 (A New Plague)', is('turnin', 368)) < paw, 'the north loop and its murlocs come first');
-	assert.ok(paw < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), 'Garren\'s Haunt on the walk west to Leonid');
-	assert.ok(at(list, 'turnin 398', is('turnin', 398)) > paw, 'Zygand takes the paw afterwards');
+	assert.ok(at(list, 'turnin 360 (Linnea, back in Brill)', is('turnin', 360)) < paw, 'after the north loop\'s Brill hand-ins');
+	assert.ok(at(list, "Devlin's remains (362)", (g) => g.t === 'collect' && g.quest === 362) < paw, 'on the Agamand loop, after the mills');
+	const turnin = at(list, 'turnin 398', is('turnin', 398));
+	assert.ok(turnin > paw, 'Zygand takes the paw afterwards');
+	assert.equal(list[turnin].step, list[at(list, 'turnin 362 (Coleman)', is('turnin', 362))].step, 'on the Brill stop after the mills');
 });
 
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
@@ -726,18 +735,42 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 // Below to Orgnil, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the
 // player had stood next to. Razor Hill comes on the walk from Margoz to Far Watch Post, as in Orc's guide;
 // both races hand Crossroads Conscription to Sergra on the Barrens guide's first stop, with the five quests.
+// Since the 0.4.2 route round only Hunters and Warriors go back to Razor Hill from Margoz (Thotar, Uzzek's road);
+// everyone else walks Margoz -> Orgrimmar and hands Threat from Below in when the Barrens guide steps into Razor Hill.
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
 	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Warriors hand Conscript of the Horde to Kargal at Far Watch Post
-	// before Orgrimmar, after Orgnil; everyone else on the Barrens guide's first stop (0.4.0 start audit).
+	// before Orgrimmar, after Orgnil; everyone else carries it to the Barrens guide's Far Watch stop (0.4.0 start audit).
+	// Since the 0.4.2 route round it is taken on the Razor Hill stop after Fizzle, not at 10 (Shamans: on their way to Kranal).
+	const warrior = list.filter(forClass('WARRIOR'));
+	assert.ok(at(warrior, 'turnin 840', is('turnin', 840)) > at(warrior, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil');
 	const mage = list.filter(forClass('MAGE'));
-	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
+	assert.ok(at(mage, 'accept 840', is('accept', 840)) > at(mage, "Fizzle's Eye (806)", (g) => g.t === 'collect' && g.quest === 806), 'a Mage takes Conscript of the Horde after Fizzle, not at 10');
 	const orgnil = list[threat].goal.npc;
 	// Aggor the Young (99052) is a group choice (`when group 99052`): its accept and hand-in at Orgnil are for players who chose it.
 	const grouped = ({ step }) => (step.when || []).some((p) => p.k === 'group' && !p.neg);
 	assert.deepEqual(list.slice(threat + 1).filter((e) => e.goal.npc === orgnil && !e.goal.optional && !grouped(e) && !is('turnin', 99051)(e.goal)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil afterwards');
 	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
+});
+
+// 0.4.2 route round, Horde starts: Hidden Enemies (5726, 900 XP; 102 recorded people took it unrouted) for Orcs and
+// Trolls. Thrall gives it on a walk into Orgrimmar from Margoz before Skull Rock (Orgrimmar's gate is next door), the
+// insignia drops from Skull Rock's cultists with the collars, Thrall takes it on Silverpine's first Orgrimmar walk
+// through Grommash Hold, and 5727 (a word with Neeru) is done on that guide's last Orgrimmar walk.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Hidden Enemies is taken from Thrall between Margoz and Skull Rock`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const take = at(list, 'accept 5726', is('accept', 5726));
+	assert.ok(at(list, 'turnin 828 (Margoz)', is('turnin', 828)) < take, 'after Margoz sends you to Skull Rock');
+	const insignia = at(list, 'collect 14544 (5726.1)', (g) => g.t === 'collect' && g.item === 14544);
+	assert.equal(list[insignia].step, list[at(list, 'the collars (827)', (g) => g.t === 'collect' && g.quest === 827)].step, 'the insignia with the collars');
+	assert.ok(take < insignia, 'Thrall first');
+	const silverpine = goals('forever/horde/03-silverpine-forest.guide');
+	const hand = at(silverpine, 'turnin 5726', is('turnin', 5726));
+	const zeppelin = silverpine.findIndex(({ step }) => step.title === 'Zeppelin to Undercity');
+	assert.ok(hand < zeppelin, 'Thrall takes it on the first Orgrimmar walk');
+	const neeru = at(silverpine, 'talk 3216 (5727.1)', (g) => g.t === 'talk' && g.quest === 5727);
+	assert.ok(zeppelin < neeru && neeru < at(silverpine, 'turnin 5727', is('turnin', 5727)), 'Neeru, then Thrall, on the last Orgrimmar walk');
 });
 
 // Horde 1-30 audit (#1414): Threat from Below's goal led first to a lone Spitelash Attendant spawn by the road north
@@ -841,6 +874,23 @@ test('forever/horde/03-silverpine-forest.guide: Orcs take the Argent quests in T
 	assert.ok(at(list, 'turnin 445', is('turnin', 445)) > sepulcher - 1, 'Renferrel takes the delivery at the Sepulcher');
 });
 
+// 0.4.2 route round, Silverpine Forest: Arugal's Folly (423) and A Recipe For Death (447) are on one north-west loop
+// from the Sepulcher (players' recordings: 47 and 87 people did them unrouted). 423 is taken with 422's hand-in, its
+// shackles and 447's spider blood come on that loop, Dalar takes 423 before the road north to Ivar, and Faranell takes
+// 447 on the Undercity stop the guide ends with.
+test('forever/horde/03-silverpine-forest.guide: Arugal\'s Folly and A Recipe For Death share one north-west loop from the Sepulcher', { skip }, () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	const take = at(list, 'accept 423', is('accept', 423));
+	assert.equal(list[take].step, list[at(list, 'turnin 422', is('turnin', 422))].step, 'Dalar gives it with the spellbooks\' hand-in');
+	const shackles = at(list, 'collect 3156 (423.1)', (g) => g.t === 'collect' && g.item === 3156);
+	const blood = at(list, 'collect 3254 (447.2)', (g) => g.t === 'collect' && g.item === 3254);
+	assert.equal(list[shackles].step, list[blood].step, 'one loop for both');
+	const back = at(list, 'turnin 423', is('turnin', 423));
+	assert.ok(take < shackles && shackles < back && back < at(list, 'accept 425 (Ivar)', is('accept', 425)), 'back to Dalar before the road north');
+	assert.ok(at(list, 'accept 447', is('accept', 447)) < take, 'Renferrel\'s recipe is taken on an earlier Sepulcher stop');
+	assert.equal(list[at(list, 'turnin 447', is('turnin', 447))].step, list[at(list, 'turnin 1359 (Zinge)', is('turnin', 1359))].step, 'Faranell takes it on the Undercity stop, beside Zinge');
+});
+
 // Horde 1-30 audit (#1414): Undead Paladins at 15 and 22 were sent from Orgrimmar to Thunder Bluff's paladin trainer.
 test('Horde 1-30: no Paladin training step waits in Orgrimmar, which has no paladin trainer (#1414)', { skip }, () => {
 	for (const guide of ['forever/horde/03-silverpine-forest.guide', 'forever/horde/05-stonetalon-mountains.guide']) {
@@ -871,6 +921,27 @@ test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads qu
 			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
 		}
 		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
+	}
+});
+
+// 0.4.2 route round, Horde starts: every start leaves Orgrimmar for the Barrens by the road through Durotar, and
+// Razor Hill is a short step east of it before the bridge. Tauren, Undead and Skyborne take Conscript of the Horde
+// there from Takrin, Orcs and Trolls hand Threat from Below to Orgnil there (Hidden Enemies took them to Orgrimmar
+// from Margoz), then Kargal at Far Watch Post and Crossroads Conscription for Sergra on the race's first Crossroads
+// stop: Tauren, Undead and Skyborne get the pair too.
+test('forever/horde/02-the-barrens.guide: Razor Hill on the road out, then both conscriptions on the way, for every start', { skip }, () => {
+	for (const race of ['Orc', 'Troll', 'Tauren', 'Scourge', 'Skyborne']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
+		const durotar = race === 'Orc' || race === 'Troll';
+		const first = at(list, `${race}: Razor Hill`, durotar ? is('turnin', 99051) : is('accept', 840));
+		assert.equal(list.slice(0, first).filter(located).length, 0, `${race}: Razor Hill is the first stop`);
+		assert.ok(!durotar || !list.some(({ goal }) => is('accept', 840)(goal)), `${race}: brings Conscript of the Horde from Durotar`);
+		const kargal = at(list, `${race}: turnin 840`, is('turnin', 840));
+		const conscription = at(list, `${race}: accept 842`, is('accept', 842));
+		const sergra = at(list, `${race}: turnin 842`, is('turnin', 842));
+		assert.ok(first < kargal && kargal <= conscription && conscription < sergra, `${race}: Razor Hill, Far Watch Post, the Crossroads`);
+		assert.equal(list[sergra].step.title, 'The Crossroads', `${race}: Sergra takes it on a Crossroads stop`);
 	}
 });
 
@@ -6891,8 +6962,12 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 	const brine = at(shaman, 'turnin 1534 (Call of Water)', is('turnin', 1534));
 	assert.ok(brine < at(shaman, 'accept 4767 (Wind Rider)', is('accept', 4767)), 'Brine before Freewind Post');
 	// #1414 (Bonesavv77's report #1424): from Zoram'gar the Earthen Ring is reached as travel (the flight the character has),
-	// so the one Camp Taurajo flight is the one from Thunder Bluff; none from Freewind Post.
-	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 1, 'one flight to Camp Taurajo (from Thunder Bluff), none from Zoram\'gar or Freewind Post');
+	// so the one Camp Taurajo flight before Thousand Needles is the one from Thunder Bluff; none from Freewind Post to Brine.
+	// (Since the 0.4.2 route round the guide ends Freewind -> Thunder Bluff -> Camp Taurajo for its hand-ins.)
+	const lift = at(shaman, 'turnin 5881 (the Great Lift)', is('turnin', 5881));
+	assert.equal(shaman.slice(0, lift).filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 1, 'one flight to Camp Taurajo (from Thunder Bluff) before Thousand Needles, none from Zoram\'gar');
+	const out = shaman.slice(lift).find(({ goal }) => goal.t === 'fly');
+	assert.equal(out && out.goal.location, 'Thunder Bluff', 'out of Freewind Post to Thunder Bluff first, not to Brine');
 });
 
 // Maazias's report (#1333): The Tear of the Moons is a level 30 quest; its strongbox stands beside
@@ -8359,17 +8434,18 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
 	// Conscript of the Horde is handed in once, at the end of the Durotar guides (final route review, 0.3.5): Shamans
-	// at Far Watch on the way to Kranal, everyone else before Orgrimmar; the Barrens guide carries none.
+	// at Far Watch on the way to Kranal and Warriors before Orgrimmar with Uzzek's quest; everyone else on the Barrens
+	// guide's Far Watch stop (0.4.0 start audit), so Durotar hands none in for them.
 	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
-		for (const cls of ['WARRIOR', 'SHAMAN', 'MAGE']) {
-			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
+		for (const [cls, n] of [['WARRIOR', 1], ['SHAMAN', 1], ['MAGE', 0]]) {
+			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, n, `${file} ${cls}: 840 handed in ${n} time(s)`);
 		}
 	}
-	// 0.4.0 audit: whoever still carries 840 (everyone but Warriors once Durotar's Far Watch stop is theirs alone) hands
-	// it to Kargal on the Barrens' Far Watch stop, right before Crossroads Conscription from him.
+	// 0.4.0 audit: whoever still carries 840 hands it to Kargal on the Barrens' Far Watch stop, right before Crossroads
+	// Conscription from him; since the 0.4.2 route round that stop is every start's.
 	const conscript = barrens.filter(({ goal }) => is('turnin', 840)(goal));
 	assert.equal(conscript.length, 1, 'the Barrens hand 840 in once');
-	assert.ok(conscript[0].step.only && conscript[0].step.only.races.join() === 'Orc,Troll', 'on the Orc and Troll Far Watch stop');
+	assert.ok(!conscript[0].step.only, 'on the Far Watch stop every start makes');
 	assert.equal(barrens.indexOf(conscript[0]) + 1, at(barrens, 'accept 842', is('accept', 842)), 'right before Crossroads Conscription');
 });
 
@@ -10327,21 +10403,40 @@ test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, St
 	assert.ok(!dust.some(({ goal }) => [1166, 1168, 1169].includes(goal.quest) && goal.t === 'accept'), 'the level-43 Brackenwall quests are left for the 40-50 Dustwallow visit');
 });
 
-// Since the 0.4.0 level tidy Jandia's two harpy quests are worked on the next Freewind visit at about 31 (30-40/02)
-// (Roguefeather Den's harpies 28-30 and Grenka 31 were met at 29 in 07-ashenvale); since the 0.4.0 audit 07 takes them on
-// its last Freewind stop, where the route stands beside Jandia: the pairing holds where they are taken and worked.
+// Since the 0.4.0 level tidy Jandia's two harpy quests were worked on the next Freewind visit at about 31 (30-40/02):
+// Roguefeather Den's harpies and Grenka (31) were met at 29 in 07-ashenvale with a harpy grind before them. Since the
+// 0.4.2 route round 07 works the harpies (28-29) on the walk back from Whitereach, after the western loop's quests,
+// and leaves Grenka for Test of Endurance at about 30 in 30-40/02: the pairing holds where they are taken and worked.
 test('Horde: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
 	const guides = ['forever/horde/07-ashenvale.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide', 'forever/horde/30-40/02-thousand-needles.guide'];
 	const ga = guides.find((f) => goals(f).some(({ goal }) => goal.t === 'accept' && goal.quest === 98070));
 	const g = guides.find((f) => goals(f).some(({ goal }) => goal.t === 'kill' && goal.quest === 98070));
 	assert.ok(ga && g, 'a Horde guide takes Stop the Screeching and one works it');
-	assert.ok(!goals('forever/horde/07-ashenvale.guide').some(({ goal }) => [98069, 98070].includes(goal.quest) && goal.t !== 'accept'), 'not worked at 29 in 07-ashenvale');
+	assert.ok(!goals('forever/horde/07-ashenvale.guide').some(({ goal }) => goal.quest === 1150 && goal.t !== 'accept'), 'Grenka (31) is not fought at 29 in 07-ashenvale');
 	const al = goals(ga);
 	assert.equal(al[at(al, 'accept 98069', is('accept', 98069))].s, al[at(al, 'accept 98070', is('accept', 98070))].s, 'taken from Jandia with Stop the Screeching');
 	const list = goals(g);
 	const step = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	assert.equal(list[at(list, 'collect 279383', (x) => x.t === 'collect' && x.quest === 98069)].s, list[at(list, 'kill 4101', (x) => x.t === 'kill' && x.quest === 98070)].s, 'the supplies in the Screeching Canyon step');
 	assert.equal(step('turnin', 98069), step('turnin', 98070), 'handed in with it');
+});
+
+// 0.4.2 route round, Thousand Needles 28-30: Steelsnap (Melor, Thunder Bluff), A New Ore Sample (Tatternack, Camp
+// Taurajo) and Sacred Fire (Motega, Whitereach) are taken on stops 07 makes anyway, worked on the western loop and
+// handed in on the way out (Freewind -> Thunder Bluff -> Camp Taurajo), in place of the grind to 29 by Freewind.
+test('forever/horde/07-ashenvale.guide: the Thousand Needles set rides the stops 07 makes, and no grind to 29', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const lift = at(list, 'turnin 5881 (the Great Lift)', is('turnin', 5881));
+	for (const q of [1131, 1153]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < lift, `${q} taken before Thousand Needles`);
+	assert.equal(list[at(list, 'accept 5062', is('accept', 5062))].step, list[at(list, 'turnin 4865', is('turnin', 4865))].step, 'Sacred Fire from Motega with Serpent Wild');
+	const freewind = at(list, 'turnin 98070 (Jandia)', is('turnin', 98070));
+	for (const q of [1131, 1153, 5062]) {
+		const work = at(list, `the objective of ${q}`, (g) => g.t === 'collect' && g.quest === q);
+		const hand = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(work < freewind && freewind < hand, `${q}: worked before the last Freewind stop, handed in on the way out`);
+	}
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'level' && (goal.level || 0) >= 29).map(({ step }) => step.title), [], 'no grind to 29');
+	assert.ok(!list.some(({ goal }) => goal.quest === 5088), 'Arikara, back at Darkcloud and Whitereach, is left out');
 });
 
 // Fitz's report (#2372): Thistlefur Village and Hold (216, 6462, 6482, level 24; furbolg packs 23-24, Shamans that flee
@@ -12545,10 +12640,13 @@ test('Horde Call of Fire: every Telf Joolam step sends the player up the mountai
 // Final route review (0.3.6) put Masoj before the Mudsnout Blossoms and the southern peak after them. Since the 0.4.0
 // level tidy none of that loop is in Hillsbrad 22-25: Elixir of Agony (509, level 28, Mudsnout gnolls 27-28) goes with
 // Battle of Hillsbrad 529 and Dangerous! to the Tarren Mill visit at about 30, and Valuable Vantages is left out.
+// Souvenirs of Death (546) goes there too since the 0.4.2 route round: its skulls kept players longer in the fields
+// step where 19 route followers died at 22-25, and 30-40/01 kills the same Hillsbrad humans at about 30.
 test('Hillsbrad (Horde 22-25): the quests two or more levels over wait for the visit at 30', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	for (const q of [509, 513, 529, 567, 98094, 98095]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} not taken at 23-25`);
-	for (const q of [527, 528, 546, 498, 549]) assert.ok(list.some(({ goal }) => is('turnin', q)(goal)), `${q} still done and handed in`);
+	assert.ok(!list.some(({ goal }) => goal.quest === 546), 'Souvenirs of Death waits for the visit at 30');
+	for (const q of [527, 528, 498, 549]) assert.ok(list.some(({ goal }) => is('turnin', q)(goal)), `${q} still done and handed in`);
 });
 
 // Final route review (0.3.6): Durotar Warlocks walked from Skull Rock into Orgrimmar for The Binding and back out to
