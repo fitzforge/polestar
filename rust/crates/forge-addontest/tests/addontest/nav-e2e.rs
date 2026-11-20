@@ -2898,7 +2898,9 @@ fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_th
 /// no flight master there is one it may have (#1795). The planned legs' kinds and the yards each zone's ground takes of the walk legs
 /// (by uiMapID, the router's own zone field every 20 yd), and Nav.danger.Mult at that level for Alterac Mountains.
 /// `p10`: price every zone from its P10 as before #1490 (Maps.GetZoneLevels without the danger floor).
-fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
+fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool, travel: Option<bool>) -> Value {
+	let check_ground = travel.is_some();
+	let travel = travel.unwrap_or(true);
 	run(
 		&format!(
 			r#"
@@ -2912,16 +2914,32 @@ fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
 		place(1424, wx, wy)
 		Polestar.CharState().flags.taxi = {{}}
 		Polestar.CharState().flags.taxiSeen = {{ [0] = true }}
+		if not {travel} then Polestar.Set("nav.travel", false) end
 		N.SetTarget({}, {}, {}, "{}", "e")
 		for _ = 1, 600 do stub.advance(0.05); aim() end
 		local legs, ci = N.GetRoute()
 		local kinds, yards = {{}}, {{}}
+		local _, tx, ty = N.GetTargetWorld()
+		local lastX, lastY, off = wx, wy, 0
+		local chord = {{ {{x=wx,y=wy}}, {{x=tx,y=ty}} }}
+		if {check_ground} then
+			assert(aim().measured and (not {travel} or (legs and legs[ci])))
+			assert(N.danger.Blocked(c, wx, wy, tx, ty, "Horde") == "opposing-settlement")
+		end
 		for i = ci or 1, #(legs or {{}}) do kinds[#kinds + 1] = legs[i].kind end
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			if leg.kind == "walk" then
 				local pts = leg.pts
+				if {check_ground} then
+					assert(#pts >= 2 and dist(lastX, lastY, pts[1][2], pts[1][3]) < 1, "gap between drawn legs")
+					lastX, lastY = pts[#pts][2], pts[#pts][3]
+				end
 				for i = 2, #pts do
 					local ax, ay, bx, by = pts[i - 1][2], pts[i - 1][3], pts[i][2], pts[i][3]
+					if {check_ground} then
+						assert(not N.danger.Blocked(c, ax, ay, bx, by, "Horde"), "drawn walk enters enemy settlement")
+						off = math.max(off, offPath(chord, bx, by))
+					end
 					local d = dist(ax, ay, bx, by)
 					local n = math.max(1, math.ceil(d / 20))
 					for k = 0, n - 1 do
@@ -2932,8 +2950,16 @@ fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
 				end
 			end
 		end
+		if {check_ground} then assert(dist(lastX, lastY, tx, ty) < 1 and off > 100, "incomplete or straight fallback") end
 		for z, y in pairs(yards) do yards[z] = floor(y + 0.5) end
-		emit({{ kinds = kinds, yards = yards, alterac = N.danger.Mult({level}, 1416) }})"#,
+		local price
+		if not {travel} then
+			local f = finds[#finds]
+			assert(f and f.done and f.points and #f.points > 2 and type(f.cost) == "number")
+			assert(dist(f.from[1], f.from[2], wx, wy) < 1 and dist(f.to[1], f.to[2], tx, ty) < 1)
+			price = f.cost
+		end
+		emit({{ kinds = kinds, yards = yards, price = price, alterac = N.danger.Mult({level}, 1416) }})"#,
 			to.0,
 			js(to.1),
 			js(to.2),
@@ -2950,7 +2976,7 @@ fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
 #[test]
 fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
 	skip_unless_ready!();
-	let out = tarren_mill_walk(24, (1420, 61.82, 52.83, "Nurse Neela"), false);
+	let out = tarren_mill_walk(24, (1420, 61.82, 52.83, "Nurse Neela"), false, None);
 	let kinds = strs(&out["kinds"]);
 	assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "it walks ({})", kinds.join(", "));
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
@@ -3069,18 +3095,26 @@ fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_
 /// (Silverpine 68.6,45.2, where 0.3.6 places her) at level 26. Alterac Mountains' lowest level is 24 (the P10,
 /// pulled down by the Lordamere Lake murlocs and the bears on the Hillsbrad border), so from level 21 up the zone
 /// never counted as dangerous while Strahnbrad, the Crushridge ogres and the Syndicate are 30-40. With its danger
-/// floor (30) it costs x3 at 26, and the walk crosses less of it than when priced from the P10.
+/// floor (30) it costs x3 at 26. With the southern crossing measured, both travel plans use its safe road. The
+/// walking-only arrow to the same marker still crosses Alterac, but spends fewer yards there when priced at x3.
 #[test]
 fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
 	skip_unless_ready!();
 	let to = (1421, 68.6, 45.2, "Image of Archmage Modera");
-	let now = tarren_mill_walk(26, to, false);
-	let before = tarren_mill_walk(26, to, true);
+	let now = tarren_mill_walk(26, to, false, Some(true));
+	let before = tarren_mill_walk(26, to, true, Some(true));
 	eprintln!("1490 replay: floor {now}\n             P10 {before}");
 	let alterac = |v: &Value| v["yards"]["1416"].as_f64().unwrap_or(0.0);
 	assert_eq!((now["alterac"].clone(), before["alterac"].clone()), (serde_json::json!(3), serde_json::json!(1)), "x3 from the floor, x1 from the P10");
-	assert!(strs(&now["kinds"]).iter().all(|k| k == "walk"), "it walks ({})", strs(&now["kinds"]).join(", "));
-	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
+	for v in [&now, &before] {
+		let kinds = strs(&v["kinds"]);
+		assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "expected a real all-ground itinerary, got {v}");
+		assert_eq!(alterac(v), 0.0, "the checked southern border avoids Alterac in both profiles");
+	}
+	let direct = tarren_mill_walk(26, to, false, Some(false));
+	let unweighted = tarren_mill_walk(26, to, true, Some(false));
+	assert!(alterac(&direct) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
+	assert!(f(&direct["price"]) > f(&unweighted["price"]), "the walking engine must charge for traversing Alterac");
 }
 
 /// #1972 (Rexen, Dwarf Shaman 37, 0.3.7.2): on "Go to Watcher Biggs" (Swamp of Sorrows 26.7,59.8 on the game's map), at

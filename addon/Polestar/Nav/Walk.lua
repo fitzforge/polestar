@@ -396,7 +396,7 @@ function Walk.Clear()
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
 	Walk.blockedReason = nil
-	Walk.checkedOnly, ptsX.corpsePolicy = nil, nil
+	Walk.checkedOnly, ptsX.checkedPolicy = nil, nil
 	city.goal, city.dropped = nil, nil
 	city.Note(false)
 	landX, landY = nil, nil
@@ -1276,7 +1276,9 @@ local function ask(P, pc, px, py, flat, terminal)
 	if (sz == nil or hinted) and not flat then flatAt = GetTime() else flatAt = nil end
 	city.asked = hinted and sz or nil
 	local inCity = z ~= nil and city.goal
-	local o = opts(ghost, pc, px, py, gx, gy) -- a ghost walks on water
+	-- For a priced crossing, steer under the same journey policy as the verified
+	-- approach. Its intermediate zone is not the destination's zone exemption.
+	local o = type(Walk.checkedOnly) == "table" and Walk.checkedOnly or opts(ghost, pc, px, py, gx, gy)
 	local to = { x = gx, y = gy, z = z, reach = z ~= nil and city.GOAL or nil }
 	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, to, function(points, reason, answer)
 		if token ~= mine then return end
@@ -1316,7 +1318,7 @@ local function ask(P, pc, px, py, flat, terminal)
 			failed = false
 			Walk.blockedReason = nil
 			sightC = gc
-			ptsX.corpsePolicy = Walk.checkedOnly and o or nil
+			ptsX.checkedPolicy = Walk.checkedOnly and o or nil
 			took(points, P.Sight and sight or nil)
 			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			hubs = hubsOf(answer)
@@ -1541,7 +1543,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
 		Walk.blockedReason = nil
-		Walk.checkedOnly, ptsX.corpsePolicy = checkedOnly, nil
+		Walk.checkedOnly, ptsX.checkedPolicy = checkedOnly, nil
 		landX, landY = nil, nil
 		city.refineX,city.refineY=nil,nil
 		for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
@@ -1659,11 +1661,12 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 end
 
 -- Only the live search for this floor, never a batch cost, a sketch or an
--- old path from another character policy, may supply a corpse detour's aim.
+-- old path from another character policy, may supply a checked detour's aim.
 function Walk.CheckedAt(c, x, y, z)
-	local o = ptsX.corpsePolicy
+	local o = ptsX.checkedPolicy
 	return count > 0 and o and gc == c and gx == x and gy == y and gzFor == (z or false)
-		and o.waterWalking and Nav.travel.IsGhost() and o.profile == ns.Compat.GetPlayerFaction()
+		and (type(Walk.checkedOnly) ~= "table" or Walk.checkedOnly == o)
+		and o.waterWalking == (not not Nav.travel.IsGhost()) and o.profile == ns.Compat.GetPlayerFaction()
 		and o.walkLevel == (Nav.danger.Level() or 0) and o.style == ns.Get("nav.routeStyle")
 end
 
@@ -1773,7 +1776,7 @@ end
 -- can start from, reversed so each cost is the walk from that place to the
 -- target (after Shortest Path Forever's goal batch, Journey/JourneySearch.lua).
 -- Travel prices those walks by these running yards instead of straight x1.25.
---   Places: those on the target's continent within MEASURE_YARDS of it, the
+--   Places: those on the target's continent within Walk.measureRange of it, the
 --     nearest MEASURE_MAX, the player among them. Farther ones keep their
 --     straight estimate. With no place but the player nothing is measured (a
 --     lone walk is the arrow's own search, above).
@@ -1807,7 +1810,7 @@ end
 --     the player's price is valid only at the measured position on its floor.
 ---------------------------------------------------------------------------
 
-local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
+Walk.measureRange = 3000  -- straight yards from the target: places farther keep the estimate
 local MEASURE_MAX = 16      -- places measured, nearest first
 local MEASURE_CHOSEN = 6000 -- straight yards: a place the plan rides to and walks on from is measured up to this far
 local MEASURE_KEEP = 4      -- targets whose measures are kept
@@ -2006,7 +2009,7 @@ end
 -- may not be searched yet (canSearch: the target is on another continent).
 -- A place marked `chosen` (the landing the plan rides to and walks on from,
 -- its walk still the straight estimate) is measured too up to MEASURE_CHOSEN
--- yards away, past MEASURE_YARDS and MEASURE_MAX: a landing out of reach was
+-- yards away, past Walk.measureRange and MEASURE_MAX: a landing out of reach was
 -- never measured, and its straight estimate beat the player's own measured
 -- walk, priced by its ground (#1728: from Camp Taurajo the plan flew back to
 -- the Crossroads, 3,800 yd from the target, to walk on from there).
@@ -2037,9 +2040,9 @@ function Walk.Measure(c, x, y, water, places, goalZ)
 	local X = ns.Transit
 	if X and X.Carried and X.Carried() then return false end
 	if measuring then return true end
-	-- The nearest places within MEASURE_YARDS, nearest first.
+	-- The nearest places within Walk.measureRange, nearest first.
 	local pick, far = {}, {}
-	local reach = MEASURE_YARDS * MEASURE_YARDS
+	local reach = Walk.measureRange * Walk.measureRange
 	local others = false
 	for _, p in ipairs(places) do
 		local dx, dy = p.wx - x, p.wy - y

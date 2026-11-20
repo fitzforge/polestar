@@ -879,10 +879,12 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 			if status then return false end
 		end
 	end
-	if current and current.kind == "walk" and (current.corpseGround or (current.parent and current.parent.leg.corpseGround)) then
+	local whole = current and (current.parent and current.parent.leg or current)
+	if whole and whole.kind == "walk" and (whole.corpseGround or whole.crossingPolicy) then
 		-- Only the live path supplies geometry for this detour. A straight
 		-- trail from the player to its end is not the path that was checked.
-		if c ~= nil or not (W and W.CheckedAt(tC, tX, tY, tZ)) then return false end
+		local to = whole.to
+		if c ~= nil or not (W and W.CheckedAt(to.c, to.wx, to.wy, to.z)) then return false end
 	end
 	if W and W.blockedReason then
 		local leg = groundLeg()
