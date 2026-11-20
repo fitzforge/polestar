@@ -226,7 +226,6 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}是精英（42級），位於{npc:256728}東南方山丘上的聯盟斥候營地，也就是你接下來要去的地方：建議組隊。告示貼在堡壘中央；眼睛交給{npc:258031}，在本指南稍後。",
-	-- was: ["the {object:707249} poster"] = "{object:707249}告示"
 	["the Wanted poster"] = "",
 
 	-- Step 52: Na'zok's camp

@@ -212,7 +212,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "Termina de conseguir la {item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore

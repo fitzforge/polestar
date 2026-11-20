@@ -258,7 +258,6 @@ return {
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 49: Ratchet
-	-- was: ["{object:3972} poster"] = "{object:3972} 게시판"
 	["WANTED poster"] = "",
 
 	-- Step 50: Mebok Mizzyrix

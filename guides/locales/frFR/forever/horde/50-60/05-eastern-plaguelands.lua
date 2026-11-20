@@ -355,6 +355,8 @@ return {
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
 	["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	-- {area:1770} Shadow Hold
+	["out of {area:1770}, at its mouth"] = "",
 
 	-- Step 81: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze

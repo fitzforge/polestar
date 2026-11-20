@@ -9005,7 +9005,7 @@ do
 				},
 				{
 					title = "Finish the {item:3712}",
-					note = "Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town.",
+					note = "Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town.",
 					when = { { k = "onquest", q = { 7321 } }, { k = "has", neg = true, n = 10, item = 3712 } },
 					goals = {
 						{ t = "collect", quest = 7321, title = "Soothing Turtle Bisque", item = 3712, itemName = "Turtle Meat", count = 10, oi = 1, map = 1424, x = 68, y = 24, f = "e", spotsPacked = "68,22.33,36.2,58,1,,31;68.1,28.9,36.5,71,3,1,31;65.9,37.8,33.5,80,3,1,31;72.62,7.61,32.2,24,,1;75.37,3.89,,87,,1;59.2,45,5.5,93,3,1,31;56.4,49.5,,20,,1;56.1,53.9,6.5,72,3,1,31", profLine = 185, profName = "Cooking", profRank = 1, fromNpcs = { { npc = 2408, npcName = "Snapjaw" } } },
@@ -17766,7 +17766,7 @@ do
 					note = "Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next.",
 					when = { { k = "onquest", q = { 5203 } } },
 					goals = {
-						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", escort = true, objs = { { text = "Protect Arko'narin out of Shadow Hold", count = 1 } } },
+						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", map = 1448, x = 35.5, y = 59.1, f = "e", note = "out of {area:1770}, at its mouth", escort = true, objs = { { text = "Protect Arko'narin out of Shadow Hold", count = 1 } } },
 					},
 				},
 				{
@@ -19798,7 +19798,7 @@ do
 				},
 				{
 					title = "{npc:3352}",
-					note = "Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}.",
+					note = "Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}.",
 					only = { classes = { "HUNTER" } },
 					goals = {
 						{ t = "turnin", quest = 6081, title = "Training the Beast", npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.07, y = 18.36, z = 58.8, spotsPacked = "66.1,18.6,58.8,15,5", note = "{npc:3352}: {spell:5149}" },
@@ -19815,7 +19815,7 @@ do
 				},
 				{
 					title = "To {zone:1454}",
-					note = "Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine.",
+					note = "Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine.",
 					goals = {
 						{ t = "goto", text = "{zone:1454}'s {object:172982}", map = 1454, x = 55.6, y = 72.3, f = "e" },
 					},
@@ -21001,7 +21001,7 @@ do
 				},
 				{
 					title = "To {zone:1454}",
-					note = "From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}.",
+					note = "From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}.",
 					goals = {
 						{ t = "goto", text = "{zone:1454}'s {object:172982}", map = 1454, x = 55.6, y = 72.3 },
 					},
@@ -21981,7 +21981,7 @@ do
 				},
 				{
 					title = "To {zone:1454}",
-					note = "From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}.",
+					note = "From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}.",
 					goals = {
 						{ t = "goto", text = "{zone:1454}'s {object:172982}", map = 1454, x = 55.6, y = 72.3, f = "e" },
 					},
@@ -23000,7 +23000,7 @@ do
 				},
 				{
 					title = "{npc:3352}",
-					note = "Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}.",
+					note = "Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}.",
 					only = { classes = { "HUNTER" } },
 					goals = {
 						{ t = "turnin", quest = 6081, title = "Training the Beast", npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.07, y = 18.36, z = 58.8, spotsPacked = "66.1,18.6,58.8,15,5", note = "{npc:3352}: {spell:5149}" },
@@ -23017,7 +23017,7 @@ do
 				},
 				{
 					title = "To {zone:1454}",
-					note = "Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine.",
+					note = "Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine.",
 					goals = {
 						{ t = "goto", text = "{zone:1454}'s {object:172982}", map = 1454, x = 55.6, y = 72.3, f = "e" },
 					},

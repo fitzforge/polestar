@@ -258,7 +258,6 @@ return {
 	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 49: Ratchet
-	-- was: ["{object:3972} poster"] = "Cartel de {object:3972}"
 	["WANTED poster"] = "",
 
 	-- Step 50: Mebok Mizzyrix

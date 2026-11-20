@@ -258,7 +258,6 @@ return {
 	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 49: Ratchet
-	-- was: ["{object:3972} poster"] = "Affiche {object:3972}"
 	["WANTED poster"] = "",
 
 	-- Step 50: Mebok Mizzyrix
@@ -300,7 +299,6 @@ return {
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "Revenez vers le nord par la plage jusqu'à {area:392}.",
 	-- {npc:3446} Mebok Mizzyrix
-	-- was: ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, à côté de l'affiche {object:3972}"
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 63: Dreadmist Peak
