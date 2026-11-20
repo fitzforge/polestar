@@ -264,6 +264,77 @@ fn the_built_codex_is_release_safe_and_in_game_lookup_finds_items_mounts_and_npc
 	assert!(out["dm"][2].as_f64().unwrap() > 0.0, "VanCleef's loot");
 }
 
+#[test]
+fn filtered_browse_counts_the_full_built_item_catalogue_and_pages_its_matches() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.HasFilters(), "rebuild the Codex with forge data codex")
+local column, total = C.FilterColumn("item")
+local expected = 0
+for i = 1, total do
+	local req = C.DecodeFilter(column, i)
+	if req == 0 then expected = expected + 1 end
+end
+assert(expected > 50 and expected < total)
+local opts = { filters = { reqMax = 0 }, categoryTotals = true, limit = 50, subtitles = false }
+local start = os.clock()
+local count, info = S.BrowseCount("item", opts)
+local counted = os.clock()
+local first, listed = S.Browse("item", opts)
+local browsed = os.clock()
+opts.offset = 50
+local second, paged = S.Browse("item", opts)
+local finished = os.clock()
+assert(count == expected and listed == count and paged == count)
+assert(info.filtersAvailable and info.filtersApplied and info.preFilterCounts.item == total and info.categoryTotals.root == count)
+assert(#first == 50 and #second == math.min(50, count - 50))
+local seen = {}
+for _, page in ipairs({ first, second }) do
+	for _, row in ipairs(page) do
+		assert(not seen[row.id] and C.FilterFacts("item", row.id).reqLevel == 0)
+		seen[row.id] = true
+	end
+end
+emit({ total = total, matches = count, countMs = (counted - start) * 1000,
+	browseMs = (browsed - counted) * 1000, pageMs = (finished - browsed) * 1000 })
+
+-- Everything shows five results per kind. Warm the packed row offsets
+-- before timing successive keystrokes, which never use the page cache.
+local queryOpts = { order = "best", perKind = 5, subtitles = false,
+	filters = { reqMax = 40, quality = { [1] = true, [2] = true, [3] = true } } }
+local function keystroke(query)
+	local rows, counts, _, info = S.Query(query, queryOpts)
+	assert(#rows > 0 and info.filtersApplied and counts.item and counts.item < info.preFilterCounts.item)
+	local times = {}
+	for i = 1, 7 do
+		local at = os.clock()
+		S.Query(query, queryOpts)
+		times[i] = (os.clock() - at) * 1000
+	end
+	table.sort(times)
+	return times[4]
+end
+emit({ keystroke1 = keystroke("s"), keystroke2 = keystroke("sh") })
+"#
+		.into(),
+		..Default::default()
+	});
+	println!("filtered full-catalogue Browse: {}", out[0]);
+	let one = out[1]["keystroke1"].as_f64().unwrap();
+	let two = out[1]["keystroke2"].as_f64().unwrap();
+	println!("filtered Everything Best match: 1-letter keystroke {one:.3} ms, 2-letter keystroke {two:.3} ms");
+	forge_addontest::assert_timing!(one < 50.0, "filtered Everything Best match: 1-letter keystroke took {one:.3} ms");
+	forge_addontest::assert_timing!(two < 50.0, "filtered Everything Best match: 2-letter keystroke took {two:.3} ms");
+}
+
 const KP_SCRIPT: &str = r#"
 stub.login()
 local D = Polestar.Dungeons

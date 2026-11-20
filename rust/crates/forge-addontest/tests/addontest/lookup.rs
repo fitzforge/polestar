@@ -969,7 +969,7 @@ fn browse(script: &str) -> Vec<Value> {
 
 #[test]
 fn search_item_ids_rank_first_in_best_match_and_page_in_the_selected_order() {
-	let [legacy, best, first_page, second_page, az, exact, padded] = first::<7>(browse(
+	let [legacy, legacy_hash, best, first_page, second_page, az, exact, padded] = first::<8>(browse(
 		r##"
 		index({ { 19019, "Thunderfury" }, { 1, "19019" }, { 2, "Ring 19019" }, { 3, "Wand 19019" } })
 		local opts = { resultKind = "item", subtitles = false }
@@ -978,6 +978,7 @@ fn search_item_ids_rank_first_in_best_match_and_page_in_the_selected_order() {
 			emit({ ids(rows), counts.item })
 		end
 		query("19019")
+		query("#19019")
 		opts.ids = true
 		query("19019")
 		opts.perKind, opts.limit = 2, 2
@@ -991,12 +992,195 @@ fn search_item_ids_rank_first_in_best_match_and_page_in_the_selected_order() {
 	"##,
 	));
 	assert_eq!(legacy, json!([[1, 2, 3], 3]));
+	assert_eq!(legacy_hash, legacy);
 	assert_eq!(best, json!([[19019, 1, 2, 3], 4]));
 	assert_eq!(first_page, json!([[19019, 1], 4]));
 	assert_eq!(second_page, json!([[2, 3], 4]));
 	assert_eq!(az, json!([[1, 2, 19019, 3], 4]));
 	assert_eq!(exact, json!([[19019], 1]));
 	assert_eq!(padded, exact);
+}
+
+fn run_filter_lookup(script: &str) {
+	let data = json!({
+		"items": {
+			"1": { "name": "Sample Alpha", "reqLevel": 0, "itemLevel": 10, "quality": 0, "slot": 0, "itemClass": 2, "itemSubclass": 7 },
+			"2": { "name": "Sample Beta", "reqLevel": 10, "itemLevel": 20, "quality": 2, "slot": 13, "itemClass": 2, "itemSubclass": 8 },
+			"3": { "name": "Sample Gamma", "reqLevel": 10, "slot": 0, "itemClass": 4, "itemSubclass": 1 },
+			"4": { "name": "Sample Delta", "itemLevel": 20, "quality": 2 },
+			"5": { "name": "Sample Epsilon", "reqLevel": 20, "itemLevel": 30, "quality": 2, "slot": 13, "itemClass": 2, "status": "retired" },
+			"6": { "name": "Unrelated Item", "itemLevel": 20, "quality": 2, "itemClass": 0, "itemSubclass": 0 },
+			"7": { "name": "Sample Mount", "kind": "mount", "quality": 0 },
+			"8": { "name": "Sample Pet", "kind": "pet", "reqLevel": 0 },
+			"9": { "name": "Sample Recipe", "kind": "recipe", "quality": 0 },
+			"10": { "name": "Sample Tabard", "kind": "tabard", "quality": 2 }
+		},
+		"quests": { "11": { "title": "Sample Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	run_with(&[BROWSE_LUA, "\nassert(C.Load() and C.HasFilters())\n", script].concat(), &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn item_filters_match_known_values_independently_in_search_and_browse() {
+	run_filter_lookup(
+		r##"
+		local function check(filters, expected)
+			local opts = { filters = filters, kinds = { item = true }, order = "az", subtitles = false }
+			local rows, counts = S.Query("sample", opts)
+			assert(table.concat(ids(rows), ",") == expected, table.concat(ids(rows), ","))
+			assert(counts.item == #rows)
+			local listed, count = S.Browse("item", opts)
+			assert(count == #listed and count == S.BrowseCount("item", opts))
+			local samples = {}
+			for _, row in ipairs(listed) do if row.id ~= 6 then samples[#samples + 1] = row end end
+			assert(table.concat(ids(samples), ",") == expected)
+		end
+		check({ reqMax = 0 }, "1")
+		check({ reqMin = 10 }, "2,3,5")
+		check({ reqMin = 0, reqMax = 10 }, "1,2,3")
+		check({ ilvlMin = 20, ilvlMax = 20 }, "2,4")
+		check({ ilvlMax = 20 }, "1,2,4")
+		check({ quality = { [0] = true, [2] = true } }, "1,2,4,5")
+		check({ quality = { [0] = true } }, "1")
+		check({ slot = 0 }, "1,3")
+		check({ category = { class = 2 } }, "1,2,5")
+		check({ category = { class = 2, subclass = 7 } }, "1")
+		check({ category = { class = 2, subclass = 8 }, slot = 13, reqMin = 10, ilvlMax = 20, quality = { [2] = true } }, "2")
+		check({ reqMin = 21, reqMax = 0, ilvlMin = -1, ilvlMax = 1000, slot = 1.5, category = { class = "2" },
+			quality = { [0] = true, [2] = false, [9] = true, ["2"] = true } }, "1")
+		check({ quality = {}, slot = 35 }, "1,2,4,3,5")
+		local opts = { categoryTotals = true, kinds = { item = true }, subtitles = false }
+		local _, counts, _, info = S.Query("sample", opts)
+		assert(counts.item == 5 and info.categoryTotals.root == 5 and info.categoryTotals.classes[2] == 3)
+		assert(info.filtersAvailable == true and info.preFilterCounts.item == 5 and not info.filtersApplied)
+		local _, _, _, questInfo = S.Query("sample", { kinds = { quest = true }, filters = { reqMax = 0 } })
+		assert(questInfo.filtersAvailable == true and not questInfo.filtersApplied)
+		local rows = S.Query("#1", { ids = true, filters = { reqMin = 1 }, subtitles = false })
+		assert(#rows == 0)
+	"##,
+	);
+}
+
+#[test]
+fn item_filter_counts_exclude_paging_and_count_canonical_rows_across_kinds() {
+	run_filter_lookup(
+		r#"
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Cached = function(_, id)
+			if id == 1 then return "Sample Translated" end
+			if id == 2 then return "Localized Blade" end
+			if id == 3 then return "Sample Alias" end
+		end
+		local opts = { filters = { quality = { [0] = true, [2] = true }, category = { class = 2, subclass = 7 } },
+			categoryTotals = true, hideRetired = true, resultKind = "item", limit = 1, subtitles = false }
+		local sword, other = C.FilterCategoryId(2, 7), C.FilterCategoryId(2, 8)
+		local function totals(info, root, classes, swords, others)
+			local t = assert(info.categoryTotals)
+			assert(t.root == root and t.classes[2] == classes and t.classes[4] == nil)
+			assert(t.subclasses[sword] == swords and t.subclasses[other] == others)
+		end
+		local rows, counts, err, info = S.Query("sample", opts)
+		assert(not err and rows[1].id == 1 and counts.item == 1 and counts.quest == 1)
+		assert(info.filtersApplied and info.preFilterCounts.item == 1 and info.preFilterCounts.quest == nil)
+		for _, kind in ipairs({ "mount", "pet", "recipe", "tabard" }) do
+			assert(info.preFilterCounts[kind] == 1)
+		end
+		assert(counts.mount == 1 and counts.pet == nil and counts.recipe == 1 and counts.tabard == 1)
+		totals(info, 3, 2, 1, 1)
+		opts.filters.category = nil
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(counts.item == 3 and counts.mount == 1 and counts.pet == nil and counts.recipe == 1 and counts.tabard == 1 and counts.quest == 1)
+		assert(#rows == 1 and info.preFilterCounts.item == 4)
+		local firstId = rows[1].id
+		opts.offset = 1
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 1 and counts.item == 3 and rows[1].id ~= firstId)
+		totals(info, 3, 2, 1, 1)
+		opts.offset, opts.order = nil, "az"
+		rows, counts = S.Query("localized", opts)
+		assert(rows[1].id == 2 and counts.item == 1)
+		opts.filters.category = { class = 2, subclass = 7 }
+		rows, counts, err, info = S.Query("localized", opts)
+		assert(#rows == 0 and counts.item == nil and info.categoryTotals.subclasses[other] == 1)
+		assert(info.preFilterCounts.item == 0)
+		local count, before = S.BrowseCount("item", opts)
+		assert(count == 1 and before.preFilterCounts.item == 1)
+		totals(before, 4, 2, 1, 1)
+		assert(before.categoryTotals.classes[0] == 1)
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 1 and count == 1 and info.preFilterCounts.item == 1)
+		totals(info, 4, 2, 1, 1)
+		opts.filters.category.subclass = 8
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 2 and count == 1 and S.BrowseCount("item", opts) == 1)
+		totals(info, 4, 2, 1, 1)
+		opts.filters.quality = { [0] = true }
+		rows, counts, err, info = S.Query("localized", opts)
+		assert(#rows == 0 and counts.item == nil and info.preFilterCounts.item == 1)
+		rows, count, info = S.Browse("item", opts)
+		assert(#rows == 0 and count == 0 and info.preFilterCounts.item == 1)
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 0 and info.preFilterCounts.item == 1)
+		opts.filters.category.subclass = 99
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 0 and info.preFilterCounts.item == 0)
+		opts.categoryTotals = false
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 0 and counts.item == nil and info.categoryTotals == nil and info.preFilterCounts.item == 0)
+		opts.filters = nil
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 1 and counts.item == 4 and not info)
+		S.Release()
+		opts.filters = { slot = 0 }
+		rows, count, info = S.Browse("item", opts)
+		assert(#rows == 1 and count == 2 and info.preFilterCounts.item == 5)
+	"#,
+	);
+}
+
+#[test]
+fn item_filter_browse_reuses_a_cached_order_and_totals_for_smaller_requests() {
+	run_filter_lookup(
+		r#"
+		local opts = { filters = { reqMin = 10 }, categoryTotals = true, limit = 1, subtitles = false }
+		local rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 2 and count == 3 and info.categoryTotals.root == count)
+		local decode = C.DecodeFilter
+		C.DecodeFilter = function() error("re-scanned cached filters") end
+		opts.categoryTotals = nil
+		local counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == count and countInfo.preFilterCounts.item == 6 and countInfo.categoryTotals == nil)
+		opts.offset = 1
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 3 and count == counted and info.categoryTotals == nil)
+		opts.categoryTotals = true
+		counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == count and countInfo.categoryTotals.root == count)
+		C.DecodeFilter = decode
+	"#,
+	);
+}
+
+#[test]
+fn item_filters_stay_dormant_on_an_old_pack() {
+	browse(
+		r#"
+		index({ { 1, "Sample Sword" }, { 2, "Sample Ring", "r" } })
+		assert(not C.HasFilters())
+		local opts = { kinds = { item = true }, subtitles = false, hideRetired = true }
+		local legacy, legacyCounts = S.Query("sample", opts)
+		opts.filters, opts.categoryTotals = { reqMax = 0 }, true
+		local rows, counts, err, info = S.Query("sample", opts)
+		assert(not err and table.concat(ids(rows)) == table.concat(ids(legacy)) and counts.item == legacyCounts.item)
+		assert(info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1 and info.categoryTotals == nil)
+		local count
+		rows, count, info = S.Browse("item", opts)
+		assert(count == 1 and rows[1].id == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1)
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1 and info.categoryTotals == nil)
+	"#,
+	);
 }
 
 #[test]
