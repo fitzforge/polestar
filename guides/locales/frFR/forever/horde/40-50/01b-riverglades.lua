@@ -226,8 +226,8 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211} est un élite (niveau 42) au camp des éclaireurs de l'Alliance, dans les collines au sud-est de {npc:256728}, votre prochaine destination : un groupe est conseillé. L'affiche est accrochée au milieu du fort ; {npc:258031} récupère l'œil, plus loin dans ce guide.",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "l'affiche {object:707249}",
+	-- was: ["the {object:707249} poster"] = "l'affiche {object:707249}"
+	["the Wanted poster"] = "",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -295,6 +295,8 @@ return {
 	-- Step 63: The Bloodmaster's Ring: Mog'thar
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962} : {npc:258626}",
+	-- {npc:258626} Mog'thar · {npc:257058} Gobam · {npc:263440} Hamur
+	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "",
 
 	-- Step 64: Gobam and Hamur
 	-- {npc:257058} Gobam · {npc:263440} Hamur
@@ -419,14 +421,14 @@ return {
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
 	-- {quest:94964} Bloodmaster's Ring
 	["The {quest:94964}: Snufflesnout"] = "",
-	["Snufflesnout is elite: grouping up is advised."] = "",
+	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	["Snufflesnout (44)"] = "Renifle-groin (44)",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
 	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
 	["The {quest:94964}: {npc:257059}"] = "",
 	-- {npc:257059} Chub'chob
-	["{npc:257059} is elite: grouping up is advised."] = "",
+	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "{npc:255829}, sur la colline",
 
@@ -482,6 +484,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "Le guide suivant part en vol de {area:340}, dans les {area:3} : sortez par le nord de la vallée de {npc:258570} et montez par {area:16685}, le passage vers les {area:3}.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "Le {quest:94964} : Renifle-groin et {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "Les {zone:2548} se trouvent au sud des {area:3}. Allez à l'est depuis {area:657} jusqu'à {area:75} et prenez un vol pour {area:340} : le chemin qui descend dans la zone commence là.",
+	-- ["the {object:707249} poster"] = "l'affiche {object:707249}",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} propose les deux derniers une fois les courses de Gobam terminées (d'après des enregistrements de joueurs), que ce guide laisse de côté. Ils sont de niveau 44 et 45 : gardez-les pour plus tard si le combat contre {npc:258626} a été serré.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Les lances de {npc:263190}, sur les Crocilisques d'eau douce",
 }

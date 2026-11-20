@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "De vuelta a {object:3202}.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "La siguiente guía toma el zepelín a {zone:1454} desde la torre del lado oeste del campamento.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "La siguiente guía toma el zepelín a {zone:1454} desde la torre del lado oeste del campamento."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
@@ -249,6 +250,7 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Los ogros Mosh'Ogg acampan en las colinas justo al este de {object:3202}, de camino de vuelta. Mata a 10 toscos Mosh'Ogg y 5 médicos brujos Mosh'Ogg (36-37); atráelos de uno en uno.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Las panteras Faucesombría (37-38) acechan en la selva al este de las colinas Mosh'Ogg y al noreste, hacia el lago; atacan desde el sigilo. Recoge cada página de Las verdes colinas de Tuercespina que encuentres por el camino.",
 	-- ["The camp by the river"] = "El campamento junto al río",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "La siguiente guía toma el zepelín a {zone:1454} desde la torre del lado oeste del campamento.",
 	-- ["Venture Co. camp"] = "Campamento de Ventura y Cía.",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasado el campamento, hay basiliscos Espina de Cristal (34-35) sobre las rocas; cualquier Cabellesangre del poblado de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la colina al suroeste del campamento: aquí te saca dos niveles, y la guía de Tuercespina 40-50 vuelve a por él.\nCuidado: el nido de raptores tiene raptores jóvenes que se unen al combate cuando atacas a los adultos.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",

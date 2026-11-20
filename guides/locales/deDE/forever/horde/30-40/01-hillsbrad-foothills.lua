@@ -13,11 +13,12 @@ return {
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
+	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
 	-- Step 2: Ratchet
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	-- was: ["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "Flieg von {area:484} nach {area:392}. {npc:5901} lagert an der Küste einen kurzen Fußweg südlich der Stadt; flieg von {area:392} weiter zum Wegekreuz."
-	["Fly from {area:378} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}: dein {item:6637}, für das Kohlebecken",
 
@@ -26,9 +27,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
+	-- Step 4: Fly to the Crossroads
+	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+
 	-- Step 5: Korran
-	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} steht neben dem Flugmeister am Wegekreuz. {quest:1145} ist ab Stufe 29 verfügbar; darunter nimmst du sie beim Halt in {zone:1454} im nächsten Guide an.",
+	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: für {npc:4485} in {zone:1454}",
 
@@ -93,7 +98,8 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem Guide {area:287} 22-25 verpasst: Sie kommen jetzt zuerst. Sie liegen ein paar Stufen unter dir, gehen schnell und öffnen den Rest von {quest:527} in diesem Guide.",
+	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem Guide {area:287} 22-25 verpasst: Sie kommen jetzt zuerst. Sie liegen ein paar Stufen unter dir, gehen schnell und öffnen den Rest von {quest:527} in diesem Guide."
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -134,7 +140,8 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "Der Fluss südlich von {area:272}: Töte diese, wenn sie dir begegnen",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Von {area:272} nach Süden den Fluss entlang: Schnappkiefer (29) sonnen sich an seinen Ufern bis hinunter zu den Hügeln oberhalb von {area:271}. Manche haben {item:3712} dabei.",
+	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Von {area:272} nach Süden den Fluss entlang: Schnappkiefer (29) sonnen sich an seinen Ufern bis hinunter zu den Hügeln oberhalb von {area:271}. Manche haben {item:3712} dabei."
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}, von den Schnappkiefern",
 
@@ -205,7 +212,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "{item:3712} fertig sammeln",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "Noch keine zehn {item:3712}? Die Schnappkiefer säumen den Fluss östlich von {area:272}, auf deinem Rückweg von der Mine.",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -324,9 +331,11 @@ return {
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Nur wenn das Schreiben von {quest:535} nicht bei dir gelandet ist: Die Schleicher und Diebe des Syndikats (32-34) um die Lager westlich der Straße tragen auch Schreiben; etwa jeder dritte lässt eins fallen. Vorsicht: Mit 31-32 sind sie noch über dir und stehen dicht beieinander, mit Hexern (34-35) dazwischen: Zieh sie einzeln vom Rand des Lagers.",
 	-- ["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "Stelle das {object:1729} auf den {object:1728} neben dem Gasthaus; oben",
 	-- ["Shindigger keg"] = "Fässchen Shindigger-Starkbier",
+	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Von {area:272} nach Süden den Fluss entlang: Schnappkiefer (29) sonnen sich an seinen Ufern bis hinunter zu den Hügeln oberhalb von {area:271}. Manche haben {item:3712} dabei.",
 	-- ["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Südlich von Hammerfall halten die Witherbark-Trolle das Dorf in den Hügeln. Axtwerfer bewachen die äußeren Hütten; die Hexendoktoren und Kopfjäger halten das Herz des Dorfes. Vorsicht: Alle drei Trollarten fliehen bei 15% Gesundheit, um Hilfe zu holen, was weitere Trolle aus den nahen Lagern heranziehen kann.",
 	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Südöstlich von Tarrens Mühle. Drull und {npc:2238} sind in den Gebäuden im Hof der Burg angekettet: {npc:2427} trägt {item:3467} und {npc:2428} {item:3499}, beide in der Burg. Töte sie und öffne dann beide Schlösser.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "Im Südwesten füllen die Höhlenyetis und Wilden Yetis (30-32) {area:277} in den Hügeln westlich von {area:272}; etwa jeder sechzehnte trägt die Rute. Bleib in diesen Höhlen: Die Berg- und Riesenyetis (32-34) der Höhle weiter nördlich tragen sie auch, aber mit 29-30 schlagen sie hart zu und kommen zu zweit.",
+	-- ["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "Noch keine zehn {item:3712}? Die Schnappkiefer säumen den Fluss östlich von {area:272}, auf deinem Rückweg von der Mine.",
 	-- ["Syndicate missives"] = "Schreiben des Syndikats",
 	-- ["The Daggerspine naga line the shore south-east of the town."] = "Die Naga der Daggerspine säumen das Ufer südöstlich der Stadt.",
 	-- ["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "Die Fässer Shindigger Stout stehen im Keller von {area:290}, der Zwergenfestung südöstlich von {area:271}, neben {npc:2304} (32); jeder Zwerg dort ist Elite (28-32).",
@@ -343,6 +352,7 @@ return {
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "Nach Westen über die Ausläufer zum Ort {area:287}: Die Schmiede steht in seiner Mitte. {npc:2404} und seine Lehrlinge arbeiten an der Esse; die {object:1736} ist daneben gestapelt.",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Nach Westen über die Ausläufer zum Ort {area:287}: Die Schmiede steht in seiner Mitte. {npc:2404} und seine Lehrlinge arbeiten an der Esse; die {object:1736} ist daneben gestapelt. {npc:2449} läuft bei der Schmiede umher; {npc:2451} bestellt das Feld südöstlich des Orts.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Mit {item:3388} in deinen Taschen bietet {npc:2055} im Apothekarium {quest:513} an; {npc:2216} nimmt das Elixier in {area:272} entgegen.",
+	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem Guide {area:287} 22-25 verpasst: Sie kommen jetzt zuerst. Sie liegen ein paar Stufen unter dir, gehen schnell und öffnen den Rest von {quest:527} in diesem Guide.",
 	-- ["grind on {npc:2248}"] = "grinde an {npc:2248}",
 	-- ["grind on {npc:2375}"] = "grinde an {npc:2375}",
 	-- ["grind on {npc:2562}"] = "grinde an {npc:2562}",
@@ -371,6 +381,7 @@ return {
 	-- ["{npc:2770}: for {npc:2771} in {area:321}, later in this guide (from level 30)"] = "{npc:2770}: für {npc:2771} in {area:321}, später in diesem Guide (ab Stufe 30)",
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}, am Tor",
 	-- ["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} steht neben dem Flugmeister des Wegekreuzes.",
+	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} steht neben dem Flugmeister am Wegekreuz. {quest:1145} ist ab Stufe 29 verfügbar; darunter nimmst du sie beim Halt in {zone:1454} im nächsten Guide an.",
 	-- ["{quest:513} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "{quest:513} braucht {item:3388}, einen Gegenstand von {skill:171}: Kauf eins im Auktionshaus, wenn du kannst (oder frag einen Alchemisten). Der Questtext sagt „Stark“, aber sie nimmt {item:3388}. Kein Elixier: Überspringe die Elixier-Schritte in {area:287}.",
 	-- ["{quest:515} with a group"] = "{quest:515} mit einer Gruppe",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, drinnen",

@@ -112,11 +112,12 @@ return {
 	-- Step 19: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向西回到{area:340}。{npc:5394}在{area:340}的上層，就在飛行管理員上方高處：沿坡道上去，箭頭分不清層數。",
-	-- {area:340} Kargath · {object:3202} Grom'gol
-	["The next guide flies from {area:340} to {object:3202}."] = "下一篇指南從{area:340}飛往{object:3202}。",
+	-- {area:340} Kargath · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4486} Genavie Callow
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "沿著道路繼續向北；箱子在{area:1517}挖掘場，位於道路西北方遺跡的底部。",
+	-- ["The next guide flies from {area:340} to {object:3202}."] = "下一篇指南從{area:340}飛往{object:3202}。",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞爾杜林坐在{area:1877}南邊{area:345}的矮人遺跡中。",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}：只有在你帶著{item:2868}時（{skill:164}或拍賣場）",
 }

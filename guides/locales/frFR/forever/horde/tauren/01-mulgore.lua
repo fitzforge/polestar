@@ -433,8 +433,8 @@ return {
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Depuis la Croisée, suivez la route vers le nord-est jusqu'à {area:379}, traversez la {area:814} vers {zone:1411} et continuez vers le nord jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} et prend le zeppelin pour {zone:1420} et la {zone:1421}.",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} d'{zone:1454}",
 
@@ -450,6 +450,7 @@ return {
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Les Rôdeurs des basses plaines parcourent les plaines autour de {area:225}",
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Suivez le chemin vers le sud hors du camp jusqu'à la tente du prophète, au pied des collines.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Suivez la route vers le nord pour quitter {area:220}. {npc:265810} attend sur la route juste au sud de {area:222} ; /sit près de son feu de camp jusqu'à obtenir {spell:1229451}.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Depuis la Croisée, suivez la route vers le nord-est jusqu'à {area:379}, traversez la {area:814} vers {zone:1411} et continuez vers le nord jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} et prend le zeppelin pour {zone:1420} et la {zone:1421}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centaures galak et Loups Alpha des prairies ({npc:2960})",
 	-- ["Galak centaurs and {npc:2958} Alphas"] = "Centaures galak et Loups Alpha ({npc:2958})",
 	-- ["Hearth to {area:1638} and cross to {area:1639}."] = "Pierre de foyer vers {area:1638}, puis traversez jusqu'à {area:1639}.",

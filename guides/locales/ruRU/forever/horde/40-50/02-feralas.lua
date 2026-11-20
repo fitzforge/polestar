@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "Распорядитель полетов: {area:75}",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Полет заканчивается здесь: {object:3202}. Более сложные поручения Тернистой долины, оставшиеся с первого визита, теперь вам по силам: вождь Череполомов, лагеря Занзила, пираты {area:35}, побережье наг и {npc:1514} – затем дирижабль в {zone:1454}. Задание на вождя Череполомов дает {object:2076} рядом с Нимбоей.",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Полет заканчивается здесь: {object:3202}. Более сложные поручения Тернистой долины, оставшиеся с первого визита, теперь вам по силам: вождь Череполомов, лагеря Занзила, пираты {area:35}, побережье наг и {npc:1514} – затем дирижабль в {zone:1454}. Задание на вождя Череполомов дает {object:2076} рядом с Нимбоей."
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -369,7 +372,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: поручение от NPC {npc:263190} из зоны {zone:2548}, если оно у вас есть",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: для города {zone:1454}, примерно на 45-м уровне",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: для города {zone:1454}, примерно на 45-м уровне"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, внутри",
 
@@ -401,7 +405,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "для города {zone:1454}, примерно на 45-м уровне",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -472,6 +476,7 @@ return {
 	-- ["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "Улей Цуккаш врыт в холмы к юго-востоку от лагеря; {quest:7731} ждет в самой дальней камере.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Бандиты и воры стоят лагерем в дюнах к востоку от места {area:976}. С любого Скитальца Пустыни может упасть бурдюк с водой: Люглункету нужно пять.\nОсторожно: разбойники Скитальцев Пустыни (43-44-й уровень) передвигаются в незаметности, так что могут подойти незамеченными.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Бандиты и воры стоят лагерем в дюнах к востоку от места {area:976}. С любого Скитальца Пустыни может упасть бурдюк с водой: сохраните десять, по пять для каждой награды Тормозиллера.\nОсторожно: разбойники Скитальцев Пустыни (43-44-й уровень) передвигаются в незаметности, так что могут подойти незамеченными.",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Полет заканчивается здесь: {object:3202}. Более сложные поручения Тернистой долины, оставшиеся с первого визита, теперь вам по силам: вождь Череполомов, лагеря Занзила, пираты {area:35}, побережье наг и {npc:1514} – затем дирижабль в {zone:1454}. Задание на вождя Череполомов дает {object:2076} рядом с Нимбоей.",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "Полет заканчивается здесь: {object:3202}. Сначала {npc:2519} и {npc:2465}, затем башня дирижаблей.",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "Темные маги, разбойники и убийцы стоят лагерем к юго-востоку от места {area:976}.",
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "Дирижабль ({object:3202}) отправляется с башни чуть к северо-востоку от главных ворот ({zone:1454}).",
@@ -483,6 +488,7 @@ return {
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
 	-- ["for the {zone:1425}, around level 48"] = "для края {zone:1425}, примерно на 48-м уровне",
 	-- ["for {area:35}, around level 50"] = "для места {area:35}, примерно на 50-м уровне",
+	-- ["for {zone:1454}, around level 45"] = "для города {zone:1454}, примерно на 45-м уровне",
 	-- ["the {object:150075} in the square"] = "{object:150075} на площади",
 	-- ["water pouches in your bags"] = "бурдюки с водой в сумках",
 	-- ["{area:1099} flight master"] = "Распорядитель полетов: {area:1099}",
@@ -493,5 +499,6 @@ return {
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, Волок",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, Волок",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, учитель верховой езды",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: для города {zone:1454}, примерно на 45-м уровне",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: крикуны живут здесь: {zone:1444}, при следующем визите в {zone:1444}",
 }

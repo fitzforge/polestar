@@ -433,8 +433,8 @@ return {
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:814} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454} y toma el zepelín a {zone:1420} y {zone:1421}.",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
@@ -450,6 +450,7 @@ return {
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Merodeadores de las estepas ({npc:3566}) recorren las llanuras alrededor de {area:225}",
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Sigue el sendero al sur fuera del campamento hasta la tienda del Vidente, al pie de las colinas.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Sigue el camino al norte fuera de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; usa /sentarse junto a su fogata hasta obtener {spell:1229451}.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:814} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454} y toma el zepelín a {zone:1420} y {zone:1421}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centauros Galak y Lobos alfa de pradera ({npc:2960})",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Usa tu piedra de hogar para ir a {area:222} y cabalga al norte hasta {area:1639}.",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "Sal de {zone:1412} por el paso del sureste y sigue el camino hasta {area:380}. {quest:860} está junto a la posada y {npc:3448}, en la puerta sur. La guía de {zone:1413} empieza aquí.",

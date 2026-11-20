@@ -321,9 +321,10 @@ return {
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
 	-- Step 68: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás del Fuerte Grommash, en {object:172957}; las Rocas suaves están a su alrededor. La siguiente guía va a pie desde aquí hasta {area:379} y el Cruce.",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás del Fuerte Grommash, en {object:172957}; las Rocas suaves están a su alrededor. La siguiente guía va a pie desde aquí hasta {area:379} y el Cruce."
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
@@ -378,6 +379,7 @@ return {
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}, en {area:2362}",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: acéptala si te la ofrece; puede seguir a su serie {quest:98298}, que esta ruta no hace",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, en el circuito del sur",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás del Fuerte Grommash, en {object:172957}; las Rocas suaves están a su alrededor. La siguiente guía va a pie desde aquí hasta {area:379} y el Cruce.",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, el instructor de peletería, trabaja en {object:172958}.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, la instructora de herboristería, tiene su tienda en La Calle Mayor.",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: guarda {item:16210}; Podrig lo recoge cuando pases por {area:228} a nivel 22",

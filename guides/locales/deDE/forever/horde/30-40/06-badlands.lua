@@ -112,12 +112,13 @@ return {
 	-- Step 19: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Geh nach Westen zurück nach {area:340}. {npc:5394} steht auf der oberen Ebene von {area:340}, hoch über dem Flugmeister: Nimm die Rampen nach oben, der Pfeil kann die Ebenen nicht unterscheiden.",
-	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
-	["The next guide flies from {area:340} to {object:3202}."] = "Der nächste Guide fliegt von {area:340} nach {object:3202}.",
+	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4486} Genavie Callow
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Bleib auf der Straße nach Norden; die Truhe liegt in der Grabungsstätte von {area:1517}, am Fuß der Ruinen nordwestlich der Straße.",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "Die Älteren Felsspalten-Kojoten und Riesenbussarde streifen durch das Becken südlich des {area:1878}. Kojoten lassen sowohl die Kieferknochen als auch die Reißzähne fallen; die Riesenbussarde die Kröpfe. Vorsicht: Bösartige Trugbilder (42, Elite) treiben durch {zone:1418}: Mach einen weiten Bogen um sie.",
+	-- ["The next guide flies from {area:340} to {object:3202}."] = "Der nächste Guide fliegt von {area:340} nach {object:3202}.",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin sitzt zwischen den Zwergenruinen an der {area:345}, südlich vom {area:1877}.",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: nur wenn du {item:2868} dabeihast ({skill:164} oder Auktionshaus)",
 }

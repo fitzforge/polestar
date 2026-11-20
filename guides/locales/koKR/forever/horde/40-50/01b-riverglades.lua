@@ -226,8 +226,8 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}은(는) 다음 목적지인 {npc:256728} 남동쪽 언덕의 얼라이언스 정찰병 야영지에 있는 정예(42레벨)입니다. 파티를 권장합니다. 현상 수배 전단은 요새 한가운데 걸려 있으며, 눈은 이 가이드 후반에 {npc:258031}에게 제출합니다.",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "{object:707249} 벽보",
+	-- was: ["the {object:707249} poster"] = "{object:707249} 벽보"
+	["the Wanted poster"] = "",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -295,6 +295,8 @@ return {
 	-- Step 63: The Bloodmaster's Ring: Mog'thar
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
+	-- {npc:258626} Mog'thar · {npc:257058} Gobam · {npc:263440} Hamur
+	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "",
 
 	-- Step 64: Gobam and Hamur
 	-- {npc:257058} Gobam · {npc:263440} Hamur
@@ -419,14 +421,14 @@ return {
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
 	-- {quest:94964} Bloodmaster's Ring
 	["The {quest:94964}: Snufflesnout"] = "",
-	["Snufflesnout is elite: grouping up is advised."] = "",
+	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	["Snufflesnout (44)"] = "킁킁주둥이 (44)",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
 	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
 	["The {quest:94964}: {npc:257059}"] = "",
 	-- {npc:257059} Chub'chob
-	["{npc:257059} is elite: grouping up is advised."] = "",
+	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "언덕 위의 {npc:255829}",
 
@@ -482,6 +484,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "다음 가이드는 {area:3}의 {area:340}에서 비행으로 시작합니다. {npc:258570}의 골짜기에서 북쪽으로 나가 {area:3}(으)로 통하는 {area:16685}을(를) 지나 올라가세요.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}은(는) {area:3} 남쪽에 있습니다. {area:657}에서 동쪽 {area:75}(으)로 가서 {area:340}(으)로 날아가세요. 지역으로 내려가는 길이 그곳에서 시작됩니다.",
+	-- ["the {object:707249} poster"] = "{object:707249} 벽보",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "고밤의 심부름을 마치면 {npc:257062}이(가) 마지막 두 퀘스트를 주지만(플레이어 기록 기준), 이 가이드에서는 다루지 않습니다. 44레벨과 45레벨이니 {npc:258626}와의 싸움이 아슬아슬했다면 나중으로 미루세요.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 }

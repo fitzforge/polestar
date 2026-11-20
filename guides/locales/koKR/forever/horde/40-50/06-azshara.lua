@@ -262,7 +262,7 @@ return {
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "주둔지에서 서쪽, 운고로 비탈길로 가는 길목입니다. {quest:3362}의 옹이진 덤불나무괴물과 뿌리조각사(48-50)는 처음 {zone:1446}에 왔을 때 받아 둔 {npc:7876}의 퀘스트입니다. 많이 돌아다니니 하나씩 끌어오세요. 다음 가이드에서 {area:976}에 들를 때 {npc:11758}의 퀘스트와 함께 {npc:7876}에게 제출합니다."
-	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "",
+	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north-east to {npc:8420}."] = "북동쪽 {npc:8420}에게 돌아가세요.",

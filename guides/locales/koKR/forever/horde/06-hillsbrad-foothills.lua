@@ -16,8 +16,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: 약병은 듀른홀드로 가는 길의 비밀결사대 어둠마법사에게서 얻습니다",
-	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판",
+	-- was: ["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -91,7 +91,7 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants"] = "{npc:2121}: {area:233}의 펜던트",
 
-	-- Step 13: Hadrec and Dalar Dawnweaver
+	-- Step 14: Hadrec and Dalar Dawnweaver
 	-- {npc:1938} Dalar Dawnweaver
 	["Hadrec and {npc:1938}"] = "하드렉과 {npc:1938}",
 	-- {area:236} Shadowfang Keep · {npc:1952} High Executor Hadrec · {npc:1938} Dalar Dawnweaver
@@ -99,77 +99,77 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, 지하",
 
-	-- Step 14: Shadowfang Keep
+	-- Step 15: Shadowfang Keep
 	-- {area:236} Shadowfang Keep · {area:228} The Sepulcher · {area:204} Pyrewood Village · {npc:4444} Deathstalker Vincent · {quest:1098} Deathstalkers in Shadowfang · {npc:3886} Razorclaw the Butcher · {npc:3887} Baron Silverlaine · {npc:4278} Commander Springvale · {npc:4279} Odo the Blindwatcher · {npc:4274} Fenrus the Devourer · {npc:3927} Wolf Master Nandos · {npc:4275} Archmage Arugal · {npc:1938} Dalar Dawnweaver
 	["{area:236} is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the {area:228}: the keep stands on the hill above {area:204}, its gate at the top of the path.\nInside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and {npc:4444} lies just inside the courtyard, to the right: hand {quest:1098} in to him there. Then {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} and {npc:3927}; {npc:4275} at the top drops his head for {npc:1938}."] = "{area:236}은(는) 약 20~30레벨 5인 파티용 던전이며, 전체 공략에 약 1시간이 걸립니다. {area:228}에서 길을 따라 남쪽으로 가십시오. 성채는 {area:204} 위 언덕에 있으며, 입구는 길 꼭대기에 있습니다.\n내부: 먼저 레실고어를 처치하십시오. 그 뒤 감옥에서 풀려난 죽음의 추적자가 안뜰 문을 열어 주며, {npc:4444}은(는) 안뜰 바로 안쪽 오른편에 쓰러져 있습니다. 그곳에서 그에게 {quest:1098}을(를) 제출하십시오. 그다음 {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274}, {npc:3927} 순이며, 꼭대기의 {npc:4275}이(가) {npc:1938}에게 줄 머리를 떨어뜨립니다.",
 	-- {quest:1014} Arugal Must Die · {item:5442} Head of Arugal
 	["{quest:1014}: the {item:5442}"] = "{quest:1014}: {item:5442}",
 
-	-- Step 15: Dalar Dawnweaver
+	-- Step 16: Dalar Dawnweaver
 	-- {area:228} The Sepulcher · {npc:1938} Dalar Dawnweaver
 	["Back north up the road to the {area:228}: {npc:1938} stands just north of Allister."] = "길을 따라 북쪽 {area:228}(으)로 돌아가십시오. {npc:1938}은(는) 알리스터 바로 북쪽에 서 있습니다.",
 
-	-- Step 16: Fly to the Undercity
+	-- Step 17: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
 
-	-- Step 17: Aelthalyste
+	-- Step 18: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
 	["{npc:4606} stands in the {object:36070}."] = "{npc:4606}은(는) {object:36070}에 서 있습니다.",
 
-	-- Step 18: The Undercity
+	-- Step 19: The Undercity
 	-- {zone:1458} Undercity
 	["Train and restock in the {zone:1458} before the zeppelin."] = "비행선을 타기 전에 {zone:1458}에서 기술을 배우고 보급품을 채우세요.",
 
-	-- Step 19: Master Apothecary Faranell
+	-- Step 20: Master Apothecary Faranell
 	-- {item:280438} Abominable Head · {area:153} Ruins of Lordaeron
 	["The {item:280438} from the {area:153}: Faranell takes it here."] = "{area:153}에서 얻은 {item:280438}: 파라넬이 이곳에서 받습니다.",
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "연금술 실험실의 {npc:2055}",
 
-	-- Step 20: Morbin Lightbane
+	-- Step 21: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {npc:266484} Morbin Lightbane · {object:36126} Royal Quarter
 	["Your {area:153} limbs: {npc:266484} stands in the {object:36126}, just past the Apothecarium."] = "{area:153}에서 얻은 팔다리: {npc:266484}은(는) 연금술 실험실 바로 너머 {object:36126}에 서 있습니다.",
 
-	-- Step 21: Oran Snakewrithe
+	-- Step 22: Oran Snakewrithe
 	-- {quest:95204} Crest of Lordaeron · {area:153} Ruins of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {quest:95204} from your {area:153} run: {npc:7825} takes it."] = "{area:153} 공략에서 얻은 {quest:95204}: {npc:7825}이(가) 받습니다.",
 
-	-- Step 22: Archibald
+	-- Step 23: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 23: Archibald
+	-- Step 24: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
 
-	-- Step 24: Archibald
+	-- Step 25: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 25: Archibald
+	-- Step 26: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 26: Archibald
+	-- Step 27: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 27: Trial of the Sea Lion
+	-- Step 28: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: {area:2362}에서 조각을 사용하십시오",
 
-	-- Step 28: Aquatic Form
+	-- Step 29: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}의 {npc:11798}이(가) 드루이드를 그곳으로 태워 줍니다",
 
-	-- Step 29: Back to the Crossroads
+	-- Step 30: Back to the Crossroads
 	["Back to the Crossroads"] = "",
 	-- {npc:3033} Turak Runetotem · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. {npc:3419}, in the {area:2197} under {area:1640}, takes Lydon's toxin if you carry it. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "{npc:3033}에게 기술을 배우세요. {area:1640} 아래 {area:2197}에 있는 {npc:3419}에게 라이던의 독을 가지고 있다면 전달하세요. 다시 날아가기 전에, 와이번 조련사에서 동쪽으로 조금 걸어가면 있는 {npc:3024}와(과) {npc:4721}에게서 다음 가이드들의 이동 경로에서 진행할 퀘스트 두 개를 받으세요. 그런 다음 다음 가이드가 시작되는 크로스로드로 날아가세요.",
@@ -181,15 +181,15 @@ return {
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, {zone:1440}의 웃음짓는 자매에게서 얻는 약병",
 
-	-- Step 30: Zeppelin to Orgrimmar
+	-- Step 31: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
-	-- Step 31: Orgrimmar
+	-- Step 32: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 32: Orgrimmar
+	-- Step 33: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "다시 날아가기 전에 기술을 배우세요. 다음 가이드는 이곳에서 비행으로 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -223,6 +223,7 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "마을 회관은 {area:287} 서쪽에 있습니다. {npc:2335} (30)와(과) {npc:2448}은(는) 힐스브래드 마을의 기록부와 함께 안에 있고, 힐스브래드 선언문은 그 옆에 붙어 있습니다. 힐스브래드 원로는 마을을 돌아다닙니다.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}은(는) {area:287} 마을 남쪽에 있습니다. 힐스브래드 광부가 갱도에서 일하고, {npc:2305} (30)와(과) {npc:2450} (29)은(는) 깊숙한 곳에 있습니다.",
+	-- ["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567} 게시판: 대상은 가는 길에 나옵니다",
 	-- ["Town hall"] = "마을 회관",
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "{npc:3033}에게 기술을 배우세요. 다시 날아가기 전에, 와이번 조련사에서 동쪽으로 조금 걸어가면 있는 {npc:3024}와(과) {npc:4721}에게서 다음 가이드들의 이동 경로에서 진행할 퀘스트 두 개를 받으세요. 그런 다음 다음 가이드가 시작되는 크로스로드로 날아가세요.",

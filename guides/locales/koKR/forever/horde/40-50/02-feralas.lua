@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "{object:3202}에 착륙합니다. 첫 방문 때 받아 둔 가시덤불 골짜기의 어려운 퀘스트들을 이제 할 수 있습니다: 해골망치부족 족장, 잔질의 야영지, {area:35}의 해적, 나가 해안, {npc:1514}. 그 뒤 {zone:1454}행 비행선을 타세요. 님보야 옆의 {object:2076}에서 해골망치부족 족장 퀘스트를 받을 수 있습니다.",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "{object:3202}에 착륙합니다. 첫 방문 때 받아 둔 가시덤불 골짜기의 어려운 퀘스트들을 이제 할 수 있습니다: 해골망치부족 족장, 잔질의 야영지, {area:35}의 해적, 나가 해안, {npc:1514}. 그 뒤 {zone:1454}행 비행선을 타세요. 님보야 옆의 {object:2076}에서 해골망치부족 족장 퀘스트를 받을 수 있습니다."
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -369,7 +372,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: {zone:2548}에서 받은 {npc:263190}의 심부름이 있다면",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: 45레벨쯤 {zone:1454}에서",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: 45레벨쯤 {zone:1454}에서"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "",
 
@@ -401,7 +405,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "45레벨쯤 {zone:1454}에서",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -472,6 +476,7 @@ return {
 	-- ["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "주크애쉬 벌집은 야영지 남동쪽 언덕 속으로 파고들어 있습니다. {quest:7731}은(는) 가장 깊은 방에서 기다립니다.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "약탈자와 좀도둑은 {area:976} 동쪽 모래언덕에 야영하고 있습니다. 사막유랑단은 누구나 물주머니를 지니고 있을 수 있습니다. 루글룬켓에게 다섯 개가 필요합니다.\n주의: 사막유랑단 도적(43-44레벨)은 은신한 채 움직이므로 보이지 않게 다가올 수 있습니다.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "약탈자와 좀도둑은 {area:976} 동쪽 모래언덕에 야영하고 있습니다. 사막유랑단은 누구나 물주머니를 지니고 있을 수 있습니다. 루글룬켓의 현상금 퀘스트 두 개에 다섯 개씩, 열 개를 보관하세요.\n주의: 사막유랑단 도적(43-44레벨)은 은신한 채 움직이므로 보이지 않게 다가올 수 있습니다.",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "{object:3202}에 착륙합니다. 첫 방문 때 받아 둔 가시덤불 골짜기의 어려운 퀘스트들을 이제 할 수 있습니다: 해골망치부족 족장, 잔질의 야영지, {area:35}의 해적, 나가 해안, {npc:1514}. 그 뒤 {zone:1454}행 비행선을 타세요. 님보야 옆의 {object:2076}에서 해골망치부족 족장 퀘스트를 받을 수 있습니다.",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "비행 경로를 타면 {object:3202}에 내립니다: {npc:2519}와(과) {npc:2465}을(를) 만난 뒤 비행선 탑으로 가세요.",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "어둠마법사, 도적, 암살자는 {area:976} 남동쪽에 야영하고 있습니다.",
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "{object:3202}행 비행선은 {zone:1454} 정문 바로 북동쪽의 탑에서 출발합니다.",
@@ -482,6 +487,7 @@ return {
 	-- ["Zeppelin tower"] = "비행선 탑",
 	-- ["for the {zone:1425}, around level 48"] = "48레벨쯤 {zone:1425}에서",
 	-- ["for {area:35}, around level 50"] = "50레벨쯤 {area:35}에서",
+	-- ["for {zone:1454}, around level 45"] = "45레벨쯤 {zone:1454}에서",
 	-- ["the {object:150075} in the square"] = "광장의 {object:150075}",
 	-- ["water pouches in your bags"] = "가방 속 물주머니",
 	-- ["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
@@ -492,5 +498,6 @@ return {
 	-- ["{npc:6986}, the Drag"] = "골목길의 {npc:6986}",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",
 	-- ["{npc:7953}, riding trainer"] = "탈것 타기 상급자 {npc:7953}",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: 45레벨쯤 {zone:1454}에서",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: 날카로운비명은 {zone:1444}에 삽니다. 다음 {zone:1444} 방문 때",
 }

@@ -13,10 +13,12 @@ return {
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
+	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
 	-- Step 2: Ratchet
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	["Fly from {area:378} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "",
 
@@ -25,9 +27,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
+	-- Step 4: Fly to the Crossroads
+	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+
 	-- Step 5: Korran
-	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} стоит рядом с распорядителем полетов на Перекрестке. {quest:1145} доступно с 29-го уровня; если уровень ниже, его можно взять на остановке в зоне {zone:1454} в следующем гайде.",
+	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: для персонажа {npc:4485} ({zone:1454})",
 
@@ -92,7 +98,8 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Вы пропустили первые поручения Дарталии из гайда по {area:287} (22-25): теперь они идут первыми. Они на несколько уровней ниже вас и быстрые, а еще открывают остальную часть цепочки {quest:527} в этом гайде.",
+	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Вы пропустили первые поручения Дарталии из гайда по {area:287} (22-25): теперь они идут первыми. Они на несколько уровней ниже вас и быстрые, а еще открывают остальную часть цепочки {quest:527} в этом гайде."
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -133,7 +140,8 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "Река к югу от места {area:272}: убивайте их по пути",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "На юг от места {area:272} вдоль реки: черепахи-хваталки (29) греются на берегах до самых холмов над местом {area:271}. У некоторых есть {item:3712}.",
+	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "На юг от места {area:272} вдоль реки: черепахи-хваталки (29) греются на берегах до самых холмов над местом {area:271}. У некоторых есть {item:3712}."
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}, с черепах-хваталок",
 
@@ -205,7 +213,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "Доберите: {item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "Еще нет десяти штук ({item:3712})? Щелкочелюсты есть вдоль реки к востоку от места {area:272}, по пути назад от шахты.",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -309,8 +317,10 @@ return {
 	-- ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Дальше – в городок {area:287}, к юго-западу от пещер йети. Ратуша – в западной части городка: {npc:2335} (30) и {npc:2448} внутри, там же городской реестр; рядом висит прокламация. По городку ходят члены совета.",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Только если послание от {quest:535} к вам не попало: преступники и воры Синдиката (32-34) у лагерей к западу от дороги тоже носят послания; примерно с каждого третьего падает одно. Осторожно: на 31-32 уровне они все еще выше вас и стоят кучно, а среди них – волшебники (34-35): выманивайте по одному с края лагеря.",
 	-- ["Shindigger keg"] = "Бочонок «Землекопского крепкого»",
+	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "На юг от места {area:272} вдоль реки: черепахи-хваталки (29) греются на берегах до самых холмов над местом {area:271}. У некоторых есть {item:3712}.",
 	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "К юго-западу пещерные и лютые йети (30-32) заполняют {area:277} в холмах к западу от поселения {area:272}; примерно у одного из шестнадцати есть жезл. Оставайтесь в этих пещерах: горные и гигантские йети (32-34) из пещеры дальше к северу тоже носят его, но на 29-30 уровне они бьют сильно и ходят парами.",
+	-- ["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "Еще нет десяти штук ({item:3712})? Щелкочелюсты есть вдоль реки к востоку от места {area:272}, по пути назад от шахты.",
 	-- ["Syndicate missives"] = "Донесения Синдиката",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Преступники и воры Синдиката (32-33) у лагерей к западу от дороги носят донесения; примерно с каждого третьего падает одно.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "Бочонок стоит с несколькими другими в лагере Синдиката на юго-восточном побережье ({area:287}).",
@@ -322,6 +332,7 @@ return {
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом.",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит у кузницы; {npc:2451} работает в поле к юго-востоку от поселения.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Если в сумках есть {item:3388}, {npc:2055} предлагает задание {quest:513} в Районе Фармацевтов; {npc:2216} принимает эликсир здесь: {area:272}.",
+	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Вы пропустили первые поручения Дарталии из гайда по {area:287} (22-25): теперь они идут первыми. Они на несколько уровней ниже вас и быстрые, а еще открывают остальную часть цепочки {quest:527} в этом гайде.",
 	-- ["grind on {npc:2375}"] = "бейте: {npc:2375}",
 	-- ["{area:484} flight master"] = "Распорядитель полетов: {area:484}",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: аукцион или алхимик, для задания {quest:513}.",
@@ -329,6 +340,7 @@ return {
 	-- ["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} хочет, чтобы вы освободили двух его разведчиков ({area:275}), прежде чем доверит вам «Шпионскую работу».",
 	-- ["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "Задания NPC {npc:2410} при следующем визите сюда ({area:272}) и «Alliance Relations» в городе {zone:1454}, первая остановка следующего гайда, доступны с 30-го уровня. Не хватает до 30? Грязекопы и береговики из племени Рваного Плавника (28-30) толпятся на побережье к югу от места {area:288}, недалеко: убивайте их до 30-го уровня. Их оракулы (30-31) колдуют на берегу дальше к востоку. Или с группой пройдите подземелье Раскопки ({zone:1437}).",
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}, у ворот",
+	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} стоит рядом с распорядителем полетов на Перекрестке. {quest:1145} доступно с 29-го уровня; если уровень ниже, его можно взять на остановке в зоне {zone:1454} в следующем гайде.",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, внутри",
 	-- ["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 }

@@ -321,9 +321,10 @@ return {
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Раз уж вы здесь: изучите навык {spell:197} у NPC {npc:11868} ({object:172958}, 10 серебра); с двуручным оружием паладин качается быстрее всего.",
 
 	-- Step 68: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} и {npc:268682} сидят за Крепостью Громмаш – {object:172957}; гладкие валуны лежат вокруг них. Следующий гайд идет отсюда к месту {area:379} и Перекрестку.",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} и {npc:268682} сидят за Крепостью Громмаш – {object:172957}; гладкие валуны лежат вокруг них. Следующий гайд идет отсюда к месту {area:379} и Перекрестку."
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
@@ -386,6 +387,7 @@ return {
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: возьмите, если предложит; может идти после его серии {quest:98298}, которую маршрут не проходит",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, на южном круге",
 	-- ["{npc:2121}: {quest:516}, on the southern loop"] = "{npc:2121}: {quest:516}, на южном круге",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} и {npc:268682} сидят за Крепостью Громмаш – {object:172957}; гладкие валуны лежат вокруг них. Следующий гайд идет отсюда к месту {area:379} и Перекрестку.",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, учитель кожевничества, работает здесь: {object:172958}.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, учитель травничества, держит лавку на Волоке.",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: сохраните {item:16210}, Подриг заберет его, когда будете проезжать через {area:228} на 22 уровне",

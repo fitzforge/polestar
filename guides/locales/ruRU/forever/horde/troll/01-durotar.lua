@@ -262,12 +262,6 @@ return {
 	-- Step 54: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
 	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
-	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "{npc:3169}, внутри",
-	-- {npc:3294} Ophek
-	["{npc:3294}, by the inn"] = "{npc:3294}, у таверны",
-	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, для персонажа {npc:6018} ({zone:1454}): сохраните задание",
 
 	-- Step 55: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -338,6 +332,12 @@ return {
 	-- Step 77: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
+	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, для персонажа {npc:6018} ({zone:1454}): сохраните задание",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
 	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
@@ -434,8 +434,9 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, у дороги на север к городу {zone:1454}; {item:6486} может упасть с любого. {npc:5810} примет ее, когда следующий гайд будет проходить мимо заставы {area:379}.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
 
 	-- Step 101: Ormak Grimshot
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Идите по дороге на север от места {area:379} к главным воротам ({zone:1454}), чуть к западу от места {area:817}. {npc:3352} стоит с учителями охотников, ориентир: {object:172958}.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Идите по дороге на север от места {area:379} к главным воротам ({zone:1454}), чуть к западу от места {area:817}. {npc:3352} стоит с учителями охотников, ориентир: {object:172958}."
+	["Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 102: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -444,8 +445,8 @@ return {
 	-- Step 103: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}: {object:172982}",
 
@@ -457,6 +458,7 @@ return {
 	-- ["Back south to {area:362}."] = "Назад на юг сюда: {area:362}.",
 	-- ["Back to {area:362}."] = "Назад сюда: {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Назад к {npc:5875} ({object:172960}). Используйте предмет {item:7464} на круге призыва и одолейте демона Бездны, чтобы подчинить его.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Идите по дороге на север от места {area:379} к главным воротам ({zone:1454}), чуть к западу от места {area:817}. {npc:3352} стоит с учителями охотников, ориентир: {object:172958}.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nWade back west to the shore south of Sen'jin when the isles are done."] = "Идите на юг через острова. Идолы лоа лежат по всем южным островам; их охраняют тролли-вудуисты и проклятые тролли, с которых падают проклятые подвески. {quest:826} и клетка Миншины – на самом южном острове.\nЗакончив с островами, вернитесь вброд на запад к берегу к югу от Сен'джина.",
 	-- ["Prickly pears"] = "Колючие груши",
 	-- ["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Свинобразы и разведчики занимают хижины к западу от городка; пылебеги и боевые стражи – лагеря дальше к западу.",
@@ -483,6 +485,8 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: для персонажа {npc:3365}",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: для персонажа {npc:3404}",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: для персонажа {npc:7088}",
+	-- ["{npc:3169}, inside"] = "{npc:3169}, внутри",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}, у таверны",
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}, рядом с {npc:5810}",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, рядом с персонажем {npc:3139}: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, в казарме вместе с персонажем {npc:3139}",

@@ -433,8 +433,8 @@ return {
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Folge von der Kreuzung der Straße nach Nordosten bis {area:379}, überquere den {area:814} nach {zone:1411} und halte dich weiter nördlich bis zum Haupttor von {zone:1454}. Der nächste Guide beginnt in {zone:1454} und nimmt das Zeppelin nach {zone:1420} und {zone:1421}.",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
@@ -452,6 +452,7 @@ return {
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Folge dem Pfad nach Süden aus dem Lager zum Zelt des Sehers am Fuß der Hügel.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Folge der Straße nach Norden aus {area:220} hinaus. {npc:265810} wartet an der Straße kurz südlich von {area:222}; /sit an ihrem Lagerfeuer, bis du Verbesserter Ruhebonus bekommst. Hast du einen Beruf gelernt, bietet Kaga auch Camping 101 an, das ihr Lehrer annimmt: in Bluthuf oder an der Haltestelle in {zone:1456}.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Folge der Straße nach Norden aus {area:220}. {npc:265810} wartet auf der Straße gleich südlich von {area:222}; /sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Folge von der Kreuzung der Straße nach Nordosten bis {area:379}, überquere den {area:814} nach {zone:1411} und halte dich weiter nördlich bis zum Haupttor von {zone:1454}. Der nächste Guide beginnt in {zone:1454} und nimmt das Zeppelin nach {zone:1420} und {zone:1421}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Zentauren der Galak und Präriewolfalphas",
 	-- ["Head down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Geh hinunter nach {area:222} und zähme mit {item:15908}: einen {npc:2956} auf den Ebenen, einen {npc:2959} nördlich des Dorfes, einen Sturzflieger im Nordwesten.",
 	-- ["Hearth to {area:222} and head north to {area:1639}."] = "Kehr per Ruhestein nach {area:222} zurück und geh nach Norden zum {area:1639}.",

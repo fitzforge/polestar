@@ -48,8 +48,8 @@ return {
 	["{npc:7010} works in the Drag."] = "{npc:7010} arbeitet in der Gasse.",
 
 	-- Step 9: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1423} Eastern Plaguelands
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Nur falls {quest:4494} noch nicht erledigt ist: {npc:7010} arbeitet in der Gasse. Pestlezugg nimmt sie in {area:976} auf dem Weg nach Un'Goro im Guide für {zone:1423} entgegen.",
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
@@ -135,6 +135,7 @@ return {
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Behalte die Lieferungen für {npc:8659}, {npc:6522}, {npc:4485} und {npc:3326}: Als Nächstes kommst du durch {zone:1454} und {zone:1458}. Die für Magatha in {zone:1456} liegt nicht auf dieser Route: Lass sie liegen.",
 	-- ["Makrinni Burrowers"] = "Makrinni-Wühler",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Weiter nach Nordosten durch die Mitte von {zone:1447}: {npc:235903} lagert an der Straße.",
+	-- ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Nur falls {quest:4494} noch nicht erledigt ist: {npc:7010} arbeitet in der Gasse. Pestlezugg nimmt sie in {area:976} auf dem Weg nach Un'Goro im Guide für {zone:1423} entgegen.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Öffne {object:149036} für {item:10556}",
 	-- ["Ride back west to {area:1237}."] = "Reite zurück nach Westen nach {area:1237}.",
 	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Reite nach Osten zu den Ruinen an der Küste. Füll Cuelys vier Phiolen an den Gezeitentümpeln am Ufer; Naga der Grollflossen patrouillieren dazwischen.",

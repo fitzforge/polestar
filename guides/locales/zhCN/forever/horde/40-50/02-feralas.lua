@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞行路线降落在{object:3202}。你第一次来时接下的荆棘谷较难的任务现在适合你了：碎颅部落首领、赞吉尔的营地、{area:35}的海盗、娜迦海岸和{npc:1514}，之后再乘飞艇前往{zone:1454}。尼姆布亚旁边的{object:2076}有碎颅部落首领的任务。",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞行路线降落在{object:3202}。你第一次来时接下的荆棘谷较难的任务现在适合你了：碎颅部落首领、赞吉尔的营地、{area:35}的海盗、娜迦海岸和{npc:1514}，之后再乘飞艇前往{zone:1454}。尼姆布亚旁边的{object:2076}有碎颅部落首领的任务。"
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}：{quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -370,7 +373,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}：如果你带着{npc:263190}从{zone:2548}托付的差事，交给他",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：交给{zone:1454}，大约45级时",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：交给{zone:1454}，大约45级时"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
@@ -402,7 +406,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "交给{zone:1454}，大约45级时",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -481,6 +485,7 @@ return {
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土游荡者部族的敌人都可能携带水袋：鲁格伦克需要五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties."] = "强盗和窃贼在{area:976}东边的沙丘里扎营。任何废土敌人都可能携带废土水袋：留十个，鲁格伦克的两个悬赏各需五个。",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土敌人都可能携带水袋：保留十个，操作员鲁格伦克的两个悬赏各需五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞行路线降落在{object:3202}。你第一次来时接下的荆棘谷较难的任务现在适合你了：碎颅部落首领、赞吉尔的营地、{area:35}的海盗、娜迦海岸和{npc:1514}，之后再乘飞艇前往{zone:1454}。尼姆布亚旁边的{object:2076}有碎颅部落首领的任务。",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "飞行降落在{object:3202}：{npc:2519}和{npc:2465}，然后去飞艇塔。",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "废土暗法师、废土游荡者和废土刺客在{area:976}东南扎营。",
 	-- ["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour."] = "小精龙在莫沙彻营地正西的树林上空飞来飞去；几乎每只都会掉落翅膀。木爪突击队员率领着树林西南的营地：在一小时内杀死它们。",
@@ -494,6 +499,7 @@ return {
 	-- ["Zeppelin tower"] = "飞艇塔",
 	-- ["for the {zone:1425}, around level 48"] = "交给{zone:1425}，大约48级时",
 	-- ["for {area:35}, around level 50"] = "留到{area:35}，大约50级时",
+	-- ["for {zone:1454}, around level 45"] = "交给{zone:1454}，大约45级时",
 	-- ["the {object:150075} in the square"] = "广场上的{object:150075}",
 	-- ["water pouches in your bags"] = "背包里的废土水袋",
 	-- ["{area:1099} flight master"] = "{area:1099}的飞行管理员",
@@ -505,6 +511,7 @@ return {
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}，在暗巷区",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}，骑术训练师",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：交给{zone:1454}，大约45级时",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}：尖啸者生活在{zone:1444}",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}：尖啸者生活在{zone:1444}，下次去{zone:1444}时再杀",
 }

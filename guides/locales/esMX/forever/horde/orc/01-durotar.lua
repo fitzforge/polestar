@@ -260,10 +260,6 @@ return {
 	-- Step 53: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
 	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
-	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "{npc:3169}, adentro",
-	-- {npc:3294} Ophek
-	["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 
 	-- Step 54: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -334,6 +330,10 @@ return {
 	-- Step 76: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "De vuelta a {area:362}: {npc:3139} y luego {npc:3142}.",
+	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
 	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
@@ -430,8 +430,9 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los Truenagartos ({npc:3130}) y los Lomorrayos ({npc:3131}) pastan en {area:369}, junto al camino al norte hacia {zone:1454}; cualquiera puede soltar {item:6486}. {npc:5810} la recibe cuando la siguiente guía pasa por {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 
 	-- Step 100: Ormak Grimshot
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
+	-- was: ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:362} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}."
+	["Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 101: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -440,8 +441,9 @@ return {
 	-- Step 102: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Bosque de Argénteos.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Bosque de Argénteos."
+	["Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
@@ -455,6 +457,8 @@ return {
 	-- ["Back to {area:362}."] = "De vuelta a {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "De vuelta con {npc:5875} en {object:172960}. Usa {item:7464} en el círculo de invocación de allí y derrota al abisario para vincularlo.",
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:362} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Bosque de Argénteos.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle."] = "Ve al sur por las islas. Los ídolos loa están por todas las islas del sur; los Trols vudú y los Trols embrujados ({npc:3207}) los guardan y sueltan los Colgantes embrujados ({item:275724}). {quest:826} y la jaula de Minshina están en la isla más al sur.",
 	-- ["Mage trainer"] = "Instructor de magos",
 	-- ["Prickly pears"] = "Higos chumbos",
@@ -482,6 +486,8 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
+	-- ["{npc:3169}, inside"] = "{npc:3169}, adentro",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} en {zone:1411}; {area:362} no tiene instructor de magos",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, un escórpido grande, merodea por la ladera al sur de {npc:3287} entre los escórpidos obreros; recoge las manzanas de cactus junto a los cactus en el camino.\n{quest:792} pululan en la ladera debajo de {area:365}, la cueva del lado norte del valle.",
 }

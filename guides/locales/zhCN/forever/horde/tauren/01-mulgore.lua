@@ -433,8 +433,8 @@ return {
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从十字路口沿道路向东北到{area:379}，跨过{area:814}进入{zone:1411}，继续向北到{zone:1454}正门。下一份指南从{zone:1454}开始，乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
@@ -450,6 +450,7 @@ return {
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "{npc:3566}在{area:225}周围的平原上游荡",
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "沿小路向南离开营地，到山脚下灰舌先知的帐篷。",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路向北离开{area:220}。{npc:265810}在{area:222}南边不远处的路上等候；在她的营火旁/sit，直到获得{spell:1229451}。",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从十字路口沿道路向东北到{area:379}，跨过{area:814}进入{zone:1411}，继续向北到{zone:1454}正门。下一份指南从{zone:1454}开始，乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人马和{npc:2960}",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用炉石返回{area:222}，然后向北骑到{area:1639}。",
 	-- ["Into {area:17}"] = "进入{area:17}",

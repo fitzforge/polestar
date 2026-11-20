@@ -321,9 +321,10 @@ return {
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
 	-- Step 68: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 다음 가이드는 여기서 {area:379}와(과) 크로스로드까지 걸어갑니다.",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 다음 가이드는 여기서 {area:379}와(과) 크로스로드까지 걸어갑니다."
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
@@ -378,6 +379,7 @@ return {
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}에서",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: 제안하면 받으세요. 경로에서 진행하지 않는 그의 {quest:98298} 연계 퀘스트 다음에 나올 수 있습니다",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, 남쪽 순환로에서",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}와(과) {npc:268682}은(는) {object:172957}의 그롬마쉬 요새 뒤에 앉아 있고, 매끈한 바위가 그 주변에 놓여 있습니다. 다음 가이드는 여기서 {area:379}와(과) 크로스로드까지 걸어갑니다.",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "가죽세공 상급자 {npc:3365}은(는) {object:172958}에서 일합니다.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "약초채집 상급자 {npc:3404}은(는) 골목길에서 상점을 운영합니다.",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: {item:16210}은(는) 보관하세요. 22레벨에 {area:228}을(를) 지나갈 때 포드리그가 받습니다",

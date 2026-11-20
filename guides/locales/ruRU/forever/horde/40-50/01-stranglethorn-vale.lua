@@ -47,6 +47,10 @@ return {
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
 	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -177,10 +181,8 @@ return {
 	-- Step 36: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}, рядом: {npc:2497}",
-	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
-	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: для зоны {zone:1425}, примерно на 48-м уровне",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}: трофейные черепа стоят в руинах Дробителей Черепов, позже на этом круге",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: вход в пещеру под местом {area:104}, к западу от лагеря",
 
@@ -209,9 +211,9 @@ return {
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, учитель верховой езды: {area:17684}, {area:16638}",
 
 	-- Step 41: Riding at 40
-	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1435} Swamp of Sorrows
+	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до башен у места {area:1497}: {npc:4773} обучает Отрекшихся ({area:159}), недалеко к северу, рядом кони-скелеты NPC {npc:4731} (по 20 золотых). Затем дирижаблем обратно до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1435} снова проходит здесь ({area:1497}) примерно на 47-м."
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {zone:1458} again at about 47."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
 	-- Step 42: Your mount at 40
 	["Your mount at 40"] = "Ваш транспорт на 40-м",
@@ -242,8 +244,6 @@ return {
 	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
-	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "Маккинли: сохраните задание, призрачные пираты (43-44) ждут вашей остановки в Тернистой долине примерно на 45-м",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, внутри: {item:4105}",
@@ -258,12 +258,14 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and {npc:2486}, beside it, offer their quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
 	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (доступно с 40-го), часть Унбагвы – на остановке в месте {object:3202} в гайде по краю {zone:1444}"
 	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
 	-- Step 47: The Bloodsail ships
 	["The Bloodsail ships"] = "Корабли Кровавого Паруса",
@@ -427,6 +429,8 @@ return {
 	-- ["{area:392} pier"] = "Пирс: {area:392}",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (доступно с 40-го), часть Унбагвы – на остановке в месте {object:3202} в гайде по краю {zone:1444}",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}, на балконе рядом с Мак-Кинли, дает еще одно поручение: чертежи регулятора топлива из сундучка Козла нужно отнести Поззику ({area:2240}), по пути в {zone:1446} примерно на 43-м уровне.",
+	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: для зоны {zone:1425}, примерно на 48-м уровне",
+	-- ["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}: трофейные черепа стоят в руинах Дробителей Черепов, позже на этом круге",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, наверху: для задания {quest:2864} ({area:976})",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} и {zone:1435} на 40-43-м уровне: {object:3202}, пираты ({area:35}), охота Эрнестуэя и {area:75}.",
 }

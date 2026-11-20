@@ -465,8 +465,9 @@ return {
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, chez {npc:3027}",
 
 	-- Step 100: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entraîne les druides sur {area:1639}. Il vous apprend {spell:18960} ; l'accueil de {npc:11802} attend votre voyage pour {spell:499} vers le niveau 21 (forever/horde/02-the-barrens).",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
+	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entraîne les druides sur {area:1639}. Il vous apprend {spell:18960} ; l'accueil de {npc:11802} attend votre voyage pour {spell:499} vers le niveau 21 (forever/horde/02-the-barrens)."
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -515,9 +516,8 @@ return {
 	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	-- was: ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Depuis la Croisée, suivez la route vers le nord-est jusqu'à {area:379}, traversez la {area:815} vers {zone:1411} et continuez vers le nord jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} : Thrall prend {quest:95350}, et le zeppelin part pour {zone:1420} et la {zone:1421}."
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} d'{zone:1454}",
 
@@ -609,6 +609,7 @@ return {
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853} : Forme d’ours",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} parcourt les pentes juste au sud de la maison du traître.",
 	-- ["{npc:263664}'s campfire"] = "Le feu de camp de {npc:263664}",
+	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entraîne les druides sur {area:1639}. Il vous apprend {spell:18960} ; l'accueil de {npc:11802} attend votre voyage pour {spell:499} vers le niveau 21 (forever/horde/02-the-barrens).",
 	-- ["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449} : les harpies viendront plus tard, dans {area:383}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, le maître des coursiers du vent",
 }

@@ -23,59 +23,65 @@ return {
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas · {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide. {npc:9298}'s next errand, Strange Sources, is at the mouth of {area:2256} among level 59-60 elites: it waits for the last guide's {zone:1452} loop."] = "",
 
-	-- Step 4: Frostfire Hot Springs: kill these as you meet them
-	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "{area:2246}: mata a estos según te los encuentres",
-	-- {item:14047} Runecloth
-	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos fúrbolg alrededor de las aguas termales; las Lechubestias pulgosas recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.\nCuidado: los Vigías del cubil llegan a nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos.",
-	-- {item:12771} Empty Firewater Flask
-	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: más o menos uno de cada diez fúrbolgs Nevada lleva uno; sigue matándolos hasta que caiga",
-	-- {quest:8471} Winterfall Ritual Totem
-	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, botín raro de los furbolgs Nevada",
+	-- Step 4: Winterspring
+	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {npc:9298} Donova Snowden
+	["Ride east along the road past {area:2251} to {area:2255} first: its yeti and chimaera errands bring you about a quarter of a level, which the Frostfire furbolg camps want; {npc:9298}'s camps come on the ride back west."] = "",
 
-	-- Step 5: Donova Snowden
-	-- {quest:5084} Falling to Corruption · {object:176091} Deadwood Cauldron · {zone:1448} Felwood
-	["{quest:5084} is turned in at the {object:176091} in {zone:1448}, on a later trip."] = "{quest:5084} se entrega en {object:176091}, en {zone:1448}, en un viaje posterior.",
-
-	-- Step 6: Raging Owlbeasts
-	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts"] = "Lechubestias enfurecidas ({npc:7451})",
-	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
-	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Las Lechubestias enfurecidas recorren las colinas al norte de {area:2251}, junto al camino entre {area:2246} y {area:2255}. Cuidado: las más grandes son de nivel 56: atráelas de una en una.",
-
-	-- Step 8: Everlook
+	-- Step 5: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255} es el pueblo goblin del lado este del valle, pasando las colinas de los lechúcicos.",
 	["Gregor's quests lead to other zones: keep them."] = "Las misiones de Gregor llevan a otras zonas: guárdalas.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}, adentro",
 
-	-- Step 9: Ice Thistle yetis
+	-- Step 6: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo Nevado",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Las colinas de los yetis empiezan justo al sureste de {area:2255}. Todos los yetis sueltan pelaje: encárgate de los Yetis Cardo Nevado (55-56) y deja a las Matriarcas y Patriarcas (56-58), cuyos cuernos tocan en una visita posterior."
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) one at a time and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "",
+	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur. Careful: the Ice Thistle Yetis are 55-56: take the 55s one at a time, and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "",
 
-	-- Step 10: Chillwind chimaeras
+	-- Step 7: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Quimeras Viento Gélido",
 	-- {area:2255} Everlook · {area:2251} Lake Kel'Theril · {area:2245} Mazthoril
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["The chimaeras roam the snowfields south and west of {area:2255}. Careful: Chillwind Chimaeras are 55-57: take the 55s and 56s and leave the biggest; the Fledgling Chillwinds (53-55) by {area:2251}, back on the road west, carry the horns too. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "",
+	["The chimaeras roam the snowfields south and west of {area:2255}. Careful: Chillwind Chimaeras are 55-57: take only the 55s, and the Fledgling Chillwinds (53-55) by {area:2251}, which carry the horns too. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "",
 
-	-- Step 11: Everlook
+	-- Step 8: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: guárdala, los Cuernos prístinos de yeti tocan en la parada de {area:2255} de la Guía de {zone:1423}, hacia el nivel 57",
+	-- was: ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: guárdala, los Cuernos prístinos de yeti tocan en la parada de {area:2255} de la Guía de {zone:1423}, hacia el nivel 57"
+	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56"] = "",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "Las Matriarcas y Patriarcas que llevan los cuernos de Umi son de nivel 56-58: déjalos para esa parada posterior.",
+
+	-- Step 9: Raging Owlbeasts
+	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
+	["Raging Owlbeasts"] = "Lechubestias enfurecidas ({npc:7451})",
+	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {area:2246} Frostfire Hot Springs
+	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
+	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Las Lechubestias enfurecidas recorren las colinas al norte de {area:2251}, junto al camino entre {area:2246} y {area:2255}. Cuidado: las más grandes son de nivel 56: atráelas de una en una."
+	["Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time."] = "",
+
+	-- Step 10: Frostfire Hot Springs: kill these as you meet them
+	-- {area:2246} Frostfire Hot Springs
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: mata a estos según te los encuentres",
+	-- {item:14047} Runecloth
+	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
+	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos fúrbolg alrededor de las aguas termales; las Lechubestias pulgosas recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.\nCuidado: los Vigías del cubil llegan a nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos."
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems."] = "",
+	-- {item:12771} Empty Firewater Flask
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: más o menos uno de cada diez fúrbolgs Nevada lleva uno; sigue matándolos hasta que caiga",
+	-- {quest:8471} Winterfall Ritual Totem
+	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, botín raro de los furbolgs Nevada",
+
+	-- Step 11: Donova Snowden
+	-- {quest:5084} Falling to Corruption · {object:176091} Deadwood Cauldron · {zone:1448} Felwood
+	["{quest:5084} is turned in at the {object:176091} in {zone:1448}, on a later trip."] = "{quest:5084} se entrega en {object:176091}, en {zone:1448}, en un viaje posterior.",
 
 	-- Step 12: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
-	-- {zone:1448} Felwood · {area:431} Splintertree Post · {area:1237} Valormok
-	["{zone:1448}'s southern hand-ins are next: fly to {area:431} (by way of {area:1237}) and ride north into {zone:1448}, so the forest is ridden once, south to north."] = "",
+	-- {zone:1448} Felwood · {area:2255} Everlook · {area:431} Splintertree Post · {area:1237} Valormok
+	["{zone:1448}'s southern hand-ins are next: ride back east to {area:2255}'s flight master, fly to {area:431} (by way of {area:1237}) and ride north into {zone:1448}, so the forest is ridden once, south to north."] = "",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
@@ -176,8 +182,10 @@ return {
 	-- ["Level 55.04"] = "Nivel 55.04",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Las Matriarcas y Patriarcas pegan duro: atráelos de uno en uno.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos furbolg alrededor de las aguas termales; las Lechubestias pulgosas ({npc:7450}) recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.",
+	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos fúrbolg alrededor de las aguas termales; las Lechubestias pulgosas recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.\nCuidado: los Vigías del cubil llegan a nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos.",
 	-- ["Pristine Yeti Horns"] = "Cuernos prístinos de yeti ({item:12367})",
 	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Los lechúcicos furiosos recorren las colinas al norte de {area:2251}, junto al camino entre {area:2246} y {area:2255}.",
+	-- ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Las Lechubestias enfurecidas recorren las colinas al norte de {area:2251}, junto al camino entre {area:2246} y {area:2255}. Cuidado: las más grandes son de nivel 56: atráelas de una en una.",
 	-- ["Ride back west to {area:2246}."] = "Regresa cabalgando al oeste a {area:2246}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur por {area:2249}. Los gigantes Machacahielo de allí son élite de nivel 59: mantente en el centro y no te detengas. La fuente extraña está en la entrada de {area:2256}, en el extremo sur.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Cabalga al oeste por el camino pasando {area:2251}; las Lechubestias enfurecidas ({npc:7451}) recorren las colinas al norte.",
@@ -187,6 +195,7 @@ return {
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Las colinas de los yetis empiezan justo al sureste de {area:2255}. Todos los yetis sueltan pelaje; solo las Matriarcas y Patriarcas sueltan cuernos, así que guárdalos para después de la entrega.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Completa aquí hasta el nivel 55.04 antes de las entregas en {area:2255}: te llevan al nivel 56. Los yetis Cardo Nevado (55-56) son los de menor nivel aquí; las matriarcas y patriarcas (56-58) pegan más fuerte. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1583} (Inferior).",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "La tercera broma de Umi va contra goblins de {area:976} y Un'Goro: guárdala para después.",
+	-- ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: guárdala, los Cuernos prístinos de yeti tocan en la parada de {area:2255} de la Guía de {zone:1423}, hacia el nivel 57",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "farmea {npc:7440} en {area:2244}, {zone:1452}",
 	-- ["grind on {npc:7458}"] = "sube de nivel con {npc:7458}",
 	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} es el pueblo goblin en el lado este del valle.",

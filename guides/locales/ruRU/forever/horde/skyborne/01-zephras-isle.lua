@@ -465,8 +465,9 @@ return {
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, у персонажа {npc:3027}",
 
 	-- Step 100: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} обучает друидов, ориентир: {area:1639}. Он научит вас заклинанию {spell:18960}; приветствие ({npc:11802}) ждет вашего путешествия за обликом ({spell:499}) примерно на 21-м уровне (forever/horde/02-the-barrens).",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
+	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} обучает друидов, ориентир: {area:1639}. Он научит вас заклинанию {spell:18960}; приветствие ({npc:11802}) ждет вашего путешествия за обликом ({spell:499}) примерно на 21-м уровне (forever/horde/02-the-barrens)."
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -515,8 +516,8 @@ return {
 	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}: {object:172982}",
 
@@ -581,5 +582,6 @@ return {
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} ждет у водопада чуть к северу от сторожевой башни.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} бродит по склонам чуть к югу от дома предателя.",
 	-- ["{npc:263664}'s campfire"] = "Костер {npc:263664}",
+	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} обучает друидов, ориентир: {area:1639}. Он научит вас заклинанию {spell:18960}; приветствие ({npc:11802}) ждет вашего путешествия за обликом ({spell:499}) примерно на 21-м уровне (forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
 }

@@ -465,8 +465,9 @@ return {
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, von {npc:3027}",
 
 	-- Step 100: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens).",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
+	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens)."
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -515,9 +516,8 @@ return {
 	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
-	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	-- was: ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Folge vom Wegekreuz der Straße nach Nordosten bis {area:379}, überquere {area:815} nach {zone:1411} und halte dich weiter nördlich bis zum Haupttor von {zone:1454}. Der nächste Guide beginnt in {zone:1454}: Thrall nimmt {quest:95350} an, und der Zeppelin fährt nach {zone:1420} und {zone:1421}."
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, ride on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
@@ -606,5 +606,6 @@ return {
 	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: Behalte sie, Thrall in {zone:1454} kommt zwei Guides später",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}s Lagerfeuer",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you Teleport: {quest:94913}; {npc:11802}'s welcome waits for your Cat Form trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} lehrt Druiden auf {area:1639}. Er bringt dir Teleportieren: {quest:94913} bei; der Gruß von {npc:11802} wartet bei deiner Reise zur Katzengestalt etwa auf Stufe 21 (forever/horde/02-the-barrens).",
+	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 }

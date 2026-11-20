@@ -13,11 +13,12 @@ return {
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
+	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
 	-- Step 2: Ratchet
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	-- was: ["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "從{area:484}飛往{area:392}。{npc:5901}在鎮子南邊不遠處的海岸紮營；從{area:392}飛往十字路口。"
-	["Fly from {area:378} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}：你的{item:6637}，用於火盆",
 
@@ -26,9 +27,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}飛行管理員",
 
+	-- Step 4: Fly to the Crossroads
+	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+
 	-- Step 5: Korran
-	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}站在十字路口的飛行管理員旁。{quest:1145}29級起可接；未達等級時，下一份指南的{zone:1454}站會接它。",
+	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}：交給{zone:1454}的{npc:4485}",
 
@@ -93,7 +98,8 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你錯過了22-25級{area:287}指南中達薩利亞最早的幾個差事：現在先做這些。它們比你低幾級，很快就能完成，還會開啟本指南中{quest:527}的後續任務。",
+	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你錯過了22-25級{area:287}指南中達薩利亞最早的幾個差事：現在先做這些。它們比你低幾級，很快就能完成，還會開啟本指南中{quest:527}的後續任務。"
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -134,7 +140,8 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272}南邊的河：遇到就擊殺",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "從{area:272}沿著河往南：鉗嘴龜（29級）在河岸上曬太陽，一路延伸到{area:271}上方的山丘。其中一些身上帶有{item:3712}。",
+	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "從{area:272}沿著河往南：鉗嘴龜（29級）在河岸上曬太陽，一路延伸到{area:271}上方的山丘。其中一些身上帶有{item:3712}。"
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}，來自鉗嘴龜",
 
@@ -206,7 +213,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "收集完{item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "還沒湊滿十個{item:3712}？鉗嘴龜分布在{area:272}東邊的河邊，就在你從礦坑回來的路上。",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -312,8 +319,10 @@ return {
 	-- ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "接著前往雪人洞穴西南的{area:287}鎮。市政廳在鎮子西側：{npc:2335}（30級）和{npc:2448}在裡面，旁邊是希爾斯布萊德城鎮文件；希爾斯布萊德宣言就貼在它旁邊。希爾斯布萊德議員在鎮上走動。",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "只有在沒拿到{quest:535}的信件時才做：道路西邊營地周圍的辛迪加劫匪和竊賊（32-34級）也帶著信件，約每三隻掉一封。小心：31-32級時他們仍比你高，而且站得很近，其中還有巫師（34-35級）：從營地邊緣一次拉一隻。",
 	-- ["Shindigger keg"] = "鐵鏟酒桶",
+	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "從{area:272}沿著河往南：鉗嘴龜（29級）在河岸上曬太陽，一路延伸到{area:271}上方的山丘。其中一些身上帶有{item:3712}。",
 	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "往西南走，洞穴雪人和兇惡的雪人（30-32級）遍布{area:272}西側山中的{area:277}；約每十六隻有一隻帶著魔棒。待在這片洞穴裡：更北邊那個洞穴的山嶺雪人和巨型雪人（32-34級）也帶著魔棒，但29-30級時牠們打得很痛，而且成對出現。",
+	-- ["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "還沒湊滿十個{item:3712}？鉗嘴龜分布在{area:272}東邊的河邊，就在你從礦坑回來的路上。",
 	-- ["Syndicate missives"] = "辛迪加信件",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "道路西邊營地周圍的辛迪加劫匪和辛迪加竊賊（32-33級）身上帶著信件；約三分之一會掉落。",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "酒桶和其他幾個酒桶放在{area:287}東南海岸的辛迪加營地裡。",
@@ -325,6 +334,7 @@ return {
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。{npc:2449}在鐵匠鋪附近走動；{npc:2451}在鎮東南方的田裡工作。",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "背包裡有{item:3388}時，{npc:2055}會在皇家藥劑師協會提供{quest:513}；{npc:2216}在{area:272}收下藥劑。",
+	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你錯過了22-25級{area:287}指南中達薩利亞最早的幾個差事：現在先做這些。它們比你低幾級，很快就能完成，還會開啟本指南中{quest:527}的後續任務。",
 	-- ["grind on {npc:2375}"] = "擊殺{npc:2375}練等",
 	-- ["{area:484} flight master"] = "{area:484}飛行管理員",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}：拍賣場或鍊金術師，用於{quest:513}。",
@@ -332,6 +342,7 @@ return {
 	-- ["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229}要你先把他的兩名斥候從{area:275}救出來，然後才會把「秘密潛入」交給你。",
 	-- ["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "下次到{area:272}時{npc:2410}的任務，以及下一份指南第一站{zone:1454}的「聯盟關係」，都要30級才能接。還不到30級？碎鰭泥漿魚人和灘行魚人（28-30級）擠滿{area:288}南邊的海岸，走一小段就到：殺到30級為止。牠們的神諭者（30-31級）在更東邊的岸上施法。或者，有小隊的話，改去打挖掘場地城（在{zone:1437}）。",
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}，在大門旁",
+	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}站在十字路口的飛行管理員旁。{quest:1145}29級起可接；未達等級時，下一份指南的{zone:1454}站會接它。",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}：{npc:247126}，在裡面",
 	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

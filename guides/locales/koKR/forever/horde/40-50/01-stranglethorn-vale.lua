@@ -47,6 +47,10 @@ return {
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
 	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -177,10 +181,8 @@ return {
 	-- Step 36: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{npc:2497} 옆의 {object:2076}",
-	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
-	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: 48레벨쯤 {zone:1425}",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: 야영지 서쪽, {area:104} 아래의 동굴 입구",
 
@@ -209,9 +211,9 @@ return {
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, 탈것 상급자, {area:16638}의 {area:17684}",
 
 	-- Step 41: Riding at 40
-	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1435} Swamp of Sorrows
+	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "탈것 타기는 40레벨이 필요하며 100골드가 듭니다. 배우면 탈것도 하나 받는데, 가시덤불 다음의 {zone:2548}은(는) 탈것 없이 걸어 다니기엔 멉니다. {object:3202}의 탑에서 비행선을 타고 {area:1497}의 탑으로 가세요. 포세이큰은 북쪽으로 조금 가면 나오는 {area:159}의 {npc:4773}에게서 배우며, 옆에 {npc:4731}의 해골마(각 20골드)가 있습니다. 그다음 비행선을 타고 {object:3202}(으)로 돌아오세요. 골드가 부족하다면 이 단계를 건너뛰세요. {zone:1435} 가이드에서 47레벨쯤 {area:1497}을(를) 다시 지나갑니다."
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {zone:1458} again at about 47."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
 	-- Step 42: Your mount at 40
 	["Your mount at 40"] = "40레벨 탈것",
@@ -242,8 +244,6 @@ return {
 	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
-	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "맥킨리: 가지고 있으세요. 유령 해적(43-44)은 45레벨쯤 가시덤불 방문 때 처리합니다",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, 안쪽: {item:4105}",
@@ -258,12 +258,14 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and {npc:2486}, beside it, offer their quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
 	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}(40레벨부터 수락 가능), 운바과 부분은 {zone:1444} 가이드의 {object:3202} 방문 때"
 	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
 	-- Step 47: The Bloodsail ships
 	["The Bloodsail ships"] = "붉은해적단 배",
@@ -426,6 +428,7 @@ return {
 	-- ["{area:392} pier"] = "{area:392} 부두",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}(40레벨부터 수락 가능), 운바과 부분은 {zone:1444} 가이드의 {object:3202} 방문 때",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "맥킨리 옆 발코니의 {npc:2496}에게 심부름이 하나 더 있습니다. 코즐의 사물함에서 얻는 연료 조절기 설계도를 약 43레벨에 {zone:1446}(으)로 가는 길, {area:2240}의 포직에게 가져갑니다.",
+	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: 48레벨쯤 {zone:1425}",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, 위층: {area:976}의 {quest:2864}에게",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "40-43레벨 {zone:1434}와(과) {zone:1435}: {object:3202}, {area:35}의 해적, 네싱워리의 사냥, {area:75}.",
 }

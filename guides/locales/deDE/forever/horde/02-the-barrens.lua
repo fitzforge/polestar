@@ -93,18 +93,21 @@ return {
 	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "Zhevra-Läufer grasen entlang der Straße nach Osten Richtung {area:392}: Nimm ihre Hufe auf dem Weg hinaus mit.",
 
 	-- Step 21: Ratchet
-	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Folge der Straße nach Südosten nach {area:392} an der Küste: {npc:3391} und {npc:7161} am Nordende der Stadt, {npc:3442} und {npc:16227}, {npc:3446} und das Plakat {object:3972}, dann {quest:1492} auf dem Steg, auf dem Weg nach Süden hinaus.",
+	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
+	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Folge der Straße nach Südosten nach {area:392} an der Küste: {npc:3391} und {npc:7161} am Nordende der Stadt, {npc:3442} und {npc:16227}, {npc:3446} und das Plakat {object:3972}, dann {quest:1492} auf dem Steg, auf dem Weg nach Süden hinaus."
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, oben",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: Die Konsole ist in {area:382}, später",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, neben {npc:3442}",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
-	["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem Plakat {object:3972}: Die Bluthorn-Raptoren kommen beim nächsten Halt in {area:392}, mit 18",
-	-- {object:3972} WANTED · {npc:3467} Baron Longshore · {area:392} Ratchet
-	["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "Das Plakat {object:3972}: {npc:3467} kommt ebenfalls beim nächsten Halt in {area:392}",
+	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
+	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem Plakat {object:3972}: Die Bluthorn-Raptoren kommen beim nächsten Halt in {area:392}, mit 18"
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	-- {npc:3467} Baron Longshore · {area:392} Ratchet
+	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "Das Plakat {object:3972}: {npc:3467} kommt ebenfalls beim nächsten Halt in {area:392}"
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, am Kai",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -255,8 +258,8 @@ return {
 	["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
 
 	-- Step 49: Ratchet
-	-- {object:3972} WANTED
-	["{object:3972} poster"] = "Plakat „{object:3972}“",
+	-- was: ["{object:3972} poster"] = "Plakat „{object:3972}“"
+	["WANTED poster"] = "",
 
 	-- Step 50: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -296,8 +299,9 @@ return {
 	-- Step 58: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "Den Strand entlang zurück nach Norden nach {area:392}.",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
-	["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, neben dem Plakat {object:3972}",
+	-- {npc:3446} Mebok Mizzyrix
+	-- was: ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, neben dem Plakat {object:3972}"
+	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 63: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -504,8 +508,9 @@ return {
 	-- Step 110: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}: Quests für {area:718}",
-	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine Quests für {area:718}, falls du sie noch nicht angenommen hast: {npc:3446} neben dem Plakat {object:3972}, {npc:3665} auf dem Steg beim Flugmeister. Der Run kommt später in diesem Guide, nach {npc:3396}.",
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
+	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine Quests für {area:718}, falls du sie noch nicht angenommen hast: {npc:3446} neben dem Plakat {object:3972}, {npc:3665} auf dem Steg beim Flugmeister. Der Run kommt später in diesem Guide, nach {npc:3396}."
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
 
 	-- Step 111: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -723,6 +728,7 @@ return {
 	-- ["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Flieg zum Trainieren nach {area:1638}: {npc:3033} ist auf der {area:1639}.",
 	-- ["Follow the road east to the outpost above the {area:814}."] = "Folge der Straße nach Osten zum Außenposten über dem {area:814}.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "Folge der Straße nach Südosten nach {area:392} an der Küste.",
+	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Folge der Straße nach Südosten nach {area:392} an der Küste: {npc:3391} und {npc:7161} am Nordende der Stadt, {npc:3442} und {npc:16227}, {npc:3446} und das Plakat {object:3972}, dann {quest:1492} auf dem Steg, auf dem Weg nach Süden hinaus.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "Behalte sie: {quest:3923} steht vor {zone:1454}; ein späterer Guide gibt sie ab",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "Zänker und Sturmruferinnen der Kolkar halten die Lager südlich von {npc:3389}.",
 	-- ["Kolkar camps"] = "Lager der Kolkar",
@@ -754,6 +760,7 @@ return {
 	-- ["The thunder lizards across the river"] = "Die Donnerechsen jenseits des Flusses",
 	-- ["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "Die Werkzeugkisten mit den Patronen liegen um die Bohrstelle der Venture Co. in {area:382}, östlich von {npc:9316}.",
 	-- ["The {area:383}"] = "{area:383}",
+	-- ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "Das Plakat {object:3972}: {npc:3467} kommt ebenfalls beim nächsten Halt in {area:392}",
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141} steht bei der Forschungsstätte der Venture Co. westlich von {area:382}. Schließ die drei Ventile um den Bohrer, benutze die Konsole erneut und nimm dann {item:5089} von {npc:3471} daneben.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Dies sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Leute dafür. {npc:209797} (Elite der Stufe 20) braucht eine Gruppe von 2. Überspringe ihn, wenn du allein bist: Die Route lässt dich die EP wieder grinden.",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim lagert an der Straße von {area:380} nach {area:392}. {object:58369} steht im Süden des Lagers der Grimmhauer gleich nördlich von ihm.",
@@ -767,6 +774,7 @@ return {
 	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "Krieger: Nimm {quest:1824} jetzt bei {npc:6394} an: Sie läuft 30 Minuten ab dem Annehmen. Zuerst die Eier und die Fühler, an denselben Hügeln, dann direkt zurück zu {npc:6394}; die Donnerfalken danach.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "Nach Westen in {area:383}. Die Harpyien der Hexenschwingen nisten überall dort; jede kann eine Klaue fallen lassen. {quest:819} liegt in ihren Hügeln.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills. Savannah Prowlers hunt the plains between {npc:3389} and the hills: take their claws on the way.\nCareful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat."] = "Nach Westen zu den {area:383}. Die Harpyien der Witchwing nisten überall dort; jede von ihnen kann eine Klaue fallen lassen. {quest:819} liegt in ihren Hügeln. Savannah prowler jagen in den Ebenen zwischen {npc:3389} und den Hügeln: Nimm ihre Klauen auf dem Weg mit.\nVorsicht: Es gibt 2 Witchwing-Hinterhalter (Stufe 17-18). Sie bleiben außerhalb des Kampfes mit Schleichen verborgen.",
+	-- ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine Quests für {area:718}, falls du sie noch nicht angenommen hast: {npc:3446} neben dem Plakat {object:3972}, {npc:3665} auf dem Steg beim Flugmeister. Der Run kommt später in diesem Guide, nach {npc:3396}.",
 	-- ["Zhevra"] = "Zhevras",
 	-- ["Zhevra Runners graze north and east of town."] = "Zhevra-Läufer grasen nördlich und östlich des Orts.",
 	-- ["{area:1898} cultists"] = "Kultisten in {area:1898}",
@@ -782,7 +790,9 @@ return {
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} läuft zwischen den Kolkar bei {area:388} südöstlich von Crossroads herum. Teste die Samen von {npc:3448} an der blubbernden Spalte am Ostufer der Oase, wenn du schon dort bist.",
 	-- ["{npc:3428}: the eggs are in the {area:390}, south of {area:378}, after the {zone:1454} trip"] = "{npc:3428}: Die Eier liegen im {area:390}, südlich von {area:378}, nach der Reise nach {zone:1454}",
 	-- ["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} in {area:392}: später, auf dem Weg",
+	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, neben dem Plakat {object:3972}",
 	-- ["{npc:3446}, beside the {object:3972} poster: take it now if he did not offer it on the first {area:392} stop"] = "{npc:3446}, neben dem Plakat {object:3972}: Nimm sie jetzt an, falls er sie beim ersten Halt in {area:392} nicht angeboten hat",
+	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem Plakat {object:3972}: Die Bluthorn-Raptoren kommen beim nächsten Halt in {area:392}, mit 18",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: die Oasenschnappkiefer an der {area:388}, mit {npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 	-- ["{npc:5878} camps beside the road from the Crossroads to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} lagert neben der Straße vom Wegekreuz nach {area:392}. Die {object:58369} steht im Süden des Lagers der Klingenmähnen, direkt nördlich von ihm.",
@@ -790,6 +800,7 @@ return {
 	-- ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} macht aus dem Teer und dem Beutel {item:6636}. Benutze es am Kohlenbecken neben ihm, um {npc:5893} sichtbar zu machen, töte sie für {item:6655} und leg die Glut dann ins Kohlenbecken.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} wartet am Flussufer südlich von {area:379}, jenseits der Brücke.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} steht auf dem Kamm nördlich des Lagers der Grimmhauer.",
+	-- ["{object:3972} poster"] = "Plakat „{object:3972}“",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}: {area:228} in {zone:1421}, nächster Guide",
 	-- ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, falls noch offen: Bluthornsensenklauen streifen zwischen den Löwen umher",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "{quest:881}, ein weißer Löwe, streift über die Ebenen nördlich des Lagers der Grimmhauer.",

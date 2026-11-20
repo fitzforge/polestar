@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "De volta a {object:3202}.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: para forever/horde/40-50/01-stranglethorn-vale",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}: para forever/horde/40-50/01-stranglethorn-vale",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "O próximo guia pega o zepelim para {zone:1454} na torre do lado oeste do acampamento.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "O próximo guia pega o zepelim para {zone:1454} na torre do lado oeste do acampamento."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "Nível 36",
@@ -259,6 +260,7 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "Os ogros Mosh'Ogg acampam nas colinas logo a leste de {object:3202}. Mate um Brutamontes e um Mandingueiro (36-37); puxe um de cada vez.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "As Panteras Umbragorja (37-38) espreitam na selva a leste das colinas Mosh'Ogg e a nordeste, em direção ao lago; atacam da furtividade. Saqueie toda página de Grande Espinhaço: Veredas que encontrar pelo caminho.",
 	-- ["The camp by the river"] = "O acampamento à beira do rio",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "O próximo guia pega o zepelim para {zone:1454} na torre do lado oeste do acampamento.",
 	-- ["The zeppelin lands at the tower on the west side of the camp."] = "O zepelim pousa na torre do lado oeste do acampamento.",
 	-- ["Upstairs"] = "No andar de cima",
 	-- ["Venture Co. camp"] = "Acampamento da Empreendimentos S.A.",
@@ -274,11 +276,13 @@ return {
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, em {object:20691}",
 	-- ["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "{npc:2464} fica no meio de {object:3202}, e {npc:2465}, ao lado do mestre de voo.",
 	-- ["{npc:2465}, beside the flight master: the Shadowmaw and tigress parts come after the trolls"] = "{npc:2465}, ao lado do mestre de voo: as partes de Bocassombra e da tigresa vêm depois dos trolls",
+	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: para forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:2496}, {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:737} and {npc:773} on its top floor beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: o baú de Cozzle fica em {area:37}, mais adiante neste guia",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik em {area:2240}, a caminho de {zone:1446} por volta do nível 43",
 	-- ["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} espera em {object:3202}, perto da torre do zepelim.",
+	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}: para forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) está dentro da casa da Empreendimentos S.A. na margem oeste de {area:37}, entre os geólogos: a chave dele abre {object:20691} na mesma casa, que guarda as plantas para {npc:2496}. Cuidado: Agentes da Empreendimentos S.A. (39) ficam dentro e em volta da casa: limpe a porta antes de entrar.",
 	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) fica para sua próxima parada com Nesingwary, por volta do nível 40, em forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "O acampamento dos caçadores desaparecidos de {npc:773} é o acampamento de Rosarães Guima: ande entre as tendas e a investigação é concluída. Crocoliscos do Rio ficam ao longo do rio, abaixo do acampamento.",

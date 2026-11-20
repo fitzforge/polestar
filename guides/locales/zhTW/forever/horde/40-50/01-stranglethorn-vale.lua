@@ -47,6 +47,10 @@ return {
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}：傳說在祖爾昆達，本指南會為{npc:1061}去那裡",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
 	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -177,10 +181,8 @@ return {
 	-- Step 36: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁邊",
-	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
-	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}：給{zone:1425}，約48級",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}：戰利品頭骨在劈顱食人妖的廢墟裡，本環線後段",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在營地西邊的{area:104}底下",
 
@@ -209,9 +211,9 @@ return {
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}，騎術訓練師，在{area:16638}的{area:17684}",
 
 	-- Step 41: Riding at 40
-	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1435} Swamp of Sorrows
+	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{area:1497}的飛艇塔：{npc:4773}在往北騎一小段的{area:159}教被遺忘者騎術，旁邊有{npc:4731}的骸骨戰馬（每隻20金）。然後搭飛艇回{object:3202}。金錢不夠？跳過這個步驟：{zone:1435}指南約47級時會再經過{area:1497}。"
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {zone:1458} again at about 47."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
 	-- Step 42: Your mount at 40
 	["Your mount at 40"] = "40級的坐騎",
@@ -242,8 +244,6 @@ return {
 	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}，在樓上：獠牙來自劈顱食人妖，本環線後段",
-	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "麥金利，在頂層：為{zone:1446}的斯托利",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "麥金利：留著，幽靈海盜（43-44）等約45級的荊棘谷停留點再打",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}，在屋內：{item:4105}",
@@ -258,12 +258,14 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and {npc:2486}, beside it, offer their quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}，在旅店裡：他的酒瓶衝到{zone:1425}海岸上，大約48級",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
 	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}：{quest:348}（40級起可接），溫巴格瓦的部分在{zone:1444}指南的{object:3202}停留點"
 	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
 	-- Step 47: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盜船",
@@ -391,6 +393,7 @@ return {
 	-- ["Hearth to {object:3202}"] = "用爐石回到{object:3202}",
 	-- ["Into the {area:8}"] = "進入{area:8}",
 	-- ["Ironjaw Basilisks"] = "鐵齶蜥蜴",
+	-- ["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "麥金利，在頂層：為{zone:1446}的斯托利",
 	-- ["Naga shore and the {object:759}"] = "納迦海岸與{object:759}",
 	-- ["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "在迷霧谷東北方，流亡者贊吉爾的追隨者在叢林中紮營；每一個都可能帶著混合物。",
 	-- ["Pirate ghosts"] = "海盜鬼魂",
@@ -427,6 +430,8 @@ return {
 	-- ["{area:392} pier"] = "{area:392}碼頭",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}：{quest:348}（40級起可接），溫巴格瓦的部分在{zone:1444}指南的{object:3202}停留點",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}在麥金利旁邊的陽台上，還有一個差事：考索提箱裡的燃料調節器藍圖要交給{area:2240}的波茲克，在約43級前往{zone:1446}的路上。",
+	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}：給{zone:1425}，約48級",
+	-- ["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}：戰利品頭骨在劈顱食人妖的廢墟裡，本環線後段",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}，在樓上：給{area:976}的{quest:2864}",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "40-43級的{zone:1434}和{zone:1435}：{object:3202}、{area:35}的海盜、奈辛瓦里的狩獵和{area:75}。",
 }

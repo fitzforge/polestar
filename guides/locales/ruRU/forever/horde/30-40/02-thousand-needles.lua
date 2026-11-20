@@ -102,8 +102,8 @@ return {
 	-- Step 19: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "{area:483}: убивайте их по пути",
-	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker
-	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw."] = "К западу от Поста Вольного Ветра, под местом {area:2097}, – гарпии ({area:487}, 28-30). Визгливые гарпии, гарпии Злоперья и призывательницы ветра там нужны для задания NPC {npc:4877}; ее {quest:98069} лежат на земле у подножия утеса и в пещере наверху. {npc:4490} (31) ходит среди них: проредите гарпий вокруг нее, прежде чем нападать, – коготь нужен NPC {npc:2986}.",
+	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {zone:1440} Ashenvale · {zone:1441} Thousand Needles
+	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw. {npc:4877}'s harpies and {quest:98069} (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the {zone:1440} & {zone:1441} guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "",
 	-- {item:5843} Grenka's Claw · {npc:4490} Grenka Bloodscreech
@@ -235,7 +235,7 @@ return {
 	-- Step 45: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
-	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
+	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
 	-- Step 46: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
@@ -244,30 +244,31 @@ return {
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:603} Sargeron
 	["{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them."] = "",
-	-- {npc:5395} Felgur Twocuts
-	["{npc:5395}: the Magram centaurs just south-east of the post, next"] = "",
+	-- {npc:5395} Felgur Twocuts · {npc:11596} Smeed Scrabblescrew
+	["{npc:5395}: the Magram centaurs south-east of the post, after {npc:11596}'s kodos"] = "",
 	-- {npc:5412} Gurda Wildmane
 	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
 
-	-- Step 47: Magram Village
-	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
-	["South-east of the post, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge, nearest the post; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
-	-- {item:6067} Centaur Ear
-	-- plural, as words: Magram Scouts = {npc:4638} Magram Scout
-	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "",
-	-- {item:254432} Carved Centaur Totem
-	["{item:254432}, from the same centaurs"] = "",
-
-	-- Step 48: Ghost Walker Post
-	["Back north-west to the post."] = "",
-
-	-- Step 49: Kodo Graveyard
+	-- Step 47: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "Используйте {item:13892} (от NPC {npc:11596}) на старом, умирающем кодо или на этом: {npc:4702} – на кладбище, и приведите прирученного кодо обратно к NPC {npc:11596}. В его лагере поговорите с кодо: это засчитает его и позволит приручить следующего. Пять кодо, по одному. Осторожно: не трогайте черепа кодо на земле: открыв один, вы поднимете NPC {npc:11521} (37-38), который сильно бьет.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+
+	-- Step 49: Magram Village
+	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
+	-- plural, as words: Dread Rippers = {npc:4694} Dread Ripper
+	["South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
+	-- {item:6067} Centaur Ear
+	-- plural, as words: Magram Scouts = {npc:4638} Magram Scout
+	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "",
+	-- {item:254432} Carved Centaur Totem
+	["{item:254432}, from the same centaurs"] = "",
+
+	-- Step 50: Ghost Walker Post
+	["Back north-west to the post, on your way west."] = "",
 
 	-- Step 51: Shadowprey Village
 	-- {area:606} Gelkis Village
@@ -306,7 +307,8 @@ return {
 
 	-- Step 56: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
-	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Идите дальше на север ({area:598}) за предметом {item:15881}: он может выпасть с любой наги Скользящего Клинка.\nОсторожно: мирмидоны (34-35) держат северную половину пляжа вместе с морскими ведьмами и оракулами (34-36, заклинатели) – до двух уровней выше вас на 33-м. Бейте наг и колдуний (32-33) южной половины, пока не выпадет ключ, а север оставьте на второй визит в зону {zone:1443}, на 38-м уровне.",
+	-- was: ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Идите дальше на север ({area:598}) за предметом {item:15881}: он может выпасть с любой наги Скользящего Клинка.\nОсторожно: мирмидоны (34-35) держат северную половину пляжа вместе с морскими ведьмами и оракулами (34-36, заклинатели) – до двух уровней выше вас на 33-м. Бейте наг и колдуний (32-33) южной половины, пока не выпадет ключ, а север оставьте на второй визит в зону {zone:1443}, на 38-м уровне."
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37."] = "",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881} – с наг Скользящего Клинка",
 
@@ -322,8 +324,7 @@ return {
 	-- Step 59: Shadowprey Village
 	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "{item:14547} для Тайги, «Other Fish to Fry» Друлзегара и прочие задания 37-40 в зоне {zone:1443} ждут второго визита, на 38-м уровне: следующие гайды летят в {zone:1454} и садятся на дирижабль: {zone:1434}."
-	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
 	-- Step 60: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
@@ -332,10 +333,12 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Обратно на юг к башне, где ждет {npc:11863}.",
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Идите на север вдоль побережья, затем вглубь суши к разрушенной башне ({area:2405}): внутри ждет {npc:11863}. Моллюски и наги на побережье – после этого места: {area:599}; их вы пройдете за один переход на север сюда: {area:2406}.",
+	-- ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Идите дальше на север ({area:598}) за предметом {item:15881}: он может выпасть с любой наги Скользящего Клинка.\nОсторожно: мирмидоны (34-35) держат северную половину пляжа вместе с морскими ведьмами и оракулами (34-36, заклинатели) – до двух уровней выше вас на 33-м. Бейте наг и колдуний (32-33) южной половины, пока не выпадет ключ, а север оставьте на второй визит в зону {zone:1443}, на 38-м уровне.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Продолжайте путь на север: {area:598}. Пляж удерживают мирмидоны, наги и колдуньи из клана Скользящего Клинка; выманивайте их по одному. {item:15881} может выпасть с любой наги Скользящего Клинка.",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "Задание {quest:5381} из Деревни Ночных Охотников и наги на побережье требуют 33-го уровня. Ниже? Кентавры из племени Колкар (30-32) здесь: {area:609}, недалеко к востоку от лагеря ({npc:11596}), – ближайший лагерь вашего уровня: убивайте их до 33-го уровня. Scorpashi Lashers (34-35) на склонах к северу от лагеря выше уровнем. Или, с группой, пройдите вместо этого подземелье {area:1717}.",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Плывите к острову у самой северной оконечности ({area:2406}) и используйте {item:15766} на объекте {object:177673}: появится {npc:12369} (38); убейте его, чтобы получить {quest:6027}. Он намного сильнее вас: сначала полностью восстановитесь. {object:177786} стоит на берегу рядом со статуей: откройте его обоими ключами.",
 	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "{item:14547} для Тайги, «Other Fish to Fry» Друлзегара и прочие задания 37-40 в зоне {zone:1443} ждут второго визита, на 38-м уровне: следующие гайды летят в {zone:1454} и садятся на дирижабль: {zone:1434}.",
+	-- ["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw."] = "К западу от Поста Вольного Ветра, под местом {area:2097}, – гарпии ({area:487}, 28-30). Визгливые гарпии, гарпии Злоперья и призывательницы ветра там нужны для задания NPC {npc:4877}; ее {quest:98069} лежат на земле у подножия утеса и в пещере наверху. {npc:4490} (31) ходит среди них: проредите гарпий вокруг нее, прежде чем нападать, – коготь нужен NPC {npc:2986}.",
 	-- ["grind on {npc:4635}"] = "убивайте цель {npc:4635}",
 	-- ["{item:15766}, on the {object:177673}"] = "{item:15766} – на объекте {object:177673}",
 	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "{npc:4877}, торговец товарами для ремесел, стоит в таверне ({area:484}).",

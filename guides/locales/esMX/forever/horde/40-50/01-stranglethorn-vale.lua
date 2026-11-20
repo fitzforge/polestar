@@ -47,6 +47,10 @@ return {
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}: la leyenda está en Zul'Kunda, adonde va esta guía para {npc:1061}",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
 	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -177,10 +181,8 @@ return {
 	-- Step 36: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}, junto a {npc:2497}",
-	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
-	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: para {zone:1425}, alrededor del nivel 48",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}: los cráneos trofeo están en las ruinas Partecráneos, más adelante en este recorrido",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: la entrada de la caverna bajo {area:104}, al oeste del campamento",
 
@@ -209,9 +211,9 @@ return {
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, Instructor de equitación, en {area:17684} de {area:16638}",
 
 	-- Step 41: Riding at 40
-	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1435} Swamp of Sorrows
+	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a las torres de {area:1497}: {npc:4773} enseña a los Renegados en {area:159}, un poco al norte, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno). Luego el zepelín de vuelta a {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1435} vuelve a pasar por {area:1497} hacia el nivel 47."
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {zone:1458} again at about 47."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
 	-- Step 42: Your mount at 40
 	["Your mount at 40"] = "Tu montura a nivel 40",
@@ -242,8 +244,6 @@ return {
 	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, en el piso de arriba: los colmillos los sueltan los Partecráneos, más adelante en este recorrido",
-	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "MacKinley, en el piso superior: para Stoley en {zone:1446}",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "MacKinley: guárdala, los piratas fantasma (43-44) esperan tu parada en Tuercespina alrededor del nivel 45",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, adentro: {item:4105}",
@@ -258,12 +258,14 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and {npc:2486}, beside it, offer their quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
 	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponible desde el nivel 40); la parte de Unbagwa va en la parada de {object:3202} de la guía de {zone:1444}"
 	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
 	-- Step 47: The Bloodsail ships
 	["The Bloodsail ships"] = "Los barcos Velasangre",
@@ -400,6 +402,7 @@ return {
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Sigue cabalgando al norte hacia {zone:1431} y luego al este por el camino a través de {zone:1430} hasta el pantano. {npc:1776} espera en {area:657}, el campamento draenei cerca de la entrada desde {zone:1430}.",
 	-- ["Level 42.68"] = "Nivel 42.68",
 	-- ["Level 42.74"] = "Nivel 42.74",
+	-- ["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "MacKinley, en el piso superior: para Stoley en {zone:1446}",
 	-- ["Naga shore and the {object:759}"] = "Orilla de los nagas y {object:759}",
 	-- ["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "Al noreste del Velo de Bruma, los seguidores de Zanzil acampan en la jungla; cualquiera de ellos puede llevar la mezcla.",
 	-- ["Optional, and tough at 42: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Opcional, y difícil a nivel 42: el pergamino, {quest:624}, está en las cubiertas de los tres barcos frente a {area:43}, con tripulaciones de piratas de 42-45 que van en parejas. Tómala solo si puedes atraer a la tripulación a la borda de a uno, o con un amigo; su cadena sigue por {zone:1435}, {zone:1445} y {zone:1425}.",
@@ -457,8 +460,10 @@ return {
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponible desde el nivel 40); la parte de Unbagwa va en la parada de {object:3202} de la guía de {zone:1444}",
 	-- ["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}, en el balcón junto a MacKinley, tiene un encargo más: los planos del regulador de combustible del baúl de Cozzle van para Pozzik en {area:2240}, de camino a {zone:1446} cerca del nivel 43.",
+	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: para {zone:1425}, alrededor del nivel 48",
 	-- ["{npc:2498}, inside"] = "{npc:2498}, adentro",
 	-- ["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "{npc:2519}: los basiliscos pastan junto al camino de vuelta desde {area:35}",
+	-- ["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}: los cráneos trofeo están en las ruinas Partecráneos, más adelante en este recorrido",
 	-- ["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669} da vueltas por aquí: búscalo dentro del círculo del mapa",
 	-- ["{npc:6807}, upstairs"] = "{npc:6807}, en el piso de arriba",
 	-- ["{npc:6930}, upstairs"] = "{npc:6930}, en el piso de arriba",

@@ -226,8 +226,8 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}是精英（42級），位於{npc:256728}東南方山丘上的聯盟斥候營地，也就是你接下來要去的地方：建議組隊。告示貼在堡壘中央；眼睛交給{npc:258031}，在本指南稍後。",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "{object:707249}告示",
+	-- was: ["the {object:707249} poster"] = "{object:707249}告示"
+	["the Wanted poster"] = "",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -295,6 +295,8 @@ return {
 	-- Step 63: The Bloodmaster's Ring: Mog'thar
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}：{npc:258626}",
+	-- {npc:258626} Mog'thar · {npc:257058} Gobam · {npc:263440} Hamur
+	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "",
 
 	-- Step 64: Gobam and Hamur
 	-- {npc:257058} Gobam · {npc:263440} Hamur
@@ -419,14 +421,14 @@ return {
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
 	-- {quest:94964} Bloodmaster's Ring
 	["The {quest:94964}: Snufflesnout"] = "",
-	["Snufflesnout is elite: grouping up is advised."] = "",
+	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	["Snufflesnout (44)"] = "嗅嗅鼻（44）",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
 	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
 	["The {quest:94964}: {npc:257059}"] = "",
 	-- {npc:257059} Chub'chob
-	["{npc:257059} is elite: grouping up is advised."] = "",
+	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "{npc:255829}，在山丘上",
 
@@ -482,6 +484,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一個指南從{area:3}的{area:340}起飛：往北離開{npc:258570}的山谷，穿過{area:16685}，那是通往{area:3}的路。",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位於{area:3}南方。從{area:657}向東騎到{area:75}，再飛往{area:340}：進入該地區的下坡路從那裡開始。",
+	-- ["the {object:707249} poster"] = "{object:707249}告示",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "完成戈巴姆的差事後，{npc:257062}會提供最後兩個任務（根據玩家的錄影），本指南未收錄這兩個任務。它們是44和45級：如果你打{npc:258626}時打得很險，就留到之後再來。",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",
 }

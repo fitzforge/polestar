@@ -48,8 +48,8 @@ return {
 	["{npc:7010} works in the Drag."] = "{npc:7010}在暗巷工作。",
 
 	-- Step 9: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1423} Eastern Plaguelands
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "只在{quest:4494}還沒完成時：{npc:7010}在暗巷工作。{zone:1423}指南前往安戈洛的途中，會在{area:976}把它繳交給沛斯托格。",
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
@@ -135,6 +135,7 @@ return {
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "保留要交給{npc:8659}、{npc:6522}、{npc:4485}和{npc:3326}的任務：接下來會經過{zone:1454}和{zone:1458}。瑪加薩的任務在{zone:1456}，不在這條路線上：先放著。",
 	-- ["Makrinni Burrowers"] = "瑪克林尼掘地者",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "繼續往東北穿過{zone:1447}中部：{npc:235903}在路邊紮營。",
+	-- ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "只在{quest:4494}還沒完成時：{npc:7010}在暗巷工作。{zone:1423}指南前往安戈洛的途中，會在{area:976}把它繳交給沛斯托格。",
 	-- ["Open {object:149036} for the {item:10556}"] = "打開{object:149036}取得{item:10556}",
 	-- ["Ride back west to {area:1237}."] = "向西騎回{area:1237}。",
 	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向東騎往海岸上的遺跡。在沿岸的潮池裝滿科雷的四個瓶子；惡鞭納迦在潮池之間巡邏。",

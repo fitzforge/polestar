@@ -262,12 +262,6 @@ return {
 	-- Step 54: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
 	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
-	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "",
-	-- {npc:3294} Ophek
-	["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
-	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, {zone:1454}의 {npc:6018}에게 줄 것: 보관하세요",
 
 	-- Step 55: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -338,6 +332,12 @@ return {
 	-- Step 77: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
+	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, {zone:1454}의 {npc:6018}에게 줄 것: 보관하세요",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
 	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
@@ -434,8 +434,9 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {zone:1454}(으)로 가는 북쪽 길가의 {area:369}에서 풀을 뜯으며, 어느 것이든 {item:6486}을(를) 떨어뜨릴 수 있습니다. 다음 가이드가 {area:379}을(를) 지날 때 {npc:5810}이(가) 받습니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
 
 	-- Step 101: Ormak Grimshot
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "길을 따라 {area:379}에서 북쪽 {area:817} 바로 서쪽의 {zone:1454} 정문까지 가세요. {npc:3352}은(는) {object:172958}에서 사냥꾼 상급자들과 함께 서 있습니다.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "길을 따라 {area:379}에서 북쪽 {area:817} 바로 서쪽의 {zone:1454} 정문까지 가세요. {npc:3352}은(는) {object:172958}에서 사냥꾼 상급자들과 함께 서 있습니다."
+	["Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 102: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -444,8 +445,8 @@ return {
 	-- Step 103: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
@@ -457,6 +458,7 @@ return {
 	-- ["Back south to {area:362}."] = "남쪽 {area:362}(으)로 돌아가세요.",
 	-- ["Back to {area:362}."] = "{area:362}(으)로 돌아가세요.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "{object:172960}의 {npc:5875}에게 돌아가세요. 그곳 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "길을 따라 {area:379}에서 북쪽 {area:817} 바로 서쪽의 {zone:1454} 정문까지 가세요. {npc:3352}은(는) {object:172958}에서 사냥꾼 상급자들과 함께 서 있습니다.",
 	-- ["Prickly pears"] = "가시투성이 배",
 	-- ["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "가시멧돼지와 정찰병이 마을 서쪽 오두막을, 사막길잡이와 전투호위병이 더 서쪽의 야영지를 차지하고 있습니다.",
 	-- ["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "요새는 {area:362} 남동쪽 해안에 있습니다. 약탈자의 도끼, 활, 방패는 요새 외곽에 있습니다. 선원과 해병이 {item:4870}을(를) 떨어뜨립니다. {npc:3192}은(는) 요새 꼭대기에서 기다리며, 그의 열쇠로 옆 상자를 열면 {item:4881}이(가) 들어 있습니다.",
@@ -481,6 +483,7 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: {npc:3365}에게 전달",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: {npc:3404}에게 전달",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: {npc:7088}에게 전달",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, {npc:3139} 옆: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, {npc:3139}와(과) 함께 병영 안",
 }

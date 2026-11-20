@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "{object:3202}(으)로 돌아가세요.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
@@ -249,6 +250,7 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "모쉬오그일족 오우거는 돌아가는 길, {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사 10마리와 모쉬오그일족 의술사 5마리(36-37)를 처치하세요. 한 마리씩 끌어오세요.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
 	-- ["The camp by the river"] = "강가의 야영지",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
 	-- ["Venture Co. camp"] = "투자개발회사 야영지",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",

@@ -13,10 +13,12 @@ return {
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
+	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
 	-- Step 2: Ratchet
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	["Fly from {area:378} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "",
 
@@ -25,9 +27,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
+	-- Step 4: Fly to the Crossroads
+	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+
 	-- Step 5: Korran
-	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}은(는) 십자로 비행 조련사 옆에 있습니다. {quest:1145}은(는) 29레벨부터 받을 수 있습니다. 그보다 낮다면 다음 가이드의 {zone:1454} 방문 때 받습니다.",
+	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
 
@@ -92,7 +98,8 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "22-25레벨 {area:287} 가이드에 있던 다살리아의 첫 심부름을 놓쳤습니다. 지금 그것부터 합니다. 레벨이 조금 낮고 금방 끝나며, 이 가이드에 있는 나머지 {quest:527}을(를) 열어 줍니다.",
+	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "22-25레벨 {area:287} 가이드에 있던 다살리아의 첫 심부름을 놓쳤습니다. 지금 그것부터 합니다. 레벨이 조금 낮고 금방 끝나며, 이 가이드에 있는 나머지 {quest:527}을(를) 열어 줍니다."
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -133,7 +140,8 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272} 남쪽 강: 마주치는 대로 처치하세요",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "{area:272}에서 강을 따라 남쪽으로: 무쇠턱거북(29)이 {area:271} 위 언덕까지 강둑 곳곳에서 햇볕을 쬐고 있습니다. 그중 일부가 {item:3712}을(를) 가지고 있습니다.",
+	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "{area:272}에서 강을 따라 남쪽으로: 무쇠턱거북(29)이 {area:271} 위 언덕까지 강둑 곳곳에서 햇볕을 쬐고 있습니다. 그중 일부가 {item:3712}을(를) 가지고 있습니다."
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "무쇠턱거북에게서 얻는 {item:3712}",
 
@@ -204,7 +212,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "{item:3712} 마저 모으기",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "아직 {item:3712} 10개가 안 되나요? 광산에서 돌아오는 길, {area:272} 동쪽 강가에 무쇠턱거북이 줄지어 있습니다.",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -307,8 +315,10 @@ return {
 	-- ["North of Southshore's graveyard"] = "사우스쇼어 묘지 북쪽",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "{quest:535}의 신서를 얻지 못했을 때만: 길 서쪽 야영지 주변의 비밀결사대 노상강도와 도둑(32-34)도 신서를 지니고 있으며, 세 마리 중 한 마리꼴로 떨어뜨립니다. 주의: 31-32레벨에서는 아직 나보다 높고 서로 가까이 서 있으며, 그 사이에 마술사(34-35)도 있습니다. 야영지 가장자리에서 하나씩 끌어오세요.",
 	-- ["Shindigger keg"] = "신디거 흑맥주 통",
+	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "{area:272}에서 강을 따라 남쪽으로: 무쇠턱거북(29)이 {area:271} 위 언덕까지 강둑 곳곳에서 햇볕을 쬐고 있습니다. 그중 일부가 {item:3712}을(를) 가지고 있습니다.",
 	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "타렌 밀농장 남동쪽입니다. 드럴과 {npc:2238}은(는) 요새 안뜰 건물에 사슬로 묶여 있습니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 둘을 처치한 다음 자물쇠 두 개를 모두 여세요.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "남서쪽, {area:272} 서쪽 언덕의 {area:277}에는 동굴 설인과 사나운 설인(30-32)이 가득합니다. 열여섯 마리 중 한 마리꼴로 마법봉을 지니고 있습니다. 이 동굴에만 머무르세요. 더 북쪽 동굴의 산악 설인과 거대한 설인(32-34)도 마법봉을 지니지만, 29-30레벨에서는 세게 때리고 짝을 지어 다닙니다.",
+	-- ["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "아직 {item:3712} 10개가 안 되나요? 광산에서 돌아오는 길, {area:272} 동쪽 강가에 무쇠턱거북이 줄지어 있습니다.",
 	-- ["Syndicate missives"] = "비밀결사대 서신",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "길 서쪽 야영지 주변의 비밀결사대 노상강도와 도둑(32-33)이 서신을 지니고 있습니다. 세 명 중 한 명 정도가 떨어뜨립니다.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "맥주 통은 {area:287} 남동쪽 해안의 비밀결사대 야영지에 다른 통 몇 개와 함께 있습니다.",
@@ -320,11 +330,13 @@ return {
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다.",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 대장간 근처를 걸어 다니고, {npc:2451}은(는) 마을 남동쪽 밭에서 일합니다.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "가방에 {item:3388}이(가) 있으면 연금술 실험실의 {npc:2055}이(가) {quest:513}을(를) 줍니다. 비약은 {area:272}의 {npc:2216}이(가) 받습니다.",
+	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "22-25레벨 {area:287} 가이드에 있던 다살리아의 첫 심부름을 놓쳤습니다. 지금 그것부터 합니다. 레벨이 조금 낮고 금방 끝나며, 이 가이드에 있는 나머지 {quest:527}을(를) 열어 줍니다.",
 	-- ["grind on {npc:2375}"] = "{npc:2375} 사냥",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: {quest:513}을(를) 위해 경매장이나 연금술사에게서",
 	-- ["{item:3703}, for {npc:2333}"] = "{npc:2333}에게 줄 {item:3703}",
 	-- ["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229}은(는) '침투'를 맡기기 전에 {area:275}에서 정찰병 두 명을 풀어 주기를 원합니다.",
 	-- ["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "다음 {area:272} 방문 때의 {npc:2410} 퀘스트와 다음 가이드의 첫 방문지인 {zone:1454}의 'Alliance Relations'는 30레벨부터 받을 수 있습니다. 30레벨이 안 되나요? 너덜지느러미멀록 땅꾼과 길잡이(28-30)가 {area:288} 남쪽 해안에 몰려 있으니 조금만 걸어가 30레벨까지 처치하세요. 예언자(30-31)는 더 동쪽 해안에서 주문을 겁니다. 또는 파티가 있다면 대신 발굴 현장 던전({zone:1437})을 도세요.",
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}, 성문 옆",
+	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}은(는) 십자로 비행 조련사 옆에 있습니다. {quest:1145}은(는) 29레벨부터 받을 수 있습니다. 그보다 낮다면 다음 가이드의 {zone:1454} 방문 때 받습니다.",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, 내부",
 }

@@ -112,8 +112,8 @@ return {
 	-- Step 19: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向西返回{area:340}。{npc:5394}在{area:340}的上层，远高于飞行管理员所在位置；沿坡道上去，箭头无法区分高度。",
-	-- {area:340} Kargath · {object:3202} Grom'gol
-	["The next guide flies from {area:340} to {object:3202}."] = "下一份指南会从{area:340}飞往{object:3202}。",
+	-- {area:340} Kargath · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4486} Genavie Callow
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "{zone:1418} 的所有石元素都会掉落 {npc:6868} 所需的碎片：{npc:2921} 营地西侧平地上的次级石元素（37 级）较为安全，掉落概率约为五分之一。只有西南部峡谷中的巨型石元素（42-44 级，远高于你当前等级）会掉落 {npc:2921} 所需的护腕，概率也约为五分之一：逐个拉怪，每次战斗后休息，或暂时不打。沿途继续击杀你还需要的土狼和秃鹫。",
@@ -124,6 +124,7 @@ return {
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。",
 	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "石窟穴居人在{area:1877}南边、通往{area:345}路上的洞口周围挖掘；石窟断骨者和石窟萨满祭司掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
 	-- ["The next guide flies from {area:340} to {area:35}."] = "下一篇指南会从 {area:340} 飞往 {area:35}。",
+	-- ["The next guide flies from {area:340} to {object:3202}."] = "下一份指南会从{area:340}飞往{object:3202}。",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞尔杜林坐在{area:1877}南边{area:345}的矮人废墟中。",
 	-- ["{area:1878}: kill these as you meet them"] = "{area:1878}：沿途遇到就击杀",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}：仅当你携带{item:2868}时（{skill:164}或拍卖行）",

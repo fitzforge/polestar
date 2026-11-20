@@ -13,11 +13,12 @@ return {
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
+	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
 	-- Step 2: Ratchet
-	-- {area:378} Camp Taurajo · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	-- was: ["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "从 {area:484} 飞往 {area:392}。{npc:5901} 在镇子南边不远的海岸扎营；随后从 {area:392} 飞往十字路口。"
-	["Fly from {area:378} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}：用于火盆的{item:6637}",
 
@@ -26,9 +27,13 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
+	-- Step 4: Fly to the Crossroads
+	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+
 	-- Step 5: Korran
-	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}站在十字路口飞行管理员旁边。{quest:1145}29级起可接；不到29级的话，下一个指南在{zone:1454}停留时会接。",
+	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}：交给 {zone:1454} 的 {npc:4485}",
 
@@ -93,7 +98,8 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你错过了22-25级{area:287}指南中达萨利亚最早的几个差事：现在先做这些。它们比你低几级，很快就能完成，还会开启本指南中{quest:527}的后续任务。",
+	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你错过了22-25级{area:287}指南中达萨利亚最早的几个差事：现在先做这些。它们比你低几级，很快就能完成，还会开启本指南中{quest:527}的后续任务。"
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -134,7 +140,8 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272}南边的河：遇到就杀",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南：钳嘴龟（29级）一路在河岸上晒太阳，直到{area:271}上方的山丘。其中一些身上有{item:3712}。",
+	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南：钳嘴龟（29级）一路在河岸上晒太阳，直到{area:271}上方的山丘。其中一些身上有{item:3712}。"
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}，从钳嘴龟身上获取",
 
@@ -206,7 +213,7 @@ return {
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "收集完{item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "还没凑够十块{item:3712}？{area:272}东边的河边有很多钳嘴龟，就在你从矿洞回来的路上。",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short ride from town."] = "",
 
 	-- Step 39: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -327,11 +334,13 @@ return {
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "只有在没拿到{quest:535}的信件时才做：道路西边营地周围的辛迪加劫匪和窃贼（32-34级）也带着信件，约每三只掉一封。小心：31-32级时它们仍比你高，而且站得很近，其中还有巫师（34-35级）：从营地边缘一次拉一只。",
 	-- ["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "将 {object:1729} 放到旅店旁楼上的 {object:1728} 上。",
 	-- ["Shindigger keg"] = "矿工烈酒酒桶",
+	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南：钳嘴龟（29级）一路在河岸上晒太阳，直到{area:271}上方的山丘。其中一些身上有{item:3712}。",
 	-- ["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "落锤镇南边，枯木巨魔占据山中的村庄。枯木掷斧者守在外围小屋，枯木巫医和枯木猎头者守在村庄深处。小心：这三种巨魔都会在生命值降到15%时逃跑求援，可能引来附近营地的更多巨魔。",
 	-- ["South-east of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.\nCareful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "落锤镇东南侧，枯木巨魔占据山中的村庄。枯木掷斧者守在外围小屋，枯木巫医和枯木猎头者守在村庄深处。\n小心：这三种巨魔都会在生命值降到 15% 时逃跑求援，可能引来附近营地的更多巨魔。",
 	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔伦米尔东南方。德鲁尔和{npc:2238}被锁在城堡庭院的建筑里：{npc:2427}携带{item:3467}，{npc:2428}携带{item:3499}，两人都在城堡里。杀死他们，然后打开两把锁。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-31) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "向西南走，洞穴雪人和凶恶的雪人（30-31 级）遍布 {area:272} 西侧山中的 {area:277}；约每十六只中有一只携带魔棒。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "向西南走，洞穴雪人和凶恶的雪人（30-32 级）遍布 {area:272} 西侧山中的 {area:277}；约每十六只中有一只携带魔棒。待在这片洞穴里：更北边那个洞穴的山岭雪人和巨型雪人（32-34 级）也带着魔棒，但 29-30 级时它们打人很痛，而且成对出现。",
+	-- ["Still short of ten {item:3712}? The Snapjaws line the river east of {area:272}, on your way back from the mine."] = "还没凑够十块{item:3712}？{area:272}东边的河边有很多钳嘴龟，就在你从矿洞回来的路上。",
 	-- ["Strong Troll's Blood Potion: auction house or an alchemist, for {quest:515}."] = "Strong Troll's Blood Potion：从拍卖行购买或找炼金师制作，用于 {quest:515}。",
 	-- ["Syndicate missives"] = "辛迪加信件",
 	-- ["The Daggerspine naga line the shore south-east of the town."] = "刺脊纳迦分布在镇子东南侧的海岸上。",
@@ -350,6 +359,7 @@ return {
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "向西穿过丘陵前往{area:287}镇：铁匠铺就在镇中央。{npc:2404}和他的学徒在熔炉旁工作；{object:1736}堆在旁边。",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "向西穿过丘陵前往{area:287}镇：铁匠铺就在镇中央。{npc:2404}和他的学徒在熔炉旁工作；{object:1736}堆在旁边。{npc:2449}在铁匠铺附近走动；{npc:2451}在镇子东南边的田里干活。",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "背包里有{item:3388}时，{npc:2055}会在炼金房提供{quest:513}；{npc:2216}在{area:272}接收药剂。",
+	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你错过了22-25级{area:287}指南中达萨利亚最早的几个差事：现在先做这些。它们比你低几级，很快就能完成，还会开启本指南中{quest:527}的后续任务。",
 	-- ["grind on {npc:2248}"] = "击杀 {npc:2248} 刷经验",
 	-- ["grind on {npc:2375}"] = "击杀{npc:2375}刷经验",
 	-- ["grind on {npc:2562}"] = "击杀 {npc:2562} 刷经验",
@@ -378,6 +388,7 @@ return {
 	-- ["{npc:2770}: for {npc:2771} in {area:321}, later in this guide (from level 30)"] = "{npc:2770}：交给 {area:321} 的 {npc:2771}，在本篇指南后续步骤完成（30 级起可接）",
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}，在大门旁",
 	-- ["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} 就站在十字路口的飞行管理员旁。",
+	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}站在十字路口飞行管理员旁边。{quest:1145}29级起可接；不到29级的话，下一个指南在{zone:1454}停留时会接。",
 	-- ["{quest:513} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "{quest:513} 需要一瓶 {item:3388}，这是 {skill:171} 制作的物品：尽量从拍卖行购买（或找炼金师制作）。任务文本虽然写着“Strong”（强力），实际需要的是 {item:3388}。没有药剂就跳过 {area:287} 的苦楚药剂系列步骤。",
 	-- ["{quest:515} needs a Strong Troll's Blood Potion, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "{quest:515} 需要一瓶 Strong Troll's Blood Potion，这是 {skill:171} 制作的物品：尽量从拍卖行购买（或找炼金师制作）。没有药剂就跳过 {area:287} 的苦楚药剂系列步骤。",
 	-- ["{quest:515} with a group"] = "组队完成{quest:515}",

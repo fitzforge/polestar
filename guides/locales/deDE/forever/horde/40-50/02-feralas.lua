@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "Flugmeister in {area:75}",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Der Flug landet in {object:3202}. Die schwierigeren Aufträge im Schlingendorntal von deinem ersten Besuch passen jetzt zu dir: der Häuptling der Skullsplitter, Zanzils Lager, die Piraten von {area:35}, die Nagaküste und {npc:1514}, bevor du den Zeppelin nach {zone:1454} nimmst. Neben Nimboya steht ein {object:2076}: Er hat die Quest zum Häuptling der Skullsplitter.",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Der Flug landet in {object:3202}. Die schwierigeren Aufträge im Schlingendorntal von deinem ersten Besuch passen jetzt zu dir: der Häuptling der Skullsplitter, Zanzils Lager, die Piraten von {area:35}, die Nagaküste und {npc:1514}, bevor du den Zeppelin nach {zone:1454} nimmst. Neben Nimboya steht ein {object:2076}: Er hat die Quest zum Häuptling der Skullsplitter."
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -370,7 +373,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: Auftrag von {npc:263190} aus {zone:2548}, falls du ihn dabeihast",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: für {zone:1454}, etwa ab Stufe 45",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: für {zone:1454}, etwa ab Stufe 45"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, drinnen",
 
@@ -402,7 +406,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "für {zone:1454}, etwa ab Stufe 45",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -480,6 +484,7 @@ return {
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wüstenläufer kann einen Wasserbeutel tragen: Luglunket will fünf.\nVorsicht: Schurken der Wüstenläufer (Stufe 43-44) bewegen sich getarnt und können sich unbemerkt nähern.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wüstenläufer kann einen Wasserbeutel tragen: Behalte zehn, fünf für jedes von Luglunkets Kopfgeldern.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wastewander kann einen Wasserbeutel tragen: Behalte zehn, fünf für jedes von Luglunkets Kopfgeldern.\nVorsicht: Wastewander Rogues (Stufe 43-44) bewegen sich getarnt und können sich unbemerkt nähern.",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "Der Flug landet in {object:3202}. Die schwierigeren Aufträge im Schlingendorntal von deinem ersten Besuch passen jetzt zu dir: der Häuptling der Skullsplitter, Zanzils Lager, die Piraten von {area:35}, die Nagaküste und {npc:1514}, bevor du den Zeppelin nach {zone:1454} nimmst. Neben Nimboya steht ein {object:2076}: Er hat die Quest zum Häuptling der Skullsplitter.",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "Der Flug landet in {object:3202}: {npc:2519} und {npc:2465}, dann der Zeppelinturm.",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "Die Schattenmagier, Schurken und Auftragsmörder lagern südöstlich von {area:976}.",
 	-- ["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour."] = "Die Grimmlingflitzer schwirren über dem Hain gleich westlich von Mojache; fast jeder lässt einen Flügel fallen. Die Alphas der Waldpfoten führen die Lager südwestlich davon: Töte sie innerhalb der Stunde.",
@@ -492,6 +497,7 @@ return {
 	-- ["Zeppelin tower"] = "Zeppelinturm",
 	-- ["for the {zone:1425}, around level 48"] = "für das {zone:1425}, etwa ab Stufe 48",
 	-- ["for {area:35}, around level 50"] = "für {area:35}, etwa ab Stufe 50",
+	-- ["for {zone:1454}, around level 45"] = "für {zone:1454}, etwa ab Stufe 45",
 	-- ["the {object:150075} in the square"] = "{object:150075} auf dem Platz",
 	-- ["water pouches in your bags"] = "Wasserbeutel in deinen Taschen",
 	-- ["{area:1099} flight master"] = "Flugmeister in {area:1099}",
@@ -503,6 +509,7 @@ return {
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, die Gasse",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, die Gasse",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, Reitlehrer",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: für {zone:1454}, etwa ab Stufe 45",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}: Die Kreischer leben in {zone:1444}",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: Die Screechers leben in {zone:1444}, beim nächsten Besuch in {zone:1444}",
 }

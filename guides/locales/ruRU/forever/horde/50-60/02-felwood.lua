@@ -23,7 +23,7 @@ return {
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Дневник лежит в доме, шкаф стоит внутри, а уборная – за домом. Ключ от уборной у монстра {npc:10816}; {npc:10836} выходит, когда вы открываете уборную, – у него ключ от шкафа.",
 
 	-- Step 4: Mulgris Deepriver
-	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "Его следующая охота – на больных гризли (55-56) – подождет визита в Чумные земли примерно на 58 уровне.",
+	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
 
 	-- Step 6: High Executor Derrington
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
@@ -156,19 +156,22 @@ return {
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
 	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
 
-	-- Step 31: Archmage Xylem
-	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
-	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "",
+	-- Step 31: Sanath Lim-yo
+	-- {area:1237} Valormok · {npc:8379} Archmage Xylem
+	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
+
+	-- Step 32: Archmage Xylem
+	["The apprentice at the top of the tower sends you back down."] = "",
 	-- was: ["Upstairs"] = "Наверху"
 	["Upstairs"] = "",
 
-	-- Step 33: Fly to Orgrimmar
+	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 34: Belgrom Rockmaul
+	-- Step 35: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
@@ -176,23 +179,23 @@ return {
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
 	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
 
-	-- Step 35: Class trainer
+	-- Step 36: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 36: Druid trainer
+	-- Step 37: Druid trainer
 	["Druid trainer"] = "Учитель друидов",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}, Зона: {zone:1412}; в зоне {zone:1454} нет учителя друидов",
 
-	-- Step 37: Fly to Valormok
+	-- Step 38: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
 	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "",
 
-	-- Step 39: Fly to Splintertree Post
+	-- Step 40: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "Летите сюда: {area:431}",
 
-	-- Step 41: Emerald Sanctuary
+	-- Step 42: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "Лагерь друидов – сразу за границей.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}, рядом с NPC {npc:10921}: {quest:86577} – органы медведей и волков ({zone:1448})",
@@ -201,40 +204,40 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}, в западной части лагеря",
 
-	-- Step 42: Deadwood Village
+	-- Step 43: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
 
-	-- Step 43: Southern Jaedenar
+	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Юг: {area:1763}",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Езжайте по дороге на северо-запад. Юг места {area:1763}, вокруг оскверненного лунного колодца, занимают культисты, адепты, стражники Совета Теней и их гончие.",
 
-	-- Step 45: The Jaedenar moonwell
+	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "Лунный колодец: {area:1763}",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "Назад на север сюда: {area:1763}. Наполните флягу Греты у оскверненного лунного колодца в центре южного лагеря.",
 
-	-- Step 46: Bloodvenom Post
+	-- Step 47: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "Лагерь Орды чуть к северу от места {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: совухи – здесь: {zone:1452}",
 
-	-- Step 47: Shatter Scar Vale
+	-- Step 48: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "К востоку от Заставы Отравленной Крови – долина с кратерами, где бродят энтропические звери и ужасы. Убейте по два каждого, затем подойдите к каждому из трех кратеров с водой Скверны.",
 	["Southern crater"] = "Южный кратер",
 	["Western crater"] = "Западный кратер",
 	["Northern crater"] = "Северный кратер",
 
-	-- Step 48: Statue of Malorne
+	-- Step 49: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "Статуя Малорна ({object:661778}) стоит чуть южнее долины, у дороги на север: ее безделушка начинает задание для NPC {npc:9996} ({area:1997}).",
 
-	-- Step 49: Irontree Woods
+	-- Step 50: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
@@ -243,29 +246,31 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959} – с волков-сквернолапов",
 
-	-- Step 50: Irontree Woods
+	-- Step 51: Irontree Woods
 	["Below ground"] = "Под землей",
 
-	-- Step 51: Meilosh
+	-- Step 52: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
 	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
-	-- Step 52: Nafien
+	-- Step 53: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "Дорога заканчивается у персонажа {npc:15395}, у входа в туннель ({area:1769}) на дальнем северо-востоке.",
 
-	-- Step 53: Felpaw Village
+	-- Step 54: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
+	-- {quest:8470} Deadwood Ritual Totem
+	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "",
 
-	-- Step 54: Nafien
+	-- Step 55: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Сохраните задание {quest:8465} для края {zone:1452}.",
 
-	-- Step 55: Timbermaw Hold
+	-- Step 56: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
@@ -283,6 +288,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Езжайте по дороге на северо-восток сюда: {area:1767}. У криводревов-моходеров и криводревов-живорезов в восточной части леса – {item:11503}; в том же лесу бродят гризли злобных когтей и опустошители-сквернолапы для Тало, а их органы нужны NPC {npc:10920}.\nДальше – дозорные (53-54) и мстители (54-55) из племени Мертвого Леса ({area:1762}): если вы ниже 54 уровня, охотьтесь здесь на гризли и опустошителей (51-52) до 54. Сдача заданий ({area:1769}, {area:2479} и {area:1997}) почти доведет вас до 55. Или с группой пройдите подземелье {area:1417} или {area:1584}.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Езжайте по дороге на северо-восток сюда: {area:1767}. У криводревов и криводревов-живорезов в восточной части леса – {item:11503}; в том же лесу бродят гризли злобных когтей и разорители-сквернолапы для Тало. Если вы ниже уровня 54.21, продолжайте охоту на гризли и разорителей: сдача заданий ({area:1997} и {area:2479}) доведет вас до 55-го уровня. Или с группой пройдите подземелье {area:1584} или {area:1417}.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "От распорядителя полетов ({area:2268}) летите сюда: {area:1497}.",
+	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "Его следующая охота – на больных гризли (55-56) – подождет визита в Чумные земли примерно на 58 уровне.",
 	-- ["Jadefire moonwell"] = "Лунный колодец Нефритового Пламени",
 	-- ["Keep Little Pamela: Pamela is in {area:2262}, visited again later."] = "Сохраните задание Малышка Памела: Памела – здесь: {area:2262}, вы вернетесь туда позже.",
 	-- ["Keep the branch: {npc:5770} is in {zone:1456}."] = "Сохраните ветвь: {npc:5770} – здесь: {zone:1456}.",

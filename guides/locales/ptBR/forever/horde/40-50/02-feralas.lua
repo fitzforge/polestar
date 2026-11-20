@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "Mestre de voo de {area:75}",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "O voo pousa em {object:3202}. As tarefas mais difíceis de Selva do Espinhaço, trazidas da sua primeira visita, servem para você agora: o chefe Rachacrânio, os acampamentos de Zanzil, os piratas de {area:35}, a costa das nagas e {npc:1514}, antes do zepelim para {zone:1454}. O {object:2076} ao lado de Nimboya tem a Missão do chefe Rachacrânio.",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "O voo pousa em {object:3202}. As tarefas mais difíceis de Selva do Espinhaço, trazidas da sua primeira visita, servem para você agora: o chefe Rachacrânio, os acampamentos de Zanzil, os piratas de {area:35}, a costa das nagas e {npc:1514}, antes do zepelim para {zone:1454}. O {object:2076} ao lado de Nimboya tem a Missão do chefe Rachacrânio."
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -370,7 +373,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: a tarefa de {npc:263190} de {zone:2548}, se você a tiver",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, por volta do nível 45",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, por volta do nível 45"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, lá dentro",
 
@@ -402,7 +406,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "para {zone:1454}, por volta do nível 45",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -480,6 +484,7 @@ return {
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Os bandidos e ladrões acampam nas dunas a leste de {area:976}. Qualquer Errante pode carregar um cantil: Luglunket quer cinco.\nCuidado: os Ladinos Errantes (nível 43-44) andam furtivos, então podem chegar sem ser vistos.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties."] = "Os Bandidos e Ladrões Errantes acampam nas dunas a leste de {area:976}. Todo Errante pode carregar uma bolsa de água: guarde dez, cinco para cada recompensa de Rastamala.",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Os bandidos e ladrões acampam nas dunas a leste de {area:976}. Qualquer Errante pode carregar um cantil: guarde dez, cinco para cada recompensa do Rastamala.\nCuidado: os Ladinos Errantes (nível 43-44) andam furtivos, então podem chegar sem ser vistos.",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "O voo pousa em {object:3202}. As tarefas mais difíceis de Selva do Espinhaço, trazidas da sua primeira visita, servem para você agora: o chefe Rachacrânio, os acampamentos de Zanzil, os piratas de {area:35}, a costa das nagas e {npc:1514}, antes do zepelim para {zone:1454}. O {object:2076} ao lado de Nimboya tem a Missão do chefe Rachacrânio.",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "O voo pousa em {object:3202}: {npc:2519} e {npc:2465}, depois a torre do zepelim.",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "Os Magos das Sombras, Ladinos e Assassinos Errantes acampam a sudeste de {area:976}.",
 	-- ["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour."] = "Os Dardejantes voejam sobre o bosque logo a oeste de Mojache; quase todos deixam cair uma asa. Os Machos Alfa Patábua lideram os acampamentos a sudoeste dele: mate-os dentro de uma hora.",
@@ -492,6 +497,7 @@ return {
 	-- ["Zeppelin tower"] = "Torre do zepelim",
 	-- ["for the {zone:1425}, around level 48"] = "para {zone:1425}, por volta do nível 48",
 	-- ["for {area:35}, around level 50"] = "para {area:35}, por volta do nível 50",
+	-- ["for {zone:1454}, around level 45"] = "para {zone:1454}, por volta do nível 45",
 	-- ["the {object:150075} in the square"] = "{object:150075} na praça",
 	-- ["water pouches in your bags"] = "bolsas de água nas bolsas",
 	-- ["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
@@ -503,6 +509,7 @@ return {
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, no Drag",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, instrutor de montaria",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, por volta do nível 45",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}: os guinchadores vivem em {zone:1444}",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: os guinchadores vivem em {zone:1444}, na próxima visita a {zone:1444}",
 }

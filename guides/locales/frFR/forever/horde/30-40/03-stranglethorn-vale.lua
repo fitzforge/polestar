@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Retour à {object:3202}.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour forever/horde/40-50/01-stranglethorn-vale",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497} : pour forever/horde/40-50/01-stranglethorn-vale",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Le prochain guide prend le zeppelin pour {zone:1454} depuis la tour à l'ouest du campement.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Le prochain guide prend le zeppelin pour {zone:1454} depuis la tour à l'ouest du campement."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "Niveau 36",
@@ -255,6 +256,7 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Les ogres Mosh'Ogg campent dans les collines juste à l'est de {object:3202}, sur votre chemin du retour. Tuez 10 Brutes et 5 Sorciers-docteurs (36-37) ; attirez-les un par un.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Les Panthères Ombregueule (37-38) rôdent dans la jungle à l'est des collines Mosh'Ogg et au nord-est vers le lac ; elles attaquent en camouflage. Ramassez chaque page des Vertes collines trouvée en chemin.",
 	-- ["The camp by the river"] = "Le camp près de la rivière",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Le prochain guide prend le zeppelin pour {zone:1454} depuis la tour à l'ouest du campement.",
 	-- ["Upstairs"] = "À l'étage",
 	-- ["Venture Co. camp"] = "Camp de la KapitalRisk",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "À l'ouest après le camp, des Basilics de cristal (34-35) se tiennent sur les rochers ; chaque Bloodscalp du village plus loin peut lâcher une oreille.\nLaissez {npc:729}, le tigre de niveau 37 au sommet de la colline au sud-ouest du camp, pour l'instant : il a deux niveaux de plus que vous ici, et le guide Strangleronce 40-50 y reviendra.\nAttention : le nid de raptors abrite de jeunes raptors qui rejoignent le combat quand vous attaquez les adultes.",
@@ -266,9 +268,11 @@ return {
 	-- ["grind on {npc:686}"] = "tuez en boucle : {npc:686}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Les quêtes suivantes de {area:35} et de {object:3202} sont de niveau 35-38. Toujours en dessous de 35 après avoir rendu la quête d'Aggro'gosh ? Les Raptors Fouette-queue (35) chassent dans la jungle juste au nord de {object:3202} : tuez-les jusqu'au niveau 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, dans {object:20691}",
+	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "La boutique de {npc:2495} est dans le bâtiment à l'est de l'auberge ; {npc:2498} est au rez-de-chaussée de l'auberge, {npc:2496}, {npc:737} et {npc:773} à l'étage, à côté du maître de vol.",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496} : le coffre de Cozzle se trouve à {area:37}, plus loin dans ce guide",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496} : pour Pozzik à {area:2240}, en route vers {zone:1446} vers le niveau 43",
+	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497} : pour forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) est dans la maison de la KapitalRisk sur la rive ouest de {area:37}, parmi les géologues : sa clé ouvre {object:20691} dans la même maison, qui contient les plans pour {npc:2496}. Attention : des Agents de la KapitalRisk (39) se tiennent dans la maison et autour : dégagez l'entrée avant d'entrer.",
 	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717} : {npc:729} (37) attend votre prochain passage chez Nesingwary, vers le niveau 40 dans forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "Le camp des chasseurs disparus de {npc:773} est celui de Nesingwary : marchez parmi ses tentes et l'enquête est terminée. Des Crocilisques des rivières se trouvent le long de la rivière sous le camp.",

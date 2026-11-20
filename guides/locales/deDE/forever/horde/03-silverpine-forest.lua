@@ -321,9 +321,10 @@ return {
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne {spell:197} bei {npc:11868} ({object:172958}, 10 Silber); Zweihandwaffen lassen einen Paladin am schnellsten leveln.",
 
 	-- Step 68: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter der Burg Grommash im {object:172957}; die Glatten Felsbrocken liegen um sie herum. Der nächste Guide führt von hier nach {area:379} und zum Wegekreuz.",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter der Burg Grommash im {object:172957}; die Glatten Felsbrocken liegen um sie herum. Der nächste Guide führt von hier nach {area:379} und zum Wegekreuz."
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
@@ -387,6 +388,7 @@ return {
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: Nimm sie an, wenn er sie anbietet; sie kann auf seine Reihe {quest:98298} folgen, die die Route nicht macht",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, auf der südlichen Runde",
 	-- ["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} bildet in {area:159} Paladine aus, ein kurzer Weg die Straße hinauf nach Norden von den Zeppelintürmen. Für den Silberwald kommst du dieselbe Straße zurück.",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter der Burg Grommash im {object:172957}; die Glatten Felsbrocken liegen um sie herum. Der nächste Guide führt von hier nach {area:379} und zum Wegekreuz.",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} und {npc:268682} sitzen hinter Grommash Hold im {object:172957}; die Glatten Felsen liegen um sie herum. Trainiere, solange du in der Stadt bist (Druiden und Paladine haben hier keinen Lehrer). Der nächste Guide beginnt bei {npc:3310}, dem Windreitermeister im {object:172982}.",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, der Lederverarbeitungslehrer, arbeitet im {object:172958}.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, die Kräuterkundelehrerin, hat ihren Laden in der Gasse.",

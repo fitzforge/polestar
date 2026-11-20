@@ -48,8 +48,8 @@ return {
 	["{npc:7010} works in the Drag."] = "{npc:7010} trabaja en La Calle Mayor.",
 
 	-- Step 9: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1423} Eastern Plaguelands
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Solo si aún no has hecho {quest:4494}: {npc:7010} trabaja en La Calle Mayor. Pestlezugg la recibe en {area:976} de camino a Un'Goro en la Guía de {zone:1423}.",
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
@@ -135,6 +135,7 @@ return {
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Guarda las entregas para {npc:8659}, {npc:6522}, {npc:4485} y {npc:3326}: pasarás por {zone:1454} y {zone:1458} a continuación. La de Magatha, en {zone:1456}, queda fuera de esta ruta: déjala.",
 	-- ["Makrinni Burrowers"] = "Excavadores Makrinni",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Sigue al noreste por el centro de {zone:1447}: {npc:235903} acampa junto al camino.",
+	-- ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Solo si aún no has hecho {quest:4494}: {npc:7010} trabaja en La Calle Mayor. Pestlezugg la recibe en {area:976} de camino a Un'Goro en la Guía de {zone:1423}.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Abre {object:149036} para obtener {item:10556}",
 	-- ["Ride back west to {area:1237}."] = "Regresa cabalgando al oeste a {area:1237}.",
 	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Cabalga al este hasta las ruinas de la costa. Llena los cuatro viales de Cuely en las pozas de marea a lo largo de la orilla; las nagas Látigo de Ira patrullan entre ellas.",

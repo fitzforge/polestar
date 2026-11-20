@@ -163,7 +163,7 @@ return {
 
 	-- Step 30: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
-	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}完成了。向北騎回並穿過{area:2657}，再沿著{area:405}南緣往西前往{area:2408}：下一個指南從{area:1637}開始，繳交{zone:1444}指南的任務。你的爐石綁定在{area:1099}：如果爐石已冷卻完畢，就用爐石回去，改從{area:1099}飛往{area:1637}。",
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 
@@ -178,5 +178,6 @@ return {
 	-- ["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it."] = "沿著道路向北前往第一座水晶塔，途中從不穩定的法力裂隙收集法力。衰朽的水晶塔守護者守在塔旁：在水晶塔旁殺一隻，再對牠使用{spell:1289727}，就像其他玩家修復它時那樣。\n小心：水晶塔位於{area:2657}邊緣，瑪格拉姆死靈可汗和食屍者（精英，45級）在那裡走動，新生水晶塔守護者（精英，43級）在道路上遊蕩。修復前先把衰朽的水晶塔守護者拉離牠們。",
 	-- ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "最近的衰朽的水晶塔守護者站在北邊道路旁，從地區中部一直到西邊的水晶塔，以及{npc:253471}的瞭望點周圍：其中一隻身上帶著比拉克薩斯要的心臟。",
 	-- ["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it."] = "{item:255656}在村莊西緣，由瑪格拉姆守護者（39-41級）看守。",
+	-- ["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}完成了。向北騎回並穿過{area:2657}，再沿著{area:405}南緣往西前往{area:2408}：下一個指南從{area:1637}開始，繳交{zone:1444}指南的任務。你的爐石綁定在{area:1099}：如果爐石已冷卻完畢，就用爐石回去，改從{area:1099}飛往{area:1637}。",
 	-- ["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}完成了：向北騎回並穿過{area:2657}；下一個步驟會告訴你接下來的路線。",
 }

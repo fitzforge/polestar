@@ -24,7 +24,8 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425}, around level 50"] = "para {zone:1425}, por volta do nível 50",
+	-- was: ["for the {zone:1425}, around level 50"] = "para {zone:1425}, por volta do nível 50"
+	["for the {zone:1425}, around level 49"] = "",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -46,25 +47,30 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425} owlbeasts, around level 48"] = "para os corujaursos de {zone:1425}, por volta do nível 48",
+	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "para os corujaursos de {zone:1425}, por volta do nível 48"
+	["for the {zone:1425} owlbeasts, around level 49"] = "",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "Voe para {area:496}",
+	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+
+	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 
-	-- Step 9: Brackenwall Village
+	-- Step 10: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}, {npc:4502} e {npc:4501} (no subterrâneo) ficam na vila; as missões deles são para {area:511}, nesta ida.",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, no subterrâneo",
 
-	-- Step 10: Dustwallow Marsh
+	-- Step 11: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "O {object:2555}",
 
-	-- Step 11: The Musty Scroll
+	-- Step 12: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "Cavalgue para o sudoeste até o {object:2555}.",
 	-- {object:2555} Musty Scroll
@@ -72,7 +78,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Dentro de {area:498}",
 
-	-- Step 12: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: vá matando estes pelo caminho",
 	-- {area:511} Wyrmbog
@@ -81,27 +87,27 @@ return {
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} anda por {area:510}: procure dentro do círculo no mapa",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 13: Brackenwall Village
+	-- Step 14: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Volte para o norte até Muralha Verde.",
 
-	-- Step 14: Onyxia's eggs
+	-- Step 15: Onyxia's eggs
 	["Onyxia's eggs"] = "Ovos de Onyxia",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Os Ovos de Onyxia ficam nas cavernas dos dragões no sudeste de {area:511}, guardados pelos Escamortes; esmague cinco.",
 
-	-- Step 15: Muckshell crabs
+	-- Step 16: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 16: Level 45.37
+	-- Step 17: Level 45.37
 	["Level 45.37"] = "Nível 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "O desafio de {npc:4500}, de volta em Muralha Verde, pede um grupo de três. Sozinho, mate os Batedores Flamigrenha aqui na borda norte de {area:511} até o nível 45.37 antes de voltar para o norte, para não precisar descer de novo. Ou, em grupo, faça a masmorra {area:978}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "mate {npc:4329} até subir",
 
-	-- Step 17: Brackenwall Village
+	-- Step 18: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -109,7 +115,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 18: Challenge Overlord Mok'Morokk
+	-- Step 19: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:1173} pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:4500} é elite: melhor ir em grupo. Bata nele até ele pedir arrego e depois fale com {npc:4501}.",
 
@@ -174,6 +180,8 @@ return {
 	-- ["for the {npc:5598} in the {zone:1425}, around level 48"] = "para {npc:5598} em {zone:1425}, por volta do nível 48",
 	-- ["for the {object:2555} in {area:15}, later in this guide"] = "para {object:2555} em {area:15}, mais adiante neste guia",
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "para {object:2555} em {zone:1445}, mais adiante neste guia",
+	-- ["for the {zone:1425} owlbeasts, around level 48"] = "para os corujaursos de {zone:1425}, por volta do nível 48",
+	-- ["for the {zone:1425}, around level 50"] = "para {zone:1425}, por volta do nível 50",
 	-- ["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} dessas tarefas: guarde-o, a missão Amostras de campo de Tanaris o devolve em {area:976}",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: vá matando estes pelo caminho",

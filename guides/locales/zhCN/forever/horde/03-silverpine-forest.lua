@@ -321,9 +321,10 @@ return {
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "趁在这里：向 {npc:11868} 学习 {spell:197}（{object:172958}，10 银币）；圣骑士用双手武器升级最快。",
 
 	-- Step 68: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。"
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
@@ -395,6 +396,7 @@ return {
 	-- ["{npc:2121}: {quest:516}, on the southern loop"] = "{npc:2121}：{quest:516}，在南线环路中完成",
 	-- ["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}在{area:159}训练圣骑士，从飞艇塔沿道路向北步行不远即到。之后沿同一条路回来，前往银松森林。",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684}和{npc:268682}坐在{object:172957}的格罗玛什要塞后面；光滑的巨石就在他们周围。趁在城里时训练（德鲁伊和圣骑士在这里没有训练师）。下一个指南从{object:172982}的双足飞龙管理员{npc:3310}开始。",
 	-- ["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "制皮训练师{npc:3365}在{object:172958}工作。",

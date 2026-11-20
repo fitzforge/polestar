@@ -262,12 +262,6 @@ return {
 	-- Step 54: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
 	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
-	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "{npc:3169}, à l'intérieur",
-	-- {npc:3294} Ophek
-	["{npc:3294}, by the inn"] = "{npc:3294}, près de l'auberge",
-	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, pour {npc:6018} à {zone:1454} : gardez-la",
 
 	-- Step 55: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -338,6 +332,12 @@ return {
 	-- Step 77: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "Retour à {area:362} : {npc:3139}, puis {npc:3142}.",
+	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
+	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}, pour {npc:6018} à {zone:1454} : gardez-la",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
 	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
@@ -434,8 +434,9 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Les Lézards-tonnerre et les Foudroyants paissent sur {area:369}, à côté de la route du nord vers {zone:1454} ; chacun d'eux peut laisser tomber une {item:6486}. {npc:5810} la prend quand le guide suivant passe par {area:379}.\nAttention : Halikor, un élite de niveau 12, rôde sur {area:369} parmi les lézards : repérez-le avant d'attirer quoi que ce soit.",
 
 	-- Step 101: Ormak Grimshot
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la grande porte d'{zone:1454}, juste à l'ouest de {area:817}. {npc:3352} se tient avec les maîtres des chasseurs dans {object:172958}.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la grande porte d'{zone:1454}, juste à l'ouest de {area:817}. {npc:3352} se tient avec les maîtres des chasseurs dans {object:172958}."
+	["Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 102: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -444,8 +445,9 @@ return {
 	-- Step 103: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} : {quest:829} prend la quête des cultistes, les maîtres enseignent vos nouveaux rangs, et le zeppelin part des tours devant la porte pour {zone:1420} et la {zone:1421}. Les {zone:1413} viennent après Silverpine.",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} : {quest:829} prend la quête des cultistes, les maîtres enseignent vos nouveaux rangs, et le zeppelin part des tours devant la porte pour {zone:1420} et la {zone:1421}. Les {zone:1413} viennent après Silverpine."
+	["Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} d'{zone:1454}",
 
@@ -457,6 +459,8 @@ return {
 	-- ["Back south to {area:362}."] = "Retournez au sud jusqu'à {area:362}.",
 	-- ["Back to {area:362}."] = "Retournez à {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Retournez voir {npc:5875} dans {object:172960}. Utilisez les {item:7464} sur le cercle d'invocation et vainquez le marcheur du Vide pour le lier.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la grande porte d'{zone:1454}, juste à l'ouest de {area:817}. {npc:3352} se tient avec les maîtres des chasseurs dans {object:172958}.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la porte principale d'{zone:1454}. Le guide suivant commence à {zone:1454} : {quest:829} prend la quête des cultistes, les maîtres enseignent vos nouveaux rangs, et le zeppelin part des tours devant la porte pour {zone:1420} et la {zone:1421}. Les {zone:1413} viennent après Silverpine.",
 	-- ["Follow the road west from {area:362} over the {area:814} bridge; {area:379} sits just above it on the {area:17} side."] = "Suivez la route vers l'ouest depuis {area:362} par le pont de {area:814} ; {area:379} se trouve juste au-dessus, côté {area:17}.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nWade back west to the shore south of Sen'jin when the isles are done."] = "Dirigez-vous vers le sud à travers les îles. Les idoles de Loa sont éparpillées sur toutes les îles du sud ; les Trolls vaudous et les Trolls maléficiés les gardent et lâchent les Pendentifs maléficiés. {quest:826} et la cage de Minshina se trouvent sur l'île la plus au sud.\nUne fois les îles terminées, revenez à gué vers l'ouest jusqu'au rivage au sud de Sen'jin.",
 	-- ["Hearth to {area:362}"] = "Pierre de foyer vers {area:362}",
@@ -498,6 +502,8 @@ return {
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809} : pour {npc:7088}",
 	-- ["{npc:266849} along the way to {area:362}"] = "{npc:266849} sur le chemin de {area:362}",
 	-- ["{npc:266850} along the way to {area:362}"] = "{npc:266850} sur le chemin de {area:362}",
+	-- ["{npc:3169}, inside"] = "{npc:3169}, à l'intérieur",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}, près de l'auberge",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, à côté de {npc:3139} : la {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, dans la caserne avec {npc:3139}",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} ({zone:1411}) ; {area:362} n'a pas de maître des mages",

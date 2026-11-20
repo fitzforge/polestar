@@ -223,8 +223,9 @@ return {
 	-- Step 45: Kargath's poster
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。"
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 46: Thunderheart
 	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
@@ -238,7 +239,7 @@ return {
 
 	-- Step 49: The Flame's Casing
 	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
-	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but four to five levels under you now, so one at a time is fine. Leave the Idolaters at the altar further north alone."] = "",
+	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "",
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -373,6 +374,7 @@ return {
 	-- ["Fly to {area:340}"] = "飛往{area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{area:28}，過河進入{area:139}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{zone:1422}，過河進入{zone:1423}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。",
 	-- ["Free Darrowshire Spirits: talk to them"] = "釋放達隆郡居民的靈魂：和它們交談",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "從現在起，拾取沿途經過的每一個{npc:271301}（藍、綠、紅、黃）和每一堆{quest:3761}：共25份土壤，20份給哈繆爾，5份給匹斯特蘇格。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",

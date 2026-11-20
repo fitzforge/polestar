@@ -19,8 +19,9 @@ return {
 	["{area:75} flight master"] = "{area:75}飛行管理員",
 
 	-- Step 3: Grom'gol Base Camp
-	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飛行降落在{object:3202}。你第一次來時帶著的荊棘谷較難任務，現在正適合你：碎顱者酋長、贊吉爾的營地、{area:35}的海盜、娜迦海岸和{npc:1514}，之後再搭飛艇前往{zone:1454}。尼姆布亞旁邊的{object:2076}有碎顱者酋長的任務。",
+	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
+	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飛行降落在{object:3202}。你第一次來時帶著的荊棘谷較難任務，現在正適合你：碎顱者酋長、贊吉爾的營地、{area:35}的海盜、娜迦海岸和{npc:1514}，之後再搭飛艇前往{zone:1454}。尼姆布亞旁邊的{object:2076}有碎顱者酋長的任務。"
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}：{quest:586}",
 
@@ -91,9 +92,11 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and {npc:2486}, beside it, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
 
 	-- Step 18: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -370,7 +373,8 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}：如果你帶著{npc:263190}從{zone:2548}託付的差事",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：給{zone:1454}，約45級時",
+	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：給{zone:1454}，約45級時"
+	["{npc:8115}: for {zone:1454}, around level 47"] = "",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}，在屋裡",
 
@@ -402,7 +406,7 @@ return {
 
 	-- Step 95: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 45"] = "給{zone:1454}，約45級時",
+	["for {zone:1454}, around level 47"] = "",
 
 	-- Step 96: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -473,6 +477,7 @@ return {
 	-- ["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "祖卡什蟲巢鑽進營地東南方的山丘裡；{quest:7731}在最深處的洞室等著。",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "強盜和竊賊在{area:976}東邊的沙丘上紮營。每個廢土敵人都可能帶著水袋：魯葛蘭克要五個。\n小心：廢土遊蕩者（43-44級）會潛行移動，可能在你沒察覺時接近。",
 	-- ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "強盜和竊賊在{area:976}東邊的沙丘上紮營。每個廢土敵人都可能帶著水袋：保留十個，魯葛蘭克的兩個懸賞各五個。\n小心：廢土遊蕩者（43-44級）會潛行移動，可能在你沒察覺時接近。",
+	-- ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飛行降落在{object:3202}。你第一次來時帶著的荊棘谷較難任務，現在正適合你：碎顱者酋長、贊吉爾的營地、{area:35}的海盜、娜迦海岸和{npc:1514}，之後再搭飛艇前往{zone:1454}。尼姆布亞旁邊的{object:2076}有碎顱者酋長的任務。",
 	-- ["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "飛行降落在{object:3202}：{npc:2519}和{npc:2465}，然後前往飛艇塔。",
 	-- ["The shadow mages, rogues and assassins camp south-east of {area:976}."] = "暗法師、遊蕩者和刺客在{area:976}東南方紮營。",
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "前往{object:3202}的飛艇從{zone:1454}正門東北方不遠處的塔出發。",
@@ -483,6 +488,7 @@ return {
 	-- ["Zeppelin tower"] = "飛艇塔",
 	-- ["for the {zone:1425}, around level 48"] = "給{zone:1425}，約48級時",
 	-- ["for {area:35}, around level 50"] = "給{area:35}，約50級時",
+	-- ["for {zone:1454}, around level 45"] = "給{zone:1454}，約45級時",
 	-- ["the {object:150075} in the square"] = "廣場上的{object:150075}",
 	-- ["water pouches in your bags"] = "背包裡的水袋",
 	-- ["{area:1099} flight master"] = "{area:1099}飛行管理員",
@@ -494,5 +500,6 @@ return {
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}，在城裡",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}，暗巷區",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}，騎術訓練師",
+	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：給{zone:1454}，約45級時",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}：尖嘯者住在{zone:1444}，下次造訪{zone:1444}時",
 }

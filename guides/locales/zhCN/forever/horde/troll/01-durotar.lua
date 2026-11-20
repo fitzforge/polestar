@@ -262,12 +262,6 @@ return {
 	-- Step 54: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
 	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
-	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "{npc:3169}：在屋内",
-	-- {npc:3294} Ophek
-	["{npc:3294}, by the inn"] = "{npc:3294}，在旅店旁",
-	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
-	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}，交给{zone:1454}的{npc:6018}：先留着",
 
 	-- Step 55: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -338,6 +332,12 @@ return {
 	-- Step 77: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "返回{area:362}，先找{npc:3139}，再找{npc:3142}。",
+	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
+	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
+	["{npc:3706}, for {npc:6018} in {zone:1454}: keep it"] = "{npc:3706}，交给{zone:1454}的{npc:6018}：先留着",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
 	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
@@ -434,8 +434,9 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和闪电蜥蜴在 {area:369} 活动，就在北上 {zone:1454} 的路旁；两者都可能掉落 {item:6486}。下一篇指南经过 {area:379} 时，将它交给 {npc:5810}。\n小心：12级精英哈利科尔在{area:369}的蜥蜴群中游荡：拉怪前先留意他的位置。",
 
 	-- Step 101: Ormak Grimshot
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "从{area:379}沿路向北，前往{zone:1454}正门，就在{area:817}西边。{npc:3352}和猎人训练师们一起站在{object:172958}。",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "从{area:379}沿路向北，前往{zone:1454}正门，就在{area:817}西边。{npc:3352}和猎人训练师们一起站在{object:172958}。"
+	["Ride to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 102: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -444,8 +445,9 @@ return {
 	-- Step 103: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
-	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从{area:379}沿路向北前往{zone:1454}正门。下篇指南从{zone:1454}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{zone:1413}。",
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从{area:379}沿路向北前往{zone:1454}正门。下篇指南从{zone:1454}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{zone:1413}。"
+	["Ride to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
@@ -458,6 +460,8 @@ return {
 	-- ["Back south to {area:362}."] = "向南返回{area:362}。",
 	-- ["Back to {area:362}."] = "返回{area:362}。",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "回到{object:172960}找{npc:5875}。在那里的召唤法阵上使用{item:7464}，击败虚空行者以束缚它。",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "从{area:379}沿路向北，前往{zone:1454}正门，就在{area:817}西边。{npc:3352}和猎人训练师们一起站在{object:172958}。",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从{area:379}沿路向北前往{zone:1454}正门。下篇指南从{zone:1454}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{zone:1413}。",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nWade back west to the shore south of Sen'jin when the isles are done."] = "向南穿过群岛。洛阿神像遍布南部岛屿；巫毒巨魔和妖术巨魔守着它们，并掉落妖术护符。{quest:826}和敏希娜的笼子在最南端的岛上。\n完成群岛后，涉水向西返回森金村南边的海岸。",
 	-- ["Into {zone:1454}"] = "进入{zone:1454}",
 	-- ["Mage trainer"] = "法师训练师",
@@ -490,6 +494,8 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}：交给{npc:3365}",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}：交给{npc:3404}",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}：交给{npc:7088}",
+	-- ["{npc:3169}, inside"] = "{npc:3169}：在屋内",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}，在旅店旁",
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}，在{npc:5810}旁边",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}，在{npc:3139}旁边：{item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}，在兵营里，和{npc:3139}在一起",

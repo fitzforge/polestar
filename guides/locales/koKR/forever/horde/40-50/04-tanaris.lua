@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
 	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}."
-	["{area:976} and the {zone:1427} at 48-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -85,7 +85,7 @@ return {
 
 	-- Step 16: The Dunemaul Compound
 	-- {area:982} The Noxious Lair · {quest:3362} Thistleshrub Valley · {npc:12046} Gor'marok the Ravager
-	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is a level above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "",
+	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "",
 	["Below ground"] = "지하",
 
 	-- Step 17: Thistleshrub Valley: kill these as you meet them

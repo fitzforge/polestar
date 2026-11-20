@@ -48,8 +48,8 @@ return {
 	["{npc:7010} works in the Drag."] = "{npc:7010}은(는) 시장 거리에 있습니다.",
 
 	-- Step 9: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1423} Eastern Plaguelands
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "{quest:4494}을(를) 아직 완료하지 않은 경우에만: {npc:7010}은(는) 시장 거리에 있습니다. 페슬주그는 {zone:1423} 가이드에서 운고로로 가는 길에 {area:976}에서 이 퀘스트를 받습니다.",
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
@@ -135,6 +135,7 @@ return {
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "{npc:8659}, {npc:6522}, {npc:4485}, {npc:3326}에게 전달할 것은 보관하세요. 다음에 {zone:1454}와(과) {zone:1458}을(를) 지나갑니다. {zone:1456}의 마가사에게 가는 것은 이 경로에서 벗어나니 그냥 두세요.",
 	-- ["Makrinni Burrowers"] = "마크리니 굴파기",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "{zone:1447} 중앙을 가로질러 북동쪽으로 계속 가세요. {npc:235903}은(는) 길가에 야영하고 있습니다.",
+	-- ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "{quest:4494}을(를) 아직 완료하지 않은 경우에만: {npc:7010}은(는) 시장 거리에 있습니다. 페슬주그는 {zone:1423} 가이드에서 운고로로 가는 길에 {area:976}에서 이 퀘스트를 받습니다.",
 	-- ["Open {object:149036} for the {item:10556}"] = "{object:149036}을(를) 열어 {item:10556} 얻기",
 	-- ["Ride back west to {area:1237}."] = "서쪽의 {area:1237}(으)로 돌아가세요.",
 	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",

@@ -48,8 +48,8 @@ return {
 	["{npc:7010} works in the Drag."] = "{npc:7010} работает в Волоке.",
 
 	-- Step 9: Zilzibin Drumlore
-	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1423} Eastern Plaguelands
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Только если задание {quest:4494} еще не выполнено: {npc:7010} работает в Волоке. Пестлезугг принимает его в месте {area:976} по пути в Ун'Горо в гайде по зоне {zone:1423}.",
+	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
 	-- Step 10: Vehena
 	-- {object:172961} Valley of Spirits
@@ -135,6 +135,7 @@ return {
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Сохраните поручения для NPC {npc:8659}, {npc:6522}, {npc:4485} и {npc:3326}: дальше вы проходите через {zone:1454} и {zone:1458}. Задание для Магаты ({zone:1456}) не по этому маршруту: оставьте его.",
 	-- ["Makrinni Burrowers"] = "Макриннские землерои",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Дальше на северо-восток через середину зоны {zone:1447}: {npc:235903} стоит лагерем у дороги.",
+	-- ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1423} guide's way to Un'Goro."] = "Только если задание {quest:4494} еще не выполнено: {npc:7010} работает в Волоке. Пестлезугг принимает его в месте {area:976} по пути в Ун'Горо в гайде по зоне {zone:1423}.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Откройте {object:149036}, чтобы получить {item:10556}",
 	-- ["Ride back west to {area:1237}."] = "Возвращайтесь на запад сюда: {area:1237}.",
 	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Езжайте на восток к руинам на побережье. Наполните четыре склянки Карабоса в приливных лужах вдоль берега; между ними патрулируют наги клана Бича Злобы.",

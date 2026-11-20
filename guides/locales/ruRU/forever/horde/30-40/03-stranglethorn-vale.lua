@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "Вернитесь: {object:3202}.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Следующий гайд садится на дирижабль в город {zone:1454} у башни на западной стороне лагеря.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Следующий гайд садится на дирижабль в город {zone:1454} у башни на западной стороне лагеря."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
@@ -249,6 +250,7 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Огры из клана Мош'Огг стоят лагерем на холмах чуть восточнее места {object:3202}, по пути назад. Убейте 10 громил и 5 знахарей (36-37); выманивайте по одному.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Тенебрюхие пантеры (37-38) крадутся по джунглям к востоку от холмов Мош'Огг и на северо-восток к озеру; они нападают из невидимости. Собирайте по пути каждую страницу «Зеленых холмов».",
 	-- ["The camp by the river"] = "Лагерь у реки",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Следующий гайд садится на дирижабль в город {zone:1454} у башни на западной стороне лагеря.",
 	-- ["Venture Co. camp"] = "Лагерь Торговой компании",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
 	-- ["Zeppelin to {object:3202}"] = "Дирижабль: {object:3202}",

@@ -209,12 +209,13 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}：留給（forever/horde/40-50/01-stranglethorn-vale）",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}：留給（forever/horde/40-50/01-stranglethorn-vale）",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南會從營地西側的塔搭飛艇前往{zone:1454}。",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南會從營地西側的塔搭飛艇前往{zone:1454}。"
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "36級",
@@ -249,14 +250,17 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "莫什奧格巨魔在{object:3202}東邊不遠處的山丘上紮營，就在你回去的路上。擊殺10個莫什奧格蠻兵和5個莫什奧格巫醫（36-37級）；一次拉一隻。",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "深喉獵豹（37-38級）在莫什奧格山丘東邊以及往東北通往湖泊的叢林中潛行；牠們會從潛行中發動攻擊。沿途拾取你找到的每一頁荊棘谷的青山。",
 	-- ["The camp by the river"] = "河邊的營地",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南會從營地西側的塔搭飛艇前往{zone:1454}。",
 	-- ["Venture Co. camp"] = "風險投資公司營地",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "經過營地往西，晶背蜥蜴（34-35級）待在岩石上；再過去村子裡的每個血頂食人妖都可能掉落耳朵。\n營地西南方山頂上的37級猛虎{npc:729}先別打：他在這裡比你高兩級，40-50級荊棘谷指南會再回來處理他。\n小心：迅猛龍巢穴裡有幼年迅猛龍，你攻擊成年迅猛龍時牠們會加入戰鬥。",
 	-- ["Zeppelin to {object:3202}"] = "搭飛艇前往{object:3202}",
 	-- ["from {npc:4723}"] = "從{npc:4723}身上取得",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}，在{object:20691}裡",
+	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}：留給（forever/horde/40-50/01-stranglethorn-vale）",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}的商店在旅店東邊的建築裡；{npc:2498}在旅店的一樓，{npc:2496}、{npc:737}和{npc:773}在樓上的飛行管理員旁邊。",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}：柯茲爾的提箱在{area:37}，本指南稍後會去",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}：給{area:2240}的波茲克，大約43級前往{zone:1446}的途中",
+	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}：留給（forever/horde/40-50/01-stranglethorn-vale）",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}（38級）在{area:37}西岸的風險投資公司房屋內，周圍都是地質學家：他的鑰匙可以打開同一棟房屋裡的{object:20691}，裡面有給{npc:2496}的藍圖。小心：風險投資公司特工（39級）站在房屋內外：進去前先清掉門口。",
 	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦里營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}失蹤的獵人營地就是奈辛瓦里的營地：在帳篷之間走一走，調查就會完成。淡水鱷沿著營地下方的河邊趴著。",

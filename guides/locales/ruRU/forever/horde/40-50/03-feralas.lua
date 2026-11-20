@@ -24,7 +24,8 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, Волок",
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425}, around level 50"] = "для края {zone:1425}, примерно на 50-м уровне",
+	-- was: ["for the {zone:1425}, around level 50"] = "для края {zone:1425}, примерно на 50-м уровне"
+	["for the {zone:1425}, around level 49"] = "",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -46,25 +47,30 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425} owlbeasts, around level 48"] = "для совухов ({zone:1425}), примерно на 48-м уровне",
+	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "для совухов ({zone:1425}), примерно на 48-м уровне"
+	["for the {zone:1425} owlbeasts, around level 49"] = "",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "Летите сюда: {area:496}",
+	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+
+	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Распорядитель полетов: {area:1099}",
 
-	-- Step 9: Brackenwall Village
+	-- Step 10: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, под землей",
 
-	-- Step 10: Dustwallow Marsh
+	-- Step 11: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "{object:2555}",
 
-	-- Step 11: The Musty Scroll
+	-- Step 12: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "",
 	-- {object:2555} Musty Scroll
@@ -72,7 +78,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Внутри: {area:498}",
 
-	-- Step 12: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: убивайте их по пути",
 	-- {area:511} Wyrmbog
@@ -82,27 +88,27 @@ return {
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} ходит по месту {area:510}: ищите внутри круга на карте",
 	["Below ground"] = "Под землей",
 
-	-- Step 13: Brackenwall Village
+	-- Step 14: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Возвращайтесь на север в Гиблотопь.",
 
-	-- Step 14: Onyxia's eggs
+	-- Step 15: Onyxia's eggs
 	["Onyxia's eggs"] = "Яйца Ониксии",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Яйца Ониксии лежат в драконьих пещерах на юго-востоке ({area:511}) под охраной чешуйчатых губителей; разбейте пять.",
 
-	-- Step 15: Muckshell crabs
+	-- Step 16: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 16: Level 45.37
+	-- Step 17: Level 45.37
 	["Level 45.37"] = "Уровень 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "Для вызова ({npc:4500}) в Гиблотопи нужна группа из трех человек. В одиночку убивайте огнегривых разведчиков здесь, на северном краю ({area:511}), до уровня 45.37, прежде чем ехать обратно на север, чтобы не возвращаться сюда ради этого. Или, если есть группа, пройдите вместо этого подземелье {area:978}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "убивайте: {npc:4329}",
 
-	-- Step 17: Brackenwall Village
+	-- Step 18: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -110,7 +116,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 18: Challenge Overlord Mok'Morokk
+	-- Step 19: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
@@ -169,6 +175,8 @@ return {
 	-- ["for the {npc:5598} in the {zone:1425}, around level 48"] = "для персонажа {npc:5598} ({zone:1425}), примерно на 48-м уровне",
 	-- ["for the {object:2555} in {area:15}, later in this guide"] = "для предмета {object:2555} ({area:15}), позже в этом руководстве",
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "для предмета {object:2555} ({zone:1445}), позже в этом руководстве",
+	-- ["for the {zone:1425} owlbeasts, around level 48"] = "для совухов ({zone:1425}), примерно на 48-м уровне",
+	-- ["for the {zone:1425}, around level 50"] = "для края {zone:1425}, примерно на 50-м уровне",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: убивайте их по пути",
 	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: убивайте их по пути",
 	-- ["{area:496} flight master"] = "Распорядитель полетов: {area:496}",

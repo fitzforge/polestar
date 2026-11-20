@@ -188,8 +188,8 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} es un élite (nivel 42) en el campo de entrenamiento de la Horda al norte de {area:16743}, adonde va esta guía más adelante: se recomienda ir en grupo.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "el cartel de {object:707245}",
+	-- was: ["the {object:707245} poster"] = "el cartel de {object:707245}"
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -556,6 +556,7 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "La siguiente guía empieza en {zone:1418}, al sur de {zone:1432}: vuela a {area:144}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["the {object:707245} poster"] = "el cartel de {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino, al este del paso.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida la vieja catedral en la esquina suroeste de {area:16724}. Los murciélagos anidan en su piso superior; {npc:272437} reparte las velas sagradas a su lado; las tumbas están en el cementerio de la capilla.\n{npc:271742}, un élite de nivel 53, está en la catedral: no te ataca, así que nunca lo ataques y aleja a los murciélagos de él.",

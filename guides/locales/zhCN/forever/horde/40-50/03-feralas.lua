@@ -24,7 +24,8 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时",
+	-- was: ["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时"
+	["for the {zone:1425}, around level 49"] = "",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -46,25 +47,30 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时",
+	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时"
+	["for the {zone:1425} owlbeasts, around level 49"] = "",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "飞往{area:496}",
+	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+
+	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
-	-- Step 9: Brackenwall Village
+	-- Step 10: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}、{npc:4502}和{npc:4501}（在地下）都在村里；他们的任务目标在本次要去的{area:511}。",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}：在地下",
 
-	-- Step 10: Dustwallow Marsh
+	-- Step 11: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
 	["The {object:2555}"] = "{object:2555}",
 
-	-- Step 11: The Musty Scroll
+	-- Step 12: The Musty Scroll
 	-- {object:2555} Musty Scroll
 	["Ride south-west to the {object:2555}."] = "向西南骑行到{object:2555}处。",
 	-- {object:2555} Musty Scroll
@@ -72,7 +78,7 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "进入{area:498}内部",
 
-	-- Step 12: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
 	-- {area:511} Wyrmbog
@@ -81,27 +87,27 @@ return {
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 	["Below ground"] = "在地下",
 
-	-- Step 13: Brackenwall Village
+	-- Step 14: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",
 
-	-- Step 14: Onyxia's eggs
+	-- Step 15: Onyxia's eggs
 	["Onyxia's eggs"] = "奥妮克希亚的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 
-	-- Step 15: Muckshell crabs
+	-- Step 16: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 16: Level 45.37
+	-- Step 17: Level 45.37
 	["Level 45.37"] = "等级 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}地下城。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "击杀{npc:4329}刷经验",
 
-	-- Step 17: Brackenwall Village
+	-- Step 18: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -109,7 +115,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 18: Challenge Overlord Mok'Morokk
+	-- Step 19: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
 
@@ -175,6 +181,8 @@ return {
 	-- ["for the {npc:5598} in the {zone:1425}, around level 48"] = "交给{zone:1425}的{npc:5598}，大约48级时",
 	-- ["for the {object:2555} in {area:15}, later in this guide"] = "用于{area:15}的{object:2555}，在本指南稍后",
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "交给{zone:1445}的{object:2555}，在本指南稍后",
+	-- ["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时",
+	-- ["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时",
 	-- ["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "这些任务给的{item:8523}要保留，稍后在{area:976}完成“塔纳利斯的样本”时交还",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}：沿途遇到就击杀",

@@ -16,8 +16,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: los viales los sueltan los magos oscuros de la Hermandad camino a Durnholde",
-	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
+	-- was: ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
@@ -91,7 +91,7 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants"] = "{npc:2121}: los colgantes de {area:233}",
 
-	-- Step 13: Hadrec and Dalar Dawnweaver
+	-- Step 14: Hadrec and Dalar Dawnweaver
 	-- {npc:1938} Dalar Dawnweaver
 	["Hadrec and {npc:1938}"] = "Hadrec y {npc:1938}",
 	-- {area:236} Shadowfang Keep · {npc:1952} High Executor Hadrec · {npc:1938} Dalar Dawnweaver
@@ -99,77 +99,77 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, bajo tierra",
 
-	-- Step 14: Shadowfang Keep
+	-- Step 15: Shadowfang Keep
 	-- {area:236} Shadowfang Keep · {area:228} The Sepulcher · {area:204} Pyrewood Village · {npc:4444} Deathstalker Vincent · {quest:1098} Deathstalkers in Shadowfang · {npc:3886} Razorclaw the Butcher · {npc:3887} Baron Silverlaine · {npc:4278} Commander Springvale · {npc:4279} Odo the Blindwatcher · {npc:4274} Fenrus the Devourer · {npc:3927} Wolf Master Nandos · {npc:4275} Archmage Arugal · {npc:1938} Dalar Dawnweaver
 	["{area:236} is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the {area:228}: the keep stands on the hill above {area:204}, its gate at the top of the path.\nInside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and {npc:4444} lies just inside the courtyard, to the right: hand {quest:1098} in to him there. Then {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} and {npc:3927}; {npc:4275} at the top drops his head for {npc:1938}."] = "{area:236} es una mazmorra para un grupo de cinco, de nivel 20 a 30 más o menos, y un recorrido completo dura cerca de una hora. Sigue el camino al sur desde {area:228}: el castillo está en la colina encima de {area:204}, con su puerta en lo alto del sendero.\nAdentro: primero Rethilgore; el mortacechador que liberas de las celdas después de él abre la puerta del patio, y {npc:4444} yace justo dentro del patio, a la derecha: entrégale {quest:1098} ahí. Luego {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} y {npc:3927}; {npc:4275}, en lo alto, suelta su cabeza para {npc:1938}.",
 	-- {quest:1014} Arugal Must Die · {item:5442} Head of Arugal
 	["{quest:1014}: the {item:5442}"] = "{quest:1014}: {item:5442}",
 
-	-- Step 15: Dalar Dawnweaver
+	-- Step 16: Dalar Dawnweaver
 	-- {area:228} The Sepulcher · {npc:1938} Dalar Dawnweaver
 	["Back north up the road to the {area:228}: {npc:1938} stands just north of Allister."] = "De vuelta al norte por el camino hasta {area:228}: {npc:1938} está justo al norte de Allister.",
 
-	-- Step 16: Fly to the Undercity
+	-- Step 17: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "Sigue en vuelo desde {npc:2226}, el cuidador de murciélagos justo al este de la cripta, hasta {area:1497}.",
 
-	-- Step 17: Aelthalyste
+	-- Step 18: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
 	["{npc:4606} stands in the {object:36070}."] = "{npc:4606} está en {object:36070}.",
 
-	-- Step 18: The Undercity
+	-- Step 19: The Undercity
 	-- {zone:1458} Undercity
 	["Train and restock in the {zone:1458} before the zeppelin."] = "Entrena y reabastécete en {zone:1458} antes del zepelín.",
 
-	-- Step 19: Master Apothecary Faranell
+	-- Step 20: Master Apothecary Faranell
 	-- {item:280438} Abominable Head · {area:153} Ruins of Lordaeron
 	["The {item:280438} from the {area:153}: Faranell takes it here."] = "{item:280438} de {area:153}: Faranell la recibe aquí.",
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, en la botica real",
 
-	-- Step 20: Morbin Lightbane
+	-- Step 21: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {npc:266484} Morbin Lightbane · {object:36126} Royal Quarter
 	["Your {area:153} limbs: {npc:266484} stands in the {object:36126}, just past the Apothecarium."] = "Tus extremidades de {area:153}: {npc:266484} está en {object:36126}, justo pasando la botica real.",
 
-	-- Step 21: Oran Snakewrithe
+	-- Step 22: Oran Snakewrithe
 	-- {quest:95204} Crest of Lordaeron · {area:153} Ruins of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {quest:95204} from your {area:153} run: {npc:7825} takes it."] = "{quest:95204} de tu recorrido por {area:153}: {npc:7825} la recibe.",
 
-	-- Step 22: Archibald
+	-- Step 23: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:202} con {npc:11870} ({object:36070}, 10 de plata); las armas de dos manos hacen subir de nivel más rápido a un guerrero.",
 
-	-- Step 23: Archibald
+	-- Step 24: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende Armas de asta con {npc:11870} ({object:36070}, 1 de oro); las armas de dos manos hacen subir de nivel más rápido a un guerrero.",
 
-	-- Step 24: Archibald
+	-- Step 25: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "Ya que estás aquí: aprende {spell:202} con {npc:11870} ({object:36070}, 10 de plata); las armas de dos manos hacen subir de nivel más rápido a un paladín.",
 
-	-- Step 25: Archibald
+	-- Step 26: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Armas de asta con {npc:11870} ({object:36070}, 1 de oro); el arma cuerpo a cuerpo de un cazador vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
-	-- Step 26: Archibald
+	-- Step 27: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Ya que estás aquí: aprende Espadas con {npc:11870} ({object:36070}, 10 de plata); una espada en la mano principal hace subir de nivel a un pícaro de forma constante.",
 
-	-- Step 27: Trial of the Sea Lion
+	-- Step 28: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960}. Une las dos mitades del colgante en {area:2362}, en la orilla noroeste del lago, antes de ver a {npc:11802} en {area:2361}. {npc:11802} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: usa una mitad en {area:2362}",
 
-	-- Step 28: Aquatic Form
+	-- Step 29: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "Acepta {quest:31} de {npc:11802}, que está en el piso de arriba de su edificio. Luego {npc:11798}, en {area:2361}, lleva volando a los druidas a {area:1638}: {npc:3033} está en {area:1639}.",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798}, en {area:2361}, lleva volando a los druidas ahí",
 
-	-- Step 29: Back to the Crossroads
+	-- Step 30: Back to the Crossroads
 	["Back to the Crossroads"] = "De vuelta al Cruce",
 	-- {npc:3033} Turak Runetotem · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. {npc:3419}, in the {area:2197} under {area:1640}, takes Lydon's toxin if you carry it. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Entrena con {npc:3033}. {npc:3419}, en {area:2197} bajo {area:1640}, recibe la toxina de Lydon si la llevas. Antes de seguir volando, {npc:3024} y {npc:4721}, a poca distancia al este del maestro de jinetes del viento, te dan dos misiones que se hacen durante los recorridos de las próximas guías; luego vuela al Cruce, donde empieza la siguiente guía.",
@@ -181,15 +181,15 @@ return {
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, el frasco de las Hermanas Risueñas de {zone:1440}",
 
-	-- Step 30: Zeppelin to Orgrimmar
+	-- Step 31: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
-	-- Step 31: Orgrimmar
+	-- Step 32: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
-	-- Step 32: Orgrimmar
+	-- Step 33: Orgrimmar
 	["Train before you fly on: the next guide flies from here."] = "Entrena antes de seguir en vuelo: la siguiente guía vuela desde aquí.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -233,6 +233,7 @@ return {
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "El ayuntamiento está en el lado oeste de {area:287}. {npc:2335} (30) y {npc:2448} están dentro con el Registro de Trabalomas; la Proclamación de Trabalomas está clavada al lado. Los Consejeros recorren el pueblo.",
 	-- ["The western peak"] = "El pico oeste",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "La {area:288} está al sur del pueblo de {area:287}. Los Mineros trabajan en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo.",
+	-- ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "El cartel de {quest:567}: Kalaba con los campesinos, Wilkes en la herrería; el escribiente y el minero en la visita alrededor del nivel 30; adentro",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "El cartel de {quest:567}: sus objetivos aparecen en el camino",
 	-- ["Town hall"] = "Ayuntamiento",
