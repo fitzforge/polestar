@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, sobald sie dir begegnen",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Die beiden Wracks liegen in der Bucht westlich der Bucht der Goblins. Die Karten und Logbücher sind darin; die Edelsteine liegen um sie herum auf dem Meeresgrund. Naga der Säbelflossen schwimmen in der ganzen Bucht.",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}, unter Wasser",
 	-- {item:4492} Elven Gem
@@ -411,6 +411,7 @@ return {
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Die Trolle der Witherbark leben in den Hügeln südlich von {area:314}; Hexendoktoren der Witherbark stehen im Dorf, Schattenjäger der Witherbark bewachen das hintere Ende des Tals.",
 	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "Der Kurier geht mit zwei Wachen die Straße westlich von {area:314} entlang; lock sie von der Straße weg.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Die Folianten liegen in der zerstörten Burg westlich von {area:280}; Schattenmagier der Arguswacht halten die Ruinen.",
+	-- ["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Die beiden Wracks liegen in der Bucht westlich der Bucht der Goblins. Die Karten und Logbücher sind darin; die Edelsteine liegen um sie herum auf dem Meeresgrund. Naga der Säbelflossen schwimmen in der ganzen Bucht.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "Die zerstörte Karawane liegt abseits der Straße nahe Biggs.",
 	-- ["The wrecks"] = "Die Wracks",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Geh zurück auf den Übergang: Ebenezer liegt unter dessen Ende im Arathihochland.",

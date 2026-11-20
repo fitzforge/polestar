@@ -71,6 +71,10 @@ return {
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues, Watchmen and Shadow Mages hold the camps along the way; the Shadow Mages carry Lydon's Vials of Innocent Blood."] = "Drull y {npc:2238} están encadenados en los edificios del patio de {area:275}. Sus candados necesitan llaves: {npc:2427} lleva la {item:3467} y {npc:2428}, la {item:3499}, ambos en la fortaleza. Mátalos y luego abre ambos candados.\nDesde {area:272} ve al sureste por las colinas camino a {area:275}. Pícaros, Veladores y magos oscuros ocupan los campamentos del camino; los magos oscuros llevan los Viales de sangre inocente de Lydon.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} da vueltas por aquí: búscalo dentro del círculo del mapa",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	["Drull's ball and chain"] = "Bola y cadena de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola y cadena de {npc:2238}",

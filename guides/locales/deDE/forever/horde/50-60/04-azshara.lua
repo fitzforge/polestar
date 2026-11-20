@@ -23,100 +23,94 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "Das gereinigte Wasser geht zum {area:2479} im {zone:1448}: Behalte es für später.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Kisten von {npc:256386}",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Reite die Straße nach Norden zum Wegekreuz; dort steht {npc:256386}. Öffne jede Kiste, die sie dir gibt, und bring zurück, was darin ist. Flieg vom Wegekreuz weiter nach {area:1237}."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
-	["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: Behalte sie für {zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010} arbeitet in der Gasse.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Im {object:172961}. Jede Spende nimmt sechzig Wolle, Seide oder Magiestoff aus deinen Taschen: Gib ab, was du dabeihast, den Rest überspringe.",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Im {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Beide Spenden von {item:14047} gibst du später auf der Route ab: Spar dir sechzig {item:14047} für jede, wenn du sie willst.",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; in {zone:1454} gibt es keinen Paladin-Lehrer",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "Flieg nach {zone:1454} und lerne bei den Lehrern.",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "Nach {zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
-	-- Step 16: Chemist Cuely
+	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} und {npc:8393} arbeiten im Apothecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, neben ihm",
 
-	-- Step 17: Andron Gant
+	-- Step 16: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522} steht im {object:36073}.",
 
-	-- Step 18: The Undercity
+	-- Step 17: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "Fürstin Sylvanas ist im {object:36126}.",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 20: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, in der Nähe",
 
-	-- Step 22: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} geht zurück zu {npc:10778} in den {zone:1422}: Behalte sie.",
 
-	-- Step 23: Royal Quarter
+	-- Step 22: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Nur mit {quest:79095} aus dem Alchemieladen von {area:159} in deinen Taschen (der Guide Bibliotheksbücher)",
 
-	-- Step 25: The Bulwark
+	-- Step 24: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Reite von {zone:1458} die Straße nach Osten; {area:152} bewacht den Weg nach {zone:1422}.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: Die Termiten sind in {area:2627}, im nächsten Guide",
 
-	-- Step 27: Felstone Field
+	-- Step 26: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. Jabbering Ghouls auf der Farm tragen die andere Hälfte ihres Amuletts; {npc:11075} bewacht den Kessel auf dem Feld.\nVorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Cauldron Lords angreifen.",
 
-	-- Step 28: Janice Felstone
+	-- Step 27: Janice Felstone
 	["Upstairs"] = "Oben",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -124,6 +118,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "Zurück nach Nordwesten zu {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Zurück zum Sin'dorei-Folianten: Gib die Siegel ab und benutze ihn dann, um {npc:8578} zu rufen.\nVorsicht: Welcher Kristall mit Rimtori verbunden ist, ist zufällig. Jeder der beiden anderen beschwört stattdessen eine feindliche Höllenbestie.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Beide Spenden von {item:14047} gibst du später auf der Route ab: Fang an, {item:14047} zu sammeln.",
+	-- ["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Jeder der drei Offiziere des Lagers (53) trägt ein Siegel: {npc:247006} in der Mitte des Lagers, {npc:247013} an seinem Ostende und {npc:246991}, der die Westhälfte abläuft: Greif ihn auf der Ostseite seines Wegs an, wo der Pfeil hinzeigt.\nVorsicht: {npc:250023}, ein Elite der Stufe 55-57, steht am Westrand des Lagers, nahe dem anderen Ende von Hawkhelms Weg: Warte, bis Hawkhelm wieder nach Osten kommt.",
 	-- ["Fly to the {area:380}"] = "Flieg nach {area:380}",
 	-- ["Fly to {area:1237}"] = "Flieg nach {area:1237}",
@@ -164,6 +159,7 @@ return {
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, die Satyrn nördlich des Blutelfenlagers",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, ein Zauberstab von den Arkanisten der Blutelfen",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} steht in {area:380}. Öffne jede Kiste, die sie dir gibt, und bring zurück, was darin ist.",
+	-- ["{npc:256386}'s crates"] = "Kisten von {npc:256386}",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- ["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}, {object:172958}: vom ersten Besuch in {zone:1447} mitgebracht, sonst nimm sie hier an, für {npc:8576} in {area:1237}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, für {npc:4485} in {zone:1454}",

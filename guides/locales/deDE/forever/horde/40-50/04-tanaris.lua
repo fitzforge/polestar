@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "für {npc:5204} in {zone:1458}, ungefähr auf Stufe 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "für {npc:7010} in {zone:1454}, etwa auf Stufe 50",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "das {object:173265}",
 
@@ -231,6 +234,7 @@ return {
 	-- ["Fly to {area:392}"] = "Flieg nach {area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "Vom Flugmeister in {area:35}, oberhalb des Hafens.",
 	-- ["From {area:1099}'s flight master."] = "Vom Flugmeister in {area:1099}.",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Baus der Centipaar.",
 	-- ["Greater Lava Spiders"] = "Große Lavaspinnen",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Schwere Kriegsgolems patrouillieren im Kessel unter Kalaran und lassen das Öl fallen; die Magmaelementare und Lodernden Elementare zwischen ihnen lassen die Herzen fallen. Die Zuchtmeister und Sklavenhändler der Dunkeleisenzwerge treiben die Sklaven auf den Wegen an; ein Sklavenhändler kann {item:11818} fallen lassen: Behalte ihn.",

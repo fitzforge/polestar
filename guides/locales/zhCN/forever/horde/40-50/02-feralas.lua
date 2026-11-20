@@ -374,8 +374,9 @@ return {
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
 	-- Step 88: Gordunni Outpost
-	-- {npc:222233} Ohk'zi
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",
+	-- {npc:222233} Ohk'zi · {item:9466} Orwin's Shovel · {object:144064} Gordunni Dirt Mound
+	-- was: ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。"
+	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "",
 
 	-- Step 89: Woodpaw north camp
 	["Woodpaw north camp"] = "木爪北营地",
@@ -453,6 +454,7 @@ return {
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "疾风陆行鸟：{npc:265756}，在泽风岛的{area:16638}。",
 	-- ["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",
+	-- ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",
 	-- ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往薄雾谷东北的丛林：三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。赞吉尔的每个追随者都可能携带混合物。\n小心：赞吉尔巫医（44级）会施法，而且营地里怪很密：从边缘一只一只地拉。{npc:2534}（46级）本人站在南边营地39.6,58.6附近，离{npc:2537}的鬼魂只有几步：先把{npc:2537}向北或向东拉出来再打。",
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "仅当你有定位器时：机器人在{area:1105}北侧的一个小山洞里。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "从{area:1978}向西北骑回{area:75}，然后飞往{object:3202}。",

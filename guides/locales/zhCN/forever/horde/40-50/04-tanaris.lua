@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "交给{zone:1458}的{npc:5204}，大约52级时会去",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交给{zone:1454}的{npc:7010}，大约50级时",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。"
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -231,6 +234,7 @@ return {
 	-- ["Fly to {area:392}"] = "飞往{area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "从港口上方的{area:35}飞行管理员处出发。",
 	-- ["From {area:1099}'s flight master."] = "从{area:1099}的飞行管理员处出发。",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "再往南，初级勘察员谢申克的勘探设备在一个森提帕尔巢穴的入口处。",
 	-- ["Greater Lava Spiders"] = "灼热熔岩蜘蛛",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "重型作战傀儡在卡拉然下方的大熔炉里巡逻，掉落傀儡之油；在它们中间漂荡的熔岩元素和炽热元素掉落烈焰之心。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；黑铁奴隶贩子可能掉落{item:11818}：留着它。",

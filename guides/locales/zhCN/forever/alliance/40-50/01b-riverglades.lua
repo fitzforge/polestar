@@ -196,7 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "从{area:16724}向北，经过{area:16729}并过河，前往被暮光教派占据的农庄小镇{area:16723}；避开镇子东边的部落要塞{area:16743}。狗头人{npc:259158}躲在镇子中央，{npc:256831}在镇子东边，{npc:258697}在东北边缘的农场等你。",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
+	["{npc:259158}: {quest:94961}, in his cage"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "暮光教派",
@@ -210,6 +212,10 @@ return {
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}：仅当邪教徒掉落了日志时",
+
+	-- Step 42: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -371,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
 	["the middle ship"] = "中间的船",
@@ -558,6 +564,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。",
 	-- ["Level 44.4 on the Eastsea pirates"] = "在东海海盗身上升到44.4级",
+	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "从{area:16724}向北，经过{area:16729}并过河，前往被暮光教派占据的农庄小镇{area:16723}；避开镇子东边的部落要塞{area:16743}。狗头人{npc:259158}躲在镇子中央，{npc:256831}在镇子东边，{npc:258697}在东北边缘的农场等你。",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
 	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",

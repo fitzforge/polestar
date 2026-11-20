@@ -440,8 +440,9 @@ return {
 	-- Step 79: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "{area:432}：遇到就殺",
-	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遺忘者的營地位於{area:2358}南邊的森林裡。\n生鏽的箱子散落在被遺忘者西邊的暗影林熊怪營地周圍；開啟它們，直到其中一個藏有劍柄。\n小心：約28-30級的非精英被遺忘者守衛著營地。其中一些處於潛行狀態，桌子周圍的那幾個常常會一起引到。",
+	-- {area:2358} Forest Song · {object:19021} Rusty Chest
+	-- plural, as words: Rotting Slimes = {npc:3928} Rotting Slime
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRotting Slimes in and around the Barrow Den leave a {object:19021} when they die: open the chests until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
 	-- Step 80: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
@@ -695,6 +696,7 @@ return {
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "如果你把爐石綁在{area:2104}，就用爐石回到{area:150}，或沿道路往西走：{npc:2104}在{area:2103}頂樓，{npc:2094}在前往船的路上的碼頭邊。",
 	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "鐮顎龍門齒：出自{area:1038}旁的迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "從{npc:3987}的營地往南前往{area:415}：{npc:3691}在旅店裡，飛行管理員在西端。",
+	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遺忘者的營地位於{area:2358}南邊的森林裡。\n生鏽的箱子散落在被遺忘者西邊的暗影林熊怪營地周圍；開啟它們，直到其中一個藏有劍柄。\n小心：約28-30級的非精英被遺忘者守衛著營地。其中一些處於潛行狀態，桌子周圍的那幾個常常會一起引到。",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船長在沉船的甲板上走動；他的保險箱在貨艙裡。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "文物就在挖掘場裡。{npc:1353}是一隻大型刺喉龍，在挖掘場西邊的迅猛龍山谷徘徊。\n戈阿茲守衛者（精英，32級）站在文物和{object:331}之間：一次拉一隻出來，或繞開牠們。",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}站在那裡。",
