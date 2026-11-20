@@ -1829,20 +1829,21 @@ function Buttons.QuestPingLine()
 end
 
 -- The macro for names, tried from names[preferred] on in click order. Out of
--- combat it starts from nothing ("/cleartarget [nocombat]"), so a target that
--- is none of the names -- a mob clicked by hand, the quest giver just turned
--- in to -- cannot stop the chain, and a press that finds no name marks
--- nothing; in a fight the target is left alone, since clearing it would cut
--- melee swings and Auto Shot. A plain /targetexact takes the nearest match,
+-- combat (or when the target is dead) it starts from nothing
+-- ("/cleartarget [nocombat][dead]"), so a target that is none of the names --
+-- a mob clicked by hand, the quest giver just turned in to -- or a corpse from
+-- the last kill cannot stop the chain, and a press that finds no name marks
+-- nothing; in a fight a living target is left alone, since clearing it would
+-- cut melee swings and Auto Shot. A plain /targetexact takes the nearest match,
 -- corpse or not, so each line is followed by "/cleartarget [dead]", and every
 -- later name is tried only while nothing is targeted ("[noexists]"): the
 -- first living match is kept. A name that is not MacroSafeName never becomes
 -- a line. ping: a /ping line (Buttons.PingLine) after the names; mark: a /tm
 -- line (Buttons.MarkLine) for the end. Names past MACRO_LIMIT are dropped
 -- from the end; the preferred name, the ping and the mark stay. keep: no
--- "/cleartarget [nocombat]", for a press on a living unit of the preferred
--- name (Buttons.WireCycle): /targetexact then moves on to the next unit of
--- that name.
+-- "/cleartarget [nocombat][dead]", for a press on a living unit of the
+-- preferred name (Buttons.WireCycle): /targetexact then moves on to the next
+-- unit of that name.
 function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 	local n = #list
 	if n == 0 then return nil end
@@ -1857,7 +1858,7 @@ function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 	local text
 	repeat
 		local lines = {}
-		if not keep then lines[1] = "/cleartarget [nocombat]" end
+		if not keep then lines[1] = "/cleartarget [nocombat][dead]" end
 		for k = 1, count do
 			lines[#lines + 1] = (k == 1 and "/targetexact " or "/targetexact [noexists] ") .. order[k]
 			lines[#lines + 1] = "/cleartarget [dead]"
@@ -1935,7 +1936,7 @@ end
 -- Repeated presses go from mob to mob (a player on Discord, 2026-11-17: the
 -- first one was already tagged). /targetexact moves on to the next unit of a
 -- name only while the target already has that name, and every macro opens
--- with "/cleartarget [nocombat]", so out of combat each press took the
+-- with "/cleartarget [nocombat][dead]", so out of combat each press took the
 -- nearest one again. The index in list of the target's name while the target
 -- is a living unit, else nil: a corpse, a unit of another name or no target
 -- keeps the clear. (Fields, not locals: the file is at Lua's local limit.)
@@ -1967,10 +1968,10 @@ end
 -- target and starts from its name (TargetMacro's keep), so the press takes
 -- the next one of that name; the corpse lines, the other names, the ping and
 -- the mark stay. PostClick puts the applied macro back. In a fight nothing
--- changes: macros cannot, and the clear is "[nocombat]" anyway. While a
--- press is cycled, b.pressedKind and b.pressedMixed are its macro's (the
--- target list's rows mark by them). attr: the macro's attribute
--- ("macrotext", or "macrotext1" for a left click only).
+-- changes: macros cannot, and the clear is "[nocombat][dead]" anyway (a living
+-- target stays). While a press is cycled, b.pressedKind and b.pressedMixed are
+-- its macro's (the target list's rows mark by them). attr: the macro's
+-- attribute ("macrotext", or "macrotext1" for a left click only).
 function Buttons.WireCycle(b, attr)
 	attr = attr or "macrotext"
 	b:HookScript("PreClick", function(self)
