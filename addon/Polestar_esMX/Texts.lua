@@ -7184,6 +7184,7 @@ t.guides["forever/horde/30-40/04-dustwallow-marsh"] = (function() return {
 		["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 		["Drywallow Crocolisks"] = "Crocoliscos secorrones",
 		["East along the road to {area:597}; {npc:5412} stands beside {npc:5395}."] = "Al este por el camino hasta {area:597}; {npc:5412} está junto a {npc:5395}.",
+		["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "Todas las arañas Colmiumbrío las sueltan: Rondadores, Arañas, Escupetósigos y Arañas Colmiumbrío gigantes",
 		["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Vuela de {area:2408} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde allí, sigue volando a {zone:1454}.",
 		["Fly to the Crossroads"] = "Vuela al Cruce",
 		["Fly to {area:1637}"] = "Vuela a {area:1637}",
