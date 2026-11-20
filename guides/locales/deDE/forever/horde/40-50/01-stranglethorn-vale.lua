@@ -90,17 +90,17 @@ return {
 
 	-- Step 17: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "Schattentatzenpanther",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192} ist noch offen: Die Schattentatzenpanther (37-38) pirschen durch den Dschungel nördlich der Mine, Richtung Mosh'Ogg-Hügel. Sie benutzen Schleichen, sodass sie nur erscheinen, wenn du nah bist: Zieh sie einzeln und lass die Alten Schattentatzenpanther (42-43) in Ruhe.",
 
 	-- Step 19: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Lashtail-Raptoren",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195} ist noch offen: Die Schmetterschwänze (35-36) jagen im Dschungel zwischen {object:3202} und Nesingwarys Lager, auf dem Weg nach Norden.",
 
 	-- Step 20: Nesingwary's camp
 	["Nesingwary's camp"] = "Lager von Nesingwary",

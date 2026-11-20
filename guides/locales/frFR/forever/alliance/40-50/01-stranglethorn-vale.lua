@@ -261,7 +261,7 @@ return {
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, sur les Lieutenants (ou les Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
 	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, dans la caisse de ravitaillement au fond de la grotte",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de retour à sa cage en sortant",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
