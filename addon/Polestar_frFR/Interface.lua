@@ -356,6 +356,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar est en pause : la flèche suit de nouveau le guide dès que vous quittez le donjon en vie, ou après /polestar resume."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Les derniers pas ici ne sont pas cartographiés"
 L["Search here"] = "Cherchez ici"
 L["Arrived"] = "Arrivé"
 L["Click the arrow for the next spot"] = "Cliquez sur la flèche pour le point suivant"
@@ -442,7 +443,8 @@ L["Walk to the entrance"] = "Marchez jusqu'à l'entrée"
 L["Walk to the lift"] = "Marchez jusqu'à l'ascenseur"
 L["%s, Top"] = "%s, en haut"
 L["%s, Bottom"] = "%s, en bas"
-L["No route: walk straight to the target."] = "Pas d'itinéraire : allez droit sur la cible."
+L["No safe walking route"] = "Aucun itinéraire sûr à pied"
+L["Finding a walking route"] = "Recherche d’un itinéraire à pied"
 L["Show the travel route to the current target"] = "Afficher l'itinéraire vers la cible actuelle"
 L["Hostile town: %s"] = "Ville hostile : %s"
 L["Ride the elevator up"] = "Prendre l'ascenseur pour monter"
