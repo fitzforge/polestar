@@ -12262,6 +12262,12 @@
 				"q": 8313,
 				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Sharing the Knowledge (Cooking 285): the cookbook's page back to Calandrath on 06's second Cenarion Hold stop.",
 				"issue": "-"
+			},
+			{
+				"q": 3378,
+				"after": ["turnin", 3377],
+				"reason": "#2915 (Soggy): Prayer to Elune's second part (5,900 XP), taken from Zamael Lunthistle right after the first part's hand-in, under the same group choice (when group 3377). Its page drops from the Twilight elites of his camp (Dark Shamans, Fire Guards, Geomancers and Idolaters, about one in five), so the group gets it on the same run, and Astarii Starseeker takes it on the 50-60 Felwood guide's Darnassus stop, which walks through the Temple of the Moon anyway. Left out, the guide suggested abandoning it after the group's first part.",
+				"issue": "#2915"
 			}
 		],
 		"skip": [

@@ -18369,3 +18369,19 @@ test('forever/alliance/03-loch-modan.guide: the Banner of Ironforge is raised be
 	assert.ok(banner < kill && list[banner].s === list[kill].s, 'the banner before the kill, same step');
 	assert.equal(list[banner].goal.quest, 86585, 'bound to the quest, so it ticks with the kill');
 });
+
+// #2915 (Soggy, 0.4.1): a group that did the first Prayer to Elune got no step for its follow-up (3378, 5,900 XP), and
+// the guide then suggested dropping it. The follow-up is taken from Zamael under the same group choice, its page comes from
+// the camp's Twilight elites on the same run, and Astarii Starseeker takes it on the Felwood guide's Darnassus stop.
+test('Alliance: Prayer to Elune\'s second part is taken under the group choice and handed in on a later guide (#2915)', { skip }, () => {
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const first = sg[at(sg, 'turnin 3377', is('turnin', 3377))];
+	const take = sg[at(sg, 'accept 3378', is('accept', 3378))];
+	assert.ok(take.s >= first.s && (take.step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(3377)), 'accepted after 3377 under the same group choice');
+	const page = sg[at(sg, 'the Prayer to Elune page', (g) => g.t === 'collect' && g.item === 10458 && g.quest === 3378)];
+	assert.ok(page.s > take.s && (page.step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(3377)), 'the page on the same group run');
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	const hand = fw[at(fw, 'turnin 3378', is('turnin', 3378))];
+	assert.equal(hand.goal.npc, 4090, 'Astarii Starseeker takes it');
+	assert.ok(whenQuestOf(hand.step, ['complete'], 3378), 'only once the page is in the bags');
+});

@@ -222,6 +222,11 @@ step The Temple Gardens
   use 11682 quest 4441.1 @39.2,85.6 map 1457
   collect 5646 quest 4441.1 @39.2,85.6 map 1457 -- Vial of Blessed Water
 
+step Astarii Starseeker
+  when complete 3378
+  zone Darnassus
+  turnin 3378                         -- Astarii Starseeker, in the Temple of the Moon: Prayer to Elune, from the Searing Gorge
+
 step Gracina Spiritmight
   when onquest 162
   zone Darnassus

@@ -90,6 +90,13 @@ step Prayer to Elune
 step Zamael Lunthistle
   when group 3377
   turnin 3377
+  accept 3378
+
+step Prayer to Elune: the page
+  when group 3377
+  when onquest 3378
+  tip The Twilight elites of Zamael's camp drop the Prayer to Elune page, about one in five: keep the group together here until one drops.
+  collect 10458 quest 3378.1 @29.6,26.3 map 1427 group 4
 
 step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
