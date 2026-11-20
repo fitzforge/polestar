@@ -87,13 +87,15 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # ---------------------------------------------------------------- To Orgrimmar
 
 step Camp Taurajo flight master
+  when turnedin 1153
   zone The Barrens
+  tip Coming from the Thousand Needles guide, you stand beside Camp Taurajo's flight master: this guide flies on from here.
   goto 44.4,59.1 "Camp Taurajo flight master"
 
 step Ratchet
   only Shaman
   zone The Barrens
-  tip Fly from Camp Taurajo to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
+  tip Fly to Ratchet (from Camp Taurajo if you come from the Thousand Needles guide, else from the flight master nearest you). Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
   fly "Ratchet"
   turnin 220 reward 6637              -- Islen Waterseer: your Water Sapta, for the brazier
   accept 63
@@ -107,6 +109,7 @@ step Fly to the Crossroads
 step Fly to the Crossroads
   only !Shaman
   zone The Barrens
+  tip Fly to the Crossroads: from Camp Taurajo if you come from the Thousand Needles guide, else from the flight master nearest you.
   fly "Crossroads"
 
 step Korran
