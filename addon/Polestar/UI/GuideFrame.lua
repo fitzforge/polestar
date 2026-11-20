@@ -1141,8 +1141,10 @@ GF.Part(function(GF)
 		end
 
 		-- Keep the current goal in sight: from the top for a new focus, else
-		-- scrolled just far enough to show its row whole.
-		function followCurrent(top)
+		-- scrolled just far enough to show its row whole. opened: the key of a
+		-- summary line just opened ("Then: …"); its line and the goals under it
+		-- come into sight instead, the line kept at the top when they do not fit.
+		function followCurrent(top, opened)
 			if not goals.psOver then
 				if goals:GetVerticalScroll() ~= 0 then W.ScrollTo(goals, 0) end
 				return
@@ -1152,6 +1154,20 @@ GF.Part(function(GF)
 				W.ScrollTo(goals, 0)
 			end
 			local to = goals:GetVerticalScroll()
+			for i = 1, opened and area.n or 0 do
+				local o = area.items[i]
+				if not o.psGoal and o.psKey == opened then
+					local y, h, viewH = itemTop(o), area.h[i], goals.psViewH
+					for j = i + 1, area.n do
+						if not area.items[j].psGoal then break end
+						h = h + area.h[j]
+					end
+					if y + h > to + viewH then to = y + h - viewH end
+					if y < to then to = y end
+					scrollTo(to, false)
+					return
+				end
+			end
 			for i = 1, area.n do
 				local o = area.items[i]
 				if o.psGoal and view and o.psGoal.index == view.current and not o.psFold then
@@ -1216,7 +1232,7 @@ GF.Part(function(GF)
 			else
 				model.open[key] = (not model.open[key]) or nil
 			end
-			GF.Refill()
+			GF.Refill(key ~= "done" and model.open[key] and key or nil)
 		end
 
 		local function lineEnter(self)
@@ -2852,7 +2868,8 @@ GF.Part(function(GF)
 	end
 
 	-- The card again from the view it shows: a summary line opened or closed,
-	-- a fold that landed.
+	-- a fold that landed. opened: the key of the line just opened, brought
+	-- into sight with its goals.
 	-- The off-route line's ×: closes it until more quests are off the route.
 	function GF.DismissOffRoute()
 		local off = model and model.offRoute
@@ -2860,11 +2877,11 @@ GF.Part(function(GF)
 		GF.Refill()
 	end
 
-	function GF.Refill()
+	function GF.Refill(opened)
 		if not F or state ~= "steps" or not view then return end
 		fillCard(true)
 		GF.Layout()
-		followCurrent(false)
+		followCurrent(false, opened)
 	end
 
 	-- QUEST_TIMER (Quests/Timed.lua, each second a quest's timer runs): the
