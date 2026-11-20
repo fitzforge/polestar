@@ -106,6 +106,25 @@ step Egan
   tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
   turnin 5281
 
+step Nathanos's bats
+  when level>=55
+  when level<56
+  when onquest 6042
+  tip East of Terrordale, the Noxious Plaguebats (54-56) count for Nathanos. Take the ones in the open fields; leave the Monstrous Plaguebats near Northdale for later.
+  kill 8601 quest 6042.1 @49.5,43.4 map 1423 live
+
+step Before Northdale
+  when level<55.96
+  tip The next hunt is too high. At 55, if you still have Blood Tinged Skies or Carrion Grubbage, the ordinary Plaguebats and Carrion Grubs on the western hills count for Tirion. No need to stay and farm bats. Resume at 56 on the road east from Terrordale for the Northdale hunt.
+  level 56
+
+step Level 56
+  when level>=55.96
+  when level<56
+  tip Almost 56? The Noxious Plaguebats (54-56) in the open fields east of Terrordale can finish the level. If you'd rather quest, other XP counts too; a group can also run Lower Blackrock Spire.
+  goto 49.5,43.4 map 1423 "Noxious Plaguebat" live
+  level 56 grind 8601
+
 # ---------------------------------------------------------------- The north
 
 step Quel'Lithien Lodge
@@ -121,6 +140,7 @@ step Infiltrator Hameya
   collect 15767 quest 6024
 
 step Northdale
+  when level>=56
   tip Frenzied Plaguehounds and Monstrous Plaguebats share the fields around Northdale and Eastwall Tower, south of Zul'Mashar.
   tip Still 56? Take level 57 hounds and level 56-57 bats; leave the level 58s.
   kill 8598 quest 5542.3

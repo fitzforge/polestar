@@ -186,6 +186,24 @@ step Prate Cloudseer
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
 
+step Jandia
+  when complete 98070
+  turnin 98070
+
+step Jandia
+  when complete 98069
+  turnin 98069
+
+step Jandia
+  when level>=29
+  when available 98070
+  accept 98070
+
+step Jandia
+  when level>=29
+  when available 98069
+  accept 98069
+
 step Dorn Plainstalker
   when !turnedin 1149
   zone Thousand Needles
@@ -197,35 +215,55 @@ step Dorn Plainstalker
   turnin 1149                         -- Dorn Plainstalker
 
 step Dorn Plainstalker
-  zone Thousand Needles
-  tip Dorn Plainstalker waits on the mesa just north-east of Freewind Post, across the rope bridges.
-  accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
-
-step Jandia
-  zone Thousand Needles
-  tip Jandia, the trade supplies vendor, stands inside Freewind Post's inn.
-  accept 98070                        -- Jandia: the Screeching harpies of Roguefeather Den
-  accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-
-step The Screeching Canyon: kill these as you meet them
-  zone Thousand Needles
-  tip West of Freewind Post, below Darkcloud Pinnacle, the harpies of Roguefeather Den (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her, for Dorn's claw.
-  kill 4101 quest 98070.2
-  kill 4104 quest 98070.3
-  kill 4100 quest 98070.1
-  collect 279383 x8 quest 98069 @27.0,51.9 map 1441 -- Stolen Freewind Supplies, on the ground around the den
-  collect 5843 quest 1150             -- Grenka's Claw, from Grenka Bloodscreech
-
-step Jandia
-  zone Thousand Needles
-  tip Back east to Freewind Post.
-  turnin 98070                        -- Jandia, inside the inn
-  turnin 98069                        -- Jandia, inside the inn
+  when complete 1150
+  turnin 1150
 
 step Dorn Plainstalker
+  when level>=29
+  when !onquest 1150
+  when !turnedin 1150
+  when group 1150
+  tip Test of Endurance starts a fight deep in the den. Take it if you plan to face Grenka with a group.
+  accept 1150
+
+step Screeching harpies
+  when level>=30
+  when onquest 98070
+  when !complete 98070
   zone Thousand Needles
-  tip Back across to Dorn's mesa north-east of the post, then take the lift down to the canyon floor. Dorn's next test, Rok'Alim the Pounder, is an elite: leave it.
-  turnin 1150                         -- Dorn Plainstalker
+  tip Pull the harpies along the cliff below Roguefeather Den. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of Jandia's supplies you still need along the way. Leave the Harpy Foodstuffs alone: they call Grenka.
+  kill 4100 quest 98070.1 @27.59,48.92 map 1441 era
+  kill 4101 quest 98070.2 @27.35,51.0 map 1441 era
+  kill 4104 quest 98070.3 @26.72,52.1 map 1441 era
+
+step Stolen Freewind Supplies
+  when level>=30
+  when onquest 98069
+  when !complete 98069
+  zone Thousand Needles
+  tip Look for Stolen Freewind Supplies at the foot of the cliff. The Harpy Foodstuffs inside the cave are not Jandia's supplies.
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441
+
+step Harpy Foodstuffs
+  when level>=30
+  when onquest 1150
+  when !complete 1150
+  when group 1150
+  zone Thousand Needles
+  tip Clear the back of Roguefeather Den with your group. Break the Harpy Foodstuffs and stay together for the ambush. Kill Grenka Bloodscreech (31) when she comes, then loot her claw before the harpies return.
+  collect 5843 quest 1150 @25.85,54.78 map 1441 era -- Grenka's Claw, at the Harpy Foodstuffs
+
+step Jandia
+  when complete 98070
+  turnin 98070
+
+step Jandia
+  when complete 98069
+  turnin 98069
+
+step Dorn Plainstalker
+  when complete 1150
+  turnin 1150
 
 # ---------------------------------------------------------------- The Shimmering Flats
 
@@ -340,6 +378,47 @@ step Freewind Post
   tip Cliffwatcher Longhorn stands in the middle of the post, on the way to the flight master.
   accept 5361                         -- Cliffwatcher Longhorn: for Nataka Longhorn in Desolace, next
   vendor nearest
+
+# A character below 30 at the first landing has now passed the flats' level-32 stop.
+# Only unfinished jobs can lead back to the canyon. Ready rewards still pay at the post.
+step Screeching harpies
+  when level>=30
+  when onquest 98070
+  when !complete 98070
+  zone Thousand Needles
+  tip Pull the harpies along the cliff below Roguefeather Den. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of Jandia's supplies you still need along the way. Leave the Harpy Foodstuffs alone: they call Grenka.
+  kill 4100 quest 98070.1 @27.59,48.92 map 1441 era
+  kill 4101 quest 98070.2 @27.35,51.0 map 1441 era
+  kill 4104 quest 98070.3 @26.72,52.1 map 1441 era
+
+step Stolen Freewind Supplies
+  when level>=30
+  when onquest 98069
+  when !complete 98069
+  zone Thousand Needles
+  tip Look for Stolen Freewind Supplies at the foot of the cliff. The Harpy Foodstuffs inside the cave are not Jandia's supplies.
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441
+
+step Harpy Foodstuffs
+  when level>=30
+  when onquest 1150
+  when !complete 1150
+  when group 1150
+  zone Thousand Needles
+  tip Clear the back of Roguefeather Den with your group. Break the Harpy Foodstuffs and stay together for the ambush. Kill Grenka Bloodscreech (31) when she comes, then loot her claw before the harpies return.
+  collect 5843 quest 1150 @25.85,54.78 map 1441 era -- Grenka's Claw, at the Harpy Foodstuffs
+
+step Jandia
+  when complete 98070
+  turnin 98070
+
+step Jandia
+  when complete 98069
+  turnin 98069
+
+step Dorn Plainstalker
+  when complete 1150
+  turnin 1150
 
 step Fly to Sun Rock Retreat
   zone Thousand Needles

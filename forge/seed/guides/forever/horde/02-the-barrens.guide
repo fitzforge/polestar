@@ -206,6 +206,7 @@ step Thork's supply crates
   only Orc,Troll,Warrior,Shaman
   when group 5041
   when onquest 5041
+  tip The Flesheaters and Berserkers (18-19) are elites guarding the crates. Stay together and keep clear of the cave.
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
@@ -295,6 +296,7 @@ step Razormane camp
 step Thork's supply crates
   when group 5041
   when onquest 5041
+  tip The Flesheaters and Berserkers (18-19) are elites guarding the crates. Stay together and keep clear of the cave.
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Finish the Plainstrider Beaks

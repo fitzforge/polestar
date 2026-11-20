@@ -97,7 +97,7 @@ step Grom'gol
 # path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
 # the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->
 # Nesingwary -> tigers, panthers and the Venture Co. geologists ->
-# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors, Bloodscalp village and Zimmix
+# Nesingwary -> elder tigers (back to Ajeck first below 34) -> the basilisks, raptors, Bloodscalp village and Zimmix
 # at Zul'Kunda -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol
 # (top-up to 35 if needed) -> the Vile Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
 # the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
@@ -179,19 +179,20 @@ step Elder Stranglethorn Tigers
   kill 1085 quest 187
 
 step Nesingwary's camp
+  when level<34
   tip Back north to the camp.
   turnin 187                          -- Ajeck Rouack
   accept 188                          -- Ajeck Rouack: Sin'Dall (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale
 
 step Thoroughly Scavenged Supplies
   zone Stranglethorn Vale
-  tip On the walk west from Nesingwary's camp, a pile of Thoroughly Scavenged Supplies lies by the path: it starts Anything of Value, whose Stolen Shipments lie in the Ruins of Zul'Kunda on the coast ahead.
+  tip The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near Zimmix.
   accept 97328 object 661516 @31.5,12.85 map 1434
 
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
-  tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
-  tip Leave Sin'Dall, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.
+  tip Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.
+  tip Leave Sin'Dall on the hilltop. Ajeck's hunt for him comes on the next Stranglethorn visit.
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   collect 3918 quest 605
   collect 1519 quest 189
@@ -210,6 +211,8 @@ step Zimmix Sputterspark
   note Escort Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
 
 step Nesingwary's camp
+  turnin 187                          -- Ajeck Rouack
+  accept 188                          -- Keep Sin'Dall for the next Stranglethorn visit.
   turnin 194                          -- Hemet Nesingwary
   accept 195
 

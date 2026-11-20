@@ -499,22 +499,15 @@ step Back through the port
   turnin 95260                          -- Argo Brinewhistle
   accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms grow on the ridge west of the pirates
 
-step Beast Entrails as you go
-  along until argo
-  background
-  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
-  tip Careful: Old Rot-Chum (elite, 42) wanders the shore and Ghostmaw (elite, 42) the river: take your beasts away from them.
-  collect 268632 x15 quest 95261.1      -- Beast Entrails
-
 step The crawlers and Trapclaw
   tip North along the beach from the docks: the crawlers drop the meat for Fimbo, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.
   collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
   collect 268586 quest 95254.1          -- Trapclaw's Pincer
+  collect 268632 x15 quest 95261.1 optional -- Keep entrails from these crawlers; the later ridge and beach finish any missing ones.
 
 step Before the Eastsea camp
   when level<42
-  tip The first Eastsea camp has level 43 musketeers. If you still need experience, finish your quests at Rog'mar or in Stranglethorn, or hunt the level 39-40 Shore Crawlers here. Keep clear of Gul'gash. A dungeon with a group is another way to reach 42.
-  goto 78.9,52.7 "Shore Crawlers"
+  tip The Eastsea Musketeers reach 43. Leave the camp for now. At 40 or 41, if Raptor Mastery is still in your log, the Jungle Stalkers west of the Venture Co. mine in Stranglethorn are 40-41. At 42 resume on the beach north of Powderfuse Port for the buccaneers and musketeers.
   level 42
 
 step The Eastsea pirates
@@ -538,43 +531,26 @@ step Wharfmaster Whizzbuzz
   when onquest 95120
   turnin 95120
 
-step Argo's mushrooms and entrails
-  when level<44
-  when onquest 95261
-  when !complete 95261
-  tip Before taking on the level 45 raiders, finish Argo's errand. Take the inland road towards Na'zok; the mushrooms grow among the rocks by the Twilight ogres. Gather entrails from the paletusks there or the shore crawlers on your way back. Stay off the raiders' slopes.
-  collect 268664 x8 quest 95261.2 @74.5,27.2
-  collect 268632 x15 quest 95261.1 @78.7,49.8
-
 step Argo Brinewhistle
   when level<44
   when complete 95261
   turnin 95261
-
-step Argo Brinewhistle
-  when level<44
-  when turnedin 95261
-  when !onquest 95267
-  when !turnedin 95267
-  accept 95267                         -- The Monster Surfaces
-
-step The bait in the shallows
-  when level>=41
-  when level<44
-  when onquest 95267
-  when !complete 95267
-  tip Take Argo's bait to the shallows south-west of the port and use it to lure the level 42 Monstrous Threshadon. Give Old Rot-Chum, the elite on the shore, a wide berth.
-  collect 268633 quest 95267.1
 
 step Back to Argo
   when level<44
   when complete 95267
   turnin 95267
 
+step Beast Entrails as you go
+  along until argo
+  background
+  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
+  tip Careful: Old Rot-Chum (elite, 42) wanders the shore and Ghostmaw (elite, 42) the river: take your beasts away from them.
+  collect 268632 x15 quest 95261.1      -- Beast Entrails
+
 step Before the raiders
   when level<44
-  tip The Eastsea Raiders and Admiral Lamora reach level 45. Finish any Stranglethorn or Swamp errands you left, run a dungeon with a group, or finish the level on the Eastsea Buccaneers and Musketeers (41-43) at the edge of the camp. Avoid Gul'gash on the cliffs.
-  goto 81.7,45.4 "Eastsea Buccaneers"
+  tip The raiders and Admiral Lamora reach 45. Pause here at Wharfmaster Whizzbuzz on the north pier. At 42-43, if you still have Keep An Eye Out or Up to Snuff, the pirates on the Wild Shore south of Booty Bay count; stay on the beach, not the ships. If those are already done, don't make that trip. At 44 resume here for the raiders on the cliffs. You don't need to farm the first camp.
   level 44
 
 step The pirates' second wave

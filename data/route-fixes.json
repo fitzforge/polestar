@@ -4522,6 +4522,18 @@
 			},
 			{
 				"a": [
+					"task",
+					97331
+				],
+				"b": [
+					"turnin",
+					194
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40: escort Zimmix on the coast before returning to Hemet. From 34, Ajeck takes the elder tigers on that same visit; a lower-level hunter can still collect that reward before the coast's level 34-35 trolls and basilisks."
+			},
+			{
+				"a": [
 					"turnin",
 					570
 				],
@@ -6254,27 +6266,27 @@
 			},
 			{
 				"a": [
-					"accept",
-					1146
+					"turnin",
+					4770
 				],
 				"b": [
 					"task",
 					98070
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Stop the Screeching (98070, level 30) was worked at 29 at the end of 07-ashenvale, where Grenka Bloodscreech (31) and a camp of 30s with recorded deaths stood over the players. Its harpies are worked on 30-40/02's first Freewind Post landing at 31-33, after the Hillsbrad guide (Belgrom's 1146 in Orgrimmar); Jandia gives it on 07's last Freewind stop, where the route stands beside her."
+				"why": "From 30, the return from Whitereach passes the Screeching Canyon on the way to Freewind. Do Jandia's harpy work on that walk, not before Highperch."
 			},
 			{
 				"a": [
+					"turnin",
+					1149
+				],
+				"b": [
 					"accept",
 					1150
 				],
-				"b": [
-					"task",
-					98070
-				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Test of Endurance (1150, level 30) wants Grenka Bloodscreech's claw, and Grenka (31) walks among Jandia's harpies in Roguefeather Den: Dorn Plainstalker's mesa is taken on the way out of Freewind Post before the den, and Dorn takes the claw on the way east to the lift."
+				"why": "Dorn offers the fight at the Harpy Foodstuffs after Test of Faith. His group errand is independent of Jandia's work outside."
 			},
 			{
 				"a": [
@@ -6409,6 +6421,12 @@
 				"why": "#2419: with Booty Bay first, Supply and Demand (575) is in the log on the first Nesingwary stop, and its River Crocolisks (30-31) swim the river beside the camp: the skins come there, not on a step of their own between the coast and the hearth back."
 			},
 			{
+				"a": ["accept", 4300],
+				"b": ["accept", 5535],
+				"faction": "Horde",
+				"why": "#3145: Jes'rimon offers Bone-Bladed Weapons on the first Orgrimmar visit, before Loh'atu's Azshara hunts. Take March of the Silithid on that visit too if Zilzibin offers it; there is no need to come back from Valormok for work already in the log."
+			},
+			{
 				"a": ["accept", 99411],
 				"b": ["task", 748],
 				"faction": "Horde",
@@ -6422,7 +6440,7 @@
 			}
 		],
 		"notes": [
-			"Horde Riverglades (#3145): before the level-45 pirates, visit Argo below 44 for whichever of his two quests the player actually holds. Hand in a ready quest without repeating its field work, and offer The Monster Surfaces if the first quest has been handed in. Stranglethorn: hand ready Partial Mystical Notes to Dudd on a scheduled Booty Bay visit; never collect them for this stop.",
+			"Horde Riverglades (#3145): show entrails with the crawlers without making players farm fifteen there. Take ready Argo hand-ins at Powderfuse Port before the level-45 pirates. Track missing entrails after this dock; finish them after the ridge mushrooms before returning to Argo. Leave the optional sea monster on the ordinary return to port. A lower-level character can quest elsewhere instead of farming the camp. Stranglethorn: hand ready Partial Mystical Notes to Dudd on a scheduled Booty Bay visit; never collect them for this stop.",
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
@@ -8329,6 +8347,18 @@
 			},
 			{
 				"a": [
+					"turnin",
+					6401
+				],
+				"b": [
+					"accept",
+					6301
+				],
+				"faction": "Horde",
+				"why": "On the first Sun Rock visit give Tammra Makaba's news at the bonfire before taking her seeds and leaving for Braelyn and the flight master."
+			},
+			{
+				"a": [
 					"accept",
 					6301
 				],
@@ -9965,13 +9995,23 @@
 				]
 			},
 			{
+				"q": 98070,
+				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles: Jandia offers the canyon harpies to new arrivals. Her two errands can be held or handed in independently.",
+				"issue": "#3145"
+			},
+			{
+				"q": 1150,
+				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles: after Test of Faith, Dorn offers the Harpy Foodstuffs ambush to players who want a group. A carried claw needs only a hand-in.",
+				"issue": "#3145"
+			},
+			{
 				"q": 98069,
 				"after": [
 					"accept",
 					98070
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07; level tidy 2026-11-15): Jandia offers Stolen Freewind Supplies beside Stop the Screeching, and its 8 supply crates lie in the same Roguefeather harpy den as 98070's harpies (3 recorded people took it); taken with 98070 on 30-40/02's first Freewind Post landing and handed in with it on the way back.",
-				"issue": ""
+				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles: Jandia offers the eight supplies at Freewind even if the earlier visit was missed. Collect them separately from the kills, at the foot of the cliff.",
+				"issue": "#3145"
 			},
 			{
 				"q": 1145,
@@ -10902,7 +10942,7 @@
 			},
 			{
 				"q": 1149,
-				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles (#2635): a character who skipped forever/horde/07-ashenvale arrives at 30 without Test of Faith (1149), so Test of Endurance (1150, Grenka's claw in the harpy den the guide works anyway) was hidden. Dorn's step on the Freewind stop now does Test of Faith first, `when !turnedin 1149`, so 07's players see none of it: a jump off the planks beside Dorn, 1,050 XP at full rate (level 26, paid in full up to 31), and it opens 1150 (2,450 XP). Recordings: 12 players took and handed it in at 28-34, all at Dorn.",
+				"reason": "Catch-up in forever/horde/30-40/02-thousand-needles (#2635): Dorn's Test of Faith pays even if the player skips his next test. It also opens Test of Endurance for a group. Recordings: 12 players took and handed in Test of Faith at 28-34, all at Dorn.",
 				"issue": "#2635"
 			},
 			{

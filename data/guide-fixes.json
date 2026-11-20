@@ -2,6 +2,181 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "freewind-harpies-offer",
+			"faction": "Horde",
+			"at": {
+				"quest": 98070,
+				"goal": "accept"
+			},
+			"when": "level>=29",
+			"note": "Take this from Jandia at the inn on the way to Darkcloud Pinnacle, or on a later landing.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-harpies-from-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 98070,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=30",
+			"note": "Work the cliff from 30, while the quest is unfinished; do not enter the food-crate chamber for Jandia.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-harpies-pay",
+			"faction": "Horde",
+			"at": {
+				"quest": 98070,
+				"goal": "turnin"
+			},
+			"when": "complete 98070",
+			"note": "A finished errand pays at the inn even below the hunting level.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-supplies-offer",
+			"faction": "Horde",
+			"at": {
+				"quest": 98069,
+				"goal": "accept"
+			},
+			"when": "level>=29",
+			"note": "Take this from Jandia at the inn on the way to Darkcloud Pinnacle, or on a later landing.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-supplies-from-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 98069,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=30",
+			"note": "Work the cliff from 30, while the quest is unfinished; do not enter the food-crate chamber for Jandia.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-supplies-pay",
+			"faction": "Horde",
+			"at": {
+				"quest": 98069,
+				"goal": "turnin"
+			},
+			"when": "complete 98069",
+			"note": "A finished errand pays at the inn even below the hunting level.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-endurance-choice",
+			"faction": "Horde",
+			"at": {
+				"quest": 1150,
+				"goal": "accept"
+			},
+			"when": "level>=29",
+			"note": "Dorn's follow-up is a group choice after Test of Faith.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-endurance-ambush",
+			"faction": "Horde",
+			"at": {
+				"quest": 1150,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=30",
+			"note": "A group breaks the Harpy Foodstuffs deep in the den to summon Grenka. Normal canyon work never requires the ambush.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "freewind-endurance-ready",
+			"faction": "Horde",
+			"at": {
+				"quest": 1150,
+				"goal": "turnin"
+			},
+			"when": "complete 1150",
+			"note": "Dorn takes a claw brought from outside the guide without a group or a return to the cave.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Forever quest and creature data: 98070 needs five each of 4100, 4101 and 4104 (28–30); 98069 needs eight supplies. Event 747 at Harpy Foodstuffs (20447) summons Grenka (4490, 31)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "3145-hillsbrad-smithy-two-quests",
+			"faction": "Horde",
+			"at": {
+				"quest": 529,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"when": "onquest 529,567",
+			"note": "A player who already delivered the iron may still need Citizen Wilkes and Farmer Kalaba from the poster. Keep both on the smithy visit.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quests 529 and 567: separate objectives in Hillsbrad Fields."
+				}
+			],
+			"pr": 3145
+		},
+		{
 			"id": "3145-feralas-feral-scar-vale-careful",
 			"faction": "Horde",
 			"at": {
@@ -57,7 +232,7 @@
 				"guide": "forever/horde/40-50/01b-riverglades"
 			},
 			"level": 42,
-			"note": "Eastsea Musketeers reach 43. A player who skips the elite ogre chain or comes from Kargath early can wait on the crawler beach until 42.",
+			"note": "Eastsea Musketeers reach 43. A player arriving from Kargath early can resume on the beach north of Powderfuse Port at 42; do not point them at a crawler farm.",
 			"source": {
 				"kind": "recording",
 				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
@@ -4730,13 +4905,22 @@
 				"objective": 3
 			},
 			"level": 56,
-			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 55.5 (rested level model, 0.4.0 tidy): a top-up to 56 on the Noxious Plaguebats (54-56) on the way east, which Nathanos' Un-Life's Little Annoyances wants, comes first (only below 56).",
+			"note": "Nathanos wants twenty Noxious Plaguebats (54-56). Do those if held before Northdale; only the last four percent of 55 is suggested on that camp. If farther off, resume on the road from Terrordale at 56. A level-56 player hunts level 57 hounds, not 58s.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
 				}
 			]
+		},
+		{
+			"id": "3145-northdale-hounds-at-56",
+			"faction": "Horde",
+			"at": { "quest": 5542, "goal": "objective", "objective": 3, "guide": "forever/horde/50-60/05-eastern-plaguelands" },
+			"when": "level>=56",
+			"note": "A nearby Frenzied Plaguehound must not be suggested to a character still doing Nathanos's ordinary bat hunt at 55.",
+			"source": { "kind": "client", "ref": "Frenzied Plaguehound 8598, levels 57-58; Noxious Plaguebat 8601, levels 54-56." },
+			"pr": 3145
 		},
 		{
 			"id": "a4060-bs-accept-broodling-essence-52",

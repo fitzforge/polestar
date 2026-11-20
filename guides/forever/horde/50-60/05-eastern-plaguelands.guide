@@ -215,14 +215,27 @@ step Augustus the Touched
   turnin 6164                         -- Inside
   note Keep the termites: Mickey Levine at the Bulwark takes them on the next guide's ride into the Western Plaguelands.
 
-step Level 56
+step Nathanos's bats
+  when level>=55
   when level<56
-  tip Top up here to level 56 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are at your level, and Nathanos wants twenty of them. Or, with a group, run the Blackrock Spire dungeon (Lower) instead.
-  goto 49.5,43.4 map 1423 "Noxious Plaguebat" live
+  when onquest 6042
+  tip East of Terrordale, the Noxious Plaguebats (54-56) count for Nathanos. Take the ones in the open fields; leave the Monstrous Plaguebats near Northdale for later.
   kill 8601 quest 6042.1 @49.5,43.4 map 1423 live
+
+step Before Northdale
+  when level<55.96
+  tip The next hunt is too high. At 55, if you still have Blood Tinged Skies or Carrion Grubbage, the ordinary Plaguebats and Carrion Grubs on the western hills count for Tirion. No need to stay and farm bats. Resume at 56 on the road east from Terrordale for the Northdale hunt.
+  level 56
+
+step Level 56
+  when level>=55.96
+  when level<56
+  tip Almost 56? The Noxious Plaguebats (54-56) in the open fields east of Terrordale can finish the level. If you'd rather quest, other XP counts too; a group can also run Lower Blackrock Spire.
+  goto 49.5,43.4 map 1423 "Noxious Plaguebat" live
   level 56 grind 8601                  -- grind on Noxious Plaguebat
 
 step Plaguewood: kill these as you meet them
+  when level>=56
   zone Eastern Plaguelands
   tip Frenzied Plaguehounds share the fields around Northdale and Eastwall Tower, south of Zul'Mashar; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around Northdale and Eastwall Tower. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time.
   tip Still 56? Take level 57 hounds and level 56-57 bats; leave the level 58s.

@@ -104,6 +104,10 @@ step Brackenwall Village
   turnin 1321                         -- Do'gol
   accept 1322
 
+step Krog
+  when complete 1273
+  turnin 1273
+
 # ---------------------------------------------------------------- Witch Hill
 
 step Stinky Ignatz
@@ -145,9 +149,15 @@ step Brackenwall Village
   accept 1323
   turnin 1323                         -- Krog
 
+step Krog
+  when complete 1273
+  turnin 1273
+
 step Questioning Reethe
+  when !complete 1273
+  when !turnedin 1273
   zone Dustwallow Marsh
-  tip On the way east, Ogron waits in the Quagmire east of the village. Follow him to Reethe and keep him alive through the fight that breaks out: Private Hallan and Theramore Skirmishers (36) join it.
+  tip On the way east, follow Ogron into the Quagmire and protect him at Reethe's tent. Lieutenant Caldwell (37), Private Hallan and the skirmishers attack together. If Ogron is away with another party, wait for his return before starting.
   accept 1273
   complete 1273 @42.6,38.1 map 1445
 
@@ -199,7 +209,18 @@ step The Affray
   complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
+step Hearth to Shadowprey Village
+  when !zone "Desolace"
+  when bound "Shadowprey Village"
+  when has 6948
+  when !cooldown item 6948
+  tip Finished in Ratchet or on Fray Island? Use your Hearthstone now, before walking back to a flight master.
+  hearth "Shadowprey Village"
+  enter "Desolace"
+
 step Ratchet flight master
+  when !zone "Desolace"
+  when taxi "Shadowprey Village"
   zone The Barrens
   only Warrior
   tip Back north along the coast to Ratchet's flight master.
@@ -208,10 +229,19 @@ step Ratchet flight master
 # ---------------------------------------------------------------- Desolace, the second visit
 
 step Fly to Shadowprey Village
+  when !zone "Desolace"
+  when taxi "Shadowprey Village"
   zone The Barrens
-  tip Fly to Shadowprey Village from the flight master you are next to: Ratchet's, or Brackenwall's if you had no errand in Ratchet.
+  tip Ask the flight master for Shadowprey Village. If there is no connecting flight, head for Desolace through Stonetalon Mountains and the Charred Vale.
   fly "Shadowprey Village"
   zone Desolace
+
+step Road to Shadowprey Village
+  when !zone "Desolace"
+  when !taxi "Shadowprey Village"
+  zone Desolace
+  tip If you don't have a flight to Shadowprey, take an offered flight toward Desolace or follow the road west through Stonetalon Mountains and the Charred Vale. In Desolace, stay on the road to the Horde village on the south-west coast.
+  goto 24.03,68.25 map 1443 live "Shadowprey Village"
 
 step Shadowprey Village
   zone Desolace
@@ -290,7 +320,7 @@ step Hornizz Brimbuzzle
 
 step Shadowprey
   zone Desolace
-  tip Hearth to Shadowprey: your hearthstone is still bound there.
+  tip Return to Taiga in Shadowprey Village. If your Hearthstone is still bound there and ready, use it; otherwise take the road west around the Kodo Graveyard.
   turnin 5581                         -- Taiga Wisemane
 
 # ---------------------------------------------------------------- Orgrimmar

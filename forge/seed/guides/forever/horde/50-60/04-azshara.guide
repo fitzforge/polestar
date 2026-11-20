@@ -89,7 +89,7 @@ step Jediga
   turnin 3562
   turnin 3563
 
-step Magus Rimtori
+step The Sin'dorei Tome of Summoning
   when onquest 91497
   tip Return to the east end of the Thalassian Base Camp, keeping clear of the Blackmaw Thrall on the west. At the Sin'dorei Tome: hand in the seals, then use it to call Magus Rimtori.
   tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.

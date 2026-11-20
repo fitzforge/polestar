@@ -120,11 +120,24 @@ step Zilzibin Drumlore
   tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.
   turnin 32                             -- Zilzibin Drumlore, the Drag
 
+step Zilzibin Drumlore
+  when level>=50
+  when available 4494
+  zone Orgrimmar
+  tip Take March of the Silithid from Zilzibin while you are in the Drag. Alchemist Pestlezugg is on your Gadgetzan stop after Feralas.
+  accept 4494
+
 step Dran Droffers
   zone Orgrimmar
   when onquest 81
   tip The Droffers' shop is a few steps further into the Drag.
   turnin 81                             -- Dran Droffers, the Drag
+
+step Orgrimmar
+  zone Orgrimmar
+  tip Jes'rimon gives Bone-Bladed Weapons in the Cleft of Shadow. Train here before you leave; druids and paladins train at Thunder Bluff instead.
+  accept 4300
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 # ---------------------------------------------------------------- To Azshara
 
@@ -158,7 +171,21 @@ step Valormok
   tip Follow the road north to Valormok, the Horde camp.
   getfp "Valormok"
 
-step Fly to Orgrimmar
+step Fly to Orgrimmar for March of the Silithid
+  when zone "Azshara"
+  when level>=50
+  when available 4494
+  when taxi "Orgrimmar"
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
+
+step Fly to Orgrimmar for Bone-Bladed Weapons
+  when zone "Azshara"
+  when available 4300
+  when !available 4494
+  when taxi "Orgrimmar"
   zone Azshara
   goto 22.0,49.7 "Valormok flight master"
   fly "Orgrimmar"
@@ -167,44 +194,47 @@ step Fly to Orgrimmar
 # ---------------------------------------------------------------- Orgrimmar
 
 step Orgrimmar
+  when zone "Orgrimmar"
   zone Orgrimmar
   turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
   accept 4300
   turnin 81                           -- Dran Droffers, the Drag
 
 step Zilzibin Drumlore
+  when zone "Orgrimmar"
   when level>=50
   zone Orgrimmar
-  tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, the Azshara guide at 55 offers it again.
+  tip If you reached 50 in Azshara, take March of the Silithid here for Gadgetzan. If it is not available yet, your later Orgrimmar visit offers it again.
   accept 4494
 
-# ---------------------------------------------------------------- Orgrimmar
-
 step Orgrimmar
+  when zone "Orgrimmar"
   zone Orgrimmar
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
-
 # ---------------------------------------------------------------- Thunder Bluff
 
+step Fly from Valormok to Thunder Bluff
+  when zone "Azshara"
+  when taxi "Thunder Bluff"
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
+  fly "Thunder Bluff"
+  zone Thunder Bluff
+
 step Fly to Thunder Bluff
+  when zone "Orgrimmar"
+  when taxi "Thunder Bluff"
   zone Orgrimmar
   goto 45.3,63.8 "Orgrimmar flight master"
   fly "Thunder Bluff"
 
 step Thunder Bluff
   zone Thunder Bluff
-  tip Fly to Thunder Bluff; it is on the way to Camp Mojache. No flight path there yet? Fly to Camp Taurajo and ride west through Mulgore. Hamuul and Magatha are on the Elder Rise; Druids and Paladins train here (Turak Runetotem, Alodan the Hopeful).
+  tip If Thunder Bluff is not on your flight map, use Camp Taurajo if the flight master offers it. From Taurajo ride west into Mulgore, then north past Bloodhoof Village to the lifts. Visit Pala at the inn, then Hamuul on Elder Rise.
   accept 3762                           -- Innkeeper Pala, at the inn: for Hamuul
   turnin 3762                           -- Arch Druid Hamuul Runetotem, on the Elder Rise
   accept 3761
-
-step Class trainer
-  only Druid
-  train class only Druid
 
 step Thunder Bluff
   zone Thunder Bluff

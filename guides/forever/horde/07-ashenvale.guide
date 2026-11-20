@@ -26,12 +26,10 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # without it the Earthen Ring approach is through Mulgore. The Elder Crone stop on 05 can teach the flight path.
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
-# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken on this guide's last
-# Freewind stop and worked on the next Freewind visit at about 30, in forever/horde/30-40/02-thousand-needles (agreed
-# with the 30-40 slice): Roguefeather Den's harpies (28-30, packs) and Grenka Bloodscreech (31) were met here at 29,
-# with a harpy grind to 29.5 before them. Test of Faith (1149) is done at Dorn's mesa, and his Test of Endurance (1150,
-# Grenka Bloodscreech 31 in the same den) is taken there and carried to the same visit. Sharptalon (31) is shown only
-# from level 30. Left out: Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
+# Take Jandia's errands at the inn from 29. From 30, do them on the way back from Whitereach.
+# The Harpy Foodstuffs deep in the den start Dorn's fight; only a group goes in for Grenka.
+# The next Freewind landing offers missed quests. Sharptalon (31) waits until 30; leave out
+# Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
 # Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
 # Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
 # Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
@@ -426,7 +424,6 @@ step Freewind Post
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  note Jandia's two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30.
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -459,8 +456,18 @@ step Dorn Plainstalker
   accept 1149                         -- Dorn Plainstalker, below ground
   complete 1149 @26.43,32.93 map 1441 era -- the end of the planks
   turnin 1149
-  accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
-  note Test of Endurance (Grenka Bloodscreech, 31) waits for the next Freewind visit, at about 30: keep it.
+
+step Dorn Plainstalker
+  when complete 1150
+  turnin 1150
+
+step Dorn Plainstalker
+  when level>=29
+  when !onquest 1150
+  when !turnedin 1150
+  when group 1150
+  tip Test of Endurance starts a fight deep in the den. Take it if you plan to face Grenka with a group.
+  accept 1150
 
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
@@ -468,6 +475,24 @@ step Freewind Post
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
   sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
+
+step Jandia
+  when complete 98070
+  turnin 98070
+
+step Jandia
+  when complete 98069
+  turnin 98069
+
+step Jandia
+  when level>=29
+  when available 98070
+  accept 98070
+
+step Jandia
+  when level>=29
+  when available 98069
+  accept 98069
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -534,16 +559,62 @@ step Wizlo Bearingshiner
   when group 5151
   turnin 5151
 
+step Screeching harpies
+  when level>=30
+  when onquest 98070
+  when !complete 98070
+  zone Thousand Needles
+  tip Pull the harpies along the cliff below Roguefeather Den. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of Jandia's supplies you still need along the way. Leave the Harpy Foodstuffs alone: they call Grenka.
+  kill 4100 quest 98070.1 @27.59,48.92 map 1441 era
+  kill 4101 quest 98070.2 @27.35,51.0 map 1441 era
+  kill 4104 quest 98070.3 @26.72,52.1 map 1441 era
+
+step Stolen Freewind Supplies
+  when level>=30
+  when onquest 98069
+  when !complete 98069
+  zone Thousand Needles
+  tip Look for Stolen Freewind Supplies at the foot of the cliff. The Harpy Foodstuffs inside the cave are not Jandia's supplies.
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441
+
+step Harpy Foodstuffs
+  when level>=30
+  when onquest 1150
+  when !complete 1150
+  when group 1150
+  zone Thousand Needles
+  tip Clear the back of Roguefeather Den with your group. Break the Harpy Foodstuffs and stay together for the ambush. Kill Grenka Bloodscreech (31) when she comes, then loot her claw before the harpies return.
+  collect 5843 quest 1150 @25.85,54.78 map 1441 era -- Grenka's Claw, at the Harpy Foodstuffs
+
 step Freewind Post
   tip Back east past Whitereach Post to Freewind Post.
   turnin 4767                         -- Elu
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
-  accept 98070                        -- Jandia, inside the inn
-  accept 98069                        -- Jandia
   vendor nearest optional
-  note Keep Jandia's two harpy quests and Dorn's Test of Endurance: Roguefeather Den comes with the next Freewind visit, at about 30, with the Mirage Raceway's quests.
+
+step Jandia
+  when complete 98070
+  turnin 98070
+
+step Jandia
+  when complete 98069
+  turnin 98069
+
+step Dorn Plainstalker
+  when complete 1150
+  turnin 1150
+
+step Jandia
+  when level>=29
+  when available 98070
+  accept 98070
+
+step Jandia
+  when level>=29
+  when available 98069
+  accept 98069
 
 step Level 29
   when level<29
