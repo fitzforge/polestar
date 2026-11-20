@@ -1290,12 +1290,42 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 	let (mining, none) = (&out[0], &out[1]);
 	assert_eq!(
 		mining["texts"],
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "Riding trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"])
+		json!([
+			"Vendor",
+			"Repair",
+			"Innkeeper",
+			"Flight master",
+			"Class trainer",
+			"Mining trainer",
+			"Riding trainer",
+			"-",
+			"Reagents",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Stable master",
+			"Transmogrifier"
+		])
 	);
 	assert_eq!(mining["key"], "trainer");
 	assert_eq!(
 		*none,
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "Riding trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"]),
+		json!([
+			"Vendor",
+			"Repair",
+			"Innkeeper",
+			"Flight master",
+			"Class trainer",
+			"Profession trainer",
+			"Riding trainer",
+			"-",
+			"Reagents",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Stable master",
+			"Transmogrifier"
+		]),
 		"no profession yet: the nearest trainer of any"
 	);
 }
