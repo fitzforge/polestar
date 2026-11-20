@@ -70,7 +70,7 @@ pub struct Install {
 }
 
 pub fn install(dir: &Path) -> Install {
-	let mut all = forge_release::addons::release_addons(dir).names;
+	let mut all = forge_release::addons::release_addons(dir).unwrap_or_else(|e| panic!("{}: {e}", dir.display())).names;
 	if dir.join("Polestar_Recorder/Polestar_Recorder.toc").exists() {
 		all.push("Polestar_Recorder".into());
 	}
