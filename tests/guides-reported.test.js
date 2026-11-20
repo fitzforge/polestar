@@ -526,10 +526,12 @@ test('Horde starts: level tidy: Strider Meat, Poison Water and Darkhound goals p
 	}
 });
 
-// --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye's poster stands beside Executor Zygand: read with his hand-in.
-test(`${TIRISFAL}: level tidy: Maggot Eye's poster with Executor Zygand on the last Brill stop`, { skip }, () => {
+// --- Tirisfal Glades (level tidy 0.4.0; 0.4.2 route round): Maggot Eye's poster stands beside Executor Zygand. It is read
+// on the Brill stop before Agamand Mills, whose loop passes Garren's Haunt at about 10.5-11 (model), so he is killed on it.
+test(`${TIRISFAL}: Maggot Eye's poster is read in Brill before the Agamand Mills loop`, { skip }, () => {
 	const list = goals(TIRISFAL);
 	const poster = at(list, 'accept 398', is('accept', 398));
+	assert.ok(poster < at(list, "Devlin's remains (362)", (g) => g.t === 'collect' && g.quest === 362), 'the poster before Agamand Mills');
 	assert.ok(poster < at(list, 'turnin 492 (the cellar)', is('turnin', 492)), 'the poster before the inn cellar');
 	assert.ok(poster < at(list, 'turnin 99142 (Holland)', is('turnin', 99142)), 'the poster before Holland on the way out');
 });
@@ -587,15 +589,18 @@ test(`${TIRISFAL}: level tidy: the Cult of the Damned after the Balnir Farmstead
 });
 
 // --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
-// percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
-// walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.
-test(`${TIRISFAL}: level tidy: Maggot Eye after the Balnir Farmstead, not on the north loop`, { skip }, () => {
+// percentile 8.1). He stays off the north loop. Since the 0.4.2 route round he is killed on the Agamand Mills loop,
+// which now runs at about 10.5-11 (model; the north loop's hand-ins come first), from Garren's Haunt on the walk back
+// to Brill, and the paw goes to Executor Zygand on the Brill stop right after: no trip of his own at the end.
+test(`${TIRISFAL}: level tidy: Maggot Eye on the Agamand Mills loop, not on the north loop`, { skip }, () => {
 	const list = goals(TIRISFAL);
 	const paw = at(list, "Maggot Eye's Paw (398)", (g) => g.t === 'collect' && g.quest === 398);
-	for (const q of [371, 369, 356]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < paw, `${q} is handed in before Maggot Eye`);
 	assert.ok(at(list, 'turnin 368 (A New Plague)', is('turnin', 368)) < paw, 'the north loop and its murlocs come first');
-	assert.ok(paw < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), 'Garren\'s Haunt on the walk west to Leonid');
-	assert.ok(at(list, 'turnin 398', is('turnin', 398)) > paw, 'Zygand takes the paw afterwards');
+	assert.ok(at(list, 'turnin 360 (Linnea, back in Brill)', is('turnin', 360)) < paw, 'after the north loop\'s Brill hand-ins');
+	assert.ok(at(list, "Devlin's remains (362)", (g) => g.t === 'collect' && g.quest === 362) < paw, 'on the Agamand loop, after the mills');
+	const turnin = at(list, 'turnin 398', is('turnin', 398));
+	assert.ok(turnin > paw, 'Zygand takes the paw afterwards');
+	assert.equal(list[turnin].step, list[at(list, 'turnin 362 (Coleman)', is('turnin', 362))].step, 'on the Brill stop after the mills');
 });
 
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
