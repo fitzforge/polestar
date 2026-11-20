@@ -261,7 +261,7 @@ return {
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, de los subjefes (o de los élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
 	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, en la caja de suministros en lo profundo de la cueva",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de vuelta en su jaula al salir",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -283,7 +283,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Los trols Machacacráneos ocupan las ruinas justo al este de la mina; cualquiera puede soltar colmillos, y sus panteras siempre los sueltan.\nSigue el camino al noreste hasta el campamento de Ventura y Cía. en {area:310}; los mineros, agrimensores y capataces sueltan los cristales.\nCuidado: Las panteras Faucesombría y las tigresas de Tuercespina recorren en sigilo la zona alrededor del campamento.",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}, de los trols de las ruinas",
 
 	-- Step 52: Raptor Mastery
 	-- {npc:730} Tethis
