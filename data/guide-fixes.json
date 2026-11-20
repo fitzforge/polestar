@@ -14443,6 +14443,28 @@
 				}
 			],
 			"issue": 3026
+		},
+		{
+			"id": "3220-marcus-jonathan-rides-the-valley",
+			"faction": "Alliance",
+			"at": {
+				"quest": 120,
+				"goal": "turnin",
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"tip": "If General Marcus Jonathan isn't at the arrow, he is walking his horse along the Valley of Heroes nearby: look along the avenue or wait a moment.",
+			"note": "#3220: General Marcus Jonathan (466) rides a path along Stormwind's Valley of Heroes, so a player at the arrow often found him gone and didn't know he would be back. Both Stormwind steps that hand in Messenger to Stormwind say so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 466: seen by 186 people at 65-68,75-84 of Stormwind"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3220 (0.4.1.1): not at the arrow while riding around"
+				}
+			],
+			"issue": 3220
 		}
 	]
 }

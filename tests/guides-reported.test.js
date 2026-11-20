@@ -18278,3 +18278,11 @@ test('forever/horde/40-50/02-feralas.guide: the Gordunni Cobalt goes from mound 
 	assert.ok(cobalt < shovel && list[cobalt].s === list[shovel].s, 'the collect precedes the shovel in the same step');
 	assert.ok((list[cobalt].goal.spots || []).length > 1, 'the collect goes round more than one mound');
 });
+
+// #3220 (Collin M., 0.4.1.1): General Marcus Jonathan rides along Stormwind's Valley of Heroes, so a player at the
+// arrow often found him gone. Both steps that hand him Messenger to Stormwind say so.
+test('forever/alliance/03-loch-modan.guide: both Marcus Jonathan steps say he rides along the Valley of Heroes (#3220)', { skip }, () => {
+	const steps = compiled('forever/alliance/03-loch-modan.guide').steps.filter((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 120));
+	assert.equal(steps.length, 2, 'two Stormwind steps hand in 120');
+	for (const s of steps) assert.match(s.note || '', /Valley of Heroes/, s.title);
+});
