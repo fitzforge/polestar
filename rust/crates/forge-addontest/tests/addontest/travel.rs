@@ -73,6 +73,25 @@ fn run_real(script: &str) -> Value {
 }
 
 #[test]
+fn unclassified_ground_allows_an_alterac_walk_but_not_a_walk_into_enemy_fields() {
+	let out = run_real(
+		r#"
+		local N = Polestar.Nav
+		N.RegisterTravelData({}, true)
+		local function walk(map, x, y, X, Y, side)
+			local legs = N.PlanRoute({ c = 0, map = map, wx = x, wy = y, faction = side, level = 23, walkOnly = true,
+				target = { c = 0, map = map, wx = X, wy = Y, label = "Destination" } })
+			return legs and #legs == 1 and legs[1].kind == "walk" or false
+		end
+		emit({ alterac = walk(1416, 204.7, 262.5, 244.1, 221.9, 1),
+			hordeFields = walk(1424, 0, -860, -373.3, 7.1, 2),
+			hordeIntoCity = walk(1453, -8613.9, 1241.5, -8422.4, 551.8, 2),
+			allianceFields = walk(1424, -318, 7, -373.3, 7.1, 1) })"#,
+	);
+	assert_eq!(out, json!({ "alterac": true, "hordeFields": false, "hordeIntoCity": false, "allianceFields": true }));
+}
+
+#[test]
 fn the_nethergarde_flight_can_cross_stonard_but_its_ground_legs_cannot() {
 	let out = run_real(
 		r#"

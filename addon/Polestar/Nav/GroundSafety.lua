@@ -26,8 +26,8 @@ function D.Blocked(map,x,y,X,Y,profile)
   end end
   for r=floor(512-(hi+.55)*.03),floor(512-(lo-.55)*.03) do for c=floor(512-(ri+.55)*.03),floor(512-(le-.55)*.03) do
    local v=cells[floor(r/16)*64+floor(c/16)];if type(v)=='string' then v=byte(v,(r%16)*16+c%16+1) end
-   if not v or v==0 then return 'unknown-area' end
-   if floor(v/64)==enemy then return 'opposing-settlement' end
+   -- Missing ownership is not an enemy town. Keep scanning: a later cell or guard disk can still veto the walk.
+   if v and floor(v/64)==enemy then return 'opposing-settlement' end
   end end
   x,y=a,b
  end
