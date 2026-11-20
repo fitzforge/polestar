@@ -329,7 +329,8 @@ step Artisan Leatherworking
   tip Artisan raises the cap from 225 to 300; it needs Leatherworking 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Drakk Stonehand (The Hinterlands); Horde Hahrana Ironhide (Feralas). The arrow picks the nearest of your faction. Learn now: Rugged Armor Kit (from 225). 225-300 takes about 3g 40s of recipes and 44g 90s of vendor goods, plus 1029 Rugged Leather and 430 Runecloth to gather or buy.
   level 35
   train Leatherworking Artisan
-  learn 19058
+  learn 19058 npc 11097 only Alliance map 1425
+  learn 19058 npc 11098 only Horde
 
 step Leatherworking 225-300: vendor goods
   tip Buy the whole bracket's share in one go: 39 Black Dye (3g 90s) and 82 Rune Thread (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).

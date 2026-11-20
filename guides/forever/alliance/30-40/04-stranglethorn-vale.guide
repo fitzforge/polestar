@@ -16,7 +16,7 @@ next forever/alliance/30-40/02-desolace
 # stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
 # the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
 # Level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (195, 35-36) are hunted on the second loop (04b) at about 36 and
-# Tiger Mastery's Sin'Dall (188, level 37) on 40-50/01-stranglethorn-vale's ride to Nesingwary at about 41, not here at
+# Tiger Mastery's Sin'Dall (188, level 37) is optional on that hill from level 36, otherwise on 40-50/01's visit, not here at
 # 33-34; Ajeck and Hemet give them here, where the elder tigers and raptors are handed in. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
 # 40-50/01-stranglethorn-vale at about 41; Sir S. J. Erlgadin gives it on this loop's hand-in. Since 0.4.1 the loop
 # starts at Booty Bay (#2419): 30-40/03 ends in Theramore, so the walk to Ratchet and its boat beat the boat to Menethil,
@@ -28,6 +28,8 @@ next forever/alliance/30-40/02-desolace
 # Zimmix Sputterspark's rescue (97329, 97331), Kebok's Bloodscalp ears (189) and the Stolen Shipments (97328) are worked
 # in the ruins of Zul'Kunda on 04b's second loop, at about 36: the ruins' core holds Berserkers, Headhunters and Witch
 # Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
+# Route review 0.4.3: Kebok's Hostile Takeover (213) is taken, worked and handed in on 40-50/01-stranglethorn-vale at about
+# 41: Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players on 04b's loop.
 
 step Boat to Booty Bay
   when !zone "Stranglethorn Vale"
@@ -49,7 +51,6 @@ step Booty Bay
   accept 201                          -- Krazek: Nesingwary's camp, on the way
   accept 616                          -- Krazek
   accept 189                          -- Kebok, in the tavern
-  accept 213                          -- Kebok: the Tumbled Crystals, on the northern loop
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578
@@ -160,7 +161,7 @@ step Nesingwary's Expedition
   accept 341 optional
   accept 342 optional
   turnin 187                          -- Ajeck Rouack
-  accept 188                          -- keep it: Sin'Dall (37) comes in the 40-50 Stranglethorn guide, at about 41
+  accept 188                          -- Keep it for another visit: Sin'Dall (37) prowls the Lashtail hill.
   turnin 194                          -- Hemet Nesingwary
   accept 195                          -- keep it: the Lashtail Raptors come on the second loop (04b), around Sin'Dall's hill
 

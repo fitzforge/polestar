@@ -179,7 +179,7 @@ return {
 			return current and current.title or false
 		end },
 		-- TomTom installed, a goal on the player's continent: Polestar's arrow, or TomTom's.
-		["nav.useTomTomArrow"] = { prepare = tomtom, cleanup = noTomTom, probe = function()
+		["nav.useTomTomArrow"] = { with = { ["nav.navRouting"] = false }, prepare = tomtom, cleanup = noTomTom, probe = function()
 			target("Near camp", 9000, 42, 42)
 			return PolestarNavArrow:IsShown() and true or false
 		end },
