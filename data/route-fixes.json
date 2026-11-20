@@ -11723,6 +11723,33 @@
 				],
 				"reason": "Horde 40-50 fix pass (2026-11-20): Split Bone Necklace (598, Kin'weelay) and Grim Message (2932, Nimboya) are taken on 40-50/01's first Grom'gol stop, where the route stands beside both givers for Kin'weelay's hand-in (1240); they were passed there and taken on the second stop, and their work comes after it either way. The second stop still offers Split Bone Necklace to a player who starts the guide without Bloody Bone Necklace (596).",
 				"issue": "-"
+			},
+			{
+				"q": 1505,
+				"after": [
+					"turnin",
+					6062
+				],
+				"reason": "Horde Durotar fix pass (2026-11-20): the level-10 class letters of Warriors (Veteran Uzzek, 1505), Warlocks (Gan'rul's 1506) and Troll Priests (Hex of Weakness, 5654) are taken on the second Razor Hill stop (about 11.2 by the level model), with that stop's training: each only carries a letter to a place the route reaches after it (Far Watch Post, Orgrimmar). Only Hunters and Shamans, whose level-10 quests are worked before that stop, top up to 10 by the huts and walk back into Razor Hill for them.",
+				"issue": "-"
+			},
+			{
+				"q": 1506,
+				"after": [
+					"turnin",
+					6062
+				],
+				"reason": "Horde Durotar fix pass (2026-11-20): the level-10 class letters of Warriors (Veteran Uzzek, 1505), Warlocks (Gan'rul's 1506) and Troll Priests (Hex of Weakness, 5654) are taken on the second Razor Hill stop (about 11.2 by the level model), with that stop's training: each only carries a letter to a place the route reaches after it (Far Watch Post, Orgrimmar). Only Hunters and Shamans, whose level-10 quests are worked before that stop, top up to 10 by the huts and walk back into Razor Hill for them.",
+				"issue": "-"
+			},
+			{
+				"q": 5654,
+				"after": [
+					"turnin",
+					6062
+				],
+				"reason": "Horde Durotar fix pass (2026-11-20): the level-10 class letters of Warriors (Veteran Uzzek, 1505), Warlocks (Gan'rul's 1506) and Troll Priests (Hex of Weakness, 5654) are taken on the second Razor Hill stop (about 11.2 by the level model), with that stop's training: each only carries a letter to a place the route reaches after it (Far Watch Post, Orgrimmar). Only Hunters and Shamans, whose level-10 quests are worked before that stop, top up to 10 by the huts and walk back into Razor Hill for them.",
+				"issue": "-"
 			}
 		],
 		"skip": [

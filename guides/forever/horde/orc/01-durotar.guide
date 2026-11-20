@@ -390,12 +390,14 @@ step Class trainer
   when level>=10
   train class only Rogue,Priest
 
-# Warriors, Hunters, Shamans and Warlocks take their level-10 class quests at Razor Hill, so they top up
-# to 10 by the huts and come back into town. Everyone else goes straight on to the Razormane Grounds and
-# trains at 10 or on the next Razor Hill stop, after Fizzle, where Takrin's Conscript of the Horde is taken
-# for everyone but Shamans (who take it at 10 on their way to Kranal Fiss).
+# Hunters and Shamans take their level-10 class quests at Razor Hill and work them before the next Razor Hill
+# stop (the boar to tame, Kranal Fiss), so they top up to 10 by the huts and come back into town. Warriors and
+# Warlocks only carry a letter to somewhere the route goes later (Uzzek at Far Watch Post, Gan'rul in Orgrimmar):
+# they take it on the next Razor Hill stop, after Fizzle, with their training. Everyone else goes straight on to
+# the Razormane Grounds and trains at 10 or on that stop, where Takrin's Conscript of the Horde is taken for
+# everyone but Shamans (who take it at 10 on their way to Kranal Fiss).
 step Level 10
-  only Warrior,Hunter,Shaman,Warlock
+  only Hunter,Shaman
   when level<10
   tip Top up here to level 10: your class quest at Razor Hill needs level 10.
   tip The prickly pears for This Fruit Could Bite Back grow by these huts: pick them while you grind.
@@ -403,12 +405,10 @@ step Level 10
   level 10 grind 3111               -- grind on Razormane Quilboar
 
 step Razor Hill
-  only Warrior,Hunter,Shaman,Warlock
-  train class only Warrior,Hunter,Shaman,Warlock
+  only Hunter,Shaman
+  train class only Hunter,Shaman
   accept 840 only Shaman              -- Takrin Pathseeker: Kargal is on the way to Kranal Fiss
-  accept 1505 only Warrior            -- Tarshaw Jaggedscar, inside
   accept 6062 only Hunter             -- Thotar
-  accept 1506 only Warlock            -- Ophek, by the inn
   accept 2983 only Shaman -- Swart
 
 step Far Watch Post
@@ -553,6 +553,8 @@ step Razor Hill
   turnin 837                          -- Gar'Thok
   turnin 96825                        -- Cook Torka
   turnin 6062 only Hunter             -- Thotar
+  accept 1505 only Warrior            -- Tarshaw Jaggedscar, inside: for Uzzek at Far Watch Post, on the way out
+  accept 1506 only Warlock            -- Ophek, by the inn: for Gan'rul in Orgrimmar
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
   accept 828
