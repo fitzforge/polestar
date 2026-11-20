@@ -118,13 +118,16 @@ step Smeed Scrabblescrew
   tip Smeed's camp is on the road south of Kolkar Village, by the Kodo Graveyard.
   accept 5561
 
+step Kodo Bones
+  tip West into the Kodo Graveyard first: Bibbly's Kodo Bones lie among the skeletons on its western side.
+  collect 13703 quest 5501 @47.5,58.5 map 1443 -- Kodo Bone, among the skeletons
+
 step Kodo Graveyard
   tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides.
   use 13892 @51.0,58.5 "Kodo Kombobulator" -- on an Aged, Dying or Ancient Kodo in the graveyard; don't kill it
   talk 4700 quest 5561.1 @60.6,61.6   -- the tamed kodo, at Smeed's camp: talk to it, five times
   collect 6249 quest 1459.2
   collect 6248 quest 1459.1           -- Scorpashi Venom
-  collect 13703 quest 5501 @47.5,58.5 map 1443 -- Kodo Bone, among the skeletons
 
 step Smeed Scrabblescrew
   turnin 5561
