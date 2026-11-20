@@ -177,6 +177,17 @@ test('a skipped quest collect does not block the active collect beside it', { sk
 	}
 });
 
+test('the CLI opens and reports a class start prerequisite unless strict start gates are requested', { skip }, async () => {
+	const args = ['--filter', 'forever/class/shaman/call-of-earth-alliance', '--class', 'Shaman'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /stuck .* at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);

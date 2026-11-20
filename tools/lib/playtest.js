@@ -158,7 +158,7 @@ async function playGuideIn(pool, pack, g, opts) {
 }
 
 // runAddon's options for a play (playGuide).
-function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [], saved = null }) {
+function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [], saved = null, openStartGates = false }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
@@ -189,10 +189,41 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
 			SIM_GUIDE = Polestar.Engine.GetGuide() -- a hand-over may replace it before SIMULATE starts
 			stub.advance(0.6)
+			${openStartGates && g.category === 'Class' ? `local openingGuide = ${luaValue(g.id)}\n${OPEN_START_GATES}` : ''}
 			${script == null ? SIMULATE : script}
 			${handOver ? handOverCheck(handOver, g.id) : ''}`,
 	};
 }
+
+// A class guide can open on a notice instead of its steps. Exercise it as an
+// eligible character, but never supply a quest the guide itself must work.
+const OPEN_START_GATES = `
+local E, w = Polestar.Engine, stub.world
+local openedStartGates = {}
+while SIM_GUIDE and SIM_GUIDE.id == openingGuide and E.GetGuide() == SIM_GUIDE do
+	local gate = E.StartGate(SIM_GUIDE.id)
+	if not gate then break end
+	if gate.level and w.level < gate.level then
+		local before = w.level
+		w.setLevel(gate.level)
+		if w.level <= before then break end
+		openedStartGates[#openedStartGates+1] = "level " .. w.level .. " reached outside the guide"
+	elseif gate.pre and not w.completed[gate.pre] then
+		local inGuide = false
+		for _, step in ipairs(SIM_GUIDE.steps) do
+			for _, goal in ipairs(step.goals) do
+				if goal.quest == gate.pre then inGuide = true; break end
+			end
+			if inGuide then break end
+		end
+		if inGuide then break end
+		w.turnIn(gate.pre)
+		openedStartGates[#openedStartGates+1] = ("quest %d (%s) completed outside the guide"):format(gate.pre, gate.preTitle)
+	else
+		break
+	end
+	stub.advance(0.6)
+end`;
 
 // Where the engine landed after a guide handed over to one of `ids`: which
 // guide is open, whether each of ids is registered and offered when the
@@ -560,7 +591,7 @@ function playData(dir, diag) {
 // optional goal, so it never learns a profession).
 // `levelOffset` (a whole number): the player is that many levels ahead of the
 // guide's level (tools/lib/playtest-level.js).
-async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null, levelOffset = 0 }) {
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null, levelOffset = 0, openStartGates = false }) {
 	// Validate before loading data. The pool starts processes only when a play is queued.
 	const pool = honest ? null : new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const dataDiag = new Diagnostics();
@@ -642,9 +673,10 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 					].join('\n');
 					const k = results.length;
 					results.push(null);
-					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups, dungeonMaps }).then(([out, hand]) => {
+					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups, dungeonMaps, openStartGates }).then(([out, hand]) => {
 						const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
 						results[k] = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
+						if (out.startGates) results[k].startGates = out.startGates;
 						flush();
 					}));
 				}
@@ -831,8 +863,8 @@ const raceName = (r) => RACE_NAMES[r] || r;
 // "Kobolds": goal 1 (kill) stays active".
 function resultLines(r) {
 	const who = `${raceName(r.race)} ${titleCase(r.cls)}`;
-	if (r.ok) return [`ok  ${r.guide} (${who})`];
-	const lines = [];
+	const lines = (r.startGates || []).map((gate) => `${r.guide} (${who}): start gate opened: ${gate}`);
+	if (r.ok) return [...lines, `ok  ${r.guide} (${who})`];
 	if (r.stuck && r.stuck.handOver) lines.push(`stuck ${r.guide} (${who}) at hand-over to ${r.stuck.handOver}: ${r.stuck.reason}`);
 	else if (r.stuck) lines.push(`stuck ${r.guide} (${who})${r.stuck.step != null ? ` at step ${r.stuck.step}` : ''}${r.stuck.title != null ? ` "${r.stuck.title}"` : ''}: ${r.stuck.reason}`);
 	for (const p of r.problems) lines.push(`fail ${r.guide} (${who}): ${p}`);
@@ -1238,7 +1270,7 @@ for si, s in ipairs(G.steps) do
 end
 local count = 0
 for _ in pairs(visited) do count = count + 1 end
-emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level })
+emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level, startGates = openedStartGates and #openedStartGates > 0 and openedStartGates or nil })
 `;
 
 module.exports = { playtest, personaPlaytest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, dungeonPicker, SIMULATE, HOME, CLASSES, luaValue };
