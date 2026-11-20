@@ -18293,3 +18293,12 @@ test('forever/alliance/40-50/02-badlands.guide: Pearl Diving is handed in only w
 	const step = compiled('forever/alliance/40-50/02-badlands.guide').steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 705));
 	assert.ok(step && whenQuestOf(step, ['complete'], 705), 'turnin 705 sits in a step with `when complete 705`');
 });
+
+// #3235 (Soggy, 0.4.1.1): the Snapshot of Gammerita comes from using the Super Snapper FX on her, not from her corpse;
+// the step had a collect from her for a group of 2. Only the camera's use goal is left, and the tip says she need not die.
+test('forever/alliance/50-60/01-burning-steppes.guide: Gammerita is photographed, not killed (#3235)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'collect' && goal.item === 9330), 'no collect of the snapshot');
+	const { step } = list[at(list, 'use 9328', (g) => g.t === 'use' && g.item === 9328 && g.quest === 2944)];
+	assert.match(step.note || '', /need not die/);
+});

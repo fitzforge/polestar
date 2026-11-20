@@ -14483,6 +14483,25 @@
 				}
 			],
 			"issue": 3067
+		},
+		{
+			"id": "3235-gammerita-camera-no-kill",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Gammerita need not die: target her and use the Super Snapper FX. She is a level 48 elite, so keep your distance.",
+			"note": "#3235: The Super Snapper FX's Snapshot of Gammerita (9330) comes from using the camera (9328) on her, not from her corpse (the fact is in forever-db/corrections/items.json); the step had a collect from her with a group of 2 and said to skip it alone. It has the camera's use goal only, and the tip says she need not die.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 2944: the snapshot line ticked on the camera's cast (spell 11610) for 8 people, never on a kill of Gammerita (7977)"
+				}
+			],
+			"issue": 3235
 		}
 	]
 }
