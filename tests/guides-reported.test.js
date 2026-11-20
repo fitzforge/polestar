@@ -17669,3 +17669,21 @@ for (const guide of DUN_MOROGHS) test(`${guide}: the Trogg Threat only marks the
 	assert.ok(goal.spots?.length >= 2, 'more than one camp to search');
 	assert.ok(goal.spots.every(({ x, y }) => x >= 29 && x <= 34 && y >= 70 && y <= 75), 'no high-level camps among the alternatives');
 });
+
+// #3275 (Archmage Xylem, 0.4.1.1): the Azshara step sent players straight up the cliff to Xylem; Sanath Lim-yo, who
+// teleports you up, stands at the cliff's foot (28.02,50.13; players' recordings: seen by 29 people), not in Valormok.
+// A step at Sanath comes before Xylem's hand-in, as on the Alliance's Burning Steppes guide.
+test('forever/horde/50-60/02-felwood.guide: Sanath Lim-yo before Archmage Xylem (#3275)', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const xylem = list[at(list, 'turnin 3561', is('turnin', 3561))];
+	const before = list.filter(({ s }) => s === xylem.s - 1);
+	assert.ok(before.some(({ goal }) => goal.t === 'goto' && Math.abs(goal.x - 28.1) < 0.2 && Math.abs(goal.y - 50.1) < 0.2), 'the step before the hand-in goes to Sanath Lim-yo at 28.1,50.1');
+});
+
+// #3212 (Hillsbrad, 0.4.1): Beren's Peril (516) was handed in on the Sepulcher stop whether or not its Ravenclaw kills,
+// in the Stonetalon guide, were done. The hand-in has its own step that shows only once the quest is complete.
+test('forever/horde/06-hillsbrad-foothills.guide: Beren\'s Peril is handed in only when complete (#3212)', { skip }, () => {
+	const steps = compiled('forever/horde/06-hillsbrad-foothills.guide').steps;
+	const step = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 516));
+	assert.ok(step && whenQuestOf(step, ['complete'], 516), 'turnin 516 sits in a step with `when complete 516`');
+});

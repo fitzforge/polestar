@@ -13924,6 +13924,42 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "sanath-teleport-xylem-3561",
+			"faction": "Horde",
+			"at": {
+				"quest": 3561,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "The apprentice at the top of the tower sends you back down.",
+			"note": "#3275: Archmage Xylem's tower stands on the cliff; Sanath Lim-yo, who teleports you up, stands at its foot (28.02,50.13), not in Valormok as the tip said. A step at Sanath (goto 28.1,50.1) comes right before the hand-in, as on the Alliance's Burning Steppes guide.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 8395: seen friendly by 29 people at 28.0,50.1 (2026-11-20)"
+				}
+			],
+			"issue": 3275
+		},
+		{
+			"id": "berens-peril-handin-when-complete-3212",
+			"faction": "Horde",
+			"at": {
+				"quest": 516,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 516",
+			"note": "#3212: Beren's Peril's Ravenclaw kills are in the Stonetalon guide, far from the Sepulcher; its hand-in there showed whether or not they were done. It has its own step now, shown only once the quest is complete.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3212 (0.4.1): the hand-in step with the kills not done"
+				}
+			],
+			"issue": 3212
 		}
 	]
 }

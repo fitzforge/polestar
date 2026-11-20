@@ -207,8 +207,13 @@ step Ag'tor Bloodfist
   accept 3518
   note Keep the deliveries: Jes'rimon, Belgrom and Zevrost are in Orgrimmar next, Magatha in Thunder Bluff and Andron Gant in the Undercity on the next guides.
 
+step Sanath Lim-yo
+  zone Azshara
+  tip Ride east from Valormok to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to Archmage Xylem's tower.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
 step Archmage Xylem
-  tip Xylem's tower stands on the cliff just north of Valormok: Sanath Lim-yo, in Valormok, teleports you up for free (talk to him); otherwise the path winds up its north side.
+  tip The apprentice at the top of the tower sends you back down.
   turnin 3561                         -- Upstairs
   accept 3565
 
