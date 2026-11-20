@@ -1816,7 +1816,8 @@ end
 local function current()
 	local savedState = savedItemFilterState()
 	if cache.query == query and cache.kind == kind and cache.category == category and cache.gen == LK.gen
-		and cache.savedState == savedState then return cache end
+		and cache.savedState == savedState
+		and (cache.reason ~= "combat" or ns.Compat.InCombat()) then return cache end
 	local saved = normalizeItemFilters(savedState)
 	local opts = listOptions(saved)
 	local counts, before, list = {}, {}, {}

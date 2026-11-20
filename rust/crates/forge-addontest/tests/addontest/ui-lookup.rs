@@ -1779,6 +1779,41 @@ fn a_browse_list_waiting_for_combat_to_end_loads_the_codex_when_it_does() {
 }
 
 #[test]
+fn items_waiting_for_combat_load_the_codex_when_the_hub_reopens_after_combat_ended_behind_it() {
+	let out = run(r#"
+		local loads = 0
+		stub.inCombat = true
+		lookupstub.loaded, lookupstub.reason = false, "combat"
+		Polestar.Codex.Load = function()
+			loads = loads + 1
+			if stub.inCombat then return false, "combat" end
+			lookupstub.loaded, lookupstub.reason = true, nil
+			Polestar.Fire("CODEX_LOADED")
+			return true
+		end
+		UI.ShowLookup()
+		LK.SetKind("item")
+		local waiting = { kind = LK.shown.kind, rows = LK.shown.rows, empty = LK.shown.empty }
+		local tried = loads
+		PolestarPicker:Hide()
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local hidden = loads
+		UI.ShowPicker()
+		emit({ waiting = waiting, tried = tried, hidden = hidden, loads = loads, section = Polestar.UI.Picker.Section(),
+			kind = LK.shown.kind, rows = LK.shown.rows, empty = LK.shown.empty, list = #rowTexts(LK.results.Child),
+			selected = LK.Selected() and LK.Selected().kind or false })"#);
+	assert_eq!(out["waiting"], json!({ "kind": "item", "rows": 0, "empty": "The Codex loads when combat ends." }), "combat still says so while it lasts");
+	assert_eq!(out["hidden"], out["tried"], "nothing loads while the hub is hidden");
+	assert_eq!(out["section"], "Lookup");
+	assert_eq!(out["kind"], "item");
+	assert!(out["loads"].as_i64().unwrap() > out["tried"].as_i64().unwrap(), "the hub loads the Codex when it comes back");
+	assert!(out["rows"].as_i64().unwrap() > 0, "the items are listed: {out}");
+	assert!(out["list"].as_i64().unwrap() > 0, "and drawn");
+	assert_eq!(out["selected"], "item");
+}
+
+#[test]
 fn browsing_a_kind_pages_alphabetically_with_muted_entries_last_and_subtitles_only_for_drawn_rows() {
 	let out = run(r#"
 		lookupstub.many(46)
