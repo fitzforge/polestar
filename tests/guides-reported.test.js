@@ -9562,11 +9562,10 @@ test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () =>
 	// (The level 53.02 top-up on the Diseased Grizzlies, 55-56, is a stand-alone one to 53 on the Carrion Lurkers,
 	// 52-53, on the way to Mulgris before them: the danger gate's grind rule, #2207, wants a camp at most a level over
 	// the player, and the quest mobs nearby, the wolves (53-54) and the bears, are both higher.)
-	const cases = [
-		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\b/],
-		// Since the 0.4.0 level tidy the crater opens with a short top-up to 51 (Pterrordax and Flayers up to 52), on Larion's Threshers.
-		['forever/horde/50-60/01-un-goro-crater.guide', 51, (g) => g.t === 'kill' && g.quest === 4145, "the Bloodpetal Threshers (Larion and Muigin)", /^\s+level 51\b/],
-	];
+	// (2026-11-20, Horde 50-60 flow: Un'Goro's top-up to 51 and Felwood's to 54 and 55 are gone: the model enters
+	// Un'Goro at 51.4, and Azshara's quests now come before Felwood in place of the Felwood grinding. No written grind
+	// is left in those guides, so there is nothing to pin here; the last top-up, to 59.9, is checked below.)
+	const cases = [];
 	for (const [guide, lv, work, what, line] of cases) {
 		assert.ok(goals(guide).some(({ step, goal }) => goal.t === 'level' && goal.level === lv && step.goals.some(work)), `${guide}: the level ${lv} grind is in the step for ${what}`);
 		// the grind policy: a written grind offers the dungeons at its level, in the quest step too

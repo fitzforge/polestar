@@ -31,8 +31,7 @@ step Donova Snowden
   accept 3909
   accept 5082
   turnin 980                          -- The New Springs, from Krakle in Un'Goro
-  accept 4842
-  note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide. Strange Sources' spring is at the mouth of Darkwhisper Gorge, among level 59-60 elites: keep it for the Eastern Plaguelands guide's last Winterspring stop.
+  note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide. Donova's next errand, Strange Sources, is at the mouth of Darkwhisper Gorge among level 59-60 elites: it waits for the last guide's Winterspring loop.
 
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
@@ -139,11 +138,11 @@ step Everlook
   accept 4809
 
 step Ice Thistle yetis
-  tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
+  tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) one at a time and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
   collect 12366 quest 3783
 
 step Chillwind chimaeras
-  tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  tip The chimaeras roam the snowfields south and west of Everlook. Careful: Chillwind Chimaeras are 55-57: take the 55s and 56s and leave the biggest; the Fledgling Chillwinds (53-55) by Lake Kel'Theril, back on the road west, carry the horns too. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
   collect 12444 quest 4809
 
 step Everlook

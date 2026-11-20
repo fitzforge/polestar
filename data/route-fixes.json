@@ -5926,14 +5926,54 @@
 			{
 				"a": [
 					"turnin",
-					4511
+					5231
 				],
 				"b": [
 					"accept",
-					6004
+					5542
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): Unfinished Business (6004, level 56: Scarlet Mages 55-56 and Knights 54-55 at the Northridge Lumber Camp) is taken from Kirsta on the Silithus guide's Western Plaguelands ride at about 58, with its follow-ups, instead of at 53."
+				"why": "Horde 50-60 flow (2026-11-20): one Plaguelands sweep on 50-60/05. 50-60/04 ends at Felstone Field beside the Bulwark, so 05 starts with the Western Plaguelands' cauldrons (Dalson's Tears, the Writhing Haunt), Andorhal (towers, Chromie) and Mulgris before riding east past Tirion's hut into the Eastern Plaguelands, instead of leaving them to a Western Plaguelands visit at 58.8-59.6 on 50-60/06.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5781
+				],
+				"b": [
+					"turnin",
+					5234
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): 50-60/05 leaves the Eastern Plaguelands from Tirion's hut (Redemption, Of Forgotten Memories) and rides west to the Bulwark for the last cauldron (Gahrron's Withering, 58) and Unfinished Business with Mickey's termite barrel at Northridge, then Mission Accomplished! back at the Bulwark, and hearths to Orgrimmar.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5238
+				],
+				"b": [
+					"turnin",
+					5159
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): after the Plaguelands, 50-60/05 flies to Splintertree Post and does Greta Mosshoof's chain (5159, 5165, 5242), Salve via Hunting and the Red Key in southern Felwood on its way north to the Deadwood cauldron, Moonglade and Winterspring, before Mount Hyjal; the last guide used to ride Felwood for them at 59.6.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					977
+				],
+				"b": [
+					"turnin",
+					3912
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): 50-60/05 ends at Everlook, where Mount Hyjal's way in starts; the Gadgetzan errands (Gaeriyan, Sprinkle, Pestlezugg, Marvon), Linken's sword at Marshal's Refuge and Layo in Silithus open 50-60/06 after Mount Hyjal, by the flight from Everlook to Gadgetzan.",
+				"source": "review"
 			},
 			{
 				"a": [
@@ -10809,9 +10849,9 @@
 				"q": 5887,
 				"after": [
 					"turnin",
-					3942
+					4102
 				],
-				"reason": "Horde 50-60/07 (0.3.6): Salve via Hunting (level 55, 4200 XP the first time; Maybess Riverbreeze at the Emerald Sanctuary, open once Cleansing Felwood 4102 is done in 50-60/02) wants six Corrupted Soul Shards, which the Jaedenar and Shadow Hold cultists drop about one kill in three (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates). 07 already fights them for Greta's braziers and A Final Blow and walks past Maybess (west side of the Sanctuary) on the way out to Jaedenar and back; the XP comes off the guide's closing grind to 60. Quest data from the classic and Forever quest databases agree.",
+				"reason": "Horde 50-60 (2026-11-20): Salve via Hunting (level 55, 4,200 XP) is taken from Maybess Riverbreeze when Cleansing Felwood (4102) is handed in on 50-60/03's Felwood ride, and handed back on 50-60/05's Felwood stop: its six Corrupted Soul Shards drop about one kill in three from the Jaedenar and Shadow Hold cultists (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates) that 05 fights for Greta's braziers and A Final Blow, and Maybess stands on the west side of the Sanctuary where Greta takes them back.",
 				"issue": "-"
 			},
 			{
@@ -11464,9 +11504,56 @@
 				],
 				"reason": "Horde 50-60 flow (2026-11-20): Delivery to Magatha Grimtotem (2,550 XP) from Jediga in Azshara (50-60/02) goes to Magatha on Thunder Bluff's Elder Rise, on 50-60/03's Thunder Bluff stop, one guide later.",
 				"issue": "-"
+			},
+			{
+				"q": 969,
+				"reason": "Horde 50-60 (2026-11-20): Luck Be With You (level 60, minimum 55, 6,600 XP) from Witch Doctor Mau'ari in Everlook, on 50-60/07's ride from Salfa to Darkwhisper Gorge, which goes down Frostwhisper Gorge where the Frostmaul Shards lie on the ground (object 175324, 24 spots) among the Frostmaul Giants and Preservers (59-60, elite); handed in on the Everlook stop after the gorge. At 59.4-60 by the level model, so the giants are at the player's level: picked up clear of them, with a Careful tip. The live game offers it without A Little Luck (6606): players' recordings and QuestieDB 1.1.3 (#3260).",
+				"issue": "#3260"
 			}
 		],
 		"skip": [
+			{
+				"q": 6133,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): The Ranger Lord's Behest's Rangers are 59-60 (Woodsmen 58-59) at Quel'Lithien Lodge; the Horde route's single Plaguelands sweep (50-60/05) is at 56-57.5 by the level model, 2-3.5 levels under them, and after Mount Hyjal the route reaches 60 in Silithus without coming back. Nathanos' accept is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 6024,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Hameya's Plea: Infiltrator Hameya is level 60 among the Mossflayer trolls (57-59) of Zul'Mashar, 2-3 over the player on 50-60/05's Plaguelands sweep (56-57.5, level model), and the route does not come back to the Eastern Plaguelands after Mount Hyjal.",
+				"issue": "-"
+			},
+			{
+				"q": 5206,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Marauders of Darrowshire follows Heroes of Darrowshire (5168, a group quest at Hearthglen, deliberate.group), and its Scourge Champions are 59-60, over the player on 50-60/05's sweep (56-57.5). Return to Chromie (5941) follows it.",
+				"issue": "-"
+			},
+			{
+				"q": 5941,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Return to Chromie follows Marauders of Darrowshire (5206), left out on the Horde route.",
+				"issue": "-"
+			},
+			{
+				"q": 5845,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Of Lost Honor's symbol lies in the lake by Zul'Mashar, among Mossflayers of 57-59, in the far north-east; 50-60/05 gets it from Tirion only at the end of its Eastern Plaguelands loop, with the ride west to the Bulwark next, and the route doesn't come back. Of Love and Family (5846) follows it.",
+				"issue": "-"
+			},
+			{
+				"q": 5846,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Of Love and Family follows Of Lost Honor (5845), left out on the Horde route.",
+				"issue": "-"
+			},
+			{
+				"q": 6025,
+				"faction": "Horde",
+				"reason": "Horde 50-60 flow (2026-11-20): Unfinished Business part 3 is a look over Hearthglen from inside the town, whose Scarlets are 58-60 with stealth-detecting sentinels and an elite patrol; 50-60/05 stands at Kirsta at about 57 by the level model.",
+				"issue": "-"
+			},
 			{
 				"q": 4061,
 				"faction": "Horde",
@@ -15734,18 +15821,6 @@
 			{
 				"a": [
 					"turnin",
-					6390
-				],
-				"b": [
-					"task",
-					964
-				],
-				"faction": "Horde",
-				"why": "Horde 40-60 flow pass (0.3.7): see 5902 before 6023."
-			},
-			{
-				"a": [
-					"turnin",
 					5082
 				],
 				"b": [
@@ -17044,12 +17119,6 @@
 				"issue": "#2635"
 			},
 			{
-				"q": 4741,
-				"guide": "forever/horde/50-60/05-eastern-plaguelands",
-				"reason": "The work for Wild Guardians (4521: Raging Owlbeast x15, Ragged Owlbeast x15) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
 				"q": 3912,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands",
 				"reason": "It needs 4 quests from 03-winterspring first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
@@ -17063,14 +17132,8 @@
 			},
 			{
 				"q": 4507,
-				"guide": "forever/horde/50-60/05-eastern-plaguelands",
-				"reason": "It needs 8 quests from 06-azshara first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,935 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 6844,
 				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 5 quests from 05-eastern-plaguelands first (Hive in the Tower (1126), The Spirits of Southwind (1125), Wasteland (1124), Rabine Saturna (1123), The New Frontier (1000); about 16,400 XP of work at this visit's level): too long to bring back.",
+				"reason": "It needs 8 quests from 06-azshara first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,935 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{
@@ -17080,51 +17143,9 @@
 				"issue": "#2635"
 			},
 			{
-				"q": 3942,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 8 quests from 05-eastern-plaguelands first (A Gnome's Assistance (3941), Linken's Sword (3914), A Grave Situation (3913), Meet at the Grave (3912), The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 30,550 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 4509,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 9 quests from 05-eastern-plaguelands first (Pawn Captures Queen (4507), Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 19,815 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5902,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "The work for A Plague Upon Thee (5901: Plagueland Termites x100) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
 				"q": 838,
-				"guide": "forever/horde/50-60/06-silithus",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands",
 				"reason": "It pays only 550 XP at 57, less than the trip for its starter (All Along the Watchtowers (5098), Scarlet Diversions (5096)).",
-				"issue": "#2635"
-			},
-			{
-				"q": 105,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "The work for Scarlet Diversions (5096: Destroy the command tent and plant the Scourge banner in the camp) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5742,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 3 quests from 05-eastern-plaguelands first (Demon Dogs (5542), Blood Tinged Skies (5543), Carrion Grubbage (5544); about 17,400 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5206,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 7 quests from 05-eastern-plaguelands first (Heroes of Darrowshire (5168), Villains of Darrowshire (5181), Brother Carlin (5210), The Annals of Darrowshire (5154), A Strange Historian (5153), Auntie Marlene (5152), Pamela's Doll (5149); about 30,550 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 6135,
-				"guide": "forever/horde/50-60/06-silithus",
-				"reason": "It needs 3 quests from 05-eastern-plaguelands first (To Kill With Purpose (6022), Un-Life's Little Annoyances (6042), The Ranger Lord's Behest (6133); about 19,000 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{
@@ -17132,6 +17153,12 @@
 				"guide": "forever/horde/50-60/07-felwood",
 				"reason": "It needs 4 quests from 05-eastern-plaguelands first (Toxic Horrors (5086), Mystery Goo (5085), Falling to Corruption (5084), Winterfall Firewater (5083); about 17,400 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
+			},
+			{
+				"q": 4721,
+				"guide": "forever/horde/50-60/07-felwood",
+				"reason": "Horde 50-60 (2026-11-20): Trull's last Wild Guardians follows 4741, taken on 50-60/03's Bloodvenom Post stop and worked on the Moontouched Owlbeasts on 50-60/05's Winterspring loop; a character who starts at 07 without it would need both trips back.",
+				"issue": "-"
 			},
 			{
 				"q": 98291,
