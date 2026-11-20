@@ -64,16 +64,16 @@ return {
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Sigue la costa hacia el sur hasta la cala pirata. Los piratas del Mar del Sur abarrotan la playa y los barcos: avanza por el borde y atráelos de uno en uno. {npc:7883} está en el lado opuesto; la carga robada de {npc:7881} está en el campamento.\nCuidado: dos o tres piratas acompañan a {npc:7883}, y muchos más piratas del pueblo se unen a la pelea en cuanto empieza.",
 	-- {quest:2873} Stoley's Shipment
-	["{quest:2873}; upstairs"] = "",
+	["{quest:2873}; upstairs"] = "{quest:2873}; arriba",
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, dentro",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "\"Lobo de mar\" MacKinley en {area:35}: la ruta te lleva allí al final de la guía del {zone:1425}, consérvalo",
 
 	-- Step 12: Noonshade Ruins
-	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: los pícaros lanzan Desarmar. Los bastardos se mueven en Sigilo. Los asesinos usan Ejecutar cuando tu vida está al 20% o menos.",
 
 	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
@@ -131,7 +131,7 @@ return {
 	["{npc:5955}'s escort"] = "La escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
 	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La tortuguita {npc:5955} se esconde en el extremo norte de {quest:3362}: recógelo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto van a por él, así que mantenlo con vida."
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La tortuguilla {npc:5955} vaga por el borde oeste del {quest:3362}, sobre todo donde lleva la flecha: tómala desde el borde y deja en paz a los arbustos de Cardo (48-50). Llévala a casa de su mujer {npc:6015}, junto al agua al este de {area:977}: camina despacio y las bestias del desierto van a por ella, así que mantenla con vida.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, a su lado: Oasis",
 
@@ -142,7 +142,7 @@ return {
 	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cabalga al sureste hasta {area:985}. {npc:7847} está en medio del campamento Vagabundo del sur: limpia a su alrededor primero.\nCuidado: dos bastardos Vagabundo sigilosos viajan con él adondequiera que vaya. En su campamento de aparición, dos brujos de las sombras y sus esbirros están lo bastante cerca para unirse a una pelea con él. Fuera, junto a las torres, puedes luchar contra él sin ellos.",
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -207,7 +207,7 @@ return {
 
 	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}, junto al maestro de vuelo",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, dentro",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak

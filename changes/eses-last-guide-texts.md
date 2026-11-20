@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 5,016 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 5,132 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -34,6 +34,7 @@ section: players
   Polymorph, the Eye of Bhossca, the Horn of Xelthos, the Spectral Bear Cub and
   the Worg Carrier, the horse, saber, kodo and skeletal-horse buyer guides,
   Galestrider Riding, the Bitter Baitling, the Druid, Mage, Rogue, Warlock and Shaman
-  class quests and the eastern-kingdoms exploration tours, plus texts
+  class quests, the eastern-kingdoms exploration tours and the pack's category
+  labels, plus texts
   that repeat English the locale already translates, filled with the locale's
   own wording.

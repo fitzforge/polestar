@@ -133,7 +133,7 @@ return {
 	-- Step 25: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "Cuidado: los obreros Gorishi pueden pedir ayuda en 25 metros cuando bajan del 45% de vida; los silíticos lanzan {spell:8137} y los túnelers y el guardia del panal usan {spell:14120}.",
 
 	-- Step 26: Eastern Pylon
 	["Eastern Pylon"] = "Pilón del este",
@@ -160,7 +160,7 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock
 	["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "Vuelve hacia el norte hasta {area:541}: {npc:9117} bajo tierra y {npc:9997} junto al maestro de vuelo.",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, junto al maestro de vuelo",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 33: To Gadgetzan
@@ -189,11 +189,11 @@ return {
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Barco a {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, en el muelle: para el {quest:4324} en {area:251}, más tarde en esta guía",
 
 	-- Step 39: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "Sal del {zone:2548} a pie hacia el noroeste, al norte de {area:16685}, hacia el {zone:1418}.",
 
 	-- Step 40: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
@@ -270,7 +270,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, El Apothecarium: los viales se llenan más tarde en {zone:1447}",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, cerca de Cuely en el Apotecarium",
 
 	-- Step 58: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
@@ -288,7 +288,7 @@ return {
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Retrocede unos pasos hacia el oeste hasta la Granja Piedra Vil, la primera granja del camino; {npc:10778} espera en la casa.",
 	["Upstairs"] = "Piso de arriba",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, beside the house; inside"] = "",
+	["{object:175894}, beside the house; inside"] = "{object:175894}, junto a la casa; dentro",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["Keep the parcel: {npc:10781} is in the {zone:1458}. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda el paquete: {npc:10781} está en {zone:1458}. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 

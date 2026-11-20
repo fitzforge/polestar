@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: mata estos al encontrarlos",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío (47-48) llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.\nCuidado: los demás cardizales de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer enemigos de más: mata a los Colectores de rocío del borde del valle y deja los Cardizales nudosos y los Formarraíces de {quest:2864} para el viaje a {area:1938} de camino a Un'Goro, hacia el nivel 51.",

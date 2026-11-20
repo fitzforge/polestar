@@ -153,7 +153,7 @@ return {
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos de élite: se anima a ir en grupo, busca gente con quien hacerlo. El {quest:8552} necesita un grupo de 2. Sáltatelo si estás solo: la ruta te hace picar la experiencia de vuelta.",
 
 	-- Step 34: Negolash's bait
 	-- {npc:1494} Negolash

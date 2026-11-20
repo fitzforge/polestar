@@ -22,16 +22,16 @@ return {
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "\"Lobo de mar\" MacKinley, en el piso superior: el cargamento de Stoley desde {zone:1446}",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}, en el balcón del mismo edificio",
 
 	-- Step 4: The Bloodsail ships
 	["The Bloodsail ships"] = "Los barcos Velasangre",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "Al sur de Bahía del Botín, tres barcos de los Maresangre están frente al {area:43}: {npc:2550}, {npc:2548} y {npc:2546} están cada uno en una cubierta con sus tripulaciones. Nada hasta ahí y trabaja de barco en barco.",
 
 	-- Step 6: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos de élite: se anima a ir en grupo, busca gente con quien hacerlo. El {quest:8552} necesita un grupo de 2. Sáltatelo si estás solo: la ruta te hace picar la experiencia de vuelta.",
 
 	-- Step 11: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -41,7 +41,7 @@ return {
 
 	-- Step 12: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
-	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "",
+	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "El vuelo aterriza en {area:117}; {npc:2497} está junto al {object:2076}.",
 
 	-- Step 13: Back to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -49,7 +49,7 @@ return {
 
 	-- Step 14: The Mind's Eye
 	-- {npc:818} Mai'Zoth
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "Son enemigos de élite: se anima a ir en grupo, busca gente con quien hacerlo. {npc:818} (47, élite) necesita un grupo de 2. Sáltatelo si estás solo: la ruta te hace picar la experiencia de vuelta.\nCuidado: dos guardias élite lanzadores, de nivel 45 alrededor, están con {npc:818} y se unen a la pelea junto con él.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 18: Zeppelin to Orgrimmar
@@ -79,7 +79,7 @@ return {
 	["{area:1236}: kill these as you meet them"] = "{area:1236}: mátalos según te los encuentres",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Las apariciones de Altonato rondan las ruinas justo al norte del santuario; los sátiros Haldarr acampan un poco más al norte.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
-	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
+	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} da vueltas por {area:1235}: mira dentro del círculo del mapa",
 
 	-- Step 24: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point

@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "En el {object:2164}, si todavía lo llevas",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Rebel Camp
 	-- {zone:1431} Duskwood
-	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
+	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Desde el {zone:1431} toma el camino al sur; el campamento está en las colinas al oeste del camino.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, si 30-40/04 no te la dio: para {npc:773}, en {area:35}",
 
@@ -42,7 +42,7 @@ return {
 	-- {area:101} Kurzen's Compound
 	["East to {area:101}: Herod's records lie in a hut on its west side."] = "Al este, al {area:101}: los registros de Herod están en una cabaña de su lado oeste.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, upstairs"] = "",
+	["{object:287}, upstairs"] = "{object:287}, arriba",
 
 	-- Step 7: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
@@ -53,13 +53,13 @@ return {
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}, bajo tierra",
 	-- {object:288} Bookie Herod's Strongbox
-	["{object:288}, below ground"] = "",
+	["{object:288}, below ground"] = "{object:288}, bajo tierra",
 
 	-- Step 8: The jungle ruins
 	["The jungle ruins"] = "Las ruinas de la selva",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "Al oeste, a través de la selva, hasta las ruinas trols: cada una guarda una tablilla de piedra con las leyendas trols. Las dos primeras están en las ruinas al suroeste del campamento de Nesingwary, y las dos últimas en la colina del noroeste.\nCuidado: los múrlocs Escamas de Sal de la orilla cerca de la segunda tablilla son élites (35-37): nada hasta la tablilla desde el agua y mantente lejos de ellos.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
-	["{item:2006}: {object:58}; underwater"] = "",
+	["{item:2006}: {object:58}; underwater"] = "{item:2006}: {object:58}; bajo el agua",
 
 	-- Step 9: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
@@ -107,7 +107,7 @@ return {
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "Al noreste por el camino hasta el {area:99}, y luego de vuelta al sur por la selva.",
 	-- {npc:733} Sergeant Yohwa
-	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
+	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733}: los comandos y reducabezas cayeron en el recinto",
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "guárdala: los Médicos Brujos Machacacráneos (41-42) esperan a la guía de Tuercespina 40-50",
 
