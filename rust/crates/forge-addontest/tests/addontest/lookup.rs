@@ -854,14 +854,27 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 		Polestar.Codex.Index = function(k) if k == "item" then return base end end
 		Polestar.Codex.IsLoaded = function() return true end
 		Polestar.Names.Localised = function() return true end
-		Polestar.Names.Ready = function() return true end
-		Polestar.Names.Cached = function(_, id) if id == 1 then return "Silver Blade" end end
-		Polestar.Search.Query("prepare", { kinds = { guide = true }, subtitles = false })
-		collectgarbage(); collectgarbage()
-		local before = collectgarbage("count")
+		-- Build the same item index twice. Before the names pack is ready the result is not cached;
+		-- this pays the first scan's VM costs without charging them to the retained translation.
+		local ready = false
+		Polestar.Names.Ready = function() return ready end
+		Polestar.Names.Cached = function(_, id) if id == (ready and 1 or 2) then return "Silver Blade" end end
 		Polestar.Search.Query("unmatched", opts)
-		collectgarbage(); collectgarbage()
-		emit((collectgarbage("count") - before) * 1024 / #base)
+		local function retainedKiB()
+			-- Lua 5.1 can halve its string table and scratch buffer one collection at a time.
+			local last
+			for _ = 1, 32 do
+				collectgarbage()
+				local kib = collectgarbage("count")
+				if kib == last then return kib end
+				last = kib
+			end
+			error("retained Lua heap did not settle")
+		end
+		local before = retainedKiB()
+		ready = true
+		Polestar.Search.Query("unmatched", opts)
+		emit((retainedKiB() - before) * 1024 / #base)
 		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
 		emit({ rows[1].id, rows[1].title, counts.item, more.item })
 	"#,

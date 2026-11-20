@@ -95,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "MacKinley “Lobo do Mar”, se o guia de Selva do Espinhaço não a deu",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, último andar, se o guia de Selva do Espinhaço não a deu",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, se o guia de Selva do Espinhaço não a deu",
+	["{npc:2487}, top floor"] = "{npc:2487}, último andar",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, lá dentro, se o guia de Selva do Espinhaço não a deu",
+	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}: vá matando estes pelo caminho",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "As cartas náuticas e as ordens ficam no acampamento pirata em {area:43}, logo ao sul de {area:35}; os Espadachins dele andam pela costa. Os Bruxos e Espadachins (41-43) agora estão abaixo do seu nível.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, último andar",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Os capitães da Vela Sangrenta",
@@ -133,6 +126,8 @@ return {
 	["{npc:2535} and {npc:2536}"] = "{npc:2535} e {npc:2536}",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} e {npc:2536} ficam juntos nas colinas logo ao norte da aldeia de Zanzil.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Colinas dos gorilas",
@@ -153,8 +148,6 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "para {npc:2616} em Theramore: guarde-o, o guia de Un'Goro chega lá",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "A próxima tarefa de {npc:2498} sobre Zanzil começa em {zone:1441}: pule-a.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "A próxima tarefa de MacKinley manda você atrás de ogros elite: pule-a.",
 
 	-- Step 30: Monogrammed Sash
@@ -177,6 +170,7 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:1494} (elite nível 52) pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "MacKinley “Lobo do Mar”, se o guia de Selva do Espinhaço não a deu",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Javalis Jubacinza e Basiliscos Itarrubra dividem as encostas a sudoeste da fortaleza. Fique longe dos Javiltuscos mais ao sul: são nível 52.",
 	-- ["Back to {area:144}"] = "De volta a {area:144}",
 	-- ["Back to {area:38}"] = "De volta a {area:38}",
@@ -219,6 +213,9 @@ return {
 	-- ["{area:702} flight master"] = "Mestre de voo de {area:702}",
 	-- ["{item:8047}; below ground"] = "{item:8047}; no subterrâneo",
 	-- ["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, último andar, se o guia de Selva do Espinhaço não a deu",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, se o guia de Selva do Espinhaço não a deu",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, lá dentro, se o guia de Selva do Espinhaço não a deu",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, no alto da árvore",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, ao lado dela",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",

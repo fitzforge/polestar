@@ -389,12 +389,13 @@ local own = {{}}
 for i, step in ipairs(g.steps) do
 	if not step.feeder then for _, goal in ipairs(step.goals) do if goal.map then own[goal.map] = true end end end
 end
-local feeders, outside, hidden = {{}}, 0, {{}}
+local feeders, applicable, outside, hidden = {{}}, {{}}, 0, {{}}
 for i, step in ipairs(g.steps) do
 	if step.feeder then
 		local q = {{}}
-		for _, goal in ipairs(step.goals) do
+		for gi, goal in ipairs(step.goals) do
 			q[#q + 1] = goal.t .. ":" .. tostring(goal.quest)
+			if E.Applies(i, gi) then applicable[#applicable + 1] = q[#q] end
 			if goal.map and not own[goal.map] then outside = outside + 1 end
 		end
 		feeders[#feeders + 1] = i .. " " .. step.title .. " [" .. step.feeder .. " " .. step.feederStep .. "] " .. table.concat(q, " ")
@@ -406,7 +407,7 @@ local collects = {{}}
 for _, step in ipairs(g.steps) do
 	for _, goal in ipairs(step.goals) do if goal.t == "collect" and not goal.quest and goal.item then collects[#collects + 1] = goal.item end end
 end
-emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
+emit({{ guide = g.title, before = before, after = after, feeders = feeders, applicable = applicable, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
 		),
 		..Default::default()
 	})
@@ -420,6 +421,28 @@ fn ids(v: &Value) -> Vec<u64> {
 
 fn lines(v: &Value) -> Vec<String> {
 	v.as_array().map(|a| a.iter().map(|x| x.as_str().unwrap().to_string()).collect()).unwrap_or_default()
+}
+
+#[test]
+fn t_3033_unfinished_tusks_come_before_the_imported_gromgol_hand_in() {
+	let plan = |progress: i32| {
+		let mut setup = String::from("Polestar.Set('behavior.skipGrey', true); stub.world.moveTo(1434, 32.3, 27.8);");
+		if progress >= 0 {
+			setup.push_str(&format!("stub.world.onQuest(581, {{9}}); stub.world.progress(581, 1, {progress});"));
+		}
+		let out = shipped_with("Horde", "Orc", "WARRIOR", 40, "", "", "forever/horde/40-50/01-stranglethorn-vale", &setup);
+		lines(&out["feeders"])
+	};
+	for progress in [-1, 0, 4, 9] {
+		let visits = plan(progress);
+		let at = |goal: &str| visits.iter().position(|line| line.split_whitespace().any(|word| word == goal));
+		let payment = at("turnin:581").expect("visit Nimboya");
+		assert!(payment <= at("accept:582").unwrap());
+		if progress < 9 {
+			assert!(at("collect:581").unwrap() < payment, "tusks before payment at {progress}/9: {visits:?}");
+		}
+		assert_eq!(at("accept:581").is_some(), progress < 0);
+	}
 }
 
 #[test]
@@ -940,4 +963,17 @@ fn t_2494_a_feeder_accept_from_an_item_comes_with_the_item_s_collect() {
 	let far = run_horn("1429, 50, 50");
 	assert_eq!(far["hidden"], json!([3182]), "{far}");
 	assert!(!far["shape"].to_string().contains("<test/sg"), "{far}");
+}
+
+#[test]
+fn t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube() {
+	let offered = |done, log, tubes| {
+		let out = shipped_with("Alliance", "Gnome", "PRIEST", 29, done, log, "forever/alliance/07-thousand-needles", &format!("stub.world.items[4371] = {tubes}"));
+		lines(&out["applicable"]).into_iter().filter(|s| s == "accept:174" || s == "turnin:174").collect::<Vec<_>>()
+	};
+	assert_eq!(offered("", "", 1), ["accept:174", "turnin:174"]);
+	assert_eq!(offered("", "174", 1), ["turnin:174"]);
+	assert!(offered("", "", 0).is_empty(), "do not offer the purchase without its price");
+	assert!(offered("", "174", 0).is_empty(), "holding the quest does not pay for it");
+	assert!(offered("174", "175", 0).is_empty(), "the player already paid");
 }
