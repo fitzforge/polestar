@@ -43,7 +43,7 @@ const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
 const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
-const { personaVariants, personaTables, updatePoints, SNAPSHOT_LUA } = require('./playtest-personas');
+const { personaVariants, personaTables, updatePoints, snapshotLines, SNAPSHOT_LUA } = require('./playtest-personas');
 const { levelOffsetLua } = require('./playtest-level');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
@@ -728,7 +728,11 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 	}
 	const pool = new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const sim = simPacks([{ guides, manifest }], data);
-	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: from.version } }], data) : null;
+	// The Engine maps a save onto changed guides only when its pack version differs from the save's (Own.updated);
+	// a tree not yet bumped for its release (next before the release commit) still carries the last release's, so
+	// its old pack is told apart, as every real update is.
+	const oldVersion = from && from.version === manifest.version ? `${from.version}-before` : from && from.version;
+	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: oldVersion } }], data) : null;
 	const oldById = new Map((old || []).map((g) => [g.id, g]));
 	const results = [];
 	const arriving = new Map();
@@ -793,10 +797,11 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {
 						const oldPre = chainDone(old, was, who);
 						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map(carriedLua), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
+						const snapLines = snapshotLines(data, [was, g]);
 						for (const k of updatePoints(was, points)) {
 							const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 							plays.push(
-								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
+								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${snapLines}\n${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
 									const snap = emitted.find((e) => e && e.snapshot);
 									if (!snap) return;
 									// Where the save opened the updated guide: emitted first, the play's result after it.
