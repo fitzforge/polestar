@@ -2,6 +2,104 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "3044-frostmane-hold-explore",
+			"quest": 287,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": { "map": 1426, "x": 21.3, "y": 54.2, "frame": "era" },
+			"note": "The explore credit is at the far end of Frostmane Hold. Keep the completion goal there even after the headhunter kills and approach waypoint are checked.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3044: Gnome Warlock, five headhunters killed and cave waypoint checked, but the arrow led back to the camp before explore credit" },
+				{ "kind": "recording", "ref": "quest 287 objective 2: 17 recorded explore credits average 21.28,54.15; the later 38 counted observations cluster at 21.23,53.99" }
+			],
+			"issue": 3044
+		},
+		{
+			"id": "sorrow-hill-minion-stones",
+			"faction": "Alliance",
+			"quest": 5402,
+			"objective": 1,
+			"path": {
+				"map": 1422,
+				"frame": "era",
+				"points": [
+					[
+						47.37,
+						84.3
+					],
+					[
+						48.12,
+						82.81
+					],
+					[
+						48.7,
+						80.4
+					],
+					[
+						49.27,
+						81.3
+					]
+				]
+			},
+			"note": "Only the Sorrow Hill errand uses these camps. The donation takes twenty Minion's Scourgestones; leave other uses of the same item alone.",
+			"source": {
+				"kind": "client",
+				"ref": "Skeletal Flayer 1783 and Slavering Ghoul 1791 in Western Plaguelands. All four places are their spawns north of Chillwind; #3134 selected a different camp."
+			},
+			"issue": 3134
+		},
+		{
+			"id": "sunnyglade-fuzzle-quest-cage",
+			"quest": 94961,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.31,
+				"y": 51.36,
+				"frame": "live"
+			},
+			"note": "Take the first quest at the cage, not at one of the escort positions.",
+			"source": {
+				"kind": "recording",
+				"ref": "Live cage mark in #3078, distinct from the later escort destination."
+			},
+			"issue": 3078
+		},
+		{
+			"id": "riverglades-argo-bait-at-junk",
+			"quest": 95267,
+			"objective": 1,
+			"at": {
+				"map": 2548,
+				"x": 74.39,
+				"y": 72.38,
+				"frame": "live"
+			},
+			"note": "Use the bait here before taking the head, not at a roaming monster position.",
+			"source": {
+				"kind": "recording",
+				"ref": "Quest mark #3036 and 48 recorded objective credits within half a map point of the marked junk."
+			},
+			"issue": 3036
+		},
+		{
+			"id": "hyjal-felflick-decision-cage",
+			"quest": 96322,
+			"objective": 1,
+			"at": {
+				"map": 2482,
+				"x": 49.28,
+				"y": 77.22,
+				"frame": "live"
+			},
+			"note": "Make the decision in the cage at Felflick, not at the crow that pays the quest.",
+			"source": {
+				"kind": "recording",
+				"ref": "Eight questers got dialogue credit at Felflick; the live marker in #3194 is at his cage."
+			},
+			"issue": 3121
+		},
+		{
 			"id": "043-alliance-honey-wasps",
 			"quest": 89013,
 			"objective": 1,

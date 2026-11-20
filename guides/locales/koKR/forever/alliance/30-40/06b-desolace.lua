@@ -88,24 +88,24 @@ return {
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "서쪽으로 가는 길에 다시 마녀단으로: 북쪽 가장자리의 마나먹는 지옥사냥개(37-38)와 더 안쪽의 마법사 사냥개(38-39)가 뇌를 떨어뜨립니다. {npc:5760}(40, 정예)이(가) 마법사 사냥개 사이를 돌아다니니 사냥개를 끌어내십시오.",
 
-	-- Step 17: Azore Aldamort
+	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 서쪽으로 {zone:1443} 북부를 가로질러 {area:2405} 폐허로 가십시오. 난파선으로 가는 길, 그곳 언덕 위에 {npc:11863}의 탑이 서 있습니다.",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, {zone:1435}의 마그투르에게서 받음",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "난파선의 상자는 {npc:11863}의 탑 바로 남서쪽에 있습니다.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "첫 {zone:1443} 방문 때 받지 않았다면, {object:177787}은(는) {object:35251} 옆에 있습니다. 그의 은 열쇠는 난파선 주변의 마른집게 게가 떨어뜨리고, 황금 열쇠는 다음에 갈 북서쪽 해안의 칼날비늘 나가에게서 얻습니다.",
 	-- {object:177787} Rackmore's Log
 	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}: 30-40/02에서 받지 않았다면",
 	["Underwater"] = "물속",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: 만나는 대로 처치하십시오",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
@@ -115,13 +115,13 @@ return {
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, {object:177673}에 사용",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "랙모어의 상자는 {object:177673} 바로 남동쪽에 있습니다.",
 
 	-- Step 24: Nijel's Point
-	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
-	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "길을 따라 북쪽 {area:608}(으)로 가십시오. {npc:5396}은(는) 남쪽 끝에, {npc:5638}은(는) 한가운데에, {npc:1182}은(는) 북쪽에 서 있습니다.",
+	-- {area:608} Nijel's Point · {area:2405} Ethel Rethor · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Hearth to {area:608} if you are still bound there and the stone is ready. Otherwise follow the road east from {area:2405} and up the pass. Hand in at {npc:5396}, {npc:5638} and {npc:1182} before the flight."] = "",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "{zone:1455}의 {npc:5637}에게: 보관하십시오",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
@@ -132,6 +132,7 @@ return {
 	["The next guide starts in Theramore."] = "다음 가이드는 테라모어 섬에서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "길을 따라 북쪽 {area:608}(으)로 가십시오. {npc:5396}은(는) 남쪽 끝에, {npc:5638}은(는) 한가운데에, {npc:1182}은(는) 북쪽에 서 있습니다.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "칼날비늘 나가가 {npc:11863}의 탑 북쪽, 북서쪽 해안을 차지하고 있습니다. 카니톨의 가방은 그 앞바다 해저에 있으며, 어느 나가든 랙모어의 황금 열쇠를 떨어뜨릴 수 있습니다. 맨 북쪽 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하십시오. {npc:12369}(38)이(가) 솟아오르니 처치해서 {quest:6027}을(를) 얻으십시오.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 지옥사냥개(마나 포식자, 마법사 사냥개, 지맥 사냥개), 황천의 처녀와 황천의 자매, 그리고 구덩이 주변의 파멸의 수호대장입니다.\n주의: 이곳 몹 대부분은 순찰 경로를 걸으므로 몹을 더 끌어오기 쉽습니다.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 그런 다음 들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그람 유령을 끌어내십시오. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 두 화살표 사이 뼈 들판을 돌아다닙니다. 약탈자와 유령을 그들에게서 멀리 끌어내십시오.",

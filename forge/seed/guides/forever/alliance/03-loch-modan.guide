@@ -312,20 +312,16 @@ step Hilary's Necklace
   collect 10958 quest 3741                    -- Hilary's Necklace; underwater
 
 step Lakeshire
-  tip Through town east to west: Hilary and Foreman Oslow at the north end of the bridge, Dockmaster Baren on the docks, then Martie's garden at the west end; Darcy and Chef Breanna are in the inn.
+  tip Through town east to west: Hilary and Foreman Oslow at the north end of the bridge, then Dockmaster Baren on the docks. If you're level 20, take Murloc Poachers from him with the sunfish reward; the murlocs are for the next Redridge visit. Then go to Martie's garden at the west end and Darcy and Chef Breanna in the inn.
   turnin 3741                                 -- Hilary
   turnin 125                                  -- Foreman Oslow
   accept 89                                   -- Its pikes and rivets come from the gnolls north of the lake, on the loop after Westfall
   turnin 127                                  -- Dockmaster Baren
+  accept 150 optional                         -- Dockmaster Baren, from level 20; offered again on the last Lakeshire stop
   turnin 130                                  -- Martie Jainrose
   accept 131
   turnin 131                                  -- Darcy, inside
   turnin 92                                   -- Chef Breanna, inside
-
-step Dockmaster Baren
-  when level>=20
-  tip From level 20 Dockmaster Baren gives Murloc Poachers: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24.
-  accept 150 optional                         -- Dockmaster Baren, on the docks
 
 # ---------------------------------------------------------------- Westfall
 

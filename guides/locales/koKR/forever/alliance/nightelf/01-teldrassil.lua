@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "다시 {area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요. {npc:6094}은(는) 잎과 약병과 함께 {item:159}을(를) 받습니다. 마셔 버렸다면 제출하기 전에 이 여관의 {npc:6736}에게서 하나 더 사세요.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -596,6 +596,7 @@ return {
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "여관 남쪽 언덕에서 {area:442} 비행 경로를 배운 뒤 {spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있고, {quest:5929}은(는) 북서쪽 숲에 있습니다. {area:2361}에서 {area:493} 비행 경로를 배우고 ({area:442}을(를) 거쳐) {area:702}(으)로 날아가세요.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 동쪽 길을 따라 삽니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요. {npc:6094}은(는) 잎과 약병과 함께 {item:159}을(를) 받습니다. 마셔 버렸다면 제출하기 전에 이 여관의 {npc:6736}에게서 하나 더 사세요.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "숲에서 남쪽으로 우르살 쪽으로 가세요. 샤일라는 {area:186} 서쪽 길을 오갑니다. 숲에서 내려오는 길이 만나는 곳에서 남서쪽으로 약 38,54의 굽은 길까지 오갑니다.",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "웅덩이 남쪽입니다. {object:6751}은(는) 나무옹이 요새 옆에 자랍니다. 그 주변의 펄볼그가 나머지 송곳니를 떨어뜨립니다.",
 	-- ["Speak with {npc:6286}, south of the inn"] = "여관 남쪽의 {npc:6286}와(과) 대화하세요",

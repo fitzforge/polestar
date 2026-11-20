@@ -30,6 +30,11 @@ step Sorrow Hill: kill these as you meet them
   tip Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the Argent Dawn Commission (equip it as a trinket first).
   tip Careful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.
   tip Careful: The Eye of Naxxramas (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts.
+  loop
+  goto 47.37,84.30 era r 24
+  goto 48.12,82.81 era r 24
+  goto 48.70,80.40 era r 24
+  goto 49.27,81.30 era r 24
   collect 12840 x20 -- Minion's Scourgestone
 
 step Marlene Redpath
@@ -150,13 +155,6 @@ step Sorrow Hill: kill these as you meet them
 
 step Chromie
   turnin 4972                         -- Upstairs
-  accept 4973
-
-step More watches
-  collect 12638 quest 4973.1
-
-step Chromie
-  turnin 4973                         -- Upstairs
 
 # ---------------------------------------------------------------- Northridge and Tirion
 
@@ -626,6 +624,10 @@ step Ironstone Plateau: kill these as you meet them
   collect 11478 quest 4289            -- Un'Goro Gorilla Pelt; below ground
   collect 11479 quest 4289            -- Un'Goro Stomper Pelt; below ground
   collect 11480 quest 4289            -- Un'Goro Thunderer Pelt; below ground
+
+step Spark Nilminer
+  when complete 3882
+  turnin 3882                         -- Pay for bones already gathered before the rest of the crater loop.
 
 step Marshal's Refuge
   turnin 4501                         -- Spraggle Frock

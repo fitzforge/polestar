@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}，在市政廳旁",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "沿路向北，從{area:42}回到{area:1002}。",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "{area:69}飛行管理員",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿著{area:68}南岸的道路前往獅鷲管理員處。{npc:903}站在她旁邊的路旁。",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -270,9 +272,11 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "接下來：乘獅鷲前往{area:42}，開始{zone:1431}的第二輪路線（05-duskwood）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the road from {area:42} to {area:1002}."] = "沿路向北，從{area:42}回到{area:1002}。",
 	-- ["Bellygrub"] = "貝利格拉布",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "向北走過長橋進入城鎮。{npc:341}和{npc:382}站在橋的北端，{npc:900}在市政廳，{npc:381}和{npc:266}在碼頭，{npc:343}在旅店，{npc:342}在西端她的花園裡。",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "向東經過伐木場並渡河。暗皮豺狼人遍布山谷；{npc:703}（26級，遠高於你）在北端帶領他們：先清掉他的護衛，滿血再打他。不要進入南邊的{area:2099}：那裡的獸人是精英。",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿著{area:68}南岸的道路前往獅鷲管理員處。{npc:903}站在她旁邊的路旁。",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "給{npc:3649}，在回到{area:442}時（06-ashenvale）",
 	-- ["Gnolls toward {area:1002}"] = "前往{area:1002}方向的豺狼人",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "向北離開{area:69}，沿著{area:95}前往{area:997}。黑石勇士在山谷中紮營。",

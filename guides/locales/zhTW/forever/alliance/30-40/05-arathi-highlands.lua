@@ -262,16 +262,24 @@ return {
 	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "下了飛行路線，直接前往{area:271}旅店。然後鎮公所裡的{npc:2276}和{npc:2277}會給你辛迪加營地的任務，派你向北前往{area:280}。",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}，在地下",
+
+	-- Step 55: Phin Odelic
+	-- {npc:2711} Phin Odelic
+	["{npc:2711} stands by the inn."] = "",
+
+	-- Step 56: Southshore town hall
+	-- {area:271} Southshore
+	["{area:271} town hall"] = "",
 	-- {npc:2276} Magistrate Henry Maleb · {area:280} Strahnbrad
 	["{npc:2276}: the signet rings are in {area:280}"] = "{npc:2276}：圖章戒指在{area:280}",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
 	["For {npc:1356} in {zone:1455}, at the end of this guide"] = "給{zone:1455}的{npc:1356}，在本指南的最後",
 
-	-- Step 56: Gavin's Naze
+	-- Step 58: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad
 	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings."] = "沿道路從{area:271}向北進入山區。山地獅在山坡上遊蕩；{area:280}的辛迪加戴著圖章戒指。",
 
-	-- Step 57: Ruins of Alterac: kill these as you meet them
+	-- Step 59: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
 	["{area:281}: kill these as you meet them"] = "{area:281}：遇到就殺",
 	-- {area:280} Strahnbrad
@@ -282,33 +290,33 @@ return {
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
 	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}：{object:1760}，在泥耙（40級，精英）旁邊：組隊去拿，或放棄{quest:540}；在裡面",
 
-	-- Step 58: Ruins of Alterac: kill these as you meet them
+	-- Step 60: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "這些是精英怪物：建議組隊，找人一起打。{npc:2417}是40級精英：大多數職業在42級時可以單刷，但你可能需要幫忙。如果你是獨自一人就跳過：路線會讓你把經驗值練回來。\n{npc:2417}會從箭頭處向東北穿過廢墟走到約40,47再走回來：如果他不在箭頭處，就沿著他的路線找。",
 
-	-- Step 59: Strahnbrad: kill these as you meet them
+	-- Step 61: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
 	["{area:280}: kill these as you meet them"] = "{area:280}：遇到就殺",
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps north of the village. Leave him be."] = "小心：辛迪加間諜和辛迪加刺客可能處於潛行狀態。刺客還會讓你中毒。\n小心：{npc:2306}（40級）每次只會出現在一個地點：{area:280}旅店的地窖，或村莊北邊的其中一處辛迪加帳篷營地。別去惹他。",
 
-	-- Step 60: Crushridge ogres
+	-- Step 62: Crushridge ogres
 	["Crushridge ogres"] = "破碎嶺巨魔",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Careful: Nagaz (40) stands far to the north-west by a worn wooden chest, with Syndicate guards: stay with the ogres.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "破碎嶺巨魔佔據{area:280}北邊的丘陵。小心：納加茲（40級）站在遠處西北方一個破舊的木箱旁，身邊有辛迪加守衛：待在巨魔這邊就好。\n破碎嶺虐待者、法師、執行者和戰爭販子（36-39級）是精英；破碎嶺巨魔和蠻兵（34-35級）不是精英，也會掉落指節骨：一次拉一隻，或組隊。",
 
-	-- Step 62: Dalaran
+	-- Step 64: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "向西南前往{area:279}西邊湖岸的祈倫托營地，就在越過邊界進入{zone:1421}之處：{npc:269127}站在那裡。大法師安斯雷姆·魯因維沃爾站在它東南方的穹頂旁。",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "給{area:35}的{npc:2542}：先留著",
 
-	-- Step 63: Image of Archmage Modera
+	-- Step 65: Image of Archmage Modera
 	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
 	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "為了你接下來的達拉然城之行：{npc:269127}要你削減城裡的奧術殘影，並從混亂之心取得一顆微粒。{quest:92458}會給你{item:277507}，用來打開柵欄。",
 
-	-- Step 64: City of Dalaran
+	-- Step 66: City of Dalaran
 	["City of Dalaran"] = "達拉然城",
 	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
 	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
@@ -318,40 +326,40 @@ return {
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
 	["{quest:92458}: the {item:251961}, inside"] = "",
 
-	-- Step 65: Image of Archmage Modera
+	-- Step 67: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "從柵欄出來，回到湖岸上摩德拉的營地。",
 
-	-- Step 68: Southshore
+	-- Step 70: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "給{zone:1453}的{npc:1440}：先留著",
 
-	-- Step 69: Bartolo Ginsetti
+	-- Step 71: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438}站在飛行管理員和旅店之間；要是你沒有{item:2321}，他旁邊的{npc:2381}有賣。",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "{item:2321}，來自{npc:2381}",
 
-	-- Step 71: Ironforge
+	-- Step 73: Ironforge
 	-- {npc:1356} Prospector Stormpike · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}：給{zone:1432}的{npc:1344}，接下來交",
 
-	-- Step 72: Fly to Thelsamar
+	-- Step 74: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "飛往{area:144}",
 
-	-- Step 73: To Thelsamar
+	-- Step 75: To Thelsamar
 	-- {area:144} Thelsamar
 	["To {area:144}"] = "前往{area:144}",
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "從{zone:1455}走隧道向東穿過{zone:1426}進入{zone:1432}，沿道路前往{area:144}。",
 
-	-- Step 74: Thelsamar
+	-- Step 76: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
 	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}，地下",
 
-	-- Step 75: Prospector Ironband
+	-- Step 77: Prospector Ironband
 	["South-east along the loch to the dig site."] = "沿湖向東南前往挖掘場。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

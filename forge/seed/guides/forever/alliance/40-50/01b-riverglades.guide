@@ -96,7 +96,7 @@ step Gelinda Coppergleam
   when level>=41
   when !onquest 95792
   when !turnedin 95792
-  tip From the Bristle Hills take the southern path to Gelinda, by the Cinderscale hollow. Leave the gnoll report for your stop at Southern Watch after the farm.
+  tip Gelinda camps by the Cinderscale hollow, west of Southern Watch.
   accept 95792                          -- Clear 'em Out
 
 step Gelinda Coppergleam
@@ -156,7 +156,7 @@ step Watcher Fredericks
 
 step Cedric Dalton
   when complete 94678
-  tip Take the gnoll report to Captain Dalton while you're at Southern Watch, then head north to Turner's camp.
+  tip Tell Captain Dalton about the gnoll infestation while you're at Southern Watch, then head north to Turner's camp.
   turnin 94678
 
 step Cedric Dalton
@@ -310,9 +310,21 @@ step Ghostmaw
 step Sunnyglade
   tip Cross the river north of Terral's Watch and stay west of Rog'mar, the Horde fort. Start at Elbrim's farm on Sunnyglade's north-eastern edge, then head west to Claire and Fuzzle. The cult's ritual circles are just south of them.
   accept 94829                          -- Farmer Elbrim: What We Lost
+
+step Into Sunnyglade's cave
+  when !done claire-first-quests
+  when !indoors
+  tip The cave mouth is on Sunnyglade's eastern side. Follow the passage west to Apprentice Claire; her marker is inside, not on the hillside above.
+  goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
+
+step Apprentice Claire
+  label claire-first-quests
   accept 95642                          -- Apprentice Claire: Abominable Magics
   accept 95643                          -- Indiscriminate Purge
-  accept 94961                          -- Fuzzle: Biting the Hand
+
+step Fuzzle
+  tip Leave the cave and look for Fuzzle in the cage south of Claire.
+  accept 94961 @47.31,51.36 map 2548 -- Fuzzle in his cage, not the end of his escort
 
 step The Twilight cult
   tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
@@ -331,8 +343,24 @@ step The Twilight cult
   interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so loot five first
   accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
 
+step Back into Sunnyglade's cave
+  when complete 95642
+  when !indoors
+  tip Return by the eastern cave mouth to give Claire the filled catalyst.
+  goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
+
 step Apprentice Claire
+  when complete 95642
   turnin 95642
+
+step Back to Claire with news of the cultists
+  when complete 95643
+  when !indoors
+  tip The eastern cave mouth leads back to Claire. Tell her about the cultists inside.
+  goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
+
+step Apprentice Claire
+  when complete 95643
   turnin 95643
 
 step Cut Off the Heads
@@ -341,7 +369,25 @@ step Cut Off the Heads
   accept 95562                          -- Apprentice Claire
   collect 265750 quest 95562.1 @44.9,51.1  -- Chogg's Head
   collect 265751 quest 95562.2 @44.9,51.1  -- Zac's Head
+
+step Back to Claire with the heads
+  when complete 95562
+  when !indoors
+  tip Take the heads through the cave mouth on the east side of Sunnyglade.
+  goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
+
+step Apprentice Claire
+  when complete 95562
   turnin 95562
+
+step Back to Claire for the filled catalyst
+  when available 94884
+  when !indoors
+  tip If you left after giving Claire the heads, use the cave mouth to collect her delivery for Farholde.
+  goto 50.02,45.99 map 2548 "Sunnyglade cave mouth" r 12
+
+step Claire's message for Farholde
+  when available 94884
   accept 94884                          -- An Unsettling Discovery: for Ashe Amberhall in Farholde Keep
 
 step Fuzzle
@@ -500,10 +546,12 @@ step Friz Frazzlespark
   turnin 95288
 
 step Before the Eastsea camp
+  when level>=39
   when level<42
   when onquest 95119,95288
-  tip The musketeers reach 43. Take your ready shore rewards at Powderfuse Port first. If you still hold Raptor Mastery for the Jungle Stalkers, they are 40-41 on the slopes west of the Venture Co. mine in Stranglethorn. At 42 resume on the beach north of Powderfuse Port for the buccaneers and musketeers.
-  level 42
+  tip Pay any ready shore rewards at Powderfuse first. If you still need 42, stay on the beach with the level 39–40 Shore Crawlers. The musketeers on the cliffs can be 43. Let Gul'gash, the rare elite, pass before pulling. A group can run the Scarlet Monastery instead.
+  goto 81.21,46.52 map 2548 "Shore Crawlers beside Powderfuse Port"
+  level 42 grind 256807
 
 step The Eastsea pirates
   when level>=42
@@ -512,22 +560,44 @@ step The Eastsea pirates
   kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
   collect 268796 x8 quest 95288.1       -- Smuggled Goods
 
-step Powderfuse Port
-  tip Back to the port, from the north pier west through the docks.
-  turnin 95119                          -- Wharfmaster Whizzbuzz
-  accept 95122                          -- Unchecked Expansion: for later in this guide
-  accept 95123                          -- A Blast Ye Scurvy Dogs!: for later in this guide
-  turnin 95254                          -- Fimbo Greasemitz
-  turnin 95121
-  turnin 95988                          -- Innkeeper Zizplink
-  accept 95957                          -- Drink Up!
-  turnin 95957                          -- Gray Dawnbright
-  accept 95975                          -- Her World: for later, the wildflowers west of the port
-  turnin 95288                          -- Friz Frazzlespark
-  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
+step Wharfmaster Whizzbuzz
+  when complete 95119
+  turnin 95119
 
 step Wharfmaster Whizzbuzz
-  when onquest 95120
+  when level>=42
+  when turnedin 95119
+  accept 95122                          -- Unchecked Expansion: when you return to the northern cliffs
+  accept 95123                          -- A Blast Ye Scurvy Dogs!
+
+step Fimbo Greasemitz
+  when complete 95254
+  turnin 95254
+
+step Fimbo Greasemitz
+  when complete 95121
+  turnin 95121
+
+step Innkeeper Zizplink
+  when complete 95988
+  turnin 95988
+
+step Gray Dawnbright and Zizplink
+  when turnedin 95988
+  accept 95957
+  turnin 95957
+  accept 95975
+
+step Friz Frazzlespark
+  when complete 95288
+  turnin 95288
+
+step Friz Frazzlespark
+  when turnedin 95288
+  accept 95293                          -- Carry this to Captain Bentcoin when you visit the cliffs at 44
+
+step Wharfmaster Whizzbuzz
+  when complete 95120
   turnin 95120
 
 # Polestar Experimental, Riverglades for the Alliance, part 3 of 4 (2026-11-12). Hand-written from players'
@@ -574,20 +644,30 @@ step Captain Bentcoin
   turnin 95293                          -- Captain Bentcoin
   accept 95294                          -- Captain Haynes: Smuggler's Bargain
 
-step Powderfuse Port
-  tip Back to the port.
-  turnin 95122                          -- Wharfmaster Whizzbuzz
+step Wharfmaster Whizzbuzz: the raiders
+  when complete 95122
+  turnin 95122
+
+step Wharfmaster Whizzbuzz: the kegs
+  when complete 95123
   turnin 95123
+
+step Wharfmaster Whizzbuzz: the ships
+  when level>=44
+  when turnedin 95123
   accept 95165                          -- See Ya, Scallywags!
   accept 95124                          -- Admiral Lamora
-  turnin 95294                          -- Friz Frazzlespark
+
+step Friz Frazzlespark
+  when complete 95294
+  turnin 95294
 
 step The pirates' ships
   when level>=44
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora patrols the top deck of the middle ship. Once she's down, go below deck for the loot chest in the hold. Keep an eye out for Gul'gash on the way.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
-  collect 268506 quest 95124.2          -- Lamora's Loot
+  collect 268506 quest 95124.2 @90.5,29.4 -- Open Lamora's chest in the hold
   use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
   use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
 
@@ -601,13 +681,20 @@ step Bolder'ok
   accept 96126                          -- An Ogre's Captive
 
 step Gronok's Key
+  when level>=43
+  when onquest 96126
   tip Gronok the Butcher (level 44) carries the key: he paces the lanes south of Dunston's hut.
   tip The Bloodmaster's Ring lies just west of the lanes: its fighters (elites, 41-45) only fight in a bout, so leave them be.
   collect 272190 quest 96126.1          -- Gronok's Key
 
 step Dunston Willis
+  when complete 96126
   tip Free him, then get him out: Dunston fights his way out of Bolder'ok, and you keep the ogres off him. If he falls, take the quest from him again.
   turnin 96126
+
+step Dunston Willis: the way out
+  when level>=43
+  when turnedin 96126
   accept 94927                          -- Dunston Checks Out
   complete 94927 @68.7,12.6             -- help Dunston break out of Bolder'ok
 
@@ -616,21 +703,32 @@ step Finish the Beast Entrails
   tip South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. Gul'gash wanders down to this beach too.
   collect 268632 x15 quest 95261.1 @78.7,49.8  -- Beast Entrails
 
-step Powderfuse Port
+step Powderfuse Port: the charges
   label argo
-  tip Down to the port.
+  when complete 95165
   turnin 95165                          -- Wharfmaster Whizzbuzz
+
+step Wharfmaster Whizzbuzz: Lamora
+  when complete 95124
   turnin 95124
-  turnin 95261                          -- Argo Brinewhistle
-  accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
+
+step Argo Brinewhistle
+  when complete 95261
+  turnin 95261
+
+step Argo Brinewhistle
+  when turnedin 95261
+  accept 95267 optional                 -- The Monster Surfaces: the monster in the shallows south-west of the port
 
 step The Monster Surfaces
   when onquest 95267
-  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
-  collect 268633 quest 95267.1          -- Sea Monster's Head
+  when !complete 95267
+  tip At the junk in the shallows south-west of the port, use Argo's Big Ball o' Bait. Kill the threshadon that comes to the bait and take its head. Give Old Rot-Chum, the elite that walks this shore, plenty of room.
+  use 268647 quest 95267.1 @74.39,72.38 -- Big Ball o' Bait at the junk
+  collect 268633 quest 95267.1 @74.39,72.38 -- Loot the summoned threshadon's head
 
 step Argo Brinewhistle
-  when onquest 95267
+  when complete 95267
   turnin 95267
 
 step The meadows

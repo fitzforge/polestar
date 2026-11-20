@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보십시오. {npc:8436}은(는) {area:1446} 서쪽, {area:1442}의 황혼의 망치단 야영지에서 황혼의망치단 화염경비병, 황혼의망치단 우상숭배자, 황혼의망치단 풍수사(48-49레벨 정예) 사이에 서 있고, 그 옆에는 {npc:8282}(51레벨 희귀 정예)이(가) 있습니다. {quest:3377}에는 4인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "이글거리는 용암거미",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "거미는 {npc:8436} 남쪽, {npc:8479}에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "이글거리는 용암거미",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "골렘과 정령",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -187,6 +192,7 @@ return {
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "검은무쇠단 감독관과 검은무쇠단 노예상인이 용광로 곳곳에서 노예를 부리며, 누구든 {item:10551}을(를) 지니고 있을 수 있습니다. 검은무쇠단 증기기술자는 한가운데 용광로에서 일하고({item:18959}), 검은무쇠단 망꾼은 남쪽 능선에 서 있습니다(감시병의 망원경). {object:147516} 누구든 {item:11818}을(를) 떨어뜨릴 수 있으니 간직하십시오.\n주의: 검은무쇠단 노예상인(45-46레벨)은 끌어오면 15미터 안의 아군에게 도움을 청하고, 최대 15미터 거리에서 그물을 던지며, 근접 시 분쇄를 사용합니다.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "나이트 엘프 잠마엘 룬시슬이 {area:1446} 서쪽에 홀로 서 있습니다. 그의 이야기를 들으십시오.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "거미는 {npc:8436} 남쪽, 벨라로크에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "거미는 {npc:8436} 남쪽, {npc:8479}에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",

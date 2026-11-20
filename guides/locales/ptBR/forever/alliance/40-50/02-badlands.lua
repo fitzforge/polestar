@@ -23,8 +23,9 @@ return {
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa sozinho em {area:1898}, a sudeste da escavação.",
 
 	-- Step 5: Agmond's End
-	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc
-	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "O {item:278404} de {npc:269577} está no meio do acampamento dos troggs Cofrepétreo, onde {quest:739} anda.",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc · {quest:705} Pearl Diving
+	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
+	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks.\nStill carrying {quest:705} without nine Blue Pearls? The Giant Clams were on the north-west Stranglethorn coast. Keep it for another visit rather than going back from here."] = "",
 
 	-- Step 6: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
@@ -184,6 +185,7 @@ return {
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "farme {npc:2725} em {area:339}, {zone:1418}",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
 	-- ["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} fica nas docas onde o barco atraca.",
+	-- ["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "O {item:278404} de {npc:269577} está no meio do acampamento dos troggs Cofrepétreo, onde {quest:739} anda.",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa sozinho em {area:1898}, a sudeste da escavação.",
 	-- ["{npc:4968}, on the top floor"] = "{npc:4968}, no último andar",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "O coquetel de {npc:5634} precisa de ingredientes de Kalimdor: pule.",

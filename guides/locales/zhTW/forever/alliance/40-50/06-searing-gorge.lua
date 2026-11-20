@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "這些是精英怪物：建議組隊，找人一起完成。{npc:8436}站在{area:1446}西邊{area:1442}的暮光營地裡，周圍是暮光火焰衛士、暮光崇拜者和暮光地占師（48-49級精英），旁邊還有{npc:8282}（51級稀有精英）：{quest:3377}需要4人隊伍。如果你是獨自一人就跳過。",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南邊的高地和熔岩池間遊蕩，就在前往{npc:8479}的路上。",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}站在{area:1446}南邊的大熔爐邊緣。聆聽他的故事。",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "傀儡與元素",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "刷{npc:9318}",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人來一起做。{npc:5860}（50級精英）需要3人小隊。如果只有你一個人就跳過：路線會安排你刷怪補經驗。",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -187,6 +192,8 @@ return {
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "黑鐵工頭和黑鐵奴隸販子在大熔爐各處驅趕奴隸，任何一個都可能帶著{item:10551}。黑鐵鍛造師在中央的熔爐工作（{item:18959}），黑鐵哨兵站在南邊的山脊上（偵查員的望遠鏡）。任何{object:147516}都可能掉落{item:11818}：留著它。\n小心：黑鐵奴隸販子（45-46級）被拉時會向15碼內的同伴求援，會在15碼內施放網，近戰時會使用撕裂。",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "那名夜精靈獨自站在{area:1446}西邊。聽他的故事。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南邊的高地和熔岩池間遊蕩，就在前往Velarok的路上。",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南邊的高地和熔岩池間遊蕩，就在前往{npc:8479}的路上。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人來一起做。{npc:5860}（50級精英）需要3人小隊。如果只有你一個人就跳過：路線會安排你刷怪補經驗。",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南邊的大熔爐邊緣。聆聽他的故事。",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用爐石把你送到這裡，所以這一步通常會立即完成",

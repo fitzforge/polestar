@@ -41,9 +41,11 @@ step Agmond's End
   tip Dorgaron's Pristine Mattock lies in the middle of the Stonevault trogg camp, where Murdaloc walks.
   kill 2945 quest 739                 -- Murdaloc
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+  tip Still carrying Pearl Diving without nine Blue Pearls? The Giant Clams were on the north-west Stranglethorn coast. Keep it for another visit rather than going back from here.
   collect 278404 quest 97617 @49.3,68.3 map 1418 -- Pristine Mattock
 
 step Valley of Fangs
+  when complete 705
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
   note Rigglefuzz's next quest pays no experience: skip it.
 

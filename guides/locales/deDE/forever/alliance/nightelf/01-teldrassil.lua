@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "Wieder {area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Von Ursals Höhle nach Nordosten zurück nach {area:186}. {npc:6094} nimmt {item:159} samt den Wedeln und der Phiole: Falls du deins getrunken hast, kauf vor der Abgabe ein neues bei {npc:6736} in diesem Gasthaus.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -611,6 +611,7 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Nachtsäbler, Strigideulen und Waldweberlauerer leben entlang der Straße nach Osten. Der Mondbrunnen liegt am Westrand von {area:260}.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Nachtsäbler, Strigideulen und Waldweberlauerer streifen rund um {area:186} und entlang der Straße nach Osten umher. Der Mondbrunnen liegt am Westrand von {area:260}.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "Von Ursals Bau nach Nordosten, zurück nach {area:186}.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Von Ursals Höhle nach Nordosten zurück nach {area:186}. {npc:6094} nimmt {item:159} samt den Wedeln und der Phiole: Falls du deins getrunken hast, kauf vor der Abgabe ein neues bei {npc:6736} in diesem Gasthaus.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "Von der Lichtung nach Süden in Richtung Ursal: Shayla läuft die Straße westlich von {area:186} ab, von dort, wo der Pfad von der Lichtung herab auf sie trifft, nach Südwesten bis zur Biegung bei etwa 38,54 und zurück.",
 	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Südlich von Zenn. {npc:2080} pflegt seine Setzlinge am Ufer; Wildschlagsetzlinge und Bäumlinge wandern um ihn herum, und die {quest:919} wachsen zwischen ihnen.",
 	-- ["South of the pools. The {object:6751} grows by the Hold."] = "Südlich der Teiche. Die {object:6751} wächst bei der Höhle der Knarzklauen.",

@@ -205,16 +205,13 @@ step Sentinel Hill
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
   turnin 109 only Dwarf,Gnome,NightElf,Skyborne -- Gryan Stoutmantle
   accept 12
+  turnin 98021 only Skyborne                  -- Gryan Stoutmantle
   accept 102                                  -- Captain Danuvin
   turnin 6285 only Human                      -- Quartermaster Lewis, inside: back from Stormwind
   getfp "Sentinel Hill"
   accept 153                                  -- Scout Galiaan
   accept 92742                                -- Alba Fairmoon, beside Scout Galiaan
   accept 92744
-
-step Sentinel Hill
-  when onquest 98021
-  turnin 98021 only Skyborne                  -- Gryan Stoutmantle
 
 # ---------------------------------------------------------------- The north loop
 step Goretusk Livers as you go

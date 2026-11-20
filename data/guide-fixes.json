@@ -2,11 +2,294 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "auberdine-elissa-by-terenthis",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/03-darkshore",
+				"quest": 965,
+				"goal": "accept"
+			},
+			"goalNote": "Sentinel Elissa Starbreeze stands beside Terenthis and Tharnariun.",
+			"note": "The shared guide visits these three on the first pass for races starting How Big a Threat here. Night Elves take Elissa’s letter on the return to this end of town, before the tower, rather than doubling back for her alone on arrival.",
+			"source": {
+				"kind": "client",
+				"ref": "Darkshore: The Tower of Althalaxx (965), Terenthis (3693), Tharnariun (3701)."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "auberdine-return-last-remains",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/03-darkshore-return",
+				"quest": 4728,
+				"goal": "accept"
+			},
+			"when": "turnedin 4681",
+			"note": "Offer the remains west of the Grove to anyone who finished Washed Ashore, including a Night Elf who missed this beach. No trip for the feeder on this visit.",
+			"source": {
+				"kind": "client",
+				"ref": "Beached Sea Creature (4728) requires Washed Ashore (4681)."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "auberdine-cave-sampler",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/03-darkshore",
+				"quest": 6122,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Fill the sampler at the cave mouth above the lower river sample.",
+			"note": "The druid sampler is beside the entrance to the mushroom cave, not at the river sample below the falls. Alanndarian takes it on the same town visit as before. A druid already 19 with both quests can pick the mushrooms during this visit to the cave.",
+			"source": {
+				"kind": "client",
+				"ref": "The Principal Source (6122), Filled Cliffspring Falls Sampler (15845) and Scaber Stalks (5271)."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "sunnyglade-claire-return-95642",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95642,
+				"goal": "turnin"
+			},
+			"way": {
+				"at": {
+					"map": 2548,
+					"x": 50.02,
+					"y": 45.99,
+					"frame": "live"
+				},
+				"label": "Sunnyglade cave mouth",
+				"when": [
+					"complete 95642",
+					"!indoors"
+				]
+			},
+			"note": "Use the eastern cave mouth on the return only when Claire has business for this character; keep the giver inside.",
+			"source": {
+				"kind": "recording",
+				"ref": "The live entrance marked in #2900."
+			},
+			"issue": 2900
+		},
+		{
+			"id": "sunnyglade-claire-return-95643",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95643,
+				"goal": "turnin"
+			},
+			"way": {
+				"at": {
+					"map": 2548,
+					"x": 50.02,
+					"y": 45.99,
+					"frame": "live"
+				},
+				"label": "Sunnyglade cave mouth",
+				"when": [
+					"complete 95643",
+					"!indoors"
+				]
+			},
+			"note": "Use the eastern cave mouth on the return only when Claire has business for this character; keep the giver inside.",
+			"source": {
+				"kind": "recording",
+				"ref": "The live entrance marked in #2900."
+			},
+			"issue": 2900
+		},
+		{
+			"id": "sunnyglade-claire-return-95562",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95562,
+				"goal": "turnin"
+			},
+			"way": {
+				"at": {
+					"map": 2548,
+					"x": 50.02,
+					"y": 45.99,
+					"frame": "live"
+				},
+				"label": "Sunnyglade cave mouth",
+				"when": [
+					"complete 95562",
+					"!indoors"
+				]
+			},
+			"note": "Use the eastern cave mouth on the return only when Claire has business for this character; keep the giver inside.",
+			"source": {
+				"kind": "recording",
+				"ref": "The live entrance marked in #2900."
+			},
+			"issue": 2900
+		},
+		{
+			"id": "sunnyglade-claire-return-94884",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 94884,
+				"goal": "accept"
+			},
+			"way": {
+				"at": {
+					"map": 2548,
+					"x": 50.02,
+					"y": 45.99,
+					"frame": "live"
+				},
+				"label": "Sunnyglade cave mouth",
+				"when": [
+					"available 94884",
+					"!indoors"
+				]
+			},
+			"note": "Use the eastern cave mouth on the return only when Claire has business for this character; keep the giver inside.",
+			"source": {
+				"kind": "recording",
+				"ref": "The live entrance marked in #2900."
+			},
+			"issue": 2900
+		},
+		{
+			"id": "riverglades-lamora-middle-ship-hold",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 2
+			},
+			"goalNote": "Open the chest in the hold of the middle ship; the admiral patrols its top deck.",
+			"note": "Both objectives use the middle ship but not the same deck. No floor height is assumed.",
+			"source": {
+				"kind": "recording",
+				"ref": "Player observed the patrol and the hold in #3172. Lamora’s Treasure Chest is object 629472."
+			},
+			"issue": 3172
+		},
+		{
+			"id": "sunnyglade-claire-first-cave-entrance",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95642,
+				"goal": "accept"
+			},
+			"way": {
+				"at": {
+					"map": 2548,
+					"x": 50.02,
+					"y": 45.99,
+					"frame": "live"
+				},
+				"label": "Sunnyglade cave mouth",
+				"when": [
+					"!done claire-first-quests",
+					"!indoors"
+				]
+			},
+			"note": "The quest giver is inside the cave. Approach the entrance when this visit is still needed.",
+			"source": {
+				"kind": "recording",
+				"ref": "The live cave mouth in #2900, not an updated NPC position."
+			},
+			"issue": 2900
+		},
+		{
+			"id": "hyjal-seed-the-three-wrecks",
+			"at": {
+				"guide": "polestar-experimental/hyjal-1",
+				"quest": 93747,
+				"goal": "accept"
+			},
+			"goalNote": "Use the Bag of Enchanted Seeds at each of the three wrecks.",
+			"note": "Each cast has its own quest-log line. The walk reaches the catapult, flying machine and ballista in that order.",
+			"source": {
+				"kind": "recording",
+				"ref": "The three lines at accept are ballista, catapult and flying machine; spell 1287099 accompanies planting, #3170."
+			},
+			"issue": 3170
+		},
+		{
+			"id": "hyjal-disrupt-the-ashen-workstations",
+			"at": {
+				"guide": "polestar-experimental/hyjal-1",
+				"quest": 95316,
+				"goal": "accept"
+			},
+			"goalNote": "Disrupt the Slime and Alchemy stations on the way up to the Disease and Vessel stations.",
+			"note": "Use the workstations in the camp, not points south of them. The player marks for Slime (#3195) and Alchemy (#3196) confirm #3169.",
+			"source": {
+				"kind": "recording",
+				"ref": "Live Hyjal coordinates in #3169, #3195 and #3196; no change to the other two stations."
+			},
+			"issue": 3169
+		},
+		{
+			"id": "raene-iron-pommel-slime-chest",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/06-wetlands",
+				"quest": 1027,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "A Rotting Slime can leave a Rusty Chest on the ground beside its body. Open the chest for the Iron Pommel; if none appears, try the next slime. Take the Bottle of Disease from the Forsaken camp on this same pass.",
+			"note": "Rusty Chest 19021 can appear beside Rotting Slime 3928. It is not a chest to search for in the furbolg camp.",
+			"source": {
+				"kind": "recording",
+				"ref": "Player report #3002; quest 1027, Rusty Chest 19021 and item 5519."
+			},
+			"issue": 3002
+		},
+		{
+			"id": "raene-carry-glowing-gem-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/06-ashenvale",
+				"quest": 1024,
+				"goal": "accept"
+			},
+			"goalNote": "Keep the Glowing Gem for Shael'dryn.",
+			"note": "The message has no visible item counter; the reward requires the returned gem in the bags.",
+			"source": {
+				"kind": "recording",
+				"ref": "The quest asks for item 5463 on delivery, even with zero visible log lines. See #3043."
+			},
+			"issue": 3043
+		},
+		{
+			"id": "raene-carry-glowing-gem-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/06-wetlands",
+				"quest": 1024,
+				"goal": "accept"
+			},
+			"goalNote": "Keep the Glowing Gem for Shael'dryn.",
+			"note": "The message has no visible item counter; the reward requires the returned gem in the bags.",
+			"source": {
+				"kind": "recording",
+				"ref": "The quest asks for item 5463 on delivery, even with zero visible log lines. See #3043."
+			},
+			"issue": 3043
+		},
+		{
 			"id": "riverglades-first-eastsea-camp-at-42",
 			"faction": "Alliance",
 			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95119, "goal": "objective", "objective": 2 },
 			"when": "level>=42",
-			"note": "Eastsea Musketeers reach 43. Cash ready shore work on the docks below 42; do not cross the pirate cliffs for either the kills or the shared goods first.",
+			"note": "Eastsea Musketeers reach 43. Cash ready shore work on the docks below 42. If still short, use the Shore Crawlers (39–40) at 81.21,46.52, outside the cliff camp. The second wave and the ships are actual-44 work; skipped fights do not hold a dockside hand-in open.",
 			"source": { "kind": "questie", "ref": "Eastsea Musketeer 257910, levels 42–43; quest 95119 and Smuggled Goods 268796 in the same camp." }
 		},
 		{
@@ -75,6 +358,239 @@
 			"note": "Use the binding made in Dolanaar on the way back, not to advance the level-12 Ursal fight.",
 			"source": { "kind": "client", "ref": "Ursal the Mauler (486) ends at Athridas Bearmantle in Dolanaar." },
 			"issue": 3144
+		},
+		{
+			"id": "3144-alliance-ironfur-on-first-mainland",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1452,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/40-50/03-feralas"
+			},
+			"step": {
+				"after": {
+					"quest": 1452,
+					"goal": "objective",
+					"objective": 3
+				},
+				"guide": "forever/alliance/40-50/03-feralas"
+			},
+			"note": "The Ironfur livers belong after the Groddoc livers, before the crossing from the mainland. The later Tanaris roc objective is not ordered before Feralas.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3144"
+			},
+			"issue": 3144
+		},
+		{
+			"id": "3144-alliance-schedule-in-hand",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2876,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"tip": "If you found the Ship Schedule in Lost Rigger Cove, read it and show it to the Security Chief here. Do not go back to the pirates for it.",
+			"note": "The port errand uses an already held Ship Schedule. No required hunt or return for the item.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3144"
+			},
+			"issue": 3144
+		},
+		{
+			"id": "3144-alliance-survey-already-paid",
+			"faction": "Alliance",
+			"at": {
+				"quest": 82,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"when": "turnedin 992",
+			"note": "The external Water Survey hand-in qualifies a fresh independent visitor for the local hive follow-up without a return trip.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3144"
+			},
+			"issue": 3144
+		},
+		{
+			"id": "3067-alliance-ready-pearls",
+			"faction": "Alliance",
+			"at": {
+				"quest": 705,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 705",
+			"note": "Only a holder ready to hand in the nine Blue Pearls needs Rigglefuzz on the Badlands pass.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3067"
+			},
+			"issue": 3067
+		},
+		{
+			"id": "3159-alliance-refuse-crate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97536,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"tip": "Use the crate five times away from town. Move away from the last pile before using it again.",
+			"note": "Wastewander kills are not the counter. Use the crate on the existing Waterspring visit.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3159"
+			},
+			"issue": 3159
+		},
+		{
+			"id": "2915-alliance-twilight-document",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3378,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"optional": true,
+			"note": "The group can find the document while fighting Twilight elites; no second trip or solo hunt.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2915"
+			},
+			"issue": 2915
+		},
+		{
+			"id": "3082-alliance-young-diemetradon-bones",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3882,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"optional": true,
+			"note": "Use the same level 49–50 Young Diemetradons as the scale errand. Do not require eight bones on this visit.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3082"
+			},
+			"issue": 3082
+		},
+		{
+			"id": "3083-alliance-tooga-pass",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1560,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"tip": "If Tooga is not here, choose the line to continue straight to Steamwheedle Port without him.",
+			"note": "The escort start is conditional on meeting the wandering turtle. Keep the active escort and both coastal rewards.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3083"
+			},
+			"issue": 3083
+		},
+		{
+			"id": "043-a-jungle-dunemaul-first-sweep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5863,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"when": "level>=48",
+			"note": "The two visits have separate hunts. Only a level 48 or higher holder takes on the level 49 Gor'marok on the first pass; a ready hand-in never depends on hunt level.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 5863, its targets and reward NPCs."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "043-a-jungle-thistleshrub-first-sweep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3362,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"when": "level>=49",
+			"note": "Rootshapers reach 50. The first pass through their valley comes before Tooga leaves; only a character at least 49 works there.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 3362, its targets and reward NPCs."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "043-a-jungle-caliph-waterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2781,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"when": "level>=45",
+			"note": "Take the level 46 patrol on the Wastewander loop from 45. The late hunt remains for players who were lower on the first pass; the reward waits for the head.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 2781, its targets and reward NPCs."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "043-a-jungle-southern-dunes-orders",
+			"faction": "Alliance",
+			"at": {
+				"quest": 10,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"when": "level>=49",
+			"note": "Centipaar parts go back before the southern sweep. This puts the gear on the outward ride to the compound and valley rather than a separate out-and-back trip.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 10, its targets and reward NPCs."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "043-a-jungle-mistvale-return",
+			"faction": "Alliance",
+			"at": {
+				"quest": 606,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"when": "onquest 606",
+			"note": "The southern Mistvale gorillas are inland from the Bloodsail beach. Shaky takes the giblets on the way back into town, before the two pirate rewards.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 606, its targets and reward NPCs."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "3070-lakeshire-road-or-landing",
+			"faction": "Alliance",
+			"at": { "quest": 128, "goal": "accept", "guide": "forever/alliance/04-redridge-mountains" },
+			"tip": "Guard Howe stands by the gryphon master, south of the bridge. From Three Corners, follow the road east along the lake.",
+			"note": "After Madame Eva, the seed accepts either the Three Corners junction or the Lakeshire landing as the way in. Knowing the flight path is not an arrival. The earlier walk from Elwynn to Duskwood still uses Three Corners.",
+			"source": { "kind": "in-game-check", "ref": "#3070: a Hunter flew to Lakeshire and was sent back to Three Corners. Lakeshire flight master Ariena Stormfeather stands at 25.5,59.4 in the live Redridge frame; Guard Howe offers Blackrock Bounty there." },
+			"issue": 3070
 		},
 		{
 			"id": "043-alliance-sindall-carried-hunt",

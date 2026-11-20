@@ -90,10 +90,9 @@ step Prayer to Elune
 step Zamael Lunthistle
   when group 3377
   turnin 3377
-
-step Searing Lava Spiders
-  tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
-  kill 5858 quest 7724                -- Searing Lava Spider
+  accept 3378                         -- Zamael Lunthistle
+  collect 10458 quest 3378 optional @29.6,26.3 map 1427
+  tip With your group, keep the Prayer to Elune document from the Twilight camp. Astarii Starseeker takes it in the Temple of the Moon on a later Darnassus visit. Do not go back alone for it.
 
 step Velarok Windblade
   tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
@@ -107,6 +106,10 @@ step Velarok Windblade
   accept 3442
 
 # ---------------------------------------------------------------- The Cauldron
+step Searing Lava Spiders
+  tip From Velarok go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit.
+  kill 5858 quest 7724                -- Searing Lava Spider
+
 step Golems and elementals
   zone Searing Gorge
   tip Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
@@ -195,6 +198,8 @@ step Velarok Windblade
 step The Flame's Casing
   when group 3452
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Twilight Dark Shaman (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.
+  tip If you took Zamael's next Prayer to Elune, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing.
+  collect 10458 quest 3378 optional @23.5,36.5 map 1427
   collect 10552 quest 3452.1 @23.5,36.5 map 1427 group 3
 
 step Velarok Windblade

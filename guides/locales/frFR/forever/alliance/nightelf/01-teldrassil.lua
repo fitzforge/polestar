@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "De nouveau {area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Au nord-est depuis la tanière d'Ursal, retour à {area:186}. {npc:6094} prend une {item:159} avec les frondes et la fiole : si vous avez bu la vôtre, achetez-en une autre à {npc:6736} dans cette auberge avant de rendre la quête.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -606,6 +606,7 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Les Sabres-de-nuit sauvages, les Hiboux Strigid et les Rôdeuses Tissebois rôdent tout autour de {area:186} et le long de la route vers l'est. Le puits de lune se trouve à la limite ouest de {area:260}.",
 	-- ["North from the lake to {npc:2150}, on the road back to {area:186}."] = "Vers le nord depuis le lac jusqu'à {npc:2150}, sur la route du retour vers {area:186}.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "Au nord-est depuis l'antre d'Ursal, retour à {area:186}.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Au nord-est depuis la tanière d'Ursal, retour à {area:186}. {npc:6094} prend une {item:159} avec les frondes et la fiole : si vous avez bu la vôtre, achetez-en une autre à {npc:6736} dans cette auberge avant de rendre la quête.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "Au sud de la clairière en direction d'Ursal : Shayla parcourt la route à l'ouest de {area:186}, depuis l'endroit où le chemin qui descend de la clairière la rejoint, vers le sud-ouest jusqu'au virage vers 38,54, puis revient.",
 	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Au sud de Zenn. {npc:2080} soigne ses jeunes arbres sur la rive ; les Jeunes pousses de flagellant et les Sylvains errent autour de lui, et les {quest:919} poussent parmi eux.",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "Au sud des bassins. La {object:6751} pousse près du Camp des Pins-tordus ; les furbolgs alentour lâchent le reste des crocs.",

@@ -84,9 +84,15 @@ step Shrine of Aessina
   turnin 945                              -- Therysil
 
 step Raene Wolfrunner
-  tip On the way east from the shrine, stop at Astranaar's inn. Give Raene the gem and take her message before crossing the river.
+  tip On the way east from the shrine, stop at Astranaar's inn. Give Raene the gem, then take it back with her message for Shael'dryn before crossing the river.
   turnin 1023                             -- Raene Wolfrunner
   accept 1024
+
+step Raene's Glowing Gem
+  when onquest 1024
+  when !has 5463
+  tip Keep the Glowing Gem Raene gives you with her message. Shael'dryn needs the gem in your bags even though the quest log lists no items. If you banked it, retrieve it before going to the moonwell.
+  collect 5463 "Glowing Gem" @36.54,49.61 map 1440 -- At Raene's handoff, not another murloc hunt
 
 step Elune's Tear
   zone Ashenvale
@@ -95,6 +101,7 @@ step Elune's Tear
 
 step Shael'dryn
   tip From the isle, continue east to Shael'dryn's moonwell. Then return to Pelturas in Astranaar before taking the southern road.
+  tip Careful on the road past the lake: Blink Dragons (26–27) and Fel Interlopers (25–28) roam nearby. Wait for a clear stretch rather than fighting your way through.
   turnin 1024
 
 step Astranaar
@@ -293,7 +300,7 @@ step The Mosshide gnolls
 
 step Rethiel the Greenwarden
   turnin 276
-  accept 277                              -- Its flint comes from the Mosshide Fenrunners on the way to Ironbeard's Tomb; Rethiel takes it on your next Wetlands visit
+  accept 277                              -- Bring Rethiel the flints in the Green Belt, or on the next Wetlands visit
 
 step Ironbeard's Tomb
   zone Wetlands
@@ -304,6 +311,20 @@ step Ironbeard's Tomb
   goto 43.56,34.58 map 1437 era
   collect 2611 quest 277 -- Crude Flint: the Mosshide Fenrunners and Trappers by the river
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
+
+step Rethiel before the road to Menethil
+  when complete 277
+  when subzone "The Green Belt"
+  when !bound "Menethil Harbor"
+  tip Rethiel can take the nine flints while you are still in the Green Belt. If you have already left, he also takes them on your next visit.
+  turnin 277
+
+step Rethiel while the hearthstone cools
+  when complete 277
+  when subzone "The Green Belt"
+  when bound "Menethil Harbor"
+  when cooldown item 6948
+  turnin 277
 
 step Menethil
   tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road into Menethil: Tarrel Rockweaver by the road in at the north gate, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.

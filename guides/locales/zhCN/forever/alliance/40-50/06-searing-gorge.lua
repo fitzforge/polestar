@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:8436}站在{area:1446}西边{area:1442}的暮光营地里，周围是暮光火焰卫士、暮光崇拜者和暮光地占师（48-49 级精英），旁边还有{npc:8282}（51 级稀有精英）：{quest:3377}需要 4 人小队。独自一人时可跳过。",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往{npc:8479}的路上会经过。",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}站在{area:1446}南边的大熔炉边缘。听他讲述他的故事。",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "巨型熔岩蜘蛛",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "傀儡和元素",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "反复击杀{npc:9318}补足经验",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:5860}（50 级精英）需要 3 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -202,6 +207,8 @@ return {
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "蜘蛛在峡谷西南部的高地和熔岩池中游荡。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往卡拉然的路上会经过。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往Velarok时会经过。",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往{npc:8479}的路上会经过。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:5860}（50 级精英）需要 3 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}：沿途击杀以下目标",

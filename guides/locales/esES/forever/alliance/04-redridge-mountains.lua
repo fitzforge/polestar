@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}, junto al ayuntamiento",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Sigue el camino por la orilla sur de {area:68} hasta la maestra de grifos. {npc:903} está junto al camino, a su lado.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -273,6 +275,7 @@ return {
 	-- ["Bellygrub"] = "Panzallena",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Cruza el largo puente hacia el norte hasta el pueblo. {npc:341} y {npc:382} están en el extremo norte del puente; {npc:900}, en el ayuntamiento; {npc:381} y {npc:266}, en los muelles; {npc:343}, en la posada; {npc:342}, en su huerto del extremo oeste.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "Al este, pasado el molino, cruza el río. Los gnols Pielsombra llenan el valle; {npc:703} (26, muy por encima de ti) los dirige en el extremo norte: acaba primero con su escolta y lucha contra él con la salud al máximo. No entres en {area:2099}, al sur: sus orcos son élite.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Sigue el camino por la orilla sur de {area:68} hasta la maestra de grifos. {npc:903} está junto al camino, a su lado.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, a la vuelta a {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnols hacia {area:1002}",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Sal de {area:69} hacia el norte, sube por {area:95} hasta {area:997}. Los Campeones Roca Negra acampan en el valle.",

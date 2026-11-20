@@ -334,7 +334,7 @@ step Frostmane Hold
   tip Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.
   kill 1123 quest 287                         -- Frostmane Headhunter, below ground
   goto 21.3,54.2 "Frostmane Hold"
-  complete 287
+  complete 287 @21.3,54.2 map 1426 era         -- Walk to the far end of the cave until the quest gives explore credit.
 
 # ---------------------------------------------------------------- Old Icebeard
 

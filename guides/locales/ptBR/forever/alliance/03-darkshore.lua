@@ -15,6 +15,8 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}, no extremo norte do vilarejo",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: para {npc:1646} em {zone:1453}",
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
+	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "O cartaz de PROCURA-SE em frente à estalagem",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, no andar de cima da estalagem",
@@ -92,6 +94,8 @@ return {
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}: Sátiros Deth'ryll",
 
 	-- Step 14: Auberdine
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
 	["Fill the tube at the moonwell in the village"] = "Encha o tubo no poço lunar do vilarejo",
 
 	-- Step 15: A Lesson to Learn
@@ -130,25 +134,44 @@ return {
 	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
 
-	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
+	-- Step 23: The Cliffspring River sample
+	-- {quest:4762} The Cliffspring River
+	["{quest:4762} sample"] = "",
+	-- {area:456} Cliffspring River
+	["Follow the hills north to the {area:456} and up to the falls."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, na cachoeira",
 	-- {item:15845} Filled Cliffspring Falls Sampler
 	["{item:15845}: at the mouth of the cave by the falls"] = "{item:15845}: na entrada da caverna junto às cachoeiras",
+
+	-- Step 24: The Cliffspring cave
+	["The Cliffspring cave"] = "",
+	-- {npc:3702} Alanndarian Nightsong · {item:5270} Death Cap
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["If you are already at the cave for {npc:3702}'s sampler, pick the Scaber Stalks and the {item:5270} while here. The {item:5270} is at the back, past the naga; pull them one at a time."] = "",
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["Scaber Stalks; below ground"] = "Galhos de Piolho; no subterrâneo",
+	-- {item:5270} Death Cap
+	["{item:5270}; below ground"] = "{item:5270}; no subterrâneo",
+
+	-- Step 25: Cliffspring Falls
+	-- {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12237} Fine Crab Chunks · {npc:2233} Encrusted Tide Crawler · {npc:2235} Reef Crawler
 	["{item:12237} from {npc:2233} and {npc:2235}, by this stop"] = "{item:12237} de {npc:2233} e {npc:2235}, perto desta parada",
 
-	-- Step 25: Auberdine
+	-- Step 27: Auberdine
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}: encha a {item:12346} no {object:174795}",
+	-- {npc:3583} Barithras Moonshade
+	["{npc:3583}, if you already picked the mushrooms"] = "",
+	["For the Grove on the southern loop"] = "",
 
-	-- Step 26: Mist's Edge
+	-- Step 28: Mist's Edge
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "Olhos de Mangual; debaixo d'água",
 
-	-- Step 27: The bay wrecks
+	-- Step 29: The bay wrecks
 	["The bay wrecks"] = "Os naufrágios da baía",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
@@ -158,7 +181,7 @@ return {
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "{item:12192}; debaixo d'água",
 
-	-- Step 29: Darkshore: kill these as you meet them
+	-- Step 31: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
 	["{zone:1439}: kill these as you meet them"] = "{zone:1439}: vá matando estes pelo caminho",
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
@@ -166,7 +189,7 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Presas de Espreitaluna",
 
-	-- Step 31: The Tower of Althalaxx
+	-- Step 33: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.\nCuidado: Arautos do Caos da Linhagem das Trevas (28-29) com seus emissários do caos e {npc:3660} (31) ficam dentro da própria torre: pegue os pergaminhos dos Fanáticos ao sul dela e fique longe da torre.",
@@ -174,18 +197,14 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: Fanáticos da Linhagem das Trevas",
 
-	-- Step 32: The cave and the Den Mother
+	-- Step 34: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "A caverna e a {npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "A caverna fica ao sul das cachoeiras: Galhos de Piolho crescem por toda ela, e o {item:5270} bem no fundo. A {npc:6788} se entoca nas colinas ao sul das cachoeiras.",
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "Galhos de Piolho; no subterrâneo",
-	-- {item:5270} Death Cap
-	["{item:5270}; below ground"] = "{item:5270}; no subterrâneo",
 
-	-- Step 33: The northern Blackwood camp
+	-- Step 35: The northern Blackwood camp
 	["The northern Blackwood camp"] = "O acampamento Bosquenero do norte",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "O acampamento furbolg ao sul de {area:456} guarda as Reservas de Castanha, Fruta e Grão junto às fogueiras. Com uma amostra de cada e a {item:12347} nas bolsas (a {item:12346} se enche no {object:174795}), use a bacia junto à fogueira mais perto do rio: ela invoca Zabraxxis, o sátiro corruptor, e o {item:12355} está na Bolsa Demoníaca dele.",
@@ -193,12 +212,12 @@ return {
 	-- {item:12347} Filled Cleansing Bowl
 	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Depois de usar a {item:12347}, mate Zabraxxis e clique na Bolsa Demoníaca dele no chão para pegar o talismã. Se Zabraxxis sumir antes de você pegá-lo, pegue a missão de novo para ganhar uma nova bacia.",
 
-	-- Step 34: The cave and the Den Mother
+	-- Step 36: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Cuidado: se você atacar um filhote, os outros filhotes e muitas vezes a mãe entram na briga, então conte com vários de uma vez.",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "{npc:6788}, no subterrâneo",
 
-	-- Step 35: Auberdine
+	-- Step 37: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "Para {quest:948}, no Bosque, no circuito sul de {zone:1439}, depois da viagem ao leste",
 
@@ -217,6 +236,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}. Mais três restos estão mais a sudoeste, entre Oráculos e Caçamarés Brumagris (18-20): o guia os deixa para a última volta, quando você estiver mais perto do nível deles.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais três restos encalhados estão na costa norte: perto de {area:443}, ao norte de {quest:954} e a oeste de {quest:954}.",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
 	-- ["Follow the road north."] = "Siga a estrada para o norte.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Siga a estrada para o sul. {quest:948} é o anciente do Bosque; {npc:270269} e {npc:11218} dormem ao lado dele.",
 	-- ["Grizzled Scalps"] = "Escalpos Grisalhos",

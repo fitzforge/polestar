@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}，在市政厅旁",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "从{area:42}沿路向北返回{area:1002}。",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿{area:68}南岸的道路走到狮鹫管理员处。{npc:903}就站在她旁边的路边。",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -270,6 +272,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "接下来：乘狮鹫前往{area:42}，开始{zone:1431}的第二轮路线（05-duskwood）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the road from {area:42} to {area:1002}."] = "从{area:42}沿路向北返回{area:1002}。",
 	-- ["Back to {zone:1429}"] = "返回{zone:1429}",
 	-- ["Bellygrub"] = "贝利格拉布",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "向北过长桥进入镇子。{npc:341}和{npc:382}站在桥的北端，{npc:900}在市政厅，{npc:381}和{npc:266}在码头，{npc:343}在旅店，{npc:342}在镇子西端她的菜园里。",
@@ -277,6 +280,7 @@ return {
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "向东经过伐木场并过河。山谷里到处是暗皮豺狼人；{npc:703}（26级，比你高很多）在山谷北端率领它们：先清掉他的护卫，满血再打他。不要进入南边的{area:2099}：那里的兽人是精英。",
 	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "飞往{area:108}，向西北骑到海岸：{object:177790}在近岸的海底。然后沿道路向东穿过艾尔文森林前往赤脊山。",
 	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "沿{area:68}南岸的道路走到狮鹫管理员处。{npc:1070}和{npc:903}站在她旁边的路边。",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿{area:68}南岸的道路走到狮鹫管理员处。{npc:903}就站在她旁边的路边。",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "沿道路从{area:1002}向南进入{area:10}；{area:42}位于森林东侧。\n没有{quest:174}所需的{item:4371}？{npc:3133}在{npc:276}旁边的房子里出售，存货有限；{area:150}的{npc:1448}也有售。\n{npc:276}的房子在镇子东端。{npc:3133}在旁边的房子里出售工程学物品。",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "交给{npc:3649}，在返回{area:442}时（06-ashenvale）",
 	-- ["Gnolls toward {area:1002}"] = "前往{area:1002}方向的豺狼人",

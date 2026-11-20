@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "De volta ao norte pela estrada, de {area:42} até {area:1002}.",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "Mestre de voo de {area:69}",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Siga a estrada pela margem sul de {area:68} até o mestre de grifos. {npc:903} fica na estrada ao lado dela.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -270,11 +272,13 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Em seguida: o grifo até {area:42} para o segundo circuito de {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the road from {area:42} to {area:1002}."] = "De volta ao norte pela estrada, de {area:42} até {area:1002}.",
 	-- ["Back to {zone:1429}"] = "De volta a {zone:1429}",
 	-- ["Bellygrub"] = "Ronquifuça",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
 	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "A leste, passe o moinho e atravesse o rio. Gnolls Umbrapele enchem o vale; {npc:703} (26, bem acima de você) os lidera no extremo norte: elimine a escolta dele primeiro e lute com ele com a vida cheia. Fique longe de {area:2099} ao sul: os orcs de lá são elite.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Siga a estrada pela margem sul de {area:68} até o mestre de grifos. {npc:903} fica na estrada ao lado dela.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133}, na casa ao lado de {npc:276}, guarda só um e costuma estar sem estoque. Sem ele, clique com o botão direito na missão na janela do guia e pule-a.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, na volta a {area:442} (06-ashenvale)",

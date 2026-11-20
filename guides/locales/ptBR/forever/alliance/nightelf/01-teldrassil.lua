@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "{area:186} de novo",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "A nordeste do covil de Ursal, de volta a {area:186}. {npc:6094} recebe uma {item:159} junto com as folhas e o frasco: se você bebeu a sua, compre outra com {npc:6736} nesta estalagem antes de entregar.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -603,6 +603,7 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Sabres-da-noite, Corujas Estrígidas e Tocaieiras Lenhateia rondam por todo {area:186} e ao longo da estrada para o leste. O poço lunar fica na borda oeste de {area:260}.",
 	-- ["North from the road the path to the glade crosses the {area:265}: the timberlings along it drop the Mossy Tumors."] = "Ao norte da estrada, o caminho para a clareira atravessa {area:265}: os muscoides ao longo dele soltam os Tumores Musguentos.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "Para o nordeste a partir do covil de Ursal, de volta a {area:186}.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "A nordeste do covil de Ursal, de volta a {area:186}. {npc:6094} recebe uma {item:159} junto com as folhas e o frasco: se você bebeu a sua, compre outra com {npc:6736} nesta estalagem antes de entregar.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "Ao sul da clareira, em direção a Ursal: Shayla percorre a estrada a oeste de {area:186}, desde onde a trilha que desce da clareira encontra a estrada, para o sudoeste até a curva em cerca de 38,54, e volta.",
 	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Ao sul de Zenn Cascovil. {npc:2080} cuida das mudas dele na margem; Brotos de Açoitadeira e Muscoides vagueiam ao redor dele, e {quest:919} crescem entre eles.",
 	-- ["South of the pools. The {object:6751} grows by the Hold."] = "Ao sul dos lagos. {object:6751} cresce junto ao Acampamento Masca-pinho.",

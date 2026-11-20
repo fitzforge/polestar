@@ -17,28 +17,30 @@ return {
 	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "Saia de {area:439} para o sudeste, rumo a {zone:1446}. {area:976} fica logo depois da fronteira.",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}, no lado norte da cidade",
-	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:976} Gadgetzan
-	["{quest:2864}: keep it, the {quest:3362} waits for the Un'Goro guide's {area:976} landing"] = "{quest:2864}: guarde-a, o {quest:3362} fica para a chegada a {area:976} no guia de Un'Goro",
+	-- {quest:2864} Tran'rek
+	["{quest:2864}: keep it for the valley"] = "",
+	-- {npc:14743} Jhordy Lapforge
+	["{npc:14743}: take the crate into the desert"] = "",
 	-- {npc:7564} Marin Noggenfogger
-	["{npc:7564}: keep it for the same landing"] = "{npc:7564}: guarde-a para essa mesma chegada",
+	["{npc:7564}: keep it for the valley"] = "",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
 	["{npc:7407}, by the water tower"] = "{npc:7407}, junto à torre d'água",
 	-- {npc:7408} Spigot Operator Luglunket
 	["{npc:7408}, next to him"] = "{npc:7408}, ao lado dele",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758}: keep it, the {area:983} waits for the same landing"] = "{npc:11758}: guarde-a, {area:983} fica para essa mesma chegada",
+	["{npc:11758}: the {area:983}"] = "",
 	-- {npc:7763} Curgle Cranklehop · {area:702} Rut'theran Village
 	["{npc:7763}: his crate goes to {area:702}, later"] = "{npc:7763}: o caixote dele vai para {area:702}, depois",
 
-	-- Step 5: Gadgetzan
+	-- Step 6: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod
 	["For your {area:978} run, later in this guide: {quest:2864} wants scarab shells, {npc:7407}, by the water tower, his {quest:2768} back, and Trenton Lighthammer Troll Temper from the Sandfury trolls."] = "Para a masmorra {area:978}, mais adiante neste guia: {quest:2864} quer carapaças de escaravelho, {npc:7407}, junto à torre d'água, quer a {quest:2768} de volta, e Trenton Lighthammer quer Troll Temper dos trolls Zangareia.",
 
-	-- Step 6: Steamwheedle Port
+	-- Step 7: Steamwheedle Port
 	["Ride east across the dunes to the goblin harbour on the north-east coast."] = "Cavalgue para o leste pelas dunas até o porto goblin na costa nordeste.",
 	["The Wanted poster beside him"] = "O cartaz de Procurado ao lado dele",
-	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
-	["The same poster: {npc:7847} comes much later, after {area:976}"] = "O mesmo cartaz: {npc:7847} vem bem mais tarde, depois de {area:976}",
+	-- {npc:7847} Caliph Scorpidsting · {area:985} Waterspring Field
+	["The same poster: {npc:7847} patrols {area:985}"] = "",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}, lá dentro",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
@@ -46,19 +48,29 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern; inside"] = "{npc:7881}, na taberna do porto; lá dentro",
 
-	-- Step 7: Noonshade Ruins: kill these as you meet them
+	-- Step 8: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: vá matando estes pelo caminho",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Volte cavalgando para oeste rumo a {area:976}. Os bandidos e ladrões Errantes ocupam as dunas no caminho; qualquer um pode carregar um cantil.\nCuidado: os Ladinos Errantes (nível 43-44) andam furtivos, então podem chegar sem ser vistos.",
 
-	-- Step 9: Waterspring Field
-	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
-	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "Os ladinos, magos das sombras e assassinos Errantes mais fortes acampam a sudeste de {area:976}, ao sul dos bandidos. Deixe {npc:7847}, no meio do acampamento do sul, para depois.\nCuidado: os Ladinos Errantes ficam furtivos fora de combate, então ladinos escondidos podem entrar numa briga que você começar num acampamento.",
+	-- Step 10: Waterspring Field
+	-- {npc:14743} Jhordy Lapforge
+	["Empty {npc:14743}'s crate as you cross the open dunes. Use it five times, moving clear of the last pile each time; use the quest tracker for the count. You do not need to kill rogues for this."] = "",
 
-	-- Step 10: Lost Rigger Cove: kill these as you meet them
+	-- Step 11: Waterspring Field
+	-- {area:976} Gadgetzan
+	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
+	-- was: ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "Os ladinos, magos das sombras e assassinos Errantes mais fortes acampam a sudeste de {area:976}, ao sul dos bandidos. Deixe {npc:7847}, no meio do acampamento do sul, para depois.\nCuidado: os Ladinos Errantes ficam furtivos fora de combate, então ladinos escondidos podem entrar numa briga que você começar num acampamento."
+	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "",
+
+	-- Step 12: Caliph Scorpidsting
+	-- {npc:7847} Caliph Scorpidsting · {area:985} Waterspring Field
+	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
+	["Watch for {npc:7847} by the towers before leaving {area:985}.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+
+	-- Step 13: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: vá matando estes pelo caminho",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -66,16 +78,16 @@ return {
 	-- {quest:2873} Stoley's Shipment
 	["{quest:2873}; upstairs"] = "{quest:2873}; no andar de cima",
 
-	-- Step 11: Steamwheedle Port
+	-- Step 14: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, lá dentro",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
 	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "MacKinley “Lobo do Mar” em {area:35}: a rota leva você até ele no fim do guia de {zone:1425}; mantenha a missão",
 
-	-- Step 12: Noonshade Ruins
+	-- Step 17: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: os Ladrões desarmam você. Os Ladinos ficam escondidos, furtivos. Os Assassinos usam Executar quando sua vida está em 20% ou menos.",
 
-	-- Step 15: The pool by Sandsorrow Watch
+	-- Step 22: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "A lagoa junto a {area:979}",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -85,7 +97,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "Lagoa junto a {area:979}",
 
-	-- Step 16: Zul'Farrak
+	-- Step 23: Zul'Farrak
 	-- {area:978} Zul'Farrak · {quest:3042} Troll Temper · {npc:7604} Sergeant Bly · {quest:2768} Divino-matic Rod
 	["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978} é uma masmorra para um grupo de cinco; as missões dela aqui são de nível 45 a 47. O portão fica a cerca de 400 metros ao norte da lagoa.\nLá dentro: os Escaravelhos deixam cair as carapaças, qualquer troll Zangareia pode deixar cair {quest:3042}, e {npc:7604} carrega a {quest:2768}.",
 	-- {quest:2865} Scarab Shells
@@ -95,56 +107,75 @@ return {
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}: {npc:7604}, lá dentro",
 
-	-- Step 17: Gadgetzan
+	-- Step 24: Gadgetzan
 	-- {area:982} Noxious Lair · {area:976} Gadgetzan
 	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "guarde-a: os Centipaar (48-50) de {area:982} ficam para a chegada a {area:976} no guia de Un'Goro, por volta do 49,5",
 
-	-- Step 18: Tran'rek
+	-- Step 25: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
 	["Your {area:978} scarab shells: {npc:7876}, on the north side of town."] = "As carapaças de escaravelho de {area:978}: {npc:7876}, no lado norte da cidade.",
 
-	-- Step 19: Chief Engineer Bilgewhizzle
+	-- Step 26: Chief Engineer Bilgewhizzle
 	-- {quest:2768} Divino-matic Rod · {npc:7407} Chief Engineer Bilgewhizzle
 	["The {quest:2768}: {npc:7407}, by the water tower."] = "A {quest:2768}: {npc:7407}, junto à torre d'água.",
 
-	-- Step 20: Trenton Lighthammer
+	-- Step 27: Trenton Lighthammer
 	-- {quest:3042} Troll Temper · {npc:7804} Trenton Lighthammer
 	["The {quest:3042}: {npc:7804}, in town."] = "A {quest:3042}: {npc:7804}, na cidade.",
 
-	-- Step 21: The Broken Pillar
+	-- Step 28: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "{area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Cavalgue para o sul até o acampamento de escavação em {area:1938}. {npc:7771} lhe entrega um elmo detector: use-o para ver os montes de {quest:3161}, espalhados pela areia ao redor do acampamento e a sudoeste, rumo aos ogros.",
 
-	-- Step 23: Dunemaul Compound
+	-- Step 30: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "Cavalgue para sudoeste até o complexo dos ogros e fique na ponta sul; a missão do complexo fica para o guia de Un'Goro.\nPor que farmar até o 47: {npc:5955} espera na borda do {quest:3362} (mobs de 48-50). Farme nos Ogros Dunamalho (45-46) na ponta sul do complexo, o acampamento mais seguro, e não nos Brutamontes e Impositores (46-48) lá dentro.",
+	-- was: ["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "Cavalgue para sudoeste até o complexo dos ogros e fique na ponta sul; a missão do complexo fica para o guia de Un'Goro.\nPor que farmar até o 47: {npc:5955} espera na borda do {quest:3362} (mobs de 48-50). Farme nos Ogros Dunamalho (45-46) na ponta sul do complexo, o acampamento mais seguro, e não nos Brutamontes e Impositores (46-48) lá dentro."
+	["Ride south-west to the ogre compound. The ordinary ogres at its south end drop the bangle.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "",
 	-- {item:278186} Brilliantly Polished Bangle
 	["{item:278186}, from any Dunemaul ogre"] = "{item:278186}, de qualquer ogro Dunamalho",
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "mate {npc:5471} até subir, no extremo sul do complexo",
 
-	-- Step 24: Tooga's escort
+	-- Step 31: Gor'marok the Ravager
+	["Take the Brutes and Enforcers from the edge. Clear the guards before going into the cave for Gor'marok (49)."] = "",
+
+	-- Step 32: Thistleshrub Valley
+	-- {npc:5955} Tooga
+	["Before taking {npc:5955}, work the edge of the valley. Pull wandering shrubs singly; leave the valley as soon as you have what you need."] = "",
+
+	-- Step 33: Tooga at the edge of the valley
+	-- {npc:5955} Tooga
+	["{npc:5955} at the edge of the valley"] = "",
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {area:977} Steamwheedle Port
+	["{npc:5955} wanders along the west edge of {quest:3362}. If you see him free on the way past, take him home. If he isn't there, choose the other line and head straight to {area:977}."] = "",
+	-- {npc:5955} Tooga
+	["Continue to the port without {npc:5955}"] = "",
+
+	-- Step 34: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Escolta de {npc:5955}",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "A tartaruguinha {npc:5955} se esconde no extremo norte do {quest:3362}: pegue-o pela borda e deixe os Moitagulhas (48-50) em paz. Leve-o para casa, até a esposa {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo."
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
-	-- {npc:5955} Tooga
-	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, ao lado dela: Oásis",
+	-- {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Keep the turtle close on the way to {npc:6015} by the coast, just east of {area:977}. He walks slowly and the desert's beasts go for him."] = "",
 
-	-- Step 25: Steamwheedle Port
+	-- Step 35: Oasis
+	["Oasis"] = "",
+	-- {npc:5955} Tooga · {npc:6015} Torta
+	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
+
+	-- Step 36: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "A partir de {npc:6015}, {area:977} fica logo a oeste, pela costa.",
 
-	-- Step 26: Caliph Scorpidsting
+	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cavalgue para sudeste até {area:985}. {npc:7847} fica no meio do acampamento Errante do sul: limpe em volta dele antes.\nCuidado: dois Ladinos Errantes furtivos acompanham o Califa aonde ele for. No acampamento onde ele surge, dois magos das sombras e seus lacaios estão perto o bastante para entrar na luta. Lá perto das torres dá para enfrentá-lo sem eles.",
+	-- was: ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cavalgue para sudeste até {area:985}. {npc:7847} fica no meio do acampamento Errante do sul: limpe em volta dele antes.\nCuidado: dois Ladinos Errantes furtivos acompanham o Califa aonde ele for. No acampamento onde ele surge, dois magos das sombras e seus lacaios estão perto o bastante para entrar na luta. Lá perto das torres dá para enfrentá-lo sem eles."
+	["Ride south-west to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 28: Fly to Auberdine
+	-- Step 43: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Voe para {area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -152,13 +183,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
-	-- Step 29: Teldrassil
+	-- Step 44: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "Pegue o barco no cais de {area:442} até {area:702}; {npc:3838}, o mestre de hipogrifos, fica na elevação logo a leste do desembarque: aprenda a rota de voo no caminho de subida até a vila.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Mestre de voo de {area:702}",
 
-	-- Step 30: Rut'theran Village
+	-- Step 45: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} fica no andar de cima, acima de {npc:7916}: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -167,51 +198,51 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: as penas ficam em {zone:1425}, em seguida",
 	["the book on her table"] = "o livro na mesa dela",
 
-	-- Step 32: Temple of the Moon
+	-- Step 47: Temple of the Moon
 	["Temple of the Moon"] = "Templo da Lua",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Atravesse o portal para {zone:1457}. O Templo da Lua fica no sul da cidade.",
 
-	-- Step 36: Cenarion Enclave
+	-- Step 51: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, no topo da árvore",
 
-	-- Step 37: Class trainer
+	-- Step 52: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 53: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "o solo vem de {zone:1449}, mais tarde",
 
-	-- Step 39: Portal to Teldrassil
+	-- Step 54: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal para {zone:1438}",
 
-	-- Step 41: Boat to Menethil Harbor
+	-- Step 56: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Navio para {area:150}",
 
-	-- Step 42: Fly to Aerie Peak
+	-- Step 57: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Voe para {area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Mestre de voo de {area:150}",
 
-	-- Step 43: Fly to Southshore
+	-- Step 58: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Voe para {area:271}",
 
-	-- Step 44: Hinterlands
+	-- Step 59: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "Ainda sem rota de voo para {area:348}: cavalgue para nordeste, saindo de {area:271} pela estrada até {zone:1425}; {area:348} fica logo depois da divisa.",
 
-	-- Step 45: Aerie Peak
+	-- Step 60: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}, ao lado do mestre de voo",
-	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "{npc:7884}, lá dentro",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}: {quest:86620}, os ovos nas colinas logo a leste de {area:348}",
+	-- {npc:7884} Fraggar Thundermantle
+	["{npc:7884}, inside"] = "{npc:7884}, lá dentro",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
 	["{npc:270263}, just east of the aviary: {quest:86616}, from the {area:355}'s Soothsayers"] = "{npc:270263}, logo a leste do aviário: {quest:86616}, dos Adivinhos do {area:355}",
 
@@ -234,12 +265,16 @@ return {
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Cavalgue para o sul, passando por {area:1938}, até {area:981}, os túneis dos Hazzali; o aparelho do Anilhacido está lá no fundo.\nCuidado: um inseto guarda o aparelho. Muitos insetos patrulham os túneis, alguns de nível 50, então as lutas costumam trazer bicho a mais.",
 	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "Saia de {area:439} para o sudeste, rumo a {area:440}. {area:976} fica logo depois da fronteira.",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Cavalgue para o sudeste até {area:985}. O {npc:7847} fica no meio do acampamento Errante do sul: limpe ao redor dele primeiro.",
+	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cavalgue para sudeste até {area:985}. {npc:7847} fica no meio do acampamento Errante do sul: limpe em volta dele antes.\nCuidado: dois Ladinos Errantes furtivos acompanham o Califa aonde ele for. No acampamento onde ele surge, dois magos das sombras e seus lacaios estão perto o bastante para entrar na luta. Lá perto das torres dá para enfrentá-lo sem eles.",
+	-- ["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "Cavalgue para sudoeste até o complexo dos ogros e fique na ponta sul; a missão do complexo fica para o guia de Un'Goro.\nPor que farmar até o 47: {npc:5955} espera na borda do {quest:3362} (mobs de 48-50). Farme nos Ogros Dunamalho (45-46) na ponta sul do complexo, o acampamento mais seguro, e não nos Brutamontes e Impositores (46-48) lá dentro.",
 	-- ["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first.\nWhy the grind to 47: the {quest:3362} comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes."] = "Cavalgue para o sudoeste até o complexo dos ogros. Brutamontes Dunamalho e Impositores Dunamalho (46-48) o enchem; {npc:12046} (49) fica no meio, cercado de guardas: elimine-os primeiro.\nPor que subir até o 47: {quest:3362} vem em seguida, com monstros de nível 48-50 e missões de nível 50. Suba nos Ogros Dunamalho (45-46) do extremo sul do complexo, o acampamento mais seguro, e não nos Brutamontes.",
 	-- ["Rizzle's plans"] = "Projetos do Rebu",
 	-- ["The Wanted poster by {npc:7882}"] = "O cartaz de Procurado junto a {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "A tartaruguinha {npc:5955} se esconde no extremo norte do vale. Leve-o para casa, até a esposa {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo.",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "A tartaruguinha {npc:5955} se esconde no extremo norte do {quest:3362}: pegue-o pela borda e deixe os Moitagulhas (48-50) em paz. Leve-o para casa, até a esposa {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo.",
+	-- ["The same poster: {npc:7847} comes much later, after {area:976}"] = "O mesmo cartaz: {npc:7847} vem bem mais tarde, depois de {area:976}",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Os Ladinos Errantes, Magos das Sombras Errantes e Assassinos Errantes, mais fortes, acampam a sudeste de {area:976}, ao sul dos bandidos. Deixe {npc:7847}, no meio do acampamento do sul, para depois.",
+	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "Os ladinos, magos das sombras e assassinos Errantes mais fortes acampam a sudeste de {area:976}, ao sul dos bandidos. Deixe {npc:7847}, no meio do acampamento do sul, para depois.\nCuidado: os Ladinos Errantes ficam furtivos fora de combate, então ladinos escondidos podem entrar numa briga que você começar num acampamento.",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} fica em {area:439}, no sudeste de {zone:1441}: {npc:4454} está no acampamento dos gnomos, ao lado da pista, e {npc:4709}, junto ao acampamento dos goblins.",
 	-- ["Underwater"] = "Debaixo d'água",
 	-- ["Wastewander bandits"] = "Bandidos Errantes",
@@ -249,11 +284,15 @@ return {
 	-- ["grind on {npc:5474}"] = "mate {npc:5474} até subir",
 	-- ["{item:8593}; below ground"] = "{item:8593}; no subterrâneo",
 	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}, no lado leste da cidade",
+	-- ["{npc:11758}: keep it, the {area:983} waits for the same landing"] = "{npc:11758}: guarde-a, {area:983} fica para essa mesma chegada",
 	-- ["{npc:12046}, below ground"] = "{npc:12046}, no subterrâneo",
 	-- ["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
+	-- ["{npc:5955}, beside her: Oasis"] = "{npc:5955}, ao lado dela: Oásis",
+	-- ["{npc:7564}: keep it for the same landing"] = "{npc:7564}: guarde-a para essa mesma chegada",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "O próximo ingrediente de {npc:7583} cresce em {zone:1425}, e a rota nunca o traz de volta: pule.",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, ao lado dela",
 	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "A próxima entrega de {npc:7881} volta para {area:35}: pule.",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}, na taverna do porto",
+	-- ["{quest:2864}: keep it, the {quest:3362} waits for the Un'Goro guide's {area:976} landing"] = "{quest:2864}: guarde-a, o {quest:3362} fica para a chegada a {area:976} no guia de Un'Goro",
 	-- ["{quest:3362}: kill these as you meet them"] = "{quest:3362}: vá matando estes pelo caminho",
 }

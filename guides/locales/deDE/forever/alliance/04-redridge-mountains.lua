@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}, beim Rathaus",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "Zurück nach Norden auf der Straße von {area:42} nach {area:1002}.",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "Flugmeister von {area:69}",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Folge der Straße am Südufer von {area:68} entlang zum Greifenmeister. {npc:903} steht neben ihr an der Straße.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -270,6 +272,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Als Nächstes: der Greif nach {area:42} für die zweite Runde durch den {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the road from {area:42} to {area:1002}."] = "Zurück nach Norden auf der Straße von {area:42} nach {area:1002}.",
 	-- ["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
 	-- ["Bellygrub"] = "Stopfwanst",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Überquere die lange Brücke nach Norden in den Ort. {npc:341} und {npc:382} stehen am Nordende der Brücke, {npc:900} im Rathaus, {npc:381} und {npc:266} an den Docks, {npc:343} im Gasthaus, {npc:342} in ihrem Garten am Westende.",
@@ -277,6 +280,7 @@ return {
 	-- ["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "Flieg nach {area:108} und geh nach Nordwesten zur Küste: Die {object:177790} liegt vor dem Ufer auf dem Meeresboden. Geh dann östlich der Straße durch Elwynn nach Rotkammgebirge.",
 	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "Flieg nach {area:108} und reite nach Nordwesten zur Küste: {object:177790} liegt vor dem Ufer auf dem Meeresgrund. Reite dann auf der Straße nach Osten durch den Wald von Elwynn ins Rotkammgebirge.",
 	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Folge der Straße am Südufer von {area:68} zur Greifenmeisterin. {npc:1070} und {npc:903} stehen neben ihr an der Straße.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Folge der Straße am Südufer von {area:68} entlang zum Greifenmeister. {npc:903} steht neben ihr an der Straße.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for Look to the Stars? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "Folge der Straße von {area:1002} nach Süden in den {zone:1431}; {area:42} liegt an der Ostseite des Waldes.\nKeine {item:4371} für Look to the Stars? {npc:3133}, im Haus neben {npc:276}, ist fast immer ausverkauft. Ohne eine klickst du im Guide-Fenster mit rechts auf die Quest und überspringst sie.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Für {npc:3649}, bei der Rückkehr nach {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolle Richtung {area:1002}",

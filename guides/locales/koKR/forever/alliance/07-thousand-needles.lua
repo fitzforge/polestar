@@ -33,20 +33,40 @@ return {
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "암흑길잡이는 {area:42} 서쪽, 길 남쪽 숲을 어슬렁거립니다.",
 
-	-- Step 9: The Insane Ghoul
+	-- Step 9: Calor's unfinished hunt
+	-- {npc:663} Calor
+	["{npc:663}'s unfinished hunt"] = "",
+	["The Nightbane packs near Tranquil Gardens are level 29–31. Below 30, leave the hunt for later."] = "",
+
+	-- Step 11: Calor and Jonathan Carevin
+	-- {npc:663} Calor · {npc:661} Jonathan Carevin
+	["{npc:663} and {npc:661}"] = "{npc:663}와(과) {npc:661}",
+	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, {npc:633}의 집, 안",
+
+	-- Step 12: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	["The {npc:511}"] = "{npc:511}",
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
-	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}은(는) {area:42} 남쪽, {area:121} 옆의 작은 납골당에 숨어 있습니다. {npc:663}의 파멸의어둠일족 송곳니투사와 오염된 자(29-31레벨)는 그 주변 숲을 돌아다닙니다. 이들은 한 레벨 뒤, 이 가이드 끝에서 처리합니다.",
+	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. Below level 30, leave {npc:663}'s worgen in the surrounding woods alone."] = "",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 10: Darkshire
+	-- Step 13: Nightbane Vile Fangs and Tainted Ones
+	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
+	["Nightbane Vile Fangs and Tainted Ones"] = "파멸의어둠일족 송곳니투사와 오염된 자",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "가장 강한 늑대인간은 {area:42} 남쪽, {area:121} 서쪽과 남쪽 숲을 돌아다닙니다.\n주의: {spell:8282}은(는) 10분간 지속되며, 받는 물리 피해가 타격마다 13 증가합니다.\n주의: 동굴 밖의 일부 늑대인간은 무리 지어 있으며, 4마리가 모인 곳도 있습니다. 추가로 끌려오지 않도록 동굴 입구 옆 높은 지대에서 하나씩 끌어오세요.\n주의: 32레벨 누더기골렘 거트스필이 이 숲을 돌아다닙니다. 지나가게 두세요.",
+
+	-- Step 14: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 
-	-- Step 11: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 15: Calor's unfinished hunt
+	-- {area:42} Darkshire
+	["Keep the unfinished hunt while you head west. Check your level when you return to {area:42}."] = "",
+
+	-- Step 18: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
@@ -55,30 +75,30 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "{npc:272273}이(가) {quest:96138}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하세요",
 	["Below ground"] = "지하",
 
-	-- Step 12: Defias Strongbox
+	-- Step 19: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {zone:1431} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 14: Raven Hill Cemetery: kill these as you meet them
+	-- Step 21: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 15: The Weathered Grave
+	-- Step 22: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "무덤은 {npc:311}에게 가는 길, 묘지 북서쪽 구석의 해골들 사이에 있습니다. 이 퀘스트와 다음 퀘스트는 {area:42}의 {npc:268}와(과) 사령관 알테아에게 대화만 하면 됩니다. 35레벨 퀘스트지만 전투가 없습니다.",
 
-	-- Step 16: Sven Yorgen's Camp
+	-- Step 23: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}의 야영지",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:1212}에게",
 
-	-- Step 17: Back to Darkshire
+	-- Step 24: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "{area:42}(으)로 돌아가기",
 	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
@@ -93,24 +113,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:482}에게",
 
-	-- Step 18: Nightbane Vile Fangs and Tainted Ones
-	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
-	["Nightbane Vile Fangs and Tainted Ones"] = "파멸의어둠일족 송곳니투사와 오염된 자",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "가장 강한 늑대인간은 {area:42} 남쪽, {area:121} 서쪽과 남쪽 숲을 돌아다닙니다.\n주의: {spell:8282}은(는) 10분간 지속되며, 받는 물리 피해가 타격마다 13 증가합니다.\n주의: 동굴 밖의 일부 늑대인간은 무리 지어 있으며, 4마리가 모인 곳도 있습니다. 추가로 끌려오지 않도록 동굴 입구 옆 높은 지대에서 하나씩 끌어오세요.\n주의: 32레벨 누더기골렘 거트스필이 이 숲을 돌아다닙니다. 지나가게 두세요.",
-
-	-- Step 19: Calor and Jonathan Carevin
-	-- {npc:663} Calor · {npc:661} Jonathan Carevin
-	["{npc:663} and {npc:661}"] = "{npc:663}와(과) {npc:661}",
-	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, {npc:633}의 집, 안",
-
-	-- Step 20: Viktori Prism'Antras
+	-- Step 28: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}의 집은 비행 조련사로 가는 길, 마을 동쪽 끝에 있습니다.",
 	["Inside"] = "",
 
-	-- Step 21: Fly to Menethil Harbor
+	-- Step 29: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {area:42} Darkshire
@@ -155,6 +163,7 @@ return {
 	-- ["The salt flats"] = "소금 평원",
 	-- ["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery."] = "가장 강한 늑대인간은 {area:42} 남쪽, {area:121}의 서쪽과 남쪽 숲을 돌아다닙니다. {npc:511}은(는) 묘지 옆 작은 납골당에 숨어 있습니다.",
 	-- ["The wreck of the Third Fleet"] = "제3함대 난파선",
+	-- ["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}은(는) {area:42} 남쪽, {area:121} 옆의 작은 납골당에 숨어 있습니다. {npc:663}의 파멸의어둠일족 송곳니투사와 오염된 자(29-31레벨)는 그 주변 숲을 돌아다닙니다. 이들은 한 레벨 뒤, 이 가이드 끝에서 처리합니다.",
 	-- ["To Theramore"] = "테라모어로",
 	-- ["{area:492}, west"] = "{area:492}, 서쪽",
 	-- ["{item:2594}, from {npc:1464}"] = "{item:2594}, {npc:1464}에게서",

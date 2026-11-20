@@ -428,7 +428,7 @@ step Frostmane Hold
   tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth and walk through to its far end.
   kill 1123 quest 287                         -- Frostmane Headhunter
   goto 21.3,54.2 "Frostmane Hold"
-  complete 287
+  complete 287 @21.3,54.2 map 1426 era         -- Walk to the far end of the cave until the quest gives explore credit.
 
 # ---------------------------------------------------------------- Old Icebeard
 

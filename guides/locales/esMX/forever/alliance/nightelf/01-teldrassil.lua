@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "{area:186} otra vez",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Al noreste desde la guarida de Ursal, de vuelta a {area:186}. {npc:6094} recibe un {item:159} con las frondas y el vial: si te bebiste el tuyo, compra otro a {npc:6736} en esta posada antes de entregar.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -605,6 +605,7 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Los sables de la noche, las lechuzas estrígidas y los rondadores Tejemadera viven a lo largo del camino al este. El pozo de la luna está en el borde oeste de {area:260}.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Los sables de la noche, las lechuzas estrígidas y los rondadores Tejemadera rondan por todo {area:186} y a lo largo del camino al este. El pozo de la luna está en el borde oeste de {area:260}.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "Al noreste desde la guarida de Ursal, de vuelta a {area:186}.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Al noreste desde la guarida de Ursal, de vuelta a {area:186}. {npc:6094} recibe un {item:159} con las frondas y el vial: si te bebiste el tuyo, compra otro a {npc:6736} en esta posada antes de entregar.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "Al sur desde el claro hacia Ursal: Shayla recorre el camino al oeste de {area:186}, desde donde el sendero que baja del claro se une a él, al suroeste hasta la curva en 38,54 aproximadamente, y de regreso.",
 	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Al sur de Zenn. {npc:2080} cuida sus brotes en la orilla; los retoños de azotador y los brezomaderas deambulan a su alrededor, y {quest:919} crecen entre ellos.",
 	-- ["South of the pools. The {object:6751} grows by the Hold."] = "Al sur de las pozas. {object:6751} crece junto a las Tierras de los Tuercepinos.",

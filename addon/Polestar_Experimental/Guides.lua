@@ -117,8 +117,8 @@ do
 					title = "The ruined catapult and flying machine",
 					note = "Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each.",
 					goals = {
-						{ t = "goto", text = "{npc:266887}", map = 2482, x = 62.6, y = 82.9 },
-						{ t = "goto", text = "{npc:266886}", map = 2482, x = 66.1, y = 83.2 },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 2, map = 2482, x = 62.6, y = 82.9, note = "Plant a seed beside the {npc:266887}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 3, map = 2482, x = 66.1, y = 83.2, note = "Plant a seed beside the {npc:266886}" },
 					},
 				},
 				{
@@ -128,7 +128,7 @@ do
 						{ t = "kill", quest = 92594, title = "Kindling, Kinda", target = "Tainted Shrubbery", npc = 248395, count = 15, oi = 1, map = 2482, x = 65.55, y = 73.85, spots = { { x = 66.2, y = 71.2, r = 66, n = 13 }, { x = 64.3, y = 69.3, r = 49, n = 13 }, { x = 63.8, y = 66.5, r = 52, n = 8 }, { x = 60.76, y = 69.42, r = 73, n = 26 }, { x = 58.2, y = 76.1, r = 57, n = 18 }, { x = 56.9, y = 80.3, r = 80, n = 10 }, { x = 68.6, y = 69.1, r = 68, n = 17 }, { x = 71, y = 72.1, r = 69, n = 18 }, { x = 72.7, y = 75.3, r = 42, n = 10 } }, spread = true, lvl = 56 },
 						{ t = "collect", quest = 91755, title = "Leaves to Ligatures", item = 247892, itemName = "Verdant Leaves", count = 12, oi = 1, map = 2482, x = 65.55, y = 73.85, spots = { { x = 66.2, y = 71.2, r = 66, n = 13 }, { x = 64.3, y = 69.3, r = 49, n = 13 }, { x = 63.8, y = 66.5, r = 52, n = 8 }, { x = 61.1, y = 67.8, r = 100, n = 19 }, { x = 59.5, y = 71.4, r = 58, n = 18 }, { x = 58.2, y = 76.1, r = 57, n = 18 }, { x = 56.9, y = 80.3, r = 80, n = 10 }, { x = 68.6, y = 69.1, r = 68, n = 17 }, { x = 71, y = 72.1, r = 69, n = 18 }, { x = 72.7, y = 75.3, r = 42, n = 10 } }, spread = true, lvl = 56, from = "Tainted Shrubbery", fromKind = "npc", fromId = 248395, fromNpcs = { { npc = 248395, npcName = "Tainted Shrubbery" } } },
 						{ t = "collect", quest = 93759, title = "The Bounty of Nature", item = 267289, itemName = "Scarlet Dart Tuber", count = 6, oi = 2, map = 2482, x = 59.5, y = 73.5, spots = { { x = 57.03, y = 74.82, r = 0 }, { x = 58.22, y = 78.53, r = 0 }, { x = 59.38, y = 69.97, r = 0 }, { x = 59.91, y = 73.26, r = 0 }, { x = 63.89, y = 70.39, r = 0 }, { x = 74.39, y = 76.45, r = 0 } }, from = "Scarlet Dart Tuber", fromKind = "object", fromId = 626685 },
-						{ t = "complete", quest = 93747, title = "Violence Into Verdure", map = 2482, x = 70.4, y = 70.7, note = "the {npc:262036}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 70.4, y = 70.7, note = "Plant a seed beside the {npc:262036}" },
 					},
 				},
 				{
@@ -315,11 +315,24 @@ do
 				},
 				{
 					title = "{npc:263757}",
-					when = { { k = "onquest", q = { 96255 } } },
+					when = { { k = "complete", q = 96255 } },
 					goals = {
 						{ t = "turnin", quest = 96255, title = "Amalgamated Marrow", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
-						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } }, note = "{quest:96322}" },
-						{ t = "talk", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, spots = { { x = 49.3, y = 77.1, r = 15, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } }, note = "{npc:263757}: decide his fate" },
+					},
+				},
+				{
+					title = "{quest:96322}",
+					when = { { k = "turnedin", q = 96255 }, { k = "available", q = 96322, pre = { 96255 } } },
+					goals = {
+						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.28, y = 77.22, spots = { { x = 49.28, y = 77.22, r = 18, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
+					},
+				},
+				{
+					title = "Decide {npc:263757}'s fate",
+					note = "Speak to {npc:263757} in his cage and choose an answer. Take his news to the crow once the decision is in your quest log.",
+					when = { { k = "onquest", q = { 96322 } }, { k = "complete", neg = true, q = 96322 } },
+					goals = {
+						{ t = "talk", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", oi = 1, map = 2482, x = 49.28, y = 77.22, spots = { { x = 49.28, y = 77.22, r = 18, n = 1 }, { x = 48.6, y = 73.5, r = 15, n = 1, alt = true } } },
 					},
 				},
 				{
@@ -341,7 +354,7 @@ do
 				},
 				{
 					title = "The {npc:257753}",
-					when = { { k = "onquest", q = { 96322 } } },
+					when = { { k = "complete", q = 96322 } },
 					goals = {
 						{ t = "turnin", quest = 96322, title = "A Revenge Now Bitter", npc = 257753, npcName = "Curious Crow", map = 2482, x = 48.16, y = 85.72 },
 					},
@@ -350,8 +363,8 @@ do
 					title = "The Ashen workstations",
 					note = "Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.",
 					goals = {
-						{ t = "goto", text = "Slime Workstation", map = 2482, x = 43.4, y = 76.2 },
-						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 72.5 },
+						{ t = "goto", text = "Slime Workstation", map = 2482, x = 42.42, y = 72.75 },
+						{ t = "goto", text = "Alchemy Workstation", map = 2482, x = 44.3, y = 68.7 },
 						{ t = "goto", text = "Disease Workstation", map = 2482, x = 46.6, y = 68 },
 						{ t = "goto", text = "Vessel Workstation", map = 2482, x = 49.6, y = 69.6 },
 						{ t = "complete", quest = 95316, title = "The Experimental Method", objs = { { text = "Alchemy Workstation disrupted", count = 1 }, { text = "Slime Workstation disrupted", count = 1 } } },

@@ -70,6 +70,58 @@
 			},
 			{
 				"a": [
+					"accept",
+					3442
+				],
+				"b": [
+					"task",
+					7724
+				],
+				"faction": "Alliance",
+				"why": "Ask Velarok for the hearts and oil before finishing the lava spider sweep, so the same pools can supply both hunts.",
+				"issue": "#2910"
+			},
+			{
+				"a": [
+					"turnin",
+					98021
+				],
+				"b": [
+					"accept",
+					153
+				],
+				"faction": "Alliance",
+				"why": "Hand Bolvar's letter to Gryan with his militia business before walking down to Scout Galiaan.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"turnin",
+					4811
+				],
+				"b": [
+					"turnin",
+					4761
+				],
+				"faction": "Alliance",
+				"why": "Fill Glynda's tube beside her at the moonwell before visiting Thundris and taking the remains down to the pier.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
+					"task",
+					6122
+				],
+				"b": [
+					"task",
+					947
+				],
+				"faction": "Alliance",
+				"why": "Fill the druid sampler at the cave mouth before collecting Barithras's mushrooms inside. Thundris's river sample is down by the waterfall, not at this cave.",
+				"issue": "#3144"
+			},
+			{
+				"a": [
 					"task",
 					1125
 				],
@@ -4859,14 +4911,15 @@
 			{
 				"a": [
 					"turnin",
-					92
+					127
 				],
 				"b": [
 					"accept",
 					150
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Murloc Poachers (150, from level 20) is taken from Dockmaster Baren on Redridge's first visit, on the pass through town after the gnoll hills when the player is 20 by then, otherwise on the last Lakeshire stop with The Everstill Bridge's hand-in; its murlocs are done on the 24 visit."
+				"why": "After Baren takes the sunfish, a level 20 player can take Murloc Poachers from him before walking on to Martie and the inn. Below 20 the last Lakeshire visit still offers it.",
+				"issue": "#3144"
 			},
 			{
 				"a": [
@@ -4962,7 +5015,7 @@
 					277
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): players reach the 22-24 Wetlands visit about two levels higher since the Eastern Kingdoms loop, so Rethiel's Fire Taboo (23) is taken when Tramping Paws is handed in; its flint drops from the Mosshide Fenrunners on the walk north-west to Ironbeard's Tomb, and Rethiel takes it at the start of the 27-29 visit with Blisters on the Land, without the second Rethiel stop."
+				"why": "Take Fire Taboo when Tramping Paws pays. If the nine flints are ready in the Green Belt, pay Rethiel before Menethil and the capital trip. Leaving by hearth or still missing flints preserves the normal next Wetlands payout (#3118)."
 			},
 			{
 				"a": [
@@ -6495,6 +6548,9 @@
 			}
 		],
 		"notes": [
+			"#2915, Alliance 50-60/01: accept no new elite work in Darnassus. Pay the completed Prayer to Elune at Astarii only on the existing visit to Gracina for 162.",
+			"#3082, Alliance 50-60/04: pay Spark for ready Dinosaur Bones at the first Marshal's Refuge stop. Keep the later pickup, work and payout for a player who missed the young diemetradons or still needs bones.",
+			"#3134, Alliance 50-60/04: the unquested 20 Minion's Scourgestones for Pureheart's direct hand-in use only the Sorrow Hill loop in the seed, not other droppers of the same item. All four points are normal Skeletal Flayer or Slavering Ghoul spawns.",
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
@@ -7653,7 +7709,7 @@
 					2
 				],
 				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers (10-12%, about a dozen bears there) stay with the eastern loop's bear country."
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers at the north edge of the vale follow the ape livers on this same visit."
 			},
 			{
 				"a": [
@@ -9112,6 +9168,16 @@
 				"q": 2603,
 				"reason": "Keep the first pickup. Drazial and Lynnore offer this beast request again on the Burning Steppes guide's road back from the Fallen Hero, before the hunt, for players who arrived without it.",
 				"issue": "#3144"
+			},
+			{
+				"q": 3378,
+				"reason": "Zamael offers the second Prayer to Elune to the group that just heard him. Collect the document incidentally; pay Astarii only while already visiting her temple.",
+				"issue": "#2915"
+			},
+			{
+				"q": 97536,
+				"reason": "Jhordy stands in Gadgetzan. The crate works in the open dunes at Waterspring Field; the route returns to him after the pirates. The reward is 2,900 XP at full rate.",
+				"issue": "#3159"
 			},
 			{
 				"q": 97924,
@@ -11598,6 +11664,12 @@
 		],
 		"skip": [
 			{
+				"q": 4973,
+				"faction": "Alliance",
+				"reason": "Keep the first Counting Out Time reward (4972). Its repeatable follow-up sends the player back through Andorhal for another batch of watches.",
+				"issue": "#3001"
+			},
+			{
 				"q": 4061,
 				"faction": "Horde",
 				"reason": "Horde 50-60 level tidy (0.4.0): The Rise of the Machines' War Reavers are 53-55 among the Thaurissan dwarves (7 spawns 53+, a recorded death) at the route's only Burning Steppes pass (model 52-53): 3 levels over at a dangerous spot, and no later Burning Steppes visit on the Horde route. Offered to the team (no later band passes the Steppes).",
@@ -12322,6 +12394,19 @@
 			}
 		],
 		"pairs": [
+			{
+				"a": [
+					"task",
+					606
+				],
+				"b": [
+					"turnin",
+					587
+				],
+				"faction": "Alliance",
+				"why": "The northern pirate beach leads into Mistvale. Bring the giblets back to Shaky at the tunnel before taking the snuff upstairs to Deeg.",
+				"source": "Alliance southern loops (#3144)"
+			},
 			{
 				"a": [
 					"accept",
@@ -14971,30 +15056,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					2941
-				],
-				"b": [
-					"task",
-					5863
-				],
-				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Dunemaul Compound (Brutes 46-48, Gor'marok 49) is two over the 47-48 player of the Tanaris guide (the level model with the Riverglades and Shen'dralas in the route: 47.9 at the compound). It is taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49.5, after The Borrower's hand-in, on the ride south-west toward the crater."
-			},
-			{
-				"a": [
-					"turnin",
-					2941
-				],
-				"b": [
-					"task",
-					3362
-				],
-				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Thistleshrub Valley (Rootshapers 49-50, Gnarled Thistleshrubs 48-49) and The Thirsty Goblin's Dew Collectors (47-48, among them) are three over the 47 player of the Tanaris guide (recorded 25th percentile 47.1, 8 players). Taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, after the Dunemaul Compound, then handed in at Gadgetzan before the ride to the crater."
-			},
-			{
-				"a": [
 					"task",
 					5216
 				],
@@ -16399,6 +16460,17 @@
 			}
 		],
 		"leftout": [
+			{
+				"q": 1140, "guide": "forever/alliance/06-wetlands",
+				"reason": "Only a returning holder or someone who already paid 973 can take the two circles on this visit. A fresh Wetlands start without Delgren's earlier chain continues east with Raene; it is not sent back for the tome.",
+				"issue": "#3144"
+			},
+			{
+				"q": 82,
+				"guide": "forever/alliance/40-50/07-un-goro-crater",
+				"reason": "Offer the local hive follow-up only when the earlier Water Survey was actually handed in. Starting here does not require a return to the survey pool.",
+				"issue": "#3144"
+			},
 			{
 				"q": 1689,
 				"guide": "forever/alliance/02-westfall",

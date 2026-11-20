@@ -262,16 +262,24 @@ return {
 	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "À la descente du vol, allez directement à l'Auberge d'{area:271}. Puis {npc:2276} et {npc:2277}, à l'hôtel de ville, prennent les quêtes du camp du Syndicat et vous envoient au nord à {area:280}.",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}, sous terre",
+
+	-- Step 55: Phin Odelic
+	-- {npc:2711} Phin Odelic
+	["{npc:2711} stands by the inn."] = "",
+
+	-- Step 56: Southshore town hall
+	-- {area:271} Southshore
+	["{area:271} town hall"] = "",
 	-- {npc:2276} Magistrate Henry Maleb · {area:280} Strahnbrad
 	["{npc:2276}: the signet rings are in {area:280}"] = "{npc:2276} : les chevalières sont à {area:280}",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
 	["For {npc:1356} in {zone:1455}, at the end of this guide"] = "Pour le {npc:1356} à {zone:1455}, à la fin de ce Guide",
 
-	-- Step 56: Gavin's Naze
+	-- Step 58: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad
 	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings."] = "Suivez la route vers le nord en sortant d'{area:271} jusque dans les montagnes. Des lions des montagnes parcourent les pentes ; les membres du Syndicat de {area:280} portent les chevalières.",
 
-	-- Step 57: Ruins of Alterac: kill these as you meet them
+	-- Step 59: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
 	["{area:281}: kill these as you meet them"] = "{area:281} : tuez-les au passage",
 	-- {area:280} Strahnbrad
@@ -282,33 +290,33 @@ return {
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
 	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659} : la {object:1760}, à côté de Muckrake (40, élite) : prenez-le en groupe, ou abandonnez {quest:540} ; à l'intérieur",
 
-	-- Step 58: Ruins of Alterac: kill these as you meet them
+	-- Step 60: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:2417} est un élite de niveau 40 : la plupart des classes le battent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.\n{npc:2417} marche depuis la flèche vers le nord-est à travers les ruines jusqu'à environ 40,47, puis revient : s'il n'est pas à la flèche, suivez son trajet.",
 
-	-- Step 59: Strahnbrad: kill these as you meet them
+	-- Step 61: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
 	["{area:280}: kill these as you meet them"] = "{area:280} : tuez-les au passage",
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps north of the village. Leave him be."] = "Attention : les Espions et Assassins du Syndicat peuvent être camouflés. Les Assassins vous empoisonnent aussi.\nAttention : {npc:2306} (40) apparaît à un seul endroit à la fois : la cave de l'auberge d'{area:280}, ou l'un des camps de tentes du Syndicat au nord du village. Laissez-le tranquille.",
 
-	-- Step 60: Crushridge ogres
+	-- Step 62: Crushridge ogres
 	["Crushridge ogres"] = "Ogres Cassecrête",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Careful: Nagaz (40) stands far to the north-west by a worn wooden chest, with Syndicate guards: stay with the ogres.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "Les ogres Cassecrête tiennent les collines au nord de {area:280}. Attention : Nagaz (40) se tient loin au nord-ouest près d'un vieux coffre en bois, avec des gardes du Syndicat : restez avec les ogres.\nLes Mutileurs, Mages, Massacreurs et Combattants Cassecrête (36-39) sont élites ; les Ogres et Brutes Cassecrête (34-35) ne le sont pas et lâchent aussi les osselets : attirez-les un par un, ou formez un groupe.",
 
-	-- Step 62: Dalaran
+	-- Step 64: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Allez au sud-ouest jusqu'au camp du Kirin Tor sur la rive du lac, à l'ouest de {area:279}, juste après la frontière de {zone:1421} : {npc:269127} s'y tient. L'archimage Ansirem se tient au sud-est, près du dôme.",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Pour {npc:2542} à {area:35} : gardez-la",
 
-	-- Step 63: Image of Archmage Modera
+	-- Step 65: Image of Archmage Modera
 	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
 	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Pour votre expédition dans Cité de Dalaran, la prochaine étape : l'{npc:269127} veut que vous éclaircissiez les rangs des vestiges arcaniques de la ville et que vous rapportiez une particule du cœur de la perturbation. {quest:92458} donne la {item:277507}, qui ouvre la grille.",
 
-	-- Step 64: City of Dalaran
+	-- Step 66: City of Dalaran
 	["City of Dalaran"] = "Cité de Dalaran",
 	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
 	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
@@ -318,40 +326,40 @@ return {
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
 	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458} : {item:251961}, à l'intérieur",
 
-	-- Step 65: Image of Archmage Modera
+	-- Step 67: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "Ressortez par la grille et retournez au camp de Modera, sur la rive du lac.",
 
-	-- Step 68: Southshore
+	-- Step 70: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Pour {npc:1440} à {zone:1453} : gardez-la",
 
-	-- Step 69: Bartolo Ginsetti
+	-- Step 71: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438} se tient entre le maître de vol et l'auberge ; {npc:2381}, à côté de lui, vend du {item:2321} si vous n'en avez pas.",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "{item:2321}, chez {npc:2381}",
 
-	-- Step 71: Ironforge
+	-- Step 73: Ironforge
 	-- {npc:1356} Prospector Stormpike · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356} : pour {npc:1344} au {zone:1432}, ensuite",
 
-	-- Step 72: Fly to Thelsamar
+	-- Step 74: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Prendre un vol pour {area:144}",
 
-	-- Step 73: To Thelsamar
+	-- Step 75: To Thelsamar
 	-- {area:144} Thelsamar
 	["To {area:144}"] = "Vers {area:144}",
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Depuis {zone:1455}, prenez le tunnel vers l'est à travers {zone:1426} jusqu'au {zone:1432} et suivez la route jusqu'à {area:144}.",
 
-	-- Step 74: Thelsamar
+	-- Step 76: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
 	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
 
-	-- Step 75: Prospector Ironband
+	-- Step 77: Prospector Ironband
 	["South-east along the loch to the dig site."] = "Longez le loch vers le sud-est jusqu'au site de fouilles.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

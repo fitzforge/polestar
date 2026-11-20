@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "Снова здесь: {area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "От логова Урсала на северо-восток, обратно в {area:186}. {npc:6094} принимает {item:159} вместе с листьями и флаконом: если вы выпили свою, купите еще у NPC {npc:6736} в этой таверне, прежде чем сдавать.",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -601,6 +601,7 @@ return {
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "Облезлые ночные саблезубы и щетинистые вепри бродят к северу от древа ({area:256}), по пути к пещере. {npc:8584} ждет среди деревьев к западу от входа в пещеру; {npc:1994} – в ее глубине.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Вдоль дороги на восток живут ночные саблезубы, совы и чащобные тенетники. Лунный колодец – на западном краю деревни ({area:260}).",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "От логова Урсала на северо-восток, назад: {area:186}.",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "От логова Урсала на северо-восток, обратно в {area:186}. {npc:6094} принимает {item:159} вместе с листьями и флаконом: если вы выпили свою, купите еще у NPC {npc:6736} в этой таверне, прежде чем сдавать.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "С поляны на юг к Урсалу: Шейла ходит по дороге к западу от места {area:186} – от места, где к ней спускается тропа с поляны, на юго-запад до поворота примерно у 38,54 и обратно.",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "К югу от озер. {object:6751} растет у Лагеря у Кривой Сосны; остальные клыки падают с фурболгов вокруг.",
 	-- ["Speak with {npc:6286}, south of the inn"] = "Поговорите с персонажем {npc:6286} к югу от таверны",

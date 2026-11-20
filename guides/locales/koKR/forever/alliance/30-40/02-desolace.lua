@@ -85,6 +85,8 @@ return {
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
 	-- Step 15: Nijel's Point
+	-- {area:608} Nijel's Point · {area:609} Kolkar Village
+	["Hearth to {area:608} if you are still bound there and the stone is ready. Otherwise follow the road north from {area:609}."] = "",
 	-- {npc:5638} Kreldig Ungor
 	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: 가방은 북서쪽 해안 앞바다에 있으며, 30-40(06-badlands) 마지막의 남쪽 순회 중에 얻습니다. 보관해 두십시오",
 

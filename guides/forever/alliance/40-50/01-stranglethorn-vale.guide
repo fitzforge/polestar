@@ -264,32 +264,31 @@ step Booty Bay
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
 
+step Booty Bay
+  when !onquest 606
+  when !turnedin 606
+  zone Stranglethorn Vale
+  tip Take the giblet errand from MacKinley before leaving for the northern beach.
+  accept 606                          -- "Sea Wolf" MacKinley, on the top floor
+
 step Bloodsail pirates: kill these as you meet them
   zone Stranglethorn Vale
   tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.
   collect 3910 quest 587 @28.0,70.5 map 1434 -- Snuff
   collect 3897 quest 576 @28.0,70.5 map 1434 -- Dizzy's Eye
 
-step Booty Bay
-  turnin 587                          -- Deeg, on the top floor
-  note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
-  turnin 576                          -- Dizzy One-Eye
-
-step Booty Bay
-  when !onquest 606
-  when !turnedin 606
-  zone Stranglethorn Vale
-  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
-  accept 606                          -- "Sea Wolf" MacKinley, on the top floor
-
 step Gorilla hills
-  tip Head inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
-  collect 3919 quest 606              -- Mistvale Giblets
+  when onquest 606
+  when !complete 606
+  tip From the beach take the road inland to the southern edge of the gorilla hills. The Elder Mistvale Gorillas here are 40–41; at 39 pull only level 40s.
+  collect 3919 quest 606 @31.15,67.93 map 1434 era              -- Mistvale Giblets
 
 step Booty Bay
   tip Head back down to town; Shaky stands at the tunnel mouth.
   turnin 606                          -- "Shaky" Phillipe
   accept 607
+  turnin 576                          -- Dizzy One-Eye
+  turnin 587                          -- Deeg, on the top floor
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   note MacKinley's Voodoo Dues waits for the level-48 Booty Bay stop, with Zanzil's village: leave it for now.

@@ -32,6 +32,55 @@ const { guideHeaders } = require('./helpers/guide-levels');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
+test('Sorrow Hill: every selectable scourgestone camp stays on the hill when entering from Tirion (#3134)', { skip }, () => {
+	const file = 'forever/alliance/50-60/04-western-plaguelands.guide';
+	const pack = buildSimPack([file]);
+	try {
+		const guide = pack.guides[0], step = guide.steps.findIndex(s => s.goals.some(g => g.item === 12840 && g.t === 'collect')) + 1;
+		const [seen] = playGuide(pack, guide, { race: 'NightElf', faction: 'Alliance', cls: 'HUNTER',
+			before: 'w.setLevel(55); w.moveTo(1423,4.79,35.01); w.setZone("Eastern Plaguelands")',
+			script: `local E=Polestar.Engine; E.SkipUpTo(${step}); stub.advance(.6)
+				local row=E.GetGuide().steps[${step}].goals[1]; assert(row.item==12840 and row.count==20)
+				local out={}; for j,p in ipairs(row.spots) do
+					assert(E.CycleSpot(${step},1,j)==j); local wp=E.GetWaypoint(); assert(wp and wp.map==1422)
+					assert(math.abs(wp.x-p.x)<.1 and math.abs(wp.y-p.y)<.1); out[j]={p.x,p.y}
+				end; emit(out)` });
+		assert.deepEqual(seen, [[47.37,84.3],[48.12,82.81],[48.7,80.4],[49.27,81.3]]);
+	} finally { pack.dispose(); }
+});
+
+test('Chromie: the leveling route gives the first watch reward but never requires the repeat on return (#3001)', { skip }, () => {
+	const wp = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(at(wp, 'first watch collection', is('collect',4972)) < at(wp, 'first watch payment', is('turnin',4972)));
+	assert.ok(!wp.some(({ goal }) => goal.quest === 4973));
+});
+
+test('Spark: pay eight held bones before the crater loop; still offer, finish and pay a short character later (#3082)', { skip }, () => {
+	const file = 'forever/alliance/50-60/04-western-plaguelands.guide';
+	const wp = goals(file).filter(({ goal }) => goal.quest === 3882);
+	assert.deepEqual(wp.map(({ goal }) => goal.t), ['turnin', 'accept', 'collect', 'turnin']);
+	assert.equal(wp[2].goal.item, 11114);
+	assert.equal(wp[3].goal.npc, 9272);
+	const pack = buildSimPack([file]);
+	try {
+		const [states] = playGuide(pack, pack.guides[0], { race: 'NightElf', faction: 'Alliance', cls: 'HUNTER',
+			script: `local E,w=Polestar.Engine,stub.world; local out={}
+				local function check() stub.advance(.6); out[#out+1]=not not E.Applies(${wp[0].s},1) end
+				check(); w.accept(3882,{{type="item",required=8,fulfilled=3}}); check()
+				w.progress(3882,1,8); check(); w.turnIn(3882); check(); emit(out)` });
+		assert.deepEqual(states, [false, false, true, false]);
+	} finally { pack.dispose(); }
+});
+
+test('Astarii: pay a carried prayer on Gracina’s temple visit, not a solo trip to the Twilight camp (#2915)', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const prayer = bs[at(bs, 'completed prayer', is('turnin',3378))];
+	assert.equal(prayer.goal.npc,4090); assert.equal(prayer.s+1,bs[at(bs,'Gracina',is('turnin',162))].s);
+	assert.ok(prayer.step.when.some(c => c.k === 'onquest' && c.q.includes(162) && !c.neg));
+	assert.ok(prayer.step.when.some(c=>c.k==='complete' && c.q===3378 && !c.neg));
+	assert.ok(!bs.some(({goal})=>goal.quest===3378 && goal.t!=='turnin'));
+});
+
 test('Alliance high route: collect the Talrendis errands before the spirits and keep ready honey payable', { skip }, () => {
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
 	const firstSpirit = at(bs, 'first shrine spirit', is('kill', 5535));
@@ -55,6 +104,111 @@ test('Alliance high route: one Chillwind stop for the report and fragments, one 
 	assert.ok(find('turnin', 6004).s < find('turnin', 5223).s);
 	assert.equal(find('interact', 974).s, find('collect', 4502).s);
 	assert.equal(wp.filter(({ goal }) => goal.t === 'collect' && goal.quest === 4502).length, 1);
+});
+
+test('Mount Hyjal: planting a wreck and choosing Felflick’s fate need their own quest credit (#3170, #3121, #3194)', { skip }, () => {
+	const dir = path.join(__dirname, '..', 'experimental');
+	const extra = require('../tools/lib/pack/format').OWN_EXTRAS.find(p => p.source === 'experimental');
+	const { manifest } = require('../tools/lib/pack/manifest').readManifest(dir, { extra });
+	const file = path.join(dir, 'guides', 'hyjal-1.guide');
+	const ref = data || (data = loadData(DATA));
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref, new Diagnostics(), { pack: manifest.id });
+	const guide = guides[0];
+	const built = writeTestPack(guides, ref, manifest);
+	const loads = built.scripts.map(f => `assert(loadfile(${JSON.stringify(f)}))(${JSON.stringify(manifest.folder)}, ns)`).join('\n');
+	try {
+		const pack = { maps: '', loads: `do local ns = {}\n${loads}\nend` };
+		const rows = guide.steps.flatMap(s => s.goals);
+		const stations = guide.steps.find(s => s.goals.some(g => g.t === 'complete' && g.quest === 95316));
+		assert.deepEqual(stations.goals.filter(g => g.t === 'goto').map(g => [g.map, g.x, g.y]),
+			[[2482,42.42,72.75],[2482,44.3,68.7],[2482,46.6,68.0],[2482,49.6,69.6]], 'the four separate workstations (#3169, #3195, #3196)');
+		const seeds = rows.filter(g => g.t === 'use' && g.quest === 93747);
+		assert.deepEqual(seeds.map(g => [g.oi, g.item, g.map, g.x, g.y]), [[2,269944,2482,62.6,82.9],[3,269944,2482,66.1,83.2],[1,269944,2482,70.4,70.7]]);
+		assert.deepEqual(rows.filter(g => g.quest === 96322 && ['talk', 'turnin'].includes(g.t)).map(g => [g.t,g.npc]), [['talk',263757],['turnin',257753]]);
+		const [got] = playGuide(pack, guide, { race: 'NightElf', faction: 'Alliance', cls: 'DRUID',
+			before: `w.level=58; w.complete({96255}); w.onQuest(96322,{{type="monster",required=1,fulfilled=0}}); w.onQuest(93747,{{type="monster",required=1,fulfilled=1},{type="monster",required=1,fulfilled=0},{type="monster",required=1,fulfilled=0}}); w.addItem(269944,1)`,
+			script: `local E,w=Polestar.Engine,stub.world;local function read()
+				local todo={};for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do
+					if E.Applies(i,j) and not E.GoalDone(i,j) then
+						if g.t=="use" and g.quest==93747 then todo[#todo+1]="seed"..g.oi end
+						if g.quest==96322 and g.t~="accept" then todo[#todo+1]=g.t end
+					end end end;return table.concat(todo,",") end
+				w.moveTo(2482,62.6,82.9);stub.advance(.6);local atWreck=read();w.progress(93747,2,1);stub.advance(.6);local planted=read();
+				w.gossip(263757);w.close();stub.advance(.6);local onlyTalk=read();w.progress(96322,1,1);stub.advance(.6);emit({atWreck,planted,onlyTalk,read()})` });
+		assert.deepEqual(got, ['seed2,seed3,talk', 'seed3,talk', 'seed3,talk', 'seed3,turnin']);
+	} finally { fs.rmSync(built.dir, { recursive: true, force: true }); }
+});
+
+test('Riverglades: enter Claire’s cave for an available pickup or a ready reward, not for unfinished work (#2900)', { skip }, () => {
+	const pack = buildSimPack(['forever/alliance/40-50/01b-riverglades.guide']);
+	try {
+		const guide = pack.guides[0];
+		const play = (pre, script) => playGuide(pack, guide, { race:'Human', cls:'WARRIOR', faction:'Alliance',
+			before:`w.level=42; w.moveTo(2548,52,46); w.setZone("Riverglades","Sunnyglade"); ${pre}`,
+			script:`local E,w=Polestar.Engine,stub.world; local G=E.GetGuide()
+				local function visit(t,q) for i,s in ipairs(G.steps) do if not s.feeder then for _,g in ipairs(s.goals) do if g.t==t and g.quest==q then return i end end end end;error(q) end
+				local function point() local p=E.GetWaypoint();return p and {p.map,p.x,p.y} end
+				local function inside() w.moveTo(2548,50.02,45.99); w.indoors=true; stub.fire("ZONE_CHANGED_INDOORS");stub.advance(.6) end
+				${script}` })[0];
+		const mouth=[2548,50.02,45.99], npc=[2548,47.6,47.2];
+		const first=play('', `local i=visit('accept',95642);E.SkipUpTo(i-1);stub.advance(.6);local door=point(); inside();emit({door,point()})`);
+		assert.deepEqual(first,[mouth,npc], 'the eastern entrance first, Claire inside afterwards');
+		const some=play('w.onQuest(95642,{1});w.onQuest(95643,{5,5});w.finish(95643)', `
+			local i=visit('turnin',95642);local j=visit('turnin',95643);E.SkipUpTo(i-1);stub.advance(.6);
+			local right=E.GetLiveStep()==j-1;local door=point();inside();emit({right,door,E.GetLiveStep()==j,point()})`);
+		assert.deepEqual(some,[true,mouth,true,npc], 'one ready sibling is payable; the other does not send the player back');
+		const after=play('w.complete({95642,95643,95562})', `local i=visit('accept',94884);E.SkipUpTo(i-1);stub.advance(.6);local door=point();inside();emit({door,E.GetLiveStep()==i,point()})`);
+		assert.deepEqual(after,[mouth,true,npc], 'the already-paid heads still open the delivery');
+	} finally { pack.dispose(); }
+});
+
+test('Fire Taboo: a ready flint reward on the Green Belt pass does not divert a usable Menethil hearth (#3118)', { skip }, () => {
+	const pack = buildSimPack([ASHENVALE]);
+	try {
+		const guide=pack.guides[0];
+		for (const [where,home,cool,flints,want] of [
+			['The Green Belt','Astranaar',false,9,true], ['The Green Belt','Menethil Harbor',true,9,true],
+			['The Green Belt','Menethil Harbor',false,9,false], ["Ironbeard's Tomb",'Astranaar',false,9,false],
+			['The Green Belt','Astranaar',false,8,false]]) {
+			const [ready]=playGuide(pack,guide,{race:'NightElf',cls:'HUNTER',faction:'Alliance',
+				before:`w.level=24;w.moveTo(1437,52.13,41.48);w.setZone("Wetlands",${JSON.stringify(where)});w.bind(${JSON.stringify(home)});
+					w.onQuest(277,{{type="item",required=9,fulfilled=${flints}}});w.addItem(2611,${flints});w.onQuest(470,{});
+					C_Container=C_Container or {};C_Container.GetItemCooldown=function() return 0,${cool?3600:0},1 end`,
+				script:`local E=Polestar.Engine;local guide=E.GetGuide();local first
+					for i,s in ipairs(guide.steps) do if not s.feeder then for _,g in ipairs(s.goals) do if g.t=='turnin' and g.quest==277 then first=first or i end end end end
+					assert(first);E.SkipUpTo(first);stub.advance(.6);local shown=false
+					for j,g in ipairs(guide.steps[E.GetLiveStep()].goals) do if g.t=='turnin' and g.quest==277 and E.Applies(E.GetLiveStep(),j) and not E.GoalDone(E.GetLiveStep(),j) then shown=true end end;emit(shown)`});
+			assert.equal(ready,want,`${where}, ${home}, cooldown=${cool}, ${flints} flints`);
+		}
+		assert.ok(goals(WETLANDS).some(({goal})=>is('turnin',277)(goal)), 'the scheduled later Rethiel pass remains');
+	} finally { pack.dispose(); }
+});
+
+test('Riverglades: Fuzzle starts at his cage, Lamora’s loot is on the middle ship, and Argo’s bait stays at the junk (#3078, #3172, #3036)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const pick = (verb,q,oi) => list.filter(({goal:g}) => g.t===verb && g.quest===q && (oi==null || g.oi===oi));
+	const xy = ({goal:g}) => [g.map,g.x,g.y];
+	assert.deepEqual(pick('accept',94961).map(xy), [[2548,47.31,51.36]]);
+	assert.deepEqual(pick('complete',94963).map(xy), [[2548,41.6,47.7]], 'do not move the escort finish to the cage');
+	const [bait] = pick('use',95267,1), [head] = pick('collect',95267,1);
+	assert.equal(bait.goal.item,268647); assert.equal(head.goal.item,268633); assert.deepEqual(xy(bait),[2548,74.39,72.38]);
+	assert.deepEqual(xy(head),xy(bait)); assert.ok(list.indexOf(bait)<list.indexOf(head));
+	const [admiral] = pick('kill',95124,1), [chest] = pick('collect',95124,2);
+	assert.deepEqual(xy(chest),[2548,90.5,29.4]); assert.ok(list.indexOf(admiral)<list.indexOf(chest));
+	assert.equal(chest.goal.item,268506); assert.notEqual(chest.goal.npc,admiral.goal.npc, 'the loot is not the admiral');
+});
+
+test('Ashenvale and Wetlands: the returned gem is needed in the bags, and the chest is by the slime (#3043, #3002)', { skip }, () => {
+	const who={race:'NightElf',raceName:'Night Elf',faction:'Alliance',cls:'HUNTER',className:'Hunter',level:28};
+	for (const id of [ASHENVALE,WETLANDS]) {
+		const out=engineRun(id,who,{before:'w.complete({991,1023});w.onQuest(1024,{});w.bank[5463]=1',script:`local w=stub.world;local function needsGem()
+			for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do if g.t=="collect" and g.item==5463 and not g.quest then return E.Applies(i,j) and not E.GoalDone(i,j) end end end end
+			local bank=needsGem(); w.addItem(5463,1);stub.advance(.6);local bags=needsGem();w.turnIn(1024);w.removeItem(5463);stub.advance(.6);emit({bank,bags,needsGem()})`});
+		assert.deepEqual(out,[true,false,false],id);
+	}
+	const wet=goals(WETLANDS), pommel=wet.find(({goal:g})=>g.t==='collect' && g.item===5519), bottle=wet.find(({goal:g})=>g.t==='collect' && g.item===5440);
+	assert.equal(pommel.s,bottle.s); assert.deepEqual([pommel.goal.quest,pommel.goal.oi],[1027,1]);
+	assert.deepEqual([pommel.goal.map,pommel.goal.x,pommel.goal.y],[1440,71.45,76.97]);
 });
 
 // These approaches contain only explicit coordinates and quest-state predicates, so
@@ -3109,6 +3263,32 @@ test('round 3 data: Kerlonian ends at his bag, Slimy Menace line order, Desperat
 	}
 });
 
+test('Dun Morogh: Frostmane Hold follows the explore trigger after five kills and a checked waypoint (#3044)', { skip }, () => {
+	for (const file of DUN_MOROGHS) {
+		const race = file.includes('/gnome/') ? 'Gnome' : 'Dwarf';
+		const cls = race === 'Gnome' ? 'WARLOCK' : 'HUNTER';
+		const hold = goals(file).find(({ goal }) => is('complete', 287)(goal)).s;
+		const seen = engineRun(file, { race, raceName: race, faction: 'Alliance', cls, className: cls, level: 9 }, {
+			before: `w.onQuest(287,{{type='monster',required=5},{type='event',required=1}}); w.progress(287,1,5); w.moveTo(1426,45.82,53.59)`,
+			script: `local w=stub.world; E.SkipUpTo(${hold}); stub.advance(1)
+				w.moveTo(1426,21.3,54.2); stub.advance(1); w.moveTo(1426,45.82,53.59); stub.advance(1)
+				-- The report has the approach checked even back at Kharanos. Mark only that waypoint, never the event.
+				for i,g in ipairs(E.GetStepView(${hold}).goals) do if g.t=="goto" and g.status~="done" then E.ToggleGoal(${hold},i) end end; stub.advance(1)
+				local v=E.GetStepView(${hold}); local out={step=E.GetLiveStep(),status={}}
+				for _,g in ipairs(v.goals) do out.status[g.t]=g.status end
+				local p=E.GetWaypoint(); out.point=p and {p.map,p.x,p.y} or false
+				w.progress(287,2,1); stub.advance(1); out.credited=E.GetStepView(${hold}).goals[#v.goals].status
+				emit(out)`,
+		});
+		assert.equal(seen.step, hold, `${race}: reaching the coordinates does not award explore credit`);
+		assert.equal(seen.status.kill, 'done');
+		assert.equal(seen.status.goto, 'done');
+		assert.equal(seen.status.complete, 'active');
+		assert.deepEqual(seen.point, [1426, 21.3, 54.2], `${race}: keep pointing to the back of the cave, not the headhunter camp`);
+		assert.equal(seen.credited, 'done', `${race}: real quest credit clears the row`);
+	}
+});
+
 // --- Wetlands (Bennistrov, #1312): From the Ashes' step pointed at Chieftain Nek'rosh (53.5,54.5), where none of the
 // four Attack Plans lie. Players' recordings tick each plan at its own spot in the Dragonmaw camp north of the dig.
 test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)`, { skip }, () => {
@@ -3398,6 +3578,28 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+test('Darkshore coast: keep the sampler reward before the next loop; only a Druid already at the cave from 19 gathers the mushrooms early', { skip }, () => {
+	const list = goals(DARKSHORE);
+	const sampler = list[at(list, 'cave sampler', is('collect', 6122))];
+	const paid = list[at(list, 'sampler reward', is('turnin', 6122))];
+	const fungus = list.filter(({ goal }) => is('collect', 947)(goal));
+	assert.equal(fungus.length, 4);
+	assert.deepEqual(fungus.map(({ goal }) => goal.item), [5271, 5270, 5271, 5270]);
+	assert.equal(fungus[0].step, fungus[1].step);
+	assert.equal(fungus[2].step, fungus[3].step);
+	assert.ok(sampler.s < fungus[0].s && fungus[0].s < paid.s && paid.s < fungus[2].s);
+	assert.equal(paid.step, list[at(list, 'Thundris', is('turnin', 4762))].step);
+	assert.ok(!paid.goal.optional && !fungus[2].goal.optional);
+	const payments = list.filter(({ goal }) => is('turnin', 947)(goal));
+	assert.equal(payments[0].step, paid.step);
+	assert.ok(payments[0].goal.optional && !payments[1].goal.optional);
+	const elf = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'DRUID', className: 'Druid' };
+	for (const [level, before, expected] of [[18, 'w.onQuest(6122,{1}); w.onQuest(947,{2})', false], [19, 'w.onQuest(947,{2})', false], [19, 'w.onQuest(6122,{1})', false], [19, 'w.onQuest(6122,{1}); w.onQuest(947,{2})', true]]) {
+		assert.equal(engineRun(DARKSHORE, { ...elf, level }, { before, script: `emit({applies=E.Applies(${fungus[0].s})})` }).applies, expected);
+	}
+	assert.equal(list.filter(forClass('HUNTER')).filter(({ goal }) => is('collect', 947)(goal)).length, 2);
+});
+
 test('Darkshore coast: Elissa gives the tower letter on the Night Elf rewards stop, or beside the other races’ first Terenthis offer', { skip }, () => {
 	for (const race of ['NightElf', 'Dwarf', 'Gnome', 'Human', 'Skyborne']) {
 		const list = goals(DARKSHORE).filter(forRaceOf(race));
@@ -3406,6 +3608,41 @@ test('Darkshore coast: Elissa gives the tower letter on the Night Elf rewards st
 		assert.equal(letters[0].step, list[at(list, 'Terenthis', is('accept', race === 'NightElf' ? 4761 : 984))].step, race);
 		assert.ok(letters[0].s < list[at(list, 'Balthule', is('turnin', 965))].s, race);
 	}
+});
+
+test('Darkshore coast: a Night Elf who missed a beach can finish it on the shared visit, without bringing the feeder back', { skip }, () => {
+	const first = goals(DARKSHORE).filter(nightElf);
+	for (const q of [4722, 4723]) {
+		const take = at(first, `take ${q}`, is('accept', q));
+		assert.ok(take > at(first, 'unlock the remains', is('turnin', 4681)) && take < at(first, `pay ${q}`, is('turnin', q)));
+	}
+	const back = goals(DARKSHORE_RETURN).filter(nightElf);
+	const beach = back[at(back, 'last remains', is('accept', 4728))];
+	assert.equal(back[at(back, 'pay Gwennyth', is('turnin', 4728))].step, back[at(back, 'Holy Diver', is('accept', 87760))].step);
+	const who = { race: 'NightElf', raceName: 'Night Elf', faction: 'Alliance', cls: 'HUNTER', className: 'Hunter', level: 21 };
+	for (const [setup, expected] of [['', false], ['w.complete({3524,4681})', true]]) {
+		assert.equal(engineRun(DARKSHORE_RETURN, who, { before: setup, script: `emit({applies=E.Applies(${beach.s})})` }).applies, expected);
+	}
+});
+
+test('Alliance town errands: Gryan takes the carried letter in the tower and Baren offers Murloc Poachers at his dock', { skip }, () => {
+	const west = goals(WESTFALL).filter(forRaceOf('Skyborne'));
+	const gry = west[at(west, 'Skyborne letter', is('turnin', 98021))];
+	assert.equal(gry.step, west[at(west, 'militia', is('accept', 12))].step);
+	assert.ok(at(west, 'letter', is('turnin', 98021)) < at(west, 'scout', is('accept', 153)));
+	const loch = goals(LOCH_MODAN);
+	const offers = loch.filter(({ goal }) => is('accept', 150)(goal));
+	assert.equal(offers.length, 2);
+	assert.ok(offers[0].goal.optional && offers[0].goal.minLevel === 20);
+	const fish = at(loch, 'sunfish', is('turnin', 127));
+	assert.equal(offers[0], loch[fish + 1], 'the optional offer is visible in Baren’s own group, not alone in an automatically passed step');
+	assert.equal(offers[0].step, loch[fish].step);
+	assert.ok(fish < at(loch, 'Martie', is('turnin', 130)));
+	const who = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'WARRIOR', className: 'Warrior' };
+	const status = level => stepView(LOCH_MODAN, { ...who, level }, offers[0].s).goals.find(g => g.t === 'accept' && g.quest === 150).status;
+	assert.equal(status(19), 'na', 'too low: no offer and no detour');
+	assert.ok(['active', 'pending'].includes(status(20)), 'eligible: the offer is visible on the dock visit');
+	assert.equal(offers[1].step, loch[at(loch, 'return to the smith', is('turnin', 124))].step);
 });
 
 // --- Darkshore (lax, #924): "Level 20" said "grind on Elder Darkshore
@@ -6547,6 +6784,111 @@ test('Alliance 40-50 (0.4.3): Hostile Takeover rides with Kebok\'s tusks, the cr
 	assert.ok(list.some(({ s: step, goal }) => step === s('turnin', 209) + 1 && is('turnin', 213)(goal)), 'the ordinary hand-in stays with the tusks');
 });
 
+test('Alliance southern loops: the pirate beach and both sets of Feralas livers stay on their outward sweeps', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const pos = (verb, quest) => at(stv, `${verb} ${quest}`, is(verb, quest));
+	assert.ok(pos('accept', 606) < pos('collect', 587));
+	assert.ok(pos('collect', 587) < pos('collect', 606) && pos('collect', 606) < pos('turnin', 587));
+	assert.equal(stv[pos('turnin', 606)].s, stv[pos('turnin', 576)].s);
+	const fer = goals('forever/alliance/40-50/03-feralas.guide');
+	const livers = fer.filter(({ goal }) => goal.t === 'collect' && goal.quest === 1452);
+	assert.deepEqual(livers.map(({ goal }) => goal.item), [6259, 6258]);
+	assert.ok(livers[1].s < fer[at(fer, 'the relic', is('collect', 2870))].s);
+});
+
+test('Alliance southern loops: actual Dunemaul hunts and payments on both Gadgetzan visits', { skip }, () => {
+	const pack = buildSimPack(['04-tanaris', '07-un-goro-crater'].map(id => `forever/alliance/40-50/${id}.guide`));
+	try {
+		const trace = SIMULATE.replace('local function act(i, g, r)', `local function act(i, g, r)
+			if g.quest == 5863 then emit({ t=g.t, npc=r.npc or false }) end`);
+		const hunt = ['kill', 'kill', 'kill'];
+		for (const [chapter, level, state, expected] of [
+			['04-tanaris', 47, 'fresh', ['accept']],
+			['04-tanaris', 48, 'fresh', ['accept', ...hunt, 'turnin']],
+			['04-tanaris', 47, 'ready', ['turnin']],
+			['07-un-goro-crater', 49, 'fresh', ['accept', ...hunt, 'turnin']],
+			['07-un-goro-crater', 49, 'held', [...hunt, 'turnin']],
+			['07-un-goro-crater', 49, 'ready', ['turnin']],
+			['07-un-goro-crater', 49, 'paid', []],
+			['07-un-goro-crater', 49, 'declined', []],
+		]) {
+			const setup = { fresh: '', ready: 'w.onQuest(5863,{})', held: 'w.onQuest(5863,{10,10,1})', paid: 'w.complete({5863})', declined: '' }[state];
+			const g = pack.guides.find(g => g.id.endsWith('/' + chapter));
+			const actions = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', before: `w.level=${level};${setup}`,
+				script: (state === 'declined' ? 'Polestar.Engine.SkipQuest(5863,true);stub.advance(.6);' : '') + trace });
+			const done = actions.pop(), label = `${chapter}/${level}/${state}`;
+			assert.ok(done.done && !done.stuck, `${label}: ${JSON.stringify(done.stuck)}`);
+			assert.deepEqual(actions.map(a => a.t), expected, label);
+			for (const a of actions.filter(a => a.t === 'turnin')) assert.equal(a.npc, 11758, label);
+		}
+	} finally { pack.dispose(); }
+});
+
+// The return camps are shared, but quest eligibility and a missing wandering NPC are not.
+test('Alliance southern reports: gated rewards, incidental work and escort choices', { skip }, async (t) => {
+	const names = ['01-stranglethorn-vale', '02-badlands', '04-tanaris', '06-searing-gorge', '07-un-goro-crater'];
+	const file = (name) => `forever/alliance/40-50/${name}.guide`;
+	const pack = buildSimPack(names.map(file));
+	const play = (chapter, ids, before = '', opts = {}) => {
+		const body = SIMULATE.replace('local function act(i, g, r)', `local function act(i, g, r)
+			${opts.override || ''}
+			if ({${ids.map(q => `[${q}]=true`).join(',')}})[g.quest] then
+				local lines = 0
+				for _, o in ipairs(w.log[g.quest] and w.log[g.quest].objectives or {}) do if not o.finished then lines=lines+1 end end
+				emit({t=g.t,q=g.quest,oi=r.oi or 0,obj=r.object or 0,s=i,open=lines})
+			end`);
+		const result = playGuide(pack, pack.guides.find(g => g.id.endsWith('/' + chapter)), { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', groups: opts.groups || 'skip', before: 'w.level=50;' + before, script: body });
+		const last = result.pop(); assert.ok(last.done && !last.stuck, JSON.stringify(last.stuck));
+		return result;
+	};
+	try {
+		await t.test('blue pearls (#3067): ready pays, partial and missing do not', () => {
+			for (const [setup, expected] of [['w.onQuest(705,{})', ['turnin']], ['w.onQuest(705,{{required=9,fulfilled=2}})', []], ['', []]])
+				assert.deepEqual(play(names[1], [705], setup).map(a => a.t), expected);
+			const pearl = goals(file(names[0])).find(({ goal: g }) => g.item === 4611 && g.quest === 705);
+			assert.equal(pearl.goal.t, 'collect');
+		});
+		await t.test('Waterspring crate (#3159): use item on the five-credit objective, no kill target', () => {
+			const list = goals(file(names[2])).filter(({ goal: g }) => g.quest === 97536);
+			assert.deepEqual(list.map(({ goal: g }) => g.t), ['accept', 'use', 'turnin']);
+			assert.deepEqual([list[1].goal.item, list[1].goal.oi, list[1].goal.map], [278194, 1, 1446]);
+		});
+		await t.test('Cauldron (#2910): carry the oil request into the spider hunt; no furnace without consent', () => {
+			const actions = play(names[3], [3441, 3442, 7724, 7729]);
+			const i = (t,q) => actions.findIndex(a => a.t===t && a.q===q);
+			assert.ok(i('turnin',3441)>=0 && i('accept',3442)>i('turnin',3441) && i('kill',7724)>i('accept',3442));
+			assert.ok(!actions.some(a => a.q===7729));
+		});
+		await t.test('group documents (#2915): opt-in grants the follow-up but no mandatory document hunt', () => {
+			const list = goals(file(names[3])).filter(({ goal: g }) => g.quest === 3378);
+			assert.ok(list.filter(({ goal: g }) => g.t==='collect').length>0);
+			assert.ok(list.filter(({ goal: g }) => g.t==='collect').every(({ step, goal }) => goal.optional && step.when.some(p=>p.k==='group')));
+			assert.deepEqual(play(names[3],[3378]).map(a=>a.t), []);
+			assert.ok(play(names[3],[3378],'',{groups:'do'}).some(a=>a.t==='accept'));
+		});
+		await t.test('Set Them Ablaze (#2924): newly granted quest has four unlit towers before its reward', () => {
+			const a=play(names[3],[3463],'',{groups:'do'});
+			assert.deepEqual(a.map(x=>x.t), ['accept','interact','interact','interact','interact','turnin']);
+			assert.deepEqual(a.filter(x=>x.t==='interact').map(x=>[x.oi,x.obj,x.open]), [[4,149032,4],[1,149025,3],[2,149030,2],[3,149031,1]]);
+			assert.equal(a.at(-1).open,0);
+		});
+		await t.test('Dinosaur Bones (#3082): optional young-beast work by the scales, no forced partial reward', () => {
+			const list=goals(file(names[4])); const pick=list.find(({goal:g})=>g.quest===3882 && g.t==='accept');
+			const bone=list.find(({goal:g})=>g.item===11114 && g.t==='collect'); const scale=list.find(({goal:g})=>g.item===11830 && g.t==='collect');
+			assert.ok(pick.goal.optional && bone.goal.optional && pick.s<bone.s && bone.s===scale.s);
+			assert.deepEqual([bone.goal.x,bone.goal.y], [scale.goal.x,scale.goal.y]);
+			for(const [setup,expected] of [['w.onQuest(3882,{})',['turnin']],['w.onQuest(3882,{{required=8,fulfilled=3}})',[]],['w.complete({3882})',[]]])
+				assert.deepEqual(play(names[4],[3882],setup).map(a=>a.t),expected);
+		});
+		await t.test('Tooga (#3083): actual manual alternative when absent; escort, Torta and Oasis if present', () => {
+			const ids=[1560,97540], all=['accept','complete','turnin','accept','turnin'];
+			const missing='if g.t=="accept" and g.quest==1560 then for _,row in ipairs(E.GetStepView(i).goals) do if row.t=="task" and row.manual then E.ToggleGoal(i,row.index);stub.advance(.6);return end end;error("missing manual choice") end';
+			for (const [setup,opt,expected] of [['',{},all],['',{override:missing},[]],['w.onQuest(1560,{{type="event",required=1,fulfilled=0}})',{},all.slice(1)],['w.onQuest(1560,{})',{},all.slice(2)]])
+				assert.deepEqual(play(names[2],ids,setup,opt).map(a=>a.t),expected);
+		});
+	} finally { pack.dispose(); }
+});
+
 test('Alliance Booty Bay: pay a carried Hostile Takeover at the first visit only when already ready', { skip }, () => {
 	const file = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
 	const pack = buildSimPack([file]);
@@ -8918,7 +9260,8 @@ test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken 
 // visit (about 57; their mobs are 51-55): the loop runs one way round there.
 test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon loop one way round, Ironforge in walking order", { skip }, () => {
 	const first = goals('forever/alliance/40-50/07-un-goro-crater.guide');
-	assert.ok(!first.some(({ goal }) => [4287, 4288, 3881, 3882, 3883].includes(goal.quest)), 'no pylon or expedition work on the first visit');
+	assert.ok(!first.some(({ goal }) => [4287, 4288, 3881, 3883].includes(goal.quest)), 'no pylon or expedition work on the first visit');
+	assert.ok(first.filter(({ goal }) => goal.t === 'collect' && goal.quest === 3882).every(({ goal }) => goal.optional && goal.map === 1449), 'only incidental bones while collecting scales, never an early bone grind');
 	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const loop = [
@@ -12229,20 +12572,17 @@ test('Alliance 47-48: everyone flies from Nethergarde to Booty Bay for MacKinley
 	assert.ok(fly < a && a < c && b < Math.min(...kills) && Math.max(...kills) < c, 'Booty Bay, the captains, Booty Bay');
 });
 
-// Fix round 2 (0.4.0): the Stranglethorn top-ups (42.16 on the Skullsplitters for the skipped Nesingwary hunts, 42.16 on
-// the basilisks, 42.46 in Dustwallow) sat before nothing in the jungle that needed them; they are one top-up to 44.4 on
-// the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43), right before the second wave (43-45). The
-// reviewer's point holds: no grind block before Booty Bay.
-test('Alliance 42-44: the solo top-up for the skipped Nesingwary hunts is one Riverglades top-up before the pirates\' second wave (reviewer: the grind block before Booty Bay)', { skip }, () => {
-	const g = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	assert.ok(!g.some(({ goal }) => goal.t === 'level'), 'no grind block in Stranglethorn');
-	const rg = goals('forever/alliance/40-50/01b-riverglades.guide');
-	const tops = rg.map((e, i) => ({ ...e, i })).filter(({ goal }) => goal.t === 'level' && goal.grind);
-	assert.equal(tops.length, 1, 'one written grind in the Riverglades');
-	const [top] = tops;
-	assert.ok(top.goal.level >= 44 && top.goal.grind === 257901, 'to 44.4 on the Eastsea Buccaneers (41-42)');
-	assert.ok(top.i < at(rg, 'kill 257915', (x) => x.t === 'kill' && x.npc === 257915), 'right before the second wave');
-	assert.ok(!(top.step.when || []).some((p) => p.k === 'group'), 'for anyone short of it');
+test('Alliance pirates: two local level checks, neither a grind before Booty Bay', { skip }, () => {
+	const coast = goals('forever/alliance/40-50/01b-riverglades.guide');
+	assert.ok(!goals('forever/alliance/40-50/01-stranglethorn-vale.guide').some(({goal}) => goal.t === 'level'));
+	const levels = coast.map((row, i) => ({...row, i})).filter(({goal}) => goal.t === 'level');
+	assert.deepEqual(levels.map(({goal:g}) => [g.level, g.grind]), [[42,256807],[44,257901]]);
+	assert.equal(levels[1].goal.frac, 0.4);
+	const [beach, camp] = levels;
+	const beachPin = beach.step.goals.find(g => g.t === 'goto');
+	assert.deepEqual([beachPin.map, beachPin.x, beachPin.y], [2548,81.21,46.52]);
+	assert.ok(beach.i < at(coast, 'first musketeer', g => g.t === 'kill' && g.npc === 257910));
+	assert.ok(camp.i < at(coast, 'first raider', g => g.t === 'kill' && g.npc === 257915));
 });
 
 test('Riverglades: Dalton can pay a low entrant now; Gelinda follows the real level and each quest independently', { skip }, () => {
@@ -12271,27 +12611,38 @@ test('Riverglades: Dalton can pay a low entrant now; Gelinda follows the real le
 	} finally { pack.dispose(); }
 });
 
-test('Riverglades: skipping the written pirate top-up does not send a 42 or 43 to the raiders or Admiral', { skip }, () => {
+test('Riverglades: the live step pays ready pirates and skips unaffordable fights when a player skips a top-up', { skip }, () => {
 	const pack = buildSimPack(['forever/alliance/40-50/01b-riverglades.guide']);
 	try {
 		const guide = pack.guides[0];
-		const ix = (q, t) => guide.steps.findIndex(s => s.goals.some(g => g.quest === q && g.t === t)) + 1;
-		const first = ix(95119, 'kill'), shore = ix(95254, 'turnin');
-		const top = guide.steps.findIndex(s => s.goals.some(g => g.t === 'level' && g.grind === 257901)) + 1;
-		const dig = ix(95122, 'kill'), admiral = ix(95124, 'kill'), cliffs = ix(95293, 'turnin'), port = ix(95122, 'turnin');
-		assert.ok(first && shore < first && top && dig && admiral && cliffs && port);
-		const [result] = playGuide(pack, guide, { race: 'Human', cls: 'WARRIOR', faction: 'Alliance',
-			before: `w.setLevel(41); w.onQuest(95254,{1}); w.finish(95254); w.onQuest(95119,{10,10}); w.onQuest(95122,{8,8}); w.onQuest(95124,{1,1})`,
-			script: `local E,w=Polestar.Engine,stub.world
-				assert(E.Applies(${shore}) and not E.Applies(${first}) and not E.Applies(${top}), "cash the pincer, not a cliff hunt at 41")
-				w.setLevel(42);stub.advance(.5);assert(E.Applies(${first}), "first camp opens at 42")
-				E.SkipUpTo(${dig}); stub.advance(1)
-				for _,lv in ipairs({42,43}) do w.setLevel(lv);stub.advance(.5)
-					assert(not E.Applies(${dig}) and not E.Applies(${admiral}) and not E.Applies(${cliffs}))
-				end
-				w.finish(95122);stub.advance(.5);assert(E.Applies(${port}), "a ready port reward stays payable below 44")
-				w.setLevel(44);stub.advance(.5);emit({camp=E.Applies(${dig}),ships=E.Applies(${admiral}),cliffs=E.Applies(${cliffs})})` });
-		assert.deepEqual(result, { camp: true, ships: true, cliffs: true });
+		const setup = `local E,w=Polestar.Engine,stub.world; local G=assert(E.GetGuide());
+			local function spot(t,q)
+				for i,s in ipairs(G.steps) do if not s.feeder then for _,g in ipairs(s.goals) do
+					if g.t==t and (g.quest==q or g.grind==q) then return i end end end end
+				error(t..":"..q.." not in loaded guide") end
+			local function seek(i) E.SkipUpTo(i); stub.advance(.6); return E.GetLiveStep() end
+			local function live(t,q) local i=E.GetLiveStep(); if not i then return false end
+				for j,g in ipairs(G.steps[i].goals) do if E.Applies(i,j) and not E.GoalDone(i,j) and g.t==t and (g.quest==q or g.grind==q) then return true end end; return false end`;
+		const play = (level, pre, script) => playGuide(pack, guide, { race:'Human', cls:'WARRIOR', faction:'Alliance',
+			before: `w.setLevel(${level}); ${pre}`, script: setup + '\n' + script })[0];
+		const low = play(41, 'w.onQuest(95254,{1});w.finish(95254);w.onQuest(95119,{10,10});w.onQuest(95288,{8})', `
+			seek(spot('turnin',95254)); local reward=live('turnin',95254); w.turnIn(95254);stub.advance(.6);
+			local b=spot('level',256807);seek(b); local beach=live('level',256807);
+			local next=seek(b+1);local high=spot('kill',95119); local missed=live('turnin',95119) or live('turnin',95288);
+			emit({reward=reward,beach=beach,skipped=next and next>high and not missed})`);
+		assert.deepEqual(low,{reward:true,beach:true,skipped:true});
+		for (const level of [42,43]) {
+			const out=play(level,'w.onQuest(95122,{8,8});w.onQuest(95123,{5});w.finish(95123);w.onQuest(95124,{1,1});w.onQuest(95293,{})', `
+				local b=spot('level',257901); seek(b); local top=live('level',257901);seek(b+1);
+				local green=live('turnin',95123);w.turnIn(95123);stub.advance(.6);
+				local after=E.GetLiveStep();local ships=spot('kill',95124);
+				emit({top=top,ready=green,passed=after and after>ships,owed=live('turnin',95122) or live('turnin',95124)})`);
+			assert.deepEqual(out,{top:true,ready:true,passed:true,owed:false}, `level ${level}`);
+		}
+		const high = play(44,'w.onQuest(95122,{8,8});w.onQuest(95124,{1,1});w.onQuest(95293,{})', `
+			seek(spot('kill',95122)); local raiders=live('kill',95122);w.finish(95122);stub.advance(.6);
+			seek(spot('turnin',95293));local cliffs=live('turnin',95293);seek(spot('kill',95124));emit({raiders=raiders,cliffs=cliffs,ships=live('kill',95124)})`);
+		assert.deepEqual(high,{raiders:true,cliffs:true,ships:true});
 	} finally { pack.dispose(); }
 });
 
@@ -14190,7 +14541,7 @@ const SECOND_VISITS = [
 	{ guide: 'forever/horde/50-60/06-silithus.guide', who: { race: 'Scourge', raceName: 'Undead', faction: 'Horde', cls: 'PRIEST', className: 'Priest', level: 58 }, starters: [4984], opens: [4985], done: 'w.complete({ 4984 })' },
 	{ guide: 'forever/alliance/07-thousand-needles.guide', who: { race: 'Dwarf', raceName: 'Dwarf', faction: 'Alliance', cls: 'HUNTER', className: 'Hunter', level: 29 }, starters: [173], opens: [221], done: 'w.onQuest(173, { { required = 6 } })' },
 	{ guide: 'forever/alliance/40-50/01-stranglethorn-vale.guide', who: { race: 'Gnome', raceName: 'Gnome', faction: 'Alliance', cls: 'MAGE', className: 'Mage', level: 39 }, starters: [606], opens: [607], done: 'w.onQuest(606, { { required = 5 } })' },
-	{ guide: 'forever/alliance/40-50/07-un-goro-crater.guide', who: { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'PALADIN', className: 'Paladin', level: 49 }, starters: [2605], opens: [2606], done: 'w.onQuest(2605, { { required = 1 } })' },
+	{ guide: 'forever/alliance/40-50/07-un-goro-crater.guide', who: { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'PALADIN', className: 'Paladin', level: 49 }, starters: [2605], opens: [2606], carriedOffers: { 2606: ['na', 'pending'] }, done: 'w.onQuest(2605, { { required = 1 } })' },
 	{ guide: 'forever/horde/40-50/04-tanaris.guide', who: { race: 'Orc', raceName: 'Orc', faction: 'Horde', cls: 'SHAMAN', className: 'Shaman', level: 48 }, starters: [992], opens: [82], done: 'w.onQuest(992, { { required = 1 } })' },
 ];
 // The statuses of the accepts of `quests` (comma-joined per quest when the guide has several), and what the plan left out.
@@ -14231,7 +14582,12 @@ for (const sv of SECOND_VISITS) {
 	test(`second visits (#2635): ${name} shows none of the catch-up to a character who did the first visit`, { skip }, () => {
 		const out = acceptStatuses(sv, sv.done);
 		for (const q of sv.starters) assert.ok([undefined, 'na', 'na,na'].includes(out.accepts[q]), `no ${q} step for them: ${out.accepts[q]}`);
-		for (const q of sv.opens) assert.ok(out.accepts[q] && !/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+		for (const q of sv.opens) {
+			if (sv.carriedOffers?.[q]) {
+				// A carried, unfinished gland hides the arrival reward but keeps the ordinary follow-up after the valley.
+				assert.deepEqual(out.accepts[q]?.split(','), sv.carriedOffers[q]);
+			} else assert.ok(out.accepts[q] && !/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+		}
 	});
 }
 
@@ -16724,6 +17080,50 @@ test('#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg\'s quest b
 	}
 });
 
+test(`${REDRIDGE}: Lakeshire landing and Three Corners road arrival after Madame Eva (#3070)`, { skip }, async t => {
+	const pack = buildSimPack([REDRIDGE], data);
+	try {
+		const guide = pack.guides[0];
+		const step = (verb, q) => guide.steps.findIndex(s => s.goals.some(g => g.t === verb && g.quest === q)) + 1;
+		const eva = step('accept', 149), howe = step('accept', 128), road = eva + 1;
+		assert.ok(eva > 0 && road < howe);
+		const inbound = guide.steps.slice(0, step('accept', 101) - 1)
+			.find(s => s.goals.some(g => g.t === 'goto' && g.map === 1433 && g.x === 15.3 && g.y === 71.5));
+		assert.ok(inbound && !inbound.goals.some(g => g.either), 'the earlier Elwynn to Duskwood road junction is still required');
+		for (const [mode, known] of [['gryphon', true], ['road', true], ['road', false]]) await t.test(`${mode}, flight path ${known ? 'known' : 'unknown'}`, () => {
+			const [seen] = playGuide(pack, guide, { race: 'Dwarf', faction: 'Alliance', cls: 'HUNTER',
+				// The simulation normally installs the Era bounds. Redridge's live map is shifted west:
+				// the gryphon drops a player at ~25.4 live, but the road junction is typed in Era coordinates.
+				before: `w.level=26; w.setZone("Duskwood","Darkshire"); w.moveTo(1431,75,45)
+					w.addMap(1433,{name="Redridge Mountains",c=0,left=-1681.25,right=-3852.084,top=-8575,bottom=-10022.916})`,
+				script: `local E, w = Polestar.Engine, stub.world
+					local function settle() stub.advance(.6); stub.advance(.6) end
+					local function aim()
+						local p=assert(E.GetWaypoint(), "missing arrow")
+						return E.GetGuide().steps[p.stepIndex].goals[p.goalIndex]
+					end
+					${known ? 'w.taxi(2409,"Darkshire, Duskwood",{"Lakeshire, Redridge"}); w.close()' : ''}
+					E.SkipUpTo(${road}); settle()
+					assert(E.GetLiveStep()==${road}, "knowing the flight point is not arriving")
+					${mode === 'gryphon' ? `
+					w.onTaxi=true; w.moveTo(1433,25.35,58.99)
+					w.setZone("Redridge Mountains","Lakeridge Highway"); settle()
+					assert(E.GetLiveStep()==${road}, "passing overhead is not landing")
+					w.onTaxi=false; stub.fire("PLAYER_CONTROL_GAINED"); settle()` : `
+					w.moveTo(1433,8,77); w.setZone("Redridge Mountains","Lakeridge Highway"); settle()
+					local g=aim()
+					assert(E.GetLiveStep()==${road} and g.t=="goto" and g.x==15.3 and g.y==71.5, "walk to the junction, even with the flight path known")
+					w.moveTo(1433,10.21,71.5); settle()`}
+					assert(E.GetLiveStep()==${howe}, "go straight on to the Guard Howe stop")
+					local nextGoal=aim().t
+					${known ? '' : 'w.taxi(931,"Lakeshire, Redridge"); w.close(); settle()'}
+					local g=aim()
+					emit({next=nextGoal,quest=g.quest,npc=g.npc})` });
+			assert.deepEqual(seen, { next: known ? 'accept' : 'getfp', quest: 128, npc: 903 });
+		});
+	} finally { pack.dispose(); }
+});
+
 // Acrylic (#2243, Gnome Warlock 26) and one more player: 04-redridge-mountains' first Darkshire stop held them on Look
 // to the Stars' hand-in (174, a Bronze Tube) and told them to skip it by hand; Herble had no tube in 44 merchant windows
 // of 28 people (#1792) and the Auction House buy before Darkshire is optional. Viktori's goals are a step of their own,
@@ -17456,9 +17856,11 @@ test('Twerkjob: the western Ashenvale camps wait for real level 23; only unfinis
 			['06-wetlands', 28, '', ''],
 		]) {
 			const guide = pack.guides.find(g => g.id === `forever/alliance/${id}`);
-			const first = guide.steps.findIndex(s => s.goals.some(g => g.quest === 1034 && g.t === 'collect')) + 1;
-			assert.ok(first > 0);
-			const trace = `local events = {}; E.SkipUpTo(${first})
+			const trace = `local events, first = {}, nil
+				for i,s in ipairs(G.steps) do if not s.feeder then for _,r in ipairs(s.goals) do
+					if r.quest==1034 and r.t=="collect" then first=i; break end
+				end end; if first then break end end
+				assert(first, "missing authored western hunt in the active guide"); E.SkipUpTo(first)
 				local function act(i,g,r)
 					if ((r.quest==1034 or r.quest==973) and (r.t=="collect" or r.t=="turnin")) or
 						((r.quest==1140 or r.quest==1035) and r.t=="accept") then

@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Это элитные противники: лучше собраться в группу, поищите, с кем пойти. {npc:8436} стоит в лагере Сумеречного Молота ({area:1442}), к западу от места {area:1446}, среди стражей огня, идолопоклонников и геомантов из культа Сумеречного Молота (элитные противники 48-49 уровня), а рядом с ним – {npc:8282} (51-й уровень, редкий элитный): для задания «{quest:3377}» нужна группа из 4 человек. Если вы один, пропустите его.",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Опаляющие лавовые пауки",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к NPC {npc:8479}.",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} стоит на краю Котлована, к югу от места {area:1446}. Выслушайте его историю.",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "Опаляющие лавовые пауки",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "Големы и элементали",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "убивайте: {npc:9318}",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -187,6 +192,7 @@ return {
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Надсмотрщики и поработители гоняют рабов по всему Котловану, и у любого из них может быть {item:10551}. Кузнецы работают у печей в центре ({item:18959}), наблюдатели стоят на южных гребнях (подзорная труба наблюдателя). С любого противника ({object:147516}) может выпасть {item:11818}: сохраните его.\nОсторожно: поработители из клана Черного Железа (45-46-й уровень), когда их выманивают, зовут на помощь союзников в пределах 15 ярдов, бросают сеть с расстояния до 15 ярдов и применяют кровопускание в ближнем бою.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "Ночной эльф стоит один к западу от места {area:1446}. Выслушайте его историю.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к Велароку.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к NPC {npc:8479}.",
 	-- ["Velarok Windblade"] = "Веларок Клинок Ветра",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Веларок стоит на краю Котлована, к югу от места {area:1446}. Выслушайте его историю.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",

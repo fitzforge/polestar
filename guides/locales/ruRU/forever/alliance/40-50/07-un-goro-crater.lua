@@ -7,7 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне.",
+	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне."
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the hive and any bones still needed wait for the later Un'Goro visit at about 56."] = "",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -32,56 +33,64 @@ return {
 	-- Step 6: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Вы пропустили это при прошлом посещении этих мест по маршруту: теперь это идёт первым. Это быстро и открывает следующие задания.",
 
-	-- Step 8: The Noxious Lair
+	-- Step 15: The south dunes
+	["The south dunes"] = "",
+	-- {area:978} Zul'Farrak
+	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
+	["The silithid and thistleshrub camps include level 50s. If you're short of 49, use the ordinary Dunemaul Ogres (45–46) on the southern edge of the compound, not the cave. A {area:978} group is another way to make up the difference."] = "",
+
+	-- Step 16: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "Езжайте на запад к улью сентипааров в дюнах. С любого сентипаара могут выпасть части насекомых.\nОсторожно: членистоноги-сентипаары призывают {npc:4196} и в бою, и вне боя – появляются мелкие помощники, которые прерывают вас.",
 
-	-- Step 9: Dunemaul Compound
+	-- Step 19: The Gaping Chasm
+	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
+	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.\nОсторожно: снаряжение охраняет один жук. По туннелям патрулирует много жуков, некоторые из них 50-го уровня, так что в бою часто привлекаются лишние противники.",
+	-- {item:8593} Scrimshank's Surveying Gear
+	["{item:8593}; below ground"] = "{item:8593}; под землей",
+
+	-- Step 20: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
-	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юг к лагерю огров. Он полон громил и силовиков (46-48); {npc:12046} (49) стоит в центре с охраной: сначала разберитесь с ней.",
+	-- was: ["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юг к лагерю огров. Он полон громил и силовиков (46-48); {npc:12046} (49) стоит в центре с охраной: сначала разберитесь с ней."
+	["Take the southern dunes to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "{npc:12046}, под землей",
 
-	-- Step 10: Thistleshrub Valley: kill these as you meet them
+	-- Step 21: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "Езжайте на запад к месту {quest:3362}. Железы падают с собирателей росы; полные бывают не всегда, так что берите наполненную. В долине также бродят бугристые шипошкуры и корнеформовщики.\nОсторожно: шипошкуры много бродят, так что легко нацеплять лишних мобов.",
 
-	-- Step 11: Gadgetzan
+	-- Step 22: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Езжайте обратно на северо-восток в {area:976}: {npc:11758} стоит в восточной части города.",
+	-- was: ["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Езжайте обратно на северо-восток в {area:976}: {npc:11758} стоит в восточной части города."
+	["Ride back north-east to {area:976}. {npc:11758} stands on the east side of town."] = "",
+
+	-- Step 26: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, внутри",
-
-	-- Step 12: The Gaping Chasm
-	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
-	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.\nОсторожно: снаряжение охраняет один жук. По туннелям патрулирует много жуков, некоторые из них 50-го уровня, так что в бою часто привлекаются лишние противники.",
-	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "{item:8593}; под землей",
-
-	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
 	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "Для NPC {npc:7740} ({zone:1457}), в конце гайда по зоне {zone:1428}: сохраните",
 
-	-- Step 15: Torwa Pathfinder
+	-- Step 28: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Езжайте на запад из города {area:976} к длинному спуску в зону {zone:1449}. {npc:9619} стоит лагерем у подножия спуска, в юго-восточном углу кратера.",
 
-	-- Step 16: Fresh Threshadon Carcass
+	-- Step 29: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
 	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "Мертвый молотильщик лежит у воды к северу от NPC {npc:9619}.\nОсторожно: там у воды охотятся ядовитые равазавры (50-51): выманивайте их по одному, прежде чем обыскать тушу.\nС любого равазавра может выпасть {item:280459}: нажмите на нее правой кнопкой, {npc:9619} ее примет.",
 
-	-- Step 17: Torwa Pathfinder
+	-- Step 30: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, если с равазавра выпала чешуя",
 	-- {area:1943} Ironstone Plateau
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня",
 
-	-- Step 18: Lar'korwi Mates and the raft
+	-- Step 31: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "Самки Лар'корви и плот",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -90,13 +99,16 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "",
 
-	-- Step 19: Torwa Pathfinder
+	-- Step 32: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "Обратно на восток к NPC {npc:9619} с железами.",
 
-	-- Step 20: Marshal's Refuge
-	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
-	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Езжайте на северо-запад к укрытию.\nОбходите элитных девизавров и стегодонов стороной. Отсюда и дальше подбирайте каждый объект {npc:271301} и каждый объект {object:157936} по пути.",
+	-- Step 33: Marshal's Refuge
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile · {npc:9272} Spark Nilminer
+	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
+	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on.\n{npc:9272}'s Dinosaur Bones can also drop from the Young Diemetradons you will hunt for scales. Take his quest if you have room; eight bones are not needed to leave the crater."] = "",
+	-- {npc:9272} Spark Nilminer
+	["{npc:9272}, level 49 and up"] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998}: его чешуя падает с молодых зверей восточных джунглей",
 	-- {npc:8737} Linken
@@ -105,10 +117,11 @@ return {
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Завершается у NPC {npc:9298} (зона {zone:1452}): сохраните",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117} – в глубине пещеры; под землей",
-	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
-	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня.",
+	-- {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
+	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня."
+	["{npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "",
 
-	-- Step 21: Fire Plume Ridge and the eastern jungle
+	-- Step 34: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537} и восточные джунгли",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -118,25 +131,27 @@ return {
 	["{item:11316}, from the Lashers and Threshers"] = "{item:11316} – с хлыстунов и молотильщиков",
 	-- {quest:3764} Un'Goro Soil
 	["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764} – с молотильщиков и из куч земли",
+	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone · Young Diemetradons = {npc:9162} Young Diemetradon
+	["Dinosaur Bones, from Young Diemetradons already being hunted"] = "",
 
-	-- Step 22: Lakkari Tar Pits
+	-- Step 35: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "Скопления кристаллов есть по всему кратеру. Смоляные господины в ямах (53-54) и слизни вокруг них (50-54) сильнее вас: собирайте кристаллы на северо-восточной окраине джунглей, среди хлыстунов и молодых зверей (48-50).",
 
-	-- Step 23: Marshal's Refuge
+	-- Step 36: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Для NPC {npc:7775} (зона {zone:1444}): сохраните",
 
-	-- Step 24: Level 49.79
+	-- Step 38: Level 49.79
 	["Level 49.79"] = "",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на кровоцветах-хлыстунах и молотильщиках (48-50) в восточных джунглях, где собирали лепестки, прежде чем покинуть кратер.",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "убивайте: {npc:6511}",
 
-	-- Step 25: Fly to Astranaar
+	-- Step 39: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "Летите сюда: {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
@@ -144,17 +159,17 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Распорядитель полетов ({area:541})",
 
-	-- Step 26: To Ironforge
+	-- Step 40: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "В таверну: {zone:1455}",
 
-	-- Step 27: Mystic Ward
+	-- Step 41: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 30: Fly to Astranaar
+	-- Step 44: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
@@ -171,6 +186,7 @@ return {
 	-- ["Fly from {area:144} to {area:1537}."] = "Летите из поселка {area:144} в {area:1537}.",
 	-- ["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Звери кратера – 48-55 уровня, силитиды из улья Гориши – 51-54, так что выманивайте их по одному.",
+	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне.",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в зоне {zone:1447}: сохраните",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Из поселка {area:144} летите в {area:150}, сядьте на корабль до Терамора и летите дальше в {area:976}. Первое задание {npc:9619} в кратере требует 48-го уровня: если не хватает, доберите уровень здесь.",
 	-- ["Grind to 50"] = "Добейте 50-й уровень",
@@ -179,14 +195,17 @@ return {
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Отведите NPC {npc:9999} на север: {area:541}. Когда он упадет в обморок, используйте на нем {item:11804}, чтобы привести его в чувство.",
 	-- ["Northern Pylon"] = "Северный пилон",
 	-- ["Pterrordax"] = "Жутедактиль",
+	-- ["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "Езжайте обратно на северо-восток в {area:976}: {npc:11758} стоит в восточной части города.",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "Езжайте по спуску вниз в кратер: {npc:9619} стоит лагерем у его подножия.",
 	-- ["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Езжайте на восток: {area:1943}, где робот стоит среди горилл. Не заходите там в глубокую пещеру.",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Езжайте на восток к вулкану ({area:537}), поднимитесь на него и используйте {npc:10541} у лавовых отдушин у вершины.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Езжайте на север по восточной стороне к плато горилл. {npc:9622}, горилла 55-го уровня, сидит в самой глубокой пещере: сначала перебейте горилл у входа.",
 	-- ["Ride north along the western jungle back to the refuge."] = "Езжайте на север через западные джунгли назад в укрытие.",
 	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Езжайте на север: {area:1943}, где робот стоит среди горилл. Не заходите там в глубокую пещеру.",
+	-- ["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Езжайте на северо-запад к укрытию.\nОбходите элитных девизавров и стегодонов стороной. Отсюда и дальше подбирайте каждый объект {npc:271301} и каждый объект {object:157936} по пути.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Езжайте на юг вдоль восточных утесов к {npc:9619} у подножия спуска.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "Езжайте на юг по восточной стороне. Молодые деметродоны пасутся в восточных джунглях, а у восточных утесов летает {npc:9165}; с тех и других падает чешуя для NPC {npc:9998}. Ящик стоит в заброшенном лагере в восточных джунглях.",
+	-- ["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юг к лагерю огров. Он полон громил и силовиков (46-48); {npc:12046} (49) стоит в центре с охраной: сначала разберитесь с ней.",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Езжайте на юг: {area:537} в середине кратера, затем на восток в восточные джунгли. Скопления кристаллов стоят по всему кратеру, многие – вокруг места {area:537}: возьмите по несколько лишних каждого цвета. Лепестки падают с кровоцветов-хлыстунов и кровоцветов-крепкозубов; {item:11113} экспедиции лежит в заброшенном лагере в восточных джунглях.",
 	-- ["Ride west back to the refuge."] = "Езжайте на запад назад в укрытие.",
 	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Езжайте на запад обратно к укрытию.\nОбходите элитных девизавров и стегодонов стороной. Отсюда и дальше подбирайте каждый объект {npc:271301} и каждый объект {object:157936} по пути.",
@@ -216,6 +235,7 @@ return {
 	-- ["{area:978} (optional)"] = "{area:978} (необязательно)",
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}: падает с NPC {npc:6518} и {npc:6519}, в 60 м к югу",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
+	-- ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня.",
 	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни – в зоне {zone:1448}, сохраните",
 	-- ["{npc:9618} stands just outside the refuge."] = "{npc:9618} стоит сразу у входа в укрытие.",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Логово зверя {npc:9684} – в джунглях к северу от {npc:9619}, под восточными утесами: используйте там {item:11568}. {npc:9684} – 56-го уровня: начинайте бой с полным здоровьем.",

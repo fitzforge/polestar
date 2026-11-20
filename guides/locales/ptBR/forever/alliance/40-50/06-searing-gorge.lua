@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:8436} fica dentro do acampamento do Crepúsculo em {area:1442}, a oeste de {area:1446}, entre Guardas das Chamas, Idólatras e Geomantes do Crepúsculo (elites de nível 48-49), com {npc:8282} (elite raro de nível 51) ao lado dele: {quest:3377} pede um grupo de 4. Se estiver sozinho, pule.",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Aranhas de Lava Abrasadoras",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até {npc:8479}.",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} fica na borda do Caldeirão, ao sul de {area:1446}. Ouça a história dele.",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "Aranhas de Lava Abrasadoras",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "Golems e elementais",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "mate {npc:9318} até subir",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:5860} (elite nível 50) pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -196,6 +201,8 @@ return {
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "O elfo noturno está sozinho a oeste de {area:1446}. Ouça a história dele.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "As aranhas vagam pelos platôs e poças de lava no sudoeste da garganta.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até Velarok.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até {npc:8479}.",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:5860} (elite nível 50) pede um grupo de 3. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok fica na borda de O Caldeirão, ao sul de {area:1446}. Ouça a história dele.",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}: vá matando estes pelo caminho",

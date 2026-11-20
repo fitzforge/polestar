@@ -15,6 +15,8 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}，在村子北端",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}：交给{zone:1453}的{npc:1646}",
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
+	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "旅店外的通缉布告",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店楼上",
@@ -92,6 +94,8 @@ return {
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}：{npc:2212}",
 
 	-- Step 14: Auberdine
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
 	["Fill the tube at the moonwell in the village"] = "在村里的月亮井装满试管",
 
 	-- Step 15: A Lesson to Learn
@@ -130,25 +134,44 @@ return {
 	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向东北回到山里的水晶处。",
 
-	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
+	-- Step 23: The Cliffspring River sample
+	-- {quest:4762} The Cliffspring River
+	["{quest:4762} sample"] = "",
+	-- {area:456} Cliffspring River
+	["Follow the hills north to the {area:456} and up to the falls."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}，在瀑布处",
 	-- {item:15845} Filled Cliffspring Falls Sampler
 	["{item:15845}: at the mouth of the cave by the falls"] = "{item:15845}：在瀑布旁的洞口",
+
+	-- Step 24: The Cliffspring cave
+	["The Cliffspring cave"] = "",
+	-- {npc:3702} Alanndarian Nightsong · {item:5270} Death Cap
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["If you are already at the cave for {npc:3702}'s sampler, pick the Scaber Stalks and the {item:5270} while here. The {item:5270} is at the back, past the naga; pull them one at a time."] = "",
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["Scaber Stalks; below ground"] = "在地下收集粗柄蘑菇",
+	-- {item:5270} Death Cap
+	["{item:5270}; below ground"] = "{item:5270}：在地下",
+
+	-- Step 25: Cliffspring Falls
+	-- {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12237} Fine Crab Chunks · {npc:2233} Encrusted Tide Crawler · {npc:2235} Reef Crawler
 	["{item:12237} from {npc:2233} and {npc:2235}, by this stop"] = "{item:12237}：掉落自此处附近的{npc:2233}和{npc:2235}",
 
-	-- Step 25: Auberdine
+	-- Step 27: Auberdine
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}：在{object:174795}装满{item:12346}",
+	-- {npc:3583} Barithras Moonshade
+	["{npc:3583}, if you already picked the mushrooms"] = "",
+	["For the Grove on the southern loop"] = "",
 
-	-- Step 26: Mist's Edge
+	-- Step 28: Mist's Edge
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "收集蛇颈龙的眼球，在水下",
 
-	-- Step 27: The bay wrecks
+	-- Step 29: The bay wrecks
 	["The bay wrecks"] = "海湾沉船",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
@@ -158,7 +181,7 @@ return {
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "{item:12192}：在水下",
 
-	-- Step 29: Darkshore: kill these as you meet them
+	-- Step 31: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
 	["{zone:1439}: kill these as you meet them"] = "{zone:1439}：沿途击杀以下目标",
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
@@ -166,7 +189,7 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "{item:5413}",
 
-	-- Step 31: The Tower of Althalaxx
+	-- Step 33: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "传声盒323号东边，{npc:3661}躲在塔脚下的暗滩狂热者中间。留着他的信，交给{zone:1440}的净化者德尔格伦。\n小心：暗滩唤魔师（28-29级）带着虚空行者，和{npc:3660}（31级）一起待在塔里：从塔南边的狂热者身上拿羊皮纸，远离那座塔。",
@@ -174,18 +197,14 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}：{npc:2336}",
 
-	-- Step 32: The cave and the Den Mother
+	-- Step 34: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "洞穴和{npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "洞穴在瀑布南边：整个洞里都长着{item:5271}，{item:5270}在最深处。{npc:6788}的巢穴在瀑布南边的山丘上。",
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "在地下收集粗柄蘑菇",
-	-- {item:5270} Death Cap
-	["{item:5270}; below ground"] = "{item:5270}：在地下",
 
-	-- Step 33: The northern Blackwood camp
+	-- Step 35: The northern Blackwood camp
 	["The northern Blackwood camp"] = "北边的黑木营地",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "{area:456}南边的熊怪营地里，坚果、水果和谷物储存在篝火旁。各取一份样本，并备好{item:12347}（在{object:174795}装满{item:12346}），然后在离河流最近的篝火旁使用净化碗，召出腐化熊怪的萨特萨巴克希斯。{item:12355}在他的恶魔之包里。",
@@ -193,12 +212,12 @@ return {
 	-- {item:12347} Filled Cleansing Bowl
 	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "使用{item:12347}后，杀死萨巴克希斯，然后点击地上他的恶魔之包拾取护符。如果在你拿到之前萨巴克希斯消失了，就重新接取任务以获得新的碗。",
 
-	-- Step 34: The cave and the Den Mother
+	-- Step 36: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "注意：攻击一只幼崽时，其他幼崽以及母兽往往也会参战，要做好同时应付多个敌人的准备。",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "{npc:6788}：在地下",
 
-	-- Step 35: Auberdine
+	-- Step 37: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "交给林地的{quest:948}，向东旅行后，在{zone:1439}南部环线处理",
 
@@ -219,6 +238,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有三具搁浅的遗骸：在{area:443}附近、{quest:954}北边和{quest:954}西边。",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
 	-- ["Follow the road north."] = "沿道路向北。",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "沿道路向南。{quest:948}是古树之林的古树；{npc:270269}和{npc:11218}睡在他旁边。",
 	-- ["Grizzled Scalps"] = "{item:5414}",

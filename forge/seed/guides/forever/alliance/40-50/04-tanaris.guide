@@ -10,11 +10,9 @@ next forever/alliance/40-50/05-the-hinterlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Borrower (2941).
-# The Dunemaul Compound (5863, Brutes 46-48 and Gor'marok 49) and the Thistleshrub Valley (2605, 3362, mobs 48-50) are
-# taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49.5, on the ride west to
-# the crater: here at 47-48 Gor'marok and the Thistleshrub camps are still two over the player, with the Riverglades
-# and Shen'dralas in the route. Sprinkle's Secret Ingredient (2641) and its follow-ups need the Hinterlands water before
-# that landing and are left out.
+# Take the Dunemaul and Thistleshrub quests on arrival. Do the compound on the southern loop at 48 or above,
+# and the valley before Tooga at 49 or above. Keep unfinished work for the next Gadgetzan landing.
+# Sprinkle's Secret Ingredient and the quests after it need the Hinterlands water and are left out.
 # Darnassus comes at the end of this guide, by the flight to Auberdine, before the boat to Menethil Harbor and the
 # Hinterlands: Troyas' answer (2939), Curgle's crate (3022), Tyrande (2972, 4267), Gracina (162) and Fandral's soil
 # errand (3763, 3764) are all Feralas and Tanaris errands, and Erelas' Favored of Elune? (3661) is then in the log for
@@ -52,15 +50,20 @@ step Gadgetzan
   zone Tanaris
   tip Ride south-east off the Shimmering Flats into Tanaris. Gadgetzan is just inside the border.
   turnin 2864                         -- Tran'rek, north side of town
-  accept 3362                         -- Tran'rek: keep it, the Thistleshrub Valley waits for the Un'Goro guide's Gadgetzan landing
+  accept 3362                         -- Tran'rek: keep it for the valley
   accept 992                          -- Senior Surveyor Fizzledowser
+  accept 97536                        -- Jhordy Lapforge: take the crate into the desert
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
-  accept 2605                         -- Marin Noggenfogger: keep it for the same landing
+  accept 2605                         -- Marin Noggenfogger: keep it for the valley
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
   sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
-  accept 5863                         -- Andi Lynn: keep it, the Dunemaul Compound waits for the same landing
+  accept 5863                         -- Andi Lynn: the Dunemaul Compound
   accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
+
+step Andi Lynn
+  when complete 5863
+  turnin 5863
 
 step Gadgetzan
   when dungeon "Zul'Farrak"
@@ -76,7 +79,7 @@ step Steamwheedle Port
   tip Ride east across the dunes to the goblin harbour on the north-east coast.
   accept 8365                         -- Haughty Modiste
   accept 2875 object 142122           -- The Wanted poster beside him
-  accept 2781 object 142122           -- The same poster: Caliph comes much later, after Gadgetzan
+  accept 2781 object 142122           -- The same poster: Caliph patrols Waterspring Field
   accept 8366                         -- Security Chief Bilgewhizzle, inside
   accept 97530                        -- Security Chief Bilgewhizzle: Dunemaul Dues, the bangles come from the ogres on your way south
   turnin 2872                         -- Stoley, in the port's tavern; inside
@@ -96,12 +99,25 @@ step Gadgetzan
   accept 1691
 
 step Waterspring Field
-  tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits. Leave Caliph Scorpidsting in the middle of the southern camp for later.
+  when onquest 97536
+  tip Empty Jhordy's crate as you cross the open dunes. Use it five times, moving clear of the last pile each time; use the quest tracker for the count. You do not need to kill rogues for this.
+  use 278194 quest 97536.1 @59.14,38.69 live map 1446
+
+step Waterspring Field
+  tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits.
   tip Careful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.
   kill 5617 quest 1691                -- Wastewander Shadow Mage
   collect 8483 x5
   kill 5615 quest 1691                -- Wastewander Rogue
   kill 5623 quest 1691                -- Wastewander Assassin
+
+step Caliph Scorpidsting
+  when level>=45
+  when onquest 2781
+  when !complete 2781
+  tip Watch for Caliph by the towers before leaving Waterspring Field.
+  tip Careful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them.
+  collect 8723 x1 quest 2781          -- Caliph Scorpidsting's Head
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
@@ -122,6 +138,14 @@ step Steamwheedle Port
   turnin 8366
   turnin 8365                         -- Haughty Modiste
 
+step Ship Schedule
+  when has 9250
+  accept 2876 item 9250
+
+step Security Chief Bilgewhizzle
+  when onquest 2876
+  turnin 2876
+
 step Noonshade Ruins
   tip Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.
   collect 8483 x5 -- Wastewander Water Pouch
@@ -129,6 +153,14 @@ step Noonshade Ruins
 step Gadgetzan
   when has 8483 x5
   turnin 1878 direct -- Spigot Operator Luglunket
+
+step Jhordy Lapforge
+  when complete 97536
+  turnin 97536
+
+step Chief Engineer Bilgewhizzle
+  when complete 2781
+  turnin 2781
 
 step Chief Engineer Bilgewhizzle
   turnin 1691                         -- Chief Engineer Bilgewhizzle
@@ -186,17 +218,45 @@ step Rhapsody's Kalimdor Kocktail
   collect 6257 quest 1452.1 @43.5,40.6 map 1446
 
 step Dunemaul Compound
-  tip Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.
+  tip Ride south-west to the ogre compound. The ordinary ogres at its south end drop the bangle.
   tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
   collect 278186 quest 97530          -- Brilliantly Polished Bangle, from any Dunemaul ogre
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
+step Gor'marok the Ravager
+  when level>=48
+  when onquest 5863
+  when !complete 5863
+  tip Take the Brutes and Enforcers from the edge. Clear the guards before going into the cave for Gor'marok (49).
+  kill 5474 quest 5863
+  kill 5472 quest 5863
+  kill 12046 x1 quest 5863
+
+step Thistleshrub Valley
+  when level>=49
+  when onquest 3362,2605
+  tip Before taking Tooga, work the edge of the valley. Pull wandering shrubs singly; leave the valley as soon as you have what you need.
+  collect 8428 x1 quest 2605
+  kill 5485 quest 3362
+  kill 5490 quest 3362
+
+step Tooga at the edge of the valley
+  when !onquest 1560
+  when !turnedin 1560
+  tip Tooga wanders along the west edge of Thistleshrub Valley. If you see him free on the way past, take him home. If he isn't there, choose the other line and head straight to Steamwheedle Port.
+  accept 1560 either @30.2,70.7 map 1446 -- Tooga
+  task "Continue to the port without Tooga" either
+
 step Tooga's escort
-  tip The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
-  accept 1560 @30.2,70.7 map 1446              -- Tooga
+  when onquest 1560
+  tip Keep the turtle close on the way to Torta by the coast, just east of Steamwheedle Port. He walks slowly and the desert's beasts go for him.
   complete 1560
   turnin 1560                         -- Torta
-  accept 97540                        -- Tooga, beside her: Oasis
+
+step Oasis
+  when turnedin 1560
+  tip Tooga stands beside Torta after the escort.
+  accept 97540
   turnin 97540
 
 step Steamwheedle Port
@@ -206,12 +266,33 @@ step Steamwheedle Port
 # ---------------------------------------------------------------- The south
 
 step Caliph Scorpidsting
-  tip Ride south-east to Waterspring Field. Caliph stands in the middle of the southern Wastewander camp: clear around him first.
+  when level>=45
+  when onquest 2781
+  when !complete 2781
+  tip Ride south-west to Waterspring Field. Caliph stands in the middle of the southern Wastewander camp: clear around him first.
   tip Careful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them.
   collect 8723 x1 quest 2781          -- Caliph Scorpidsting's Head
 
 step Gadgetzan
+  when complete 2781
   turnin 2781                         -- Chief Engineer Bilgewhizzle
+
+step Andi Lynn
+  when complete 5863
+  turnin 5863
+
+step Marin Noggenfogger
+  when complete 2605
+  turnin 2605
+  accept 2606
+
+step Tran'rek
+  when complete 3362
+  turnin 3362
+
+step Sprinkle
+  when onquest 2606
+  turnin 2606
 
 # ---------------------------------------------------------------- To Darnassus
 
@@ -315,8 +396,8 @@ step Aerie Peak
   zone The Hinterlands
   getfp "Aerie Peak"
   accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
-  accept 2877                         -- Fraggar Thundermantle, inside
   accept 86620                        -- Gryphon Master Talonaxe: Fledgling Rescue, the eggs in the hills just east of Aerie Peak
+  accept 2877                         -- Fraggar Thundermantle, inside
   accept 86616                        -- Farseer Maret Firetend, just east of the aviary: Repurposed Totems, from the Altar of Zul's Soothsayers
 
 step The Hinterlands

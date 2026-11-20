@@ -69,14 +69,21 @@ return {
 	-- {npc:5346} Bloodroar the Stalker
 	["Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; {npc:5346} (level 48) prowls the middle."] = "북쪽 설인 골짜기로 들어가십시오. 원시설인은 모두 두꺼운 설인 가죽을 떨어뜨릴 수 있습니다. {npc:5346}(48레벨)은(는) 한가운데를 배회합니다.",
 
-	-- Step 14: Isle of Dread
+	-- Step 14: Ironfur bears
+	["Ironfur bears"] = "무쇠가죽곰",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	-- was: ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "{area:1105}에서 북쪽으로 나가십시오. {area:1136} 기슭의 무쇠가죽곰(41-42레벨)이 랩소디의 마지막 간을 떨어뜨립니다.\n주의: 더 북쪽 언덕에는 우두머리 무쇠가죽곰(48-49레벨)과 성난상처 설인(46-49레벨)이 돌아다닙니다. 가장자리에 머무르십시오."
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's Ironfur livers.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "",
+
+	-- Step 15: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121}은(는) {area:1120} 바로 남쪽의 섬입니다. 헤엄쳐 건너십시오. 증오의갈기일족 수호병과 증오의갈기일족 여마법사가 지키고 있으며, {npc:8136}(47레벨)은(는) 남쪽 끝 동굴에 있습니다. 경비병부터 끌어내십시오.",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "",
 
-	-- Step 15: Feathermoon Stronghold
+	-- Step 16: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
@@ -84,34 +91,34 @@ return {
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "{npc:7852}의 다음 주문인 '품질 향상'은 46-49레벨 설인의 성난상처 가죽을 요구합니다: 건너뛰십시오.",
 
-	-- Step 16: Fly to Thalanaar
+	-- Step 17: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "",
 	["Feathermoon flight master"] = "",
 
-	-- Step 17: Back to the coast
+	-- Step 18: Back to the coast
 	["Back to the coast"] = "해안으로 돌아가기",
 	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
 	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "{zone:2652}에서 {zone:1444}(으)로 왔으므로 {area:489}의 비행 경로는 아직 익히지 않았습니다. 배를 타고 해안으로 돌아가 길을 따라 동쪽으로 가십시오. 이 가이드가 {area:489}에서 끝날 때 비행 경로를 익힙니다.",
 
-	-- Step 18: Feralas
+	-- Step 19: Feralas
 	["Grimtotem camp"] = "그림토템 야영지",
 
-	-- Step 19: Grimtotem camp
+	-- Step 20: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "{area:489}에서 길을 따라 서쪽으로, 길 북쪽의 그림토템 주둔지까지 가십시오. {npc:7956}은(는) 그 밖에서 기다립니다. 한가운데 우리에서 화살요정용을 풀어 주고, {npc:7956}과 화살요정용을 적어도 여섯 마리 살려 두십시오.",
 
-	-- Step 20: Grimtotem tauren
+	-- Step 21: Grimtotem tauren
 	["Grimtotem tauren"] = "그림토템 타우렌",
 	-- {npc:222286} Namida Grimtotem
 	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "주의: 43레벨 정예 {npc:222286}이(가) 야영지 북동쪽 가장자리(약 67,39)에 서 있습니다. 박물학자, 약탈자, 주술사는 그녀에게서 멀리 끌어내십시오.",
 
-	-- Step 21: Jer'kai Moonweaver
+	-- Step 22: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "{zone:1457}의 티란데 위스퍼윈드에게: 경로상 47레벨에 그곳에 갑니다",
 
-	-- Step 22: The Writhing Deep
+	-- Step 23: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "남동쪽의 덩굴발일족 놀에게 가십시오. 전령의 배낭은 남쪽 야영지에 있고, 그 안의 꾸러미로 {area:489} 배달이 시작됩니다. 바로 남쪽이 고통의 구덩이입니다: 안내원 라스칼이 갇힌 고치까지 싸우며 내려가 그를 풀어 주고, 나가는 동안 살려 두십시오.",
 	-- {item:11463} Undelivered Parcel
@@ -119,22 +126,16 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "",
 
-	-- Step 23: Grind to 45
+	-- Step 24: Grind to 45
 	["Grind to 45"] = "45레벨까지 사냥",
 	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
 	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "서쪽 {area:1105}(으)로 가십시오. 그곳 설인은 43-45레벨입니다. 북쪽 언덕의 성난상처 설인은 46-49레벨이니 피하십시오. 또는 파티가 있다면 대신 {area:978} 던전을 도십시오.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "{zone:1444} {area:1105}에서 {npc:5292} 사냥",
 
-	-- Step 24: Ironfur bears
-	["Ironfur bears"] = "무쇠가죽곰",
-	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
-	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
-	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "{area:1105}에서 북쪽으로 나가십시오. {area:1136} 기슭의 무쇠가죽곰(41-42레벨)이 랩소디의 마지막 간을 떨어뜨립니다.\n주의: 더 북쪽 언덕에는 우두머리 무쇠가죽곰(48-49레벨)과 성난상처 설인(46-49레벨)이 돌아다닙니다. 가장자리에 머무르십시오.",
-
 	-- Step 25: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	-- {area:1116} Feathermoon Stronghold · {area:1108} Forgotten Coast · {area:1099} Camp Mojache · {npc:7880} Ginro Hearthkindle
+	["Hearth back to {area:1116} if your stone is bound there and ready. Otherwise ride west to the {area:1108} dock, giving the Horde guards at {area:1099} a wide berth, and take the boat. {npc:7880} waits upstairs."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -162,6 +163,7 @@ return {
 	-- ["Ride back to the {area:1108}; the goblin stands by the dock."] = "{area:1108}(으)로 돌아가십시오. 고블린은 부두 옆에 있습니다.",
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "길을 따라 서쪽으로 돌아간 다음 북쪽 무쇠설인 소굴 언덕으로 가십시오. 이곳의 설인은 모두 가죽을 떨어뜨릴 수 있고, {quest:7735}이(가) 나올 수도 있습니다. 이것도 {npc:7852}이(가) 값을 쳐 줍니다.",
 	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "동쪽으로 설인 골짜기 남동쪽 언덕의 골두니 전초기지까지 가십시오. 골두니일족 흑마법사와 골두니일족 주술사가 야영지를 지키고, 골두니일족 투사는 주변 비탈과 더 북쪽을 돌아다닙니다.",
+	-- ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "{area:1105}에서 북쪽으로 나가십시오. {area:1136} 기슭의 무쇠가죽곰(41-42레벨)이 랩소디의 마지막 간을 떨어뜨립니다.\n주의: 더 북쪽 언덕에는 우두머리 무쇠가죽곰(48-49레벨)과 성난상처 설인(46-49레벨)이 돌아다닙니다. 가장자리에 머무르십시오.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "서쪽으로 언덕 기슭의 우호적인 산거인에게 가십시오. 주변의 평지거인과 절벽거인은 정예이니 거리를 두십시오.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "{npc:7774}이(가) 멈춰서 헤맬 때마다 종을 울리고, 남쪽의 {npc:7765}에게 데려가십시오.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "파티로 사냥 대신 {area:978}을(를) 돌면 더 빨리 도달합니다. 트롤 도시는 경로상 다음 지역인 {zone:1446} 북쪽에 있습니다. 그 후 {area:1108}의 {npc:14637}에게 돌아오십시오.",

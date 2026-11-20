@@ -233,26 +233,22 @@ return {
 	["{quest:3741}; underwater"] = "",
 
 	-- Step 42: Lakeshire
-	-- {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren · {npc:342} Martie Jainrose · {npc:379} Darcy · {npc:343} Chef Breanna
-	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, {npc:381} on the docks, then {npc:342}'s garden at the west end; {npc:379} and {npc:343} are in the inn."] = "",
+	-- {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {npc:342} Martie Jainrose · {npc:379} Darcy · {npc:343} Chef Breanna
+	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, then {npc:381} on the docks. If you're level 20, take {quest:150} from him with the sunfish reward; the murlocs are for the next Redridge visit. Then go to {npc:342}'s garden at the west end and {npc:379} and {npc:343} in the inn."] = "",
 	-- {zone:1436} Westfall
 	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {zone:1436}"] = "",
+	-- {npc:381} Dockmaster Baren · {area:69} Lakeshire
+	["{npc:381}, from level 20; offered again on the last {area:69} stop"] = "",
 
-	-- Step 43: Dockmaster Baren
-	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
-	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "",
-	-- {npc:381} Dockmaster Baren
-	["{npc:381}, on the docks"] = "",
-
-	-- Step 44: Goldshire
+	-- Step 43: Goldshire
 	-- {area:1002} Three Corners · {area:87} Goldshire
 	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "",
 
-	-- Step 45: Smith Argus
+	-- Step 44: Smith Argus
 	-- {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:514} works at the {area:87} smithy."] = "",
 
-	-- Step 46: Stormwind's gate
+	-- Step 45: Stormwind's gate
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
@@ -260,33 +256,33 @@ return {
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "",
 
-	-- Step 47: Westfall
+	-- Step 46: Westfall
 	-- {zone:1436} Westfall
 	["West through Westbrook into {zone:1436}."] = "",
 
-	-- Step 48: Sentinel Hill
+	-- Step 47: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
 	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "",
 	-- {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
 	["For {npc:332} in {zone:1453}"] = "",
 
-	-- Step 49: Fly to Stormwind
+	-- Step 48: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 
-	-- Step 50: Stormwind
+	-- Step 49: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "",
 
-	-- Step 51: Sentinel Hill
+	-- Step 50: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["{npc:234}, at the top of the tower"] = "",
 
-	-- Step 52: Moonbrook and the Defias hills
+	-- Step 51: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
 	["{area:20} and the Defias hills"] = "{area:20}와(과) 데피아즈단 언덕",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
@@ -295,7 +291,7 @@ return {
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}, {area:20} 주변 상자에서",
 
-	-- Step 53: The Defias Messenger
+	-- Step 52: The Defias Messenger
 	-- {npc:550} Defias Messenger
 	["The {npc:550}"] = "",
 	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
@@ -303,68 +299,68 @@ return {
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
 	["{item:1381}: the {npc:550}"] = "",
 
-	-- Step 54: Half Pendant of Aquatic Endurance
+	-- Step 53: Half Pendant of Aquatic Endurance
 	-- {area:113} Gold Coast Quarry · {object:177790} Strange Lockbox
 	["Druids on Trial of the Sea Lion: from the {area:113}, west to the shore and north along it. The {object:177790} lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse."] = "바다사자의 시험 중인 드루이드: {area:113}에서 서쪽 해안으로 가서 해안을 따라 북쪽으로 가십시오. {object:177790}은(는) 앞바다 해저(약 18,33)에 있습니다. 그런 다음 해안을 따라 남쪽 등대로 돌아가십시오.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
-	-- Step 55: Westfall Lighthouse
+	-- Step 54: Westfall Lighthouse
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
 	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "",
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
 	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
 
-	-- Step 56: Captain Grayson
+	-- Step 55: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
 
-	-- Step 57: Sentinel Hill
+	-- Step 56: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
 	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "",
 
-	-- Step 58: The Defias Traitor
+	-- Step 57: The Defias Traitor
 	-- {area:20} Moonbrook
 	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "",
 	-- {npc:467} The Defias Traitor
 	["{npc:467}, at the foot of the tower ramp"] = "",
 
-	-- Step 59: Gryan Stoutmantle
+	-- Step 58: Gryan Stoutmantle
 	-- {npc:234} Gryan Stoutmantle · {area:1581} The Deadmines · {npc:639} Edwin VanCleef · {npc:820} Scout Riell · {quest:214} Red Silk Bandanas
 	["Back north to {npc:234}. For your {area:1581} run he then sends you after {npc:639}, and {npc:820}, beside him at the top of the tower, wants {quest:214}. Look for a group now if you have none yet."] = "북쪽 {npc:234}에게 돌아가십시오. {area:1581} 공략을 위해 그가 {npc:639}을(를) 쫓으라고 보내며, 탑 꼭대기 그의 옆에 있는 {npc:820}은(는) {quest:214}을(를) 원합니다. 아직 파티가 없다면 지금 구하십시오.",
 	-- {npc:820} Scout Riell
 	["{npc:820}, at the top of the tower"] = "{npc:820}, 탑 꼭대기",
 
-	-- Step 60: The Deadmines
+	-- Step 59: The Deadmines
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {quest:214} Red Silk Bandanas · {npc:639} Edwin VanCleef · {zone:1453} Stormwind
 	["{area:1581} is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below {area:20}, where the traitor led you: the portal is at the far end of the mine's tunnels.\nInside: the Defias drop the {quest:214}, and {npc:639} waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to {zone:1453}, where this guide hands it in."] = "{area:1581}은(는) 약 17~24레벨 5인 파티용 던전이며, 전체 공략에 약 1시간이 걸립니다. 입구는 배신자가 당신을 데려갔던 {area:20} 아래 광산입니다. 차원문은 광산 터널 맨 끝에 있습니다.\n내부: 데피아즈단이 {quest:214}을(를) 떨어뜨리고, {npc:639}은(는) 끝의 배에서 기다립니다. 그가 떨어뜨리는 부치지 않은 편지를 여십시오. 그 퀘스트는 {zone:1453}(으)로 이어지며, 이 가이드가 그곳에서 제출합니다.",
 	-- {item:915} Red Silk Bandana
 	["{item:915}: the Defias"] = "{item:915}: 데피아즈단",
 
-	-- Step 61: Gryan Stoutmantle
+	-- Step 60: Gryan Stoutmantle
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
 	["Out of the mine and north up the road to {area:108}: {npc:234} stands at the top of the tower."] = "광산에서 나와 길을 따라 북쪽 {area:108}(으)로 가십시오. {npc:234}은(는) 탑 꼭대기에 서 있습니다.",
 
-	-- Step 62: Scout Riell
+	-- Step 61: Scout Riell
 	-- {npc:820} Scout Riell · {area:108} Sentinel Hill
 	["{npc:820} keeps watch at the top of the {area:108} tower."] = "{npc:820}은(는) {area:108} 탑 꼭대기에서 망을 보고 있습니다.",
 
-	-- Step 63: Fly to Lakeshire
+	-- Step 62: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "{area:69}(으)로 비행",
 
-	-- Step 64: Sentinel Hill
+	-- Step 63: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["Back north to {npc:234} and the gryphons."] = "",
 
-	-- Step 65: Lakeshire
+	-- Step 64: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
 	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, 마을 회관 안",
 
-	-- Step 66: Redridge Canyons
+	-- Step 65: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "",
@@ -372,19 +368,19 @@ return {
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "",
 
-	-- Step 67: Lakeshire
+	-- Step 66: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
 	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "",
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "",
 
-	-- Step 68: Fly to Stormwind
+	-- Step 67: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "",
 
-	-- Step 70: Baros Alexston
+	-- Step 69: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
 	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
@@ -392,23 +388,23 @@ return {
 	-- {npc:3649} Thundris Windweaver
 	["For {npc:3649}, where the boat lands"] = "",
 
-	-- Step 71: Gazin Tenorm
+	-- Step 70: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square
 	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
 	["Cathedral of Light"] = "빛의 대성당",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 
-	-- Step 72: Class trainer
+	-- Step 71: Class trainer
 	["Class trainer"] = "직업 상급자",
 	-- {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["Train on the way to the harbour: {object:2100} (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters)."] = "항구로 가는 길에 훈련하십시오: {object:2100}(전사, 도적), 빛의 대성당(성기사, 사제), {object:2101}(마법사, 흑마법사), {object:28027}(사냥꾼).",
 
-	-- Step 73: Baros Alexston
+	-- Step 72: Baros Alexston
 	-- {npc:1646} Baros Alexston · {quest:389} Bazil Thredd · {area:717} Stockade
 	["{npc:1646}, the city architect, is on your way west to the harbour. His next errand, {quest:389}, leads into the {area:717}: it is for a {area:717} run at about 29, so leave it unless you chose that dungeon."] = "도시 건축가 {npc:1646}은(는) 서쪽 항구로 가는 길에 있습니다. 그의 다음 심부름인 {quest:389}은(는) {area:717}(으)로 이어집니다. 약 29레벨의 {area:717} 공략용이므로, 그 던전을 고르지 않았다면 받지 마십시오.",
 
-	-- Step 74: Baros Alexston
+	-- Step 73: Baros Alexston
 	-- {area:717} Stockade · {zone:1453} Stormwind
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "{area:717} 공략용(나중에 {zone:1453}에서): 그때까지 보관하십시오.",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade

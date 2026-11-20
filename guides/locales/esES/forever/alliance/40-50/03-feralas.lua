@@ -69,14 +69,21 @@ return {
 	-- {npc:5346} Bloodroar the Stalker
 	["Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; {npc:5346} (level 48) prowls the middle."] = "Cabalga hacia el norte hasta el valle de los yetis. Cualquier yeti Cicatriz Feral puede soltar un pellejo grueso; {npc:5346} (nivel 48) merodea por el centro.",
 
-	-- Step 14: Isle of Dread
+	-- Step 14: Ironfur bears
+	["Ironfur bears"] = "Osos Cueracero",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	-- was: ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Cabalga hacia el norte saliendo de {area:1105}: los Osos Cueracero (41-42) al pie de {area:1136} sueltan el último hígado para Rhapsody.\nCuidado: los Patriarcas Cueracero (48-49) y los yetis Cicatriz de Rabia (46-49) recorren las colinas más al norte: quédate en su borde."
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's Ironfur livers.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "",
+
+	-- Step 15: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} es la isla justo al sur de {area:1120}: cruza a nado. La ocupan Guardias serpiente y Hechiceras Crestafuria; {npc:8136} (nivel 47) espera en la cueva de su extremo sur. Atrae primero a sus guardias.",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "",
 
-	-- Step 15: Feathermoon Stronghold
+	-- Step 16: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
@@ -84,34 +91,34 @@ return {
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "El siguiente encargo de {npc:7852}, Calidad mejorada, pide pellejos de yetis Cicatriz de Rabia de nivel 46-49: sáltalo.",
 
-	-- Step 16: Fly to Thalanaar
+	-- Step 17: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "",
 	["Feathermoon flight master"] = "",
 
-	-- Step 17: Back to the coast
+	-- Step 18: Back to the coast
 	["Back to the coast"] = "De vuelta a la costa",
 	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
 	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "Llegaste a {zone:1444} desde {zone:2652}, así que aún te falta la ruta de vuelo de {area:489}: toma el barco de vuelta a la costa y cabalga hacia el este por el camino; obtendrás la ruta de vuelo cuando esta guía termine en {area:489}.",
 
-	-- Step 18: Feralas
+	-- Step 19: Feralas
 	["Grimtotem camp"] = "Dominios Tótem Siniestro",
 
-	-- Step 19: Grimtotem camp
+	-- Step 20: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Desde {area:489}, cabalga hacia el oeste por el camino hasta el campamento Tótem Siniestro, al norte de él. {npc:7956} espera fuera; libera a los Duendes dardo del cercado del centro y mantén con vida a {npc:7956} y al menos a seis de ellos.",
 
-	-- Step 20: Grimtotem tauren
+	-- Step 21: Grimtotem tauren
 	["Grimtotem tauren"] = "Tauren Tótem Siniestro",
 	-- {npc:222286} Namida Grimtotem
 	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Cuidado: {npc:222286}, una élite de nivel 43, está en el borde noreste del campamento, hacia 67,39: aleja de ella a los Naturalistas, Asaltantes y Chamanes antes de atacarlos.",
 
-	-- Step 21: Jer'kai Moonweaver
+	-- Step 22: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "para Tyrande en {zone:1457}: la ruta te lleva allí a nivel 47",
 
-	-- Step 22: The Writhing Deep
+	-- Step 23: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "Cabalga hacia el sureste hasta los gnolls Zarpaleña; las mochilas del mensajero están en su campamento del sur, y un paquete que hay dentro inicia una entrega a {area:489}. La colmena Zukk'ash está justo al sur: abre paso hasta la vaina que retiene a Raschal el Mensajero, libéralo y mantenlo con vida al salir.",
 	-- {item:11463} Undelivered Parcel
@@ -119,22 +126,16 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "",
 
-	-- Step 23: Grind to 45
+	-- Step 24: Grind to 45
 	["Grind to 45"] = "Farmea hasta el 45",
 	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
 	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "Cabalga hacia el oeste hasta {area:1105}: sus yetis son de nivel 43-45. Los yetis Cicatriz de Rabia de las colinas del norte son de 46-49: déjalos. O, con un grupo, haz la mazmorra de {area:978} en su lugar.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farmea {npc:5292} en {area:1105}, {zone:1444}",
 
-	-- Step 24: Ironfur bears
-	["Ironfur bears"] = "Osos Cueracero",
-	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
-	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
-	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Cabalga hacia el norte saliendo de {area:1105}: los Osos Cueracero (41-42) al pie de {area:1136} sueltan el último hígado para Rhapsody.\nCuidado: los Patriarcas Cueracero (48-49) y los yetis Cicatriz de Rabia (46-49) recorren las colinas más al norte: quédate en su borde.",
-
 	-- Step 25: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	-- {area:1116} Feathermoon Stronghold · {area:1108} Forgotten Coast · {area:1099} Camp Mojache · {npc:7880} Ginro Hearthkindle
+	["Hearth back to {area:1116} if your stone is bound there and ready. Otherwise ride west to the {area:1108} dock, giving the Horde guards at {area:1099} a wide berth, and take the boat. {npc:7880} waits upstairs."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -162,6 +163,7 @@ return {
 	-- ["Ride back to the {area:1108}; the goblin stands by the dock."] = "Vuelve a {area:1108}; el goblin está junto al muelle.",
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Vuelve al oeste por el camino y luego al norte hasta las colinas de los Dominios de los Cicatriz de Rabia. Cualquier yeti de aquí puede soltar un pellejo; alguno puede soltar un {quest:7735}, que {npc:7852} McGrubben también paga.",
 	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "Cabalga hacia el este hasta la Avanzada Gordunni, en las colinas al sureste del valle de los yetis: Brujos y Chamanes Gordunni ocupan el campamento y los Toscos Gordunni deambulan por las laderas de alrededor y más al norte.",
+	-- ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Cabalga hacia el norte saliendo de {area:1105}: los Osos Cueracero (41-42) al pie de {area:1136} sueltan el último hígado para Rhapsody.\nCuidado: los Patriarcas Cueracero (48-49) y los yetis Cicatriz de Rabia (46-49) recorren las colinas más al norte: quédate en su borde.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Cabalga hacia el oeste hasta el gigante de montaña amistoso al pie de las colinas. Los Caminantes de la tierra y los Gigantes del risco que lo rodean son élite: mantén la distancia.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Toca la campana cada vez que {npc:7774} se pare a deambular y llévala hacia el sur hasta {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Hacer {area:978} en grupo en vez de farmear te lleva allí más rápido. La ciudad trol está en el norte de {zone:1446}, la siguiente zona de la ruta; después vuelve con {npc:14637} en {area:1108}.",

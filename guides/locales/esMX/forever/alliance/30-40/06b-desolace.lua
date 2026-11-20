@@ -88,24 +88,24 @@ return {
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "De vuelta en el aquelarre camino al oeste: los devoradores de maná (37-38) de su borde norte y los cazadores de magos (38-39) más adentro sueltan los cerebros. {npc:5760} (40, élite) anda entre los cazadores de magos: atráelos hacia ti.",
 
-	-- Step 17: Azore Aldamort
+	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Sigue el camino al oeste por el norte de {zone:1443} hasta las ruinas de {area:2405}. La torre de {npc:11863} está en la colina de ahí, de camino al naufragio.",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, de Magtoor en {zone:1435}",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "El cofre del barco naufragado está justo al suroeste de la torre de {npc:11863}.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} está junto a {object:35251}, si no lo tomaste en tu primera visita a {zone:1443}. Su llave de plata la sueltan los cangrejos Secachasquido alrededor del naufragio; la dorada viene de los nagas Filozante de la costa noroeste, lo siguiente.",
 	-- {object:177787} Rackmore's Log
 	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, si 30-40/02 no lo tomó",
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: mata a estos según te los encuentres",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
@@ -115,13 +115,13 @@ return {
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "El cofre de Rackmore está justo al sureste de {object:177673}.",
 
 	-- Step 24: Nijel's Point
-	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
-	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Sigue el camino al norte hasta {area:608}: {npc:5396} está en su extremo sur, {npc:5638} en el centro, {npc:1182} al norte.",
+	-- {area:608} Nijel's Point · {area:2405} Ethel Rethor · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Hearth to {area:608} if you are still bound there and the stone is ready. Otherwise follow the road east from {area:2405} and up the pass. Hand in at {npc:5396}, {npc:5638} and {npc:1182} before the flight."] = "",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "para {npc:5637} en {zone:1455}: guárdala",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
@@ -132,6 +132,7 @@ return {
 	["The next guide starts in Theramore."] = "La siguiente guía empieza en Isla Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Sigue el camino al norte hasta {area:608}: {npc:5396} está en su extremo sur, {npc:5638} en el centro, {npc:1182} al norte.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Los demonios se reúnen en {area:602}, en el sur de {zone:1443}: canes viles (devoradores de maná, cazadores de magos y de líneas ley), doncellas y hermanas abisales, y capitanes Guardaruina alrededor del foso.\nCuidado: La mayoría de los enemigos de aquí patrullan, así que es fácil atraer enemigos de más.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Los devastadores no-muertos recorren los campos de huesos al sur de la aldea Magram, al este del Aquelarre: la flecha lleva a su borde oeste. Luego usa {item:15848} en su flecha, en el lado este de los campos, para atraer a los espectros Magrami. Cuidado: los necrokhans Magram y los Corpsefeeders (45, élite) recorren los campos de huesos entre las dos flechas, con nigromantes Magram (42): atrae a los devastadores y a los espectros hacia ti, lejos de ellos.",

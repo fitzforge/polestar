@@ -69,14 +69,21 @@ return {
 	-- {npc:5346} Bloodroar the Stalker
 	["Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; {npc:5346} (level 48) prowls the middle."] = "Езжайте на север в долину йети. С любого йети со Свирепого Утеса может выпасть толстая шкура; {npc:5346} (уровень 48) рыщет в центре.",
 
-	-- Step 14: Isle of Dread
+	-- Step 14: Ironfur bears
+	["Ironfur bears"] = "Медведи-сталемехи",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	-- was: ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Езжайте на север из места {area:1105}: с медведей-сталемехов (41-42) у подножия места {area:1136} выпадет последняя печень для Рапсодии.\nОсторожно: сталемехи-патриархи (48-49) и йети из Яростного Утеса (46-49) бродят по холмам севернее: держитесь на краю."
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's Ironfur livers.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "",
+
+	-- Step 15: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} – остров чуть южнее места {area:1120}: плывите туда. Там змеестражи и колдуньи из клана Гребня Ненависти; {npc:8136} (уровень 47) ждет в пещере на южном краю. Сначала выманите его стражу.",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "{item:9248}; под землей",
 
-	-- Step 15: Feathermoon Stronghold
+	-- Step 16: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
 	-- {npc:7879} Quintis Jonespyre
@@ -84,34 +91,34 @@ return {
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "Следующий заказ NPC {npc:7852}, «Повышение качества», требует шкуры йети из Яростного Утеса 46-49-го уровня: пропустите его.",
 
-	-- Step 16: Fly to Thalanaar
+	-- Step 17: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "Летите сюда: {area:489}",
 	["Feathermoon flight master"] = "",
 
-	-- Step 17: Back to the coast
+	-- Step 18: Back to the coast
 	["Back to the coast"] = "Обратно на побережье",
 	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
 	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "Вы пришли в зону {zone:1444} из зоны {zone:2652}, так что маршрут полета в месте {area:489} еще не изучен: плывите на корабле обратно на побережье и езжайте на восток по дороге; маршрут полета вы получите, когда этот гайд закончится в месте {area:489}.",
 
-	-- Step 18: Feralas
+	-- Step 19: Feralas
 	["Grimtotem camp"] = "Лагерь Зловещего Тотема",
 
-	-- Step 19: Grimtotem camp
+	-- Step 20: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "От места {area:489} езжайте на запад по дороге к лагерю Зловещего Тотема к северу от нее. {npc:7956} ждет снаружи; освободите летучих хамелеонов из загона в центре и сохраните жизнь NPC {npc:7956} и хотя бы шести из них.",
 
-	-- Step 20: Grimtotem tauren
+	-- Step 21: Grimtotem tauren
 	["Grimtotem tauren"] = "Таурены из племени Зловещего Тотема",
 	-- {npc:222286} Namida Grimtotem
 	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Осторожно: {npc:222286}, элитный противник 43-го уровня, стоит у северо-восточного края лагеря, около 67,39: выманивайте натуралистов, налетчиков и шаманов подальше от нее.",
 
-	-- Step 21: Jer'kai Moonweaver
+	-- Step 22: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "для Тиранды ({zone:1457}): маршрут приведет вас туда на 47-м уровне",
 
-	-- Step 22: The Writhing Deep
+	-- Step 23: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "Езжайте на юго-восток к гноллам из стаи Древолапов; рюкзаки курьера лежат в их южном лагере, а посылка в них начинает доставку в {area:489}. Улей Зуккаш чуть южнее: пробейтесь к коконам, где держат Раскала, освободите его и сохраните ему жизнь на пути наружу.",
 	-- {item:11463} Undelivered Parcel
@@ -119,22 +126,16 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "{object:164954}, внутри",
 
-	-- Step 23: Grind to 45
+	-- Step 24: Grind to 45
 	["Grind to 45"] = "Гринд до 45",
 	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
 	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "Езжайте на запад: {area:1105}, там йети 43-45-го уровня. Йети из Яростного Утеса на холмах к северу – 46-49-го уровня: не трогайте их. Или, если есть группа, пройдите вместо этого подземелье {area:978}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "гринд: {npc:5292}, {area:1105}, {zone:1444}",
 
-	-- Step 24: Ironfur bears
-	["Ironfur bears"] = "Медведи-сталемехи",
-	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
-	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
-	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Езжайте на север из места {area:1105}: с медведей-сталемехов (41-42) у подножия места {area:1136} выпадет последняя печень для Рапсодии.\nОсторожно: сталемехи-патриархи (48-49) и йети из Яростного Утеса (46-49) бродят по холмам севернее: держитесь на краю.",
-
 	-- Step 25: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
+	-- {area:1116} Feathermoon Stronghold · {area:1108} Forgotten Coast · {area:1099} Camp Mojache · {npc:7880} Ginro Hearthkindle
+	["Hearth back to {area:1116} if your stone is bound there and ready. Otherwise ride west to the {area:1108} dock, giving the Horde guards at {area:1099} a wide berth, and take the boat. {npc:7880} waits upstairs."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -162,6 +163,7 @@ return {
 	-- ["Ride back to the {area:1108}; the goblin stands by the dock."] = "Езжайте обратно сюда: {area:1108}; гоблин стоит у причала.",
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Езжайте обратно на запад по дороге, затем на север к холмам Бешеного оврага. С любого йети здесь может выпасть шкура; с одного может выпасть {quest:7735}, за нее {npc:7852} тоже платит.",
 	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "Езжайте на восток к Поселению Гордунни на холмах к юго-востоку от долины йети: в лагере чернокнижники и шаманы, громилы бродят по склонам вокруг и севернее.",
+	-- ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Езжайте на север из места {area:1105}: с медведей-сталемехов (41-42) у подножия места {area:1136} выпадет последняя печень для Рапсодии.\nОсторожно: сталемехи-патриархи (48-49) и йети из Яростного Утеса (46-49) бродят по холмам севернее: держитесь на краю.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Езжайте на запад к дружелюбному горному великану у подножия холмов. Сухопутные бродяги и скальные великаны вокруг него — элита: держитесь подальше.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Звоните в колокольчик всякий раз, когда {npc:7774} останавливается побродить, и ведите ее на юг к NPC {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Прохождение подземелья {area:978} вместо гринда в группе быстрее. Город троллей — на севере зоны {zone:1446}, следующей зоны маршрута; после этого вернитесь к {npc:14637} ({area:1108}).",
@@ -173,4 +175,5 @@ return {
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "Пополнения {npc:14637} — 55-го уровня: пропустите их.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} бродит по холмам к северу от NPC {npc:7765}, среди гарпий из стаи Студеных Ключей; ее колокольчик в сундуке рядом.",
 	-- ["{npc:7774}'s escort"] = "Сопровождение: {npc:7774}",
+	-- ["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 }

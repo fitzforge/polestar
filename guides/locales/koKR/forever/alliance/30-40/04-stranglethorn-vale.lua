@@ -45,9 +45,10 @@ return {
 	-- {npc:715} Hemet Nesingwary · {zone:1441} Thousand Needles
 	["{npc:715}, from {zone:1441}"] = "{zone:1441}에서 온 {npc:715}",
 
-	-- Step 5: Young tigers and panthers
-	["Young tigers and panthers"] = "새끼 호랑이와 새끼 퓨마",
-	["Both roam the grass around the camp and along the road north."] = "둘 다 야영지 주변 풀밭과 북쪽 길을 따라 돌아다닙니다.",
+	-- Step 5: Young Stranglethorn Tigers
+	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger
+	["Young Stranglethorn Tigers"] = "",
+	["Hunt the young tigers near the river, then cross to the young panthers before returning to the tents."] = "",
 
 	-- Step 6: River crocolisks
 	["River crocolisks"] = "민물악어",
@@ -55,16 +56,16 @@ return {
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
 	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "",
 
-	-- Step 10: Stranglethorn Tigers
+	-- Step 9: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "{npc:682}",
 	["The adult tigers prowl the hills just south and west of the camp."] = "다 자란 호랑이는 야영지 바로 남쪽과 서쪽 언덕을 어슬렁거립니다.",
 
-	-- Step 11: Ajeck Rouack
+	-- Step 10: Ajeck Rouack
 	-- {area:99} Rebel Camp
 	["The elder tigers come later, on the way back from the {area:99}"] = "덩치큰 가시덤불 호랑이는 나중에 {area:99}에서 돌아오는 길에 잡습니다",
 
-	-- Step 12: Panthers, raptors and elder tigers
+	-- Step 11: Panthers, raptors and elder tigers
 	["Panthers, raptors and elder tigers"] = "퓨마, 랩터, 덩치큰 호랑이",
 	-- plural, as words: Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "네싱워리를 지나 남쪽으로 돌아가세요. 퓨마와 {npc:685}은(는) 야영지 서쪽에서 해안 쪽 빈터를 뛰어다니고, 덩치큰 가시덤불 호랑이는 남서쪽 언덕을 차지하고 있습니다.",
@@ -74,13 +75,13 @@ return {
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}, 네싱워리 야영지 서쪽의 털린 상자: 도난당한 화물은 해안의 붉은머리부족 폐허에 있으며, 두 번째 가시덤불 골짜기 순회 때 처리합니다",
 
-	-- Step 13: Sir S. J. Erlgadin
+	-- Step 12: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["keep it: the Shadowmaw Panthers (37-38) wait for the 40-50 Stranglethorn guide"] = "보관하세요: 그림자퓨마(37-38)는 40-50 가시덤불 골짜기 가이드에서 잡습니다",
 
-	-- Step 14: Rebel Camp
+	-- Step 13: Rebel Camp
 	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod · {area:99} Rebel Camp
 	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
 	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
@@ -95,7 +96,7 @@ return {
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}: {area:35}의 {npc:773}에게, 이 가이드 후반",
 
-	-- Step 15: Kurzen's Compound: kill these as you meet them
+	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
@@ -107,7 +108,7 @@ return {
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}, {object:263} 상자에서",
 
-	-- Step 16: Level 33.2
+	-- Step 15: Level 33.2
 	["Level 33.2"] = "",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
@@ -115,12 +116,12 @@ return {
 	-- {npc:937} Kurzen Jungle Fighter
 	["grind on {npc:937}"] = "",
 
-	-- Step 18: Stranglethorn Vale: kill these as you meet them
+	-- Step 17: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
-	-- Step 19: Nesingwary's Expedition
+	-- Step 18: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716}이(가) {item:2755}을(를) 모읍니다. 책장은 밀림의 거의 모든 인간형 몹이 떨어뜨립니다. 모이는 대로 책장을 장(章)으로 묶으세요.",
 	-- {npc:729} Sin'Dall
@@ -129,14 +130,14 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "보관하세요: 채찍꼬리랩터는 두 번째 순회(04b)에서 {npc:729}의 언덕 주변에서 잡습니다",
 
-	-- Step 20: The Savage Coast
+	-- Step 19: The Savage Coast
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "{area:108}에서 길을 따라 남쪽으로 {zone:1436}을(를) 벗어나 가시덤불 골짜기 북서쪽, 해안 근처의 {area:310}(으)로 가세요. 주변의 수정가시 바실리스크가 파편을 떨어뜨립니다.\n유령 섬은 광산 남서쪽 해안 바로 앞에 있습니다. 섬 가장자리에만 닿으면 됩니다. 주의: 섬의 하급 물의 정령은 36-37레벨이니 머무르지 마세요. 북쪽의 붉은머리부족 폐허 줄쿤다는 두 번째 가시덤불 골짜기 순회 때 갑니다."
 	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "",
 	["The haunted island"] = "유령의 섬",
 
-	-- Step 21: Booty Bay
+	-- Step 20: Booty Bay
 	-- {area:35} Booty Bay
 	["Hearth back to {area:35}."] = "",
 	-- {npc:2495} Drizzlik
@@ -153,22 +154,22 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
 
-	-- Step 22: Fly to Stormwind
+	-- Step 21: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 24: Collin Mauren
+	-- Step 23: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "",
 
-	-- Step 25: Class training
+	-- Step 24: Class training
 	["Class training"] = "직업 수련",
 	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
 	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "",
 
-	-- Step 27: Fly to Stonetalon Peak
+	-- Step 26: Fly to Stonetalon Peak
 	-- {area:467} Stonetalon Peak
 	["Fly to {area:467}"] = "{area:467}(으)로 날아가기",
 	-- {area:467} Stonetalon Peak · {zone:1443} Desolace · {area:415} Astranaar · {area:465} Charred Vale
@@ -176,26 +177,27 @@ return {
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 28: Fly to Astranaar
+	-- Step 27: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 
-	-- Step 29: Fly to Astranaar
+	-- Step 28: Fly to Astranaar
 	-- {area:415} Astranaar · {quest:1738} Heartswood
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "흑마법사는 서쪽으로 가는 길에 {quest:1738}을(를) 위해 {area:415}(으)로 날아가세요.",
 
-	-- Step 30: Heartswood
+	-- Step 29: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, {area:413} 북쪽",
 
-	-- Step 31: Stonetalon Mountains
+	-- Step 30: Stonetalon Mountains
 	-- {area:608} Nijel's Point
 	["The road to {area:608}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "붉은머리부족 트롤",
+	-- ["Both roam the grass around the camp and along the road north."] = "둘 다 야영지 주변 풀밭과 북쪽 길을 따라 돌아다닙니다.",
 	-- ["Down to {area:35}"] = "{area:35}(으)로 내려가기",
 	-- ["East of Zul'Kunda"] = "줄쿤다 동쪽",
 	-- ["Fly from {area:150} to {area:1537} and train."] = "{area:150}에서 {area:1537}(으)로 날아가 기술을 배우세요.",
@@ -224,6 +226,7 @@ return {
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "광석은 {zone:1417}의 마른수염 코볼트가 떨어뜨립니다",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "토르센은 야영지 북쪽, {area:99} 방향 길을 순찰합니다.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "북쪽으로 걸어 돌아가세요. {area:310}은(는) 밀림 한가운데, 길 서쪽에 있습니다. 그곳의 {npc:689}이(가) 파편을 떨어뜨립니다.",
+	-- ["Young tigers and panthers"] = "새끼 호랑이와 새끼 퓨마",
 	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "보관하세요: {npc:729}(37)은(는) 40-50 가시덤불 골짜기 가이드에서 41레벨쯤 잡습니다",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}에는 드루이드 상급자가 없습니다. {object:171524}에서 {area:2257}을(를) 타고 {zone:1453}(으)로 가서 {npc:5504}에게 배우세요.",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, 부두 옆 꼭대기 층",

@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}, près de l'hôtel de ville",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "Remontez la route au nord, de {area:42} jusqu'à {area:1002}.",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "Maître de vol de {area:69}",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Suivez la route le long de la rive sud de {area:68} jusqu'à la maîtresse des griffons. {npc:903} se tient au bord de la route, près d'elle.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -270,6 +272,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Ensuite : le griffon pour {area:42}, pour la deuxième boucle du {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the road from {area:42} to {area:1002}."] = "Remontez la route au nord, de {area:42} jusqu'à {area:1002}.",
 	-- ["Back to {zone:1429}"] = "Retour dans la {zone:1429}",
 	-- ["Bellygrub"] = "Fouailleventre",
 	-- ["Boat to {area:17203}"] = "Bateau pour {area:17203}",
@@ -277,6 +280,7 @@ return {
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "À l'est, au-delà du moulin et de la rivière. Les gnolls Sombrepoil remplissent la vallée ; {npc:703} (26, bien au-dessus de vous) les mène à son extrémité nord : éliminez d'abord son escorte et combattez-le en pleine santé. Évitez {area:2099} au sud : ses orcs sont élites.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite.\nCareful: Two gnoll guards stay with him and join the fight whenever he is attacked, even if he has wandered a short way off; other gnolls stand close by and wander through the area."] = "À l'est, après le moulin, de l'autre côté de la rivière. Les gnolls Sombrepoil remplissent la vallée ; {npc:703} (niveau 26, bien au-dessus de vous) les mène à son extrémité nord : éliminez d'abord son escorte et combattez-le avec toute votre vie. Évitez {area:2099} au sud : ses orcs sont des élites.\nAttention : deux gardes gnolls restent avec lui et se joignent au combat dès qu'il est attaqué, même s'il s'est un peu éloigné ; d'autres gnolls se tiennent tout près et errent dans le secteur.",
 	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "Prenez un vol pour {area:108} et allez au nord-ouest jusqu'à la côte : l'{object:177790} repose au fond de la mer, au large. Suivez ensuite la route vers l'est à travers la forêt d'Elwynn jusqu'aux Carmines.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Suivez la route le long de la rive sud de {area:68} jusqu'à la maîtresse des griffons. {npc:903} se tient au bord de la route, près d'elle.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Pour {npc:3649}, au retour à {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolls vers {area:1002}",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Allez au nord hors de {area:69} par {area:95} jusqu'à {area:997}. Des Champions Blackrock campent dans la vallée.",

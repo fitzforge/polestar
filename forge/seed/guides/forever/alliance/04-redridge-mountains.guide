@@ -25,8 +25,8 @@ next forever/alliance/05-duskwood
 #
 # Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners ->
 # south to Darkshire (flight path, hearth, every quest giver) -> Duskwood's
-# first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> north to Three
-# Corners -> Lakeridge Highway (Guard Howe) -> the murlocs east of the
+# first loop (the Duskwood notes are in 05-duskwood) -> Darkshire -> Lakeshire
+# by gryphon or the road through Three Corners -> Guard Howe -> the murlocs east of the
 # bridge -> Lakeshire (Baren, every quest giver) -> Bellygrub's pen
 # and Martie -> Lakeshire (the Wanted posters) -> Alther's Mill, the Blackrock
 # camps and Gar'im's cave ->
@@ -287,11 +287,13 @@ step Madame Eva
 
 step Redridge Mountains
   zone Redridge Mountains
-  tip Back north along the road from Darkshire to Three Corners.
-  goto 15.3,71.5 "Redridge Mountains"
+  tip Fly from Darkshire to Lakeshire if you know the flight path. On foot, take the north road to Three Corners.
+  enter "Redridge Mountains" @15.3,71.5
+  goto 15.3,71.5 "Three Corners" either
+  goto 25.5,59.4 "Lakeshire flight master" live r 30 either
 
 step Lakeridge Highway
-  tip Follow the road along the south shore of Lake Everstill to the gryphon master. Guard Howe stands by the road next to her.
+  tip Guard Howe stands by the gryphon master, south of the bridge. From Three Corners, follow the road east along the lake.
   getfp "Lakeshire"
   accept 128                                  -- Guard Howe
 

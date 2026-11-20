@@ -5,17 +5,17 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56.
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the hive and any bones still needed wait for the later Un'Goro visit at about 56.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# The Tanaris guide's Dunemaul Compound (5863) and Thistleshrub Valley (2605, 3362) are done on this guide's Gadgetzan
-# landing, at about 49.5 (their mobs are 46-50), and so is the Noxious Lair chain (82, 10, 110, 113, 162: Centipaar
+# The Gadgetzan landing finishes any Dunemaul and Thistleshrub work left after Tanaris and takes the
+# Noxious Lair chain (82, 10, 110, 113, 162: Centipaar
 # 48-50, two over players on the Tanaris guide at about 47; Rise of the Silithid goes to Gracina on the Burning Steppes
 # guide's Darnassus stop).
 # Fix round 1 (0.4.0): this first Un'Goro visit takes Torwa, the raft, Muigin's petals and the power crystals at
-# 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), the bones and the expedition (3881, 3882, 3883) and
+# 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), the expedition (3881, 3883) and
 # A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57: their Frenzied
 # Pterrordax (51-54), Elder Diemetradons (53-55), Glutinous Oozes (52-54) and Gorishi (51-54) were two to four over
 # players here. Fix round 2 (0.4.0): Shizzle's Flyer (4503) is done here after all, on the Fledgling Pterrordax
@@ -62,20 +62,84 @@ step Gadgetzan
   when group 2944
   accept 2944
 
+step Andi Lynn
+  when !onquest 5863
+  when !turnedin 5863
+  accept 5863
+
+step Andi Lynn
+  when complete 5863
+  turnin 5863
+
+step Tran'rek
+  when !onquest 3362
+  when !turnedin 3362
+  accept 3362
+
+step Tran'rek
+  when complete 3362
+  turnin 3362
+
+step Marin Noggenfogger
+  when complete 2605
+  turnin 2605
+  accept 2606
+
+step Sprinkle
+  when onquest 2606
+  turnin 2606
+
+step Senior Surveyor Fizzledowser
+  when turnedin 992
+  when !onquest 82
+  when !turnedin 82
+  accept 82
+
+step The south dunes
+  when level<49
+  tip The silithid and thistleshrub camps include level 50s. If you're short of 49, use the ordinary Dunemaul Ogres (45–46) on the southern edge of the compound, not the cave. A Zul'Farrak group is another way to make up the difference.
+  level 49 grind 5471
+
 step The Noxious Lair
+  when level>=49
+  when onquest 82
+  when !complete 82
   zone Tanaris
   tip Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.
   tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
   collect 8587 quest 82               -- Centipaar Insect Parts
 
+step Alchemist Pestlezugg
+  when complete 82
+  turnin 82
+
+step Senior Surveyor Fizzledowser
+  when turnedin 82
+  when !onquest 10
+  when !turnedin 10
+  accept 10
+
+step The Gaping Chasm
+  when level>=49
+  when onquest 10
+  when !complete 10
+  tip Ride south past the Broken Pillar to the Gaping Chasm, the Hazzali tunnels; Scrimshank's gear lies deep inside.
+  tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
+  collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
+
 step Dunemaul Compound
+  when level>=48
+  when onquest 5863
+  when !complete 5863
   zone Tanaris
-  tip Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
+  tip Take the southern dunes to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
 
 step Thistleshrub Valley: kill these as you meet them
+  when level>=49
+  when onquest 2605,3362
   zone Tanaris
   tip Ride west into Thistleshrub Valley. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.
   tip Careful: the thistleshrubs wander a lot, so you can easily pull extra mobs.
@@ -83,22 +147,26 @@ step Thistleshrub Valley: kill these as you meet them
   kill 5485 quest 3362                -- Thistleshrub Rootshaper
   kill 5490 quest 3362                -- Gnarled Thistleshrub
 
-step Gadgetzan
-  tip Ride back north-east to Gadgetzan: Andi Lynn stands on the east side of town.
-  turnin 5863                         -- Andi Lynn
-  turnin 2605                         -- Marin Noggenfogger
+step Andi Lynn
+  when complete 5863
+  tip Ride back north-east to Gadgetzan. Andi Lynn stands on the east side of town.
+  turnin 5863
+
+step Marin Noggenfogger
+  when onquest 2605
+  turnin 2605
   accept 2606
-  turnin 3362                         -- Tran'rek
-  turnin 2606                         -- Sprinkle
-  turnin 82                           -- Alchemist Pestlezugg, inside
-  accept 10                           -- Senior Surveyor Fizzledowser
 
-step The Gaping Chasm
-  tip Ride south past the Broken Pillar to the Gaping Chasm, the Hazzali tunnels; Scrimshank's gear lies deep inside.
-  tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
-  collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
+step Tran'rek
+  when complete 3362
+  turnin 3362
+
+step Sprinkle
+  when onquest 2606
+  turnin 2606
 
 step Gadgetzan
+  when complete 10
   turnin 10                           -- Senior Surveyor Fizzledowser
   accept 110
   turnin 110                          -- Alchemist Pestlezugg, inside
@@ -149,13 +217,15 @@ step Marshal's Refuge
   tip Ride north-west to the refuge.
   tip Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and Un'Goro Dirt Pile you pass from here on.
   accept 4141                         -- Muigin
+  accept 3882 optional                -- Spark Nilminer, level 49 and up
+  tip Spark's Dinosaur Bones can also drop from the Young Diemetradons you will hunt for scales. Take his quest if you have room; eight bones are not needed to leave the crater.
   accept 4503                         -- Shizzle: his scales come from the young beasts of the eastern jungle
   getfp "Marshal's Refuge"            -- Gryfe
   turnin 3884 optional                -- Williden Marshal
   turnin 3845                         -- Linken, at the back of the refuge
   accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
-  note Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
+  note Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
 
 # ---------------------------------------------------------------- The eastern jungle and the crystals
 
@@ -166,6 +236,7 @@ step Fire Plume Ridge and the eastern jungle
   collect 11316 quest 4141 @56.6,35.0 -- Bloodpetal, from the Lashers and Threshers
   collect 11018 quest 3764 @56.6,35.0 -- Un'Goro Soil, from the Threshers and the dirt piles
   collect 11831 quest 4503 @57.7,35.3 -- Webbed Pterrordax Scale, Fledgling Pterrordax
+  collect 11114 quest 3882 optional @57.7,35.3 -- Dinosaur Bones, from Young Diemetradons already being hunted
   collect 11830 quest 4503 @57.7,35.3 -- Webbed Diemetradon Scale, Young Diemetradon
 
 step Lakkari Tar Pits
@@ -181,6 +252,10 @@ step Marshal's Refuge
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
   turnin 4503                         -- Shizzle
   level 50 only Priest,Mage
+
+step Spark Nilminer
+  when complete 3882
+  turnin 3882
 
 step Level 49.79
   when level<49.79

@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663} – у ратуши",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:903} стоит у дороги рядом с ней.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -274,6 +276,7 @@ return {
 	-- ["Bellygrub"] = "Грубобрюх",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Перейдите по длинному мосту на север в город. {npc:341} и {npc:382} стоят у северного конца моста, {npc:900} — в ратуше, {npc:381} и {npc:266} — на пристани, {npc:343} — в таверне, {npc:342} — в своем огороде в западной части.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "На восток мимо лесопилки и через реку. Долина полна гноллов из стаи Темношкуров; {npc:703} (26, намного выше вас) возглавляет их в северной части: сначала перебейте его свиту и сражайтесь с ним с полным здоровьем. Не заходите в {area:2099} на юге: там элитные орки.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:903} стоит у дороги рядом с ней.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Идите по дороге на юг от развилки {area:1002} в зону {area:10}; поселок {area:42} лежит в восточной части леса.\nНет предмета {item:4371} для задания {quest:174}? Его продает {npc:3133} в доме рядом с домом {npc:276}, запас ограничен; его же продает {npc:1448} ({area:150}).\nДом {npc:276} стоит в восточной части города. {npc:3133} продает инженерные товары в соседнем доме.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Для NPC {npc:3649}, по возвращении в {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Гноллы по пути к месту {area:1002}",

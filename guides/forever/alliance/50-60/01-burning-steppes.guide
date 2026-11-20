@@ -40,6 +40,8 @@ step Talrendis Point
   accept 89001                        -- Berdun Cliffbrew: Home on the Range
 
 step Shadowsong Shrine spirits
+  zone Azshara
+  tip Ride south-west from Talrendis Point. Kill the Highborne Apparitions and Lichlings in the ruins around Shadowsong Shrine.
   kill 6116 quest 5535.1              -- Highborne Apparition
   kill 6117 quest 5535.2              -- Highborne Lichling
 
@@ -49,7 +51,7 @@ step Mosshoof Runners
 
 step Azshara: kill these as you meet them
   zone Azshara
-  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. Sentinel Keldara Sunblade is held in the satyrs' camp: free her and walk her out.
+  tip The Haldarr satyrs hold the camp north of the shrine. Sentinel Keldara Sunblade is held in their camp: free her and walk her out.
   kill 6127 quest 5536.3              -- Haldarr Felsworn
   kill 6126 quest 5536.2              -- Haldarr Trickster
   kill 6125 quest 5536.1              -- Haldarr Satyr
@@ -450,7 +452,7 @@ step Back to the Blasted Lands
   goto 50.6,14.2 "Bloodmages' camp"
 
 step The bloodmages
-  tip Pick up any beast requests you missed on the earlier visit. Drazial and Lynnore both stand here by the road.
+  tip Drazial and Lynnore stand together by the road. Take any beast requests they still offer before riding south.
   accept 2581
   accept 2583
   accept 2585
@@ -591,6 +593,13 @@ step Mathrengyl Bearwalker
   tip Mathrengyl Bearwalker is upstairs in the druids' building of the Cenarion Enclave: go in by its south door.
   goto 35.8,11.6 "Mathrengyl Bearwalker"
   turnin 92345                        -- Mathrengyl Bearwalker, upstairs
+
+step Astarii Starseeker
+  when onquest 162
+  when complete 3378
+  zone Darnassus
+  tip On the way to Gracina, give the Prayer to Elune to Astarii in the Temple of the Moon.
+  turnin 3378
 
 step Gracina Spiritmight
   when onquest 162

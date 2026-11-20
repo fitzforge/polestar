@@ -297,6 +297,7 @@ return {
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} é a caverna dos trolls nas colinas a sudoeste de {area:137}. Mate os Caçadores de Cabeças da entrada e atravesse até o fundo.\nCuidado: os Esfoladores Jubafria lá dentro são de nível 9-10 e ficam em pares: puxe um de cada vez de volta até a entrada.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, no subterrâneo",
+	["Walk to the far end of the cave until the quest gives explore credit."] = "",
 
 	-- Step 48: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {area:131} Kharanos · {npc:1271} Old Icebeard

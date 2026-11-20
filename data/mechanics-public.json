@@ -496,21 +496,31 @@
 						"id": 264149
 					},
 					"item": 255662,
-					"fact": "With the Mana Sieve in your bags, gather mana before you go to the pylons: the Sieve takes it from the Unstable Mana Rifts, the floating sparks along the road north. Each pylon needs its share of it.",
+					"fact": "Use the Mana Sieve on Unstable Mana Rifts along the road. Gather four Coalesced Mana Crystals for each unfinished pylon; repairing the first consumes its four.",
 					"confidence": "high"
 				},
 				{
 					"n": 2,
-					"action": "kill",
+					"action": "cast-spell",
 					"target": {
-						"type": "npc",
-						"id": 252711
+						"type": "object",
+						"id": 577959
 					},
-					"fact": "At each pylon, kill a Decrepit Pylon Protector beside it, then use Repair and Recharge Pylon on the pylon.",
-					"confidence": "medium"
+					"fact": "Use Repair and Recharge Pylon (1289727) on the west side of the western pylon with four crystals. Pull a guard away only if necessary. The western repair line in the quest log is the credit.",
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "cast-spell",
+					"target": {
+						"type": "object",
+						"id": 577960
+					},
+					"fact": "Bring four unspent crystals to the eastern pylon at Bristleback Retreat. Use Repair and Recharge Pylon there and check the eastern repair in the quest log.",
+					"confidence": "high"
 				}
 			],
-			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon; #2923, #3014 and #3167 report missing charges at the two repairs."
 		},
 		"96082": {
 			"kinds": [

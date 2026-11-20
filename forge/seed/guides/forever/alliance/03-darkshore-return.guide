@@ -92,7 +92,7 @@ step The Grove of the Ancients
   accept 98013                                -- Arbal
 
 step The shore west of the Grove
-  only Dwarf,Gnome,Human,Skyborne
+  when turnedin 4681
   tip On the way north to Auberdine, the last Beached Sea Creature lies on the shore west of the Grove.
   accept 4728                                 -- Beached Sea Creature
 
@@ -103,7 +103,7 @@ step Auberdine
   turnin 4733
   turnin 4732
   turnin 4730
-  turnin 4728 only Dwarf,Gnome,Human,Skyborne
+  turnin 4728
   accept 87760                                -- Holy Diver: Gwennyth offers it once all nine beached remains are handed in
   turnin 4740                                 -- Sentinel Glynda Nal'Shea
   accept 98461 optional                   -- Archaeologist Hollee

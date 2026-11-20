@@ -158,12 +158,14 @@ return {
 	["{npc:663}, by the town hall"] = "{npc:663}, 마을 회관 옆",
 
 	-- Step 26: Redridge Mountains
-	-- {area:42} Darkshire · {area:1002} Three Corners
-	["Back north along the road from {area:42} to {area:1002}."] = "",
+	-- {area:42} Darkshire · {area:69} Lakeshire · {area:1002} Three Corners
+	["Fly from {area:42} to {area:69} if you know the flight path. On foot, take the north road to {area:1002}."] = "",
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "",
 
 	-- Step 27: Lakeridge Highway
-	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "{area:68}의 남쪽 기슭을 따라 길을 가면 그리폰 조련사가 있습니다. {npc:903}은(는) 그녀 옆 길가에 서 있습니다.",
+	-- {npc:903} Guard Howe · {area:1002} Three Corners
+	["{npc:903} stands by the gryphon master, south of the bridge. From {area:1002}, follow the road east along the lake."] = "",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
@@ -273,6 +275,7 @@ return {
 	-- ["Bellygrub"] = "서리먹보",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "긴 다리를 건너 북쪽 마을로 들어가세요. {npc:341}와(과) {npc:382}은(는) 다리 북쪽 끝에, {npc:900}은(는) 마을 회관에, {npc:381}와(과) {npc:266}은(는) 부두에, {npc:343}은(는) 여관에, {npc:342}은(는) 서쪽 끝 자기 정원에 있습니다.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "방앗간을 지나 동쪽으로 강을 건너세요. 계곡에는 잿빛가죽 놀이 가득합니다. {npc:703}(26레벨, 당신보다 훨씬 높음)이 계곡 북쪽 끝에서 그들을 이끕니다. 호위병을 먼저 처치하고 생명력이 가득 찬 상태로 싸우세요. 남쪽의 {area:2099}에는 들어가지 마세요. 그곳의 오크는 정예입니다.",
+	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "{area:68}의 남쪽 기슭을 따라 길을 가면 그리폰 조련사가 있습니다. {npc:903}은(는) 그녀 옆 길가에 서 있습니다.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "{npc:3649}에게, {area:442}로 돌아갈 때 (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "{area:1002} 쪽의 놀",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "{area:69}에서 북쪽으로 나가 {area:95}을(를) 올라 {area:997}(으)로 가세요. 검은바위부족 용사가 계곡에 진을 치고 있습니다.",

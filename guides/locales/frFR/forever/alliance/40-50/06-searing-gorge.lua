@@ -60,15 +60,19 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:8436} se tient dans le camp du Crépuscule de {area:1442}, à l'ouest de {area:1446}, parmi les Gardefeux, les Idolâtres et les Géomanciens du crépuscule (élites de niveau 48-49), avec {npc:8282} (niveau 51, élite rare) à côté de lui : {quest:3377} demande un groupe de 4. Passez-la si vous êtes seul.",
 
-	-- Step 15: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Araignées de lave incendiaires",
-	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Les araignées errent sur les plateaux et autour des bassins de lave au sud de {npc:8436}, sur le chemin de {npc:8479}.",
+	-- Step 14: Zamael Lunthistle
+	-- {quest:3377} Prayer to Elune · {npc:4090} Astarii Starseeker · {zone:1457} Darnassus
+	["With your group, keep the {quest:3377} document from the Twilight camp. {npc:4090} takes it in the Temple of the Moon on a later {zone:1457} visit. Do not go back alone for it."] = "",
 
-	-- Step 16: Velarok Windblade
+	-- Step 15: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} se tient sur le rebord du Chaudron, au sud du {area:1446}. Écoutez son histoire.",
+
+	-- Step 18: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "Araignées de lave incendiaires",
+	-- {npc:8479} Velarok Windblade
+	["From {npc:8479} go south-west along the rim. Kill the lava spiders around the pools. The spiders do not drop hearts or oil: take those from the elementals and golems you meet on the same circuit."] = "",
 
 	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "Golems et élémentaires",
@@ -120,8 +124,9 @@ return {
 	["grind on {npc:9318}"] = "tuez en boucle : {npc:9318}",
 
 	-- Step 33: The Flame's Casing
-	-- {npc:5860} Twilight Dark Shaman
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:5860} (élite de niveau 50) demande un groupe de 3. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
+	-- {npc:5860} Twilight Dark Shaman · {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	-- plural, as words: Twilight Dark Shamans = {npc:5860} Twilight Dark Shaman
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\nIf you took {npc:8436}'s next {quest:3378}, Twilight Dark Shamans here can also have the document. Keep it if it drops; do not wait after you have the casing."] = "",
 
 	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -195,6 +200,8 @@ return {
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "L'elfe de la nuit Zamael Lunthistle se tient seul à l'ouest du {area:1446}. Écoutez son histoire.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge.\nHeavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Les araignées parcourent les plateaux et les mares de lave au sud-ouest de la gorge.\nDes Golems de guerre lourds patrouillent au fond du Chaudron, sous Kalaran ; des Élémentaires de magma dérivent parmi eux. Golems et élémentaires lâchent l'huile, les élémentaires les cœurs.\nLes Sous-chefs et les Esclavagistes mènent les esclaves dans tout le Chaudron, et n'importe lequel peut porter une {item:10551}. Les Forge-vapeur travaillent aux fourneaux du centre (la {item:18959}), les Guetteurs se tiennent sur les crêtes du sud (la longue-vue). N'importe quel {object:147516} peut lâcher la {item:11818} : gardez-la.\nAttention : les Esclavagistes Sombrefer (niveau 45-46) appellent à l'aide les alliés dans un rayon de 15 m quand vous les attirez, lancent Filet jusqu'à 15 m et utilisent Pourfendre au corps à corps.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Les araignées errent sur les plateaux et autour des bassins de lave au sud de {npc:8436}, sur le chemin de Velarok.",
+	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Les araignées errent sur les plateaux et autour des bassins de lave au sud de {npc:8436}, sur le chemin de {npc:8479}.",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:5860} (élite de niveau 50) demande un groupe de 3. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 	-- ["Velarok Windblade"] = "Velarok Lamevent",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok Lamevent se tient sur le rebord du Chaudron, au sud du {area:1446}. Écoutez son histoire.",
 	-- ["{item:10551} on the way"] = "{item:10551} en chemin",

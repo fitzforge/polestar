@@ -69,14 +69,21 @@ return {
 	-- {npc:5346} Bloodroar the Stalker
 	["Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; {npc:5346} (level 48) prowls the middle."] = "Reite nach Norden ins Yetital. Jeder Wildschrammyeti kann einen dicken Yetibalg droppen; {npc:5346} (Stufe 48) streift durch die Mitte.",
 
-	-- Step 14: Isle of Dread
+	-- Step 14: Ironfur bears
+	["Ironfur bears"] = "Eisenfellbären",
+	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
+	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
+	-- was: ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Reite nach Norden aus dem {area:1105}: Die Eisenfellbären (41-42) am Fuß der {area:1136} droppen Rhapsodys letzte Leber.\nVorsicht: Eisenfellpatriarchen (48-49) und die Yetis von Rage Scar (46-49) streifen weiter nördlich durch die Hügel: Bleib an ihrem Rand."
+	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's Ironfur livers.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "",
+
+	-- Step 15: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Die {area:1121} ist die Insel direkt südlich von {area:1120}: Schwimm hinüber. Hatecrest Serpent Guards und Sorceresses halten sie; {npc:8136} (Stufe 47) wartet in der Höhle an ihrem Südende. Zieh zuerst seine Wachen.",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "{item:9248}; unter der Erde",
 
-	-- Step 15: Feathermoon Stronghold
+	-- Step 16: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
 	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "Von Süden kommend: zuerst {npc:7877} und {npc:7878}, dann {npc:7900} neben dem Gebäude von {npc:7880}, dann die Treppe. {npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. {npc:7852} ist beim Flugmeister, auf dem Weg hinaus.",
 	-- {npc:7879} Quintis Jonespyre
@@ -84,34 +91,34 @@ return {
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "Der nächste Auftrag von {npc:7852}, Verbesserte Qualität, verlangt Häute von Narbenwut-Yetis der Stufe 46-49: Überspring ihn.",
 
-	-- Step 16: Fly to Thalanaar
+	-- Step 17: Fly to Thalanaar
 	-- {area:489} Thalanaar
 	["Fly to {area:489}"] = "Flieg nach {area:489}",
 	["Feathermoon flight master"] = "Flugmeister von Feathermoon",
 
-	-- Step 17: Back to the coast
+	-- Step 18: Back to the coast
 	["Back to the coast"] = "Zurück zur Küste",
 	-- {zone:1444} Feralas · {zone:2652} Shen'dralas · {area:489} Thalanaar
 	["You came into {zone:1444} from {zone:2652}, so {area:489}'s flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at {area:489}."] = "Du bist aus {zone:2652} nach {zone:1444} gekommen, daher fehlt dir noch die Flugroute von {area:489}: Nimm das Boot zurück zur Küste und reite nach Osten die Straße entlang; die Flugroute holst du dir, wenn dieser Guide in {area:489} endet.",
 
-	-- Step 18: Feralas
+	-- Step 19: Feralas
 	["Grimtotem camp"] = "Lager der Grimmtotem",
 
-	-- Step 19: Grimtotem camp
+	-- Step 20: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Reite von {area:489} nach Westen entlang der Straße zum Lager der Grimtotem nördlich davon. {npc:7956} wartet davor; befreie die Sprite Darters aus dem Pferch in der Mitte und halte {npc:7956} und mindestens sechs von ihnen am Leben.",
 
-	-- Step 20: Grimtotem tauren
+	-- Step 21: Grimtotem tauren
 	["Grimtotem tauren"] = "Tauren der Grimmtotem",
 	-- {npc:222286} Namida Grimtotem
 	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Vorsicht: {npc:222286}, ein Elite der Stufe 43, steht am Nordostrand des Lagers, bei etwa 67,39: Zieh die Naturalists, Raiders und Shamans von ihr weg.",
 
-	-- Step 21: Jer'kai Moonweaver
+	-- Step 22: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
 	["for Tyrande in {zone:1457}: the route takes you there at 47"] = "für Tyrande in {zone:1457}: Die Route führt dich mit 47 dorthin",
 
-	-- Step 22: The Writhing Deep
+	-- Step 23: The Writhing Deep
 	-- {area:489} Thalanaar
 	["Ride south-east to the Woodpaw gnolls; the courier's backpacks lie in their southern camp, and a parcel inside them starts a delivery to {area:489}. The Zukk'ash hive is just south: fight down to the pod that holds Raschal, free him and keep him alive on the way out."] = "Reite nach Südosten zu den Gnollen der Waldpfoten; die Rucksäcke des Kuriers liegen in ihrem südlichen Lager, und ein Paket darin startet eine Lieferung nach {area:489}. Der Stock der Zukk'ash liegt gleich südlich: Kämpf dich hinunter zur Kapsel, in der Raschal steckt, befreie ihn und halte ihn auf dem Weg nach draußen am Leben.",
 	-- {item:11463} Undelivered Parcel
@@ -119,22 +126,16 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "{object:164954}, drinnen",
 
-	-- Step 23: Grind to 45
+	-- Step 24: Grind to 45
 	["Grind to 45"] = "Grinde bis 45",
 	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
 	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the {area:978} dungeon instead."] = "Reite nach Westen in das {area:1105}: Seine Yetis sind 43-45. Die Yetis von Rage Scar in den Hügeln im Norden sind 46-49: Lass sie in Ruhe. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "grinde an {npc:5292} im {area:1105}, {zone:1444}",
 
-	-- Step 24: Ironfur bears
-	["Ironfur bears"] = "Eisenfellbären",
-	-- {area:1105} Feral Scar Vale · {area:1136} High Wilderness
-	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
-	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Reite nach Norden aus dem {area:1105}: Die Eisenfellbären (41-42) am Fuß der {area:1136} droppen Rhapsodys letzte Leber.\nVorsicht: Eisenfellpatriarchen (48-49) und die Yetis von Rage Scar (46-49) streifen weiter nördlich durch die Hügel: Bleib an ihrem Rand.",
-
 	-- Step 25: Feathermoon Stronghold
-	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	-- {area:1116} Feathermoon Stronghold · {area:1108} Forgotten Coast · {area:1099} Camp Mojache · {npc:7880} Ginro Hearthkindle
+	["Hearth back to {area:1116} if your stone is bound there and ready. Otherwise ride west to the {area:1108} dock, giving the Horde guards at {area:1099} a wide berth, and take the boat. {npc:7880} waits upstairs."] = "",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -165,6 +166,7 @@ return {
 	-- ["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Reite auf der Straße zurück nach Westen, dann nach Norden in die Hügel der Wutschrammyetis. Jeder Yeti hier kann einen Balg droppen; einer droppt vielleicht einen {quest:7735}, den {npc:7852} ebenfalls bezahlt.",
 	-- ["Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north."] = "Reite nach Osten zum Lager der Gordunni in den Hügeln südöstlich des Yetitals: Hexenmeister und Schamanen halten das Lager, Schläger streifen über die Hänge drumherum und weiter nördlich.",
 	-- ["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "Reite aus {area:1105} nach Norden in die Hügel von Rage Scar. Jeder Yeti hier kann ein Fell fallen lassen, und etwa jeder dreißigste einen {quest:7735}, den {npc:7852} ebenfalls bezahlt.\nVorsicht: Die Yetis von Rage Scar sind Stufe 46-48, mit 45 noch eine bis drei Stufen über dir: Nimm sie dir einzeln vom Rand der Hügel aus vor.",
+	-- ["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Reite nach Norden aus dem {area:1105}: Die Eisenfellbären (41-42) am Fuß der {area:1136} droppen Rhapsodys letzte Leber.\nVorsicht: Eisenfellpatriarchen (48-49) und die Yetis von Rage Scar (46-49) streifen weiter nördlich durch die Hügel: Bleib an ihrem Rand.",
 	-- ["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "Reite nach Westen in das {area:1105}: Seine Yetis sind 43-45. Die Yetis von Rage Scar in den Hügeln im Norden sind 46-48, also warten sie, bis du 45 bist. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978}.",
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Reite nach Westen zum freundlichen Bergriesen am Fuß der Hügel. Die Landgänger und Klippenriesen um ihn herum sind Elite: Halte Abstand.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Läute die Glocke, wann immer {npc:7774} stehen bleibt und umherwandert, und führe sie nach Süden zu {npc:7765}.",
@@ -182,4 +184,5 @@ return {
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}s Folgequests sind Stufe 55: Überspring sie.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} wandert durch die Hügel nördlich von {npc:7765}, zwischen den Harpyien der Nordschwingen; ihre Glocke liegt in der Truhe neben ihr.",
 	-- ["{npc:7774}'s escort"] = "{npc:7774}s Eskorte",
+	-- ["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 }

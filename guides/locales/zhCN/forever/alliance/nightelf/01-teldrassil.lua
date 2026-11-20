@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "再次回到{area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "从乌萨尔的巢穴向东北返回{area:186}。除树叶和药瓶外，{npc:6094}还需要一个{item:159}：如果之前喝掉了，交任务前向本旅店的{npc:6736}再买一个。",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -610,6 +610,7 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼枭和树林潜伏者在{area:186}四周和向东的道路沿途游荡。月亮井在{area:260}的西缘。",
 	-- ["North from the road the path to the glade crosses the {area:265}: the timberlings along it drop the Mossy Tumors."] = "从大路往北，通往林地的小径会跨过{area:265}；河边的林精会掉落青苔之瘤。",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "从乌萨尔的巢穴向东北返回{area:186}。",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "从乌萨尔的巢穴向东北返回{area:186}。除树叶和药瓶外，{npc:6094}还需要一个{item:159}：如果之前喝掉了，交任务前向本旅店的{npc:6736}再买一个。",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "从林地向南前往大槌乌萨尔处：哨兵莎依拉·夜风在{area:186}西边的道路上巡逻，从林地下来的小路与道路交汇处向西南走到约38,54的弯道再折返。",
 	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "在赛恩南边。{npc:2080}在湖岸照料他的树苗；Lasher Sproutling和林精在他周围游荡，{quest:919}长在它们中间。",
 	-- ["South of the pools. The {object:6751} grows by the Hold."] = "在水池南边。{object:6751}长在脊骨堡旁。",

@@ -23,8 +23,9 @@ return {
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 
 	-- Step 5: Agmond's End
-	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc
-	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "{npc:269577}의 {item:278404}은(는) {quest:739}이(가) 돌아다니는 돌무덤 트로그 야영지 한가운데에 있습니다.",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc · {quest:705} Pearl Diving
+	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
+	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks.\nStill carrying {quest:705} without nine Blue Pearls? The Giant Clams were on the north-west Stranglethorn coast. Keep it for another visit rather than going back from here."] = "",
 
 	-- Step 6: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
@@ -182,6 +183,7 @@ return {
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "{zone:1418} {area:339}에서 {npc:2725} 사냥",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
 	-- ["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}은(는) 배가 도착하는 부두에 있습니다.",
+	-- ["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "{npc:269577}의 {item:278404}은(는) {quest:739}이(가) 돌아다니는 돌무덤 트로그 야영지 한가운데에 있습니다.",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}의 칵테일에는 칼림도어의 재료가 필요하니 건너뛰십시오.",
 	-- ["{npc:7744}; below ground"] = "{npc:7744}, 지하",

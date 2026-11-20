@@ -88,24 +88,24 @@ return {
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "向西返回途中再到集会所：北缘的噬法魔犬（37-38级）和更深处的法师猎手（38-39级）掉落脑子。{npc:5760}（40级，精英）在法师猎手之间走动：把它们引出来打。",
 
-	-- Step 17: Azore Aldamort
+	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿道路向西穿过{zone:1443}北部，前往{area:2405}的废墟。{npc:11863}的塔就在那里的山丘上，在前往沉船的路上。",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}：{quest:93464}，来自{zone:1435}的玛格图尔",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "沉船的箱子就在{npc:11863}的塔西南方不远处。",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "如果第一次来{zone:1443}时没有拿，{object:177787}在{object:35251}旁边。他的银钥匙由沉船周围的干钳蟹掉落；金钥匙则来自西北海岸的滑刃纳迦，下一步就去。",
 	-- {object:177787} Rackmore's Log
 	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}，如果30-40/02没有拿",
 	["Underwater"] = "在水下",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}：遇到就杀",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
@@ -115,13 +115,13 @@ return {
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}，对{object:177673}使用",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "拉克摩尔的箱子就在{object:177673}东南方不远处。",
 
 	-- Step 24: Nijel's Point
-	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
-	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "沿道路向北前往{area:608}：{npc:5396}站在南端，{npc:5638}在中间，{npc:1182}在北边。",
+	-- {area:608} Nijel's Point · {area:2405} Ethel Rethor · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
+	["Hearth to {area:608} if you are still bound there and the stone is ready. Otherwise follow the road east from {area:2405} and up the pass. Hand in at {npc:5396}, {npc:5638} and {npc:1182} before the flight."] = "",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
 	["for {npc:5637} in {zone:1455}: keep it"] = "交给{zone:1455}的{npc:5637}：先留着",
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
@@ -132,6 +132,7 @@ return {
 	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "沿道路向北前往{area:608}：{npc:5396}站在南端，{npc:5638}在中间，{npc:1182}在北边。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔北边的西北海岸；卡尼托的挎包就在近海的海底，任何纳迦都可能掉落拉克摩尔的金钥匙。游到最北端外的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "恶魔聚集在{zone:1443}南部的{area:602}：坑边有地狱犬（噬法魔犬、法师猎手和灵能猎犬）、虚空少女和虚空姐妹，以及末日守卫队长。\n小心：这里的大多数怪物都会沿路线巡逻，很容易引来额外的怪。",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "亡灵劫掠者在玛格拉姆村庄南边、集会所东边的白骨荒地游荡：箭头会指向它们的西缘。然后在荒地东侧的另一个箭头处使用{item:15848}，引来玛格拉姆鬼魂。小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在两个箭头之间的白骨荒地上走动，还有玛格拉姆死灵法师（42级）：把劫掠者和鬼魂引到你身边，远离它们。",

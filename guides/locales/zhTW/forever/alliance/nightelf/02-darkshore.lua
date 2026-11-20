@@ -81,7 +81,6 @@ return {
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran
 	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
-	-- was: ["{npc:3644}, on the pier"] = "{npc:3644}，在碼頭上"
 	["{npc:3644}, on the pier"] = "{npc:3644}，在碼頭上",
 
 	-- Step 15: Rabid Thistle Bear on the way

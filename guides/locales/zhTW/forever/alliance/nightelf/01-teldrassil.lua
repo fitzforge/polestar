@@ -418,7 +418,7 @@ return {
 	-- {area:186} Dolanaar
 	["{area:186} again"] = "再次回到{area:186}",
 	-- {area:186} Dolanaar · {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
-	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "從烏薩爾的巢穴往東北回到{area:186}。{npc:6094}要收一瓶{item:159}，連同葉子和小瓶：如果你把自己的喝掉了，繳交前先在這間旅店向{npc:6736}再買一瓶。",
+	["Hearth back to {area:186} if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. {npc:6094} needs a {item:159} with the fronds and vial; {npc:6736} sells it here."] = "",
 
 	-- Step 68: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
@@ -598,6 +598,7 @@ return {
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "在旅店南邊的山丘上學習{area:442}的飛行路線，然後施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林裡。在{area:2361}學習{area:493}的飛行路線，然後飛往{area:702}（途經{area:442}）。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者分布在往東的道路沿線。月井在{area:260}的西緣。",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "從大槌烏薩爾的巢穴向東北走，回到{area:186}。",
+	-- ["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "從烏薩爾的巢穴往東北回到{area:186}。{npc:6094}要收一瓶{item:159}，連同葉子和小瓶：如果你把自己的喝掉了，繳交前先在這間旅店向{npc:6736}再買一瓶。",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "從林地向南朝大槌烏薩爾前進：夏伊拉在{area:186}西邊的道路上來回巡邏，從林地下來的小路與道路交會處往西南走到約38,54的彎道再折返。",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "在池塘南邊。{object:6751}生長在脊骨堡旁；周圍的熊怪會掉落其餘的牙。",
 	-- ["Speak with {npc:6286}, south of the inn"] = "與旅店南邊的{npc:6286}交談",

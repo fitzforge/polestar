@@ -17,28 +17,30 @@ return {
 	["Ride south-east off the {area:439} into {zone:1446}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{zone:1446}。{area:976}就在边界内。",
 	-- {quest:2864} Tran'rek
 	["{quest:2864}, north side of town"] = "{quest:2864}，镇子北侧",
-	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:976} Gadgetzan
-	["{quest:2864}: keep it, the {quest:3362} waits for the Un'Goro guide's {area:976} landing"] = "{quest:2864}：先留着，{quest:3362}等到安戈洛指南中你抵达{area:976}时再做",
+	-- {quest:2864} Tran'rek
+	["{quest:2864}: keep it for the valley"] = "",
+	-- {npc:14743} Jhordy Lapforge
+	["{npc:14743}: take the crate into the desert"] = "",
 	-- {npc:7564} Marin Noggenfogger
-	["{npc:7564}: keep it for the same landing"] = "{npc:7564}：先留着，同样等那时再做",
+	["{npc:7564}: keep it for the valley"] = "",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
 	["{npc:7407}, by the water tower"] = "{npc:7407}，在水塔旁",
 	-- {npc:7408} Spigot Operator Luglunket
 	["{npc:7408}, next to him"] = "{npc:7408}，在他旁边",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758}: keep it, the {area:983} waits for the same landing"] = "{npc:11758}：先留着，{area:983}同样等那时再去",
+	["{npc:11758}: the {area:983}"] = "",
 	-- {npc:7763} Curgle Cranklehop · {area:702} Rut'theran Village
 	["{npc:7763}: his crate goes to {area:702}, later"] = "{npc:7763}：他的箱子之后送到{area:702}",
 
-	-- Step 5: Gadgetzan
+	-- Step 6: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod
 	["For your {area:978} run, later in this guide: {quest:2864} wants scarab shells, {npc:7407}, by the water tower, his {quest:2768} back, and Trenton Lighthammer Troll Temper from the Sandfury trolls."] = "为本指南稍后的{area:978}之行做准备：{quest:2864}要圣甲虫壳，水塔旁的{npc:7407}要回他的{quest:2768}，特伦顿·轻锤要沙怒巨魔的巨魔淬火剂。",
 
-	-- Step 6: Steamwheedle Port
+	-- Step 7: Steamwheedle Port
 	["Ride east across the dunes to the goblin harbour on the north-east coast."] = "向东骑过沙丘到东北海岸的地精港口热砂港。",
 	["The Wanted poster beside him"] = "他旁边的通缉布告",
-	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
-	["The same poster: {npc:7847} comes much later, after {area:976}"] = "同一张告示：{npc:7847}要很久以后才会出现，在{area:976}之后",
+	-- {npc:7847} Caliph Scorpidsting · {area:985} Waterspring Field
+	["The same poster: {npc:7847} patrols {area:985}"] = "",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}：在屋内",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
@@ -46,19 +48,29 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern; inside"] = "{npc:7881}，位于港口旅店内",
 
-	-- Step 7: Noonshade Ruins: kill these as you meet them
+	-- Step 8: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}：沿途击杀以下目标",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "向西骑行返回{area:976}方向，废土强盗和窃贼占据沿途沙丘，均有几率携带水袋。\n注意：43–44 级的废土游荡者会潜行移动，可能在你未察觉时靠近。",
 
-	-- Step 9: Waterspring Field
-	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
-	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "更强的废土游荡者、暗影法师和刺客在{area:976}东南、强盗区域以南扎营。南侧营地中央的{npc:7847}留到稍后再处理。\n注意：废土游荡者在非战斗状态下会保持潜行，营地中隐藏的盗贼可能加入你发起的战斗。",
+	-- Step 10: Waterspring Field
+	-- {npc:14743} Jhordy Lapforge
+	["Empty {npc:14743}'s crate as you cross the open dunes. Use it five times, moving clear of the last pile each time; use the quest tracker for the count. You do not need to kill rogues for this."] = "",
 
-	-- Step 10: Lost Rigger Cove: kill these as you meet them
+	-- Step 11: Waterspring Field
+	-- {area:976} Gadgetzan
+	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
+	-- was: ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "更强的废土游荡者、暗影法师和刺客在{area:976}东南、强盗区域以南扎营。南侧营地中央的{npc:7847}留到稍后再处理。\n注意：废土游荡者在非战斗状态下会保持潜行，营地中隐藏的盗贼可能加入你发起的战斗。"
+	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "",
+
+	-- Step 12: Caliph Scorpidsting
+	-- {npc:7847} Caliph Scorpidsting · {area:985} Waterspring Field
+	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
+	["Watch for {npc:7847} by the towers before leaving {area:985}.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+
+	-- Step 13: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}：沿途击杀以下目标",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -66,16 +78,16 @@ return {
 	-- {quest:2873} Stoley's Shipment
 	["{quest:2873}; upstairs"] = "{quest:2873}：在楼上",
 
-	-- Step 11: Steamwheedle Port
+	-- Step 14: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
 	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "{area:35}的“海狼”马克基雷：路线会在{zone:1425}指南结束时前往那里，先保留任务",
 
-	-- Step 12: Noonshade Ruins
+	-- Step 17: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
 
-	-- Step 15: The pool by Sandsorrow Watch
+	-- Step 22: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "{area:979}旁的水池",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -85,7 +97,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "{area:979}旁的水池",
 
-	-- Step 16: Zul'Farrak
+	-- Step 23: Zul'Farrak
 	-- {area:978} Zul'Farrak · {quest:3042} Troll Temper · {npc:7604} Sergeant Bly · {quest:2768} Divino-matic Rod
 	["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978}是五人小队地下城；这里的任务为45-47级。大门位于水池以北约400码处。\n副本内：圣甲虫掉落甲壳，每个沙怒巨魔都可能掉落{quest:3042}，{npc:7604}带着{quest:2768}。",
 	-- {quest:2865} Scarab Shells
@@ -95,56 +107,75 @@ return {
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}：{npc:7604}，在副本内",
 
-	-- Step 17: Gadgetzan
+	-- Step 24: Gadgetzan
 	-- {area:982} Noxious Lair · {area:976} Gadgetzan
 	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "先留着：{area:982}的森提帕尔虫（48-50级）等到安戈洛指南中你约49.5级抵达{area:976}时再打",
 
-	-- Step 18: Tran'rek
+	-- Step 25: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
 	["Your {area:978} scarab shells: {npc:7876}, on the north side of town."] = "{area:978}的圣甲虫壳：{npc:7876}，在镇子北侧。",
 
-	-- Step 19: Chief Engineer Bilgewhizzle
+	-- Step 26: Chief Engineer Bilgewhizzle
 	-- {quest:2768} Divino-matic Rod · {npc:7407} Chief Engineer Bilgewhizzle
 	["The {quest:2768}: {npc:7407}, by the water tower."] = "{quest:2768}：{npc:7407}，在水塔旁。",
 
-	-- Step 20: Trenton Lighthammer
+	-- Step 27: Trenton Lighthammer
 	-- {quest:3042} Troll Temper · {npc:7804} Trenton Lighthammer
 	["The {quest:3042}: {npc:7804}, in town."] = "{quest:3042}：{npc:7804}，在镇上。",
 
-	-- Step 21: The Broken Pillar
+	-- Step 28: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "{area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南骑到{area:1938}的挖掘营地。{npc:7771}会给你一顶探测头盔：戴上它才能看到{quest:3161}土堆，营地周围和向西南通往食人魔的沙地里到处都是。",
 
-	-- Step 23: Dunemaul Compound
+	-- Step 30: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
-	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "向西南骑到食人魔营地，待在它的南端；营地的任务留到安戈洛指南再做。\n为什么要刷到47级：{npc:5955}在{quest:3362}边缘等候（怪物48-50级）。在营地南端较安全的地方刷砂槌食人魔（45-46级），不要去打里面的蛮兵和执行者（46-48级）。",
+	-- was: ["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "向西南骑到食人魔营地，待在它的南端；营地的任务留到安戈洛指南再做。\n为什么要刷到47级：{npc:5955}在{quest:3362}边缘等候（怪物48-50级）。在营地南端较安全的地方刷砂槌食人魔（45-46级），不要去打里面的蛮兵和执行者（46-48级）。"
+	["Ride south-west to the ogre compound. The ordinary ogres at its south end drop the bangle.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "",
 	-- {item:278186} Brilliantly Polished Bangle
 	["{item:278186}, from any Dunemaul ogre"] = "{item:278186}，任意砂槌食人魔掉落",
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "反复击杀{npc:5471}补足经验，在营地南端",
 
-	-- Step 24: Tooga's escort
+	-- Step 31: Gor'marok the Ravager
+	["Take the Brutes and Enforcers from the edge. Clear the guards before going into the cave for Gor'marok (49)."] = "",
+
+	-- Step 32: Thistleshrub Valley
+	-- {npc:5955} Tooga
+	["Before taking {npc:5955}, work the edge of the valley. Pull wandering shrubs singly; leave the valley as soon as you have what you need."] = "",
+
+	-- Step 33: Tooga at the edge of the valley
+	-- {npc:5955} Tooga
+	["{npc:5955} at the edge of the valley"] = "",
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {area:977} Steamwheedle Port
+	["{npc:5955} wanders along the west edge of {quest:3362}. If you see him free on the way past, take him home. If he isn't there, choose the other line and head straight to {area:977}."] = "",
+	-- {npc:5955} Tooga
+	["Continue to the port without {npc:5955}"] = "",
+
+	-- Step 34: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955}的护送",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小乌龟{npc:5955}躲在{quest:3362}北端：从边缘把他带出来，别去惹灌木谷的蓟灌木怪（48-50级）。带他回家去找他妻子{npc:6015}，她在{area:977}东边不远处的水边：他走得慢，沙漠里的野兽会攻击他，保护好他。"
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
-	-- {npc:5955} Tooga
-	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁边：绿洲",
+	-- {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Keep the turtle close on the way to {npc:6015} by the coast, just east of {area:977}. He walks slowly and the desert's beasts go for him."] = "",
 
-	-- Step 25: Steamwheedle Port
+	-- Step 35: Oasis
+	["Oasis"] = "",
+	-- {npc:5955} Tooga · {npc:6015} Torta
+	["{npc:5955} stands beside {npc:6015} after the escort."] = "",
+
+	-- Step 36: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "从{npc:6015}处沿海岸向西不远就是{area:977}。",
 
-	-- Step 26: Caliph Scorpidsting
+	-- Step 37: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "向东南骑行前往{area:985}。{npc:7847}站在南部废土营地中央：先清理他周围的敌人。\n小心：他走到哪里都有两名潜行的废土游荡者跟随。在他的刷新营地里，两名暗影法师及其仆从离得很近，会加入战斗。到塔楼附近就可以避开他们，单独与他交战。",
+	-- was: ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "向东南骑行前往{area:985}。{npc:7847}站在南部废土营地中央：先清理他周围的敌人。\n小心：他走到哪里都有两名潜行的废土游荡者跟随。在他的刷新营地里，两名暗影法师及其仆从离得很近，会加入战斗。到塔楼附近就可以避开他们，单独与他交战。"
+	["Ride south-west to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 28: Fly to Auberdine
+	-- Step 43: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飞往{area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -152,13 +183,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 29: Teldrassil
+	-- Step 44: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "从{area:442}的码头乘船前往{area:702}；角鹰兽管理员{npc:3838}站在登陆点东边的高地上：上村子的途中学习飞行路线。",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 30: Rut'theran Village
+	-- Step 45: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，就在{npc:7916}上方：从室内上楼，箭头无法区分楼层。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -167,51 +198,51 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}：羽毛在{zone:1425}，下一站",
 	["the book on her table"] = "她桌上的书",
 
-	-- Step 32: Temple of the Moon
+	-- Step 47: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
 
-	-- Step 36: Cenarion Enclave
+	-- Step 51: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
 
-	-- Step 37: Class trainer
+	-- Step 52: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 53: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤稍后从{zone:1449}获得",
 
-	-- Step 39: Portal to Teldrassil
+	-- Step 54: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "通往{zone:1438}的传送门",
 
-	-- Step 41: Boat to Menethil Harbor
+	-- Step 56: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "乘船前往{area:150}",
 
-	-- Step 42: Fly to Aerie Peak
+	-- Step 57: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "飞往{area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "{area:150}的飞行管理员",
 
-	-- Step 43: Fly to Southshore
+	-- Step 58: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飞往{area:271}",
 
-	-- Step 44: Hinterlands
+	-- Step 59: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "还没有{area:348}的飞行路线？从{area:271}沿路向东北骑进{zone:1425}；{area:348}就在边界另一边不远处。",
 
-	-- Step 45: Aerie Peak
+	-- Step 60: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}，在飞行管理员旁",
-	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}：{quest:86620}，蛋在{area:348}东边不远处的山丘里",
+	-- {npc:7884} Fraggar Thundermantle
+	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
 	["{npc:270263}, just east of the aviary: {quest:86616}, from the {area:355}'s Soothsayers"] = "{npc:270263}，在狮鹫栖木东边不远处：{quest:86616}，来自{area:355}的占卜者",
 
@@ -234,12 +265,16 @@ return {
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "骑行向南经过{area:1938}，前往{area:981}的哈扎里隧道，谢申克的设备在深处。\n注意：设备旁有一只虫子守卫，隧道里还有许多巡逻虫，其中一些达到 50 级，战斗经常引来额外敌人。",
 	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向东南骑出{area:439}进入{area:440}。{area:976}就在边界内。",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向东南骑到{area:985}。{npc:7847}站在南边废土营地的中央：先清理他周围。",
+	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "向东南骑行前往{area:985}。{npc:7847}站在南部废土营地中央：先清理他周围的敌人。\n小心：他走到哪里都有两名潜行的废土游荡者跟随。在他的刷新营地里，两名暗影法师及其仆从离得很近，会加入战斗。到塔楼附近就可以避开他们，单独与他交战。",
+	-- ["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "向西南骑到食人魔营地，待在它的南端；营地的任务留到安戈洛指南再做。\n为什么要刷到47级：{npc:5955}在{quest:3362}边缘等候（怪物48-50级）。在营地南端较安全的地方刷砂槌食人魔（45-46级），不要去打里面的蛮兵和执行者（46-48级）。",
 	-- ["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first.\nWhy the grind to 47: the {quest:3362} comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes."] = "向西南骑到砂槌营地。里面满是砂槌蛮兵和砂槌执行者（46-48级）；{npc:12046}（49级）站在中间，周围有卫兵：先清理卫兵。\n为什么要刷到47级：接下来是{quest:3362}，那里的怪物是48-50级，任务是50级。在营地南端较安全的营地刷砂槌食人魔（45-46级），不要刷砂槌蛮兵。",
 	-- ["Rizzle's plans"] = "Rizzle的设计图",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁的通缉布告",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小乌龟{npc:5955}躲在山谷北端。带他回家去找他妻子{npc:6015}，她在{area:977}东边不远处的水边：他走得慢，沙漠里的野兽会攻击他，保护好他。",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小乌龟{npc:5955}躲在{quest:3362}北端：从边缘把他带出来，别去惹灌木谷的蓟灌木怪（48-50级）。带他回家去找他妻子{npc:6015}，她在{area:977}东边不远处的水边：他走得慢，沙漠里的野兽会攻击他，保护好他。",
+	-- ["The same poster: {npc:7847} comes much later, after {area:976}"] = "同一张告示：{npc:7847}要很久以后才会出现，在{area:976}之后",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "更强的废土游荡者、废土暗法师和废土刺客在{area:976}东南方、强盗的南边扎营。把南边营地中间的{npc:7847}留到之后。",
+	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "更强的废土游荡者、暗影法师和刺客在{area:976}东南、强盗区域以南扎营。南侧营地中央的{npc:7847}留到稍后再处理。\n注意：废土游荡者在非战斗状态下会保持潜行，营地中隐藏的盗贼可能加入你发起的战斗。",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} 位于 {zone:1441} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，{npc:4709} 在地精营地旁。",
 	-- ["Underwater"] = "在水下",
 	-- ["Wastewander bandits"] = "废土强盗",
@@ -249,11 +284,15 @@ return {
 	-- ["grind on {npc:5474}"] = "反复击杀{npc:5474}补足经验",
 	-- ["{item:8593}; below ground"] = "{item:8593}：在地下",
 	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}，在镇子东侧",
+	-- ["{npc:11758}: keep it, the {area:983} waits for the same landing"] = "{npc:11758}：先留着，{area:983}同样等那时再去",
 	-- ["{npc:12046}, below ground"] = "{npc:12046}：在地下",
 	-- ["{npc:5594}, inside"] = "{npc:5594}：在屋内",
+	-- ["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁边：绿洲",
+	-- ["{npc:7564}: keep it for the same landing"] = "{npc:7564}：先留着，同样等那时再做",
 	-- ["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}的下一种材料生长在{zone:1425}，路线不会再回来：跳过。",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 	-- ["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "{npc:7881}的下一趟送货要回{area:35}：跳过。",
 	-- ["{npc:7881}, in the port's tavern"] = "{npc:7881}，在港口的酒馆里",
+	-- ["{quest:2864}: keep it, the {quest:3362} waits for the Un'Goro guide's {area:976} landing"] = "{quest:2864}：先留着，{quest:3362}等到安戈洛指南中你抵达{area:976}时再做",
 	-- ["{quest:3362}: kill these as you meet them"] = "{quest:3362}：沿途击杀以下目标",
 }

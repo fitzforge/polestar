@@ -23,8 +23,9 @@ return {
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}獨自在挖掘場東南方的{area:1898}紮營。",
 
 	-- Step 5: Agmond's End
-	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc
-	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "{npc:269577}的{item:278404}在石窟穴居人營地中央，{quest:739}在那裡走動。",
+	-- {npc:269577} Dorgaron · {item:278404} Pristine Mattock · {quest:739} Murdaloc · {quest:705} Pearl Diving
+	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
+	["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks.\nStill carrying {quest:705} without nine Blue Pearls? The Giant Clams were on the north-west Stranglethorn coast. Keep it for another visit rather than going back from here."] = "",
 
 	-- Step 6: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
@@ -183,6 +184,7 @@ return {
 	-- ["grind on {npc:2725} at {area:339}, {zone:1418}"] = "在{zone:1418}的{area:339}刷{npc:2725}",
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}，{object:32372}",
 	-- ["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船靠岸的碼頭上。",
+	-- ["{npc:269577}'s {item:278404} lies in the middle of the Stonevault trogg camp, where {quest:739} walks."] = "{npc:269577}的{item:278404}在石窟穴居人營地中央，{quest:739}在那裡走動。",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}獨自在挖掘場東南方的{area:1898}紮營。",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}的雞尾酒需要卡林多的材料：跳過它。",
 	-- ["{npc:7744}; below ground"] = "{npc:7744}；在地下",

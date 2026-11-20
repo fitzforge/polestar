@@ -396,7 +396,13 @@ step Raene Wolfrunner
 
 step Raene's delivery
   when !turnedin 1024
-  accept 1024                         -- Take her message to Shael'dryn on the way east
+  accept 1024                         -- Keep the Glowing Gem Raene returns with the message
+
+step Raene's Glowing Gem
+  when onquest 1024
+  when !has 5463
+  tip Keep the Glowing Gem Raene gives you with her message. Shael'dryn needs the gem in your bags even though the quest log lists no items. If you banked it, retrieve it before going to the moonwell.
+  collect 5463 "Glowing Gem" @36.54,49.61 map 1440 -- At Raene's handoff, not another murloc hunt
 
 step Raene's message
   when !turnedin 1024
@@ -440,13 +446,13 @@ step Forest Song
 step The Dor'Danil Barrow Den: kill these as you meet them
   zone Ashenvale
   tip The Forsaken's camp lies in the woods south of Forest Song.
-  tip Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.
+  tip A Rotting Slime can leave a Rusty Chest on the ground beside its body. Open the chest for the Iron Pommel; if none appears, try the next slime. Take the Bottle of Disease from the Forsaken camp on this same pass.
   tip Careful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together.
-  collect 5519 quest 1027             -- Iron Pommel
+  collect 5519 quest 1027.1 @71.45,76.97 map 1440 era -- Rusty Chest beside a Rotting Slime
   collect 5440 quest 1011             -- Bottle of Disease
 
 step Fallen Sky Lake
-  tip The Shadethicket Oracle walks the shore of Fallen Sky Lake, south-west of the chests; the Gleaming Crescent Pendant lies north of the lake, on the way.
+  tip The Shadethicket Oracle walks the shore of Fallen Sky Lake, south-west of the slimes; the Gleaming Crescent Pendant lies north of the lake, on the way.
   tip Careful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle.
   collect 5508 quest 1035             -- Fallen Moonstone
   accept 98027 object 669176          -- Gleaming Crescent Pendant: for Maliynn in Astranaar
@@ -514,7 +520,10 @@ step Astranaar
   accept 1025                         -- Raene Wolfrunner: An Aggressive Defense, the Foulweald on the way to Krolg
   accept 1054                         -- Raene Wolfrunner: Culling the Threat, Dal Bloodclaw on the way back from Maestra's Post
   turnin 98027                        -- Maliynn, in the inn
-  turnin 1035                         -- Pelturas Whitemoon, inside the building south of the inn
+
+step Pelturas Whitemoon
+  when onquest 1035
+  turnin 1035                         -- Inside the building south of the inn
 
 # ---------------------------------------------------------------- Krolg
 

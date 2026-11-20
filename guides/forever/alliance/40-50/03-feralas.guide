@@ -97,6 +97,13 @@ step Feral Scar Vale
   collect 8973 quest 2821             -- Thick Yeti Hide
   collect 6259 quest 1452.3 @57.5,56.5 map 1444 -- Groddoc Liver
 
+step Ironfur bears
+  when onquest 1452
+  zone Feralas
+  tip Ride north out of Feral Scar Vale: the Ironfur Bears (41-42) at the foot of the High Wilderness drop Rhapsody's Ironfur livers.
+  tip Careful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge.
+  collect 6258 quest 1452.2 @53.2,47.3 map 1444
+
 step Isle of Dread
   tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
   collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
@@ -164,18 +171,13 @@ step The Writhing Deep
 # ---------------------------------------------------------------- Level 45 in Feral Scar Vale
 
 step Grind to 45
+  when level<45
   zone Feralas
   tip Ride west into Feral Scar Vale: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the Zul'Farrak dungeon instead.
   level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
-step Ironfur bears
-  zone Feralas
-  tip Ride north out of Feral Scar Vale: the Ironfur Bears (41-42) at the foot of the High Wilderness drop Rhapsody's last liver.
-  tip Careful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge.
-  collect 6258 quest 1452.2 @53.2,47.3 map 1444
-
 step Feathermoon Stronghold
-  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Hearth back to Feathermoon Stronghold if your stone is bound there and ready. Otherwise ride west to the Forgotten Coast dock, giving the Horde guards at Camp Mojache a wide berth, and take the boat. Ginro waits upstairs.
   turnin 4265                         -- Ginro Hearthkindle
   accept 4266
   turnin 4266                         -- Shandris Feathermoon

@@ -288,6 +288,7 @@ return {
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}은(는) {area:137} 남서쪽 언덕의 트롤 동굴입니다. 입구의 머리사냥꾼을 처치하고 가장 안쪽 끝까지 걸어가세요.\n주의: 소굴 안의 서리갈기부족 무두장이는 9-10레벨이고 둘씩 서 있습니다. 한 마리씩 입구로 끌어오세요.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "",
+	["Walk to the far end of the cave until the quest gives explore credit."] = "",
 
 	-- Step 47: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {area:131} Kharanos · {npc:1271} Old Icebeard

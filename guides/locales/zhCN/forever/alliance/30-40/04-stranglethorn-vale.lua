@@ -45,9 +45,10 @@ return {
 	-- {npc:715} Hemet Nesingwary · {zone:1441} Thousand Needles
 	["{npc:715}, from {zone:1441}"] = "{npc:715}，来自{zone:1441}",
 
-	-- Step 5: Young tigers and panthers
-	["Young tigers and panthers"] = "荆棘谷猛虎幼崽和猎豹幼崽",
-	["Both roam the grass around the camp and along the road north."] = "两者都在营地周围的草地和向北的道路沿途游荡。",
+	-- Step 5: Young Stranglethorn Tigers
+	-- plural, as words: Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger
+	["Young Stranglethorn Tigers"] = "",
+	["Hunt the young tigers near the river, then cross to the young panthers before returning to the tents."] = "",
 
 	-- Step 6: River crocolisks
 	["River crocolisks"] = "淡水鳄",
@@ -55,16 +56,16 @@ return {
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
 	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "",
 
-	-- Step 10: Stranglethorn Tigers
+	-- Step 9: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "荆棘谷猛虎",
 	["The adult tigers prowl the hills just south and west of the camp."] = "成年猛虎在营地南边和西边的山丘上徘徊。",
 
-	-- Step 11: Ajeck Rouack
+	-- Step 10: Ajeck Rouack
 	-- {area:99} Rebel Camp
 	["The elder tigers come later, on the way back from the {area:99}"] = "老年猛虎稍后再打，在从{area:99}返回的路上",
 
-	-- Step 12: Panthers, raptors and elder tigers
+	-- Step 11: Panthers, raptors and elder tigers
 	["Panthers, raptors and elder tigers"] = "猎豹、迅猛龙和老年猛虎",
 	-- plural, as words: Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "向南返回经过奈辛瓦里：黑豹和荆棘谷迅猛龙在营地西边通往海岸的空地上奔跑；老年荆棘谷猛虎占据西南方的山丘。",
@@ -74,13 +75,13 @@ return {
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦里营地西边一个被洗劫过的箱子：被盗的货物在海岸边的血顶废墟中，第二轮荆棘谷路线再去",
 
-	-- Step 13: Sir S. J. Erlgadin
+	-- Step 12: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "向东返回奈辛瓦里的营地，再向北前往{area:99}。",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["keep it: the Shadowmaw Panthers (37-38) wait for the 40-50 Stranglethorn guide"] = "保留任务：深喉猎豹（37-38级）留到40-50级荆棘谷指南",
 
-	-- Step 14: Rebel Camp
+	-- Step 13: Rebel Camp
 	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod · {area:99} Rebel Camp
 	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
 	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
@@ -95,7 +96,7 @@ return {
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}：带给{area:35}的{npc:773}，本指南稍后会到那里",
 
-	-- Step 15: Kurzen's Compound: kill these as you meet them
+	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "{area:101}：沿途击杀以下目标",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
@@ -107,7 +108,7 @@ return {
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}，来自{object:263}箱子",
 
-	-- Step 16: Level 33.2
+	-- Step 15: Level 33.2
 	["Level 33.2"] = "33.2级",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
@@ -115,12 +116,12 @@ return {
 	-- {npc:937} Kurzen Jungle Fighter
 	["grind on {npc:937}"] = "击杀{npc:937}刷经验",
 
-	-- Step 18: Stranglethorn Vale: kill these as you meet them
+	-- Step 17: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途击杀以下目标",
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "注意：老虎活动区域附近有巨魔营地，拉怪不慎可能引来巨魔。\n注意：迅猛龙巢穴中的幼龙会在成年迅猛龙遭攻击时加入战斗。",
 
-	-- Step 19: Nesingwary's Expedition
+	-- Step 18: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716}收集{item:2755}：丛林中几乎所有人型怪都会掉落书页。边走边把书页合成章节。",
 	-- {npc:729} Sin'Dall
@@ -129,14 +130,14 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "保留任务：鞭尾迅猛龙在第二轮路线（04b）中处理，位于{npc:729}所在的山丘周围",
 
-	-- Step 20: The Savage Coast
+	-- Step 19: The Savage Coast
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。"
 	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "",
 	["The haunted island"] = "闹鬼的小岛",
 
-	-- Step 21: Booty Bay
+	-- Step 20: Booty Bay
 	-- {area:35} Booty Bay
 	["Hearth back to {area:35}."] = "",
 	-- {npc:2495} Drizzlik
@@ -153,22 +154,22 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "{npc:2496}：水元素出没于闹鬼岛屿周围，北部路线会去",
 
-	-- Step 22: Fly to Stormwind
+	-- Step 21: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "飞往{zone:1453}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 24: Collin Mauren
+	-- Step 23: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "{npc:4078}在{object:2101}的{object:2164}里。",
 
-	-- Step 25: Class training
+	-- Step 24: Class training
 	["Class training"] = "职业训练",
 	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
 	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "学习34级技能：职业训练师分布在{object:2096}、{object:2100}、大教堂和{object:2101}周围；德鲁伊训练师{npc:5504}在{object:2101}西北边。萨满祭司在{zone:1455}训练，在30-40级后段。",
 
-	-- Step 27: Fly to Stonetalon Peak
+	-- Step 26: Fly to Stonetalon Peak
 	-- {area:467} Stonetalon Peak
 	["Fly to {area:467}"] = "飞往{area:467}",
 	-- {area:467} Stonetalon Peak · {zone:1443} Desolace · {area:415} Astranaar · {area:465} Charred Vale
@@ -176,26 +177,27 @@ return {
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 28: Fly to Astranaar
+	-- Step 27: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "飞往{area:415}",
 
-	-- Step 29: Fly to Astranaar
+	-- Step 28: Fly to Astranaar
 	-- {area:415} Astranaar · {quest:1738} Heartswood
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "术士在西行途中飞往{area:415}完成{quest:1738}。",
 
-	-- Step 30: Heartswood
+	-- Step 29: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "从{area:415}向西北进入丘陵：{quest:1738}是一棵发光的树，位于通往{area:413}的道路北边。如果接了{quest:65602}，{item:190309}就在{area:413}北边林间的一间房子里（26.6,22.0）。然后沿路向西前往石爪山。",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北边",
 
-	-- Step 31: Stonetalon Mountains
+	-- Step 30: Stonetalon Mountains
 	-- {area:608} Nijel's Point
 	["The road to {area:608}"] = "通往{area:608}的道路",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "血顶巨魔",
+	-- ["Both roam the grass around the camp and along the road north."] = "两者都在营地周围的草地和向北的道路沿途游荡。",
 	-- ["Down to {area:35}"] = "南下{area:35}",
 	-- ["East of Zul'Kunda"] = "祖昆达以东",
 	-- ["Fly from {area:150} to {area:1537} and train."] = "从{area:150}飞往{area:1537}并训练。",
@@ -232,6 +234,7 @@ return {
 	-- ["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "接下来的任务为37级；如果还没到34级，就继续击杀奈辛瓦里营地西南丘陵中的老年猛虎，直到34级。也可组队挑战{area:796}副本（图书馆或武器库）。",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "索森在营地北边、通往{area:99}的道路上巡逻。",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "向北走回去；{area:310}在丛林中部道路的西边。那里的晶背蜥蜴掉落碎片。",
+	-- ["Young tigers and panthers"] = "荆棘谷猛虎幼崽和猎豹幼崽",
 	-- ["grind on {npc:1085}"] = "刷{npc:1085}升级",
 	-- ["grind on {npc:682}"] = "击杀{npc:682}刷经验",
 	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "保留任务：{npc:729}（37级）在40-50级荆棘谷指南中处理，约41级时",

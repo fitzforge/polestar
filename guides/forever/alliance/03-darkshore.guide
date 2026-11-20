@@ -179,7 +179,7 @@ step Bears and the Blackwood camp
 step Ameth'Aran
   label q2138
   tip Sentinel Tysha Moonblade stands at the north edge of the ruins. Cursed, Writhing and Wailing Highborne haunt them; Anaya Dawnrunner's ghost walks among them, Jai'vhanel the owl circles east of them. The two tablets lie in the ruins; a Beached Sea Turtle lies on the shore west of them.
-  accept 4722 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Turtle
+  accept 4722 -- Beached Sea Turtle
   accept 953 only Dwarf,Gnome,Human,Skyborne -- Sentinel Tysha Moonblade
   collect 5360 quest 958 only Dwarf,Gnome,Human,Skyborne -- Highborne Relics
   kill 2164 quest 2138
@@ -206,7 +206,7 @@ step Bashal'Aran
   collect 5338 quest 956 @45.5,36.5 map 1439 only Dwarf,Gnome,Human,Skyborne -- Ancient Moonstone Seal: Deth'ryll Satyrs
   turnin 956 only Dwarf,Gnome,Human,Skyborne
   accept 957 only Dwarf,Gnome,Human,Skyborne
-  accept 4723 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Creature
+  accept 4723 -- Beached Sea Creature
 
 step Auberdine
   turnin 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
@@ -218,14 +218,14 @@ step Auberdine
   turnin 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
   accept 4812 only Dwarf,Gnome,Human,Skyborne
   turnin 98025 only Dwarf,Gnome,Human,Skyborne
+  use 14338 quest 4812.1 @37.8,44.0 map 1439
+  collect 14339 quest 4812 only Dwarf,Gnome,Human,Skyborne -- Fill the tube at the moonwell in the village
   turnin 4761                                 -- Thundris Windweaver
   accept 4762
   turnin 958 only Dwarf,Gnome,Human,Skyborne
   turnin 963                                  -- Cerellean Whiteclaw
-  turnin 4722 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
-  turnin 4723 only Dwarf,Gnome,Human,Skyborne
-  use 14338 quest 4812.1 @37.8,44.0 map 1439
-  collect 14339 quest 4812 only Dwarf,Gnome,Human,Skyborne -- Fill the tube at the moonwell in the village
+  turnin 4722 -- Gwennyth Bly'Leggonde
+  turnin 4723
   vendor nearest optional
 
 step A Lesson to Learn
@@ -285,11 +285,23 @@ step The red crystal
   turnin 4812 only Dwarf,Gnome,Human,Skyborne -- Mysterious Red Crystal
   accept 4813 only Dwarf,Gnome,Human,Skyborne
 
-step Cliffspring Falls
-  tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
+step The Cliffspring River sample
+  tip Follow the hills north to the Cliffspring River and up to the falls.
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   collect 15845 quest 6122.1 only NightElf,Skyborne,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
+
+step The Cliffspring cave
+  only NightElf,Skyborne,Druid
+  when level>=19
+  when onquest 6122
+  when onquest 947
+  tip If you are already at the cave for Alanndarian's sampler, pick the Scaber Stalks and the Death Cap while here. The Death Cap is at the back, past the naga; pull them one at a time.
+  collect 5271 quest 947                      -- Scaber Stalks; below ground
+  collect 5270 quest 947                      -- Death Cap; below ground
+
+step Cliffspring Falls
+  tip Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
   accept 4727                                 -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
   collect 12237 quest 1138                    -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
@@ -305,6 +317,8 @@ step Auberdine
   use 12346 @37.8,44.0 map 1439
   collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
   turnin 4813 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
+  turnin 947 optional only NightElf,Skyborne,Druid -- Barithras Moonshade, if you already picked the mushrooms
+  accept 948 optional only NightElf,Skyborne,Druid -- For the Grove on the southern loop
   turnin 4727                                 -- Gwennyth Bly'Leggonde
   turnin 4725
   turnin 1138                                 -- Gubber Blump, on the pier
