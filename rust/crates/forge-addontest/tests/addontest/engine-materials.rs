@@ -253,6 +253,30 @@ fn an_item_no_profession_guide_has_counts_its_mail_its_purchases_and_the_bank_th
 }
 
 #[test]
+fn live_material_totals_use_one_bag_read_per_item_and_pick_up_the_next_inventory_change() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local bag, bank = 3, 7
+		local reads, inclusive = 0, 0
+		local count = C_Item.GetItemCount
+		C_Item.GetItemCount = function(id, withBank)
+			if id ~= 2589 then return count(id, withBank) end
+			if withBank then inclusive = inclusive + 1; return bank + bag end
+			reads = reads + 1; return bag
+		end
+		local total, parts = M.Have(2589)
+		r.guide = { total, parts.bags, parts.bank, reads, inclusive }
+		bag, reads, inclusive = 0, 0, 0
+		r.character = { M.OwnCounts()[2589], reads, inclusive }
+		"#,
+	);
+	assert_eq!(out["guide"], json!([10, 3, 7, 1, 1]));
+	assert_eq!(out["character"], json!([7, 1, 1]), "the next read keeps bank-only materials, not the previous bag count");
+}
+
+#[test]
 fn the_materials_counted_are_every_profession_guide_s_and_the_tabs_items_without_indexing_the_guides_nobody_runs() {
 	// Materials.Tracked reads the items alone of a guide whose ways nobody asks (any character holds every
 	// profession guide); the per-goal index comes with Materials.Way. Tabs, a replacement and a release follow.
