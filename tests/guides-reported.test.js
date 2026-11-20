@@ -18257,3 +18257,14 @@ test('Redridge\'s walk-in goto is only for players not yet in Redridge (#3070)',
 	assert.equal(walk.length, 1, 'the walk-in step before Guard Howe');
 	assert.ok((walk[0].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Redridge Mountains'), '`when !zone "Redridge Mountains"`');
 });
+
+// #3044 (shatteredeagle, 0.4.1.1): Fully explore Frostmane Hold ticks only at the troll cave's far end (players'
+// recordings: 68 people, all at the step's point inside); a player on the hill above stood at the arrow with nothing
+// ticking. The tip says the spot is inside, at the far end.
+for (const guide of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide']) {
+	test(`${guide}: Frostmane Hold's tip says the exploration ticks at the cave's far end (#3044)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'complete 287', is('complete', 287))];
+		assert.match(step.note || '', /ticks only in there, not on the hill above it/);
+	});
+}

@@ -14403,6 +14403,23 @@
 				}
 			],
 			"issue": 3070
+		},
+		{
+			"id": "3044-frostmane-hold-far-end",
+			"faction": "Alliance",
+			"at": {
+				"quest": 287,
+				"goal": "complete"
+			},
+			"tip": "Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore Frostmane Hold ticks only in there, not on the hill above it.",
+			"note": "#3044: Frostmane Hold's exploration line ticks only at the cave's far end; the goal's point has no height, so a player on the hill above it stood at the arrow with nothing ticking. The tip says the spot is inside, at the far end (the dwarf and gnome Dun Morogh guides).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 287: line 2 ticked for 68 people at map 1426 21.09-21.53, 53.90-54.71"
+				}
+			],
+			"issue": 3044
 		}
 	]
 }
