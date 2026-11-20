@@ -18286,3 +18286,10 @@ test('forever/alliance/03-loch-modan.guide: both Marcus Jonathan steps say he ri
 	assert.equal(steps.length, 2, 'two Stormwind steps hand in 120');
 	for (const s of steps) assert.match(s.note || '', /Valley of Heroes/, s.title);
 });
+
+// #3067 (Shizo, 0.4.1.1): Pearl Diving's hand-in in the Valley of Fangs showed whether or not the Blue Pearl, from the
+// guide before, was in the bags. Its step shows only once the quest is complete.
+test('forever/alliance/40-50/02-badlands.guide: Pearl Diving is handed in only when complete (#3067)', { skip }, () => {
+	const step = compiled('forever/alliance/40-50/02-badlands.guide').steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 705));
+	assert.ok(step && whenQuestOf(step, ['complete'], 705), 'turnin 705 sits in a step with `when complete 705`');
+});

@@ -14465,6 +14465,24 @@
 				}
 			],
 			"issue": 3220
+		},
+		{
+			"id": "3067-pearl-diving-handin-when-complete",
+			"faction": "Alliance",
+			"at": {
+				"quest": 705,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 705",
+			"note": "#3067: Pearl Diving's Blue Pearls come from the clams of Stranglethorn's north-west coast, in the guide before; a player who carried the quest without them was still sent to Rigglefuzz in the Valley of Fangs. The hand-in's step shows only once the quest is complete, as Beren's Peril's does (#3212).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3067 (0.4.1.1): sent to hand in Pearl Diving without the Blue Pearl"
+				}
+			],
+			"issue": 3067
 		}
 	]
 }
