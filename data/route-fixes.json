@@ -6409,6 +6409,7 @@
 			"Alliance 50-60 fix round 3 (0.4.0): 50-60/01's top-up to 50.56 on the Thunderhead Hippogryphs (46-48, two to four under the player) around Sanath Lim-yo's camp is gone; its minutes land on the next one, \"Level 51.3 on the way north\" on the Spitelash Myrmidons (50-51), a `level` step with the dungeon line, where the Azshara quests that follow need the level (level model: no change to the route's hours). Hand edits.",
 			"Alliance 50-60 fix round 3 (0.4.0): after the Fallen Hero of the Horde (Swamp of Sorrows 34.3,66.1), 50-60/01 has a travel step back into the Blasted Lands to the bloodmages' camp by the road (50.6,14.2) before the beast hunt; the hunt's step changed zone with no travel line (honest playtest). Hand edits.",
 			"Alliance 40-50 route round (0.4.3, AuditA40 5(b)): the Riverglades guide (40-50/01b) warns early visitors. Its first quest step (Scout Bolain) says the guide is written for 41-45 and the route comes at about 41 after Stranglethorn, with the port's second wave and the Western Front at 43-45 (elite Twilight Enforcers 45, Overlord Kilgar 46 for groups); a `when level<44` step before Sergeant Riftan names the Western Front's Champions (43-44), Thralls (44), the Enforcer patrols and Kilgar. Players who went in on their own at 38-43 died there most (players' recordings: Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, No Soldier Left Behind 9/13 at 44.4; followers of the guide 2/4). Hand edits.",
+			"Alliance 30-40 fix round (2026-11-20): 30-40/03 takes Wharfmaster Dizzywig (1111, with Rocket Car Parts' hand-in) and Pozzik's Goblin Sponsorship (1178, with Load Lightening's) at the Mirage Raceway and hands both in at Ratchet beside the Booty Bay boat, Gazlowe's 1180 goes to Wharfmaster Lozgil on the Booty Bay dock where 30-40/04 lands and Lozgil's 1181 to Baron Revilgaz on that stop (the include records above already place them after 1110, 1176, 1178 and 1180; no walk added). A Host of Evil (6626) is a `when group 6626` step on the Barrens leg: the Razorfen Battleguards, Thornweavers and Death's Head Cultists outside Razorfen Downs are elites of 33-34 at players' 32-33. A Bump in the Road (1175) stays out (the Alliance skip above): a `when level>=34` step never shows in a 31-33 guide. Hand edits.",
 			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals and soil at the Lashers and Threshers (56.6,35.0; 48-50) and J.D. Collie's crystals at the clusters on the jungle's north-eastern edge (72.2,21.1; Lashers, young Diemetradons and Pterrordax 48-50), away from the Flayers, Trappers, Tar Lords and oozes (50-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45), right before the content that needs it. Un'Goro's 49.79 top-up, shown only to players under the plan, points at the eastern jungle's Lashers and Threshers (48-50) instead of the Pterrordax (50-52); Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) is gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
@@ -11412,6 +11413,51 @@
 					3601
 				],
 				"reason": "Horde level tidy, round 3 (0.4.0): Kim'jael's \"Missing\" Equipment (level 53, 6,550 XP) is taken with Kim'jael Indeed!'s hand-in on 50-60/04's Thalassian Base Camp trip (about 55.9). Some Rune drops from the Spitelash Sirens and Myrmidons (50-52), which reach the northern edge of the Ruins of Eldarath (about 47,44), 800 yd south of Kim'jael: a short ride there and back before the road west, about 2.5 minutes mounted plus the kills. Players' recordings: the rune looted off Sirens (6195) and Myrmidons (6196), handed in at Kim'jael.",
+				"issue": "-"
+			},
+			{
+				"q": 1265,
+				"after": [
+					"turnin",
+					1264
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): The Missing Diplomat (level 35, from 28, 275 XP) is taken from Commander Samaul with Tapoke's report (1264) on 30-40/03's first Theramore stop and done at Sentry Point, the watchtower where the road to the Shady Rest Inn turns west: Archmage Tervosh appears at its foot once it is explored (players' recordings: 45 people, Tervosh seen at the tower at the objective's tick, hand-in at him). It waited for 40-50/01 at 39 although 30-40/03 walks past the tower at 32. Tervosh's next errand (1266, Private Hendel at North Point Tower) stays on 40-50/01, whose route goes there.",
+				"issue": "-"
+			},
+			{
+				"q": 1252,
+				"after": [
+					"accept",
+					1253
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lieutenant Paval Reethe's badge (level 40, from 30, 780 XP; a talk quest) lies in the ashes of the Shady Rest Inn beside the Black Shield (1253) that 30-40/03 takes there, and goes to Captain Vimes, whom the guide's second Theramore stop visits for 1284 and 1320. Players' recordings: accepted at a 25th percentile of 33.0 (43 Alliance characters).",
+				"issue": "-"
+			},
+			{
+				"q": 1259,
+				"after": [
+					"turnin",
+					1252
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Vimes's follow-up (315 XP) goes to Adjutant Tesoran on the same floor of Foothold Citadel, on 30-40/03's second Theramore stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1285,
+				"after": [
+					"turnin",
+					1259
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Daelin's Men (285 XP), Tesoran back to Vimes on the same floor. The Deserters (1286, Balos Jacken, off 30-40/03's path) stays on 40-50/01.",
+				"issue": "-"
+			},
+			{
+				"q": 1100,
+				"after": [
+					"accept",
+					1135
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lonebrow's Journal (level 34, from 29, 1,350 XP): the journal (object 19861) lies about 200 yd north-east of the Great Lift's foot, which 30-40/03 takes down to Highperch, and Falfindel Waywarder stands about 480 yd north of the Highperch wyverns: about 700 yd added. Players' recordings: accepted at a 25th percentile of 31.8 (42 Alliance characters). The Crone of the Kraul (1101) is inside Razorfen Kraul: left out.",
 				"issue": "-"
 			}
 		],

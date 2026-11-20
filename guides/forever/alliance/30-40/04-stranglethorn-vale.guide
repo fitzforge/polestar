@@ -41,7 +41,9 @@ step Boat to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  turnin 1180                         -- Wharfmaster Lozgil, on the dock
+  accept 1181                         -- Wharfmaster Lozgil: for Baron Revilgaz, upstairs in the tavern
   getfp "Booty Bay"
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside
@@ -54,6 +56,8 @@ step Booty Bay
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578
+  turnin 1181                         -- Baron Revilgaz
+  note The Baron's next errand sends you into the Venture Co. house at Lake Nazferiti, among Venture Co. Agents (39): leave it.
 
 step North to Nesingwary's Expedition
   zone Stranglethorn Vale
