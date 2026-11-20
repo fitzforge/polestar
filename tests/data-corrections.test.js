@@ -574,6 +574,17 @@ test("Champion's Hall quartermasters sell and repair gear, but offer no inn or a
 	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
+// #3241: Lookup's step for Powering the Pylons (96018) said "Elite: group advised" at the Mana Sieve's altar. The
+// Codex marks an object's objective when hostile elites stand within 40 yards of it, and an elite with no side counts
+// as hostile: the altar's Pylon Protectors (level 61) have none in the merged data, yet players' recordings show them
+// neutral to all 64 people who met them, never fought. Sweep: every elite with no side that marks a Codex objective,
+// checked against the recordings; these six more were seen only neutral or friendly and never killed.
+test('elites players only ever saw neutral are neutral to both sides, so no objective beside them reads "group advised" (#3241)', () => {
+	for (const npc of [252695, 11102, 266878, 266880, 271742, 270571, 269699]) {
+		assert.equal(corrections.npcs[npc]?.set?.faction, 'AH', `npc ${npc}: neutral to both sides`);
+	}
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC

@@ -3598,5 +3598,81 @@
 			}
 		],
 		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"252695": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 64 people (61 established), killed 0 times (rec.py npc 252695)"
+		},
+		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the Codex counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
+	},
+	"11102": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), friendly by 3, killed 0 times (rec.py npc 11102)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template 11102 faction 1625"
+			}
+		],
+		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the Codex counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266878": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), killed 0 times (rec.py npc 266878)"
+		},
+		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the Codex counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266880": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 4 people (3 established), killed 0 times (rec.py npc 266880)"
+		},
+		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the Codex counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"271742": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 15 people (13 established), killed 0 times (rec.py npc 271742)"
+		},
+		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"270571": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 6 people (5 established), friendly by 1, killed 0 times (rec.py npc 270571)"
+		},
+		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"269699": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
+		},
+		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	}
 }
