@@ -12396,7 +12396,9 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const boat = at(stv, 'the Theramore boat', (g) => g.t === 'goto' && g.x === 71.6 && g.y === 56.4);
 	const vimes = at(stv, 'turnin 1287', is('turnin', 1287));
-	assert.ok(vimes < boat && stv[vimes].step.only, 'Humans report to Vimes before the Theramore boat');
+	// Since the 2026-11-20 fix pass every character ends the Dustwallow loop at Vimes (then the boat for Humans at 40,
+	// the flight to Ratchet for the rest), so the report still comes before the boat, for everyone.
+	assert.ok(vimes < boat && !stv[vimes].step.only, 'everyone reports to Vimes, before the Theramore boat');
 	const thyntel = at(stv, 'turnin 1037', is('turnin', 1037));
 	assert.ok(thyntel < at(stv, 'the walk to the riding trainer', (g) => g.t === 'goto' && g.x === 38.7 && g.y === 15.8), 'Night Elves see Thyn\'tel on the way in');
 	const sg = 'forever/alliance/40-50/06-searing-gorge.guide';

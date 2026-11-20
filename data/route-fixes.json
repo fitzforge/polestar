@@ -11748,6 +11748,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 1287,
+				"after": [
+					"turnin",
+					1286
+				],
+				"reason": "Alliance 40-50 fix pass (2026-11-20): The Deserters (level 38, 2,850 XP) goes back to Captain Garran Vimes in Theramore at the end of 40-50/01's Dustwallow loop for every character, about 1,700 yards east of Balos Jacken with the flight master 99 yards past Vimes, and the guide flies Theramore -> Ratchet for the Booty Bay boat (both flight points are learnt in 30-40/03; the walk stays for a character without Ratchet's). Only Humans at 40 did so before; everyone else walked about 3,000 yards through the Barrens and carried 1287 through 01b to 40-50/02's Theramore stop (level model: handed in there at about 45.2 in 21 of 28 runs).",
+				"issue": "-"
+			},
+			{
 				"q": 1252,
 				"after": [
 					"accept",
