@@ -3667,7 +3667,7 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 64 people (61 established), killed 0 times (rec.py npc 252695)"
 		},
-		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the Codex counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
+		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the addon counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
 	},
 	"11102": {
 		"set": {
@@ -3683,7 +3683,7 @@
 				"ref": "creature_template 11102 faction 1625"
 			}
 		],
-		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the Codex counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the addon counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
 	},
 	"266878": {
 		"set": {
@@ -3693,7 +3693,7 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), killed 0 times (rec.py npc 266878)"
 		},
-		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the Codex counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	},
 	"266880": {
 		"set": {
@@ -3703,7 +3703,7 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 4 people (3 established), killed 0 times (rec.py npc 266880)"
 		},
-		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the Codex counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	},
 	"271742": {
 		"set": {
@@ -3713,7 +3713,7 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 15 people (13 established), killed 0 times (rec.py npc 271742)"
 		},
-		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	},
 	"270571": {
 		"set": {
@@ -3723,7 +3723,7 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 6 people (5 established), friendly by 1, killed 0 times (rec.py npc 270571)"
 		},
-		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	},
 	"269699": {
 		"set": {
@@ -3733,6 +3733,6 @@
 			"kind": "recording",
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
 		},
-		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the Codex counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	}
 }
