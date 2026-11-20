@@ -3494,6 +3494,9 @@ L["Abandon it from your quest log."] = "Откажитесь от него в ж
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "Маршрут впереди ещё не определён (нужно выбрать или загрузить гайд), поэтому нельзя сказать, какие задания он оставит."
 L["The route hands in every quest in your log."] = "Маршрут сдаёт все задания из вашего журнала."
 L["Clean up quest log (%d)"] = "Очистить журнал заданий (%d)"
+L["Hand in finished quests (%d)"] = "Сдать выполненные задания (%d)"
+L["None to hand in"] = "Нечего сдавать"
+L["Quest log is clean"] = "Журнал заданий чист"
 L["Clean up quest log"] = "Очистить журнал заданий"
 L["Grey: no XP any more"] = "Серое: опыта больше нет"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
@@ -4529,7 +4532,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Быстрые настройки"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Стрелка и окно гайда отключаются. Polestar сам продолжит работу, когда вы живым выйдете из подземелья."
 L["Open tabs (%d)"] = "Открытые вкладки (%d)"
 
 -- UI/QuickSettings.lua
@@ -5012,3 +5014,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Размер текста Polestar независимо от масштаба окна. Меняется сразу. Щелкните правой кнопкой мыши для сброса."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Нет хлама, чтобы освободить место. Ctrl+Alt-щелчок по предмету помечает его как хлам."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Во время паузы задания не принимаются и не сдаются за вас, а награда не выбирается, пока Polestar не продолжит работу."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Стрелка и окно гайда отключаются. Polestar сам продолжит работу, когда вы живым выйдете из подземелья."

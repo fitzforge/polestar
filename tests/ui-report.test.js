@@ -449,9 +449,11 @@ test('what the player typed stays while it is the same step; a report on another
 	assert.deepEqual(out.other, { text: '', placeholder: true, report: '**What went wrong:** (not described)' });
 });
 
-test('the guide window\'s menu and /polestar report open it too; Escape closes it', () => {
+test('the guide window\'s menu (with the header\'s bug off) and /polestar report open it too; Escape closes it', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The menu lists Report a problem while the header has no bug to click.
+		GF.parts.nav.Report:Hide()
 		GF.menuButton:Click()
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Report a problem" then r:Click() end end
 		local fromMenu = PolestarReport:IsShown()

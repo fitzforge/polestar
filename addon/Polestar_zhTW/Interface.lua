@@ -3494,6 +3494,9 @@ L["Abandon it from your quest log."] = "從你的任務日誌中放棄它。"
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "後續路線尚未確定（需選擇或載入指南），因此無法得知它會留下哪些任務。"
 L["The route hands in every quest in your log."] = "路線會繳交你任務日誌中的所有任務。"
 L["Clean up quest log (%d)"] = "清理任務日誌 (%d)"
+L["Hand in finished quests (%d)"] = "繳交已完成的任務 (%d)"
+L["None to hand in"] = "沒有要繳交的任務"
+L["Quest log is clean"] = "任務日誌已清理"
 L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
@@ -4529,7 +4532,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "快速設定"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "箭頭和指南視窗會讓開。你活著離開地城後，Polestar 會自動恢復。"
 L["Open tabs (%d)"] = "開啟的分頁（%d）"
 
 -- UI/QuickSettings.lua
@@ -5005,3 +5007,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "沒有可騰出空間的垃圾。Ctrl+Alt 點擊物品可將其標記為垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "箭頭和指南視窗會讓開。你活著離開地城後，Polestar 會自動恢復。"

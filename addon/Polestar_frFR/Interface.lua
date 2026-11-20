@@ -3495,6 +3495,9 @@ L["Abandon it from your quest log."] = "Abandonnez-la depuis votre journal des q
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "L'itinéraire à venir n'est pas encore fixé (un guide à choisir ou à charger) : impossible de dire quelles quêtes il laisse de côté."
 L["The route hands in every quest in your log."] = "L'itinéraire rend toutes les quêtes de votre journal."
 L["Clean up quest log (%d)"] = "Nettoyer le journal des quêtes (%d)"
+L["Hand in finished quests (%d)"] = "Rendre les quêtes terminées (%d)"
+L["None to hand in"] = "Rien à rendre"
+L["Quest log is clean"] = "Le journal de quêtes est propre"
 L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
@@ -4530,7 +4533,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Réglages rapides"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."
 L["Open tabs (%d)"] = "Onglets ouverts (%d)"
 
 -- UI/QuickSettings.lua
@@ -5053,3 +5055,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Aucune camelote pour faire de la place. Ctrl+Alt-clic sur un objet pour le marquer comme camelote."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."

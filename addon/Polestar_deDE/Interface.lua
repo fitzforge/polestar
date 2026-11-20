@@ -3464,6 +3464,9 @@ L["Abandon it from your quest log."] = "Brich sie in deinem Questlog ab."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "Die Route voraus steht noch nicht fest (ein Guide ist zu wählen oder zu laden), darum kann sie nicht sagen, welche Quests sie zurücklässt."
 L["The route hands in every quest in your log."] = "Die Route gibt jede Quest in deinem Log ab."
 L["Clean up quest log (%d)"] = "Questlog aufräumen (%d)"
+L["Hand in finished quests (%d)"] = "Erledigte Quests abgeben (%d)"
+L["None to hand in"] = "Nichts abzugeben"
+L["Quest log is clean"] = "Questlog ist sauber"
 L["Clean up quest log"] = "Questlog aufräumen"
 L["Grey: no XP any more"] = "Grau: keine EP mehr"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Die Route braucht diese nicht: Sie gibt sie nie ab, oder sie bringen keine EP mehr. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."
@@ -4517,7 +4520,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Schnelleinstellungen"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Der Pfeil und das Guide-Fenster treten zur Seite. Polestar läuft von selbst weiter, wenn du einen Dungeon lebend verlässt."
 L["Open tabs (%d)"] = "Offene Tabs (%d)"
 
 -- UI/QuickSettings.lua
@@ -5042,3 +5044,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Die Größe von Polestars Text, unabhängig von der Fenstergröße. Wirkt sofort. Rechtsklick zum Zurücksetzen."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Kein Plunder, um Platz zu schaffen. Strg+Alt-Klick auf einen Gegenstand markiert ihn als Plunder."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Während der Pause werden keine Quests für dich angenommen oder abgegeben und keine Belohnung gewählt, bis Polestar weiterläuft."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Der Pfeil und das Guide-Fenster treten zur Seite. Polestar läuft von selbst weiter, wenn du einen Dungeon lebend verlässt."
