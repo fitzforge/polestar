@@ -189,6 +189,25 @@ local function withBoard(e, b)
 	return e
 end
 
+-- Whether (wx, wy) on continent c is one of TravelData's own places a walk starts or ends at: a flight master, a
+-- transport's end or the deck it is boarded from (the tram's ends among them), a portal's end or deck. Routing/Path.lua
+-- departs from one without terrain evidence: the walking maps often lack the platform, deck or tower top it is on.
+function Travel.IsEnd(p, c, wx, wy)
+	return p ~= nil and p.c == c and math.abs(p.wx - wx) < .05 and math.abs(p.wy - wy) < .05
+end
+function Travel.CuratedEnd(c, wx, wy)
+	local at = Travel.IsEnd
+	for _, n in ipairs(taxiList) do
+		if at(n, c, wx, wy) then return true end
+	end
+	for pass = 1, 2 do
+		for _, t in ipairs(pass == 1 and transports or portals) do
+			if at(t.a, c, wx, wy) or at(t.b, c, wx, wy) or at(t.a.board, c, wx, wy) or at(t.b.board, c, wx, wy) then return true end
+		end
+	end
+	return false
+end
+
 local function clearData()
 	taxi, taxiList, taxiByName, flights, npcClass = {}, {}, {}, {}, {}
 	transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}

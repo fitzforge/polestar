@@ -18398,3 +18398,33 @@ test('forever/alliance/40-50/01b-riverglades.guide: Apprentice Claire\'s steps n
 		assert.match(step.note || '', /cave.*50\.0,46\.0/, `${t} 95642: ${step.title}`);
 	}
 });
+
+// #3302 (Maerion's Misery, 0.4.1.1): Maerion's Misery (97009) was taken only after the Dae'gun sweep, so its twelve
+// Felhound Spikes, from the same Defiling Hounds as Elaena's essence (92960), cost a second round of hound kills. It is
+// taken at Maerion before the sweep, the sweep carries the spikes as an optional line, and the later Maerion step is the
+// hand-in, shown only while the quest is in the log (ESp3cter's fix, #3257).
+test('forever/50-60/mount-hyjal.guide: Maerion\'s Misery is taken before the Dae\'gun sweep and its spikes come with the essence (#3302)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 97009', is('accept', 97009));
+	const essence = at(list, 'the essence line of 92960', (g) => g.t === 'collect' && g.quest === 92960);
+	assert.ok(accept < essence, 'Maerion\'s Misery is taken before the Dae\'gun sweep');
+	const sweep = list.filter(({ s }) => s === list[essence].s);
+	const spikes = sweep.find(({ goal }) => goal.t === 'collect' && goal.quest === 97009);
+	assert.ok(spikes && spikes.goal.optional, 'the sweep lists the Felhound Spikes as an optional line');
+	const hand = list[at(list, 'turnin 97009', is('turnin', 97009))];
+	assert.ok(hand.s > list[essence].s, 'handed in after the sweep');
+	assert.ok(holdsQuest(hand.step, 97009), 'the hand-in step shows only while 97009 is in the log');
+});
+
+// #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
+// the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha. Players' recordings: the
+// planting (spell 11547) credited the quest at 31.85,57.91 (Hiri'watha) and 23.65,58.36 (Zun'watha).
+test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', { skip }, () => {
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	const rec = places.find((p) => p.quest === 2932 && p.objective === 1);
+	assert.ok(rec, 'data/places.json places Grim Message objective 1');
+	assert.deepEqual(rec.at, { map: 1425, x: 31.9, y: 58.0, frame: 'era' });
+	const naming = allGuides().filter((g) => /\b9319\b/.test(fs.readFileSync(path.join(OFFICIAL_DIR, g), 'utf8')));
+	const plants = naming.flatMap((g) => goals(g).filter(({ goal }) => goal.t === 'use' && goal.item === 9319).map(({ goal }) => [g, goal.map, goal.x, goal.y]));
+	assert.deepEqual(plants, [['forever/horde/40-50/05-the-hinterlands.guide', 1425, 31.9, 58]], 'the one step that plants it points into Hiri\'watha');
+});
