@@ -358,12 +358,26 @@ end
 -- Gossip and Blizzard's dialogs, for the helpers that answer them
 ---------------------------------------------------------------------------
 
--- The open gossip offers a quest to pick up or one to hand in: the quest
--- automation goes first, so a helper leaves such a gossip alone.
+-- The open gossip offers a quest the guide takes (to pick up, or to hand in
+-- at one talk: Engine.WantsQuest) or one ready to hand in: the quest
+-- automation goes first, so a helper leaves such a gossip alone. A quest on
+-- offer that the guide doesn't take holds nothing back: nobody picks it, so
+-- the helper would wait for good (#3088: Gadgetzan's innkeeper offers
+-- Overseas Delivery, off the route, at every level, and the bind never
+-- came). One whose id the client doesn't give still counts.
 function QoL.HasQuestBusiness()
 	local G = C_GossipInfo
 	if not G then return false end
-	if (G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0) > 0 then return true end
+	local n = G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0
+	if n > 0 then
+		local list = G.GetAvailableQuests and G.GetAvailableQuests() or {}
+		if #list < n then return true end
+		local E = ns.Engine
+		for i = 1, #list do
+			local id = list[i].questID
+			if not (id and id ~= 0 and E and E.WantsQuest) or E.WantsQuest("accept", id) or E.WantsQuest("direct", id) then return true end
+		end
+	end
 	if G.GetActiveQuests then
 		local active = G.GetActiveQuests() or {}
 		for i = 1, #active do

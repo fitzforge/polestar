@@ -722,7 +722,9 @@ function C_GossipInfo.GetOptions() return q.gossip.options end
 function C_GossipInfo.GetNumAvailableQuests() return q.gossip.available end
 function C_GossipInfo.GetNumActiveQuests() return #q.gossip.active end
 function C_GossipInfo.GetActiveQuests() return q.gossip.active end
-function C_GossipInfo.GetAvailableQuests() return {} end
+-- opts.availableQuests ({ { questID }, ... }) gives the quests on offer their ids; without it the count alone
+-- (opts.available), as a client that names none.
+function C_GossipInfo.GetAvailableQuests() return q.gossip.availableQuests or {} end
 function C_GossipInfo.ForceGossip() return q.gossip.force end
 function C_GossipInfo.SelectOption(id) call("SelectOption", id) end
 function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
@@ -730,7 +732,8 @@ function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
 function q.openGossip(npc, opts)
 	q.npc = npc
 	q.gossip.options = opts.options or {}
-	q.gossip.available = opts.available or 0
+	q.gossip.availableQuests = opts.availableQuests
+	q.gossip.available = opts.available or (opts.availableQuests and #opts.availableQuests) or 0
 	q.gossip.active = opts.active or {}
 	q.gossip.force = opts.force or false
 	stub.fire("GOSSIP_SHOW")
@@ -890,6 +893,9 @@ end
 
 -- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
 function Engine.KeptItems() return q.engine.kept or {} end
+
+-- q.engine.wants: { ["accept:<id>"] = true, ["direct:<id>"] = true, ... } the quests the guide takes (Engine.WantsQuest).
+function Engine.WantsQuest(verb, questID) return (q.engine.wants or {})[verb .. ":" .. tostring(questID)] == true end
 
 -- A step from raw goals: views get status "active" unless goal.status says otherwise.
 function q.step(goals, index)
