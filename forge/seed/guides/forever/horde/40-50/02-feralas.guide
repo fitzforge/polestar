@@ -368,11 +368,15 @@ step Lost Rigger Cove
   collect 20519 quest 8365.1
   collect 9246 quest 2875.1 @73.4,47.1
   collect 9244 quest 2873.1 @72.1,46.7
+  tip The cove's pirates sometimes drop a Pirate's Footlocker: open it, and if it holds a Ship Schedule, read it to start a quest for the Security Chief in Steamwheedle Port.
+  collect 9250 optional @72.6,46.9      -- Ship Schedule, from a Pirate's Footlocker
+  accept 2876 optional
 
 step Steamwheedle Port
   turnin 2873                           -- Stoley
   accept 2874                           -- for Booty Bay, around level 50
   turnin 2875                           -- Security Chief Bilgewhizzle
+  turnin 2876                           -- Security Chief Bilgewhizzle: the Ship Schedule, if the cove gave you one
   turnin 8366
   turnin 8365                           -- Haughty Modiste
 

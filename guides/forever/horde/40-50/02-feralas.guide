@@ -544,6 +544,9 @@ step Lost Rigger Cove: kill these as you meet them
   collect 9244 quest 2873.1 @72.1,46.7 -- Upstairs
   kill 7857 quest 8366.3
   collect 9246 quest 2875.1 @73.4,47.1
+  tip The cove's pirates sometimes drop a Pirate's Footlocker: open it, and if it holds a Ship Schedule, read it to start a quest for the Security Chief in Steamwheedle Port.
+  collect 9250 optional @72.6,46.9      -- Ship Schedule, from a Pirate's Footlocker
+  accept 2876 optional
 
 # ---------------------------------------------------------------- The southern loop
 step Waterspring Field: kill these as you meet them
@@ -563,6 +566,7 @@ step Steamwheedle Port
   turnin 2873                           -- Stoley, inside
   accept 2874                           -- for Booty Bay, around level 51 (40-50/06)
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
+  turnin 2876                           -- Security Chief Bilgewhizzle: the Ship Schedule, if the cove gave you one
   turnin 8366
 
 step Gadgetzan
