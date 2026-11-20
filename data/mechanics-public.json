@@ -480,6 +480,17 @@
 			],
 			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
 		},
+		"1154": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "explore",
+					"fact": "Enter the Dor'Danil Barrow Den in southern Ashenvale and descend to the bottom for the Legacy of the Aspects.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest describes the book at the bottom of the den. In #3069 the player was at its map point but had no directions underground."
+		},
 		"97536": {
 			"steps": [
 				{
