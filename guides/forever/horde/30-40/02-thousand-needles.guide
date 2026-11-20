@@ -205,8 +205,9 @@ step Dorn Plainstalker
   accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
 
 step Jandia
+  when !turnedin 98070
   zone Thousand Needles
-  tip Jandia, the trade supplies vendor, stands inside Freewind Post's inn.
+  tip Jandia, the trade supplies vendor, stands inside Freewind Post's inn. The previous guide works her harpies; this is for a character who arrives without them.
   accept 98070                        -- Jandia: the Screeching harpies of Roguefeather Den
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
 
@@ -220,6 +221,7 @@ step The Screeching Canyon: kill these as you meet them
   collect 5843 quest 1150             -- Grenka's Claw, from Grenka Bloodscreech
 
 step Jandia
+  when !turnedin 98070
   zone Thousand Needles
   tip Back east to Freewind Post.
   turnin 98070                        -- Jandia, inside the inn
