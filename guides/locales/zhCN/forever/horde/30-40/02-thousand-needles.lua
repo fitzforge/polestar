@@ -238,7 +238,7 @@ return {
 
 	-- Step 45: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
-	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "{npc:12340}站在村庄南端，靠近{npc:12031}。在你的等级，他的{quest:6143}正好并入沿海岸向北的行程：{area:598}的南半部，从34级开始。",
 
 	-- Step 46: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
@@ -279,9 +279,9 @@ return {
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 
 	-- Step 52: Sar'theris Strand: Other Fish to Fry
-	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "留在海滩南半部，拉克摩尔的钥匙就在那里掉落：八只侍从（34-35级）在纳迦、女巫和战士（32-34级）之间游荡。\n小心：北半部是海巫（35-36级，施法者）的地盘，其顶端还有潮行者（36-37级）：待在海滩中部以南。",
 	-- {npc:4714} Slitherblade Myrmidon
-	["{npc:4714}, in the strand's southern half"] = "",
+	["{npc:4714}, in the strand's southern half"] = "{npc:4714}，在海滩南半部",
 
 	-- Step 53: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
@@ -314,11 +314,11 @@ return {
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}，在村子北边不远的小路上",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德鲁泽加的另有要事，以及{zone:1443}其他37-40级任务，留到38级第二次来时再做。接下来的指南会先飞往{zone:1454}，再乘飞艇前往{zone:1434}。"
-	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、{npc:12340}的{quest:6143}（除非你已在海滩上完成）以及{zone:1443}其他37-40级任务，留到38级第二次来时再做。接下来的指南会先飞往{zone:1454}，再乘飞艇前往{zone:1434}。",
 
 	-- Step 58: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
-	["{npc:12340}, near {npc:12031}"] = "",
+	["{npc:12340}, near {npc:12031}"] = "{npc:12340}，靠近{npc:12031}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}所在的高塔。",

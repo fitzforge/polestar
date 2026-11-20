@@ -238,7 +238,7 @@ return {
 
 	-- Step 45: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
-	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "{npc:12340} steht am südlichen Ende des Dorfes, nahe bei {npc:12031}. Auf deiner Stufe passt sein {quest:6143} in den Weg den Küste entlang nach Norden: die Südhälfte von {area:598}, ab Stufe 34.",
 
 	-- Step 46: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
@@ -279,9 +279,9 @@ return {
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Schlangenschuppen-Naga",
 
 	-- Step 52: Sar'theris Strand: Other Fish to Fry
-	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "Bleib in der Südhälfte des Strands, wo Rackmores Schlüssel fällt: Acht Myrmidonen (34-35) laufen dort zwischen Naga, Zauberinnen und Krieger (32-34) umher.\nVorsicht: Die Nordhälfte gehört den Meerhexen (35-36, Zauberwirker) und an ihrer Spitze den Gezeitenjägern (36-37): Bleib südlich der Mitte des Strands.",
 	-- {npc:4714} Slitherblade Myrmidon
-	["{npc:4714}, in the strand's southern half"] = "",
+	["{npc:4714}, in the strand's southern half"] = "{npc:4714}, in der Südhälfte des Strands",
 
 	-- Step 53: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
@@ -314,11 +314,11 @@ return {
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}, auf dem Pfad direkt nördlich des Dorfes",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "Taigas {item:14547}, Drulzegars Andere Fische braten und die anderen Quests für 37-40 in {zone:1443} warten auf den zweiten Besuch, bei 38: Die nächsten Guides fliegen nach {zone:1454} und nehmen den Zeppelin nach {zone:1434}."
-	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "Taigas {item:14547}, {quest:6143} von {npc:12340} (falls du ihn nicht am Strand erledigt hast) und die anderen Quests für 37-40 in {zone:1443} warten auf den zweiten Besuch, bei 38: Die nächsten Guides fliegen nach {zone:1454} und nehmen den Zeppelin nach {zone:1434}.",
 
 	-- Step 58: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
-	["{npc:12340}, near {npc:12031}"] = "",
+	["{npc:12340}, near {npc:12031}"] = "{npc:12340}, nahe bei {npc:12031}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Zurück nach Süden zu {npc:11863}s Turm.",

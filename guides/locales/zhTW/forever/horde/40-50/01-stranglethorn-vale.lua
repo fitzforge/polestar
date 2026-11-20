@@ -164,7 +164,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}，沿{zone:1411}的道路往南到{area:367}：{npc:7953}在那裡教食人妖騎術，旁邊有佐爾尼爾的迅猛龍（每隻20金）。然後回去搭飛艇前往{object:3202}。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1454}。",
 	-- {npc:7953} Xar'Ti
-	["{npc:7953}, riding trainer"] = "",
+	["{npc:7953}, riding trainer"] = "騎術訓練師{npc:7953}",
 
 	-- Step 35: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
