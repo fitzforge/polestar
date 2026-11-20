@@ -131,8 +131,8 @@ step Soil and venison
 
 step The ruined catapult and flying machine
   tip Two of the wrecks Ketharas named lie at the east end of the fields: plant one of his seeds beside each.
-  goto 62.6,82.9 "Ruined Catapult"
-  goto 66.1,83.2 "Ruined Flying Machine"
+  goto 62.9,82.9 "Ruined Catapult"
+  goto 66.1,83.5 "Ruined Flying Machine"
 
 step The shrub field
   tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
@@ -265,7 +265,7 @@ step Felflick
   when onquest 96255
   turnin 96255 @49.3,77.1
   accept 96322 @49.3,77.1               -- A Revenge Now Bitter
-  talk 263757 @49.3,77.1                -- Felflick: decide his fate
+  complete 96322 @49.3,77.2             -- Felflick: decide his fate
 
 step Finish the slime ooze
   when !has 273008 x8
@@ -284,8 +284,8 @@ step The Curious Crow
 
 step The Ashen workstations
   tip Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.
-  goto 43.4,76.2 "Slime Workstation"
-  goto 44.3,72.5 "Alchemy Workstation"
+  goto 42.5,73.1 "Slime Workstation"
+  goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
   goto 49.6,69.6 "Vessel Workstation"
   complete 95316
@@ -329,7 +329,7 @@ step Orokai
   tip South-west to Orokai, the ancient. Talk to him again when you are ready and watch what he shows you.
   turnin 96209
   accept 95006                          -- Stolen Power
-  talk 216289                           -- Orokai: ready to watch
+  complete 95006                        -- Orokai: ready to watch
 
 step Dendrite Starblaze
   tip Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
