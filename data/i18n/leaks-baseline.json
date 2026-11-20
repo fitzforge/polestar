@@ -38427,27 +38427,6 @@
 				],
 				"english": "Ravaging Tempest"
 			},
-			"npc:217588": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Arbor Tarantula"
-			},
-			"npc:217589": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Hay Weevil"
-			},
-			"npc:217590": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Flesh Picker"
-			},
 			"npc:217836": {
 				"reason": "no-source",
 				"scenes": [
@@ -38649,30 +38628,6 @@
 				],
 				"english": "Emissary Jacques"
 			},
-			"npc:248242": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Hamish Bergwort"
-			},
-			"npc:248248": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Blixie Fitzwink"
-			},
-			"npc:248265": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Ormin Pelford"
-			},
 			"npc:248266": {
 				"reason": "no-source",
 				"scenes": [
@@ -38680,29 +38635,6 @@
 					"guides"
 				],
 				"english": "Hagar Lowe"
-			},
-			"npc:248278": {
-				"reason": "no-source",
-				"scenes": [
-					"guide"
-				],
-				"english": "Croaky"
-			},
-			"npc:248362": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Shinyfinder Narf"
-			},
-			"npc:248464": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Nimsy"
 			},
 			"npc:248474": {
 				"reason": "no-source",
@@ -38745,21 +38677,6 @@
 				],
 				"english": "Den'dralass"
 			},
-			"npc:251493": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Captain McManus"
-			},
-			"npc:251507": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Josephine Carson"
-			},
 			"npc:251676": {
 				"reason": "no-source",
 				"scenes": [
@@ -38773,13 +38690,6 @@
 					"guides"
 				],
 				"english": "Strange Hermit"
-			},
-			"npc:251997": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Norvin Alderman"
 			},
 			"npc:252085": {
 				"reason": "no-source",
@@ -39096,13 +39006,6 @@
 				],
 				"english": "Ashe Amberhall"
 			},
-			"npc:257808": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Braldir Ashmantle"
-			},
 			"npc:257944": {
 				"reason": "no-source",
 				"scenes": [
@@ -39118,13 +39021,6 @@
 				],
 				"english": "Twilight Forgemaster"
 			},
-			"npc:258043": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Norric Lochthane"
-			},
 			"npc:258130": {
 				"reason": "no-source",
 				"scenes": [
@@ -39138,13 +39034,6 @@
 					"guides"
 				],
 				"english": "Naaleos Leafwhisper"
-			},
-			"npc:258203": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Hervdana Saegrund"
 			},
 			"npc:258652": {
 				"reason": "no-source",
@@ -39253,13 +39142,6 @@
 					"slash"
 				],
 				"english": "Galemender Delanea"
-			},
-			"npc:259431": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Rudolph Gelhardt"
 			},
 			"npc:259433": {
 				"reason": "no-source",
@@ -39419,34 +39301,12 @@
 				],
 				"english": "Scaldaron"
 			},
-			"npc:263399": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Sam Sarsaparilla"
-			},
 			"npc:263886": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Primeval Elemental"
-			},
-			"npc:264072": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Yorn Grimtotem"
-			},
-			"npc:264074": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Mazu'kon"
 			},
 			"npc:264079": {
 				"reason": "no-source",
@@ -39462,26 +39322,12 @@
 				],
 				"english": "Gloomrise Spinner"
 			},
-			"npc:264082": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Broodmother Valraxx"
-			},
 			"npc:264083": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Gloomrise Soldier"
-			},
-			"npc:264096": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Gnawed Corpse"
 			},
 			"npc:264770": {
 				"reason": "no-source",
@@ -39512,26 +39358,12 @@
 				],
 				"english": "Captain Truman"
 			},
-			"npc:265756": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Genn Fairweather"
-			},
 			"npc:265810": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Kaga Wildhoof"
-			},
-			"npc:266216": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Lord Tomas"
 			},
 			"npc:266901": {
 				"reason": "no-source",
@@ -39549,13 +39381,6 @@
 					"guides"
 				],
 				"english": "Leonid Barthalomew the Revered"
-			},
-			"npc:267214": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Va'xug Firefure"
 			},
 			"npc:268423": {
 				"reason": "no-source",
@@ -39599,13 +39424,6 @@
 				],
 				"english": "Brazier of Offering"
 			},
-			"npc:269075": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Snow Leopard Prowler"
-			},
 			"npc:269127": {
 				"reason": "no-source",
 				"scenes": [
@@ -39628,13 +39446,6 @@
 				],
 				"english": "Alfina Nightgaze"
 			},
-			"npc:270637": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Howin Kindfeather"
-			},
 			"npc:270892": {
 				"reason": "no-source",
 				"scenes": [
@@ -39650,13 +39461,6 @@
 					"slash"
 				],
 				"english": "Blightsculler"
-			},
-			"npc:271181": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Eye of Kilrogg"
 			},
 			"npc:271322": {
 				"reason": "no-source",
@@ -39679,13 +39483,6 @@
 				],
 				"english": "Carnage"
 			},
-			"npc:271338": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Ados"
-			},
 			"npc:271373": {
 				"reason": "no-source",
 				"scenes": [
@@ -39693,26 +39490,12 @@
 				],
 				"english": "Subdued Dragonspawn"
 			},
-			"npc:271458": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Neru"
-			},
 			"npc:271460": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Modr"
-			},
-			"npc:271462": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Golm"
 			},
 			"npc:271481": {
 				"reason": "no-source",
@@ -39727,13 +39510,6 @@
 					"guides"
 				],
 				"english": "Mountaineer Gretchen"
-			},
-			"npc:272203": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Perith Stormhoof"
 			},
 			"npc:272561": {
 				"reason": "no-source",
@@ -40162,13 +39938,6 @@
 				],
 				"english": "Oracle Tree Bark"
 			},
-			"object:673515": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Memory of Valor"
-			},
 			"object:694732": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -40191,14 +39960,6 @@
 					"guides"
 				],
 				"english": "Junk Pile"
-			},
-			"object:694855": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Overgrown Duskweed"
 			},
 			"object:694895": {
 				"reason": "no-source",
