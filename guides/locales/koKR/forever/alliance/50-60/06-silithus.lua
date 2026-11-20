@@ -54,7 +54,7 @@ return {
 
 	-- Step 10: Everlook flight master
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "{area:2255} 비행 조련사",
 	["Maethrya, the Alliance flight master"] = "",
 
 	-- Step 11: Marshal's Refuge flight master
