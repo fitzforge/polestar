@@ -155,6 +155,42 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 }
 
 #[test]
+fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
+	let out = run_compass(
+		r#"
+		nav.useGameGround()
+		nav.faction = "Horde"
+		Polestar.Set("nav.travel", false)
+		-- An Alliance boundary near Stormwind. The same waypoint stays on the safe side
+		-- while the player passes it, steps onto enemy ground and turns back out.
+		local wx, edge = -8143-1/3, 600
+		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
+		nav.place(wx, edge + 34)
+		local tx, ty = nav.Compat.WorldToMap(0, wx, edge + 11, 1429)
+		N.SetTarget(1429, tx, ty, "Outside town")
+		stub.advance(.5)
+		local function walk(i)
+			nav.place(wx, edge + 34 - i * .32)
+			stub.advance(.05)
+		end
+		for i = 1, 120 do walk(i) end
+		local refused = A.GetMode()
+		for i = 119, 0, -1 do
+			walk(i)
+			if A.GetMode() == "travel" then
+				local y = nav.player.wy
+				local a = nav.facing + A.GetAngle()
+				local why = N.danger.Blocked(0, wx, y, wx+.32*math.cos(a), y+.32*math.sin(a), nav.faction)
+				emit({ refused, why or "clear", math.sin(a) > 0 })
+				return
+			end
+		end
+		emit({refused, "did not resume"})"#,
+	);
+	assert_eq!(out, json!(["unsafe", "clear", true]), "the first visible walking stride must lead away from town");
+}
+
+#[test]
 fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn_a_second_turning_the_camera_moves_the_arrow_at_once() {
 	let out = run_compass(
 		r#"

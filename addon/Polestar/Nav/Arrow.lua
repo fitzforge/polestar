@@ -839,6 +839,8 @@ local function setMode(m)
 	mode = m
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
+	-- Resume on the new walk's bearing, not a heading from before guidance stopped.
+	if not travel then hasAngle = false end
 	dial:SetShown(travel or done or act or idle)
 	grabArea(travel or done or act or idle)
 	showArrow(travel)
