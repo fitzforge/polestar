@@ -17,6 +17,21 @@
 			],
 			"note": "Chief Engineer Scooty (2842) is offered from Sovik's (3413) chat option (gossip option 95758), never from his window's quest list. Source: players' in-game recordings to 2026-11-11: 11 people opened it, every one through that option, and no window of his in the recordings listed it; the player report #1762. The server data puts the same option in his menu, beside his goods, and asks for Rig Wars (2841) in the log: 10 of the 11 people had it, one did not."
 		},
+		"5527": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "accept",
+					"target": {
+						"type": "npc",
+						"id": 11801
+					},
+					"fact": "Rabine Saturna offers A Reliquary of Purity only after you have been inside Dire Maul once: go into Dire Maul, come back, ask her about Dire Maul, and the quest opens.",
+					"confidence": "medium"
+				}
+			],
+			"note": "A Reliquary of Purity (5527) is not offered by Rabine Saturna (11801) until the player has entered Dire Maul. Source: two player reports (#3104, #3270), one of them tried it: after zoning into Dire Maul East and asking Rabine about Dire Maul, the quest opened. Players' in-game recordings to 2026-11-20 agree: Rabine refused it to 6 people who could take it (level 56 and up) and offered it to 4; one person's windows at level 57 refused it six times before one offered it."
+		},
 		"1918": {
 			"steps": [
 				{

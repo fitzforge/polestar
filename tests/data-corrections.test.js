@@ -53,6 +53,12 @@ test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3
 	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
 });
 
+test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[5527].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 11801]);
+	assert.match(step.fact, /inside Dire Maul once/);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
