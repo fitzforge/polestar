@@ -6463,11 +6463,10 @@ function Own.isField(goal)
 	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
--- A goal a `loop` step placed on its points though it is no field goal: a
--- `skill` on a gathering round, or the accept, turnin or talk of an NPC who
--- walks (`spread` over the loop's `spots`). Its points are searched one after
--- another as a field goal's are: a dwell at one moves the arrow to the next.
-Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true }
+-- A search goal follows its loop points without being a field goal: gathering
+-- a skill, using a quest item, or finding an NPC who walks. A dwell at one
+-- point moves the arrow to the next.
+Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true, use = true }
 function Own.isSearch(goal)
 	return Own.SEARCH[goal.t] == true and goal.spread == true and goal.spots ~= nil
 end
