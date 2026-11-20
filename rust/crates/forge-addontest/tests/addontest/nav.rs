@@ -2753,3 +2753,20 @@ fn the_steps_ahead_get_numbered_pins_fading_with_distance_steps_together_share_o
 	assert_eq!(out["2"]["text"], "7");
 	assert!((out["2"]["alpha"].as_f64().unwrap() - 0.35).abs() < 1e-9, "the third step ahead is the faintest");
 }
+
+// #3197 (Vesper): with the guide's pins on too, a later step's numbered pin sat under the pin of the same place (the
+// numbered layer drew lowest of all). It draws over the guide's own pins (the step's goals 10, spawn spots 15-20, While
+// you're here 40, Nav/Layers.lua) and under the travel route's stops (50) and the arrow's target (100).
+#[test]
+fn the_numbered_pins_draw_over_the_guide_pins_of_the_same_place_3197() {
+	let out = run(r#"
+		local views = {
+			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[2] = { title = "Goldshire", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending" } } },
+		}
+		Polestar.Engine = { GetLiveStep = function() return 1 end, GetStepCount = function() return 2 end, GetStepView = function(i) return views[i] end }
+		local pins = N.upcoming.Build()
+		emit({ priority = pins[1].priority })"#);
+	let p = out["priority"].as_f64().unwrap();
+	assert!(p > 40.0 && p < 50.0, "over the goal, spot and While you're here pins, under the route's stops: {p}");
+}
