@@ -1881,9 +1881,48 @@ end
 -- The first located goal of a step (a travel point), or nil.
 function Own.feedPoint(goals)
 	for _, goal in ipairs(goals) do
-		if goal.map and goal.x and goal.y then return { map = goal.map, x = goal.x, y = goal.y, f = goal.f } end
+		if goal.map and goal.x and goal.y then return goal end
 	end
 	return nil
+end
+
+-- Prove each located goal can be reached from its insertion gap, not just
+-- from some visit before the dependent accept. Earlier shared visits can
+-- keep later steps from using a stop the guide has already left.
+function Own.feedGaps(pointAt, placedAt, steps, U)
+	local last = 0
+	for _, st in ipairs(steps) do
+		local gap = placedAt[st.key]
+		if gap then
+			last = math.max(last, math.min(gap, U - 1))
+		else
+			if st.d == 0 then last = math.max(last, U - 1) end
+			local pt = Own.feedPoint(st.goals)
+			if pt then
+				local best, nearest
+				for j = last, U - 1 do
+					local q = pointAt[math.max(1, j)]
+					local d = q and ns.DirectTravelCost(pt, q)
+					if d and (not best or d < best) then best, nearest = d, j end
+				end
+				if not nearest then return false end
+				last = nearest
+			end
+		end
+		st.gap = last
+		-- A travel step may start at the flight master and end at the next
+		-- step's camp. Either end of that routed leg can serve the feeder.
+		local anchor, after = pointAt[math.max(1, last)], pointAt[math.min(last + 1, U)]
+		for _, goal in ipairs(st.goals) do
+			if goal.map and goal.x and goal.y and (not anchor or goal.map ~= anchor.map) and (not after or goal.map ~= after.map) then
+				local d = anchor and ns.DirectTravelCost(goal, anchor)
+				local arrival = after and ns.DirectTravelCost(goal, after)
+				if arrival and (not d or arrival < d) then d = arrival end
+				if not d or 2 * d > Own.FEED_LOCAL then return false end
+			end
+		end
+	end
+	return true
 end
 
 -- The extra route of `steps` ({ goals }, in order) for a guide whose own
@@ -1904,7 +1943,8 @@ function Own.feedCost(own, steps)
 				local c = ns.DirectTravelCost(pt, q)
 				if c and (not best or c < best) then best = c end
 			end
-			t = t + 2 * (best or 0)
+			if not best then return nil end
+			t = t + 2 * best
 			near[#near + 1] = pt
 		end
 		for _, goal in ipairs(st.goals) do
@@ -2283,7 +2323,7 @@ function Own.feederPlan(g)
 					if not placed[st.key] then fresh[#fresh + 1] = st end
 				end
 				local c = Own.feedCost(near, fresh)
-				if c <= Own.FEED_LOCAL then
+				if c and c <= Own.FEED_LOCAL and Own.feedGaps(pointAt, placedAt, mine, U) then
 					cost, ch.inserted = cost + c, true
 					local last, prev = 0, nil
 					for _, st in ipairs(mine) do
@@ -2303,16 +2343,7 @@ function Own.feederPlan(g)
 							end
 							if placedAt[st.key] > last then last = placedAt[st.key] end
 						else
-							local pt = Own.feedPoint(st.goals)
-							-- A step of this guide an update passed comes back just before
-							-- the quest that needs it: on the way, never a step back.
-							if st.d == 0 and U - 1 > last then last = U - 1 end
-							local best, bestJ = nil, last
-							for j = last, U - 1 do
-								local q = pointAt[j > 0 and j or 1]
-								local d = pt and q and ns.DirectTravelCost(pt, q)
-								if d and (not best or d < best) then best, bestJ = d, j end
-							end
+							local bestJ = math.max(last, st.gap)
 							placed[st.key], placedAt[st.key] = st, bestJ
 							gaps[bestJ] = gaps[bestJ] or {}
 							table.insert(gaps[bestJ], st)
@@ -3224,7 +3255,9 @@ end
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
 local function checked(s, g)
 	local m = ns.CharState().manual[guide.id]
-	return m ~= nil and m[Own.key(s, g)] and true or false
+	local mark = m and m[Own.key(s, g)]
+	-- Old placement marks are not a player's answer to a manual task.
+	return mark == "tick" or (mark and guide.steps[s].goals[g].t ~= "task") or false
 end
 
 -- The client's word for a standing (ns.StandingName), else its number.
@@ -5054,7 +5087,7 @@ local function place()
 			local now = not behind and through
 			for g, goal in ipairs(goals) do
 				local t = goal.t
-				local soft = isManual(goal) or latchable(goal) or isBagCount(goal)
+				local soft = (t ~= "task" and isManual(goal)) or latchable(goal) or isBagCount(goal)
 				-- What an update added holds nothing (Own.passAdded passes it).
 				if open(s, g, goal) and not gated(goal)
 					and not (soft and (behind or now or ((s < lastOut or whole) and travel(t))))
@@ -15614,7 +15647,7 @@ function Engine.ToggleGoal(stepIndex, goalIndex)
 	refreshPlayer()
 	local m = manualFor(guide.id, true)
 	local key = stepIndex .. ":" .. goalIndex
-	if m[key] then
+	if checked(stepIndex, goalIndex) then
 		m[key] = nil
 	elseif goalDone(stepIndex, goalIndex, goal) then
 		return false
