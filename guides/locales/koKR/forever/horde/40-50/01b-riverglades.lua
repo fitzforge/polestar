@@ -295,8 +295,7 @@ return {
 
 	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
 	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
-	-- was: ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}"
-	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "",
+	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}: 킁킁코와 {npc:257059}",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
 	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "고밤의 심부름을 마치면 {npc:257062}이(가) 마지막 두 퀘스트를 주지만(플레이어 기록 기준), 이 가이드에서는 다루지 않습니다. 44레벨과 45레벨이니 {npc:258626}와의 싸움이 아슬아슬했다면 나중으로 미루세요.",
 	["Snufflesnout (44)"] = "킁킁주둥이 (44)",
@@ -439,6 +438,5 @@ return {
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "{area:3}을(를) 가로질러 지역 서쪽 끝 절벽에 지어진 호드 요새 {area:340}(으)로 가세요. 비행 조련사는 요새 아래에 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 }

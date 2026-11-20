@@ -295,8 +295,7 @@ return {
 
 	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
 	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
-	-- was: ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}"
-	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "",
+	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}: Нюхорыл и {npc:257059}",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
 	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} дает последние два боя после поручений Гобама (по записям игроков), которые этот гайд пропускает. Они 44-го и 45-го уровней: отложите их на потом, если бой с {npc:258626} дался с трудом.",
 	["Snufflesnout (44)"] = "Нюхорыл (44)",
@@ -439,6 +438,5 @@ return {
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Через {area:3} в {area:340} – крепость Орды, встроенную в скалы у западного края зоны: распорядитель полетов стоит у подножия крепости.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Копья ({npc:263190}) – на пресноводных кроколисков",
 }

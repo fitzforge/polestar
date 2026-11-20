@@ -7551,6 +7551,7 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670}: Pico Zumbón",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}: Kronk y Roehuesos",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
+		["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}: Hocicorresoplo y {npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} están al sur de {area:3}. Cabalga al este desde {area:657} hasta {area:75} y vuela a {area:340}: el camino de bajada a la zona empieza ahí.",
 		["West back to {area:16743}'s east side."] = "Regresa al oeste, al lado este de {area:16743}.",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "Al oeste del barco del norte, sube la cresta: los Champiñones carnepútrida crecen entre las rocas, cerca del campamento de los ogros Crepusculares. Los colmillos pálidos maduros de la cresta también dan entrañas.",

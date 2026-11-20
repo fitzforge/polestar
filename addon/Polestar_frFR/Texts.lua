@@ -7594,6 +7594,7 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670} : Buzzbeak",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670} : Kronk et Bonegnaw",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962} : {npc:258626}",
+		["The {quest:94965}: Snufflesnout and {npc:257059}"] = "Le {quest:94965} : Renifle-groin et {npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "Les {zone:2548} se trouvent au sud des {area:3}. Allez à l'est depuis {area:657} jusqu'à {area:75} et prenez un vol pour {area:340} : le chemin qui descend dans la zone commence là.",
 		["West back to {area:16743}'s east side."] = "Retournez vers l'ouest, jusqu'au côté est de {area:16743}.",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "À l'ouest du navire nord, montez sur la crête : les Champignons cadavériques poussent parmi les rochers, près du camp des ogres du Crépuscule. Les Brochepâles adultes de la crête donnent aussi des entrailles.",

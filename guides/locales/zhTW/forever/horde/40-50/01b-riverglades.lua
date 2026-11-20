@@ -295,8 +295,7 @@ return {
 
 	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
 	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
-	-- was: ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}"
-	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "",
+	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}：嗅嗅鼻和{npc:257059}",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
 	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "完成戈巴姆的差事後，{npc:257062}會提供最後兩個任務（根據玩家的錄影），本指南未收錄這兩個任務。它們是44和45級：如果你打{npc:258626}時打得很險，就留到之後再來。",
 	["Snufflesnout (44)"] = "嗅嗅鼻（44）",
@@ -439,6 +438,5 @@ return {
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "穿越{area:3}前往{area:340}，這座部落堡壘建在地區西緣的峭壁中：飛行管理員就站在堡壘腳下。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",
 }

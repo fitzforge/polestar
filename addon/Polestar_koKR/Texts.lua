@@ -4634,6 +4634,7 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670}: 윙윙부리",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}: 크롱크와 뼈갉이",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
+		["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}: 킁킁코와 {npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}은(는) {area:3} 남쪽에 있습니다. {area:657}에서 동쪽 {area:75}(으)로 가서 {area:340}(으)로 날아가세요. 지역으로 내려가는 길이 그곳에서 시작됩니다.",
 		["West back to {area:16743}'s east side."] = "서쪽으로 {area:16743}의 동쪽으로 돌아가세요.",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "북쪽 배에서 서쪽으로 능선을 오르십시오. 부패살점 버섯은 황혼의 망치 오우거 야영지 근처 바위 사이에 자랍니다. 능선의 다 자란 흰엄니도 내장을 줍니다.",

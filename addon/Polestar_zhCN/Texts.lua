@@ -7550,6 +7550,7 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670}：嗡喙",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}：克朗克和啃骨者",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962}：{npc:258626}",
+		["The {quest:94965}: Snufflesnout and {npc:257059}"] = "{quest:94965}：嗅嗅鼻和{npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:657}向东骑到{area:75}，再飞往{area:340}：进入该地区的下山路就从那里开始。",
 		["West back to {area:16743}'s east side."] = "向西返回{area:16743}东侧。",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "从北边那艘船向西爬上山脊：腐肉蘑菇长在岩石间，靠近暮光食人魔的营地。山脊上的成年白牙野猪也会掉落内脏。",
