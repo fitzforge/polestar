@@ -2034,6 +2034,46 @@
 		],
 		"note": "Farmer Elbrim placed where players met it in the Riverglades."
 	},
+	"258878": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Auctioneer Quickcoin met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 9.9,75.2), and Uninspected Shipment (258880) met at the same two places in other sessions (1413 49.9,29.4; 1433 7.4-11.6,71.3-72.1)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: Auctioneer Quickcoin (258878), Steamwheedle Courier (258879) and Uninspected Shipment (258880) share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Auctioneer Quickcoin is one of the three faces of a travelling goblin stall (auctioneer, banker or mailbox, one a day) at the Crossroads and on Redridge's west side. On the other days he isn't there, so an Auction House goal that led to him stalled (#3112). No roles: auction goals and Nearby services go to an Auction House that is always open."
+	},
+	"258880": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Uninspected Shipment met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 7.4-11.6,71.3-72.1), the places Auctioneer Quickcoin (258878) stands on other days"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: 258878, 258879 and 258880 share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Uninspected Shipment is the banker face of the same travelling goblin stall as Auctioneer Quickcoin: there one day in three. No roles, so bank goals and Nearby services go to a bank that is always open (#3112)."
+	},
 	"259254": {
 		"addSpawns": {
 			"2548": {
@@ -2405,6 +2445,26 @@
 			}
 		],
 		"note": "Guchie Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14450": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 36 people opened Orphan Matron Nightingale's window in Cathedral Square (quest windows for 92415 and 95161, 46 in all), none a merchant or gossip window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3032 (Shuurajou, Gnome Priest 30): the nearest-vendor search sent them to her and she sold nothing"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 14450 npcflag 131 and two npc_vendor items, Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), the Children's Week foods"
+			}
+		],
+		"note": "Orphan Matron Nightingale gives Stormwind's orphan quests. Her vendor flag only carries the Children's Week foods, and no player has had a merchant window from her, so Nearby services sent players looking for a vendor to a quest giver who sells nothing (#3032). No roles; a merchant window players record brings the vendor role back."
 	},
 	"14480": {
 		"set": {

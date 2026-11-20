@@ -581,6 +581,20 @@ test("Champion's Hall quartermasters sell and repair gear, but offer no inn or a
 	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
+// #3112: the Crossroads stall is an auctioneer, a banker or a mailbox by the day (Auctioneer Quickcoin 258878,
+// Steamwheedle Courier 258879 and Uninspected Shipment 258880 share their two spawn points; recordings meet both
+// the auctioneer and the banker there), so the cooking guide's Auction House goal stalled on the other days.
+// Sweep of NPCs sharing every spawn point with another: this stall is the only one that takes turns.
+test('The Crossroads stall that changes by the day gives no Auction House or bank goal (#3112)', () => {
+	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
+});
+
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
