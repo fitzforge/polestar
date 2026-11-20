@@ -11568,7 +11568,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	assert.ok(gate >= 0, "Priests reach 50 in Un'Goro before the next guide's Cenarion Aid");
 	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
 	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
-	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
+	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && (!goal.only || /mage/i.test(JSON.stringify(goal.only))));
 	assert.ok(mages >= 0, "Mages reach 50 in Un'Goro before the next guide's Magecraft");
 	assert.ok(!ungoro.some(({ goal }) => goal.t === 'accept' && (goal.quest === 8254 || goal.quest === 8250)), 'the class quests are not taken in Un\'Goro');
 	// Fix round 2 (0.4.0): Dwarf and Gnome Priests no longer wait in Kharanos for level 10 for Maxan Anvol's letters
