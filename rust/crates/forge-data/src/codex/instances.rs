@@ -131,17 +131,22 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 /// The capitals' world maps (Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff, the Undercity).
 const CAPITAL_MAPS: [f64; 6] = [1453.0, 1455.0, 1457.0, 1454.0, 1456.0, 1458.0];
 
-/// Keep a zone recording as-is. A continent recording must project into the dungeon's entrance zone, if known.
+/// Keep a zone recording's original pin, but require its world position to lie within the entrance zone if known.
 fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Option<(f64, f64, f64)> {
 	let f = frames.get(&map.to_string());
 	let (left, right, top, bottom) = (f.get("left").num(), f.get("right").num(), f.get("top").num(), f.get("bottom").num());
 	let (w, h) = (left - right, top - bottom);
-	if !(w > 0.0 && h > 0.0) || (w <= ZONE_MAX && h <= ZONE_MAX) {
-		return Some((map, round1(x), round1(y)));
+	let continent = w > ZONE_MAX || h > ZONE_MAX;
+	let point = || (map, round1(x), round1(y));
+	if !continent && (expected.is_empty() || expected.contains(&map)) && (0.0..=100.0).contains(&x) && (0.0..=100.0).contains(&y) {
+		return Some(point());
+	}
+	if !(w > 0.0 && h > 0.0) {
+		return None;
 	}
 	match zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, expected) {
-		Some(p) if expected.is_empty() || expected.contains(&p.0) => Some(p),
-		None if expected.is_empty() => Some((map, round1(x), round1(y))),
+		Some(p) if expected.is_empty() || expected.contains(&p.0) => Some(if continent { p } else { point() }),
+		None if expected.is_empty() => Some(point()),
 		_ => None,
 	}
 }
@@ -149,8 +154,8 @@ fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Opt
 /// instances.js `chooseEntrancePoint`. A recorded way in that one person alone was seen to take from a capital is no
 /// way in: the Dungeon Finder or a summon moves a player into the dungeon from wherever they stand (Blackmaw Hold,
 /// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
-/// A way in recorded on a continent's map (the game has no zone map in the caves before the Deadmines, Gnomeregan and
-/// Maraudon) must fall in the documented entrance zone, or one of the client's known zones without a table entry.
+/// A recording must fall inside the documented entrance zone (or a known client zone without a table entry).
+/// For caves with no zone map, place the continent recording on that zone's map.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let rec = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).min_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
 	if let Some(r) = rec {
@@ -882,6 +887,25 @@ mod tests {
 		let ocean = r#"[{"map":1415,"x":1,"y":1,"n":8}]"#;
 		assert_eq!(choose(ocean), (1435.0, 69.9, 53.5), "no zone contains this point");
 		assert!(!choose_entrance("Sunken Temple", &parse_json(ocean).unwrap(), &V::Null, &[], None, &V::Null, &frames, &[1435.0]).truthy());
+	}
+
+	#[test]
+	fn zone_recordings_must_fall_inside_the_entrance_frame_even_when_map_ids_differ() {
+		let frames = parse_json(
+			r#"{ "1426": { "c": 0, "left": 1802.083, "right": -3122.917, "top": -3877.083, "bottom": -7160.417 },
+			     "1427": { "c": 0, "left": -322.917, "right": -2554.167, "top": -6100, "bottom": -7587.5 } }"#,
+		)
+		.unwrap();
+		let table = parse_json(r#"{ "map": 1427, "x": 34.8, "y": 85.3 }"#).unwrap();
+		let choose = |y: f64| {
+			let rec = parse_json(&format!(r#"[{{"map":1426,"x":46.78,"y":{y},"n":1}}]"#)).unwrap();
+			let e = choose_entrance("Blackrock Depths", &rec, &table, &[], None, &V::Null, &frames, &[]);
+			(e.get("map").num(), e.get("x").num(), e.get("y").num())
+		};
+		assert_eq!(choose(50.13), (1427.0, 34.8, 85.3), "the reported point is north of Searing Gorge");
+		assert_eq!(choose(85.0), (1426.0, 46.8, 85.0), "the two maps overlap here; keep the recording");
+		frames.get("1426").as_obj().unwrap().set("c", 1.0);
+		assert_eq!(choose(85.0), (1427.0, 34.8, 85.3), "overlapping coordinates on a different continent do not count");
 	}
 
 	#[test]

@@ -10690,8 +10690,8 @@ was already built without it.
   plans); then the web database's `commondrop` rows (world books, world blues) at 1%
   or more, so those no longer crowd out a boss's own loot (Onyxia's Sacks
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
-  (Recorder `enter`, `data/forever/instances.json`; a continent-map entry must land
-  in the dungeon's known entrance zone), else the curated table
+  (Recorder `enter`, `data/forever/instances.json`; its world position must fall
+  inside the dungeon's known entrance zone, even when recorded on another map), else the curated table
   `data/codex/entrances.json` (per instance key: the point on the zone
   map where one walks in, `{ key, instance, map, x, y, source, note }`, each
   with its source, checked against the corpse point and our guides'

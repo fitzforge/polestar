@@ -44,6 +44,19 @@ test('a continent recording must land at the dungeon’s known zone', () => {
 	assert.equal(chooseEntrance({ ...temple, table: null, prefer: [1435], recorded: ocean }), null, 'a known zone also rules out the ocean without a table entry');
 });
 
+test('zone recordings must fall inside the entrance frame, even when map IDs differ', () => {
+	const frames = {
+		1426: { c: 0, left: 1802.083, right: -3122.917, top: -3877.083, bottom: -7160.417 },
+		1427: { c: 0, left: -322.917, right: -2554.167, top: -6100, bottom: -7587.5 },
+	};
+	const table = { map: 1427, x: 34.8, y: 85.3 };
+	const choose = (y) => chooseEntrance({ name: 'Blackrock Depths', table, frames, recorded: [{ map: 1426, x: 46.78, y, n: 1 }] });
+	assert.deepEqual(choose(50.13), { ...table, f: null }, 'the reported point is north of Searing Gorge');
+	assert.deepEqual(choose(85), { map: 1426, x: 46.8, y: 85, f: null }, 'the two maps overlap here; keep the recording');
+	frames[1426].c = 1;
+	assert.deepEqual(choose(85), { ...table, f: null }, 'overlapping coordinates on a different continent do not count');
+});
+
 test('the curated table: one entry per instance, each placed on a zone map with a public source', () => {
 	const t = loadEntranceTable();
 	const entries = Object.values(t);

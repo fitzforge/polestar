@@ -52,8 +52,8 @@
 //                ContentTuning MinLevelSquish of the map's LFGDungeons entries
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
 //   entrance     best evidence first: a recorded entrance (Recorder `enter`,
-//                the most-seen one, placed in the dungeon's known zone
-//                if it came from a continent map), else the curated table
+//                the most-seen one inside the dungeon's known entrance
+//                zone), else the curated table
 //                (data/codex/entrances.json: the point on the zone map
 //                where one walks in, each with its public source), else a
 //                guide's `goto x,y "<instance name> ..."` line, else the map's
@@ -254,11 +254,14 @@ function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], c
 		const w = frame && frame.left - frame.right;
 		const h = frame && frame.top - frame.bottom;
 		const point = { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f };
-		if (!(w > 0 && h > 0 && (w > ZONE_MAX || h > ZONE_MAX))) return point;
 		const expected = table?.map ? [Number(table.map)] : prefer;
-		const zone = zonePoint(frames, frame.c, frame.top - rec.y / 100 * h, frame.left - rec.x / 100 * w, expected);
-		if (zone && (!expected.length || expected.includes(zone.map))) return { ...zone, f };
-		if (!expected.length) return point;
+		const continent = w > ZONE_MAX || h > ZONE_MAX;
+		if (!continent && (!expected.length || expected.includes(point.map)) && rec.x >= 0 && rec.x <= 100 && rec.y >= 0 && rec.y <= 100) return point;
+		if (w > 0 && h > 0) {
+			const zone = zonePoint(frames, frame.c, frame.top - rec.y / 100 * h, frame.left - rec.x / 100 * w, expected);
+			if (zone && (!expected.length || expected.includes(zone.map))) return continent ? { ...zone, f } : point;
+			if (!expected.length) return point;
+		}
 	}
 	if (table && table.map) return { map: Number(table.map), x: round1(table.x), y: round1(table.y), f: null };
 	const n = norm(name);
