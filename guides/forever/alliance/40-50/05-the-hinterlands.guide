@@ -44,15 +44,15 @@ step Skulk Rock
 step OOX-09/HL Distress Beacon
   when has 8704
   tip Only with the distress beacon, a rare drop in the Hinterlands: it starts a quest to find the robot it calls for.
-  accept 485 item 8704                -- OOX-09/HL Distress Beacon
+  accept 485 item 8704 optional       -- OOX-09/HL Distress Beacon
 
 step OOX-09/HL
   when onquest 485
   tip The robot sits at the head of the river west of Skulk Rock. Escort it east to the shore beyond the Overlook Cliffs, then ride back west for Aerie Peak; its reward waits with Oglethorpe Obnoticus in Booty Bay, later in this guide.
   tip Careful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand.
-  turnin 485                          -- Homing Robot OOX-09/HL
-  accept 836
-  complete 836
+  turnin 485 optional                 -- Homing Robot OOX-09/HL
+  accept 836 optional
+  complete 836 optional
 
 step Wildkin feathers
   zone The Hinterlands
@@ -112,12 +112,12 @@ step Booty Bay
 step Oglethorpe Obnoticus
   when complete 2767
   tip Only if you escorted the Feralas robot: its reward waits with Oglethorpe Obnoticus here in Booty Bay.
-  turnin 2767                         -- Oglethorpe Obnoticus
+  turnin 2767 optional                -- Oglethorpe Obnoticus
 
 step Oglethorpe Obnoticus
   when complete 836
   tip Only if you escorted the Hinterlands robot: Oglethorpe Obnoticus has its reward too.
-  turnin 836                          -- Oglethorpe Obnoticus
+  turnin 836 optional                 -- Oglethorpe Obnoticus
 
 step Wild Shore: kill these as you meet them
   zone Stranglethorn Vale
