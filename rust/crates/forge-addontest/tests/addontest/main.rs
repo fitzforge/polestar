@@ -142,6 +142,8 @@ mod engine_left_out;
 mod engine_level;
 #[path = "engine-level-carry.rs"]
 mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]

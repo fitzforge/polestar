@@ -4225,18 +4225,25 @@ end
 
 -- Whether a later, non-optional quest goal of step s (after goal g) that
 -- applies to the character is done: the work a goal led to is behind the
--- player. (On Own: the main chunk is at 200 locals.)
-function Own.laterQuestDone(s, g)
+-- player. all: every such goal is done (and the step has one). (On Own: the
+-- main chunk is at 200 locals.)
+function Own.laterQuestDone(s, g, all)
 	local goals = guide.steps[s].goals
+	local any = false
 	for j = g + 1, #goals do
 		local later = goals[j]
 		local lt = later.t
 		-- A quest goal (isQuestGoal, declared further down).
 		local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
 			or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
-		if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+		if quest and not later.optional and goalApplies(later) then
+			local done = goalDone(s, j, later)
+			if done and not all then return true end
+			if all and not done then return false end
+			any = true
+		end
 	end
-	return false
+	return all and any or false
 end
 
 -- Grind steps and finished quests (0.4.0, #1431: Mokii saw
@@ -4598,6 +4605,11 @@ function Own.goalDoneLive(s, g, goal)
 		if s >= 1 then
 			local _, covered = Own.levelCover(s, goal)
 			if covered then return true end
+			-- A level before its step's quest work gates that work (#3165: the
+			-- Minor Manifestation of Fire at 13, #2921: The Affray at 32). Once
+			-- every quest goal after it is done, done at a lower level than the
+			-- gate asked, it has nothing left to hold.
+			if Own.laterQuestDone(s, g, true) then return true end
 		end
 		return false
 	elseif t == "skill" then
@@ -11072,17 +11084,18 @@ function Engine.GuideDungeons()
 end
 
 -- The group quest the live step waits on (`when group`, unanswered): its
--- quest id and title (the step's goal for it, else the guide's accept, else
--- the step's title), or nil.
+-- quest id and title in the client's language (questTitle: the step's goal
+-- for it, else the guide's accept, else the step's title), or nil. #3015: the
+-- banner showed the guide's English title beside the goal's translated one.
 function Engine.GroupQuestion()
 	local step = guide and computed and guide.steps[computed]
 	local q = step and Own.groupPending(step)
 	if not q then return nil end
 	for _, goal in ipairs(step.goals) do
-		if goal.quest == q and goal.title then return q, goal.title end
+		if goal.quest == q and goal.title then return q, questTitle(goal) end
 	end
 	local a = layoutOf(guide).accepts[q]
-	return q, (a and a[1].goal.title) or step.title
+	return q, (a and questTitle(a[1].goal)) or step.title
 end
 
 -- Whether the live step's escort runs: an escort goal (compiled `escort`) of
@@ -11101,10 +11114,12 @@ end
 
 -- The group quests (`when group`) of the guides for this character (the
 -- guide's faction, races and classes, the step's `only`): { { quest, title } },
--- each quest once, in guide and step order. For the Options list and Install's
--- Groups page, which asks on each layout (after every fight while it waits):
--- kept while the guides listed (each guide table, and whether it is read in)
--- and the character's faction, race and class stay the same. Read-only.
+-- each quest once, in guide and step order, titled in the client's language
+-- (Names.Quest) where it knows them, else as the guide has them (#3015). For
+-- the Options list and Install's Groups page, which asks on each layout
+-- (after every fight while it waits): kept while the guides listed (each
+-- guide table, and whether it is read in) and the character's faction, race
+-- and class stay the same. Read-only.
 function Engine.GroupQuests()
 	if not player then refreshPlayer() end
 	local list = Guides.List()
@@ -11129,7 +11144,7 @@ function Engine.GroupQuests()
 			for _, gq in ipairs(type(g.groupQuests) == "table" and g.groupQuests or NONE) do
 				if type(gq) == "table" and type(gq.quest) == "number" and not seen[gq.quest] then
 					seen[gq.quest] = true
-					out[#out + 1] = { quest = gq.quest, title = gq.title }
+					out[#out + 1] = { quest = gq.quest, title = ns.Names.Quest(gq.quest) or gq.title }
 				end
 			end
 		elseif g and Guides.GuideMatches(g, player) then
@@ -11141,7 +11156,7 @@ function Engine.GroupQuests()
 						for _, goal in ipairs(step.goals) do
 							if goal.quest == p.q and goal.title then title = goal.title break end
 						end
-						out[#out + 1] = { quest = p.q, title = title or step.title }
+						out[#out + 1] = { quest = p.q, title = ns.Names.Quest(p.q) or title or step.title }
 					end
 				end
 			end

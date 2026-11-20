@@ -4081,6 +4081,16 @@
 		],
 		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it. Its objective is the Horn of Xelthos (210183) x1; the public data kept it only from players' caches, so this correction holds it when the quest database moves to a version without it (#1361 review)."
 	},
+	"78270": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-20: 10 people (5 established) handed Goblin Lockpicks in to Veenix (4086), none of them with an accept or the quest in the log first"
+		},
+		"note": "Goblin Lockpicks (78270, Veenix in the Windshear Crag) is handed in at one talk while carrying the Venture Co. Work Order, and never enters the log: The Horn of Xelthos guide asked players to accept it before the Pick Pocket (#3161, #3213)."
+	},
 	"78307": {
 		"set": {
 			"classes": 8
@@ -17436,6 +17446,26 @@
 		],
 		"note": "Step Two: More Rock (96026), a Forever quest of the Riverglades: its ender, Hamur (263440), where players handed it in (the quest's own text names it)."
 	},
+	"96076": {
+		"set": {
+			"minLevel": 60
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on builds 1.60.1.70888, 70938 and 70959: minLevel 60"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix (227853) offered it only to a level 60 character; 22 people at levels 29-49 opened his window without it"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3072: a level 59 Night Elf Hunter at Pix Xizzix in Booty Bay was not offered it"
+			}
+		],
+		"note": "In Demand - Ancient Elven Curiosities (96076) is offered from level 60 on Forever; the data had no level, so the Dire Maul pick-up guide sent a level 59 player to Pix Xizzix for it."
+	},
 	"96082": {
 		"set": {
 			"end": {
@@ -20420,5 +20450,22 @@
 			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 41 people's objective lists at the accept, each the two lines 'Elune's Light cast' and 'Shadowmeld cast'; 48 completions around Shanda in Aldrassil"
 		},
 		"note": "The Goddess Provides counts two casts, Elune's Light and Shadowmeld; the merged data had no objective, so the guide's accept and hand-in at Shanda stood with nothing between them. The game credits the casts by script, so they are event lines."
+	},
+	"95350": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (data/recorded/quests.json, to 2026-11-20): offered Welcome to Azeroth without The Earthen Ring (95349), 19 people (15 counted), trusted; e.g. a level-11 Skyborne Druid took it from npc 259119 with 95349 neither in the log nor handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2781: a level-12 Skyborne Druid had Welcome to Azeroth in the log while The Broken Construct (93737) was still open, and the game reported A Firm Response (93746) not handed in"
+			}
+		],
+		"note": "Welcome to Azeroth (95350, the airship's quest off Zephras Isle) has no prerequisite on Forever: the server's previous-quest link to The Earthen Ring (95349) is only the story order. The data build re-added that link after the recorded layer had removed it, so a character carrying 95350 counted the whole Zephras Isle story before it as handed in: the guide ticked A Firm Response and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it (#2781)."
 	}
 }
