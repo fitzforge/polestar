@@ -599,6 +599,65 @@
 				}
 			],
 			"note": "Doctor's Orderly (96082) is done by using the Makeshift Bandages (272126, given with the quest) on the Wounded Soldiers (263614) at Farholde Keep; the game stores the objective as a kill credit, so a step built from it said \"Kill Wounded Soldier\" (#2831). Source: players' in-game recordings to 2026-11-17: 31 people, every one of their 88 ticks right after a cast of Apply Bandage (spell 1290242) on a Wounded Soldier; the client's item tables give that spell as the bandages' use."
+		},
+		"94748": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 256799
+					},
+					"item": 265821,
+					"fact": "Twilight Champions in the cult's camps drop the Twilight Key: with one in your bags, free a captive Rog'mar Scout (the key unlocks his chains).",
+					"confidence": "medium"
+				}
+			],
+			"note": "Break Their Chains (94748): each scout is freed with a Twilight Key (265821), a quest item the Twilight Champions (256799) drop; the objective names only the scouts. Source: the game's item data (Twilight Key, a quest item; QuestieDB's Forever drop data puts it on the Twilight Champion); players' in-game recordings to 2026-11-20: 25 people, every tick of \"Rog'mar Scout rescued\" right after a cast of Unlocking (spell 1277271); Etienne's report (#3266)."
+		},
+		"93404": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"item": 258296,
+					"fact": "The Vial of Earth Song Water is inside Maraudon, the five-player dungeon in Desolace: this quest needs a Maraudon run.",
+					"confidence": "high"
+				}
+			],
+			"note": "Rot and Regret (93404): its vial (258296) comes only from an object (612179) that no outdoor spawn data places, and the quest's own text says \"Venture to Maraudon and recover a Vial of Earth Song Water\"; players' in-game recordings to 2026-11-20: 46 people looted it. Emil's report (#3243): the Razorfen Downs pick-up chain sent him through it with no word of the dungeon."
+		},
+		"3801": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"target": {
+						"type": "npc",
+						"id": 8888
+					},
+					"fact": "Franclorn Forgewright is a ghost only a dead character can see: die near his tomb in Blackrock Mountain and walk to him as a spirit to talk to him.",
+					"confidence": "high"
+				}
+			],
+			"note": "Dark Iron Legacy (3801): its giver and ender, Franclorn Forgewright (8888), shows only to the dead. Source: Nostaroi's report (#3009: \"you have to be dead to get this quest\"); players' in-game recordings to 2026-11-20: 14 people met him at Forgewright's Tomb; the Thorium Brotherhood guide's step for the Shadowforge Key says the same."
+		},
+		"1027": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 3928
+					},
+					"item": 5519,
+					"fact": "Rotting Slimes in and around the Dor'danil Barrow Den leave a Rusty Chest when they die: open the chests until one holds the Iron Pommel.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Raene's Cleansing (1027): the Iron Pommel (5519) comes only from Rusty Chests (19021), and the chests come from Rotting Slimes (3928). Source: Shuurajou's report (#3002: \"they are inside and dropped by rotting slimes\"); the chests' known points are spread over the barrow den's slopes, where the slimes roam, not set like a camp's; players' in-game recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed."
 		}
 	}
 }
