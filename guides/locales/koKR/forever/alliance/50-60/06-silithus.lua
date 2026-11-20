@@ -28,7 +28,7 @@ return {
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	-- was: ["Into {zone:1451}"] = "{zone:1451}(으)로"
-	["Into {zone:1451}"] = "",
+	["Into {zone:1451}"] = "{zone:1451}(으)로",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
 	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
 
@@ -100,9 +100,9 @@ return {
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
-	["The {area:2742} tower"] = "",
+	["The {area:2742} tower"] = "{area:2742} 탑",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "남서쪽으로 돌아가 {area:2738}의 {area:2742} 탑으로 가세요. 탑에 올라 딱딱한 실리시드 조각을 노리고 나타나는 잠복꾼을 처치하세요.",
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
@@ -146,7 +146,7 @@ return {
 
 	-- Step 29: Level 60
 	-- was: ["Level 60"] = "60레벨"
-	["Level 60"] = "",
+	["Level 60"] = "60레벨",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
@@ -186,12 +186,10 @@ return {
 	-- ["Grind to 60"] = "60레벨까지 사냥",
 	-- ["Havunth's camp sits just west of {area:3425}."] = "하분스의 야영지는 {area:3425} 바로 서쪽에 있습니다.",
 	-- ["Hearth to {area:1519} and train your level 60 spells. This is the end of the leveling route: look at the reputation and dungeon guides next."] = "{area:1519}(으)로 귀환해 60레벨 주문을 배우세요. 레벨업 경로는 여기서 끝납니다. 다음으로 평판과 던전 가이드를 보세요.",
-	-- ["Into {zone:1451}"] = "{zone:1451}(으)로",
 	-- ["Irontree Stompers"] = "{npc:7139}",
 	-- ["Its jars are filled on the Un'Goro visit"] = "단지는 운고로 방문 때 채웁니다",
 	-- ["Keep the {item:11169}, the claws and the heart he hands back"] = "그가 돌려주는 {item:11169}, 발톱, 심장은 보관하세요",
 	-- ["Keep west on the road to {npc:9298}'s camp beside the hot springs."] = "길을 따라 계속 서쪽으로 온천 옆 {npc:9298}의 야영지로 가세요.",
-	-- ["Level 60"] = "60레벨",
 	-- ["Lots of flying between zones"] = "지역 간 비행이 많음",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "마차 주변의 보급품을 줍고, 근처 올빼미야수에게서 {npc:10301}의 목걸이를 되찾으세요.",
 	-- ["Portal to {zone:1438}"] = "{zone:1438}행 차원문",

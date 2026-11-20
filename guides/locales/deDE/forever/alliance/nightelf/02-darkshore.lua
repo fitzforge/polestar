@@ -45,7 +45,7 @@ return {
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop."] = "",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["Thresher Eyes; underwater"] = "",
+	["Thresher Eyes; underwater"] = "Thresher Eyes; unter Wasser",
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Bären und das Lager der Schwarzfelle",
@@ -117,7 +117,7 @@ return {
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove."] = "",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["Moonstalker Fangs"] = "",
+	["Moonstalker Fangs"] = "Mondpirscher-Fangzähne",
 
 	-- Step 19: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Furbolgs der Schwarzfelle",
@@ -159,7 +159,7 @@ return {
 	-- plural, as words: Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
 	["North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river."] = "",
 	-- {item:12349} Cliffspring River Sample
-	["{item:12349}, at the waterfall"] = "",
+	["{item:12349}, at the waterfall"] = "{item:12349}, am Wasserfall",
 
 	-- Step 28: Buzzbox 323
 	-- {quest:1002} Buzzbox 323 · {object:17185} Buzzbox 525 · {zone:1439} Darkshore
@@ -186,7 +186,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore
 	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "",
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
-	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
+	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}: Fülle die {item:12346} an der {object:174795}",
 
 	-- Step 32: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw

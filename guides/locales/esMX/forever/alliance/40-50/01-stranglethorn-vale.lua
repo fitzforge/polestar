@@ -92,8 +92,8 @@ return {
 
 	-- Step 16: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
-	["Theramore flight master"] = "",
+	["Fly to {area:392}"] = "Vuela a {area:392}",
+	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
@@ -109,11 +109,11 @@ return {
 	["{npc:6236} offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "{npc:6236} ofrece después El Vigía del viento (1791): la cadena del arma de Torbellino, con un élite al final, está en la guía de clase de guerrero Arma Torbellino.",
 
 	-- Step 21: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "Vuela a Isla Theramore",
 	-- {area:150} Menethil Harbor
 	["Back to Theramore for the boat to {area:150}."] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 22: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -436,11 +436,11 @@ return {
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
 	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, arriba",
 
 	-- Step 92: Fly to Stormwind
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "Maestro de vuelo de {area:1438}",
 
 	-- Step 93: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak

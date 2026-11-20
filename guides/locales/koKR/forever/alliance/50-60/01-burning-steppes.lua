@@ -156,9 +156,9 @@ return {
 	-- {npc:266524} Lieutenant Connar · {npc:266508} Sergeant Danneth · {area:1440} Serpent's Coil
 	["{npc:266524}: {npc:266508} is in the {area:1440} caverns, on this loop"] = "",
 	-- {quest:2990} Thadius Grimshade
-	["{quest:2990}, at the top of the keep"] = "",
+	["{quest:2990}, at the top of the keep"] = "{quest:2990}, 요새 꼭대기",
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
-	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "",
+	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "{npc:8022}의 다음 임무인 {item:9471}은(는) {area:978} 퀘스트입니다: 건너뛰십시오.",
 	-- {npc:3546} Bernie Heisten · {quest:87295} Deflective Surface
 	["{npc:3546}: {quest:87295}, the scales come from the basilisks ahead"] = "{npc:3546}: {quest:87295}, 비늘은 앞쪽의 바실리스크에게서 얻습니다",
 

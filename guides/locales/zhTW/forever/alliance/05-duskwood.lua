@@ -25,7 +25,7 @@ return {
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire
 	["The {npc:511} (26) hides in the small crypt by the {area:121}, south of {area:42}; the glass is inside."] = "",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}；室內",
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}：{zone:1431}怪物的稀有掉落",
 
@@ -33,7 +33,7 @@ return {
 	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
 	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}，室內",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
 	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
 
@@ -69,7 +69,7 @@ return {
 	["{npc:267}, in the town hall"] = "{npc:267}，在市政廳裡",
 	-- {npc:264} Commander Althea Ebonlocke
 	-- was: ["{npc:264}, in the town hall"] = "{npc:264}，在市政廳裡"
-	["{npc:264}, in the town hall"] = "",
+	["{npc:264}, in the town hall"] = "{npc:264}，在市政廳裡",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
 	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
@@ -220,7 +220,6 @@ return {
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}，來自{object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}，向{npc:3133}購買：數量有限。賣完了？{area:150}的{npc:1448}也有賣。",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}，在城鎮北端",
-	-- ["{npc:264}, in the town hall"] = "{npc:264}，在市政廳裡",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265}，在旅店旁她的房子裡",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268}，在市政廳後面的房子裡",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "{npc:276}的房子在城鎮東端。{npc:3133}在旁邊的房子裡出售工程學商品。",

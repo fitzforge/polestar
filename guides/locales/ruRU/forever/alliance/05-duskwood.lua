@@ -33,7 +33,7 @@ return {
 	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
 	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, внутри",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
 	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
 
@@ -69,7 +69,7 @@ return {
 	["{npc:267}, in the town hall"] = "{npc:267} – в ратуше",
 	-- {npc:264} Commander Althea Ebonlocke
 	-- was: ["{npc:264}, in the town hall"] = "{npc:264} – в ратуше"
-	["{npc:264}, in the town hall"] = "",
+	["{npc:264}, in the town hall"] = "{npc:264} – в ратуше",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
 	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
@@ -224,7 +224,6 @@ return {
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}: с объекта {object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}: продает {npc:3133}, запас ограничен. Распродано? Его же продает {npc:1448} ({area:150}).",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409} – в северной части города",
-	-- ["{npc:264}, in the town hall"] = "{npc:264} – в ратуше",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265} – в своем доме у таверны",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268} – в доме за ратушей",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Дом {npc:276} стоит в восточной части города. {npc:3133} продает инженерные товары в соседнем доме.",

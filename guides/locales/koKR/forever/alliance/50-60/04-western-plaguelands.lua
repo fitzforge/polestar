@@ -30,11 +30,11 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "",
+	["{npc:4217}, upstairs"] = "{npc:4217}, 위층",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade · {zone:2482} Mount Hyjal
 	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "",
+	["{zone:1455} has no druid trainer"] = "{zone:1455}에는 드루이드 상급자가 없습니다",
 
 	-- Step 7: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -42,17 +42,17 @@ return {
 
 	-- Step 8: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "{area:442}(으)로 비행",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702} 비행 조련사",
 
 	-- Step 9: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 
 	-- Step 10: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -82,7 +82,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 14: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria
@@ -109,7 +109,7 @@ return {
 	["{area:199}'s cauldron, later in this guide"] = "",
 
 	-- Step 19: Chillwind Camp
-	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "퓨어하트, 두마, 밸러피스트, 맥도넬은 야영지 한가운데, 비행 조련사 옆에 서 있습니다.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
 	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: 흰개미는 나중에 {area:2627}에서 모읍니다"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "",
@@ -138,7 +138,7 @@ return {
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	-- was: ["{area:199} cauldron"] = "{area:199} 가마솥"
-	["{area:199} cauldron"] = "",
+	["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "",
@@ -148,7 +148,7 @@ return {
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
 	-- was: ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요"
-	["For {zone:1453}: keep it"] = "",
+	["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 
 	-- Step 23: Chillwind Camp
 	-- {area:3197} Chillwind Camp
@@ -170,7 +170,7 @@ return {
 	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
 	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "",
 	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
-	["{npc:10927}: keep it for {area:2262}"] = "",
+	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}: {area:2262}을(를) 위해 보관하세요",
 
 	-- Step 26: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
@@ -184,9 +184,9 @@ return {
 
 	-- Step 28: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
-	["{npc:10926}'s doll"] = "",
+	["{npc:10926}'s doll"] = "{npc:10926}의 인형",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "",
+	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "인형 조각 세 개는 {area:2262}의 무너진 집들에 있습니다. 하나를 주울 때 유령이 나타날 수 있습니다. 조각을 합쳐 인형을 만드세요.",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -289,7 +289,7 @@ return {
 
 	-- Step 50: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}, SI:7 안",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
 	["{quest:6184} at {area:3197}, on the flight back"] = "",
 
@@ -297,15 +297,15 @@ return {
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
 	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}, 운하를 걸어다님",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["Emma's charm goes back to {npc:10778} in the {zone:1422}, out of the way now: skip it."] = "",
 	-- {npc:14722} Clavicus Knavingham · {object:2096} Trade District
-	["{npc:14722}, in the {object:2096}"] = "",
+	["{npc:14722}, in the {object:2096}"] = "{npc:14722}, {object:2096} 안",
 
 	-- Step 52: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "",
+	["Fly to {area:3197}"] = "{area:3197}(으)로 비행",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
@@ -332,12 +332,12 @@ return {
 
 	-- Step 58: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
-	["{npc:11610} hides at the lumber camp's edge."] = "",
+	["{npc:11610} hides at the lumber camp's edge."] = "{npc:11610}은(는) 벌목지 가장자리에 숨어 있습니다.",
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
 	-- was: ["{area:190} overlook"] = "{area:190} 전망 지점"
-	["{area:190} overlook"] = "",
+	["{area:190} overlook"] = "{area:190} 전망 지점",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
 
@@ -349,7 +349,7 @@ return {
 	-- {npc:1855} Tirion Fordring · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Ride south from {npc:1855}'s hut to {area:201}. {npc:11078} (58) guards the cauldron.\nCareful: Soulwrath is level 58, a level over you here: clear the ghouls around the cauldron first and pull him alone."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
-	["For {npc:11053} at {area:3197}, at the end of this guide"] = "",
+	["For {npc:11053} at {area:3197}, at the end of this guide"] = "이 가이드 마지막에 {area:3197}의 {npc:11053}에게 가져갑니다",
 
 	-- Step 63: Marris Stead
 	-- {zone:1423} Eastern Plaguelands · {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
@@ -366,7 +366,7 @@ return {
 
 	-- Step 65: Light's Hope Chapel
 	-- {npc:11063} Carlin Redpath · {area:2264} Corin's Crossing
-	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "",
+	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "{npc:11063}의 다음 임무는 {area:2264}의 57-60레벨 스컬지 사이에서 해야 하니 건너뛰세요.",
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale
 	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, at the end of this ride: keep it"] = "",
 	-- {npc:11038} Caretaker Alen · {npc:12250} Zaeldarr the Outcast · {area:2261} Undercroft
@@ -447,7 +447,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 83: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 84: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:3197} Chillwind Camp
@@ -477,7 +477,7 @@ return {
 
 	-- Step 91: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 
 	-- Step 92: Boat to Theramore
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook
@@ -514,7 +514,6 @@ return {
 	-- ["For {area:3197}: keep it"] = "{area:3197}에 쓸 것: 보관하세요",
 	-- ["For {zone:1448}: keep it"] = "{zone:1448}용: 보관하세요",
 	-- ["For {zone:1451}: keep it"] = "{zone:1451}용: 보관하세요",
-	-- ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "{area:392}에서 {area:2255}(으)로 날아간 뒤 남쪽 {area:2250}(으)로 가세요.",
 	-- ["From {area:702}, fly to {area:1116}."] = "{area:702}에서 {area:1116}(으)로 날아가세요.",
 	-- ["Hearth to {area:392} (bound there earlier on this guide), then fly on to {area:976}."] = "귀환석으로 {area:392}에 가서(이 가이드 앞부분에서 귀환 장소로 설정함) {area:976}(으)로 날아가세요.",
@@ -586,9 +585,7 @@ return {
 	-- ["Zapped giants and sea elementals"] = "축소된 거인과 바다 정령",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "{zone:1422} {area:202}에서 {npc:1796} 사냥",
 	-- ["their trainers are in {zone:1457} too"] = "이들의 상급자도 {zone:1457}에 있습니다",
-	-- ["{area:190} overlook"] = "{area:190} 전망 지점",
 	-- ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요",
-	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{area:200} cauldron"] = "{area:200} 가마솥",
 	-- ["{area:201} cauldron"] = "{area:201} 가마솥",
 	-- ["{area:976} flight master"] = "{area:976} 비행 조련사",

@@ -93,7 +93,7 @@ return {
 	-- Step 16: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "",
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "테라모어 섬 비행 조련사",
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
@@ -109,7 +109,7 @@ return {
 	["{npc:6236} offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "{npc:6236}은(는) 다음으로 바람의감시자(1791)를 줍니다. 끝에 정예가 나오는 소용돌이 무기 퀘스트 연계는 전사 직업 가이드 소용돌이 무기에 있습니다.",
 
 	-- Step 21: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	-- {area:150} Menethil Harbor
 	["Back to Theramore for the boat to {area:150}."] = "",
 	-- {area:392} Ratchet

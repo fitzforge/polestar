@@ -146,7 +146,7 @@ return {
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Летите сюда: {area:415}",
 	-- {area:467} Stonetalon Peak
 	["{area:467} flight master"] = "",
 
@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: The Foulweald
 	-- was: ["The Foulweald"] = "Гиблая Чаща"
-	["The Foulweald"] = "",
+	["The Foulweald"] = "Гиблая Чаща",
 	-- {area:415} Astranaar
 	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "",
 
@@ -165,18 +165,18 @@ return {
 	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
 	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["{object:669176}: for {npc:3961} in {area:415}"] = "",
+	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: для NPC {npc:3961} ({area:415})",
 
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
 	-- was: ["Underwater"] = "Под водой"
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	-- was: ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Убивайте элементалей ради 5 неповрежденных браслетов элементаля, затем используйте {item:5456}"
-	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "",
+	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Убивайте элементалей ради 5 неповрежденных браслетов элементаля, затем используйте {item:5456}",
 
 	-- Step 35: Dal Bloodclaw
 	-- {area:421} Mystral Lake · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
@@ -186,7 +186,7 @@ return {
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} and {npc:3961} are in the inn, the flight master at the west end."] = "",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}, в таверне",
 
 	-- Step 37: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -222,7 +222,7 @@ return {
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}: a flagon of the inn's mead"] = "",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
-	["{item:2594}, from {npc:1464}"] = "",
+	["{item:2594}, from {npc:1464}"] = "{item:2594}: продает {npc:1464}",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
 	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
@@ -395,7 +395,6 @@ return {
 	-- ["Hearth to Menethil"] = "Камень возвращения: Гавань Менетилов",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "Камень возвращения еще не готов? Скачите обратно на север через {area:1276}.",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "Керлониан спит здесь: {area:448}, на юге зоны {zone:1439}. Используйте {item:13536}, чтобы разбудить его, и ведите его на юг по дороге в зону {zone:1440} к NPC {npc:11219} ({area:413}); трубите в рог снова каждый раз, когда он засыпает.",
-	-- ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Убивайте элементалей ради 5 неповрежденных браслетов элементаля, затем используйте {item:5456}",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "Бегуны топей и туманоплеты из стаи Мохошкуров бродят по берегам реки чуть западнее и южнее {npc:1244}; почти с каждого падает кремень.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Крапчатые ящеры и крикуны бродят по холмам к западу от раскопок.",
 	-- ["Next: fly to {area:42}."] = "Далее: летите сюда: {area:42}.",
@@ -410,14 +409,12 @@ return {
 	-- ["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Сядьте на поезд ({area:2257}) в месте {object:171524} до места {object:28027} ({zone:1453}), затем идите сюда: {object:2098}.",
 	-- ["The Bluegill hovels"] = "Хижины Синежабрых",
 	-- ["The Dragonmaw camp lies south of the road, just west of the {area:1025}: Raiders, Swamprunners and Bonewarders. {npc:2092}'s quest in {zone:1426} needs level 28."] = "Лагерь Драконьей Пасти находится к югу от дороги, чуть западнее места {area:1025}: налетчики, болотные бегуны и костостражи. Для задания NPC {npc:2092} ({zone:1426}) нужен 28-й уровень.",
-	-- ["The Foulweald"] = "Гиблая Чаща",
 	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "Фурболги из племени Гиблой Чащи живут в лесу к югу от дороги, к юго-востоку (ориентир: {area:415}). Логово охраняют дозорный и ведмеди.",
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "Крупные ящеры охотятся в долине чуть западнее раскопок.",
 	-- ["The excavation site sits on the hill south of the road."] = "Раскопки находятся на холме к югу от дороги.",
 	-- ["The raptor hills"] = "Холмы ящеров",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Три контейнера в хижинах мурлоков, с юга на север: {object:261}, затем {object:142151}, затем {object:259} в северной части.",
-	-- ["Underwater"] = "Под водой",
 	-- ["Venture Co. loggers"] = "Лесорубы Торговой компании",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "убивайте налетчиков и болотных бегунов из клана Драконьей Пасти в их лагере ({zone:1437})",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: соедините две половинки",

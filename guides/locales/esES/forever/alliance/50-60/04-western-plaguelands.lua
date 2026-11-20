@@ -30,11 +30,11 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "",
+	["{npc:4217}, upstairs"] = "{npc:4217}, arriba",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade · {zone:2482} Mount Hyjal
 	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "",
+	["{zone:1455} has no druid trainer"] = "{zone:1455} no tiene instructor de druidas",
 
 	-- Step 7: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -42,17 +42,17 @@ return {
 
 	-- Step 8: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 9: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "Barco a {area:150}",
 
 	-- Step 10: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
@@ -82,7 +82,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 14: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria
@@ -109,7 +109,7 @@ return {
 	["{area:199}'s cauldron, later in this guide"] = "",
 
 	-- Step 19: Chillwind Camp
-	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puracorazón, Dumah, Puño de Valor y MacDonnell están por el centro del campamento, junto al maestro de vuelo.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
 	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: las termitas vienen más tarde, en {area:2627}"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "",
@@ -138,7 +138,7 @@ return {
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	-- was: ["{area:199} cauldron"] = "Caldera de {area:199}"
-	["{area:199} cauldron"] = "",
+	["{area:199} cauldron"] = "Caldera de {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "",
@@ -148,7 +148,7 @@ return {
 	["{object:175894}, inside"] = "",
 	-- {zone:1453} Stormwind
 	-- was: ["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala"
-	["For {zone:1453}: keep it"] = "",
+	["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
 
 	-- Step 23: Chillwind Camp
 	-- {area:3197} Chillwind Camp
@@ -170,7 +170,7 @@ return {
 	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
 	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "",
 	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
-	["{npc:10927}: keep it for {area:2262}"] = "",
+	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}: guárdalo para {area:2262}",
 
 	-- Step 26: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
@@ -184,9 +184,9 @@ return {
 
 	-- Step 28: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
-	["{npc:10926}'s doll"] = "",
+	["{npc:10926}'s doll"] = "La muñeca de {npc:10926}",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "",
+	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Las tres piezas de la muñeca están en las casas en ruinas de {area:2262}; al recoger una pueden aparecer fantasmas. Combínalas para formar la muñeca.",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -281,7 +281,7 @@ return {
 
 	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {zone:1453} Stormwind · {npc:10778} Janice Felstone
 	["Fly to {zone:1453} for Highlord Bolvar's errand for SI:7 and {npc:10778}'s parcel, then straight back."] = "",
 	-- {area:3197} Chillwind Camp
@@ -289,7 +289,7 @@ return {
 
 	-- Step 50: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}, en IV:7",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
 	["{quest:6184} at {area:3197}, on the flight back"] = "",
 
@@ -297,15 +297,15 @@ return {
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
 	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}, que pasea por los canales",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["Emma's charm goes back to {npc:10778} in the {zone:1422}, out of the way now: skip it."] = "",
 	-- {npc:14722} Clavicus Knavingham · {object:2096} Trade District
-	["{npc:14722}, in the {object:2096}"] = "",
+	["{npc:14722}, in the {object:2096}"] = "{npc:14722}, en el {object:2096}",
 
 	-- Step 52: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "",
+	["Fly to {area:3197}"] = "Vuela a {area:3197}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
@@ -325,19 +325,19 @@ return {
 
 	-- Step 57: Radley and Durgen
 	-- was: ["Radley and Durgen"] = "Radley y Durgen"
-	["Radley and Durgen"] = "",
+	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} recorre el aserradero Crestanorte al este de {npc:11610}; {npc:11611} protege la torre del acceso sur de {area:190}.\nCuidado: hay guardias en la base de la torre y otro más patrulla a su alrededor. Acaba con ellos antes de enfrentarte a Durgen para que no se unan al combate."
 	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
 
 	-- Step 58: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
-	["{npc:11610} hides at the lumber camp's edge."] = "",
+	["{npc:11610} hides at the lumber camp's edge."] = "{npc:11610} se esconde al borde del campamento maderero.",
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
 	-- was: ["{area:190} overlook"] = "Mirador de {area:190}"
-	["{area:190} overlook"] = "",
+	["{area:190} overlook"] = "Mirador de {area:190}",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
 
@@ -349,7 +349,7 @@ return {
 	-- {npc:1855} Tirion Fordring · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Ride south from {npc:1855}'s hut to {area:201}. {npc:11078} (58) guards the cauldron.\nCareful: Soulwrath is level 58, a level over you here: clear the ghouls around the cauldron first and pull him alone."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
-	["For {npc:11053} at {area:3197}, at the end of this guide"] = "",
+	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Para la {npc:11053} en {area:3197}, al final de esta guía",
 
 	-- Step 63: Marris Stead
 	-- {zone:1423} Eastern Plaguelands · {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
@@ -366,7 +366,7 @@ return {
 
 	-- Step 65: Light's Hope Chapel
 	-- {npc:11063} Carlin Redpath · {area:2264} Corin's Crossing
-	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "",
+	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "La siguiente tarea de {npc:11063}, en {area:2264}, está entre la Plaga de nivel 57-60: sáltala.",
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale
 	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, at the end of this ride: keep it"] = "",
 	-- {npc:11038} Caretaker Alen · {npc:12250} Zaeldarr the Outcast · {area:2261} Undercroft
@@ -447,7 +447,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 83: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 84: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:3197} Chillwind Camp
@@ -477,7 +477,7 @@ return {
 
 	-- Step 91: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 
 	-- Step 92: Boat to Theramore
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook
@@ -514,7 +514,6 @@ return {
 	-- ["For {area:3197}: keep it"] = "Para {area:3197}: guárdala",
 	-- ["For {zone:1448}: keep it"] = "Para {zone:1448}: guárdala",
 	-- ["For {zone:1451}: keep it"] = "Para {zone:1451}: guárdala",
-	-- ["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "Desde {area:392}, vuela a {area:2255} y cabalga al sur hasta {area:2250}.",
 	-- ["From {area:702}, fly to {area:1116}."] = "Desde {area:702}, vuela a {area:1116}.",
 	-- ["Hearth to {area:392} (bound there earlier on this guide), then fly on to {area:976}."] = "Usa la piedra de hogar para ir a {area:392} (la vinculaste antes en esta guía) y luego vuela a {area:976}.",
@@ -524,7 +523,6 @@ return {
 	-- ["North to the refuge, for the quests the first Un'Goro visit left: {npc:9618} stands just outside and {npc:9117} in the cave at the back; the expedition's other three wait for your next stop here."] = "Al norte hasta el refugio, para las misiones que dejó la primera visita a Un'Goro: {npc:9618} está justo fuera y {npc:9117} en la cueva del fondo; los otros tres de la expedición esperan a tu próxima parada aquí.",
 	-- ["Northern Pylon"] = "La Torre del Norte",
 	-- ["On {npc:7583}"] = "Con {npc:7583}",
-	-- ["Radley and Durgen"] = "Radley y Durgen",
 	-- ["Ranshalla in {zone:1452}: keep it"] = "Ranshalla en {zone:1452}: guárdala",
 	-- ["Ride back south to the camp."] = "Vuelve al sur hasta el campamento.",
 	-- ["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Cabalga de vuelta al suroeste hasta la torre de {area:2742} en {area:2738}; súbela y mata a los emboscadores que surgen por el objeto incrustado.",
@@ -585,9 +583,7 @@ return {
 	-- ["Zapped giants and sea elementals"] = "Gigantes machacados y elementales marinos",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "mata a {npc:1796} en {area:202}, {zone:1422}",
 	-- ["their trainers are in {zone:1457} too"] = "sus instructores también están en {zone:1457}",
-	-- ["{area:190} overlook"] = "Mirador de {area:190}",
 	-- ["{area:1943}: kill these as you meet them"] = "{area:1943}: mata a estos según los encuentres",
-	-- ["{area:199} cauldron"] = "Caldera de {area:199}",
 	-- ["{area:200} cauldron"] = "Caldera de {area:200}",
 	-- ["{area:201} cauldron"] = "Caldera de {area:201}",
 	-- ["{area:976} flight master"] = "Maestro de vuelo de {area:976}",

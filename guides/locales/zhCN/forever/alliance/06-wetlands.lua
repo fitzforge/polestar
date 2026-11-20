@@ -74,7 +74,7 @@ return {
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
 	-- was: ["Inside"] = "在里面"
-	["Inside"] = "",
+	["Inside"] = "在里面",
 
 	-- Step 17: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -90,11 +90,11 @@ return {
 
 	-- Step 20: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "{item:2702}",
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
 	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "",
 	-- {item:2702} Lightforge Ingot
-	["{item:2702}; underwater"] = "",
+	["{item:2702}; underwater"] = "{item:2702}：在水下",
 
 	-- Step 21: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
@@ -216,7 +216,7 @@ return {
 
 	-- Step 39: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
-	["{area:1038}: kill these as you meet them"] = "",
+	["{area:1038}: kill these as you meet them"] = "{area:1038}：沿途击杀以下目标",
 	-- {npc:1244} Rethiel the Greenwarden · {area:1036} Angerfang Encampment · {area:205} Dun Modr · {quest:98283} Carnage · {npc:270892} Goaz Warder · {area:1038} Dragonmaw Gates · {npc:270637} Howin Kindfeather
 	-- plural, as words: Crimson Whelps = {npc:1069} Crimson Whelp · Highland Razormaws = {npc:1018} Highland Razormaw · Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "",
@@ -230,13 +230,13 @@ return {
 	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "",
 
 	-- Step 42: Ebenezer Rustlocke
-	["Ebenezer Rustlocke"] = "",
+	["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
-	["{object:2652}, inside"] = "",
-	["the same corpse"] = "",
+	["{object:2652}, inside"] = "{object:2652}，在里面",
+	["the same corpse"] = "同一具尸体",
 
 	-- Step 43: Rhag Garmason
 	-- {area:205} Dun Modr · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
@@ -244,7 +244,7 @@ return {
 
 	-- Step 44: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
-	["The {object:2704}"] = "",
+	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron · Dark Iron Shadowcasters = {npc:2577} Dark Iron Shadowcaster
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end.\nCareful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it."] = "",
@@ -256,7 +256,7 @@ return {
 
 	-- Step 46: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
-	["{npc:1075} again"] = "",
+	["{npc:1075} again"] = "再次找{npc:1075}",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road to {area:205}, on the camp's east side, away from Modr (32, elite) in the ruins."] = "",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
@@ -301,14 +301,14 @@ return {
 	-- plural, as words: Cursed Marines = {npc:1158} Cursed Marine
 	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
-	["{item:2629}, from {npc:1160}"] = "",
+	["{item:2629}, from {npc:1160}"] = "{item:2629}：从{npc:1160}处获得",
 
 	-- Step 53: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "",
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "向南返回米奈希尔：{npc:1217}站在{area:2104}里。",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
 	-- was: ["For {npc:1284} in {zone:1453}, at the end of this guide"] = "交给{zone:1453}的{npc:1284}，在本指南末尾完成"
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "交给{zone:1453}的{npc:1284}，在本指南末尾完成",
 
 	-- Step 54: Level 28
 	["Level 28"] = "28级",
@@ -623,7 +623,7 @@ return {
 	-- {area:880} Thandol Span · {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["Sully Balloo's letter, from the {area:880}: {npc:2695} takes it here in {zone:1455}."] = "",
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
-	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "",
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}：交给国王麦格尼·铜须，在同一次{zone:1455}行程中",
 
 	-- Step 120: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
@@ -697,11 +697,9 @@ return {
 	-- ["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}."] = "沿路向西返回{area:150}：{npc:2104}站在{area:2103}顶层。",
 	-- ["Flagon of Mead, from {npc:1464}"] = "Flagon of Mead，向{npc:1464}购买",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "用于龙喉投石车，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",
-	-- ["For {npc:1284} in {zone:1453}, at the end of this guide"] = "交给{zone:1453}的{npc:1284}，在本指南末尾完成",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:1217}在其南侧的{area:2104}内，{npc:2094}在前往乘船处途中的码头旁。",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:2094}在前往乘船处途中的码头旁。",
 	-- ["In {zone:1453}, join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "在{zone:1453}将两半坠饰合成{item:15885}，然后施放{spell:18960}：{npc:11802}在{area:2361}。之后，{area:2361}的{npc:11800}可让德鲁伊直接飞往{area:702}。{npc:11802}站在楼上：从屋内上楼，箭头无法区分楼层。",
-	-- ["Inside"] = "在里面",
 	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "刺喉龙门牙：由{area:1038}附近的迅猛龙掉落，在30-40/01-hillsbrad-foothills的{zone:1437}路线中收集",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\nFen Creepers hide in the marsh pools north-west of the {area:1025}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "红色雏龙分布在大门西面的山丘，疯狂的腐爪出没于{area:1025}，刺喉龙在北面山坡活动；奈尔鲁在东北面（使用{item:279996}）。\n沼泽爬行者藏在{area:1025}西北的沼泽水潭中。\n小心：脱离战斗时，沼泽爬行者会不时施放Sneak，进入潜行，难以发现。",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "从{npc:3987}的营地向南前往{area:415}：{npc:3691}在旅店里，飞行管理员在西端。",

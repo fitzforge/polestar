@@ -148,7 +148,7 @@ return {
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Flieg nach {area:415}",
 	-- {area:467} Stonetalon Peak
 	["{area:467} flight master"] = "",
 
@@ -158,7 +158,7 @@ return {
 
 	-- Step 32: The Foulweald
 	-- was: ["The Foulweald"] = "Die Fäulnisklauen"
-	["The Foulweald"] = "",
+	["The Foulweald"] = "Die Fäulnisklauen",
 	-- {area:415} Astranaar
 	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "",
 
@@ -167,18 +167,18 @@ return {
 	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
 	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["{object:669176}: for {npc:3961} in {area:415}"] = "",
+	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: für {npc:3961} in {area:415}",
 
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
 	-- was: ["Underwater"] = "Unter Wasser"
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	-- was: ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Töte die Elementare für 5 intakte Elementararmschienen und benutze dann {item:5456}"
-	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "",
+	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Töte die Elementare für 5 intakte Elementararmschienen und benutze dann {item:5456}",
 
 	-- Step 35: Dal Bloodclaw
 	-- {area:421} Mystral Lake · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
@@ -188,7 +188,7 @@ return {
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} and {npc:3961} are in the inn, the flight master at the west end."] = "",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}, im Gasthaus",
 
 	-- Step 37: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -224,7 +224,7 @@ return {
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}: a flagon of the inn's mead"] = "",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
-	["{item:2594}, from {npc:1464}"] = "",
+	["{item:2594}, from {npc:1464}"] = "{item:2594}, von {npc:1464}",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
 	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
@@ -407,7 +407,6 @@ return {
 	-- ["Hearthstone on cooldown? Head back north through the {area:1276}."] = "Ruhestein auf Abklingzeit? Geh zurück nach Norden durch den {area:1276}.",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "Ruhestein noch nicht bereit? Reite nach Norden zurück durch {area:1276}.",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "Kerlonian schläft bei {area:448} im Süden von {zone:1439}. Benutze {item:13536}, um ihn zu wecken, und führe ihn auf der Straße nach Süden nach {zone:1440} zu {npc:11219} bei {area:413}; blas erneut ins Horn, wann immer er einschläft.",
-	-- ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Töte die Elementare für 5 intakte Elementararmschienen und benutze dann {item:5456}",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "Moorläufer der Moosfelle und Nebelwirker der Moosfelle streifen an den Flussufern gleich westlich und südlich von {npc:1244} umher; fast jeder lässt Feuerstein fallen.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Scheckige Raptoren und Scheckige Kreischer streifen durch die Hügel westlich der Ausgrabungsstätte.",
 	-- ["Next: fly to {area:42}."] = "Als Nächstes: Flieg nach {area:42}.",
@@ -425,7 +424,6 @@ return {
 	-- ["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Nimm {area:2257} von {object:171524} zu {object:28027} in {zone:1453} und geh dann zu {object:2098}.",
 	-- ["The Bluegill hovels"] = "Die Hütten der Blaukiemen",
 	-- ["The Dragonmaw camp lies south of the road, just west of the {area:1025}: Raiders, Swamprunners and Bonewarders. {npc:2092}'s quest in {zone:1426} needs level 28."] = "Das Lager der Dragonmaw liegt südlich der Straße, gleich westlich von {area:1025}: Räuber, Sumpfläufer und Knochenwärter der Dragonmaw. Die Quest von {npc:2092} in {zone:1426} erfordert Stufe 28.",
-	-- ["The Foulweald"] = "Die Fäulnisklauen",
 	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "Die Furbolgs der Fäulnisklauen leben in den Wäldern südlich der Straße, südöstlich von {area:415}. Der Höhlenbehüter und die Ursas bewachen die Höhle.",
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "Die größeren Raptoren jagen im Tal gleich westlich der Ausgrabung.",
 	-- ["The excavation site sits on the hill south of the road."] = "Die Ausgrabungsstätte liegt auf dem Hügel südlich der Straße.",
@@ -434,7 +432,6 @@ return {
 	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "Die Tiefenbahn kommt im {object:28027} an; geh nach Westen zum {object:2098}: {npc:1646} steht an dessen Ostseite. (Die Route gibt seinen Brief am Ende von 03-loch-modan ab; dies ist für einen Charakter, der ihn noch bei sich hat.)",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Drei Behälter in den Murlochütten, von Süden nach Norden: {object:261}, dann {object:142151}, dann {object:259} am Nordende.",
-	-- ["Underwater"] = "Unter Wasser",
 	-- ["Venture Co. loggers"] = "Holzarbeiter der Venture Co.",
 	-- ["West of Mystral Lake, the stardust bushes grow among the ruins."] = "Westlich vom Mystralsee wachsen die Sternenstaubbüsche zwischen den Ruinen.",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "grinde Räuber und Sumpfläufer der Dragonmaw im Lager der Dragonmaw, {zone:1437}",

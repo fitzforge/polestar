@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
 	["{npc:7771}'s {item:10556} stands in {area:392}: fly there first, then on to {area:976}."] = "",
 	["Theramore flight master"] = "Maestro de vuelo de Theramore",

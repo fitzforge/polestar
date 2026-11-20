@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: The Foulweald
 	-- was: ["The Foulweald"] = "썩은나무 숲"
-	["The Foulweald"] = "",
+	["The Foulweald"] = "썩은나무 숲",
 	-- {area:415} Astranaar
 	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "",
 
@@ -165,18 +165,18 @@ return {
 	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
 	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
-	["{object:669176}: for {npc:3961} in {area:415}"] = "",
+	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
 
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
 	-- was: ["Underwater"] = "물속"
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	-- was: ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요"
-	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "",
+	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요",
 
 	-- Step 35: Dal Bloodclaw
 	-- {area:421} Mystral Lake · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
@@ -222,7 +222,7 @@ return {
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}: a flagon of the inn's mead"] = "",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
-	["{item:2594}, from {npc:1464}"] = "",
+	["{item:2594}, from {npc:1464}"] = "{item:2594}, {npc:1464}에게서",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
 	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
@@ -394,7 +394,6 @@ return {
 	-- ["Hearth to Menethil"] = "메네실로 귀환",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "귀환석이 재사용 대기 중인가요? {area:1276}을(를) 지나 북쪽으로 돌아가세요.",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "케를로니안은 {zone:1439} 남부의 {area:448}에서 잠들어 있습니다. {item:13536}을(를) 사용해 그를 깨우고, 길을 따라 남쪽으로 {zone:1440}에 들어가 {area:413}의 {npc:11219}에게 데려가세요. 그가 잠들 때마다 뿔피리를 다시 부세요.",
-	-- ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "이끼가죽일족 길잡이와 안개마술사가 {npc:1244} 바로 서쪽과 남쪽 강둑을 돌아다닙니다. 거의 모두가 부싯돌을 떨어뜨립니다.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "줄무늬랩터와 긴송곳니 줄무늬랩터가 발굴 현장 서쪽 언덕을 돌아다닙니다.",
 	-- ["Next: fly to {area:42}."] = "다음: {area:42}(으)로 날아가세요.",
@@ -408,14 +407,12 @@ return {
 	-- ["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "{object:171524}에서 {area:2257}을(를) 타고 {zone:1453}의 {object:28027}(으)로 간 뒤, {object:2098}까지 걸어가세요.",
 	-- ["The Bluegill hovels"] = "푸른아가미 오두막",
 	-- ["The Dragonmaw camp lies south of the road, just west of the {area:1025}: Raiders, Swamprunners and Bonewarders. {npc:2092}'s quest in {zone:1426} needs level 28."] = "용아귀부족 야영지는 {area:1025} 바로 서쪽, 길 남쪽에 있습니다. 약탈자, 늪길잡이, 해골감시자가 있습니다. {zone:1426}에서 {npc:2092}의 퀘스트는 28레벨이 필요합니다.",
-	-- ["The Foulweald"] = "썩은나무 숲",
 	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "썩은나무일족 펄볼그는 길 남쪽, {area:415} 남동쪽 숲에 삽니다. 썩은나무일족 보초와 썩은나무일족 펄볼그가 굴을 지킵니다.",
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "더 큰 랩터는 발굴지 바로 서쪽 계곡에서 사냥합니다.",
 	-- ["The excavation site sits on the hill south of the road."] = "발굴 현장은 길 남쪽 언덕 위에 있습니다.",
 	-- ["The raptor hills"] = "랩터 언덕",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "멀록 오두막의 상자 세 개, 남쪽에서 북쪽 순서: {object:261}, 그다음 {object:142151}, 그다음 북쪽 끝의 {object:259}.",
-	-- ["Underwater"] = "물속",
 	-- ["Venture Co. loggers"] = "투자개발회사 나무꾼",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "{zone:1437}의 용아귀부족 야영지에서 용아귀부족 약탈자와 늪길잡이를 사냥하세요",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: 반쪽 두 개를 합치기",

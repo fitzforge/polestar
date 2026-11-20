@@ -28,7 +28,7 @@ return {
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	-- was: ["Into {zone:1451}"] = "Hacia {zone:1451}"
-	["Into {zone:1451}"] = "",
+	["Into {zone:1451}"] = "Hacia {zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
 	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
 
@@ -100,9 +100,9 @@ return {
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
-	["The {area:2742} tower"] = "",
+	["The {area:2742} tower"] = "La torre de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Cabalga de vuelta al suroeste hasta la torre de {area:2742} en {area:2738}; súbela y mata a los emboscadores que surgen por el objeto incrustado.",
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
@@ -146,7 +146,7 @@ return {
 
 	-- Step 29: Level 60
 	-- was: ["Level 60"] = "Nivel 60"
-	["Level 60"] = "",
+	["Level 60"] = "Nivel 60",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
@@ -186,12 +186,10 @@ return {
 	-- ["Grind to 60"] = "Sube a nivel 60",
 	-- ["Havunth's camp sits just west of {area:3425}."] = "El campamento de Havunth está justo al oeste de {area:3425}.",
 	-- ["Hearth to {area:1519} and train your level 60 spells. This is the end of the leveling route: look at the reputation and dungeon guides next."] = "Usa tu piedra de hogar para ir a {area:1519} y entrena tus hechizos de nivel 60. Aquí termina la ruta de subida de nivel: mira después las guías de reputación y de mazmorras.",
-	-- ["Into {zone:1451}"] = "Hacia {zone:1451}",
 	-- ["Irontree Stompers"] = "Vapuleadores Troncoferro",
 	-- ["Its jars are filled on the Un'Goro visit"] = "Sus jarras se llenan en la visita a Un'Goro",
 	-- ["Keep the {item:11169}, the claws and the heart he hands back"] = "Guarda el {item:11169}, las garras y el corazón que te devuelve",
 	-- ["Keep west on the road to {npc:9298}'s camp beside the hot springs."] = "Sigue al oeste por el camino hasta el campamento de {npc:9298} junto a las aguas termales.",
-	-- ["Level 60"] = "Nivel 60",
 	-- ["Lots of flying between zones"] = "Muchos vuelos entre zonas",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Recoge los suministros alrededor del carro y recupera el amuleto de {npc:10301} de las lechubestias cercanas.",
 	-- ["Portal to {zone:1438}"] = "Portal a {zone:1438}",

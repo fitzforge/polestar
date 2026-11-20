@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "飛往{area:2255}",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489}飛行管理員",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -79,14 +79,14 @@ return {
 
 	-- Step 11: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "飛往{area:392}",
 
 	-- Step 12: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
 
 	-- Step 13: The Barrens
 	-- {zone:1413} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "從塞拉摩出發，向西騎入{zone:1413}，再沿海岸向北到{area:392}。",
 
 	-- Step 14: Ratchet
 	-- {npc:8496} Liv Rizzlefix
@@ -104,9 +104,9 @@ return {
 
 	-- Step 17: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "飛往{area:976}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 18: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -116,124 +116,124 @@ return {
 
 	-- Step 19: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
-	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "",
+	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}是鎮東邊不遠墓地裡的鬼魂：在那裡喝下{item:11243}，你會死亡，釋放靈魂後以鬼魂狀態和他交談。然後跑回屍體復活：墓碑就在附近。",
 	-- {npc:8737} Linken · {area:541} Marshal's Refuge
 	["{npc:8737} in {area:541}, Un'Goro: keep it"] = "",
 
 	-- Step 20: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
-	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "",
+	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "向西南騎往{area:1938}的{npc:7771}營地。",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
 	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
 
 	-- Step 22: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "飛往{area:541}",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976}飛行管理員",
 
 	-- Step 23: Marshal's Refuge
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9999} Ringo · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9618} Karna Remtravel
 	["Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east."] = "",
 	-- {npc:9997} Spraggle Frock
-	["The wooden sign beside {npc:9997}"] = "",
+	["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}，地下",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
 	-- Step 24: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
 
 	-- Step 25: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向東騎往{area:1943}，機器人站在猩猩群中。不要進入那裡的深洞。",
 	-- was: ["{item:15785}; below ground"] = "{item:15785}；地下"
-	["Below ground"] = "",
+	["Below ground"] = "地下",
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
 	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}：遇到就殺"
-	["{area:1943}: kill these as you meet them"] = "",
+	["{area:1943}: kill these as you meet them"] = "{area:1943}：遇到時順手擊殺",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩住在水晶塔東邊不遠的{area:1943}：趁你在上面時，現在就替{npc:9619}收集毛皮。別進最深的洞穴：{npc:9622}是55級。\n小心：安戈洛猩猩（50-51級）血量降到25%時會向20碼內的同伴求援。這一帶有個滿是猩猩的洞穴，在那裡戰鬥會引來大量怪物。",
 	-- {item:11478} Un'Goro Gorilla Pelt
-	["{item:11478}; below ground"] = "",
+	["{item:11478}; below ground"] = "{item:11478}；地下",
 	-- {item:11479} Un'Goro Stomper Pelt
-	["{item:11479}; below ground"] = "",
+	["{item:11479}; below ground"] = "{item:11479}；地下",
 	-- {item:11480} Un'Goro Thunderer Pelt
-	["{item:11480}; below ground"] = "",
+	["{item:11480}; below ground"] = "{item:11480}；地下",
 
 	-- Step 28: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
-	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "",
+	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "焦油怪和焦油領主在{area:538}裡打滾，位於避難所南邊、往下進入環形山的路上。",
 
 	-- Step 29: The crater
-	["The crater"] = "",
+	["The crater"] = "環形山",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "焦油獸在{area:538}裡打滾；中部{area:537}的火元素攜帶著灰燼；南部{area:540}的格里什黃蜂攜帶著腺體。環形山裡的每種生物都可能掉落{item:11018}。\n注意：生命值降到45%以下的格里什工蜂有50%機率呼叫25碼內的同伴支援。",
 
 	-- Step 30: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619}在進入環形山的坡道腳下紮營。",
 	-- {quest:4291} The Scent of Lar'korwi
-	["{quest:4291}, if you still carry it from the first visit"] = "",
+	["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}，如果你身上還帶著第一次來時的任務",
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
+	["The pelts come from the gorillas on {area:1943}"] = "毛皮來自{area:1943}的猩猩",
 	-- {quest:87494} Microcrystal Contamination
-	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "",
+	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}，如果第一次來之後有暴掠龍掉落了鱗片",
 
 	-- Step 31: Damaged Blue Crystal
 	-- {item:280417} Damaged Blue Crystal · {npc:9619} Torwa Pathfinder
-	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "",
+	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "{item:280417}在{npc:9619}營地西邊，騎一小段路就到。",
 
 	-- Step 34: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "大猩猩生活在{area:541}東邊的{area:1943}。把它們的毛皮留給{npc:9619}。別進最深的洞穴：{npc:9622}是55級。\n注意：安戈洛大猩猩（50-51級）生命值降到25%後會呼叫20碼內的同伴支援。該區域有一個滿是猩猩的洞穴，在那裡戰鬥會引來大量增援。",
 
 	-- Step 36: U'cha
 	-- {npc:9622} U'cha
-	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "",
+	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿東側向北騎往猩猩高地。55級的猩猩{npc:9622}在最深的洞穴裡：先清掉洞口的猩猩。",
 
 	-- Step 37: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
 
 	-- Step 38: Eastern Pylon and the crate
-	["Eastern Pylon and the crate"] = "",
+	["Eastern Pylon and the crate"] = "東部水晶塔與箱子",
 	-- {npc:9684} Lar'korwi · {item:11113} Crate of Foodstuffs
-	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "",
+	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "水晶塔位於{npc:9684}巢穴上方的東面懸崖上；探險隊的{item:11113}在東部叢林的廢棄營地裡。",
 
 	-- Step 39: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["Cross the south of the crater to {npc:9619} by the ramp."] = "",
+	["Cross the south of the crater to {npc:9619} by the ramp."] = "穿越環形山南部，前往坡道旁的{npc:9619}。",
 
 	-- Step 40: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}：遇到就殺"
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}：遇到就殺",
 
 	-- Step 41: The Gorishi hive
-	["The Gorishi hive"] = "",
-	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "",
+	["The Gorishi hive"] = "格里什蟲巢",
+	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "沿著環形山南側向西走：這裡滿是格瑞希蟲巢。在孵化室（掛著幼蟲的房間）使用刮取瓶。",
 
 	-- Step 42: Bones and equipment
-	["Bones and equipment"] = "",
+	["Bones and equipment"] = "骨頭與裝備",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
 
 	-- Step 43: Western Pylon
-	["Western Pylon"] = "",
-	["The pylon stands on the western cliffs."] = "",
+	["Western Pylon"] = "西部水晶塔",
+	["The pylon stands on the western cliffs."] = "水晶塔位於西面懸崖上。",
 
 	-- Step 44: Krakle
 	-- {area:543} Golakka Hot Springs · {npc:10302} Krakle
@@ -241,7 +241,7 @@ return {
 
 	-- Step 45: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "",
+	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}。",
 
 	-- Step 46: Krakle
 	-- {npc:10302} Krakle
@@ -251,17 +251,17 @@ return {
 
 	-- Step 47: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
-	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "",
+	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",
 
 	-- Step 48: Escort Ringo
 	-- {npc:9999} Ringo
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
 
 	-- Step 50: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "{area:541}飛行管理員",
 
 	-- Step 51: Gadgetzan
 	-- {npc:10041} Gorishi Hive Queen · {area:540} Slithering Scar
@@ -269,25 +269,25 @@ return {
 
 	-- Step 53: Liv Rizzlefix
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}，在裡面",
 
 	-- Step 54: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "飛往{area:415}",
 
 	-- Step 55: Felwood
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "",
+	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "從{area:415}騎馬向北進入{zone:1448}，前往路旁的德魯伊營地{area:2479}。",
 	-- {area:2479} Emerald Sanctuary
-	["The {area:2479}"] = "",
+	["The {area:2479}"] = "{area:2479}",
 
 	-- Step 56: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
 	["{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it"] = "",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}，在裡面",
 	-- {npc:9116} Eridan Bluewind
-	["Wait a moment for {npc:9116}"] = "",
+	["Wait a moment for {npc:9116}"] = "稍等一下{npc:9116}",
 	-- {npc:9116} Eridan Bluewind · {npc:222647} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
 	["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "",
 	-- {npc:9116} Eridan Bluewind
@@ -296,26 +296,26 @@ return {
 
 	-- Step 57: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
-	["{area:1770} braziers"] = "",
+	["{area:1770} braziers"] = "{area:1770}的火盆",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
 	-- {object:176159} Brazier of Malice
-	["{object:176159}, below ground"] = "",
+	["{object:176159}, below ground"] = "{object:176159}，地下",
 	-- {object:176160} Brazier of Suffering
-	["{object:176160}, below ground"] = "",
+	["{object:176160}, below ground"] = "{object:176160}，地下",
 	-- {object:176158} Brazier of Pain
-	["{object:176158}, below ground"] = "",
+	["{object:176158}, below ground"] = "{object:176158}，地下",
 	-- {object:176161} Brazier of Hatred
-	["{object:176161}, below ground"] = "",
+	["{object:176161}, below ground"] = "{object:176161}，地下",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
 	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}，在她的牢房裡；在地下",
 
 	-- Step 58: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "把她帶出{area:1770}，一直保住她到出洞為止：先清掉回程的路。",
 
 	-- Step 60: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
@@ -325,22 +325,22 @@ return {
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}：在地下",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}：在地下",
 
 	-- Step 62: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9861} Moora
-	["{npc:9861}, below ground"] = "",
+	["{npc:9861}, below ground"] = "{npc:9861}，地下",
 	-- {npc:9860} Salia
-	["{npc:9860}, below ground"] = "",
+	["{npc:9860}, below ground"] = "{npc:9860}，地下",
 	-- {npc:9517} Shadow Lord Fel'dan
-	["{npc:9517}; below ground"] = "",
+	["{npc:9517}; below ground"] = "{npc:9517}；地下",
 
 	-- Step 63: The Emerald Sanctuary
-	["Ride back south-east to the Sanctuary."] = "",
+	["Ride back south-east to the Sanctuary."] = "騎回東南方的聖地。",
 
 	-- Step 64: Arathandris Silversky
 	-- {npc:9528} Arathandris Silversky · {area:1770} Shadow Hold
@@ -355,13 +355,13 @@ return {
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}：在這一帶走動：看地圖上的圓圈裡",
 
 	-- Step 69: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}；在地下",
 
 	-- Step 70: Into Winterspring
 	-- {zone:1452} Winterspring
@@ -381,12 +381,12 @@ return {
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
 	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 73: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
 	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "",
+	["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "小心：59級精英遠古鐵木行者站在{quest:5086}之間：在營地東北角（約50.6,22.4）一次打一隻恐魔，每次拉怪前先看看附近有沒有行者。",
 
 	-- Step 74: Winterspring
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden
@@ -395,13 +395,13 @@ return {
 	-- Step 76: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
 	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}：遇到就殺"
-	["{zone:1452}: kill these as you meet them"] = "",
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途擊殺以下目標",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "",
+	["Ride east along the road to {area:2255}."] = "沿著道路向東騎往{area:2255}。",
 	-- {npc:11755} Harlo Wigglesworth · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village
 	["{npc:11755}: for {npc:10301} in {area:2253}, just back up the road"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -442,7 +442,7 @@ return {
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	-- was: ["{npc:10301}'s camp"] = "{npc:10301}的營地"
-	["{npc:10301}'s camp"] = "",
+	["{npc:10301}'s camp"] = "{npc:10301}的營地",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "沿著山谷向東南騎往{area:2245}雪地中{npc:10301}的受損箱子，他的馬車殘骸就在它東邊。"
 	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
@@ -450,14 +450,14 @@ return {
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
 	-- was: ["{npc:10301}'s supplies"] = "{npc:10301}的補給物資"
-	["{npc:10301}'s supplies"] = "",
+	["{npc:10301}'s supplies"] = "{npc:10301}的補給物資",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher
 	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby.\nCareful: the Moontouched Owlbeasts here are 57 and the Berserk Owlbeasts 58: pull the Crazed (56) and Moontouched ones at the edge and leave the Berserk ones alone.\nCareful: Winterspring Screechers (57-59) hunt around here too: pull the owlbeasts away from them."] = "",
 
 	-- Step 88: Starfall Village
 	-- {area:2255} Everlook · {area:2253} Starfall Village
-	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "",
+	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "沿山谷向北騎行，經過{area:2255}，前往{area:2253}。",
 
 	-- Step 89: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring
@@ -534,8 +534,6 @@ return {
 	-- ["{item:12886}; inside"] = "{item:12886}；室內",
 	-- ["{item:12888}; inside"] = "{item:12888}；室內",
 	-- ["{item:15785}; below ground"] = "{item:15785}；地下",
-	-- ["{npc:10301}'s camp"] = "{npc:10301}的營地",
-	-- ["{npc:10301}'s supplies"] = "{npc:10301}的補給物資",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}：兩個都保留給瘟疫之地；在裡面",
 	-- ["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}：保留給瘟疫之地；在裡面",
 	-- ["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "{npc:10739}站在{area:202}的農場旁，沿路向東前往{zone:1423}時會經過。",

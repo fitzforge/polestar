@@ -117,7 +117,7 @@ return {
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove."] = "",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["Moonstalker Fangs"] = "",
+	["Moonstalker Fangs"] = "Клыки лунопарда",
 
 	-- Step 19: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Фурболги Чернолесья",
@@ -159,7 +159,7 @@ return {
 	-- plural, as words: Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
 	["North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river."] = "",
 	-- {item:12349} Cliffspring River Sample
-	["{item:12349}, at the waterfall"] = "",
+	["{item:12349}, at the waterfall"] = "{item:12349} – у водопада",
 
 	-- Step 28: Buzzbox 323
 	-- {quest:1002} Buzzbox 323 · {object:17185} Buzzbox 525 · {zone:1439} Darkshore

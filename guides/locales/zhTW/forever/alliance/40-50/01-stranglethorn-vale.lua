@@ -92,8 +92,8 @@ return {
 
 	-- Step 16: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
-	["Theramore flight master"] = "",
+	["Fly to {area:392}"] = "飛往{area:392}",
+	["Theramore flight master"] = "塞拉摩飛行管理員",
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
@@ -109,11 +109,11 @@ return {
 	["{npc:6236} offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "{npc:6236}接著會提供捕風者（1791）：旋風斬武器任務線的最後有一個精英，收錄在戰士職業指南「旋風斬武器」中。",
 
 	-- Step 21: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "飛往塞拉摩",
 	-- {area:150} Menethil Harbor
 	["Back to Theramore for the boat to {area:150}."] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 22: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -436,11 +436,11 @@ return {
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
 	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}，樓上",
 
 	-- Step 92: Fly to Stormwind
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "{area:1438}飛行管理員",
 
 	-- Step 93: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak

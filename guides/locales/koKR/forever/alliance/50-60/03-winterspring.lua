@@ -115,13 +115,13 @@ return {
 
 	-- Step 19: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
-	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "",
+	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에 있는 유령입니다. 그곳에서 {item:11243}을(를) 마시면 죽습니다. 영혼을 해방한 뒤 유령 상태로 그에게 말을 거세요. 그런 다음 시체로 달려가 되살아나세요. 묘비는 근처에 있습니다.",
 	-- {npc:8737} Linken · {area:541} Marshal's Refuge
 	["{npc:8737} in {area:541}, Un'Goro: keep it"] = "",
 
 	-- Step 20: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
-	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "",
+	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "남서쪽으로 {area:1938}의 {npc:7771} 야영지로 가세요.",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
 	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
 
@@ -129,34 +129,34 @@ return {
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
 	-- Step 23: Marshal's Refuge
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9999} Ringo · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9618} Karna Remtravel
 	["Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east."] = "",
 	-- {npc:9997} Spraggle Frock
-	["The wooden sign beside {npc:9997}"] = "",
+	["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
 	-- Step 24: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "북쪽 수정탑",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
 
 	-- Step 25: A-Me 01
 	-- {area:1943} Ironstone Plateau
-	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "",
-	["Below ground"] = "",
+	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "동쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
+	["Below ground"] = "지하",
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
-	["{area:1943}: kill these as you meet them"] = "",
+	["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "고릴라는 수정탑 바로 동쪽의 {area:1943}에 삽니다. 여기 올라온 김에 지금 {npc:9619}에게 줄 가죽을 모으세요. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}은(는) 55레벨입니다.\n주의: 운고로 고릴라(50-51레벨)는 생명력이 25%로 떨어지면 20미터 안의 동료를 불러 도움을 요청합니다. 이 지역에는 고릴라로 가득한 동굴이 있어, 그곳에서 싸우면 많은 적이 몰려듭니다.",
 	-- {item:11478} Un'Goro Gorilla Pelt
 	["{item:11478}; below ground"] = "",
 	-- {item:11479} Un'Goro Stomper Pelt
@@ -169,10 +169,10 @@ return {
 	["{area:538}: kill these as you meet them"] = "",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
-	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "",
+	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "타르 야수와 타르 군주는 분화구로 내려가는 길에 있는 피난처 남쪽의 {area:538}에서 뒹굴고 있습니다.",
 
 	-- Step 29: The crater
-	["The crater"] = "",
+	["The crater"] = "분화구",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
 	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
@@ -181,15 +181,15 @@ return {
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
 	-- {quest:4291} The Scent of Lar'korwi
-	["{quest:4291}, if you still carry it from the first visit"] = "",
+	["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, 첫 방문 때부터 아직 가지고 있다면",
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
+	["The pelts come from the gorillas on {area:1943}"] = "가죽은 {area:1943}의 고릴라에게서 모읍니다",
 	-- {quest:87494} Microcrystal Contamination
-	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "",
+	["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, 첫 방문 이후 라바사우루스가 비늘을 떨어뜨렸다면",
 
 	-- Step 31: Damaged Blue Crystal
 	-- {item:280417} Damaged Blue Crystal · {npc:9619} Torwa Pathfinder
-	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "",
+	["The {item:280417} is a short ride west of {npc:9619}'s camp."] = "{item:280417}은(는) {npc:9619}의 야영지에서 서쪽으로 조금만 가면 있습니다.",
 
 	-- Step 34: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -198,38 +198,38 @@ return {
 
 	-- Step 36: U'cha
 	-- {npc:9622} U'cha
-	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "",
+	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 
 	-- Step 37: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
 
 	-- Step 38: Eastern Pylon and the crate
-	["Eastern Pylon and the crate"] = "",
+	["Eastern Pylon and the crate"] = "동쪽 수정탑과 상자",
 	-- {npc:9684} Lar'korwi · {item:11113} Crate of Foodstuffs
-	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "",
+	["The pylon stands on the eastern cliffs above {npc:9684}'s lair; the expedition's {item:11113} sits at the abandoned camp in the eastern jungle."] = "수정탑은 {npc:9684}의 굴 위 동쪽 절벽에 있습니다. 탐험대의 {item:11113}은(는) 동쪽 밀림의 버려진 야영지에 있습니다.",
 
 	-- Step 39: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["Cross the south of the crater to {npc:9619} by the ramp."] = "",
+	["Cross the south of the crater to {npc:9619} by the ramp."] = "분화구 남쪽을 가로질러 비탈 옆의 {npc:9619}에게 가세요.",
 
 	-- Step 40: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "",
 
 	-- Step 41: The Gorishi hive
-	["The Gorishi hive"] = "",
-	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "",
+	["The Gorishi hive"] = "고리쉬 벌집",
+	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "분화구 남쪽을 따라 서쪽으로 가세요. 고리시 벌집이 그곳을 채우고 있습니다. 애벌레가 매달린 방인 부화장에 긁개 유리병을 사용하세요.",
 
 	-- Step 42: Bones and equipment
-	["Bones and equipment"] = "",
+	["Bones and equipment"] = "뼈와 장비",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
 
 	-- Step 43: Western Pylon
-	["Western Pylon"] = "",
-	["The pylon stands on the western cliffs."] = "",
+	["Western Pylon"] = "서쪽 수정탑",
+	["The pylon stands on the western cliffs."] = "수정탑은 서쪽 절벽에 있습니다.",
 
 	-- Step 44: Krakle
 	-- {area:543} Golakka Hot Springs · {npc:10302} Krakle
@@ -237,7 +237,7 @@ return {
 
 	-- Step 45: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "",
+	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 
 	-- Step 46: Krakle
 	-- {npc:10302} Krakle
@@ -247,17 +247,17 @@ return {
 
 	-- Step 47: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
-	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "",
+	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
 
 	-- Step 48: Escort Ringo
 	-- {npc:9999} Ringo
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
 
 	-- Step 50: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "{area:541} 비행 조련사",
 
 	-- Step 51: Gadgetzan
 	-- {npc:10041} Gorishi Hive Queen · {area:540} Slithering Scar
@@ -265,7 +265,7 @@ return {
 
 	-- Step 53: Liv Rizzlefix
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}, 내부",
 
 	-- Step 54: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -275,7 +275,7 @@ return {
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "",
 	-- {area:2479} Emerald Sanctuary
-	["The {area:2479}"] = "",
+	["The {area:2479}"] = "{area:2479}",
 
 	-- Step 56: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
@@ -283,7 +283,7 @@ return {
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "",
 	-- {npc:9116} Eridan Bluewind
-	["Wait a moment for {npc:9116}"] = "",
+	["Wait a moment for {npc:9116}"] = "{npc:9116}을(를) 잠시 기다리세요",
 	-- {npc:9116} Eridan Bluewind · {npc:222647} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
 	["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "",
 	-- {npc:9116} Eridan Bluewind
@@ -292,7 +292,7 @@ return {
 
 	-- Step 57: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
-	["{area:1770} braziers"] = "",
+	["{area:1770} braziers"] = "{area:1770} 화로",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
@@ -336,7 +336,7 @@ return {
 	["{npc:9517}; below ground"] = "",
 
 	-- Step 63: The Emerald Sanctuary
-	["Ride back south-east to the Sanctuary."] = "",
+	["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
 
 	-- Step 64: Arathandris Silversky
 	-- {npc:9528} Arathandris Silversky · {area:1770} Shadow Hold
@@ -382,7 +382,7 @@ return {
 	-- Step 73: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
 	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "",
+	["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "주의: 59레벨 정예 Ancient Irontree Walker가 {quest:5086} 사이에 서 있습니다. 야영지 북동쪽 끝(약 50.6,22.4)의 소산물을 하나씩 처치하고, 끌어오기 전마다 보행자가 있는지 살피십시오.",
 
 	-- Step 74: Winterspring
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden
@@ -396,7 +396,7 @@ return {
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "",
+	["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
 	-- {npc:11755} Harlo Wigglesworth · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village
 	["{npc:11755}: for {npc:10301} in {area:2253}, just back up the road"] = "",
 	-- {npc:10431} Gregor Greystone
@@ -437,7 +437,7 @@ return {
 	-- Step 86: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	-- was: ["{npc:10301}'s camp"] = "{npc:10301}의 야영지"
-	["{npc:10301}'s camp"] = "",
+	["{npc:10301}'s camp"] = "{npc:10301}의 야영지",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "계곡을 따라 남동쪽으로 내려가 {area:2245}의 눈 속에 있는 {npc:10301}의 부서진 상자로 가세요. 부서진 마차가 그 바로 동쪽에 있습니다."
 	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
@@ -445,7 +445,7 @@ return {
 	-- Step 87: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
 	-- was: ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품"
-	["{npc:10301}'s supplies"] = "",
+	["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- {npc:10301} Jaron Stoneshaper
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher
 	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby.\nCareful: the Moontouched Owlbeasts here are 57 and the Berserk Owlbeasts 58: pull the Crazed (56) and Moontouched ones at the edge and leave the Berserk ones alone.\nCareful: Winterspring Screechers (57-59) hunt around here too: pull the owlbeasts away from them."] = "",
@@ -518,8 +518,6 @@ return {
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{area:2255}'s inn"] = "{area:2255} 여관",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, 드문 전리품",
-	-- ["{npc:10301}'s camp"] = "{npc:10301}의 야영지",
-	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요. 안",
 	-- ["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}: 역병지대를 위해 보관하세요. 안쪽",
 	-- ["{npc:10926}'s doll"] = "{npc:10926}의 인형",

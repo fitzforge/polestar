@@ -20,7 +20,7 @@ return {
 
 	-- Step 4: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Летите сюда: {area:541}",
 	-- {area:541} Marshal's Refuge · {zone:1449} Un'Goro Crater · {zone:1451} Silithus
 	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "",
 	["Maethrya, the Alliance flight master"] = "",
@@ -28,7 +28,7 @@ return {
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	-- was: ["Into {zone:1451}"] = "В зону {zone:1451}"
-	["Into {zone:1451}"] = "",
+	["Into {zone:1451}"] = "В зону {zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
 	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
 
@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Езжайте дальше на запад: {area:3425}. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
 	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 	-- {npc:15183} Geologist Larksbane
@@ -100,9 +100,9 @@ return {
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
-	["The {area:2742} tower"] = "",
+	["The {area:2742} tower"] = "Башня: {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Езжайте обратно на юго-запад к башне ({area:2742}, {area:2738}); поднимитесь на нее и убейте засаду, которая появляется ради покрытого коркой предмета.",
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
@@ -146,7 +146,7 @@ return {
 
 	-- Step 29: Level 60
 	-- was: ["Level 60"] = "60-й уровень"
-	["Level 60"] = "",
+	["Level 60"] = "60-й уровень",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
@@ -191,13 +191,11 @@ return {
 	-- ["Hearth to {area:1519} and train your level 60 spells. This is the end of the leveling route: look at the reputation and dungeon guides next."] = "Камень возвращения: {area:1519}. Изучите заклинания 60-го уровня. На этом маршрут прокачки заканчивается: дальше смотрите гайды по репутации и подземельям.",
 	-- ["Hearth to {area:392} and fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "Камень возвращения: {area:392}, затем летите сюда: {area:976}. Купите здесь на аукционе два ториевых слитка для задания «{quest:5801}».",
 	-- ["Inside"] = "Внутри",
-	-- ["Into {zone:1451}"] = "В зону {zone:1451}",
 	-- ["Irontree Stompers"] = "Топотуны Железнолесья",
 	-- ["Its jars are filled on the Un'Goro visit"] = "Его флаконы наполняются при посещении Кратера Ун'Горо",
 	-- ["Keep the {item:11169}, the claws and the heart he hands back"] = "Сохраните {item:11169}, когти и сердце, которые он вернет",
 	-- ["Keep west on the road to {npc:9298}'s camp beside the hot springs."] = "Двигайтесь по дороге дальше на запад к лагерю {npc:9298} у горячих источников.",
 	-- ["Learn the flight path in {area:2361}."] = "Откройте маршрут полета: {area:2361}.",
-	-- ["Level 60"] = "60-й уровень",
 	-- ["Lots of flying between zones"] = "Много перелетов между зонами",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Подберите припасы вокруг повозки и заберите амулет {npc:10301} у совухов поблизости.",
 	-- ["Portal to {zone:1438}"] = "Портал: {zone:1438}",

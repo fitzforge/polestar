@@ -47,7 +47,7 @@ return {
 	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
 	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "",
 	-- {item:15878} Rackmore's Silver Key
-	["{item:15878}, from the Drysnap crabs"] = "",
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, von den Trockenschnappkrabben",
 
 	-- Step 9: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
@@ -57,7 +57,7 @@ return {
 
 	-- Step 10: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
-	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "",
+	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze: {object:177786} steht am Ufer neben der {object:177673}. Öffne sie mit beiden Schlüsseln; lass die Statue in Ruhe.",
 
 	-- Step 11: Dalinda Malem
 	-- {npc:11863} Azore Aldamort · {npc:5644} Dalinda Malem

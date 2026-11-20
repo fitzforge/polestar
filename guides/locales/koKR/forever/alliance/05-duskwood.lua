@@ -69,7 +69,7 @@ return {
 	["{npc:267}, in the town hall"] = "{npc:267}, 마을 회관",
 	-- {npc:264} Commander Althea Ebonlocke
 	-- was: ["{npc:264}, in the town hall"] = "{npc:264}, 마을 회관"
-	["{npc:264}, in the town hall"] = "",
+	["{npc:264}, in the town hall"] = "{npc:264}, 마을 회관",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
 	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
@@ -219,7 +219,6 @@ return {
 	-- ["{item:281046}, from the {object:673515}"] = "{object:673515}에서 {item:281046}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{npc:3133}에게서 {item:4371}: 재고 한정. 매진되었다면 {area:150}의 {npc:1448}도 팝니다.",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, 마을 북쪽 끝",
-	-- ["{npc:264}, in the town hall"] = "{npc:264}, 마을 회관",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265}, 주점 옆 그녀의 집",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268}, 마을 회관 뒤 집",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "{npc:276}의 집은 마을 동쪽 끝에 있습니다. 그 옆집에서 {npc:3133}이(가) 기계공학 용품을 팝니다.",

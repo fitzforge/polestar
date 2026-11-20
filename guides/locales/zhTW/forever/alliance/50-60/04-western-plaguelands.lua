@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
-	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "",
+	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "航班降落在{area:702}。{npc:7916}站在飛行管理員西北不遠處。",
 	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
 	["{npc:7916}' next task sends you back to Ranshalla in {zone:1452}, behind the route now: skip it."] = "",
 
@@ -30,11 +30,11 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "",
+	["{npc:4217}, upstairs"] = "{npc:4217}，在樓上",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade · {zone:2482} Mount Hyjal
 	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "",
+	["{zone:1455} has no druid trainer"] = "{zone:1455}沒有德魯伊訓練師",
 
 	-- Step 7: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -42,19 +42,19 @@ return {
 
 	-- Step 8: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}飛行管理員",
 
 	-- Step 9: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "搭船前往{area:150}",
 
 	-- Step 10: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150}飛行管理員",
 
 	-- Step 11: Ironforge
 	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
@@ -66,13 +66,13 @@ return {
 	-- {npc:13843} Lieutenant Rotimer · {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
 	["{npc:13843}: for {npc:13841}, on the way to {area:3197}"] = "",
 	-- {item:2592} Wool Cloth
-	["{item:2592}, from your bags"] = "",
+	["{item:2592}, from your bags"] = "{item:2592}，從揹包裡拿",
 	-- {item:4306} Silk Cloth
-	["{item:4306}, from your bags"] = "",
+	["{item:4306}, from your bags"] = "{item:4306}，從揹包裡拿",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}, from your bags"] = "",
+	["{item:4338}, from your bags"] = "{item:4338}，從揹包裡拿",
 	-- {item:14047} Runecloth
-	["{item:14047}, from your bags"] = "",
+	["{item:14047}, from your bags"] = "{item:14047}，從揹包裡拿",
 
 	-- Step 12: Courier Hammerfall
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10877} Courier Hammerfall · {zone:1455} Ironforge · {npc:10838} Commander Ashlam Valorfist
@@ -109,7 +109,7 @@ return {
 	["{area:199}'s cauldron, later in this guide"] = "",
 
 	-- Step 19: Chillwind Camp
-	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "",
+	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "純心、杜瑪、瓦洛菲斯特和麥克唐奈站在營地中央附近，飛行管理員旁邊。",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
 	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}：白蟻稍後在{area:2627}處理"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "",
@@ -138,17 +138,17 @@ return {
 	-- Step 22: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	-- was: ["{area:199} cauldron"] = "{area:199}的瘟疫之鍋"
-	["{area:199} cauldron"] = "",
+	["{area:199} cauldron"] = "{area:199}的瘟疫之鍋",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "",
 	-- {npc:10778} Janice Felstone
 	["{npc:10778}, upstairs in the farmhouse"] = "",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "",
+	["{object:175894}, inside"] = "{object:175894}，室內",
 	-- {zone:1453} Stormwind
 	-- was: ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務"
-	["For {zone:1453}: keep it"] = "",
+	["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 
 	-- Step 23: Chillwind Camp
 	-- {area:3197} Chillwind Camp
@@ -169,11 +169,11 @@ return {
 	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
 	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "",
 	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
-	["{npc:10927}: keep it for {area:2262}"] = "",
+	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}：保留給{area:2262}",
 
 	-- Step 26: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "進入{zone:1423}",
 	-- {zone:1422} Western Plaguelands
 	["Follow the southern road east out of the {zone:1422}."] = "",
 
@@ -183,13 +183,13 @@ return {
 
 	-- Step 28: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
-	["{npc:10926}'s doll"] = "",
+	["{npc:10926}'s doll"] = "{npc:10926}的洋娃娃",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "",
+	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "洋娃娃的三個部分在{area:2262}的廢屋裡；撿起其中一個可能會引出鬼魂。把它們組合成洋娃娃。",
 	-- {item:12886} Pamela's Doll's Head
-	["{item:12886}; inside"] = "",
+	["{item:12886}; inside"] = "{item:12886}；室內",
 	-- {item:12888} Pamela's Doll's Right Side
-	["{item:12888}; inside"] = "",
+	["{item:12888}; inside"] = "{item:12888}；室內",
 
 	-- Step 29: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
@@ -280,7 +280,7 @@ return {
 
 	-- Step 49: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "飛往{zone:1453}",
 	-- {zone:1453} Stormwind · {npc:10778} Janice Felstone
 	["Fly to {zone:1453} for Highlord Bolvar's errand for SI:7 and {npc:10778}'s parcel, then straight back."] = "",
 	-- {area:3197} Chillwind Camp
@@ -288,25 +288,25 @@ return {
 
 	-- Step 50: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}，在軍情七處",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
 	["{quest:6184} at {area:3197}, on the flight back"] = "",
 
 	-- Step 51: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
-	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "{npc:14722}收六十個絲綢、六十個魔紋布和六十個{item:14047}：交掉身上帶的（或在拍賣行買），其餘跳過。",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}，在運河邊走動",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["Emma's charm goes back to {npc:10778} in the {zone:1422}, out of the way now: skip it."] = "",
 	-- {npc:14722} Clavicus Knavingham · {object:2096} Trade District
-	["{npc:14722}, in the {object:2096}"] = "",
+	["{npc:14722}, in the {object:2096}"] = "{npc:14722}，在{object:2096}",
 
 	-- Step 52: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Fly to {area:3197}"] = "",
+	["Fly to {area:3197}"] = "飛往{area:3197}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 53: Flint Shadowmore
 	-- {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
@@ -324,19 +324,19 @@ return {
 
 	-- Step 57: Radley and Durgen
 	-- was: ["Radley and Durgen"] = "萊德雷與杜爾根"
-	["Radley and Durgen"] = "",
+	["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}在{npc:11610}東邊的北山營地走動；{npc:11611}守衛著{area:190}南側通道的塔樓。\n小心：塔樓底部站著守衛，另有一名在周圍巡邏。和杜爾根開打前先清掉他們，以免他們加入戰鬥。"
 	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
 
 	-- Step 58: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
-	["{npc:11610} hides at the lumber camp's edge."] = "",
+	["{npc:11610} hides at the lumber camp's edge."] = "{npc:11610}躲在伐木場的邊緣。",
 
 	-- Step 59: Hearthglen overlook
 	-- {area:190} Hearthglen
 	-- was: ["{area:190} overlook"] = "{area:190}瞭望點"
-	["{area:190} overlook"] = "",
+	["{area:190} overlook"] = "{area:190}瞭望點",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
 
@@ -348,7 +348,7 @@ return {
 	-- {npc:1855} Tirion Fordring · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Ride south from {npc:1855}'s hut to {area:201}. {npc:11078} (58) guards the cauldron.\nCareful: Soulwrath is level 58, a level over you here: clear the ghouls around the cauldron first and pull him alone."] = "",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
-	["For {npc:11053} at {area:3197}, at the end of this guide"] = "",
+	["For {npc:11053} at {area:3197}, at the end of this guide"] = "交給{area:3197}的{npc:11053}，在本指南結尾",
 
 	-- Step 63: Marris Stead
 	-- {zone:1423} Eastern Plaguelands · {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
@@ -364,7 +364,7 @@ return {
 
 	-- Step 65: Light's Hope Chapel
 	-- {npc:11063} Carlin Redpath · {area:2264} Corin's Crossing
-	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "",
+	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "{npc:11063}的下一個任務在{area:2264}，那裡都是57-60級的天譴軍：跳過。",
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale
 	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, at the end of this ride: keep it"] = "",
 	-- {npc:11038} Caretaker Alen · {npc:12250} Zaeldarr the Outcast · {area:2261} Undercroft
@@ -428,7 +428,7 @@ return {
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
 	-- {item:12954} Davil's Libram
 	-- was: ["{item:12954}; inside"] = "{item:12954}；室內"
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}；室內",
 
 	-- Step 80: Redpath's Shield
 	-- {area:201} Gahrron's Withering
@@ -442,10 +442,10 @@ return {
 	-- {area:2277} Plaguewood · {area:2268} Light's Hope Chapel
 	["Ride to the lake south of the {area:2277}, north-west of {area:2268}."] = "",
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "{quest:5845}要去的湖",
 
 	-- Step 83: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 84: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:3197} Chillwind Camp
@@ -463,7 +463,7 @@ return {
 	["Highlord Bolvar in {zone:1453}, on the way out of this guide"] = "",
 
 	-- Step 89: Stormwind City
-	["Stormwind City"] = "",
+	["Stormwind City"] = "暴風城",
 	-- {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:1748}, in {object:2117}"] = "",
 
@@ -475,7 +475,7 @@ return {
 
 	-- Step 91: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飛往{area:150}",
 
 	-- Step 92: Boat to Theramore
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook
@@ -516,7 +516,6 @@ return {
 	-- ["For {area:3197}: keep it"] = "交給{area:3197}：保留此任務",
 	-- ["For {zone:1448}: keep it"] = "給{zone:1448}：保留此任務",
 	-- ["For {zone:1451}: keep it"] = "給{zone:1451}：保留此任務",
-	-- ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 	-- ["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "從塞拉摩出發，向西騎入{zone:1413}，再沿海岸向北到{area:392}。",
 	-- ["From {area:392}, fly to {area:2255} and ride south to {area:2250}."] = "從{area:392}飛往{area:2255}，再向南騎往{area:2250}。",
 	-- ["From {area:702}, fly to {area:1116}."] = "從{area:702}飛往{area:1116}。",
@@ -531,7 +530,6 @@ return {
 	-- ["North to the refuge, for the quests the first Un'Goro visit left: {npc:9618} stands just outside and {npc:9117} in the cave at the back; the expedition's other three wait for your next stop here."] = "向北前往避難所，處理第一次來安戈洛時留下的任務：{npc:9618}站在外面不遠處，{npc:9117}在後方的洞穴裡；探險隊的另外三人等你下次來這裡時再找。",
 	-- ["Northern Pylon"] = "北部水晶塔",
 	-- ["On {npc:7583}"] = "關於{npc:7583}",
-	-- ["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- ["Ranshalla in {zone:1452}: keep it"] = "{zone:1452}的蘭莎爾拉：保留此任務",
 	-- ["Ride back south to the camp."] = "向南騎回營地。",
 	-- ["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "向西南騎回{area:2738}的{area:2742}高塔；爬上去，擊殺為了異種蠍粘液包裹的物體而出現的伏擊者。",
@@ -600,10 +598,8 @@ return {
 	-- ["grind on {npc:11740}"] = "刷{npc:11740}",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "在{zone:1422}的{area:202}擊殺{npc:1796}練等",
 	-- ["their trainers are in {zone:1457} too"] = "他們的訓練師也在{zone:1457}",
-	-- ["{area:190} overlook"] = "{area:190}瞭望點",
 	-- ["{area:1942}: kill these as you meet them"] = "{area:1942}：遇到就殺",
 	-- ["{area:1943}: kill these as you meet them"] = "{area:1943}：遇到時順手擊殺",
-	-- ["{area:199} cauldron"] = "{area:199}的瘟疫之鍋",
 	-- ["{area:200} cauldron"] = "{area:200}的瘟疫之鍋",
 	-- ["{area:201} cauldron"] = "{area:201}的瘟疫之鍋",
 	-- ["{area:348} flight master"] = "{area:348}飛行管理員",
@@ -616,7 +612,6 @@ return {
 	-- ["{item:11479}; below ground"] = "{item:11479}；地下",
 	-- ["{item:11480}; below ground"] = "{item:11480}；地下",
 	-- ["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954}在{npc:1855}西邊{area:190}的市政廳裡：血色衛兵站得很密集。",
-	-- ["{item:12954}; inside"] = "{item:12954}；室內",
 	-- ["{item:12955} lies east of the barn at {area:201}."] = "{item:12955}在{area:201}穀倉的東邊。",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}，來自{npc:11056}",
 	-- ["{item:14613}, from {npc:11886} (57, elite): grouping up is advised"] = "{item:14613}，來自{npc:11886}（57級，精英）：建議組隊",

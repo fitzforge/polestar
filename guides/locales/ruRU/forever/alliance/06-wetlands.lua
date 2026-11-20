@@ -74,7 +74,7 @@ return {
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
 	-- was: ["Inside"] = "Внутри"
-	["Inside"] = "",
+	["Inside"] = "Внутри",
 
 	-- Step 17: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -90,7 +90,7 @@ return {
 
 	-- Step 20: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "Слитки светлостали",
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
 	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "",
 	-- {item:2702} Lightforge Ingot
@@ -215,7 +215,7 @@ return {
 
 	-- Step 39: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
-	["{area:1038}: kill these as you meet them"] = "",
+	["{area:1038}: kill these as you meet them"] = "{area:1038}: убивайте их по пути",
 	-- {npc:1244} Rethiel the Greenwarden · {area:1036} Angerfang Encampment · {area:205} Dun Modr · {quest:98283} Carnage · {npc:270892} Goaz Warder · {area:1038} Dragonmaw Gates · {npc:270637} Howin Kindfeather
 	-- plural, as words: Crimson Whelps = {npc:1069} Crimson Whelp · Highland Razormaws = {npc:1018} Highland Razormaw · Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "",
@@ -229,12 +229,12 @@ return {
 	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "",
 
 	-- Step 42: Ebenezer Rustlocke
-	["Ebenezer Rustlocke"] = "",
+	["Ebenezer Rustlocke"] = "Эбенезер Ржавый Засов",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
-	["{object:2652}, inside"] = "",
+	["{object:2652}, inside"] = "{object:2652}, внутри",
 	["the same corpse"] = "",
 
 	-- Step 43: Rhag Garmason
@@ -243,7 +243,7 @@ return {
 
 	-- Step 44: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
-	["The {object:2704}"] = "",
+	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron · Dark Iron Shadowcasters = {npc:2577} Dark Iron Shadowcaster
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end.\nCareful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it."] = "",
@@ -255,7 +255,7 @@ return {
 
 	-- Step 46: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
-	["{npc:1075} again"] = "",
+	["{npc:1075} again"] = "Снова {npc:1075}",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road to {area:205}, on the camp's east side, away from Modr (32, elite) in the ruins."] = "",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
@@ -300,13 +300,13 @@ return {
 	-- plural, as words: Cursed Marines = {npc:1158} Cursed Marine
 	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
-	["{item:2629}, from {npc:1160}"] = "",
+	["{item:2629}, from {npc:1160}"] = "{item:2629} – от NPC {npc:1160}",
 
 	-- Step 53: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "",
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "Назад на юг в Менетил: {npc:1217} стоит в таверне ({area:2104}).",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Для NPC {npc:1284} ({zone:1453}), в конце этого гайда",
 
 	-- Step 54: Level 28
 	["Level 28"] = "28-й уровень",
@@ -619,7 +619,7 @@ return {
 	-- {area:880} Thandol Span · {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["Sully Balloo's letter, from the {area:880}: {npc:2695} takes it here in {zone:1455}."] = "",
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
-	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "",
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}: для короля Магни, в ту же остановку ({zone:1455})",
 
 	-- Step 120: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
@@ -690,7 +690,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Используйте камень возвращения, чтобы вернуться сюда: {area:150}, если вы привязаны к таверне ({area:2104}), или идите на запад по дороге: {npc:2104} стоит на верхнем этаже ({area:2103}), {npc:2094} – у причалов по пути к кораблю.",
-	-- ["Inside"] = "Внутри",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "От лагеря NPC {npc:3987} на юг, сюда: {area:415}. {npc:3691} – в таверне, распорядитель полетов – в западном конце.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "Капитан ходит по палубе разбитого корабля; его сундук стоит в трюме.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "Реликвии лежат прямо на раскопках. {npc:1353}, крупный острозуб, рыщет в долине ящеров сразу к западу от них.\nСреди реликвий и у объекта {object:331} стоят хранители Гоаз (элитные, 32): выманивайте их по одному или обходите стороной.",

@@ -25,7 +25,7 @@ return {
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire
 	["The {npc:511} (26) hides in the small crypt by the {area:121}, south of {area:42}; the glass is inside."] = "",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}; drinnen",
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}: seltene Beute von Gegnern im {zone:1431}",
 
@@ -33,7 +33,7 @@ return {
 	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
 	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, drinnen",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
 	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
 
@@ -69,7 +69,7 @@ return {
 	["{npc:267}, in the town hall"] = "{npc:267}, im Rathaus",
 	-- {npc:264} Commander Althea Ebonlocke
 	-- was: ["{npc:264}, in the town hall"] = "{npc:264}, im Rathaus"
-	["{npc:264}, in the town hall"] = "",
+	["{npc:264}, in the town hall"] = "{npc:264}, im Rathaus",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
 	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
@@ -230,7 +230,6 @@ return {
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}, von der {object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}, von {npc:3133}: begrenzter Vorrat. Ausverkauft? {npc:1448} in {area:150} verkauft sie auch.",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, am Nordende des Orts",
-	-- ["{npc:264}, in the town hall"] = "{npc:264}, im Rathaus",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265}, in ihrem Haus bei der Taverne",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268}, im Haus hinter dem Rathaus",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "{npc:276}s Haus steht am Ostende des Orts. {npc:3133} verkauft Ingenieursbedarf im Haus daneben.",

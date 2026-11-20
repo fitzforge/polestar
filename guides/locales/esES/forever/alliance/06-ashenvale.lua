@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: The Foulweald
 	-- was: ["The Foulweald"] = "Los fúrbolgs Maderiza"
-	["The Foulweald"] = "",
+	["The Foulweald"] = "Los fúrbolgs Maderiza",
 	-- {area:415} Astranaar
 	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "",
 
@@ -165,18 +165,18 @@ return {
 	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
 	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
 	-- {object:669176} Gleaming Crescent Pendant (no name in this language: may be words) · {npc:3961} Maliynn · {area:415} Astranaar
-	["{object:669176}: for {npc:3961} in {area:415}"] = "",
+	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
 
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
 	-- was: ["Underwater"] = "Bajo el agua"
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	-- was: ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales para conseguir 5 brazales elementales intactos ({item:12220}) y luego usa el {item:5456}"
-	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "",
+	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales para conseguir 5 brazales elementales intactos ({item:12220}) y luego usa el {item:5456}",
 
 	-- Step 35: Dal Bloodclaw
 	-- {area:421} Mystral Lake · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
@@ -222,7 +222,7 @@ return {
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}: a flagon of the inn's mead"] = "",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
-	["{item:2594}, from {npc:1464}"] = "",
+	["{item:2594}, from {npc:1464}"] = "{item:2594}, de {npc:1464}",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
 	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
 	-- {npc:2096} Tarrel Rockweaver
@@ -394,7 +394,6 @@ return {
 	-- ["Hearth to Menethil"] = "Usa la piedra de hogar para ir a Puerto de Menethil",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "¿Piedra de hogar en reutilización? Cabalga de vuelta al norte por {area:1276}.",
 	-- ["Kerlonian sleeps at the {area:448} in southern {zone:1439}. Use the {item:13536} to wake him and lead him south along the road into {zone:1440} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep."] = "Kerlonian duerme en {area:448}, al sur de {zone:1439}. Usa el {item:13536} para despertarlo y llévalo al sur por el camino hasta {zone:1440}, con {npc:11219} en {area:413}; vuelve a tocar el cuerno cada vez que se duerma.",
-	-- ["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales para conseguir 5 brazales elementales intactos ({item:12220}) y luego usa el {item:5456}",
 	-- ["Kill the elementals for 5 Intact {quest:1016}, then use the {item:5456}"] = "Mata a los elementales para conseguir 5 Brazales elementales intactos ({quest:1016}) y luego usa el {item:5456}",
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "Los Correcubiles Pellejomusgo y los tejebrumas recorren las orillas del río justo al oeste y al sur de {npc:1244}; casi todos sueltan pedernal.",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "Los Raptores jaspeados y los estridadores recorren las colinas al oeste de la excavación.",
@@ -410,7 +409,6 @@ return {
 	-- ["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Toma el {area:2257} desde {object:171524} hasta {object:28027} de {zone:1453} y luego camina hasta {object:2098}.",
 	-- ["The Bluegill hovels"] = "Las chozas Branquiazul",
 	-- ["The Dragonmaw camp lies south of the road, just west of the {area:1025}: Raiders, Swamprunners and Bonewarders. {npc:2092}'s quest in {zone:1426} needs level 28."] = "El campamento Faucedraco está al sur del camino, justo al oeste de {area:1025}: asaltantes, correpantanos y guardahuesos. La misión de {npc:2092} en {zone:1426} requiere nivel 28.",
-	-- ["The Foulweald"] = "Los fúrbolgs Maderiza",
 	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "Los fúrbolgs Maderiza viven en el bosque al sur del camino, al sureste de {area:415}. El Vigilante del cubil Maderiza y los ursas Maderiza guardan el cubil.",
 	-- ["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. {area:364} Watcher and the Ursas guard the den."] = "Los fúrbolgs Maderiza viven en el bosque al sur del camino, al sureste de {area:415}. El vigilante de {area:364} y los ursas guardan el cubil.",
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "Los raptores más grandes cazan en el valle justo al oeste de la excavación.",
@@ -418,7 +416,6 @@ return {
 	-- ["The raptor hills"] = "Las colinas de los raptores",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Tres contenedores en las chozas de los múrlocs, de sur a norte: {object:261}, luego {object:142151} y luego {object:259}, en el extremo norte.",
-	-- ["Underwater"] = "Bajo el agua",
 	-- ["Venture Co. loggers"] = "Leñeros de Ventura y Cía.",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "mata Asaltantes Faucedraco y correpantanos en el campamento Faucedraco, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",

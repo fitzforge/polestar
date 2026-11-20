@@ -114,11 +114,11 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558} : se promène ici : cherchez à l'intérieur du cercle sur la carte",
 
 	-- Step 23: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "Vers {zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["Walk through {area:1769}'s tunnel to its {zone:1452} end."] = "",
 
@@ -136,13 +136,13 @@ return {
 
 	-- Step 26: Everlook
 	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "",
+	["Ride east along the road to {area:2255}."] = "Suivez la route vers l'est jusqu'à {area:2255}.",
 	-- {zone:1452} Winterspring
 	["The Chillwind horns come on the next guide's {zone:1452} loop: keep it"] = "",
 
 	-- Step 27: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Prendre un vol pour {area:702}",
 	-- {npc:11138} Maethrya
 	["{npc:11138}, the Alliance flight master"] = "",
 
@@ -154,7 +154,7 @@ return {
 
 	-- Step 29: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} se tient à l'étage, au-dessus de {npc:7916} : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 31: The Temple Gardens
 	-- {item:11682} Eridan's Vial
@@ -164,7 +164,7 @@ return {
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
-	["{npc:7740}: {quest:162}, from {area:976}"] = "",
+	["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740} : {quest:162}, depuis {area:976}",
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
 	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
 
@@ -176,11 +176,11 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "",
+	["{npc:4217}, upstairs"] = "{npc:4217}, à l'étage",
 	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
 	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "",
+	["{zone:1455} has no druid trainer"] = "{zone:1455} n'a pas de maître des druides",
 
 	-- Step 35: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
@@ -192,11 +192,11 @@ return {
 
 	-- Step 37: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
-	["From {area:702}, fly to {area:1116}."] = "",
+	["From {area:702}, fly to {area:1116}."] = "Depuis {area:702}, volez jusqu'à {area:1116}.",
 
 	-- Step 39: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Bateau pour {area:1108}",
 
 	-- Step 40: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -204,20 +204,20 @@ return {
 
 	-- Step 41: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108} : tuez-les au passage",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
 	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958}, sur les Embruns",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, sur les Marcheurs des vagues et des profondeurs dans l'eau",
 
 	-- Step 42: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
-	["Back to {npc:14637} on the dock."] = "",
+	["Back to {npc:14637} on the dock."] = "Retournez voir {npc:14637} sur le quai.",
 
 	-- Step 43: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
@@ -225,19 +225,19 @@ return {
 
 	-- Step 44: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
-	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
+	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "Le géant {npc:7765} est assis juste au nord-ouest du camp de {npc:7775}.",
 
 	-- Step 45: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} pousse dans un bâtiment en ruine au nord de {npc:7765} : entrez par la brèche de son mur depuis la corniche voisine.",
 
 	-- Step 46: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Chevauchez vers l'ouest jusqu'aux ruines de Ravenwind : {npc:7774} se cache dans le petit bâtiment rond au fond. Ouvrez le coffre à côté d'elle pour obtenir {item:9189} : elle dure 15 minutes, comme la quête.",
 
 	-- Step 47: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
+	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "Ramenez {npc:7774} jusqu'à {npc:7765} au pas : elle s'éloigne, alors sonnez la cloche pour la rappeler (pas en combat), et éliminez les harpies sur le chemin avant qu'elle ne les atteigne.",
 
 	-- Step 48: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {area:976} Gadgetzan

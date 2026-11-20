@@ -89,7 +89,7 @@ return {
 
 	-- Step 20: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "라이트포지 주괴",
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
 	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "",
 	-- {item:2702} Lightforge Ingot
@@ -228,7 +228,7 @@ return {
 	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "",
 
 	-- Step 42: Ebenezer Rustlocke
-	["Ebenezer Rustlocke"] = "",
+	["Ebenezer Rustlocke"] = "에벤에셀 러스트로크",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "",
@@ -299,11 +299,11 @@ return {
 	-- plural, as words: Cursed Marines = {npc:1158} Cursed Marine
 	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
-	["{item:2629}, from {npc:1160}"] = "",
+	["{item:2629}, from {npc:1160}"] = "{item:2629}, {npc:1160}에게서 획득",
 
 	-- Step 53: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "",
+	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "남쪽 메네실로 돌아가세요. {npc:1217}은(는) {area:2104}에 있습니다.",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
 
@@ -618,7 +618,7 @@ return {
 	-- {area:880} Thandol Span · {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["Sully Balloo's letter, from the {area:880}: {npc:2695} takes it here in {zone:1455}."] = "",
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
-	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "",
+	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}: 국왕 마그니 브론즈비어드에게, 같은 {zone:1455} 방문 때",
 
 	-- Step 120: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat

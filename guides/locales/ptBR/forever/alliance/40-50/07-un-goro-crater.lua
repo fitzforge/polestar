@@ -36,7 +36,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 8: Gadgetzan
 	-- {area:976} Gadgetzan
@@ -151,7 +151,7 @@ return {
 	["For {npc:7775} in {zone:1444}: keep it"] = "Para {npc:7775}, em {zone:1444}: guarde",
 
 	-- Step 28: Level 50
-	["Level 50"] = "",
+	["Level 50"] = "Nível 50",
 	-- {zone:1455} Ironforge
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "",

@@ -117,13 +117,13 @@ return {
 
 	-- Step 23: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "В зону {zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["Walk through {area:1769}'s tunnel to its {zone:1452} end."] = "",
 
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} стоит прямо у выхода туннеля ({area:1769}) в край {zone:1452}, там, где вы выходите.",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
 	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
@@ -135,13 +135,13 @@ return {
 
 	-- Step 26: Everlook
 	-- {area:2255} Everlook
-	["Ride east along the road to {area:2255}."] = "",
+	["Ride east along the road to {area:2255}."] = "Езжайте на восток по дороге в {area:2255}.",
 	-- {zone:1452} Winterspring
 	["The Chillwind horns come on the next guide's {zone:1452} loop: keep it"] = "",
 
 	-- Step 27: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 	-- {npc:11138} Maethrya
 	["{npc:11138}, the Alliance flight master"] = "",
 
@@ -163,7 +163,7 @@ return {
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
-	["{npc:7740}: {quest:162}, from {area:976}"] = "",
+	["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740}: {quest:162}, из места {area:976}",
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
 	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
 
@@ -175,15 +175,15 @@ return {
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
 	-- {npc:4217} Mathrengyl Bearwalker
-	["{npc:4217}, upstairs"] = "",
+	["{npc:4217}, upstairs"] = "{npc:4217}, наверху",
 	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
 	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} has no druid trainer"] = "",
+	["{zone:1455} has no druid trainer"] = "В городе {zone:1455} нет учителя друидов",
 
 	-- Step 35: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Портал: {zone:1438}",
 
 	-- Step 36: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
@@ -191,11 +191,11 @@ return {
 
 	-- Step 37: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
-	["From {area:702}, fly to {area:1116}."] = "",
+	["From {area:702}, fly to {area:1116}."] = "Летите: {area:702} → {area:1116}.",
 
 	-- Step 39: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Корабль: {area:1108}",
 
 	-- Step 40: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -203,20 +203,20 @@ return {
 
 	-- Step 41: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: убивайте их по пути",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
 	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}, from the Sea Sprays"] = "",
+	["{item:18958}, from the Sea Sprays"] = "{item:18958} – с морских валов",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
-	["{item:18904}, on the Wave and Deep Striders in the water"] = "",
+	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904} – на волновых странников и странников глубин в воде",
 
 	-- Step 42: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
-	["Back to {npc:14637} on the dock."] = "",
+	["Back to {npc:14637} on the dock."] = "Назад к NPC {npc:14637} на причале.",
 
 	-- Step 43: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
@@ -228,11 +228,11 @@ return {
 
 	-- Step 45: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242} растет внутри разрушенного здания к северу от {npc:7765}: заберитесь внутрь через пролом в стене с уступа рядом.",
 
 	-- Step 46: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
-	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "",
+	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Езжайте на запад в Руины Воронова Ветра: {npc:7774} прячется в маленьком круглом здании в глубине. Откройте сундук рядом с ней ради предмета {item:9189}: он действует 15 минут, как и задание.",
 
 	-- Step 47: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter

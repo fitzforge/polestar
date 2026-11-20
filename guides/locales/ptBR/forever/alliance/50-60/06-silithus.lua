@@ -20,7 +20,7 @@ return {
 
 	-- Step 4: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Voe para {area:541}",
 	-- {area:541} Marshal's Refuge · {zone:1449} Un'Goro Crater · {zone:1451} Silithus
 	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "",
 	["Maethrya, the Alliance flight master"] = "",
@@ -28,7 +28,7 @@ return {
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	-- was: ["Into {zone:1451}"] = "Rumo a {zone:1451}"
-	["Into {zone:1451}"] = "",
+	["Into {zone:1451}"] = "Rumo a {zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
 	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
 
@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Siga adiante para oeste até {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
 	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, nas tendas da Aliança: para o {npc:17080} em {area:2743}",
 	-- {npc:15183} Geologist Larksbane
@@ -100,9 +100,9 @@ return {
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
-	["The {area:2742} tower"] = "",
+	["The {area:2742} tower"] = "A torre de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Volte para o sudoeste até a torre de {area:2742} em {area:2738}; suba nela e mate os emboscadores que surgem pelo objeto incrustado.",
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
@@ -146,7 +146,7 @@ return {
 
 	-- Step 29: Level 60
 	-- was: ["Level 60"] = "Nível 60"
-	["Level 60"] = "",
+	["Level 60"] = "Nível 60",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
@@ -195,7 +195,6 @@ return {
 	-- ["Havunth's camp sits just west of {area:3425}."] = "O acampamento do Guardião do Crepúsculo Havunth fica logo a oeste de {area:3425}.",
 	-- ["Hearth to {area:1519} and train your level 60 spells. This is the end of the leveling route: look at the reputation and dungeon guides next."] = "Regresse para {area:1519} e treine seus feitiços de nível 60. Este é o fim da rota de evolução: veja depois os guias de reputação e de masmorras.",
 	-- ["Inside"] = "Lá dentro",
-	-- ["Into {zone:1451}"] = "Rumo a {zone:1451}",
 	-- ["Irontree Stompers"] = "Pisoteadores de Ferrárbol",
 	-- ["Its jars are filled on the Un'Goro visit"] = "As jarras dela são enchidas na visita à Cratera Un'Goro",
 	-- ["Keep the {item:11169}, the claws and the heart he hands back"] = "Guarde o {item:11169}, as garras e o coração que ele devolve",
@@ -203,7 +202,6 @@ return {
 	-- ["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "Leve-a para fora de {area:1770} e mantenha-a viva até ela estar fora da caverna: limpe antes o caminho de volta.",
 	-- ["Learn the flight path in {area:2361}."] = "Aprenda a rota de voo em {area:2361}.",
 	-- ["Level 59.85"] = "Nível 59.85",
-	-- ["Level 60"] = "Nível 60",
 	-- ["Lots of flying between zones"] = "Muito voo entre zonas",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Pegue os suprimentos em volta da carroça e tome de volta o amuleto de {npc:10301} dos corujursos próximos.",
 	-- ["Portal to {zone:1438}"] = "Portal para {zone:1438}",

@@ -69,7 +69,7 @@ return {
 	["{npc:267}, in the town hall"] = "{npc:267}, en el ayuntamiento",
 	-- {npc:264} Commander Althea Ebonlocke
 	-- was: ["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento"
-	["{npc:264}, in the town hall"] = "",
+	["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento",
 	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
 	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
@@ -222,7 +222,6 @@ return {
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}, de {npc:3133}: existencias limitadas. ¿Agotado? {npc:1448}, en {area:150}, también lo vende.",
 	-- ["{npc:14235} Blossoms"] = "Flores de {npc:14235}",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, en el extremo norte del pueblo",
-	-- ["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265}, en su casa junto a la taberna",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268}, en la casa detrás del ayuntamiento",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "La casa de {npc:276} está en el extremo este del pueblo. {npc:3133} vende artículos de ingeniería en la casa de al lado.",
