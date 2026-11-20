@@ -126,7 +126,7 @@ return {
 
 	-- Step 23: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方。",
 
 	-- Step 24: Boat to Booty Bay
 	-- {area:35} Booty Bay

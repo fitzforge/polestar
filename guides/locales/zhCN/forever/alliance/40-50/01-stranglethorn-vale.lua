@@ -261,7 +261,7 @@ return {
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}，来自副首领（或精英）",
 	-- {item:216617} Kurzen Fighter's Uniform
 	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}，在补给箱里"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}，在洞穴深处的补给箱里",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}，离开时回到他的笼子旁",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -283,7 +283,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "劈颅巨魔占据矿洞以东的废墟，所有巨魔都有几率掉落獠牙，它们的豹子则必定掉落。\n沿路向东北前往{area:310}的风险投资公司营地，矿工、勘测员和工头会掉落水晶。\n注意：营地周围有潜行的深喉猎豹和荆棘谷雌虎。",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}，来自废墟中的巨魔",
 
 	-- Step 52: Raptor Mastery
 	-- {npc:730} Tethis

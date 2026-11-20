@@ -208,7 +208,7 @@ return {
 	["fill the {item:269990} at the ritual circles"] = "在仪式法阵装满{item:269990}",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布里姆农场西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}：仅当邪教徒掉落了日志时",
 
