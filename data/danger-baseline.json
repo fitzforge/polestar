@@ -20750,6 +20750,71 @@
 			],
 			"reason": "Maerion's Misery is optional (its spikes and hand-in are marked optional, and the tip says to leave it if they are slow); the 60+ spawns are the Legion Hulks (rare elites) and Doomguard Xarkul (61, elite) the step's Careful tip names; the spikes drop from the Defiling Hounds (58-59)",
 			"evidence": "route level 57.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); 10 spawns 59+; recordings (2026-11-20 index): done by 12 (median 58.61), deaths 0, abandons 0; done by 12 people of both sides at 57.6-60.0, 6 of them at 58.8 or under, none died there"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.1|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.1",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9; recordings (2026-11-20 index): done by 50 (median 6.58), deaths 0, abandons 1; 40 of the 50 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.3|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.3",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9; recordings (2026-11-20 index): done by 50 (median 6.5), deaths 0, abandons 1; 38 of the 50 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 4161.1|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 4161.1",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9 x2"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9 x2; recordings (2026-11-20 index): done by 49 (median 6.89), deaths 0, abandons 2; 29 of the 49 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.3|elite",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.3",
+			"kind": "elite",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Oakenscowl 9-9"
+			],
+			"reason": "Oakenscowl (9, elite) is named in the step's Careful tip with where he roams; the silk comes from the Webwood Lurkers. Players handle him: 24 people met him, 19 killed him, none died to him",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Oakenscowl 9-9; recordings (2026-11-20 index): done by 50 (median 6.5), deaths 0, abandons 1; 38 of the 50 people at 7.3 or under"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 87288.1|over",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 87288.1",
+			"kind": "over",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Befouled Webwood 10-11 x3"
+			],
+			"reason": "the step's Careful tip names the Befouled Webwoods (10-11) north-west of Dolanaar and says to leave them for Tallonkai's quest later; the pelts come from the Nightsabers (5-6) around Dolanaar",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Befouled Webwood 10-11 x3; recordings (2026-11-20 index): done by 51 (median 7.01), deaths 0, abandons 1; 30 of the 51 people at 7.3 or under, none died within 60 yd (5 people died to Befouled Webwoods elsewhere in the zone)"
 		}
 	]
 }
