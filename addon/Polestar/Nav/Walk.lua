@@ -2366,9 +2366,6 @@ end
 --   chokepoints' AreaTable areas and lift objects, Polestar.Names)
 ---------------------------------------------------------------------------
 
-local SNAP = 15        -- yards: a chokepoint without a radius counts within this of the path
-local MIN_STEP = 20    -- yards: closer stops, or this close to either end, are dropped
-local LOOK = 25        -- yards past a passage that tell which side is ahead
 -- yards above or below the path: a chokepoint on another floor (STOP); the path's height change across a lift it
 -- rides (RIDE). One local: the main chunk's are at Lua's limit (syntax.rs).
 local DZ = { STOP = 30, RIDE = 20 }
@@ -2440,6 +2437,9 @@ end
 -- -> stops, total (yards along the path from the player to the goal)
 function Walk.Stops(pc, px, py)
 	if count < 2 or not gc then return nil end
+	local SNAP = 15       -- yards: default distance from a chokepoint to the path
+	local MIN_STEP = 20   -- yards: closer stops, or this close to either end, are dropped
+	local LOOK = 25       -- yards past a passage that tell which side is ahead
 	-- A chokepoint passed on this goal's walk (Walk.dropped) is a stop again AGAIN yards ahead along the path. (Local
 	-- here: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
 	local dropped, AGAIN = Walk.dropped, 100
