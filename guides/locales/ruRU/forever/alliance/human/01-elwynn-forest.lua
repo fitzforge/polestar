@@ -266,8 +266,8 @@ return {
 	-- Step 50: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (жрецы), {npc:328} (маги) и {npc:917} (разбойники) стоят наверху в таверне: поднимитесь по лестнице внутри, стрелка не различает этажи.",
-	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
-	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "Его принимает {npc:279} ({zone:1453}) (02-westfall)",
+	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 
 	-- Step 52: Level 8.39
 	["Level 8.39"] = "Уровень 8.39",
@@ -389,8 +389,9 @@ return {
 	["{npc:6306}, inside"] = "{npc:6306}, внутри",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, пока Уильям варит зелье",
-	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице рядом с Даганом: задание принимает {npc:1416} ({zone:1453}) (02-westfall)",
+	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
+	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице рядом с Даганом: задание принимает {npc:1416} ({zone:1453}) (02-westfall)"
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, снова в таверне",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -552,8 +553,10 @@ return {
 	-- ["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, для кожевников: для NPC {npc:1632}",
 	-- ["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, для снятия шкур: для NPC {npc:6306}",
 	-- ["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: для NPC {npc:2329} в таверне",
+	-- ["{npc:279} in {zone:1453} takes it (02-westfall)"] = "Его принимает {npc:279} ({zone:1453}) (02-westfall)",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: оба принимает {npc:376} ({zone:1453})",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, в кузнице через дорогу: «Походное дело для начинающих», кузнецы",
+	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице рядом с Даганом: задание принимает {npc:1416} ({zone:1453}) (02-westfall)",
 	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, в кузнице: задание принимает {npc:1416} в {zone:1453} (02-westfall)",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Искупление",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: «Походное дело для начинающих», снятие шкур; внутри",

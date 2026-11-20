@@ -211,8 +211,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Au nord-ouest de {npc:2093}, jusqu'à la rivière : des Rampants des tourbières se cachent dans ses mares et le long de ses rives, jusqu'à {area:1024} à l'ouest. Remontez-la vers l'ouest jusqu'à en avoir douze, puis retournez à l'est voir {npc:1244}.\nAttention : hors combat, les Rampants des tourbières se camouflent de temps en temps : ils sont alors furtifs et difficiles à voir.",
 
 	-- Step 38: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, lors de la boucle des {zone:1437} de 30-40/01-hillsbrad-foothills",
+	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 39: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -291,10 +291,10 @@ return {
 	-- was: ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Utilisez votre pierre de foyer pour revenir à {area:150} si vous l'avez liée à {area:2104}, ou marchez vers l'ouest par la route : {npc:2104} se tient au dernier étage de {area:2103}, {npc:2094} près des quais, sur le chemin du bateau."
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "",
 	["On the top floor"] = "Au dernier étage",
-	-- {zone:1437} Wetlands
-	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Pour la catapulte Gueule-de-dragon, lors de la boucle des {zone:1437} de 30-40/01-hillsbrad-foothills",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 52: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -335,8 +335,9 @@ return {
 	-- Step 58: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} se tient à l'extrémité nord d'{area:442}.",
-	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La réponse d'Alexston, si vous l'avez encore (l'itinéraire la rend au premier arrêt à {area:442} de 03-darkshore-return)",
+	-- {zone:1439} Darkshore · {area:442} Auberdine
+	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La réponse d'Alexston, si vous l'avez encore (l'itinéraire la rend au premier arrêt à {area:442} de 03-darkshore-return)"
+	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
 
 	-- Step 59: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -692,6 +693,8 @@ return {
 	["Next: fly to {area:42}."] = "Ensuite : volez jusqu'à {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La réponse d'Alexston, si vous l'avez encore (l'itinéraire la rend au premier arrêt à {area:442} de 03-darkshore-return)",
+	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Pour la catapulte Gueule-de-dragon, lors de la boucle des {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- ["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Pour {npc:1284} à {zone:1453}, à la fin de ce guide",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "Utilisez votre pierre de foyer pour revenir à {area:150} si vous l'avez liée à {area:2104}, ou marchez vers l'ouest par la route : {npc:2104} se tient au dernier étage de {area:2103}, {npc:1217} dans {area:2104}, au sud, {npc:2094} près des quais, sur le chemin du bateau.",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Utilisez votre pierre de foyer pour revenir à {area:150} si vous l'avez liée à {area:2104}, ou marchez vers l'ouest par la route : {npc:2104} se tient au dernier étage de {area:2103}, {npc:2094} près des quais, sur le chemin du bateau.",
@@ -717,4 +720,5 @@ return {
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, un furbolg épargné par la corruption, est assis au sud de la route, en contrebas du {area:421}.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige les satyres de {area:429} ; il porte la branche.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246} : les œufs de Tranchegueule, sur la même boucle",
+	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, lors de la boucle des {zone:1437} de 30-40/01-hillsbrad-foothills",
 }

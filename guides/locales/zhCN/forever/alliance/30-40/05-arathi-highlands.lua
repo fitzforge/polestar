@@ -129,8 +129,8 @@ return {
 	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
 	-- Step 24: Southshore
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}，在室内，如果30-40/01没有接：辛迪加营地就在去阿拉希的路上",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
 
 	-- Step 25: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -151,8 +151,8 @@ return {
 	-- Step 30: Refuge Pointe
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "从辛迪加营地出发，沿道路向东越过{area:1057}前往{area:320}。",
-	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}：交01-hillsbrad-foothills中{npc:1075}的求援任务",
+	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -426,9 +426,11 @@ return {
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}：{object:1760}",
 	-- ["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}，在{object:32356}：交给{zone:1432}的{npc:1344}，接下来会去",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}：捕捉它，用于{quest:93176}",
+	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}，在室内，如果30-40/01没有接：辛迪加营地就在去阿拉希的路上",
 	-- ["{npc:2277}: the parchment"] = "{npc:2277}：羊皮纸",
 	-- ["{npc:2438}, if you took his cloak quest"] = "{npc:2438}，如果你接了他的披风任务",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}，在达拉然城中",
+	-- ["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}：交01-hillsbrad-foothills中{npc:1075}的求援任务",
 	-- ["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}：{npc:2793}的洞穴安排在{area:327}之后",
 	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "食人魔法师{npc:2793}占据着枯木巨魔山谷南端的洞穴。",
 	-- ["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him."] = "{npc:5476}守在沼泽西侧的道路交汇处，{npc:217412}就在他北侧不远处。",

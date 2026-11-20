@@ -33,7 +33,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Desde {zone:1431} toma el camino al sur; el campamento está en las colinas al oeste del camino.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, si 30-40/04 no te la dio: para {npc:773} en {area:35}",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -42,7 +42,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, si 30-40/04 no te la dio: los raptores colazote, después de las ruinas de la jungla",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -166,8 +166,10 @@ return {
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Los trols Machacacráneos ocupan las ruinas al este del camino entre Nesingwary y {object:3202}.",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "Al oeste a través de la jungla hacia las ruinas trol: cada una guarda una tablilla de piedra de las leyendas trol; las dos primeras en las ruinas al suroeste del campamento de Nesingwary, las dos últimas en la colina del noroeste.",
 	-- ["grind on {npc:1152}"] = "farmea {npc:1152}",
+	-- ["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, si 30-40/04 no te la dio: los raptores colazote, después de las ruinas de la jungla",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, si 30-40/04 no te la dio: {npc:729}, en la guía 40-50 de Tuercespina",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: las panteras Faucesombría merodean alrededor del {area:37}, después de {area:101}",
+	-- ["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, si 30-40/04 no te la dio: para {npc:773} en {area:35}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773} en {area:35}",
 	-- ["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Los trols Machacacráneos de {quest:205} son de nivel 39-42. ¿Por debajo de 36? Sigue matando crocoliscos Quijaforte a lo largo del río hasta el nivel 36. O, con un grupo, haz en su lugar la mazmorra {area:796} (Armería) o la mazmorra {area:1316}.",
 }

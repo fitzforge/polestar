@@ -33,7 +33,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "从{zone:1431}沿路向南；营地在道路西边的山丘中。",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}，若30-40/04中未接取：交给{area:35}的{npc:773}",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -42,7 +42,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，若30-40/04中未接取：鞭尾迅猛龙，在丛林废墟之后处理",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -169,8 +169,10 @@ return {
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈颅巨魔占据奈辛瓦里和{object:3202}之间道路东边的废墟。",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "向西穿过丛林前往巨魔废墟：每处都有一块记载巨魔传说的石板，前两块在奈辛瓦里营地西南的废墟中，后两块在西北的山丘上。",
 	-- ["grind on {npc:1152}"] = "刷{npc:1152}升级",
+	-- ["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，若30-40/04中未接取：鞭尾迅猛龙，在丛林废墟之后处理",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}，若30-40/04中未接取：{npc:729}，在40-50级荆棘谷指南中处理",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}：完成{area:101}之后，深喉猎豹在{area:37}周围游荡",
+	-- ["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}，若30-40/04中未接取：交给{area:35}的{npc:773}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：交给{area:35}的{npc:773}",
 	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",
 	-- ["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "{quest:205}所需的劈颅巨魔为39-42级。还没到36级？继续沿河刷钳嘴鳄鱼，直到36级。也可以组队去{area:796}副本（军械库）或{area:1316}副本。",

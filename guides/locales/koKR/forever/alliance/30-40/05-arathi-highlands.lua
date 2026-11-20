@@ -129,8 +129,8 @@ return {
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 24: Southshore
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, 내부, 30-40/01에서 수락하지 않았다면: 비밀결사대 야영지는 아라시로 가는 길에 있습니다",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
 
 	-- Step 25: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -151,8 +151,8 @@ return {
 	-- Step 30: Refuge Pointe
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "비밀결사대 야영지에서 길을 따라 동쪽으로 {area:1057}을(를) 넘어 {area:320}까지 가세요.",
-	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "",
+	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -410,6 +410,7 @@ return {
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{npc:2438}의 망토용 {item:2321}, 없다면 {npc:2381}에게서",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: {quest:93176}을(를) 위해 잡으세요",
+	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, 내부, 30-40/01에서 수락하지 않았다면: 비밀결사대 야영지는 아라시로 가는 길에 있습니다",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, 달라란 도시 안",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받으세요. {object:32372}의 {npc:1573}도 {area:271}(으)로 날아갑니다.",
 }

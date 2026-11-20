@@ -33,7 +33,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "從{zone:1431}沿路向南；營地在道路西邊的山丘裡。",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}，如果30-40/04沒有接到：給{area:35}的{npc:773}",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -42,7 +42,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，如果30-40/04沒給這個任務：鞭尾迅猛龍，在叢林廢墟之後",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -161,7 +161,9 @@ return {
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶。小心：風險投資公司特務（39級）在他們之間走動：從營地邊緣一次拉一個地質學家。深喉獵豹（37-38級）潛行在湖泊南邊和東邊的叢林中：待在湖岸營地就好。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦里營地西南方的廢墟中，後兩塊在西北方的山丘上。",
+	-- ["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，如果30-40/04沒給這個任務：鞭尾迅猛龍，在叢林廢墟之後",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}，如果30-40/04沒有接到：{npc:729}在40-50荊棘谷指南中",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}：深喉獵豹在{area:37}周圍徘徊，先去{area:101}之後再來",
+	-- ["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}，如果30-40/04沒有接到：給{area:35}的{npc:773}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：給{area:35}的{npc:773}",
 }

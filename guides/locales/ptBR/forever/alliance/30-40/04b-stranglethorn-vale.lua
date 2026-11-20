@@ -33,7 +33,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "De {zone:1431}, siga a estrada para o sul; o acampamento fica nas colinas a oeste da estrada.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, se o 30-40/04 não a deu: para {npc:773}, em {area:35}",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -42,7 +42,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, se o 30-40/04 não a deu: os Raptores Batecauda, depois das ruínas da selva",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -169,8 +169,10 @@ return {
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Os trolls Rachacrânio dominam as ruínas a leste da estrada, entre Rosarães e {object:3202}.",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "Para o oeste pela selva até as ruínas trolls: cada uma guarda uma tabuleta de pedra das lendas trolls, as duas primeiras nas ruínas a sudoeste do acampamento do Rosarães, as duas últimas na colina a noroeste.",
 	-- ["grind on {npc:1152}"] = "mate {npc:1152} até subir",
+	-- ["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, se o 30-40/04 não a deu: os Raptores Batecauda, depois das ruínas da selva",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, se o 30-40/04 não a deu: {npc:729}, no guia 40-50 da Selva do Espinhaço",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: as Panteras Umbragorja rondam {area:37}, depois de {area:101}",
+	-- ["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, se o 30-40/04 não a deu: para {npc:773}, em {area:35}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: para {npc:773}, em {area:35}",
 	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}: o minério cai dos kobolds Bigodesseco em {zone:1417}, a seguir",
 	-- ["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Os trolls Rachacrânio de {quest:205} são de nível 39-42. Abaixo do 36? Continue matando os Crocoliscos Arapuca ao longo do rio até o nível 36. Ou, com um grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",

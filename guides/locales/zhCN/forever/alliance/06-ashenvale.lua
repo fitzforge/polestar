@@ -341,12 +341,13 @@ return {
 	["Still carrying {quest:92748} (you used your Hearthstone at the end of {zone:1432})? The tram comes in at the {object:28027}, where {npc:11026} stands."] = "还带着{quest:92748}（你在{zone:1432}末尾用了炉石）？地铁停在{object:28027}，{npc:11026}就站在那里。",
 
 	-- Step 61: Baros Alexston
-	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）",
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
+	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）"
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
-	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "回{area:442}交给{npc:3649}（06-wetlands）",
+	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
+	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
 	-- Step 62: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -398,6 +399,7 @@ return {
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "交给{object:2117}的伯瓦尔·弗塔根公爵：先留着",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "留给北部海岸的巨型湿地鳄鱼，下次来时完成",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "交给{area:271}的{npc:2228}：先留着",
+	-- ["For {npc:3649}, back in {area:442} (06-wetlands)"] = "回{area:442}交给{npc:3649}（06-wetlands）",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "从{area:17203}乘船前往{area:442}；{npc:3649}站在村子北端。然后沿道路向南骑行穿过{zone:1439}。",
 	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "从{area:415}向西南前往神殿南边的{area:412}：{npc:3664}和他的虚空行者占据着那里。先引出他的守卫。",
 	-- ["From {npc:3987}'s camp head south-west past {area:415} (its hand-ins wait for the way back) to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "从{npc:3987}的营地向西南，经过{area:415}（任务等返程时再交），前往神殿南边的{area:412}，那里由{npc:3664}和他的虚空行者占据。先引出他的守卫。",
@@ -433,6 +435,7 @@ return {
 	-- ["The raptor hills"] = "迅猛龙山丘",
 	-- ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}过来的道路通向飞行管理员旁：{npc:3845}和{npc:4079}站在那里，{npc:3691}在旅店，{npc:3894}在旅店后方的建筑内。",
 	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:1646} stands at its east side, {npc:376} in the Cathedral of Light."] = "地铁在{object:28027}停靠，向西走到{object:2098}。{npc:1646}站在广场东侧，{npc:376}在圣光大教堂里。",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "鱼人小屋里的三个容器，从南到北：{object:261}，然后是{object:142151}，最后是北端的{object:259}。",
 	-- ["Underwater"] = "在水下",

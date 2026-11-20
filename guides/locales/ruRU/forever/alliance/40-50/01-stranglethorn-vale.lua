@@ -101,7 +101,7 @@ return {
 
 	-- Step 20: The Affray
 	-- {area:720} Fray Island · {area:391} Merchant Coast · {area:392} Ratchet · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	-- was: ["On the way north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "По пути на север в {area:392}: {area:720} лежит у берега ({area:391}) к югу от города, перейдите вброд по отмели. {npc:6236} по одному выпускает против вас четырех соперников, а затем – {npc:6238} (33-й уровень)."
+	-- was: ["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "По пути на север в {area:392}: {area:720} лежит у берега ({area:391}) к югу от города, перейдите вброд по отмели. {npc:6236} по одному выпускает против вас четырех соперников, а затем – {npc:6238} (33-й уровень)."
 	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "Победите соперников и NPC {npc:6238}",
@@ -397,8 +397,8 @@ return {
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "Свиток лежит на болоте к северу от Биггса. С тинобродов к северу от него могут выпасть рассуждения Кадгара.",
 
 	-- Step 85: Amaryllis Webb
-	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}: {quest:93176}, из гайда по Нагорью Арати (30-40)",
+	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends · {zone:1417} Arathi Highlands
+	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "",
 
 	-- Step 86: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
@@ -535,6 +535,7 @@ return {
 	-- ["keep it: the {area:43} camp's charts and Swashbucklers (41-43) wait for the level-48 {area:35} stop"] = "оставьте его: карты и головорезы (41-43) из лагеря ({area:43}) подождут до остановки в {area:35} на 48-м уровне",
 	-- ["{item:216617}, in the supply crate"] = "{item:216617} – в ящике с припасами",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: для NPC {npc:1344} (зона {zone:1432}), сохраните",
+	-- ["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412}: {quest:93176}, из гайда по Нагорью Арати (30-40)",
 	-- ["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588}: поймайте для задания «{quest:93176}»",
 	-- ["{npc:2487}, top floor"] = "{npc:2487} – верхний этаж",
 	-- ["{npc:2494}: keep it, its naga (43-44) wait for the level-48 {area:35} stop"] = "{npc:2494}: сохраните, его наги (43-44) ждут остановки ({area:35}) на 48-м уровне",

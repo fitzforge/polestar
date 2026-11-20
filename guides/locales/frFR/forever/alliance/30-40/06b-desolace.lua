@@ -27,16 +27,16 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "En descendant du bateau, remontez la jetée jusqu'à Baldruc, le maître de vol près de la porte de {area:514}.",
 
 	-- Step 4: Nijel's Point
-	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
-	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, si 30-40/02 ne l'a pas prise : l'épave se trouve sous la tour d'{npc:11863}",
-	-- {npc:5396} Captain Pentigast
-	["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, si 30-40/02 ne vous l'a pas donnée",
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "Suivez la route vers le sud jusqu'à {area:2407}.",
-	-- {npc:11438} Bibbly F'utzbuckle
-	["{npc:11438}, if 30-40/02 didn't give it"] = "",
+	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
@@ -93,12 +93,12 @@ return {
 	-- Step 17: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405}. La tour d'{npc:11863} se dresse sur la colline, sur le chemin de l'épave.",
-	-- {npc:11863} Azore Aldamort
-	["{npc:11863}, if 30-40/02 didn't take the sceptre back to him"] = "",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863} : {quest:93464}, de Magtoor dans le {zone:1435}",
-	-- {npc:11863} Azore Aldamort
-	["{npc:11863}, if 30-40/02 didn't give it"] = "",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 18: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -107,8 +107,8 @@ return {
 	-- Step 19: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "Le {object:177787} se trouve à côté du {object:35251}, si vous ne l'avez pas pris lors de votre première visite à {zone:1443}. Sa clé en argent est lâchée par les crabes Claquesec autour de l'épave ; la clé en or provient des nagas Ondulame de la côte nord-ouest, ensuite.",
-	-- {object:177787} Rackmore's Log
-	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, si 30-40/02 ne l'a pas pris",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 20: Sar'theris Strand: kill these as you meet them
@@ -141,5 +141,8 @@ return {
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Les nagas Ondulame tiennent la côte nord-ouest au nord de la tour d'{npc:11863} ; la sacoche de Karnitol gît au fond de la mer, au large, et n'importe quel naga peut lâcher la clé en or de Rackmore. Nagez jusqu'à {area:2406}, au large de la pointe nord, et utilisez la {item:15766} sur la {object:177673} : {npc:12369} (38) surgit ; tuez-le pour le {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Les démons se rassemblent au {area:602}, dans le sud de {zone:1443} : des chiens corrompus (Mange-mana, Chasseurs de mages et Chasseurs Ley), des Vierges du néant et des Sœurs du néant, et des Capitaines de la Garde funeste autour de la fosse.\nAttention : la plupart des monstres ici suivent des trajets de patrouille : vous pouvez facilement attirer des monstres en plus.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Des Ravageurs morts-vivants parcourent les champs d'ossements au sud du village des Magram, à l'est du Convent : la flèche mène à leur bord ouest. Utilisez ensuite la {item:15848} à sa flèche, du côté est des champs, pour attirer les Spectres magrami. Attention : des Nécrokhans magram et des Dévoreurs de cadavres (45, élites) arpentent les champs d'ossements entre les deux flèches, avec des Nécromanciens magram (42) : attirez les Ravageurs et les spectres vers vous, loin d'eux.",
+	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, si 30-40/02 ne vous l'a pas donnée",
+	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, si 30-40/02 ne l'a pas prise : l'épave se trouve sous la tour d'{npc:11863}",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} se trouve à côté de {object:35251}. Sa clé en argent est lâchée par les crabes Claquesec autour de l'épave ; la clé en or provient des nagas Ondulame de la côte nord-ouest, ensuite.",
+	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, si 30-40/02 ne l'a pas pris",
 }

@@ -124,12 +124,12 @@ return {
 	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
 	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
 	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
-	["{npc:11438}: Tokal waits in {area:35}, at the end of 30-40/04b"] = "",
+	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
 
 	-- Step 22: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
 	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: la mochila está frente a la costa noroeste, en el circuito sur al final de 30-40 (06-badlands): consérvala"
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06b-desolace): keep it"] = "",
+	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
 
 	-- Step 23: Fly to Auberdine
 	-- {area:442} Auberdine

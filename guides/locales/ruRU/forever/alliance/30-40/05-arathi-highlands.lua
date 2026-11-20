@@ -129,8 +129,8 @@ return {
 	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
 	-- Step 24: Southshore
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, внутри, если не взяли в 30-40/01: лагерь Синдиката по пути в Арати",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
 
 	-- Step 25: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -151,8 +151,8 @@ return {
 	-- Step 30: Refuge Pointe
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "От лагеря Синдиката идите по дороге на восток через {area:1057} сюда: {area:320}.",
-	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "",
+	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -412,6 +412,7 @@ return {
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} для плаща {npc:2438}, у NPC {npc:2381}, если у вас ее нет",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: поймайте для задания {quest:93176}",
+	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, внутри, если не взяли в 30-40/01: лагерь Синдиката по пути в Арати",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, в городе Даларан",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "В городе {zone:1453} нет учителя шаманов: сядьте на поезд ({area:2257}) в месте {object:28027} до города {zone:1455} и обучитесь у NPC {npc:258098}. {npc:1573} ({object:32372}) тоже летает сюда: {area:271}.",
 }

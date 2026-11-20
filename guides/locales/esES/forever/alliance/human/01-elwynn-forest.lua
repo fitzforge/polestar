@@ -266,8 +266,8 @@ return {
 	-- Step 50: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
-	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
-	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279}, en {zone:1453}, lo recibe (02-westfall)",
+	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 
 	-- Step 52: Level 8.39
 	["Level 8.39"] = "",
@@ -389,8 +389,9 @@ return {
 	["{npc:6306}, inside"] = "",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "",
-	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: lo recibe {npc:1416}, en {zone:1453} (02-westfall)",
+	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
+	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: lo recibe {npc:1416}, en {zone:1453} (02-westfall)"
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, de vuelta en la posada",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -542,8 +543,10 @@ return {
 	-- ["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, peleteros: para {npc:1632}",
 	-- ["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, desolladores: para {npc:6306}",
 	-- ["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: para {npc:2329}, en la posada",
+	-- ["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279}, en {zone:1453}, lo recibe (02-westfall)",
 	-- ["{npc:459}: Summon Imp"] = "{npc:459}: Invocar diablillo",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, en la herrería al otro lado del camino: Acampada 101, herreros",
+	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: lo recibe {npc:1416}, en {zone:1453} (02-westfall)",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: Acampada 101, desolladores; dentro",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: lo recibe {npc:6171}, en {zone:1453}",

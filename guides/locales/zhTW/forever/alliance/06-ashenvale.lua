@@ -341,12 +341,13 @@ return {
 	["Still carrying {quest:92748} (you used your Hearthstone at the end of {zone:1432})? The tram comes in at the {object:28027}, where {npc:11026} stands."] = "還帶著{quest:92748}嗎（你在{zone:1432}結束時用了爐石）？地鐵抵達{object:28027}，{npc:11026}就站在那裡。",
 
 	-- Step 61: Baros Alexston
-	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地鐵停在{object:28027}；向西走到{object:2098}：{npc:1646}站在它的東側。（這條路線在 03-loch-modan 結尾才交他的信；這裡是為還帶著信的角色準備的。）",
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
+	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地鐵停在{object:28027}；向西走到{object:2098}：{npc:1646}站在它的東側。（這條路線在 03-loch-modan 結尾才交他的信；這裡是為還帶著信的角色準備的。）"
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：來自{area:442}的桑迪斯的信",
-	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "交給{npc:3649}，回到{area:442}時（06-wetlands）",
+	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
+	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
 	-- Step 62: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -393,6 +394,7 @@ return {
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "給{object:2117}的伯瓦爾·弗塔根公爵：先留著",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "北海岸的巨型鱷魚，下次來時再打",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "給{area:271}的{npc:2228}：先留著",
+	-- ["For {npc:3649}, back in {area:442} (06-wetlands)"] = "交給{npc:3649}，回到{area:442}時（06-wetlands）",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "從{area:17203}搭船到{area:442}；{npc:3649}站在村子北端。然後沿道路向南騎過{zone:1439}。",
 	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "從{area:415}向西南到神龕以南的{area:412}：{npc:3664}和他的虛空行者佔著那裡。先把他的守衛拉出來。",
 	-- ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}的岸邊。泰洛尼斯的屍體躺在鹽沫魚人之間；任何魚人都可能掉落{item:5463}。",
@@ -420,6 +422,7 @@ return {
 	-- ["The excavation site sits on the hill south of the road."] = "挖掘場在道路南邊的山丘上。",
 	-- ["The raptor hills"] = "迅猛龍丘陵",
 	-- ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "從{area:413}來的路通到飛行管理員旁：{npc:3845}和{npc:4079}站在那裡，{npc:3691}在旅店，{npc:3894}在旅店後面那棟建築裡。",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地鐵停在{object:28027}；向西走到{object:2098}：{npc:1646}站在它的東側。（這條路線在 03-loch-modan 結尾才交他的信；這裡是為還帶著信的角色準備的。）",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "魚人小屋中的三個容器，由南到北：{object:261}，然後是{object:142151}，最後是北端的{object:259}。",
 	-- ["Underwater"] = "在水下",

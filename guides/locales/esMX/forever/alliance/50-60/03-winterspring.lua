@@ -155,6 +155,7 @@ return {
 
 	-- Step 26: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
+	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: mata a estos según te los encuentres"
 	["{area:1943}: kill these as you meet them"] = "",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
@@ -217,6 +218,7 @@ return {
 
 	-- Step 40: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
+	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: mata a estos según te los encuentres"
 	["{area:1942}: kill these as you meet them"] = "",
 
 	-- Step 41: The Gorishi hive
@@ -392,6 +394,7 @@ return {
 
 	-- Step 76: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
+	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: mata a estos según te los encuentres"
 	["{zone:1452}: kill these as you meet them"] = "",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",

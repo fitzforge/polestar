@@ -36,7 +36,7 @@ return {
 	-- was: ["{npc:276}, inside"] = "{npc:276}, à l'intérieur"
 	["{npc:276}, inside"] = "",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
-	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return (07-thousand-needles)"] = "",
+	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
 
 	-- Step 6: Abercrombie
 	["Head west along the road once more."] = "Repartez une fois de plus vers l'ouest par la route.",
@@ -171,8 +171,8 @@ return {
 	["On into {zone:1453}: {npc:1212} stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for {npc:1217} in {area:150}, where the flight lands."] = "",
 	-- {npc:1212} Bishop Farthing
 	["{npc:1212}, in the Cathedral of Light"] = "",
-	-- {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor
-	["For {npc:1217} in {area:150} (06-wetlands)"] = "",
+	-- {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor · {zone:1437} Wetlands
+	["For {npc:1217} in {area:150} (the {zone:1437} guide)"] = "",
 
 	-- Step 32: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall

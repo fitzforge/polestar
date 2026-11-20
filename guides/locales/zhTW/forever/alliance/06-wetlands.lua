@@ -210,8 +210,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "從{npc:2093}向西北到河邊：沼澤爬行者藏在水塘裡和沿岸，一直往西到{area:1024}。沿河向西打到十二隻，再向東回到{npc:1244}。\n注意：脫離戰鬥時，沼澤爬行者會不時施放潛行，所以它們處於潛行狀態，很難發現。",
 
 	-- Step 38: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一隻精英迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
+	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 39: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -290,10 +290,10 @@ return {
 	-- was: ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "如果你把爐石綁在{area:2104}，就用爐石回到{area:150}，或沿道路往西走：{npc:2104}在{area:2103}頂樓，{npc:2094}在前往船的路上的碼頭邊。"
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "",
 	["On the top floor"] = "頂層",
-	-- {zone:1437} Wetlands
-	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "龍喉投石車，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 52: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -333,8 +333,9 @@ return {
 	-- Step 58: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}站在{area:442}的北端。",
-	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "亞歷克斯頓的回信，如果你還帶著（這條路線在 03-darkshore-return 第一次停{area:442}時就交了）",
+	-- {zone:1439} Darkshore · {area:442} Auberdine
+	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "亞歷克斯頓的回信，如果你還帶著（這條路線在 03-darkshore-return 第一次停{area:442}時就交了）"
+	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
 
 	-- Step 59: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -689,6 +690,8 @@ return {
 	["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "亞歷克斯頓的回信，如果你還帶著（這條路線在 03-darkshore-return 第一次停{area:442}時就交了）",
+	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "龍喉投石車，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "如果你把爐石綁在{area:2104}，就用爐石回到{area:150}，或沿道路往西走：{npc:2104}在{area:2103}頂樓，{npc:2094}在前往船的路上的碼頭邊。",
 	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "鐮顎龍門齒：出自{area:1038}旁的迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "從{npc:3987}的營地往南前往{area:415}：{npc:3691}在旅店裡，飛行管理員在西端。",
@@ -703,4 +706,5 @@ return {
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "未受腐化的熊怪{npc:3897}坐在{area:421}下方的道路南邊。",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率領{area:429}的薩特；樹枝在他身上。",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：裂齒龍蛋，同一趟環線",
+	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一隻精英迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 }

@@ -266,8 +266,8 @@ return {
 	-- Step 50: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377}（牧師）、{npc:328}（法師）和{npc:917}（盜賊）在旅店樓上：走室內樓梯上去，箭頭無法區分樓層。",
-	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
-	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{zone:1453}的{npc:279}接收此任務（02-westfall）",
+	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 
 	-- Step 52: Level 8.39
 	["Level 8.39"] = "等級 8.39",
@@ -389,8 +389,9 @@ return {
 	["{npc:6306}, inside"] = "{npc:6306}，在裡面",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}，趁威廉釀酒時",
-	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：由{zone:1453}的{npc:1416}接收（02-westfall）",
+	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
+	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：由{zone:1453}的{npc:1416}接收（02-westfall）"
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}，回到旅店裡",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -545,7 +546,9 @@ return {
 	-- ["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}，製皮者：給{npc:1632}",
 	-- ["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}，剝皮者：給{npc:6306}",
 	-- ["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}，{skill:129}：給旅店裡的{npc:2329}",
+	-- ["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{zone:1453}的{npc:279}接收此任務（02-westfall）",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}，在路對面的鐵匠鋪：露營入門，鍛造者",
+	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：由{zone:1453}的{npc:1416}接收（02-westfall）",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}：露營入門，剝皮者；在室內",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}：由{zone:1453}的{npc:6171}接收",

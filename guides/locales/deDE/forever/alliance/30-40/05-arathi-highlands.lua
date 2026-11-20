@@ -129,8 +129,8 @@ return {
 	["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 
 	-- Step 24: Southshore
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, drinnen, falls 30-40/01 sie nicht angenommen hat: Das Lager des Syndikats liegt auf dem Weg ins Arathihochland",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
 
 	-- Step 25: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -151,8 +151,8 @@ return {
 	-- Step 30: Refuge Pointe
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "Folge vom Lager des Syndikats der Straße nach Osten über {area:1057} nach {area:320}.",
-	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason
-	["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: Die Bitte von {npc:1075}, von 01-hillsbrad-foothills",
+	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -420,8 +420,10 @@ return {
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}, {object:32356}: für {npc:1344} in {zone:1432}, als Nächstes",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: Fang ihn, für {quest:93176}",
+	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, drinnen, falls 30-40/01 sie nicht angenommen hat: Das Lager des Syndikats liegt auf dem Weg ins Arathihochland",
 	-- ["{npc:2277}: the parchment"] = "{npc:2277}: das Pergament",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, in der Stadt Dalaran",
+	-- ["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: Die Bitte von {npc:1075}, von 01-hillsbrad-foothills",
 	-- ["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: Die Höhle von {npc:2793} kommt nach {area:327}",
 	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, ein Ogermagier, hält die Höhle am Südende des Witherbark-Tals.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} hat keinen Schamanenlehrer: Nimm {area:2257} vom {object:28027} nach {zone:1455} und trainiere bei {npc:258098}. {npc:1573} bei {object:32372} fliegt ebenfalls nach {area:271}.",

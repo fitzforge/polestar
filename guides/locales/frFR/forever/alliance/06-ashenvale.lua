@@ -341,12 +341,13 @@ return {
 	["Still carrying {quest:92748} (you used your Hearthstone at the end of {zone:1432})? The tram comes in at the {object:28027}, where {npc:11026} stands."] = "Vous portez encore {quest:92748} (vous avez utilisé votre Pierre de foyer à la fin de {zone:1432}) ? Le tram arrive à {object:28027}, où se tient {npc:11026}.",
 
 	-- Step 61: Baros Alexston
-	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "Le tram arrive à {object:28027} ; marchez vers l'ouest jusqu'à {object:2098} : {npc:1646} se tient de son côté est. (L'itinéraire rend sa lettre à la fin de 03-loch-modan ; ceci concerne un personnage qui l'a encore sur lui.)",
+	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
+	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "Le tram arrive à {object:28027} ; marchez vers l'ouest jusqu'à {object:2098} : {npc:1646} se tient de son côté est. (L'itinéraire rend sa lettre à la fin de 03-loch-modan ; ceci concerne un personnage qui l'a encore sur lui.)"
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646} : la lettre de Thundris, d'{area:442}",
-	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Pour {npc:3649}, de retour à {area:442} (06-wetlands)",
+	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
+	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
 	-- Step 62: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -400,6 +401,7 @@ return {
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "Pour les crocilisques géants de la côte nord, lors de votre prochaine visite",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "Pour {npc:2228} à {area:271} : gardez-la",
 	-- ["For {npc:2916} in {zone:1455}, at the end of this guide"] = "Pour {npc:2916} à {zone:1455}, à la fin de ce guide",
+	-- ["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Pour {npc:3649}, de retour à {area:442} (06-wetlands)",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then head south along the road through {zone:1439}."] = "Au {area:17203}, prenez le bateau pour {area:442} ; {npc:3649} se tient au nord du village. Suivez ensuite la route vers le sud à travers {zone:1439}.",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "À {area:17203}, prenez le bateau pour {area:442} ; {npc:3649} se tient à l'extrémité nord du village. Suivez ensuite la route vers le sud à travers {zone:1439}.",
 	-- ["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Depuis {area:415}, allez au sud-ouest jusqu'aux {area:412}, au sud du sanctuaire : {npc:3664} et ses marcheurs du Vide les occupent. Attirez d'abord ses gardes.",
@@ -445,6 +447,7 @@ return {
 	-- ["The excavation site sits on the hill south of the road."] = "Les excavations se trouvent sur la colline au sud de la route.",
 	-- ["The raptor hills"] = "Les collines des raptors",
 	-- ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "La route du {area:413} arrive près du maître de vol : {npc:3845} et {npc:4079} s'y tiennent, {npc:3691} à l'auberge, {npc:3894} dans le bâtiment au-delà.",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "Le tram arrive à {object:28027} ; marchez vers l'ouest jusqu'à {object:2098} : {npc:1646} se tient de son côté est. (L'itinéraire rend sa lettre à la fin de 03-loch-modan ; ceci concerne un personnage qui l'a encore sur lui.)",
 	-- ["The two stand together at the western end of the road.\nSouth of the murlocs, {npc:3585} waits at the {area:416}."] = "Les deux se tiennent ensemble à l'extrémité ouest de la route.\nAu sud des murlocs, {npc:3585} attend au {area:416}.",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Trois conteneurs dans les huttes des murlocs, du sud au nord : {object:261}, puis {object:142151}, puis {object:259} à l'extrémité nord.",

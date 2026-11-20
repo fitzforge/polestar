@@ -33,7 +33,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Nimm von {zone:1431} die Straße nach Süden; das Lager liegt in den Hügeln westlich der Straße.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, falls 30-40/04 sie dir nicht gegeben hat: für {npc:773} in {area:35}",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -42,7 +42,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, falls 30-40/04 sie dir nicht gegeben hat: die Schmetterschwänze, nach den Dschungelruinen",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -166,8 +166,10 @@ return {
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Die Skullsplitter-Trolle halten die Ruinen östlich der Straße zwischen Nesingwary und {object:3202}.",
 	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "Nach Westen durch den Dschungel zu den Trollruinen: Jede birgt eine Steintafel der Trolllegenden, die ersten beiden in den Ruinen südwestlich von Nesingwarys Lager, die letzten beiden auf dem Hügel im Nordwesten.",
 	-- ["grind on {npc:1152}"] = "Grinde an {npc:1152}",
+	-- ["{npc:715}, if 30-40/04 didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, falls 30-40/04 sie dir nicht gegeben hat: die Schmetterschwänze, nach den Dschungelruinen",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}, falls 30-40/04 sie dir nicht gegeben hat: {npc:729}, im Schlingendorn-Guide für 40-50",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}: Die Schattentatzenpanther streifen um {area:37} umher, nach {area:101}",
+	-- ["{npc:770}, if 30-40/04 didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, falls 30-40/04 sie dir nicht gegeben hat: für {npc:773} in {area:35}",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: für {npc:773} in {area:35}",
 	-- ["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Die Skullsplitter-Trolle von {quest:205} sind 39-42. Unter 36? Töte weiter die Snapjaw Crocolisks am Fluss, bis du Stufe 36 hast. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:796} (Waffenkammer) oder den Dungeon {area:1316}.",
 }
