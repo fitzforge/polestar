@@ -83,7 +83,9 @@ local function build(active)
 	-- carried: quest -> the later guide that hands it in, from the compiled
 	-- `carriedTo` on the route's quest work: known even where the plan
 	-- cannot reach that guide (not loaded, a choice to make, another race's).
-	local index, carried = {}, {}
+	-- opens: quest -> the accepts of the route that need it first (their
+	-- `pre` or `preAny`), as { chapter, step }.
+	local index, carried, opens = {}, {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
@@ -96,11 +98,20 @@ local function build(active)
 					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
 						carried[goal.quest] = goal.carriedTo
 					end
+					if goal.t == "accept" and G.Matches(goal.only, player) then
+						for _, list in ipairs({ goal.pre or {}, goal.preAny or {} }) do
+							for _, q in ipairs(list) do
+								local entries = opens[q] or {}
+								opens[q] = entries
+								entries[#entries + 1] = { chapter = chapter, step = si }
+							end
+						end
+					end
 				end
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, opens = opens, pending = pending, missing = missing }
 end
 
 local function planOf(g)
@@ -289,7 +300,10 @@ end
 -- hands in beyond the plan's reach (`carriedTo`) is "later", not unplanned.
 -- A quest another open tab's route or a dungeon open in a tab hands in
 -- ("other", GetTurnIn) is never listed, but for a grey one that route hands
--- in in a later chapter which leaves it out too, as above.
+-- in in a later chapter which leaves it out too, as above. Nor is one an
+-- accept still ahead on the active route needs first (its `pre` or
+-- `preAny`, Plan.OpensAhead): abandoning it would close that accept and send
+-- the player back for it (#3132: the Azshara guide's Feralas lead-ins).
 function Plan.Unneeded()
 	local C, E, out = ns.Compat, ns.Engine, {}
 	local level = (C.GetPlayerInfo() or {}).level
@@ -302,9 +316,25 @@ function Plan.Unneeded()
 		elseif (status == "later" or (status == "other" and r.via == "later")) and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
 			status = "grey"
 		end
-		if NEVER[status] or status == "grey" then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
+		if (NEVER[status] or status == "grey") and not Plan.OpensAhead(q) then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
 	end
 	return out
+end
+
+-- Whether an accept on the active tab's route, at its live step or after it,
+-- needs quest q first (the accept's `pre` or `preAny`).
+function Plan.OpensAhead(q)
+	local E = ns.Engine
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return false end
+	local plan = planOf(active)
+	local step
+	if E.GetLiveStep then step = E.GetLiveStep() else step = E.GetStepIndex() end
+	step = step or math.huge
+	for _, at in ipairs(plan.opens[q] or {}) do
+		if at.chapter > plan.chapter or (at.chapter == plan.chapter and at.step >= step) then return true end
+	end
+	return false
 end
 
 -- The live step's open accepts would not fit in the log: { take = accepts

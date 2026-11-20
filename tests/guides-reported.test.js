@@ -1137,6 +1137,19 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: C\'s payment is handed in a
 	assert.ok(at(list, 'turnin 78261', is('turnin', 78261)) < pay, 'after the horn');
 });
 
+// #3161 (ys), #3213 (Traesheur): Goblin Lockpicks (78270) never enters the log. Players' recordings: 10 people
+// handed it in to Veenix with no accept, so the Work Order is picked first and handed in at one talk; every window
+// of his that listed it came from a Rogue with The Horn of Xelthos (78261) in the log, and the step says so.
+test('forever/class/rogue/the-horn-of-xelthos.guide: the Work Order first, then Goblin Lockpicks handed in to Veenix at one talk (#3161, #3213)', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'accept' && goal.quest === 78270), [], 'no accept for Goblin Lockpicks');
+	const hand = at(list, 'turnin 78270', is('turnin', 78270));
+	assert.equal(list[hand].goal.direct, true, 'a direct hand-in');
+	assert.ok(list.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 210187) < hand, 'the Work Order before the hand-in');
+	assert.match(list[hand].step.note || '', /only while .*in your quest log/);
+	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < hand, 'the horn comes first');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
@@ -4602,6 +4615,28 @@ test('#2927: Helping Hands and Supplies to Auberdine are escorts', { skip }, () 
 test('#2948: Our Man in Theramore is a talk to Sully McCleary, not a kill', () => {
 	const fix = loadCorrections().quests['95194'];
 	assert.deepEqual(fix && fix.set.objectives.map((o) => [o.type, o.id]), [['talk', 260146]]);
+});
+
+// #2781 (Brumeire, Zephras Isle): Welcome to Azeroth (95350) is offered without The Earthen Ring (95349): players'
+// recordings, 19 people. The data build re-added the server's previous-quest link, so a character carrying 95350
+// counted the whole Zephras Isle story behind it as handed in (Own.chainPast): the guide ticked A Firm Response (93746)
+// and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it. The correction drops the link.
+test('#2781: Welcome to Azeroth has no prerequisite, so carrying it proves nothing of the Zephras Isle story', () => {
+	const fix = loadCorrections().quests['95350'];
+	assert.deepEqual(fix && fix.set.pre, [], 'the correction drops The Earthen Ring (95349)');
+	assert.deepEqual(fix.set.preAny, []);
+});
+
+// #2631 (rodriso, Booty Bay): Nearby services listed Zarena Cromwind, a weaponsmith, as a food and drink vendor: the data
+// had Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), Love is in the Air goods, as everyday stock. Her
+// shop has no food (the reporter's screenshot; 12 people recorded her stock), and every vendor row of the two goods is
+// conditional on the server. The correction takes both off the eight vendors.
+test('#2631: the Love is in the Air food is off the everyday stock of Zarena Cromwind and the other seven', () => {
+	const items = loadCorrections().items;
+	for (const item of ['23160', '23161']) {
+		const gone = (items[item] && items[item].removeVendors) || [];
+		for (const npc of [2482, 3044, 4165, 5173, 5698, 11038, 14450, 15006]) assert.ok(gone.includes(npc), `${item} off npc ${npc}`);
+	}
 });
 
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;

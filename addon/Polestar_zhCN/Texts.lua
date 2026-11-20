@@ -4646,7 +4646,6 @@ t.guides["forever/class/rogue/the-horn-of-xelthos"] = (function() return {
 		["The {item:277210}, C's payment for a solo job inside {area:236}."] = "{item:277210}，是C为一次{area:236}单人任务支付的报酬。",
 		["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} 是一只宝箱，位于银松森林南部、{area:236} 以南的 {area:204} 外一间房子里。打开它并阅读 C 的便条：这项工作必须退出小队，独自完成。",
 		["{item:210183}, inside {area:236}"] = "{item:210183}，在{area:236}里",
-		["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "{npc:4086}是一个对双方阵营都友好的地精，站在石爪山脉东部{area:461}的风险投资公司人员中间，位于{area:460}东北方不远处。部落飞往{area:460}；联盟飞往{area:467}。他要一份{item:210187}才肯交出炸药：在他周围干活的风险投资公司伐木工（18级）口袋里带着。潜行到其中一个身后，对其使用{spell:921}；杀死他们不会掉落。",
 		["{spell:921} a {npc:3989} for a {item:210187}"] = "对{npc:3989}使用{spell:921}，取得{item:210187}",
 } end)()
 t.guides["forever/class/shaman/call-of-air-alliance"] = (function() return {

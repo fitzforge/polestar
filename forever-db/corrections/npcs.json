@@ -2034,6 +2034,46 @@
 		],
 		"note": "Farmer Elbrim placed where players met it in the Riverglades."
 	},
+	"258878": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Auctioneer Quickcoin met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 9.9,75.2), and Uninspected Shipment (258880) met at the same two places in other sessions (1413 49.9,29.4; 1433 7.4-11.6,71.3-72.1)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: Auctioneer Quickcoin (258878), Steamwheedle Courier (258879) and Uninspected Shipment (258880) share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Auctioneer Quickcoin is one of the three faces of a travelling goblin stall (auctioneer, banker or mailbox, one a day) at the Crossroads and on Redridge's west side. On the other days he isn't there, so an Auction House goal that led to him stalled (#3112). No roles: auction goals and Nearby services go to an Auction House that is always open."
+	},
+	"258880": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Uninspected Shipment met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 7.4-11.6,71.3-72.1), the places Auctioneer Quickcoin (258878) stands on other days"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: 258878, 258879 and 258880 share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Uninspected Shipment is the banker face of the same travelling goblin stall as Auctioneer Quickcoin: there one day in three. No roles, so bank goals and Nearby services go to a bank that is always open (#3112)."
+	},
 	"259254": {
 		"addSpawns": {
 			"2548": {
@@ -2405,6 +2445,26 @@
 			}
 		],
 		"note": "Guchie Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14450": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 36 people opened Orphan Matron Nightingale's window in Cathedral Square (quest windows for 92415 and 95161, 46 in all), none a merchant or gossip window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3032 (Shuurajou, Gnome Priest 30): the nearest-vendor search sent them to her and she sold nothing"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 14450 npcflag 131 and two npc_vendor items, Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), the Children's Week foods"
+			}
+		],
+		"note": "Orphan Matron Nightingale gives Stormwind's orphan quests. Her vendor flag only carries the Children's Week foods, and no player has had a merchant window from her, so Nearby services sent players looking for a vendor to a quest giver who sells nothing (#3032). No roles; a merchant window players record brings the vendor role back."
 	},
 	"14480": {
 		"set": {
@@ -3962,5 +4022,81 @@
 			}
 		],
 		"note": "Ravaging Tempest (npc 216474, level 38-40, elite) walks the Grimtotem ground south and east of 36,36 in Thousand Needles, where players recorded it; the merged data also listed five points (34.5,33.3 to 36.3,36.1) north-west of it, among the Incendia Agave plants Sacred Fire (5062) sends Horde players to at about 29, so the danger gate read an elite there. Those points are dropped; the rest of the path stays (Horde route fix pass, PR #3284)."
+	},
+	"252695": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 64 people (61 established), killed 0 times (rec.py npc 252695)"
+		},
+		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the addon counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
+	},
+	"11102": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), friendly by 3, killed 0 times (rec.py npc 11102)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template 11102 faction 1625"
+			}
+		],
+		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the addon counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266878": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), killed 0 times (rec.py npc 266878)"
+		},
+		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266880": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 4 people (3 established), killed 0 times (rec.py npc 266880)"
+		},
+		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"271742": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 15 people (13 established), killed 0 times (rec.py npc 271742)"
+		},
+		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"270571": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 6 people (5 established), friendly by 1, killed 0 times (rec.py npc 270571)"
+		},
+		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"269699": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
+		},
+		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
 	}
 }
