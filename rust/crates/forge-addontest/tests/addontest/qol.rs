@@ -840,14 +840,14 @@ fn step_key_while_you_re_here_names_past_the_macro_limit_are_left_out_never_the_
 	let out = run(&format!(
 		"{HERE_ROWS}{}",
 		r#"
-		-- 31 bytes a name: the macro holds three (240 bytes), not four (316).
+		-- 31 bytes a name: the macro holds three (246 bytes), not four (322).
 		local long = string.rep("W", 30)
 		q.step({ { t = "kill", target = long .. "1" }, { t = "kill", target = long .. "2" } })
 		rows({ { t = "kill", subject = long .. "3" }, { t = "kill", subject = long .. "4" } })
 		emit({ #PolestarStepButton:GetAttribute("macrotext"), (names():gsub("W", "")) })
 	"#
 	));
-	assert_eq!(out[0], json!([240, "1, 2, 3"]));
+	assert_eq!(out[0], json!([246, "1, 2, 3"]));
 }
 
 #[test]
