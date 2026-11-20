@@ -361,6 +361,34 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
 }
 
+// #2898: the Forsaken paladin's warhorse guide opens on Report to Danitha (97022). Its card names the chain's end, the
+// Forsaken Summon Warhorse (1279399, from A Paladin's Steed 94971), as a new mount.
+#[test]
+fn report_to_danitha_s_card_is_the_forsaken_paladin_s_summon_warhorse_2898() {
+	let out = run_card(
+		r#"
+		uistub.guides["test/warhorse"] = { id = "test/warhorse", pack = "guides", title = "Paladin Warhorse (Forsaken)", minLevel = 40, maxLevel = 60,
+			category = "Class", zone = 1458, zoneName = "Undercity", author = "Polestar", version = 1, steps = {
+			{ title = "Report to Danitha", goals = {
+				G("accept", { verb = "Accept", subject = "Report to Danitha", subjectKind = "quest", quest = 97022, npc = 260093, npcName = "Garen Largo", minLevel = 40, map = 1458, x = 47.12, y = 15.49, status = "active" }),
+			} },
+			{ title = "Summon Warhorse", goals = {
+				G("accept", { verb = "Accept", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", minLevel = 40, map = 1420, x = 22, y = 44.66, status = "pending" }),
+				G("turnin", { verb = "Turn in", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, status = "pending" }),
+			} },
+		} }
+		uistub.player.class, uistub.player.race, uistub.player.faction, uistub.player.level = "PALADIN", "Scourge", "Horde", 40
+		uistub.setGuide("test/warhorse", 1)
+		local c = card()
+		emit({ shown = c.shown, icon = c.icon, learn = c.learn, badge = c.badge })"#,
+	);
+	let c = &out[0];
+	assert_eq!(c["shown"], true, "{c}");
+	assert_eq!(c["icon"], "Interface\\Icons\\spell-1279399");
+	assert!(c["learn"].as_str().unwrap_or("").contains("Summon Warhorse"), "{c}");
+	assert_eq!(c["badge"], "NEW MOUNT");
+}
+
 // Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
 // level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
 // when there is no level and the minimum is one (above 1).
