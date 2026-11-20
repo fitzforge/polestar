@@ -17143,6 +17143,17 @@ test('Horde Azshara: the first Orgrimmar stop and level-50 return use different 
 	assert.ok(stops[1].when.some((w) => w.k === 'zone' && w.name === 'Orgrimmar'));
 });
 
+test('Horde Stranglethorn (#3004, #3071, #3124): the warriors give tusks and necklaces together; Booty Bay pays only finished errands, after the Wild Shore', { skip }, () => {
+	const first = compiled('forever/horde/40-50/01-stranglethorn-vale.guide').steps;
+	const has = (s, t, q) => s.goals.some((g) => g.t === t && g.quest === q);
+	const camp = first.find((s) => has(s, 'collect', 209) && has(s, 'collect', 598));
+	assert.ok(camp && lowestLevel(camp) >= 39, 'tusks and necklaces from the same warrior camp, from 39');
+	const second = compiled('forever/horde/40-50/02-feralas.guide').steps;
+	const idx = (t, q) => second.findIndex((s) => has(s, t, q));
+	for (const q of [209, 576, 587, 604, 617]) assert.ok(whenQuestOf(second[idx('turnin', q)], ['complete'], q), `${q} handed in only when complete`);
+	assert.ok(idx('kill', 604) < idx('accept', 2864), 'the Wild Shore before Krazek in town');
+});
+
 // #2694 (Xaden Ryan, 0.4.0.1, Alliance Stranglethorn 40-50): the Kurzen Supply Crate is deep in the cave of
 // Kurzen's Compound; the goal had no height (the crate has none in the spawn data), so the walk ended on the hill
 // above it. The goal points at the crate with the cave floor's height (data/goal-heights.json).

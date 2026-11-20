@@ -82,6 +82,16 @@ step Grom'gol Base Camp
   tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the zeppelin to Orgrimmar. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
   accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
 
+step Tusks and necklaces on the Skullsplitter hunt
+  when level>=44
+  when onquest 586
+  when !complete 586
+  when onquest 209,598
+  along until cauldron
+  tip The hunters also drop Kebok's tusks and Kin'weelay's necklaces. Collect any you still need during the cauldron hunt.
+  collect 1524 quest 209.1 npc 669 @45.56,38.64 map 1434 era
+  collect 3916 quest 598.1 npc 669 @45.56,38.64 map 1434 era
+
 step Zul'Mamwe
   zone Stranglethorn Vale
   tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
@@ -93,11 +103,16 @@ step Zul'Mamwe
   collect 3909 quest 586.4            -- Ana'thek the Cruel
 
 step Grom'gol Base Camp
+  label cauldron
   tip Back west to Grom'gol.
   turnin 586                          -- the Bubbling Cauldron
   accept 588                          -- the Bubbling Cauldron again: Yenniku's fate
   turnin 588                          -- Kin'weelay
   accept 589                          -- Kin'weelay: the basilisks bask beside the road south, on the ride to Booty Bay
+
+step Kin'weelay
+  when complete 598
+  turnin 598
 
 step Ironjaw Basilisks
   zone Stranglethorn Vale
@@ -126,35 +141,98 @@ step Witch Doctor Unbagwa
 
 step The Cape of Stranglethorn: kill these as you meet them
   zone Stranglethorn Vale
-  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them. Then follow the coast south to Booty Bay.
+  when level>=43
+  when onquest 573,617
+  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them.
+  tip Follow the coast south. If you still need the Wild Shore pirates, take the road past the Booty Bay tunnel to the beach before going into town.
   collect 4029 quest 617.1
   kill 1907 quest 573.1
   collect 737 quest 573.2 @29.0,61.9
 
+step The Wild Shore
+  zone Stranglethorn Vale
+  tip From the north, take the outer shore east of the Booty Bay tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore.
+  when level>=42
+  when onquest 604,576,587
+  loop
+  goto 32.98,77.25 map 1434 era r 28
+  goto 31.95,79.47 map 1434 era r 25
+  goto 30.96,81.07 map 1434 era r 25
+  goto 28.23,82.40 map 1434 era r 26
+  goto 26.67,82.84 map 1434 era r 26
+  kill 1563 quest 604.1
+  collect 3897 quest 576.1 npc 1563
+  collect 3910 quest 587.1 npc 1563
+
+step Bloodsail tents and rowboat
+  zone Stranglethorn Vale
+  when level>=42
+  when onquest 604
+  tip Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship.
+  loop
+  goto 29.51,80.84 map 1434 era r 22
+  goto 27.70,83.00 map 1434 era r 22
+  goto 27.11,82.77 map 1434 era r 26
+  goto 26.96,82.50 map 1434 era r 22
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+
+step Dizzy One-Eye
+  when complete 576
+  turnin 576
+
+step Privateer Bloads
+  when complete 617
+  turnin 617
+
 step Booty Bay
   zone Stranglethorn Vale
   tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
-  turnin 617                          -- Privateer Bloads
   turnin 348                          -- Fin Fizracket
   turnin 621                          -- Crank Fizzlebub, inside
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+
+step Kebok
+  when complete 209
   turnin 209                          -- Kebok, upstairs
+
+step Krazek
   accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
 
-step The Wild Shore
+step Deeg
+  when complete 587
+  turnin 587
+
+step Fleet Master Seahorn
+  when complete 604
+  turnin 604
+
+step Unfinished Wild Shore errands
   zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
+  tip If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships.
+  when level>=42
+  when onquest 604,576,587
+  loop
+  goto 26.67,82.84 map 1434 era r 26
+  goto 27.11,82.77 map 1434 era r 24
+  goto 27.70,83.00 map 1434 era r 25
+  kill 1563 quest 604.1
   collect 3920 quest 604.2
   collect 3921 quest 604.3
-  collect 3897 quest 576.1
-  collect 3910 quest 587.1
-  kill 1563 quest 604.1
+  collect 3897 quest 576.1 npc 1563
+  collect 3910 quest 587.1 npc 1563
 
-step Booty Bay
-  tip Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50.
-  turnin 604                          -- Fleet Master Seahorn
-  turnin 576                          -- Dizzy One-Eye
-  turnin 587                          -- Deeg, on the top floor
+step Dizzy One-Eye
+  when complete 576
+  turnin 576
+
+step Deeg
+  when complete 587
+  turnin 587
+
+step Fleet Master Seahorn
+  when complete 604
+  turnin 604
 
 step Fly to Grom'gol
   zone Stranglethorn Vale
@@ -162,8 +240,18 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Grom'gol Base Camp
+  when complete 589
+  when complete 573
   tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
   turnin 589                          -- Kin'weelay
+  turnin 573                          -- Far Seer Mok'thardin
+
+step Kin'weelay
+  when complete 589
+  turnin 589
+
+step Far Seer Mok'thardin
+  when complete 573
   turnin 573                          -- Far Seer Mok'thardin
 
 step Zeppelin to Orgrimmar

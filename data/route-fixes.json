@@ -6403,7 +6403,12 @@
 				],
 				"faction": "Horde",
 				"why": "#3145: take Bone-Bladed Weapons from Jes'rimon on the first Orgrimmar pass, before visiting Loh'atu in Azshara. A character eligible for March of the Silithid also takes it on that pass."
-			}
+			},
+			{ "a": ["turnin", 213], "b": ["accept", 209], "faction": "Horde", "why": "#3145: Kebok takes the crystals and offers the tusks upstairs. Take the tusks there if he already has the ears, before heading down to the docks." },
+			{ "a": ["task", 604], "b": ["accept", 2864], "faction": "Horde", "why": "#3145: on the way south from the naga coast, finish the Wild Shore beach work before entering Booty Bay for Krazek and the wind rider when the character is already 42." },
+			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
+			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
+			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
