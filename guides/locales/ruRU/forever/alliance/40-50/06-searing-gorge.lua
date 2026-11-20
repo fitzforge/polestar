@@ -51,110 +51,131 @@ return {
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Доска: {object:179827}",
 
-	-- Step 11: Zamael Lunthistle
+	-- Step 10: Culling the Competition
+	["Culling the Competition"] = "",
+	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
+
+	-- Step 12: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Это элитные противники: лучше собраться в группу, поищите, с кем пойти. {npc:8436} стоит в лагере Сумеречного Молота ({area:1442}), к западу от места {area:1446}, среди стражей огня, идолопоклонников и геомантов из культа Сумеречного Молота (элитные противники 48-49 уровня), а рядом с ним – {npc:8282} (51-й уровень, редкий элитный): для задания «{quest:3377}» нужна группа из 4 человек. Если вы один, пропустите его.",
 
-	-- Step 14: Searing Lava Spiders
+	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "Опаляющие лавовые пауки",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к NPC {npc:8479}.",
 
-	-- Step 15: Velarok Windblade
+	-- Step 16: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} стоит на краю Котлована, к югу от места {area:1446}. Выслушайте его историю.",
 
-	-- Step 18: Golems and elementals
+	-- Step 19: Golems and elementals
 	["Golems and elementals"] = "Големы и элементали",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
 	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Тяжелые боевые големы патрулируют дно Котлована под NPC {npc:8479}; среди них плавают элементали магмы. Масло падает с големов и элементалей, сердца – с элементалей.",
 
-	-- Step 20: Dark Iron dwarves: kill these as you meet them
-	["Dark Iron dwarves: kill these as you meet them"] = "",
-	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron · {item:11818} Grimesilt Outhouse Key
-	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Надсмотрщики и поработители гоняют рабов по всему Котловану, и у любого из них может быть {item:10551}. Кузнецы работают у печей в центре ({item:18959}), наблюдатели стоят на южных гребнях (подзорная труба наблюдателя). С любого противника ({object:147516}) может выпасть {item:11818}: сохраните его.\nОсторожно: поработители из клана Черного Железа (45-46-й уровень), когда их выманивают, зовут на помощь союзников в пределах 15 ярдов, бросают сеть с расстояния до 15 ярдов и применяют кровопускание в ближнем бою.",
+	-- Step 21: Dark Iron Taskmasters
+	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
+	["Dark Iron Taskmasters"] = "",
+	-- {area:1443} Slag Pit
+	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
 
-	-- Step 23: Searing Gorge: kill these as you meet them
+	-- Step 22: Dark Iron Slavers
+	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
+	["Dark Iron Slavers"] = "",
+	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
+
+	-- Step 23: The furnaces and southern ridges
+	["The furnaces and southern ridges"] = "",
+	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
+	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
+
+	-- Step 24: Thorium Plated Daggers
+	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
+	["Thorium Plated Daggers"] = "",
+	-- {item:18959} Smithing Tuyere
+	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
+	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
+
+	-- Step 28: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: убивайте их по пути",
-	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
+	-- {area:1443} Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} открывается на севере Котлована. Тайные планы лежат на его верхнем уступе; пламезавры плавают в лавовых озерах дальше внутри, так что выманивайте их к краю. Держитесь подальше от NPC {npc:14621} и его элитной стражи в глубине.",
 	-- {item:18922} Secret Plans: Fiery Flux
 	["{item:18922}; below ground"] = "{item:18922}; под землей",
 
-	-- Step 24: Searing Gorge: kill these as you meet them
+	-- Step 29: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 26: Level 48.66
+	-- Step 31: Level 48.66
 	["Level 48.66"] = "",
 	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "",
+	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "убивайте: {npc:9318}",
 
-	-- Step 28: The Flame's Casing
+	-- Step 33: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 30: The Torch of Retribution
+	-- Step 35: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
 	["Listen to {npc:8479}'s story once more."] = "Еще раз выслушайте историю NPC {npc:8479}.",
 
-	-- Step 31: Velarok Windblade
+	-- Step 36: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
 	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "Задание «{quest:3453}» лежит на земле у ног NPC {npc:8479}; задание «{quest:3462}» стоит рядом с ним.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: сдайте по пути обратно в {area:1446}",
 
-	-- Step 32: Sentry Braziers
+	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Сторожевые жаровни",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Несите предмет {object:149047} на юг вдоль края Котлована и зажгите четыре сторожевые жаровни, с юго-запада по кругу до юго-востока.",
 
-	-- Step 33: Level 48.98
+	-- Step 38: Level 48.98
 	["Level 48.98"] = "",
 	-- {quest:3452} The Flame's Casing
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "убивайте: {npc:5844}",
 
-	-- Step 34: Margol's Horn
+	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 	["Below ground"] = "Под землей",
 
-	-- Step 36: Squire Maltrake
+	-- Step 41: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509} и сокровищница драконов находятся рядом с NPC {npc:8479}, на краю к югу от места {area:1446}.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "В сокровищнице ({object:149502}), которую он откроет, лежит {item:10575}: сохраните для NPC {npc:9459} ({zone:1428})",
 
-	-- Step 38: Fly to Ironforge
+	-- Step 43: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "Распорядитель полетов: {area:1446}",
 
-	-- Step 39: Hall of Explorers
+	-- Step 44: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
 	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни водятся в локации {zone:1448}, сохраните задание",
 
-	-- Step 40: Mystic Ward
+	-- Step 45: Mystic Ward
 	-- {zone:1447} Azshara
 	["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в локации {zone:1447}: сохраните задание",
 
-	-- Step 41: Class trainer
+	-- Step 46: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 42: Xiggs Fuselighter
+	-- Step 47: Xiggs Fuselighter
 	-- {object:32359} Military Ward
 	["Xiggs waits in the {object:32359}."] = "Ксиггс ждет в районе {object:32359}.",
 
@@ -163,6 +184,7 @@ return {
 	-- ["Greater Lava Spiders"] = "Большие лавовые пауки",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Тяжелые боевые големы патрулируют дно Котлована под Велароком; среди них плавают элементали магмы. Масло падает с големов и элементалей, сердца – с элементалей.",
 	-- ["Listen to Velarok's story once more."] = "Еще раз выслушайте историю Веларока.",
+	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Надсмотрщики и поработители гоняют рабов по всему Котловану, и у любого из них может быть {item:10551}. Кузнецы работают у печей в центре ({item:18959}), наблюдатели стоят на южных гребнях (подзорная труба наблюдателя). С любого противника ({object:147516}) может выпасть {item:11818}: сохраните его.\nОсторожно: поработители из клана Черного Железа (45-46-й уровень), когда их выманивают, зовут на помощь союзников в пределах 15 ярдов, бросают сеть с расстояния до 15 ярдов и применяют кровопускание в ближнем бою.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "Ночной эльф стоит один к западу от места {area:1446}. Выслушайте его историю.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Пауки бродят по плато и лавовым озерам к югу от NPC {npc:8436}, по пути к Велароку.",
 	-- ["Velarok Windblade"] = "Веларок Клинок Ветра",

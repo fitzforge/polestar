@@ -50,6 +50,7 @@ step Into the Riverglades
 
 step Scout Bolain
   tip Scout Bolain waits beside the road east of the pass.
+  tip This guide is written for levels 41-45: the route comes here at about 41, after Stranglethorn Vale. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and Overlord Kilgar (46, elite) for groups only: below 41, do Stranglethorn first.
   accept 95147                          -- The Lost Scout
 
 step Southern Watch
@@ -645,6 +646,11 @@ step Turner's Logging Camp
   tip Careful: Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
   turnin 95330                          -- Halligan Turner
   collect 271877 x10 quest 96009.1      -- Wood Bundle
+
+step The Western Front
+  when level<44
+  tip Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and Overlord Kilgar (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend.
+  goto 30.6,49.0 "Sergeant Riftan"
 
 step Sergeant Riftan
   tip North up the long valley towards Twilight's Shroud: Sergeant Riftan holds a small camp below the Twilight cult's fortress.
