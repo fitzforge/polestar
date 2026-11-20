@@ -652,6 +652,17 @@ function city.Note(on, approachZ)
 	end
 end
 
+-- A shaft in a capital has fixed trail levels as well as moving decks.
+function city.Lift(pc, px, py)
+	local now = GetTime()
+	if pc ~= city.liftC or px ~= city.liftX or py ~= city.liftY or now - (city.liftAt or -huge) >= EVERY then
+		local X = ns.Transit
+		city.liftC, city.liftX, city.liftY, city.liftAt = pc, px, py, now
+		city.lift = city.Here(pc, px, py) and X and X.LiftNear and X.LiftNear(pc, px, py, LIFT) ~= nil or false
+	end
+	return city.lift
+end
+
 -- On a taxi, a transport (Transit.Riding, or one the game gives no taxi for: Transit.Carried) or at a lift: the floor
 -- can change without walking.
 local function carried(pc, px, py)
@@ -1107,6 +1118,8 @@ end
 local function startZ(pc, px, py)
 	local z = playerZ(pc)
 	if z ~= nil then return z, false, false end
+	-- A trail describes a fixed floor, not the deck currently at this lift.
+	if city.Lift(pc, px, py) then return nil, false, false end
 	z = trackedZ(pc, px, py)
 	if z ~= nil then return city.Settle(pc, px, py, z), true, false end
 	if candN == 0 or not candIndoor then z = city.Start(pc, px, py) end
@@ -1374,6 +1387,7 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 	local o = opts(ghost, pc, px, py, gx, gy)
 	local sz, tracked = originZ, false
 	if not place then sz, tracked = startZ(pc, px, py) end
+	if not place and sz == nil and city.Lift(pc, px, py) then return callback(false) end
 	local floors = not place and sz == nil and startFloors(pc, px, py) or nil
 	local job = {}
 	local to = { x = gx, y = gy, z = gz, reach = gz ~= nil and city.GOAL or nil }
@@ -1506,6 +1520,12 @@ end
 function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checkedOnly)
 	local P = engine()
 	if P and P.SurfacesAt and pc then track(P, pc, px, py) end
+	-- With no observed deck, a flat search can start on any floor under the
+	-- shaft. Drop even an old walk; Travel owns the separate ride instruction.
+	if P and pc and pc == goalC and city.Lift(pc, px, py) and playerZ(pc) == nil then
+		if gc then Walk.Clear() end
+		return nil, nil, nil, nil, "unmapped"
+	end
 	if handmade or not P or pc ~= goalC then
 		if gc then Walk.Clear() end
 		if not handmade and pc == goalC and not P then

@@ -1738,18 +1738,34 @@ fn t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_
 		local pts = {}
 		for i = 2, #way do pts[#pts + 1] = { way[i].x, way[i].y } end
 		place(1420, LIFT[1], LIFT[2], 0)
-		local f = walkFor(1420, START[1], START[2], "The plundering start")
-		local r = { atLift = f.from[3] or false }
+		local mx, my = C.WorldToMap(0, START[1], START[2], 1420)
+		local before = #finds
+		N.SetTarget(1420, mx, my, "The plundering start", nil, "npc")
+		for _ = 1, 100 do aim(); stub.advance(.05) end
+		local a = aim()
+		local r = { atLift = N.walk.Floor(0, LIFT[1], LIFT[2]) or false,
+			atLiftAim = a.state, atLiftBearing = a.x ~= nil, atLiftFinds = #finds - before }
 		walkTo(1420, pts)
-		f = walkFor(1420, -160.1, 774.2, "The plundering goal")
+		local f = walkFor(1420, -160.1, 774.2, "The plundering goal")
 		local first = f.points and f.points[2]
 		r.walked = { z = f.from[3] or false, top = highest(f, START[1], START[2], 60), yards = floor(length(f.points or {})), second = first and first.z or false }
+		a = aim()
+		r.lowerAim = a.measured and a.x and offPath(f.points, a.x, a.y) < .02 or false
+		-- At the same horizontal position, an observed upper floor wins over any trail.
+		place(1420, LIFT[1], LIFT[2], 55.2)
+		f = walkFor(1420, START[1], START[2], "The plundering start", START[3])
+		r.wrong = { from = f.from[3], answer = f.cost, bearing = aim().x ~= nil }
 		emit(r)"#
 		),
 		true,
 	);
 	eprintln!("at the lift {}; walked in: from z {}, highest within 60 yd {}, {} yd", out["atLift"], out["walked"]["z"], out["walked"]["top"], out["walked"]["yards"]);
 	assert_eq!(out["atLift"], false, "at the lift the floor is unknown");
+	assert_eq!(out["atLiftAim"], "unmapped");
+	assert_eq!(out["atLiftBearing"], false);
+	assert_eq!(out["atLiftFinds"], 0, "no flat search can tell which deck the player is standing on");
+	assert_eq!(out["lowerAim"], true, "the walking bearing follows the lower-floor path");
+	assert_eq!(out["wrong"], serde_json::json!({"from":55.2, "answer":"no safe walking route", "bearing":false}));
 	assert!((f(&out["walked"]["z"]) + 62.2).abs() <= 3.0, "searched from the lower level ({})", out["walked"]["z"]);
 	assert!(f(&out["walked"]["top"]) < -20.0, "the drawn line's first 60 yd stay down there (highest {})", out["walked"]["top"]);
 }
@@ -1767,7 +1783,7 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 		w.setLevel(20)
 		w.faction = "Horde"
 		IsIndoors = function() return 1 end
-		place(1458, 1575, 240, -43) -- the Trade Quarter's ring, its height known
+		place(1458, 1575, 240, -43) -- no supporting floor at this supplied height on the ring
 		N.SetTarget(1420, 61.9, 52.3, "Brill")
 		for _ = 1, 600 do
 			aim()
@@ -1776,17 +1792,27 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 		local legs, ci = N.GetRoute()
 		local route = {}
 		for i = ci, #legs do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
-		-- The arrow's own search: the last from where the player stands (the later walks are searched too).
+		-- The plan names the correct boarding point; that does not certify the walk to it.
 		local f
 		for _, rec in ipairs(finds) do
 			if dist(rec.from[1], rec.from[2], 1575, 240) < 5 then f = rec end
 		end
-		local ride, yards = false, length(f and f.points or {})
-		for i = 2, f and #f.points or 0 do
-			local a, b = f.points[i - 1], f.points[i]
-			if a.z and b.z and a.z < -30 and b.z > 50 and dist(a.x, a.y, b.x, b.y) < 15 then ride = true end
+		local r = { route = route, to = { r1(f.to[1]), r1(f.to[2]), f.to[3] },
+			approach = { f.cost, f.points ~= nil, aim().x ~= nil } }
+		-- Observe the player at each landing, independently of the refused approach.
+		IsFalling = function() return false end
+		local function at(x, y, z)
+			place(1458, x, y, z)
+			local state = N.Sample()
+			local leg = N.travel.CurrentLeg()
+			return { state, leg.kind, N.travel.CurrentLabel():match("^[^\n]+") }
 		end
-		local r = { route = route, yards = floor(yards), to = f and { r1(f.to[1]), r1(f.to[2]), f.to[3] or false } }
+		r.unknownBoard = at(1544.8, 240.6, 0) -- client placeholder at the exact boarding XY
+		r.wrongBoard = at(1553.1, 240.6, 55.2) -- above the planned boarding deck, still on the walk
+		r.board = at(1544.8, 240.6, -41.4)
+		r.retreat = at(1512, 240.6, -41.4)
+		r.receive = at(1553.1, 240.6, 55.2)
+		r.leave = at(1586, 241.2, 60)
 		-- And back in: from Brill's road to the canal by the auction house.
 		place(1420, 2262, 236, 34)
 		N.SetTarget(1458, 59.17, 39.05, "The canal") -- by the auction house: no hall over it (a target with no height under the hall is taken for the hall)
@@ -1811,8 +1837,14 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 		"walk|Brill",
 	];
 	assert_eq!(strs(&out["route"]), want, "to the south lift, up, and out along the fixed way");
-	assert_eq!(out["to"], serde_json::json!([1544.8, 240.6, -41.4]), "the arrow's walk ends at the south lift's bottom landing");
-	assert!(f(&out["yards"]) < 150.0, "and stays in the city ({} yd; out through the sewers it was over 1,000)", out["yards"]);
+	assert_eq!(out["to"], serde_json::json!([1544.8, 240.6, -41.4]), "the request is for the lower landing");
+	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, false]));
+	assert_eq!(out["unknownBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
+	assert_eq!(out["wrongBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
+	for stage in ["board", "retreat", "receive"] {
+		assert_eq!(out[stage], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "{stage}");
+	}
+	assert_eq!(out["leave"], serde_json::json!(["travel", "walk", "Follow the path out"]));
 	let back = strs(&out["back"]);
 	let down = back.iter().position(|s| s == "lift|Ride the elevator down");
 	assert!(down.is_some_and(|d| d > 0 && back[d - 1] == "walk|Walk to the lift"), "in by the same way, down the south lift: {}", back.join(", "));

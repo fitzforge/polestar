@@ -100,6 +100,14 @@ local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
+local DECK_DZ = 3           -- yards of the observed boarding or receiving floor
+local function observedFloor(c)
+	local C = ns.Compat
+	if C and C.GetPlayerUnitPosition then
+		local _, _, z, map = C.GetPlayerUnitPosition()
+		if map == c then return z end
+	end
+end
 local BIND_MATCH = 60
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
@@ -1647,6 +1655,11 @@ local function planBody(p, S)
 		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
 		-- Quarter, the walk to it stays (it rides a lift).
 		local nk = legs[2].kind
+		if nk == "lift" and to.z then
+			local z = p.z
+			if p.liftFloor then z = p.liftFloor(p.c) end
+			if not z or math.abs(z - to.z) > DECK_DZ then break end
+		end
 		local flat = (nk == "boat" or nk == "zeppelin" or nk == "airship" or nk == "tram") and reach or 5
 		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
@@ -2391,6 +2404,7 @@ local function plan(target, held)
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		liveTaxi = true,
+		liftFloor = observedFloor,
 		faction = playerFaction,
 		known = knownNodes(),
 		-- Flight masters the player may have though Polestar doesn't know them (#1795).
@@ -2657,17 +2671,41 @@ function Travel.Stop()
 	return leg.from, leg.label
 end
 
+-- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
+-- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
+-- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
+-- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
+-- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
+-- leading walk by the same rule.
+local FLOOR_DZ, FLAT_ARRIVE = 20, 5
+local function offFloor(to, pc, px, py, d, dock, reach)
+	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
+	if not to.z or Travel.place then return false end
+	local W = Nav.walk
+	local fz = W and W.Floor and W.Floor(pc, px, py)
+	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
+	return d > (dock and reach or FLAT_ARRIVE)
+end
+
 -- The walk the arrow is on ends at a lift's landing and the player stands
--- within LIFT_LEAVE of it: the lift ride (the next leg), shown in its place.
-local function boardingRide(leg)
+-- within LIFT_LEAVE of it on its floor: the lift ride (the next leg), shown in its place.
+local function boardingRide(leg, pc, px, py)
 	local ride = legs and legs[ci + 1]
 	local f, t = ride and ride.from, leg and leg.to
 	if not (leg and leg.kind == "walk" and ride and ride.kind == "lift" and f and t and f.c == t.c and f.wx == t.wx and f.wy == t.wy) then return nil end
-	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-	local to = leg.to
-	if not pc or yards(pc, px, py, to.c, to.wx, to.wy) > LIFT_LEAVE then return nil end
+	if not pc then
+		local C = ns.Compat
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	end
+	if not pc then return nil end
+	local d = yards(pc, px, py, t.c, t.wx, t.wy)
+	if d > LIFT_LEAVE then return nil end
+	if f.z then
+		local z = observedFloor(pc)
+		if not z then return nil, d <= FLAT_ARRIVE end
+		if math.abs(z - f.z) > DECK_DZ then return nil end
+	end
 	return ride
 end
 
@@ -3319,23 +3357,7 @@ end
 --   "walk", c, wx, wy[, left]    walk to that point (left: yards along the walking
 --                                engine's path to the leg's end, when it has one)
 --   "instruction", c, wx, wy     do the leg's action here (fly, ride, portal, hearth, teleport)
--- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
--- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
--- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
--- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
--- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
--- leading walk by the same rule.
-local FLOOR_DZ, FLAT_ARRIVE = 20, 5
 local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
-local function offFloor(to, pc, px, py, d, dock, reach)
-	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
-	if not to.z or Travel.place then return false end
-	local W = Nav.walk
-	local fz = W and W.Floor and W.Floor(pc, px, py)
-	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
-	return d > (dock and reach or FLAT_ARRIVE)
-end
 
 -- The place only portals reach (Travel.places) the player is in, while they stand in its box. -> its id, or nil
 function Travel.Inside(pc, px, py)
@@ -3392,12 +3414,13 @@ function Travel.Aim(pc, px, py)
 			local passed = P ~= nil and W ~= nil and W.Passed(P.c, P.wx, P.wy, leg.seg)
 			-- At the landing of the lift it ends at, the label shows the ride (Travel.CurrentLabel).
 			local ride = legs[ci + 1]
-			local rf = ride and ride.kind == "lift" and ride.from
-			local near = rf and rf.c == to.c and rf.wx == to.wx and rf.wy == to.wy and yards(pc, px, py, to.c, to.wx, to.wy) <= LIFT_LEAVE or false
+			local boarding, unknownDeck = boardingRide(leg, pc, px, py)
+			local near = boarding ~= nil
 			if near ~= atLift then
 				atLift = near
 				Travel.version = Travel.version + 1
 			end
+			if unknownDeck then return "unmapped" end
 			-- On a crossing's walk from an end with a floor height, near that end but found on another floor
 			-- (the floor became known after the plan took the player for there): plan again.
 			local from = leg.from
@@ -3407,7 +3430,8 @@ function Travel.Aim(pc, px, py)
 			end
 			local d, reach = yards(pc, px, py, to.c, to.wx, to.wy), leg.radius or REACH
 			local dock = ride ~= nil and RIDES[ride.kind] == true
-			if not passed and (d > reach or offFloor(to, pc, px, py, d, dock, reach)) then
+			local wrongDeck = ride and ride.kind == "lift" and to.z and not near
+			if wrongDeck or (not passed and (d > reach or offFloor(to, pc, px, py, d, dock, reach))) then
 				-- Along the walking engine's path when it has one (Nav/Walk.lua).
 				if W then
 					local gc, gx, gy, gz = to.c, to.wx, to.wy, to.z
@@ -3455,7 +3479,7 @@ function Travel.Aim(pc, px, py)
 					and not (C.IsOnTaxi and C.IsOnTaxi()) and not (C.IsSwimming and C.IsSwimming())
 					and math.abs(z - to.z) < math.abs(z - from.z) then
 					local d = yards(map, x, y, to.c, to.wx, to.wy)
-					if d <= 8 and math.abs(z - to.z) <= 3 then leg.landingSeen = true end
+					if d <= 8 and math.abs(z - to.z) <= DECK_DZ then leg.landingSeen = true end
 					departed = leg.landingSeen and d > LIFT_LEAVE and math.abs(z - to.z) <= FLOOR_DZ
 				else
 					leg.landingSeen = nil
