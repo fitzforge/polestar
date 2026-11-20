@@ -146,10 +146,9 @@ step Captured Arko'narin
   turnin 5202                         -- Captured Arko'narin, below ground
 
 step Maybess Riverbreeze
-  when available 5887
-  when has 11515 x6
+  when onquest 5887
   tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
-  turnin 5887 direct -- Maybess Riverbreeze
+  turnin 5887                         -- Maybess Riverbreeze
 
 step Greta Mosshoof
   tip South to the Sanctuary once more.

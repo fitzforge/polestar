@@ -11446,6 +11446,24 @@
 				],
 				"reason": "Horde 50-60 (2026-11-20): Disharmony of Flame (5,100 XP), the outdoor step of Thunderheart's Blackrock Depths chain: taken in Kargath and handed in there on 50-60/01's two Kargath stops; Overmaster Pyron (rank 1, level 52) stands at the dungeon's portal inside Blackrock Mountain, which the route walks through. At the player's level (52.6), so a group choice (see deliberate.group).",
 				"issue": "-"
+			},
+			{
+				"q": 3563,
+				"after": [
+					"turnin",
+					3541
+				],
+				"reason": "Horde 50-60 flow (2026-11-20): Jes'rimon's Payment to Jediga (6,350 XP). With Azshara on 50-60/02 before Felwood, the route leaves Orgrimmar for Felwood right after Jes'rimon's delivery; flying by way of Valormok (Orgrimmar-Valormok-Splintertree Post, both direct legs) hands the payment to Jediga beside the flight master.",
+				"issue": "-"
+			},
+			{
+				"q": 3518,
+				"after": [
+					"turnin",
+					3517
+				],
+				"reason": "Horde 50-60 flow (2026-11-20): Delivery to Magatha Grimtotem (2,550 XP) from Jediga in Azshara (50-60/02) goes to Magatha on Thunder Bluff's Elder Rise, on 50-60/03's Thunder Bluff stop, one guide later.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -11977,21 +11995,9 @@
 				"issue": "#2390"
 			},
 			{
-				"q": 3518,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Stealing Knowledge (3517; the Ruins of Eldarath's Spitelash camp is 50-55) moved from 40-50/06 at about 50 to 50-60/04-azshara. After that visit the route has no Thunder Bluff stop for every class, so the delivery to Magatha is left out.",
-				"issue": "-"
-			},
-			{
 				"q": 3562,
 				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Magatha's Payment to Jediga needs the delivery to Magatha (3518), left out with Stealing Knowledge's move to 50-60/04-azshara.",
-				"issue": "-"
-			},
-			{
-				"q": 3563,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Jes'rimon's Payment to Jediga: the delivery to Jes'rimon (3541) is now made on 50-60/04-azshara's Orgrimmar stop, after which the route never returns to Valormok for the payment. Left out.",
+				"reason": "Horde 50-60 flow (2026-11-20): Magatha's Payment to Jediga goes back to Valormok, which the route doesn't pass again after the delivery to Magatha (3518) on 50-60/03's Thunder Bluff stop.",
 				"issue": "-"
 			},
 			{
@@ -15850,15 +15856,41 @@
 			},
 			{
 				"a": [
-					"turnin",
-					4102
-				],
-				"b": [
 					"task",
 					6162
 				],
+				"b": [
+					"turnin",
+					4102
+				],
 				"faction": "Horde",
-				"why": "Flow, Felwood (Horde 50-60/02, 0.3.6): Cleansing Felwood goes to Maybess on the Sanctuary stop that hands in Taronn's and Greta's quests, before Overlord Ror in Deadwood Village; the solo top-up then grinds the Deadwood where Ror stands instead of after a ride back to the Sanctuary and down again.",
+				"why": "Horde 50-60 flow (2026-11-20): Felwood's southern hand-ins are one ride north on 50-60/03, from the Splintertree Post flight: Overlord Ror at the south end of Deadwood Village (just inside the border), then the Emerald Sanctuary (Taronn, Greta, Maybess, Kelek), then the Jadefire moonwell and Bloodvenom Post.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3517
+				],
+				"b": [
+					"accept",
+					5155
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): Azshara comes before Felwood on 50-60/02. Azshara's quests are 51-55 with mobs 50-55 (Magus Rimtori 55 last), at the player's level from 53; Felwood's Felpaw Village (Deadwood 53-55) and Winterspring's camps (55-56) after it then need no top-ups. Level model: the two Felwood top-ups (to 54 and 55, 717 model minutes after the Un'Goro additions) no longer fire.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					4809
+				],
+				"b": [
+					"turnin",
+					5156
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): 50-60/02 ends at Timbermaw Hold and 50-60/03 goes on through the tunnel into Winterspring (Salfa, Donova, Everlook) instead of riding Felwood's length back south and later north again into the tunnel; Felwood's southern hand-ins follow from Everlook by flight to Splintertree Post.",
 				"source": "review"
 			},
 			{
@@ -16973,6 +17005,30 @@
 				"q": 3452,
 				"guide": "forever/horde/50-60/01-un-goro-crater",
 				"reason": "Velarok's first chain (Divine Retribution, The Flawless Flame, Forging the Shaft: 3441-3443) is done on 40-50/04's Searing Gorge visit (hearts of flame and golem oil from the gorge's elementals and golems, daggers from the Dark Iron dwarves); bringing it back on 50-60/01's crossing would add that whole chain for a character who skipped 40-50/04, so The Flame's Casing stays hidden for them.",
+				"issue": "-"
+			},
+			{
+				"q": 5158,
+				"guide": "forever/horde/50-60/03-winterspring",
+				"reason": "Horde 50-60 flow (2026-11-20): 50-60/03's Felwood ride hands in what 50-60/02's ride north through Felwood started; Collection of the Corrupt Water (5157) is filled at Jaedenar's moonwell after Greta's first errand (5155) on that ride. A character who starts at 50-60/03 has neither, and bringing both back would repeat 02's southern Felwood loop.",
+				"issue": "-"
+			},
+			{
+				"q": 5887,
+				"guide": "forever/horde/50-60/03-winterspring",
+				"reason": "Horde 50-60 flow (2026-11-20): Salve via Hunting follows Cleansing Felwood (4102), whose Blood Amber comes from Irontree Woods' Warpwood on 50-60/02's ride north; 50-60/03's Felwood ride only hands it in. A character who starts at 50-60/03 would need the Irontree trip back.",
+				"issue": "-"
+			},
+			{
+				"q": 4506,
+				"guide": "forever/horde/50-60/03-winterspring",
+				"reason": "Horde 50-60 flow (2026-11-20): Corrupted Sabers follows Well of Corruption (4505), taken at 50-60/02's Bloodvenom Post stop; left out for a character who starts at 50-60/03 without it.",
+				"issue": "-"
+			},
+			{
+				"q": 4741,
+				"guide": "forever/horde/50-60/03-winterspring",
+				"reason": "Horde 50-60 flow (2026-11-20): Wild Guardians (4741) follows Trull's first Wild Guardians (4521), taken at Bloodvenom Post on 50-60/02 and worked in Winterspring at the start of 50-60/03; a character who starts at 50-60/03 without it gets neither, and 4521's accept is a Felwood trip back.",
 				"issue": "-"
 			},
 			{
