@@ -400,10 +400,12 @@ step Ketharas
 # - The Horde's Sawyer errands (97001, 97006, 97007): the data has no giver or hand-in for them.
 # Horde (0.4.3): Head Scratcher (92446) is a group choice: he is a level 60 elite in our data (eight Horde players in
 # the recordings handed his claws in at 57-58). Kal'tinzan's flags (91794) come from Dae'gun in part 3 and go back to
-# Elderwild on a Horde-only ride at the end, with Tribal Colors (96998). Final Death (92592): the Horde comes here
-# about 0.7 level earlier than the Alliance (level model: 57.9 against 58.6), so its bone pile and the Scourge
-# Reanimator (59-60) wait for the guide's second pass through Mourning's Rest (Marrosis' bones), and Zet'gan takes the
-# amulet on that last ride.
+# Elderwild on a Horde-only ride at the end, with Tribal Colors (96998).
+# Final Death (92591, 92592): its Scourge Reanimator is 59-60, so the bone pile is burnt alone only from level 58, else
+# as a group choice. The Alliance burns it on the first pass through Mourning's Rest when it is 58 there; the Horde,
+# about 0.7 level lower (level model: 57.9 against 58.6), and any Alliance player under 58 then, on the guide's second
+# pass (Marrosis' bones), with the hand-in on the ride back to Elderwild at the end. To the Summit of Eternity (91688,
+# 95248) is offered only once Final Death is handed in, so it is taken wherever that happens.
 
 step The Curious Crow
   when onquest 96930
@@ -540,8 +542,17 @@ step Mourning's Rest
 step Final Death
   only Alliance
   when onquest 92591
+  when level>=58
   tip Burn the bone pile at the south-eastern end of Mourning's Rest with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet.
   tip Careful: the Scourge Reanimator is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.
+  collect 268573 quest 92591.1 @28.0,57.7  -- Reanimator's Amulet
+
+step Final Death
+  only Alliance
+  when onquest 92591
+  when level<58
+  when group 92591
+  tip A group choice below level 58: the Scourge Reanimator that answers the burnt bone pile is level 59-60. Grouping up is advised; alone, this guide comes back past the pile later.
   collect 268573 quest 92591.1 @28.0,57.7  -- Reanimator's Amulet
 
 step Eluneth and the veteran
@@ -564,11 +575,19 @@ step Hyjal Silphium
 step Elderwild
   only Alliance
   tip West to the Alliance outpost.
-  turnin 92591                          -- Sefira Everbright
   turnin 92449
   turnin 90702
   turnin 95027                          -- Hnaz Blunderflame
   accept 90750                          -- Sefira Everbright: More Work?
+
+step Final Death
+  only Alliance
+  when complete 92591
+  turnin 92591                          -- Sefira Everbright
+
+step To the Summit of Eternity
+  only Alliance
+  when available 91688
   accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, later in this guide; keep it
 
 step Daythor Brellan and Sefira
@@ -693,10 +712,27 @@ step Bones and stolen life
   collect 272973 quest 92317.1          -- Drop of Stolen Life
 
 step Final Death
+  when onquest 92591,92592
+  when level>=58
+  tip Burn the bone pile at the south-eastern end of Mourning's Rest with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet. The hand-in waits for the ride back to Elderwild at the end of this guide.
+  tip Careful: the Scourge Reanimator is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.
+  collect 268573 quest 92591.1 only Alliance @28.0,57.7  -- Reanimator's Amulet
+  collect 268573 quest 92592.1 only Horde @28.0,57.7
+
+step Final Death
+  only Alliance
+  when onquest 92591
+  when level<58
+  when group 92591
+  tip A group choice below level 58: the Scourge Reanimator that answers the burnt bone pile is level 59-60. Grouping up is advised. The hand-in waits for the ride back to Elderwild at the end of this guide.
+  collect 268573 quest 92591.1 @28.0,57.7  -- Reanimator's Amulet
+
+step Final Death
   only Horde
   when onquest 92592
-  tip Burn the bone pile at the south-eastern end of Mourning's Rest with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet. Zet'gan takes it on the ride back to Elderwild at the end of this guide.
-  tip Careful: the Scourge Reanimator is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.
+  when level<58
+  when group 92592
+  tip A group choice below level 58: the Scourge Reanimator that answers the burnt bone pile is level 59-60. Grouping up is advised. Zet'gan takes the amulet on the ride back to Elderwild at the end of this guide.
   collect 268573 quest 92592.1 @28.0,57.7  -- Reanimator's Amulet
 
 step Marrosis
@@ -900,9 +936,13 @@ step The Summit of Eternity
   tip East up to the Summit of Eternity, the druids' camp. Fayran Elthas, the flight master, stands at its north end; Marn Euhorn, Toron Rockhoof and Thisalee Crow along the path south; Tiala Whitemane indoors next to Thisalee; Sebelia, the innkeeper, at the south-east end.
   getfp "Summit of Eternity" @68.7,44.1  -- Fayran Elthas, at the flight point
   turnin 96991                          -- Marn Euhorn
-  turnin 91688 only Alliance            -- Thisalee Crow
   accept 93197                          -- Sebelia: Mending Communications: for Innkeeper Vizzie in Everlook, at the end
   sethome "Summit of Eternity" npc 243815  -- Sebelia
+
+step Thisalee Crow
+  only Alliance
+  when onquest 91688
+  turnin 91688                          -- Thisalee Crow
 
 step As the Crow Flies
   when onquest 96025
@@ -952,10 +992,29 @@ step Back to Elderwild
   when onquest 91794,96998,92592
   tip Horde: ride west across the foothills and north up the valley to Elderwild, about four minutes, for Kal'tinzan's flags, Zet'gan's amulet and his war paint wrap, then back up to the Summit.
   turnin 91794 @13.7,53.1               -- Kal'tinzan
-  turnin 92592                          -- Zet'gan
   turnin 96998                          -- Zet'gan
   accept 96999 optional                 -- Zet'gan: Wrap Return, for Tai'tasi in Sen'jin Village, Durotar; take it only if you'll pass by
-  accept 95248                          -- To the Summit of Eternity: for Thisalee Crow at the Summit, next
+
+step Back to Elderwild
+  only Alliance
+  when complete 92591
+  tip Alliance: the amulet from the second pass goes to Sefira Everbright: ride west across the foothills and north up the valley to Elderwild, about four minutes, then back up to the Summit.
+  turnin 92591                          -- Sefira Everbright
+
+step Zet'gan
+  only Horde
+  when complete 92592
+  turnin 92592                          -- Zet'gan
+
+step To the Summit of Eternity
+  only Alliance
+  when available 91688
+  accept 91688                          -- Sefira Everbright: for Thisalee Crow at the Summit, next
+
+step To the Summit of Eternity
+  only Horde
+  when available 95248
+  accept 95248                          -- Zet'gan: for Thisalee Crow at the Summit, next
 
 step Zet'gan
   only Horde
@@ -972,10 +1031,10 @@ step Tiala Whitemane
   turnin 90647
 
 step Thisalee Crow
-  only Horde
-  when onquest 95248
+  when onquest 91688,95248
   tip Thisalee Crow, next to Tiala at the Summit.
-  turnin 95248
+  turnin 91688 only Alliance
+  turnin 95248 only Horde
 
 step Tiala Whitemane
   when group 93584
