@@ -704,7 +704,7 @@ const shapeOf = (g) => g.steps.map((s) => s.goals.map((x) => `${x.t}:${x.quest ?
 // update persona (its leveling guides changed since, played to each of
 // `points` steps on that release's pack, then on this one from the save).
 // -> { results: [{ guide, persona, variant, race, faction, cls, stuck }], diag, played }
-async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter = null, classes = null, sample = 8, points = 3, from = null, dataDir = DATA, data = null, onResult = null, workers = null }) {
+async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter = null, classes = null, sample = 8, points = 3, from = null, dataDir = DATA, data = null, onResult = null, workers = null, openStartGates = false, onStartGate = null }) {
 	const diag = new Diagnostics();
 	data = data || playData(dataDir, diag);
 	if (diag.hasErrors()) return { results: [], diag, played: 0, dataMissing: true };
@@ -755,6 +755,15 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 			const before = [pre.done.length ? `w.complete(${luaValue(pre.done)})` : '', ...pre.carried.map(carriedLua), ...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`)].join('\n');
 			const tables = personaTables(g, data);
 			const base = { needs: tables.needs, gives: tables.gives, rewards: tables.rewards, restock: tables.restock };
+			// All persona sessions use the same opening policy, including the
+			// successful baseline (not a counted variant) and both sides of an update.
+			const playSession = async (pack, guide, persona, variant, options) => {
+				const emitted = await playGuideIn(pool, pack, guide, { ...who, openStartGates, ...options });
+				if (onStartGate) {
+					for (const gate of emitted.at(-1)?.startGates || []) onStartGate({ guide: guide.id, ...who, persona, variant }, gate);
+				}
+				return emitted;
+			};
 			const record = (persona, variant, stuck) => {
 				const r = { guide: g.id, persona, variant, ...who, stuck };
 				results.push(r);
@@ -762,7 +771,7 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 			};
 			jobs.push(
 				(async () => {
-					const [out] = await playGuideIn(pool, sim, g, { ...who, before, script: lua(base) });
+					const [out] = await playSession(sim, g, 'baseline', 'nothing taken away', { before, script: lua(base) });
 					const baseline = stuckOf(out);
 					if (baseline) {
 						record('baseline', 'nothing taken away', baseline);
@@ -771,26 +780,27 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 					const plays = [];
 					for (const persona of personas.filter((p) => p !== 'update' && p !== 'fresh')) {
 						for (const v of personaVariants(persona, g, data, sample)) {
-							plays.push(playGuideIn(pool, sim, g, { ...who, before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
+							plays.push(playSession(sim, g, persona, v.variant, { before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
 						}
 					}
 					// fresh: a character who opens a guide some route leads into with none of the earlier guides' quests
 					// done or carried. (A guide no route leads into keeps what it waits on from elsewhere: chainDone.)
 					if (personas.includes('fresh') && arriving.has(g.id) && before.trim()) {
-						plays.push(playGuideIn(pool, sim, g, { ...who, script: lua(base) }).then(([o]) => record('fresh', 'opened the guide with nothing from the guides before it', stuckOf(o))));
+						const variant = 'opened the guide with nothing from the guides before it';
+						plays.push(playSession(sim, g, 'fresh', variant, { script: lua(base) }).then(([o]) => record('fresh', variant, stuckOf(o))));
 					}
 					const was = oldById.get(g.id);
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {
 						const oldPre = chainDone(old, was, who);
 						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map(carriedLua), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
 						for (const k of updatePoints(was, points)) {
+							const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 							plays.push(
-								playGuideIn(pool, oldSim, was, { ...who, before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
+								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
 									const snap = emitted.find((e) => e && e.snapshot);
 									if (!snap) return;
-									const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 									// Where the save opened the updated guide: emitted first, the play's result after it.
-									const [at, o] = await playGuideIn(pool, sim, g, { ...who, before: snap.world, saved: snap.save, script: `stub.advance(11)\nemit({ at = Polestar.Engine.GetStepIndex() or false })\n${lua(base)}` });
+									const [at, o] = await playSession(sim, g, 'update', variant, { before: snap.world, saved: snap.save, script: `stub.advance(11)\nemit({ at = Polestar.Engine.GetStepIndex() or false })\n${lua(base)}` });
 									record('update', `${variant}, reopened at step ${at && at.at ? at.at : 'none'}`, stuckOf(o));
 								}),
 							);

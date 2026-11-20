@@ -150,7 +150,7 @@ async function run(argv) {
 		(opts.kb && !opts.honest && '--kb needs --honest') ||
 		(learn && learn.error) ||
 		(learn && opts.honest && '--learn plays in the addon: it does not go with --honest') ||
-		(opts.strictStartGates && (opts.honest || opts.persona) && '--strict-start-gates applies only to the regular addon playtest') ||
+		(opts.strictStartGates && opts.honest && '--strict-start-gates plays in the addon: it does not go with --honest') ||
 		levelOffset.error ||
 		(levelOffset && (opts.honest || opts.persona) && `--level-offset plays the simulated player: it does not go with ${opts.honest ? '--honest' : '--persona'}`);
 	const pack = problem ? null : commandPack({ ...opts, pack: arg.pack });
@@ -314,6 +314,8 @@ async function runPersonas(opts, pack, cls) {
 		points,
 		from,
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
+		openStartGates: !opts.strictStartGates,
+		onStartGate: (r, gate) => console.log(`${r.guide} (${personaWho(r)}) [${r.persona}: ${r.variant}]: start gate opened: ${gate}`),
 		onResult: (r) => {
 			const c = counts.get(r.persona);
 			c.plays++;
