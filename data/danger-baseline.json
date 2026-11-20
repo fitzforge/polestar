@@ -20893,6 +20893,71 @@
 			],
 			"reason": "a rare (Gruff, 57) not needed for the goal; the step's tip names him ('Avoid Gruff')",
 			"evidence": "route level 51.1 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Gruff 57-57; recordings (2026-11-20 index): done by 15 (median 52.61), deaths 0, abandons 1; 6 of the 15 people at 52.1 or under; Gruff met by 3 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5155.1|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5155.1",
+			"kind": "elite",
+			"title": "Jaedenar",
+			"level": 51.5,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's points are in Jaedenar's south-east, away from the Spirit of Trey Lightforge (53, elite) at its west end, and its Careful tip names him and says to work the south-east; his corner stays among the alternative spots the gate reads. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 51.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; done by 25 people of both sides at 50.7-55.1 (3 at 52.5 or under, the Alliance route's level + 1), none died within 60 yd"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5155.4|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5155.4",
+			"kind": "elite",
+			"title": "Jaedenar",
+			"level": 51.5,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53 x2"
+			],
+			"reason": "the step's points are in Jaedenar's south-east, away from the Spirit of Trey Lightforge (53, elite) at its west end, and its Careful tip names him and says to work the south-east; his corner stays among the alternative spots the gate reads. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 51.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53 x2; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; done by 25 people of both sides at 50.7-55.1 (3 at 52.5 or under, the Alliance route's level + 1), none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 5155.1|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 5155.1",
+			"kind": "elite",
+			"title": "Southern Jaedenar",
+			"level": 53.2,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's Careful tip names the Spirit of Trey Lightforge (53, elite) at the west end of Jaedenar and says to pull the cultists and hounds away from him; the step's own spots are in Jaedenar's south-east. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 53.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; 16 of the 25 people at 54.2 or under, none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 5155.4|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 5155.4",
+			"kind": "elite",
+			"title": "Southern Jaedenar",
+			"level": 53.2,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's Careful tip names the Spirit of Trey Lightforge (53, elite) at the west end of Jaedenar and says to pull the cultists and hounds away from him; the step's own spots are in Jaedenar's south-east. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 53.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; 16 of the 25 people at 54.2 or under, none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 86746.1|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 86746.1",
+			"kind": "elite",
+			"title": "The Legashi satyrs",
+			"level": 52.8,
+			"mobs": [
+				"Prince Halanox 55-55"
+			],
+			"reason": "the step's Careful tip names Prince Halanox (55, elite) at the north-east end of the satyrs' hills and says to take the satyrs nearer the camp",
+			"evidence": "route level 52.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Prince Halanox 55-55; recordings (2026-11-20 index): done by 15 (median 52.23), deaths 0, abandons 2; 14 of the 15 people at 53.8 or under, none died within 60 yd; Halanox met by 1 person, killed nobody"
 		}
 	]
 }

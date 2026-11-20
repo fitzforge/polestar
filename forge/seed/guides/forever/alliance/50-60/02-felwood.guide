@@ -68,10 +68,11 @@ step Ruins of Constellas
 
 step Jaedenar
   tip Jaedenar is the ruined temple north of the glen.
-  kill 7125 quest 5155.1              -- Jaedenar Hound
-  kill 7113 quest 5155.2              -- Jaedenar Guardian
-  kill 7115 quest 5155.3              -- Jaedenar Adept
-  kill 7112 quest 5155.4              -- Jaedenar Cultist
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.
+  kill 7125 quest 5155.1 @38.7,61.9   -- Jaedenar Hound
+  kill 7113 quest 5155.2 @38.5,61.1   -- Jaedenar Guardian
+  kill 7115 quest 5155.3 @38.2,61.5   -- Jaedenar Adept
+  kill 7112 quest 5155.4 @38.2,61.1   -- Jaedenar Cultist
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
 
 step Putrescent organs: kill these as you meet them
