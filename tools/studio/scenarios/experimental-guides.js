@@ -4,10 +4,10 @@
 // Forever mark (its tooltip in the -tip shots), and the selected one's details ("By Polestar ·
 // Experimental", the purple Experimental chip beside its levels); and "Choose your path"
 // (UI/RouteChoice.lua) where a guide of ours offers one, from the real guides and their experimental index
-// (Engine.GetRouteChoice). Every look at UI scale 1.0, the default look at 0.64 and 1.5 too. The Horde has no
-// experimental guide left: the Riverglades and Shen'dralas are part of its route (40-50/01b-riverglades,
+// (Engine.GetRouteChoice). Every look at UI scale 1.0, the default look at 0.64 and 1.5 too. No faction has an
+// experimental guide left: the Riverglades and Shen'dralas are part of both routes (40-50/01b-riverglades,
 // 40-50/shendralas), so a Horde Orc Hunter here sees them in Leveling 40-50 as route guides, without the mark
-// or the chip, and no card offers them; the Alliance's Mount Hyjal is experimental-guides-alliance.js. Render
+// or the chip, and no card offers them; the Alliance's Mount Hyjal (50-60/mount-hyjal) is experimental-guides-alliance.js. Render
 // with the compiled packs (`forge guide compile` and `forge guide compile experimental` into a checkout given
 // with --checkout): each shot returns what it showed, which polestar studio prints.
 
