@@ -404,10 +404,9 @@ return {
 
 	-- Step 90: The falls and the first kitten
 	["The falls and the first kitten"] = "",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. Solstice, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "",
+	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
+	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "",
 	["fill the gourd"] = "",
-	["Solstice"] = "",
 
 	-- Step 91: Johun "Punchy" Dillas's camp
 	-- {npc:249234} Johun "Punchy" Dillas
@@ -416,9 +415,8 @@ return {
 	["North to {npc:249234} and his crates. Drive the skunks out from behind the crates without attacking them."] = "",
 
 	-- Step 92: Brie
-	["Brie"] = "",
-	-- {npc:249234} Johun "Punchy" Dillas
-	["Brie, the second kitten, plays just west of {npc:249234}'s camp."] = "",
+	-- {npc:255773} Brie · {npc:249234} Johun "Punchy" Dillas
+	["{npc:255773}, the second kitten, plays just west of {npc:249234}'s camp."] = "",
 
 	-- Step 93: Foxes
 	["Foxes"] = "",
@@ -465,9 +463,8 @@ return {
 	["A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised. {npc:244511} takes the amulet on the ride back to {area:16848} at the end of this guide."] = "",
 
 	-- Step 105: Whisperfur
-	["Whisperfur"] = "",
-	-- {area:16868} Mourning's Rest
-	["The last kitten, Whisperfur, plays at the southern end of {area:16868}."] = "",
+	-- {npc:255771} Whisperfur · {area:16868} Mourning's Rest
+	["The last kitten, {npc:255771}, plays at the southern end of {area:16868}."] = "",
 
 	-- Step 106: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
