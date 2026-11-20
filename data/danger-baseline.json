@@ -19395,19 +19395,6 @@
 			"evidence": "route level 56.9 (level model on the integrated Alliance route, 2026-11-20); Sunderbark 56-56; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
 		},
 		{
-			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91794.1|rare",
-			"guide": "forever/50-60/mount-hyjal.guide@Horde",
-			"goal": "collect 91794.1",
-			"kind": "rare",
-			"title": "Dae'gun",
-			"level": 58.3,
-			"mobs": [
-				"Jezerelle the Swaying 61-61"
-			],
-			"reason": "warned at the step: its Careful tip names Jezerelle the Swaying (61, rare) and where she walks",
-			"evidence": "route level 58.3 (level model on the integrated Alliance route, 2026-11-20); Jezerelle the Swaying 61-61; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
-		},
-		{
 			"key": "forever/alliance/05-duskwood.guide|kill 58.1|over",
 			"guide": "forever/alliance/05-duskwood.guide",
 			"goal": "kill 58.1",
