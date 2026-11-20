@@ -225,6 +225,8 @@ L["Artisan %s"] = "%s de artesano"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
@@ -3549,6 +3551,7 @@ L["Carried to later guides"] = "Pasan a guías posteriores"
 L["Not part of your route"] = "Fuera de tu ruta"
 L["Keep or abandon them"] = "Conservarlas o abandonarlas"
 L["Each with its Abandon button, which asks in the game's own window first."] = "Cada una con su botón Abandona, que pregunta primero en la ventana del propio juego."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Haz clic para seleccionar y marcar a %s (fuera de combate)."
@@ -4615,6 +4618,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Esta guía es para personajes de la %s. Polestar no te guiará por ella."
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Pulsa %s para reanudar, o abre la ventana de la guía."

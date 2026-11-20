@@ -1445,9 +1445,13 @@ end
 -- Whether step's failing `when` can still hold while the player plays this
 -- guide: each predicate that fails is a level to reach (`level>=N`,
 -- `level>N`), or `onquest`, `complete` or `turnedin` of a quest that may yet
--- be in the log or handed in (Own.mayTake). Never a negated one, a group or
--- dungeon answer, an item, money or a place: those latch as before.
+-- be in the log or handed in (Own.mayTake). Never a negated one, an item,
+-- money or a place, nor any step with a group or dungeon answer in its
+-- `when` (the player's choice decides those): they latch as before.
 function Own.mayComeTrue(step)
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "group" or p.k == "dungeon" then return false end
+	end
 	local any = false
 	for _, p in ipairs(step.when or NONE) do
 		if Own.predicateFails(step, p) then
@@ -1475,13 +1479,14 @@ end
 -- Quest q may still be in the log (`onquest`, `complete`) or handed in
 -- (`turnedin`, kind k) in the loaded guide: not done or skipped by the
 -- player, and in the log already (for `complete` and `turnedin`), or taken
--- by an accept of this guide for the character, or waiting for a level
--- (Own.waitList).
+-- by an accept of this guide for the character on a step the player did not
+-- skip, or waiting for a level (Own.waitList).
 function Own.mayTake(q, k)
 	if not q or Own.questSkipped(q) or questDone(q) then return false end
 	if Compat().IsOnQuest(q) then return k ~= "onquest" end
+	local sk = ns.CharState().skipped[guide.id]
 	for _, e in ipairs(layoutOf(guide).accepts[q] or NONE) do
-		if Guides.Matches(e.goal.only, player) then return true end
+		if not (sk and (sk[e.s] or sk[e.key])) and Guides.Matches(e.step.only, player) and Guides.Matches(e.goal.only, player) then return true end
 	end
 	local w = Own.waitList()
 	return w ~= nil and w[q] ~= nil
@@ -2657,6 +2662,12 @@ function Own.carryChains(g, chains, list, getIdx, acceptOf)
 		for _, p in ipairs(src and src.step.when or NONE) do
 			if p.k == "group" and not p.neg and Own.groupAnswer(p.q) == "skip" then open = false end
 		end
+		-- Closed for good since (a quest exclusive with it taken, its parent handed in): never offered again.
+		local C = Compat()
+		for _, by in ipairs(src and type(src.goal.closedBy) == "table" and src.goal.closedBy or NONE) do
+			if C.IsOnQuest(by) or questDone(by) then open = false end
+		end
+		if src and tonumber(src.goal.parent) and questDone(tonumber(src.goal.parent)) then open = false end
 		if open then
 			local U = #g.steps + 1
 			for s, step in ipairs(g.steps) do
