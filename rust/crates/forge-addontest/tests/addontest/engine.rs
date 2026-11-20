@@ -3173,3 +3173,29 @@ fn t_2939_bloodmage_supplies_count_each_unpaid_quest_against_the_same_stack() {
 		assert_eq!(out[2], json!(["8391:3/5", "8392:0/2", "8393:1/1", "8394:2/10", "8396:3/12"]), "{faction} after skipping");
 	}
 }
+
+#[test]
+fn shared_collect_does_not_charge_the_required_row_for_optional_or_skipped_work() {
+	let out = run(Run {
+		guides: r#"
+			local function supply(q, n, optional)
+				return { t = "collect", quest = q, item = 950, itemName = "Candle", oi = 1, count = n, optional = optional }
+			end
+			assert(Polestar.RegisterGuide({ id = "test/candles", pack = "test", title = "Candles", steps = {
+				{ goals = { supply(11, 2), supply(12, 4), supply(13, 8, true) } },
+			} }))
+		"#,
+		before: "w.onQuest(11, {2}); w.onQuest(12, {4}); w.onQuest(13, {8}); w.addItem(950, 3)",
+		script: r#"
+			stub.fire("QUEST_LOG_UPDATE"); assert(E.SetGuide("test/candles")); flush()
+			local function counts()
+				local g = E.GetStepView(1).goals
+				emit({g[1].progress.cur, g[1].progress.max, not not g[2].folded, not not g[3].folded, g[3].status == "skipped"})
+			end
+			counts(); assert(E.SkipGoal(1, 3)); counts(); assert(E.SkipGoal(1, 3)); counts()
+		"#,
+		..Default::default()
+	});
+	let open = json!([3, 6, true, false, false]);
+	assert_eq!(out, vec![open.clone(), json!([3, 6, true, false, true]), open]);
+}

@@ -448,6 +448,12 @@ function Engine.GreyLeftOut(id, q, level)
 	return chainNeeds(g, level)[q] == nil
 end
 
+-- Optional collects keep their own row and count, including when the player
+-- uses SkipGoal. Only required quest objectives contribute to a shared stack.
+function Own.paymentItem(goal)
+	return goal.t == "collect" and goal.quest and goal.oi and not goal.upto and not goal.optional and goal.item
+end
+
 -- Per guide: each goal's step index, each quest's accept, turn-in and
 -- abandon goals ({ s, key = "s:g", step, goal }), `starters`: a plain
 -- `collect` of an item (no quest) -> the accept after it in its step that
@@ -489,16 +495,17 @@ local function layoutOf(g)
 			end
 			-- Repeated visits to the same quest are one payment. Keep a demand
 			-- index only for items that different quests ask the player to collect.
-			if goal.t == "collect" and goal.item and goal.quest and goal.oi and not goal.upto then
-				local first = firstCollect[goal.item]
+			local item = Own.paymentItem(goal)
+			if item then
+				local first = firstCollect[item]
 				if not first then
-					firstCollect[goal.item] = goal
+					firstCollect[item] = goal
 				elseif first.quest ~= goal.quest then
 					l.sharedItems = l.sharedItems or {}
-					local byQuest = l.sharedItems[goal.item]
+					local byQuest = l.sharedItems[item]
 					if not byQuest then
 						byQuest = { [first.quest] = first }
-						l.sharedItems[goal.item] = byQuest
+						l.sharedItems[item] = byQuest
 					end
 					byQuest[goal.quest] = goal
 				end
@@ -3345,8 +3352,8 @@ end
 -- collection, count the stack once against all payments still in the log.
 function Own.sharedCollect(goal)
 	local shared = guide and layoutOf(guide).sharedItems
-	local wants = shared and shared[goal.item]
-	if not (wants and not goal.upto and goal.oi) then return end
+	local wants = shared and shared[Own.paymentItem(goal)]
+	if not wants then return end
 	local C, total = Compat(), 0
 	if not C.IsOnQuest(goal.quest) or Own.questSkipped(goal.quest) then return end
 	for q, g in pairs(wants) do
@@ -11873,7 +11880,7 @@ function Own.stepView(i)
 	end
 	if shared then
 		for g, goal in ipairs(step.goals) do
-			local first = goal.t == "collect" and goal.quest and goal.oi and not goal.upto and shared[goal.item]
+			local first = shared[Own.paymentItem(goal)]
 			if first and goals[g] ~= first then
 				-- Keep the underlying goal and quest, but show one bag count,
 				-- including after one of the other payments was skipped or made.
