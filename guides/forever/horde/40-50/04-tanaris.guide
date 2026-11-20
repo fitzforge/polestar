@@ -341,6 +341,7 @@ step The Steamsmiths' furnaces
 
 step Velarok Windblade
   turnin 3443
+  accept 3452                           -- Velarok: The Flame's Casing, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)
   note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
 
 step Dark Iron Lookouts

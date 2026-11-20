@@ -10520,7 +10520,9 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	for (const q of [348, 2872]) assert.ok(step(stv, 'accept', q) > step(stv, 'turnin', 595), `${q} not on arrival`);
 	assert.ok(!stv.some(({ goal }) => is('accept', 586)(goal) || is('accept', 2864)(goal)), "586 and Tran'rek are not taken at 40-42");
 	const fer2 = g('40-50/02-feralas');
-	assert.equal(step(fer2, 'accept', 2864), step(fer2, 'turnin', 209), "Tran'rek with Kebok's tusks");
+	// Fix round 2026-11-20 (#3071): Kebok's hand-in waits for all 18 tusks in its own step; Krazek's Tran'rek is the
+	// next step, upstairs beside him.
+	assert.equal(step(fer2, 'accept', 2864), step(fer2, 'turnin', 209) + 1, "Tran'rek with Kebok's tusks");
 	assert.ok(at(fer2, 'accept 586', is('accept', 586)) < at(fer2, 'kill 586', (x) => x.t === 'kill' && x.quest === 586), '586 taken before its Skullsplitters');
 	assert.ok(!g('40-50/03-feralas').some(({ goal }) => is('accept', 4120)(goal)), 'The Strength of Corruption is not taken at 46');
 	const azs = g('40-50/06-azshara');
