@@ -312,12 +312,6 @@ step Ratchet
   turnin 892                          -- Gazlowe
   accept 888                          -- Gazlowe: the crates lie at the south end of the beach camp, on the next Ratchet stop at 18
 
-step Sputtervalve
-  zone The Barrens
-  when level>=16
-  tip Sputtervalve, beside the flight master, offers Ziz Fizziks from level 16: keep it, Ziz is on the Webwinder Path in Stonetalon, at the end of this guide.
-  accept 1483                         -- Sputtervalve
-
 step Fly to Crossroads
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
