@@ -931,7 +931,7 @@ step Dae'gun
 step Elaena, Witherbeard and Yashiro
   turnin 92960                          -- Elaena Moonwhisper
   turnin 95793                          -- Witherbeard
-  turnin 96959                          -- Yashiro
+  turnin 96959 @49.2,32.7               -- Yashiro
 
 step Drawing Down the Malevolent
   when group 96003
