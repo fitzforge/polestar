@@ -745,8 +745,9 @@ fn the_arrows_walk_find_answers_before_walk_measures_batch_findmany_gets_any_sli
 
 // One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
-// part of Polestar_Nav loads (Polestar_Nav_EK in Brill); the walk at the far end keeps the planner's straight estimate.
-// The other part loads once the player is there (Nav/Walk.lua canSearch, Path.Resident).
+// part of Polestar_Nav loads (Polestar_Nav_EK in Brill, then the detail regions its walks touch there,
+// Polestar_Nav_R0_*); the walk at the far end keeps the planner's straight estimate. The other part (and its own
+// regions, Polestar_Nav_R1_*) loads once the player is there (Nav/Walk.lua canSearch, Path.Resident).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -786,12 +787,18 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		emit(r)"#,
 		false,
 	);
-	assert_eq!(out["loads"], "Polestar_Nav_EK", "in Brill only the Eastern Kingdoms' part loads");
+	let loads = out["loads"].as_str().unwrap_or_default();
+	let mut brill = loads.split(',');
+	assert_eq!(brill.next(), Some("Polestar_Nav_EK"), "in Brill the Eastern Kingdoms' part loads first ({loads})");
+	assert!(brill.all(|p| p.starts_with("Polestar_Nav_R0_")), "then only Eastern Kingdoms regions ({loads})");
 	assert_eq!(out["resident1"], false);
 	assert_eq!((f(&out["finds1"]), f(&out["asked1"])), (0.0, 0.0), "nothing is searched or measured on Kalimdor from Brill");
 	assert!(f(&out["asked0"]) > 0.0, "the walks on the Eastern Kingdoms are");
 	assert!(f(&out["far"]) >= 1.0 && out["finite"] == true, "the walk on Kalimdor stays in the journey, timed by its estimate");
-	assert_eq!(out["arrived"]["loads"], "Polestar_Nav_EK,Polestar_Nav_Kalimdor", "Kalimdor's part loads on arrival");
+	let arrived = out["arrived"]["loads"].as_str().unwrap_or_default();
+	let mut later = arrived.strip_prefix(loads).and_then(|s| s.strip_prefix(',')).unwrap_or_default().split(',');
+	assert_eq!(later.next(), Some("Polestar_Nav_Kalimdor"), "Kalimdor's part loads on arrival ({arrived})");
+	assert!(later.all(|p| p.starts_with("Polestar_Nav_R1_")), "then only Kalimdor regions ({arrived})");
 	assert_eq!(out["arrived"]["resident1"], true);
 }
 
@@ -2179,7 +2186,8 @@ fn lifts_at_the_trade_quarters_centre_under_the_entrance_hall_the_walk_to_brill_
 // floor there (-48) took no area of ours within 3 yd, so the client's subzone ("Trade Quarter") named a ledge at 13 and
 // the walk started up there. Within 6 yd it takes the Trade Quarter's (as the floor at -42 does): the followed floor is
 // the city's, and the arrow aims along it to the lift. (Leffe's surface at -47 there is a pocket no walk leaves, so the
-// search from it finds nothing and is asked once more without the height: from the floor at -42, 67 yd.)
+// search from it finds nothing and is asked once more without the height: from the floor at -42, 67 yd.) Indoors the
+// arrow aims at the walk's next turn round the lift shaft, not across it (Nav/Follow.lua, a checked indoor path's turns).
 #[test]
 fn lifts_in_the_trade_quarter_by_the_south_lift_the_subzone_names_the_citys_floor_and_the_arrow_aims_along_it_to_the_lift() {
 	skip_unless_ready!();
@@ -2200,11 +2208,11 @@ fn lifts_in_the_trade_quarter_by_the_south_lift_the_subzone_names_the_citys_floo
 		end
 		local a = aim()
 		local lx, ly = 1544.8, 240.6 -- the south lift's bottom landing
-		local toward = a.x and ((a.x - sx) * (lx - sx) + (a.y - sy) * (ly - sy)) / (dist(a.x, a.y, sx, sy) * dist(lx, ly, sx, sy)) or false
+		local along, off = alongOf(f, a.x or sx, a.y or sy)
 		local top = -math.huge
 		for _, p in ipairs(f and f.points or {}) do if p.z then top = math.max(top, p.z) end end
 		emit({ floor = N.walk.Floor(0, sx, sy) or false, first = legs[ci].kind .. "|" .. legs[ci].label, yards = f and floor(length(f.points)) or false, top = top,
-			shown = a.dist and floor(a.dist) or false, toward = toward, lift = floor(dist(sx, sy, lx, ly)) })"#,
+			shown = a.dist and floor(a.dist) or false, along = along or false, off = off or false, lift = floor(dist(sx, sy, lx, ly)) })"#,
 		true,
 	);
 	assert_eq!(out["first"], "walk|Walk to the lift");
@@ -2212,7 +2220,8 @@ fn lifts_in_the_trade_quarter_by_the_south_lift_the_subzone_names_the_citys_floo
 	assert!(f(&out["yards"]) < 100.0, "the short way to the lift's door, round its shaft ({} yd, {} straight)", out["yards"], out["lift"]);
 	assert!(f(&out["top"]) < -30.0, "on the city's floor all the way (highest {})", out["top"]);
 	assert!(f(&out["shown"]) < 80.0, "the arrow shows {} yd (175 m in the first build)", out["shown"]);
-	assert!(f(&out["toward"]) > 0.5, "and aims toward the lift (cosine {})", out["toward"]);
+	assert!(f(&out["off"]) < 1.0, "the arrow aims at a point on the walk ({} yd off it)", out["off"]);
+	assert!(f(&out["along"]) > 1.5, "ahead along the walk to the lift, never back (at point {} of it, 1 is the start)", out["along"]);
 }
 
 // Fitz in the canals (2026-10-23, after 21b658260): by the auction house (1628, 305, z -62 by the server; Forever's
@@ -2511,7 +2520,9 @@ fn an_alliance_walk_from_ironforge_does_not_draw_a_route_into_guarded_brill() {
 
 // Thunder Bluff (Fitz, 2026-10-23, TB 52.2,31.1 off the north lift's top): the walk on from the mesa crossing's far
 // end was hand-made, so the map drew it straight from the landing to the target and, once the ride was over, the
-// arrow pointed straight at it too.
+// arrow pointed straight at it too. The player starts on the ground below the lift, at height 60 (the walking maps have
+// no surface at 68 there, 8 yd up, and a walk does not start from a floor it cannot reach), and is seen on the bottom
+// landing's deck before the ride (the lift leg waits for its boarding floor).
 #[test]
 fn lifts_the_walk_on_from_thunder_bluffs_lift_crossing_is_the_engines_drawn_along_its_path_and_walked_along_it_off_the_top_landing() {
 	skip_unless_ready!();
@@ -2519,7 +2530,7 @@ fn lifts_the_walk_on_from_thunder_bluffs_lift_crossing_is_the_engines_drawn_alon
 		r#"
 		w.setLevel(30)
 		w.faction = "Horde"
-		place(1412, -1010, -70, 68)
+		place(1412, -1010, -70, 60)
 		N.SetTarget(1456, 40, 60, "Thunder Bluff 40, 60", "e")
 		for _ = 1, 200 do aim(); stub.advance(0.05) end
 		local function last()
@@ -2532,7 +2543,10 @@ fn lifts_the_walk_on_from_thunder_bluffs_lift_crossing_is_the_engines_drawn_alon
 		local legs, ci = N.GetRoute()
 		r.route = {}
 		for i = ci, #legs do r.route[#r.route + 1] = legs[i].kind .. "|" .. legs[i].label end
-		-- The ride, then off the top landing: 45 yd from the bottom one.
+		-- On the bottom landing's deck (the lift leg starts once the player is seen there), the ride, then off the top
+		-- landing: 45 yd from the bottom one.
+		place(1412, -1036.5, -53.1, 69.3)
+		for _ = 1, 20 do aim(); stub.advance(0.05) end
 		place(1456, -1040.6, -49, 140.7)
 		for _ = 1, 20 do aim(); stub.advance(0.05) end
 		for k = 1, 8 do
