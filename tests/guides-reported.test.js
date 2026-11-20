@@ -6335,9 +6335,16 @@ test("Fitz's find (2026-11-06): after the Moonglade quests the guide takes Moong
 	const after = goals(next);
 	const hand = at(after, `${next}: Erelas Ambersky's hand-in of 978`, is('turnin', 978));
 	assert.ok(after.slice(0, hand).every(({ goal }) => goal.t !== 'hearth' && !(goal.t === 'fly' && goal.location !== "Rut'theran Village")), `${next}: straight from Moonglade to Rut'theran Village`);
-	const rabine = at(after, `${next}: Rabine's hand-in of 6762`, is('turnin', 6762));
-	const into = after.slice(0, rabine).reverse().find(({ goal }) => goal.t === 'fly');
-	assert.equal(into.goal.location, 'Moonglade', `${next}: Rabine on a flight into Moonglade`);
+	// Fix pass (2026-11-20): Rabine Saturna (6762) no longer costs 04 a flight back into Moonglade and out again; she
+	// takes the letter on Mount Hyjal's own Moonglade errand (Alliance), between its flight in and its flight out, and
+	// the rule still holds there: nothing flies out of Moonglade before that guide's Moonglade flight-path step.
+	assert.ok(!after.some(({ goal }) => goal.t === 'fly' && goal.location === 'Moonglade'), `${next}: no flight back into Moonglade`);
+	const hy = goals('forever/50-60/mount-hyjal.guide').filter(({ step, goal }) => !/HORDE|Horde/.test(JSON.stringify(step.only || goal.only || '')));
+	const rabine = at(hy, 'mount-hyjal: Rabine\'s hand-in of 6762', is('turnin', 6762));
+	const into = hy.slice(0, rabine).reverse().find(({ goal }) => goal.t === 'fly');
+	assert.equal(into.goal.location, 'Moonglade', 'mount-hyjal: Rabine on the flight into Moonglade');
+	const out = hy.findIndex(({ goal }, i) => i > rabine && goal.t === 'fly');
+	assert.ok(hy.slice(rabine, out).some(({ goal }) => goal.t === 'getfp' && goal.location === 'Moonglade'), 'mount-hyjal: Moonglade\'s flight path before flying out');
 	for (const { step } of [list[fp], after[hand]]) {
 		const tip = [].concat(step.note || []).join(' ');
 		assert.doesNotMatch(tip, /Auberdine/, `"${step.title}" tip: ${tip}`);

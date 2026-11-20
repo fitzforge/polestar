@@ -9,11 +9,17 @@ next forever/50-60/mount-hyjal
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Order (0.4.3 fix round): Darnassus, Stormwind and Ironforge on the way east, then the Plaguelands in one sweep at
-# 56-58: Chillwind Camp and Felstone Field, Darrowshire, the Marris Stead and Light's Hope Chapel, the farms and
-# cauldrons, Andorhal and Chromie, Northridge (Kirsta's Radley, Durgen and the Hearthglen overlook), Tirion, Gahrron's
-# Withering, the Plaguewood and Terrordale, and back to Chillwind Camp; Stormwind last, on the way to the boat for
-# Theramore and Mount Hyjal. The Plaguelands used to be four separate trips (51.7, 55.6, 55.7-56.5 and 59.9-60).
+# Order (0.4.3 fix round): from Moonglade's flight to Rut'theran Village and Darnassus (Erelas, Fandral and
+# Mathrengyl), the flight to Auberdine and the boat, Ironforge, then the Plaguelands in one sweep at 55-56:
+# Chillwind Camp and Felstone Field, Darrowshire, the Marris Stead and Light's Hope Chapel, the farms and cauldrons,
+# Andorhal and Chromie, Northridge (Kirsta's Radley, Durgen and the Hearthglen overlook), Tirion, Gahrron's Withering,
+# the Plaguewood and Terrordale, and back to Chillwind Camp, with a flight to Stormwind and back in the middle for
+# Bolvar's errand from level 56; Stormwind last, on the way to the boat for Theramore and Mount Hyjal. The
+# Plaguelands used to be four separate trips (51.7, 55.6, 55.7-56.5 and 59.9-60).
+# Fix pass 2026-11-20: Rabine Saturna (6762, from Mathrengyl) takes her letter on Mount Hyjal's Moonglade errand, so
+# the guide no longer flies Rut'theran -> Moonglade -> Auberdine for her (all three flights run by way of Auberdine:
+# about 8,500 yards of flight and Nighthaven's walk less); a character who loads this guide without the Burning
+# Steppes guide's Chillwind quests gets their first parts (5090, 5092, 5215) on its own Ironforge and Chillwind stops.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
 # Left out: Glyphed Oaken Branch (4986: for Darnassus, which the route has left), Mold Rhymes With... (5538: Gadgetzan
 # and Un'Goro are behind the route), the termite barrel at Northridge (5904: Dumah gives it after the Plaguewood's
@@ -58,28 +64,16 @@ step Arch Druid Fandral Staghelm
   turnin 1047                         -- Arch Druid Fandral Staghelm, upstairs
   accept 6761
   turnin 6761                         -- Mathrengyl Bearwalker, upstairs
-  accept 6762                         -- Rabine Saturna in Moonglade: back on the flight from Rut'theran Village
+  accept 6762                         -- Rabine Saturna in Moonglade: Mount Hyjal's Moonglade errand takes you to her, in the next guide; keep it
   train class only Druid              -- Ironforge has no druid trainer
 
 step Portal to Teldrassil
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
 
-step Fly to Moonglade
+step Fly to Auberdine
   zone Teldrassil
   goto 58.4,93.9 "Rut'theran Village flight master"
-  fly "Moonglade"
-  zone Moonglade
-
-step Rabine Saturna
-  zone Moonglade
-  tip Rabine Saturna's house stands in Nighthaven, north of the flight master across the lake.
-  turnin 6762
-  accept 1124                         -- For Layo Starstrike in Silithus, on the last guide: keep it
-
-step Fly to Auberdine
-  zone Moonglade
-  goto 47.96,67.46 "Sindrayl, the flight master"
   fly "Auberdine"
   zone Darkshore
 

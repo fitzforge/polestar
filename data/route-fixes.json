@@ -11766,6 +11766,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 6762,
+				"after": [
+					"turnin",
+					6761
+				],
+				"reason": "Alliance 50-60 fix pass (2026-11-20): Rabine Saturna (level 55, from 54, 1,400 XP) is taken from Mathrengyl on 50-60/04's Darnassus stop and handed in on Mount Hyjal's Moonglade errand (an Alliance-only step after Dendrite Starblaze, a short walk in the same village), with her Wasteland (1124) for Layo in Silithus taken there. 04 used to fly Rut'theran -> Moonglade -> Auberdine for her alone; every one of those flights runs by way of Auberdine (travel.json: 17.8k yards against 9.3k straight to Auberdine). Flow audit, 28 branches: 04 5.6 minutes and one backtrack less, one more quest carried through a guide (into Mount Hyjal, about 230 minutes). 1047's minimum (54) keeps the chain off 02's Darnassus stop.",
+				"issue": "-"
+			},
+			{
 				"q": 1252,
 				"after": [
 					"accept",
