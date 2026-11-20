@@ -262,6 +262,7 @@ step Bloodhoof Village
 step Mulgore: kill these as you meet them
   zone Mulgore
   tip Chakuyak, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.
+  tip Careful: Ghost Howl (12, a rare white wolf) roams the plains too: leave it be.
   collect 4801 quest 756.1            -- Stalker Claws
   collect 4802 quest 756.2            -- Cougar Claws
   collect 4805 quest 766.2            -- Flatland Cougar Femur

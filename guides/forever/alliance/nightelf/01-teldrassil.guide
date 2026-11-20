@@ -220,6 +220,7 @@ step Dolanaar
 step Teldrassil: kill these as you meet them
   zone Teldrassil
   tip Nightsabers, Strigid Owls and Webwood Lurkers roam all around Dolanaar and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of Starbreeze Village.
+  tip Careful: the Befouled Webwoods (10-11) in the woods north-west of Dolanaar, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for Tallonkai's quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of Dolanaar, around 54-62,73-77: leave them be.
   collect 3409 quest 488.1                    -- Nightsaber Fang
   collect 280087 quest 87288.1                -- Nightsabers
   collect 3411 quest 488.2                    -- Strigid Owl Feather

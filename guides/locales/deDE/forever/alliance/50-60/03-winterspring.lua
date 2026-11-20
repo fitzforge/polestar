@@ -393,7 +393,7 @@ return {
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
+	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
@@ -420,46 +420,27 @@ return {
 	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
 
-	-- Step 82: Winterfall Village
-	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity · {area:2255} Everlook · {npc:10738} High Chief Winterfall · {npc:10199} Grizzle Snowpaw
-	["{npc:11556}'s {quest:8464}: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out.\nCareful: the village is dense and its Ursa and Shaman are over you: pull from the edge, one at a time. {npc:10199} (59, rare) walks the village: leave him be."] = "",
-
-	-- Step 84: Pristine Yeti Horns
+	-- Step 83: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	["Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in."] = "",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
 	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
-	-- Step 85: Everlook
+	-- Step 84: Everlook
 	-- {area:2255} Everlook · {area:976} Gadgetzan
 	["Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it."] = "",
 
-	-- Step 86: Jaron Stoneshaper's camp
+	-- Step 85: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "{npc:10301}s Lager",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Reite nach Südosten das Tal hinunter zu {npc:10301}s beschädigter Kiste im Schnee bei {area:2245}; sein zerstörter Wagen steht gleich östlich davon."
 	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
 
-	-- Step 87: Jaron Stoneshaper's supplies
-	-- {npc:10301} Jaron Stoneshaper
-	["{npc:10301}'s supplies"] = "{npc:10301}s Vorräte",
-	-- {npc:10301} Jaron Stoneshaper
-	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher
-	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby.\nCareful: the Moontouched Owlbeasts here are 57 and the Berserk Owlbeasts 58: pull the Crazed (56) and Moontouched ones at the edge and leave the Berserk ones alone.\nCareful: Winterspring Screechers (57-59) hunt around here too: pull the owlbeasts away from them."] = "",
-
-	-- Step 88: Starfall Village
-	-- {area:2255} Everlook · {area:2253} Starfall Village
-	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "Reite das Tal nach Norden hinauf, an {area:2255} vorbei, bis {area:2253}.",
-
-	-- Step 89: Salfa
-	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	["West along the road to {npc:11556}, at the tunnel's {zone:1452} end."] = "",
-
-	-- Step 91: Sindrayl
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
+	-- Step 86: Sindrayl
+	-- {zone:1452} Winterspring · {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
+	["Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "Jeder Winterquell-Furbolg kann das Totem fallen lassen, etwa bei jedem dreißigsten Kill: Wenn der Grind keines gebracht hat, töte sie hier weiter, bis es fällt, und klicke es dann mit Rechtsklick an.",
@@ -494,6 +475,7 @@ return {
 	-- ["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- ["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Reinherz, Dumah, Tapferfaust und MacDonnell stehen in der Mitte des Lagers, beim Flugmeister.",
 	-- ["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby."] = "Reite nach Norden nach {area:2627}. {npc:12384} lebt in der zerstörten Hütte, sein Quittungsbuch liegt im zerstörten Gasthaus in der Nähe.",
+	-- ["Ride north up the valley, past {area:2255}, to {area:2253}."] = "Reite das Tal nach Norden hinauf, an {area:2255} vorbei, bis {area:2253}.",
 	-- ["Ride north-west back to the village."] = "Reite nach Nordwesten zurück ins Dorf.",
 	-- ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Reite nach Südosten das Tal hinunter zu {npc:10301}s beschädigter Kiste im Schnee bei {area:2245}; sein zerstörter Wagen steht gleich östlich davon.",
 	-- ["Ride west along the road to the night elf village."] = "Reite auf der Straße nach Westen zum Nachtelfendorf.",
@@ -533,6 +515,7 @@ return {
 	-- ["{item:12886}; inside"] = "{item:12886}; drinnen",
 	-- ["{item:12888}; inside"] = "{item:12888}; drinnen",
 	-- ["{item:15785}; below ground"] = "{item:15785}; unterirdisch",
+	-- ["{npc:10301}'s supplies"] = "{npc:10301}s Vorräte",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}: beide für die Pestländer behalten",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: Behalte beides für das Pestland; drinnen",
 	-- ["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}: Behalte es für die Pestländer; drinnen",

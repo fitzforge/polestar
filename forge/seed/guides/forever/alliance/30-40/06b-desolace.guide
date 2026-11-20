@@ -61,6 +61,7 @@ step Bibbly F'utzbuckle
 
 step Kodo Graveyard
   tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
+  tip Careful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass.
   collect 13703 quest 5501            -- Kodo Bone
 
 step Hornizz Brimbuzzle

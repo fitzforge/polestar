@@ -46,8 +46,8 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Cuidado: {npc:9454} (54) fica no fundo de {area:2481}, por volta de 32.2,67.1, com Espreitadores Sombrios ao redor: elimine-os um de cada vez e depois puxe-o sozinho com a vida cheia.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "{area:1763} é o templo em ruínas ao norte do vale.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
@@ -125,8 +125,6 @@ return {
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {zone:1452} do túnel de {area:1769}, por onde você sai.",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
-	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -293,6 +291,7 @@ return {
 	-- ["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 	-- ["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 	-- ["grind on {npc:9878}"] = "mate {npc:9878} até subir",
+	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763} é o templo em ruínas ao norte do vale.",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} é o templo em ruínas ao norte do vale. Alguns dos seus sectários deixam cair uma {item:13140}, cerca de uma vez a cada trinta mortes: ela abre a cela de {npc:11018} em {area:1770}, a caverna no fundo. Se ela cair, limpe o caminho de saída antes de libertá-la; se não, pule as missões dela.",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} é o vale dos sátiros no noroeste, com {npc:10648} no fundo. Ele deixa cair {quest:939}; todo sátiro Flamejade pode deixar cair {item:11674}.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, um saque raro",

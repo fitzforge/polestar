@@ -244,7 +244,8 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：沿途击杀以下目标",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "海湾西边，刺脊袭击者和刺脊巫师（38-40级）占据海岸：一次拉一个。两艘沉船在近海浅水中，海图和日志在船里；宝石在沉船周围的海底。",
+	-- was: ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "海湾西边，刺脊袭击者和刺脊巫师（38-40级）占据海岸：一次拉一个。两艘沉船在近海浅水中，海图和日志在船里；宝石在沉船周围的海底。"
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "",
 	["Underwater"] = "在水下",
 
 	-- Step 42: Faldir's Cove
@@ -266,6 +267,7 @@ return {
 	-- ["South along the lake shore to the ruins around the {area:279} crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome."] = "沿湖岸向南，前往{area:279}巨坑周围的废墟。达拉然召唤师带着元素奴仆；护腕由奴仆掉落。小心：奥术哨兵（55级，精英）和肯瑞托卫兵（55级）守卫着穹顶本身，并会攻击部落：在废墟外缘活动，不要靠近穹顶。",
 	-- ["The Boulderfist Brutes camp outside the ogres' hall south of {area:321}; the Magus stand among them. Pull them one at a time."] = "石拳蛮兵在{area:321}南边食人魔大厅外扎营；石拳法师站在它们中间。一次拉一个。",
 	-- ["The {object:1763} poster by the inn"] = "旅店旁的{object:1763}告示",
+	-- ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "海湾西边，刺脊袭击者和刺脊巫师（38-40级）占据海岸：一次拉一个。两艘沉船在近海浅水中，海图和日志在船里；宝石在沉船周围的海底。",
 	-- ["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "内禁锢法阵西面是激流堡废墟：辛迪加占据东半边（符印由他们的辛迪咒术师、辛迪加潜伏者和辛迪加占星师掉落，{npc:2783}也在其中）；石拳食人魔占据{area:325}旁的西半边（{npc:2773}在塔旁一间没有屋顶的房子里）。",
 	-- ["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "沿路向南返回{area:272}，{npc:2229}在旅店内。",
 	-- ["{npc:2229}, inside the inn"] = "{npc:2229}，在旅店内",

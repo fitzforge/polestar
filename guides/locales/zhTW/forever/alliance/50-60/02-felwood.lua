@@ -46,8 +46,8 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "小心：{npc:9454}（54級）站在{area:2481}後方，約32.2,67.1，周圍有暗影潛行者：一次清掉一隻，然後在滿血時單獨拉他。",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是林地以北的廢棄神殿。",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：汙染軟泥怪在{area:1763}的邪能水池裡四處遊蕩",
@@ -124,8 +124,6 @@ return {
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{zone:1452}出口，也就是你出來的地方。",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
-	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -281,6 +279,7 @@ return {
 	-- ["grind on {npc:7109}"] = "刷{npc:7109}",
 	-- ["grind on {npc:7153}"] = "刷{npc:7153}",
 	-- ["grind on {npc:7155}"] = "刷{npc:7155}",
+	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是林地以北的廢棄神殿。",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}是山谷北邊的神殿廢墟。部分教徒會掉落{item:13140}，大約每三十次擊殺一次：它能打開後方洞穴{area:1770}裡{npc:11018}的牢房。若有掉落，先清出離開的路再釋放她；若沒有，跳過她的任務。",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}，稀有掉落",

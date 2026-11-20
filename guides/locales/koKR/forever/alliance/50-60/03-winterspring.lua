@@ -392,7 +392,7 @@ return {
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The western Winterfall furbolgs drop the beads; the {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
+	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
@@ -419,46 +419,27 @@ return {
 	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
 
-	-- Step 82: Winterfall Village
-	-- {npc:11556} Salfa · {quest:8464} Winterfall Activity · {area:2255} Everlook · {npc:10738} High Chief Winterfall · {npc:10199} Grizzle Snowpaw
-	["{npc:11556}'s {quest:8464}: the furbolg village lies just east of {area:2255}, with Shaman (56-57), Den Watchers (55-56) and Ursa (57). Kill the Shaman first, they heal. {npc:10738} in the cave at the back is elite: stay out.\nCareful: the village is dense and its Ursa and Shaman are over you: pull from the edge, one at a time. {npc:10199} (59, rare) walks the village: leave him be."] = "",
-
-	-- Step 84: Pristine Yeti Horns
+	-- Step 83: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "온전한 설인 뿔",
 	["Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in."] = "",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
 	["Loot the horns from Ice Thistle Matriarchs"] = "",
 
-	-- Step 85: Everlook
+	-- Step 84: Everlook
 	-- {area:2255} Everlook · {area:976} Gadgetzan
 	["Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it."] = "",
 
-	-- Step 86: Jaron Stoneshaper's camp
+	-- Step 85: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "{npc:10301}의 야영지",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "계곡을 따라 남동쪽으로 내려가 {area:2245}의 눈 속에 있는 {npc:10301}의 부서진 상자로 가세요. 부서진 마차가 그 바로 동쪽에 있습니다."
 	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
 
-	-- Step 87: Jaron Stoneshaper's supplies
-	-- {npc:10301} Jaron Stoneshaper
-	["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
-	-- {npc:10301} Jaron Stoneshaper
-	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast · Berserk Owlbeasts = {npc:7454} Berserk Owlbeast · Winterspring Screechers = {npc:7456} Winterspring Screecher
-	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby.\nCareful: the Moontouched Owlbeasts here are 57 and the Berserk Owlbeasts 58: pull the Crazed (56) and Moontouched ones at the edge and leave the Berserk ones alone.\nCareful: Winterspring Screechers (57-59) hunt around here too: pull the owlbeasts away from them."] = "",
-
-	-- Step 88: Starfall Village
-	-- {area:2255} Everlook · {area:2253} Starfall Village
-	["Ride north up the valley, past {area:2255}, to {area:2253}."] = "",
-
-	-- Step 89: Salfa
-	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	["West along the road to {npc:11556}, at the tunnel's {zone:1452} end."] = "",
-
-	-- Step 91: Sindrayl
-	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
+	-- Step 86: Sindrayl
+	-- {zone:1452} Winterspring · {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
+	["Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh."] = "이곳의 퍼볼그는 누구든 {item:12771}(약 10분의 1 확률: 이 퀘스트들에 필요한 처치 수 안에 나옵니다)과 {quest:8471}(약 30분의 1 확률)을(를) 떨어뜨릴 수 있습니다. 떨어진 것을 오른쪽 클릭하세요. 퍼볼그가 떨어뜨리는 {item:14047}은(는) 메일로쉬를 위해 보관하세요.",
@@ -516,6 +497,7 @@ return {
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{area:2255}'s inn"] = "{area:2255} 여관",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, 드문 전리품",
+	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요. 안",
 	-- ["{npc:10431}: keep it for the Plaguelands; inside"] = "{npc:10431}: 역병지대를 위해 보관하세요. 안쪽",
 	-- ["{npc:10926}'s doll"] = "{npc:10926}의 인형",
