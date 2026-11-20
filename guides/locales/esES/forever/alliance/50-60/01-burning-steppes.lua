@@ -49,9 +49,9 @@ return {
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 
 	-- Step 9: The Super Snapper FX
-	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	-- {zone:1425} Hinterlands · {area:307} Overlook Cliffs
 	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Son bichos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:7977} (élite de nivel 48) requiere un grupo de 2. Sáltatela si vas solo: la ruta te hace recuperar la experiencia matando bichos.\n{npc:7977} recorre la orilla de {zone:1425} bajo {area:307}, desde la flecha al sur hasta aprox. 75,66 y al norte hasta aprox. 82,52: si no está en la flecha, sigue la orilla."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
 
 	-- Step 10: Fly to Southshore
 	-- {area:348} Aerie Peak

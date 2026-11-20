@@ -767,6 +767,24 @@
 		},
 		"note": "Ancient Branch: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
 	},
+	"268632": {
+		"removeDrops": {
+			"npc": [
+				266883
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): Beast Entrails was looted from 18 Riverglades beasts (1,160 drops while Argo's quest 95261 was open), never from npc 266883, which no recording meets at all"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB lists npc 266883 among the item's droppers under the name \"[DNT] Kill Credit Young Paletusk\": the server's hidden credit creature for Young Paletusk (258331), not a beast a player can loot"
+			}
+		],
+		"note": "Beast Entrails (Riverglades) drops from the zone's beasts; the hidden credit creature behind Young Paletusk is not one of them. With players' newer objective spots for Argo's quest, the guide's collect goal picked it as a nearby source and would have shown its placeholder name."
+	},
 	"23160": {
 		"removeVendors": [
 			2482,

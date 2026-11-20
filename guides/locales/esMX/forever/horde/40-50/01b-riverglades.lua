@@ -418,14 +418,14 @@ return {
 	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "",
 
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
-	-- {quest:94964} Bloodmaster's Ring
-	["The {quest:94964}: Snufflesnout"] = "",
+	-- {quest:94965} Bloodmaster's Ring
+	["The {quest:94965}: Snufflesnout"] = "",
 	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	["Snufflesnout (44)"] = "Hocicohusmeador (44)",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
-	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94964}: {npc:257059}"] = "",
+	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
+	["The {quest:94965}: {npc:257059}"] = "",
 	-- {npc:257059} Chub'chob
 	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
 	-- {npc:255829} Clugfist
