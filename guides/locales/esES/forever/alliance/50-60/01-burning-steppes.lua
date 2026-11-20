@@ -205,7 +205,7 @@ return {
 	["For {npc:34365} in Alterac, on the Western & {zone:1423} guide's ride to {area:3197}: keep it"] = "",
 
 	-- Step 42: The bloodmages
-	["The bloodmages"] = "",
+	["The bloodmages"] = "Los magos sangrientos",
 	-- {zone:1419} Blasted Lands
 	["Ride west out of the keep to the bloodmages' camp beside the road into the {zone:1419}."] = "",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "La segunda ronda de los magos de sangre paga las mismas partes con un objeto de mejora y sin experiencia: omítela.",

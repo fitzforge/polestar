@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Vuela a {area:2255}",
 	-- {area:489} Thalanaar
 	["{area:489} flight master"] = "",
 
@@ -142,7 +142,7 @@ return {
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
 	-- Step 24: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "Pilón del norte",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
 
@@ -228,7 +228,7 @@ return {
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
 
 	-- Step 43: Western Pylon
-	["Western Pylon"] = "",
+	["Western Pylon"] = "Pilón del oeste",
 	["The pylon stands on the western cliffs."] = "La torre está en los acantilados del oeste.",
 
 	-- Step 44: Krakle

@@ -211,7 +211,7 @@ return {
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773}, en {area:159}."
-	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "",
+	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Caballos esqueléticos: {npc:4731}, junto a {npc:4773} en {area:159}.",
 
 	-- Step 50: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -340,7 +340,7 @@ return {
 	-- {npc:7883} Andre Firebeard · {item:9276} Pirate's Footlocker · {item:9250} Ship Schedule · {area:977} Steamwheedle Port
 	-- was: ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas del Mar del Sur ocupan la cala. {npc:7883} y el cargamento robado están en los muelles del fondo. Cualquier pirata puede soltar un sombrero; los secuestradores, más a menudo.\nCuidado: dos o tres piratas acompañan a {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea en cuanto empieza: aleja primero a sus guardias de él."
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 	-- {item:9250} Ship Schedule · {item:9276} Pirate's Footlocker
 	["{item:9250}, from a {item:9276}"] = "",
 

@@ -182,7 +182,7 @@ return {
 	-- Step 33: Booty Bay
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- Step 34: Bloodsail camp
 	["Bloodsail camp"] = "Campamento Velasangre",
