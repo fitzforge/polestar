@@ -14,7 +14,8 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -157,6 +158,23 @@ test('--level-offset plays a character n levels ahead: a step behind `when level
 	const honest = await quiet(() => cmd.run(['--honest', '--level-offset', '1']));
 	assert.equal(honest.result, 2);
 	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
+});
+
+test('a skipped quest collect does not block the active collect beside it', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/collects', pack: 'test', title: 'Two errands', minLevel: 1, maxLevel: 5, steps: [
+		{ goals: [{ t: 'accept', quest: 1, title: 'The Sceptre' }] },
+		{ goals: [{ t: 'accept', quest: 2, title: 'The Gem', closedBy: [1] }] },
+		{ goals: [{ t: 'collect', quest: 2, oi: 1, item: 102, itemName: 'Gem', count: 1 }, { t: 'collect', quest: 1, oi: 1, item: 101, itemName: 'Sceptre', count: 1 }] },
+		{ goals: [{ t: 'turnin', quest: 1, title: 'The Sceptre' }] },
+	] };
+	const pack = { maps: '', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play, paid] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: `${script}\nemit(w.completed[1] == true)` });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			assert.equal(paid, true);
+		});
+	}
 });
 
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {

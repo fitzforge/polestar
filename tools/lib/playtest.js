@@ -1179,25 +1179,12 @@ while guard < 4000 do
 	-- A vendor check-off beside other work (g.side) is left alone, as by a
 	-- player with nothing to sell: it must never hold the step.
 	for _, g in ipairs(view.goals) do
-		-- A persona's goal left "skipped" (its quest's accept passed) is worked
-		-- only when nothing else holds the step (below).
-		if g.status ~= "done" and g.status ~= "na" and not (P and g.status == "skipped") and not g.optional and not g.side and g.t ~= "note" then open = g; break end
+		if g.status ~= "done" and g.status ~= "na" and g.status ~= "skipped" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
 	end
 	-- A chosen profession's train is taken first, while its step is current: a
 	-- step passed with its \`when\` failing keeps that outcome, so a profession
 	-- learnt after the route left the step would not bring its steps back.
 	local learn = chosenTrain(i, view)
-	-- PERSONA: with nothing else open, a step that still holds is worked by its
-	-- first goal left skipped, as the perfect follower works it.
-	if P and not open and not skipNow and not learn and need <= w.level then
-		stub.advance(0.6)
-		if left() then break end
-		if E.GetStepIndex() == i then
-			for _, g in ipairs(view.goals) do
-				if g.status == "skipped" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
-			end
-		end
-	end
 	if skipNow then
 		skippedOnce = true
 		for _, x in ipairs(G.steps[i].goals) do
