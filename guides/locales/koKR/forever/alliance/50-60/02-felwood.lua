@@ -46,8 +46,8 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "주의: {npc:9454}(54)은(는) {area:2481} 안쪽 약 32.2,67.1에 있고 주위에 어둠추적자가 있습니다. 하나씩 처리한 뒤 생명력이 가득 찬 상태에서 그만 끌어오세요.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
@@ -124,8 +124,6 @@ return {
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}은(는) {area:1769} 터널의 {zone:1452} 쪽 출구, 나오는 바로 그 자리에 서 있습니다.",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
-	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden

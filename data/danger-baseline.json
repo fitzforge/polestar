@@ -20460,6 +20460,662 @@
 			],
 			"reason": "warned at the step: its tip names the Moonstalker Sires (17-18) and Matriarchs (19-20) to leave; the fangs come from the Moonstalkers (14-15)",
 			"evidence": "route level 14.3 (level model on the integrated Alliance route, 2026-11-20); Moonstalker Matriarch 19-20, Moonstalker Sire 17-18; recordings (2026-11-20 index): done by 58 (median 18.09), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 95027.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 95027.1",
+			"kind": "elite",
+			"title": "Owl feathers",
+			"level": 56.9,
+			"mobs": [
+				"Grimroot 60-60"
+			],
+			"reason": "Grimroot (60, an elite treant) walks the slopes beside Eluneth, where the owls start; every player who met him in the recordings (9 Alliance, 9 Horde) met him neutral, never hostile, and he killed nobody. The step's Careful tip says he leaves you alone unless you hit him and to pull the owls away from his path; most players take the feathers further south (31-36,78-83)",
+			"evidence": "route level 56.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Grimroot 60-60; recordings (2026-11-20 index): done by 9 (median 58.4), deaths 0, abandons 0; Grimroot met neutral by 18 people, killed nobody; the feathers done at 56.6-59.4"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92609.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92609.1",
+			"kind": "elite",
+			"title": "Owl feathers",
+			"level": 57,
+			"mobs": [
+				"Grimroot 60-60"
+			],
+			"reason": "Grimroot (60, an elite treant) walks the slopes beside Eluneth, where the owls start; every player who met him in the recordings (9 Alliance, 9 Horde) met him neutral, never hostile, and he killed nobody. The step's Careful tip says he leaves you alone unless you hit him and to pull the owls away from his path",
+			"evidence": "route level 57 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Grimroot 60-60; recordings (2026-11-20 index): done by 9 (median 57.48), deaths 0, abandons 0; Grimroot met neutral by 18 people, killed nobody; the feathers done at 56.5-58.5, 5 people at 58 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92449.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92449.1",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 56.9,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (the rows for this goal's rare and pack flags); the step's Careful tip names them and the goal never needs them. Flagged since the 0.4.2 level model (step conditions) has Mount Hyjal entered at about 56 instead of 56.6; the player level by the house rule (the model + 1, under the recorded 25th percentile of 58.2) is 57.9, where they are about 3 over, under the gate's half-level margin",
+			"evidence": "route level 56.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 9 (median 58.41), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the quest done by 9 Alliance people at 56.6-59.5"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92449.2|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92449.2",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 56.9,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (see the kill 92449.1 over row); the step's Careful tip names them and the goal never needs them",
+			"evidence": "route level 56.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x7; recordings (2026-11-20 index): done by 9 (median 58.42), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the quest done by 9 Alliance people at 56.6-59.5"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 90865.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 90865.1",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 56.9,
+			"mobs": [
+				"Death Wailer 61-61 x2"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (see the kill 92449.1 over row); the step's Careful tip names them and the Watcher's Eyes drop from the Eternal Sentries (57-58)",
+			"evidence": "route level 56.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x2; recordings (2026-11-20 index): done by 18 (median 58.21), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the eyes done by 18 people of both sides, 6 at 57.9 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 90702.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 90702.1",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 56.9,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (see the kill 92449.1 over row); the step's Careful tip names them and the ring drops from the Fleshflay Raveners (57-58)",
+			"evidence": "route level 56.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x7; recordings (2026-11-20 index): done by 8 (median 58.41), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95026.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95026.1",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 57,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (the rows for this goal's rare flags); the step's Careful tip names them and the goal never needs them. Flagged since the 0.4.2 level model has the Horde at Mourning's Rest at 57.0 (58.1 before); by the house rule (the model + 1, under the recorded 25th percentile) the player level is 58, where they are 3 over and not past the line",
+			"evidence": "route level 57 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 9 (median 58.09), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the quest done by 9 Horde people at 56.8-58.9, 4 at 58 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95026.2|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95026.2",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 57,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (see the kill 95026.1 over row); the step's Careful tip names them and the goal never needs them",
+			"evidence": "route level 57 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x7; recordings (2026-11-20 index): done by 9 (median 58.1), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the quest done by 9 Horde people at 56.8-58.9"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 90865.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 90865.1",
+			"kind": "over",
+			"title": "Mourning's Rest",
+			"level": 57,
+			"mobs": [
+				"Death Wailer 61-61 x2"
+			],
+			"reason": "the 61s are the Death Wailers, rare elites drifting over Mourning's Rest (see the kill 95026.1 over row); the step's Careful tip names them and the Watcher's Eyes drop from the Eternal Sentries (57-58)",
+			"evidence": "route level 57 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Death Wailer 61-61 x2; recordings (2026-11-20 index): done by 18 (median 58.21), deaths 0, abandons 0; Death Wailers met by 2 people in the recordings, none died to one; the eyes done by 18 people of both sides, 6 at 58 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92014.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92014.1",
+			"kind": "rare",
+			"title": "Foxes",
+			"level": 57.2,
+			"mobs": [
+				"Bannerwing Survivor 60-60"
+			],
+			"reason": "a rare (Bannerwing Survivor, 60) not needed for the goal; the step's Careful tip now names it beside Jezerelle the Swaying",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Bannerwing Survivor 60-60; recordings (2026-11-20 index): done by 8 (median 58.75), deaths 0, abandons 0; Bannerwing Survivor met by 2 people in the recordings, none died to it; the tails done by 8 people at 56.9-59.9"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 93617.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 93617.1",
+			"kind": "over",
+			"title": "Predatory stags",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the 61s are the Spectral Frostwyrms flying over the western meadows (the elite row for this goal); the step's Careful tip says to keep out from under them. Flagged since the 0.4.2 level model has the step at 57.2 (58.8 before)",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4; recordings (2026-11-20 index): done by 11 (median 58.74), deaths 0, abandons 0; Spectral Frostwyrms met hostile by 10 people, 6 of them killed one, none died to one; the stags done by 11 people of both sides at 56.8-59.7"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 93617.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 93617.1",
+			"kind": "over",
+			"title": "Predatory stags",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the 61s are the Spectral Frostwyrms flying over the western meadows (the elite row for this goal); the step's Careful tip says to keep out from under them. Flagged since the 0.4.2 level model has the step at 57.2 (58.4 before)",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4; recordings (2026-11-20 index): done by 11 (median 58.74), deaths 0, abandons 0; Spectral Frostwyrms met hostile by 10 people, 6 of them killed one, none died to one; the stags done by 11 people of both sides at 56.8-59.7"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 96957.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 96957.1",
+			"kind": "over",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4",
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "the 61s are the Death Wailers (rare elites) over Mourning's Rest and the Spectral Frostwyrms (elites) flying over the meadows east of it, both named in the step's Careful tip; the bones lie all over the ruins (the rare and pack rows for this goal)",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4, Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 10 (median 58.81), deaths 0, abandons 0; Death Wailers met by 2 people, Spectral Frostwyrms by 10 (6 killed one), none died to either; the bones done by 10 people of both sides at 56.9-59.8"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 96957.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 96957.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the meadows east of Mourning's Rest and the step's Careful tip says to keep out from under them; the bones lie all over the ruins, west of them too. Players' recordings show them handled: 10 people met one as hostile, 6 killed one, none died to one",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4; recordings (2026-11-20 index): done by 10 (median 58.81), deaths 0, abandons 0; the bones done by 10 people of both sides at 56.9-59.8, 3 at 58.2 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92317.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92317.1",
+			"kind": "over",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x2",
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "the 61s are the Death Wailers (rare elites) and the Spectral Frostwyrms (elites), both named in the step's Careful tip; the drop comes from any Fleshflay Ravener (57-58) in the ruins",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x2, Death Wailer 61-61 x5; recordings (2026-11-20 index): done by 10 (median 58.79), deaths 0, abandons 0; Death Wailers met by 2 people, Spectral Frostwyrms by 10 (6 killed one), none died to either; done by 10 people of both sides at 56.9-59.8"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 96957.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 96957.1",
+			"kind": "over",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4",
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "the 61s are the Death Wailers (rare elites) over Mourning's Rest and the Spectral Frostwyrms (elites) flying over the meadows east of it, both named in the step's Careful tip; the bones lie all over the ruins (the rare and pack rows for this goal)",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4, Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 10 (median 58.81), deaths 0, abandons 0; Death Wailers met by 2 people, Spectral Frostwyrms by 10 (6 killed one), none died to either; the bones done by 10 people of both sides at 56.9-59.8"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 96957.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 96957.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the meadows east of Mourning's Rest and the step's Careful tip says to keep out from under them; the bones lie all over the ruins, west of them too. Players' recordings show them handled: 10 people met one as hostile, 6 killed one, none died to one",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x4; recordings (2026-11-20 index): done by 10 (median 58.81), deaths 0, abandons 0; the bones done by 10 people of both sides at 56.9-59.8, 3 at 58.2 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92317.1|over",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92317.1",
+			"kind": "over",
+			"title": "Bones and stolen life",
+			"level": 57.2,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x2",
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "the 61s are the Death Wailers (rare elites) and the Spectral Frostwyrms (elites), both named in the step's Careful tip; the drop comes from any Fleshflay Ravener (57-58) in the ruins",
+			"evidence": "route level 57.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spectral Frostwyrm 61-61 x2, Death Wailer 61-61 x5; recordings (2026-11-20 index): done by 10 (median 58.79), deaths 0, abandons 0; Death Wailers met by 2 people, Spectral Frostwyrms by 10 (6 killed one), none died to either; done by 10 people of both sides at 56.9-59.8"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92011.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92011.2",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 57.7,
+			"mobs": [
+				"Doomguard 58-59"
+			],
+			"reason": "Doomguards (58-59, elites) stand among Dae'gun's demons; the step's Careful tip names them and says to pull the hounds and sentinels away from them, and the excrement lies on the ground. Players handle them: 15 people met them hostile, 11 killed one, none died to one",
+			"evidence": "route level 57.7 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Doomguard 58-59; recordings (2026-11-20 index): done by 14 (median 59.14), deaths 0, abandons 0; the excrement done by 14 people of both sides at 57.4-59.9, 5 of them at 58.7 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92011.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92011.2",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 57.7,
+			"mobs": [
+				"Doomguard 58-59"
+			],
+			"reason": "Doomguards (58-59, elites) stand among Dae'gun's demons; the step's Careful tip names them and says to pull the hounds and sentinels away from them, and the excrement lies on the ground. Players handle them: 15 people met them hostile, 11 killed one, none died to one",
+			"evidence": "route level 57.7 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Doomguard 58-59; recordings (2026-11-20 index): done by 14 (median 59.14), deaths 0, abandons 0; the excrement done by 14 people of both sides at 57.4-59.9, 5 of them at 58.7 or under"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 97009.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 97009.1",
+			"kind": "pack",
+			"title": "Maerion Thaelemaches",
+			"level": 57.8,
+			"mobs": [
+				"10 spawns 59+"
+			],
+			"reason": "Maerion's Misery is optional (its spikes and hand-in are marked optional, and the tip says to leave it if they are slow); the 60+ spawns are the Legion Hulks (rare elites) and Doomguard Xarkul (61, elite) the step's Careful tip names; the spikes drop from the Defiling Hounds (58-59)",
+			"evidence": "route level 57.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); 10 spawns 59+; recordings (2026-11-20 index): done by 12 (median 58.61), deaths 0, abandons 0; done by 12 people of both sides at 57.6-60.0, 6 of them at 58.8 or under, none died there"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 97009.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 97009.1",
+			"kind": "pack",
+			"title": "Maerion Thaelemaches",
+			"level": 57.8,
+			"mobs": [
+				"10 spawns 59+"
+			],
+			"reason": "Maerion's Misery is optional (its spikes and hand-in are marked optional, and the tip says to leave it if they are slow); the 60+ spawns are the Legion Hulks (rare elites) and Doomguard Xarkul (61, elite) the step's Careful tip names; the spikes drop from the Defiling Hounds (58-59)",
+			"evidence": "route level 57.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); 10 spawns 59+; recordings (2026-11-20 index): done by 12 (median 58.61), deaths 0, abandons 0; done by 12 people of both sides at 57.6-60.0, 6 of them at 58.8 or under, none died there"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.1|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.1",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9; recordings (2026-11-20 index): done by 50 (median 6.58), deaths 0, abandons 1; 40 of the 50 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.3|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.3",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9; recordings (2026-11-20 index): done by 50 (median 6.5), deaths 0, abandons 1; 38 of the 50 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 4161.1|rare",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 4161.1",
+			"kind": "rare",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Duskstalker 9-9 x2"
+			],
+			"reason": "a rare (Duskstalker, 9) not needed for the goal; the step's Careful tip names it and where it roams",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Duskstalker 9-9 x2; recordings (2026-11-20 index): done by 49 (median 6.89), deaths 0, abandons 2; 29 of the 49 people at 7.3 or under; Duskstalker met by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.3|elite",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.3",
+			"kind": "elite",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Oakenscowl 9-9"
+			],
+			"reason": "Oakenscowl (9, elite) is named in the step's Careful tip with where he roams; the silk comes from the Webwood Lurkers. Players handle him: 24 people met him, 19 killed him, none died to him",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Oakenscowl 9-9; recordings (2026-11-20 index): done by 50 (median 6.5), deaths 0, abandons 1; 38 of the 50 people at 7.3 or under"
+		},
+		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 87288.1|over",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 87288.1",
+			"kind": "over",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.3,
+			"mobs": [
+				"Befouled Webwood 10-11 x3"
+			],
+			"reason": "the step's Careful tip names the Befouled Webwoods (10-11) north-west of Dolanaar and says to leave them for Tallonkai's quest later; the pelts come from the Nightsabers (5-6) around Dolanaar",
+			"evidence": "route level 6.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Befouled Webwood 10-11 x3; recordings (2026-11-20 index): done by 51 (median 7.01), deaths 0, abandons 1; 30 of the 51 people at 7.3 or under, none died within 60 yd (5 people died to Befouled Webwoods elsewhere in the zone)"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|use 4726.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "use 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 50.2,
+			"mobs": [
+				"Volchan 60-60 x2"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him (guide-fixes 1575-burning-steppes-broodling-reaver)",
+			"evidence": "route level 50.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x2; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 4726 handed in by 21 people at 51.5-55.9; Volchan met by 8 Alliance people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4022.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4022.1",
+			"kind": "rare",
+			"title": "Cyrus Therepentous",
+			"level": 50.3,
+			"mobs": [
+				"Volchan 60-60"
+			],
+			"reason": "a rare (Volchan, 60) not needed for the goal; the step's Careful tip names him around Cyrus's cave. The molt comes from the hoard in the Searing Gorge before the quest is taken, so its objective seldom ticks: 12 people took and handed in Below ground (at 52.1-60.0)",
+			"evidence": "route level 50.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60; recordings (2026-11-20 index): done by 3 (median 53.56), deaths 4, abandons 0; Volchan killed nobody in the recordings; the 4 deaths within 60 yd of the cave were not his"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4022.1|rare",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4022.1",
+			"kind": "rare",
+			"title": "Cyrus Therepentous",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60"
+			],
+			"reason": "a rare (Volchan, 60) not needed for the goal; the step's Careful tip names him around Cyrus's cave. The molt comes from the hoard in the Searing Gorge before the quest is taken, so its objective seldom ticks: 12 people took and handed in Below ground (at 52.1-60.0)",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60; recordings (2026-11-20 index): done by 3 (median 53.56), deaths 4, abandons 0; Volchan killed nobody in the recordings; the 4 deaths within 60 yd of the cave were not his"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4726.1|over",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60 x4"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him with the Black Dragonspawn and Drake",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x4; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 14 of the 22 people at 53.6 or under; Volchan killed nobody in the recordings"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|use 4726.1|over",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "use 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Volchan 60-60 x2"
+			],
+			"reason": "the 60s are Volchan, a rare fire elemental, not needed for the goal; the step's Careful tip names him with the Black Dragonspawn and Drake",
+			"evidence": "route level 52.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Volchan 60-60 x2; recordings (2026-11-20 index): done by 22 (median 53.06), deaths 1, abandons 0; 14 of the 22 people at 53.6 or under; Volchan killed nobody in the recordings"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|kill 4145.2|rare",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "kill 4145.2",
+			"kind": "rare",
+			"title": "Lakkari Tar Pits: kill these as you meet them",
+			"level": 51.1,
+			"mobs": [
+				"Gruff 57-57"
+			],
+			"reason": "a rare (Gruff, 57) not needed for the goal; the step's tip names him ('Avoid Gruff')",
+			"evidence": "route level 51.1 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Gruff 57-57; recordings (2026-11-20 index): done by 15 (median 52.61), deaths 0, abandons 1; 6 of the 15 people at 52.1 or under; Gruff met by 3 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5155.1|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5155.1",
+			"kind": "elite",
+			"title": "Jaedenar",
+			"level": 51.5,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's points are in Jaedenar's south-east, away from the Spirit of Trey Lightforge (53, elite) at its west end, and its Careful tip names him and says to work the south-east; his corner stays among the alternative spots the gate reads. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 51.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; done by 25 people of both sides at 50.7-55.1 (3 at 52.5 or under, the Alliance route's level + 1), none died within 60 yd"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5155.4|elite",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5155.4",
+			"kind": "elite",
+			"title": "Jaedenar",
+			"level": 51.5,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53 x2"
+			],
+			"reason": "the step's points are in Jaedenar's south-east, away from the Spirit of Trey Lightforge (53, elite) at its west end, and its Careful tip names him and says to work the south-east; his corner stays among the alternative spots the gate reads. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 51.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53 x2; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; done by 25 people of both sides at 50.7-55.1 (3 at 52.5 or under, the Alliance route's level + 1), none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 5155.1|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 5155.1",
+			"kind": "elite",
+			"title": "Southern Jaedenar",
+			"level": 53.2,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's Careful tip names the Spirit of Trey Lightforge (53, elite) at the west end of Jaedenar and says to pull the cultists and hounds away from him; the step's own spots are in Jaedenar's south-east. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 53.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; 16 of the 25 people at 54.2 or under, none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 5155.4|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 5155.4",
+			"kind": "elite",
+			"title": "Southern Jaedenar",
+			"level": 53.2,
+			"mobs": [
+				"Spirit of Trey Lightforge 53-53"
+			],
+			"reason": "the step's Careful tip names the Spirit of Trey Lightforge (53, elite) at the west end of Jaedenar and says to pull the cultists and hounds away from him; the step's own spots are in Jaedenar's south-east. Players handle him: 14 people met him hostile, 5 killed him, none died to him",
+			"evidence": "route level 53.2 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Spirit of Trey Lightforge 53-53; recordings (2026-11-20 index): done by 25 (median 53.58), deaths 0, abandons 3; 16 of the 25 people at 54.2 or under, none died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 86746.1|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 86746.1",
+			"kind": "elite",
+			"title": "The Legashi satyrs",
+			"level": 52.8,
+			"mobs": [
+				"Prince Halanox 55-55"
+			],
+			"reason": "the step's Careful tip names Prince Halanox (55, elite) at the north-east end of the satyrs' hills and says to take the satyrs nearer the camp",
+			"evidence": "route level 52.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Prince Halanox 55-55; recordings (2026-11-20 index): done by 15 (median 52.23), deaths 0, abandons 2; 14 of the 15 people at 53.8 or under, none died within 60 yd; Halanox met by 1 person, killed nobody"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 5501.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 5501.1",
+			"kind": "over",
+			"title": "Kodo Graveyard",
+			"level": 38.5,
+			"mobs": [
+				"Rexxar 62-62 x2"
+			],
+			"reason": "Rexxar (62, elite), the Horde's champion, walks Desolace's road past the Kodo Graveyard; the step's Careful tip names him and says to step away from the road when he comes by. 55 Alliance people met him hostile in the recordings and none died to him",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rexxar 62-62 x2; recordings (2026-11-20 index): done by 42 (median 38.33), deaths 1, abandons 7; 26 of the 42 people at 39.5 or under; the 1 death within 60 yd was not his"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 5501.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 5501.1",
+			"kind": "elite",
+			"title": "Kodo Graveyard",
+			"level": 38.5,
+			"mobs": [
+				"Rexxar 62-62 x2"
+			],
+			"reason": "Rexxar (62, elite), the Horde's champion, walks Desolace's road past the Kodo Graveyard; the step's Careful tip names him and says to step away from the road when he comes by. 55 Alliance people met him hostile in the recordings and none died to him",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rexxar 62-62 x2; recordings (2026-11-20 index): done by 42 (median 38.33), deaths 1, abandons 7; 26 of the 42 people at 39.5 or under; the 1 death within 60 yd was not his"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 587.1|rare",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 587.1",
+			"kind": "rare",
+			"title": "Bloodsail pirates: kill these as you meet them",
+			"level": 40.6,
+			"mobs": [
+				"Rippa 44-44"
+			],
+			"reason": "a rare (Rippa, 44) not needed for the goal; the step's Careful tip names it and says to stay out of the water",
+			"evidence": "route level 40.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rippa 44-44; recordings (2026-11-20 index): done by 40 (median 42.22), deaths 15, abandons 4; 11 of the 40 people at 41.6 or under; Rippa met by 5 people and killed nobody: the deaths within 60 yd are the camp's"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 576.1|rare",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 576.1",
+			"kind": "rare",
+			"title": "Bloodsail pirates: kill these as you meet them",
+			"level": 40.6,
+			"mobs": [
+				"Rippa 44-44"
+			],
+			"reason": "a rare (Rippa, 44) not needed for the goal; the step's Careful tip names it and says to stay out of the water",
+			"evidence": "route level 40.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rippa 44-44; recordings (2026-11-20 index): done by 41 (median 42.42), deaths 15, abandons 2; 11 of the 41 people at 41.6 or under; Rippa met by 5 people and killed nobody: the deaths within 60 yd are the camp's"
+		},
+		{
+			"key": "forever/horde/tauren/01-mulgore.guide|collect 756.1|rare",
+			"guide": "forever/horde/tauren/01-mulgore.guide",
+			"goal": "collect 756.1",
+			"kind": "rare",
+			"title": "Mulgore: kill these as you meet them",
+			"level": 8.6,
+			"mobs": [
+				"Ghost Howl 12-12"
+			],
+			"reason": "a rare (Ghost Howl, 12) not needed for the goal; the step's Careful tip names it",
+			"evidence": "route level 8.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ghost Howl 12-12; recordings (2026-11-20 index): done by 32 (median 8.29), deaths 0, abandons 0; 30 of the 32 people at 9.6 or under; Ghost Howl met by 10 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1104.1|rare",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1104.1",
+			"kind": "rare",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 32.3,
+			"mobs": [
+				"Ironeye the Invincible 37-37"
+			],
+			"reason": "a rare (Ironeye the Invincible, 37) not needed for the goal; the step's Careful tip names it and the south-east of the flats where it roams",
+			"evidence": "route level 32.3 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ironeye the Invincible 37-37; recordings (2026-11-20 index): done by 119 (median 33.78), deaths 0, abandons 4; 41 of the 119 people at 33.3 or under; Ironeye met by 12 people, killed nobody"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94879.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94879.1",
+			"kind": "elite",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Ghostmaw 42-42",
+				"Chogg'Zac 41-41"
+			],
+			"reason": "the step's Careful tips name Chogg'Zac (41, elite) in Sunnyglade's western streets and Ghostmaw (42, elite) wandering up from the south-west fields, and say to let them pass; the pages drop from the cultists",
+			"evidence": "route level 41.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ghostmaw 42-42, Chogg'Zac 41-41; recordings (2026-11-20 index): done by 56 (median 41.31), deaths 16, abandons 0; 43 of the 56 people at 42.8 or under; Chogg'Zac killed nobody in the recordings, Ghostmaw's recorded kills were Horde players"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 5062.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 5062.1",
+			"kind": "elite",
+			"title": "Incendia Agave",
+			"level": 28.7,
+			"mobs": [
+				"Ailgrha Splittusk 38-38 x7",
+				"Ravaging Tempest 40-40 x3"
+			],
+			"reason": "the step picks the agave on the camps' north-western side and its Careful tip names the Ravaging elementals and Ailgrha Splittusk (38, elite) south and east of the camps (as the over row for this goal: players' recordings place them at 36-41,35-43 only)",
+			"evidence": "route level 28.7 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Ailgrha Splittusk 38-38 x7, Ravaging Tempest 40-40 x3; recordings (2026-11-20 index): done by 35 (median 30.23), deaths 2, abandons 12; 9 of the 35 people at 29.7 or under; in the whole archive Ailgrha Splittusk killed 1 player and the Ravaging Tempests 3"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 662.2|pack",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 662.2",
+			"kind": "pack",
+			"title": "The Drowned Reef: kill these as you meet them",
+			"level": 38.5,
+			"mobs": [
+				"8 spawns 40+"
+			],
+			"reason": "the step's Careful tip names the Daggerspine Raiders and Sorceresses (38-40) standing close together on the shore and says to pull them one at a time; the pack only just counts (8 spawns of 40 and up)",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); 8 spawns 40+; recordings (2026-11-20 index): done by 51 (median 39.21), deaths 10, abandons 3; 30 of the 51 people at 39.5 or under"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.1|over",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.1",
+			"kind": "over",
+			"title": "Badlands: kill these as you meet them",
+			"level": 38.9,
+			"mobs": [
+				"Zaricotl 55-56 x2"
+			],
+			"reason": "the 55-56s are Zaricotl, a rare buzzard, not needed for the goal; the step's Careful tip names him",
+			"evidence": "route level 38.9 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Zaricotl 55-56 x2; recordings (2026-11-20 index): done by 29 (median 41.16), deaths 0, abandons 1; 5 of the 29 people at 39.9 or under, none died within 60 yd; Zaricotl killed 3 Alliance players in the recordings, no Horde player"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.2|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.2",
+			"kind": "over",
+			"title": "Skeletal Raiders",
+			"level": 28.5,
+			"mobs": [
+				"Commander Felstrom 32-32 x9"
+			],
+			"reason": "the 32s are Commander Felstrom, a rare not needed for the goal; the step's Careful tip names him in the cemetery's west part",
+			"evidence": "route level 28.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Commander Felstrom 32-32 x9; recordings (2026-11-20 index): done by 66 (median 29.55), deaths 5, abandons 9; 30 of the 66 people at 29.5 or under; Felstrom killed nobody in the recordings"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.3|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.3",
+			"kind": "over",
+			"title": "Skeletal Raiders",
+			"level": 28.5,
+			"mobs": [
+				"Commander Felstrom 32-32 x10"
+			],
+			"reason": "the 32s are Commander Felstrom, a rare not needed for the goal; the step's Careful tip names him in the cemetery's west part",
+			"evidence": "route level 28.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Commander Felstrom 32-32 x10; recordings (2026-11-20 index): done by 67 (median 29.73), deaths 4, abandons 9; 30 of the 67 people at 29.5 or under; Felstrom killed nobody in the recordings"
 		}
 	]
 }

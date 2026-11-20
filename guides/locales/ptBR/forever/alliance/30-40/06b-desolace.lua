@@ -40,7 +40,7 @@ return {
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos.",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -143,6 +143,7 @@ return {
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Assoladores Mortos-vivos vagam pelos campos de ossos ao sul da Aldeia Magram, a leste das Ruínas de Mannoroc: a seta leva à borda oeste deles. Depois use o {item:15848} na seta dele, no lado leste dos campos, para atrair os Espectros Magrami. Cuidado: Necrocãs e Come-cadáveres Magram (45, elite) andam pelos campos de ossos entre as duas setas, com Necromantes Magram (42): puxe os Assoladores e os espectros até você, longe deles.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, se o 30-40/02 não a deu",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, se o 30-40/02 não a pegou: o naufrágio fica abaixo da torre de {npc:11863}",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} fica ao lado de {object:35251}. A chave de prata dele cai dos caranguejos Estala-seca ao redor do naufrágio; a dourada vem dos nagas Lâmina Sinuosa na costa noroeste, a seguir.",
 	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, se o 30-40/02 não o pegou",
 }

@@ -227,8 +227,8 @@ step Fly to Light's Hope Chapel
 
 step Light's Hope Chapel
   turnin 5210                         -- Carlin Redpath
-  accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   accept 5181
+  accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   note Carlin's Heroes of Darrowshire needs a group in Hearthglen and a ride back here at the end: leave it.
 # Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
 # handed in on this guide, the bind and hearth are no longer as described), the steps hold.

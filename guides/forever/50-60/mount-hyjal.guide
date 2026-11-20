@@ -560,7 +560,7 @@ step Eluneth
 step Owl feathers
   tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
   tip Careful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.
-  tip Careful: Grimroot, the elite treant (level 60), walks the western slopes here: pull the owls away from his path.
+  tip Careful: Grimroot, an elite treant (level 60), walks the slopes beside Eluneth. He leaves you alone unless you hit him: don't, and pull the owls away from his path.
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
 
@@ -572,7 +572,7 @@ step Unmarked Grave
 step Mourning's Rest
   tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.
   tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way.
-  tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.
+  tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room.
   kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
   kill 249228 x12 quest 92449.2 only Alliance  -- Fleshflay Ravener
   kill 249247 x3 quest 95026.1 only Horde
@@ -616,9 +616,9 @@ step Hyjal Silphium
 step Elderwild
   only Alliance
   tip West to the Alliance outpost.
+  turnin 95027                          -- Hnaz Blunderflame
   turnin 92449
   turnin 90702
-  turnin 95027                          -- Hnaz Blunderflame
   accept 90750                          -- Sefira Everbright: More Work?
 
 step Final Death
@@ -708,7 +708,7 @@ step Brie
 step Foxes
   only Alliance
   tip The Rustleaf Foxes are thick in the woods around Johun's camp.
-  tip Careful: Jezerelle the Swaying (61, rare) walks the woods north of the camp: leave her be.
+  tip Careful: Jezerelle the Swaying (61, rare) walks the woods north of the camp, and a Bannerwing Survivor (60, rare) can turn up there too: leave them be.
   collect 274586 x9 quest 92014.1 @42.5,35.0  -- Rustleaf Fox Tail
 
 step Johun "Punchy" Dillas
@@ -939,7 +939,7 @@ step Dae'gun
 step Elaena, Witherbeard and Yashiro
   turnin 92960                          -- Elaena Moonwhisper
   turnin 95793                          -- Witherbeard
-  turnin 96959                          -- Yashiro
+  turnin 96959 @49.2,32.7               -- Yashiro
 
 step Drawing Down the Malevolent
   when group 96003

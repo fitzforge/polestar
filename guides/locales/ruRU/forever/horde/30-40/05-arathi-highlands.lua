@@ -244,7 +244,8 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: убивайте их по пути",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "К западу от бухты налетчики и колдуньи из клана Пронзающего Гребня (38-40) занимают берег: выманивайте по одному. Два затонувших корабля лежат на мелководье, карты и журналы – внутри; самоцветы лежат на дне вокруг кораблей.",
+	-- was: ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "К западу от бухты налетчики и колдуньи из клана Пронзающего Гребня (38-40) занимают берег: выманивайте по одному. Два затонувших корабля лежат на мелководье, карты и журналы – внутри; самоцветы лежат на дне вокруг кораблей."
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "",
 	["Underwater"] = "Под водой",
 
 	-- Step 42: Faldir's Cove
@@ -259,4 +260,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The {object:1763} poster by the inn"] = "Плакат у таверны: {object:1763}",
+	-- ["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "К западу от бухты налетчики и колдуньи из клана Пронзающего Гребня (38-40) занимают берег: выманивайте по одному. Два затонувших корабля лежат на мелководье, карты и журналы – внутри; самоцветы лежат на дне вокруг кораблей.",
 }
