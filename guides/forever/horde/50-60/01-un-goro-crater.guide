@@ -135,13 +135,6 @@ step Lakkari Tar Pits
   tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar. Careful: the Lurkers reach 54 and the Tar Lords stand among them: take the Tar Beasts (50-51) and Creepers (51-52).
   collect 11834 quest 4504
 
-step Level 51
-  when level<51
-  tip Top up here to level 51 before the crater's loop: its Pterrordax and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and Larion wants five of them. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 61.1,27.6 map 1449 "Bloodpetal Thresher"
-  kill 6511 quest 4145.4
-  level 51 grind 6511                  -- grind on Bloodpetal Thresher
-
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
 step Pterrordax
