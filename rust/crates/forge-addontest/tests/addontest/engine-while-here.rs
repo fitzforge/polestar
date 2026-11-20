@@ -466,13 +466,14 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
 	assert_eq!(out[0]["step"], 28, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
-	// 70 yd since the 7,940-session recordings (65 on the first 0.4.0 data, 55 before): players' learned spot for the
-	// spores at the oasis moved from 55.41,42.44 (16 people) to 55.44,42.47 (18), the row still measuring to a spot's
-	// centre.
-	assert_eq!(out[0]["yards"], 70, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
+	// 85 yd on the 0.4.2 data (70 on the 7,940-session recordings, 65 on the first 0.4.0 data, 55 before): players'
+	// learned spot for the spores at the oasis moved again, to 55.48,42.66 (22 people, 82 yd off), and now holds the
+	// mushrooms' own camps at the pool (54.9,42.9 and 55.7,43.6), which the goal searches instead; the nearest place is
+	// the mushroom on the pool's north edge (55.31,40.40), the row still measuring to a spot's centre.
+	assert_eq!(out[0]["yards"], 85, "to the centre of the nearest mushroom spot at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 28) · 70 yd"), "{shown}");
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 28) · 85 yd"), "{shown}");
 	assert!(shown.contains(" · radius 180 yd · "), "{shown}");
 	let both = out[1].as_str().unwrap();
 	assert!(both.starts_with("20:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("28:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");

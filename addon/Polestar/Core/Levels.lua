@@ -28,8 +28,9 @@
 --       kill goal's kills, and each loot goal's from its drop chance
 --       (count / chance, the goal's own mob else the item's likeliest; a
 --       chance under 5% while another dropper's is not known counts as not
---       known), at the mob's level; an objective split over steps once,
---       nothing for quests
+--       known), at the mob's level, less what the step's `when has` already
+--       has in the bags (it shows only then: nothing to farm); an objective
+--       split over steps once, nothing for quests
 --       done. from/to: only steps from..to-1, from where the character is
 --       (no minLevel start). nil: no guide, or no Codex to read (the Codex is
 --       loaded for it only while lookup.enabled, as Lookup owns it)
@@ -227,11 +228,12 @@ end
 -- Creepers beside them, no chance known, drop it on almost every kill).
 local STRAY = 5
 
--- The kills a loot goal takes: count over its drop chance from the goal's own
--- mob, else the item's likeliest dropper. -> n, mob level, elite | nil (no
--- drop to estimate from: an object, a vendor, a chance not known, or only a
--- stray one beside a dropper whose chance is not known)
-local function lootKills(Cx, goal)
+-- The kills a loot goal takes for count items: count over its drop chance
+-- from the goal's own mob, else the item's likeliest dropper. -> n, mob
+-- level, elite | nil (no drop to estimate from: an object, a vendor, a
+-- chance not known, or only a stray one beside a dropper whose chance is not
+-- known)
+local function lootKills(Cx, goal, count)
 	local item = goal.item and Cx.Item and Cx.Item(goal.item)
 	if not (item and type(item.sources) == "table") then return nil end
 	local own = goal.fromKind == "npc" and goal.fromId or nil
@@ -255,7 +257,7 @@ local function lootKills(Cx, goal)
 	if not best or (unknown and best.npc ~= own and best.chance < STRAY) then return nil end
 	local mob, elite = mobOf(Cx, best.npc)
 	if not mob then return nil end
-	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
+	return ceil(count / (min(best.chance, 100) / 100)), mob, elite
 end
 
 -- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:
@@ -289,11 +291,22 @@ end
 
 -- Step si's rows for a character `applies` fits: { turnin = qid, entry } per hand-in, { quest, key,
 -- entry | false } per kill or loot goal (key: the objective, counted once per span; no entry: loot
--- with no drop behind it, gathered or bought, needs no kills).
+-- with no drop behind it, gathered or bought, or already in the bags, needs no kills).
 local function stepRows(g, si, Cx, applies)
 	local out = {}
 	local step = g.steps[si]
 	if not (step and applies(step.only) and type(step.goals) == "table") then return out end
+	-- A step shown only while the bags hold an item (`when has`) asks no kills for those: the player
+	-- brings them (Badlands' Frost Oil for Lotwil, 1 in 5,000 kills as a drop).
+	local carried
+	if type(step.when) == "table" then
+		for _, p in ipairs(step.when) do
+			if p.k == "has" and not p.neg and p.item then
+				carried = carried or {}
+				carried[p.item] = max(carried[p.item] or 0, p.n or 1)
+			end
+		end
+	end
 	for _, goal in ipairs(step.goals) do
 		if applies(goal.only) then
 			local t, qid = goal.t, goal.quest
@@ -306,8 +319,11 @@ local function stepRows(g, si, Cx, applies)
 					local mob, elite = mobOf(Cx, goal.npc)
 					row.entry = { kind = "kill", n = mob and (goal.count or 1) or nil, mob = mob, elite = elite }
 				else
-					local n, mob, elite = lootKills(Cx, goal)
-					if n or goal.fromKind == "npc" then row.entry = { kind = "kill", n = n, mob = mob, elite = elite } end
+					local count = (goal.count or 1) - (carried and carried[goal.item] or 0)
+					if count > 0 then
+						local n, mob, elite = lootKills(Cx, goal, count)
+						if n or goal.fromKind == "npc" then row.entry = { kind = "kill", n = n, mob = mob, elite = elite } end
+					end
 				end
 				out[#out + 1] = row
 			end
