@@ -71,6 +71,7 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
+  accept 1261                           -- the Bubbling Cauldron beside Kin'weelay: Marg Speaks, for Nazeer Bloodpike in Brackenwall Village on the Dustwallow guide, where the crabs drop the pendant
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.

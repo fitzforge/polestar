@@ -225,6 +225,11 @@ step Onyxia's eggs
   goto 53.4,74.7 "Dragon caves"
   interact 20359 quest 1172.1
 
+step Muckshell crabs
+  when onquest 1261
+  tip On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for.
+  collect 5942 quest 1261.1 @54.2,64.0 map 1445 -- Jeweled Pendant
+
 step Level 45.37
   when !group 1173
   when level<45.37
@@ -235,6 +240,8 @@ step Level 45.37
 step Brackenwall Village
   tip Ride back north to Brackenwall.
   turnin 1172                           -- Draz'Zilb, below ground
+  turnin 1261                           -- Nazeer Bloodpike: the Jeweled Pendant
+  accept 1262                           -- for Zor Lonetree in Orgrimmar, on the Azshara guide's Orgrimmar stop
   note Keep Natural Materials and Improved Quality: Feralas' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your Feralas loop at about 51, with the Muisek chain.
 
 step Challenge Overlord Mok'Morokk

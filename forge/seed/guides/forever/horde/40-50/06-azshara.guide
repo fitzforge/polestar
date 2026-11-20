@@ -143,6 +143,14 @@ step Orgrimmar
   accept 4300                           -- Jes'rimon, the Cleft of Shadow
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
+step Zor Lonetree
+  when onquest 1262
+  zone Orgrimmar
+  tip Zor Lonetree stands in the Valley of Wisdom: Nazeer Bloodpike's report from Dustwallow Marsh.
+  turnin 1262                           -- Zor Lonetree
+  accept 7541
+  turnin 7541
+
 # ---------------------------------------------------------------- To Azshara
 
 step Azshara
