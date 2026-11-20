@@ -904,7 +904,16 @@ do
 					title = "{quest:92591}",
 					note = "Burn the bone pile at the south-eastern end of {area:16868} with the {item:274411}: the {npc:260148} that answers carries the amulet.\nCareful: the {npc:260148} is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.",
 					only = { factions = { "Alliance" } },
-					when = { { k = "onquest", q = { 92591 } } },
+					when = { { k = "onquest", q = { 92591 } }, { k = "level", op = ">=", n = 58 } },
+					goals = {
+						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised; alone, this guide comes back past the pile later.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "onquest", q = { 92591 } }, { k = "level", op = "<", n = 58 }, { k = "group", q = 92591 } },
 					goals = {
 						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
 					},
@@ -931,11 +940,25 @@ do
 					note = "West to the Alliance outpost.",
 					only = { factions = { "Alliance" } },
 					goals = {
-						{ t = "turnin", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 92449, title = "Blight No More", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 90702, title = "Disturbed Grave", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
 						{ t = "turnin", quest = 95027, title = "Feathers in Flight", npc = 249968, npcName = "Hnaz Blunderflame", map = 2482, x = 15.64, y = 49.99 },
 						{ t = "accept", quest = 90750, title = "More Work?", npc = 244517, npcName = "Sefira Everbright", qlvl = 55, pre = { 92449, 95026 }, preTitles = { [92449] = "Blight No More", [95026] = "Blight No More" }, map = 2482, x = 15.67, y = 54.66, note = "{npc:244517}: {quest:90750}" },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "complete", q = 92591 } },
+					goals = {
+						{ t = "turnin", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
+					},
+				},
+				{
+					title = "{quest:91688}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "available", q = 91688, minLevel = 54, preAll = { 92449, 92591 } } },
+					goals = {
 						{ t = "accept", quest = 91688, title = "To the Summit of Eternity", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 59, preAll = { 92449, 92591 }, preTitles = { [92449] = "Blight No More", [92591] = "Final Death" }, map = 2482, x = 15.67, y = 54.66, note = "{quest:91688}: for {npc:254915}, later in this guide; keep it" },
 					},
 				},
@@ -1115,10 +1138,28 @@ do
 					},
 				},
 				{
+					title = "{quest:92591}",
+					note = "Burn the bone pile at the south-eastern end of {area:16868} with the {item:274411}: the {npc:260148} that answers carries the amulet. The hand-in waits for the ride back to {area:16848} at the end of this guide.\nCareful: the {npc:260148} is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.",
+					when = { { k = "onquest", q = { 92591, 92592 } }, { k = "level", op = ">=", n = 58 } },
+					goals = {
+						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, only = { factions = { "Alliance" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+						{ t = "collect", quest = 92592, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, only = { factions = { "Horde" } }, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised. The hand-in waits for the ride back to {area:16848} at the end of this guide.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "onquest", q = { 92591 } }, { k = "level", op = "<", n = 58 }, { k = "group", q = 92591 } },
+					goals = {
+						{ t = "collect", quest = 92591, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
+					},
+				},
+				{
 					title = "{quest:92592}",
-					note = "Burn the bone pile at the south-eastern end of {area:16868} with the {item:274411}: the {npc:260148} that answers carries the amulet. {npc:244511} takes it on the ride back to {area:16848} at the end of this guide.\nCareful: the {npc:260148} is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.",
+					note = "A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised. {npc:244511} takes the amulet on the ride back to {area:16848} at the end of this guide.",
 					only = { factions = { "Horde" } },
-					when = { { k = "onquest", q = { 92592 } } },
+					when = { { k = "onquest", q = { 92592 } }, { k = "level", op = "<", n = 58 }, { k = "group", q = 92592 } },
 					goals = {
 						{ t = "collect", quest = 92592, title = "Final Death", item = 268573, itemName = "Reanimator's Amulet", count = 1, oi = 1, map = 2482, x = 28, y = 57.7, spotsPacked = "28,57.7,,26,2", lvl = 60, from = "Scourge Reanimator", fromKind = "npc", fromId = 260148, fromNpcs = { { npc = 260148, npcName = "Scourge Reanimator" } } },
 					},
@@ -1354,9 +1395,16 @@ do
 					goals = {
 						{ t = "getfp", npc = 41861, npcName = "Fayran Elthas", location = "Summit of Eternity", node = 559, area = 16849, map = 2482, x = 68.7, y = 44.1, note = "{npc:41861}, at the flight point" },
 						{ t = "turnin", quest = 96991, title = "Trail Assist", npc = 264795, npcName = "Marn Euhorn", map = 2482, x = 68.3, y = 46.71 },
-						{ t = "turnin", quest = 91688, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99, only = { factions = { "Alliance" } } },
 						{ t = "accept", quest = 93197, title = "Mending Communications", npc = 243815, npcName = "Sebelia", qlvl = 58, map = 2482, x = 70.87, y = 51.55, note = "{npc:243815}: {quest:93197}: for {npc:11118} in {area:2255}, at the end" },
 						{ t = "sethome", npc = 243815, npcName = "Sebelia", location = "Summit of Eternity", area = 16849, map = 2482, x = 70.87, y = 51.55 },
+					},
+				},
+				{
+					title = "{npc:254915}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "onquest", q = { 91688 } } },
+					goals = {
+						{ t = "turnin", quest = 91688, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99 },
 					},
 				},
 				{
@@ -1431,10 +1479,41 @@ do
 					when = { { k = "onquest", q = { 91794, 96998, 92592 } } },
 					goals = {
 						{ t = "turnin", quest = 91794, title = "Flags of Our Forebears", npc = 265788, npcName = "Kal'tinzan", map = 2482, x = 13.7, y = 53.1 },
-						{ t = "turnin", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2" },
 						{ t = "turnin", quest = 96998, title = "Tribal Colors", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2" },
 						{ t = "accept", quest = 96999, title = "Wrap Return", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 58, pre = { 96998 }, preTitles = { [96998] = "Tribal Colors" }, map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", optional = true, note = "{npc:244511}: {quest:96999}, for {npc:3187} in {area:367}, {zone:1411}; take it only if you'll pass by" },
-						{ t = "accept", quest = 95248, title = "To the Summit of Eternity", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 59, preAll = { 92592, 92609, 94782, 95026 }, preTitles = { [92592] = "Final Death", [92609] = "Feathers in Flight", [94782] = "The Western Post", [95026] = "Blight No More" }, map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", note = "{quest:95248}: for {npc:254915} at the Summit, next" },
+					},
+				},
+				{
+					title = "Back to {area:16848}",
+					note = "Alliance: the amulet from the second pass goes to {npc:244517}: ride west across the foothills and north up the valley to {area:16848}, about four minutes, then back up to the Summit.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "complete", q = 92591 } },
+					goals = {
+						{ t = "turnin", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.67, y = 54.66 },
+					},
+				},
+				{
+					title = "{npc:244511}",
+					only = { factions = { "Horde" } },
+					when = { { k = "complete", q = 92592 } },
+					goals = {
+						{ t = "turnin", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2" },
+					},
+				},
+				{
+					title = "{quest:91688}",
+					only = { factions = { "Alliance" } },
+					when = { { k = "available", q = 91688, minLevel = 54, preAll = { 92449, 92591 } } },
+					goals = {
+						{ t = "accept", quest = 91688, title = "To the Summit of Eternity", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 59, preAll = { 92449, 92591 }, preTitles = { [92449] = "Blight No More", [92591] = "Final Death" }, map = 2482, x = 15.67, y = 54.66, note = "{npc:244517}: for {npc:254915} at the Summit, next" },
+					},
+				},
+				{
+					title = "{quest:95248}",
+					only = { factions = { "Horde" } },
+					when = { { k = "available", q = 95248, minLevel = 54, preAll = { 92592, 92609, 94782, 95026 } } },
+					goals = {
+						{ t = "accept", quest = 95248, title = "To the Summit of Eternity", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 59, preAll = { 92592, 92609, 94782, 95026 }, preTitles = { [92592] = "Final Death", [92609] = "Feathers in Flight", [94782] = "The Western Post", [95026] = "Blight No More" }, map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2", note = "{npc:244511}: for {npc:254915} at the Summit, next" },
 					},
 				},
 				{
@@ -1442,7 +1521,7 @@ do
 					only = { factions = { "Horde" } },
 					when = { { k = "onquest", q = { 92446 } } },
 					goals = {
-						{ t = "turnin", quest = 92446, title = "Head Scratcher", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", note = "{quest:92446}'s claws" },
+						{ t = "turnin", quest = 92446, title = "Head Scratcher", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2", note = "{quest:92446}'s claws" },
 					},
 				},
 				{
@@ -1463,10 +1542,10 @@ do
 				{
 					title = "{npc:254915}",
 					note = "{npc:254915}, next to {npc:40833} at the Summit.",
-					only = { factions = { "Horde" } },
-					when = { { k = "onquest", q = { 95248 } } },
+					when = { { k = "onquest", q = { 91688, 95248 } } },
 					goals = {
-						{ t = "turnin", quest = 95248, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99 },
+						{ t = "turnin", quest = 91688, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99, only = { factions = { "Alliance" } } },
+						{ t = "turnin", quest = 95248, title = "To the Summit of Eternity", npc = 254915, npcName = "Thisalee Crow", map = 2482, x = 68.99, y = 49.99, only = { factions = { "Horde" } } },
 					},
 				},
 				{

@@ -6,12 +6,6 @@
 			"guide": "forever/horde/30-40/01-hillsbrad-foothills",
 			"levels": [29, 31],
 			"reason": "Kept on purpose in 0.4.0: the model leaves the guide at 30.1, but recorded players leave it at 31, and the Discord report test in tests/guides-reported.test.js pins 29-31 with the pitch that quotes it."
-		},
-		{
-			"faction": "Horde",
-			"guide": "forever/horde/50-60/07-felwood",
-			"levels": [59, 60],
-			"reason": "Kept on purpose in 0.4.3: since Mount Hyjal joined the Horde route, the level model reaches 60 in the Silithus guide (58.7 -> 60) and never plays this one; it finishes the Felwood, Moonglade and Winterspring chains the Silithus guide starts, for players who come in at 59 or 60."
 		}
 	],
 	"routes": {
@@ -57,7 +51,7 @@
 		},
 		"Horde": {
 			"forever/40-50/shendralas": [46.76, 47.06],
-			"forever/50-60/mount-hyjal": [56.97, 58.68],
+			"forever/50-60/mount-hyjal": [56.61, 58.31],
 			"forever/horde/02-the-barrens": [14.27, 22.55],
 			"forever/horde/03-silverpine-forest": [12.2, 16.5],
 			"forever/horde/04-the-barrens": [24.76, 27.21],
@@ -77,13 +71,13 @@
 			"forever/horde/40-50/04-tanaris": [47.54, 48.7],
 			"forever/horde/40-50/05-the-hinterlands": [48.7, 50.03],
 			"forever/horde/40-50/06-azshara": [50.03, 51.15],
-			"forever/horde/50-60/01-un-goro-crater": [51.3, 52.74],
-			"forever/horde/50-60/02-felwood": [52.74, 55],
-			"forever/horde/50-60/03-winterspring": [55, 55.5],
-			"forever/horde/50-60/04-azshara": [55.5, 56],
-			"forever/horde/50-60/05-eastern-plaguelands": [56, 56.97],
-			"forever/horde/50-60/06-silithus": [58.68, 60],
-			"forever/horde/50-60/07-felwood": [60, 60],
+			"forever/horde/50-60/01-un-goro-crater": [51.36, 53.04],
+			"forever/horde/50-60/02-felwood": [53.04, 53.96],
+			"forever/horde/50-60/03-winterspring": [53.96, 54.79],
+			"forever/horde/50-60/04-azshara": [54.79, 54.99],
+			"forever/horde/50-60/05-eastern-plaguelands": [54.99, 56.61],
+			"forever/horde/50-60/06-silithus": [58.31, 59.47],
+			"forever/horde/50-60/07-felwood": [59.47, 60],
 			"forever/horde/orc/01-durotar": [1, 12.245],
 			"forever/horde/skyborne/01-zephras-isle": [1, 15.04],
 			"forever/horde/tauren/01-mulgore": [1, 12.765],
