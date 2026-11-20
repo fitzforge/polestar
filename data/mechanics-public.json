@@ -516,6 +516,21 @@
 			],
 			"note": "The quest describes the book at the bottom of the den. In #3069 the player was at its map point but had no directions underground."
 		},
+		"6627": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": {
+						"type": "npc",
+						"id": 4489
+					},
+					"fact": "Answer Braug Dimspirit's question with Neltharion. A wrong answer sends you away to Camp Taurajo, and you walk back to try again.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Test of Lore (6627, Braug Dimspirit in Stonetalon, after The Legacy of the Aspects): the quest's only line is to answer his question correctly, and the guide never said the answer. A player's in-game report (#3028): a wrong answer teleports you to Camp Taurajo, and the right one is Neltharion."
+		},
 		"97536": {
 			"steps": [
 				{

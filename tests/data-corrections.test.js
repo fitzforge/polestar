@@ -585,6 +585,16 @@ test('elites players only ever saw neutral are neutral to both sides, so no obje
 	}
 });
 
+// #3028: Test of Lore's only line is to answer Braug Dimspirit's question, and a wrong answer teleports you to Camp
+// Taurajo; the Scarlet Monastery pick-up guide never said the answer. The mechanics record is the Codex's `how`, the
+// note Lookup shows on the step.
+test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[6627].steps;
+	assert.deepEqual([step.action, step.target], ['talk', { type: 'npc', id: 4489 }]);
+	assert.match(step.fact, /Neltharion/);
+	assert.match(step.fact, /Camp Taurajo/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
