@@ -1859,11 +1859,14 @@ local function placeIndex(e, x, y, z)
 	return nil
 end
 
--- Is this particular transfer waiting on a price? A start-only refresh
--- retains the other origins' costs and is not a pending search from them.
-function Walk.MeasuringFrom(c, x, y, water, goalZ, from)
-	return measuring and not measuring.costs and sameTarget(measuring, c, x, y, water or false, goalZ)
-		and placeIndex(measuring, from.wx, from.wy, from.z) ~= nil
+-- Once an onward walk has been requested, finishing the batch without a
+-- checked price for that floor is not permission to fall back to a fare.
+function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
+	water = water or false
+	local e = measuring
+	if not (e and sameTarget(e, c, x, y, water, goalZ)) then e = findMeasure(c, x, y, water, goalZ) end
+	local i = e and placeIndex(e, from.wx, from.wy, from.z)
+	return i ~= nil and (not e.checked or (goalZ and e.z ~= goalZ) or not e.costs or type(e.costs[i]) ~= "number")
 end
 
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when

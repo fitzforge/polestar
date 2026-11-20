@@ -101,7 +101,7 @@ local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
 local DECK_DZ = 3           -- yards of the observed boarding or receiving floor
-local function observedFloor(c)
+function Travel.ObservedFloor(c)
 	local C = ns.Compat
 	if C and C.GetPlayerUnitPosition then
 		local _, _, z, map = C.GetPlayerUnitPosition()
@@ -2467,7 +2467,7 @@ local function plan(target, held)
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		liveTaxi = true,
-		liftFloor = observedFloor,
+		liftFloor = Travel.ObservedFloor,
 		approaches = pc == tc and Travel.CrossingApproaches(target, pc, px, py, pz, twx, twy, tz, walkCost),
 		faction = playerFaction,
 		known = knownNodes(),
@@ -2531,9 +2531,9 @@ local function plan(target, held)
 		Travel.corpseProbe = nil
 	end
 	local pending = places and W.Measure(tc, twx, twy, ghost, places, tz) or false
-	-- A flight proves the ride, not the walk after it. A clear straight bearing
-	-- is not a price either: wait while the exact onward walk is being checked.
-	if waitForWalk and pending and landing and W.MeasuringFrom(tc, twx, twy, ghost, tz, landing) then route = nil end
+	-- A completed batch for another floor (or without a checked price) is no
+	-- better than a pending batch. Replanning must not resurrect that ticket.
+	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then route = nil end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
 		nearWalk.job = W.Probe(pc, px, py, twx, twy, tz, function(along, sx, sy)
@@ -2766,7 +2766,7 @@ local function boardingRide(leg, pc, px, py)
 	local d = yards(pc, px, py, t.c, t.wx, t.wy)
 	if d > LIFT_LEAVE then return nil end
 	if f.z then
-		local z = observedFloor(pc)
+		local z = Travel.ObservedFloor(pc)
 		if not z then return nil, d <= FLAT_ARRIVE end
 		if math.abs(z - f.z) > DECK_DZ then return nil end
 	end

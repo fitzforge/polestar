@@ -2210,11 +2210,13 @@ fn a_numeric_walk_price_without_ground_checks_cannot_move_the_landing() {
 		job.unchecked = true
 		fake.settle(job, terrain)
 		local measured = N.walk.Measured(0, 0, 0, false)
-		emit({ lands = route().lands, quoted = measured and measured(0, 0, -700) or false })"#,
+		local before = route().lands or false
+		T.Replan()
+		emit({ before = before, replanned = route().lands or false, quoted = measured and measured(0, 0, -700) or false })"#,
 		]
 		.concat(),
 	);
-	assert_eq!(out, json!({"lands":"Ridge Roost, Testshire","quoted":false}));
+	assert_eq!(out, json!({"before":false,"replanned":false,"quoted":false}), "an unverified number never sells a ticket, including after a refresh");
 }
 
 #[test]
@@ -2676,7 +2678,7 @@ fn the_walk_off_a_boat_whose_end_has_a_board_point_is_searched_and_measured_from
 }
 
 #[test]
-fn review_5_the_target_s_height_goes_with_the_measure_once_more_without_it_when_it_finds_nothing_and_with_the_last_walk_s_search() {
+fn a_walk_found_only_on_the_surface_cannot_sell_a_flight_to_a_target_below_it() {
 	let out = run_priced(
 		&[
 			TERRAIN,
@@ -2696,13 +2698,17 @@ fn review_5_the_target_s_height_goes_with_the_measure_once_more_without_it_when_
 		for i, p in ipairs(second.targets) do
 			if p.x == 0 and p.y == 300 then r.flat = { flat.job.walkChecked, flat.job.yards[i] } end
 		end
-		assert(finish(fake.of(false)[1]).job.walkChecked)
-		local leg = fake.of(false)[2]
-		r.legZ = leg.to.z
-		local stop = finish(leg)
-		r.refused = stop.reason
-		r.finds = #fake.of(false)
-		r.lastPrice = N.walk.LegPath({ c = 0, wx = leg.from.x, wy = leg.from.y }, { c = 0, wx = 0, wy = 0, z = -40 }) or false
+		r.before = route().lands or false
+		T.Replan()
+		r.below = route().lands or false
+		local measured = N.walk.Measured(0, 0, 0, false, -40)
+		r.price = measured and measured(0, 0, 300) or false
+		-- Same horizontal trip, but the target is now on the floor the road reaches.
+		nav.setWaypoint({ map = m, x = x, y = y, z = 0, label = "Surface", stepIndex = 2, goalIndex = 1, kind = "turnin", r = 5 })
+		N.Sample()
+		local surface = fake.of(true)[3]
+		assert(surface.from.z == 0 and finish(surface).job.walkChecked)
+		r.surface = route()
 		emit(r)"#,
 		]
 		.concat(),
@@ -2710,10 +2716,11 @@ fn review_5_the_target_s_height_goes_with_the_measure_once_more_without_it_when_
 	assert_eq!(out["batchZ"], json!([-40, 10]), "from the target at its height, with the router's reach (WorldFloor)");
 	assert_eq!(out["retryZ"], "none", "a batch with it that finds nothing: once more without it");
 	assert_eq!(out["flat"], json!([true, 300]), "there really is a walk from Ridge Roost, but only on the surface");
-	assert_eq!(out["legZ"], -40, "the last walk is searched to the target's floor");
-	assert_eq!(out["refused"], "no safe walking route");
-	assert_eq!(out["finds"], 2, "a settled refusal at the requested floor must not start a floorless point search");
-	assert_eq!(out["lastPrice"], false);
+	assert_eq!(out["before"], false);
+	assert_eq!(out["below"], false, "replanning cannot sell a ticket for a road forty yards above the goal");
+	assert_eq!(out["price"], false);
+	assert_eq!(out["surface"]["lands"], "Ridge Roost, Testshire");
+	assert_eq!(out["surface"]["yards"], 300);
 }
 
 #[test]

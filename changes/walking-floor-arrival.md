@@ -26,7 +26,8 @@ section: players
 - A route to or from a boat deck no longer borrows a walking price from
   the same spot on another floor. Before suggesting a flight with an onward
   walk, the planner waits while the walk from that landing is being checked.
-  You can still fly to the landing itself.
+  Replanning no longer offers the ticket if that check found only a road
+  on another floor or returned no verified price. You can still fly to the landing itself.
 - At a capital lift, the arrow no longer borrows the floor under the car when
   the client has not reported your height. It waits to say “ride up” or
   “ride down” until you are on the boarding deck.
