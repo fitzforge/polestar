@@ -621,10 +621,21 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	// recordings give no spawns to those no source places.
 	let summoned = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::summoned_creatures(effects));
 	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
+	// Forever's gathering spells (its SpellEffect): a loot window right after one is a herb or an ore node's.
+	let gather_spells = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::gathering_spells(effects)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
-		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
+		&crate::recordings::Db {
+			quests: &norm.quests,
+			npcs: &norm.npcs,
+			objects: &norm.objects,
+			items: &norm.items,
+			zones: &zones,
+			factions: &factions,
+			instances: &instances,
+			gather_spells: &gather_spells,
+		},
 		recordings.sessions().map_while(|r| match r {
 			Ok(r) => {
 				revision.add(&r);

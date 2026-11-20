@@ -568,6 +568,9 @@ pub struct Db<'a> {
 	pub zones: &'a Obj,
 	pub factions: &'a Obj,
 	pub instances: &'a Obj,
+	/// The client's gathering spells, (spell, "herb" | "mine") by spell ([`crate::extras::gathering_spells`]):
+	/// a loot window right after one is a gather even when the Recorder did not know the spell.
+	pub gather_spells: &'a [(i64, &'static str)],
 }
 
 #[derive(Default)]
@@ -720,13 +723,41 @@ struct Open {
 
 /// One session's state for [`Overlay::client_event`]: its quests since their `objectives` record,
 /// what the player did in the last [`TALK_WINDOW`] seconds, the lines that ticked in the last
-/// [`TALK_AFTER`] seconds (time, quest, line, place) and the player's last known place.
+/// [`TALK_AFTER`] seconds (time, quest, line, place) and the player's last known place; and the
+/// last gathering cast not yet matched to a loot window (time, "herb" | "mine").
 #[derive(Default)]
 struct Session {
 	open: FxHashMap<i64, Open>,
 	recent: VecDeque<(f64, Seen)>,
 	ticks: VecDeque<(f64, i64, i64, Option<At>)>,
 	at: Option<At>,
+	gathering: Option<(f64, &'static str)>,
+}
+
+/// Seconds between a gathering cast and its loot window (the Recorder's own GATHER_WINDOW).
+const GATHER_WINDOW: f64 = 3.0;
+
+impl Session {
+	/// A `cast` of one of the client's gathering spells (`spells`, [`Db::gather_spells`]).
+	fn cast(&mut self, ev: &V, spells: &[(i64, &'static str)]) {
+		let (Some(spell), Some(t)) = (pos_int(&ev.get("spell")), ev.get("t").as_num()) else { return };
+		if let Ok(i) = spells.binary_search_by_key(&spell, |s| s.0) {
+			self.gathering = Some((t, spells[i].1));
+		}
+	}
+
+	/// The gather an object's `drop` with no `gather` of its own was: a gathering cast at most
+	/// [`GATHER_WINDOW`] seconds before it. The Recorder names a gather only for the casts it knows
+	/// (Classic's Herb Gathering and Mining ranks), so Forever's own (Cultivation, 1312650, on its herb
+	/// nodes) reach us as a cast and then a plain loot window. One cast opens one loot window.
+	fn gathered(&mut self, ev: &V) -> Option<&'static str> {
+		if ev.get("e").as_str() != Some("drop") || ev.get("gather").truthy() || pos_int(&ev.get("object")).is_none() {
+			return None;
+		}
+		let (at, kind) = self.gathering.take()?;
+		let t = ev.get("t").as_num()?;
+		(t >= at && t - at <= GATHER_WINDOW).then_some(kind)
+	}
 }
 
 /// A place: (map, x, y).
@@ -1212,7 +1243,8 @@ impl<'a> Overlay<'a> {
 		i
 	}
 
-	fn handle_find(&mut self, ev: &V) -> bool {
+	/// `gathered`: the gather an object's `drop` was by the cast just before it ([`Session::gathered`]).
+	fn handle_find(&mut self, ev: &V, gathered: Option<&'static str>) -> bool {
 		let npc = pos_int(&ev.get("npc"));
 		let obj = pos_int(&ev.get("object"));
 		match ev.get("e").as_str().unwrap_or("") {
@@ -1275,13 +1307,15 @@ impl<'a> Overlay<'a> {
 						push_point(&mut self.found[1], id, &c);
 						self.note(WHO_FOUND + 1, id, c.map);
 					}
-					let role = match gather.as_str() {
+					// The roles a loot window gives: a gather (the Recorder's, or a gathering cast just
+					// before it) makes a herb, an ore node or a fishing pool, never a chest.
+					let role = match gather.as_str().or(gathered) {
 						Some("herb") => Some("herb"),
 						Some("mine") => Some("mine"),
 						// A catch the client names a pool as the source of (the Recorder leaves the
 						// bobber out): the pool.
 						Some("fish") => Some("fishing"),
-						_ if !gather.truthy() && list.iter().any(|i| !i.get("q").truthy()) => Some("chest"),
+						None if !gather.truthy() && list.iter().any(|i| !i.get("q").truthy()) => Some("chest"),
 						_ => None,
 					};
 					if let Some(r) = role {
@@ -2404,6 +2438,9 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 			let qid = pos_int(&ev.get("q"));
 			let npc = pos_int(&ev.get("npc"));
 			ov.client_event(&e, qid, npc, &ev, &mut session);
+			if &*e == "cast" {
+				session.cast(&ev, db.gather_spells);
+			}
 			match (&*e, qid) {
 				("accept", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
@@ -2533,7 +2570,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 					}
 				}
 				_ => {
-					if ov.handle_find(&ev) {
+					if ov.handle_find(&ev, session.gathered(&ev)) {
 					} else if let (Some(role), Some(n)) = (
 						match &*e {
 							"gossip" | "offer" => Some(None),
@@ -2689,15 +2726,25 @@ mod tests {
 		zones: Obj,
 		factions: Obj,
 		instances: Obj,
+		gather_spells: Vec<(i64, &'static str)>,
 	}
 
 	impl Tables {
 		fn new(quests: &str, npcs: &str, items: &str) -> Tables {
-			Tables { quests: obj(quests), npcs: obj(npcs), objects: obj("{}"), items: obj(items), zones: obj("{}"), factions: obj("{}"), instances: obj("{}") }
+			Tables { quests: obj(quests), npcs: obj(npcs), objects: obj("{}"), items: obj(items), zones: obj("{}"), factions: obj("{}"), instances: obj("{}"), gather_spells: Vec::new() }
 		}
 
 		fn apply(&self, recs: &[Recording]) -> Stats {
-			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
+			let db = Db {
+				quests: &self.quests,
+				npcs: &self.npcs,
+				objects: &self.objects,
+				items: &self.items,
+				zones: &self.zones,
+				factions: &self.factions,
+				instances: &self.instances,
+				gather_spells: &self.gather_spells,
+			};
 			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, true)
 		}
 
@@ -2781,7 +2828,7 @@ mod tests {
 		)
 		.unwrap();
 		let t = Tables::new(QUESTS, NPCS, "{}");
-		let db = Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances };
+		let db = Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[] };
 		crate::corrections::apply(&corrections, &t.quests, &t.npcs, &t.objects, &t.items, false);
 		let mut recs = vec![session("a", A, "enUS", &rewrite(10))];
 		recs.extend(from(&[B, C], &rewrite(10)));
@@ -2869,6 +2916,26 @@ mod tests {
 		assert_eq!(j(&pool.get("roles")), r#"["fishing"]"#);
 		assert_eq!(pool.get("spawns").get("1413").get("f").as_str(), Some("l"));
 		assert_eq!(j(&t.items.get("6358").get("drops").get("object").get("180582")), "100");
+	}
+
+	// Forever's herb nodes (Briarthorn 657385) open with Cultivation (1312650), a cast the Recorder does not count
+	// as gathering, so its loot window carries no `gather`: the window right after that cast is a herb's, never a
+	// chest's (the Codex listed such herbs as treasures).
+	#[test]
+	fn a_node_gathered_with_a_cast_the_recorder_does_not_know_is_a_herb_never_a_chest() {
+		let cast = r#"{"t":10,"e":"cast","spell":1312650,"map":1421,"x":50.1,"y":40.2}"#;
+		let drop = r#"{"t":10.4,"e":"drop","object":657385,"items":[{"item":2450,"count":2}],"map":1421,"x":50.1,"y":40.2}"#;
+		let late = r#"{"t":30,"e":"drop","object":657385,"items":[{"item":2450,"count":1}],"map":1421,"x":50.1,"y":40.2}"#;
+		let roles = |events: &[&str]| {
+			let mut t = Tables::new(QUESTS, NPCS, "{}");
+			t.objects = obj(r#"{"657385":{"id":657385,"name":"Briarthorn","spawns":{}}}"#);
+			t.gather_spells = vec![(1312650, "herb")];
+			t.apply(&from(&["sent-alice"], &events.iter().map(|e| e.to_string()).collect::<Vec<_>>()));
+			j(&t.objects.get("657385").get("roles"))
+		};
+		assert_eq!(roles(&[cast, drop]), r#"["herb"]"#);
+		assert_eq!(roles(&[cast, drop, late]), r#"["chest","herb"]"#, "a later window with no cast before it is no gather");
+		assert_eq!(roles(&[drop]), r#"["chest"]"#, "no cast before it");
 	}
 
 	#[test]
@@ -2979,7 +3046,7 @@ mod tests {
 		// #2585/#2747: loot-window chances read 1.2-3x high, so the data build passes them by: three
 		// trusted players looting 12 of 12 leave Linen at its source's 5%, and fill no gap.
 		fn db_of(t: &Tables) -> Db<'_> {
-			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances }
+			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances, gather_spells: &[] }
 		}
 		let recs = from(&[A, B, C], &loot(1501, 2589, 12, 12));
 		let t = Tables::new("{}", ZOMBIE, LINEN);
@@ -3301,7 +3368,7 @@ mod tests {
 		assert_eq!(scan.names().collect::<Vec<_>>(), whole.iter().map(|r| r.file.as_str()).collect::<Vec<_>>());
 		let (t1, t2) = (Tables::new(QUESTS, "{}", "{}"), Tables::new(QUESTS, "{}", "{}"));
 		let s1 = t1.apply(&whole);
-		let db = Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances };
+		let db = Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances, gather_spells: &[] };
 		let mut rev = Revision::default();
 		let s2 = apply_recordings(
 			&db,
