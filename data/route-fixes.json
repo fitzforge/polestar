@@ -6551,7 +6551,8 @@
 			{ "a": ["task", 604], "b": ["accept", 2864], "faction": "Horde", "why": "#3145: on the way south from the naga coast, finish the Wild Shore beach work before entering Booty Bay for Krazek and the wind rider when the character is already 42." },
 			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
 			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
-			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." }
+			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." },
+			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",

@@ -18118,3 +18118,13 @@ test('forever/horde/40-50/01b-riverglades.guide: the Rog\'mar Scouts step names 
 	const { step } = list[at(list, 'complete 94748', is('complete', 94748))];
 	assert.match(step.note || '', /Twilight Champions drop the Twilight Key/);
 });
+
+// #3023 (Feralas, 0.4.1.1): the first Camp Mojache stop bound the hearth between Jangdor and Hadoken, both on the camp's
+// north side, while the inn is on its south side with Orwin and Rok Orhan: the camp was walked twice. The bind comes
+// right after Orwin, before Rok Orhan.
+test('forever/horde/40-50/02-feralas.guide: Camp Mojache\'s bind comes before Rok Orhan (#3023)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const rok = list[at(list, 'turnin 2981', is('turnin', 2981))];
+	const bind = list.findIndex(({ goal, s }) => goal.t === 'sethome' && s === rok.s);
+	assert.ok(bind >= 0 && bind < list.indexOf(rok), 'the sethome goal comes before turnin 2981 in the same step');
+});

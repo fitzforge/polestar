@@ -727,12 +727,12 @@ step Camp Mojache
   zone Feralas
   getfp "Camp Mojache"
   accept 2987                           -- Orwin Gizzmick
+  sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
   turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 47
   accept 2822                           -- Jangdor Swiftstrider, inside
-  sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
   accept 2862                           -- Hadoken Swiftstrider
   accept 2973                           -- Krueg Skullsplitter
 
