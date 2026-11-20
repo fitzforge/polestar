@@ -3875,7 +3875,7 @@ do
 			zoneName = "Silverpine Forest",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:204"] = "Pyrewood Village", ["area:236"] = "Shadowfang Keep", ["area:460"] = "Sun Rock Retreat", ["area:461"] = "Windshear Crag", ["area:467"] = "Stonetalon Peak", ["item:210183"] = "Horn of Xelthos", ["item:210186"] = "Breaching Charge", ["item:210187"] = "Venture Co. Work Order", ["item:210212"] = "Brother's Half-Key", ["item:210213"] = "Sister's Half-Key", ["item:277210"] = "Pyrewood Signet Ring", ["item:5140"] = "Flash Powder", ["npc:3989"] = "Venture Co. Logger", ["npc:4086"] = "Veenix", ["object:410369"] = "Dead Drop", ["quest:78261"] = "The Horn of Xelthos", ["spell:921"] = "Pick Pocket" },
+			names = { ["area:204"] = "Pyrewood Village", ["area:236"] = "Shadowfang Keep", ["area:460"] = "Sun Rock Retreat", ["area:461"] = "Windshear Crag", ["area:467"] = "Stonetalon Peak", ["item:210183"] = "Horn of Xelthos", ["item:210186"] = "Breaching Charge", ["item:210187"] = "Venture Co. Work Order", ["item:210212"] = "Brother's Half-Key", ["item:210213"] = "Sister's Half-Key", ["item:277210"] = "Pyrewood Signet Ring", ["item:5140"] = "Flash Powder", ["npc:3989"] = "Venture Co. Logger", ["npc:4086"] = "Veenix", ["object:410369"] = "Dead Drop", ["quest:78261"] = "The Horn of Xelthos", ["quest:78270"] = "Goblin Lockpicks", ["spell:921"] = "Pick Pocket" },
 			steps = {
 				{
 					title = "C's dead drop",
@@ -3887,7 +3887,7 @@ do
 				},
 				{
 					title = "{npc:4086}",
-					note = "{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it.",
+					note = "{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He offers {quest:78270} only while {quest:78261} is in your quest log: if you dropped it, take it again from C's {object:410369} by Pyrewood first. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it.",
 					goals = {
 						{ t = "talk", npc = 4086, npcName = "Veenix", map = 1442, x = 58.17, y = 51.69, z = 65.5 },
 						{ t = "accept", quest = 78270, title = "Goblin Lockpicks", npc = 4086, npcName = "Veenix", minLevel = 1, qlvl = 23, map = 1442, x = 58.17, y = 51.69, z = 65.5 },

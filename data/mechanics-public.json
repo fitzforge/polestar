@@ -32,6 +32,21 @@
 			],
 			"note": "A Reliquary of Purity (5527) is not offered by Rabine Saturna (11801) until the player has entered Dire Maul. Source: two player reports (#3104, #3270), one of them tried it: after zoning into Dire Maul East and asking Rabine about Dire Maul, the quest opened. Players' in-game recordings to 2026-11-20 agree: Rabine refused it to 6 people who could take it (level 56 and up) and offered it to 4; one person's windows at level 57 refused it six times before one offered it."
 		},
+		"78270": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "accept",
+					"target": {
+						"type": "npc",
+						"id": 4086
+					},
+					"fact": "Veenix offers Goblin Lockpicks only while The Horn of Xelthos is in your quest log: take it from C's Dead Drop by Pyrewood Village first.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Goblin Lockpicks (78270) is offered by Veenix (4086) only while The Horn of Xelthos (78261) is in the quest log. Source: players' in-game recordings to 2026-11-20: Veenix offered it to 9 Rogues, every one with 78261 in the log, and one of them was refused it in the window after 78261 had left the log; Traesheur's report (#3213), whose log had no 78261 when Veenix offered nothing."
+		},
 		"1918": {
 			"steps": [
 				{

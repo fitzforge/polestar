@@ -59,6 +59,12 @@ test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit
 	assert.match(step.fact, /inside Dire Maul once/);
 });
 
+test('Goblin Lockpicks opens at Veenix only while The Horn of Xelthos is in the log (#3213)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 4086]);
+	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
