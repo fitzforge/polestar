@@ -36,8 +36,20 @@ node tools/flow-audit.js gate flow/shipped flow/candidate --table
 ```
 
 Both trees must be audited with the same options (the same `--dynamic`, legs or
-`--no-legs`; straight lines while a candidate's legs are stale). The audit is
-light: a few seconds per branch, a few minutes per faction and mode.
+`--no-legs`; straight lines while a candidate's legs are stale); the gate refuses
+two audits of different `--dynamic` versions. The audit is light: a few seconds
+per branch, a few minutes per faction and mode.
+
+`--level-offset D` (default 0; fractional or negative too) plays a character
+always D levels ahead of the walk's modelled one: `when level` steps, level
+goals, min levels and the While-here mob gate read that level, while XP and the
+levels reported stay modelled. `--level-offset-profile FILE` instead plays a lead
+that changes with the level: a JSON list `[[level, offset], ...]` by modelled
+level, linear between its points (the first point's offset below it, the last
+one's above it), e.g. `[[5, -0.5], [25, 0.4], [35, 1.7], [45, 0.5]]` for a player
+behind the model in the start zones and ahead of it in the 30s. The audit records
+the offset or the profile; the gate refuses to compare two audits of different
+offsets.
 
 ## How a branch is played
 
@@ -56,6 +68,14 @@ keeps the other side's lines). Two walks per branch:
   the character, the addon's `HERE_MOBS_ABOVE`; `--dynamic 036`: 2, as 0.3.6
   offered), hand-ins of finished quests within the addon's budget, and the
   follow-ups an early hand-in's NPC gives.
+  `--dynamic 042` is 037 plus the rest of what the addon does on the way: a
+  later step's accept of the loaded guide as a pick-up line ("Take X from Y",
+  weighed as a hand-in; quest level at most 2 over the character, its min level
+  and prerequisites met, no group, escort or timed quest, room in the log), the
+  later accepts auto-accept takes at an NPC window the player opens anyway, and
+  the hand-in of a finished quest the loaded guide no longer hands in, at its
+  ender in passing. It is not the default yet: audits compare only within one
+  version.
   The tables are the dynamic walk's; the report shows both.
 
 The walk keeps a clock (7 yards a second on foot, flights at 30, 4 minutes for a
@@ -215,6 +235,10 @@ play whose guide and engine didn't change comes from the cache. `--guides`
 reports the guides whose id contains one of its texts (and plays each start's
 route up to them); `--skip-quest` plays a player who skips quests (a drop that
 never came, a quest left out), as the guide window's "Skip this quest" does.
+`--level-offset n` (also `playtest --level-offset n`) plays a character n whole
+levels ahead of each guide's level (negative: behind, never below 1): it starts
+at the guide's minimum level + n, and a level goal or an accept waiting for a
+level raises it to that level + n; its plays are cached apart from plain ones.
 
 Per guide that plays differently (or whose steps changed), and per branch (a
 start's default route, guide after guide):

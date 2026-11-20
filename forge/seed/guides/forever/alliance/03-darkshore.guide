@@ -19,6 +19,7 @@ next forever/alliance/03-loch-modan
 # Mushrooms' hand-in, and the Tower of Althalaxx (965, 966) is done on the north loop, by Buzzbox 323.
 
 step Boat to Auberdine
+  when !zone "Darkshore"
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live
 
@@ -122,7 +123,7 @@ step Auberdine
   turnin 97894                                -- Gorbold Steelhand
   accept 982
   accept 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
-  accept 965                                  -- Sentinel Elissa Starbreeze
+  accept 965 only Dwarf,Gnome,Human,Skyborne -- Sentinel Elissa Starbreeze, beside Terenthis
   accept 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
   accept 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
   accept 947                                  -- Barithras Moonshade
@@ -211,6 +212,7 @@ step Auberdine
   turnin 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
   accept 4761
   accept 985 only Dwarf,Gnome,Human,Skyborne
+  accept 965 only NightElf                    -- Sentinel Elissa Starbreeze, beside Terenthis and Tharnariun
   turnin 2138                                 -- Tharnariun Treetender
   accept 2139                                 -- Tharnariun Treetender
   turnin 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea

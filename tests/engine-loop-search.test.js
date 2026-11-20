@@ -35,9 +35,16 @@ Polestar.RegisterGuide({ id = "test/post", pack = "test", title = "post", factio
 	{ title = "Willem at his post", goals = { { t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 30, y = 50 } } },
 	{ goals = { { t = "level", level = 60 } } },
 } })
+Polestar.RegisterGuide({ id = "test/rifts", pack = "test", title = "Rifts", faction = "Alliance", minLevel = 1, maxLevel = 60, zone = 1429, steps = {
+	{ goals = {
+		{ t = "use", item = 12627, itemName = "Temporal Displacer", quest = 4971, oi = 1, ${SPOTS} },
+		{ t = "kill", npc = 10717, target = "Temporal Parasite", quest = 4971, oi = 1, ${SPOTS} },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
 `;
 
-function run(guide, script) {
+function run(guide, script, setup = '') {
 	const { emitted } = runAddon({
 		stubs: ['stub_world.lua'],
 		before: WORLD,
@@ -50,6 +57,7 @@ local w = stub.world
 function at(x) w.moveTo(1429, x, 50) end
 function wait(s) for _ = 1, s * 2 do stub.advance(0.5) end end
 function arrow() local wp = E.GetWaypoint(); return wp and wp.x end
+${setup}
 stub.login()
 Polestar.Set("behavior.autoAccept", false)
 E.SetGuide("${guide}")
@@ -61,13 +69,14 @@ ${script}`,
 
 const SEARCH = `at(30)
 local first = arrow()
+local goal = E.GetWaypoint() and E.GetWaypoint().goalIndex
 wait(4)
 local early = arrow()
 wait(5)
 local second = arrow()
 at(50)
 wait(9)
-emit({ first = first, early = early, second = second, third = arrow() })`;
+emit({ goal = goal, first = first, early = early, second = second, third = arrow() })`;
 
 test('the accept of an NPC who walks: a dwell at a point with nobody there moves the arrow to the next', () => {
 	const out = run('test/patrol', SEARCH);
@@ -79,6 +88,12 @@ test('the accept of an NPC who walks: a dwell at a point with nobody there moves
 test('a `skill` goal on a gathering round is searched the same way', () => {
 	const out = run('test/veins', SEARCH);
 	assert.deepEqual([out.first, out.second, out.third], [30, 50, 75]);
+});
+
+test('a quest item before its kill leads the arrow through each search point', () => {
+	const out = run('test/rifts', SEARCH, 'w.onQuest(4971, { { required = 15, fulfilled = 10 } })');
+	assert.equal(out.goal, 1, 'the quest item leads');
+	assert.deepEqual([out.first, out.early, out.second, out.third], [30, 30, 50, 75]);
 });
 
 test('an accept without a loop stays at its place however long the player stands there', () => {

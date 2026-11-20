@@ -45,6 +45,7 @@ function header(file) {
 
 const guides = new Map();
 for (const dir of ['guides', 'experimental/guides']) {
+	if (!fs.existsSync(path.join(root, dir))) continue;
 	for (const f of guideFiles(path.join(root, dir))) {
 		const h = header(f);
 		if (h.id) guides.set(h.id, h);
@@ -59,9 +60,10 @@ for (const h of guides.values()) {
 	for (const id of h.next) offered.add(id);
 }
 
-// Since 0.4.0 the Riverglades and Shen'dralas are in both factions' routes: Mount Hyjal's card is the one left.
-test('route choices exist to check', () => {
-	assert.ok(points >= 1, `only ${points} route choices found`);
+// Since 0.4.0 the Riverglades and Shen'dralas are in both factions' routes, and since 0.4.3 Mount Hyjal (Fitz,
+// 2026-11-20): no leveling guide offers a route choice. A new choice comes with card copy Fitz approves; count it here.
+test('no leveling guide offers a route choice', () => {
+	assert.equal(points, 0, `${points} route choices found: ${[...offered].join(', ')}`);
 });
 
 test('every route choice card has one short sentence, 3 short pros and 1 short con', () => {

@@ -18,7 +18,7 @@
 -- (ding-travel 2bccf01, its dangerAbove).
 --
 --   Nav.danger.Level() -> level | nil
---     the player's: the client's (Compat.GetPlayerInfo), or the last
+--     the player's: the client's (Compat.GetPlayerLevel), or the last
 --     PLAYER_LEVEL_UP's when that is higher (the client's can lag the event);
 --     nil when unread. Walk's searches and Travel's plans both read it.
 --   Nav.danger.ZoneAt(map, x, y) -> uiMapID | nil
@@ -85,8 +85,7 @@ local levelSeen = 0 -- PLAYER_LEVEL_UP's level: the client's can lag the event
 
 function Danger.Level()
 	local C = ns.Compat
-	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	local level = info and type(info.level) == "number" and info.level or nil
+	local level = C and C.GetPlayerLevel and C.GetPlayerLevel()
 	if levelSeen > (level or 0) then level = levelSeen end
 	return level
 end

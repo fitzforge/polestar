@@ -167,8 +167,9 @@ fn tonumber(v: &V) -> Option<f64> {
 // ---------------------------------------------------------------------------------------- Mulgore
 
 fn sharing_the_land(ctx: &Ctx, c: &mut Check) {
-	// The Horde route runs through the shared Shen'dralas guide; its Alliance `next` has no guide in this pack.
-	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/") || f == "forever/40-50/shendralas.guide").collect();
+	// The Horde route runs through the shared Shen'dralas and Mount Hyjal guides; their Alliance `next` has no guide
+	// in this pack.
+	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/") || f == "forever/40-50/shendralas.guide" || f == "forever/50-60/mount-hyjal.guide").collect();
 	let (compiled, errors) = compile_set(ctx, &files);
 	let errors: Vec<String> = errors.into_iter().filter(|m| !m.starts_with("`next` points to unknown guide \"forever/alliance/")).collect();
 	c.eq(errors, Vec::new(), "pack.diag.errors");
