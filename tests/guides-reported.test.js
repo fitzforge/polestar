@@ -18112,10 +18112,14 @@ test('forever/horde/06-hillsbrad-foothills.guide: Beren\'s Peril is handed in on
 });
 
 // #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
-// the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha.
-test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', () => {
+// the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha. Players' recordings: the
+// planting (spell 11547) credited the quest at 31.85,57.91 (Hiri'watha) and 23.65,58.36 (Zun'watha).
+test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', { skip }, () => {
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	const rec = places.find((p) => p.quest === 2932 && p.objective === 1);
 	assert.ok(rec, 'data/places.json places Grim Message objective 1');
 	assert.deepEqual(rec.at, { map: 1425, x: 31.9, y: 58.0, frame: 'era' });
+	const naming = allGuides().filter((g) => /\b9319\b/.test(fs.readFileSync(path.join(OFFICIAL_DIR, g), 'utf8')));
+	const plants = naming.flatMap((g) => goals(g).filter(({ goal }) => goal.t === 'use' && goal.item === 9319).map(({ goal }) => [g, goal.map, goal.x, goal.y]));
+	assert.deepEqual(plants, [['forever/horde/40-50/05-the-hinterlands.guide', 1425, 31.9, 58]], 'the one step that plants it points into Hiri\'watha');
 });
