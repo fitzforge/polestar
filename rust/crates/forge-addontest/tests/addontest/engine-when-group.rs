@@ -131,10 +131,7 @@ fn the_group_question_and_the_list_name_the_quest_in_the_client_s_language_3015(
 	// A German client: Names reads the client's own titles only off an English client.
 	let before = r#"function GetLocale() return "deDE" end
 stub.world.titles[7] = "Säuberung des Koboldlagers""#;
-	let out = run(Opts {
-		before,
-		..opts(r#"local q, title = E.GroupQuestion(); local list = E.GroupQuests(); emit({ q = q, title = title, listed = list[1] and list[1].title or false })"#)
-	});
+	let out = run(Opts { before, ..opts(r#"local q, title = E.GroupQuestion(); local list = E.GroupQuests(); emit({ q = q, title = title, listed = list[1] and list[1].title or false })"#) });
 	assert_eq!(out[0], json!({ "q": 7, "title": "Säuberung des Koboldlagers", "listed": "Säuberung des Koboldlagers" }));
 }
 

@@ -587,11 +587,7 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, event = event })"#);
 	assert_eq!(out["hand"], json!([90603]), "Rot and Regret is handed in though its event line is open");
 	assert_eq!(out["unfinished"], json!([90604]), "an event on another continent than the turn-in stays unfinished");
 	assert_eq!(out["steps"], json!(["Woodwyrd extinguished kill:90603", "Woodwyrd turnin:90603"]), "the event's place first, then the Woodwyrd");
-	assert_eq!(
-		out["event"],
-		json!({ "logLine": true, "target": "Woodwyrd extinguished", "oi": 2, "map": 1413, "x": 55, "y": 40 }),
-		"read by the quest's second line, the arrow on the event's place"
-	);
+	assert_eq!(out["event"], json!({ "logLine": true, "target": "Woodwyrd extinguished", "oi": 2, "map": 1413, "x": 55, "y": 40 }), "read by the quest's second line, the arrow on the event's place");
 }
 
 // #2118 (Fyurie, Uldaman's hand-in guide, a level 45 Warrior): after Uldaman Reagent Run the guide sent the player to
