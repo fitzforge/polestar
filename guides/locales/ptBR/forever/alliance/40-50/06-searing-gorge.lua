@@ -114,8 +114,9 @@ return {
 
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "Nível 48.66",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "mate {npc:9318} até subir",
 
@@ -142,10 +143,11 @@ return {
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Nível 48.98",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Se você pulou {quest:3452}, mate monstros aqui até o nível 48.98 para seguir o plano da rota.",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "mate {npc:5844} até subir",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron (no name in this language: may be words) · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -185,6 +187,7 @@ return {
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "De {area:144}, cavalgue para o sul até {zone:1418}, depois para o oeste passando pela cidade da Horda, {area:340} (mantenha distância), e suba a trilha até {zone:1427}. {area:1446} é o acampamento com andaimes na borda noroeste.",
 	-- ["Greater Lava Spiders"] = "Aranhas de Lava Abrasadoras",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Golens de Guerra Pesados patrulham o fundo de O Caldeirão, abaixo de Velarok; Elementais de Magma vagam entre eles. Golens e elementais deixam cair o óleo; os elementais, os corações.",
+	-- ["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Se você pulou {quest:3452}, mate monstros aqui até o nível 48.98 para seguir o plano da rota.",
 	-- ["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "Se você pulou {quest:7701}, mate monstros aqui até o nível 48.66 para seguir o plano da rota.",
 	-- ["Kalaran Windblade"] = "Kalaran Finalâmina",
 	-- ["Listen to Velarok's story once more."] = "Ouça a história de Velarok mais uma vez.",
@@ -198,6 +201,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até Velarok.",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok fica na borda de O Caldeirão, ao sul de {area:1446}. Ouça a história dele.",
+	-- ["grind on {npc:5844}"] = "mate {npc:5844} até subir",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}: vá matando estes pelo caminho",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: o guia anterior leva você até aqui com a pedra de regresso, então isto costuma ser marcado na hora",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} e o tesouro da revoada estão ao lado de Velarok, na borda ao sul de {area:1446}.",

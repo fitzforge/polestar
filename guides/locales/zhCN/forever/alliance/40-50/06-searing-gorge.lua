@@ -114,8 +114,9 @@ return {
 
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "等级 48.66",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "反复击杀{npc:9318}补足经验",
 
@@ -142,10 +143,11 @@ return {
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "等级 48.98",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "如果跳过了{quest:3452}，在这里刷怪补到48.98级，以跟上路线进度。",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "反复击杀{npc:5844}补足经验",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -189,6 +191,7 @@ return {
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "{npc:5854}在卡拉然·温布雷下方的大熔炉底部巡逻；{npc:5855}在它们之间飘荡。傀儡和元素掉落油，元素掉落核心。",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然·温布雷下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，元素还会掉落心脏。\n工头和奴隶贩子在大熔炉各处驱赶奴隶，都有几率携带{item:10551}。铸造师在中央熔炉处工作，掉落{item:18959}；斥候位于南侧山脊，掉落望远镜。任意{object:147516}均有几率掉落{item:11818}，请保留。\n注意：45–46 级的黑铁奴隶贩子被拉到时，会召唤 15 码内盟友支援，最远可在 15 码处投网，并在近战使用撕裂。",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作战傀儡在Velarok下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，只有元素掉落心脏。",
+	-- ["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "如果跳过了{quest:3452}，在这里刷怪补到48.98级，以跟上路线进度。",
 	-- ["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "如果跳过了{quest:7701}，在这里刷怪补到48.66级，以跟上路线进度。",
 	-- ["Kalaran Windblade"] = "卡拉然·温布雷",
 	-- ["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "卡拉然·温布雷站在{area:1446}南边的大熔炉边缘。听他讲述他的故事。",
@@ -204,6 +207,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往Velarok时会经过。",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
+	-- ["grind on {npc:5844}"] = "反复击杀{npc:5844}补足经验",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}：沿途击杀以下目标",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}和黑龙军团的宝藏就在Velarok旁边，位于{area:1446}南边的边缘上。",

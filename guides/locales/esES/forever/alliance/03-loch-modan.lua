@@ -413,4 +413,8 @@ return {
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "Para tu incursión en {area:717}, más adelante en {zone:1453}: guárdala hasta entonces.",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}: para {npc:1719}, en la puerta de {area:717}",
+
+	-- Step 75: Argos Nightwhisper
+	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 }

@@ -3469,50 +3469,122 @@
 			{
 				"a": [
 					"turnin",
-					1029
+					1009
 				],
 				"b": [
 					"accept",
 					1025
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Ashenvale): An Aggressive Defense's Foulweald Den Watcher and Ursas (24-25) and Culling the Threat's Dal Bloodclaw (25) were 2 over players on 06-ashenvale (players' recordings, 0.3.7+: 25th percentile 23.3-23.5 at those steps, and no later step of that guide reaches 24). Raene gives both on 06-wetlands' Astranaar stop for her next part (1029 -> 1030) at about 29, where the quests still pay full XP: the Foulweald on the walk to Krolg, Dal Bloodclaw on the walk from Maestra's Post back to Astranaar, both handed in on the last Astranaar stop with 1046."
+				"why": "Ashenvale fix round (2026-11-20): An Aggressive Defense is taken from Raene on 06-ashenvale's Astranaar stop after the west sweep, where Teronis's gem (1023, its prerequisite) is handed in, and worked on the south-east loop after the Stonetalon Peak flight back, at about 24-25: the Foulweald's Den Watcher and Ursas are 24-25, at most one over the player there (a Careful tip at the den), and Raene no longer offers it on every Astranaar stop of the visit unanswered."
 			},
 			{
 				"a": [
 					"turnin",
-					1029
+					1056
 				],
 				"b": [
-					"accept",
-					1054
-				],
-				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Ashenvale): see the pair before (turnin 1029 -> accept 1025): Culling the Threat is taken on the same Astranaar stop at about 29."
-			},
-			{
-				"a": [
 					"task",
 					1025
 				],
-				"b": [
-					"turnin",
-					1030
-				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Ashenvale): the Foulweald (53,61) lies on 06-wetlands' walk from Astranaar south-east to Krolg (50.8,75), about 300 yd off the straight line."
+				"why": "Ashenvale fix round (2026-11-20): Stonetalon comes before the south-east loop: the Pridewings and the courier lie on the road north from Windshear Crag to Stonetalon Peak, whose flight brings the player back to Astranaar for the Foulweald, Mystral Lake and Dal Bloodclaw, a level later than the first Astranaar stops."
 			},
 			{
 				"a": [
-					"turnin",
-					1140
+					"task",
+					1016
 				],
 				"b": [
 					"task",
 					1054
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Ashenvale): Dal Bloodclaw's Thistlefur camp (39.6,36.3) lies between Maestra's Post (26,38) and Astranaar (36.6,49.6), about 650 yd more than the road, on 06-wetlands' last walk back to Astranaar's flight master."
+				"why": "Ashenvale fix round (2026-11-20): Dal Bloodclaw (25, at 39.6,36.3) is the last fight of 06-ashenvale's first visit: from Mystral Lake north past Astranaar's east side to his camp, then south to the one Astranaar stop for Raene's and Maliynn's hand-ins before the flight to Auberdine."
+			},
+			{
+				"a": [
+					"turnin",
+					1008
+				],
+				"b": [
+					"turnin",
+					1070
+				],
+				"faction": "Alliance",
+				"why": "Ashenvale fix round (2026-11-20): the west sweep and the Zoram Strand come before Stonetalon, so Shindrell's Pridewings of Stonetalon (1134, after The Zoram Strand 1008) is taken on the hearth stop and worked on the Stonetalon trip instead of being walked past."
+			},
+			{
+				"a": [
+					"task",
+					1034
+				],
+				"b": [
+					"task",
+					973
+				],
+				"faction": "Alliance",
+				"why": "Twerkjob's report of back and forth in Ashenvale (Ashenvale fix round 2026-11-20): after Elune's Tear, 06-ashenvale's first visit makes one sweep up the west: the Ruins of Stardust, Ilkrud Magthrull at the Fire Scar Shrine, Therysil at the Shrine of Aessina, Teronis at Lake Falathim, Delgren at Maestra's Post and the Zoram Strand, then the hearth to Astranaar, instead of Lake Falathim, the isle, Stonetalon, Stardust, a walk east to Shael'dryn, back to Astranaar and west again."
+			},
+			{
+				"a": [
+					"task",
+					973
+				],
+				"b": [
+					"turnin",
+					945
+				],
+				"faction": "Alliance",
+				"why": "06-ashenvale's west sweep: the Shrine of Aessina (Therysil) lies north of the Fire Scar Shrine (Ilkrud), on the way to Lake Falathim (see task 1034 before task 973)."
+			},
+			{
+				"a": [
+					"turnin",
+					945
+				],
+				"b": [
+					"turnin",
+					991
+				],
+				"faction": "Alliance",
+				"why": "06-ashenvale's west sweep: Teronis at Lake Falathim after Therysil, north of the shrine (see task 1034 before task 973)."
+			},
+			{
+				"a": [
+					"task",
+					1023
+				],
+				"b": [
+					"turnin",
+					973
+				],
+				"faction": "Alliance",
+				"why": "06-ashenvale's west sweep: from Lake Falathim north-east to Delgren at Maestra's Post, then west to the Zoram Strand (see task 1034 before task 973)."
+			},
+			{
+				"a": [
+					"turnin",
+					1009
+				],
+				"b": [
+					"turnin",
+					1023
+				],
+				"faction": "Alliance",
+				"why": "06-ashenvale: Raene's Glowing Gem goes in on the Astranaar stop after the Zoram Strand, with Shindrell's and Pelturas's hand-ins, the hearthstone bound at Astranaar taking the player there from Talen."
+			},
+			{
+				"a": [
+					"accept",
+					4581
+				],
+				"b": [
+					"accept",
+					1024
+				],
+				"faction": "Alliance",
+				"why": "Raene's Cleansing (1024) only sends the player to Shael'dryn in the Howling Vale, far east of 06-ashenvale's first-visit stops: 06-wetlands takes it in Astranaar on its walk east from the western posts (Melyria and Illiyana) and hands it in where Shael'dryn gives its next part (1026)."
 			},
 			{
 				"a": [
@@ -3601,14 +3673,14 @@
 			{
 				"a": [
 					"turnin",
-					98221
+					275
 				],
 				"b": [
 					"turnin",
 					472
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Fall of Dun Modr goes to Longbraid the Grim on 30-40/01-hillsbrad-foothills' Dun Modr stop, which the route makes anyway; 06-wetlands walked north to Dun Modr for that one hand-in and back."
+				"why": "Fix round 2026-11-20 (Wetlands finished on the second visit): after Rethiel's Blisters on the Land (275) 06-wetlands' east loop goes on to the Dragonmaw Gates and north to Dun Modr, where Longbraid takes Fall of Dun Modr and Rhag starts The Thandol Span, at 28-29; it was a third Wetlands visit at 30.8-31 (30-40/01), after Ashenvale, Ironforge, Stormwind and Duskwood."
 			},
 			{
 				"a": [
@@ -5784,7 +5856,7 @@
 					1016
 				],
 				"faction": "Alliance",
-				"why": "Alliance 12-30 (0.4.0 fix round): Elemental Bracers (1016) is done on 06-wetlands' Ashenvale trip, between the Foulweald and Krolg, at about 29.7. On 06-ashenvale's Mystral Lake stop at 23-24 the Befouled Water Elementals (23-25) and Tideress (27, non-elite, drops the bracers) were two to four over the player: 0.3.5+ players' recordings show 4 people killed by Tideress and 4 by the elementals there."
+				"why": "Ashenvale fix round (2026-11-20): Elemental Bracers (1016) follows the Foulweald on 06-ashenvale's south-east loop after Stonetalon, at about 24-25 (it was on 06-wetlands' Krolg leg at about 29.7 since the 0.4.0 fix round, when the loop came at 23-24): the Befouled Water Elementals are 23-25, at most one over the player now, and the step tells the player to leave Tideress (27, west shore) alone, the mob that killed 4 recorded players at about 23. 06-wetlands keeps a catch-up for a character who arrives without it."
 			},
 			{
 				"a": [
@@ -6453,6 +6525,18 @@
 			},
 			{
 				"a": [
+					"turnin",
+					6161
+				],
+				"b": [
+					"turnin",
+					1438
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix round (2026-11-20): Claim Rackmore's Treasure! is done on the first Desolace visit (30-40/02, about 34): the log beside Karnitol's Chest, the silver key from the Drysnap crabs around the wreck (33-35), the golden key from the Slitherblade naga of Sar'theris Strand's southern half (32-34) and the chest on Ranazjar Isle, then back south-east past Azore's tower to Thunder Axe Fortress (about 1,400 yd added; the coast walked once). It was carried to the south loop at 38-39 (30-40/06b) for 2,800 XP. Players' recordings: 37 of 37 guide followers at the first visit were already within one level of the crabs and naga."
+			},
+			{
+				"a": [
 					"accept",
 					4300
 				],
@@ -6485,7 +6569,15 @@
 			"Alliance 50-60 fix round 3 (0.4.0): 50-60/01's top-up to 50.56 on the Thunderhead Hippogryphs (46-48, two to four under the player) around Sanath Lim-yo's camp is gone; its minutes land on the next one, \"Level 51.3 on the way north\" on the Spitelash Myrmidons (50-51), a `level` step with the dungeon line, where the Azshara quests that follow need the level (level model: no change to the route's hours). Hand edits.",
 			"Alliance 50-60 fix round 3 (0.4.0): after the Fallen Hero of the Horde (Swamp of Sorrows 34.3,66.1), 50-60/01 has a travel step back into the Blasted Lands to the bloodmages' camp by the road (50.6,14.2) before the beast hunt; the hunt's step changed zone with no travel line (honest playtest). Hand edits.",
 			"Alliance 40-50 route round (0.4.3, AuditA40 5(b)): the Riverglades guide (40-50/01b) warns early visitors. Its first quest step (Scout Bolain) says the guide is written for 41-45 and the route comes at about 41 after Stranglethorn, with the port's second wave and the Western Front at 43-45 (elite Twilight Enforcers 45, Overlord Kilgar 46 for groups); a `when level<44` step before Sergeant Riftan names the Western Front's Champions (43-44), Thralls (44), the Enforcer patrols and Kilgar. Players who went in on their own at 38-43 died there most (players' recordings: Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, No Soldier Left Behind 9/13 at 44.4; followers of the guide 2/4). Hand edits.",
+			"Alliance 50-60 redraw (0.4.3 fix round, hand edits): 01 opens in Ironforge (the Hearthstone from Un'Goro), takes the Blasted Lands and the Burning Steppes at 50-51 with Danneth's Serpent's Coil chain (96798, 96811, 96799, 96812) and To Serve Kum'isha (2521) when the sphere drops, and ends in Azshara at 51-52 (its 51.3 and 50.65 top-ups gone). 02 is Felwood's first pass, the tunnel to Everlook, Darnassus and Feralas' second visit (Zorbin 7003/7721, Gregan, Rockbiter and Shay) at 52-53. 03 is Donova's Frostfire camp and Felpaw Village, Tanaris and Un'Goro's second visit, Felwood's south (Shadow Hold, Salve via Hunting 5882) and the whole Winterspring loop at 53-55, ending in Moonglade (its 53.6 -> 55 top-up, about 246k XP for the level model's player, gone). 04 is one Plaguelands sweep at 55-57 with the Stormwind hop for Flint Shadowmore's chain (6182-6186, so The Blightcaller Cometh pays), Kirsta, Tirion, Gahrron, Egan and Light's Hope; then Mount Hyjal; 06 is Silithus alone, ending with one step under 60 that sends the player to a dungeon with a group (Main's decision: the level model ends its last hand-in about 0.5 level, 109k XP, short of 60; no mob-camp grind). Level model (28 branches, median): grind 1,566 -> 0 model minutes, Hyjal entry 57.73 -> 56.6, quest XP handed in between 53.5 and 55: 12.6k -> 154k; Western Plaguelands 4 visits -> 1, Eastern Plaguelands 3 -> 1, Silithus 2 -> 1, Winterspring 3 -> 2.",
+			"Alliance 12-31 fix round (2026-11-20), Duskwood: Dusky Crab Cakes (93) is handed in with Jitters' Growling Gut on 04-redridge-mountains' Darkshire stop for everyone, its six Gooey Spider Legs collected on the Hushed Bank on the way (spiders 18-25, about 30% each), and Return to Jitters (240) taken there. 05-duskwood: Look to the Stars' Insane Ghoul (177, 26, the Tranquil Gardens' crypt below Blind Mary) on the opening and Viktori on the way into town (181 taken there for the Duskwood return); The Night Watch (57) on the first west trip, handed in on the Darkshire stop after it with its third part (58) taken for the Plague Spreaders among Abercrombie's ghouls (handed in on 07-thousand-needles' first Darkshire stop); Proving Your Worth (323) worked at Sven's from level 28 and Seeking Wisdom (269) handed to Bishop Farthing on the Stormwind walk, his The Doomed Fleet (270) for Glorin in Menethil (06-wetlands). 07-thousand-needles keeps every step for a character without them. Hand edits.",
+			"Alliance 12-31 fix round (2026-11-20), Wetlands: 06-wetlands finishes the zone at 28-29: after Rethiel's Blisters on the Land the east loop goes to the Dragonmaw Gates (98072, 98245, 98246) and Dun Modr / the Thandol Span (472, 631-634, 637), back past Howin (hand-ins) to Menethil; Lifting the Curse (290-293) from level 29 at the end, Lightforge Iron (270 -> 321, 324, 322) on the first Menethil stops for a player carrying The Doomed Fleet, Sully Balloo's Letter and Sara Balloo's Plea (637, 683) on its Ironforge stop, Blessed Arm and Cleansing the Eye (322, 293) on its Stormwind stop. 30-40/01-hillsbrad-foothills' Wetlands loop and 30-40/03-ashenvale's Lightforge steps stay for a character who arrives without them (agreed with the Alliance 30-40 band). Hand edits.",
+			"Alliance starts fix round (2026-11-20), nightelf/02-darkshore: Buzzbox 411 (1001) is taken from Buzzbox 827 on the hand-in of his first quest (end of nightelf/01-teldrassil, the Long Wash) and its Thresher Eyes collected on Night Elf Darkshore's first beach stop; Buzzbox 411 takes them north of Bashal'Aran at the end of the first loop and gives Buzzbox 323 (1002, the Moonstalkers 14-15 of the second loop). Thundris Windweaver (4761) is taken from Terenthis with the hand-in of How Big a Threat? (984) and handed to Thundris on the same Auberdine stop, The Cliffspring River (4762) taken there and its sample filled at the falls at the north-east end of the second loop, beside Buzzbox 323; Beached Sea Turtle (4725, 44.1,20.8, mobs 15) is taken on the walk west from the falls. All five go in on the last Auberdine stop (3,575 XP). Every quest the Auberdine stops walk past that goes on to 03-darkshore is taken here (pick up now, do later: their work is on 03-darkshore after Westfall): Deep Ocean, Vast Sea (982) from Gorbold on the second stop; The Tower of Althalaxx, Tharnariun's Hope and Cave Mushrooms (965, 2139, 947), and from level 15 The Blackwood Corrupted (4763, its own step) on the last. Expanding Horizons (97914) goes from Thundris to Baros Alexston on the Stormwind walk, beside his compass quest, and Making Do (97926) back to Thundris on 03-darkshore's first Auberdine stop. Turtle 4727 (Encrusted Tide Crawlers 18-20) and Buzzbox 525 (1003) stay on 03-darkshore, which keeps every line for other races and for a Night Elf who skipped them. Hand edits; recordings: Night Elf accepts at P25 13 (1001, 30 people), 13 (4761, 26), 14 (4762, 28).",
+			"Alliance 30-40 fix round (2026-11-20): 30-40/03 takes Wharfmaster Dizzywig (1111, with Rocket Car Parts' hand-in) and Pozzik's Goblin Sponsorship (1178, with Load Lightening's) at the Mirage Raceway and hands both in at Ratchet beside the Booty Bay boat, Gazlowe's 1180 goes to Wharfmaster Lozgil on the Booty Bay dock where 30-40/04 lands and Lozgil's 1181 to Baron Revilgaz on that stop (the include records above already place them after 1110, 1176, 1178 and 1180; no walk added). A Host of Evil (6626) is a `when group 6626` step on the Barrens leg: the Razorfen Battleguards, Thornweavers and Death's Head Cultists outside Razorfen Downs are elites of 33-34 at players' 32-33. A Bump in the Road (1175) stays out (the Alliance skip above): a `when level>=34` step never shows in a 31-33 guide. Hand edits.",
 			"Mount Hyjal in both routes (0.4.3, Fitz's approval 2026-11-20): the zone's guide leaves Polestar Experimental for guides/forever/50-60/mount-hyjal (both factions, one guide; hand-written, no seed). Alliance: 50-60/04 (ends at Marshal's Refuge, level model 57.7) -> mount-hyjal -> 50-60/06, whose Everlook opener (hyjal-everlook) already takes the return; 06's header 59-60. Horde: 50-60/05 (ends at Valor's Rest, 57.0) -> mount-hyjal -> 50-60/06, which opens with the flight from Everlook to Marshal's Refuge (`when zone \"Winterspring\"`); 06's header 58-60, and its top-ups to 57 and 58 no longer fire on the route (level model: Horde grind 1,873 -> 1,424 minutes, hours to 60 121.9 -> 116.4). The choice card at the end of 50-60/04 goes. Hand edits. Horde update (2026-11-20, Horde 50-60 flow rework): 50-60/05 now ends at Everlook (Umi, level model 56.6), where Mount Hyjal's way in starts, and 50-60/06 opens with the flight from Everlook to Gadgetzan (Gaeriyan, Sprinkle, Pestlezugg, Marvon), then Marshal's Refuge (Linken, J.D. Collie) and Valor's Rest; 06's header 58-59 and its top-ups are gone.",
+			"Alliance 50-60 (fix round 2026-11-20): Deadwood Ritual Totem (8470) and Winterfall Ritual Totem (8471) need Neutral with Timbermaw Hold (the quest data's own requirement), and Kernda and Meilosh in Timbermaw Hold are hostile below it: players' recordings (2026-11-20; rec.py npc 11558 and 11557) show Kernda hostile to 29 people and neutral to 2, Meilosh hostile to 29 and neutral to 1; of the 39 characters with Timbermaw reputation, none was Neutral by level 53, 1 of 23 by 55 and only 3 ever. The totem accepts, Kernda's hand-ins and the farm for the Deadwood totem are `when rep \"Timbermaw Hold\" Neutral` steps that say the reputation guide gets you there, and Meilosh's Runecloth (6031) waits for Friendly, as its tip says; the reputation guide (forever/reputation/timbermaw-hold) keeps all of them. Hand edits (a reputation gate has no guide-fix record).",
+			"Alliance 50-60 fix pass (2026-11-20): Commander Ashlam Valorfist's Scholomance (5533, minimum 55 in Forever's quest data) and Arbington's Skeletal Fragments after it (5537) were taken on the second Chillwind Camp stop, which the corrected level model reached at 54.96-54.99 in 21 of 28 runs (refused). They move to the third Chillwind Camp stop, after Dalson's Tears and right before Chromie and Andorhal, where the fragments drop: the same quests, no walk added. Dearest Natalia (8304, minimum 58) was taken on the Silithus guide's first Cenarion Hold stop, which the model reached at 57.94-57.96 in 21 of 28 runs (refused); Commander Mar'alith gives it on the third Cenarion Hold stop instead, still before Bronzebeard's Encampment, where its two talks are: no walk added. Hand edits.",
+			"Alliance 1-30 fix pass (2026-11-20): Night Elf Darkshore now does the Cliffspring River sample (4762) and the turtle north of Bashal'Aran (4725), so on 03-darkshore's second loop a Night Elf walked from Auberdine up to the falls for the Beached Sea Turtle there (4727) and Fruit of the Sea's crab chunks (1138), back to Auberdine to hand them in, then north again to the bay wrecks, the Tower and the cave beside the same falls (flow audit: a 1,616-yard backtrack, about 3.2 km in all). For Night Elves the turtle (53.06,18.09, north of the falls; objects.json 176196) and the chunks (item 12237, from the bay's Reef Crawlers and Encrusted Tide Crawlers) are taken on the north loop and handed in on its last Auberdine stop; other races keep them on the second loop, where the falls are on their way (`only Dwarf,Gnome,Human,Skyborne` there). Hand edits.",
 			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals and soil at the Lashers and Threshers (56.6,35.0; 48-50) and J.D. Collie's crystals at the clusters on the jungle's north-eastern edge (72.2,21.1; Lashers, young Diemetradons and Pterrordax 48-50), away from the Flayers, Trappers, Tar Lords and oozes (50-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45), right before the content that needs it. Un'Goro's 49.79 top-up, shown only to players under the plan, points at the eastern jungle's Lashers and Threshers (48-50) instead of the Pterrordax (50-52); Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) is gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
@@ -6560,6 +6652,44 @@
 			}
 		],
 		"together": [
+			{
+				"a": [
+					"task",
+					606,
+					0
+				],
+				"b": [
+					"turnin",
+					587
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Scaring Shaky's Elder Mistvale Gorillas (40; spawns 31-35,58-68) live on the hills just east of the Bloodsail camp north of Booty Bay (Raiders and Mages 26-33,66-74), where Up to Snuff and Keep An Eye Out are worked. The giblets are taken on the same trip and all three are handed in on one return to town (Shaky at the tunnel mouth), instead of town -> camp -> town -> gorillas -> town: one Booty Bay stop and one round trip fewer at about 40. Scaring Shaky is taken on 30-40/04b; the fallback accept for a fresh starter stays on the stop before the camp."
+			},
+			{
+				"a": [
+					"turnin",
+					1398
+				],
+				"b": [
+					"turnin",
+					1425
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Deliver the Shipment, given by Watcher Biggs with Driftwood's hand-in, goes to Nethergarde Keep at the Blasted Lands' north edge, a short ride south through the pass from Biggs; the route leaves the swamp that way and flies out from the keep, instead of walking back west to Darkshire and carrying it to a Nethergarde stop at 48 six guides later. Players' recordings: 37 Alliance people rode the road from the swamp to the keep at 38-45, no deaths on it."
+			},
+			{
+				"a": [
+					"task",
+					1364,
+					0
+				],
+				"b": [
+					"turnin",
+					1364
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Mazen's Behest's essays come from Misty Valley in the Swamp of Sorrows and Watcher Mahar Ba waits in Nethergarde Keep, where the swamp leg now ends (see 1425 above), so the quest is handed in on the same trip."
+			},
 			{
 				"a": [
 					"task",
@@ -7512,7 +7642,8 @@
 			{
 				"a": [
 					"task",
-					156
+					57,
+					0
 				],
 				"b": [
 					"task",
@@ -7520,7 +7651,7 @@
 					1
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Horrors (57) are killed with the Rot Blossoms (156), which drop from the same Skeletal Horrors on the hillside south-east of Darkshire (24% in the game's loot data, so the eight blossoms take about twice the fifteen Horrors). Supersedes r4d's 'Horrors with the Fiends on the Raven Hill visit': The Night Watch is now handed in on the Darkshire visit after the first loop, so the first loop has no Night Watch work."
+				"why": "Fix round (2026-11-20, Duskwood): The Night Watch's Skeletal Fiends and Horrors (57) are killed together in the Raven Hill Cemetery's southern half on 05-duskwood's first west trip (14 of the Horrors' 24 spawns stand there with the Fiends), and 57 goes to Commander Althea on the Darkshire stop right after, instead of on the Duskwood return two guides later. Supersedes the 2026-11-07 pairing of the Horrors with the Rot Blossoms (156), which is taken only on that Darkshire stop."
 			},
 			{
 				"a": [
@@ -8298,7 +8429,7 @@
 			{
 				"a": [
 					"turnin",
-					133
+					157
 				],
 				"b": [
 					"task",
@@ -8306,7 +8437,7 @@
 					0
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Fiends (57) walk the southern half of the Raven Hill Cemetery, which the last western loop crosses from Abercrombie to Jitters after Ghoulish Effigy; 57 is then handed in on the Duskwood return's first Darkshire stop, where its third part (58) starts. Taken on the Darkshire visit after the first loop, it has no work on that loop."
+				"why": "Fix round (2026-11-20, Duskwood): The Night Watch's Skeletal Fiends (57) walk the southern half of the Raven Hill Cemetery, which 05-duskwood's first west trip crosses from Abercrombie (157 -> 158) to Sven's camp; 57 is handed in on the Darkshire stop after that trip, where its third part (58, the Plague Spreaders) is taken for the second trip's ghouls."
 			},
 			{
 				"a": [
@@ -8758,6 +8889,10 @@
 				"why": "c15 review: A Donation of Runecloth, Orgrimmar (Vehena): sixty cloth from the player's bags, not a drop the route can farm; the route counted its XP as certain. Optional like the Alliance donations (Main's call): a player without the cloth skips the hand-in, and the route no longer counts on it"
 			},
 			{
+				"q": 2876,
+				"why": "Fix round 2026-11-20 (Alliance 40-50/04): Ship Schedules starts from a Ship Schedule a Southsea pirate can drop at Lost Rigger Cove; a `when has 9250` step on the next Steamwheedle Port stop takes it and hands it to Security Chief Bilgewhizzle in the same building, so a character without the drop never sees it and the route never counts its XP. Recorded: 11 people took and handed it in at 43-51 (rec.py quest 2876). Likewise the Alliance Feralas and Hinterlands robot steps (2766/2767, 485/836 below) show only with their beacon in the bags, the rewards on 05's Booty Bay stop."
+			},
+			{
 				"q": 2766,
 				"why": "c15 review: Find OOX-22/FE! starts from the Distress Beacon, a 0.8-2.5 % drop of the Forgotten Coast's crawlers (the game's loot data); v1 marks it optional. c15 counted it: the route walked 285 s to the beacon's coast at 45.7 and planned the escort into Feralas II (Orc.json order[1207-1210]), and banked its XP"
 			},
@@ -8867,6 +9002,11 @@
 			}
 		],
 		"group": [
+			{
+				"q": 91752,
+				"size": 1,
+				"why": "The Big Picture (Elwynn, level 3): Shinyfinder Narf is a level 3 elite and the route reaches him at about 5.3 (level model), two levels over him: an elite two or more levels under the player is solo content (Alliance starts fix round, 2026-11-20). Players' recordings: 56 people took it (accept 25th percentile 5), 46 handed it in. Its follow-ups (91758, 91772) are talks and clicks on the road to Goldshire."
+			},
 			{
 				"q": 5168,
 				"size": 2,
@@ -9177,6 +9317,20 @@
 				"issue": "-"
 			},
 			{
+				"q": 3445,
+				"reason": "Fix round 2026-11-20 (Alliance 40-50): The Sunken Temple is a courier from Angelas Moonbreeze in Feathermoon Stronghold to Marvon Rivetseeker at the Broken Pillar in Tanaris (3,650 XP, minimum level 46): taken on 40-50/03's last Feathermoon stop (level model about 46.6, in a `when level>=46` step) and handed in on 40-50/04's dig stop at the Broken Pillar (about 47.6), two stops the route already makes, instead of on the 50-60 Feralas stop at about 56. Players' recordings (Alliance, all players): taken at 46 and handed in at 48 (25th percentile, 28 and 25 people).",
+				"issue": "-"
+			},
+			{
+				"q": 3444,
+				"reason": "Fix round 2026-11-20 (Alliance 40-60): The Stone Circle (minimum level 46, 4,900 XP, Marvon Rivetseeker's follow-up to The Sunken Temple, no mobs: a stone circle by Ratchet's flight master) is taken where 40-50/04 hands in The Sunken Temple at the Broken Pillar (about 47.6). Fix pass after the audit: 40-50/07's flight from Theramore to Gadgetzan stops at Ratchet for the circle (one more hop on a flight the guide takes anyway) and Marvon takes it on 07's ride south past the Broken Pillar to the Gaping Chasm, at about 49.5, instead of a five-guide carry and a Broken Pillar detour for one quest on 50-60/03 at about 53; 50-60/03 keeps its two `when onquest 3444` steps for a character who arrives with the quest.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					3445
+				]
+			},
+			{
 				"q": 97924,
 				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept, after the campfire's /sit quest) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step right after the campfire's steps (#1559: auto-accept never takes an optional accept; the goal carries the quest's profession, so only holders see it), handed to Helene Peltskinner in a `when onquest` step on a stop the guide already makes (required, so auto turn-in takes it). Players' recordings in these zones (all versions, people): 12 took it, 12 handed it in. One per profession per character; only those whose trainer stands on an existing stop are in.",
 				"issue": "-"
@@ -9356,7 +9510,7 @@
 			},
 			{
 				"q": 98246,
-				"reason": "Alliance 1-30 audit (#1415): Trying Times is taken from Howin Kindfeather with Razormaw Needling (98245) on 06-wetlands' Howin stop: the same Razormaw raptors give its eggs on 30-40/01's Wetlands loop, where both are handed in. Players' recordings: 6 people took it at Howin (levels 24-31), 3 handed it in there.",
+				"reason": "Alliance 1-30 audit (#1415): Trying Times is taken from Howin Kindfeather with Razormaw Needling (98245) on 06-wetlands' Howin stop: the same Razormaw raptors give its eggs. Fix round 2026-11-20: both are worked at the Dragonmaw Gates on the same visit and handed back to Howin on the walk south from Dun Modr. Players' recordings: 6 people took it at Howin (levels 24-31), 3 handed it in there.",
 				"issue": "-",
 				"after": [
 					"accept",
@@ -10701,6 +10855,24 @@
 				"issue": "-"
 			},
 			{
+				"q": 1190,
+				"after": [
+					"turnin",
+					1137
+				],
+				"reason": "Fix round 2026-11-20: Keeping Pace is given by Pozzik at the Mirage Raceway once News for Fizzle (1137) is handed in to Fizzle in the gnomes' camp beside him; its work is Zamek's diversion and a click on Rizzle's Unguarded Plans in the same camp, so it is done on the raceway stop both routes already make (Alliance 40-50/04, Horde 40-50/02). There is no race to wait for: the earlier Alliance skip's reason did not match the quest. Recorded: 19 Alliance people took and finished it, P25 level 43 both ways.",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"after": [
+					"turnin",
+					1190
+				],
+				"reason": "Fix round 2026-11-20: Rizzle's Schematics is taken from Rizzle's Unguarded Plans as Keeping Pace is handed in there and handed back to Pozzik a few steps away, on the same Mirage Raceway stop.",
+				"issue": "-"
+			},
+			{
 				"q": 1428,
 				"after": [
 					"turnin",
@@ -11142,8 +11314,126 @@
 			},
 			{
 				"q": 1024,
-				"reason": "Catch-up in forever/alliance/06-wetlands: a player who missed this part in 06-ashenvale takes Raene's message on the way east and pays Shael'dryn before 1026 and 1025. Skip this delivery when 1024 is already handed in.",
-				"issue": "#3144"
+				"reason": "Raene's message to Shael'dryn is taken on 06-wetlands' walk east through Astranaar after the western posts (Melyria and Illiyana), after the catch-up for Teronis's gem, and handed in where Shael'dryn gives 1026: on 06-ashenvale's first visit it was a walk far east from the Ruins of Stardust for one talk hand-in and back (Ashenvale fix round 2026-11-20). Skip this delivery when 1024 is already handed in.",
+				"issue": "-"
+			},
+			{
+				"q": 1134,
+				"after": [
+					"turnin",
+					1008
+				],
+				"reason": "Ashenvale fix round (2026-11-20): Pridewings of Stonetalon (21, 1,650 XP) is taken from Shindrell with The Zoram Strand's hand-in on 06-ashenvale's hearth stop and worked on the road north from Windshear Crag to Stonetalon Peak (Pridewings 21-24 at about 24), handed back to her where the Peak's flight lands. Recorded players took it without the guide (21 people, accept 25th percentile 23.5).",
+				"issue": "-"
+			},
+			{
+				"q": 86574,
+				"after": [
+					"turnin",
+					1093
+				],
+				"reason": "Ashenvale fix round (2026-11-20): Stonetalon Supply Run (24, 1,950 XP): the Night Elf Courier waits by the road on the west side of the Pridewing slopes, west of the Webwinder Path; his six supply bundles drop from the same Pridewings as Pridewings of Stonetalon's venom sacs, and Innkeeper Faralia stands beside Keeper Albagorm at Stonetalon Peak, where 06-ashenvale's Stonetalon trip now ends. Recorded players took it without the guide (12 people, accept 25th percentile 23).",
+				"issue": "#3263"
+			},
+			{
+				"q": 1056,
+				"after": [
+					"turnin",
+					1020
+				],
+				"reason": "Ashenvale fix round (2026-11-20): Journey to Stonetalon Peak (18, 680 XP) from Faldreas Goeth'Shael beside Astranaar's flight master on the first stop, handed to Keeper Albagorm at Stonetalon Peak at the end of the Stonetalon trip, where the Peak's flight path takes the player back to Astranaar instead of the walk back through the Talondeep Path.",
+				"issue": "-"
+			},
+			{
+				"q": 3765,
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Corruption Abroad (24, 1,450 XP, a talk) is taken from Argos Nightwhisper on 03-loch-modan's walk through Stormwind to the boat and handed to Gershala Nightwhisper beside Terenthis on 03-darkshore-return's first Auberdine stop, where the boat lands. It is the outdoor step of Blackfathom Deeps' chain; Researching the Corruption (1275, in the dungeon) stays the `when dungeon` choice.",
+				"issue": "#3263"
+			},
+			{
+				"q": 288,
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Third Fleet (27, 220 XP, no mobs: a mead bought from the innkeeper beside First Mate Fitzsimmons) is done on 06-ashenvale's first Menethil stop instead of 06-wetlands', and The Cursed Crew (289) taken there for the next Wetlands visit; the quest level alone doesn't hold an errand back.",
+				"issue": "#3263"
+			},
+			{
+				"q": 1037,
+				"after": [
+					"turnin",
+					1022
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): Velinde Starsong (30, 600 XP) is taken from Sentinel Melyria with The Howling Vale's hand-in on 06-wetlands' last western-post stop and handed to Thyn'tel Bladeweaver in Darnassus on a Rut'theran hop from Auberdine before the boat (it was left out as an 18-level carry to 40-50); Velinde's Effects (1038) is done on the same hop and The Barrens Port (1039) taken for Ratchet, which opens the Caravan Road chain on the 30-40 stops (agreed with the Alliance 30-40 band).",
+				"issue": "#3263"
+			},
+			{
+				"q": 1038,
+				"after": [
+					"turnin",
+					1037
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): Velinde's Effects (30, 600 XP): Velinde's Locker in the south of Darnassus, on the same hop as Velinde Starsong's hand-in.",
+				"issue": "#3263"
+			},
+			{
+				"q": 1039,
+				"after": [
+					"turnin",
+					1038
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Barrens Port (30, 1,200 XP) is taken from Thyn'tel Bladeweaver on 06-wetlands' Darnassus hop and handed to Wharfmaster Dizzywig on Ratchet's dock at the end of 30-40/03 (about 33): a carried delivery, the start of the Caravan Road chain the 30-40 band takes on its own stops.",
+				"issue": "#3263"
+			},
+			{
+				"q": 67,
+				"after": [
+					"turnin",
+					66
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Legend of Stalvan (28, 1,150 XP) from Clerk Daltry with 66's hand-in on 04-redridge-mountains' first Darkshire stop; its Old Footlocker is in Westfall's Moonbrook (41.5,66.9, Defias 15-18), west of Sven's camp at the end of 05-duskwood's first west trip, from where the hearth goes back to Darkshire. The 05-duskwood header's old reason (Stalvan an elite) was wrong: Stalvan Mistmantle (315) is level 32, rank 0 in our data.",
+				"issue": "#3263"
+			},
+			{
+				"q": 68,
+				"after": [
+					"turnin",
+					67
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Legend of Stalvan (28, 1,700 XP), from the Old Footlocker back to Clerk Daltry on 05-duskwood's Darkshire stop after the first west trip.",
+				"issue": "#3263"
+			},
+			{
+				"q": 69,
+				"after": [
+					"turnin",
+					68
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Legend of Stalvan (28, 575 XP), Daltry to Innkeeper Farley in Goldshire, on 05-duskwood's walk north to Stormwind's gryphon.",
+				"issue": "#3263"
+			},
+			{
+				"q": 70,
+				"after": [
+					"turnin",
+					69
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Legend of Stalvan (28, 1,700 XP): the letter from the Storage Chest upstairs in Goldshire's inn to Caretaker Folsom in Stormwind, on the same walk.",
+				"issue": "#3263"
+			},
+			{
+				"q": 72,
+				"after": [
+					"turnin",
+					70
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): The Legend of Stalvan (28, 230 XP): Folsom's Sealed Crate beside him. The next part (74) goes to Marshal Haggard in Elwynn's far east, off the route after 05-duskwood: the chain stops here, and Stalvan himself (98) is left out.",
+				"issue": "#3263"
+			},
+			{
+				"q": 98240,
+				"after": [
+					"turnin",
+					98072
+				],
+				"reason": "Alliance 12-31 fix round (2026-11-20): Crimson Crate Delivery (29, 1,200 XP), offered by James Halloran only once Crocs of the Sky (98072) is handed in (#1134), is taken with that hand-in on 06-wetlands' last Menethil stop and handed to Howin Kindfeather on 30-40/01-hillsbrad-foothills' Wetlands loop, which walks past him (agreed with the Alliance 30-40 band). Before, the route had no visit to Howin after 98072, so it was left out.",
+				"issue": "#3263"
 			},
 			{
 				"q": 3524,
@@ -11234,11 +11524,11 @@
 			{
 				"q": 290,
 				"after": [
-					"accept",
-					1132
+					"turnin",
+					289
 				],
-				"reason": "Alliance level tidy (0.4.0), agreed with the 12-30 slice: Lifting the Curse's Captain Halyndor (30) was met at about 28 in 06-wetlands (recorded 25th percentile 27.9). It is taken on 30-40/01-hillsbrad-foothills' Menethil stop at about 31, before the boat to Southshore, in place of most of that stop's top-up on the Bluegill murlocs.",
-				"issue": "-"
+				"reason": "Fix round 2026-11-20: Lifting the Curse is taken from First Mate Fitzsimmons with The Cursed Crew's hand-in on 06-wetlands' Menethil stop and worked at the end of that visit from level 29 (`when level>=29`: Captain Halyndor is 30, the Cursed Marines around him 27-28), before the boat; the 0.4.0 level tidy had moved it to 30-40/01-hillsbrad-foothills' Menethil stop at about 31, which keeps it for a character who arrives without it.",
+				"issue": "#3263"
 			},
 			{
 				"q": 292,
@@ -11246,7 +11536,7 @@
 					"turnin",
 					290
 				],
-				"reason": "Alliance level tidy (0.4.0): The Eye of Paleth comes from Intrepid's strongbox and goes to Glorin Steelbrow in Menethil's Deepwater Tavern on the same 30-40/01 stop.",
+				"reason": "The Eye of Paleth comes from Intrepid's strongbox and goes to Glorin Steelbrow in Menethil's Deepwater Tavern on the same stop (06-wetlands since the 2026-11-20 fix round; 30-40/01 for a character without it).",
 				"issue": "-"
 			},
 			{
@@ -11255,7 +11545,7 @@
 					"turnin",
 					292
 				],
-				"reason": "Alliance level tidy (0.4.0): Cleansing the Eye goes from Glorin Steelbrow to Archbishop Benedictus, handed in on 30-40/01's own Stormwind stop (Cathedral of Light, with Bishop Farthing's 269).",
+				"reason": "Cleansing the Eye goes from Glorin Steelbrow to Archbishop Benedictus in Stormwind's Cathedral of Light, on 06-wetlands' Stormwind stop at the end of that guide (2026-11-20 fix round; 30-40/01's Stormwind stop for a character without it).",
 				"issue": "-"
 			},
 			{
@@ -11684,6 +11974,159 @@
 				"issue": "-"
 			},
 			{
+				"q": 1265,
+				"after": [
+					"turnin",
+					1264
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): The Missing Diplomat (level 35, from 28, 275 XP) is taken from Commander Samaul with Tapoke's report (1264) on 30-40/03's first Theramore stop and done at Sentry Point, the watchtower where the road to the Shady Rest Inn turns west: Archmage Tervosh appears at its foot once it is explored (players' recordings: 45 people, Tervosh seen at the tower at the objective's tick, hand-in at him). It waited for 40-50/01 at 39 although 30-40/03 walks past the tower at 32. The hand-in goal carries Sentry Point's coordinates (places.json missing-diplomat-1265-tervosh-sentry-point): without them the arrow pointed at Theramore's tower, the only spot the data has.",
+				"issue": "-"
+			},
+			{
+				"q": 1266,
+				"after": [
+					"turnin",
+					1265
+				],
+				"reason": "Alliance 30-40 fix round, after the audit (2026-11-20): The Missing Diplomat's next part (1266, Private Hendel at North Point Tower) is taken from Archmage Tervosh at Sentry Point right after 1265 is handed in to him, on 30-40/03's stop at about 32, and carried to 40-50/01, whose route goes to North Point Tower at 39. He shows at Sentry Point only to players on the chain (forever-db/corrections npcs.json, Tervosh), and players' recordings show 1266 taken there right after the hand-in (4 of 4, places.json missing-diplomat-1266-tervosh-sentry-point): a player arriving at 39 with 1265 long done might find nobody to give it, and North Point Tower's 1266, 1324 and 1267 (7,279 XP) would hide behind it. A talk quest with no timer; 30-40/03's quest log peaks at 18.",
+				"issue": "-"
+			},
+			{
+				"q": 79229,
+				"after": [
+					"accept",
+					5561
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): Highway Robbery (Forever-new, level 40, from 30, 1,550 XP; no mobs) starts at an Extinguished Campfire (object 417353, Desolace 47.46,54.55), about 200 yards north of the Kodo Bones that 30-40/02's Bone Collector step collects, and ends at Bibbly F'utzbuckle at Kormek's Hut, whom the guide visits on the way home for 5501. Players' recordings: 22 people took it at 34-40 and handed it to Bibbly.",
+				"issue": "-"
+			},
+			{
+				"q": 79235,
+				"after": [
+					"turnin",
+					79229
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): On the Lam (level 40, from 30, 1,550 XP; a talk quest, no timer) is taken from Bibbly with Highway Robbery's hand-in on 30-40/02's Kormek's Hut stop and carried one guide to Tokal by Booty Bay's Salty Sailor Tavern, on 30-40/04b's last stop. Players' recordings: 15 hand-ins at Tokal (17 people).",
+				"issue": "-"
+			},
+			{
+				"q": 79236,
+				"after": [
+					"turnin",
+					79235
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): Cherry for Your Thoughts? (level 40, from 30, 1,550 XP) is Tokal's: a Cherry Grog from Nixxrax Fillamug (npc 2832) in the Salty Sailor Tavern beside him, handed back on the spot on 30-40/04b's last Booty Bay stop. Players' recordings: 7 hand-ins (12 people).",
+				"issue": "-"
+			},
+			{
+				"q": 1287,
+				"after": [
+					"turnin",
+					1286
+				],
+				"reason": "Alliance 40-50 fix pass (2026-11-20): The Deserters (level 38, 2,850 XP) goes back to Captain Garran Vimes in Theramore at the end of 40-50/01's Dustwallow loop for every character, about 1,700 yards east of Balos Jacken with the flight master 99 yards past Vimes, and the guide flies Theramore -> Ratchet for the Booty Bay boat (both flight points are learnt in 30-40/03; the walk stays for a character without Ratchet's). Only Humans at 40 did so before; everyone else walked about 3,000 yards through the Barrens and carried 1287 through 01b to 40-50/02's Theramore stop (level model: handed in there at about 45.2 in 21 of 28 runs).",
+				"issue": "-"
+			},
+			{
+				"q": 5092,
+				"after": [
+					"turnin",
+					5090
+				],
+				"reason": "Alliance 50-60 fix pass (2026-11-20): every guide stands on its own. A character who loads 50-60/04 without the Burning Steppes guide's Chillwind Camp chain had about 54k XP of Chillwind quests hidden behind it (All Along the Watchtowers 5097 and Scholomance after it; the cauldron chain 5216 -> 5217 -> 5219/5220 -> 5222/5223 -> 5225/5226 -> 5237). The feeders are local to 04: Courier Hammerfall's Call to Arms (5090) on its Ironforge stop and Valorfist's Clear the Way (5092, on Sorrow Hill just north of the camp) and MacDonnell's Scourge Cauldrons (5215) on its first Chillwind Camp stop, in steps `when !turnedin` so a character who did 50-60/01 sees none of them. Replaces the two leftout records (5097, 5217) for 04.",
+				"issue": "-"
+			},
+			{
+				"q": 6762,
+				"after": [
+					"turnin",
+					6761
+				],
+				"reason": "Alliance 50-60 fix pass (2026-11-20): Rabine Saturna (level 55, from 54, 1,400 XP) is taken from Mathrengyl on 50-60/04's Darnassus stop and handed in on Mount Hyjal's Moonglade errand (an Alliance-only step after Dendrite Starblaze, a short walk in the same village), with her Wasteland (1124) for Layo in Silithus taken there. 04 used to fly Rut'theran -> Moonglade -> Auberdine for her alone; every one of those flights runs by way of Auberdine (travel.json: 17.8k yards against 9.3k straight to Auberdine). Flow audit, 28 branches: 04 5.6 minutes and one backtrack less, one more quest carried through a guide (into Mount Hyjal, about 230 minutes). 1047's minimum (54) keeps the chain off 02's Darnassus stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1252,
+				"after": [
+					"accept",
+					1253
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lieutenant Paval Reethe's badge (level 40, from 30, 780 XP; a talk quest) lies in the ashes of the Shady Rest Inn beside the Black Shield (1253) that 30-40/03 takes there, and goes to Captain Vimes, whom the guide's second Theramore stop visits for 1284 and 1320. Players' recordings: accepted at a 25th percentile of 33.0 (43 Alliance characters).",
+				"issue": "-"
+			},
+			{
+				"q": 1259,
+				"after": [
+					"turnin",
+					1252
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Vimes's follow-up (315 XP) goes to Adjutant Tesoran on the same floor of Foothold Citadel, on 30-40/03's second Theramore stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1285,
+				"after": [
+					"turnin",
+					1259
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Daelin's Men (285 XP), Tesoran back to Vimes on the same floor. The Deserters (1286, Balos Jacken, off 30-40/03's path) stays on 40-50/01.",
+				"issue": "-"
+			},
+			{
+				"q": 1100,
+				"after": [
+					"accept",
+					1135
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Lonebrow's Journal (level 34, from 29, 1,350 XP): the journal (object 19861) lies about 200 yd north-east of the Great Lift's foot, which 30-40/03 takes down to Highperch, and Falfindel Waywarder stands about 480 yd north of the Highperch wyverns: about 700 yd added. Players' recordings: accepted at a 25th percentile of 31.8 (42 Alliance characters). The Crone of the Kraul (1101) is inside Razorfen Kraul: left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5501,
+				"after": [
+					"task",
+					1440
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): Bone Collector (level 39, from 33, 2,250 XP): Bibbly F'utzbuckle stands at Kormek's Hut (62.2,38.9), on 30-40/02's walk from Thunder Axe Fortress to Smeed's camp; the Kodo Bones lie among the skeletons of the Kodo Graveyard (46-49,57-61), where the kodo taming already goes, and Bibbly takes them on the way home from Kolkar Village (about 300 yd added). It was taken and handed in on 30-40/06b at 38.9 with a second walk back to the hut. Players' recordings: accepted at a 25th percentile of 35.2 (48 characters).",
+				"issue": "-"
+			},
+			{
+				"q": 1040,
+				"after": [
+					"turnin",
+					1039
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): Wharfmaster Dizzywig gives Passage to Booty Bay (level 30, 600 XP) with 1039's hand-in on Ratchet's dock, where 30-40/03 ends; Caravaneer Ruzzgot stands on Booty Bay's dock, 30-40/04's first stop.",
+				"issue": "-"
+			},
+			{
+				"q": 1041,
+				"after": [
+					"turnin",
+					1040
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Caravan Road (1,200 XP), Ruzzgot to Clerk Daltry in Darkshire, a delivery carried through 30-40/02 to 30-40/04b, which flies into Darkshire.",
+				"issue": "-"
+			},
+			{
+				"q": 1042,
+				"after": [
+					"turnin",
+					1041
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Carevin Family (250 XP), Daltry to Jonathan Carevin, beside him in Darkshire.",
+				"issue": "-"
+			},
+			{
+				"q": 1043,
+				"after": [
+					"turnin",
+					1042
+				],
+				"reason": "Alliance 30-40 fix round (2026-11-20): the Caravan Road chain after The Barrens Port (1039, taken in Darnassus on 06-wetlands): The Scythe of Elune (2,450 XP): the Mound of Dirt in the Tranquil Gardens Cemetery (Duskwood 73.5,79.1, Nightbane worgen 29-31) is about 570 yd off 30-40/05's walk from Darkshire to Deadwind Pass, and Carevin takes it when the guide comes back through Darkshire. Answered Questions (1044, Darnassus) is left out.",
+				"issue": "-"
+			},
+			{
 				"q": 3452,
 				"after": [
 					"accept",
@@ -11834,6 +12277,12 @@
 		],
 		"skip": [
 			{
+				"q": 1395,
+				"faction": "Alliance",
+				"reason": "Fix round 2026-11-20 (Alliance 40-50): Supplies for Nethergarde's Crate of Power Stones lasts an hour from Watchmaster Sorigal in Darkshire. 40-50/01 now closes the swamp's quests at Nethergarde Keep at about 41, with the whole swamp between Darkshire and the keep, and 40-50/05 no longer rides Darkshire -> Deadwind Pass -> the swamp -> the Blasted Lands only for it, Thadius Grimshade (2990) and the bloodmage accepts (those two moved to the Burning Steppes guide's Nethergarde and bloodmage stops). No Darkshire stop is left before a Nethergarde visit; 2,900 XP left out instead of a 15-20 minute leg.",
+				"issue": "-"
+			},
+			{
 				"q": 5088,
 				"faction": "Horde",
 				"reason": "Thousand Needles (0.4.2 route round): Arikara, Magatha's follow-up to Sacred Fire, is offered on 07-ashenvale's Thunder Bluff stop on its way out of Thousand Needles; Arikara (28) is at Darkcloud Pinnacle and Motega takes it at Whitereach Post, west of Freewind, and 30-40/02's Freewind visit heads east to the flats. A trip back for one quest (2,300 XP): left out.",
@@ -11958,12 +12407,6 @@
 				"faction": "Alliance",
 				"reason": "Alliance 30-40 re-order (2026-11-07): They Call Him Smiling Jim is not offered once James Hyal (1302) is in the log or done (lint), and the route hands in 1302 at Theramore on the same stop. Left out.",
 				"issue": "-"
-			},
-			{
-				"q": 98240,
-				"faction": "Alliance",
-				"reason": "#1134: James Halloran offers Crimson Crate Delivery only once Crocs of the Sky (98072, after Apprentice's Duties 471 and Young Crocolisk Skins 484) is handed in. Players' recordings: refused to 3 characters at 24-28 who had not done 98072, and never offered to anyone. The route hands in 98072 at Menethil on its way to the Southshore boat, after its only visit to Howin Kindfeather (Wetlands, 49,42), who takes the crate, so taking it would cost a walk back east for 1,200 XP. Left out; it was taken on the first Menethil stop, where nobody can be offered it",
-				"issue": 1134
 			},
 			{
 				"q": 5635,
@@ -12119,24 +12562,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 1190,
-				"faction": "Alliance",
-				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137): the Horde leaves out 1137; the Alliance hands 1137 in at 45 in 40-50/04, where Keeping Pace would send it back across Thousand Needles to Rizzle for a race the route doesn't wait for. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1194,
-				"faction": "Alliance",
-				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
-				"issue": "-"
-			},
-			{
-				"q": 1191,
-				"faction": "Alliance",
-				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
-				"issue": "-"
-			},
-			{
 				"q": 79536,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
@@ -12233,12 +12658,6 @@
 			{
 				"q": 78134,
 				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Lance needs the Dragonslayer's Lance at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), which only the Dark Iron Entrepreneur in the Wetlands sells (75 silver): a trip from Ashenvale for 35 silver and quest XP. Left out with the Helm (78132).",
-				"issue": "-"
-			},
-			{
-				"q": 1037,
-				"faction": "Alliance",
-				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47): an 18-level carry for half its XP by then, about 305 (Forever pays 50% of a quest's experience from eight levels over, players' recorded hand-ins), sitting in the log as a finished delivery all that way. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			},
 			{
@@ -16251,10 +16670,10 @@
 				],
 				"b": [
 					"accept",
-					4101
+					7003
 				],
 				"faction": "Alliance",
-				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus on 50-60/01's Rut'theran stop (about 52.5; the druids already go up there to train), not on 04's Darnassus visit at 56.7: the XP comes before Felwood's and Winterspring's top-ups."
+				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus before Feralas, not on 04's Darnassus visit at 56.7. Since the 2026-11-20 fix pass it goes in on 50-60/02's Darnassus stop (about 52.4), which walks into the Cenarion Enclave for Mathrengyl anyway, with Erelas' feathers (3661) and Gracina's Rise of the Silithid (162): 50-60/01 no longer flies Auberdine -> Rut'theran -> Astranaar for them (about 5,100 yards of flight and the portal walk; Darnassus 3 visits -> 2)."
 			},
 			{
 				"a": [
@@ -16749,9 +17168,53 @@
 				"faction": "Alliance",
 				"why": "Blood Tithe starts on the west side of Valanaar, on the walk into town from Fendaal. Hear Alvarion before crossing to Lotheluum and hunting the skyhoppers.",
 				"source": "#3144: 92679 giver and first-visit walk from Fendaal"
+			},
+			{
+				"a": [
+					"turnin",
+					91758
+				],
+				"b": [
+					"accept",
+					2158
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): in Northshire, Rest and Relaxation (2158) was taken from Falkhaan Isenstrider at the stables south-west of the Abbey before the group-quest hand-ins, which went back north-east to Marshal McBride and Tordrin Sternblade (51.2,40.8) and then south again on the kobold tracks. Falkhaan is taken after Tordrin, on the way south to the tracks and Goldshire.",
+				"source": "#2742"
+			},
+			{
+				"a": [
+					"accept",
+					2158
+				],
+				"b": [
+					"task",
+					91772
+				],
+				"faction": "Alliance",
+				"why": "#2742 (Eykko): Falkhaan Isenstrider (45.6,47.7) before the kobold tracks of Shhh! We're Hunting Kobolds (91772), which run from 47.7,45.9 down the road to Goldshire, so the stables are not a walk back north.",
+				"source": "#2742"
+			},
+			{
+				"a": [
+					"turnin",
+					5741
+				],
+				"b": [
+					"accept",
+					5501
+				],
+				"faction": "Alliance",
+				"why": "Alliance 30-40 fix pass (2026-11-20): the Sceptre of Light (5741, level 33, 2,650 XP) goes back to Azore Aldamort on the first Desolace visit (30-40/02, about 34.5), up his hill west of Thunder Axe Fortress right after the sceptre drops there and before the road south to Kormek's Hut: about 1,600 yards added (the flow audit's longest 02 carry, 5741 over five guides and 406 carried minutes, goes). Azore's Book of the Ancients (6027) is taken there and carried to the south loop (30-40/06b), whose Lord Kragaru (38) it needs."
 			}
 		],
 		"leftout": [
+			{
+				"q": 58,
+				"guide": "forever/alliance/05-duskwood",
+				"reason": "The Night Watch's third part needs its second (57), which 04-redridge-mountains' first Darkshire stop gives after the Tranquil Gardens' first part (56). 05-duskwood finishes 57 on its first west trip and takes 58 for its Raven Hill ghouls (fix round 2026-11-20); a character who starts at 05-duskwood without 57 is not offered it and takes it on 07-thousand-needles' Darkshire stop, which keeps the whole chain.",
+				"issue": "#3263"
+			},
 			{
 				"q": 5727,
 				"guide": "forever/horde/03-silverpine-forest",
@@ -17114,140 +17577,50 @@
 			},
 			{
 				"q": 978,
-				"guide": "forever/alliance/50-60/01-burning-steppes",
+				"guide": "forever/alliance/50-60/02-felwood",
 				"reason": "The work for Favored of Elune? (3661: Wildkin Feather x15) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
-				"q": 4513,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5097,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "The work for Clear the Way (5092: Skeletal Flayer x10, Slavering Ghoul x10) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5217,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "It needs 3 quests from 01-burning-steppes first (Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 10,875 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5220,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It needs 5 quests from 03-winterspring first (Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 19,175 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5533,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It pays only 550 XP at 55, less than the trip for its starter (All Along the Watchtowers (5097), Clear the Way (5092)).",
-				"issue": "#2635"
-			},
-			{
-				"q": 979,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "Favored of Elune? (3661, level 47) pays only 50% at 55, this visit's arrival level.",
-				"issue": "#2635"
-			},
-			{
 				"q": 3781,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It pays only 470 XP at 55, less than the trip for its starter (Un'Goro Soil (3764)).",
-				"issue": "#2635"
-			},
-			{
-				"q": 3912,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It needs 4 quests from 03-winterspring first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
+				"guide": "forever/alliance/50-60/02-felwood",
+				"reason": "It pays only 470 XP at 52, less than the trip for its starter (Un'Goro Soil (3764)). (Fix pass 2026-11-20: the Darnassus deliveries moved from 50-60/01 to 50-60/02's Darnassus stop; a character who starts there without the soil still doesn't see Fandral's errand.)",
 				"issue": "#2635"
 			},
 			{
 				"q": 4285,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4287,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4288,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4292,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for The Scent of Lar'korwi (4291: Ravasaur Pheromone Gland x2); The Fare of Lar'korwi (4290: Piece of Threshadon Carcass) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4442,
-				"guide": "forever/alliance/50-60/06-silithus",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Felbound Ancients (4441: Vial of Blessed Water); Flute of Xavaric (939: Jadefire Felbind x5) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
-				"q": 4513,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 4507,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 8 quests from 04-western-plaguelands first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,365 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 8278,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Deadly Desert Venom (8277: Stonelash Scorpid Stinger x8, Sand Skitterer Fang x8) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 8281,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Securing the Supply Lines (8280: Dredge Striker x15) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5904,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for A Plague Upon Thee (5903: Plagueland Termites x100) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5225,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 8 quests from 04-western-plaguelands first (Return to Chillwind Camp (5223), Target: Writhing Haunt (5222), Return to Chillwind Camp (5220), Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 29,405 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 6023,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Unfinished Business (6004: Scarlet Medic x2, Scarlet Hunter x2, Scarlet Mage x2, Scarlet Knight x2) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5845,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 5 quests from 04-western-plaguelands first (Of Forgotten Memories (5781), Redemption (5742), Demon Dogs (5542), Blood Tinged Skies (5543), Carrion Grubbage (5544); about 23,975 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5206,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 7 quests from 04-western-plaguelands first (Heroes of Darrowshire (5168), Villains of Darrowshire (5181), Brother Carlin (5210), The Annals of Darrowshire (5154), A Strange Historian (5153), Auntie Marlene (5152), Pamela's Doll (5149); about 30,550 XP of work at this visit's level): too long to bring back.",
+				"q": 3912,
+				"guide": "forever/alliance/50-60/03-winterspring",
+				"reason": "It needs 4 quests from 02-felwood first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{

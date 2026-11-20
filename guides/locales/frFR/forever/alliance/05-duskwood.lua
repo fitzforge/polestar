@@ -18,24 +18,47 @@ return {
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "Sa maison se trouve sur la colline au sud-est de {area:42}, au-dessus de {area:121}.",
 	["Inside"] = "À l'intérieur",
-	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
-	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946} : la {npc:511} de la crypte du cimetière est de niveau 26 ; elle attend votre retour au {zone:1431}",
+	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul
+	["{item:1946}: the {npc:511}, in the crypt of the cemetery just below"] = "",
 
 	-- Step 3: Tranquil Gardens Cemetery
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire
+	["The {npc:511} (26) hides in the small crypt by the {area:121}, south of {area:42}; the glass is inside."] = "",
+	-- {item:1946} Mary's Looking Glass
+	["{item:1946}; inside"] = "{item:1946} ; à l'intérieur",
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337} : butin rare des monstres de {zone:1431}",
 
-	-- Step 5: Abercrombie
+	-- Step 4: Viktori Prism'Antras
+	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
+	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
+	-- {npc:276} Viktori Prism'Antras
+	["{npc:276}, inside"] = "{npc:276}, à l'intérieur",
+	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
+	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
+
+	-- Step 6: Abercrombie
 	["Head west along the road once more."] = "Repartez une fois de plus vers l'ouest par la route.",
 
-	-- Step 6: Gooey Spider Legs
+	-- Step 7: Raven Hill Cemetery: kill these as you meet them
+	-- {area:492} Raven Hill Cemetery
+	["{area:492}: kill these as you meet them"] = "{area:492} : tuez-les au passage",
+	-- {npc:311} Sven Yorgen · {area:94} Raven Hill · {npc:522} Mor'Ladim
+	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
+	["On the way west to {npc:311}: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of {area:94}. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
+
+	-- Step 8: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["Gooey Spider Legs"] = "Pattes d'araignée gluantes",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Des Recluses charognardes rôdent dans les bois sur le chemin de l'ouest, et des Araignées tisse-venin, des Araignées tisse-venin pygmées et des Recluses vertes rampent juste au sud du camp de {npc:311} : chacune peut lâcher une patte.",
 
-	-- Step 8: Back to Darkshire
+	-- Step 10: Moonbrook
+	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
+	["{quest:67}: west from {npc:311}'s camp over the border into {zone:1436} and on to {area:20}, where the {object:3643} stands among the Defias (15-18). Then hearth back to {area:42}."] = "",
+
+	-- Step 11: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Retour à {area:42}",
 	-- {area:42} Darkshire
@@ -44,54 +67,69 @@ return {
 	["{npc:265}, inside"] = "{npc:265}, à l'intérieur",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, à l'hôtel de ville",
+	-- {npc:264} Commander Althea Ebonlocke
+	["{npc:264}, in the town hall"] = "{npc:264}, à l'hôtel de ville",
+	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
+	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
+	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}, dans la taverne",
 
-	-- Step 9: Chef Grual
+	-- Step 12: Clerk Daltry
+	-- {quest:68} The Legend of Stalvan · {npc:267} Clerk Daltry
+	["{quest:68}: {npc:267}, in the town hall, takes the footlocker's contents."] = "",
+	-- {npc:267} Clerk Daltry · {npc:295} Innkeeper Farley · {area:87} Goldshire · {zone:1453} Stormwind
+	["{npc:267}: for {npc:295} in {area:87}, on the walk north to {zone:1453}"] = "",
+
+	-- Step 13: Chef Grual
 	-- {npc:272} Chef Grual
 	["{npc:272} is in the Scarlet Raven Tavern too."] = "{npc:272} est aussi à la taverne du Corbeau écarlate.",
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["For {npc:288}, at {area:94} on the way west"] = "Pour {npc:288}, à {area:94}, sur le chemin de l'ouest",
 
-	-- Step 10: Rot Blossoms
+	-- Step 14: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "Racines pourries ({item:1598})",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "Des Squelettes infernaux ({npc:202}) arpentent le flanc de colline entre {area:42} et {area:121}, au sud-est de la ville ; ils lâchent les Racines pourries ({item:1598}).",
 
-	-- Step 12: Abercrombie
+	-- Step 16: Abercrombie
 	["Head west to the hermit once more."] = "Retournez une fois de plus vers l'ouest jusqu'à l'ermite.",
 
-	-- Step 13: Ghoul Ribs
+	-- Step 17: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Côtes de goule",
-	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms · {npc:503} Lord Malathrom · {npc:771} Commander Felstrom · {npc:1200} Morbent Fel
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : les Dévoreurs et les Mâcheurs d'os (24-27) sont les plus faciles à tuer ; les Répandeurs de peste et les Mangeurs de cervelle (27-29) en lâchent aussi. {npc:522}, un élite, erre parmi les tombes : tenez-vous loin de lui.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds.\nCareful: {npc:503} (31) and {npc:771} (32), both rares, haunt the cemetery's north and west, and {npc:1200} (32, elite) keeps to the house at its western edge: leave them be."] = "",
+	-- {npc:604} Plague Spreader · {quest:58} The Night Watch
+	["{npc:604}, for {quest:58}"] = "",
 
-	-- Step 15: Raven Hill Cemetery: kill these as you meet them
-	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "{area:492} : tuez-les au passage",
-	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
-	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Traversez le cimetière vers le sud en direction de {area:94}. Les Démons squelettes et les Squelettes infernaux errent dans sa moitié sud. {npc:522}, un élite, rôde parmi les tombes : tenez-vous à l'écart.",
-
-	-- Step 16: Jitters
+	-- Step 19: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288} se cache dans la maison à l'extrémité ouest de {area:94}.",
 
-	-- Step 18: Sven's Camp
+	-- Step 22: Skeletal Raiders
+	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
+	["Skeletal Raiders"] = "",
+	-- {area:492} Raven Hill Cemetery · {npc:311} Sven Yorgen · {npc:522} Mor'Ladim · {npc:771} Commander Felstrom
+	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
+	["From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the {area:492}, just east of {npc:311}'s camp.\nCareful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.\nCareful: {npc:522}, an elite (35), wanders these graves too, and {npc:771} (32, rare) haunts the west part: keep away from both."] = "",
+
+	-- Step 23: Sven Yorgen
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "Ensuite : l'entraînement, puis le vol de {zone:1453} pour {area:150}, vers les {zone:1437}.",
+	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
+	["For {npc:1212} in {zone:1453}'s Cathedral, on the walk north"] = "",
 
-	-- Step 20: Agent Kearnen
+	-- Step 25: Agent Kearnen
 	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
 	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Suivez la route vers l'ouest pour quitter {area:94} et entrer en {zone:1436}. {npc:7024} surveille la tour de {npc:7053} depuis les collines juste après la frontière. Le {npc:7051} (niveau 23) qui garde la tour porte sa clé ; le journal de Klaven se trouve dans le coffre au sommet.",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}, dans le coffre",
 
-	-- Step 21: Master Mathias Shaw
+	-- Step 26: Master Mathias Shaw
 	-- {area:1519} Stormwind · {object:2100} Old Town
 	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}."
 	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
@@ -106,41 +144,62 @@ return {
 	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
 	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "{item:4371} : l'hôtel des ventes, {object:2096} ; {npc:5519} en garde un et est presque toujours en rupture de stock",
 
-	-- Step 22: Elwynn Forest
+	-- Step 27: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "Au nord de {area:94} à travers la forêt d'Elwynn : {area:87} est sur la route de {zone:1453}.",
 
-	-- Step 23: Class trainer
+	-- Step 28: Class trainer
 	["Class trainer"] = "Maître de classe",
 	["Your new spells"] = "Vos nouveaux sorts",
 
-	-- Step 24: Gazin Tenorm
+	-- Step 29: Innkeeper Farley
+	-- {quest:69} The Legend of Stalvan · {npc:295} Innkeeper Farley · {area:87} Goldshire
+	["{quest:69}: {npc:295} is in {area:87}'s Lion's Pride Inn; the chest with the letter is upstairs."] = "",
+	-- {item:910} An Undelivered Letter · {object:1560} Storage Chest
+	["{item:910}, from the {object:1560} upstairs"] = "",
+
+	-- Step 30: Caretaker Folsom
+	-- {zone:1453} Stormwind · {npc:297} Caretaker Folsom · {object:1561} Sealed Crate
+	["On into {zone:1453}: {npc:297} (the arrow shows him) takes the letter; the {object:1561} beside him holds the next clue."] = "",
+	-- {object:1561} Sealed Crate
+	["{object:1561}, beside him"] = "",
+
+	-- Step 31: Bishop Farthing
+	-- {zone:1453} Stormwind · {npc:1212} Bishop Farthing · {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor
+	["On into {zone:1453}: {npc:1212} stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for {npc:1217} in {area:150}, where the flight lands."] = "",
+	-- {npc:1212} Bishop Farthing
+	["{npc:1212}, in the Cathedral of Light"] = "",
+	-- {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor · {zone:1437} Wetlands
+	["For {npc:1217} in {area:150} (the {zone:1437} guide)"] = "",
+
+	-- Step 32: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
 	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "Continuez jusqu'à {zone:1453} : {npc:6173} et {npc:6171} sont dans la Cathédrale de la Lumière, sur le chemin du maître des griffons.",
 	["Cathedral of Light"] = "Cathédrale de la Lumière",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171} : Rédemption",
 
-	-- Step 25: Stormwind
+	-- Step 33: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "{object:28027} de {zone:1453}",
 
-	-- Step 26: Tram to Ironforge
+	-- Step 34: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "Tram pour {zone:1455}",
 
-	-- Step 27: Shaman training
+	-- Step 35: Shaman training
 	["Shaman training"] = "Entraînement de chaman",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} n'a pas de maître chaman : prenez {area:2257} depuis {object:28027} jusqu'à {zone:1455}, entraînez-vous auprès de {npc:258098}, puis reprenez le tram pour revenir.",
 
-	-- Step 28: Rogue training
+	-- Step 36: Rogue training
 	["Rogue training"] = "Entraînement de voleur",
 	-- {zone:1453} Stormwind
 	["Train here, in {zone:1453}, before you go on."] = "Entraînez-vous ici, à {zone:1453}, avant de continuer.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Continuez vers l'ouest jusqu'à {area:94}. Le {object:673515} brille près de la maison en ruine au sud de la route.",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : les Dévoreurs et les Mâcheurs d'os (24-27) sont les plus faciles à tuer ; les Répandeurs de peste et les Mangeurs de cervelle (27-29) en lâchent aussi. {npc:522}, un élite, erre parmi les tombes : tenez-vous loin de lui.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Toute goule de la moitié nord de {area:492} peut laisser tomber une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
 	-- ["Fly to {zone:1453}"] = "Prendre un vol pour {zone:1453}",
@@ -150,6 +209,7 @@ return {
 	-- ["Head back east along the road to the {area:245}."] = "Retournez vers l'est par la route jusqu'à {area:245}.",
 	-- ["Head back east to {area:42}."] = "Retournez vers l'est jusqu'à {area:42}.",
 	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Remontez vers le nord à travers la forêt d'Elwynn jusqu'à {zone:1453} ; Mathias Shaw se trouve au SI:7, dans {object:2100}.",
+	-- ["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "Traversez le cimetière vers le sud en direction de {area:94}. Les Démons squelettes et les Squelettes infernaux errent dans sa moitié sud. {npc:522}, un élite, rôde parmi les tombes : tenez-vous à l'écart.",
 	-- ["Hearth to {area:42}"] = "Pierre de foyer vers {area:42}",
 	-- ["Level 22 and 24 spells"] = "Sorts des niveaux 22 et 24",
 	-- ["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Pas de {item:4371} pour {quest:174} ? {npc:3133} en vend dans la maison voisine de celle de {npc:276}, en quantité limitée ; {npc:1448}, à {area:150}, en vend aussi.\nLa maison de {npc:276} se trouve à l'extrémité est de la ville. {npc:3133} vend des articles d'ingénierie dans la maison voisine.",
@@ -172,6 +232,7 @@ return {
 	-- ["{area:1097}: kill these as you meet them"] = "{area:1097} : tuez-les au passage",
 	-- ["{area:121}: kill these as you meet them"] = "{area:121} : tuez-les au passage",
 	-- ["{area:492}, south"] = "{area:492}, sud",
+	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946} : la {npc:511} de la crypte du cimetière est de niveau 26 ; elle attend votre retour au {zone:1431}",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}, sur le {object:673515}",
 	-- ["{item:3372}: {npc:1313}, {skill:171} Supplies"] = "{item:3372} : {npc:1313}, fournitures d'{skill:171}",
 	-- ["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, chez {npc:3133}, si vous n'en avez pas",
@@ -179,13 +240,11 @@ return {
 	-- ["{npc:14235} Blossoms"] = "Fleurs de {npc:14235}",
 	-- ["{npc:202} on the way"] = "{npc:202} en chemin",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, à l'extrémité nord de la ville",
-	-- ["{npc:264}, in the town hall"] = "{npc:264}, à l'hôtel de ville",
 	-- ["{npc:265}, in her house by the tavern"] = "{npc:265}, dans sa maison près de la taverne",
 	-- ["{npc:265}, in her house by the tavern; inside"] = "{npc:265}, dans sa maison près de la taverne ; à l'intérieur",
 	-- ["{npc:268}, in the house behind the town hall"] = "{npc:268}, dans la maison derrière l'hôtel de ville",
 	-- ["{npc:268}, inside"] = "{npc:268}, à l'intérieur",
 	-- ["{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "La maison de {npc:276} se trouve à l'extrémité est de la ville. {npc:3133} vend des fournitures d'ingénierie dans la maison voisine.",
-	-- ["{npc:276}, inside"] = "{npc:276}, à l'intérieur",
 	-- ["{npc:332}: {spell:2842}, and {item:18160}"] = "{npc:332} : {spell:2842} et {item:18160}",
 	-- ["{npc:531} on the way"] = "{npc:531} en chemin",
 	-- ["{npc:533} on the way"] = "{npc:533} en chemin",

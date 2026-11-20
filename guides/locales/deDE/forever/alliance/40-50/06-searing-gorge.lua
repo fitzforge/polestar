@@ -114,8 +114,9 @@ return {
 
 	-- Step 31: Level 48.66
 	["Level 48.66"] = "Stufe 48,66",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "Grinde an {npc:9318}",
 
@@ -142,10 +143,11 @@ return {
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Stufe 48,98",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Falls du {quest:3452} übersprungen hast, grinde hier bis Stufe 48,98, um im Plan der Route zu bleiben.",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "Grinde an {npc:5844}",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -186,6 +188,7 @@ return {
 	-- ["Greater Lava Spiders"] = "Versengende Lavaspinnen",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Schwere Kriegsgolems patrouillieren unterhalb von Kalaran über den Boden des Kessels; Magmaelementare treiben zwischen ihnen. Golems und Elementare droppen das Öl, Elementare die Herzen.",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Heavy War Golems patrouillieren auf dem Boden des Kessels unterhalb von Velarok; Magma Elementals treiben zwischen ihnen umher. Golems und Elementare lassen das Öl fallen, Elementare die Herzen.",
+	-- ["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "Falls du {quest:3452} übersprungen hast, grinde hier bis Stufe 48,98, um im Plan der Route zu bleiben.",
 	-- ["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "Falls du {quest:7701} übersprungen hast, grinde hier bis Stufe 48,66, um im Plan der Route zu bleiben.",
 	-- ["Kalaran stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Kalaran steht am Rand des Kessels, südlich der {area:1446}. Hör dir seine Geschichte an.",
 	-- ["Listen to Velarok's story once more."] = "Hör dir die Geschichte von Velarok noch einmal an.",
@@ -198,6 +201,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "Die Spinnen streifen über die Plateaus und Lavatümpel südlich von {npc:8436}, auf dem Weg zu Velarok.",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok steht am Rand des Kessels, südlich von {area:1446}. Hör dir seine Geschichte an.",
+	-- ["grind on {npc:5844}"] = "Grinde an {npc:5844}",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: Der letzte Guide bringt dich per Ruhestein hierher, daher ist das meist sofort abgehakt",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} und der Hort des Drachenschwarms befinden sich neben Velarok, am Rand südlich der {area:1446}.",
 	-- ["{object:147516} dwarves"] = "{object:147516}-Zwerge",

@@ -578,6 +578,12 @@ step Baros Alexston
   tip For your Stockade run, later in Stormwind: keep it until then.
   accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
 
+step Argos Nightwhisper
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip On the way to the harbour: Argos Nightwhisper's message goes to Gershala Nightwhisper in Auberdine, beside Terenthis, where the boat lands.
+  accept 3765                                 -- Argos Nightwhisper
+
 step Boat to Auberdine
   when !zone "Darkshore"
   zone Stormwind City

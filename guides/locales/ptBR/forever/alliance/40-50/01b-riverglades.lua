@@ -348,10 +348,11 @@ return {
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "A maioria das feras em {zone:2548} deixa cair {item:268632} para {npc:260231}: os rastejadores da praia nesta costa e os javalis na serra a oeste dos piratas.\nCuidado: {npc:257001} (elite, 42), Komuk (elite da Horda, 45) e {npc:263380} (elite, 42) percorrem as áreas selvagens da zona: afaste suas feras deles.",
 
-	-- Step 68: Level 44.4 on the Eastsea pirates
-	["Level 44.4 on the Eastsea pirates"] = "Nível 44.4 nos piratas do Mar Leste",
-	-- {npc:259758} Gul'gash · {area:1517} Uldaman
-	["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}.",
+	-- Step 68: Level 44 on the Eastsea pirates
+	["Level 44 on the Eastsea pirates"] = "",
+	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
+	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}."
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "mate {npc:257901}",
 
@@ -555,6 +556,8 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "O próximo guia começa em {zone:1418}, ao sul de {zone:1432}: voe para {area:144}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}.",
+	-- ["Level 44.4 on the Eastsea pirates"] = "Nível 44.4 nos piratas do Mar Leste",
 	-- ["the {object:707245} poster"] = "o cartaz {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, com {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera ao lado da estrada, a leste do desfiladeiro.",

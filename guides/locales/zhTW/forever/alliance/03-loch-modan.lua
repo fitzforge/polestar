@@ -413,4 +413,8 @@ return {
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "為了你稍後在{zone:1453}的{area:717}之行：在那之前先留著它。",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}：交給{area:717}大門的{npc:1719}",
+
+	-- Step 75: Argos Nightwhisper
+	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 }

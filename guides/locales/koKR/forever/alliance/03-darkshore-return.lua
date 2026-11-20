@@ -12,6 +12,8 @@ return {
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "현상수배 포스터",
+	-- {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis · {zone:1453} Stormwind
+	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, 있다면 {npc:3693} 옆: 다음 가이드에서 {area:415}의 {npc:3691}에게",
 
