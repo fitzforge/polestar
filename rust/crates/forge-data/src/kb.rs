@@ -2208,8 +2208,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			// The TDB's previous quest is only the story order: it never overrules a correction's
 			// prerequisites or a prerequisite players' recorded offers disprove (the learned layer applies
 			// before this step, so an empty list may be its removal; #2781).
-			let outranked = project_quest_source(&q, "prereqs", &corr) == "correction"
-				|| inp.not_pre.get(&(q.get("id").num() as i64)).is_some_and(|n| n.contains(&(prev.num() as i64)));
+			let outranked = project_quest_source(&q, "prereqs", &corr) == "correction" || inp.not_pre.get(&(q.get("id").num() as i64)).is_some_and(|n| n.contains(&(prev.num() as i64)));
 			if sniffed && prev.num() > 0.0 && no_pre && quests.get(&prev.to_js_string()).truthy() {
 				if outranked {
 					bump(&tdb_report, "preOutranked", 1.0);
