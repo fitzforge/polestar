@@ -29,11 +29,11 @@ return {
 	-- {faction:72} Stormwind
 	["{faction:72} errands"] = "{faction:72} 跑腿任务",
 	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{faction:72}城内四个简短的送货任务，约五分钟可获得200点声望。在Forever中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{faction:72}城内四个简短的送货任务，约五分钟可获得200点声望。在无限服，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 3: Northshire Valley
 	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:87}北面的人类起始山谷，60级时用40分钟可获得约1,600点声望，是这些任务区中效率最高的。{npc:823}和{npc:197}在{area:24}。Forever中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:87}北面的人类起始山谷，60级时用40分钟可获得约1,600点声望，是这些任务区中效率最高的。{npc:823}和{npc:197}在{area:24}。在无限服，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 4: Northshire: kobolds, wolves and bandanas
 	["Northshire: kobolds, wolves and bandanas"] = "北郡：狗头人、狼与头巾",
@@ -161,7 +161,7 @@ return {
 	-- {area:717} Stockade
 	["{area:717}: two quests"] = "{area:717}：两个任务",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:717}是{faction:72}的监狱，副本入口位于{object:2101}的运河旁。60级可在十分钟内单刷，获得300点声望。{npc:1719}站在大门旁，{npc:1721}在{object:2100}。城外还有两个{area:717}任务，顺路可接，每个100点声望：{area:69}的{npc:859}提供“伸张正义”（{npc:1696}），{area:42}的{npc:270}提供“罪与罚”（{npc:1663}）。（另有“监狱暴动”，再奖励100点，但需先取得{area:1581}中{npc:639}掉落的未寄出的信。）在Forever中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:717}是{faction:72}的监狱，副本入口位于{object:2101}的运河旁。60级可在十分钟内单刷，获得300点声望。{npc:1719}站在大门旁，{npc:1721}在{object:2100}。城外还有两个{area:717}任务，顺路可接，每个100点声望：{area:69}的{npc:859}提供“伸张正义”（{npc:1696}），{area:42}的{npc:270}提供“罪与罚”（{npc:1663}）。（另有“监狱暴动”，再奖励100点，但需先取得{area:1581}中{npc:639}掉落的未寄出的信。）在无限服，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 27: Inside the Stockade
 	-- {area:717} Stockade

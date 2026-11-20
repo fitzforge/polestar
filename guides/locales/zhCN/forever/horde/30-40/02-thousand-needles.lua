@@ -228,7 +228,7 @@ return {
 
 	-- Step 44: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西前往海岸上的巨魔村庄，途中避开 {area:606}。{npc:268705} 站在村子北边不远的小路上。\n{npc:268705} 在Forever中可能不在这里：如果 {npc:268705} 没有提供 {quest:97265}，就跳过。",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西前往海岸上的巨魔村庄，途中避开 {area:606}。{npc:268705} 站在村子北边不远的小路上。\n{npc:268705} 在无限服可能不在这里：如果 {npc:268705} 没有提供 {quest:97265}，就跳过。",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "{npc:268705}：目标是{area:603}的怨怒萨特，本指南稍后会去",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary

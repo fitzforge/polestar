@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "{npc:5476}守在沼泽西侧的道路交汇处，{npc:217412}就在他北侧不远处。\n在Forever中，{npc:217412}可能不在这里：如果{npc:217412}不提供{quest:93176}，就跳过。",
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "{npc:5476}守在沼泽西侧的道路交汇处，{npc:217412}就在他北侧不远处。\n在无限服，{npc:217412}可能不在这里：如果{npc:217412}不提供{quest:93176}，就跳过。",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412}：在阿拉希、{zone:1443}和荆棘谷各捕捉一只小动物",
 
