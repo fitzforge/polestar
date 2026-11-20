@@ -58,8 +58,9 @@ return {
 	["Speak with the {quest:5930}"] = "与{quest:5930}交谈",
 
 	-- Step 18: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} 位于 {zone:1413} 的 {area:378} 西南边，靠近离开 {zone:1412} 的道路。附近有 20 级的雷鹰游荡：先清出安全通道。在石头旁使用 {item:15710}：月爪（12-13 级）会出现并停留三分钟。杀死她，然后与出现的 {npc:12144} 交谈，请求获得她身体和心灵的力量：完成对话才算达成目标。如果战斗中死了，月爪会留在石头旁，跑回来把她杀掉即可。",
+	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {area:215} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
+	-- was: ["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} 位于 {zone:1413} 的 {area:378} 西南边，靠近离开 {zone:1412} 的道路。附近有 20 级的雷鹰游荡：先清出安全通道。在石头旁使用 {item:15710}：月爪（12-13 级）会出现并停留三分钟。杀死她，然后与出现的 {npc:12144} 交谈，请求获得她身体和心灵的力量：完成对话才算达成目标。如果战斗中死了，月爪会留在石头旁，跑回来把她杀掉即可。"
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {area:215}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
 
 	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -93,23 +94,29 @@ return {
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "回到瀑布旁的{npc:255853}那里。",
 
-	-- Step 25: Child of Nature
-	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
-	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}在从{zone:2521}来的飞艇降落处等候，位于{zone:1412}北部，{zone:1456}旁边。",
+	-- Step 25: Skycutter to Mulgore
+	-- {area:215} Mulgore
+	["Skycutter to {area:215}"] = "",
+	-- {area:16638} Valanaar · {area:215} Mulgore
+	["Take the roads through {area:16638} to its south-west dock. Wait on the dock for the Horde skycutter, board it when it stops and stay aboard to northern {area:215}. Don't jump from the cliffs."] = "",
 
-	-- Step 26: Turak Runetotem
+	-- Step 26: Child of Nature
+	-- {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff
+	["Speak to {npc:259118} at the skycutter landing north of {zone:1456}."] = "",
+
+	-- Step 27: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
 	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "{npc:3033} 在 {area:1639} 的德鲁伊小屋内训练德鲁伊，穿过升降梯东侧的绳桥便能到达。他会在下一个任务中教你 {spell:18960}（学会后会一直保留在法术书的平衡分页中）。",
 
-	-- Step 27: Child of Nature
+	-- Step 28: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459}站在{npc:259084}和天裔传送门旁，位于{area:279}西边，从{zone:2521}来的天空快船在此降落。{npc:2543}也提供同样的任务。",
 
-	-- Step 28: Sheldras Moontree
+	-- Step 29: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "天裔传送门会将你送到{zone:1453}。{npc:5504}是城里的德鲁伊训练师（箭头指向他）；通过下一个任务，他会教你{spell:18960}（学会后会一直保留在法术书的平衡分页中）。",
 
-	-- Step 29: Dendrite Starblaze
+	-- Step 30: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
 	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "施放 {spell:18960}：落点旁的建筑里，{npc:11802} 就在 {area:2361} 的楼上。趁在这里，学会 {area:493} 的飞行路线（部落找湖西南的 {npc:12740}；联盟找湖南边的 {npc:10897}）。",
 
@@ -122,7 +129,9 @@ return {
 	-- ["Fly from {area:702} to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "从{area:702}飞往{area:442}。{object:177525}就在村子东边的山丘上：在那里使用{item:15208}，击败月爪枭兽，然后与{npc:12144}交谈。",
 	-- ["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "天裔传送门会把你送到{zone:1453}。{npc:5504}是该城的德鲁伊训练师。",
 	-- ["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{object:177525}位于从{zone:1412}进入{zone:1413}的山口。在那里使用{item:15710}，击败月爪枭兽，然后与{npc:12144}交谈。",
+	-- ["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} 位于 {zone:1413} 的 {area:378} 西南边，靠近离开 {zone:1412} 的道路。附近有 20 级的雷鹰游荡：先清出安全通道。在石头旁使用 {item:15710}：月爪（12-13 级）会出现并停留三分钟。杀死她，然后与出现的 {npc:12144} 交谈，请求获得她身体和心灵的力量：完成对话才算达成目标。如果战斗中死了，月爪会留在石头旁，跑回来把她杀掉即可。",
 	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853}在{area:16638}东北边的瀑布旁等候。{npc:258443}在{area:16638}西边的{area:16623}游荡。",
+	-- ["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}在从{zone:2521}来的飞艇降落处等候，位于{zone:1412}北部，{zone:1456}旁边。",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
 	-- ["{npc:3033} trains druids on {area:1639}."] = "{npc:3033}在{area:1639}训练德鲁伊。",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",

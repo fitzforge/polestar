@@ -221,8 +221,8 @@ return {
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}：铁怒矮人，在副本内",
 
 	-- Step 44: Flame Crest
-	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
-	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "从山里出来就在{area:252}旁边，那里满是55-57级的兽人。沿北边悬崖的道路向东，前往部落营地{area:251}。",
+	-- {area:340} Kargath · {area:251} Flame Crest · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
+	["If {area:340} offers you a flight to {area:251} and you can pay the fare, take it. Otherwise ride west out of {area:340}, cross the {zone:1427} and leave {area:254} by the southern exit. Follow the road east, away from the stronghold, to the camp."] = "",
 
 	-- Step 45: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
@@ -358,6 +358,7 @@ return {
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "考察队的食物箱在东部丛林一个废弃的营地里。",
 	-- ["The expedition's lost equipment lies in the south-west jungle."] = "考察队丢失的研究设备在西南丛林里。",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "猩猩住在东北的高地上。别进入最深的洞穴：{npc:9622}住在那里。",
+	-- ["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "从山里出来就在{area:252}旁边，那里满是55-57级的兽人。沿北边悬崖的道路向东，前往部落营地{area:251}。",
 	-- ["The next guide starts here, at the chapel's flight master."] = "下一个指南从这里的教堂飞行管理员处开始。",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "异种蝎的巢穴占据着环形山南部。格里什异种蝎和格里什工蝎掉落格里什信息素；在第一个洞室里对卵块使用采集瓶。底部的格里什皇后是精英首领：别进入她的洞室。{npc:9166}在虫巢上方的悬崖上筑巢；它们的鳞片是给{npc:9998}的。",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "焦油池就在避难所正南。焦油兽、焦油潜伏者和焦油爬行者掉落{item:11834}。",

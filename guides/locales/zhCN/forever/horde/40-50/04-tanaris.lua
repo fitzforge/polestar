@@ -85,22 +85,32 @@ return {
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "营地西侧的山谷遍布仙人掌般的生物；只有露水收集者（47-48级）携带露腺。{zone:1446}的大多数怪物都有极低概率掉落OOX-17/TN的求救信标：看见就留着。\n小心：此地其他灌木怪为48-50级，四处游荡，很容易额外引怪：在山谷边缘打露水收集者，{quest:2864}要的长瘤的灌木兽和塑根者留到约51级经{area:1938}前往安戈洛时再打。",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}，稀有掉落",
+	-- {npc:5955} Tooga
+	["On the way out, take {npc:5955} if you see him. If he's gone, don't wait."] = "",
 
 	-- Step 17: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "护送{npc:5955}",
-	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}在山谷里等候。一路带他到东北方沙漠另一头{area:977}的妻子{npc:6015}那里：紧跟着他，放慢速度等他，击退攻击他的敌人。别骑上坐骑或用炉石离开他的范围。{npc:8579}也站在港口里。",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Walk beside {npc:5955} to his wife {npc:6015}, by the water at {area:977}. Stay close and fight off anything that attacks him; don't mount or hearth away from him."] = "",
 
-	-- Step 19: Slake That Thirst
+	-- Step 18: Torta at Steamwheedle Port
+	-- {npc:6015} Torta · {area:977} Steamwheedle Port
+	["{npc:6015} at {area:977}"] = "",
+
+	-- Step 19: Yeh'kinya at Steamwheedle Port
+	-- {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port
+	["{npc:8579} at {area:977}"] = "",
+
+	-- Step 20: Slake That Thirst
 	-- {spell:686} Shadow Bolt
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "小心：暗影法师（42-43级）会在脱战时召唤虚空行者，使用献祭和{spell:686}攻击。窃贼会缴械，潜行者会潜行移动，刺客则会在你生命值不超过20%时使用斩杀。",
 
-	-- Step 20: Gadgetzan
+	-- Step 21: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "保留比格维兹给你的4711-FTZ型能量源：它会开始{quest:654}，限时两小时，所以在从斯克林谢尔的虫巢向北返回的途中再使用。",
 
-	-- Step 21: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "保留{quest:2864}的{quest:3362}：其中的塑根者（49-50级）和{area:983}一起，在约51级经{area:1938}前往安戈洛时完成。",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -110,67 +120,70 @@ return {
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{npc:11758}的{area:983}留在任务日志里，约52级去{area:1938}时完成。",
 
-	-- Step 23: Scrimshank's gear
+	-- Step 24: Scrimshank's gear
 	["Scrimshank's gear"] = "谢申克的勘探设备",
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "在地下",
 
-	-- Step 24: OOX-17/TN
+	-- Step 25: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "仅在持有求救信标时进行：OOX-17/TN 位于斯克林谢尔的虫巢东南方。护送它向北前往 {area:977}；奖励要到 {area:35} 找奥格索普领取。\n小心：护送途中有两次伏击。刚开始不久会有三只 47 级蝎子袭来。快到终点、靠近海滩时，会有三名废土人类袭击：一名法师和两名刺客，约 44 级。",
 
-	-- Step 25: Tanaris Field Sampling
+	-- Step 26: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
 	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "向北返回，在{area:976}南边不远处，现在使用{item:8524}：两小时计时开始。疱爪土狼、玻璃皮蜥蜴和巨钳蝎猎手共同栖息在这片沙丘上。它们都可能掉落未检测的样本：使用它，样本要么通过检测成为合格样本，要么就此损失。持续击杀，直到每种各有八份。",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "使用{item:8524}",
 
-	-- Step 26: Gadgetzan
+	-- Step 27: Gadgetzan
+	-- {item:4306} Silk Cloth · {area:247} Grimesilt Dig Site · {area:976} Gadgetzan
+	["Keep 15 {item:4306} for the prisoner at the {area:247}. If you're short, check the {area:976} auction house before you leave for the boat."] = "",
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "交给{zone:1458}的{npc:5204}，大约52级时会去",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交给{zone:1454}的{npc:7010}，大约50级时",
 
-	-- Step 27: Boat to Powderfuse Port
+	-- Step 28: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "乘船前往{area:16727}",
 
-	-- Step 28: Into Searing Gorge
+	-- Step 29: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into {zone:1427}"] = "进入{zone:1427}",
 
-	-- Step 29: Searing Gorge
+	-- Step 30: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 
-	-- Step 30: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- Step 31: The Grimesilt Dig Site
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。"
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
-	-- Step 32: Thorium Point
+	-- Step 33: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "向西北骑过峡谷；{area:1446}是西北边搭着脚手架的营地。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}告示板",
 
-	-- Step 33: The Cauldron's slavers and golems
+	-- Step 34: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "{area:246} 的奴隶贩子和傀儡",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "从{area:1446}向南骑入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在{npc:8479}下方的坑底巡逻。小心：最大的傀儡为49级，一次只引一只。",
 
-	-- Step 34: Velarok Windblade
+	-- Step 35: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479}独自站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 
-	-- Step 37: Searing Gorge: kill these as you meet them
+	-- Step 38: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途击杀以下目标",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -181,28 +194,28 @@ return {
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "在地下：图纸在{area:1443}的上层岩架上",
 
-	-- Step 39: Thorium Point
+	-- Step 40: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	["Ride back north to {area:1446}, just past {npc:8479}."] = "向北骑行返回{area:1446}，经过{npc:8479}后不远就到。",
 
-	-- Step 40: The Steamsmiths' furnaces
+	-- Step 41: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "黑铁锻造师在大熔炉中央的熔炉旁干活；他们一半带着{item:10551}，十分之一带着{item:18959}。奴隶工、黑铁奴隶贩子和黑铁工头也带着匕首。",
 
-	-- Step 41: Velarok Windblade
+	-- Step 42: Velarok Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "他的下一个请求需要精英信徒身上的{item:10552}：别接。",
 
-	-- Step 42: Dark Iron Lookouts
+	-- Step 43: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "黑铁哨兵",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "黑铁哨兵站在大熔炉南边哨塔周围的山脊上；大约十分之一带着{item:18960}。",
 
-	-- Step 43: The Key to Freedom
+	-- Step 44: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "仅当你有{item:11818}时：向东回到挖掘场的{object:173265}。",
 
@@ -215,6 +228,7 @@ return {
 	-- ["Fly to {area:392}"] = "飞往{area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "从港口上方的{area:35}飞行管理员处出发。",
 	-- ["From {area:1099}'s flight master."] = "从{area:1099}的飞行管理员处出发。",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "再往南，初级勘察员谢申克的勘探设备在一个森提帕尔巢穴的入口处。",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初级勘探员斯克林杰的装备在一个森提帕尔虫巢的入口处。\n注意：装备旁有一只虫子守着。隧道内有许多虫子巡逻，其中一些为50级，因此战斗时经常会引来额外的敌人。",
 	-- ["Greater Lava Spiders"] = "灼热熔岩蜘蛛",
@@ -251,4 +265,5 @@ return {
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}：沿途遇到就击杀",
 	-- ["{area:392} pier"] = "{area:392}码头",
 	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。",
+	-- ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}在山谷里等候。一路带他到东北方沙漠另一头{area:977}的妻子{npc:6015}那里：紧跟着他，放慢速度等他，击退攻击他的敌人。别骑上坐骑或用炉石离开他的范围。{npc:8579}也站在港口里。",
 }

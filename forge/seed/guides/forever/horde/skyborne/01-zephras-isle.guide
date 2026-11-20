@@ -339,7 +339,20 @@ step Fendaal Windstone
   kill 254626 quest 98512.1
   turnin 98512                        -- Fendaal Windstone
 
+step Valanaar's west gate
+  when !bound "Valanaar"
+  sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze
+
+step Alvarion Windfield
+  when available 92679
+  accept 92679
+
+step Alvarion Windfield's story
+  when onquest 92679
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+
 step Valanaar
+  tip From the west gate, head upstairs to Talaanis Shadowsong and Valennia Stormfist.
   turnin 93948                        -- Talaanis Shadowsong, upstairs
   turnin 92579                        -- Valennia Stormfist, upstairs
   accept 92700
@@ -367,9 +380,12 @@ step Ayessa Dawnsinger
 
 # ---------------------------------------------------------------- Valanaar
 
+step Valanaar's west gate
+  when !bound "Valanaar"
+  sethome "Valanaar" npc 255940
+
 step Nyalah and Alvarion
   tip Nyalah Brightfire waits inside a house on Valanaar's western edge; Alvarion Windfield is close by.
-  sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
   talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   level 10 only Hunter

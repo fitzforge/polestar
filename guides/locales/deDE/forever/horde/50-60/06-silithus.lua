@@ -84,7 +84,6 @@ return {
 
 	-- Step 16: Quixxil
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10977} with {npc:10980}"] = "Erschrecke {npc:10977} mit {npc:10980}"
 	["Scare {npc:10977} with {item:12928}"] = "",
 
 	-- Step 17: J.D. Collie
@@ -127,7 +126,6 @@ return {
 
 	-- Step 28: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
-	-- was: ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Reite nach Südwesten zu den Ruinen vom {area:2738}. Der {object:179565} für {npc:11801} steht in einem der verfallenen Häuser."
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Reite nach Südwesten zu den Ruinen vom {area:2738}. Der {object:179565} für {npc:11801} steht in einem der verfallenen Häuser.",
 
 	-- Step 30: Hive in the Tower

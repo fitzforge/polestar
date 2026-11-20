@@ -18,64 +18,73 @@ return {
 	-- {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands · {object:92525} Argent Dawn
 	["Follow the road east from the {zone:1422}, over the river and across the whole {zone:1423}, to the {object:92525}'s chapel in the far east."] = "Sigue el camino hacia el este desde {zone:1422}, cruza el río y atraviesa todas {zone:1423} hasta la capilla de {object:92525}, en el extremo este.",
 
-	-- Step 5: Pamela Redpath
+	-- Step 5: Jessica's sister
+	["Jessica's sister"] = "",
+	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
+	["{npc:10926}, in {area:2262}"] = "",
+
+	-- Step 6: Marlene Redpath's niece
+	-- {npc:10927} Marlene Redpath
+	["{npc:10927}'s niece"] = "",
+
+	-- Step 7: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "El fantasma de {npc:10926} está en las ruinas de {area:2262}, al suroeste.",
 
-	-- Step 6: Pamela's Doll
+	-- Step 8: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La cabeza de la muñeca y sus dos costados están en las casas alrededor de {npc:10926}; únelos desde tus bolsas.",
 	["Inside"] = "",
 
-	-- Step 7: Pamela Redpath
+	-- Step 9: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["a message for {npc:11063} at {area:2268}"] = "un mensaje para {npc:11063} en {area:2268}",
 	-- {quest:5152} Auntie Marlene · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: {npc:10927} lives at {area:197} in the {zone:1422}."] = "Guarda {quest:5152}: {npc:10927} vive en {area:197}, en {zone:1422}.",
 
-	-- Step 8: Zaeldarr the Outcast
+	-- Step 10: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr acecha justo al oeste de {area:2262}.",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 9: Pestilent Scar
+	-- Step 11: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: {npc:10411} se vuelve invisible fuera de combate y llama a gárgolas Alarroca en cuanto empieza el combate. Solo hay 3 y reaparecen cada 15 min.",
 
-	-- Step 10: Back to Light's Hope Chapel
+	-- Step 12: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "Vuelve a {area:2268}",
 	-- {quest:5211} Defenders of Darrowshire · {area:2264} Corin's Crossing
 	["{quest:5211}'s spirits come with the {area:2264} stop later in this guide: keep it."] = "Los espíritus de {quest:5211} llegan con la parada en {area:2264} más adelante en esta guía: guárdala.",
 
-	-- Step 11: Fly to Tarren Mill
+	-- Step 13: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "",
 
-	-- Step 12: To Sorrow Hill
+	-- Step 14: To Sorrow Hill
 	-- {area:197} Sorrow Hill
 	["To {area:197}"] = "A {area:197}",
 
-	-- Step 13: Sorrow Hill
+	-- Step 15: Sorrow Hill
 	-- {area:272} Tarren Mill · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {npc:10936} Joseph Redpath
 	["Ride north up the road from {area:272}. {npc:10927}'s house stands by the road at {area:197}, and {npc:10936}'s monument is in the graveyard behind it."] = "Sube por el camino hacia el norte desde {area:272}. La casa de {npc:10927} está junto al camino en {area:197}, y el monumento de {npc:10936} está en el cementerio de detrás.",
 	-- {npc:10927} Marlene Redpath
 	["{npc:10927}, upstairs"] = "{npc:10927}, en el piso de arriba",
 
-	-- Step 14: Chromie
+	-- Step 16: Chromie
 	-- {npc:10667} Chromie
 	["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Ve al noroeste hacia Andorhal. {npc:10667} espera en la posada en ruinas del lado oeste del pueblo; los esqueletos de dentro son de nivel 54-57, así que mantente por los bordes.",
 	["Upstairs"] = "Piso de arriba",
 
-	-- Step 15: The Annals of Darrowshire
+	-- Step 17: The Annals of Darrowshire
 	-- {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Musty Tomes = {object:176150} Musty Tome
 	["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room."] = "Los Anales están entre los libros enmohecidos del ayuntamiento de Andorhal; ábrelos hasta encontrar el correcto.\nCuidado: puede haber un {npc:10996}, élite de nivel 58-59, en Andorhal, como en muchos otros puntos de {zone:1422}: guarda las distancias.",
 
-	-- Step 17: Fly to Light's Hope Chapel
+	-- Step 19: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "Vuela a {area:2268}",
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
@@ -83,34 +92,34 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 18: Light's Hope Chapel
+	-- Step 20: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
 	["{quest:5168}'s items lie in the later Plaguelands zones: keep it."] = "Los objetos de {quest:5168} están en zonas de las Tierras de la Peste que verás más adelante: guárdala.",
 
-	-- Step 19: Eastern Plaguelands: kill these as you meet them
+	-- Step 21: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Los canes de peste y sus cachorros recorren las orillas del lago al suroeste de la capilla; los murcipestes y las larvas carroñeras comparten el terreno. Cuidado: los canes de peste más grandes son de nivel 56, atráelos de uno en uno.\nLa espada rota está en el suelo al noroeste del lago.",
 
-	-- Step 20: Nathanos Blightcaller
+	-- Step 22: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft · {npc:8564} Ranger
 	["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "El campeón de {npc:15193} ocupa la granja de {area:2260}, al norte de {area:2261}. Su caza de {npc:8564}, en el norte de la zona, espera al viaje a las Tierras de la Peste de la próxima guía.",
 	-- plural, as words: Rangers = {npc:8564} Ranger
 	["keep it: the Rangers (59-60) wait for the next guide's second ride into the north"] = "guárdala: los especialistas (59-60) esperan a la segunda incursión al norte de la próxima guía",
 
-	-- Step 21: Eastern Plaguelands: kill these as you meet them
+	-- Step 23: Eastern Plaguelands: kill these as you meet them
 	-- {area:2260} Marris Stead · {area:2627} Terrordale
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehound Runts and Plaguebats roam the hills north of the {area:2260}, Carrion Grubs crawl among them; work north toward {area:2627}."] = "Los Cachorros de can de la Peste y los Murcipestes recorren las colinas al norte de {area:2260}, y las Larvas carroñeras se arrastran entre ellos; avanza hacia el norte, hacia {area:2627}.",
 
-	-- Step 22: Egan
+	-- Step 24: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "{npc:11140}, el fantasma, está junto a una cabaña en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la cabaña.",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, dentro",
 
-	-- Step 23: Terrordale: kill these as you meet them
+	-- Step 25: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627}: mata a estos según te los encuentres",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
@@ -119,25 +128,25 @@ return {
 	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
 	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}: los no-muertos de {area:2627} las sueltan mientras llevas la {item:12846}",
 
-	-- Step 24: Augustus the Touched
+	-- Step 26: Augustus the Touched
 	-- {npc:11615} Mickey Levine · {area:813} Bulwark · {zone:1422} Western Plaguelands
 	["Keep the termites: {npc:11615} at the {area:813} takes them on the next guide's ride into the {zone:1422}."] = "Guarda las termitas: {npc:11615}, en {area:813}, las recoge en el viaje a {zone:1422} de la próxima guía.",
 
-	-- Step 25: Nathanos Blightcaller's bats
+	-- Step 27: Nathanos Blightcaller's bats
 	-- {npc:11878} Nathanos Blightcaller
 	["{npc:11878}'s bats"] = "",
 	-- {npc:11878} Nathanos Blightcaller · {area:2272} Northdale
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
 	["East of Terrordale, the Noxious Plaguebats (54-56) count for {npc:11878}. Take the ones in the open fields; leave the Monstrous Plaguebats near {area:2272} for later."] = "",
 
-	-- Step 26: Before Northdale
+	-- Step 28: Before Northdale
 	-- {area:2272} Northdale
 	["Before {area:2272}"] = "",
 	-- {quest:5543} Blood Tinged Skies · {quest:5544} Carrion Grubbage · {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2272} Northdale
 	-- plural, as words: Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["The next hunt is too high. At 55, if you still have {quest:5543} or {quest:5544}, the ordinary Plaguebats and Carrion Grubs on the western hills count for {npc:1855}. No need to stay and farm bats. Resume at 56 on the road east from {area:2627} for the {area:2272} hunt."] = "",
 
-	-- Step 27: Level 56
+	-- Step 29: Level 56
 	["Level 56"] = "Nivel 56",
 	-- {area:2627} Terrordale
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat
@@ -145,7 +154,7 @@ return {
 	-- {npc:8601} Noxious Plaguebat
 	["grind on {npc:8601}"] = "farmea {npc:8601}",
 
-	-- Step 28: Plaguewood: kill these as you meet them
+	-- Step 30: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
@@ -153,30 +162,30 @@ return {
 	-- was: ["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Los canes de peste demenciados recorren los campos alrededor de {area:2272} y {area:2271}, al sur de {area:2273}; los murcipestes nocivos sobrevuelan los campos del norte, y los murcipestes monstruosos, alrededor de {area:2272} y {area:2271}. Cuidado: los canes son de nivel 57-58 y los murcipestes monstruosos más grandes de 58: atráelos de uno en uno."
 	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time.\nStill 56? Take level 57 hounds and level 56-57 bats; leave the level 58s."] = "",
 
-	-- Step 29: Eastern Plaguelands: kill these as you meet them
+	-- Step 31: Eastern Plaguelands: kill these as you meet them
 	-- {area:2622} Pestilent Scar
 	-- plural, as words: Blighted Horrors = {npc:8521} Blighted Horror
 	["The skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "El cráneo está en {area:2622}, entre horrores apestados y monstruosidades de la Peste.",
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 30: Corin's Crossing
+	-- Step 32: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Ve al sur hasta {area:2264}, por el camino. {item:15447} se echa a perder en diez minutos: mata rápido a la Plaga del pueblo y muele los siete trozos con {item:15454} enseguida.\nCuidado: los sirvientes ocultos piden ayuda en un radio de 25 m cuando bajan al 40 % de salud. Fuera de combate, además, se vuelven invisibles con {spell:10228}. Si piden ayuda dentro del pueblo, puede unirse al combate un gran número de enemigos. Luchar cerca de las afueras reduce este riesgo.\nCon {quest:5211} en tu registro (de {npc:11063}, al principio de esta guía), la Plaga alrededor del pueblo deja espíritus de Villa Darrow: habla con cada uno para liberarlo. Libéralos antes de empezar con {item:15447}.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libera a los espíritus de Villa Darrow: habla con ellos",
 
-	-- Step 31: Nathanos Blightcaller
+	-- Step 33: Nathanos Blightcaller
 	-- {area:2260} Marris Stead
 	["Ride west to the {area:2260}."] = "Ve al oeste a {area:2260}.",
 
-	-- Step 33: Class trainer
+	-- Step 35: Class trainer
 	["Class trainer"] = "Instructor de clase",
 	-- {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- was: ["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Train before the flight."] = "Usa la piedra de hogar para ir a {zone:1454}: sigue vinculada allí desde la guía de {zone:1447} (los magos se teletransportan). Entrena antes del vuelo."
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1413} guide (Mages teleport). Train before the flight."] = "",
 
-	-- Step 34: Fly to Bloodvenom Post
+	-- Step 36: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "",
 	-- {zone:1454} Orgrimmar · {zone:1413} Barrens
@@ -185,52 +194,52 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
-	-- Step 35: Fly to Thunder Bluff
+	-- Step 37: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- was: ["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide. Then the flight master."] = "Usa la piedra de hogar para ir a {zone:1454}: sigue vinculada allí desde la guía de {zone:1447}. Luego, el maestro de vuelo."
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1413} guide. Then the flight master."] = "",
 
-	-- Step 36: Thunder Bluff
+	-- Step 38: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} en {area:1639}; {npc:246344}",
 
-	-- Step 37: Fly to Bloodvenom Post
+	-- Step 39: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 39: Deadwood Cauldron
+	-- Step 41: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Sube por el camino hacia el norte. El caldero está en {area:1762}, justo al suroeste de {area:1769}; los fúrbolg Muertobosque de allí son hostiles.",
 
-	-- Step 40: Kernda
+	-- Step 42: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "Solo si te ha caído {quest:8471}: {npc:11558} espera en la entrada de {area:1769} del lado de {zone:1448}, y solo te habla si eres Neutral con el Bastión de los Fauces de Madera.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 41: Faustron
+	-- Step 43: Faustron
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:12740} Faustron
 	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:12740}, the Horde's flight master, stands by the tunnel's {area:493} exit: take his flight path on the way past."] = "",
 
-	-- Step 43: Rabine Saturna
+	-- Step 45: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["{npc:11801} is in {area:2361}, the village in the middle of the valley."] = "",
 
-	-- Step 44: Rabine Saturna
+	-- Step 46: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "Las dos misiones llevan a {zone:1451}: guárdalas.",
 
-	-- Step 46: Donova Snowden
+	-- Step 48: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Desde la salida del túnel en {zone:1452}, cabalga al sur hasta {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} están en {zone:1448}, en un viaje posterior: guárdala.",
 
-	-- Step 47: Moontouched Owlbeasts
+	-- Step 49: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Lechubestias lunadón",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
@@ -238,14 +247,14 @@ return {
 	-- was: ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Ve al este hasta {area:2255} y sal de allí hacia el norte; las lechubestias lunadón recorren las colinas de las laderas sur de {area:2241}. Cuidado: son de nivel 57-58: atráelas de una en una.\nCuidado: los Hailspite, élites de nivel 60, se reúnen en los campos nevados al sureste de {area:2255}, donde también rondan algunas lechubestias lunadón: no te salgas de las laderas al norte del pueblo."
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.\nAt 56, take the level 57 owlbeasts rather than the 58s."] = "",
 
-	-- Step 48: Pristine Yeti Horns
+	-- Step 50: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cuernos de yeti prístinos",
 	-- {area:2255} Everlook
 	-- was: ["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Los cuernos de Umi, pendientes desde tu última parada en {area:2255}: las colinas de los yetis empiezan justo al sureste de {area:2255}. Solo las matriarcas y los patriarcas sueltan cuernos, y los patriarcas llegan al nivel 58: atráelos de uno en uno."
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time.\nAt 56, stick to yetis no higher than 57."] = "",
 
-	-- Step 49: Umi Rumplesnicker
+	-- Step 51: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it for later."] = "La tercera broma de Umi va dirigida a goblins de {area:976}, Un'Goro y {area:2255}: guárdala para más adelante.",
 	-- {area:2255} Everlook · {zone:1451} Silithus · {area:976} Gadgetzan · {zone:2482} Mount Hyjal

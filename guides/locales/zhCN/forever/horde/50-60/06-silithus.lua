@@ -49,7 +49,6 @@ return {
 
 	-- Step 8: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	-- was: ["Fly to {area:541}"] = "飞往{area:541}"
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
@@ -85,7 +84,6 @@ return {
 
 	-- Step 16: Quixxil
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10977} with {npc:10980}"] = "用{npc:10980}吓唬{npc:10977}"
 	["Scare {npc:10977} with {item:12928}"] = "",
 
 	-- Step 17: J.D. Collie
@@ -128,7 +126,6 @@ return {
 
 	-- Step 28: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
-	-- was: ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。"
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。",
 
 	-- Step 30: Hive in the Tower

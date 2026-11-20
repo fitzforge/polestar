@@ -24,14 +24,19 @@ return {
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}：{quest:586}",
 
-	-- Step 4: Zul'Mamwe
+	-- Step 4: Tusks and necklaces on the Skullsplitter hunt
+	["Tusks and necklaces on the Skullsplitter hunt"] = "",
+	-- {npc:737} Kebok · {npc:2519} Kin'weelay
+	["The hunters also drop {npc:737}'s tusks and {npc:2519}'s necklaces. Collect any you still need during the cauldron hunt."] = "",
+
+	-- Step 5: Zul'Mamwe
 	["Zul'Mamwe"] = "祖玛维废墟",
 	-- {npc:1059} Ana'thek the Cruel · {quest:586} Speaking with Gan'zulah · {npc:1060} Mogh the Undying
 	["Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.\n{npc:1059} (45) carries the Broken Armor for {quest:586}: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.\nCareful: {npc:1060}, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him."] = "向东骑到风险投资公司矿洞东边的碎颅部落废墟。猎头者、狂暴者和猎手在废墟中游荡。\n{npc:1059}（45级）携带{quest:586}所需的破损的盔甲：他带着两名守卫在西南部废墟巡逻，有时会站在那里的一个小山洞里。先拉守卫。\n小心：{npc:1060}，一只精英巨魔（44级），站在南部废墟47.7,44.3附近：把猎头者和狂暴者从他身边拉开。",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 5: Grom'gol Base Camp
+	-- Step 6: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
 	["Back west to {object:3202}."] = "向西返回{object:3202}。",
 	-- {object:2076} Bubbling Cauldron
@@ -41,71 +46,80 @@ return {
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks bask beside the road south, on the ride to {area:35}"] = "{npc:2519}：蜥蜴在南边的道路旁晒太阳，就在前往{area:35}的路上",
 
-	-- Step 6: Ironjaw Basilisks
+	-- Step 8: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "铁腭蜥蜴",
 	-- {area:35} Booty Bay
 	["Ride south along the road towards {area:35}; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often."] = "沿道路向南朝{area:35}骑行；蜥蜴在道路东边丛林中部的岩石上晒太阳。它们经常掉落碎片。",
 	["Below ground"] = "在地下",
 
-	-- Step 7: Pirate ghosts and Zanzil's camps
+	-- Step 9: Pirate ghosts and Zanzil's camps
 	["Pirate ghosts and Zanzil's camps"] = "海盗鬼魂和赞吉尔的营地",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
 	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往薄雾谷东北的丛林：三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。赞吉尔的每个追随者都可能携带混合物。\n小心：赞吉尔巫医（44级）会施法，而且营地里怪很密：从边缘一只一只地拉。{npc:2534}（46级）本人站在南边营地39.6,58.6附近，离{npc:2537}的鬼魂只有几步：先把{npc:2537}向北或向东拉出来再打。",
 
-	-- Step 8: Witch Doctor Unbagwa
+	-- Step 10: Witch Doctor Unbagwa
 	-- {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
 	["West into Mistvale: {npc:1449} sits among the gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then {npc:1514}.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "向西进入薄雾谷：{npc:1449}坐在大猩猩中间。任何大猩猩都可能掉落獠牙：交给他十个并待在他身边，他会召来三波大猩猩，然后是{npc:1514}。\n小心：三波大猩猩接连而来，中间几乎没有喘息时间，之后是{npc:1514}。开始前回满生命值和法力值，并待在安巴格瓦附近。有些职业单刷会很吃力：找个队友就轻松了。",
 
-	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
+	-- Step 11: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577}：沿途遇到就击杀",
 	-- {object:759} Holy Spring · {area:43} Wild Shore · {area:35} Booty Bay
 	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "",
 
-	-- Step 10: The Wild Shore
+	-- Step 12: The Wild Shore
 	-- {area:43} Wild Shore
 	["The {area:43}"] = "{area:43}",
-	["Stay on the beach with the swashbucklers (41-43); the charts and the orders lie in their tents and in the rowboat beside the larger camp. Leave the ships alone."] = "",
+	-- {area:35} Booty Bay
+	["From the north, take the outer shore east of the {area:35} tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore."] = "",
 
-	-- Step 12: Dudd Fizzlescroll
+	-- Step 13: Bloodsail tents and rowboat
+	["Bloodsail tents and rowboat"] = "",
+	["Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship."] = "",
+
+	-- Step 15: Dudd Fizzlescroll
 	-- {quest:95384} Partial Mystical Notes · {npc:260873} Dudd Fizzlescroll · {area:35} Booty Bay
 	["If you already have the {quest:95384}, give them to {npc:260873} here in {area:35}."] = "",
 
-	-- Step 14: Booty Bay
+	-- Step 17: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "在{area:35}：码头上的{npc:2494}，旅店旁的{npc:2486}，旅店里的{npc:2498}，楼上的麦金利、{npc:737}和{npc:773}。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
+
+	-- Step 18: Kebok
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}：在楼上",
+
+	-- Step 19: Krazek
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "楼上的{npc:773}：用于本指南稍后在{area:976}的{quest:2864}",
 
-	-- Step 17: Unfinished Wild Shore errands
+	-- Step 22: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
 	["Unfinished {area:43} errands"] = "",
 	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "",
 
-	-- Step 21: Fly to Grom'gol
+	-- Step 26: Fly to Grom'gol
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 22: Grom'gol Base Camp
+	-- Step 27: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
 	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "飞行降落在{object:3202}：{npc:2519}和{npc:2465}，然后去飞艇塔。",
 
-	-- Step 24: Zeppelin to Orgrimmar
+	-- Step 29: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 25: Orgrimmar
+	-- Step 30: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
-	-- Step 27: Riding at 40
+	-- Step 32: Riding at 40
 	["Riding at 40"] = "40级学骑术",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "骑术需要40级，费用100金币；学习时会获得一只坐骑。兽人可在{object:172958}、{npc:3362}的兽栏旁向{npc:4752}学习。天裔可在泽风岛{area:16638}的{area:17684}向{npc:265756}学习，并获得一只疾风陆行鸟：前往该岛的空中船约每5分钟从{area:17045}南面、{zone:1456}北面的悬崖出发。你所属种族的其他坐骑每只20金币：“收藏品”中的“坐骑 · 40级”提供各类指南。",
@@ -116,7 +130,7 @@ return {
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "骑术和疾风陆行鸟：找泽风岛上{area:16638}的{area:17684}处的{npc:265756}。",
 
-	-- Step 29: Riding at 40
+	-- Step 34: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "骑术需要40级，花费100金币；学会后会获得一只坐骑。各个种族都要找本族训练师学习。你的训练师是{area:367}的{npc:7953}，从{zone:1454}沿{zone:1411}的道路向南骑行不远就到，旁边是祖尼尔出售的迅猛龙（每只20金币）。之后骑回{zone:1454}的飞行管理员处。",
 	-- {npc:7953} Xar'Ti
@@ -124,17 +138,17 @@ return {
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
 	["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "迅猛龙：祖尼尔，在{area:367}的{npc:7953}旁边。",
 
-	-- Step 30: Fly to Thunder Bluff
+	-- Step 35: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 32: Thunder Bluff
+	-- Step 37: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "你的训练师在{zone:1456}：德鲁伊找{area:1639}的{npc:3033}，圣骑士找{npc:246344}。",
 
-	-- Step 34: Riding at 40
+	-- Step 39: Riding at 40
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "骑术需要40级，花费100金币；学会后会获得一只坐骑。各个种族都要找本族训练师学习。你的训练师是{area:222}的{npc:3690}，旁边是{npc:3685}出售的科多兽（每只20金币）。之后骑回上方{zone:1456}的飞行管理员处。",
 	-- {npc:3690} Kar Stormsinger
@@ -142,56 +156,56 @@ return {
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
 	["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "科多兽：{npc:3685}，在{area:222}的{npc:3690}旁边。",
 
-	-- Step 35: Fly to Freewind Post
+	-- Step 40: Fly to Freewind Post
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "飞往{area:484}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 36: Fly to Gadgetzan
+	-- Step 41: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 
-	-- Step 39: Ratchet for the Felsteed
+	-- Step 44: Ratchet for the Felsteed
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "前往{area:392}做地狱战马任务",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
 	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "从{zone:1454}飞往{area:392}；{npc:6251}站在码头上方的山丘上。",
 
-	-- Step 40: Fly to Freewind Post
+	-- Step 45: Fly to Freewind Post
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
-	-- Step 46: Gadgetzan
+	-- Step 51: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "飞到之后：先在飞行管理员旁边做{area:976}的任务，然后向北骑一小段，越过{zone:1446}边界就到{area:2240}。",
 
-	-- Step 47: Gadgetzan
+	-- Step 52: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
 	["For your {area:978} run, in the next guide: {quest:2864} wants scarab shells, and {npc:7804}, a short walk from the flight master, {quest:3042} from the Sandfury trolls."] = "为下一份指南的{area:978}之行做准备：{quest:2864}要圣甲虫壳，飞行管理员附近不远处的{npc:7804}要沙怒巨魔的{quest:3042}。",
 
-	-- Step 48: Mirage Raceway
+	-- Step 53: Mirage Raceway
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
 	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "飞到{area:976}后：赛道就在北边不远处，越过{zone:1446}边界即到。\n从{area:484}通往{zone:1446}的道路经过{area:439}的{area:2240}：{npc:4454}在赛道旁的侏儒营地，{npc:4630}和{npc:4709}在地精营地旁。先找{npc:4630}，再找{npc:4709}；后者会跑去分散瑞兹尔·铜栓的注意力。趁机从侏儒营地拿走瑞兹尔·铜栓的计划，带回给{npc:4630}。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 
-	-- Step 49: To Gadgetzan
+	-- Step 54: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "前往{area:976}",
 
-	-- Step 50: Gadgetzan
+	-- Step 55: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
 	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976}是刚过{zone:1446}边界的地精城镇，有城墙环绕。",
 
-	-- Step 52: Noonshade Ruins: kill these as you meet them
+	-- Step 57: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}：沿途击杀以下目标",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土游荡者部族的敌人都可能携带水袋：鲁格伦克需要五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。",
 
-	-- Step 54: Steamwheedle Port
+	-- Step 59: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "向东北骑往海岸边的地精港口。",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}：在屋内",
@@ -202,31 +216,33 @@ return {
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
 	["{npc:260405}, on the pier: Friz's errand from the {zone:2548}, if you carry it"] = "{npc:260405}，在码头上：如果你带着弗里兹从{zone:2548}托付的差事，交给他",
 
-	-- Step 55: Lost Rigger Cove: kill these as you meet them
+	-- Step 60: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}：沿途击杀以下目标",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "沿海岸向南，南海海盗占据着海湾。{npc:7883}和失窃货物位于海湾最里面的码头上。任何海盗都有可能掉帽子，绑匪的掉率最高。\n小心：{npc:7883}（45级）身旁有两三名海盗，开战后镇内还会有更多海盗加入：先把他的护卫从他身边引开。",
 	["Upstairs"] = "在楼上",
 
-	-- Step 56: Waterspring Field: kill these as you meet them
+	-- Step 61: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "{area:985}：沿途遇到就击杀",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "暗影法师、潜行者和刺客驻扎在 {area:976} 东南。\n加基森东南的沙丘中有废土强盗营地；{npc:7847} 站在东边的营地里。\n小心：废土游荡者脱战后会保持潜行，在营地开战时，隐藏的游荡者可能加入战斗。\n小心：他无论走到哪里，都有两名潜行的废土游荡者同行。在刷新营地时，附近的两名暗影法师及其爪牙也会被引来。到塔楼附近就能单独与他战斗，避开这些法师。",
 
-	-- Step 57: Steamwheedle Port
+	-- Step 62: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "向东北骑回港口：{npc:7881}、{npc:15165}和安全主管会收下你从{area:1336}带回的东西。{area:976}就在港口西边。",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "留到{area:35}，大约51级时（40-50/06）",
 
-	-- Step 59: Fly to Freewind Post
+	-- Step 64: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 61: Camp Mojache
+	-- Step 66: Camp Mojache
+	-- {npc:8021} Orwin Gizzmick · {npc:8020} Shyn
+	["{npc:8021} and {npc:8020} are by the road in. Bind at the inn, then visit the northern huts on your way to the outpost. If you meet Rok on his patrol, hand him the message and take his ogre hunt together."] = "",
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777}在{area:1099}附近巡逻，请在地图标出的圆圈内寻找",
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
@@ -236,41 +252,47 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
-	-- Step 62: Gordunni Outpost
-	-- {npc:222233} Ohk'zi
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",
+	-- Step 67: Gordunni dig sites
+	["Gordunni dig sites"] = "",
+	["Work the southern part of the outpost. Kill the ogres as you dig, and pick up the scroll if you see it."] = "",
+	-- {item:9466} Orwin's Shovel
+	["Use {item:9466} on a blue glow, loot the mound it uncovers, then look for another glow."] = "",
 
-	-- Step 63: Woodpaw north camp
+	-- Step 68: Gordunni Outpost
+	-- {npc:222233} Ohk'zi
+	["Finish the ogres in the outpost; pull the ogre-magi to you. Look for the scroll on the ground if you haven't found it yet.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "",
+
+	-- Step 69: Woodpaw north camp
 	["Woodpaw north camp"] = "木爪北营地",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "木爪豺狼人在莫沙彻西北不远处的山丘扎营；所有种类都可能掉落鬃毛。\n小心：除首领外，所有木爪豺狼人都会在15%生命值时逃跑求援，可能将更多豺狼人引入战斗。",
 
-	-- Step 64: Camp Mojache
+	-- Step 70: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}：从现在起一小时内",
 
-	-- Step 65: Feralas: kill these as you meet them
+	-- Step 71: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "{zone:1444}：沿途遇到就击杀",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "精龙在莫沙彻西侧紧邻的林地上方飞舞；几乎每只都会掉落翅膀。木爪豺狼人首领率领着其西南方各营地：要在一小时内杀死它们。\n小心：大多数首领都待在小帐篷营地中，旁边有 2-4 只会加入战斗的豺狼人，营地之间还有其他豺狼人巡逻。",
 
-	-- Step 67: Grimtotem camp
+	-- Step 73: Grimtotem camp
 	["Grimtotem camp"] = "恐怖图腾营地",
 	-- {npc:222286} Namida Grimtotem
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "恐怖图腾牛头人在小精龙的树林旁扎营；恐怖图腾袭击者、恐怖图腾博学者和恐怖图腾萨满祭司都携带恐怖图腾之角。\n小心：{npc:222286}（43级，精英）站在营地里：把袭击者和萨满祭司从她身边引开。",
 
-	-- Step 68: Woodpaw battle map
+	-- Step 74: Woodpaw battle map
 	["Woodpaw battle map"] = "木爪作战地图",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "木爪作战地图在莫沙彻营地南边的木爪营地里。",
 
-	-- Step 69: Camp Mojache
+	-- Step 75: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "交给{zone:1454}，大约45级时",
 
-	-- Step 70: The Writhing Deep
+	-- Step 76: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber.\nCareful: {quest:7731} is level 47: clear the hive around him and pull him alone at full health."] = "祖卡什异种蝎的巢穴深入营地东南的山丘；{quest:7731}在最深处的洞室里等候。\n小心：{quest:7731}是47级：先清理他周围的虫子，满血时把他单独引出来。",
 
-	-- Step 71: Ruins of Isildien: kill these as you meet them
+	-- Step 77: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}：沿途遇到就击杀",
 	-- {area:1105} Feral Scar Vale
@@ -278,17 +300,17 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234}在{area:2522}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 72: Feral Scar Vale yetis
+	-- Step 78: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "{area:1105}的雪人",
 	-- {area:1105} Feral Scar Vale · {npc:5346} Bloodroar the Stalker
 	["North-west of the ruins, pull one yeti at a time at the eastern mouth of {area:1105} for thick hides. Careful: larger yetis crowd the cave further west, and {npc:5346}, a level 48 rare, lurks at the far end."] = "",
 
-	-- Step 73: Homing Robot OOX-22/FE
+	-- Step 79: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{zone:1444}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
 
-	-- Step 74: Camp Mojache
+	-- Step 80: Camp Mojache
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "狂怒疤痕雪人，下次来{zone:1444}时",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
@@ -311,6 +333,7 @@ return {
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "疾风陆行鸟：{npc:265756}，在泽风岛的{area:16638}。",
 	-- ["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",
+	-- ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",
 	-- ["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在废墟西北，雪人栖息在{area:1105}；那里的每只雪人都可能掉落厚雪人皮。",
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "仅当你有定位器时：机器人在{area:1105}北侧的一个小山洞里。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "从{area:1978}向西北骑回{area:75}，然后飞往{object:3202}。",

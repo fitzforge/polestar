@@ -52,52 +52,56 @@ return {
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}，在裡面",
 
-	-- Step 9: Ice Thistle yetis
+	-- Step 9: Jessica Redpath
+	-- {area:2262} Darrowshire
+	["You'll meet Jessica's sister Pamela in {area:2262}."] = "",
+
+	-- Step 11: Ice Thistle yetis
 	["Ice Thistle yetis"] = "冰薊雪人",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
 	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "雪人山丘從{area:2255}東南方不遠處開始。每隻雪人都會掉落毛皮：打冰薊雪人（55-56級），別碰冰薊雪人女王和冰薊雪人王（56-58級），牠們的角之後再來收集。"
 	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
-	-- Step 10: Chillwind chimaeras
+	-- Step 12: Chillwind chimaeras
 	["Chillwind chimaeras"] = "冰風奇美拉",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
 	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
 	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
-	-- Step 11: Everlook
+	-- Step 13: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "烏米：先留著，完美的雪人角會在{zone:1423}指南約57級時的{area:2255}停留點收集",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "帶著烏米要的角的雪人女王和雪人王是56-58級：留到之後那一站再打。",
 
-	-- Step 12: Fly to Camp Mojache
+	-- Step 14: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飛往{area:1099}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "{area:2255}飛行管理員",
 
-	-- Step 14: Evoroot
+	-- Step 16: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}生長在{npc:7775}營地北邊、鷹身人的{area:1114}東邊一棟廢墟建築裡：從牆壁的破損處爬進去。",
 
-	-- Step 15: The Videre Elixir
+	-- Step 17: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "往南回到{npc:7775}那裡。留著藥劑，先別喝：喝了會死，而這正是之後在{area:976}附近見到蓋瑞恩的方法。",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}，{npc:7775}的獎勵",
 
-	-- Step 17: Fly to Thunder Bluff
+	-- Step 19: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飛往{area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 
-	-- Step 18: Bluff Runner Windstrider
+	-- Step 20: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。魯姆斯塔格的每次捐獻都要從揹包裡拿出六十份毛料、絲綢或魔紋布：身上有就交，沒有就跳過。",
 
-	-- Step 19: Elder Rise
+	-- Step 21: Elder Rise
 	-- {area:1237} Valormok
 	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -105,21 +109,21 @@ return {
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等著：保留到稍後。",
 
-	-- Step 20: Bashana Runetotem
+	-- Step 22: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收購你用{quest:3761}種出的{item:11040}。{quest:3782}需要十個，而{item:11020}每十分鐘只能試一次：只有在你已經帶著穀物時才去接。",
 
-	-- Step 22: Fly to Orgrimmar
+	-- Step 24: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
-	-- Step 23: Vehena
+	-- Step 25: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在{object:172961}。每項捐獻從你揹包中消耗六十張毛料、絲綢或魔紋布：身上帶著的就交，其餘跳過。",
 
-	-- Step 24: Rashona Straglash
+	-- Step 26: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth

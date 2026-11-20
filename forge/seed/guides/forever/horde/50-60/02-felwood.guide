@@ -240,11 +240,14 @@ step Ruins of Eldarath: kill these as you meet them
   collect 10541 quest 3517
   collect 10539 quest 3517
 
-step Ruins of Eldarath
+step Southridge Beach tide pools
   when onquest 3568
-  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
-  goto 35.0,55.0 "Ruins of Eldarath"
-  complete 3568
+  zone Azshara
+  tip Open Cuely's Box of Empty Vials. Start at the southernmost pool and follow the shore north. Stand in each pool and use the empty vial with its number; give the Spitelash patrols room.
+  use 10687 quest 3568.1 @47.98,61.03 era
+  use 10688 quest 3568.2 @47.84,51.39 era
+  use 10689 quest 3568.3 @48.65,48.50 era
+  use 10690 quest 3568.4 @47.39,46.20 era
 
 step Mosshoof hides
   tip Look for Mosshoof Runners, Stags and Coursers between Valormok and the coast. They drop the hides for Kurll.
@@ -322,8 +325,24 @@ step Valormok
   accept 3561
   note Keep the seals for the tome. Return after Winterspring for Magus Rimtori (55).
 
+step Sanath Lim-yo
+  when onquest 3561
+  zone Azshara
+  tip Dismount and speak to Sanath Lim-yo at the foot of the cliff, east of Valormok. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower.
+  talk 8395 optional
+  enter "Bear's Head" @28.02,50.13 live either
+  goto 26.33,46.25 "Sanath's upper landing" r 32 live either
+
+step Sanath Lim-yo: Xylem's note
+  when available 3565
+  zone Azshara
+  tip Dismount and speak to Sanath Lim-yo at the foot of the cliff, east of Valormok. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower.
+  talk 8395 optional
+  enter "Bear's Head" @28.02,50.13 live either
+  goto 26.33,46.25 "Sanath's upper landing" r 32 live either
+
 step Archmage Xylem
-  tip Xylem's tower stands on the cliff just north of Valormok: Sanath Lim-yo, in Valormok, teleports you up for free (talk to him); otherwise the path winds up its north side.
+  tip From Nyrill, follow the path up to Xylem in the tower.
   turnin 3561                         -- Upstairs
   accept 3565
 

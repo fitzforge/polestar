@@ -49,7 +49,6 @@ return {
 
 	-- Step 8: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	-- was: ["Fly to {area:541}"] = "Voe para {area:541}"
 	["Fly to {area:541}"] = "Voe para {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Mestre de voo de {area:976}",
@@ -85,7 +84,6 @@ return {
 
 	-- Step 16: Quixxil
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10977} with {npc:10980}"] = "Assuste {npc:10977} com o {npc:10980}"
 	["Scare {npc:10977} with {item:12928}"] = "",
 
 	-- Step 17: J.D. Collie
@@ -128,7 +126,6 @@ return {
 
 	-- Step 28: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
-	-- was: ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Cavalgue para sudoeste até as ruínas da {area:2738}. O {object:179565} para {npc:11801} fica dentro de uma das casas em ruínas."
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Cavalgue para sudoeste até as ruínas da {area:2738}. O {object:179565} para {npc:11801} fica dentro de uma das casas em ruínas.",
 
 	-- Step 30: Hive in the Tower

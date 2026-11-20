@@ -48,8 +48,8 @@ return {
 	["{npc:3391}: for {npc:4631} in {area:35}, where the boat goes"] = "{npc:3391}: 배가 향하는 {area:35}의 {npc:4631}에게 전달",
 	-- {quest:1111} Wharfmaster Dizzywig
 	["{quest:1111}, on the docks"] = "{quest:1111}, 부두",
-	-- {area:439} Shimmering Flats
-	["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "디지위그의 부품은 경로에서 벗어난 {area:439}의 크라벨에게 돌아가야 하니 받지 마세요.",
+	-- {area:35} Booty Bay
+	["If you first reach Dizzywig on the way to {area:35}, leave the return delivery here; the boat is your next stop."] = "",
 
 	-- Step 8: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -71,25 +71,29 @@ return {
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 
-	-- Step 10: Grom'gol
+	-- Step 10: Krazek
+	-- {npc:773} Krazek
+	["If you brought Kravel's message, give it to {npc:773} upstairs at the inn."] = "",
+
+	-- Step 11: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	["Leave {area:35} through the tunnel and follow the road north to {object:3202}, the orc camp on the west side of the vale. Stay on the road: the jungle beside it is above your level."] = "터널을 통해 {area:35}을(를) 나와 길을 따라 북쪽으로 골짜기 서쪽의 오크 주둔지 {object:3202}(으)로 가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 더 높습니다.",
 	-- {npc:2497} Nimboya
 	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}: 경로 후반의 아라시 고원용",
 
-	-- Step 11: Nesingwary's camp
+	-- Step 12: Nesingwary's camp
 	["Nesingwary's camp"] = "네싱워리의 야영지",
 	-- {object:3202} Grom'gol · {npc:773} Krazek · {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of The {item:2755} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. {npc:773}이(가) 조사를 원하니 천막 사이를 걸어 다니세요. 지금부터 얻는 {item:2755}의 모든 쪽은 보관하세요. 다음에 가시덤불 골짜기에 올 때 {npc:716}이(가) 받습니다.",
 
-	-- Step 12: Nesingwary's Expedition: kill these as you meet them
+	-- Step 13: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
 	["{area:100}: kill these as you meet them"] = "",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "민물악어는 야영지 아래 강을 따라 있습니다. 어린 가시덤불호랑이는 야영지 서쪽, 어린 표범은 동쪽에 돌아다닙니다. 야영지를 지나 서쪽으로 가세요. 가시덤불랩터(33-34)는 빈터에서 사냥하고, 붉은머리부족 트롤은 해안의 폐허를 차지하고 있습니다. 붉은머리부족은 모두 엄니를 떨어뜨릴 수 있습니다. 이들에게서 {item:4614}이(가) 매우 드물게 떨어지니, 얻으면 읽어 보세요. 주의: 트롤 야영지에는 순찰하는 몹이 많아 다른 트롤이 자주 전투에 끼어듭니다.",
 
-	-- Step 14: Stranglethorn Vale: kill these as you meet them
+	-- Step 15: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	-- {area:37} Lake Nazferiti
@@ -99,34 +103,34 @@ return {
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "연마된 수정, 동쪽 야영지의 지질학자에게서 획득",
 
-	-- Step 15: Nesingwary's camp
+	-- Step 16: Nesingwary's camp
 	-- {object:3202} Grom'gol
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers come much later, by {object:3202}"] = "그림자퓨마는 훨씬 나중에 {object:3202} 근처에서 나옵니다",
 
-	-- Step 16: Elder Stranglethorn Tigers
+	-- Step 17: Elder Stranglethorn Tigers
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["Elder Stranglethorn Tigers"] = "",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "",
 
-	-- Step 17: Nesingwary's camp
+	-- Step 18: Nesingwary's camp
 	["Back north to the camp."] = "북쪽의 야영지로 돌아가세요.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729}(37)은(는) forever/horde/40-50/01-stranglethorn-vale 가이드의 다음 네싱워리 방문(약 40레벨) 때 처리합니다",
 
-	-- Step 18: Thoroughly Scavenged Supplies
+	-- Step 19: Thoroughly Scavenged Supplies
 	-- {npc:268992} Zimmix Sputterspark
 	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
-	-- Step 19: The Savage Coast: kill these as you meet them
+	-- Step 20: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
-	-- Step 20: Zimmix Sputterspark
+	-- Step 21: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}은(는) {area:102} 동쪽 끝에 붙잡혀 있고, 도난당한 화물은 그 주변 폐허에 있습니다. 그곳의 붉은머리부족 정찰병, 사냥꾼, 신비술사(34-35)가 {item:277957}을(를) 지니고 있습니다. 그런 다음 그를 폐허 밖으로 데리고 나가세요. {area:35}의 {npc:4631}이(가) 소식과 화물을 받습니다.\n주의: 붉은머리부족 광전사와 머리사냥꾼(36-37), 주술사(37, 시전자)가 {npc:268992} 북쪽과 서쪽 폐허, 북쪽 화물(약 24.9,9.6) 근처를 차지하고 있습니다. 먼저 {npc:268992} 옆 남쪽 폐허의 화물을 줍고, 북쪽으로 가면 하나씩 끌어내세요.",
@@ -138,30 +142,30 @@ return {
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 호위하며 살려 두세요. 안전해지면 로즈길이 소식을 받습니다.",
 
-	-- Step 21: Nesingwary's camp
+	-- Step 22: Nesingwary's camp
 	-- {npc:729} Sin'Dall
 	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
-	-- Step 22: Lashtail Raptors
+	-- Step 23: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "",
 	-- {object:3202} Grom'gol · {npc:2464} Commander Aggro'gosh
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor · Carnivorous Weeds = {npc:269175} Carnivorous Weed
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them."] = "{object:3202}(으)로 남쪽으로 돌아가는 길에, 야영지와 {object:3202} 사이 정글에서 채찍꼬리랩터(35-36)가 사냥합니다. 헤메트와 {npc:2464} 퀘스트 모두에 집계됩니다. 주의: 36레벨은 2레벨 높을 수 있으니 하나씩 끌어내세요. 식충 덩굴(36-38)이 랩터 남쪽 정글에 뿌리박고 있으니 돌아가세요.",
 
-	-- Step 23: Grom'gol
+	-- Step 24: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464}은(는) {object:3202} 한가운데, {npc:2497}은(는) 비행선 탑 근처, {npc:2465}은(는) 비행 조련사 옆에 있습니다.",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "",
 
-	-- Step 24: Fly to Booty Bay
+	-- Step 25: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
-	-- Step 25: Booty Bay
+	-- Step 26: Booty Bay
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:4631} Wharfmaster Lozgil
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master. {npc:4631} stands on the pier."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층 비행 조련사 옆에 있습니다. {npc:4631}은(는) 부두에 서 있습니다.",
 	-- {npc:2498} Crank Fizzlebub
@@ -172,13 +176,13 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {npc:268992} Zimmix Sputterspark
 	["{npc:4631}: {npc:268992} is safe"] = "{npc:4631}: {npc:268992} 무사함",
 
-	-- Step 26: Fly to Grom'gol
+	-- Step 27: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 27: Level 35
+	-- Step 28: Level 35
 	["Level 35"] = "",
 	-- {quest:629} The Vile Reef · {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -186,29 +190,29 @@ return {
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "",
 
-	-- Step 28: The Vile Reef
+	-- Step 29: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
 	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "그롬골 북서쪽 해안 앞바다 물속에 {area:104}이(가) 있습니다. {item:4094}은(는) 가라앉은 폐허 옆 바닥에 있습니다. 숨과 멀록을 조심하세요.",
 	["Underwater"] = "물속",
 
-	-- Step 29: Ruins of Zul'Kunda: kill these as you meet them
+	-- Step 30: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "",
 	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "해안 마을의 붉은머리부족 인간사냥꾼(36-37)이 쪼그라든 머리를 가지고 있습니다. 주의: 37 레벨은 나보다 2레벨 높을 수 있습니다. 마을 가장자리에서 한 마리씩 끌어오고, 주술사가 있는 마을 한가운데로는 절대 들어가지 마세요.\n붉은머리부족 트롤은 산호초 북쪽 해안의 폐허와 그 너머 마을을 차지하고 있습니다. 모두 {item:3915}을(를) 떨어뜨릴 수 있습니다. {item:2755}의 쪽도 계속 모으세요.",
 
-	-- Step 31: Stranglethorn Vale: kill these as you meet them
+	-- Step 32: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them; the 38s can be two over you: pull them one at a time and leave the Elders alone."] = "모쉬오그 언덕 동쪽, 호수 쪽 정글에 그림자퓨마(37-38)가 돌아다닙니다. 같은 곳의 가시덤불 암호랑이는 가끔 완벽한 송곳니를 떨어뜨립니다. 무쇠턱 악어는 정글 바로 서쪽 강가에 있습니다. 가죽은 {npc:2495}에게 줄 테니 보관하세요. 주의: 그림자퓨마(37-38 레벨)와 덩치큰 그림자퓨마(42-43 레벨)는 비전투 중 은신을 사용하므로 가까이 가기 전까지 보이지 않습니다. 38 레벨은 나보다 2레벨 높을 수 있으니 한 마리씩 끌어오고, 덩치큰 그림자퓨마는 건드리지 마세요.",
 
-	-- Step 32: Mosh'Ogg camp
+	-- Step 33: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "모쉬오그일족 야영지",
 	-- {object:3202} Grom'gol
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time. Careful: the 37s can be two over you: take them from the camp's western edge, never two together."] = "모쉬오그일족 오우거는 돌아가는 길, {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사 10마리와 모쉬오그일족 의술사 5마리(36-37)를 처치하세요. 한 마리씩 끌어오세요. 주의: 37 레벨은 나보다 2레벨 높을 수 있습니다. 야영지 서쪽 가장자리에서 잡고, 절대 두 마리를 한꺼번에 상대하지 마세요.",
 
-	-- Step 33: Grom'gol
+	-- Step 34: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "{object:3202}(으)로 돌아가세요.",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -218,7 +222,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
 
-	-- Step 34: Level 36
+	-- Step 35: Level 36
 	["Level 36"] = "",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
@@ -229,6 +233,7 @@ return {
 	["grind on {npc:1152}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dizzywig's parts go back to Kravel in the {area:439}, off the route: leave them."] = "디지위그의 부품은 경로에서 벗어난 {area:439}의 크라벨에게 돌아가야 하니 받지 마세요.",
 	-- ["Elder tigers and Lashtail raptors"] = "덩치큰 호랑이와 채찍꼬리랩터",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 나중에 {npc:716}이(가) 요구합니다.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "길을 따라 골짜기 남쪽 끝의 {area:35}(으)로 가서 절벽의 터널로 들어가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 훨씬 높습니다. 호드 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",

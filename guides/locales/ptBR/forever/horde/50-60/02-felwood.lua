@@ -79,8 +79,11 @@ return {
 	["{area:1221}: kill these as you meet them"] = "{area:1221}: vá matando estes pelo caminho",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time."] = "",
 
-	-- Step 18: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Siga para leste até as ruínas na costa. Encha os quatro frascos de Cuely nas poças de maré ao longo da praia; nagas Iralisca patrulham entre elas.",
+	-- Step 18: Southridge Beach tide pools
+	-- {area:1231} Southridge Beach
+	["{area:1231} tide pools"] = "",
+	-- {item:10695} Box of Empty Vials
+	["Open Cuely's {item:10695}. Start at the southernmost pool and follow the shore north. Stand in each pool and use the empty vial with its number; give the Spitelash patrols room."] = "",
 
 	-- Step 19: Mosshoof hides
 	["Mosshoof hides"] = "",
@@ -160,27 +163,35 @@ return {
 	-- {zone:1452} Winterspring · {npc:8578} Magus Rimtori
 	["Keep the seals for the tome. Return after {zone:1452} for {npc:8578} (55)."] = "",
 
-	-- Step 32: Archmage Xylem
-	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
-	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "A torre de Xylem fica no penhasco logo ao norte de {area:1237}: {npc:8395}, em {area:1237}, teleporta você lá para cima de graça (fale com ele); senão, o caminho sobe serpenteando pelo lado norte.",
-	-- was: ["Upstairs"] = "No andar de cima"
+	-- Step 32: Sanath Lim-yo
+	-- {npc:8395} Sanath Lim-yo · {area:1237} Valormok
+	["Dismount and speak to {npc:8395} at the foot of the cliff, east of {area:1237}. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower."] = "",
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}'s upper landing"] = "",
+
+	-- Step 33: Sanath Lim-yo: Xylem's note
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}: Xylem's note"] = "",
+
+	-- Step 34: Archmage Xylem
+	["From Nyrill, follow the path up to Xylem in the tower."] = "",
 	["Upstairs"] = "No andar de cima",
 
-	-- Step 34: Fly back to Orgrimmar
+	-- Step 36: Fly back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly back to {area:1637}"] = "",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "Mestre de voo de {area:1237}",
 
-	-- Step 35: Jes'rimon
+	-- Step 37: Jes'rimon
 	-- {area:1237} Valormok
 	["Keep the payment for the return to {area:1237}"] = "",
 
-	-- Step 36: Fly to Splintertree Post
+	-- Step 38: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "Voe para {area:431}",
 
-	-- Step 38: Emerald Sanctuary
+	-- Step 40: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "O acampamento dos druidas fica logo depois da fronteira.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}, ao lado de {npc:10921}: {quest:86577}, os órgãos dos ursos e lobos de {zone:1448}",
@@ -189,41 +200,41 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}, no lado oeste do acampamento",
 
-	-- Step 39: Deadwood Village
+	-- Step 41: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "A aldeia dos furbolgs Lenha Morta fica logo ao sul do Santuário. Cada morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar.",
 
-	-- Step 40: Southern Jaedenar
+	-- Step 42: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sul de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Siga a estrada para noroeste. O sul de {area:1763}, em volta do poço lunar corrompido, é ocupado por sectários, adeptos, guardas e cães do Shadow Council.",
 
-	-- Step 42: The Jaedenar moonwell
+	-- Step 44: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "O poço lunar de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "De volta ao norte, até {area:1763}. Encha o cantil de Greta no poço lunar corrompido no meio do acampamento do sul.",
 
-	-- Step 43: Bloodvenom Post
+	-- Step 45: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "O acampamento da Horda logo ao norte de {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: os corujursos ficam em {zone:1452}",
 
-	-- Step 44: Shatter Scar Vale
+	-- Step 46: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "A leste do Posto Peçonha, o vale de crateras onde vagam as Feras e os Horrores Entrópicos. Mate dois de cada, depois vá até cada uma das três crateras de água vil.",
 	["Southern crater"] = "Cratera do sul",
 	["Western crater"] = "Cratera do oeste",
 	["Northern crater"] = "Cratera do norte",
 
-	-- Step 45: Statue of Malorne
+	-- Step 47: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	-- was: ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "A Estátua de Malorne fica logo ao sul do vale, junto à estrada para o norte: o bibelô dela inicia uma missão para {npc:9996} em {area:1997}."
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996}, handed in on the last ride north past {area:1997}."] = "",
 
-	-- Step 46: Irontree Woods
+	-- Step 48: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgos e Retalhadores Lenhatorta do lado leste da mata levam cada um um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil vagam pela mesma mata para Talo."
@@ -233,33 +244,33 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}, dos lobos Patavil",
 
-	-- Step 47: Irontree Woods
+	-- Step 49: Irontree Woods
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 48: The Jadefire moonwell
+	-- Step 50: The Jadefire moonwell
 	["The Jadefire moonwell"] = "O poço lunar Flamejade",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	-- was: ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Cavalgue de volta para o sul, passando por {area:1763}, até o poço lunar corrompido dos sátiros Flamejade, e encha ali o frasquinho de {npc:9996}."
 	["On the return from Irontree, ride south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 49: Overlord Ror
+	-- Step 51: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "Ror fica no extremo sul de {area:1761}.",
 
-	-- Step 50: Emerald Sanctuary
+	-- Step 52: Emerald Sanctuary
 	["Stop at the Sanctuary on the ride north from Ror."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, no lado oeste do Santuário",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "Guarde {quest:5158}: {npc:5901} está em {zone:1413}.",
 
-	-- Step 51: Bloodvenom Post
+	-- Step 53: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Ride north up the road to {area:1997}, on the way to the tunnel."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}: {quest:86612}",
 
-	-- Step 52: Winna Hazzard's kitten
+	-- Step 54: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "O gatinho da {npc:9996}",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -267,16 +278,16 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, no poço lunar Flamejade",
 
-	-- Step 54: Level 54
+	-- Step 56: Level 54
 	["Level 54"] = "",
 	-- {area:16620} Alcaz Prison · {area:1584} Blackrock Depths
 	["On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the {area:16620} dungeon or the {area:1584} dungeon instead."] = "",
 
-	-- Step 55: Nafien
+	-- Step 57: Nafien
 	-- {area:1762} Felpaw Village · {npc:15395} Nafien
 	["Follow the road north past {area:1762} to {npc:15395} at the tunnel entrance."] = "",
 
-	-- Step 56: Felpaw Village
+	-- Step 58: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
 	-- was: ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: os Vigias do Covil têm nível 53-54 e os Vingadores de Lenha Morta 54-55; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nContinue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 59."
@@ -284,11 +295,11 @@ return {
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarde 30 {quest:6031} para ele; ele só negocia a partir de Neutro com os Presamatos; no subterrâneo",
 
-	-- Step 57: Nafien
+	-- Step 59: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Guarde {quest:8465} para {zone:1452}.",
 
-	-- Step 58: Timbermaw Hold
+	-- Step 60: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
 	-- {npc:11558} Kernda
@@ -336,6 +347,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "Cavalgue de volta para sudeste até o Santuário.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Volte a {area:1497}, pegue o zepelim para {zone:1454} e voe para {area:431}. Siga a estrada para o oeste saindo do Posto Machadada e pegue a bifurcação para o norte até {zone:1448}.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Cavalgue de volta para o oeste atravessando o rio e siga até {area:192}; {npc:11610} se esconde na colina a nordeste dele.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Siga para leste até as ruínas na costa. Encha os quatro frascos de Cuely nas poças de maré ao longo da praia; nagas Iralisca patrulham entre elas.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Cavalgue para o norte pelas colinas do leste; {npc:1855} mora numa casinha junto a {area:2619}, na fronteira com {zone:1423}.",
 	-- ["Ride north up the road again."] = "Cavalgue de novo para o norte pela estrada.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cavalgue para noroeste até Andorhal. {npc:10667} espera na estalagem em ruínas do lado oeste da cidade; os esqueletos lá dentro são 54-57, então fique pelas bordas.",
@@ -376,6 +388,7 @@ return {
 	-- ["Upstairs"] = "No andar de cima",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "Entre no túnel de {area:1769} ao lado de {npc:15395} e nunca ataque os furbolgs Presamatos lá dentro. O túnel dá em {zone:1452}; siga a estrada para o leste até {area:2255}, a cidade goblin onde o próximo guia começa.",
 	-- ["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Leve {npc:11018} para fora de {area:1770} e mantenha-a viva até ela sair da caverna.",
+	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "A torre de Xylem fica no penhasco logo ao norte de {area:1237}: {npc:8395}, em {area:1237}, teleporta você lá para cima de graça (fale com ele); senão, o caminho sobe serpenteando pelo lado norte.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "mate Vingadores de Lenha Morta em {area:1762}, {zone:1448}",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "mate Cavaleiros Escarlates em {area:192}, {zone:1422}",
 	-- ["grind on {npc:10605}"] = "mate {npc:10605} até subir",

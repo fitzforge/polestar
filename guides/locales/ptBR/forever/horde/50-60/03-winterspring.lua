@@ -52,52 +52,56 @@ return {
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}, lá dentro",
 
-	-- Step 9: Ice Thistle yetis
+	-- Step 9: Jessica Redpath
+	-- {area:2262} Darrowshire
+	["You'll meet Jessica's sister Pamela in {area:2262}."] = "",
+
+	-- Step 11: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo de Gelo",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
 	-- was: ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "As colinas dos yetis começam logo a sudeste de {area:2255}. Todo yeti deixa cair pelo: cace os Yetis Cardo de Gelo (55-56) e deixe as Matriarcas e os Patriarcas (56-58), cujos chifres ficam para uma visita posterior."
 	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.\nAt 54, take level 55 Ice Thistle Yetis; leave the 56s and the larger Matriarchs and Patriarchs."] = "",
 
-	-- Step 10: Chillwind chimaeras
+	-- Step 12: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Quimeras Ventogelante",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
 	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
 	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite.\nAt 54, take the Fledgling Chillwinds (53-55). They carry the same horns; leave the larger chimaeras alone."] = "",
 
-	-- Step 11: Everlook
+	-- Step 13: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: mantenha a missão; os Chifres Impolutos de Yeti ficam para a parada em {area:2255} do Guia de {zone:1423}, por volta do nível 57",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "As Matriarcas e os Patriarcas que carregam os chifres de Umi são de nível 56-58: deixe-os para essa parada posterior.",
 
-	-- Step 12: Fly to Camp Mojache
+	-- Step 14: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Voe para {area:1099}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "Mestre de voo de {area:2255}",
 
-	-- Step 14: Evoroot
+	-- Step 16: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte do acampamento de {npc:7775}, a leste de {area:1114} das harpias: entre pela parte quebrada da parede.",
 
-	-- Step 15: The Videre Elixir
+	-- Step 17: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "Volte para o sul até {npc:7775}. Guarde o elixir e não o beba ainda: ele mata você, e é assim que você encontra Gaeriyan perto de {area:976} mais tarde.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, a recompensa de {npc:7775}",
 
-	-- Step 17: Fly to Thunder Bluff
+	-- Step 19: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 
-	-- Step 18: Bluff Runner Windstrider
+	-- Step 20: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} e {npc:14728} ficam em {area:1641}. Cada doação de Rumstag leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 19: Elder Rise
+	-- Step 21: Elder Rise
 	-- {area:1237} Valormok
 	["Take the payment to Jediga on the next {area:1237} stop"] = "",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -105,21 +109,21 @@ return {
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} espera em {zone:1450}: guarde-a para depois.",
 
-	-- Step 20: Bashana Runetotem
+	-- Step 22: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} compra o {item:11040} cultivado a partir do seu {quest:3761}. {quest:3782} pede dez, e o {item:11020} dá uma tentativa a cada dez minutos: pegue só se você já tiver o grão.",
 
-	-- Step 22: Fly to Orgrimmar
+	-- Step 24: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
-	-- Step 23: Vehena
+	-- Step 25: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 24: Rashona Straglash
+	-- Step 26: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	["In the {object:172958}."] = "Em {object:172958}.",
 	-- {item:14047} Runecloth

@@ -79,8 +79,11 @@ return {
 	["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time."] = "",
 
-	-- Step 18: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向东骑往海岸边的废墟。在沿岸的海潮之池装满科雷的四个瓶子；恶鞭纳迦在海潮之池之间巡逻。",
+	-- Step 18: Southridge Beach tide pools
+	-- {area:1231} Southridge Beach
+	["{area:1231} tide pools"] = "",
+	-- {item:10695} Box of Empty Vials
+	["Open Cuely's {item:10695}. Start at the southernmost pool and follow the shore north. Stand in each pool and use the empty vial with its number; give the Spitelash patrols room."] = "",
 
 	-- Step 19: Mosshoof hides
 	["Mosshoof hides"] = "",
@@ -160,27 +163,35 @@ return {
 	-- {zone:1452} Winterspring · {npc:8578} Magus Rimtori
 	["Keep the seals for the tome. Return after {zone:1452} for {npc:8578} (55)."] = "",
 
-	-- Step 32: Archmage Xylem
-	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
-	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "塞勒姆的法师塔位于{area:1237}正北的悬崖上：{area:1237}的{npc:8395}可以免费把你传送上去（与他对话）；否则沿北侧的小路盘旋而上。",
-	-- was: ["Upstairs"] = "在楼上"
+	-- Step 32: Sanath Lim-yo
+	-- {npc:8395} Sanath Lim-yo · {area:1237} Valormok
+	["Dismount and speak to {npc:8395} at the foot of the cliff, east of {area:1237}. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower."] = "",
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}'s upper landing"] = "",
+
+	-- Step 33: Sanath Lim-yo: Xylem's note
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}: Xylem's note"] = "",
+
+	-- Step 34: Archmage Xylem
+	["From Nyrill, follow the path up to Xylem in the tower."] = "",
 	["Upstairs"] = "在楼上",
 
-	-- Step 34: Fly back to Orgrimmar
+	-- Step 36: Fly back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly back to {area:1637}"] = "",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "{area:1237}的飞行管理员",
 
-	-- Step 35: Jes'rimon
+	-- Step 37: Jes'rimon
 	-- {area:1237} Valormok
 	["Keep the payment for the return to {area:1237}"] = "",
 
-	-- Step 36: Fly to Splintertree Post
+	-- Step 38: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "飞往{area:431}",
 
-	-- Step 38: Emerald Sanctuary
+	-- Step 40: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "德鲁伊的营地就在边界过去一点。",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}，在{npc:10921}旁：{quest:86577}，收集{zone:1448}熊和狼的器官",
@@ -189,41 +200,41 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}，在营地西侧",
 
-	-- Step 39: Deadwood Village
+	-- Step 41: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪的村庄就在翡翠圣地正南。每杀一个死木熊怪也会提升你在{area:1769}的声望；留着死木头饰羽毛。",
 
-	-- Step 40: Southern Jaedenar
+	-- Step 42: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763}南部",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿道路向西北。{area:1763}南部那口被腐化的月亮井周围被暗影议会的加德纳尔祭司、加德纳尔精兵、卫兵和恶犬占据。",
 
-	-- Step 42: The Jaedenar moonwell
+	-- Step 44: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763}的月亮井",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南部营地中央被腐化的月亮井装满格雷塔的水壶。",
 
-	-- Step 43: Bloodvenom Post
+	-- Step 45: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763}正北的部落营地。",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}：枭兽在{zone:1452}",
 
-	-- Step 44: Shatter Scar Vale
+	-- Step 46: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "在血毒岗哨东边，是{npc:9878}和热能恐兽游荡的坑洼山谷。每种各杀两只，然后走到三个邪能水坑的每一个那里。",
 	["Southern crater"] = "南部水坑",
 	["Western crater"] = "西部水坑",
 	["Northern crater"] = "北部水坑",
 
-	-- Step 45: Statue of Malorne
+	-- Step 47: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	-- was: ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "玛洛恩雕像就在山谷正南、往北的道路旁：它的饰物会开启一个交给{area:1997}的{npc:9996}的任务。"
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996}, handed in on the last ride north past {area:1997}."] = "",
 
-	-- Step 46: Irontree Woods
+	-- Step 48: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者在同一片树林里游荡，是塔罗要的。"
@@ -233,33 +244,33 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}，来自魔爪狼",
 
-	-- Step 47: Irontree Woods
+	-- Step 49: Irontree Woods
 	["Below ground"] = "在地下",
 
-	-- Step 48: The Jadefire moonwell
+	-- Step 50: The Jadefire moonwell
 	["The Jadefire moonwell"] = "碧火月亮井",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	-- was: ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "向南骑过{area:1763}，前往碧火萨特那口被腐化的月亮井，在那里装满{npc:9996}的小瓶。"
 	["On the return from Irontree, ride south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 49: Overlord Ror
+	-- Step 51: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "洛尔站在{area:1761}最南端。",
 
-	-- Step 50: Emerald Sanctuary
+	-- Step 52: Emerald Sanctuary
 	["Stop at the Sanctuary on the ride north from Ror."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}，在翡翠圣地西侧",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "留着{quest:5158}：{npc:5901}在{zone:1413}。",
 
-	-- Step 51: Bloodvenom Post
+	-- Step 53: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Ride north up the road to {area:1997}, on the way to the tunnel."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}：{quest:86612}",
 
-	-- Step 52: Winna Hazzard's kitten
+	-- Step 54: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}的小猫",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -267,16 +278,16 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月亮井",
 
-	-- Step 54: Level 54
+	-- Step 56: Level 54
 	["Level 54"] = "",
 	-- {area:16620} Alcaz Prison · {area:1584} Blackrock Depths
 	["On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the {area:16620} dungeon or the {area:1584} dungeon instead."] = "",
 
-	-- Step 55: Nafien
+	-- Step 57: Nafien
 	-- {area:1762} Felpaw Village · {npc:15395} Nafien
 	["Follow the road north past {area:1762} to {npc:15395} at the tunnel entrance."] = "",
 
-	-- Step 56: Felpaw Village
+	-- Step 58: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
 	-- was: ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "小心：死木守卫为53-54级，死木复仇者为54-55级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。"
@@ -284,11 +295,11 @@ return {
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}：为他留着 30 个 {quest:6031}；木喉声望达到中立后才肯交易；在地下",
 
-	-- Step 57: Nafien
+	-- Step 59: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "留着{quest:8465}去{zone:1452}。",
 
-	-- Step 58: Timbermaw Hold
+	-- Step 60: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "走进洞穴：{npc:11558}就在入口内侧。",
 	-- {npc:11558} Kernda
@@ -336,6 +347,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "向东南骑回翡翠圣地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "骑回{area:1497}，乘飞艇前往{zone:1454}，飞往{area:431}。沿道路向西离开碎木岗哨，在岔路口向北进入{zone:1448}。",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西骑回河对岸，继续前往{area:192}；{npc:11610}躲在它东北的山上。",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向东骑往海岸边的废墟。在沿岸的海潮之池装满科雷的四个瓶子；恶鞭纳迦在海潮之池之间巡逻。",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "沿东边的山丘向北骑行；{npc:1855}住在{area:2619}旁的一间小房子里，就在与{zone:1423}的交界处。",
 	-- ["Ride north up the road again."] = "再次沿道路向北骑行。",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候；里面的骷髅是54-57级，所以沿着边缘走。",
@@ -377,6 +389,7 @@ return {
 	-- ["Upstairs"] = "在楼上",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "走进{npc:15395}旁边的{area:1769}隧道，千万别攻击里面的木喉熊怪。隧道出口在{zone:1452}；沿道路向东前往地精城镇{area:2255}，下一个指南从那里开始。",
 	-- ["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "护送{npc:11018}离开{area:1770}，保护她直到走出洞穴。",
+	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "塞勒姆的法师塔位于{area:1237}正北的悬崖上：{area:1237}的{npc:8395}可以免费把你传送上去（与他对话）；否则沿北侧的小路盘旋而上。",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "在{zone:1448}的{area:1762}刷死木复仇者",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "在{zone:1422}的{area:192}刷血色骑士",
 	-- ["grind on {npc:10605}"] = "击杀{npc:10605}刷经验",

@@ -46,8 +46,6 @@ return {
 	["Land at {area:16727}"] = "",
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {zone:1446} Tanaris
 	["Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {zone:1446} pier is not the crossing."] = "",
-	-- {npc:255897} Friz Frazzlespark
-	["{npc:255897}, at the west end of the docks"] = "",
 
 	-- Step 7: Powderfuse Port
 	-- {npc:255897} Friz Frazzlespark

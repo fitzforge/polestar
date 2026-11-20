@@ -14,7 +14,7 @@ next forever/horde/40-50/02-feralas
 # QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
 # Order: the way in on foot from Kargath through Twilight's Shroud (after the Stranglethorn Vale & Swamp of Sorrows
 # guide, about level 42: a flight from Stonard to Kargath, then Rog'mar first and Sleebo's workshop), or by the goblin
-# boat from Tanaris for a character without Kargath's flight path (Powderfuse Port, Sleebo's workshop, then Rog'mar);
+# boat from Steamwheedle for a character already in Tanaris or without Kargath's flight path (Powderfuse Port, Sleebo's workshop, then Rog'mar);
 # Rog'mar (flight path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western loop
 # (Turner's Logging Camp, the Bristle Hills, Gelinda Coppergleam's Cinderscale hollow, Meadowsbrook) and the hearth
 # home, the training grounds, then the river and the Farholde training camp.
@@ -49,6 +49,7 @@ step Fly to Kargath
 step Into the Riverglades
   when taxi "Kargath"
   when !zone "Riverglades"
+  when !zone "Tanaris"
   zone Badlands
   tip New in Forever: this guide follows what players did in the Riverglades. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip From Kargath, ride south-east across the Badlands to the zone's southern edge: the pass of Twilight's Shroud leads down into the Riverglades. Rog'mar, the Horde's fort, stands in the middle of the zone, east along the valley.
@@ -60,42 +61,43 @@ step Into the Riverglades
 step Fly to Freewind Post
   when !taxi "Kargath"
   when !zone "Riverglades"
+  when !zone "Tanaris"
+  when !zone "Thousand Needles"
   tip New in Forever: this guide follows what players did in the Riverglades. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Riverglades lie across the sea from Tanaris: a goblin boat sails from Steamwheedle Port, north-east of Gadgetzan, to Powderfuse Port. Fly to Freewind Post in Thousand Needles and head south-east through the Shimmering Flats to Gadgetzan. (If you already know Kargath in the Badlands, the way in through Twilight's Shroud works too.)
   fly "Freewind Post"
 
 step Gadgetzan
-  when !taxi "Kargath"
-  when !zone "Riverglades"
+  when zone "Tanaris"
+  when !subzone "Steamwheedle Port"
+  when !taxi "Gadgetzan"
   zone Tanaris
   tip Learn Gadgetzan's flight path: it saves the ride next time.
   getfp "Gadgetzan"
 
 step Boat to Powderfuse Port
-  when !taxi "Kargath"
-  when !zone "Riverglades"
+  label steamwheedle-pier
+  when zone "Tanaris"
   zone Tanaris
   tip Steamwheedle Port is on the coast north-east of Gadgetzan: wait on the pier for the goblin boat to Powderfuse Port.
   goto 67.57,23.1 "Boat to Powderfuse Port"
 
 step Land at Powderfuse Port
-  when !taxi "Kargath"
-  when !onquest 95062
-  when !turnedin 95062
-  zone Riverglades
+  when done steamwheedle-pier
+  zone Tanaris
   tip Board at Steamwheedle and ride to Powderfuse Port. Leave the boat and walk west along the docks to Friz's stall. Reaching the Tanaris pier is not the crossing.
-  enter "Powderfuse Port" @79.45,52.71
-  talk 255897                          -- Friz, at the west end of the docks
+  enter "Powderfuse Port" @67.57,23.1
 
 step Powderfuse Port
-  when !taxi "Kargath"
+  label first-port-stop
+  when subzone "Powderfuse Port"
   zone Riverglades
   tip New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later in this guide: this crate goes to the Horde's fort.
   accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
 
 step Sleebo's workshop
-  when !taxi "Kargath"
+  when done first-port-stop
   tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
   accept 96063                          -- Gaseous Gold
 

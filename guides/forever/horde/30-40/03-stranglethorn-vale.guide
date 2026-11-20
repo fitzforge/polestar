@@ -56,7 +56,7 @@ step Ratchet
   turnin 1178                         -- Gazlowe, upstairs
   accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, where the boat goes
   turnin 1111                         -- Wharfmaster Dizzywig, on the docks
-  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
+  note If you first reach Dizzywig on the way to Booty Bay, leave the return delivery here; the boat is your next stop.
 
 step Boat to Booty Bay
   zone The Barrens
@@ -77,6 +77,12 @@ step Booty Bay
   accept 189                          -- Kebok
   accept 201                          -- Krazek, upstairs
   getfp "Booty Bay" npc 2858          -- Gringer
+
+step Krazek
+  when complete 1115
+  zone Stranglethorn Vale
+  tip If you brought Kravel's message, give it to Krazek upstairs at the inn.
+  turnin 1115
 
 step Grom'gol
   zone Stranglethorn Vale

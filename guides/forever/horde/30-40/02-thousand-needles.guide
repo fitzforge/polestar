@@ -87,8 +87,49 @@ next forever/horde/30-40/03-stranglethorn-vale
 step Zeppelin to Orgrimmar
   when !zone "Durotar"
   when !zone "Orgrimmar"
+  when !zone "The Barrens"
   zone Tirisfal Glades
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
+  enter "Durotar"                     -- Ride across; the Tirisfal tower is not the landing
+
+step Fly to the Crossroads
+  when available 1145
+  when zone "Orgrimmar"
+  when taxi "Crossroads"
+  when money>=1s10c
+  zone Orgrimmar
+  tip If Doras offers the Crossroads flight, take it to Korran. Without a ticket, take the road through Razor Hill and Far Watch Post.
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Crossroads"
+  zone The Barrens
+
+step Korran
+  when available 1145
+  zone The Barrens
+  tip Korran stands beside the Crossroads flight master. If you cannot fly from Orgrimmar, leave by the main gate, follow the road south to Razor Hill, then west across the Southfury and south-west to the Crossroads. From Ratchet, take the road north-west to town.
+  accept 1145                         -- For Belgrom Rockmaul in Orgrimmar
+
+step Back to Orgrimmar
+  when onquest 1145
+  when subzone "The Crossroads"
+  when taxi "Orgrimmar"
+  when money>=1s10c
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
+
+step Belgrom Rockmaul
+  when onquest 1145
+  zone Orgrimmar
+  tip Belgrom Rockmaul is in Orgrimmar's Valley of Honor. If you cannot fly from the Crossroads, follow the road north-east to Far Watch Post, cross the Southfury to Razor Hill, then head north to the city gate.
+  turnin 1145
+
+step Belgrom's message
+  when turnedin 1145
+  when available 1146
+  zone Orgrimmar
+  accept 1146                         -- For Moktar Krin on the Shimmering Flats
 
 step Alliance Relations
   when level>=30
@@ -109,35 +150,6 @@ step Searn Firewarder
   zone Orgrimmar
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
-
-step Fly to the Crossroads
-  when !turnedin 1145
-  when !onquest 1145
-  zone Orgrimmar
-  tip Korran's The Swarm Grows needed level 29 on the last guide's Crossroads stop: take it now, on a short flight to the Crossroads and back.
-  goto 45.3,63.7 "Orgrimmar flight master"
-  fly "Crossroads"
-  zone The Barrens
-
-step Korran
-  when !turnedin 1145
-  zone The Barrens
-  tip Korran stands beside the Crossroads flight master.
-  accept 1145                         -- Korran: for Belgrom Rockmaul in Orgrimmar
-
-step Back to Orgrimmar
-  when onquest 1145
-  zone The Barrens
-  goto 51.5,30.4 "Crossroads flight master"
-  fly "Orgrimmar"
-  zone Orgrimmar
-
-step Belgrom Rockmaul
-  when onquest 1145
-  zone Orgrimmar
-  tip Belgrom Rockmaul stands in the Valley of Honor.
-  turnin 1145                         -- Belgrom Rockmaul
-  accept 1146                         -- for Moktar Krin in the Shimmering Flats, later in this guide
 
 step Orgrimmar flight master
   zone Orgrimmar
@@ -330,7 +342,7 @@ step The southern flats
 step The Rustmaul Dig Site
   when level>=34
   zone Thousand Needles
-  tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a Cracked Silithid Carapace: open it.
+  tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. Each of these silithid has about a one-in-two chance to drop a Cracked Silithid Carapace. When one drops, open it to start Parts of the Swarm.
   tip Careful: Hive Drones call for help when they fall to 20% health, and the Silithid Ravager (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.
   kill 4130 quest 1147.1 @69.8,83.3 map 1441
   kill 4133 quest 1147.2 @68.0,85.7 map 1441
@@ -594,11 +606,79 @@ step Cracked Silithid Carapace
   tip If you kept the cracked carapace, open it before deciding whether to return to the flats.
   accept 1148 item 5877
 
-step Fly to Gadgetzan
+step Parts through Ratchet
+  when zone "Desolace"
+  when level<33.75
+  when onquest 1147,1175
+  when !complete 1147
+  when !complete 1175
+  when complete 1111
+  when has 5799
+  when taxi "Ratchet"
+  when taxi "Thunder Bluff"
+  when taxi "Crossroads"
+  when taxi "Freewind Post"
+  when taxi "Gadgetzan"
+  when money>=20s20c
+  zone Desolace
+  tip Take Kravel's order through Ratchet before returning to the flats. Keep 12s70c for the flight from Ratchet to Gadgetzan.
+  goto 21.6,74.0 "Shadowprey Village flight master"
+  fly "Ratchet"
+  goto 63.12,37.11 map 1413 era "Ratchet landing"
+
+step Wharfmaster Dizzywig
+  when zone "The Barrens"
+  when subzone "Ratchet"
+  when onquest 1147,1175
+  when complete 1111
+  when has 5799
+  zone The Barrens
+  tip Take Kravel's order to Dizzywig on the docks.
+  turnin 1111
+
+step Wharfmaster Dizzywig
+  when zone "The Barrens"
+  when subzone "Ratchet"
+  when onquest 1147,1175
+  when turnedin 1111
+  when available 1112
+  zone The Barrens
+  accept 1112
+
+step Gazlowe
+  when zone "The Barrens"
+  when subzone "Ratchet"
+  when onquest 1147,1175
+  when complete 1178
+  zone The Barrens
+  tip Gazlowe is upstairs in the house by the flight master.
+  turnin 1178
+
+step Gazlowe
+  when zone "The Barrens"
+  when subzone "Ratchet"
+  when onquest 1147,1175
+  when turnedin 1178
+  when available 1180
+  zone The Barrens
+  accept 1180
+
+step Ratchet flight master
+  when zone "The Barrens"
+  when subzone "Ratchet"
+  when onquest 1147,1175
+  zone The Barrens
+  goto 63.12,37.11 map 1413 era "Ratchet flight master"
+
+step Shadowprey Village flight master
+  when zone "Desolace"
   when onquest 1147,1175
   zone Desolace
-  tip Fly to Gadgetzan for the flats. Hand in any finished quests first if you're below 34; only the remaining hunts need the level.
   goto 21.6,74.0 "Shadowprey Village flight master"
+
+step Fly to Gadgetzan
+  when onquest 1147,1175
+  tip Fly to Gadgetzan. Take the road north to the flats and hand in any finished quests before the remaining hunts.
   fly "Gadgetzan"
   zone Tanaris
 
@@ -622,6 +702,35 @@ step Trackmaster Zherin before the hunt
   when complete 1175
   zone Thousand Needles
   turnin 1175
+
+step Kravel Koalbeard
+  when complete 1112
+  when has 5800
+  zone Thousand Needles
+  tip From Gadgetzan take the road north to Mirage Raceway. Give the parts to Kravel at the gnomes' camp.
+  turnin 1112
+
+step Kravel Koalbeard
+  when subzone "Mirage Raceway"
+  when turnedin 1112
+  when available 1114
+  zone Thousand Needles
+  accept 1114
+
+step Fizzle Brassbolts
+  when complete 1114
+  when has 5802
+  zone Thousand Needles
+  tip Fizzle is here at the raceway. Return to Kravel after giving him the delivery.
+  turnin 1114
+
+step Kravel Koalbeard
+  when subzone "Mirage Raceway"
+  when turnedin 1114
+  when available 1115
+  zone Thousand Needles
+  tip Keep the message for Krazek in Booty Bay.
+  accept 1115
 
 step Level 34 for the southern flats
   when level<34
@@ -663,7 +772,7 @@ step The Rustmaul Dig Site
   when onquest 1147
   when level>=34
   zone Thousand Needles
-  tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a Cracked Silithid Carapace: open it.
+  tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. Each of these silithid has about a one-in-two chance to drop a Cracked Silithid Carapace. When one drops, open it to start Parts of the Swarm.
   tip Careful: Hive Drones call for help when they fall to 20% health, and the Silithid Ravager (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.
   kill 4130 quest 1147.1 @69.8,83.3 map 1441
   kill 4133 quest 1147.2 @68.0,85.7 map 1441

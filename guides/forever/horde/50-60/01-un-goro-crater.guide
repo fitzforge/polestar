@@ -357,6 +357,8 @@ step The WANTED poster
   accept 4081 object 164867           -- WANTED
 
 step Into the Searing Gorge
+  when !taxi "Flame Crest"
+  when !zone "Burning Steppes"
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"
@@ -364,6 +366,7 @@ step Into the Searing Gorge
 step Blackrock Depths
   when dungeon "Blackrock Depths"
   when onquest 4081
+  when !complete 4081
   zone Searing Gorge
   tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
   tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
@@ -374,7 +377,7 @@ step Blackrock Depths
 
 step Flame Crest
   zone Burning Steppes
-  tip The mountain lets you out beside Blackrock Stronghold, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at Flame Crest.
+  tip If Kargath offers you a flight to Flame Crest and you can pay the fare, take it. Otherwise ride west out of Kargath, cross the Searing Gorge and leave Blackrock Mountain by the southern exit. Follow the road east, away from the stronghold, to the camp.
   getfp "Flame Crest"
   accept 4296                         -- Maxwort Uberglint
   accept 4726                         -- Tinkee Steamboil

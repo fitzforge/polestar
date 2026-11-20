@@ -58,8 +58,9 @@ return {
 	["Speak with the {quest:5930}"] = "Habla con el {quest:5930}",
 
 	-- Step 18: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413}, justo al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Cabezatruenos de nivel 20 rondan cerca: despeja el camino antes. Usa {item:15710} junto a la piedra: Garraluna (nivel 12-13) aparece durante tres minutos. Mátala, luego habla con el {npc:12144} que aparece y pídele la fuerza de su cuerpo y su corazón: la charla es el crédito. ¿Mueres en la pelea? Garraluna se queda junto a la piedra: vuelve corriendo y remátala.",
+	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {area:215} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
+	-- was: ["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413}, justo al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Cabezatruenos de nivel 20 rondan cerca: despeja el camino antes. Usa {item:15710} junto a la piedra: Garraluna (nivel 12-13) aparece durante tres minutos. Mátala, luego habla con el {npc:12144} que aparece y pídele la fuerza de su cuerpo y su corazón: la charla es el crédito. ¿Mueres en la pelea? Garraluna se queda junto a la piedra: vuelve corriendo y remátala."
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {area:215}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
 
 	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -93,23 +94,29 @@ return {
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "Regresa con {npc:255853} junto a la cascada.",
 
-	-- Step 25: Child of Nature
-	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
-	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118} espera donde aterriza la aeronave de {zone:2521}, al norte de {zone:1412}, junto a {zone:1456}.",
+	-- Step 25: Skycutter to Mulgore
+	-- {area:215} Mulgore
+	["Skycutter to {area:215}"] = "",
+	-- {area:16638} Valanaar · {area:215} Mulgore
+	["Take the roads through {area:16638} to its south-west dock. Wait on the dock for the Horde skycutter, board it when it stops and stay aboard to northern {area:215}. Don't jump from the cliffs."] = "",
 
-	-- Step 26: Turak Runetotem
+	-- Step 26: Child of Nature
+	-- {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff
+	["Speak to {npc:259118} at the skycutter landing north of {zone:1456}."] = "",
+
+	-- Step 27: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
 	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "{npc:3033} entrena a los druidas en la choza de los druidas en {area:1639}, cruzando los puentes de cuerda al este de los elevadores. Te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
 
-	-- Step 27: Child of Nature
+	-- Step 28: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459} está junto a {npc:259084} y el portal Cielonato, al oeste de {area:279}, donde aterriza el aerocorte de {zone:2521}. {npc:2543} ofrece la misma misión.",
 
-	-- Step 28: Sheldras Moontree
+	-- Step 29: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal Skyborne te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
 
-	-- Step 29: Dendrite Starblaze
+	-- Step 30: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
 	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "Lanza {spell:18960}: te deja junto al edificio donde {npc:11802} está en el piso de arriba, en {area:2361}. Aprende la ruta de vuelo de {area:493} mientras estás aquí ({npc:12740} para la Horda, al suroeste del lago; {npc:10897} para la Alianza, al sur).",
 
@@ -122,7 +129,9 @@ return {
 	-- ["Fly from {area:702} to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Vuela de {area:702} a {area:442}. {object:177525} está en las colinas justo al este del pueblo: usa ahí el {item:15208}, derrota a Garraluna y habla con {npc:12144}.",
 	-- ["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "El portal Cielonato te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad.",
 	-- ["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{object:177525} está en el paso de {zone:1412} a {zone:1413}. Usa ahí el {item:15710}, derrota a Garraluna y habla con {npc:12144}.",
+	-- ["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413}, justo al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Cabezatruenos de nivel 20 rondan cerca: despeja el camino antes. Usa {item:15710} junto a la piedra: Garraluna (nivel 12-13) aparece durante tres minutos. Mátala, luego habla con el {npc:12144} que aparece y pídele la fuerza de su cuerpo y su corazón: la charla es el crédito. ¿Mueres en la pelea? Garraluna se queda junto a la piedra: vuelve corriendo y remátala.",
 	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853} espera junto a la cascada al noreste de {area:16638}. {npc:258443} merodea por {area:16623}, al oeste de {area:16638}.",
+	-- ["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118} espera donde aterriza la aeronave de {zone:2521}, al norte de {zone:1412}, junto a {zone:1456}.",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} está en {area:1639}.",
 	-- ["{npc:3033} trains druids on {area:1639}."] = "{npc:3033} entrena druidas en {area:1639}.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} está en {area:1658}.",

@@ -506,7 +506,7 @@
 						"type": "object",
 						"id": 577959
 					},
-					"fact": "Use Repair and Recharge Pylon (1289727) on the west side of the western pylon with four crystals. Pull a guard away only if necessary. The western repair line in the quest log is the credit.",
+					"fact": "Use Repair and Recharge Pylon (1289727) on the west side of the western pylon with four crystals. Pull a guard away only if necessary. The western repair line in the quest log is the credit. If it is already checked, take four crystals to the unfinished eastern pylon instead of returning to the western road.",
 					"confidence": "high"
 				},
 				{

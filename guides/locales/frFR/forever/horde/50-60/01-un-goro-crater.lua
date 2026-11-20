@@ -221,8 +221,8 @@ return {
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081} : les nains Enclume-ardente, à l'intérieur",
 
 	-- Step 44: Flame Crest
-	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
-	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montagne débouche près du {area:252}, plein d'orcs de niveau 55-57. Suivez la route vers l'est le long des falaises du nord jusqu'au camp de la Horde à la {area:251}.",
+	-- {area:340} Kargath · {area:251} Flame Crest · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
+	["If {area:340} offers you a flight to {area:251} and you can pay the fare, take it. Otherwise ride west out of {area:340}, cross the {zone:1427} and leave {area:254} by the southern exit. Follow the road east, away from the stronghold, to the camp."] = "",
 
 	-- Step 45: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
@@ -360,6 +360,7 @@ return {
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "La caisse de l'expédition est dans un camp abandonné de la jungle de l'est.",
 	-- ["The expedition's lost equipment lies in the south-west jungle."] = "L'équipement perdu de l'expédition se trouve dans la jungle du sud-ouest.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Les gorilles vivent sur le plateau du nord-est. N'entrez pas dans la grotte la plus profonde : {npc:9622} y vit.",
+	-- ["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montagne débouche près du {area:252}, plein d'orcs de niveau 55-57. Suivez la route vers l'est le long des falaises du nord jusqu'au camp de la Horde à la {area:251}.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "Le guide suivant commence ici, au maître de vol de la chapelle.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. Pterrordax nest on the cliffs above the hive; their scales are for {npc:9998}."] = "La ruche silithide occupe le sud du cratère. Les guêpes et les ouvriers Gorishi lâchent la glande odorante ; utilisez la Fiole de grattage sur la masse d'œufs dans la première salle. La Reine de la ruche, tout au fond, est un boss élite : n'entrez pas dans sa salle. Les ptérreurdactyles nichent sur les falaises au-dessus de la ruche ; leurs écailles sont pour {npc:9998}.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "La ruche silithide occupe le sud du cratère. Les guêpes et ouvriers Gorishi lâchent la Glande olfactive Gorishi ; utilisez la fiole sur la masse d'œufs dans la première salle. La Reine Gorishi, au fond, est un boss élite : n'entrez pas dans sa salle. Les {npc:9166} nichent sur les falaises au-dessus de la ruche ; leurs écailles sont pour {npc:9998}.",

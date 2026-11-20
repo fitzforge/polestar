@@ -3,11 +3,26 @@
 	"deliberate": {
 		"about": "v1's deliberate orders (player-report fixes pinned by tests/guides-reported.test.js and the guides' 'Order changes against the export' headers) as hard precedence pairs: every step of `a` comes before every step of `b` when both are in the order. Kinds: accept, task (an objective site of the quest), turnin. `group`: {q, size, why}: the group an elite or group quest wants (1 soloable elite, 2-4 a group of that many, 5 never taken) where Forever's creature data reads it wrong; the route may take it with a solo fallback (docs/forge/routes.md, Group quests).",
 		"pairs": [
+			{"a":["accept",2987],"b":["turnin",2981],"faction":"Horde","why":"#3023: Orwin stands at the eastern arrival beside Shyn. Bind at Greul before crossing to the northern huts; take Rok's ogre hunt when handing him Belgrom's message on his patrol."},
+			{"a":["accept",2822],"b":["accept",2862],"faction":"Horde","why":"#3023: After Uzer'i, visit Jangdor and Hadoken together on the north side; leave from Krueg for the outpost instead of going back south to bind."},
+			{"a":["accept",2862],"b":["accept",2973],"faction":"Horde","why":"#3023: Krueg is the last giver on the way from the Swiftstriders to the first Gordunni visit."},
 			{
 				"a": ["turnin", 3941],
 				"b": ["turnin", 974],
 				"faction": "Horde",
 				"why": "On the second crater trip Ringo's escort ends at Marshal's Refuge. Visit Collie there before returning to Krakle, not after Torwa's hunts."
+			},
+			{
+				"a": ["accept", 6030],
+				"b": ["accept", 5601],
+				"faction": "Horde",
+				"why": "On the first Everlook supply stop, Jessica and Gregor are inside the inn; speak to both before leaving for Felnok."
+			},
+			{
+				"a": ["turnin", 5601],
+				"b": ["accept", 5149],
+				"faction": "Horde",
+				"why": "Pamela takes Jessica's message at the house where she asks for her doll."
 			},
 			{
 				"a": ["turnin", 213],
@@ -6547,6 +6562,7 @@
 			}
 		],
 		"together": [
+			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp. The trophy piles remain on their own route." },
 			{
 				"a": [
 					"task",
@@ -10078,7 +10094,7 @@
 					"accept",
 					1175
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): The Cracked Silithid Carapace drops from the first silithid of The Swarm Grows; its parts come from the same dig, and Korran takes them at the Crossroads at the start of 30-40/04-dustwallow-marsh, on the flight to Camp Taurajo.",
+				"reason": "Horde 30-40 re-order (2026-11-07): The dig’s normal Searchers, Hive Drones and Invaders can drop the Cracked Silithid Carapace (50% each). Open it to start Parts of the Swarm before gathering its parts at the dig. Korran takes them at the Crossroads at the start of 30-40/04-dustwallow-marsh, on the flight to Camp Taurajo.",
 				"issue": ""
 			},
 			{

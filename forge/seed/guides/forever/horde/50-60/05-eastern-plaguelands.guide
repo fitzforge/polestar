@@ -71,6 +71,14 @@ step Light's Hope Chapel
 
 # ---------------------------------------------------------------- The south
 
+step Jessica's sister
+  when onquest 5601
+  turnin 5601                         -- Pamela Redpath, in Darrowshire
+
+step Marlene's niece
+  when onquest 5142
+  turnin 5142                         -- Pamela Redpath, in Darrowshire
+
 step Lake Mereldar
   tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
   kill 8596 quest 5542.1

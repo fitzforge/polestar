@@ -85,22 +85,32 @@ return {
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Westlich des Geländes füllen die Kaktuswesen das Tal; nur die Tausammler (47-48) tragen eine Tau-Drüse. Die meisten Mobs in {zone:1446} können OOX-17/TNs Notsignal fallen lassen, selten: Behalte es, wenn du eines siehst.\nVorsicht: Die anderen Distelwandler-Mobs in der Gegend sind Stufe 48-50 und laufen viel herum, sodass du leicht zusätzliche Mobs ziehst: Nimm die Tausammler am Rand des Tals und lass die Knorrigen Distelwandler und Wurzelformer für {quest:2864} bis zum Ritt über {area:1938} nach Un'Goro mit etwa 51.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, seltene Beute",
+	-- {npc:5955} Tooga
+	["On the way out, take {npc:5955} if you see him. If he's gone, don't wait."] = "",
 
 	-- Step 17: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Eskorte: {npc:5955}",
-	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} wartet im Tal. Bring ihn den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nach Nordosten durch die Wüste: Bleib nah bei ihm, geh langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und nutz keinen Ruhestein außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen.",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Walk beside {npc:5955} to his wife {npc:6015}, by the water at {area:977}. Stay close and fight off anything that attacks him; don't mount or hearth away from him."] = "",
 
-	-- Step 19: Slake That Thirst
+	-- Step 18: Torta at Steamwheedle Port
+	-- {npc:6015} Torta · {area:977} Steamwheedle Port
+	["{npc:6015} at {area:977}"] = "",
+
+	-- Step 19: Yeh'kinya at Steamwheedle Port
+	-- {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port
+	["{npc:8579} at {area:977}"] = "",
+
+	-- Step 20: Slake That Thirst
 	-- {spell:686} Shadow Bolt
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Vorsicht: Shadow Mages (Stufe 42-43) rufen außerhalb des Kampfes einen Leerwandler und greifen mit Feuerbrand und {spell:686} an. Diebe können dich entwaffnen, Schurken bewegen sich im Schleichen, und Assassinen setzen Hinrichten ein, sobald du bei 20% Gesundheit oder darunter bist.",
 
-	-- Step 20: Gadgetzan
+	-- Step 21: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Behalte die Model 4711-FTZ-Energiequelle, die Bilgewhizzle dir gegeben hat: Sie startet {quest:654} mit einem Zwei-Stunden-Timer, also benutze sie erst auf dem Rückweg nach Norden von Scrimshanks Bau.",
 
-	-- Step 21: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Behalte {quest:3362} von {quest:2864}: Die Wurzelformer (49-50) kommen zusammen mit {area:983} bei {area:1938}, auf dem Weg nach Un'Goro mit etwa 51.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -110,67 +120,70 @@ return {
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{area:983} von {npc:11758} bleibt für {area:1938} mit etwa 52 in deinem Questlog.",
 
-	-- Step 23: Scrimshank's gear
+	-- Step 24: Scrimshank's gear
 	["Scrimshank's gear"] = "Scrimshanks Ausrüstung",
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "Unter der Erde",
 
-	-- Step 24: OOX-17/TN
+	-- Step 25: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "Nur mit dem Notsignal: OOX-17/TN sitzt südöstlich von Scrimshanks Bau. Eskortiere ihn nach Norden zu {area:977}; seine Belohnung wartet bei Oglethorpe in {area:35}.\nVorsicht: Die Eskorte hat zwei Hinterhalte. Drei Skorpide der Stufe 47 greifen nahe dem Anfang an. Gegen Ende, am Strand, greifen drei Menschen der Wastewander an: ein Magier und zwei Assassinen, ungefähr Stufe 44.",
 
-	-- Step 25: Tanaris Field Sampling
+	-- Step 26: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
 	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "Zurück im Norden, gleich südlich von {area:976}, benutze jetzt die {item:8524}: Der Zwei-Stunden-Timer beginnt. Die Blasenpfotenhyänen, Glashautbasilisken und Skorpidjäger teilen sich hier die Dünen. Jeder kann eine ungetestete Probe fallen lassen: Benutze sie, dann wird sie entweder zu einer brauchbaren Probe oder geht verloren. Töte weiter, bis du von jeder Sorte acht hast.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Benutze die {item:8524}",
 
-	-- Step 26: Gadgetzan
+	-- Step 27: Gadgetzan
+	-- {item:4306} Silk Cloth · {area:247} Grimesilt Dig Site · {area:976} Gadgetzan
+	["Keep 15 {item:4306} for the prisoner at the {area:247}. If you're short, check the {area:976} auction house before you leave for the boat."] = "",
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "für {npc:5204} in {zone:1458}, ungefähr auf Stufe 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "für {npc:7010} in {zone:1454}, etwa auf Stufe 50",
 
-	-- Step 27: Boat to Powderfuse Port
+	-- Step 28: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Boot nach {area:16727}",
 
-	-- Step 28: Into Searing Gorge
+	-- Step 29: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into {zone:1427}"] = "Hinein nach {zone:1427}",
 
-	-- Step 29: Searing Gorge
+	-- Step 30: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 
-	-- Step 30: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- Step 31: The Grimesilt Dig Site
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "das {object:173265}",
 
-	-- Step 32: Thorium Point
+	-- Step 33: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "Reite nach Nordwesten durch die Schlucht; {area:1446} ist das Lager mit den Gerüsten im Nordwesten.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Das Brett {object:179827}",
 
-	-- Step 33: The Cauldron's slavers and golems
+	-- Step 34: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "die Sklavenhalter und Golems von {area:246}",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Reite von {area:1446} nach Süden in den Kessel: Die Zuchtmeister und Sklavenhändler der Dunkeleisenzwerge treiben die Sklaven auf den Pfaden an, und die Schweren Kriegsgolems patrouillieren am Boden unterhalb von {npc:8479}. Vorsicht: Die größten Golems sind 49: Zieh sie einzeln.",
 
-	-- Step 34: Velarok Windblade
+	-- Step 35: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479} steht allein südlich von {area:1446}, am Rand des Kessels. Hör dir seine Geschichte an.",
 
-	-- Step 37: Searing Gorge: kill these as you meet them
+	-- Step 38: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: Töte diese, sobald sie dir begegnen",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -181,28 +194,28 @@ return {
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Unter der Erde: die Pläne, auf dem oberen Sims von {area:1443}",
 
-	-- Step 39: Thorium Point
+	-- Step 40: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	["Ride back north to {area:1446}, just past {npc:8479}."] = "Reite zurück nach Norden zu {area:1446}, direkt hinter {npc:8479}.",
 
-	-- Step 40: The Steamsmiths' furnaces
+	-- Step 41: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "Die Öfen der Dampfschmiede",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Die Dampfschmiede der Dunkeleisenzwerge arbeiten an den Öfen mitten im Kessel; die Hälfte trägt {item:10551}, jeder zehnte {item:18959}. Sklaven, Sklavenhändler und Zuchtmeister tragen auch Dolche.",
 
-	-- Step 41: Velarok Windblade
+	-- Step 42: Velarok Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "Seine nächste Bitte braucht das {item:10552} von Elitekultisten: Lass sie aus.",
 
-	-- Step 42: Dark Iron Lookouts
+	-- Step 43: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "Ausgucke der Dunkeleisenzwerge",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Die Ausgucke der Dunkeleisenzwerge stehen auf den Kämmen um die Wachtürme südlich des Kessels; etwa jeder zehnte trägt {item:18960}.",
 
-	-- Step 43: The Key to Freedom
+	-- Step 44: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "Nur mit dem {item:11818}: zurück nach Osten zum {object:173265} an der Grabungsstätte.",
 
@@ -215,6 +228,7 @@ return {
 	-- ["Fly to {area:392}"] = "Flieg nach {area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "Vom Flugmeister in {area:35}, oberhalb des Hafens.",
 	-- ["From {area:1099}'s flight master."] = "Vom Flugmeister in {area:1099}.",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Reite von {area:16727} über den östlichen Pass in {zone:1427}, dann nach Westen zur Ausgrabungsstätte. {object:173265} steht an ihrem südlichen Ende; die Dark Iron Geologists graben direkt nördlich davon. Bring 15 {item:4306} mit (das Auktionshaus verkauft sie).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Baus der Centipaar.",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Centipaar-Baus.\nVorsicht: Ein Käfer bewacht die Ausrüstung. Viele Käfer patrouillieren in den Tunneln, einige davon Stufe 50, sodass Kämpfe oft zusätzliche Adds ziehen.",
 	-- ["Greater Lava Spiders"] = "Große Lavaspinnen",
@@ -247,4 +261,5 @@ return {
 	-- ["{area:1938}: kill these as you meet them"] = "{area:1938}: töte diese, wenn du sie triffst",
 	-- ["{area:392} pier"] = "Pier von {area:392}",
 	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
+	-- ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} wartet im Tal. Bring ihn den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nach Nordosten durch die Wüste: Bleib nah bei ihm, geh langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und nutz keinen Ruhestein außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen.",
 }

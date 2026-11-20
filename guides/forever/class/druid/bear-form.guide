@@ -248,10 +248,18 @@ step Strength and Mercy
 
 # ---------------------------------------------------------------- Skyborne: Teleport: Moonglade
 
+step Skycutter to Mulgore
+  only Skyborne,Horde
+  when zone "Zephras Isle"
+  when available 94911
+  zone Zephras Isle
+  tip Take the roads through Valanaar to its south-west dock. Wait on the dock for the Horde skycutter, board it when it stops and stay aboard to northern Mulgore. Don't jump from the cliffs.
+  enter "Mulgore" @58.03,80.98 live
+
 step Child of Nature
   only Skyborne,Horde
   zone Mulgore
-  tip Muln Earthfury waits where the airship from Zephras Isle lands, in northern Mulgore beside Thunder Bluff.
+  tip Speak to Muln Earthfury at the skycutter landing north of Thunder Bluff.
   level 10
   accept 94911                          -- Muln Earthfury
 

@@ -58,8 +58,8 @@ return {
 	["Speak with the {quest:5930}"] = "{quest:5930}와(과) 대화하세요",
 
 	-- Step 18: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
+	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {area:215} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {area:215}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
 
 	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -93,23 +93,29 @@ return {
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "폭포 옆의 {npc:255853}에게 돌아가세요.",
 
-	-- Step 25: Child of Nature
-	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
-	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}은(는) {zone:2521}에서 오는 비행선이 내리는 곳, {zone:1456} 옆 {zone:1412} 북부에서 기다립니다.",
+	-- Step 25: Skycutter to Mulgore
+	-- {area:215} Mulgore
+	["Skycutter to {area:215}"] = "",
+	-- {area:16638} Valanaar · {area:215} Mulgore
+	["Take the roads through {area:16638} to its south-west dock. Wait on the dock for the Horde skycutter, board it when it stops and stay aboard to northern {area:215}. Don't jump from the cliffs."] = "",
 
-	-- Step 26: Turak Runetotem
+	-- Step 26: Child of Nature
+	-- {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff
+	["Speak to {npc:259118} at the skycutter landing north of {zone:1456}."] = "",
+
+	-- Step 27: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
 	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
-	-- Step 27: Child of Nature
+	-- Step 28: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459}은(는) {area:279} 서쪽, {zone:2521}에서 오는 비행정이 내리는 곳에 {npc:259084}, 스카이본 차원문과 함께 있습니다. {npc:2543}도 같은 퀘스트를 줍니다.",
 
-	-- Step 28: Sheldras Moontree
+	-- Step 29: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
-	-- Step 29: Dendrite Starblaze
+	-- Step 30: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
 	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "{spell:18960}을(를) 시전하세요. {area:2361}에서 {npc:11802}이(가) 위층에 서 있는 건물 옆에 도착합니다. 여기 온 김에 {area:493} 비행 경로를 배우세요(호드는 호수 남서쪽의 {npc:12740}, 얼라이언스는 호수 남쪽의 {npc:10897}).",
 
@@ -121,6 +127,7 @@ return {
 	-- ["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "스카이본 차원문은 {zone:1453}(으)로 연결됩니다. {npc:5504}은(는) 이 도시의 드루이드 상급자입니다.",
 	-- ["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{object:177525}은(는) {zone:1412}에서 {zone:1413}(으)로 이어지는 고갯길에 있습니다. 그곳에서 {item:15710}을(를) 사용하고, 초승달발톱을 쓰러뜨린 뒤 {npc:12144}와(과) 대화하세요.",
 	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853}은(는) {area:16638} 북동쪽 폭포 옆에서 기다립니다. {npc:258443}은(는) {area:16638} 서쪽 {area:16623}을(를) 배회합니다.",
+	-- ["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}은(는) {zone:2521}에서 오는 비행선이 내리는 곳, {zone:1456} 옆 {zone:1412} 북부에서 기다립니다.",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}은(는) {area:1639}에 있습니다.",
 	-- ["{npc:3033} trains druids on {area:1639}."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 훈련합니다.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}은(는) {area:1658}에 있습니다.",

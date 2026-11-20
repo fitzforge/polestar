@@ -2,6 +2,78 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "horde-3211-tide-pool-1",
+			"faction": "Horde",
+			"quest": 3568,
+			"objective": 1,
+			"at": {
+				"map": 1447,
+				"x": 47.98,
+				"y": 61.03,
+				"frame": "era"
+			},
+			"note": "Fill vial 1 at the corresponding tide pool, not inland at the ruins.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3211; map 1447 object 152598 supplies filled vial 10691."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "horde-3211-tide-pool-2",
+			"faction": "Horde",
+			"quest": 3568,
+			"objective": 2,
+			"at": {
+				"map": 1447,
+				"x": 47.84,
+				"y": 51.39,
+				"frame": "era"
+			},
+			"note": "Fill vial 2 at the corresponding tide pool, not inland at the ruins.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3211; map 1447 object 152604 supplies filled vial 10692."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "horde-3211-tide-pool-3",
+			"faction": "Horde",
+			"quest": 3568,
+			"objective": 3,
+			"at": {
+				"map": 1447,
+				"x": 48.65,
+				"y": 48.5,
+				"frame": "era"
+			},
+			"note": "Fill vial 3 at the corresponding tide pool, not inland at the ruins.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3211; map 1447 object 152605 supplies filled vial 10693."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "horde-3211-tide-pool-4",
+			"faction": "Horde",
+			"quest": 3568,
+			"objective": 4,
+			"at": {
+				"map": 1447,
+				"x": 47.39,
+				"y": 46.2,
+				"frame": "era"
+			},
+			"note": "Fill vial 4 at the corresponding tide pool, not inland at the ruins.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3211; map 1447 object 152606 supplies filled vial 10694."
+			},
+			"pr": 3145
+		},
+		{
 			"id": "sunnyglade-fuzzle-quest-cage",
 			"quest": 94961,
 			"objective": "giver",
@@ -51,6 +123,72 @@
 				"ref": "Eight questers got dialogue credit at Felflick; the live marker in #3194 is at his cage."
 			},
 			"issue": 3121
+		},
+		{
+			"id": "3026-gordunni-dig-sites",
+			"faction": "Horde",
+			"quest": 2987,
+			"objective": 1,
+			"path": {
+				"map": 1444,
+				"frame": "era",
+				"points": [
+					[
+						77.5,
+						35.2
+					],
+					[
+						76.2,
+						34.4
+					],
+					[
+						75.2,
+						33.7
+					],
+					[
+						75.1,
+						32.3
+					],
+					[
+						76.3,
+						32.9
+					],
+					[
+						76.6,
+						33.8
+					],
+					[
+						77.3,
+						33.4
+					],
+					[
+						78.4,
+						34.1
+					],
+					[
+						79.2,
+						34.9
+					],
+					[
+						80.4,
+						34.3
+					],
+					[
+						81.5,
+						34.9
+					],
+					[
+						80.3,
+						36
+					]
+				]
+			},
+			"note": "Dig at the blue glows in the southern part of the outpost, away from Ohk'zi's northern patrol. Dirt mounds only appear after a dig and are not destinations for the shovel.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Gordunni Trap (144050) spawns in Feralas; quest 2987 uses the shovel at these traps. Ohk'zi (222233) is north of the circuit."
+			},
+			"issue": 3026
 		},
 		{
 			"id": "horde-indurium-stonevault-bonesnappers",

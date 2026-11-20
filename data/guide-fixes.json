@@ -2,6 +2,286 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "horde-3123-flame-crest-arrival",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/50-60/01-un-goro-crater",
+				"quest": 4296,
+				"goal": "accept"
+			},
+			"tip": "If Kargath offers you a flight to Flame Crest and you can pay the fare, take it. Otherwise ride west out of Kargath, cross the Searing Gorge and leave Blackrock Mountain by the southern exit. Follow the road east, away from the stronghold, to the camp.",
+			"note": "Keep the first overland visit, the optional Blackrock Depths run and the Flame Crest quests. A known destination is not an offered, affordable ticket.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3123: learned Flame Crest in the report; route 21 to 70 is a directed flight from Kargath."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "horde-2902-sanath-teleport",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/50-60/02-felwood",
+				"quest": 3561,
+				"goal": "turnin"
+			},
+			"tip": "Dismount and speak to Sanath Lim-yo at the foot of the cliff, east of Valormok. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower.",
+			"note": "The ascent is needed for a held tablet or an available payment. A gossip window is not a teleport. Never climb the cliff from Sanath.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2902; lower Sanath 8395 and upper apprentice 8399 are separate recorded positions. Spell 12510 lands at world (3778, −4612, 228)."
+				}
+			],
+			"pr": 3145
+		},
+		{
+			"id": "3023-mojache-first-visit",
+			"faction": "Horde",
+			"at": {
+				"quest": 2987,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "Orwin and Shyn are by the road in. Bind at the inn, then visit the northern huts on your way to the outpost. If you meet Rok on his patrol, hand him the message and take his ogre hunt together.",
+			"note": "Greul is south of Uzer'i, Jangdor and Hadoken. Binding before those three avoids retracing the village. Rok walks through the camp rather than waiting at one hut.",
+			"source": {
+				"kind": "questie",
+				"ref": "Feralas spawns of Orwin (8021), Shyn (8020), Greul (7737), Rok (7777), Uzer'i (8115), Jangdor (7854), Hadoken (7875) and Krueg (4544)."
+			},
+			"issue": 3023
+		},
+		{
+			"id": "3026-gordunni-shovel",
+			"faction": "Horde",
+			"at": {
+				"quest": 2987,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"goalNote": "Use {item:9466} on a blue glow, loot the mound it uncovers, then look for another glow.",
+			"note": "The quest gives the shovel. Its one objective counts cobalt looted, not shovel casts; keep the action and the next dig site on the same collection.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Quest 2987 grants Orwin's Shovel (9466); Gordunni Trap (144050) marks the dig sites and Gordunni Dirt Mound (144064) drops the required cobalt (9463)."
+			},
+			"issue": 3026
+		},
+		{
+			"id": "3083-horde-tooga-valley-offer",
+			"faction": "Horde",
+			"at": {
+				"quest": 1560,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"follows": {
+				"quest": 2605,
+				"goal": "objective",
+				"objective": 1
+			},
+			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3083-horde-tooga-optional-offer",
+			"faction": "Horde",
+			"at": {
+				"quest": 1560,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"optional": true,
+			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3083-horde-tooga-offer-note",
+			"faction": "Horde",
+			"at": {
+				"quest": 1560,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"goalNote": "On the way out, take Tooga if you see him. If he's gone, don't wait.",
+			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3083-horde-walk-with-tooga",
+			"faction": "Horde",
+			"at": {
+				"quest": 1560,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"when": "onquest 1560",
+			"tip": "Walk beside Tooga to his wife Torta, by the water at Steamwheedle Port. Stay close and fight off anything that attacks him; don't mount or hearth away from him.",
+			"note": "Only a character with the escort in progress needs to walk the turtle across the desert.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 1560: escort event at Torta."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3083-horde-torta-ready",
+			"faction": "Horde",
+			"at": {
+				"quest": 1560,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"when": "complete 1560",
+			"note": "Pay Torta for the finished escort, even when Screecher Spirits is missing.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 1560 ends at Torta in Steamwheedle Port."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3083-horde-yehkinya-ready",
+			"faction": "Horde",
+			"at": {
+				"quest": 3520,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"when": "complete 3520",
+			"note": "Yeh'kinya takes the spirits even when the turtle never offered an escort.",
+			"source": {
+				"kind": "client",
+				"ref": "Quest 3520 ends at Yeh'kinya in Steamwheedle Port."
+			},
+			"issue": 3083
+		},
+		{
+			"id": "3188-horde-gadgetzan-silk",
+			"faction": "Horde",
+			"at": {
+				"quest": 10,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Keep 15 Silk Cloth for the prisoner at the Grimesilt Dig Site. If you're short, check the Gadgetzan auction house before you leave for the boat.",
+			"note": "The final Gadgetzan turn-ins are the chance to top up before leaving Tanaris. The advice requires neither a purchase nor auction notifications.",
+			"source": {
+				"kind": "client",
+				"ref": "#3188; Caught! (4449), 15 Silk Cloth (4306)."
+			},
+			"issue": 3188
+		},
+		{
+			"id": "3004-mistvale-fang-work",
+			"issue": 3004,
+			"at": {
+				"quest": 571,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "At 40 or higher, gather Unbagwa’s ten fangs from the same camp while hunting for the aged sinew; there is no need to hunt Thunderers farther north.",
+			"note": "Keep the fang sites in the active sinew camp; do not add a separate hunt for characters whose sinew is ready. They are advance stock, not a quest log objective.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3004: reported northern fang spot; Forever elder 1557 drops 2799 and 3862."
+			}
+		},
+		{
+			"id": "3071-ready-only-tusks",
+			"issue": 3071,
+			"at": {
+				"quest": 209,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "complete 209",
+			"note": "Turn to Kebok only with all 18 tusks. A carrier can gather missing tusks during the earlier Skullsplitter hunt.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3071: level 45 at Booty Bay with 209 still incomplete."
+			}
+		},
+		{
+			"id": "horde-korran-catchup-at-crossroads",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"quest": 1145,
+				"goal": "accept"
+			},
+			"tip": "Korran stands beside the Crossroads flight master. If you cannot fly from Orgrimmar, leave by the main gate, follow the road south to Razor Hill, then west across the Southfury and south-west to the Crossroads. From Ratchet, take the road north-west to town.",
+			"note": "A character already at the Crossroads can take the message without going to Orgrimmar first. Either flight needs the destination and its 1s10c fare. Without the ticket, use the road rather than waiting at a wind rider.",
+			"source": {
+				"kind": "questie",
+				"ref": "Korran 3428 at the Crossroads, Belgrom Rockmaul 4485 in Orgrimmar; quests 1145 and 1146. Wind rider nodes 25 and 23."
+			}
+		},
+		{
+			"id": "horde-belgrom-city-courier",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"quest": 1145,
+				"goal": "turnin"
+			},
+			"tip": "Belgrom Rockmaul is in Orgrimmar's Valley of Honor. If you cannot fly from the Crossroads, follow the road north-east to Far Watch Post, cross the Southfury to Razor Hill, then head north to the city gate.",
+			"note": "Pay a carried message in the city. Only an actual Crossroads departure with the city flight known calls for the return ticket. A character who already paid 1145 may still take 1146.",
+			"source": {
+				"kind": "questie",
+				"ref": "Korran 3428 at the Crossroads, Belgrom Rockmaul 4485 in Orgrimmar; quests 1145 and 1146. Wind rider nodes 25 and 23."
+			}
+		},
+		{
+			"id": "horde-everlook-pamela-message-before-55",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/50-60/03-winterspring", "quest": 5601, "goal": "accept" },
+			"goalNote": "You'll meet Jessica's sister Pamela in Darrowshire.",
+			"note": "Pick up Jessica's message with Gregor's reports if still below 55; Pamela can receive a carried message at any level.",
+			"source": [{ "kind": "recording", "ref": "Horde accepted 5601 at 54 in Everlook and handed it in at 56 in Darrowshire." }],
+			"pr": 3145
+		},
+		{
+			"id": "horde-valanaar-west-gate",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/skyborne/01-zephras-isle", "quest": 93948, "goal": "turnin" },
+			"tip": "From the west gate, head upstairs to Talaanis Shadowsong and Valennia Stormfist.",
+			"note": "The Horde seed binds at the west gate and takes Blood Tithe on the road in from Fendaal. Players who missed the inn or Alvarion still have the later stop before Nyalah and Windfield Orchard.",
+			"source": [
+				{ "kind": "questie", "ref": "Zephras Isle spawns: innkeeper 255940 at 62.13,72.63; Alvarion 252448 at 62.09,73.26; Talaanis 252476 and Valennia 252383 at 66.1,76.6." }
+			]
+		},
+		{
+			"id": "3099-skycutter-to-muln",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/class/druid/bear-form",
+				"quest": 94911,
+				"goal": "accept"
+			},
+			"tip": "Speak to Muln Earthfury at the skycutter landing north of Thunder Bluff.",
+			"note": "The Bear Form class guide takes a Horde Skyborne druid still on Zephras Isle to Valanaar's south-west skycutter before this pickup. Its boarding point belongs on the isle, not on Muln or at a portal. Someone already in Mulgore can go directly to him.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3099; travel.json airship-zephras-mulgore, Horde skycutter from Valanaar Skydocks to Mulgore" }
+			]
+		},
+		{
 			"id": "riverglades-clugfist-actual-level-41",
 			"faction": "Horde",
 			"at": {
@@ -11,10 +291,10 @@
 				"objective": 1
 			},
 			"when": "level>=41",
-			"note": "The ogres share a ridge with the start of the escort to Bolder’ok. Do unpaid work before taking Jom-jom back where possible. Ready rewards are independent, and only the paid Mauler hunt unlocks the decree.",
+			"note": "The ogres share a ridge with the start of the escort to Bolder’ok. Do unpaid work before taking Jom-jom back where possible. Each ready reward can be handed in on its own. Both payments are needed before Clugfist offers the decree and the ring.",
 			"source": {
 				"kind": "questie",
-				"ref": "260968 reaches 42; 260973 is 42. Quest prerequisites for 95428 and 94668 name 95424. See #3040."
+				"ref": "260968 reaches 42; 260973 is 42. The full prerequisites for 95428 and 94668 name both 95424 and 95425. See #3040."
 			},
 			"issue": 3040
 		},
@@ -91,7 +371,7 @@
 				"goal": "accept"
 			},
 			"goalNote": "Arrive on the Steamwheedle boat before taking the crate at the docks.",
-			"note": "Reaching the Tanaris pier or passing over Powderfuse is not disembarking. Speak to Friz at his waterfront stall; a character holding the crate or knowing Kargath does not repeat the boat approach.",
+			"note": "From Tanaris use the Steamwheedle pier even if Kargath is known. Keep the boat arrow on the departure pier until a grounded arrival in Powderfuse Port; taking Friz's crate requires the actual quest offer. The Kargath approach is overland, and a carried or paid crate does not call the player back to Friz.",
 			"source": {
 				"kind": "recording",
 				"ref": "In #3147 the crate step was active in Tanaris. The transport destination is Powderfuse Port, map 2548."
@@ -127,6 +407,51 @@
 				"ref": "Live Hyjal coordinates in #3169, #3195 and #3196; no change to the other two stations."
 			},
 			"issue": 3169
+		},
+		{
+			"id": "ratchet-flats-deliver-1112",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"quest": 1112,
+				"goal": "turnin"
+			},
+			"when": "complete 1112",
+			"note": "Deliver the actual cargo while visiting the raceway; a missing delivery must not hold the next hunt.",
+			"source": {
+				"kind": "client",
+				"ref": "Forever quest 1112, its end NPC and predecessor; the parts chain goes from Dizzywig to Kravel, Fizzle and Krazek."
+			}
+		},
+		{
+			"id": "ratchet-flats-deliver-1114",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"quest": 1114,
+				"goal": "turnin"
+			},
+			"when": "complete 1114",
+			"note": "Deliver the actual cargo while visiting the raceway; a missing delivery must not hold the next hunt.",
+			"source": {
+				"kind": "client",
+				"ref": "Forever quest 1114, its end NPC and predecessor; the parts chain goes from Dizzywig to Kravel, Fizzle and Krazek."
+			}
+		},
+		{
+			"id": "ratchet-flats-deliver-1115",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/03-stranglethorn-vale",
+				"quest": 1115,
+				"goal": "turnin"
+			},
+			"when": "complete 1115",
+			"note": "Only a player carrying Kravel’s message stops at Krazek during the Booty Bay visit.",
+			"source": {
+				"kind": "client",
+				"ref": "Forever quest 1115, its end NPC and predecessor; the parts chain goes from Dizzywig to Kravel, Fizzle and Krazek."
+			}
 		},
 		{
 			"id": "freewind-harpies-offer",

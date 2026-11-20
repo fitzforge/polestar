@@ -109,27 +109,22 @@ return {
 	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
 	["Coalesced Mana Crystals for one repair"] = "",
 
-	-- Step 18: The road south of the western pylon
-	["The road south of the western pylon"] = "",
-	-- {area:16677} Bristleback Retreat · {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["Check the western repair in your quest log. If it is already checked, do not visit this waypoint: take four crystals east to {area:16677} (73.4,23.9). Enter from the west and stay off the south side, away from Kog'thug and his bodyguards. Repair the eastern pylon there; the route resumes when the log shows both.\nNorth up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
-	["the road just south of the western pylon"] = "",
-
-	-- Step 19: The western pylon: repair it
+	-- Step 18: The western pylon: repair it
 	["The western pylon: repair it"] = "서쪽 수정탑: 수리하기",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["Pull one {npc:252711} back to the road if it guards the crystal. Stand on the west face and use {spell:1289727}. The quest log must show the western pylon repaired; a dead Protector alone does not count."] = "",
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.\nStand on the western face and use {spell:1289727}; if the crystal is out of reach, try the west edge at 43.89,35.64. A dead Protector alone does not repair it."] = "",
+	["the road just south of the western pylon"] = "",
 	["Repair the western pylon from this side"] = "",
 
-	-- Step 20: Four crystals for the eastern pylon
+	-- Step 19: Four crystals for the eastern pylon
 	["Four crystals for the eastern pylon"] = "",
 	-- {area:16677} Bristleback Retreat
 	["Check your bags after the western repair. If fewer than four crystals remain, use the Sieve on rifts along the valley road before entering {area:16677}. Give roaming Corpsefeeders and hostile Necrokhans room."] = "",
 	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
 	["Four unspent Coalesced Mana Crystals"] = "",
 
-	-- Step 21: Bristleback Retreat: repair the eastern pylon
+	-- Step 20: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}: 동쪽 수정탑 수리하기",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon · {npc:253527} Kog'thug the Brave
@@ -137,71 +132,71 @@ return {
 	-- {npc:253471} Mordent Evenshade
 	["Repair the eastern pylon, then return to {npc:253471}"] = "",
 
-	-- Step 22: Unfinished pylon repairs
+	-- Step 21: Unfinished pylon repairs
 	["Unfinished pylon repairs"] = "",
 	-- {npc:253471} Mordent Evenshade · {area:16677} Bristleback Retreat · {zone:2652} Shen'dralas · {zone:1444} Feralas
 	["Check your quest log before going back to {npc:253471}. Each unchecked pylon needs four crystals from the rifts. For the western repair, approach from the road at 43.9,37.0 and use the west face. For the eastern repair, enter {area:16677} from the west. Return to {npc:253471} only after both repairs count.\nIf you want to leave {zone:2652} now, keep the quest. This line takes you back to your {zone:1444} route; you can return for the unfinished repair later."] = "",
 	-- {zone:2652} Shen'dralas
 	["Leave {zone:2652} with the repair quest in my log"] = "",
 
-	-- Step 23: Evenshade's Overlook
+	-- Step 22: Evenshade's Overlook
 	-- {npc:253471} Mordent Evenshade
 	["Follow the valley road west and south to {npc:253471} with both repairs finished."] = "",
 
-	-- Step 24: A Brief History Lesson
+	-- Step 23: A Brief History Lesson
 	-- {npc:253471} Mordent Evenshade
 	["Hear {npc:253471} out, then speak to him again for the reward."] = "",
 	-- {npc:253471} Mordent Evenshade
 	["{npc:253471}: hear him out"] = "{npc:253471}: 이야기 듣기",
 
-	-- Step 26: Liranne
+	-- Step 25: Liranne
 	-- {quest:93568} Partially Digested Collar · {npc:255385} Liranne
 	["A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was."] = "배회자가 {quest:93568}을(를) 떨어뜨렸습니다. 사원 북쪽의 {npc:255385}이(가) 주인을 알고 있습니다.",
 
-	-- Step 27: The temple: Magister Kirandis
+	-- Step 26: The temple: Magister Kirandis
 	-- {npc:254656} Magister Kirandis
 	["The temple: {npc:254656}"] = "사원: {npc:254656}",
 	-- {npc:254656} Magister Kirandis · {npc:254578} Mithera · {quest:93341} Forlorn Gardens
 	["{npc:254656} waits inside the temple. Then {npc:254578}, on the temple's eastern side, has work in the {quest:93341}."] = "{npc:254656}은(는) 사원 안에서 기다립니다. 그다음 사원 동쪽의 {npc:254578}이(가) {quest:93341}에서 할 일을 줍니다.",
 
-	-- Step 28: The Forlorn Gardens: the pedestal
+	-- Step 27: The Forlorn Gardens: the pedestal
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}: the pedestal"] = "{quest:93341}: 받침대",
 	-- {quest:93341} Forlorn Gardens
 	["East of the temple the {quest:93341} have run wild, and their plants attack on sight. Examine the pedestal at the gardens' southern end."] = "사원 동쪽의 {quest:93341}은(는) 황폐해졌고, 식물들이 보이는 즉시 공격합니다. 정원 남쪽 끝의 받침대를 조사하십시오.",
 
-	-- Step 30: Mithera’s garden errands
+	-- Step 29: Mithera’s garden errands
 	-- {npc:254578} Mithera
 	["{npc:254578}’s garden errands"] = "",
 
-	-- Step 31: The Forlorn Gardens
+	-- Step 30: The Forlorn Gardens
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}"] = "{quest:93341}",
 	-- {npc:254674} Woodwyrd · {area:2100} Maraudon
 	-- plural, as words: Rowdy Roses = {npc:254566} Rowdy Rose · Terrible Tulips = {npc:254567} Terrible Tulip · Malevolent Marigolds = {npc:254572} Malevolent Marigold · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
 	["Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. {npc:254674}, the treant in the middle of the gardens, has a request of his own that needs water from {area:2100}, a dungeon: this guide leaves it.\nThe Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them."] = "정원 곳곳에 난폭한 장미와 끔찍한 튤립이 자라고, 악의에 찬 금잔화는 북쪽에 모여 있습니다. 정원 한가운데 있는 나무정령 {npc:254674}도 따로 부탁을 하는데, 던전인 {area:2100}의 물이 필요하므로 이 가이드에서는 다루지 않습니다.\n정원을 돌아다니는 셴드랄라는 사원 경비병처럼 중립이니 건드리지 말고 꽃들을 그들에게서 떨어진 곳으로 끌어오십시오. 주의: 갓 깨어난 수정탑 수호자(정예, 43)가 지역 중앙과 정원을 돌아다니니 멀리하십시오.",
 
-	-- Step 33: The temple: Historian Biraxas
+	-- Step 32: The temple: Historian Biraxas
 	-- {npc:255486} Historian Biraxas
 	["The temple: {npc:255486}"] = "",
 	-- {npc:255486} Historian Biraxas · {npc:254656} Magister Kirandis · {npc:252711} Decrepit Pylon Protector
 	["{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north."] = "{npc:254656}을(를) 만났으니 사원 안의 {npc:255486}이(가) 할 일을 줍니다. 길을 따라 북쪽으로 조금 돌아가면 있는 {npc:252711}(42-43, 비정예)의 심장입니다.",
 
-	-- Step 34: A Heart of Crystal
+	-- Step 33: A Heart of Crystal
 	-- {npc:252711} Decrepit Pylon Protector
 	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "",
 
-	-- Step 36: Mana Mania
+	-- Step 35: Mana Mania
 	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
 	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "",
 
-	-- Step 37: Shadowprey Village
+	-- Step 36: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
 	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} 완료. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽 {area:2408}(으)로 가십시오. 다음 가이드는 {zone:1444} 가이드의 제출 퀘스트와 함께 {area:1637}에서 이어집니다. 귀환석이 {area:1099}에 설정되어 있으니, 사용할 수 있다면 대신 귀환석으로 그곳에 가서 {area:1099}에서 {area:1637}(으)로 날아가십시오.",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
-	-- Step 38: Back to your route
+	-- Step 37: Back to your route
 	["Back to your route"] = "원래 경로로 돌아가기",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} 완료. 여기서부터 {zone:1444} 가이드가 이어집니다. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽으로 간 뒤 남쪽 {zone:1444}(으)로 들어가, {area:1116}(으)로 가는 배가 출발하는 {area:1108}의 부두로 가십시오.",

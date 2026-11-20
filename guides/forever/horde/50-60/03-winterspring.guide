@@ -129,6 +129,18 @@ step Everlook
   accept 3783                         -- Umi Rumplesnicker
   accept 6029                         -- Gregor Greystone, inside
   accept 6030
+
+step Jessica Redpath
+  when level<55
+  when available 5601
+  when !onquest 5142
+  when !turnedin 5142
+  when !onquest 5149
+  when !turnedin 5149
+  accept 5601
+  note You'll meet Jessica's sister Pamela in Darrowshire.
+
+step Felnok Steelspring
   turnin 4808                         -- Felnok Steelspring
   accept 4809
 

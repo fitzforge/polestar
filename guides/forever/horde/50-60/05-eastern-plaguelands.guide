@@ -41,6 +41,14 @@ step Light's Hope Chapel
   accept 6021                         -- Caretaker Alen
   turnin 6030                         -- Duke Nicholas Zverenhoff
 
+step Jessica's sister
+  when onquest 5601
+  turnin 5601                         -- Pamela Redpath, in Darrowshire
+
+step Marlene's niece
+  when onquest 5142
+  turnin 5142                         -- Pamela Redpath, in Darrowshire
+
 step Pamela Redpath
   tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
   accept 5149

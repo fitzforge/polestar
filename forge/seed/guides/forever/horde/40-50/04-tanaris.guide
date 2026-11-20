@@ -108,12 +108,19 @@ step Thistleshrub Valley
   kill 5485 quest 3362.2
   collect 8428 quest 2605.1 @29.2,66.1
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
+  accept 1560 optional @30.2,70.7 map 1446 -- On the way out, take Tooga if you see him. If he's gone, don't wait.
 
 step Tooga's escort
-  tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
-  accept 1560 @30.2,70.7 map 1446                -- Tooga
-  complete 1560
+  when onquest 1560
+  tip Walk beside Tooga to his wife Torta, by the water at Steamwheedle Port. Stay close and fight off anything that attacks him; don't mount or hearth away from him.
+  complete 1560 @66.58,25.67 map 1446 era
+
+step Torta at Steamwheedle Port
+  when complete 1560
   turnin 1560                           -- Torta, Steamwheedle Port
+
+step Yeh'kinya at Steamwheedle Port
+  when complete 3520
   turnin 3520                           -- Yeh'kinya
 
 step Gadgetzan
@@ -144,6 +151,7 @@ step OOX-17/TN
   complete 648 optional
 
 step Gadgetzan
+  tip Keep 15 Silk Cloth for the prisoner at the Grimesilt Dig Site. If you're short, check the Gadgetzan auction house before you leave for the boat.
   hearth "Gadgetzan"
   turnin 10                             -- Senior Surveyor Fizzledowser
   accept 110
@@ -184,7 +192,7 @@ step Fly to Kargath
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it.
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2

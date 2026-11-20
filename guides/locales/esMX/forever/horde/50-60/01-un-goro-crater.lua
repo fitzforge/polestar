@@ -221,8 +221,8 @@ return {
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: los enanos Anvilrage, adentro",
 
 	-- Step 44: Flame Crest
-	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
-	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montaña te deja junto a {area:252}, llena de orcos de nivel 55-57. Sigue el camino al este por los acantilados del norte hasta el campamento de la Horda en {area:251}.",
+	-- {area:340} Kargath · {area:251} Flame Crest · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
+	["If {area:340} offers you a flight to {area:251} and you can pay the fare, take it. Otherwise ride west out of {area:340}, cross the {zone:1427} and leave {area:254} by the southern exit. Follow the road east, away from the stronghold, to the camp."] = "",
 
 	-- Step 45: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
@@ -352,6 +352,7 @@ return {
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "El cajón de la expedición está en un campamento abandonado en la selva del este.",
 	-- ["The expedition's lost equipment lies in the south-west jungle."] = "El equipo perdido de la expedición está en la selva del suroeste.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Los gorilas viven en la meseta del noreste. No entres en la cueva más profunda: allí vive {npc:9622}.",
+	-- ["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montaña te deja junto a {area:252}, llena de orcos de nivel 55-57. Sigue el camino al este por los acantilados del norte hasta el campamento de la Horda en {area:251}.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "La siguiente guía empieza aquí, en el maestro de vuelo de la capilla.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "La colmena silítida ocupa el sur del cráter. Las Avispas y los Trabajadores Gorishi sueltan la glándula de olor; usa el Vial de raspadura sin usar en la masa de huevos dentro de la primera cámara. La Reina de la colmena del fondo es un jefe élite: no entres en su cámara. Los {npc:9166} anidan en los acantilados sobre la colmena; sus escamas son para {npc:9998}.",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Los pozos de alquitrán están justo al sur del refugio. Las Bestias, los Rondadores y los Trepadores de alquitrán sueltan el {item:11834}.",

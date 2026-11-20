@@ -79,8 +79,11 @@ return {
 	["{area:1221}: kill these as you meet them"] = "",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (46-52): pull them one at a time."] = "",
 
-	-- Step 18: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
+	-- Step 18: Southridge Beach tide pools
+	-- {area:1231} Southridge Beach
+	["{area:1231} tide pools"] = "",
+	-- {item:10695} Box of Empty Vials
+	["Open Cuely's {item:10695}. Start at the southernmost pool and follow the shore north. Stand in each pool and use the empty vial with its number; give the Spitelash patrols room."] = "",
 
 	-- Step 19: Mosshoof hides
 	["Mosshoof hides"] = "",
@@ -160,27 +163,35 @@ return {
 	-- {zone:1452} Winterspring · {npc:8578} Magus Rimtori
 	["Keep the seals for the tome. Return after {zone:1452} for {npc:8578} (55)."] = "",
 
-	-- Step 32: Archmage Xylem
-	-- {area:1237} Valormok · {npc:8395} Sanath Lim-yo
-	["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "자일렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. {area:1237}의 {npc:8395}에게 말을 걸면 무료로 순간이동시켜 줍니다. 아니면 북쪽 면의 구불구불한 길로 올라가세요.",
-	-- was: ["Upstairs"] = "위층"
+	-- Step 32: Sanath Lim-yo
+	-- {npc:8395} Sanath Lim-yo · {area:1237} Valormok
+	["Dismount and speak to {npc:8395} at the foot of the cliff, east of {area:1237}. Choose his free teleport. From the upper landing by Nyrill, follow the trail to Xylem's tower."] = "",
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}'s upper landing"] = "",
+
+	-- Step 33: Sanath Lim-yo: Xylem's note
+	-- {npc:8395} Sanath Lim-yo
+	["{npc:8395}: Xylem's note"] = "",
+
+	-- Step 34: Archmage Xylem
+	["From Nyrill, follow the path up to Xylem in the tower."] = "",
 	["Upstairs"] = "위층",
 
-	-- Step 34: Fly back to Orgrimmar
+	-- Step 36: Fly back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly back to {area:1637}"] = "",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 35: Jes'rimon
+	-- Step 37: Jes'rimon
 	-- {area:1237} Valormok
 	["Keep the payment for the return to {area:1237}"] = "",
 
-	-- Step 36: Fly to Splintertree Post
+	-- Step 38: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 
-	-- Step 38: Emerald Sanctuary
+	-- Step 40: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "드루이드 야영지는 경계를 막 지나서 있습니다.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10921} 옆의 {npc:10920}: {quest:86577}, {zone:1448}의 곰과 늑대 장기",
@@ -189,41 +200,41 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "야영지 서쪽의 {npc:9529}",
 
-	-- Step 39: Deadwood Village
+	-- Step 41: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
 
-	-- Step 40: Southern Jaedenar
+	-- Step 42: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763} 남부",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
 
-	-- Step 42: The Jaedenar moonwell
+	-- Step 44: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763} 달샘",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 그레타의 수통을 채우세요.",
 
-	-- Step 43: Bloodvenom Post
+	-- Step 45: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763} 바로 북쪽의 호드 야영지입니다.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: 올빼미야수는 {zone:1452}에 있습니다",
 
-	-- Step 44: Shatter Scar Vale
+	-- Step 46: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "피멍울 초소 동쪽, 혼돈의 불길과 혼돈의 소산물이 돌아다니는 구덩이투성이 골짜기입니다. 각각 두 마리씩 처치한 뒤, 지옥 물 구덩이 세 곳을 모두 걸어서 찾아가세요.",
 	["Southern crater"] = "남쪽 구덩이",
 	["Western crater"] = "서쪽 구덩이",
 	["Northern crater"] = "북쪽 구덩이",
 
-	-- Step 45: Statue of Malorne
+	-- Step 47: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	-- was: ["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "{object:661778}은(는) 골짜기 바로 남쪽, 북쪽으로 가는 길가에 있습니다. 석상의 장신구로 {area:1997}의 {npc:9996}에게 가는 퀘스트가 시작됩니다."
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996}, handed in on the last ride north past {area:1997}."] = "",
 
-	-- Step 46: Irontree Woods
+	-- Step 48: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
@@ -232,33 +243,33 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "악령발 늑대에게서 {item:277959}",
 
-	-- Step 47: Irontree Woods
+	-- Step 49: Irontree Woods
 	["Below ground"] = "지하",
 
-	-- Step 48: The Jadefire moonwell
+	-- Step 50: The Jadefire moonwell
 	["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	-- was: ["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "남쪽으로 {area:1763}을(를) 지나 비취불꽃의 사티로스가 있는 오염된 달샘으로 돌아가, 그곳에서 {npc:9996}의 작은 병을 채우세요."
 	["On the return from Irontree, ride south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 49: Overlord Ror
+	-- Step 51: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "로르는 {area:1761} 남쪽 끝에 서 있습니다.",
 
-	-- Step 50: Emerald Sanctuary
+	-- Step 52: Emerald Sanctuary
 	["Stop at the Sanctuary on the ride north from Ror."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "성소 서쪽의 {npc:9529}",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "{quest:5158}을(를) 보관하세요: {npc:5901}은(는) {zone:1413}에 있습니다.",
 
-	-- Step 51: Bloodvenom Post
+	-- Step 53: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Ride north up the road to {area:1997}, on the way to the tunnel."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}: {quest:86612}",
 
-	-- Step 52: Winna Hazzard's kitten
+	-- Step 54: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -266,16 +277,16 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 
-	-- Step 54: Level 54
+	-- Step 56: Level 54
 	["Level 54"] = "",
 	-- {area:16620} Alcaz Prison · {area:1584} Blackrock Depths
 	["On the ride north, finish any of Talo's grizzlies and ravagers still needed. Stay with the grizzlies (51-52) until 54 before Felpaw's level 55 Avengers. Or, with a group, run the {area:16620} dungeon or the {area:1584} dungeon instead."] = "",
 
-	-- Step 55: Nafien
+	-- Step 57: Nafien
 	-- {area:1762} Felpaw Village · {npc:15395} Nafien
 	["Follow the road north past {area:1762} to {npc:15395} at the tunnel entrance."] = "",
 
-	-- Step 56: Felpaw Village
+	-- Step 58: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
 	-- was: ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "주의: 보초는 53-54레벨, 마른가지일족 복수자는 54-55레벨입니다. 생명력이 50% 미만이 되면 25미터 내의 동료를 부르고, 15% 미만이면 도움을 청하러 달아납니다.\n{quest:8470}이(가) 나올 때까지 계속 처치하세요(약 30마리에 하나). 나오면 우클릭하세요. {area:1769}의 {npc:11558}은(는) 나무구렁 일족이 중립이 되면 받아 줍니다. 이미 중립이라면 지금, 아니면 마지막 가이드에서 59레벨에 동굴을 다시 지날 때 제출하세요."
@@ -283,11 +294,11 @@ return {
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: {quest:6031} 30개를 보관하세요. 나무구렁 평판이 중립일 때만 거래합니다. 지하",
 
-	-- Step 57: Nafien
+	-- Step 59: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "{zone:1452}을(를) 위해 {quest:8465}을(를) 보관하세요.",
 
-	-- Step 58: Timbermaw Hold
+	-- Step 60: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
 	-- {npc:11558} Kernda
@@ -320,6 +331,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "{area:1497}(으)로 돌아가 {zone:1454}행 비행선을 타고 {area:431}(으)로 날아가세요. 길을 따라 토막나무 주둔지에서 서쪽으로 나가, 갈림길에서 북쪽 {zone:1448}(으)로 가세요.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "다시 서쪽으로 강을 건너 {area:192}(으)로 가세요. {npc:11610}은(는) 그 북동쪽 언덕에 숨어 있습니다.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "동쪽 언덕을 따라 북쪽으로 가세요. {npc:1855}은(는) {zone:1423}와(과)의 경계, {area:2619} 옆의 작은 집에 삽니다.",
 	-- ["Ride north up the road again."] = "다시 길을 따라 북쪽으로 가세요.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안돌할로 가세요. {npc:10667}은(는) 마을 서쪽의 무너진 여관에서 기다립니다. 안쪽의 해골은 54-57레벨이니 가장자리로만 다니세요.",
@@ -349,6 +361,7 @@ return {
 	-- ["Top up here to level 53 before {npc:10739} sends you after the Diseased Grizzlies (55-56): the Carrion Lurkers (52-53) on the way from {area:200} to the {area:202} are at your level. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "{npc:10739}이(가) 오염된 불곰(55-56)에게 보내기 전에 이곳에서 53레벨까지 올리십시오. {area:200}에서 {area:202}(으)로 가는 길의 Carrion Lurkers(52-53)가 레벨이 맞습니다. 또는 파티와 함께 대신 {area:1417} 던전이나 {area:1584} 던전을 도십시오.",
 	-- ["Upstairs"] = "위층",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "{npc:15395} 옆의 {area:1769} 터널로 들어가세요. 안쪽의 나무구렁 털보숭이는 절대 공격하지 마세요. 터널은 {zone:1452}(으)로 이어집니다. 길을 따라 동쪽으로 다음 가이드가 시작되는 고블린 마을 {area:2255}(으)로 가세요.",
+	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "자일렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. {area:1237}의 {npc:8395}에게 말을 걸면 무료로 순간이동시켜 줍니다. 아니면 북쪽 면의 구불구불한 길로 올라가세요.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "{zone:1448} {area:1762}에서 마른가지일족 복수자 사냥",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "{zone:1422} {area:192}에서 붉은십자군 기사 사냥",
 	-- ["grind on {npc:7157}"] = "{npc:7157} 사냥",

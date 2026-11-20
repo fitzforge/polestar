@@ -221,8 +221,8 @@ return {
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: дворфы из клана Гнева Наковальни, внутри",
 
 	-- Step 44: Flame Crest
-	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
-	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "Из горы вы выйдете рядом с местом {area:252}, полным орков 55-57 уровня. Езжайте по дороге на восток вдоль северных скал к лагерю Орды ({area:251}).",
+	-- {area:340} Kargath · {area:251} Flame Crest · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
+	["If {area:340} offers you a flight to {area:251} and you can pay the fare, take it. Otherwise ride west out of {area:340}, cross the {zone:1427} and leave {area:254} by the southern exit. Follow the road east, away from the stronghold, to the camp."] = "",
 
 	-- Step 45: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
@@ -345,6 +345,7 @@ return {
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Ящик экспедиции стоит в заброшенном лагере в восточных джунглях.",
 	-- ["The expedition's lost equipment lies in the south-west jungle."] = "Потерянное снаряжение экспедиции лежит в юго-западных джунглях.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Гориллы живут на северо-восточном плато. Не заходите в самую дальнюю пещеру: там живет {npc:9622}.",
+	-- ["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "Из горы вы выйдете рядом с местом {area:252}, полным орков 55-57 уровня. Езжайте по дороге на восток вдоль северных скал к лагерю Орды ({area:251}).",
 	-- ["The next guide starts here, at the chapel's flight master."] = "Следующее руководство начинается здесь, у распорядителя полетов часовни.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "Улей силитидов занимает юг кратера. С ос и рабочих из улья Гориши падает пахучая железа; используйте склянку для соскобов на кладке яиц в первой камере. Матка улья внизу – элитный босс: не заходите в ее камеру. Монстры {npc:9166} гнездятся на скалах над ульем; их чешуя – для персонажа {npc:9998}.",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Смоляные ямы – чуть к югу от лагеря. {item:11834} падает со смоляных тварей, скрытней и ползунов.",

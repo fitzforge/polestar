@@ -82,6 +82,16 @@ step Grom'gol Base Camp
   tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the zeppelin to Orgrimmar. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
   accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
 
+step Tusks and necklaces on the Skullsplitter hunt
+  when level>=44
+  when onquest 586
+  when !complete 586
+  when onquest 209,598
+  along until cauldron
+  tip The hunters also drop Kebok's tusks and Kin'weelay's necklaces. Collect any you still need during the cauldron hunt.
+  collect 1524 quest 209.1 npc 669 @45.56,38.64 map 1434 era
+  collect 3916 quest 598.1 npc 669 @45.56,38.64 map 1434 era
+
 step Zul'Mamwe
   zone Stranglethorn Vale
   tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
@@ -93,11 +103,16 @@ step Zul'Mamwe
   collect 3909 quest 586.4            -- Ana'thek the Cruel
 
 step Grom'gol Base Camp
+  label cauldron
   tip Back west to Grom'gol.
   turnin 586                          -- the Bubbling Cauldron
   accept 588                          -- the Bubbling Cauldron again: Yenniku's fate
   turnin 588                          -- Kin'weelay
   accept 589                          -- Kin'weelay: the basilisks bask beside the road south, on the ride to Booty Bay
+
+step Kin'weelay
+  when complete 598
+  turnin 598
 
 step Ironjaw Basilisks
   zone Stranglethorn Vale
@@ -136,18 +151,31 @@ step The Cape of Stranglethorn: kill these as you meet them
 
 step The Wild Shore
   zone Stranglethorn Vale
-  tip Stay on the beach with the swashbucklers (41-43); the charts and the orders lie in their tents and in the rowboat beside the larger camp. Leave the ships alone.
+  tip From the north, take the outer shore east of the Booty Bay tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore.
   when level>=42
   when onquest 604,576,587
   loop
+  goto 32.98,77.25 map 1434 era r 28
+  goto 31.95,79.47 map 1434 era r 25
+  goto 30.96,81.07 map 1434 era r 25
+  goto 28.23,82.40 map 1434 era r 26
   goto 26.67,82.84 map 1434 era r 26
-  goto 27.11,82.77 map 1434 era r 24
-  goto 27.70,83.00 map 1434 era r 25
   kill 1563 quest 604.1
-  collect 3920 quest 604.2
-  collect 3921 quest 604.3
   collect 3897 quest 576.1 npc 1563
   collect 3910 quest 587.1 npc 1563
+
+step Bloodsail tents and rowboat
+  zone Stranglethorn Vale
+  when level>=42
+  when onquest 604
+  tip Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship.
+  loop
+  goto 29.51,80.84 map 1434 era r 22
+  goto 27.70,83.00 map 1434 era r 22
+  goto 27.11,82.77 map 1434 era r 26
+  goto 26.96,82.50 map 1434 era r 22
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
 
 step Dizzy One-Eye
   when complete 576
@@ -168,7 +196,12 @@ step Booty Bay
   turnin 348                          -- Fin Fizracket
   turnin 621                          -- Crank Fizzlebub, inside
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+
+step Kebok
+  when complete 209
   turnin 209                          -- Kebok, upstairs
+
+step Krazek
   accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
 
 step Deeg
@@ -236,6 +269,10 @@ step Riding at 40
   train 4752 only Orc optional          -- Kildar, riding trainer
   note "Wolves: Ogunaro Wolfrunner, beside Kildar." only Orc
   note "Riding and Galestriders: Genn Fairweather, at the Fairweather Stables in Valanaar on Zephras Isle." only Skyborne
+
+step Belgrom Rockmaul
+  zone Orgrimmar
+  accept 2981
 
 step Riding at 40
   only Troll
@@ -351,15 +388,17 @@ step Fly to Freewind Post
 
 step Camp Mojache
   zone Feralas
+  tip Orwin and Shyn are by the road in. Bind at the inn, then visit the northern huts on your way to the outpost. If you meet Rok on his patrol, hand him the message and take his ogre hunt together.
+  accept 2987                           -- Orwin Gizzmick
   getfp "Camp Mojache" npc 8020         -- Shyn
   sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
-  accept 2862                           -- Hadoken Swiftstrider
-  accept 2973                           -- Krueg Skullsplitter
+  turnin 2981                           -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
-  accept 2987                           -- Orwin Gizzmick
   turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
-  accept 2822                           -- Jangdor Swiftstrider
+  accept 2822                           -- Jangdor Swiftstrider, inside
+  accept 2862                           -- Hadoken Swiftstrider
+  accept 2973                           -- Krueg Skullsplitter
 
 # ---------------------------------------------------------------- The north
 
@@ -367,12 +406,28 @@ step Woodpaw north camp
   tip The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.
   collect 9237 quest 2862.1
 
+step Gordunni dig sites
+  tip Work the southern part of the outpost. Kill the ogres as you dig, and pick up the scroll if you see it.
+  loop
+  goto 77.5,35.2 r 8
+  goto 76.2,34.4 r 8
+  goto 75.2,33.7 r 8
+  goto 75.1,32.3 r 8
+  goto 76.3,32.9 r 8
+  goto 76.6,33.8 r 8
+  goto 77.3,33.4 r 8
+  goto 78.4,34.1 r 8
+  goto 79.2,34.9 r 8
+  goto 80.4,34.3 r 8
+  goto 81.5,34.9 r 8
+  goto 80.3,36.0 r 8
+  collect 9463 quest 2987.1 -- Use {item:9466} on a blue glow, loot the mound it uncovers, then look for another glow.
+
 step Gordunni Outpost
-  tip North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.
+  tip Finish the ogres in the outpost; pull the ogre-magi to you. Look for the scroll on the ground if you haven't found it yet.
   kill 5229 quest 2975.1
   kill 5232 quest 2975.3
   kill 5237 quest 2975.2
-  collect 9463 quest 2987.1
   collect 9370 "Gordunni Scroll"
   accept 2978
 
