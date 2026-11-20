@@ -4778,6 +4778,32 @@ fn bind_nothing_at_another_innkeeper_with_shift_with_quests_waiting_without_an_o
 	);
 }
 
+// #3088: Gadgetzan's innkeeper offers Overseas Delivery (95144), a quest no guide of the route takes, to every
+// level. Counted as quest business, it kept the bind from ever happening there. Only a quest the guide takes (to
+// accept, or to hand in at one talk) goes first; one the client names no id for still does.
+#[test]
+fn issue_3088_an_off_route_quest_on_offer_does_not_hold_the_bind_back() {
+	let out = run(&[
+		INN,
+		r#"
+		set("autoBind", true)
+		q.step({ { t = "sethome", location = "Gadgetzan", npc = 7733 } })
+		local function both(opts) local picked = visit(7733, opts); return { picked = picked, binder = confirm().binder } end
+		local r = {}
+		r.offRoute = both({ options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["accept:95144"] = true }
+		r.taken = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["direct:95144"] = true }
+		r.direct = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = nil
+		r.noId = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 0 } } })
+		emit(r)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "offRoute": { "picked": 90, "binder": 20 }, "taken": 0, "direct": 0, "noId": 0 }));
+}
+
 // ---------------------------------------------------------------------------
 // Death helper
 // ---------------------------------------------------------------------------

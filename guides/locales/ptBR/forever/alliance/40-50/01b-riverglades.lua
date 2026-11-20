@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} é um elite (nível 42) no campo de treinamento da Horda ao norte de {area:16743}, aonde este guia vai mais tarde: recomenda-se formar um grupo.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "o cartaz {object:707245}",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -559,6 +558,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}.",
 	-- ["Level 44.4 on the Eastsea pirates"] = "Nível 44.4 nos piratas do Mar Leste",
+	-- ["the {object:707245} poster"] = "o cartaz {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, com {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera ao lado da estrada, a leste do desfiladeiro.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida da velha catedral no canto sudoeste de {area:16724}. Os morcegos se empoleiram no andar superior; {npc:272437} distribui as velas sagradas ao lado dela; os túmulos ficam no cemitério da capela.\n{npc:271742}, um elite de nível 53, fica na catedral: ele não ataca você, então nunca o ataque e puxe os morcegos para longe dele.",

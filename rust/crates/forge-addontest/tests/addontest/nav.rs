@@ -668,7 +668,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 		nav.place(16, 0)                   -- within the sphere on its floor
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
-		z = nil                            -- losing the live measurement hides the ring
+		z = nil                            -- no height to use: reached on the map within its radius, no second chime
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
 		z = 29                             -- not a departure: no second chime
@@ -682,7 +682,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 			["unmapped", "down"],
 			["unmapped", false, false, 0],
 			["arrived", true, false, true, 1],
-			["unmapped", false, 1],
+			["arrived", true, 1],
 			["arrived", true, 1]
 		])
 	);
@@ -2752,4 +2752,21 @@ fn the_steps_ahead_get_numbered_pins_fading_with_distance_steps_together_share_o
 	assert_eq!(out["1"], json!({ "text": "4+", "tip": "Step 4: Goldshire\nStep 6: The inn", "alpha": 1 }));
 	assert_eq!(out["2"]["text"], "7");
 	assert!((out["2"]["alpha"].as_f64().unwrap() - 0.35).abs() < 1e-9, "the third step ahead is the faintest");
+}
+
+// #3197 (Vesper): with the guide's pins on too, a later step's numbered pin sat under the pin of the same place (the
+// numbered layer drew lowest of all). It draws over the guide's own pins (the step's goals 10, spawn spots 15-20, While
+// you're here 40, Nav/Layers.lua) and under the travel route's stops (50) and the arrow's target (100).
+#[test]
+fn the_numbered_pins_draw_over_the_guide_pins_of_the_same_place_3197() {
+	let out = run(r#"
+		local views = {
+			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[2] = { title = "Goldshire", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending" } } },
+		}
+		Polestar.Engine = { GetLiveStep = function() return 1 end, GetStepCount = function() return 2 end, GetStepView = function(i) return views[i] end }
+		local pins = N.upcoming.Build()
+		emit({ priority = pins[1].priority })"#);
+	let p = out["priority"].as_f64().unwrap();
+	assert!(p > 40.0 && p < 50.0, "over the goal, spot and While you're here pins, under the route's stops: {p}");
 }

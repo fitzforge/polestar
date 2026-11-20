@@ -524,10 +524,10 @@ out when empty) and the Settings section.
 
 The perf probe (`Core/Perf.lua`, `/polestar perf`, off at every login) finds
 which of Polestar's handlers make a player's game stutter. Off, none of it
-runs: the event frame, `Fire`, `Safe`'s callbacks and `SafeCall` are the
-plain ones (only each `QoL.Coalesce` notes where it was made as it loads,
-`NoteMadeAt`, so the report can tell the refreshes apart). On,
-`Polestar.SetProbe` swaps in copies that hand each handler to the probe,
+runs: game events' handlers on every bus, `Fire`, `Safe`'s callbacks and
+`SafeCall` are the plain ones (only each `QoL.Coalesce` notes where it was
+made as it loads, `NoteMadeAt`, so the report can tell the refreshes
+apart). On, `Polestar.SetProbe` swaps in timed ones for each handler,
 and the probe wraps Polestar_Nav's `Path.after` (the walking router's
 search slices); it times each with `debugprofilestop` (its own cost,
 measured when it starts, is about a microsecond a call) and keeps, per
@@ -4154,7 +4154,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
   way, alts, toGet, and on an `auction` goal the price for the count still to
   buy); `UI.MaterialsLine` shows it under the goal ("40 in your bank · 47 to
-  buy · ≈ 87s"). With the bags short and nothing left to get, the goal is
+  buy · ≈ 87s"; the sign is `Theme.Approx`'s, "~" in a face without "≈").
+  With the bags short and nothing left to get, the goal is
   fetched instead (`Own.materialPlace`): "Take <item>", from the mail (the
   purchases on their way included) at the nearest mailbox, else from the bank
   at the nearest banker (`Materials.Nearest`, Nav/Nearby.lua), picked again on
@@ -6639,7 +6640,8 @@ to be dismissed:
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
-  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  ≈ 87s · 140 held" (the price's sign is `Theme.Approx`'s, "~" in a face
+  without "≈"). Opened by the cards, the guide window's menu ("Auction
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
@@ -9377,8 +9379,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   level for the character's race (`UnitRace`'s id against the mask), not
   known, and for a higher rank only when the rank below is known or trainable
   by then (a talent's higher ranks need the talent); any left fire
-  `LEVELUP_SPELLS` { level, spells, cost, money }. Nothing in an instance; in combat it
-  waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
+  `LEVELUP_SPELLS` { level, spells, cost, money }. In an instance it waits for
+  `PLAYER_ENTERING_WORLD` outside one, then tells every level reached since in one
+  notice (#2930); in combat it waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
   spells to train", a row of up to 8 icons ("+N more") with the game's spell
   tooltip (`W.SpellTip` with `CT.PlaceTip`: beside the card, on its side
   facing the screen's middle, never over its lines) and the training cost, the

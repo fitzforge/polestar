@@ -609,6 +609,30 @@ local function pointDistance(C, gc, gx, gy, gz)
 	return xy2 + (z-gz)^2, z, xy2, x, y
 end
 
+-- No height from the client to use (Compat.GetPlayerUnitPosition: none, a
+-- secret one, exactly 0, or one fixed while the player walks; Forever's client
+-- has given 0): no visit can be measured. A point with a height is then
+-- reached as before heights were checked, within its radius on the map (the
+-- Engine's own check), and a guide goto's arrow says no floor. The debug log
+-- says once a session which it was (a report's Where line says it too).
+local saidHeightless, saidHeight
+local function heightless(C, gc)
+	local ok, x, _, z, map = pcall(C.GetPlayerUnitPosition)
+	if ok and number(z) and map == gc then
+		if not saidHeight then
+			saidHeight = true
+			ns.Debug("Arrival: the game gives the player's height: a point with a height is reached on its floor")
+		end
+		return false
+	end
+	if not saidHeightless then
+		saidHeightless = true
+		local mode = ok and x ~= nil and C.PlayerHeight and C.PlayerHeight() or "none"
+		ns.Debug(("Arrival: no player height from the game (%s): a point with a height is reached by map distance"):format(tostring(mode)))
+	end
+	return true
+end
+
 local function stackedAt(z, gz, xy)
 	return abs(z-gz) > max(2, .8 + 1.2 * xy)
 end
@@ -684,9 +708,10 @@ end
 -- needs the same actual visit whether its guide tab is visible or not.
 function Nav.AllowGuideArrival(gc, gx, gy, gz, r)
 	if Nav.travel and Nav.travel.place then return true end -- the existing portal-only place semantics
+	local C = ns.Compat
+	if C and C.GetPlayerUnitPosition and heightless(C, gc) then return true end
 	local reach, bounds, new = Nav.StaticSubmergedGoal(gc, gx, gy, gz, r)
 	if reach == nil and r > Nav.DEFAULT_RADIUS then return true end
-	local C = ns.Compat
 	if reach == false or not C or (C.IsInInstance and C.IsInInstance()) or (C.IsOnTaxi and C.IsOnTaxi()) then return false end
 	if reach == nil then
 		if engineWp and target == engineWp and tC == gc and tX == gx and tY == gy and tZ == gz then
@@ -752,7 +777,9 @@ local function sample()
 	local area = tonumber(target.area)
 	if area and area > 0 then dist = dist > area and dist - area or 0 end
 	local r = target.r or Nav.DEFAULT_RADIUS
-	local wet = wetReach ~= nil and not (T and T.place)
+	-- No height to use: as before heights were checked (heightless).
+	local flat = (exactPoint or wetReach ~= nil) and not (T and T.place) and heightless(C, pc)
+	local wet = wetReach ~= nil and not (T and T.place) and not flat
 	if wet then
 		if dist <= 20 then return submergedSample(C) end
 		-- A distant measured walk may still guide towards the area, never to
@@ -763,13 +790,13 @@ local function sample()
 		local read, swim = pcall(IsSwimming)
 		if not read or (issecretvalue and issecretvalue(swim)) or swim ~= false then return "unmapped" end
 	end
-	local exact = exactPoint and not wet and not (T and T.place)
+	local exact = exactPoint and not wet and not (T and T.place) and not flat
 	local stacked, liveZ
 	-- Near the target, the player's floor against its height: not arrived
 	-- while a floor apart (Undercity's levels, caves, towers), and the arrow
 	-- says up or down (Nav.FloorHint). Not in a place only portals reach (the
 	-- walking maps have no floor there: the Wizard's Sanctum's chamber, #1970).
-	if tZ and dist <= max(r * 2, 20) and not (T and T.place) then
+	if tZ and dist <= max(r * 2, 20) and not (T and T.place) and not (flat and target.kind == "goto") then
 		local W = Nav.walk
 		local z = W and W.Floor and W.Floor(pc, px, py)
 		stacked = number(z) and not (area and area > 0) and stackedAt(z, tZ, dist)
@@ -791,12 +818,20 @@ local function sample()
 			end
 		end
 	elseif arrived then
-		if dist > r + max(5, r * 0.5) or floorHint then arrived = false end
+		if dist > r + max(5, r * 0.5) or floorHint then
+			arrived = false
+			-- Without a height, a departure on the map is the real one (re-arms the chime).
+			if flat and dist > r + max(5, r * 0.5) then pointAnnounced = false end
+		end
 	elseif dist <= r and not floorHint then
 		arrived = true
-		playArrival()
-		-- NAV_ARRIVED(target): once per arrival (Nav/Nearby.lua ends its trip).
-		pcall(ns.Fire, "NAV_ARRIVED", target)
+		-- One chime per visit, measured with a height or without (pointAnnounced: the visit the height measured).
+		if not (flat and pointAnnounced) then
+			playArrival()
+			-- NAV_ARRIVED(target): once per arrival (Nav/Nearby.lua ends its trip).
+			pcall(ns.Fire, "NAV_ARRIVED", target)
+		end
+		if flat then pointAnnounced = true end
 	end
 	if arrived and target.search then return "search", dist, angle, dn, dw end
 	if arrived then return "arrived", dist, angle, dn, dw end

@@ -82,6 +82,8 @@ mod engine_along;
 mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
 #[path = "engine-carried.rs"]
 mod engine_carried;
 #[path = "engine-carried-work.rs"]
@@ -140,6 +142,8 @@ mod engine_left_out;
 mod engine_level;
 #[path = "engine-level-carry.rs"]
 mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
@@ -184,6 +188,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
