@@ -5367,6 +5367,17 @@
 		],
 		"note": "Exploring the Horde: the four leaders are talks; the data counted them as kills."
 	},
+	"93747": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Ruined Ballista reclaimed" },
+				{ "type": "event", "id": null, "count": 1, "text": "Ruined Catapult reclaimed" },
+				{ "type": "event", "id": null, "count": 1, "text": "Ruined Flying Machine reclaimed" }
+			]
+		},
+		"source": { "kind": "recording", "ref": "#3170: 14 people had three separate lines in the quest log. Cast 1287099 coincided with ballista credit for 12 people, catapult credit for 14 and flying machine credit for 13." },
+		"note": "Each wreck needs its own Enchanted Seed. Reaching the wreck alone is not the planting objective."
+	},
 	"93797": {
 		"set": {
 			"classes": 128
@@ -7312,6 +7323,15 @@
 			}
 		],
 		"note": "Ancient Gurubashi Idol (Horde, The Drowned City): Mazu'kon in Mulgore gives it and takes it back."
+	},
+	"96322": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 263757, "count": 1, "text": "Decide What to do with Felflick" }
+			]
+		},
+		"source": { "kind": "recording", "ref": "#3121, #3194: 10 people had one decision in the quest log. Eight gained credit in Felflick's conversation window and handed the quest in to the Curious Crow." },
+		"note": "Choose Felflick's fate at his cage. The crow takes the finished quest; it does not grant the decision credit."
 	},
 	"96332": {
 		"set": {

@@ -546,6 +546,18 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
 test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
 	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
 	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
