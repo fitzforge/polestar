@@ -3157,7 +3157,17 @@ local function preferSupported(job, points, cost)
 end
 
 local function runAny(job)
-	return preferSupported(job, coarseAny(job))
+	local line, cost = preferSupported(job, coarseAny(job))
+	-- A map-only caller has no player policy. A snapped departure still
+	-- cannot cross known masonry. Check the final line, after local detours.
+	if not job.check and job.from.z and type(line) == "table" and line[2] then
+		local a, b = line[1], line[2]
+		if not b.rideFrom and Grid.solidChord(State(job.map), a.x, a.y, a.z, b.x, b.y, b.z) then
+			job.yards = nil
+			return nil, "unreachable"
+		end
+	end
+	return line, cost
 end
 
 function Safe.find(job)

@@ -185,6 +185,10 @@
 					],
 					"solidSamples": 1,
 					"dearerEdges": 69
+				},
+				"stonefireWall": {
+					"cluster": 472,
+					"solidSamples": 1
 				}
 			}
 		},
@@ -288,7 +292,7 @@
 		}
 	},
 	"files": {
-		"Nav/Nav0.lua": "84ebdf759fa8a8848601d0e5ef73d15c4f99ac444514e562b362c796781d6b76",
+		"Nav/Nav0.lua": "051433699952450ec6031769e201674024848fd35dab019456429714c0ab2ccb",
 		"Polestar_Nav_EK/Nav0_1.lua": "be5a56835324ffc9a6550481e212f56465c32033d966017371c55b85a94abe38",
 		"Polestar_Nav_EK/Nav0_2.lua": "4d9d1ec2e651405c7e38cd23c575c5b5baaccc56628cd9555001ad226b748206",
 		"Polestar_Nav_EK/Nav0_3.lua": "70f065787eab4a62ecc2bb738ae25b62ab48082e437ac6f5468beb0a0b1ad992",
@@ -777,7 +781,7 @@
 	],
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "a9914660ada6a8904b9fee18cfaed514e17a95d396fe05c9e84b04eb37c39465",
+		"manifestSha256": "237cb9894aee065ca63426cf2db158b36ded3cb3a46806aa79fdb87279d6576d",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",

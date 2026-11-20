@@ -122,6 +122,43 @@ test('Ironforge street walks round the signpost in both directions without closi
 	}
 });
 
+function missesFace(a, b, [px, py, pz]) {
+	const [x,y,z] = a, [X,Y,Z] = b, dx = X-x, dy = Y-y;
+	const t = Math.max(0, Math.min(1, ((px-x)*dx+(py-y)*dy)/(dx*dx+dy*dy || 1)));
+	const height = pz-z-t*(Z-z);
+	return height <= .29 || height >= 1.95 || Math.hypot(x+t*dx-px,y+t*dy-py) >= .454;
+}
+
+test('the standalone walking map does not send a departing vendor through the Stonefire wall', () => {
+	const nav = 'Polestar_Nav', parts = navParts(path.join(ADDONS, nav));
+	const { emitted: [result] } = runAddon({
+		stubs: ['stub_encoding.lua', 'stub_packs.lua'],
+		before: parts.map(n => `stub.packs[${JSON.stringify(n)}]={${tocFiles(n).map(p => JSON.stringify(p)).join(',')}}`).join('\n'),
+		addons: [nav],
+		script: `
+			local p = Polestar_NavEngine
+			local function walk(a, b)
+				local line = p.FindSync(0,a,b,{profile='Alliance'})
+				if not line then return false end
+				local out = {}
+				for _,pt in ipairs(line) do out[#out+1] = {pt.x,pt.y,pt.z} end
+				return out
+			end
+			local vendor = {x=-4842.3,y=-861,z=502}
+			local street = {x=-4843.75,y=-881.25,z=502}
+			local master = {x=-4821.1,y=-1152.4,z=502.3}
+			emit({back=walk(vendor,master), street=walk(street,master)})`,
+	});
+	assert.ok(result.street && Math.hypot(result.street.at(-1)[0]+4821.1,result.street.at(-1)[1]+1152.4) < 5,
+		'the street outside still connects to the flight master');
+	const line = result.back;
+	if (line) {
+		assert.deepEqual(line[0], [-4842.3,-861,502], 'a route may not silently start outside');
+		for (let i=1; i<line.length; i++) assert.ok(missesFace(line[i-1],line[i],[-4843.076958,-871.850614,502.55]),
+			'the line leaves through fixed masonry, not the lower doorway');
+	}
+});
+
 for (const [place, goal, maxGap, faces] of [
 	['the trainer ramp', [-4876.6,-1149.2,512.5], 10, [[-4861.273418,-1141.422549,503.223817],[-4868.359568,-1147.723829,506.619640]]],
 	// The vendor route is still partial; keep the approach without sending the player through the ForgeRoom wall.
@@ -145,13 +182,7 @@ for (const [place, goal, maxGap, faces] of [
 	assert.ok(Array.isArray(line) && line.length >= 2 && Math.hypot(line.at(-1)[0]-gx,line.at(-1)[1]-gy)<maxGap,
 		'the walking approach remains available, not just a refusal at the flight master');
 	for (let i=1; i<line.length; i++) {
-		const [x,y,z]=line[i-1], [X,Y,Z]=line[i], dx=X-x, dy=Y-y;
-		for (const [px,py,pz] of faces) {
-			const t=Math.max(0,Math.min(1,((px-x)*dx+(py-y)*dy)/(dx*dx+dy*dy || 1)));
-			const height=pz-z-t*(Z-z);
-			assert.ok(height<=.29 || height>=1.95 || Math.hypot(x+t*dx-px,y+t*dy-py)>=.454,
-				'a walking segment enters fixed masonry');
-		}
+		for (const face of faces) assert.ok(missesFace(line[i-1],line[i],face), 'a walking segment enters fixed masonry');
 	}
 });
 
