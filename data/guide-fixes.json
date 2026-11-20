@@ -13727,6 +13727,44 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a40-searing-gorge-slag-pit-top-up-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7727,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "Careful: Overseer Maltorius (50, elite) and his elite guards hold the Slag Pit's depths: keep to the pools near the entrance and don't follow the tunnels in.",
+			"note": "Alliance 40-50 fix pass (2026-11-20): the Searing Gorge guide's top-up to 48.66 grinds Incendosaurs inside the Slag Pit, where the guide's own Slag Pit step warns of Overseer Maltorius and his elite guards; since the Riverglades gate moved to 44.0 the level model's solo player reaches this top-up in every run (about 37 model minutes), so the step says so and carries the Careful line.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 9318 Incendosaur (47) spawns 43-52,20-39 in the Slag Pit; Overseer Maltorius (7701's target) level 50 elite"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a40-searing-gorge-top-up-spiders-not-slavers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7724,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "Careful: Magma Elementals (46-48) drift among the spiders: pull one at a time.",
+			"note": "Alliance 40-50 fix pass (2026-11-20): the Searing Gorge guide's top-up to 48.98 ground Dark Iron Slavers among the Cauldron's linked dwarf packs, which net you and call allies within 15 yards (the guide's own Culling step warns of it, and the flow gate's 06 reason records nine followers dying eleven times among them). It now grinds the Searing Lava Spiders (47-49) on the western plateaus around 28.5,51.0, away from the Dark Iron camps, with the Magma Elementals (46-48) among them named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 5858 Searing Lava Spider 47-49 (spawns 26-31,43-62), 5855 Magma Elemental 46-48, 5844 Dark Iron Slaver spawns 35-58,24-58"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }
