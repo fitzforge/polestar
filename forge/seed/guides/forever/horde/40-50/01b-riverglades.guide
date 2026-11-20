@@ -293,8 +293,8 @@ step Tran'gul
   accept 94680                          -- Twilight Missives
 
 step Fuzzle
-  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, hides in the middle of the town.
-  accept 94961                          -- Biting the Hand
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, waits in a cage at the arrow.
+  accept 94961 @47.2,51.2               -- Biting the Hand, Fuzzle in his cage
 
 step Sunnyglade
   tip The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.

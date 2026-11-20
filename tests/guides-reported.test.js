@@ -18167,3 +18167,13 @@ test('Horde 50-60: no Sealed Crate hand-ins at Dokimi, Orgrimmar flown to from R
 	const from = list.slice(0, fly).reverse().find(({ goal }) => goal.t === 'goto');
 	assert.ok(from && Math.abs(from.goal.x - 63.1) < 0.3 && Math.abs(from.goal.y - 37.1) < 0.3, 'it leaves from the Ratchet flight master');
 });
+
+// #3078 (PeptoBismo, 0.4.1.1): Fuzzle offers Biting the Hand from his cage (47.2,51.2), not from the middle of Sunnyglade
+// where the arrow and the tip sent players.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Biting the Hand is taken at Fuzzle's cage (#3078)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'accept 94961', is('accept', 94961))];
+		assert.ok(goal.map === 2548 && Math.hypot(goal.x - 47.2, goal.y - 51.2) <= 0.5, `the accept is at the cage (${goal.x},${goal.y})`);
+	});
+}

@@ -3030,6 +3030,29 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "3078-fuzzle-in-his-cage",
+			"quest": 94961,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#3078: Fuzzle (259158) offers Biting the Hand from his cage in Sunnyglade, not from the middle of the town where the arrow and the tip sent players. The giver's point is his spawn at the cage (the third of his three points).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3078 (0.4.1.1): Fuzzle at the cage, 47.31,51.36"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs.json 259158 Fuzzle on map 2548: 45.6,47.8; 47.0,50.0; 47.2,51.2"
+				}
+			],
+			"issue": 3078
 		}
 	]
 }
