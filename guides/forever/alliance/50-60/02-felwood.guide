@@ -140,13 +140,17 @@ step Nafien
   accept 8461
 
 step Felpaw Village
-  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the next guide passes the cave again at about 56.
+  tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave.
   tip Careful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   kill 7156 quest 8461.1              -- Deadwood Den Watcher
   kill 7157 quest 8461.2              -- Deadwood Avenger
   kill 7158 quest 8461.3              -- Deadwood Shaman
+
+step Deadwood Ritual Totem
+  when rep "Timbermaw Hold" Neutral
+  tip Only if the Timbermaw are already Neutral to you: the Deadwood furbolgs drop a Deadwood Ritual Totem about one kill in thirty, and Kernda just inside Timbermaw Hold takes it. Below Neutral the quest is refused: it needs Neutral with the Timbermaw; the reputation guide gets you there.
   collect 20741                       -- Deadwood Ritual Totem
-  accept 8470
+  accept 8470 item 20741
 
 step Nafien
   turnin 8461
@@ -157,8 +161,10 @@ step Nafien
   turnin 8467 direct
 
 step Timbermaw Hold
-  tip Step into the cave: Kernda stands just inside.
-  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
+  when rep "Timbermaw Hold" Neutral
+  when onquest 8470
+  tip Step into the cave: Kernda stands just inside. She needs Neutral with the Timbermaw; the reputation guide gets you there.
+  turnin 8470                         -- Kernda: walks around here: look inside the circle on the map
 
 # ---------------------------------------------------------------- Western Winterspring
 

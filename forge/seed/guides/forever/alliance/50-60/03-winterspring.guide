@@ -65,6 +65,8 @@ step Frostfire Hot Springs: kill these as you meet them
 
 step Winterfall Ritual Totem
   when has 20742
+  when rep "Timbermaw Hold" Neutral
+  tip Kernda takes the totem; the quest needs Neutral with the Timbermaw; the reputation guide gets you there.
   accept 8471 item 20742              -- For Kernda in Timbermaw Hold, later in this guide: keep it
 
 step Donova Snowden
@@ -446,7 +448,7 @@ step Timbermaw Hold
 
 step Kernda
   when onquest 8470
-  tip Kernda stands just inside the Timbermaw Hold cave: she speaks to you from Neutral with the Timbermaw, which the Deadwood and Winterfall furbolgs you killed brought you to.
+  tip Kernda stands just inside the Timbermaw Hold cave: she needs Neutral with the Timbermaw; the reputation guide gets you there.
   turnin 8470                         -- Kernda: walks around here: look inside the circle on the map
 
 step Kernda
@@ -455,7 +457,8 @@ step Kernda
 
 step Meilosh
   when has 14047 x30
-  tip Meilosh, just inside the cave beside Kernda, takes thirty Runecloth from Friendly with the Timbermaw.
+  when rep "Timbermaw Hold" Friendly
+  tip Meilosh, just inside the cave beside Kernda, takes thirty Runecloth from Friendly with the Timbermaw; the reputation guide gets you there.
   accept 6031                         -- Meilosh; below ground
   turnin 6031
 

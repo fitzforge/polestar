@@ -5164,6 +5164,21 @@
 			]
 		},
 		{
+			"id": "2026-11-20-timbermaw-neutral-gates",
+			"at": {
+				"quest": 8470,
+				"goal": "turnin"
+			},
+			"faction": "Alliance",
+			"note": "Alliance 50-60 (fix round 2026-11-20): Deadwood Ritual Totem (8470) and Winterfall Ritual Totem (8471) need Neutral with Timbermaw Hold (the quest data's own requirement), and Kernda and Meilosh in Timbermaw Hold are hostile below it: players' recordings (2026-11-20) show Kernda hostile to 29 people and neutral to 2, Meilosh hostile to 29 and neutral to 1; of the 39 characters with Timbermaw reputation, none was Neutral by level 53, 1 of 23 by 55 and only 3 ever. The guides told players Kernda would take the totems once the furbolgs they killed brought them to Neutral, which almost nobody reaches on the route. The totem accepts, Kernda's hand-ins and the farm for the Deadwood totem are now `when rep \"Timbermaw Hold\" Neutral` steps that say the reputation guide gets you there, and Meilosh's Runecloth (6031) waits for Friendly, as its tip says; the reputation guide (forever/reputation/timbermaw-hold) keeps all of them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 11558 (Kernda): hostile to 29 people, neutral to 2; rec.py npc 11557 (Meilosh): hostile to 29, neutral to 1; Timbermaw standing by level from the recordings (2026-11-20)"
+				}
+			]
+		},
+		{
 			"id": "1319-mackreels-moonshine-time-limit",
 			"at": {
 				"quest": 647,
