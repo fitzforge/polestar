@@ -8654,6 +8654,10 @@
 				"why": "c15 review: A Donation of Runecloth, Orgrimmar (Vehena): sixty cloth from the player's bags, not a drop the route can farm; the route counted its XP as certain. Optional like the Alliance donations (Main's call): a player without the cloth skips the hand-in, and the route no longer counts on it"
 			},
 			{
+				"q": 2876,
+				"why": "Fix round 2026-11-20 (Alliance 40-50/04): Ship Schedules starts from a Ship Schedule a Southsea pirate can drop at Lost Rigger Cove; a `when has 9250` step on the next Steamwheedle Port stop takes it and hands it to Security Chief Bilgewhizzle in the same building, so a character without the drop never sees it and the route never counts its XP. Recorded: 11 people took and handed it in at 43-51 (rec.py quest 2876). Likewise the Alliance Feralas and Hinterlands robot steps (2766/2767, 485/836 below) show only with their beacon in the bags, the rewards on 05's Booty Bay stop."
+			},
+			{
 				"q": 2766,
 				"why": "c15 review: Find OOX-22/FE! starts from the Distress Beacon, a 0.8-2.5 % drop of the Forgotten Coast's crawlers (the game's loot data); v1 marks it optional. c15 counted it: the route walked 285 s to the beacon's coast at 45.7 and planned the escort into Feralas II (Orc.json order[1207-1210]), and banked its XP"
 			},

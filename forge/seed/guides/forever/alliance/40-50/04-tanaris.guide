@@ -130,6 +130,15 @@ step Steamwheedle Port
   turnin 8366
   turnin 8365                         -- Haughty Modiste
 
+step Ship Schedules
+  when has 9250
+  tip Only if a Southsea pirate gave you a Ship Schedule: it starts a quest for Security Chief Bilgewhizzle, inside, where you stand.
+  accept 2876 item 9250               -- Ship Schedule
+
+step Security Chief Bilgewhizzle
+  when onquest 2876
+  turnin 2876                         -- Security Chief Bilgewhizzle, inside
+
 step Noonshade Ruins
   tip Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.
   collect 8483 x5 -- Wastewander Water Pouch
