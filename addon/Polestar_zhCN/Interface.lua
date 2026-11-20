@@ -1271,11 +1271,6 @@ L["Spot other players' mounts"] = "识别其他玩家的坐骑"
 L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] = "显示你选中或指向的玩家的坐骑名称及来源（/pole mount）。"
 
 -- Dungeons/Dungeons.lua
-L["Place the explosives"] = "放置炸弹"
-L["Rescue %d Rog'mar Scouts"] = "解救 %d 名洛格玛斥候"
-L["Rescue %d Farholde Scouts"] = "营救 %d 名法霍德斥候"
-L["Capture a Twilight Thrall"] = "俘获暮光奴隶"
-L["Destroy %d Twilight Ritual Circles"] = "摧毁 %d 个暮光仪式法阵"
 L["Dungeon quests, bosses and entrances"] = "地下城任务、首领和入口"
 L["Dungeons"] = "地下城"
 L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] = "每个地下城和团队一页：所有任务及其获取地点、任务链和奖励，以及首领和入口。"

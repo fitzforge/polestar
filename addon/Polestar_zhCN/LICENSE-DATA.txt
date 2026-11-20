@@ -33,7 +33,7 @@ The web quest database, World of Warcraft: Forever pages
 Pages: the Chinese (simplified) list pages and tooltips
 Read: 2026-10-16 to 2026-10-16
 Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
-Names taken: 309 quests, 542 NPCs, 69 objects, 486 items, 1 quest objective.
+Names taken: 309 quests, 543 NPCs, 69 objects, 486 items, 5 quest objectives.
 
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------

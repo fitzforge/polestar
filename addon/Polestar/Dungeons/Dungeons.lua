@@ -439,17 +439,6 @@ end
 -- pack ("objective") once, else each its English text. A page built before
 -- the objective facts (an older Codex pack) keeps its English line
 -- (quest.objective). nil: none.
--- The journal data calls these invisible counters kills. Their player-facing
--- action belongs to the quest: even two quests crediting the same counter
--- can ask the player to rescue different people.
-local CREDIT_OBJECTIVE = {
-	[92753] = { [253370] = L["Place the explosives"] },
-	[94748] = { [272737] = L["Rescue %d Rog'mar Scouts"] },
-	[94888] = { [272737] = L["Rescue %d Farholde Scouts"] },
-	[94907] = { [271293] = L["Capture a Twilight Thrall"] },
-	[95602] = { [272603] = L["Destroy %d Twilight Ritual Circles"] },
-}
-
 local OBJECTIVE = {
 	kill = { L["Kill %s"], L["Kill %d %s"], "npc" },
 	item = { L["Collect %s"], L["Collect %d %s"], "item" },
@@ -480,13 +469,9 @@ function Dungeons.ObjectiveText(q)
 	end
 	local N = ns.Names
 	local lines, summaryDone = {}, false
-	local credits = CREDIT_OBJECTIVE[q.id]
 	for _, o in ipairs(list) do
 		local f = OBJECTIVE[o.k]
-		local credit = credits and credits[o.id]
-		if credit and o.k == "kill" and type(o.name) == "string" and find(o.name, "[DNT] Kill Credit", 1, true) == 1 then
-			lines[#lines + 1] = format(credit, o.n or 1)
-		elseif f then
+		if f then
 			local name = (N and N.Get(f[3], o.id)) or o.name or ""
 			lines[#lines + 1] = (o.n and f[2]) and format(f[2], o.n, name) or format(f[1], name)
 		elseif not summaryDone then
@@ -495,7 +480,8 @@ function Dungeons.ObjectiveText(q)
 				summaryDone = true
 				lines[#lines + 1] = fill(text)
 			elseif o.name then
-				lines[#lines + 1] = o.name
+				local count = o.k == "event" and o.n
+				lines[#lines + 1] = type(count) == "number" and count > 1 and format("%s ×%d", o.name, count) or o.name
 			end
 		end
 	end

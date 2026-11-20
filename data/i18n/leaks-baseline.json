@@ -39146,13 +39146,6 @@
 				],
 				"english": "Hervdana Saegrund"
 			},
-			"npc:258652": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Twilight Thrall"
-			},
 			"npc:258905": {
 				"reason": "no-source",
 				"scenes": [
@@ -40214,26 +40207,12 @@
 				],
 				"english": "Windstone Formation"
 			},
-			"objective:92753": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Explosives placed"
-			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
-			},
-			"objective:94888": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Farholde Scouts rescued"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",
