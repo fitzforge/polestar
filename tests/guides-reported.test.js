@@ -3220,14 +3220,23 @@ for (const [q, title, giver, files] of [
 	});
 }
 
-// Hate the Hatefury (97265), the other quest of that sweep: Desolace's first visit now works Sargeron before it reaches
-// Shadowprey (2026-11-20), where Aka'rai would give it, so the optional accept could no longer come before its satyrs.
-// It is left out with its never-seen reason: no guide waits on, or sends anyone to, a giver nobody has seen.
-test("Hate the Hatefury (97265): no guide sends anyone to Aka'rai, and the skip says why (#1314)", { skip }, () => {
-	for (const file of allGuides().filter((f) => f.includes('/horde/'))) assert.ok(!goals(file).some(({ goal }) => goal.quest === 97265), `${file} has no Hate the Hatefury goal`);
+// Hate the Hatefury (97265): #1314's never-seen sweep left it out ("Aka'rai was never seen"), but #2785 (MrHatts) showed
+// her there, and players' recordings to 2026-11-20 have 40 runs by 30 people taken and handed in at Aka'rai. Desolace's
+// first visit (30-40/02) works Sargeron before it reaches Shadowprey, so the quest is on the second visit (30-40/04):
+// taken on the way out of Shadowprey, the satyrs at Sargeron after Thunder Axe Fortress, the hand-in back at Shadowprey.
+test("Hate the Hatefury (97265) is taken from Aka'rai on the second Desolace visit, worked at Sargeron and handed in (#2785)", { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const acc = at(list, 'accept 97265', is('accept', 97265));
+	const fort = at(list, 'collect 13542 quest 5381', (g) => g.t === 'collect' && g.item === 13542);
+	const kills = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'kill' && goal.quest === 97265).map(([, i]) => i);
+	const tin = at(list, 'turnin 97265', is('turnin', 97265));
+	assert.equal(kills.length, 5, 'all five Hatefury kinds');
+	assert.ok(acc < fort && kills.every((k) => k > fort && k < tin), 'accept, then the fortress, then Sargeron, then the hand-in');
+	for (const i of [acc, tin, ...kills]) assert.ok(!list[i].goal.optional, `${list[i].goal.t} 97265 is a plain goal`);
+	assert.ok(!goals('forever/horde/30-40/02-thousand-needles.guide').some(({ goal }) => goal.quest === 97265), 'not on the first visit, which reaches Shadowprey after Sargeron');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
-	const skip = rf.overrides.skip.find((s) => s.q === 97265 && s.faction === 'Horde');
-	assert.ok(skip && /never been seen/.test(skip.reason), 'a skip record with the never-seen reason');
+	assert.ok(!rf.overrides.skip.some((s) => s.q === 97265), 'no skip record');
+	assert.ok(rf.overrides.include.some((s) => s.q === 97265 && /#2785/.test(s.issue)), 'an include record for #2785');
 });
 
 // --- Hammerfall (never-taken check, 2026-11-08): the Defiler's Basic Care Package (8263) needs Friendly with the
