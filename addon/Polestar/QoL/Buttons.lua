@@ -1431,7 +1431,7 @@ local function addGoalNames(gv, rg, qdb)
 	local N = ns.Names
 	local src = rg.fromNpcs or gv.fromNpcs
 	local p = gv.progress
-	TL.progress = type(p) == "table" and p.kind == "count" and p or nil
+	TL.progress = type(p) == "table" and (p.kind == "count" or p.kind == "shared") and p or nil
 	if gv.t == "kill" then
 		-- /targetexact needs the name as the client writes it. Elite
 		-- work (compiled `group`) marks the mob.
