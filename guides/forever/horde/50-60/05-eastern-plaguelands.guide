@@ -442,7 +442,7 @@ step Kirsta Deepshadow
 
 step Target: Gahrron's Withering
   tip Ride south-east to Gahrron's Withering, the farm under the eastern hills: Cauldron Lord Soulwrath (58) guards its cauldron. Kill him for the key, then use the cauldron.
-  tip Careful: Soulwrath is a level over you: clear the ghouls around the cauldron first and start at full health.
+  tip Careful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him.
   collect 13196 quest 5235.1 @62.2,59.1 map 1422
   turnin 5235
   accept 5236

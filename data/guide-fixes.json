@@ -13905,6 +13905,25 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-gahrron-soulwrath-two-levels",
+			"faction": "Horde",
+			"at": {
+				"quest": 5235,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Careful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him.",
+			"note": "Cauldron Lord Soulwrath (58) carries the cauldron key for Gahrron's Withering (5235); the route reaches him at about 56 by the level model, and only two recorded players (too few for their levels to count), so the tip says two levels, not one.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json Cauldron Lord Soulwrath level 58"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }
