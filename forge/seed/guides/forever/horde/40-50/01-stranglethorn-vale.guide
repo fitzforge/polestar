@@ -71,6 +71,8 @@ step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
   accept 1261                           -- the Bubbling Cauldron beside Kin'weelay: Marg Speaks, for Nazeer Bloodpike in Brackenwall Village on the Dustwallow guide, where the crabs drop the pendant
+  accept 598                            -- Kin'weelay: Split Bone Necklace, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop
+  accept 2932                           -- Nimboya: Grim Message, for the Hinterlands, around level 48
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -361,8 +363,7 @@ step Grom'gol
   turnin 95748 npc 2519                 -- Kin'weelay
   accept 586
   accept 585
-  accept 2932                           -- Nimboya: for the Hinterlands, around level 48
-  accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
+  accept 598                            -- Kin'weelay, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop
   accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
 
 step Riding at 40

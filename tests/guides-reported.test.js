@@ -9813,7 +9813,10 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 	const H = (g) => `forever/horde/${g}.guide`;
 	const g = (n) => goals(H(n));
 	const stv = g('40-50/01-stranglethorn-vale');
-	assert.equal(stv[at(stv, 'accept 598', is('accept', 598))].s, stv[at(stv, 'turnin 584', is('turnin', 584))].s, 'Split Bone Necklace on the later Grom\'gol stop');
+	// Fix pass 2026-11-20: the route's players (Bloody Bone Necklace handed in on 30-40/03) take it on the first Grom'gol
+	// stop; the later stop keeps it for one who starts here, as with Kebok's tusks below.
+	const necklace = stv.filter(({ goal }) => is('accept', 598)(goal));
+	assert.equal(necklace.at(-1).s, stv[at(stv, 'turnin 584', is('turnin', 584))].s, 'Split Bone Necklace on the later Grom\'gol stop');
 	// Horde 0.4.0 audit (round 2): Kebok offers the tusks on the first Booty Bay stop to a player who handed in Bloodscalp
 	// Ears (the route's players); the second stop keeps it for one who starts here.
 	const tusks = stv.filter(({ goal }) => is('accept', 209)(goal));

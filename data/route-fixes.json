@@ -11705,6 +11705,24 @@
 				],
 				"reason": "Horde 50-60 fix pass (2026-11-20): The Restless Souls (minimum level 55) from Caretaker Alen is taken on 50-60/05's second Light's Hope Chapel stop, with 6021's hand-in, after Darrowshire; the first stop comes at 54.96-54.98 by the level model, where Alen refuses it. The third stop offers it again for anyone still under 55; Egan takes it in Terrordale later in the guide.",
 				"issue": "-"
+			},
+			{
+				"q": 598,
+				"after": [
+					"turnin",
+					1240
+				],
+				"reason": "Horde 40-50 fix pass (2026-11-20): Split Bone Necklace (598, Kin'weelay) and Grim Message (2932, Nimboya) are taken on 40-50/01's first Grom'gol stop, where the route stands beside both givers for Kin'weelay's hand-in (1240); they were passed there and taken on the second stop, and their work comes after it either way. The second stop still offers Split Bone Necklace to a player who starts the guide without Bloody Bone Necklace (596).",
+				"issue": "-"
+			},
+			{
+				"q": 2932,
+				"after": [
+					"turnin",
+					1240
+				],
+				"reason": "Horde 40-50 fix pass (2026-11-20): Split Bone Necklace (598, Kin'weelay) and Grim Message (2932, Nimboya) are taken on 40-50/01's first Grom'gol stop, where the route stands beside both givers for Kin'weelay's hand-in (1240); they were passed there and taken on the second stop, and their work comes after it either way. The second stop still offers Split Bone Necklace to a player who starts the guide without Bloody Bone Necklace (596).",
+				"issue": "-"
 			}
 		],
 		"skip": [
