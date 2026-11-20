@@ -1319,6 +1319,7 @@ local function ask(P, pc, px, py, flat, terminal)
 			Walk.blockedReason = nil
 			sightC = gc
 			ptsX.checkedPolicy = Walk.checkedOnly and o or nil
+			ptsX.checkedTurns = type(answer) == "table" and (answer.walkChecked == true or type(approach) == "table")
 			took(points, P.Sight and sight or nil)
 			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
 			hubs = hubsOf(answer)
@@ -1489,6 +1490,7 @@ local function takeBaked(pc, px, py)
 	if best > STRAY * STRAY then return false end
 	local za, zb = zs[bk], zs[bk + 1]
 	ptsX.detail, ptsX.absoluteDry, ptsX.boarding = nil, nil, nil
+	ptsX.checkedTurns = nil
 	ptsX[1], ptsY[1], ptsZ[1] = xs[bk] + (xs[bk + 1] - xs[bk]) * bt, ys[bk] + (ys[bk + 1] - ys[bk]) * bt, za + (zb - za) * bt
 	local m = 1
 	for k = bk + 1, n do

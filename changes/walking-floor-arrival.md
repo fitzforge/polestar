@@ -7,6 +7,8 @@ section: players
   If you're already on a vendor's floor, a walk that ends farther away
   won't send you back outside. Standing beneath a trainer no longer starts
   a short walk that ends on the same lower floor without reaching the stairs.
+  Indoors, the arrow follows the bends in a searched aisle instead of
+  pointing across the solid corner, including beside the Ironforge roost.
 - With real-path routing on, missing walking data no longer sends the
   arrow straight across unmapped ground. Turning routing off still shows
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.

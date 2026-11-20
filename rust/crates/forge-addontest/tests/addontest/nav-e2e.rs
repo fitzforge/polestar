@@ -233,6 +233,34 @@ fn run(script: &str, shipped: bool) -> Value {
 }
 
 #[test]
+fn indoor_guidance_takes_the_open_aisle_in_both_directions_at_the_ironforge_roost() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"; w.setLevel(23); w.indoors = true
+		local a, b = {-4856.25,-1131.25,502.20826}, {-4831.25,-1156.25,502.20923}
+		local function departure(p, q)
+			N.ClearTarget()
+			place(1455, unpack(p))
+			local mx, my = C.WorldToMap(0, q[1], q[2], 1455)
+			assert(N.SetTarget(1455, mx, my, "Roost", nil, "npc", q[3]))
+			for _ = 1, 500 do aim(); stub.advance(.05) end
+			local h = aim()
+			assert(h.state == "travel" and h.measured and dist(p[1], p[2], h.x, h.y) > 2)
+			return math.deg(math.atan2(h.y-p[2], h.x-p[1]))
+		end
+		emit({outward = departure(a,b), inward = departure(b,a)})"#,
+		true,
+	);
+	// A body swept two yards from these two spots meets solid geometry in these
+	// sectors. Leave a margin at the measured edges; do not pin a particular path.
+	let outward = f(&out["outward"]);
+	let inward = f(&out["inward"]);
+	assert!(!(-52.0..=113.0).contains(&outward), "outward heading {outward} cuts the solid corner");
+	assert!(!(4.0..=144.0).contains(&inward), "return heading {inward} cuts the solid corner");
+}
+
+#[test]
 fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomplete_walk() {
 	skip_unless_ready!();
 	let result = run(
