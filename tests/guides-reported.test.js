@@ -16216,7 +16216,10 @@ test('Alliance 50-60: 05 folded into 06, the training stops at 55 and 57', { ski
 	assert.ok(!fsx.existsSync(path.join(OFFICIAL_DIR, 'forever/alliance/50-60/05-silithus.guide')), '05 is gone');
 	const retired = JSON.parse(fsx.readFileSync(path.join(OFFICIAL_DIR, 'retired.json'), 'utf8'));
 	assert.ok(retired.includes('forever/alliance/50-60/05-silithus'), 'its saved tabs open a successor');
-	assert.equal(compiled('forever/alliance/50-60/04-western-plaguelands.guide').next, 'forever/alliance/50-60/06-silithus');
+	// Since 0.4.3 Mount Hyjal comes between them (Fitz, 2026-11-20): 04 -> forever/50-60/mount-hyjal -> 06.
+	assert.equal(compiled('forever/alliance/50-60/04-western-plaguelands.guide').next, 'forever/50-60/mount-hyjal');
+	const hy = compiled('forever/50-60/mount-hyjal.guide');
+	assert.ok([hy.next, ...(hy.nextChoices || [])].includes('forever/alliance/50-60/06-silithus'), 'then 06');
 	const six = goals('forever/alliance/50-60/06-silithus.guide');
 	const p = (t, q) => at(six, `${t} ${q}`, is(t, q));
 	assert.ok(p('turnin', 4502) < p('turnin', 5159), 'Ratchet first, then Felwood');

@@ -23,8 +23,8 @@ next forever/alliance/50-60/06-silithus
 # Order: the way in from Everlook through Darkwhisper Gorge (binding the Hearthstone there), Ketharas the hermit
 # and his first errands by the road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost
 # and its flight path, the fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the
-# Curious Crow and Felflick), Velician, then Ketharas's errand to Moonglade (by Hearthstone to Everlook when it is
-# bound there and ready) with the parts order from Everlook on the way back.
+# Curious Crow and Felflick), Velician, then Ketharas's errand to Moonglade (by Bluebell's flight, or through Everlook
+# where the Hearthstone is bound) with the parts order from Everlook on the way back.
 # Offered only after another quest is handed in (the recordings): Violence Into
 # Verdure after Seeds for a New Season, The Bounty of Nature after Hope for Hatchlings, Rites of Respect after The
 # Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; Fine Feathered
@@ -305,13 +305,6 @@ step Ketharas
   turnin 96131
   accept 92612                          -- Aid from Moonglade
 
-step Hearth to Everlook
-  only !Druid
-  when bound "Everlook"
-  when !cooldown item 6948
-  tip Your Hearthstone is bound in Everlook: use it, and go on to Moonglade from there.
-  hearth "Everlook"
-
 step Fly to Moonglade
   when zone "Mount Hyjal"
   tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. Druids: Teleport: Moonglade is quicker. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
@@ -325,7 +318,7 @@ step Fly to Moonglade
   zone Moonglade
 
 step Dendrite Starblaze
-  tip North into Nighthaven: Dendrite Starblaze stands in the north-east of the village.
+  tip North into Nighthaven: Dendrite Starblaze stands in the north-east of the village, upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 92612
   accept 96209                          -- The Ancient, Orokai
 
@@ -336,6 +329,7 @@ step Orokai
   talk 216289                           -- Orokai: ready to watch
 
 step Dendrite Starblaze
+  tip Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 95006
   accept 93773                          -- The Pact: for Ketharas
 
@@ -956,7 +950,7 @@ step The Staff of the Mountain
 step Back to Elderwild
   only Horde
   when onquest 91794,96998,92592
-  tip Horde: ride west across the foothills and north up the valley to Elderwild, about four minutes, for Kal'tinzan's flags, Zet'gan's amulet and his war paint wrap. The Hearthstone then takes you back up to the Summit.
+  tip Horde: ride west across the foothills and north up the valley to Elderwild, about four minutes, for Kal'tinzan's flags, Zet'gan's amulet and his war paint wrap, then back up to the Summit.
   turnin 91794 @13.7,53.1               -- Kal'tinzan
   turnin 92592                          -- Zet'gan
   turnin 96998                          -- Zet'gan
@@ -968,14 +962,8 @@ step Zet'gan
   when onquest 92446
   turnin 92446                          -- Head Scratcher's claws
 
-step Hearth to the Summit of Eternity
-  when !cooldown item 6948
-  hearth "Summit of Eternity"
-
-step Fly to the Summit of Eternity
-  when cooldown item 6948
-  tip Hearthstone not ready: ride to Bluebell at the ancients' outpost and fly up.
-  goto 55.1,82.6 "Bluebell, the flight mistress"
+step Up to the Summit of Eternity
+  tip Back up to the Summit of Eternity: Bluebell, at the ancients' outpost, flies there, and your Hearthstone is bound there.
   fly "Summit of Eternity"
 
 step Tiala Whitemane

@@ -12682,176 +12682,6 @@
 			"evidence": "route level 29.4 to 30; Cave Yeti 30-31 x37 (the grind mob), Ferocious Yeti 31-32 x43, Mountain Lion 32-33 x3; recordings (2026-11-14): Helcular's Rod (552.1) done by 36 people at 29-35 (median 31.6), 3 people died within 60 yd of the grind's point (at 31-33)"
 		},
 		{
-			"key": "experimental/guides/hyjal-1.guide|kill 92594.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 92594.1",
-			"kind": "elite",
-			"title": "The shrub field",
-			"level": 57.7,
-			"mobs": [
-				"Celastrus the Bitter 57-57 x2"
-			],
-			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear. Players do it: 1 people, median level 57.21, where the model has 57.7.",
-			"evidence": "route level 57.7 (experimental route choices' model); Celastrus the Bitter 57-57 x2; recordings (2026-11-15): done by 1 people (median 57.21), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 91755.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 91755.1",
-			"kind": "elite",
-			"title": "The shrub field",
-			"level": 57.7,
-			"mobs": [
-				"Celastrus the Bitter 57-57 x2"
-			],
-			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear. Players do it: 1 people, median level 57.33, where the model has 57.7.",
-			"evidence": "route level 57.7 (experimental route choices' model); Celastrus the Bitter 57-57 x2; recordings (2026-11-15): done by 1 people (median 57.33), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 95380.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 95380.1",
-			"kind": "elite",
-			"title": "Slime ooze as you go",
-			"level": 58,
-			"mobs": [
-				"Awakened Fel Ash Slime 58-58 x2"
-			],
-			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear. Players do it: 1 people, median level 57.92, where the model has 58.",
-			"evidence": "route level 58 (experimental route choices' model); Awakened Fel Ash Slime 58-58 x2; recordings (2026-11-15): done by 1 people (median 57.92), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|complete 96435|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "complete 96435",
-			"kind": "elite",
-			"title": "The bone pile",
-			"level": 58.2,
-			"mobs": [
-				"Awakened Fel Ash Slime 58-58 x2"
-			],
-			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear.",
-			"evidence": "route level 58.2 (experimental route choices' model); Awakened Fel Ash Slime 58-58 x2; recordings (2026-11-15): done by 0 people, 1 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 93831.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 93831.1",
-			"kind": "elite",
-			"title": "Bear berries",
-			"level": 58.5,
-			"mobs": [
-				"Grimroot 60-60 x4"
-			],
-			"reason": "players meet Grimroot only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
-			"evidence": "route level 58.5 (experimental route choices' model); Grimroot 60-60 x4; recordings (2026-11-15): done by 1 people (median 58.18), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 95027.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 95027.1",
-			"kind": "elite",
-			"title": "Owl feathers",
-			"level": 58.5,
-			"mobs": [
-				"Grimroot 60-60 x6"
-			],
-			"reason": "players meet Grimroot only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
-			"evidence": "route level 58.5 (experimental route choices' model); Grimroot 60-60 x6; recordings (2026-11-15): done by 1 people (median 58.14), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 90865.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 90865.1",
-			"kind": "elite",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Grimroot 60-60 x2"
-			],
-			"reason": "players meet Grimroot only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
-			"evidence": "route level 58.5 (experimental route choices' model); Grimroot 60-60 x2; recordings (2026-11-15): done by 1 people (median 58.27), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 93826.2|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 93826.2",
-			"kind": "elite",
-			"title": "The Deadwood camps",
-			"level": 59.1,
-			"mobs": [
-				"Head Scratcher 60-60"
-			],
-			"reason": "the step's tip warns of Head Scratcher and how to keep clear.",
-			"evidence": "route level 59.1 (experimental route choices' model); Head Scratcher 60-60; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 95793.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 95793.1",
-			"kind": "elite",
-			"title": "Dae'gun",
-			"level": 59.2,
-			"mobs": [
-				"Doomguard 58-59 x6"
-			],
-			"reason": "the step's tip warns of Doomguard and how to keep clear. Players do it: 1 people, median level 59.71, where the model has 59.2.",
-			"evidence": "route level 59.2 (experimental route choices' model); Doomguard 58-59 x6; recordings (2026-11-15): done by 1 people (median 59.71), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 92960.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 92960.1",
-			"kind": "elite",
-			"title": "Dae'gun",
-			"level": 59.2,
-			"mobs": [
-				"Doomguard 58-59 x2",
-				"Doomguard Xarkul 61-61 x2"
-			],
-			"reason": "the step's tip warns of Doomguard, Doomguard Xarkul and how to keep clear. Players do it: 1 people, median level 59.19, where the model has 59.2.",
-			"evidence": "route level 59.2 (experimental route choices' model); Doomguard 58-59 x2, Doomguard Xarkul 61-61 x2; recordings (2026-11-15): done by 1 people (median 59.19), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 97009.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 97009.1",
-			"kind": "elite",
-			"title": "Bethra'zel and Maerion",
-			"level": 59.3,
-			"mobs": [
-				"Doomguard Xarkul 61-61 x3"
-			],
-			"reason": "the step's tip warns of Doomguard Xarkul and how to keep clear. Players do it: 1 people, median level 59.67, where the model has 59.3.",
-			"evidence": "route level 59.3 (experimental route choices' model); Doomguard Xarkul 61-61 x3; recordings (2026-11-15): done by 1 people (median 59.67), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 96003.2|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 96003.2",
-			"kind": "elite",
-			"title": "Mazzogore",
-			"level": 59.3,
-			"mobs": [
-				"Doomguard 58-59 x4"
-			],
-			"reason": "the step's tip warns of Doomguard and how to keep clear. Players do it: 1 people, median level 59.76, where the model has 59.3.",
-			"evidence": "route level 59.3 (experimental route choices' model); Doomguard 58-59 x4; recordings (2026-11-15): done by 1 people (median 59.76), 0 people died within 60 yd, 0 abandoned"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|complete 92328|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "complete 92328",
-			"kind": "elite",
-			"title": "Kaylaena's workshop",
-			"level": 59.4,
-			"mobs": [
-				"Ghansurok 61-61 x3"
-			],
-			"reason": "the step's tip warns of Ghansurok and how to keep clear.",
-			"evidence": "route level 59.4 (experimental route choices' model); Ghansurok 61-61 x3; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
-		},
-		{
 			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.1|rare",
 			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.1",
@@ -16211,97 +16041,6 @@
 			"evidence": "route level 58.4 (Alliance route after fix round 1, rested level model); Xil'xix 62-62; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
 		},
 		{
-			"key": "experimental/guides/hyjal-1.guide|kill 95318.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 95318.1",
-			"kind": "elite",
-			"title": "The Ashen camp",
-			"level": 58,
-			"mobs": [
-				"Awakened Fel Ash Slime 58-58"
-			],
-			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to pull the Acolytes away from them; they are at the player's level",
-			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 95317.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 95317.1",
-			"kind": "elite",
-			"title": "The Ashen camp",
-			"level": 58,
-			"mobs": [
-				"Awakened Fel Ash Slime 58-58"
-			],
-			"reason": "see the kill 95318.1 row: the same step and tip",
-			"evidence": "route level 58 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 95378.3|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 95378.3",
-			"kind": "elite",
-			"title": "The warlocks",
-			"level": 58.2,
-			"mobs": [
-				"Awakened Fel Ash Slime 58-58"
-			],
-			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to keep clear of them; they are at the player's level",
-			"evidence": "route level 58.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 93617.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 93617.1",
-			"kind": "elite",
-			"title": "Predatory stags",
-			"level": 58.9,
-			"mobs": [
-				"Spectral Frostwyrm 61-61 x4"
-			],
-			"reason": "the Spectral Frostwyrms (61, elites) fly over the western meadows; the step's Careful tip says to keep out from under them, and the stags roam the meadows east of Kala'th",
-			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x4; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 92317.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 92317.1",
-			"kind": "elite",
-			"title": "Bones and stolen life",
-			"level": 58.9,
-			"mobs": [
-				"Spectral Frostwyrm 61-61 x3"
-			],
-			"reason": "the step's Careful tip names the Death Wailers and the Spectral Frostwyrms (61, elites) circling over the meadows and says to keep out from under them; the drop comes from the Fleshflay Raveners",
-			"evidence": "route level 58.9 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Spectral Frostwyrm 61-61 x3; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 93826.1|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 93826.1",
-			"kind": "elite",
-			"title": "The Deadwood camps",
-			"level": 59.1,
-			"mobs": [
-				"Head Scratcher 60-60 x5"
-			],
-			"reason": "the step's tip names Head Scratcher (60, elite) at the camps' eastern end (as the 93826.2 row)",
-			"evidence": "route level 59.1 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Head Scratcher 60-60 x5; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|complete 92593|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "complete 92593",
-			"kind": "elite",
-			"title": "Dae'gun",
-			"level": 59.2,
-			"mobs": [
-				"Doomguard 58-59"
-			],
-			"reason": "the step's Careful tips name the Doomguards (58-59, elites), Doomguard Xarkul and the Legion Hulks and say to pull the hounds and sentinels away from them; the Doomguards are at the player's level",
-			"evidence": "route level 59.2 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Doomguard 58-59; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
 			"key": "forever/alliance/30-40/04-stranglethorn-vale.guide|complete 578|over",
 			"guide": "forever/alliance/30-40/04-stranglethorn-vale.guide",
 			"goal": "complete 578",
@@ -16404,97 +16143,6 @@
 			],
 			"reason": "the Redstone Basilisks' slopes, the same point as the bloodmages' basilisk quests (baselined): the data lists two Snickerfang Matriarch spawns of 60 near it, and players did the bloodmages' quests there at about 48 (12-13 people, 1-2 deaths)",
 			"evidence": "route level 52.2 (Alliance route after fix round 2, level model without grinding before an accept); Snickerfang Matriarch 60-60 x2; recordings (2026-11-16): done by 1 (median 47.35), deaths 2, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 95027.1|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 95027.1",
-			"kind": "rare",
-			"title": "Owl feathers",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 92449.1",
-			"kind": "rare",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61 x7"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x7; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|pack",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 92449.1",
-			"kind": "pack",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"7 spawns 60+"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); 7 spawns 60+; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|kill 92449.2|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 92449.2",
-			"kind": "rare",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61 x5"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 90865.1|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 90865.1",
-			"kind": "rare",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61 x3"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x3; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 90702.1|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 90702.1",
-			"kind": "rare",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61 x5"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
-		},
-		{
-			"key": "experimental/guides/hyjal-1.guide|collect 92591.1|rare",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 92591.1",
-			"kind": "rare",
-			"title": "Mourning's Rest",
-			"level": 58.5,
-			"mobs": [
-				"Death Wailer 61-61 x4"
-			],
-			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
-			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x4; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
 		},
 		{
 			"key": "forever/40-50/shendralas.guide@Horde|collect 99257.1|over",
@@ -18405,43 +18053,554 @@
 			"evidence": "route level 9.3; Deeb 12-12 x4; data change: points Deeb(1->5); recordings (2026-11-17): done by 54 (median 8.81), deaths 7, abandons 1"
 		},
 		{
-			"key": "experimental/guides/hyjal-1.guide|collect 93759.2|elite",
-			"guide": "experimental/guides/hyjal-1.guide",
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 91755.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 91755.1",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.7,
+			"mobs": [
+				"Celastrus the Bitter 57-57 x12",
+				"Sunderbark 56-56 x3"
+			],
+			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear. Players do it: 1 people, median level 57.33, where the model has 57.7.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Celastrus the Bitter 57-57 x12, Sunderbark 56-56 x3; recordings (2026-11-15): done by 1 people (median 57.33), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 93759.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
 			"goal": "collect 93759.2",
 			"kind": "elite",
 			"title": "The shrub field",
-			"level": 57.8,
+			"level": 57.7,
 			"mobs": [
 				"Ghansurok 61-61"
 			],
-			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
-			"evidence": "route level 57.8; Ghansurok 61-61; data change: points Ghansurok(12->14); recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+			"reason": "Ghansurok (61, elite chimaera) prowls around Kaylaena's workshop north of the shrub field; the shrub field's tips say to give him room and to see where he is before riding up to the workshop.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Ghansurok 61-61; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
 		},
 		{
-			"key": "experimental/guides/hyjal-1.guide|kill 92449.2|pack",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "kill 92449.2",
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92594.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92594.1",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.7,
+			"mobs": [
+				"Celastrus the Bitter 57-57 x12",
+				"Sunderbark 56-56 x3"
+			],
+			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear. Players do it: 1 people, median level 57.21, where the model has 57.7.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Celastrus the Bitter 57-57 x12, Sunderbark 56-56 x3; recordings (2026-11-15): done by 1 people (median 57.21), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 95317.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 95317.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "see the kill 95318.1 row: the same step and tip",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 95318.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 95318.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to pull the Acolytes away from them; they are at the player's level",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 95380.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 95380.1",
+			"kind": "elite",
+			"title": "Slime ooze as you go",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58 x4"
+			],
+			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear. Players do it: 1 people, median level 57.92, where the model has 58.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58 x4; recordings (2026-11-15): done by 1 people (median 57.92), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|complete 96435|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "complete 96435",
+			"kind": "elite",
+			"title": "The bone pile",
+			"level": 57.8,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58 x3"
+			],
+			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear.",
+			"evidence": "route level 57.8 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58 x3; recordings (2026-11-15): done by 0 people, 1 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 93617.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 93617.1",
+			"kind": "elite",
+			"title": "Predatory stags",
+			"level": 58.8,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the western meadows; the step's Careful tip says to keep out from under them, and the stags roam the meadows east of Kala'th",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Spectral Frostwyrm 61-61 x4; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92317.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92317.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 58.8,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x2"
+			],
+			"reason": "the step's Careful tip names the Death Wailers and the Spectral Frostwyrms (61, elites) circling over the meadows and says to keep out from under them; the drop comes from the Fleshflay Raveners",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Spectral Frostwyrm 61-61 x2; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 93826.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 93826.1",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 58.8,
+			"mobs": [
+				"Head Scratcher 60-60 x6"
+			],
+			"reason": "the step's tip names Head Scratcher (60, elite) at the camps' eastern end (as the 93826.2 row)",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Head Scratcher 60-60 x6; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 93826.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 93826.2",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 58.8,
+			"mobs": [
+				"Head Scratcher 60-60"
+			],
+			"reason": "the step's tip warns of Head Scratcher and how to keep clear.",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Head Scratcher 60-60; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92960.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92960.1",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 59.2,
+			"mobs": [
+				"Doomguard 58-59",
+				"Doomguard Xarkul 61-61"
+			],
+			"reason": "the step's tip warns of Doomguard, Doomguard Xarkul and how to keep clear. Players do it: 1 people, median level 59.19, where the model has 59.2.",
+			"evidence": "route level 59.2 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59, Doomguard Xarkul 61-61; recordings (2026-11-15): done by 1 people (median 59.19), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 95793.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 95793.1",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 59.2,
+			"mobs": [
+				"Doomguard 58-59 x6",
+				"Doomguard Xarkul 61-61",
+				"Bethra'zel the Feeble 60-60",
+				"Mazzogore 60-60"
+			],
+			"reason": "the step's tip warns of Doomguard and how to keep clear. Players do it: 1 people, median level 59.71, where the model has 59.2.",
+			"evidence": "route level 59.2 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59 x6, Doomguard Xarkul 61-61, Bethra'zel the Feeble 60-60, Mazzogore 60-60; recordings (2026-11-15): done by 1 people (median 59.71), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 97009.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 97009.1",
+			"kind": "elite",
+			"title": "Maerion Thaelemaches",
+			"level": 59.3,
+			"mobs": [
+				"Doomguard Xarkul 61-61 x6",
+				"Doomguard 58-59"
+			],
+			"reason": "the step's tip warns of Doomguard Xarkul and how to keep clear. Players do it: 1 people, median level 59.67, where the model has 59.3.",
+			"evidence": "route level 59.3 (level model with Mount Hyjal in the route, 0.4.3); Doomguard Xarkul 61-61 x6, Doomguard 58-59; recordings (2026-11-15): done by 1 people (median 59.67), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|complete 92328|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "complete 92328",
+			"kind": "elite",
+			"title": "Kaylaena's workshop",
+			"level": 59.4,
+			"mobs": [
+				"Ghansurok 61-61 x5"
+			],
+			"reason": "the step's tip warns of Ghansurok and how to keep clear.",
+			"evidence": "route level 59.4 (level model with Mount Hyjal in the route, 0.4.3); Ghansurok 61-61 x5; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91755.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91755.1",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.7,
+			"mobs": [
+				"Celastrus the Bitter 57-57 x12",
+				"Sunderbark 56-56 x3"
+			],
+			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Celastrus the Bitter 57-57 x12, Sunderbark 56-56 x3; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 93759.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 93759.2",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.7,
+			"mobs": [
+				"Ghansurok 61-61"
+			],
+			"reason": "Ghansurok (61, elite chimaera) prowls around Kaylaena's workshop north of the shrub field; the shrub field's tips say to give him room and to see where he is before riding up to the workshop.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Ghansurok 61-61; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 92594.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 92594.1",
+			"kind": "elite",
+			"title": "The shrub field",
+			"level": 57.7,
+			"mobs": [
+				"Celastrus the Bitter 57-57 x12",
+				"Sunderbark 56-56 x3"
+			],
+			"reason": "the step's tip warns of Celastrus the Bitter and how to keep clear.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Celastrus the Bitter 57-57 x12, Sunderbark 56-56 x3; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 95317.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 95317.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "see the kill 95318.1 row: the same step and tip",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95318.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95318.1",
+			"kind": "elite",
+			"title": "The Ashen camp",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58"
+			],
+			"reason": "the step's Careful tip names the Awakened Fel Ash Slimes (58, elites) and says to pull the Acolytes away from them; they are at the player's level",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 95380.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 95380.1",
+			"kind": "elite",
+			"title": "Slime ooze as you go",
+			"level": 57.7,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58 x4"
+			],
+			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear.",
+			"evidence": "route level 57.7 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58 x4; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|complete 96435|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "complete 96435",
+			"kind": "elite",
+			"title": "The bone pile",
+			"level": 57.8,
+			"mobs": [
+				"Awakened Fel Ash Slime 58-58 x3"
+			],
+			"reason": "the step's tip warns of Awakened Fel Ash Slime and how to keep clear.",
+			"evidence": "route level 57.8 (level model with Mount Hyjal in the route, 0.4.3); Awakened Fel Ash Slime 58-58 x3; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 90865.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 90865.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.1,
+			"mobs": [
+				"Death Wailer 61-61 x2"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth",
+			"evidence": "route level 58.1 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61 x2; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95026.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95026.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.1,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth",
+			"evidence": "route level 58.1 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61 x6; recordings (2026-11-20, all players, not route followers): quest 95026 taken by 9 Horde people (median level 57), handed in by 9 (median 58)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95026.2|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95026.2",
 			"kind": "pack",
 			"title": "Mourning's Rest",
-			"level": 58.5,
+			"level": 58.1,
 			"mobs": [
 				"7 spawns 60+"
 			],
-			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
-			"evidence": "route level 58.5; 7 spawns 60+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+			"reason": "The 60+ spawns are the Death Wailers (rare elites) drifting over Mourning's Rest, which the step's Careful tip names; the Raveners and Soldiers are 57-58.",
+			"evidence": "route level 58.1 (level model with Mount Hyjal in the route, 0.4.3); 7 spawns 60+; recordings (2026-11-20, all players, not route followers): quest 95026 taken by 9 Horde people (median level 57), handed in by 9 (median 58)"
 		},
 		{
-			"key": "experimental/guides/hyjal-1.guide|collect 90702.1|pack",
-			"guide": "experimental/guides/hyjal-1.guide",
-			"goal": "collect 90702.1",
-			"kind": "pack",
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95026.2|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95026.2",
+			"kind": "rare",
 			"title": "Mourning's Rest",
-			"level": 58.5,
+			"level": 58.1,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth",
+			"evidence": "route level 58.1 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61 x7; recordings (2026-11-20, all players, not route followers): quest 95026 taken by 9 Horde people (median level 57), handed in by 9 (median 58)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 93617.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 93617.1",
+			"kind": "elite",
+			"title": "Predatory stags",
+			"level": 58.4,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x4"
+			],
+			"reason": "the Spectral Frostwyrms (61, elites) fly over the western meadows; the step's Careful tip says to keep out from under them, and the stags roam the meadows east of Kala'th",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); Spectral Frostwyrm 61-61 x4; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92317.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92317.1",
+			"kind": "elite",
+			"title": "Bones and stolen life",
+			"level": 58.4,
+			"mobs": [
+				"Spectral Frostwyrm 61-61 x2"
+			],
+			"reason": "the step's Careful tip names the Death Wailers and the Spectral Frostwyrms (61, elites) circling over the meadows and says to keep out from under them; the drop comes from the Fleshflay Raveners",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); Spectral Frostwyrm 61-61 x2; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92317.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92317.1",
+			"kind": "pack",
+			"title": "Bones and stolen life",
+			"level": 58.4,
 			"mobs": [
 				"7 spawns 60+"
 			],
-			"reason": "0.4.1's data changes the points around an unchanged step (players' recorded sightings of a rare along its path, a walking NPC's talk spots, re-derived spawns of the goal's own mobs); no flagged mob became a drop source or target, and the same guides on the 0.4.0.1 data do not raise it",
-			"evidence": "route level 58.5; 7 spawns 60+; data change: the goal's spots re-derived; recordings (2026-11-17): done by 0 (median null), deaths 0, abandons 0"
+			"reason": "The 60+ spawns are the Death Wailers (rare elites) and Spectral Frostwyrms (elites) over and around Mourning's Rest, both named in the step's Careful tip.",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); 7 spawns 60+; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92317.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92317.1",
+			"kind": "rare",
+			"title": "Bones and stolen life",
+			"level": 58.4,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over Mourning's Rest; the step's Careful tip names them and says to keep out of their way. Any Fleshflay Ravener (57-58) there can carry the drop.",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61 x5; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 96957.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 96957.1",
+			"kind": "pack",
+			"title": "Bones and stolen life",
+			"level": 58.4,
+			"mobs": [
+				"10 spawns 60+"
+			],
+			"reason": "The 60+ spawns are the Death Wailers (rare elites) drifting over Mourning's Rest, which the step's Careful tip names; the bones lie all over the ruins.",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); 10 spawns 60+; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 96957.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 96957.1",
+			"kind": "rare",
+			"title": "Bones and stolen life",
+			"level": 58.4,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over Mourning's Rest; the step's Careful tip names them and says to keep out of their way. The bones lie all over the ruins, so the player picks where to collect.",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61 x6; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92592.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92592.1",
+			"kind": "rare",
+			"title": "Final Death",
+			"level": 58.4,
+			"mobs": [
+				"Death Wailer 61-61"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth",
+			"evidence": "route level 58.4 (level model with Mount Hyjal in the route, 0.4.3); Death Wailer 61-61; recordings (2026-11-20, all players, not route followers): quest 92592 taken by 9 Horde people (median level 57), handed in by 9 (median 58)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 93826.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 93826.1",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 58.6,
+			"mobs": [
+				"Head Scratcher 60-60 x6"
+			],
+			"reason": "the step's tip names Head Scratcher (60, elite) at the camps' eastern end (as the 93826.2 row)",
+			"evidence": "route level 58.6 (level model with Mount Hyjal in the route, 0.4.3); Head Scratcher 60-60 x6; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 93826.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 93826.2",
+			"kind": "elite",
+			"title": "The Deadwood camps",
+			"level": 58.6,
+			"mobs": [
+				"Head Scratcher 60-60"
+			],
+			"reason": "the step's tip warns of Head Scratcher and how to keep clear.",
+			"evidence": "route level 58.6 (level model with Mount Hyjal in the route, 0.4.3); Head Scratcher 60-60; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91794.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91794.1",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 58.8,
+			"mobs": [
+				"Doomguard 58-59"
+			],
+			"reason": "The old Horde Flag stands in the camp north of the south bonfire, where Doomguards (58-59, elite) walk among the demons; the step's Careful tip names them and says to pull away from them.",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59; recordings (2026-11-20, all players, not route followers): quest 91794 taken by 9 Horde people (median level 57), handed in by 7 (median 58)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91794.2|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91794.2",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 58.8,
+			"mobs": [
+				"Doomguard 58-59 x5",
+				"Mazzogore 60-60 x2",
+				"Doomguard Xarkul 61-61 x2",
+				"Bethra'zel the Feeble 60-60"
+			],
+			"reason": "The heraldry drops from Dae'gun's demons, the Felguard Sentinels among them, not only from the elites listed; the step's Careful tips name the Doomguards (58-59), Doomguard Xarkul (61) and the Legion Hulks and say to pull the hounds and sentinels away from them. Bethra'zel and Mazzogore are a group choice in their own steps.",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59 x5, Mazzogore 60-60 x2, Doomguard Xarkul 61-61 x2, Bethra'zel the Feeble 60-60; recordings (2026-11-20, all players, not route followers): quest 91794 taken by 9 Horde people (median level 57), handed in by 7 (median 58)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 92960.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 92960.1",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 58.8,
+			"mobs": [
+				"Doomguard 58-59",
+				"Doomguard Xarkul 61-61"
+			],
+			"reason": "the step's tip warns of Doomguard, Doomguard Xarkul and how to keep clear.",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59, Doomguard Xarkul 61-61; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|kill 95793.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "kill 95793.1",
+			"kind": "elite",
+			"title": "Dae'gun",
+			"level": 58.8,
+			"mobs": [
+				"Doomguard 58-59 x6",
+				"Doomguard Xarkul 61-61",
+				"Bethra'zel the Feeble 60-60",
+				"Mazzogore 60-60"
+			],
+			"reason": "the step's tip warns of Doomguard and how to keep clear.",
+			"evidence": "route level 58.8 (level model with Mount Hyjal in the route, 0.4.3); Doomguard 58-59 x6, Doomguard Xarkul 61-61, Bethra'zel the Feeble 60-60, Mazzogore 60-60; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 97009.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 97009.1",
+			"kind": "elite",
+			"title": "Maerion Thaelemaches",
+			"level": 58.9,
+			"mobs": [
+				"Doomguard Xarkul 61-61 x6",
+				"Doomguard 58-59"
+			],
+			"reason": "the step's tip warns of Doomguard Xarkul and how to keep clear.",
+			"evidence": "route level 58.9 (level model with Mount Hyjal in the route, 0.4.3); Doomguard Xarkul 61-61 x6, Doomguard 58-59; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|complete 92328|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "complete 92328",
+			"kind": "elite",
+			"title": "Kaylaena's workshop",
+			"level": 59.4,
+			"mobs": [
+				"Ghansurok 61-61 x5"
+			],
+			"reason": "the step's tip warns of Ghansurok and how to keep clear.",
+			"evidence": "route level 59.4 (level model with Mount Hyjal in the route, 0.4.3); Ghansurok 61-61 x5; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
 		}
 	]
 }
