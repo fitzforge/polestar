@@ -14240,6 +14240,28 @@
 			],
 			"issue": 3302,
 			"pr": 3257
+		},
+		{
+			"id": "3266-rogmar-scouts-twilight-key",
+			"faction": "Horde",
+			"at": {
+				"quest": 94748,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "Twilight Champions drop the Twilight Key that frees a captive Rog'mar Scout: free them as you find them.",
+			"note": "#3266: each captive Rog'mar Scout's cage opens only with a Twilight Key (265821), which the Twilight Champions (256799) drop; the step's tip only said to free the scouts. It names the key and who carries it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 265821 Twilight Key: dropped by npc 256799 Twilight Champion"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 94748: 25 people, every objective tick right after a cast of Unlocking (1277271)"
+				}
+			],
+			"issue": 3266
 		}
 	]
 }

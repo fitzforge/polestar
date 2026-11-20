@@ -18110,3 +18110,11 @@ test('forever/horde/06-hillsbrad-foothills.guide: Beren\'s Peril is handed in on
 	const step = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 516));
 	assert.ok(step && whenQuestOf(step, ['complete'], 516), 'turnin 516 sits in a step with `when complete 516`');
 });
+
+// #3266 (Riverglades, 0.4.1.1): the Twilight camps' tip said to free the captive Rog'mar Scouts but not that each cage
+// opens only with a Twilight Key, which the Twilight Champions drop.
+test('forever/horde/40-50/01b-riverglades.guide: the Rog\'mar Scouts step names the Twilight Key (#3266)', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const { step } = list[at(list, 'complete 94748', is('complete', 94748))];
+	assert.match(step.note || '', /Twilight Champions drop the Twilight Key/);
+});
