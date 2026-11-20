@@ -3665,6 +3665,8 @@ end
 -- row with `dot` carries a warning dot at its right edge (no count then).
 -- { heading = true, label } is a muted heading over the rows after it, at
 -- the text edge, not a choice.
+-- Selectable tree rows can supply depth, rowHeight, folded and onToggle.
+-- onToggle(key) gives the row a separate disclosure button.
 --
 -- A tree: { group = true, key, label, folded } is a group's header (32px, a
 -- muted label on the text edge, a chevron at the right: down open, right
@@ -3681,6 +3683,50 @@ end
 -- { separator = true } is a hairline between groups of rows, at the text
 -- edges, not a row.
 local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
+local NAV_TOGGLE = 24
+
+local function navToggle(b, pad, item)
+	local hit = rawget(b, "Toggle")
+	if not item.onToggle then
+		if hit then hit:Hide() end
+		return
+	end
+	if not hit then
+		hit = CreateFrame("Button", nil, b)
+		hit:SetSize(NAV_TOGGLE, NAV_TOGGLE)
+		hit:SetScript("OnEnter", function(self)
+			local row = b.psItem
+			W.Tip(self, string.format(row.folded and L["Expand %s"] or L["Collapse %s"], row.label))
+		end)
+		hit:SetScript("OnLeave", W.TipHide)
+		hit:SetScript("OnHide", W.TipHide)
+		hit:SetScript("OnClick", function(self)
+			W.TipHide(self)
+			b.psItem.onToggle(b.psKey)
+		end)
+		b.Toggle = hit
+	end
+	hit:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Chevron:ClearAllPoints()
+	b.Chevron:SetPoint("CENTER", hit, "CENTER", 0, 0)
+	b.Chevron:SetTexture(Theme.Media(item.folded and "chevron-right" or "chevron-down"))
+	W.Color(b.Chevron, "textMuted")
+	b.Chevron:Show()
+	hit:Show()
+end
+
+-- Keyboard focus has its own hairline, separate from a selected row's bar.
+function W.SetKeyboardFocusMark(button, on)
+	local mark = rawget(button, "KeyboardFocus")
+	if on and not mark then
+		mark = W.Tex(button, "OVERLAY", nil, "accent")
+		mark:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 8, 2)
+		mark:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -8, 2)
+		W.Painter(mark, function(t) t:SetHeight(Theme.Pixel(button)) end)
+		button.KeyboardFocus = mark
+	end
+	if mark then mark:SetShown(on) end
+end
 
 local function navRow(b, item, on)
 	b.psKey, b.psItem, b.psOn = item.key, item, on
@@ -3689,11 +3735,13 @@ local function navRow(b, item, on)
 	-- down to 12 clear of the bar (a game look's bar is wide).
 	local pad = max(12, SHELL.side - (b.psShell.psNavRoom or 0))
 	local empty = item.count == 0
+	local child = item.depth and item.depth > 0
+	local countPad = pad + (item.onToggle and NAV_TOGGLE + 8 or 0)
 	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
 	b.Icon:ClearAllPoints()
 	b.Icon:SetPoint("LEFT", b, "LEFT", SHELL.side + (item.indent and NAV_INDENT or 0), 0)
 	b.Label:SetText(item.label)
-	b.Count:SetText(item.count or "")
+	b.Count:SetText(item.depth and empty and "" or item.count or "")
 	b.Count:SetShown(item.count ~= nil and not empty)
 	b.Dot:SetShown(item.dot and true or false)
 	if item.dot then b.Count:Hide() end
@@ -3705,7 +3753,7 @@ local function navRow(b, item, on)
 		b.New:Hide()
 	end
 	b.Count:ClearAllPoints()
-	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Count:SetPoint("RIGHT", b, "RIGHT", -countPad, 0)
 	b.Dot:ClearAllPoints()
 	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Chevron:ClearAllPoints()
@@ -3729,12 +3777,12 @@ local function navRow(b, item, on)
 	-- it drew its label under 3:1 in some looks (the colour is held to read).
 	-- Its glyph goes a step further, to the faintest text colour, so the row
 	-- reads as empty where muted text stands close to the rows' own (Hearth).
-	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
+	W.Color(b.Label, on and not (item.depth and empty) and "text" or (empty and "textMuted" or "navRest"))
 	W.Color(b.Icon, on and "accent" or (empty and "textOff" or "textDim"))
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
 	b.psGroup = item.group and true or false
-	b.Icon:SetShown(not (item.heading or item.group))
+	b.Icon:SetShown(not (item.heading or item.group or child))
 	-- The label ends short of the count (or dot), as wide as that is, and
 	-- takes a second line rather than run under it or off the sidebar.
 	b.Label:ClearAllPoints()
@@ -3752,15 +3800,20 @@ local function navRow(b, item, on)
 	else
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
-		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		if child then
+			b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side + 16 + 12 + item.depth * NAV_INDENT, 0)
+		else
+			b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+		end
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(countPad + reserve), 0)
 		b:Enable()
 	end
+	navToggle(b, pad, item)
 end
 
 -- The tree's group headers are shorter than the rows.
 local function navRowH(item)
-	return item.group and NAV_GROUP or NAV_ROW
+	return item.rowHeight or (item.group and NAV_GROUP or NAV_ROW)
 end
 
 -- The rows' width: the sidebar's, less the scroll bar's strip while the list
@@ -3780,10 +3833,27 @@ local function navWidth(f, content, view)
 	end
 end
 
-function W.ShellNav(f, items, active, onSelect)
+local function revealNav(sf, y, height)
+	local cur, view = sf:GetVerticalScroll(), sf.psView
+	if y < cur then
+		W.ScrollTo(sf, y)
+	elseif y + height > cur + view then
+		W.ScrollTo(sf, y + height - view)
+	end
+end
+
+function W.ShellNavFocus(f, key)
+	for _, b in ipairs(f.navButtons) do
+		local focused = key ~= nil and b:IsShown() and b.psKey == key
+		W.SetKeyboardFocusMark(b, focused)
+		if focused then revealNav(f.NavScroll, -select(5, b:GetPoint(1)), b:GetHeight()) end
+	end
+end
+
+function W.ShellNav(f, items, active, onSelect, focused)
 	f.psOnNav = onSelect
 	local sf = f.NavScroll
-	local y, activeY = 0, nil
+	local y, activeY, activeH = 0, nil, nil
 	local rules = rawget(f, "navRules") or {}
 	f.navRules = rules
 	local bi, ri = 0, 0
@@ -3804,14 +3874,15 @@ function W.ShellNav(f, items, active, onSelect)
 			bi = bi + 1
 			local b = navButton(f, bi)
 			local on = item.key == active
+			local height = navRowH(item)
 			navRow(b, item, on)
 			b:ClearAllPoints()
-			b:SetHeight(navRowH(item))
+			b:SetHeight(height)
 			b:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, -y)
 			b:SetPoint("TOPRIGHT", sf.Child, "TOPRIGHT", 0, -y)
 			b:Show()
-			if on then activeY = y end
-			y = y + navRowH(item)
+			if on then activeY, activeH = y, item.depth and height or NAV_ROW end
+			y = y + height
 		end
 	end
 	for i = bi + 1, #f.navButtons do f.navButtons[i]:Hide() end
@@ -3822,15 +3893,10 @@ function W.ShellNav(f, items, active, onSelect)
 	-- A new selection is scrolled into view; a redraw with the same one (a
 	-- refresh, a guide picked in the list) keeps the place the player
 	-- scrolled to, a community guide's entry far down the list included.
-	if activeY and active ~= sf.psActive then
-		local cur = sf:GetVerticalScroll()
-		if activeY < cur then
-			W.ScrollTo(sf, activeY)
-		elseif activeY + NAV_ROW > cur + view then
-			W.ScrollTo(sf, activeY + NAV_ROW - view)
-		end
-	end
+	if activeY and active ~= sf.psActive then revealNav(sf, activeY, activeH) end
 	sf.psActive = active
+	if focused or sf.psNavFocused then W.ShellNavFocus(f, focused) end
+	sf.psNavFocused = focused
 end
 
 -- The height the navigation rows may fill: from their top line to the

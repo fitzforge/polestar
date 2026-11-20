@@ -110,6 +110,7 @@ local FACTION = { A = ns.FactionName("A"), H = ns.FactionName("H"), AH = L["Both
 
 local shell, root, results, details -- the hub window, this section, the results scroll, the details pane
 local query, kind = "", "all"
+local category, openBranches = nil, {}
 -- The searches' order, "best" or "az": not saved. It holds while the hub is
 -- open, and the hub closing with its search box empty resets it.
 local order = "best"
@@ -184,8 +185,8 @@ local function search(text, only, opts)
 	local S = ns.Search
 	if text == "" or not (S and S.Query) then return {}, {} end
 	opts.kinds = only
-	local results, counts = S.Query(text, opts)
-	return results or {}, counts or {}
+	local results, counts, _, info = S.Query(text, opts)
+	return results or {}, counts or {}, info
 end
 
 local function codexRecord(k, id)
@@ -1434,6 +1435,87 @@ end
 LK.gen = 0
 local function stale() LK.gen = LK.gen + 1 end
 
+-- ItemClass and class-scoped ItemSubclass labels from the Codex taxonomy.
+local CLASS_LABEL = {
+	[0] = L["Consumable"], L["Container"], L["Weapon"], L["Gem"], L["Armor"], L["Reagent"],
+	L["Projectile"], L["Trade Goods"], L["Item Enhancement"], L["Recipe"], L["Money"], L["Quiver"],
+	L["Quest"], L["Key"], L["Permanent"], L["Miscellaneous"], L["Glyph"], L["Battle Pets"],
+	L["WoW Token"], L["Profession"], L["Housing"],
+}
+local SUBCLASS_LABEL = {
+	[0] = { [0] = L["Explosives and Devices"], L["Potion"], L["Elixir"], L["Flask"], L["Scroll"],
+		L["Food & Drink"], L["Item Enhancement"], L["Bandage"], L["Other"],
+		[14] = L["Device"], [15] = L["Temporary Item Enhancement"] },
+	[1] = { [0] = L["Bag"], L["Soul Bag"], L["Herb Bag"], L["Enchanting Bag"],
+		[6] = L["Mining Bag"], [7] = L["Leatherworking Bag"], [11] = L["Reagent Bag"] },
+	[2] = { [0] = L["Axe"], L["Two-Handed Axe"], L["Bow"], L["Gun"], L["Mace"], L["Two-Handed Mace"],
+		L["Polearm"], L["Sword"], L["Two-Handed Sword"], [10] = L["Staff"], [11] = L["Bear Claws"],
+		[13] = L["Fist Weapon"], [14] = L["Miscellaneous"], [15] = L["Dagger"], [16] = L["Thrown"],
+		[17] = L["Spear"], [18] = L["Crossbow"], [19] = L["Wand"], [20] = L["Fishing Pole"] },
+	[4] = { [0] = L["Miscellaneous"], L["Cloth"], L["Leather"], L["Mail"], L["Plate"], L["Cosmetic"],
+		L["Shield"], L["Libram"], L["Idol"], L["Totem"] },
+	[5] = { [0] = L["Reagent"] },
+	[6] = { [2] = L["Arrow"], [3] = L["Bullet"] },
+	[7] = { [0] = L["Trade Goods"], L["Parts"], L["Explosives"], [5] = L["Cloth"], [6] = L["Leather"],
+		[7] = L["Metal & Stone"], [8] = L["Cooking"], [9] = L["Herb"], [10] = L["Elemental"],
+		[11] = L["Other"], [12] = L["Enchanting"] },
+	[9] = { [0] = L["Book"], L["Leatherworking"], L["Tailoring"], L["Engineering"], L["Blacksmithing"],
+		L["Cooking"], L["Alchemy"], L["First Aid"], L["Enchanting"], L["Fishing"] },
+	[11] = { [2] = L["Quiver"], [3] = L["Ammo Pouch"] },
+	[12] = { [0] = L["Quest"] },
+	[13] = { [0] = L["Key"] },
+	[15] = { [0] = L["Junk"], L["Reagent"], L["Companion Pets"], L["Holiday"], L["Other"], L["Mount"] },
+	[18] = { [0] = L["WoW Token"] },
+}
+
+local function categoryOrder(a, b)
+	if a.sortLabel ~= b.sortLabel then return a.sortLabel < b.sortLabel end
+	return (a.subclass or a.class) < (b.subclass or b.class)
+end
+
+local categoryColumn, taxonomy
+local function itemTaxonomy()
+	local C = ns.Codex
+	if not (C and C.FilterColumn and C.DecodeFilter and C.FilterCategory) then return end
+	local blob, count = C.FilterColumn("item")
+	if not blob then return end
+	if categoryColumn == blob then return taxonomy end
+	categoryColumn, taxonomy = blob, nil
+	local classes, byClass, byKey, seen = {}, {}, {}, {}
+	local sortLabel = ns.Search.Fold or string.lower
+	-- The directory covers all five item-backed kinds. Read only the packed
+	-- searchable Items column to learn which of its entries belong here.
+	for i = 1, count do
+		local _, _, _, _, id = C.DecodeFilter(blob, i)
+		if id and not seen[id] then
+			seen[id] = true
+			local class, subclass = C.FilterCategory(id)
+			if class then
+				local parent = byClass[class]
+				if not parent then
+					local label = CLASS_LABEL[class] or format(L["Category %d"], class)
+					parent = { key = "item:" .. class, parent = "item", class = class, label = label,
+						sortLabel = sortLabel(label), children = {} }
+					byClass[class], byKey[parent.key] = parent, parent
+					classes[#classes + 1] = parent
+				end
+				if subclass then
+					local label = SUBCLASS_LABEL[class] and SUBCLASS_LABEL[class][subclass] or format(L["Type %d"], subclass)
+					local node = { key = parent.key .. ":" .. subclass, parent = parent.key, id = id,
+						class = class, subclass = subclass, label = label, sortLabel = sortLabel(label) }
+					byKey[node.key] = node
+					parent.children[#parent.children + 1] = node
+				end
+			end
+		end
+	end
+	if #classes == 0 then return end
+	table.sort(classes, categoryOrder)
+	for _, node in ipairs(classes) do table.sort(node.children, categoryOrder) end
+	taxonomy = { classes = classes, byKey = byKey }
+	return taxonomy
+end
+
 -- The current list, built once per query and kind (the hub asks for the
 -- sidebar's counts and the section's list in one render): the counts with a
 -- few results per kind for a search, or totals for browsing, and under one
@@ -1443,6 +1525,8 @@ local function listOptions()
 	return {
 		subtitles = false,
 		ids = true,
+		categoryTotals = true,
+		filters = category and { category = category } or nil,
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
 		order = order,
@@ -1450,38 +1534,54 @@ local function listOptions()
 end
 
 local function current()
-	if cache.query == query and cache.kind == kind and cache.gen == LK.gen then return cache end
+	if cache.query == query and cache.kind == kind and cache.category == category and cache.gen == LK.gen then return cache end
 	local opts = listOptions()
 	local counts, list = {}, {}
+	local info
 	if query ~= "" then
 		if kind == "all" then
 			opts.perKind, opts.limit = GROUP_MAX, GROUP_MAX * #kinds()
 		else
 			opts.resultKind, opts.limit = kind, PAGE
 		end
-		list, counts = search(query, nil, opts)
+		list, counts, info = search(query, nil, opts)
 	else
 		local S = ns.Search
 		if kind ~= "all" and S and S.Browse then
 			opts.limit = PAGE
-			list = S.Browse(kind, opts)
+			list, counts[kind], info = S.Browse(kind, opts)
 		end
 		if S and S.BrowseCount then
-			for _, k in ipairs(kinds()) do counts[k.key] = S.BrowseCount(k.key, opts) end
+			for _, k in ipairs(kinds()) do
+				if k.key == "item" then
+					if not (kind == "item" and info and info.categoryTotals) then
+						counts.item, info = S.BrowseCount("item", opts)
+					end
+				else
+					counts[k.key] = S.BrowseCount(k.key, opts)
+				end
+			end
 		end
 	end
 	-- A search or browse can load the Codex or learn why it cannot load.
 	local loaded, reason = status()
 	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
 	if query == "" and kind ~= "all" and kind ~= "guide" and not (loaded or waiting) then
-		kind, list = "all", {}
+		kind, category, list = "all", nil, {}
 		-- Nothing can look a Codex entry up now. Clear it here, not through
 		-- LK.Select: this runs inside a render.
 		if sel and sel.kind ~= "guide" then sel, sourceSel, detailCache = nil, nil, {} end
 	end
+	local tree = loaded and info and info.filtersAvailable and itemTaxonomy()
+	if not tree then category = nil end
+	local categoryTotals = tree and info.categoryTotals
 	local total = 0
-	if query ~= "" then for _, n in pairs(counts) do total = total + n end end
-	cache = { query = query, kind = kind, gen = LK.gen, list = list, counts = counts, total = total, loaded = loaded, reason = reason, waiting = waiting }
+	if query ~= "" then
+		for _, n in pairs(counts) do total = total + n end
+		if categoryTotals then total = total - (counts.item or 0) + categoryTotals.root end
+	end
+	cache = { query = query, kind = kind, category = category, gen = LK.gen, list = list, counts = counts,
+		total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting }
 	return cache
 end
 
@@ -1503,10 +1603,41 @@ function LK.More()
 	LK.Render()
 end
 
--- The sidebar scrolls through the kinds found by the search or available
--- to browse. The counts appear as soon as the Codex can be read.
+local navRows, navPositions, activeNavKey
+local navFocus, headerFocus
+
+local function toggleCategory(key)
+	openBranches[key] = not openBranches[key] or nil
+	UI.Picker.RenderSectionNav()
+end
+
+local function appendCategories(items, nodes, depth, totals)
+	local isClass = depth == 1
+	for _, node in ipairs(nodes) do
+		local count = totals and (isClass and totals.classes or totals.subclasses)[isClass and node.class or node.id]
+		local parent = node.children and #node.children > 0
+		local folded = not openBranches[node.key]
+		items[#items + 1] = {
+			key = node.key, label = node.label, count = count or 0, depth = depth, rowHeight = isClass and 32 or 28,
+			folded = parent and folded, onToggle = parent and toggleCategory or nil, parent = node.parent,
+		}
+		if parent and not folded then appendCategories(items, node.children, 2, totals) end
+	end
+end
+
+local function visibleNavKey(key, tree)
+	while key and not navPositions[key] do
+		local node = tree.byKey[key]
+		key = node and node.parent
+	end
+	return key
+end
+
+-- The kind counts describe their destinations. Items and its descendants
+-- use the unscoped totals, while the result pane uses the selected scope.
 function LK.Nav()
 	local c = current()
+	local tree, totals = c.tree, c.categoryTotals
 	local items = { { key = "all", label = L["Everything"], icon = "search", count = query ~= "" and c.total or nil } }
 	for _, k in ipairs(kinds()) do
 		local n, show = c.counts[k.key], false
@@ -1520,11 +1651,25 @@ function LK.Nav()
 		else
 			show = k.key == "guide"
 		end
-		if show then
-			items[#items + 1] = { key = k.key, label = k.label, icon = KIND[k.key] and KIND[k.key].icon or k.icon or "search", count = n }
+		local itemRoot = k.key == "item" and tree
+		if show or itemRoot then
+			local row = { key = k.key, label = k.label, icon = KIND[k.key] and KIND[k.key].icon or k.icon or "search", count = n }
+			items[#items + 1] = row
+			if itemRoot then
+				row.count = totals and totals.root or 0
+				row.depth, row.rowHeight, row.folded, row.onToggle = 0, 36, not openBranches.item, toggleCategory
+				if not row.folded then appendCategories(items, tree.classes, 1, totals) end
+			end
 		end
 	end
-	return items, kind
+	navRows, navPositions, activeNavKey = items, nil, kind
+	if tree then
+		navPositions = {}
+		for i, row in ipairs(items) do navPositions[row.key] = i end
+		if category then activeNavKey = visibleNavKey(category.key, tree) end
+		if navFocus then navFocus = visibleNavKey(navFocus, tree) or activeNavKey end
+	end
+	return items, activeNavKey, tree and navFocus or nil
 end
 
 -- A drawn row's subtitle, asked for once.
@@ -1655,6 +1800,10 @@ function LK.Render()
 
 	-- The header: what the list holds.
 	local title = kind == "all" and L["Lookup"] or kindLabel(kind)
+	if category then
+		if category.subclass then title = format(L["%s › %s"], title, c.tree.byKey[category.parent].label) end
+		title = format(L["%s › %s"], title, category.label)
+	end
 	local subtitle
 	if query == "" then
 		subtitle = counts[kind] and format(L["%d, from A to Z"], counts[kind])
@@ -1762,7 +1911,8 @@ function LK.Render()
 	W.SetScrollContent(results, y + 16, viewHeight())
 	paintVisible()
 	renderDetails(loaded, reason)
-	LK.shown = { query = query, kind = kind, groups = groups, rows = #visible, empty = empty, total = total }
+	LK.shown = { query = query, kind = kind, groups = groups, rows = #visible, empty = empty,
+		total = category and (counts.item or 0) or total }
 end
 
 ---------------------------------------------------------------------------
@@ -1853,15 +2003,30 @@ end
 
 function LK.Query() return query end
 
-function LK.SetKind(k)
+local function setKind(k, node, categoryCommit)
 	k = k or "all"
 	local changed = kind ~= k
-	kind = k
+	categoryCommit = categoryCommit or category ~= nil
+	if categoryCommit and pending then
+		cancelPending()
+		query = UI.Picker.Query()
+		LK.message = nil
+	end
+	if categoryCommit and not changed and node == category then stale() end
+	kind, category = k, node
 	if root and root:IsVisible() then
 		W.ScrollTo(results, 0)
 		refresh()
-		reconcile(changed and query == "")
+		reconcile(categoryCommit or (changed and query == ""))
 	end
+end
+
+function LK.SetKind(k) setKind(k) end
+
+local function selectNav(key)
+	local tree = current().tree
+	local node = tree and tree.byKey[key]
+	if node or (tree and key == "item") then setKind("item", node, true) else setKind(key) end
 end
 
 function LK.Kind() return kind end
@@ -1878,9 +2043,87 @@ function LK.Step(delta)
 	reveal()
 end
 
+local function setKeyboardFocus(key, button)
+	if headerFocus then W.SetKeyboardFocusMark(headerFocus, false) end
+	navFocus, headerFocus = key, button
+	W.ShellNavFocus(shell, key)
+	if button then W.SetKeyboardFocusMark(button, true) end
+end
+
+local function focusSearch()
+	UI.Picker.search:SetFocus()
+	return true, false
+end
+
+local function sectionKeyboard(key, fromSearch, shifted)
+	if not key then
+		setKeyboardFocus()
+		return
+	end
+	if not navPositions then
+		if not fromSearch and (key == "TAB" or key == "ESCAPE") then return focusSearch() end
+		return false
+	end
+	local orderButton = root.SearchOrder:IsVisible() and root.SearchOrder
+	local filtersButton = root.Visibility:IsVisible() and root.Visibility
+	if fromSearch then
+		local button = shifted and (filtersButton or orderButton) or nil
+		setKeyboardFocus(not button and activeNavKey or nil, button or nil)
+	elseif key == "TAB" then
+		if headerFocus and W.MenuShown(headerFocus) then W.HideMenu() end
+		if navFocus then
+			local button = not shifted and (orderButton or filtersButton)
+			if not button then return focusSearch() end
+			setKeyboardFocus(nil, button)
+		elseif shifted then
+			local button = headerFocus == filtersButton and orderButton
+			setKeyboardFocus(not button and activeNavKey or nil, button or nil)
+		elseif headerFocus == orderButton and filtersButton then
+			setKeyboardFocus(nil, filtersButton)
+		else
+			return focusSearch()
+		end
+	elseif key == "ESCAPE" then
+		if headerFocus and W.MenuShown(headerFocus) then W.HideMenu() else return focusSearch() end
+	elseif headerFocus then
+		if key ~= "ENTER" and key ~= "SPACE" then return false end
+		if not W.MenuShown(headerFocus) then headerFocus:Click() end
+	else
+		local i = navPositions[navFocus]
+		local row = navRows[i]
+		if not row then return false end
+		if key == "UP" or key == "DOWN" then
+			local nextRow = navRows[max(1, min(#navRows, i + (key == "UP" and -1 or 1)))]
+			setKeyboardFocus(nextRow.key)
+		elseif key == "RIGHT" then
+			local child = navRows[i + 1]
+			if row.onToggle and row.folded then
+				row.onToggle(row.key)
+			elseif child and child.parent == row.key then
+				setKeyboardFocus(child.key)
+			end
+		elseif key == "LEFT" then
+			if row.onToggle and not row.folded then
+				row.onToggle(row.key)
+			elseif row.parent then
+				setKeyboardFocus(row.parent)
+			end
+		elseif key == "ENTER" or key == "SPACE" then
+			selectNav(row.key)
+		else
+			return false
+		end
+	end
+	return true, true
+end
+
 ---------------------------------------------------------------------------
 -- The hub section
 ---------------------------------------------------------------------------
+
+local function resetCategoryVisit()
+	category, openBranches = nil, {}
+end
 
 -- build(parent, hub): parent spans the list and details area under the
 -- tab row; the hub is the window (its header, tab row and search).
@@ -1929,6 +2172,7 @@ function LK.Build(parent, hub)
 	-- The hub closing with nothing in its search box: the next visit starts
 	-- in Best match. A search left in the box keeps its order with it.
 	hub:HookScript("OnHide", function()
+		resetCategoryVisit()
 		local P = UI.Picker
 		local text = P and P.Query and P.Query() or query
 		if text == "" and order ~= "best" then
@@ -1936,6 +2180,7 @@ function LK.Build(parent, hub)
 			stale()
 		end
 	end)
+	parent:HookScript("OnHide", resetCategoryVisit)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
 	-- the section still open: a search running goes on). The hub leaves a
 	-- section by hiding the section's frame, `parent`, not this one: with
@@ -1976,8 +2221,8 @@ if UI.RegisterSection then
 	UI.RegisterSection({
 		key = "Lookup", label = L["Lookup"], icon = "search", order = 20,
 		build = LK.Build, render = sectionRender,
-		nav = LK.Nav, onNav = LK.SetKind,
-		search = onSearch, enter = onEnter, step = LK.Step,
+		nav = LK.Nav, onNav = selectNav,
+		search = onSearch, enter = onEnter, step = LK.Step, keyboard = sectionKeyboard,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
 	})
 end
@@ -2006,7 +2251,7 @@ function UI.ShowLookup(opts)
 	if q ~= nil then
 		cancelPending()
 		query = q
-		kind = "all"
+		kind, category = "all", nil
 	end
 	opening = true
 	UI.ShowPicker()
@@ -2046,7 +2291,11 @@ local function namesChanged()
 	-- A list that was empty while the Codex loaded selects its first row now.
 	if root and root:IsVisible() then reconcile() end
 end
-ns.On("CODEX_LOADED", namesChanged)
+ns.On("CODEX_LOADED", function()
+	categoryColumn = nil
+	category = nil
+	namesChanged()
+end)
 ns.On("NAMES_LOADED", namesChanged)
 -- The Codex refused to load in combat: a list waiting on it loads it now.
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()

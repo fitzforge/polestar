@@ -90,6 +90,274 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
+fn run_category_lookup(script: &str) -> Value {
+	let mut items = json!({
+		"71": { "name": "Trial Axe", "itemClass": 2, "itemSubclass": 0 },
+		"72": { "name": "Trial Tunic", "itemClass": 4, "itemSubclass": 1 },
+		"73": { "name": "Trial Relic" },
+		"74": { "name": "Quiet Flask", "itemClass": 0, "itemSubclass": 3 },
+		"75": { "name": "Trial Mount", "kind": "mount", "itemClass": 15, "itemSubclass": 5 },
+		"76": { "name": "Odd Bag", "itemClass": 1, "itemSubclass": 12 },
+		"77": { "name": "Unusual Material", "itemClass": 42 }
+	});
+	for i in 1..=53 {
+		items[(100 + i).to_string()] = json!({ "name": format!("Trial Sword {i:02}"), "itemClass": 2, "itemSubclass": 7 });
+	}
+	let pack = write_codex_pack(&json!({ "items": items }), &CodexOpts::default());
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		script: [
+			r#"
+			stub.Methods.EnableKeyboard = function(self, on) self.keyboard = on end
+			stub.Methods.SetPropagateKeyboardInput = function(self, on)
+				assert(not stub.inCombat, "protected keyboard propagation in combat")
+				self.propagateKeyboard = on
+			end
+			uistub.install()
+			stub.login()
+			local UI, LK = Polestar.UI, Polestar.UI.Lookup
+			"#,
+			HELPERS,
+			r#"
+			local function navLabel(label)
+				for _, b in ipairs(PolestarPicker.navButtons) do
+					if b:IsShown() and b.Label:GetText() == label then return b end
+				end
+			end
+			"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn item_category_tree_counts_and_folds_are_independent_of_selection_and_paging() {
+	let out = run_category_lookup(
+		r#"
+		local S = Polestar.Search
+		local queryCalls, totals = 0, {}
+		local query = S.Query
+		S.Query = function(q, opts)
+			queryCalls = queryCalls + 1
+			totals[queryCalls] = opts.categoryTotals
+			return query(q, opts)
+		end
+		LK.SetItemFilters({ reqMin = 10 })
+		UI.ShowLookup({ query = "trial" })
+		local win = PolestarPicker
+		local items = assert(nav("item"))
+		assert(queryCalls == 1, "the first result page also supplies the sidebar counts")
+		assert(not navLabel("Weapon") and items:GetHeight() == 36 and items.Count:GetText() == "56")
+		assert(items.Toggle:GetWidth() == 24 and items.Toggle:GetHeight() == 24 and items.Chevron:GetWidth() == 12)
+		assert(select(4, items.Toggle:GetPoint(1)) - select(4, items.Count:GetPoint(1)) == 32)
+		local before, selected, calls = LK.shown, LK.Selected().id, queryCalls
+		items.Toggle:Click()
+		local weapon = assert(navLabel("Weapon"))
+		local armor, consumable = assert(navLabel("Armor")), assert(navLabel("Consumable"))
+		assert(weapon:GetHeight() == 32 and not navLabel("Sword"))
+		assert(armor.Count:GetText() == "1" and weapon.Count:GetText() == "54")
+		assert(consumable.psEmpty and not consumable.Count:IsShown() and consumable.Count:GetText() == "")
+		local function y(row) return select(5, row:GetPoint(1)) end
+		assert(y(armor) > y(consumable) and y(consumable) > y(navLabel("Container")) and y(navLabel("Container")) > y(weapon))
+		local unknownClass = assert(navLabel("Category 42"))
+		assert(not (rawget(unknownClass, "Toggle") and unknownClass.Toggle:IsShown()))
+		assert(not navLabel("Miscellaneous"), "the Mounts column does not supply Items nodes")
+		navLabel("Container").Toggle:Click()
+		assert(navLabel("Type 12"), "a known subclass without a label uses its numeric name")
+		navLabel("Container").Toggle:Click()
+		weapon.Toggle:Click()
+		assert(queryCalls == calls and LK.shown == before and LK.Selected().id == selected)
+		local sword = assert(navLabel("Sword"))
+		assert(sword:GetHeight() == 28 and sword.Count:GetText() == "53")
+		assert(select(4, sword.Label:GetPoint(1)) - select(4, weapon.Label:GetPoint(1)) == 12)
+		weapon:Click()
+		assert(LK.Kind() == "item" and LK.Query() == "trial" and LK.Selected().title == "Trial Axe")
+		assert(win.Title:GetText() == "Items › Weapon" and LK.shown.groups[1].count == 54)
+		sword:Click()
+		assert(win.Title:GetText() == "Items › Weapon › Sword")
+		assert(win.Subtitle:GetText() == "53 results for “trial”" and LK.shown.groups[1].count == 53)
+		assert(LK.shown.rows == 50 and LK.Selected().title == "Trial Sword 01")
+		assert(nav("item").Count:GetText() == "56" and navLabel("Armor").Count:GetText() == "1")
+		assert(navLabel("Axe").Count:GetText() == "1" and navLabel("Axe").psKey ~= sword.psKey)
+		assert(rowFor(LK.results.Child, "Trial Sword 01") and not rowFor(LK.results.Child, "Trial Axe"))
+		local tail = bottom()
+		local at = LK.results:GetVerticalScroll()
+		local more = assert(rowFor(LK.results.Child, "Show more (3 more)"))
+		assert(tail[#tail] == more.Title:GetText())
+		local firstPage = queryCalls
+		more:Click()
+		assert(queryCalls == firstPage + 1 and totals[firstPage] == true and totals[queryCalls] == totals[firstPage])
+		assert(LK.shown.rows == 53 and LK.Selected().title == "Trial Sword 01" and LK.results:GetVerticalScroll() == at)
+		assert(bottom()[#bottom()] == "Trial Sword 53")
+		local selection, list = LK.Selected().id, LK.shown
+		weapon.Toggle:Click()
+		assert(weapon.psOn and not navLabel("Sword") and LK.shown == list and LK.Selected().id == selection)
+		assert(win.Title:GetText() == "Items › Weapon › Sword")
+		items.Toggle:Click()
+		assert(items.psOn and not navLabel("Weapon") and win.Title:GetText() == "Items › Weapon › Sword")
+		items.Toggle:Click()
+		assert(navLabel("Weapon").psOn)
+		nav("mount"):Click()
+		assert(LK.Kind() == "mount" and navLabel("Weapon"), "switching kinds keeps folds for this visit")
+		items:Click()
+		assert(win.Title:GetText() == "Items" and LK.shown.groups[1].count == 56)
+		navLabel("Consumable"):Click()
+		assert(LK.Selected() == nil and win.Subtitle:GetText() == "0 results for “trial”")
+		type_("trial axe")
+		local beforeClick = queryCalls
+		navLabel("Weapon"):Click()
+		assert(queryCalls == beforeClick + 1 and LK.Query() == "trial axe" and LK.Selected().id == 71)
+		navLabel("Weapon"):Click()
+		type_("")
+		assert(win.Subtitle:GetText() == "54, from A to Z")
+		assert(LK.shown.groups[1].count == 54 and nav("item").Count:GetText() == "59")
+		local browseTail = bottom()
+		assert(browseTail[#browseTail] == "Show more (4 more)")
+		rowFor(LK.results.Child, "Show more (4 more)"):Click()
+		assert(LK.shown.rows == 54)
+		win:Hide()
+		UI.ToggleLookup()
+		assert(not navLabel("Weapon"), "a new visit starts folded")
+		emit(true)
+	"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn item_category_sidebar_keyboard_reveals_rows_and_releases_on_hub_lifecycle() {
+	let out = run_category_lookup(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		local win, box = PolestarPicker, UI.Picker.search
+		local function route()
+			for _, f in ipairs(stub.frames) do
+				if f:GetParent() == win and f.keyboard and f:IsVisible() then return f end
+			end
+		end
+		local function key(k, shift)
+			stub.keys.shift = shift
+			stub.RunScript(assert(route()), "OnKeyDown", k)
+			stub.keys.shift = nil
+		end
+		local function focused(button)
+			local mark = rawget(button, "KeyboardFocus")
+			return mark and mark:IsShown()
+		end
+		nav("item"):Click()
+		stub.RunScript(box, "OnTabPressed")
+		assert(not box:HasFocus() and focused(nav("item")) and nav("item").Bar:IsShown())
+		local selected = LK.Selected().id
+		key("RIGHT")
+		assert(focused(nav("item")) and navLabel("Armor") and LK.Selected().id == selected)
+		key("RIGHT")
+		assert(focused(navLabel("Armor")))
+		key("DOWN")
+		assert(focused(navLabel("Category 42")) and LK.Selected().id == selected)
+		key("UP")
+		key("RIGHT")
+		key("RIGHT")
+		assert(focused(navLabel("Cloth")))
+		key("LEFT")
+		assert(focused(navLabel("Armor")) and navLabel("Cloth"))
+		key("LEFT")
+		assert(focused(navLabel("Armor")) and not navLabel("Cloth"))
+		key("ENTER")
+		assert(LK.Selected().id == 72 and win.Title:GetText() == "Items › Armor")
+		key("LEFT")
+		assert(focused(nav("item")))
+		key("TAB")
+		assert(focused(LK.root.SearchOrder) and not focused(nav("item")))
+		key("TAB")
+		assert(focused(LK.root.Visibility))
+		key("TAB", true)
+		key("TAB", true)
+		assert(focused(navLabel("Armor")))
+		key("TAB", true)
+		assert(box:HasFocus() and not route())
+		stub.RunScript(box, "OnTabPressed")
+		key("ESCAPE")
+		assert(box:HasFocus() and not route() and not focused(navLabel("Armor")))
+		-- Make the sidebar short so a real scroll is needed to reveal a leaf.
+		win:SetHeight(Polestar.Widgets.SHELL.footer + win.psNavTop + 2 + 108)
+		UI.Picker.Render()
+		stub.RunScript(box, "OnTabPressed")
+		for _ = 1, 4 do key("DOWN") end
+		assert(focused(navLabel("Weapon")) and win.NavScroll:GetVerticalScroll() > 0)
+		key("RIGHT")
+		key("RIGHT")
+		key("DOWN")
+		local sword = navLabel("Sword")
+		local top = -select(5, sword:GetPoint(1))
+		local scroll = win.NavScroll:GetVerticalScroll()
+		assert(focused(sword) and top >= scroll and top + sword:GetHeight() <= scroll + win.NavScroll.psView)
+		key("SPACE")
+		assert(win.Title:GetText() == "Items › Weapon › Sword")
+		navLabel("Weapon").Toggle:Click()
+		assert(focused(navLabel("Weapon")) and navLabel("Weapon").psOn)
+		key("ESCAPE")
+		stub.RunScript(box, "OnTabPressed")
+		assert(focused(navLabel("Weapon")), "Tab returns to the active visible ancestor")
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		assert(not route() and not focused(navLabel("Weapon")))
+		navLabel("Weapon").Toggle:Click()
+		assert(navLabel("Sword"), "the tree still works with a mouse in combat")
+		box:SetFocus()
+		stub.RunScript(box, "OnTabPressed")
+		assert(box:HasFocus() and not route())
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		stub.RunScript(box, "OnTabPressed")
+		assert(route())
+		win:Hide()
+		assert(not route())
+		UI.ToggleLookup()
+		assert(not route() and not navLabel("Weapon"))
+		stub.RunScript(box, "OnTabPressed")
+		assert(route())
+		UI.Picker.ShowSection("Guides")
+		assert(not route())
+		for _, b in ipairs(win.navButtons) do
+			if b:IsShown() then
+				local toggle = rawget(b, "Toggle")
+				assert(b:GetHeight() == 36 and not (toggle and toggle:IsShown()) and not focused(b))
+			end
+		end
+		box:SetFocus()
+		stub.RunScript(box, "OnTabPressed")
+		assert(box:HasFocus() and not route(), "Guides keeps its keyboard behavior")
+		emit(true)
+	"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
+	let out = run_category_lookup(
+		r#"
+		Polestar.Codex.RegisterFilters = nil
+		UI.ShowLookup({ query = "trial" })
+		local win, box = PolestarPicker, UI.Picker.search
+		assert(Polestar.Codex.IsLoaded() and not Polestar.Codex.HasFilters())
+		stub.RunScript(box, "OnTabPressed")
+		assert(box:HasFocus())
+		for _, b in ipairs(win.navButtons) do
+			if b:IsShown() then assert(b:GetHeight() == 36 and not rawget(b, "Toggle")) end
+		end
+		emit({ keys = navKeys(), counts = navCounts() })
+	"#,
+	);
+	assert_eq!(out["keys"], json!(["all", "mount", "item"]));
+	assert_eq!(out["counts"], json!(["57", "1", "56"]));
+}
+
 /// Each source's `keys`, as rows (`sources.map((s) => [s.a, s.b, ...])`; a missing field is null).
 fn cols(sources: &Value, keys: &[&str]) -> Value {
 	Value::Array(sources.as_array().unwrap().iter().map(|s| Value::Array(keys.iter().map(|k| s[*k].clone()).collect())).collect())
