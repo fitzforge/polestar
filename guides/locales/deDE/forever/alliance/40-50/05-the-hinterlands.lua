@@ -121,9 +121,10 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Reite weiter an der Küste nach Norden zu Zanzils Dorf. Jeder Anhänger Zanzils kann die Mixtur fallen lassen; {npc:2537} läuft im Süden des Lagers umher.",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} und {npc:2536} stehen zusammen in den Hügeln gleich nördlich von Zanzils Dorf.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
@@ -210,6 +211,7 @@ return {
 	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, oberstes Stockwerk, falls der Schlingendorntal-Guide sie nicht gegeben hat",
 	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, falls der Schlingendorntal-Guide sie nicht gegeben hat",
 	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, drinnen, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, oben im Baum",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, neben ihr",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
