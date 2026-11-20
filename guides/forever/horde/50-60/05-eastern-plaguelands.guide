@@ -78,11 +78,17 @@ step The Bulwark
   turnin 5232                         -- Shadow Priestess Vandis
   accept 5233
   turnin 5098                         -- High Executor Derrington
+
+step Apothecary Dithers
+  when level>=55
+  zone Tirisfal Glades
+  tip Derrington's Scholomance is offered from level 55: still under 55 here, the next Bulwark stop offers it again.
   accept 838
   turnin 838                          -- Apothecary Dithers
   accept 964
 
 step Skeletal Fragments
+  when onquest 964
   zone Western Plaguelands
   tip The skeletons on the fields east of the Bulwark drop the fragments: take them on the ride east.
   collect 14619 quest 964.1 @37.4,55.1 map 1422
@@ -389,7 +395,19 @@ step The Bulwark
   accept 5235
   turnin 5901                         -- Mickey Levine
   accept 5902
+
+step Apothecary Dithers
+  when complete 964
+  zone Tirisfal Glades
   turnin 964                          -- Apothecary Dithers
+
+step Apothecary Dithers
+  when available 838
+  zone Tirisfal Glades
+  tip Under 55 on the first Bulwark stop? Derrington's Scholomance is offered now: Dithers' Skeletal Fragments come from the skeletons on the ride back west from Gahrron's Withering.
+  accept 838
+  turnin 838                          -- Apothecary Dithers
+  accept 964
 
 step Scarlet Crusade
   zone Western Plaguelands
@@ -423,12 +441,23 @@ step Target: Gahrron's Withering
   turnin 5235
   accept 5236
 
+step Skeletal Fragments
+  when onquest 964
+  zone Western Plaguelands
+  tip On the ride back west, the skeletons on the fields around Dalson's Tears and Felstone Field (50-53) drop the fragments.
+  collect 14619 quest 964.1 @37.4,55.1 map 1422
+
 step The Bulwark
   zone Tirisfal Glades
   tip West to the Bulwark one last time.
   turnin 5236                         -- Shadow Priestess Vandis
   turnin 5238 direct
   turnin 6390                         -- Mickey Levine
+
+step Apothecary Dithers
+  when onquest 964
+  zone Tirisfal Glades
+  turnin 964                          -- Apothecary Dithers
 
 # ---------------------------------------------------------------- Orgrimmar
 
