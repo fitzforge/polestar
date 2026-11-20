@@ -59,3 +59,7 @@ section: players
   boundary with the player's shoulders is not.
   When you walk beside an enemy boundary or step back onto safe ground,
   the arrow points along the checked walk without swinging into town.
+- Known issue: in Ironforge the arrow no longer walks through the Stonefire
+  Tavern's wall, but it doesn't yet know the way in through the doorway, so
+  it stops outside the tavern on the way to Gwenna Firebrew. Nissa
+  Firestone's walk likewise stops at the foot of her stairs.
