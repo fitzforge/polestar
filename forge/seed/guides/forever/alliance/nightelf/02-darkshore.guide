@@ -14,8 +14,8 @@ next forever/alliance/02-westfall
 # Stormwind (02-westfall hands it in); Philmor's Favor (97220) and Gatehouse Goods (97222) from the
 # harbor to the cheese shop beside the flight master. Cleansing of the Infected (2138) is taken from Tharnariun on the
 # second Auberdine stop: its Rabid Thistle Bears (13-14) roam the second loop's hills. For Love Eternal (963) is taken
-# there only from level 15 (Anaya Dawnrunner is 16) and done on the second loop's Ameth'Aran pass; below 15 the shared
-# Darkshore guide takes it at about 17.
+# there by everyone (fix pass 2026-11-20) and its pendant done on the second loop's Ameth'Aran pass from level 14.5
+# (Anaya Dawnrunner is 16, one and a half over: a Careful line); below 14.5 it is carried to the shared Darkshore guide.
 # Fix round 2026-11-20: Buzzbox 411 (1001) is taken from Buzzbox 827 when Buzzbox 827's own
 # quest goes in (end of nightelf/01-teldrassil) and worked on the Auberdine shore, handed in north of Bashal'Aran at the end of
 # the first loop with Buzzbox 323 (1002) taken there; Thundris Windweaver and The Cliffspring River (4761, 4762) are taken
@@ -143,8 +143,7 @@ step Auberdine
   vendor nearest
 
 step Cerellean Whiteclaw
-  when level>=15
-  tip From level 15: Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead.
+  tip Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead: from level 14.5 you take it there, else on your next Darkshore visit.
   accept 963                                  -- Cerellean Whiteclaw, on the pier
 
 step Rabid Thistle Bear on the way
@@ -181,8 +180,9 @@ step Ameth'Aran
   kill 2164 quest 2138
 
 step Anaya's Pendant
-  when level>=15
+  when level>=14.5
   when onquest 963
+  tip Careful: Anaya Dawnrunner (16) is over you: pull her on her own at full health. Lady Moongazer, a rare (17), also walks the ruins: leave her be.
   collect 5382 quest 963                      -- Anaya's Pendant: Anaya Dawnrunner's ghost walks the ruins
 
 step The red crystal
@@ -228,8 +228,10 @@ step Auberdine
 
 step Thundris Windweaver
   when level>=15
-  tip From level 15 Thundris also has The Blackwood Corrupted: its samples come from the northern Blackwood camp on your next Darkshore visit, and the bowl is filled at the moonwell then.
+  tip From level 15 Thundris also has The Blackwood Corrupted: its samples come from the northern Blackwood camp on your next Darkshore visit. Fill its bowl at the moonwell in the middle of the village now.
   accept 4763                                 -- Thundris Windweaver
+  use 12346 @37.8,44.0 map 1439
+  collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
 
 step Cerellean Whiteclaw
   when complete 963

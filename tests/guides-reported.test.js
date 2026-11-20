@@ -16721,15 +16721,16 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 // Ameth'Aran at about 13 (recorded 25th percentile 13.5): 3 levels above the player. The quest stays with
 // 03-darkshore, which hands it in at about 17 (this replaced the #2025 case that took it on the pier).
 // 0.4.3 route round: a Night Elf already at 15 takes it on Night Elf Darkshore's second Auberdine stop (Anaya +1) and
-// does it on the second loop's Ameth'Aran pass; the accept shows only from 15, so the level tidy's fix still holds.
-test(`${NE_DARKSHORE}: For Love Eternal only from level 15 in Night Elf Darkshore, else in 03-darkshore where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
+// does it on the second loop's Ameth'Aran pass. Fix pass (2026-11-20): the accept (a talk on the pier) is taken by
+// everyone and carried; the pendant work, the part the level tidy is about, waits for 14.5 (Anaya +1.5, with a Careful
+// line), so a carried quest still cannot send a level-13 or 14 player after her: the fix holds at the work step.
+test(`${NE_DARKSHORE}: For Love Eternal's pendant only from level 14.5 in Night Elf Darkshore, else in 03-darkshore where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
-	const take = ne[at(ne, 'accept 963', is('accept', 963))];
-	assert.ok((take.step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= 15), 'Night Elf Darkshore offers it from level 15 only');
 	assert.ok(ne.filter(({ goal }) => goal.quest === 963 && goal.t === 'accept').length === 1, 'one accept');
 	const pendant = at(ne, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
 	const work = ne[pendant].step.when || [];
-	assert.ok(work.some((p) => p.k === 'level' && p.op === '>=' && p.n === 15) && work.some((p) => p.k === 'onquest' && [p.q].flat().includes(963) && !p.neg), 'a carried quest cannot send a level-14 player after Anaya');
+	assert.ok(levelFrom(ne[pendant].step) >= 14.5 && work.some((p) => p.k === 'onquest' && [p.q].flat().includes(963) && !p.neg), 'a carried quest cannot send a player under 14.5 after Anaya');
+	assert.match(JSON.stringify(ne[pendant].step), /Careful/, 'the pendant step warns');
 	const hand = ne[at(ne, 'turnin 963', is('turnin', 963))];
 	assert.ok(at(ne, 'accept 963', is('accept', 963)) < pendant && pendant < at(ne, 'turnin 963', is('turnin', 963)), 'taken, done on the second loop and handed in on the pier');
 	assert.ok((hand.step.when || []).some((p) => p.k === 'complete' && p.q === 963 && !p.neg), 'the hand-in only when the pendant is ready');

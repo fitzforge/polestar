@@ -13514,12 +13514,13 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 963,
-				"goal": "accept",
+				"goal": "objective",
+				"objective": 1,
 				"guide": "forever/alliance/nightelf/02-darkshore"
 			},
-			"when": "level>=15",
-			"tip": "From level 15: Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead.",
-			"note": "Night Elf Darkshore: For Love Eternal (963) is taken on the second Auberdine stop only from level 15 and done on the second loop's pass through Ameth'Aran, so a Night Elf at 15 no longer walks 03-darkshore's first loop for it alone (Anaya Dawnrunner 16 is one over at 15). Below 15 it stays with 03-darkshore at about 17, as the 0.4.0 level tidy set it (Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5). The pendant step has its own level check for a player already carrying the quest. On the way to the boat Cerellean takes it only when the pendant is ready.",
+			"when": "level>=14.5",
+			"tip": "Careful: Anaya Dawnrunner (16) is over you: pull her on her own at full health. Lady Moongazer, a rare (17), also walks the ruins: leave her be.",
+			"note": "Night Elf Darkshore: For Love Eternal (963) is done on the second loop's pass through Ameth'Aran, so a Night Elf no longer walks 03-darkshore's first loop for it alone. Fix pass 2026-11-20: the accept on the second Auberdine stop (a talk on the pier, minimum 11) is for everyone and the quest is carried; the pendant work waits for level 14.5 (Anaya Dawnrunner 16 is one and a half over there, with a Careful line), one level less strict than the 15 gate on the accept before (the level model reaches that Auberdine stop at about 14.2 and the second loop at 14.5-15.2). Below 14.5 the work stays with 03-darkshore at about 17, as the 0.4.0 level tidy set it (Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5). On the way to the boat Cerellean takes it only when the pendant is ready.",
 			"source": [
 				{
 					"kind": "recording",
