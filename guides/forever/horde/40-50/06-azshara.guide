@@ -402,6 +402,6 @@ step The Dunemaul Compound
 
 step Thistleshrub Valley
   zone Tanaris
-  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop.
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (49-50) are Tran'rek's, carried from your second Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop.
   kill 5490 quest 3362.1 @29.65,66.4
   kill 5485 quest 3362.2 @29.69,66.35

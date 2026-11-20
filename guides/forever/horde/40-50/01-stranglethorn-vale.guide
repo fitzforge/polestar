@@ -185,10 +185,9 @@ step Booty Bay
 # Sorrows; Grim Message (2932) in the Hinterlands, around level 48.
 #
 # Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
-# O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# part 4 (1182: Cozzle's footlocker sits in the Venture Co. camp at Lake
-# Nazferiti, off this loop). Parts 2 and 3 (1180, 1181: Gazlowe's letter from
-# 30-40/04) are handed in on the first Booty Bay stop.
+# O'Breen in Arathi, and the route never returns there). Goblin Sponsorship
+# part 4 (1182) is taken (see the note at the top); parts 2 and 3 (1180, 1181:
+# Gazlowe's letter from 30-40/04) are handed in on the first Booty Bay stop.
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
 #   in the Drowned City ("gather some friends", the Forever client's
@@ -399,7 +398,7 @@ step Riding at 40
   zone Tirisfal Glades
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Swamp of Sorrows guide passes the Undercity again at about 47.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Feralas & Tanaris guide passes the Undercity again at about 45.
   train 4773                            -- Velma Warnam, riding trainer
 
 step Your mount at 40

@@ -38,7 +38,7 @@ step Orgrimmar
   turnin 7732                           -- Zilzibin Drumlore, the Drag
   accept 649                            -- Dran Droffers, the Drag
   turnin 649                            -- Malton Droffers
-  accept 650                            -- for the Hinterlands, around level 50
+  accept 650                            -- for the Hinterlands, around level 49
   turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 

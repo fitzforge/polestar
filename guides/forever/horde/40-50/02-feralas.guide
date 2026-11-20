@@ -31,7 +31,7 @@ step Fly to Grom'gol
 
 step Grom'gol Base Camp
   zone Stranglethorn Vale
-  tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the zeppelin to Orgrimmar. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
+  tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the Swamp of Sorrows and the Undercity. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
   accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
 
 step Tusks and necklaces on the Skullsplitter hunt
@@ -405,7 +405,7 @@ step Orgrimmar
 # Steamwheedle Port: the screechers on this guide's Feralas west sweep, Yeh'kinya
 # at the end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
 # around level 51 (40-50/06), A Strange Request (3121), A Grim Discovery (2976) and The
-# Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
+# Gordunni Orb (3002) in Orgrimmar at about 47, Ripple Recovery (650) in the
 # Hinterlands, Improved Quality (7734) on the next Feralas visit.
 # 0.4.0 level tidy: the second water-pouch bounty (1878, 380 XP) is left out (#2394). With the Riverglades before this
 # guide you arrive at about 45, so WANTED: Caliph Scorpidsting (2781, Caliph 46) and Stinglasher (7731, level 47) are
@@ -730,7 +730,7 @@ step Camp Mojache
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
   turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
-  accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
+  accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 47
   accept 2822                           -- Jangdor Swiftstrider, inside
   sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
   accept 2862                           -- Hadoken Swiftstrider
@@ -792,7 +792,7 @@ step Woodpaw battle map
 
 step Camp Mojache
   turnin 2974                           -- Krueg Skullsplitter
-  accept 2976                           -- for Orgrimmar, around level 45
+  accept 2976                           -- for Orgrimmar, around level 47
   turnin 2903                           -- Hadoken Swiftstrider
   accept 7730
   accept 7731
