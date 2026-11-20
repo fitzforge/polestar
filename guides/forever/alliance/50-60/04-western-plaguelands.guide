@@ -178,9 +178,6 @@ step Chillwind Camp
   accept 5219                         -- The cauldron is at Dalson's Tears
   turnin 5097                         -- Commander Ashlam Valorfist
   accept 211 optional                 -- Araj the Summoner is a level 61 elite
-  accept 5533                         -- Commander Ashlam Valorfist
-  turnin 5533                         -- Alchemist Arbington
-  accept 5537                         -- The skeletons of Andorhal, on this guide's Chromie visit
 
 step Sorrow Hill: kill these as you meet them
   zone Western Plaguelands
@@ -275,6 +272,9 @@ step Chillwind Camp
   tip Ride back south from Dalson's Tears to the camp.
   turnin 5220                         -- High Priestess MacDonnell
   accept 5222
+  accept 5533                         -- Commander Ashlam Valorfist (from level 55)
+  turnin 5533                         -- Alchemist Arbington
+  accept 5537                         -- The skeletons of Andorhal, next on this guide
 
 step Chromie
   tip North to Chromie in the ruined inn on the west side of Andorhal.

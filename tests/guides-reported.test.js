@@ -11529,7 +11529,11 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!stv.some(({ goal }) => is('accept', 348)(goal)), 'Stranglethorn Fever is not taken at 41');
 	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874), 'Stranglethorn Fever on the level-48 Booty Bay stop');
-	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 606), "Stoley's Debt on the Booty Bay stop after the gorilla hills");
+	// Fix pass 2026-11-20: the corrected level model reached that stop at 39.95-39.99 in 11 of 28 runs (refused), so
+	// Stoley's Debt has a `when level>=40` step of its own right after it, and the last Booty Bay stop offers it again.
+	const stoleys = stv.filter(({ goal }) => is('accept', 2872)(goal));
+	assert.equal(stoleys[0].s, step(stv, 'turnin', 606) + 1, "Stoley's Debt right after the Booty Bay stop after the gorilla hills");
+	assert.ok(stoleys.length === 2 && stoleys.every(({ step: st }) => levelFrom(st) >= 40), "from level 40, with the last Booty Bay stop's catch-up");
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	// Fix round 2026-11-20: Cenarion Aid (8254) and Magecraft (8250), minimum 50, are taken on the Burning Steppes guide's
 	// opening Ironforge stop, which 07 now hands over to; 07 still brings Priests and Mages to 50 before it ends, so
@@ -12445,9 +12449,12 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	const si = goals('forever/alliance/50-60/06-silithus.guide');
 	const ss = (what, pred) => si[at(si, what, pred)].s;
 	assert.ok(ss('turnin 1124', is('turnin', 1124)) < ss('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
-	// Since the 0.4.3 fix round Silithus is one visit at about 58.5, over Dearest Natalia's (58) and Secret
-	// Communication's (57) minimums: Mar'alith, Bor Wildmane, Torrig and Larksbane are on the first Cenarion Hold stop.
-	for (const q of [8304, 8318, 9415, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
+	// Since the 0.4.3 fix round Silithus is one visit, over Secret Communication's (57) minimum: Bor Wildmane, Torrig and
+	// Larksbane are on the first Cenarion Hold stop. Dearest Natalia (8304) needs 58, which the corrected level model
+	// reaches only after the first stop (57.94 there): Mar'alith gives it on the third, still before Bronzebeard's Encampment.
+	for (const q of [8318, 9415, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
+	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Dearest Natalia on the third Cenarion Hold stop');
+	assert.ok(ss('accept 8304', is('accept', 8304)) < ss('talk 15171', (g) => g.t === 'talk' && g.npc === 15171), 'before Bronzebeard\'s Encampment');
 });
 
 // --- Class guide audit (0.3.7) ----------------------------------------------------------------------

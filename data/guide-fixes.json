@@ -13765,6 +13765,58 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a40-stoleys-debt-from-40",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2872,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"when": "level>=40",
+			"note": "Alliance 40-50 fix pass (2026-11-20): Stoley's Debt (minimum 40) sat on the Booty Bay stop after the gorilla hills, which the corrected level model (it now plays step conditions as the engine does) reached at 39.95-39.99 in 11 of 28 runs: refused there. It has a `when level>=40` step of its own right after that stop, and the guide's last Booty Bay stop (MacKinley on the same top floor) offers it again, the same fix as the Horde guide's.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 2872 minLevel 40 in Forever's quest data"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a50-scholomance-errand-from-55",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5533,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"note": "Alliance 50-60 fix pass (2026-11-20): Commander Ashlam Valorfist's Scholomance (5533, minimum 55) and Arbington's Skeletal Fragments after it (5537) were taken on the second Chillwind Camp stop, which the corrected level model reached at 54.96-54.99 in 21 of 28 runs (refused). They move to the third Chillwind Camp stop, after Dalson's Tears and right before Chromie and Andorhal, where the fragments drop: the same quests, no walk added.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 5533 minLevel 55 in Forever's quest data"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a50-dearest-natalia-from-58",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8304,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/06-silithus"
+			},
+			"note": "Alliance 50-60 fix pass (2026-11-20): Dearest Natalia (8304, minimum 58) was taken on the Silithus guide's first Cenarion Hold stop, which the corrected level model reached at 57.94-57.96 in 21 of 28 runs (refused). Commander Mar'alith gives it on the third Cenarion Hold stop instead, still before Bronzebeard's Encampment, where its two talks are: no walk added.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 8304 minLevel 58 in Forever's quest data"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }

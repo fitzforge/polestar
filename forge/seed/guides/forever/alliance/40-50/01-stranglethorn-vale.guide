@@ -335,9 +335,13 @@ step Booty Bay
   turnin 587                          -- Deeg, on the top floor
   note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
   turnin 576                          -- Dizzy One-Eye
-  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
   note MacKinley's Voodoo Dues waits for the level-48 Booty Bay stop, with Zanzil's village: leave it for now.
+
+step Stoley's Debt
+  when level>=40
+  tip "Sea Wolf" MacKinley, on the top floor, offers Stoley's Debt from level 40 (under 40, this guide's last Booty Bay stop offers it again).
+  accept 2872                         -- "Sea Wolf" MacKinley: for Stoley in Tanaris, keep it
 
 # ---------------------------------------------------------------- The jungle
 
@@ -461,6 +465,11 @@ step Booty Bay
   turnin 600                          -- Crank Fizzlebub
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   turnin 97048                        -- Captain Aransas
+
+step Stoley's Debt
+  when level>=40
+  tip If you didn't take Stoley's Debt on the earlier stop: "Sea Wolf" MacKinley, on the top floor.
+  accept 2872                         -- "Sea Wolf" MacKinley: for Stoley in Tanaris, keep it
 
 # ---------------------------------------------------------------- Stormwind
 
