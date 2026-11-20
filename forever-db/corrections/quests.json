@@ -9141,6 +9141,16 @@
 		],
 		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (route audit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
 	},
+	"4971": {
+		"set": {
+			"objectives": [
+				{ "type": "kill", "id": 10717, "count": 15, "text": "Temporal Parasite" }
+			],
+			"objectiveText": "Use the Temporal Displacer at the silos in Andorhal. Kill 15 Temporal Parasites, then take the displacer back to Chromie at the inn."
+		},
+		"source": { "kind": "recording", "ref": "#3046" },
+		"note": "All eleven people's quest logs asked for fifteen parasites when they accepted A Matter of Time. Ten recorded the last kill at 15/15, including players of both factions."
+	},
 	"97536": {
 		"set": {
 			"objectives": [

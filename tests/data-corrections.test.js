@@ -546,6 +546,12 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
 test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
 	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
 		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
