@@ -407,12 +407,6 @@ step The Emerald Sanctuary
   turnin 5203                         -- Jessir Moonbow
   accept 5204
 
-step Arathandris Silversky
-  when turnedin 4101
-  when has 11515 x6
-  tip Arathandris is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards on the spot.
-  turnin 5882 direct
-
 step Greta Mosshoof: A Final Blow
   when group 5242
   tip A Final Blow is a group quest at this level: Moora (52), Salia (54) and Shadow Lord Fel'dan (57) fight together at the back of Shadow Hold. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
@@ -437,6 +431,12 @@ step A Final Blow
 step The Emerald Sanctuary
   tip Ride back south-east to the Sanctuary.
   turnin 5385                         -- Jessir Moonbow
+
+step Arathandris Silversky
+  when turnedin 4101
+  when has 11515 x6
+  tip Arathandris is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into Shadow Hold) on the spot.
+  turnin 5882 direct
 
 step Greta Mosshoof
   when group 5242
