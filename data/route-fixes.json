@@ -8409,6 +8409,32 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance Felwood (0.4.0 route-feel audit): Jadefire Felbind drops from every Jadefire satyr (about one in four) and most often from Alshirr Banebreath in Jadefire Glen, far to the south. Collected after Further Corruption's Tricksters, Betrayers and Hellcallers in Jadefire Run, it comes with those kills; listed before them, the walk rode about 2.4k yd south for it and back north for the kills."
+			},
+			{
+				"a": [
+					"turnin",
+					3783
+				],
+				"b": [
+					"task",
+					5082,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.8-54.0 by the level model, two over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 54.3 (56 = +1.7, with a Careful tip). The price is one more ride across the valley and back to Everlook's flight master."
+			},
+			{
+				"a": [
+					"turnin",
+					4809
+				],
+				"b": [
+					"task",
+					5082,
+					0
+				],
+				"faction": "Horde",
+				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.8-54.0 by the level model, two over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 54.3 (56 = +1.7, with a Careful tip). The price is one more ride across the valley and back to Everlook's flight master."
 			}
 		],
 		"stay": [

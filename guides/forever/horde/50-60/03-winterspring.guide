@@ -10,8 +10,9 @@ next forever/horde/50-60/04-azshara
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: A Little Luck (6606), A Strange One (6605).
-# Flow (2026-11-20): this guide starts where 50-60/02 ends, in the Timbermaw tunnel: Salfa -> Donova and the
-# Frostfire camps -> Raging Owlbeasts -> Everlook (yetis, chimaeras) -> fly to Splintertree Post -> Felwood's southern
+# Flow (2026-11-20): this guide starts where 50-60/02 ends, in the Timbermaw tunnel: Salfa -> Donova's accepts ->
+# Everlook (yetis, chimaeras) -> back west: Raging Owlbeasts and the Frostfire camps (their Den Watchers are 55-56:
+# done after Everlook's errands, at about 54.3 by the level model) -> Donova -> Everlook -> fly to Splintertree Post -> Felwood's southern
 # hand-ins on one ride north (Ror, the Emerald Sanctuary, Winna's flasket at the Jadefire moonwell, Bloodvenom Post,
 # Winna's kitten) -> fly to Camp Mojache (Talo, the Videre Elixir) -> Shadowprey Village -> Thunder Bluff. Felwood's
 # back-south ride from Timbermaw Hold and the second ride north into the tunnel are gone; the Orgrimmar stop and
@@ -33,33 +34,9 @@ step Donova Snowden
   turnin 980                          -- The New Springs, from Krakle in Un'Goro
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide. Donova's next errand, Strange Sources, is at the mouth of Darkwhisper Gorge among level 59-60 elites: it waits for the last guide's Winterspring loop.
 
-step Frostfire Hot Springs: kill these as you meet them
-  zone Winterspring
-  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
-  tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
-  kill 7442 quest 5082.1
-  kill 7441 quest 5082.3
-  kill 7440 quest 5082.2
-  kill 7450 quest 4521.2
-  collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
-  accept 5083
-  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
-  accept 8471 optional
-
-step Donova Snowden
-  turnin 5082
-  turnin 5083
-  accept 5084
-  note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
-
-# ---------------------------------------------------------------- Frostfire Hot Springs
-
-step Raging Owlbeasts
-  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook. Careful: the biggest are level 56: pull them one at a time.
-  kill 7451 quest 4521.1
-
 step Winterspring
   zone Winterspring
+  tip Ride east along the road past Lake Kel'Theril to Everlook first: its yeti and chimaera errands bring you about a quarter of a level, which the Frostfire furbolg camps want; Donova's camps come on the ride back west.
   goto 60.7,38.2 "Everlook"
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
@@ -138,11 +115,11 @@ step Everlook
   accept 4809
 
 step Ice Thistle yetis
-  tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) one at a time and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
+  tip The yeti hills start just south-east of Everlook. Every yeti drops fur. Careful: the Ice Thistle Yetis are 55-56: take the 55s one at a time, and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
   collect 12366 quest 3783
 
 step Chillwind chimaeras
-  tip The chimaeras roam the snowfields south and west of Everlook. Careful: Chillwind Chimaeras are 55-57: take the 55s and 56s and leave the biggest; the Fledgling Chillwinds (53-55) by Lake Kel'Theril, back on the road west, carry the horns too. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  tip The chimaeras roam the snowfields south and west of Everlook. Careful: Chillwind Chimaeras are 55-57: take only the 55s, and the Fledgling Chillwinds (53-55) by Lake Kel'Theril, which carry the horns too. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
   collect 12444 quest 4809
 
 step Everlook
@@ -151,11 +128,36 @@ step Everlook
   turnin 4809                         -- Felnok Steelspring
   note The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop.
 
+# ---------------------------------------------------------------- Frostfire Hot Springs
+
+step Raging Owlbeasts
+  tip Ride back west: Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Everlook and Frostfire Hot Springs. Careful: the biggest are level 56: pull them one at a time.
+  kill 7451 quest 4521.1
+
+step Frostfire Hot Springs: kill these as you meet them
+  zone Winterspring
+  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
+  kill 7442 quest 5082.1
+  kill 7441 quest 5082.3
+  kill 7440 quest 5082.2
+  kill 7450 quest 4521.2
+  collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
+  accept 5083
+  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
+  accept 8471 optional
+
+step Donova Snowden
+  turnin 5082
+  turnin 5083
+  accept 5084
+  note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
+
 # ---------------------------------------------------------------- Southern Felwood, south to north
 
 step Fly to Splintertree Post
   zone Winterspring
-  tip Felwood's southern hand-ins are next: fly to Splintertree Post (by way of Valormok) and ride north into Felwood, so the forest is ridden once, south to north.
+  tip Felwood's southern hand-ins are next: ride back east to Everlook's flight master, fly to Splintertree Post (by way of Valormok) and ride north into Felwood, so the forest is ridden once, south to north.
   goto 60.5,36.3 "Everlook flight master"
   fly "Splintertree Post"
   zone Ashenvale
