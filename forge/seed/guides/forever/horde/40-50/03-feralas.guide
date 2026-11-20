@@ -91,7 +91,7 @@ step To Stonard
   getfp "Stonard"
 
 step Stonard
-  tip Coming from Stranglethorn, you carry these already. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
+  tip The Stranglethorn & Swamp guide already finished Lack of Surplus' first part and the Pool of Tears with you; its Fresh Meat and Katar's murlocs are in your log. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
   accept 698                            -- Dar, inside
   accept 1430                           -- Dar, inside
   accept 1424                           -- Fel'zerul, on the top floor
@@ -113,7 +113,7 @@ step Pool of Tears
   collect 6175 quest 1424.1
 
 step Misty Reed Post
-  tip Follow the road south-east to the small Horde post on the shore. Tok'Kar takes the crocolisk flanks from the last swamp visit.
+  tip Follow the road south-east to the small Horde post on the shore: Tok'Kar and Katar.
   turnin 698                            -- Tok'Kar
   accept 699
 

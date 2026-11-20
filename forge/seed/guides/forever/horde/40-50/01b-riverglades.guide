@@ -41,7 +41,7 @@ step Fly to Kargath
   when taxi "Kargath"
   when zone "Swamp of Sorrows"
   zone Swamp of Sorrows
-  tip The Riverglades lie south of the Badlands. Ride east from the Harborage to Stonard and fly to Kargath: the way down into the zone starts there.
+  tip The Riverglades lie south of the Badlands. Fly from Stonard to Kargath: the way down into the zone starts there.
   goto 46.1,54.7 "Stonard flight master"
   fly "Kargath"
   zone Badlands
