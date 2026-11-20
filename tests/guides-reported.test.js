@@ -18239,3 +18239,11 @@ test('Horde Tanaris: Silk Cloth for Caught! is bought in Gadgetzan before the Se
 	assert.ok(buy, 'a bag count of 15 Silk Cloth before the dig site');
 	assert.ok(buy.goal.map === 1446 && buy.goal.npc === 8661, 'at Auctioneer Beardo in Gadgetzan');
 });
+
+// #3205 (Stompsville, 0.4.1.1): from Terrordale, the walk to Tirion Fordring goes through the Terrorweb Tunnel, packed
+// with crypt fiends of 53-58. Tirion's step right after Terrordale warns about it.
+test('Tirion\'s step after Terrordale warns of the Terrorweb Tunnel (#3205)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const { step } = list[at(list, 'turnin 5543', is('turnin', 5543))];
+	assert.match(step.note || '', /Terrorweb Tunnel/);
+});

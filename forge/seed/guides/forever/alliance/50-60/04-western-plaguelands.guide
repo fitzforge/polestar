@@ -522,6 +522,7 @@ step Augustus the Touched
 step Tirion Fordring
   zone Eastern Plaguelands
   tip Cross the river west to Tirion's hut.
+  tip Careful: the short way from Terrordale to Tirion is the Terrorweb Tunnel, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it.
   turnin 5543
   turnin 5544
   turnin 5542

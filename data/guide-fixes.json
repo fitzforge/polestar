@@ -14361,6 +14361,28 @@
 				}
 			],
 			"issue": 3188
+		},
+		{
+			"id": "3205-terrorweb-tunnel-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5543,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"tip": "Careful: the short way from Terrordale to Tirion is the Terrorweb Tunnel, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it.",
+			"note": "#3205: from Terrordale, Tirion's step walks through the Terrorweb Tunnel, whose south mouth by the Thondroril River (EPL 5.22,32.67) the travel line names as the cave mouth; the tunnel holds crypt fiends of 53-58 close together, a lot for one player at 56. The step warns before the walk. The Horde route reaches Tirion from the Marris Stead, not through the tunnel.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns between Terrordale and Tirion (EPL 5-12,25-34): Crypt Horror 8557 (57) x8, Crypt Walker 8556 (55) x6, Crypt Fiend 8555 (53) x5, Crypt Slayer 8558 (58) x3"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3205 (0.4.1.1): the tunnel is full of mobs for a level 56 Paladin"
+				}
+			],
+			"issue": 3205
 		}
 	]
 }
